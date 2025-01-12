@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Deterministic>false</Deterministic>
+    <RootNamespace>BrightIdeasSoftware</RootNamespace>
+    <AssemblyName>ObjectListView</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+	  <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="CustomDictionary.xml" Link="CustomDictionary.xml" />
+    <Content Include="Resources\clear-filter.png" Link="Resources\clear-filter.png" />
+    <Content Include="Resources\coffee.jpg" Link="Resources\coffee.jpg" />
+    <Content Include="Resources\filter-icons3.png" Link="Resources\filter-icons3.png" />
+    <Content Include="Resources\filter.png" Link="Resources\filter.png" />
+    <Content Include="Resources\sort-ascending.png" Link="Resources\sort-ascending.png" />
+    <Content Include="Resources\sort-descending.png" Link="Resources\sort-descending.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CellEditing\" />
+    <Folder Include="DragDrop\" />
+    <Folder Include="Filtering\" />
+    <Folder Include="Implementation\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="SubControls\" />
+    <Folder Include="Resources\" />
+    <Folder Include="Rendering\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="8.0.11" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
+  </ItemGroup>
+</Project>

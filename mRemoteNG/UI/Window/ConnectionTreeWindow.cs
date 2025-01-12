@@ -178,7 +178,7 @@ namespace mRemoteNG.UI.Window
             }
 
             ConnectionTree.ConnectionTreeModel = connectionsLoadedEventArgs.NewConnectionTreeModel;
-            ConnectionTree.SelectedObject = connectionsLoadedEventArgs.NewConnectionTreeModel.RootNodes.OfType<RootNodeInfo>().FirstOrDefault();
+            ConnectionTree.SelectedObject = connectionsLoadedEventArgs.NewConnectionTreeModel.RootNodes.FirstOrDefault();
         }
 
         #endregion

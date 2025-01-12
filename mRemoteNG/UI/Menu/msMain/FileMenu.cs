@@ -203,7 +203,7 @@ namespace mRemoteNG.UI.Menu
 
         private void mMenToolsOptions_Click(object sender, EventArgs e)
         {
-            Windows.Show(WindowType.Options);
+            App.Windows.Show(WindowType.Options);
         }
 
         #endregion

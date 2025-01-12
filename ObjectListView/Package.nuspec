@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.12">
+    <id>ObjectListView.Updated</id>
+    <title>ObjectListView (Updated)</title>
+    <version>$version$</version>
+    <authors>Phillip Piper</authors>
+    <owners>$author$</owners>
+    <license type="file">LICENSE</license>
+    <icon>.editoricon.png</icon>
+    <projectUrl>https://github.com/ennerperez/ObjectListView</projectUrl>
+    <description>
+      ObjectListView is a .NET ListView wired on caffeine, guarana and steroids.
+      More calmly, it is a C# wrapper around a .NET ListView, which makes the ListView much easier to use and teaches it lots of neat new tricks.
+    </description>
+    <summary>$description$</summary>
+    <copyright>$copyright$</copyright>
+    <tags>.Net WinForms ListView Controls</tags>
+    <repository type="git" url="https://github.com/ennerperez/ObjectListView" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Drawing.Common" version="4.7.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\.editoricon.png" target=".editoricon.png" />
+    <file src="..\..\README.md" target="README.md" />
+    <file src="..\..\CHANGELOG.md" target="CHANGELOG.md" />
+    <file src="..\..\LICENSE" target="LICENSE" />
+    <!-- NETFX -->
+    <file src="..\ObjectListView\bin\release\ObjectListView.dll" target="lib\net40\ObjectListView.dll" />
+    <!-- NETCORE -->
+    <file src="..\ObjectListView.NetCore\bin\release\netcoreapp3.1\ObjectListView.dll" target="lib\netstandard2.0\ObjectListView.dll" />
+  </files>
+</package>

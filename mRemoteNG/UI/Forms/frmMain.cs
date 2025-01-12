@@ -193,7 +193,7 @@ namespace mRemoteNG.UI.Forms
             CredsAndConsSetup credsAndConsSetup = new();
             credsAndConsSetup.LoadCredsAndCons();
 
-            Windows.TreeForm.Focus();
+            App.Windows.TreeForm.Focus();
 
             PuttySessionsManager.Instance.StartWatcher();
 
@@ -287,7 +287,7 @@ namespace mRemoteNG.UI.Forms
 
         private void SetMenuDependencies()
         {
-            fileMenu.TreeWindow = Windows.TreeForm;
+            fileMenu.TreeWindow = App.Windows.TreeForm;
 
             viewMenu.TsExternalTools = _externalToolsToolStrip;
             viewMenu.TsQuickConnect = _quickConnectToolStrip;
@@ -669,7 +669,7 @@ namespace mRemoteNG.UI.Forms
                 titleBuilder.Append(SelectedConnection.Name);
 
                 if (Properties.Settings.Default.TrackActiveConnectionInConnectionTree)
-                    Windows.TreeForm.JumpToNode(SelectedConnection);
+                    App.Windows.TreeForm.JumpToNode(SelectedConnection);
             }
 
             Text = titleBuilder.ToString();
@@ -729,9 +729,9 @@ namespace mRemoteNG.UI.Forms
         {
             pnlDock.Visible = false;
 
-            Windows.TreeForm.Show(pnlDock, DockState.DockLeft);
-            Windows.ConfigForm.Show(pnlDock, DockState.DockLeft);
-            Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+            App.Windows.TreeForm.Show(pnlDock, DockState.DockLeft);
+            App.Windows.ConfigForm.Show(pnlDock, DockState.DockLeft);
+            App.Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
             viewMenu._mMenViewErrorsAndInfos.Checked = true;
 
             ShowFileMenu();
@@ -758,7 +758,7 @@ namespace mRemoteNG.UI.Forms
 
             if (Properties.Settings.Default.ViewMenuMessages == true)
             {
-                Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+                App.Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
                 viewMenu._mMenViewErrorsAndInfos.Checked = true;
             }
             else

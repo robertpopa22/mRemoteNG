@@ -465,13 +465,13 @@ namespace mRemoteNG.UI.Window
                 InterfaceControl interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
-                Windows.Show(WindowType.SSHTransfer);
+                App.Windows.Show(WindowType.SSHTransfer);
                 ConnectionInfo connectionInfo = interfaceControl.Info;
 
-                Windows.SshtransferForm.Hostname = connectionInfo.Hostname;
-                Windows.SshtransferForm.Username = connectionInfo.Username;
-                Windows.SshtransferForm.Password = connectionInfo.Password.ConvertToUnsecureString();
-                Windows.SshtransferForm.Port = Convert.ToString(connectionInfo.Port);
+                App.Windows.SshtransferForm.Hostname = connectionInfo.Hostname;
+                App.Windows.SshtransferForm.Username = connectionInfo.Username;
+                App.Windows.SshtransferForm.Password = connectionInfo.Password.ConvertToUnsecureString();
+                App.Windows.SshtransferForm.Port = Convert.ToString(connectionInfo.Port);
             }
             catch (Exception ex)
             {

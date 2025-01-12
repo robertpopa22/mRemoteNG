@@ -145,7 +145,7 @@ namespace mRemoteNG.UI.Menu
 
         #region Info
 
-        private void mMenToolsUpdate_Click(object sender, EventArgs e) => Windows.Show(WindowType.Update);
+        private void mMenToolsUpdate_Click(object sender, EventArgs e) => App.Windows.Show(WindowType.Update);
 
         private void mMenInfoHelp_Click(object sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlDocumentation);
 

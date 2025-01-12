@@ -72,13 +72,13 @@ namespace mRemoteNG.Config.Settings
             try
             {
                 if (persistString == typeof(ConfigWindow).ToString())
-                    return Windows.ConfigForm;
+                    return App.Windows.ConfigForm;
 
                 if (persistString == typeof(ConnectionTreeWindow).ToString())
-                    return Windows.TreeForm;
+                    return App.Windows.TreeForm;
 
                 if (persistString == typeof(ErrorAndInfoWindow).ToString())
-                    return Windows.ErrorsForm;
+                    return App.Windows.ErrorsForm;
             }
             catch (Exception ex)
             {
