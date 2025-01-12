@@ -12,6 +12,8 @@ indent_size = 4
 indent_size = 4
 trim_trailing_whitespace = true
 charset = utf-8-bom
+# WFO1000: A property should determine its property content serialization with the DesignerSerializationVisibilityAttribute, DefaultValueAttribute or the ShouldSerializeProperty method
+dotnet_diagnostic.WFO1000.severity = silent
 
 # reStructuredText
 [*.rst]

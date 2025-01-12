@@ -449,7 +449,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             try
             {
-                Windows.ConfigForm.SelectedTreeNode = SelectedNode;
+                App.Windows.ConfigForm.SelectedTreeNode = SelectedNode;
             }
             catch (Exception ex)
             {
@@ -526,7 +526,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 // ensures that if we are filtering and a new item is added that doesn't match the filter, it will be filtered out
                 _connectionTreeSearchTextFilter.SpecialInclusionList.Clear();
                 UpdateFiltering();
-                Windows.ConfigForm.SelectedTreeNode = SelectedNode;
+                App.Windows.ConfigForm.SelectedTreeNode = SelectedNode;
             }
             catch (Exception ex)
             {
