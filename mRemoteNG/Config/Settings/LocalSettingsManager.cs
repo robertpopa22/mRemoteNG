@@ -384,7 +384,8 @@ public void EncryptDatabase()
                 {
                     foreach (var disk in searcher.Get())
                     {
-                        return disk["SerialNumber"].ToString().Trim();
+                        string sn = "" + disk["SerialNumber"];  // 2025-01-14 in .net8 this returns NULL in virtual machines
+                        return sn.Trim();
                     }
                 }
             }
