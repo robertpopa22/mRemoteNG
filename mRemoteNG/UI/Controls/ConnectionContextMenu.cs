@@ -830,11 +830,11 @@ namespace mRemoteNG.UI.Controls
         {
             try
             {
-                Windows.Show(WindowType.SSHTransfer);
-                Windows.SshtransferForm.Hostname = _connectionTree.SelectedNode.Hostname;
-                Windows.SshtransferForm.Username = _connectionTree.SelectedNode.Username;
-                Windows.SshtransferForm.Password = _connectionTree.SelectedNode.Password.ConvertToUnsecureString();
-                Windows.SshtransferForm.Port = Convert.ToString(_connectionTree.SelectedNode.Port);
+                App.Windows.Show(WindowType.SSHTransfer);
+                App.Windows.SshtransferForm.Hostname = _connectionTree.SelectedNode.Hostname;
+                App.Windows.SshtransferForm.Username = _connectionTree.SelectedNode.Username;
+                App.Windows.SshtransferForm.Password = _connectionTree.SelectedNode.Password.ConvertToUnsecureString();
+                App.Windows.SshtransferForm.Port = Convert.ToString(_connectionTree.SelectedNode.Port);
             }
             catch (Exception ex)
             {
@@ -899,12 +899,12 @@ namespace mRemoteNG.UI.Controls
 
         private void OnImportActiveDirectoryClicked(object sender, EventArgs e)
         {
-            Windows.Show(WindowType.ActiveDirectoryImport);
+            App.Windows.Show(WindowType.ActiveDirectoryImport);
         }
 
         private void OnImportPortScanClicked(object sender, EventArgs e)
         {
-            Windows.Show(WindowType.PortScan);
+            App.Windows.Show(WindowType.PortScan);
         }
 
         private void OnExportFileClicked(object sender, EventArgs e)

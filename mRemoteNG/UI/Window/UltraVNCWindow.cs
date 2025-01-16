@@ -171,7 +171,7 @@ namespace mRemoteNG.UI.Window
         {
             //vnc.Dispose()
             Dispose();
-            Windows.Show(WindowType.UltraVNCSC);
+            App.Windows.Show(WindowType.UltraVNCSC);
         }
 
         #endregion

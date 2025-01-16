@@ -192,7 +192,7 @@ namespace mRemoteNG.UI.Window
                     if (PreviousActiveForm != null)
                         PreviousActiveForm.Show(FrmMain.Default.pnlDock);
                     else
-                        Windows.TreeForm.Show(FrmMain.Default.pnlDock);
+                        App.Windows.TreeForm.Show(FrmMain.Default.pnlDock);
                 }
                 catch (Exception)
                 {
