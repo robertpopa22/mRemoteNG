@@ -101,7 +101,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.1" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
     <PackageReference Include="Microsoft.NETCore.Targets" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="MySql.Data" Version="9.1.0" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
