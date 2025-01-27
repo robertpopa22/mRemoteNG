@@ -51,7 +51,7 @@
             // llCredits
             // 
             llCredits.AutoSize = true;
-            llCredits.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            llCredits.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             llCredits.Location = new System.Drawing.Point(5, 134);
             llCredits.Name = "llCredits";
             llCredits.Size = new System.Drawing.Size(49, 17);
@@ -63,7 +63,7 @@
             // llChangelog
             // 
             llChangelog.AutoSize = true;
-            llChangelog.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            llChangelog.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             llChangelog.Location = new System.Drawing.Point(5, 117);
             llChangelog.Name = "llChangelog";
             llChangelog.Size = new System.Drawing.Size(71, 17);
@@ -75,7 +75,7 @@
             // llLicense
             // 
             llLicense.AutoSize = true;
-            llLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            llLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             llLicense.Location = new System.Drawing.Point(5, 100);
             llLicense.Name = "llLicense";
             llLicense.Size = new System.Drawing.Size(50, 17);
@@ -87,19 +87,19 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            lblTitle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             lblTitle.ForeColor = System.Drawing.SystemColors.ControlText;
             lblTitle.Location = new System.Drawing.Point(6, 3);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new System.Drawing.Size(103, 27);
+            lblTitle.Size = new System.Drawing.Size(149, 27);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "Libro Ultimo";
+            lblTitle.Text = "Fructus temporum";
             lblTitle.UseCompatibleTextRendering = true;
             // 
             // lblVersion
             // 
             lblVersion.AutoSize = true;
-            lblVersion.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblVersion.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblVersion.ForeColor = System.Drawing.SystemColors.ControlText;
             lblVersion.Location = new System.Drawing.Point(6, 30);
             lblVersion.Name = "lblVersion";
@@ -111,7 +111,7 @@
             // lblLicense
             // 
             lblLicense.AutoSize = true;
-            lblLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblLicense.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblLicense.ForeColor = System.Drawing.SystemColors.ControlText;
             lblLicense.Location = new System.Drawing.Point(6, 74);
             lblLicense.Name = "lblLicense";
@@ -123,7 +123,7 @@
             // lblCopyright
             // 
             lblCopyright.AutoSize = true;
-            lblCopyright.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblCopyright.Font = new System.Drawing.Font("Segoe UI", 9.75F);
             lblCopyright.ForeColor = System.Drawing.SystemColors.ControlText;
             lblCopyright.Location = new System.Drawing.Point(6, 52);
             lblCopyright.Name = "lblCopyright";
@@ -140,7 +140,7 @@
             ClientSize = new System.Drawing.Size(584, 281);
             Controls.Add(pnlBottom);
             Controls.Add(pbLogo);
-            Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            Font = new System.Drawing.Font("Segoe UI", 8.25F);
             ForeColor = System.Drawing.SystemColors.ControlText;
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             MaximizeBox = false;
