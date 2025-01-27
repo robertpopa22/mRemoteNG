@@ -13,15 +13,15 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("mRemoteNG")]
 [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
-[assembly: AssemblyCopyright("(c) 2024 mRemoteNG")]
+[assembly: AssemblyCopyright("(c) 2025 mRemoteNG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Version information
-[assembly: AssemblyVersion("1.77.3.2826")]
-[assembly: AssemblyFileVersion("1.77.3.2826")]
+[assembly: AssemblyVersion("1.78.1.2843")]
+[assembly: AssemblyFileVersion("1.78.1.2843")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
-[assembly: AssemblyInformationalVersion("1.77.3 (Nightly Build 2826)")]
+[assembly: AssemblyInformationalVersion("1.78.1 (Nightly Build 2843)")]
 
 // Logging
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]

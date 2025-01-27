@@ -15,7 +15,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("mRemoteNG")]
 [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
-[assembly: AssemblyCopyright("(c) 2024 mRemoteNG")]
+[assembly: AssemblyCopyright("(c) 2025 mRemoteNG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,8 +31,8 @@ using System.Resources;
 <#+
     //build is a number of days from date of last release + curent hour + curent minute of build
     int major = 1;
-    int minor = 77;
-    int revision = 3;
+    int minor = 78;
+    int revision = 1;
     string channel = "Nightly Build";
     DateTime lastReleaseDate = new DateTime(2019, 9, 2);
     DateTime CurrentDate = DateTime.UtcNow;
