@@ -11,9 +11,9 @@ using System.Resources;
 [assembly: AssemblyTitle("mRemoteNG")]
 [assembly: AssemblyDescription("Multi-Remote Next Generation Connection Manager")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("mRemoteNG")]
+[assembly: AssemblyCompany("Profi-KOM Ltd.")]
 [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
-[assembly: AssemblyCopyright("(c) 2024 mRemoteNG")]
+[assembly: AssemblyCopyright("(c) 2025 mRemoteNG")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
