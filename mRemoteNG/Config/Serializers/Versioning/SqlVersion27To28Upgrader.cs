@@ -3,7 +3,7 @@ using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Messages;
 using System;
 using System.Data.Common;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Config.Serializers.Versioning

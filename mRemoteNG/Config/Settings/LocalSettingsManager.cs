@@ -26,7 +26,7 @@ public class LocalSettingsDBManager
         _dbPath = string.IsNullOrWhiteSpace(dbPath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mRemoteNG.appSettings") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbPath);
         _schemaPath = string.IsNullOrWhiteSpace(schemaFilePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schemas\\mremoteng_default_settings_v1_0.json") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, schemaFilePath);
         _useEncryption = useEncryption;
-        _mRIdentifier = Convert.ToBase64String(System.Security.Cryptography.SHA256.Create().ComputeHash(System.Text.Encoding.UTF8.GetBytes(GetDiskIdentifier() + "_" + Environment.MachineName)));
+        _mRIdentifier = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(GetDiskIdentifier() + "_" + Environment.MachineName)));
 
         // Check if disk identifier is empty and prevent database creation if true
         if (string.IsNullOrEmpty(_mRIdentifier))
