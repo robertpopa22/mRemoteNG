@@ -2,13 +2,16 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.Json;
-using System.Management;
 using JsonSerializer = System.Text.Json.JsonSerializer;
-using LiteDB;
 using System.Linq;
+using LiteDB;
+using mRemoteNG.Config.MachineIdentifier;
+using System.Runtime.Versioning;
 
 public class LocalSettingsDBManager
 {
+    [SupportedOSPlatform("windows")]
+
     private readonly string _dbPath;
     private readonly string _schemaPath;
     private readonly string _mRIdentifier;
@@ -26,7 +29,26 @@ public class LocalSettingsDBManager
         _dbPath = string.IsNullOrWhiteSpace(dbPath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mRemoteNG.appSettings") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbPath);
         _schemaPath = string.IsNullOrWhiteSpace(schemaFilePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schemas\\mremoteng_default_settings_v1_0.json") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, schemaFilePath);
         _useEncryption = useEncryption;
-        _mRIdentifier = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(GetDiskIdentifier() + "_" + Environment.MachineName)));
+        //_mRIdentifier = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(GetDiskIdentifier() + "_" + Environment.MachineName)));
+
+        /// <summary>
+        /// Generate a unique identifier for the machine
+        /// </summary>
+        try
+        {
+            // Generate the machine identifier
+            string _mRIdentifier = MachineIdentifierGenerator.GenerateMachineIdentifier();
+            Console.WriteLine($"Generated Identifier: {_mRIdentifier}");
+        }
+        catch (PlatformNotSupportedException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+
 
         // Check if disk identifier is empty and prevent database creation if true
         if (string.IsNullOrEmpty(_mRIdentifier))
@@ -52,6 +74,7 @@ public class LocalSettingsDBManager
             }
         }
     }
+
 
     /// <summary>
     /// Ensures default settings are imported if the database is empty.
@@ -369,42 +392,6 @@ public void EncryptDatabase()
         }
     }
 
-    /// <summary>
-    /// Gets the unique machine identifier (serial number of the hard drive) combined with the machine name and encrypts it using SHA256.
-    /// </summary>
-    /// <returns>Unique machine identifier.</returns>
-    private static string GetDiskIdentifier()
-    {
-        if (OperatingSystem.IsWindows())
-        {
-            try
-            {
-                // Use ManagementObject to get the serial number of the hard drive
-                using (var searcher = new ManagementObjectSearcher("SELECT SerialNumber FROM Win32_DiskDrive"))
-                {
-                    foreach (var disk in searcher.Get())
-                    {
-                        string sn = "" + disk["SerialNumber"];  // 2025-01-14 in .net8 this returns NULL in virtual machines
-                        return sn.Trim();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error getting disk identifier: {ex.Message}");
-                throw new InvalidOperationException("Failed to retrieve disk identifier. Please ensure the disk information is accessible.");
-            }
-        }
-        else
-        {
-            throw new PlatformNotSupportedException("This method is only supported on Windows.");
-        }
-
-        // Return an empty string if no serial number is found
-        return string.Empty;
-    }
-
- 
 
     // Setting class
     public class Setting

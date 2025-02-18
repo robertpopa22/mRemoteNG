@@ -46,7 +46,7 @@ namespace mRemoteNG.App
             //Subscribe to AssemblyResolve event
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
-            //Check if runtime is installed
+            //Check if needed runtime is installed
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 string runtimeVersion = RuntimeInformation.FrameworkDescription;
@@ -65,6 +65,8 @@ namespace mRemoteNG.App
             {
                 Console.WriteLine("This application requires the .NET Desktop Runtime 9.0.2 on Windows.");
             }
+
+
 
             //Check if local settings DB exist or accessible
             CheckLockalDB();
