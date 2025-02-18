@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.Config.Settings;
 using mRemoteNG.UI.Forms;
+using System.Runtime.InteropServices;
 
 namespace mRemoteNG.App
 {
@@ -44,6 +45,26 @@ namespace mRemoteNG.App
 
             //Subscribe to AssemblyResolve event
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+
+            //Check if runtime is installed
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                string runtimeVersion = RuntimeInformation.FrameworkDescription;
+                if (runtimeVersion.Contains(".NET 9.0.2"))
+                {
+                    Console.WriteLine(".NET Desktop Runtime 9.0.2 is already installed.");
+                }
+                else
+                {
+                    Console.WriteLine(".NET Desktop Runtime 9.0.2 is not installed. Please download and install it from the following link:");
+                    Console.WriteLine("https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.2-windows-x64-installer");
+                    Console.WriteLine("After installation, please restart the application.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("This application requires the .NET Desktop Runtime 9.0.2 on Windows.");
+            }
 
             //Check if local settings DB exist or accessible
             CheckLockalDB();
