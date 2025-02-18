@@ -8,10 +8,9 @@ using LiteDB;
 using mRemoteNG.Config.MachineIdentifier;
 using System.Runtime.Versioning;
 
+[SupportedOSPlatform("windows")]
 public class LocalSettingsDBManager
 {
-    [SupportedOSPlatform("windows")]
-
     private readonly string _dbPath;
     private readonly string _schemaPath;
     private readonly string _mRIdentifier;
@@ -29,15 +28,15 @@ public class LocalSettingsDBManager
         _dbPath = string.IsNullOrWhiteSpace(dbPath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mRemoteNG.appSettings") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbPath);
         _schemaPath = string.IsNullOrWhiteSpace(schemaFilePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schemas\\mremoteng_default_settings_v1_0.json") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, schemaFilePath);
         _useEncryption = useEncryption;
-        //_mRIdentifier = Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(GetDiskIdentifier() + "_" + Environment.MachineName)));
-
+        
         /// <summary>
         /// Generate a unique identifier for the machine
         /// </summary>
+        
         try
         {
             // Generate the machine identifier
-            string _mRIdentifier = MachineIdentifierGenerator.GenerateMachineIdentifier();
+            _mRIdentifier = MachineIdentifierGenerator.GenerateMachineIdentifier();
             Console.WriteLine($"Generated Identifier: {_mRIdentifier}");
         }
         catch (PlatformNotSupportedException ex)
