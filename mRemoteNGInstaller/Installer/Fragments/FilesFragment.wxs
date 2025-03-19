@@ -3,11 +3,33 @@
     <Fragment>
         <DirectoryRef Id="INSTALLDIR">
             <Directory Id="dirEA5DE0DA87CCDD60F4B26843B622260F" Name="Assemblies" />
+            <Directory Id="dir82972532CA27BEF6B972C3A142E19BC1" Name="cs-CZ" />
+            <Directory Id="dirF7A62AAB979B938D6BCEC1392A589DA5" Name="de" />
+            <Directory Id="dir62078C356EA332979A99724C7722A56A" Name="el" />
+            <Directory Id="dir577231E2EF642DDF4B09B65F4BEE3BE2" Name="es" />
+            <Directory Id="dir4D0A9F0DBDF1EE024E030F9E3B94104C" Name="es-AR" />
+            <Directory Id="dirCAD1E83BD4CE375ABDB8F38597B3725B" Name="fi-FI" />
+            <Directory Id="dir0B7D401DE3233449E75F31A823BF5B99" Name="fr" />
+            <Directory Id="dir09632C6D20BFA94E2A24ED0E6D9B2C41" Name="hu" />
             <Directory Id="dir5E6DA158F27D9CA2AB915EC6AB53B383" Name="Icons" />
-            <Directory Id="dir76FECF1F6866C99B53BEB3C218E46523" Name="Languages" />
+            <Directory Id="dirB5B71807E9474A6ED7A421DAF6D9317F" Name="it" />
+            <Directory Id="dir236726D31B8846E56F94A60B4BDA0D5D" Name="ja-JP" />
+            <Directory Id="dir84F2A679A7F20EDA03A198E92F9399E3" Name="ko-KR" />
+            <Directory Id="dir5D4FF3A14A3EA47FCD6D9414E469A244" Name="lt" />
+            <Directory Id="dir54E7E449F697FA31B946B0D847BC12FC" Name="nb-NO" />
+            <Directory Id="dirAD9F3749BDE51B9EA3E808CC39488A46" Name="nl" />
+            <Directory Id="dir42A5D57151A6A3E9D965C69C82893176" Name="pl" />
+            <Directory Id="dirC5F627279ECABE21145A844571EF9F74" Name="pt" />
+            <Directory Id="dir3CF6B6BC48181D29C167EF5DB7F05816" Name="pt-BR" />
+            <Directory Id="dirF7C0BEA86C276F53E8C9E8E6B2629A9B" Name="ru" />
             <Directory Id="dirB699B779DD859CB7CAD46DA4BC9017C0" Name="runtimes" />
             <Directory Id="dir54B0732D1EC7055747BB11A9069B5872" Name="Schemas" />
+            <Directory Id="dir861F6A02C2F7A7DA6955E64037179011" Name="sv-SE" />
             <Directory Id="dir449D12A97ECE34898DFE89F1087779C9" Name="Themes" />
+            <Directory Id="dirF50F8AE1B4079411641D2CA28D569A6E" Name="tr-TR" />
+            <Directory Id="dir09CC4E618379FE7D9EB8E064B61C997C" Name="uk" />
+            <Directory Id="dir7615CEE1531630E53F5B99A187D27DF9" Name="zh-CN" />
+            <Directory Id="dir8B12BA0D447ED118A459E1723FCB6A85" Name="zh-TW" />
         </DirectoryRef>
     </Fragment>
     <Fragment>
@@ -26,6 +48,24 @@
             </Component>
             <Component Id="cmp375F226751B298CD70903C1646985757" Directory="INSTALLDIR" Guid="*">
                 <File Id="filBF38EEDD7B5695007E9582D7EF347826" KeyPath="yes" Source="$(var.HarvestPath)\log4net.config" />
+            </Component>
+            <Component Id="cmp73DD793C33CE93882A21562E8A0FFB47" Directory="INSTALLDIR" Guid="*">
+                <File Id="fil579DAFF7079024ADD71395BB16AB9D2F" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.arm64.dll" />
+            </Component>
+            <Component Id="cmp791187EFDDB68CDC204D6B654412E444" Directory="INSTALLDIR" Guid="*">
+                <File Id="fil7F00295DB9A936843822F989B9CBA9D7" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.arm64.pdb" />
+            </Component>
+            <Component Id="cmpE910730FCBBF20B14612C406EFEB5402" Directory="INSTALLDIR" Guid="*">
+                <File Id="fil3B5C5DF4AF7232C40BB382C38F178F78" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x64.dll" />
+            </Component>
+            <Component Id="cmpBC5D78342783913CB2940FD1FBCB1C0F" Directory="INSTALLDIR" Guid="*">
+                <File Id="filADC5E7D9C4AB391364380BC83CACEAC6" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x64.pdb" />
+            </Component>
+            <Component Id="cmp96D6DF96D2A198FC969F762CF63B7FE1" Directory="INSTALLDIR" Guid="*">
+                <File Id="fil20E640AE0EC1940CE699975354638F02" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x86.dll" />
+            </Component>
+            <Component Id="cmpC4CA779526A596D761793D72815BCAD4" Directory="INSTALLDIR" Guid="*">
+                <File Id="fil00B18124BDEDC291ABC44152343CF2C1" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x86.pdb" />
             </Component>
             <Component Id="cmp104087D18B25A9A8D2ECC5B6EA2AE79B" Directory="INSTALLDIR" Guid="*">
                 <File Id="fil5282108DD54B6C7D192C3E9D001FD4E7" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Web.WebView2.Core.dll" />
@@ -80,6 +120,12 @@
             <Component Id="cmpA0441C32B788060C47970989ED4B5ABF" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filF17B847CF8A244207E315885859FD897" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\AWSSDK.EC2.dll" />
             </Component>
+            <Component Id="cmpA759EFDC4BD049ACBB9E1044CC03F5A4" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filE4A4CD2FFCAADE6B26DB853DF998BEEA" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Azure.Core.dll" />
+            </Component>
+            <Component Id="cmpAE9279CF4CCD05DA236D0B0A01404956" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil4EB27A4E1D5D9B99E10A0DE38A3CAD93" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Azure.Identity.dll" />
+            </Component>
             <Component Id="cmp9C05BA0000D3C7442C3269AC269A6E0D" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil05368A8F5D5D305EE8BA8527BE51114D" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\BouncyCastle.Cryptography.dll" />
             </Component>
@@ -128,6 +174,27 @@
             <Component Id="cmpB4D15D56199032BB587B2830A03BBFD2" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filF792872055326743DF87147B6E835CFD" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\log4net.dll" />
             </Component>
+            <Component Id="cmp9917D4F6F1CFA85CA7D6B773A88AE02B" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filB7C6959504CEE541DBB2480F74184BE5" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Bcl.AsyncInterfaces.dll" />
+            </Component>
+            <Component Id="cmpDE93C6C046C09333D8D20B7987D6C7BE" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil0B2A0DBEB96CCDBD8CA51070E23C23E8" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Bcl.Cryptography.dll" />
+            </Component>
+            <Component Id="cmpF7C5C60A7BECEDFF1243E72AACAEAB27" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil191CE288914BEE06A0EA1A23F7E5B77D" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Data.SqlClient.dll" />
+            </Component>
+            <Component Id="cmp6EAB18C07FA2633DE7C6E741F22BF7EC" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filE5067B2FFE87F33030F3A4AC0A17C8F9" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Data.SqlClient.resources.dll" />
+            </Component>
+            <Component Id="cmp33223CAFD15AEABE0174D8AD111128DB" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil6621C9FE5ACC356D0C07513D6D72A763" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Data.SqlClient.SNI.dll" />
+            </Component>
+            <Component Id="cmpFB8753E0B4E25B8D2D4CDD1B68F94663" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil82E31B3771ED18205B908DD7CDBE7169" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Caching.Abstractions.dll" />
+            </Component>
+            <Component Id="cmp026BAD348742917C283F0D65B1DD880A" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil6B8FB41418DE71F26D8CEF98775125F4" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Caching.Memory.dll" />
+            </Component>
             <Component Id="cmp7AF5E15A541EA9AFFFE8D07682F22555" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil443EC1DF7E4E7D04E410E950FC668F43" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Configuration.Abstractions.dll" />
             </Component>
@@ -143,6 +210,9 @@
             <Component Id="cmp53C4A27E91795A046145AB2764E6A233" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filBFD012005A78DC66834C9B7672A8F42C" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Configuration.UserSecrets.dll" />
             </Component>
+            <Component Id="cmp8E31AD8F10904C49BA3AA464F412816A" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil296C2F066282F243B381F46490F95DA5" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+            </Component>
             <Component Id="cmpB590A2EF65E8C6BA0D8E8A9A00EE50B3" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filCBE1F729C91EE76D3EFA60A17451836F" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.FileProviders.Abstractions.dll" />
             </Component>
@@ -152,8 +222,41 @@
             <Component Id="cmp672C0FBC4F8F2EB798E13647574B2B11" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil2108085CCC3B5660A67341226AC34186" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.FileSystemGlobbing.dll" />
             </Component>
+            <Component Id="cmpD30512E8376538C3792617D07BFD8B2F" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil9BB19D60D34D2ABB3E2D2B84D9AE7E6F" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Logging.Abstractions.dll" />
+            </Component>
+            <Component Id="cmpA9D110B7749E7406E19CB6F5063AFA81" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil68C352326AA07DBC42D4A73F1F52B5FB" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Options.dll" />
+            </Component>
             <Component Id="cmp485B60646E8AD7AD35F595367BA67B29" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil305E974ACE3243277235618C8BF9EB57" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Extensions.Primitives.dll" />
+            </Component>
+            <Component Id="cmp50D23688AEDD23EC60BDC4CA00BB9238" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil9FA7A93D599277E3B180E43BE7AA48E3" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Identity.Client.dll" />
+            </Component>
+            <Component Id="cmp954EF047031A00AB32108DA2D0523B8B" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil6DC415A72CA99F2965DB52C619456D92" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Identity.Client.Extensions.Msal.dll" />
+            </Component>
+            <Component Id="cmp79B2F0757F8918DF1D4FE564F6F2846A" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil11C1829EF31C6F98418267E84B572C9E" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.Abstractions.dll" />
+            </Component>
+            <Component Id="cmp94206CF5F878895658F36E8E034ACC0F" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil520FDFF0498D48F8CE4E2CB59F5A8088" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.JsonWebTokens.dll" />
+            </Component>
+            <Component Id="cmpD06122FDC02208187F55FE5E69D81AA2" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil1E5D6273928DDBDAA3C0414C760D469E" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.Logging.dll" />
+            </Component>
+            <Component Id="cmp2CC069E406B3B97B637C006AFA03009E" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil7BEEC6300AECC434F327294103B0E047" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.Protocols.dll" />
+            </Component>
+            <Component Id="cmp8AF197209A73DC8514EFE654FB86C126" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil01A47526250B7DD67B6156E947F29347" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+            </Component>
+            <Component Id="cmpE7EE18952442865DB0D12C55F8804239" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil8BB5BFEE5F20C35BD23DFE2E112ECE15" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.IdentityModel.Tokens.dll" />
+            </Component>
+            <Component Id="cmp2B1E902B12192B8A03A50280FC4C406C" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="fil5B8243120A429900E04F175CC9A9D676" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.SqlServer.Server.dll" />
             </Component>
             <Component Id="cmp6DDF5D90EE104011970A9D3625C1804F" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil0D4443CDCAFF6BDC591DBBA69D5773D8" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Win32.SystemEvents.dll" />
@@ -182,17 +285,14 @@
             <Component Id="cmp361EEE77E5E353ED53980C78A77F1C68" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filC15EAFA12C6336D8B6BAAE8FA62A711B" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Renci.SshNet.dll" />
             </Component>
-            <Component Id="cmp1060EDC7469E442F9C6B52E893483231" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
-                <File Id="filA85637B94BB2D0605049209F6A92ED5C" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\sni.dll" />
+            <Component Id="cmpEAB2A41DC1BE84F912D8BE4CD73EAE5E" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filB6EBBBBF7EC22173E39849A570D2D67F" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.ClientModel.dll" />
             </Component>
             <Component Id="cmp7FAF50FD8200AF236A928345A61AAEF0" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filE41EE8C1EF32CFB6D2172C7A7865668F" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.CodeDom.dll" />
             </Component>
             <Component Id="cmpAE0E8F321CC9B105BFD21A01BFAFB4A9" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filB7799F11B9109EE9A930AA4E657B581F" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Configuration.ConfigurationManager.dll" />
-            </Component>
-            <Component Id="cmp7C16AC42CE9A25DAF4165E52A6C6FF64" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
-                <File Id="filA706063D326FCC871C765457804734D6" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\Microsoft.Data.SqlClient.dll" />
             </Component>
             <Component Id="cmp8B9201781C616B2EF8F835BA72B27F0D" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filC4F812D5888AB492B912C79A224F3825" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Diagnostics.EventLog.dll" />
@@ -203,8 +303,14 @@
             <Component Id="cmp0C28E1D2E89936924959271729D6582A" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil6B1CE3A32E22D5E559AE970D6CECB76C" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Drawing.Common.dll" />
             </Component>
+            <Component Id="cmp4ECF0365704F485E62712C4561DEA7FC" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filBE8DADF0BDDEC13E578FD2E7031E1CE0" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.IdentityModel.Tokens.Jwt.dll" />
+            </Component>
             <Component Id="cmp765254F61ED5981D44DB72A18E36D9D1" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filF3F6DF2D110B96611FAE039862905B4A" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Management.dll" />
+            </Component>
+            <Component Id="cmp198317622D63214A867378FCBA129144" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
+                <File Id="filB2395BA4B3975CB154E2711802CD59A0" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Memory.Data.dll" />
             </Component>
             <Component Id="cmp60A16FDE1EAE14F5A1CEAA1BFC4FB65A" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="filC64EA4B6EF173B573B3DDB6845EC5FA1" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\System.Private.Windows.Core.dll" />
@@ -232,6 +338,30 @@
             </Component>
             <Component Id="cmp8185C79E13C1EFA435B800A0FF338B21" Directory="dirEA5DE0DA87CCDD60F4B26843B622260F" Guid="*">
                 <File Id="fil297D1B904F44B56D02D2493BD7046664" KeyPath="yes" Source="$(var.HarvestPath)\Assemblies\ZstdSharp.dll" />
+            </Component>
+            <Component Id="cmp46A31C5C8F6C32D00394B76FC10B878C" Directory="dir82972532CA27BEF6B972C3A142E19BC1" Guid="*">
+                <File Id="fil1BBD62B8CC672D965BD8B093F72F7E70" KeyPath="yes" Source="$(var.HarvestPath)\cs-CZ\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp5DFAE724F417BAA098FEE2F39E4ECDCA" Directory="dirF7A62AAB979B938D6BCEC1392A589DA5" Guid="*">
+                <File Id="fil9929483908F07EA65163C388D78E5AA7" KeyPath="yes" Source="$(var.HarvestPath)\de\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp97F1894018FE85E7F10F48530CAD5B16" Directory="dir62078C356EA332979A99724C7722A56A" Guid="*">
+                <File Id="filA71C0402E6C25B37D9854654950D4B83" KeyPath="yes" Source="$(var.HarvestPath)\el\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmpC19C3D7C89A4FBF3FC521FC69C7B3B68" Directory="dir577231E2EF642DDF4B09B65F4BEE3BE2" Guid="*">
+                <File Id="filE15F41E0B29AEFF7322346877159B2A3" KeyPath="yes" Source="$(var.HarvestPath)\es\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp40698C05218D56587A9782D00CBFDA98" Directory="dir4D0A9F0DBDF1EE024E030F9E3B94104C" Guid="*">
+                <File Id="filDE0D2DDF6B066FC5E61C6AE18CE63B9F" KeyPath="yes" Source="$(var.HarvestPath)\es-AR\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmpC3F0E66945E0C0A0E019A0D6BF11BA48" Directory="dirCAD1E83BD4CE375ABDB8F38597B3725B" Guid="*">
+                <File Id="fil4E9D222811B808F3EAB32DE9DF620F90" KeyPath="yes" Source="$(var.HarvestPath)\fi-FI\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp40895E6FE8EC4FFA9CDEB2FB5DD15F20" Directory="dir0B7D401DE3233449E75F31A823BF5B99" Guid="*">
+                <File Id="fil715FF750208BACE83BC7DCCF4BEB3FA2" KeyPath="yes" Source="$(var.HarvestPath)\fr\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp7E6E8D87E380B22ED7E863FC841A2368" Directory="dir09632C6D20BFA94E2A24ED0E6D9B2C41" Guid="*">
+                <File Id="filCD70EE978626DA4828A50601DEAE5556" KeyPath="yes" Source="$(var.HarvestPath)\hu\mRemoteNG.resources.dll" />
             </Component>
             <Component Id="cmp60BEB4749EF0B6350757C1422ED72958" Directory="dir5E6DA158F27D9CA2AB915EC6AB53B383" Guid="*">
                 <File Id="fil0F9CE0F66286B9AFBF21C2D7C69307CD" KeyPath="yes" Source="$(var.HarvestPath)\Icons\Admin.ico" />
@@ -347,74 +477,35 @@
             <Component Id="cmp2DF86AFCC97AE4C0063FE45EBCFCB7FE" Directory="dir5E6DA158F27D9CA2AB915EC6AB53B383" Guid="*">
                 <File Id="fil100CAAAF0BF4C3FB196087F29DA37CDE" KeyPath="yes" Source="$(var.HarvestPath)\Icons\Workstation.ico" />
             </Component>
-            <Component Id="cmpA651B01F641BB206D5F7EA89434DBDBE" Directory="dir1AFA93102FCA9FBEC2966FCACED8C1A9" Guid="*">
-                <File Id="fil862220B38093D986FEA2CE6EF6232542" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\cs-CZ\mRemoteNG.resources.dll" />
+            <Component Id="cmpCF1D4DD52581584CB9775277B2969302" Directory="dirB5B71807E9474A6ED7A421DAF6D9317F" Guid="*">
+                <File Id="fil661D46FCD95364176089BD3D28019330" KeyPath="yes" Source="$(var.HarvestPath)\it\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmp0A578A25F5AF7EFB1EE0FEF553A6F0DF" Directory="dirED985479573DF8B313197B5DBB2F73F2" Guid="*">
-                <File Id="fil80D5E1C8722A4870871818F495126FF6" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\de\mRemoteNG.resources.dll" />
+            <Component Id="cmpCAE7C04B51FCDA44C75468EFEEF4747A" Directory="dir236726D31B8846E56F94A60B4BDA0D5D" Guid="*">
+                <File Id="fil40181C01EA09FC8EA2E69024B65775C3" KeyPath="yes" Source="$(var.HarvestPath)\ja-JP\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmp4CBB1299D7E5512587964221FB328BD3" Directory="dirB3291EF77F897E7301D938303D9CD529" Guid="*">
-                <File Id="fil6DBF41F0E83D83EF5BA50BA3538A453F" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\el\mRemoteNG.resources.dll" />
+            <Component Id="cmp0BAC93C0A0E70E5ACB66DC026BA8110E" Directory="dir84F2A679A7F20EDA03A198E92F9399E3" Guid="*">
+                <File Id="fil0B91C6F2B565FA653A19ED0161ED07EC" KeyPath="yes" Source="$(var.HarvestPath)\ko-KR\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmpFB94409EC894A837E90DD00FAA1E609A" Directory="dirA897D18E6E07823761300E74492E6FEB" Guid="*">
-                <File Id="fil957640F2BCB9421B19EE6803970EE3C7" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\es\mRemoteNG.resources.dll" />
+            <Component Id="cmp78FEDEE0F378D2F4F0D0F26E5AA4BAA7" Directory="dir5D4FF3A14A3EA47FCD6D9414E469A244" Guid="*">
+                <File Id="filB5234976A684303D93EE2D709DAEF369" KeyPath="yes" Source="$(var.HarvestPath)\lt\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmp6476E0A79D309085A05EDF52A6942FC5" Directory="dir96AB459F9F5ADF1EDF1CF38173FA7634" Guid="*">
-                <File Id="fil032725BD81C0B9182818867497822208" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\es-AR\mRemoteNG.resources.dll" />
+            <Component Id="cmpF3DD876818F39442E2739EF8AF18F465" Directory="dir54E7E449F697FA31B946B0D847BC12FC" Guid="*">
+                <File Id="fil5D73E84534D2765C09BDC7EA52825053" KeyPath="yes" Source="$(var.HarvestPath)\nb-NO\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmp22C3EE1996D81B727664B9EC1CB02435" Directory="dir2BD65C87E55509DA9225F87D9547ADA2" Guid="*">
-                <File Id="fil594CA4575D03E6FAE3A0FF4D268DEBBD" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\fi-FI\mRemoteNG.resources.dll" />
+            <Component Id="cmp6A9C47E1A45A8195474C05BBE19E177A" Directory="dirAD9F3749BDE51B9EA3E808CC39488A46" Guid="*">
+                <File Id="fil8B3155B48D8DBF01C2952E661E6E5C83" KeyPath="yes" Source="$(var.HarvestPath)\nl\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmpB1C711888A7C5C996DC6AF7C35107C6D" Directory="dir985D5A906253F39A06947BE0EF6F0269" Guid="*">
-                <File Id="fil09CC3DC1D9AC366627C34084C09DE636" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\fr\mRemoteNG.resources.dll" />
+            <Component Id="cmp1A4ED188D2470BF1363EB5C9A17FC259" Directory="dir42A5D57151A6A3E9D965C69C82893176" Guid="*">
+                <File Id="fil5DA9B161129D2361D3A60071DDE4214E" KeyPath="yes" Source="$(var.HarvestPath)\pl\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmp9D94CF4FEB4FAB18DA3369C3C17342FB" Directory="dir453026E488A0BBFF1A308755D2B9BF9F" Guid="*">
-                <File Id="fil20CD961CC0BAE94AF7894DFB74322146" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\hu\mRemoteNG.resources.dll" />
+            <Component Id="cmpDEABACBE2FE4B638AF6271AEA9E2F8C9" Directory="dirC5F627279ECABE21145A844571EF9F74" Guid="*">
+                <File Id="filC52A947A9955B1F51BDDC6B7BD5696AC" KeyPath="yes" Source="$(var.HarvestPath)\pt\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmpC3E1BD537160CE60C9ABC711CAE5FB4E" Directory="dir4C505595AE9F20FDA635D87E4B336873" Guid="*">
-                <File Id="fil661ED8B8B31ABFB9090BF5592FD4466E" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\it\mRemoteNG.resources.dll" />
+            <Component Id="cmp1DCD94595ED6192A198D0FC5405BB080" Directory="dir3CF6B6BC48181D29C167EF5DB7F05816" Guid="*">
+                <File Id="fil5CD3DAE410339965F6CFF69171DA3DB4" KeyPath="yes" Source="$(var.HarvestPath)\pt-BR\mRemoteNG.resources.dll" />
             </Component>
-            <Component Id="cmpF4F9759F900431DEE655E68B1168A456" Directory="dir1A4351490EDC54FFAAE8D2A13D8B5C1E" Guid="*">
-                <File Id="fil66B07F3D16E2A04806BA6C6093350F41" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\ja-JP\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmpD59C84E78A55BC994C4401FFE60F2EF6" Directory="dirAF6C0D6E36E224DFCAA818C431F1793D" Guid="*">
-                <File Id="filE1C76D1AD3E3EE9559DFECF30D9B41B3" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\ko-KR\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmpE5270755B00CD5ECD4140B94652DAB00" Directory="dir493575540E263D276ADE4AE008626DC7" Guid="*">
-                <File Id="filA6AC264A8979D546D2D73552D8C52AC6" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\lt\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp2467503A65C5B6CD53CE7745D3126BD2" Directory="dir39E06C640F1024E183719EA37A35DA6A" Guid="*">
-                <File Id="filB57C8F36267636BF23C7E03BEAB1FEA8" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\nb-NO\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmpCEC072669BC6EEE6C19B5551323B8794" Directory="dirC5CE47E87BADAF4B1E7B07DB212F344A" Guid="*">
-                <File Id="fil0BDED45AD9588310EC5E0241AB5D60C6" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\nl\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmpB289981886E356FA97A78A48BF159137" Directory="dirD2E56901A84C78A8D50A25841E0B30E7" Guid="*">
-                <File Id="fil2EF07288F246DA063671F0019D2BE5B0" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\pl\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp37B09F730BBA4CC0A3151861AD201B0A" Directory="dirA6BB130C0CA3E0E5CFC772B5C5441B30" Guid="*">
-                <File Id="fil12C365CDADB72531ED30A4EEB1646A9C" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\pt\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp2DEAA92168B7889DDAEE3A92715EC231" Directory="dirF36506AA31AFBBBCFF62E7289AC26574" Guid="*">
-                <File Id="filDF922EBED42F4A87CBC656715C7D9B3E" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\pt-BR\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp50FC7D49462BC1F3C33CCEB5178B1330" Directory="dir210AD0F3DE80719FB755633FC20B9CCC" Guid="*">
-                <File Id="filDB1CE434339CBA63098D5E8D88392B56" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\ru\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp9D381D1EB34DB9A3760DB5D76B400D29" Directory="dirB78F9D9C4A3D5ABEBBE49702FFEA37EB" Guid="*">
-                <File Id="fil71945E772C1CE9B2DEAA3FE75EEA6404" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\sv-SE\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp527E897DFF9F279E75A4FCBCC4C85F60" Directory="dir59AE3E7BC59CCB20AB90DF502B54F29A" Guid="*">
-                <File Id="fil9112724F10E92AB66A3BF826B70F2907" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\tr-TR\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp1EB262EE4738AA5E0EB15240BE44B3A8" Directory="dirC968BE82586AFE2154ACE284EF64E2F3" Guid="*">
-                <File Id="filDDDE059D6E64ECE8D4B93C597134D6DE" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\uk\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp0DC1E64A1B96AB107AD496D709990126" Directory="dirC5BE6AC2977AC488E7E666637A051DA0" Guid="*">
-                <File Id="filA4B6032E6F4D35A161B9F684B1A4384F" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\zh-CN\mRemoteNG.resources.dll" />
-            </Component>
-            <Component Id="cmp301F0F7F98142D42D126A631EF743D97" Directory="dirE834FB3A76231259B008786493AC997D" Guid="*">
-                <File Id="filEEA38C546D292169D558DF9279BAC966" KeyPath="yes" Source="$(var.HarvestPath)\Languages\Languages\zh-TW\mRemoteNG.resources.dll" />
+            <Component Id="cmp14F9A7840D91A07FE79D6C6258D5872E" Directory="dirF7C0BEA86C276F53E8C9E8E6B2629A9B" Guid="*">
+                <File Id="fil84ABB736DDC19CD359E8850BB51959F7" KeyPath="yes" Source="$(var.HarvestPath)\ru\mRemoteNG.resources.dll" />
             </Component>
             <Component Id="cmpA94B75651045F785CCA29EE2638258AF" Directory="dir2ED89DAEE76564AD33DB582F055A5274" Guid="*">
                 <File Id="fil4CB4D838CA0B7A043E05392D9F7C1E94" KeyPath="yes" Source="$(var.HarvestPath)\runtimes\win-x64\native\WebView2Loader.dll" />
@@ -431,6 +522,9 @@
             <Component Id="cmp3EE433F9C5D50BC91EC94364EE71FD25" Directory="dir54B0732D1EC7055747BB11A9069B5872" Guid="*">
                 <File Id="fil0E2B1639DA1C4573982DEA27205D6130" KeyPath="yes" Source="$(var.HarvestPath)\Schemas\mremoteng_default_settings_v1_0.json" />
             </Component>
+            <Component Id="cmpCE8CCE2E57CBB8B72D37C8F6606FC1FD" Directory="dir861F6A02C2F7A7DA6955E64037179011" Guid="*">
+                <File Id="fil06AD4DEB76585AD17235CA4874291457" KeyPath="yes" Source="$(var.HarvestPath)\sv-SE\mRemoteNG.resources.dll" />
+            </Component>
             <Component Id="cmp3574060B3152DDCCE44B3528A0C71B63" Directory="dir449D12A97ECE34898DFE89F1087779C9" Guid="*">
                 <File Id="fil146F3F5A21FE54B5545684791AB50136" KeyPath="yes" Source="$(var.HarvestPath)\Themes\darcula.vstheme" />
             </Component>
@@ -443,27 +537,19 @@
             <Component Id="cmp785919C5C947C3DFF8751EAA846B5FA7" Directory="dir449D12A97ECE34898DFE89F1087779C9" Guid="*">
                 <File Id="fil46DE91950AEE35EDBAF9606ACF6FE1C4" KeyPath="yes" Source="$(var.HarvestPath)\Themes\vs2015light.vstheme" />
             </Component>
+            <Component Id="cmp64D2ADC91AE3713E639B495CC0518A7F" Directory="dirF50F8AE1B4079411641D2CA28D569A6E" Guid="*">
+                <File Id="fil74F215747A8E72D357A05798BFC0319D" KeyPath="yes" Source="$(var.HarvestPath)\tr-TR\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp17BAEE5D2157190600C56FF82FE3784B" Directory="dir09CC4E618379FE7D9EB8E064B61C997C" Guid="*">
+                <File Id="fil659BA500C0BF779A24E8F4669C65E7CA" KeyPath="yes" Source="$(var.HarvestPath)\uk\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp214DB5E4D7F32338E1E8A139C8BCA66B" Directory="dir7615CEE1531630E53F5B99A187D27DF9" Guid="*">
+                <File Id="fil878C2816E449E0F6C9F4E44E3A06ED4D" KeyPath="yes" Source="$(var.HarvestPath)\zh-CN\mRemoteNG.resources.dll" />
+            </Component>
+            <Component Id="cmp080BF5CEB7B5881A5C147B8EF586143E" Directory="dir8B12BA0D447ED118A459E1723FCB6A85" Guid="*">
+                <File Id="fil9330E2B75901D743DEB8CF2F5A058247" KeyPath="yes" Source="$(var.HarvestPath)\zh-TW\mRemoteNG.resources.dll" />
+            </Component>
         </ComponentGroup>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir1A4351490EDC54FFAAE8D2A13D8B5C1E" Name="ja-JP" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir1AFA93102FCA9FBEC2966FCACED8C1A9" Name="cs-CZ" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir210AD0F3DE80719FB755633FC20B9CCC" Name="ru" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir2BD65C87E55509DA9225F87D9547ADA2" Name="fi-FI" />
-        </DirectoryRef>
     </Fragment>
     <Fragment>
         <DirectoryRef Id="dir98D160BE690DB35BE57FFB8F3DCF5AC7">
@@ -471,108 +557,8 @@
         </DirectoryRef>
     </Fragment>
     <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir39E06C640F1024E183719EA37A35DA6A" Name="nb-NO" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir453026E488A0BBFF1A308755D2B9BF9F" Name="hu" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir493575540E263D276ADE4AE008626DC7" Name="lt" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir4C505595AE9F20FDA635D87E4B336873" Name="it" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir59AE3E7BC59CCB20AB90DF502B54F29A" Name="tr-TR" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir96AB459F9F5ADF1EDF1CF38173FA7634" Name="es-AR" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dir985D5A906253F39A06947BE0EF6F0269" Name="fr" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
         <DirectoryRef Id="dirB699B779DD859CB7CAD46DA4BC9017C0">
             <Directory Id="dir98D160BE690DB35BE57FFB8F3DCF5AC7" Name="win-x64" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir76FECF1F6866C99B53BEB3C218E46523">
-            <Directory Id="dir9DF8118B04E7AB2671570EB20E05C442" Name="Languages" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirA6BB130C0CA3E0E5CFC772B5C5441B30" Name="pt" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirA897D18E6E07823761300E74492E6FEB" Name="es" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirAF6C0D6E36E224DFCAA818C431F1793D" Name="ko-KR" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirB3291EF77F897E7301D938303D9CD529" Name="el" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirB78F9D9C4A3D5ABEBBE49702FFEA37EB" Name="sv-SE" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirC5BE6AC2977AC488E7E666637A051DA0" Name="zh-CN" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirC5CE47E87BADAF4B1E7B07DB212F344A" Name="nl" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirC968BE82586AFE2154ACE284EF64E2F3" Name="uk" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirD2E56901A84C78A8D50A25841E0B30E7" Name="pl" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirE834FB3A76231259B008786493AC997D" Name="zh-TW" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirED985479573DF8B313197B5DBB2F73F2" Name="de" />
-        </DirectoryRef>
-    </Fragment>
-    <Fragment>
-        <DirectoryRef Id="dir9DF8118B04E7AB2671570EB20E05C442">
-            <Directory Id="dirF36506AA31AFBBBCFF62E7289AC26574" Name="pt-BR" />
         </DirectoryRef>
     </Fragment>
 </Wix>
