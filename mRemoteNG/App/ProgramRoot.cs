@@ -85,7 +85,7 @@ namespace mRemoteNG.App
 
         private static void CheckLockalDB()
         {
-            LocalSettingsDBManager settingsManager = new LocalSettingsDBManager(dbPath: "mRemoteNG.appSettings", useEncryption: false, schemaFilePath: "");
+            LocalDBManager settingsManager = new LocalDBManager(dbPath: "mRemoteNG.appSettings", useEncryption: false, schemaFilePath: "");
         }
         private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs resolveArgs)
         {
