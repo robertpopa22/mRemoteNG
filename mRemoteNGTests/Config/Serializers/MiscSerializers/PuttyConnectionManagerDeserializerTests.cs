@@ -100,7 +100,8 @@ public class PuttyConnectionManagerDeserializerTests
     public void ConnectionPasswordImported()
     {
         var connection = GetSshConnection();
-        Assert.That(connection.Password?.ConvertToUnsecureString(), Is.EqualTo(ExpectedConnectionPassword));
+        //Assert.That(connection.Password?.ConvertToUnsecureString(), Is.EqualTo(ExpectedConnectionPassword));
+        Assert.That(connection.Password, Is.EqualTo(ExpectedConnectionPassword));
     }
 
     private ConnectionInfo GetSshConnection()

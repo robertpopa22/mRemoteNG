@@ -62,7 +62,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     : new XAttribute("Domain", ""));
 
                 if (_saveFilter.SavePassword && !connectionInfo.Inheritance.Password)
-                    element.Add(new XAttribute("Password", _cryptographyProvider.Encrypt(connectionInfo.Password.ConvertToUnsecureString(), _encryptionKey)));
+                    //element.Add(new XAttribute("Password", _cryptographyProvider.Encrypt(connectionInfo.Password.ConvertToUnsecureString(), _encryptionKey)));
+                    element.Add(new XAttribute("Password", _cryptographyProvider.Encrypt(connectionInfo.Password, _encryptionKey)));
                 else
                     element.Add(new XAttribute("Password", ""));
             }

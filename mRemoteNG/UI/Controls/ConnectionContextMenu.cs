@@ -833,7 +833,8 @@ namespace mRemoteNG.UI.Controls
                 App.Windows.Show(WindowType.SSHTransfer);
                 App.Windows.SshtransferForm.Hostname = _connectionTree.SelectedNode.Hostname;
                 App.Windows.SshtransferForm.Username = _connectionTree.SelectedNode.Username;
-                App.Windows.SshtransferForm.Password = _connectionTree.SelectedNode.Password.ConvertToUnsecureString();
+                //App.Windows.SshtransferForm.Password = _connectionTree.SelectedNode.Password.ConvertToUnsecureString();
+                App.Windows.SshtransferForm.Password = _connectionTree.SelectedNode.Password;
                 App.Windows.SshtransferForm.Port = Convert.ToString(_connectionTree.SelectedNode.Port);
             }
             catch (Exception ex)

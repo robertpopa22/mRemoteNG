@@ -30,7 +30,8 @@ namespace mRemoteNG.Connection
         private ExternalCredentialProvider _externalCredentialProvider;
         private string _userViaAPI = "";
         private string _username = "";
-        private SecureString _password = null;
+        //private SecureString _password = null;
+        private string _password = null;
         private string _domain = "";
         private string _vmId = "";
         private bool _useEnhancedMode;
@@ -214,7 +215,8 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionPassword)),
          PasswordPropertyText(true),
          AttributeUsedInAllProtocolsExcept(ProtocolType.Telnet, ProtocolType.Rlogin, ProtocolType.RAW)]
-        public virtual SecureString Password
+        //public virtual SecureString Password
+        public virtual string Password
         {
             get => GetPropertyValue("Password", _password);
             set => SetField(ref _password, value, "Password");

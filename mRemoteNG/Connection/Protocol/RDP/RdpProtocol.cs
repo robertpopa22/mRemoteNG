@@ -426,7 +426,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     case RDGatewayUseConnectionCredentials.Yes:
                         _rdpClient.TransportSettings2.GatewayUsername = connectionInfo.Username;
-                        _rdpClient.TransportSettings2.GatewayPassword = connectionInfo.Password.ConvertToUnsecureString();
+                        //_rdpClient.TransportSettings2.GatewayPassword = connectionInfo.Password.ConvertToUnsecureString();
+                        _rdpClient.TransportSettings2.GatewayPassword = connectionInfo.Password;
                         _rdpClient.TransportSettings2.GatewayDomain = connectionInfo?.Domain;
                         break;
                     case RDGatewayUseConnectionCredentials.SmartCard:
@@ -540,7 +541,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 string domain = connectionInfo?.Domain ?? "";
                 string userViaApi = connectionInfo?.UserViaAPI ?? "";
                 string pkey = "";
-                string password = (connectionInfo?.Password?.ConvertToUnsecureString() ?? "");
+                //string password = (connectionInfo?.Password?.ConvertToUnsecureString() ?? "");
+                string password = (connectionInfo?.Password ?? "");
 
                 // access secret server api if necessary
                 if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)

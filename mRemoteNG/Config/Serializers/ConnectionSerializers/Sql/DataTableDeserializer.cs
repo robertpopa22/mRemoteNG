@@ -113,7 +113,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.OpeningCommand = (string)dataRow["OpeningCommand"];
             connectionInfo.Panel = (string)dataRow["Panel"];
             var pw = dataRow["Password"] as string;
-            connectionInfo.Password = DecryptValue(pw ?? "").ConvertToSecureString();
+            //connectionInfo.Password = DecryptValue(pw ?? "").ConvertToSecureString();
+            connectionInfo.Password = DecryptValue(pw ?? "");
             connectionInfo.Port = (int)dataRow["Port"];
             connectionInfo.PostExtApp = (string)dataRow["PostExtApp"];
             connectionInfo.PreExtApp = (string)dataRow["PreExtApp"];

@@ -217,8 +217,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     if (!Runtime.UseCredentialManager || _confVersion <= 2.6) // 0.2 - 2.6
                     {
                         connectionInfo.Username = xmlnode.GetAttributeAsString("Username");
-                        //connectionInfo.Password = _decryptor.Decrypt(xmlnode.GetAttributeAsString("Password"));
-                        connectionInfo.Password = _decryptor.Decrypt(xmlnode.GetAttributeAsString("Password")).ConvertToSecureString();
+                        connectionInfo.Password = _decryptor.Decrypt(xmlnode.GetAttributeAsString("Password"));
+                        //connectionInfo.Password = _decryptor.Decrypt(xmlnode.GetAttributeAsString("Password")).ConvertToSecureString();
                         connectionInfo.Domain = xmlnode.GetAttributeAsString("Domain");
                     }
                 }

@@ -226,7 +226,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private string VNCEvent_Authenticate()
         {
-            return _info.Password.ConvertToUnsecureString();
+            //return _info.Password.ConvertToUnsecureString();
+            return _info.Password;
         }
 
         #endregion
