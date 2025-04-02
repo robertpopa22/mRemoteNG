@@ -5,7 +5,7 @@
     <TargetFramework>net9.0-windows7.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icons\mRemoteNG.ico</ApplicationIcon>
-    <Version>1.77.3-dev</Version>
+    <Version>1.78.2-dev</Version>
     <Description>Multi-protocol remote connections manager</Description>
     <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>
     <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>
@@ -34,7 +34,7 @@
     <OutputPath>bin\x64\Debug\</OutputPath>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <Optimize>False</Optimize>
-    <WarningLevel>7</WarningLevel>
+    <WarningLevel>8</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants />
@@ -43,7 +43,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <WarningLevel>7</WarningLevel>
+    <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Portable|x64'">
@@ -53,7 +53,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <WarningLevel>7</WarningLevel>
+    <WarningLevel>8</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x64'">
     <DefineConstants>PORTABLE</DefineConstants>
@@ -62,13 +62,13 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <WarningLevel>7</WarningLevel>
+    <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Installer|x64'">
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <Optimize>True</Optimize>
-    <WarningLevel>7</WarningLevel>
+    <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
   <ItemGroup>
@@ -571,6 +571,9 @@
   </ItemGroup>
   <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy to github|x64'">
+    <WarningLevel>8</WarningLevel>
   </PropertyGroup>
   <!--
   <Target Name="MoveAssemblies" AfterTargets="Build">

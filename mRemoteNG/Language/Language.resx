@@ -1670,7 +1670,7 @@ If you run into such an error, please create a new connection file!</value>
     <value>Uncheck the properties you want not to be saved!</value>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>mRemoteNG requires an update</value>
+    <value>mRemoteNG available</value>
   </data>
   <data name="UpdateCheck" xml:space="preserve">
     <value>mRemoteNG can periodically connect to the mRemoteNG website to check for updates.</value>
@@ -1719,7 +1719,7 @@ mRemoteNG will now quit and begin with the installation.</value>
     <value>Use SQL Server to load &amp;&amp; save connections</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>Current Version</value>
   </data>
   <data name="Vnc" xml:space="preserve">
     <value>VNC</value>

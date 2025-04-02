@@ -18,10 +18,10 @@ using System.Resources;
 [assembly: AssemblyCulture("")]
 
 // Version information
-[assembly: AssemblyVersion("1.78.2.2932")]
-[assembly: AssemblyFileVersion("1.78.2.2932")]
+[assembly: AssemblyVersion("1.78.2.2936")]
+[assembly: AssemblyFileVersion("1.78.2.2936")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
-[assembly: AssemblyInformationalVersion("1.78.2 (Nightly Build 2932)")]
+[assembly: AssemblyInformationalVersion("1.78.2 (Nightly Build 2936)")]
 
 // Logging
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]

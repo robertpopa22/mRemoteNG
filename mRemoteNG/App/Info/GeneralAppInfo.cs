@@ -54,8 +54,11 @@ namespace mRemoteNG.App.Info
 
         public static Version GetApplicationVersion()
         {
-            _ = System.Version.TryParse(ApplicationVersion, out Version v);
-            return v;
+            string cleanedVersion = ApplicationVersion.Split(' ')[0].Replace("(", "").Replace(")", "").Replace("Build", "");
+            cleanedVersion = cleanedVersion + "." + ApplicationVersion.Split(' ')[^1].Replace(")", "");
+
+            _ = System.Version.TryParse(cleanedVersion, out Version parsedVersion);
+            return parsedVersion;
         }
     }
 }

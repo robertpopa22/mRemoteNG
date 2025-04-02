@@ -39,9 +39,6 @@ namespace mRemoteNG.Resources.Language {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    //string resourceFilePath = "Languages/ru/mRemoteNG.resources.dll";
-                    //global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(resourceFilePath, typeof(Language).Assembly);
-
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("mRemoteNG.Language.Language", typeof(Language).Assembly);
                     resourceMan = temp;
                 }
@@ -6436,7 +6433,7 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mRemoteNG requires an update.
+        ///   Looks up a localized string similar to mRemoteNG available.
         /// </summary>
         internal static string UpdateAvailable {
             get {
@@ -6689,7 +6686,7 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version.
+        ///   Looks up a localized string similar to Current Version.
         /// </summary>
         internal static string Version {
             get {

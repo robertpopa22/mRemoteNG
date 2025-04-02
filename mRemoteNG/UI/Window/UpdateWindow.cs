@@ -52,10 +52,8 @@ namespace mRemoteNG.UI.Window
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
 
             base.ApplyTheme();
-            txtChangeLog.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            txtChangeLog.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            txtChangeLog.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
+            txtChangeLog.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
         }
 
         private void ApplyLanguage()
@@ -68,7 +66,7 @@ namespace mRemoteNG.UI.Window
                 : Language.DownloadAndInstall;
             lblChangeLogLabel.Text = Language.Changelog;
             lblInstalledVersion.Text = Language.Version;
-            lblInstalledVersionLabel.Text = $"{Language.AvailableVersion}:";
+            lblInstalledVersionLabel.Text = $"{Language.Version}:";
             lblLatestVersion.Text = Language.Version;
             lblLatestVersionLabel.Text = $"{Language.AvailableVersion}:";
         }
