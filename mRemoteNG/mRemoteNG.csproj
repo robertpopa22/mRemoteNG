@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!-- Force x64 and ensure runtime assets are included -->
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icons\mRemoteNG.ico</ApplicationIcon>
     <Version>1.78.2-dev</Version>
@@ -17,7 +22,7 @@
     <PackageIcon>Header_dark.png</PackageIcon>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UseWPF>True</UseWPF>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
     <SignAssembly>False</SignAssembly>
     <Title>Multi-Remote Next Generation Connection Manager</Title>
     <RepositoryUrl>https://github.com/mRemoteNG/mRemoteNG.git</RepositoryUrl>
@@ -90,7 +95,6 @@
     <PackageReference Include="BouncyCastle.Cryptography" />
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="ConsoleControl" />
-    <PackageReference Include="ConsoleControlAPI" />
     <PackageReference Include="Cucumber.Messages" />
     <PackageReference Include="DockPanelSuite" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" />
@@ -99,7 +103,6 @@
     <PackageReference Include="log4net" />
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" />
     <PackageReference Include="Microsoft.Data.SqlClient" />
-    <PackageReference Include="Microsoft.Data.SqlClient.SNI" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
     <PackageReference Include="Microsoft.NETCore.Platforms" />
     <PackageReference Include="Microsoft.NETCore.Targets" />
@@ -123,11 +126,9 @@
     <PackageReference Include="runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
     <PackageReference Include="runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
     <PackageReference Include="SSH.NET" />
-    <PackageReference Include="System.Buffers" />
     <PackageReference Include="System.Collections.Immutable" />
     <PackageReference Include="System.Configuration.ConfigurationManager" />
     <PackageReference Include="System.Console" />
-    <PackageReference Include="System.Data.Common" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" />
     <PackageReference Include="System.Diagnostics.EventLog" />
     <PackageReference Include="System.DirectoryServices" />
@@ -135,7 +136,6 @@
     <PackageReference Include="System.Formats.Asn1" />
     <PackageReference Include="System.IO.Pipelines" />
     <PackageReference Include="System.Management" />
-    <PackageReference Include="System.Net.Http" />
     <PackageReference Include="System.Net.Primitives" />
     <PackageReference Include="System.Net.Sockets" />
     <PackageReference Include="System.Reflection.Emit" />
@@ -143,7 +143,6 @@
     <PackageReference Include="System.Reflection.Emit.Lightweight" />
     <PackageReference Include="System.Reflection.Metadata" />
     <PackageReference Include="System.Resources.ResourceManager" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" />
     <PackageReference Include="System.Runtime.Extensions" />
     <PackageReference Include="System.Security.AccessControl" />
     <PackageReference Include="System.Security.Cryptography.Algorithms" />
@@ -563,14 +562,18 @@
   <ItemGroup>
     <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="92.0.25" />
   </ItemGroup>
+  <!--
   <ItemGroup>
     <PackageReference Update="chromiumembeddedframework.runtime.win-x86" Version="92.0.25" />
   </ItemGroup>
+  -->
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <PropertyGroup>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy to github|x64'">
     <WarningLevel>8</WarningLevel>

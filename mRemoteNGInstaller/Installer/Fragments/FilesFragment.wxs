@@ -61,12 +61,6 @@
             <Component Id="cmpBC5D78342783913CB2940FD1FBCB1C0F" Directory="INSTALLDIR" Guid="*">
                 <File Id="filADC5E7D9C4AB391364380BC83CACEAC6" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x64.pdb" />
             </Component>
-            <Component Id="cmp96D6DF96D2A198FC969F762CF63B7FE1" Directory="INSTALLDIR" Guid="*">
-                <File Id="fil20E640AE0EC1940CE699975354638F02" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x86.dll" />
-            </Component>
-            <Component Id="cmpC4CA779526A596D761793D72815BCAD4" Directory="INSTALLDIR" Guid="*">
-                <File Id="fil00B18124BDEDC291ABC44152343CF2C1" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Data.SqlClient.SNI.x86.pdb" />
-            </Component>
             <Component Id="cmp104087D18B25A9A8D2ECC5B6EA2AE79B" Directory="INSTALLDIR" Guid="*">
                 <File Id="fil5282108DD54B6C7D192C3E9D001FD4E7" KeyPath="yes" Source="$(var.HarvestPath)\Microsoft.Web.WebView2.Core.dll" />
             </Component>

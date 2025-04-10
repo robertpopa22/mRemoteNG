@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>x64</Platforms>
     <Configurations>Debug;Release;Release Installer</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Properties\**" />
@@ -19,7 +19,6 @@
     <PackageReference Include="Cucumber.Messages" />
     <PackageReference Include="Gherkin" />
     <PackageReference Include="Google.Protobuf" />
-    <PackageReference Include="Microsoft.Data.SqlClient.SNI" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
