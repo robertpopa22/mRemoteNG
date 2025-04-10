@@ -2,43 +2,128 @@
 using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using LiteDB;
 
 namespace mRemoteNG.Config.DatabaseConnectors
 {
-    [SupportedOSPlatform("windows")]
+    //[SupportedOSPlatform("windows")]
     /// <summary>
     /// A helper class for testing database connectivity
     /// </summary>
+    ///
+    using System;
+    using System.Data.SqlClient;
+
     public class DatabaseConnectionTester
     {
-        public async Task<ConnectionTestResult> TestConnectivity(string type,
-                                                                 string server,
-                                                                 string database,
-                                                                 string username,
-                                                                 string password)
+        //string connectionString = "Data Source=172.22.155.100,1433;Initial Catalog=Demo;User ID=sa;Password=London123";
+        
+        public static void TestConnection(string connectionString)
         {
-            using (IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password))
+            try
             {
-                try
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    await dbConnector.ConnectAsync();
-                    return ConnectionTestResult.ConnectionSucceded;
+                    connection.Open();
+                    Console.WriteLine("Connection successful!");
                 }
-                catch (SqlException sqlException)
-                {
-                    if (sqlException.Message.Contains("The server was not found"))
-                        return ConnectionTestResult.ServerNotAccessible;
-                    if (sqlException.Message.Contains("Cannot open database"))
-                        return ConnectionTestResult.UnknownDatabase;
-                    if (sqlException.Message.Contains("Login failed for user"))
-                        return ConnectionTestResult.CredentialsRejected;
-                    return ConnectionTestResult.UnknownError;
-                }
-                catch (Exception)
-                {
-                    return ConnectionTestResult.UnknownError;
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Connection failed: {ex.Message}");
             }
         }
     }
+    //public class DatabaseConnectionTester
+    //{
+        //public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password)
+        //{
+            //using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password);
+            //try
+            //{
+                // Validate architecture compatibility
+                //if (!Environment.Is64BitProcess)
+                //{
+                //    throw new PlatformNotSupportedException("The application must run in a 64-bit process to use this database connector.");
+               // }
+
+                // Attempt to connect
+
+                //using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
+                //{
+                //    connection.Open();
+                //    Console.WriteLine("Connection successful!");
+                //}
+                //Console.WriteLine($"{RuntimeInformation.OSArchitecture}");
+                //Console.WriteLine($"{RuntimeInformation.ProcessArchitecture}");
+                //try
+                //{
+                 //   using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
+                 //   {
+                 //       connection.Open();
+                 //       Console.WriteLine("Connection successful!");
+                 //   }
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine($"Connection failed: {ex.Message}");
+                //}
+    //}
+/*
+
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
+                    {
+                        connection.Open();
+                    }
+                }
+                catch (TypeInitializationException ex)
+                {
+                    Console.WriteLine($"Type initialization error: {ex.InnerException?.Message}");
+                }
+
+
+                //await dbConnector.ConnectAsync();
+                return ConnectionTestResult.ConnectionSucceded;
+            }
+            catch (PlatformNotSupportedException ex)
+            {
+                // Log or handle architecture mismatch
+                Console.WriteLine($"Platform error: {ex.Message}");
+                return ConnectionTestResult.UnknownError;
+            }
+            catch (DllNotFoundException ex)
+            {
+                // Handle missing native dependencies
+                Console.WriteLine($"Missing dependency: {ex.Message}");
+                return ConnectionTestResult.UnknownError;
+            }
+            catch (BadImageFormatException ex)
+            {
+                // Handle architecture mismatch in native libraries
+                Console.WriteLine($"Architecture mismatch: {ex.Message}");
+                return ConnectionTestResult.UnknownError;
+            }
+            catch (SqlException sqlException)
+            {
+                if (sqlException.Message.Contains("The server was not found"))
+                    return ConnectionTestResult.ServerNotAccessible;
+                if (sqlException.Message.Contains("Cannot open database"))
+                    return ConnectionTestResult.UnknownDatabase;
+                if (sqlException.Message.Contains("Login failed for user"))
+                    return ConnectionTestResult.CredentialsRejected;
+                return ConnectionTestResult.UnknownError;
+            }
+            catch (Exception ex)
+            {
+                // Log unexpected errors
+                Console.WriteLine($"Unexpected error: {ex.Message}");
+                return ConnectionTestResult.UnknownError;
+            }
+*/
+       // }
+   // }
 }

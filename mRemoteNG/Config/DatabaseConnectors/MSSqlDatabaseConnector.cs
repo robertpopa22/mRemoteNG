@@ -2,6 +2,7 @@
 using System.Data.Common;
 using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
+using static BrightIdeasSoftware.TreeListView;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
@@ -9,7 +10,7 @@ namespace mRemoteNG.Config.DatabaseConnectors
 {
     public class MSSqlDatabaseConnector : IDatabaseConnector
     {
-        private DbConnection _dbConnection { get; set; } = default(SqlConnection);
+        private DbConnection _dbConnection { get; set; } = default!;
         private string _dbConnectionString = "";
         private readonly string _dbHost;
         private readonly string _dbCatalog;
@@ -58,10 +59,17 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
             _dbConnectionString = new SqlConnectionStringBuilder
             {
+                ApplicationName = "mRemoteNG",
+                ApplicationIntent = ApplicationIntent.ReadOnly,
                 DataSource = $"{hostParts[0]},{_dbPort}",
                 InitialCatalog = _dbCatalog,
                 UserID = _dbUsername,
                 Password = _dbPassword,
+                IntegratedSecurity = false,
+                Encrypt = true,
+                TrustServerCertificate = true,
+                ConnectTimeout = 30,
+                MultipleActiveResultSets = true
             }.ToString();
         }
 

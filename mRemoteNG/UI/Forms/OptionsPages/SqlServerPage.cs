@@ -40,7 +40,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             //lblSQLInfo.Text = Language.SQLInfo;
 
             chkUseSQLServer.Text = Language.UseSQLServer;
-            lblSQLServer.Text = Language.Hostname;
+            //lblSQLServer.Text = Language.Hostname;
             lblSQLDatabaseName.Text = Language.Database;
             lblSQLUsername.Text = Language.Username;
             lblSQLPassword.Text = Language.Password;
@@ -152,22 +152,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private void toggleSQLPageControls(bool useSQLServer)
         {
             if (!chkUseSQLServer.Enabled) return;
-
-            pnlSQLCon.Enabled = useSQLServer;
-            lblSQLType.Enabled = useSQLServer;
-            lblSQLServer.Enabled = useSQLServer;
-            lblSQLDatabaseName.Enabled = useSQLServer;
-            lblSQLUsername.Enabled = useSQLServer;
-            lblSQLPassword.Enabled = useSQLServer;
-            lblSQLReadOnly.Enabled = useSQLServer;
-            txtSQLType.Enabled = useSQLServer;
-            txtSQLServer.Enabled = useSQLServer;
-            txtSQLDatabaseName.Enabled = useSQLServer;
-            txtSQLUsername.Enabled = useSQLServer;
-            txtSQLPassword.Enabled = useSQLServer;
-            chkSQLReadOnly.Enabled = useSQLServer;
+            pnlServerBlock.Enabled = useSQLServer;
             btnTestConnection.Enabled = useSQLServer;
+            btnExpandOptions.Enabled = useSQLServer;
+        }
+
+        private void btnExpandOptions_Click(object sender, EventArgs e)
+        {
+            if (btnExpandOptions.Text == "Advanced >>")
+            {
+                btnExpandOptions.Text = "<< Simple";
+                tabCtrlSQL.Visible = true;
             }
+            else
+            {
+                btnExpandOptions.Text = "Advanced >>";
+                tabCtrlSQL.Visible = false;
+            }
+        }
 
         private async void btnTestConnection_Click(object sender, EventArgs e)
         {
@@ -181,11 +183,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             imgConnectionStatus.Image = Properties.Resources.Loading_Spinner;
             btnTestConnection.Enabled = false;
 
-            ConnectionTestResult connectionTestResult =
-                await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
+            string connectionString = "Data Source=172.22.155.100,1433;Initial Catalog=Demo;User ID=sa;Password=London123";
+            DatabaseConnectionTester.TestConnection(connectionString);
+            //ConnectionTestResult connectionTestResult = true
+            //    await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
 
             btnTestConnection.Enabled = true;
-
+            /*
             switch (connectionTestResult)
             {
                 case ConnectionTestResult.ConnectionSucceded:
@@ -216,6 +220,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblTestConnectionResults.Text = BuildTestFailedMessage(Language.RdpErrorUnknown);
                     break;
             }
+            */
         }
 
         private void UpdateConnectionImage(bool connectionSuccess)
@@ -226,6 +231,95 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private string BuildTestFailedMessage(string specificMessage)
         {
             return Language.ConnectionOpenFailed + Environment.NewLine + specificMessage;
+        }
+
+        private void txtSQLAuthType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Ensure SelectedItem is not null before accessing it
+            if (txtSQLAuthType.SelectedItem != null)
+            {
+                // Get the selected value
+                string? selectedValue = txtSQLAuthType.SelectedItem.ToString();
+
+                // Check the selected value and call appropriate action
+                if (selectedValue == "Windows Authentication")
+                {
+                    lblSQLUsername.Text = "User name:"; 
+                    lblSQLUsername.Enabled = false;
+                    txtSQLUsername.Enabled = false;
+                    txtSQLUsername.Text = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                    lblSQLPassword.Visible = false;
+                    txtSQLPassword.Visible = false;
+                }
+                else if (selectedValue == "SQL Server Authentication")
+                {
+                    lblSQLUsername.Text = "login:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = true;
+                    txtSQLPassword.Visible = true;
+                }
+                else if (selectedValue == "Microsoft Entra MFA")
+                {
+                    lblSQLUsername.Text = "User name:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = false;
+                    txtSQLPassword.Visible = false;
+                }
+                else if (selectedValue == "Microsoft Entra Password")
+                {
+                    lblSQLUsername.Text = "User name:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = true;
+                    txtSQLPassword.Visible = true;
+                }
+                else if (selectedValue == "Microsoft Entra Integrated")
+                {
+                    lblSQLUsername.Text = "User name:";
+                    lblSQLUsername.Enabled = false;
+                    txtSQLUsername.Enabled = false;
+                    txtSQLUsername.Text = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                    lblSQLPassword.Visible = false;
+                    txtSQLPassword.Visible = false;
+                }
+                else if (selectedValue == "Microsoft Entra Service Principal")
+                {
+                    lblSQLUsername.Text = "User name:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = true;
+                    txtSQLPassword.Visible = true;
+                }
+                else if (selectedValue == "Microsoft Entra Managed Identity")
+                {
+                    lblSQLUsername.Text = "User assigned identity:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = false;
+                    txtSQLPassword.Visible = false;
+                }
+                else if (selectedValue == "Microsoft Entra Default")
+                {
+                    lblSQLUsername.Text = "User name:";
+                    lblSQLUsername.Enabled = true;
+                    txtSQLUsername.Enabled = true;
+                    txtSQLUsername.Text = "";
+                    lblSQLPassword.Visible = false;
+                    txtSQLPassword.Visible = false;
+                }
+                else
+                {
+                    // Handle other values or do nothing
+                    Console.WriteLine("No matching option.");
+                }
+            }
         }
     }
 }
