@@ -4,7 +4,7 @@ using System.Security;
 
 namespace mRemoteNG.Credential.Repositories
 {
-    public class CredentialRepositoryConfig : ICredentialRepositoryConfig
+    public class CredentialRepositoryConfig(Guid id) : ICredentialRepositoryConfig
     {
         private string _title = "New Credential Repository";
         private string _source = "";
@@ -12,7 +12,7 @@ namespace mRemoteNG.Credential.Repositories
         private string _typeName = "";
         private bool _loaded;
 
-        public Guid Id { get; }
+        public Guid Id { get; } = id;
 
         public string Title
         {
@@ -68,12 +68,7 @@ namespace mRemoteNG.Credential.Repositories
         {
         }
 
-        public CredentialRepositoryConfig(Guid id)
-        {
-            Id = id;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void RaisePropertyChangedEvent(string propertyName)
         {

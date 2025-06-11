@@ -14,26 +14,19 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 {
     [SupportedOSPlatform("windows")]
-    public class DataTableSerializer : ISerializer<ConnectionInfo, DataTable>
+    public class DataTableSerializer(SaveFilter saveFilter, ICryptographyProvider cryptographyProvider, SecureString encryptionKey) : ISerializer<ConnectionInfo, DataTable>
     {
         private const int DELETE = 0;
-        private readonly ICryptographyProvider _cryptographyProvider;
-        private readonly SecureString _encryptionKey;
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
+        private readonly SecureString _encryptionKey = encryptionKey.ThrowIfNull(nameof(encryptionKey));
         private DataTable _dataTable;
         private DataTable _sourceDataTable;
         private readonly Dictionary<string, int> _sourcePrimaryKeyDict = [];
         private const string TABLE_NAME = "tblCons";
-        private readonly SaveFilter _saveFilter;
+        private readonly SaveFilter _saveFilter = saveFilter.ThrowIfNull(nameof(saveFilter));
         private int _currentNodeIndex;
 
         public Version Version { get; } = new Version(3, 0);
-
-        public DataTableSerializer(SaveFilter saveFilter, ICryptographyProvider cryptographyProvider, SecureString encryptionKey)
-        {
-            _saveFilter = saveFilter.ThrowIfNull(nameof(saveFilter));
-            _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
-            _encryptionKey = encryptionKey.ThrowIfNull(nameof(encryptionKey));
-        }
 
         public void SetSourceDataTable(DataTable sourceDataTable)
         {

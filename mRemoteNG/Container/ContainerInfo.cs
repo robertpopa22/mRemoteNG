@@ -313,7 +313,7 @@ namespace mRemoteNG.Container
             childAsContainer.CollectionChanged -= RaiseCollectionChangedEvent;
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         private void RaiseCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs args)
         {

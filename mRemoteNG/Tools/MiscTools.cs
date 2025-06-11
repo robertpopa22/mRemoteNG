@@ -18,36 +18,32 @@ namespace mRemoteNG.Tools
     [SupportedOSPlatform("windows")]
     public static class MiscTools
     {
-        public static Icon GetIconFromFile(string FileName)
+        public static Icon? GetIconFromFile(string FileName)
         {
             try
             {
-                return File.Exists(FileName) == false ? null : Icon.ExtractAssociatedIcon(FileName);
+                return File.Exists(FileName) ? Icon.ExtractAssociatedIcon(FileName) : null;
             }
             catch (ArgumentException AEx)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                                                    "GetIconFromFile failed (Tools.Misc) - using default icon" +
-                                                    Environment.NewLine + AEx.Message,
-                                                    true);
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "GetIconFromFile failed (Tools.Misc) - using default icon" + Environment.NewLine + AEx.Message, true);
                 return Properties.Resources.mRemoteNG_Icon;
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                                                    "GetIconFromFile failed (Tools.Misc)" + Environment.NewLine +
-                                                    ex.Message, true);
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "GetIconFromFile failed (Tools.Misc)" + Environment.NewLine + ex.Message, true);
                 return null;
             }
         }
 
-        public static Optional<SecureString> PasswordDialog(string passwordName = null, bool verify = true)
+        public static Optional<SecureString> PasswordDialog(string? passwordName = null, bool verify = true)
         {
             //var splash = FrmSplashScreenNew.GetInstance();
             //TODO: something not right there 
             //if (PresentationSource.FromVisual(splash))
             //    splash.Close();
 
+            passwordName ??= string.Empty; // Ensure passwordName is not null
             FrmPassword passwordForm = new(passwordName, verify);
             return passwordForm.GetKey();
         }
@@ -139,7 +135,7 @@ namespace mRemoteNG.Tools
         }
 
 
-        public static Image TakeScreenshot(UI.Tabs.ConnectionTab sender)
+        public static Image? TakeScreenshot(UI.Tabs.ConnectionTab sender)
         {
             try
             {
@@ -159,74 +155,88 @@ namespace mRemoteNG.Tools
             return null;
         }
 
-        public class EnumTypeConverter : EnumConverter
+        public class EnumTypeConverter(Type type) : EnumConverter(type)
         {
-            private readonly Type _enumType;
+            private readonly Type _enumType = type;
 
-            public EnumTypeConverter(Type type) : base(type)
-            {
-                _enumType = type;
-            }
-
-            public override bool CanConvertTo(ITypeDescriptorContext context, Type destType)
+            public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destType)
             {
                 return destType == typeof(string);
             }
 
-            public override object ConvertTo(ITypeDescriptorContext context,
-                                             CultureInfo culture,
-                                             object value,
-                                             Type destType)
+            public override object ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type? destType)
             {
-                if (value == null) return null;
-                System.Reflection.FieldInfo fi = _enumType.GetField(Enum.GetName(_enumType, value));
-                DescriptionAttribute dna = (DescriptionAttribute)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
+                if (value == null) return string.Empty;
 
-                return dna != null ? dna.Description : value.ToString();
+                string? enumName = Enum.GetName(_enumType, value);
+                if (enumName == null)
+                {
+                    throw new ArgumentException("Invalid enum value provided.");
+                }
+
+                System.Reflection.FieldInfo? fi = _enumType.GetField(enumName);
+                if (fi == null)
+                {
+                    throw new ArgumentException("FieldInfo could not be retrieved for the provided enum value.");
+                }
+
+                DescriptionAttribute? dna = (DescriptionAttribute?)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
+                return dna?.Description ?? value.ToString() ?? string.Empty;
             }
 
-            public override bool CanConvertFrom(ITypeDescriptorContext context, Type srcType)
+            public override bool CanConvertFrom(ITypeDescriptorContext? context, Type? srcType)
             {
                 return srcType == typeof(string);
             }
 
-            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
             {
-                foreach (System.Reflection.FieldInfo fi in _enumType.GetFields())
+                if (value is string stringValue)
                 {
-                    DescriptionAttribute dna = (DescriptionAttribute)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
-
-                    if (dna != null && (string)value == dna.Description)
+                    foreach (System.Reflection.FieldInfo fi in _enumType.GetFields())
                     {
-                        return Enum.Parse(_enumType, fi.Name);
+                        DescriptionAttribute? dna = (DescriptionAttribute?)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
+
+                        if (dna != null && string.Equals(stringValue, dna.Description, StringComparison.Ordinal))
+                        {
+                            return Enum.Parse(_enumType, fi.Name);
+                        }
                     }
+
+                    return Enum.Parse(_enumType, stringValue);
                 }
 
-                return value != null ? Enum.Parse(_enumType, (string)value) : null;
+                throw new ArgumentNullException(nameof(value), "Value cannot be null.");
             }
         }
 
         public class YesNoTypeConverter : TypeConverter
         {
-            public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+            public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
             {
                 return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
             }
-
-            public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+            public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
             {
                 return destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
             }
 
-            public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+            public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
             {
-                if (!(value is string)) return base.ConvertFrom(context, culture, value);
-                if (string.Equals(value.ToString(), Language.Yes, StringComparison.CurrentCultureIgnoreCase))
+                if (value is not string stringValue)
+                {
+                    // Ensure 'value' is not null before passing it to the base method
+                    return value != null
+                        ? base.ConvertFrom(context, culture, value)
+                        : throw new ArgumentNullException(nameof(value), "Value cannot be null.");
+                }
+
+                if (string.Equals(stringValue, Language.Yes, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return true;
                 }
 
-                if (string.Equals(value.ToString(), Language.No, StringComparison.CurrentCultureIgnoreCase))
+                if (string.Equals(stringValue, Language.No, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return false;
                 }
@@ -234,27 +244,24 @@ namespace mRemoteNG.Tools
                 throw new Exception("Values must be \"Yes\" or \"No\"");
             }
 
-            public override object ConvertTo(ITypeDescriptorContext context,
-                                             CultureInfo culture,
-                                             object value,
-                                             Type destinationType)
+            public override object ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
             {
                 if (destinationType == typeof(string))
                 {
                     return Convert.ToBoolean(value) ? Language.Yes : Language.No;
                 }
 
-                return base.ConvertTo(context, culture, value, destinationType);
+                return base.ConvertTo(context, culture, value, destinationType) ?? throw new InvalidOperationException("Base conversion returned null.");
             }
 
-            public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+            public override bool GetStandardValuesSupported(ITypeDescriptorContext? context)
             {
                 return true;
             }
 
-            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext? context)
             {
-                bool[] bools = {true, false};
+                bool[] bools = { true, false };
 
                 StandardValuesCollection svc = new(bools);
 

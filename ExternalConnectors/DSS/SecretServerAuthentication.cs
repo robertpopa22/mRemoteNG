@@ -58,10 +58,7 @@ namespace SecretServerAuthentication.DSS
         /// <param name="refresh_token">The refresh token.  Required when refreshing a token.</param>
         /// <returns>Successful retrieval of an access token</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<TokenResponse> AuthorizeAsync(Grant_type grant_type, string username, string password, string refresh_token, string OTP)
-        {
-            return AuthorizeAsync(grant_type, username, password, refresh_token, System.Threading.CancellationToken.None, OTP);
-        }
+        public System.Threading.Tasks.Task<TokenResponse> AuthorizeAsync(Grant_type grant_type, string username, string password, string refresh_token, string OTP) => AuthorizeAsync(grant_type, username, password, refresh_token, System.Threading.CancellationToken.None, OTP);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Retrieve or Refresh Access Token</summary>
@@ -355,10 +352,7 @@ namespace SecretServerAuthentication.DSS
             Headers = headers;
         }
 
-        public override string ToString()
-        {
-            return string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
-        }
+        public override string ToString() => string.Format("HTTP Response: \n\n{0}\n\n{1}", Response, base.ToString());
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.14.8.0 (NJsonSchema v10.5.2.0 (Newtonsoft.Json v11.0.0.0))")]

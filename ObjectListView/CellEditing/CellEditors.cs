@@ -46,18 +46,14 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// These items allow combo boxes to remember a value and its description.
     /// </summary>
-    public class ComboBoxItem
+    /// <remarks>
+    /// 
+    /// </remarks>
+    /// <param name="key"></param>
+    /// <param name="description"></param>
+    public class ComboBoxItem(Object key, String description)
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="description"></param>
-        public ComboBoxItem(Object key, String description) {
-            this.key = key;
-            this.description = description;
-        }
-        private readonly String description;
+        private readonly String description = description;
 
         /// <summary>
         /// 
@@ -65,7 +61,7 @@ namespace BrightIdeasSoftware
         public Object Key {
             get { return key; }
         }
-        private readonly Object key;
+        private readonly Object key = key;
 
         /// <summary>
         /// Returns a string that represents the current object.

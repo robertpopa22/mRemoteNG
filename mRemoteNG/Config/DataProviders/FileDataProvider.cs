@@ -6,15 +6,10 @@ using mRemoteNG.App;
 namespace mRemoteNG.Config.DataProviders
 {
     [SupportedOSPlatform("windows")]
-    public class FileDataProvider : IDataProvider<string>
+    public class FileDataProvider(string filePath) : IDataProvider<string>
     {
         [SupportedOSPlatform("windows")]
-        public string FilePath { get; set; }
-
-        public FileDataProvider(string filePath)
-        {
-            FilePath = filePath;
-        }
+        public string FilePath { get; set; } = filePath;
 
         public virtual string Load()
         {

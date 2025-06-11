@@ -11,7 +11,7 @@ namespace mRemoteNG.Credential
     [SupportedOSPlatform("windows")]
     public class PlaceholderCredentialRecord(IEnumerable<Guid> id) : ICredentialRecord
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public Guid Id { get; } = id.FirstOrDefault();
 

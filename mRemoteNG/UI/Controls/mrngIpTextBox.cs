@@ -32,7 +32,7 @@ namespace mRemoteNG.UI.Controls
         /* Sets and Gets the tooltiptext on toolTip1 */
         public string ToolTipText
         {
-            get => toolTip1.GetToolTip(Octet1);
+            get => toolTip1.GetToolTip(Octet1) ?? string.Empty;
             set
             {
                 toolTip1.SetToolTip(Octet1, value);
@@ -46,34 +46,48 @@ namespace mRemoteNG.UI.Controls
         }
 
         /* Set or Get the string that represents the value in the box */
-        public override string Text
+        public override string? Text
         {
-            get => Octet1.Text + @"." + Octet2.Text + @"." + Octet3.Text + @"." + Octet4.Text;
+            get => (Octet1.Text ?? string.Empty) + @"." + (Octet2.Text ?? string.Empty) + @"." + (Octet3.Text ?? string.Empty) + @"." + (Octet4.Text ?? string.Empty);
             set
             {
                 if (!string.IsNullOrEmpty(value))
                 {
                     string[] pieces = value.Split(@".".ToCharArray(), 4);
-                    Octet1.Text = pieces[0];
-                    Octet2.Text = pieces[1];
-                    Octet3.Text = pieces[2];
-                    Octet4.Text = pieces[3];
+                    Octet1.Text = pieces.Length > 0 ? pieces[0] : string.Empty;
+                    Octet2.Text = pieces.Length > 1 ? pieces[1] : string.Empty;
+                    Octet3.Text = pieces.Length > 2 ? pieces[2] : string.Empty;
+                    Octet4.Text = pieces.Length > 3 ? pieces[3] : string.Empty;
                 }
                 else
                 {
-                    Octet1.Text = "";
-                    Octet2.Text = "";
-                    Octet3.Text = "";
-                    Octet4.Text = "";
+                    Octet1.Text = string.Empty;
+                    Octet2.Text = string.Empty;
+                    Octet3.Text = string.Empty;
+                    Octet4.Text = string.Empty;
                 }
             }
         }
+
+        /* Fix for CS8618: Initialize all non-nullable fields in the constructor to ensure they are not null. */
 
         public MrngIpTextBox()
         {
             // This call is required by the Windows.Forms Form Designer.
             InitializeComponent();
             SetTabSTopProperties();
+
+            // Initialize non-nullable fields to avoid CS8618 warnings
+            panel1 = new Panel();
+            Octet1 = new MrngTextBox();
+            Octet2 = new MrngTextBox();
+            Octet3 = new MrngTextBox();
+            Octet4 = new MrngTextBox();
+            label1 = new MrngLabel();
+            label2 = new MrngLabel();
+            label3 = new MrngLabel();
+            toolTip1 = new ToolTip();
+            components = new System.ComponentModel.Container();
         }
 
         private void SetTabSTopProperties()
@@ -269,10 +283,11 @@ namespace mRemoteNG.UI.Controls
             }
         }
 
-        /* Performs KeyPress analysis and handling to ensure a valid ip octet is
-         * being entered in Box1.
+        /* Update the method signatures to include nullable reference type annotations
+         * to match the nullability of the target delegate 'KeyPressEventHandler'.
          */
-        private void Box1_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void Box1_KeyPress(object? sender, KeyPressEventArgs e)
         {
             //Only Accept a '.', a numeral, or backspace
             if (e.KeyChar.ToString() == "." || char.IsDigit(e.KeyChar) || e.KeyChar == 8)
@@ -317,7 +332,7 @@ namespace mRemoteNG.UI.Controls
         /* Performs KeyPress analysis and handling to ensure a valid ip octet is
          * being entered in Box2.
          */
-        private void Box2_KeyPress(object sender, KeyPressEventArgs e)
+        private void Box2_KeyPress(object? sender, KeyPressEventArgs e)
         {
             //Similar to Box1_KeyPress but in special case for backspace moves cursor
             //to the previous box (Box1)
@@ -361,7 +376,7 @@ namespace mRemoteNG.UI.Controls
         /* Performs KeyPress analysis and handling to ensure a valid ip octet is
          * being entered in Box3.
          */
-        private void Box3_KeyPress(object sender, KeyPressEventArgs e)
+        private void Box3_KeyPress(object? sender, KeyPressEventArgs e)
         {
             //Identical to Box2_KeyPress except that previous box is Box2 and
             //next box is Box3
@@ -405,7 +420,7 @@ namespace mRemoteNG.UI.Controls
         /* Performs KeyPress analysis and handling to ensure a valid ip octet is
          * being entered in Box4.
          */
-        private void Box4_KeyPress(object sender, KeyPressEventArgs e)
+        private void Box4_KeyPress(object? sender, KeyPressEventArgs e)
         {
             //Similar to Box3 but ignores the '.' character and does not advance
             //to the next box.  Also Box3 is previous box for backspace case.
@@ -428,11 +443,11 @@ namespace mRemoteNG.UI.Controls
                 e.Handled = true;
         }
 
-        // Selects All text in a box for overwriting upon entering the box
-        private void Box_Enter(object sender, EventArgs e)
+        // Update the method signature to include nullable reference type annotations
+        private void Box_Enter(object? sender, EventArgs e)
         {
-            TextBox tb = (TextBox)sender;
-            tb.SelectAll();
+            TextBox? tb = sender as TextBox;
+            tb?.SelectAll();
         }
     }
 }

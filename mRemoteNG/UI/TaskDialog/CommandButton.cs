@@ -84,6 +84,8 @@ namespace mRemoteNG.UI.TaskDialog
             Font = new Font("Segoe UI", 11.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SmallFont = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             _themeManager = ThemeManager.getInstance();
+            imgArrow1 = Properties.Resources.GlyphRight_16x; // Initialize imgArrow1
+            imgArrow2 = Properties.Resources.GlyphRight_16x; // Initialize imgArrow2
         }
 
         #endregion

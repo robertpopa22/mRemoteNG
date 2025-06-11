@@ -63,7 +63,7 @@ namespace mRemoteNG.Messages
             _messageList.Clear();
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
         private void RaiseCollectionChangedEvent(NotifyCollectionChangedAction action, IList items)
         {

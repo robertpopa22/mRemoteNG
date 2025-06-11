@@ -4,13 +4,8 @@ using mRemoteNG.Connection.Protocol;
 namespace mRemoteNG.Tools.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class AttributeUsedInProtocol : Attribute
+    public class AttributeUsedInProtocol(params ProtocolType[] supportedProtocolTypes) : Attribute
     {
-        public ProtocolType[] SupportedProtocolTypes { get; }
-
-        public AttributeUsedInProtocol(params ProtocolType[] supportedProtocolTypes)
-        {
-            SupportedProtocolTypes = supportedProtocolTypes;
-        }
+        public ProtocolType[] SupportedProtocolTypes { get; } = supportedProtocolTypes;
     }
 }

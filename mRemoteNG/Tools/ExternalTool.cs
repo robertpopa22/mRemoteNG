@@ -19,11 +19,11 @@ namespace mRemoteNG.Tools
     [SupportedOSPlatform("windows")]
     public class ExternalTool : INotifyPropertyChanged
     {
-        private string _displayName;
-        private string _fileName;
+        private string _displayName = string.Empty; // Initialize to avoid CS8618
+        private string _fileName = string.Empty; // Initialize to avoid CS8618
         private bool _waitForExit;
-        private string _arguments;
-        private string _workingDir;
+        private string _arguments = string.Empty; // Initialize to avoid CS8618
+        private string _workingDir = string.Empty; // Initialize to avoid CS8618
         private bool _tryIntegrate;
         private bool _showOnToolbar = true;
         private bool _runElevated;
@@ -90,9 +90,9 @@ namespace mRemoteNG.Tools
             set => SetField(ref _runElevated, value, nameof(RunElevated));
         }
 
-        public ConnectionInfo ConnectionInfo { get; set; }
+        public ConnectionInfo ConnectionInfo { get; set; } = new ConnectionInfo(); // Initialize to avoid CS8618
 
-        public Icon Icon => File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) : Properties.Resources.mRemoteNG_Icon;
+        public Icon Icon => File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) ?? Properties.Resources.mRemoteNG_Icon : Properties.Resources.mRemoteNG_Icon;
 
         public Image Image => Icon?.ToBitmap() ?? Properties.Resources.mRemoteNG_Icon.ToBitmap();
 
@@ -111,18 +111,17 @@ namespace mRemoteNG.Tools
             RunElevated = runElevated;
         }
 
-        public void Start(ConnectionInfo startConnectionInfo = null)
+        public void Start(ConnectionInfo startConnectionInfo = null!)
         {
             try
             {
                 if (string.IsNullOrEmpty(FileName))
                 {
-                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
-                                                        "ExternalApp.Start() failed: FileName cannot be blank.");
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, "ExternalApp.Start() failed: FileName cannot be blank.");
                     return;
                 }
 
-                ConnectionInfo = startConnectionInfo;
+                ConnectionInfo = startConnectionInfo ?? new ConnectionInfo(); // Ensure ConnectionInfo is not null
                 if (startConnectionInfo is ContainerInfo container)
                 {
                     container.Children.ForEach(Start);
@@ -196,7 +195,7 @@ namespace mRemoteNG.Tools
             newConnectionInfo.Panel = Language._Tools;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged = delegate { }; // Updated to match nullability
 
         protected virtual void RaisePropertyChangedEvent(object sender, string propertyName)
         {

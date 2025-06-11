@@ -8,14 +8,9 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Tree
 {
     [SupportedOSPlatform("windows")]
-    public class SelectedConnectionDeletionConfirmer : IConfirm<ConnectionInfo>
+    public class SelectedConnectionDeletionConfirmer(Func<string, DialogResult> confirmationFunc) : IConfirm<ConnectionInfo>
     {
-        private readonly Func<string, DialogResult> _confirmationFunc;
-
-        public SelectedConnectionDeletionConfirmer(Func<string, DialogResult> confirmationFunc)
-        {
-            _confirmationFunc = confirmationFunc;
-        }
+        private readonly Func<string, DialogResult> _confirmationFunc = confirmationFunc;
 
         public bool Confirm(ConnectionInfo deletionTarget)
         {

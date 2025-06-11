@@ -588,6 +588,7 @@ using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Text.Json;
 
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
@@ -5869,9 +5870,18 @@ namespace BrightIdeasSoftware
             // Now that we have stored our state, convert it to a byte array
             using (MemoryStream ms = new MemoryStream())
             {
-                BinaryFormatter serializer = new BinaryFormatter();
-                serializer.AssemblyFormat = FormatterAssemblyStyle.Simple;
-                serializer.Serialize(ms, olvState);
+                //BinaryFormatter serializer = new BinaryFormatter();
+                //serializer.AssemblyFormat = FormatterAssemblyStyle.Simple;
+                //serializer.Serialize(ms, olvState);
+                //return ms.ToArray();
+
+                // Use System.Text.Json for serialization instead of BinaryFormatter
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = false
+                };
+                byte[] serializedData = JsonSerializer.SerializeToUtf8Bytes(olvState, options);
+                ms.Write(serializedData, 0, serializedData.Length);
                 return ms.ToArray();
             }
         }
@@ -5886,6 +5896,7 @@ namespace BrightIdeasSoftware
         {
             using (MemoryStream ms = new MemoryStream(state))
             {
+                /*
                 BinaryFormatter deserializer = new BinaryFormatter();
                 ObjectListViewState olvState;
                 try
@@ -5893,6 +5904,45 @@ namespace BrightIdeasSoftware
                     olvState = deserializer.Deserialize(ms) as ObjectListViewState;
                 }
                 catch (System.Runtime.Serialization.SerializationException)
+                {
+                    return false;
+                }
+                // The number of columns has changed. We have no way to match old
+                // columns to the new ones, so we just give up.
+                if (olvState == null || olvState.NumberOfColumns != this.AllColumns.Count)
+                    return false;
+                if (olvState.SortColumn == -1)
+                {
+                    this.PrimarySortColumn = null;
+                    this.PrimarySortOrder = SortOrder.None;
+                }
+                else
+                {
+                    this.PrimarySortColumn = this.AllColumns[olvState.SortColumn];
+                    this.PrimarySortOrder = olvState.LastSortOrder;
+                }
+                for (int i = 0; i < olvState.NumberOfColumns; i++)
+                {
+                    OLVColumn column = this.AllColumns[i];
+                    column.Width = (int)olvState.ColumnWidths[i];
+                    column.IsVisible = (bool)olvState.ColumnIsVisible[i];
+                    column.LastDisplayIndex = (int)olvState.ColumnDisplayIndicies[i];
+                }
+                // ReSharper disable RedundantCheckBeforeAssignment
+                if (olvState.IsShowingGroups != this.ShowGroups)
+                    // ReSharper restore RedundantCheckBeforeAssignment
+                    this.ShowGroups = olvState.IsShowingGroups;
+                if (this.View == olvState.CurrentView)
+                    this.RebuildColumns();
+                else
+                    this.View = olvState.CurrentView;
+                */
+                ObjectListViewState olvState;
+                try
+                {
+                    olvState = JsonSerializer.Deserialize<ObjectListViewState>(ms.ToArray());
+                }
+                catch (JsonException)
                 {
                     return false;
                 }

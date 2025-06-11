@@ -158,15 +158,12 @@ namespace BrightIdeasSoftware
     /// This class isn't intended to be used directly, but it is left as a public
     /// class just in case someone wants to subclass it.
     /// </remarks>
-    public class FastObjectListDataSource : AbstractVirtualListDataSource
+    /// <remarks>
+    /// Create a FastObjectListDataSource
+    /// </remarks>
+    /// <param name="listView"></param>
+    public class FastObjectListDataSource(FastObjectListView listView) : AbstractVirtualListDataSource(listView)
     {
-        /// <summary>
-        /// Create a FastObjectListDataSource
-        /// </summary>
-        /// <param name="listView"></param>
-        public FastObjectListDataSource(FastObjectListView listView)
-            : base(listView) {
-        }
 
         #region IVirtualListDataSource Members
 

@@ -135,17 +135,17 @@ namespace mRemoteNG.Config.Putty
         {
             public static string[] Names => Instance.GetSessionNames();
 
-            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext? context)
             {
                 return new StandardValuesCollection(Names);
             }
 
-            public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
+            public override bool GetStandardValuesExclusive(ITypeDescriptorContext? context)
             {
                 return true;
             }
 
-            public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+            public override bool GetStandardValuesSupported(ITypeDescriptorContext? context)
             {
                 return true;
             }

@@ -7,15 +7,9 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Tools
 {
     [SupportedOSPlatform("windows")]
-    public class WindowPlacement
+    public class WindowPlacement(Form form)
     {
-        private Form _form;
-
-
-        public WindowPlacement(Form form)
-        {
-            _form = form;
-        }
+        private Form _form = form;
 
 
         #region Public Properties

@@ -5,14 +5,9 @@ using mRemoteNG.App;
 namespace mRemoteNG.Messages.MessageWriters
 {
     [SupportedOSPlatform("windows")]
-    public class TextLogMessageWriter : IMessageWriter
+    public class TextLogMessageWriter(Logger logger) : IMessageWriter
     {
-        private readonly Logger _logger;
-
-        public TextLogMessageWriter(Logger logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
+        private readonly Logger _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         public void Write(IMessage message)
         {

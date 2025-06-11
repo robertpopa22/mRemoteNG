@@ -19,22 +19,18 @@ namespace mRemoteNG.Tree
         {
             if (RootNodes.Contains(rootNode)) return;
             RootNodes.Add(rootNode);
-            rootNode.CollectionChanged += RaiseCollectionChangedEvent;
-            rootNode.PropertyChanged += RaisePropertyChangedEvent;
-            RaiseCollectionChangedEvent(this,
-                                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add,
-                                                                             rootNode));
+            rootNode.CollectionChanged += RaiseCollectionChangedEvent!;
+            rootNode.PropertyChanged += RaisePropertyChangedEvent!;
+            RaiseCollectionChangedEvent(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, rootNode));
         }
 
         public void RemoveRootNode(ContainerInfo rootNode)
         {
             if (!RootNodes.Contains(rootNode)) return;
-            rootNode.CollectionChanged -= RaiseCollectionChangedEvent;
-            rootNode.PropertyChanged -= RaisePropertyChangedEvent;
+            rootNode.CollectionChanged -= RaiseCollectionChangedEvent!;
+            rootNode.PropertyChanged -= RaisePropertyChangedEvent!;
             RootNodes.Remove(rootNode);
-            RaiseCollectionChangedEvent(this,
-                                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove,
-                                                                             rootNode));
+            RaiseCollectionChangedEvent(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, rootNode));
         }
 
         public IReadOnlyList<ConnectionInfo> GetRecursiveChildList()
@@ -76,16 +72,16 @@ namespace mRemoteNG.Tree
             connectionInfo?.RemoveParent();
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
-        private void RaiseCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs args)
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void RaiseCollectionChangedEvent(object? sender, NotifyCollectionChangedEventArgs args)
         {
             CollectionChanged?.Invoke(sender, args);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChangedEvent(object sender, PropertyChangedEventArgs args)
+        private void RaisePropertyChangedEvent(object? sender, PropertyChangedEventArgs args)
         {
             PropertyChanged?.Invoke(sender, args);
         }

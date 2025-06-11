@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Reflection;
@@ -7,14 +7,9 @@ using System.Reflection;
 
 namespace mRemoteNG.Tools
 {
-    public class PropertyGridCommandSite : IMenuCommandService, ISite
+    public class PropertyGridCommandSite(object @object) : IMenuCommandService, ISite
     {
-        private readonly object TheObject;
-
-        public PropertyGridCommandSite(object @object)
-        {
-            TheObject = @object;
-        }
+        private readonly object TheObject = @object;
 
         public DesignerVerbCollection Verbs
         {
@@ -56,10 +51,9 @@ namespace mRemoteNG.Tools
             }
         }
 
-        private void VerbEventHandler(object sender, EventArgs e)
+        private void VerbEventHandler(object? sender, EventArgs e)
         {
-            DesignerVerb verb = sender as DesignerVerb;
-            if (verb == null)
+            if (sender is not DesignerVerb verb)
             {
                 return;
             }
@@ -100,16 +94,16 @@ namespace mRemoteNG.Tools
 
         public object GetService(Type serviceType)
         {
-            return serviceType == typeof(IMenuCommandService) ? this : null;
+            return serviceType == typeof(IMenuCommandService) ? this : null!;
         }
 
         public IComponent Component => throw new NotSupportedException();
 
-        public IContainer Container => null;
+        public IContainer Container => null!;
 
         public bool DesignMode => true;
 
-        public string Name
+        public string? Name
         {
             get => throw new NotSupportedException();
             set => throw new NotSupportedException();
@@ -151,13 +145,8 @@ namespace mRemoteNG.Tools
         }
     }
 
-    public class CommandAttribute : Attribute
+    public class CommandAttribute(bool isCommand = true) : Attribute
     {
-        public bool Command { get; set; }
-
-        public CommandAttribute(bool isCommand = true)
-        {
-            Command = isCommand;
-        }
+        public bool Command { get; set; } = isCommand;
     }
 }

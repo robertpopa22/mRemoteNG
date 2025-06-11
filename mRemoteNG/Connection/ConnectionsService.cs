@@ -23,12 +23,12 @@ using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 namespace mRemoteNG.Connection
 {
     [SupportedOSPlatform("windows")]
-    public class ConnectionsService
+    public class ConnectionsService(PuttySessionsManager puttySessionsManager)
     {
         private static readonly object SaveLock = new();
-        private readonly PuttySessionsManager _puttySessionsManager;
-        private readonly IDataProvider<string> _localConnectionPropertiesDataProvider;
-        private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer;
+        private readonly PuttySessionsManager _puttySessionsManager = puttySessionsManager ?? throw new ArgumentNullException(nameof(puttySessionsManager));
+        private readonly IDataProvider<string> _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
+        private readonly LocalConnectionPropertiesXmlSerializer _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
         private bool _batchingSaves = false;
         private bool _saveRequested = false;
         private bool _saveAsyncRequested = false;
@@ -41,13 +41,6 @@ namespace mRemoteNG.Connection
 		public DateTime LastFileUpdate { get; set; }
 
         public ConnectionTreeModel ConnectionTreeModel { get; private set; }
-
-        public ConnectionsService(PuttySessionsManager puttySessionsManager)
-        {
-            _puttySessionsManager = puttySessionsManager ?? throw new ArgumentNullException(nameof(puttySessionsManager));
-            _localConnectionPropertiesDataProvider = new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LocalConnectionProperties));
-            _localConnectionPropertiesSerializer = new LocalConnectionPropertiesXmlSerializer();
-        }
 
         public void NewConnectionsFile(string filename)
         {

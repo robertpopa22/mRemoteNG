@@ -311,18 +311,14 @@ namespace BrightIdeasSoftware
     /// <remarks>
     /// Munger uses a chain of these resolve a dotted aspect name.
     /// </remarks>
-    public class SimpleMunger
+    /// <remarks>
+    /// Create a SimpleMunger
+    /// </remarks>
+    /// <param name="aspectName"></param>
+    public class SimpleMunger(String aspectName)
     {
-        #region Life and death
 
-        /// <summary>
-        /// Create a SimpleMunger
-        /// </summary>
-        /// <param name="aspectName"></param>
-        public SimpleMunger(String aspectName)
-        {
-            this.aspectName = aspectName;
-        }
+        #region Life and death
 
         #endregion
 
@@ -344,7 +340,7 @@ namespace BrightIdeasSoftware
         public string AspectName {
             get { return aspectName; }
         }
-        private readonly string aspectName;
+        private readonly string aspectName = aspectName;
 
         #endregion
 
@@ -494,19 +490,14 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// These exceptions are raised when a munger finds something it cannot process
     /// </summary>
-    public class MungerException : ApplicationException
+    /// <remarks>
+    /// Create a MungerException
+    /// </remarks>
+    /// <param name="munger"></param>
+    /// <param name="target"></param>
+    /// <param name="ex"></param>
+    public class MungerException(SimpleMunger munger, object target, Exception ex) : ApplicationException("Munger failed", ex)
     {
-        /// <summary>
-        /// Create a MungerException
-        /// </summary>
-        /// <param name="munger"></param>
-        /// <param name="target"></param>
-        /// <param name="ex"></param>
-        public MungerException(SimpleMunger munger, object target, Exception ex)
-            : base("Munger failed", ex) {
-            this.munger = munger;
-            this.target = target;
-        }
 
         /// <summary>
         /// Get the munger that raised the exception
@@ -514,7 +505,7 @@ namespace BrightIdeasSoftware
         public SimpleMunger Munger {
             get { return munger; }
         }
-        private readonly SimpleMunger munger;
+        private readonly SimpleMunger munger = munger;
 
         /// <summary>
         /// Gets the target that threw the exception
@@ -522,7 +513,7 @@ namespace BrightIdeasSoftware
         public object Target {
             get { return target; }
         }
-        private readonly object target;
+        private readonly object target = target;
     }
 
     /*

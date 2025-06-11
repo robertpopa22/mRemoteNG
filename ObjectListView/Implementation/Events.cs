@@ -878,25 +878,16 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// Let the world know that a cell edit operation is beginning or ending
     /// </summary>
-    public class CellEditEventArgs : EventArgs
+    /// <remarks>
+    /// Create an event args
+    /// </remarks>
+    /// <param name="column"></param>
+    /// <param name="control"></param>
+    /// <param name="cellBounds"></param>
+    /// <param name="item"></param>
+    /// <param name="subItemIndex"></param>
+    public class CellEditEventArgs(OLVColumn column, Control control, Rectangle cellBounds, OLVListItem item, int subItemIndex) : EventArgs
     {
-        /// <summary>
-        /// Create an event args
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="control"></param>
-        /// <param name="cellBounds"></param>
-        /// <param name="item"></param>
-        /// <param name="subItemIndex"></param>
-        public CellEditEventArgs(OLVColumn column, Control control, Rectangle cellBounds, OLVListItem item, int subItemIndex) {
-            this.Control = control;
-            this.column = column;
-            this.cellBounds = cellBounds;
-            this.listViewItem = item;
-            this.rowObject = item.RowObject;
-            this.subItemIndex = subItemIndex;
-            this.value = column.GetValue(item.RowObject);
-        }
 
         /// <summary>
         /// Change this to true to cancel the cell editing operation.
@@ -917,7 +908,7 @@ namespace BrightIdeasSoftware
         /// entered and commit that value to the model. Changing the control during the finishing
         /// event has no effect.
         /// </summary>
-        public Control Control;
+        public Control Control = control;
 
         /// <summary>
         /// The column of the cell that is going to be or has been edited.
@@ -925,7 +916,7 @@ namespace BrightIdeasSoftware
         public OLVColumn Column {
             get { return this.column; }
         }
-        private OLVColumn column;
+        private OLVColumn column = column;
 
         /// <summary>
         /// The model object of the row of the cell that is going to be or has been edited.
@@ -933,7 +924,7 @@ namespace BrightIdeasSoftware
         public Object RowObject {
             get { return this.rowObject; }
         }
-        private Object rowObject;
+        private Object rowObject = item.RowObject;
 
         /// <summary>
         /// The listview item of the cell that is going to be or has been edited.
@@ -941,7 +932,7 @@ namespace BrightIdeasSoftware
         public OLVListItem ListViewItem {
             get { return this.listViewItem; }
         }
-        private OLVListItem listViewItem;
+        private OLVListItem listViewItem = item;
 
         /// <summary>
         /// The data value of the cell as it stands in the control.
@@ -959,7 +950,7 @@ namespace BrightIdeasSoftware
         public int SubItemIndex {
             get { return this.subItemIndex; }
         }
-        private int subItemIndex;
+        private int subItemIndex = subItemIndex;
 
         /// <summary>
         /// The data value of the cell before the edit operation began.
@@ -967,7 +958,7 @@ namespace BrightIdeasSoftware
         public Object Value {
             get { return this.value; }
         }
-        private Object value;
+        private Object value = column.GetValue(item.RowObject);
 
         /// <summary>
         /// The bounds of the cell that is going to be or has been edited.
@@ -975,7 +966,7 @@ namespace BrightIdeasSoftware
         public Rectangle CellBounds {
             get { return this.cellBounds; }
         }
-        private Rectangle cellBounds;
+        private Rectangle cellBounds = cellBounds;
 
         /// <summary>
         /// Gets or sets whether the control used for editing should be auto matically disposed
@@ -1160,25 +1151,22 @@ namespace BrightIdeasSoftware
         }
         private SortOrder secondarySortOrder;
     }
-    
+
     /// <summary>
     /// This event is triggered when the contents of a list have changed
     /// and we want the world to have a chance to filter the list.
     /// </summary>
-    public class FilterEventArgs : EventArgs
+    /// <remarks>
+    /// Create a FilterEventArgs
+    /// </remarks>
+    /// <param name="objects"></param>
+    public class FilterEventArgs(IEnumerable objects) : EventArgs
     {
-        /// <summary>
-        /// Create a FilterEventArgs
-        /// </summary>
-        /// <param name="objects"></param>
-        public FilterEventArgs(IEnumerable objects) {
-            this.Objects = objects;
-        }
 
         /// <summary>
         /// Gets or sets what objects are being filtered
         /// </summary>
-        public IEnumerable Objects;
+        public IEnumerable Objects = objects;
 
         /// <summary>
         /// Gets or sets what objects survived the filtering
@@ -1267,17 +1255,13 @@ namespace BrightIdeasSoftware
     /// <remarks>
     /// When used with a virtual list, OldObjects will always be null.
     /// </remarks>
-    public class ItemsChangingEventArgs : CancellableEventArgs
+    /// <remarks>
+    /// Create ItemsChangingEventArgs
+    /// </remarks>
+    /// <param name="oldObjects"></param>
+    /// <param name="newObjects"></param>
+    public class ItemsChangingEventArgs(IEnumerable oldObjects, IEnumerable newObjects) : CancellableEventArgs
     {
-        /// <summary>
-        /// Create ItemsChangingEventArgs
-        /// </summary>
-        /// <param name="oldObjects"></param>
-        /// <param name="newObjects"></param>
-        public ItemsChangingEventArgs(IEnumerable oldObjects, IEnumerable newObjects) {
-            this.oldObjects = oldObjects;
-            this.NewObjects = newObjects;
-        }
 
         /// <summary>
         /// Gets the objects that were in the list before it change.
@@ -1286,47 +1270,40 @@ namespace BrightIdeasSoftware
         public IEnumerable OldObjects {
             get { return oldObjects; }
         }
-        private IEnumerable oldObjects;
+        private IEnumerable oldObjects = oldObjects;
 
         /// <summary>
         /// Gets or sets the objects that will be in the list after it changes.
         /// </summary>
-        public IEnumerable NewObjects;
+        public IEnumerable NewObjects = newObjects;
     }
 
     /// <summary>
     /// This event is triggered by RemoveObjects before any change has been made to the list.
     /// </summary>
-    public class ItemsRemovingEventArgs : CancellableEventArgs
+    /// <remarks>
+    /// Create an ItemsRemovingEventArgs
+    /// </remarks>
+    /// <param name="objectsToRemove"></param>
+    public class ItemsRemovingEventArgs(ICollection objectsToRemove) : CancellableEventArgs
     {
-        /// <summary>
-        /// Create an ItemsRemovingEventArgs
-        /// </summary>
-        /// <param name="objectsToRemove"></param>
-        public ItemsRemovingEventArgs(ICollection objectsToRemove) {
-            this.ObjectsToRemove = objectsToRemove;
-        }
 
         /// <summary>
         /// Gets or sets the objects that will be removed
         /// </summary>
-        public ICollection ObjectsToRemove;
+        public ICollection ObjectsToRemove = objectsToRemove;
     }
 
     /// <summary>
     /// Triggered after the user types into a list
     /// </summary>
-    public class AfterSearchingEventArgs : EventArgs
+    /// <remarks>
+    /// Create an AfterSearchingEventArgs
+    /// </remarks>
+    /// <param name="stringToFind"></param>
+    /// <param name="indexSelected"></param>
+    public class AfterSearchingEventArgs(string stringToFind, int indexSelected) : EventArgs
     {
-        /// <summary>
-        /// Create an AfterSearchingEventArgs
-        /// </summary>
-        /// <param name="stringToFind"></param>
-        /// <param name="indexSelected"></param>
-        public AfterSearchingEventArgs(string stringToFind, int indexSelected) {
-            this.stringToFind = stringToFind;
-            this.indexSelected = indexSelected;
-        }
 
         /// <summary>
         /// Gets the string that was actually searched for
@@ -1334,7 +1311,7 @@ namespace BrightIdeasSoftware
         public string StringToFind {
             get { return this.stringToFind; }
         }
-        private string stringToFind;
+        private string stringToFind = stringToFind;
 
         /// <summary>
         /// Gets or sets whether an the event handler already handled this event
@@ -1348,23 +1325,19 @@ namespace BrightIdeasSoftware
         public int IndexSelected {
             get { return this.indexSelected; }
         }
-        private int indexSelected;
+        private int indexSelected = indexSelected;
     }
 
     /// <summary>
     /// Triggered when the user types into a list
     /// </summary>
-    public class BeforeSearchingEventArgs : CancellableEventArgs
+    /// <remarks>
+    /// Create BeforeSearchingEventArgs
+    /// </remarks>
+    /// <param name="stringToFind"></param>
+    /// <param name="startSearchFrom"></param>
+    public class BeforeSearchingEventArgs(string stringToFind, int startSearchFrom) : CancellableEventArgs
     {
-        /// <summary>
-        /// Create BeforeSearchingEventArgs
-        /// </summary>
-        /// <param name="stringToFind"></param>
-        /// <param name="startSearchFrom"></param>
-        public BeforeSearchingEventArgs(string stringToFind, int startSearchFrom) {
-            this.StringToFind = stringToFind;
-            this.StartSearchFrom = startSearchFrom;
-        }
 
         /// <summary>
         /// Gets or sets the string that will be found by the search routine
@@ -1372,12 +1345,12 @@ namespace BrightIdeasSoftware
         /// <remarks>Modifying this value does not modify the memory of what the user has typed. 
         /// When the user next presses a character, the search string will revert to what 
         /// the user has actually typed.</remarks>
-        public string StringToFind;
+        public string StringToFind = stringToFind;
 
         /// <summary>
         /// Gets or sets the index of the first row that will be considered to matching.
         /// </summary>
-        public int StartSearchFrom;
+        public int StartSearchFrom = startSearchFrom;
     }
 
     /// <summary>
@@ -2035,27 +2008,20 @@ namespace BrightIdeasSoftware
             return string.Format("NewHotCellHitLocation: {0}, HotCellHitLocationEx: {1}, NewHotColumnIndex: {2}, NewHotRowIndex: {3}, HotGroup: {4}", this.newHotCellHitLocation, this.hotCellHitLocationEx, this.newHotColumnIndex, this.newHotRowIndex, this.hotGroup);
         }
     }
-    
+
     /// <summary>
     /// Let the world know that a checkbox on a subitem is changing
     /// </summary>
-    public class SubItemCheckingEventArgs : CancellableEventArgs
+    /// <remarks>
+    /// Create a new event block
+    /// </remarks>
+    /// <param name="column"></param>
+    /// <param name="item"></param>
+    /// <param name="subItemIndex"></param>
+    /// <param name="currentValue"></param>
+    /// <param name="newValue"></param>
+    public class SubItemCheckingEventArgs(OLVColumn column, OLVListItem item, int subItemIndex, CheckState currentValue, CheckState newValue) : CancellableEventArgs
     {
-        /// <summary>
-        /// Create a new event block
-        /// </summary>
-        /// <param name="column"></param>
-        /// <param name="item"></param>
-        /// <param name="subItemIndex"></param>
-        /// <param name="currentValue"></param>
-        /// <param name="newValue"></param>
-        public SubItemCheckingEventArgs(OLVColumn column, OLVListItem item, int subItemIndex, CheckState currentValue, CheckState newValue) {
-            this.column = column;
-            this.listViewItem = item;
-            this.subItemIndex = subItemIndex;
-            this.currentValue = currentValue;
-            this.newValue = newValue;
-        }
 
         /// <summary>
         /// The column of the cell that is having its checkbox changed.
@@ -2063,7 +2029,7 @@ namespace BrightIdeasSoftware
         public OLVColumn Column {
             get { return this.column; }
         }
-        private OLVColumn column;
+        private OLVColumn column = column;
 
         /// <summary>
         /// The model object of the row of the cell that is having its checkbox changed.
@@ -2078,7 +2044,7 @@ namespace BrightIdeasSoftware
         public OLVListItem ListViewItem {
             get { return this.listViewItem; }
         }
-        private OLVListItem listViewItem;
+        private OLVListItem listViewItem = item;
 
         /// <summary>
         /// The current check state of the cell.
@@ -2086,7 +2052,7 @@ namespace BrightIdeasSoftware
         public CheckState CurrentValue {
             get { return this.currentValue; }
         }
-        private CheckState currentValue;
+        private CheckState currentValue = currentValue;
 
         /// <summary>
         /// The proposed new check state of the cell.
@@ -2095,7 +2061,7 @@ namespace BrightIdeasSoftware
             get { return this.newValue; }
             set { this.newValue = value; }
         }
-        private CheckState newValue;
+        private CheckState newValue = newValue;
 
         /// <summary>
         /// The index of the cell that is going to be or has been edited.
@@ -2103,21 +2069,18 @@ namespace BrightIdeasSoftware
         public int SubItemIndex {
             get { return this.subItemIndex; }
         }
-        private int subItemIndex;
+        private int subItemIndex = subItemIndex;
     }
 
     /// <summary>
     /// This event argument block is used when groups are created for a list.
     /// </summary>
-    public class CreateGroupsEventArgs : EventArgs
+    /// <remarks>
+    /// Create a CreateGroupsEventArgs
+    /// </remarks>
+    /// <param name="parms"></param>
+    public class CreateGroupsEventArgs(GroupingParameters parms) : EventArgs
     {
-        /// <summary>
-        /// Create a CreateGroupsEventArgs
-        /// </summary>
-        /// <param name="parms"></param>
-        public CreateGroupsEventArgs(GroupingParameters parms) {
-            this.parameters = parms;
-        }
 
         /// <summary>
         /// Gets the settings that control the creation of groups
@@ -2125,7 +2088,7 @@ namespace BrightIdeasSoftware
         public GroupingParameters Parameters {
             get { return this.parameters; }
         }
-        private GroupingParameters parameters;
+        private GroupingParameters parameters = parms;
 
         /// <summary>
         /// Gets or sets the groups that should be used
@@ -2151,16 +2114,12 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// This event argument block is used when the text of a group task is clicked
     /// </summary>
-    public class GroupTaskClickedEventArgs : EventArgs
+    /// <remarks>
+    /// Create a GroupTaskClickedEventArgs
+    /// </remarks>
+    /// <param name="group"></param>
+    public class GroupTaskClickedEventArgs(OLVGroup group) : EventArgs
     {
-        /// <summary>
-        /// Create a GroupTaskClickedEventArgs
-        /// </summary>
-        /// <param name="group"></param>
-        public GroupTaskClickedEventArgs(OLVGroup group)
-        {
-            this.group = group;
-        }
 
         /// <summary>
         /// Gets which group was clicked
@@ -2169,7 +2128,7 @@ namespace BrightIdeasSoftware
         {
             get { return this.group; }
         }
-        private readonly OLVGroup group;
+        private readonly OLVGroup group = group;
     }
 
     /// <summary>
@@ -2207,18 +2166,13 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// This event argument block is used when the state of group has changed (collapsed, selected)
     /// </summary>
-    public class GroupStateChangedEventArgs : EventArgs {
-        /// <summary>
-        /// Create a GroupStateChangedEventArgs
-        /// </summary>
-        /// <param name="group"></param>
-        /// <param name="oldState"> </param>
-        /// <param name="newState"> </param>
-        public GroupStateChangedEventArgs(OLVGroup group, GroupState oldState, GroupState newState) {
-            this.group = group;
-            this.oldState = oldState;
-            this.newState = newState;
-        }
+    /// <remarks>
+    /// Create a GroupStateChangedEventArgs
+    /// </remarks>
+    /// <param name="group"></param>
+    /// <param name="oldState"> </param>
+    /// <param name="newState"> </param>
+    public class GroupStateChangedEventArgs(OLVGroup group, GroupState oldState, GroupState newState) : EventArgs {
 
         /// <summary>
         /// Gets whether the group was collapsed by this event
@@ -2291,7 +2245,7 @@ namespace BrightIdeasSoftware
             get { return this.group; }
         }
 
-        private readonly OLVGroup group;
+        private readonly OLVGroup group = group;
 
         /// <summary>
         /// Gets the previous state of the group
@@ -2300,7 +2254,7 @@ namespace BrightIdeasSoftware
             get { return this.oldState; }
         }
 
-        private readonly GroupState oldState;
+        private readonly GroupState oldState = oldState;
 
 
         /// <summary>
@@ -2310,7 +2264,7 @@ namespace BrightIdeasSoftware
             get { return this.newState; }
         }
 
-        private readonly GroupState newState;
+        private readonly GroupState newState = newState;
     }
 
     /// <summary>

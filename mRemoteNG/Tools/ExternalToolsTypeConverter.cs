@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Tools
@@ -26,18 +27,33 @@ namespace mRemoteNG.Tools
             }
         }
 
-        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        public override StandardValuesCollection GetStandardValues([NotNull] ITypeDescriptorContext? context)
         {
+            if (context == null)
+            {
+                throw new System.ArgumentNullException(nameof(context));
+            }
+
             return new StandardValuesCollection(ExternalTools);
         }
 
-        public override bool GetStandardValuesExclusive(System.ComponentModel.ITypeDescriptorContext context)
+        public override bool GetStandardValuesExclusive([NotNull] ITypeDescriptorContext? context)
         {
+            if (context == null)
+            {
+                throw new System.ArgumentNullException(nameof(context));
+            }
+
             return true;
         }
 
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        public override bool GetStandardValuesSupported([NotNull] ITypeDescriptorContext? context)
         {
+            if (context == null)
+            {
+                throw new System.ArgumentNullException(nameof(context));
+            }
+
             return true;
         }
     }

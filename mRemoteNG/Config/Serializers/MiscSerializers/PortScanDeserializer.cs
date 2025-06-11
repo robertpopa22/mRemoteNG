@@ -10,14 +10,9 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Serializers.MiscSerializers
 {
     [SupportedOSPlatform("windows")]
-    public class PortScanDeserializer : IDeserializer<IEnumerable<ScanHost>, ConnectionTreeModel>
+    public class PortScanDeserializer(ProtocolType targetProtocolType) : IDeserializer<IEnumerable<ScanHost>, ConnectionTreeModel>
     {
-        private readonly ProtocolType _targetProtocolType;
-
-        public PortScanDeserializer(ProtocolType targetProtocolType)
-        {
-            _targetProtocolType = targetProtocolType;
-        }
+        private readonly ProtocolType _targetProtocolType = targetProtocolType;
 
         public ConnectionTreeModel Deserialize(IEnumerable<ScanHost> scannedHosts)
         {

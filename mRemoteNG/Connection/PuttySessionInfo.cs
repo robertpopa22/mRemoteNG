@@ -19,11 +19,11 @@ namespace mRemoteNG.Connection
 
         [Browsable(false)] public RootPuttySessionsNodeInfo RootRootPuttySessionsInfo { get; set; }
 
-        [ReadOnly(true)] public override string PuttySession { get; set; }
+        [ReadOnly(true)] public override string PuttySession { get; set; } = string.Empty;
 
-        [ReadOnly(true)] public override string Name { get; set; }
+        [ReadOnly(true)] public override string Name { get; set; } = string.Empty;
 
-        [ReadOnly(true), Browsable(false)] public override string Description { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string Description { get; set; } = string.Empty;
 
         [ReadOnly(true), Browsable(false)]
         public override string Icon
@@ -39,24 +39,24 @@ namespace mRemoteNG.Connection
             set { }
         }
 
-        [ReadOnly(true)] public override string Hostname { get; set; }
+        [ReadOnly(true)] public override string Hostname { get; set; } = string.Empty;
 
-        [ReadOnly(true)] public override string Username { get; set; }
+        [ReadOnly(true)] public override string Username { get; set; } = string.Empty;
 
         //[ReadOnly(true), Browsable(false)] public override SecureString Password { get; set; }
-        [ReadOnly(true), Browsable(false)] public override string Password { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string Password { get; set; } = string.Empty;
 
         [ReadOnly(true)] public override ProtocolType Protocol { get; set; }
 
         [ReadOnly(true)] public override int Port { get; set; }
 
-        [ReadOnly(true), Browsable(false)] public override string PreExtApp { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string PreExtApp { get; set; } = string.Empty;
 
-        [ReadOnly(true), Browsable(false)] public override string PostExtApp { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string PostExtApp { get; set; } = string.Empty;
 
-        [ReadOnly(true), Browsable(false)] public override string MacAddress { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string MacAddress { get; set; } = string.Empty;
 
-        [ReadOnly(true), Browsable(false)] public override string UserField { get; set; }
+        [ReadOnly(true), Browsable(false)] public override string UserField { get; set; } = string.Empty;
 
         #endregion
 

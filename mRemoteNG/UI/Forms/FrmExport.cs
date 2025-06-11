@@ -272,20 +272,14 @@ namespace mRemoteNG.UI.Forms
         #region Private Classes
 
         [ImmutableObject(true)]
-        private class ExportFormat
+        private class ExportFormat(SaveFormat format)
         {
             #region Public Properties
 
-            public SaveFormat Format { get; }
+            public SaveFormat Format { get; } = format;
 
             #endregion
-
             #region Constructors
-
-            public ExportFormat(SaveFormat format)
-            {
-                Format = format;
-            }
 
             #endregion
 

@@ -231,15 +231,12 @@ namespace BrightIdeasSoftware {
     /// This class provides compatibility for v1 RendererDelegates
     /// </summary>
     [ToolboxItem(false)]
-    internal class Version1Renderer : AbstractRenderer {
-        public Version1Renderer(RenderDelegate renderDelegate) {
-            this.RenderDelegate = renderDelegate;
-        }
+    internal class Version1Renderer(RenderDelegate renderDelegate) : AbstractRenderer {
 
         /// <summary>
         /// The renderer delegate that this renderer wraps
         /// </summary>
-        public RenderDelegate RenderDelegate;
+        public RenderDelegate RenderDelegate = renderDelegate;
 
         #region IRenderer Members
 

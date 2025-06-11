@@ -309,12 +309,9 @@ namespace BrightIdeasSoftware
     /// A default implementation of the IOwnerDataCallback interface
     /// </summary>
     [Guid("6FC61F50-80E8-49b4-B200-3F38D3865ABD")]
-    internal class OwnerDataCallbackImpl : IOwnerDataCallback
+    internal class OwnerDataCallbackImpl(VirtualObjectListView olv) : IOwnerDataCallback
     {
-        public OwnerDataCallbackImpl(VirtualObjectListView olv) {
-            this.olv = olv;
-        }
-        VirtualObjectListView olv;
+        VirtualObjectListView olv = olv;
 
         #region IOwnerDataCallback Members
 

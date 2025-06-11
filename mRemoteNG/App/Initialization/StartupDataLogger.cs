@@ -9,14 +9,9 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.App.Initialization
 {
     [SupportedOSPlatform("windows")]
-    public class StartupDataLogger
+    public class StartupDataLogger(MessageCollector messageCollector)
     {
-        private readonly MessageCollector _messageCollector;
-
-        public StartupDataLogger(MessageCollector messageCollector)
-        {
-            _messageCollector = messageCollector ?? throw new ArgumentNullException(nameof(messageCollector));
-        }
+        private readonly MessageCollector _messageCollector = messageCollector ?? throw new ArgumentNullException(nameof(messageCollector));
 
         public void LogStartupData()
         {

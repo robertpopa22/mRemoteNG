@@ -9,14 +9,9 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.DataProviders
 {
     [SupportedOSPlatform("windows")]
-    public class SqlDataProvider : IDataProvider<DataTable>
+    public class SqlDataProvider(IDatabaseConnector databaseConnector) : IDataProvider<DataTable>
     {
-        public IDatabaseConnector DatabaseConnector { get; }
-
-        public SqlDataProvider(IDatabaseConnector databaseConnector)
-        {
-            DatabaseConnector = databaseConnector;
-        }
+        public IDatabaseConnector DatabaseConnector { get; } = databaseConnector;
 
         public DataTable Load()
         {

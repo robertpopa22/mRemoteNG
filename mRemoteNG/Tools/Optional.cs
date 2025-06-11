@@ -35,7 +35,13 @@ namespace mRemoteNG.Tools
 
         public override string ToString()
         {
-            return _optional.Any() ? _optional.First().ToString() : "";
+            // Fixes CS8602 and CS8603 by ensuring null checks and returning a non-null value
+            if (_optional.Length > 0 && _optional[0] != null)
+            {
+                return _optional[0]?.ToString() ?? string.Empty;
+            }
+
+            return string.Empty;
         }
 
         public static implicit operator Optional<T>(T value)
@@ -79,8 +85,11 @@ namespace mRemoteNG.Tools
         /// values, the values are compared directly.
         /// </summary>
         /// <param name="other"></param>
-        public int CompareTo(Optional<T> other)
+        public int CompareTo(Optional<T>? other)
         {
+            if (other is null)
+                return 1; // Treat null as less than any non-null Optional
+
             bool otherHasAnything = other.Any();
             bool thisHasAnything = _optional.Length > 0;
 
@@ -100,21 +109,16 @@ namespace mRemoteNG.Tools
             throw new ArgumentException($"Cannot compare objects. Optional type {typeof(T).FullName} is not comparable to itself");
         }
 
-        #endregion
-
-        #region Override Equals and GetHashCode
-
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(this, obj))
                 return true;
 
-            Optional<T> objAsOptional = obj as Optional<T>;
-            if (objAsOptional != null)
+            if (obj is Optional<T> objAsOptional)
                 return Equals(objAsOptional);
 
-            if (obj is T)
-                Equals((T)obj);
+            if (obj is T objAsT)
+                return Equals(objAsT);
 
             return false;
         }

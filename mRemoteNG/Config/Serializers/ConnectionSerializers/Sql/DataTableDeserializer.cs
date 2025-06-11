@@ -21,16 +21,10 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 {
     [SupportedOSPlatform("windows")]
-    public class DataTableDeserializer : IDeserializer<DataTable, ConnectionTreeModel>
+    public class DataTableDeserializer(ICryptographyProvider cryptographyProvider, SecureString decryptionKey) : IDeserializer<DataTable, ConnectionTreeModel>
     {
-        private readonly ICryptographyProvider _cryptographyProvider;
-        private readonly SecureString _decryptionKey;
-
-        public DataTableDeserializer(ICryptographyProvider cryptographyProvider, SecureString decryptionKey)
-        {
-            _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
-            _decryptionKey = decryptionKey.ThrowIfNull(nameof(decryptionKey));
-        }
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
+        private readonly SecureString _decryptionKey = decryptionKey.ThrowIfNull(nameof(decryptionKey));
 
         public ConnectionTreeModel Deserialize(DataTable table)
         {

@@ -72,15 +72,12 @@ namespace BrightIdeasSoftware
     /// }
     /// </code>
     /// </example>
-    public class TypedObjectListView<T> where T : class
+    /// <remarks>
+    /// Create a typed wrapper around the given list.
+    /// </remarks>
+    /// <param name="olv">The listview to be wrapped</param>
+    public class TypedObjectListView<T>(ObjectListView olv) where T : class
     {
-        /// <summary>
-        /// Create a typed wrapper around the given list.
-        /// </summary>
-        /// <param name="olv">The listview to be wrapped</param>
-        public TypedObjectListView(ObjectListView olv) {
-            this.olv = olv;
-        }
 
         //--------------------------------------------------------------------------------------
         // Properties
@@ -115,7 +112,7 @@ namespace BrightIdeasSoftware
             get { return olv; }
             set { olv = value; }
         }
-        private ObjectListView olv;
+        private ObjectListView olv = olv;
 
         /// <summary>
         /// Get or set the list of all model objects
@@ -325,16 +322,13 @@ namespace BrightIdeasSoftware
     /// A type-safe wrapper around an OLVColumn
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class TypedColumn<T> where T : class
+    /// <remarks>
+    /// Creates a TypedColumn
+    /// </remarks>
+    /// <param name="column"></param>
+    public class TypedColumn<T>(OLVColumn column) where T : class
     {
-        /// <summary>
-        /// Creates a TypedColumn
-        /// </summary>
-        /// <param name="column"></param>
-        public TypedColumn(OLVColumn column) {
-            this.column = column;
-        }
-        private OLVColumn column;
+        private OLVColumn column = column;
 
         /// <summary>
         /// 

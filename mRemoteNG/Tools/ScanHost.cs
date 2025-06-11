@@ -15,7 +15,7 @@ using mRemoteNG.Resources.Language;
 namespace mRemoteNG.Tools
 {
     [SupportedOSPlatform("windows")]
-    public class ScanHost
+    public class ScanHost(string host)
     {
         #region Properties
 
@@ -26,8 +26,8 @@ namespace mRemoteNG.Tools
         public static int RloginPort { get; set; } = (int)ProtocolRlogin.Defaults.Port;
         public static int RdpPort { get; set; } = (int)RdpProtocol.Defaults.Port;
         public static int VncPort { get; set; } = (int)ProtocolVNC.Defaults.Port;
-        public ArrayList OpenPorts { get; set; }
-        public ArrayList ClosedPorts { get; set; }
+        public ArrayList OpenPorts { get; set; } = [];
+        public ArrayList ClosedPorts { get; set; } = [];
         public bool Rdp { get; set; }
         public bool Vnc { get; set; }
         public bool Ssh { get; set; }
@@ -35,7 +35,7 @@ namespace mRemoteNG.Tools
         public bool Rlogin { get; set; }
         public bool Http { get; set; }
         public bool Https { get; set; }
-        public string HostIp { get; set; }
+        public string HostIp { get; set; } = host;
         public string HostName { get; set; } = "";
 
         public string HostNameWithoutDomain
@@ -52,15 +52,7 @@ namespace mRemoteNG.Tools
         }
 
         #endregion
-
         #region Methods
-
-        public ScanHost(string host)
-        {
-            HostIp = host;
-            OpenPorts = [];
-            ClosedPorts = [];
-        }
 
         public override string ToString()
         {

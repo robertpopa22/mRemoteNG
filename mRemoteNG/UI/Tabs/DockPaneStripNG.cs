@@ -19,13 +19,8 @@ namespace mRemoteNG.UI.Tabs
     [ToolboxItem(false)]
     internal class DockPaneStripNG : DockPaneStripBase
     {
-        private class MremoteNGTab : Tab
+        private class MremoteNGTab(IDockContent content) : Tab(content)
         {
-            public MremoteNGTab(IDockContent content)
-                : base(content)
-            {
-            }
-
             public int TabX { get; set; }
 
             public int TabWidth { get; set; }
@@ -41,20 +36,13 @@ namespace mRemoteNG.UI.Tabs
         }
 
         [ToolboxItem(false)]
-        private sealed class InertButton : InertButtonBase
+        private sealed class InertButton(Bitmap hovered, Bitmap normal, Bitmap pressed) : InertButtonBase
         {
-            public InertButton(Bitmap hovered, Bitmap normal, Bitmap pressed)
-            {
-                HoverImage = hovered;
-                Image = normal;
-                PressImage = pressed;
-            }
+            public override Bitmap Image { get; } = normal;
 
-            public override Bitmap Image { get; }
+            public override Bitmap HoverImage { get; } = hovered;
 
-            public override Bitmap HoverImage { get; }
-
-            public override Bitmap PressImage { get; }
+            public override Bitmap PressImage { get; } = pressed;
         }
 
         #region Constants

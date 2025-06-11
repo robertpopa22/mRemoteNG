@@ -7,19 +7,13 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Tools
 {
     [SupportedOSPlatform("windows")]
-    public class AdHelper
+    public class AdHelper(string domain)
     {
         private DirectoryEntry _dEntry;
 
-        public AdHelper(string domain)
-        {
-            Children = [];
-            Domain = domain;
-        }
+        public Hashtable Children { get; } = [];
 
-        public Hashtable Children { get; }
-
-        private string Domain { get; }
+        private string Domain { get; } = domain;
 
         public void GetChildEntries(string adPath = "")
         {

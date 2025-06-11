@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Runtime.Versioning;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
 namespace mRemoteNG.Connection.Protocol
 {
+    [SupportedOSPlatform("windows")]
     public class ProtocolList : CollectionBase, INotifyCollectionChanged
     {
         public ProtocolBase this[object index]
@@ -22,7 +24,6 @@ namespace mRemoteNG.Connection.Protocol
         }
 
         public new int Count => List.Count;
-
 
         public void Add(ProtocolBase cProt)
         {
@@ -64,7 +65,7 @@ namespace mRemoteNG.Connection.Protocol
             RaiseCollectionChangedEvent(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event NotifyCollectionChangedEventHandler? CollectionChanged; // Fix for CS8612: Declare the event as nullable to match the interface.
 
         private void RaiseCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs args)
         {

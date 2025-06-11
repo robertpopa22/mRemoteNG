@@ -11,15 +11,9 @@ namespace mRemoteNG.UI.Controls.PageSequence
         NextPage
     }
 
-    public class SequencedPageReplcementRequestArgs
+    public class SequencedPageReplcementRequestArgs(SequencedControl newControl, RelativePagePosition pageToReplace)
     {
-        public SequencedControl NewControl { get; }
-        public RelativePagePosition PagePosition { get; }
-
-        public SequencedPageReplcementRequestArgs(SequencedControl newControl, RelativePagePosition pageToReplace)
-        {
-            NewControl = newControl ?? throw new ArgumentNullException(nameof(newControl));
-            PagePosition = pageToReplace;
-        }
+        public SequencedControl NewControl { get; } = newControl ?? throw new ArgumentNullException(nameof(newControl));
+        public RelativePagePosition PagePosition { get; } = pageToReplace;
     }
 }

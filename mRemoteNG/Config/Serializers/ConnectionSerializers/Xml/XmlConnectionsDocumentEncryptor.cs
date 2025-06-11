@@ -4,14 +4,9 @@ using mRemoteNG.Security;
 
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 {
-    public class XmlConnectionsDocumentEncryptor
+    public class XmlConnectionsDocumentEncryptor(ICryptographyProvider cryptographyProvider)
     {
-        private readonly ICryptographyProvider _cryptographyProvider;
-
-        public XmlConnectionsDocumentEncryptor(ICryptographyProvider cryptographyProvider)
-        {
-            _cryptographyProvider = cryptographyProvider;
-        }
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider;
 
         public XDocument EncryptDocument(XDocument documentToEncrypt, SecureString encryptionKey)
         {

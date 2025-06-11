@@ -7,18 +7,12 @@ using mRemoteNG.Connection;
 namespace mRemoteNG.Tree
 {
     [SupportedOSPlatform("windows")]
-    public class NodeSearcher
+    public class NodeSearcher(ConnectionTreeModel connectionTreeModel)
     {
-        private readonly ConnectionTreeModel _connectionTreeModel;
+        private readonly ConnectionTreeModel _connectionTreeModel = connectionTreeModel;
 
         private List<ConnectionInfo> Matches { get; set; }
         public ConnectionInfo CurrentMatch { get; private set; }
-
-
-        public NodeSearcher(ConnectionTreeModel connectionTreeModel)
-        {
-            _connectionTreeModel = connectionTreeModel;
-        }
 
         public IEnumerable<ConnectionInfo> SearchByName(string searchText)
         {

@@ -50,7 +50,13 @@ namespace BrightIdeasSoftware
     /// <para>This is used by normal (non-virtual) ObjectListViews. Virtual lists use
     /// ModelObjectComparer</para>
     /// </remarks>
-    public class ColumnComparer : IComparer, IComparer<OLVListItem>
+    /// <remarks>
+    /// Create a ColumnComparer that will order the rows in a list view according
+    /// to the values in a given column
+    /// </remarks>
+    /// <param name="col">The column whose values will be compared</param>
+    /// <param name="order">The ordering for column values</param>
+    public class ColumnComparer(OLVColumn col, SortOrder order) : IComparer, IComparer<OLVListItem>
     {
         /// <summary>
         /// Gets or sets the method that will be used to compare two strings.
@@ -62,18 +68,6 @@ namespace BrightIdeasSoftware
             set { stringComparer = value; }
         }
         private static StringCompareDelegate stringComparer;
-
-        /// <summary>
-        /// Create a ColumnComparer that will order the rows in a list view according
-        /// to the values in a given column
-        /// </summary>
-        /// <param name="col">The column whose values will be compared</param>
-        /// <param name="order">The ordering for column values</param>
-        public ColumnComparer(OLVColumn col, SortOrder order)
-        {
-            this.column = col;
-            this.sortOrder = order;
-        }
 
         /// <summary>
         /// Create a ColumnComparer that will order the rows in a list view according
@@ -165,8 +159,8 @@ namespace BrightIdeasSoftware
                 return StringComparer(x, y);
         }
 
-        private OLVColumn column;
-        private SortOrder sortOrder;
+        private OLVColumn column = col;
+        private SortOrder sortOrder = order;
         private ColumnComparer secondComparer;
     }
 
@@ -175,15 +169,12 @@ namespace BrightIdeasSoftware
     /// This comparer sort list view groups. OLVGroups have a "SortValue" property,
     /// which is used if present. Otherwise, the titles of the groups will be compared.
     /// </summary>
-    public class OLVGroupComparer : IComparer<OLVGroup>
+    /// <remarks>
+    /// Create a group comparer
+    /// </remarks>
+    /// <param name="order">The ordering for column values</param>
+    public class OLVGroupComparer(SortOrder order) : IComparer<OLVGroup>
     {
-        /// <summary>
-        /// Create a group comparer
-        /// </summary>
-        /// <param name="order">The ordering for column values</param>
-        public OLVGroupComparer(SortOrder order) {
-            this.sortOrder = order;
-        }
 
         /// <summary>
         /// Compare the two groups. OLVGroups have a "SortValue" property,
@@ -207,7 +198,7 @@ namespace BrightIdeasSoftware
             return result;
         }
 
-        private SortOrder sortOrder;
+        private SortOrder sortOrder = order;
     }
 
     /// <summary>
@@ -217,7 +208,12 @@ namespace BrightIdeasSoftware
     /// <para>This is used by virtual ObjectListViews. Non-virtual lists use
     /// ColumnComparer</para>
     /// </remarks>
-    public class ModelObjectComparer : IComparer, IComparer<object>
+    /// <remarks>
+    /// Create a model object comparer
+    /// </remarks>
+    /// <param name="col"></param>
+    /// <param name="order"></param>
+    public class ModelObjectComparer(OLVColumn col, SortOrder order) : IComparer, IComparer<object>
     {
         /// <summary>
         /// Gets or sets the method that will be used to compare two strings.
@@ -229,17 +225,6 @@ namespace BrightIdeasSoftware
             set { stringComparer = value; }
         }
         private static StringCompareDelegate stringComparer;
-
-        /// <summary>
-        /// Create a model object comparer
-        /// </summary>
-        /// <param name="col"></param>
-        /// <param name="order"></param>
-        public ModelObjectComparer(OLVColumn col, SortOrder order)
-        {
-            this.column = col;
-            this.sortOrder = order;
-        }
 
         /// <summary>
         /// Create a model object comparer with a secondary sorting column
@@ -318,8 +303,8 @@ namespace BrightIdeasSoftware
                 return StringComparer(x, y);
         }
 
-        private OLVColumn column;
-        private SortOrder sortOrder;
+        private OLVColumn column = col;
+        private SortOrder sortOrder = order;
         private ModelObjectComparer secondComparer;
 
         #region IComparer<object> Members

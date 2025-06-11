@@ -8,10 +8,15 @@ using mRemoteNG.UI.GraphicsUtilities;
 
 namespace mRemoteNG.UI
 {
+    /// <summary>
+    /// Creates a new <see cref="DisplayProperties"/> instance with the given
+    /// <see cref="IGraphicsProvider"/>.
+    /// </summary>
+    /// <param name="graphicsProvider"></param>
     [SupportedOSPlatform("windows")]
-    public class DisplayProperties
+    public class DisplayProperties(IGraphicsProvider graphicsProvider)
     {
-        private readonly IGraphicsProvider _graphicsProvider;
+        private readonly IGraphicsProvider _graphicsProvider = graphicsProvider.ThrowIfNull(nameof(graphicsProvider));
 
         public SizeF ResolutionScalingFactor => _graphicsProvider.GetResolutionScalingFactor();
 
@@ -22,16 +27,6 @@ namespace mRemoteNG.UI
         public DisplayProperties()
             : this(new GdiPlusGraphicsProvider())
         {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="DisplayProperties"/> instance with the given
-        /// <see cref="IGraphicsProvider"/>.
-        /// </summary>
-        /// <param name="graphicsProvider"></param>
-        public DisplayProperties(IGraphicsProvider graphicsProvider)
-        {
-            _graphicsProvider = graphicsProvider.ThrowIfNull(nameof(graphicsProvider));
         }
 
         /// <summary>

@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace mRemoteNG.UI
 {
-    public class FullscreenHandler
+    public class FullscreenHandler(Form handledForm)
     {
-        private readonly Form _handledForm;
+        private readonly Form _handledForm = handledForm;
         private FormWindowState _savedWindowState;
         private FormBorderStyle _savedBorderStyle;
         private Rectangle _savedBounds;
@@ -23,11 +23,6 @@ namespace mRemoteNG.UI
                     ExitFullscreen();
                 _value = value;
             }
-        }
-
-        public FullscreenHandler(Form handledForm)
-        {
-            _handledForm = handledForm;
         }
 
         private void EnterFullscreen()

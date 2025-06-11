@@ -10,14 +10,9 @@ using mRemoteNG.Tools;
 namespace mRemoteNG.Config.Import
 {
     [SupportedOSPlatform("windows")]
-    public class PortScanImporter : IConnectionImporter<IEnumerable<ScanHost>>
+    public class PortScanImporter(ProtocolType targetProtocolType) : IConnectionImporter<IEnumerable<ScanHost>>
     {
-        private readonly ProtocolType _targetProtocolType;
-
-        public PortScanImporter(ProtocolType targetProtocolType)
-        {
-            _targetProtocolType = targetProtocolType;
-        }
+        private readonly ProtocolType _targetProtocolType = targetProtocolType;
 
         public void Import(IEnumerable<ScanHost> hosts, ContainerInfo destinationContainer)
         {

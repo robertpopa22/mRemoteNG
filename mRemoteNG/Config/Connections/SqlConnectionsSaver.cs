@@ -23,18 +23,11 @@ using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 namespace mRemoteNG.Config.Connections
 {
     [SupportedOSPlatform("windows")]
-    public class SqlConnectionsSaver : ISaver<ConnectionTreeModel>
+    public class SqlConnectionsSaver(SaveFilter saveFilter, ISerializer<IEnumerable<LocalConnectionPropertiesModel>, string> localPropertieSerializer, IDataProvider<string> localPropertiesDataProvider) : ISaver<ConnectionTreeModel>
     {
-        private readonly SaveFilter _saveFilter;
-        private readonly ISerializer<IEnumerable<LocalConnectionPropertiesModel>, string> _localPropertiesSerializer;
-        private readonly IDataProvider<string> _dataProvider;
-
-        public SqlConnectionsSaver(SaveFilter saveFilter, ISerializer<IEnumerable<LocalConnectionPropertiesModel>, string> localPropertieSerializer, IDataProvider<string> localPropertiesDataProvider)
-        {
-            _saveFilter = saveFilter ?? throw new ArgumentNullException(nameof(saveFilter));
-            _localPropertiesSerializer = localPropertieSerializer.ThrowIfNull(nameof(localPropertieSerializer));
-            _dataProvider = localPropertiesDataProvider.ThrowIfNull(nameof(localPropertiesDataProvider));
-        }
+        private readonly SaveFilter _saveFilter = saveFilter ?? throw new ArgumentNullException(nameof(saveFilter));
+        private readonly ISerializer<IEnumerable<LocalConnectionPropertiesModel>, string> _localPropertiesSerializer = localPropertieSerializer.ThrowIfNull(nameof(localPropertieSerializer));
+        private readonly IDataProvider<string> _dataProvider = localPropertiesDataProvider.ThrowIfNull(nameof(localPropertiesDataProvider));
 
         public void Save(ConnectionTreeModel connectionTreeModel, string propertyNameTrigger = "")
         {

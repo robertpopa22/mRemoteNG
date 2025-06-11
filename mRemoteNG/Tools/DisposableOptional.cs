@@ -3,14 +3,9 @@ using System.Linq;
 
 namespace mRemoteNG.Tools
 {
-    public class DisposableOptional<T> : Optional<T>, IDisposable
+    public class DisposableOptional<T>(T value) : Optional<T>(value), IDisposable
         where T : IDisposable
     {
-        public DisposableOptional(T value)
-            : base(value)
-        {
-        }
-
         public void Dispose()
         {
             Dispose(true);

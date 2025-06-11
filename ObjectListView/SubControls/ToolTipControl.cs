@@ -40,11 +40,13 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
+using System.Runtime.Versioning;
 using System.Security.Permissions;
+using System.Windows.Forms;
 
 namespace BrightIdeasSoftware
 {
+    [SupportedOSPlatform("windows")]
     /// <summary>
     /// A limited wrapper around a Windows tooltip window.
     /// </summary>

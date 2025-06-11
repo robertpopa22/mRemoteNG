@@ -5,23 +5,16 @@ using mRemoteNG.Tools;
 
 namespace mRemoteNG.Security.Authentication
 {
-    public class PasswordAuthenticator : IAuthenticator
+    public class PasswordAuthenticator(ICryptographyProvider cryptographyProvider,
+                                 string cipherText,
+                                 Func<Optional<SecureString>> authenticationRequestor) : IAuthenticator
     {
-        private readonly ICryptographyProvider _cryptographyProvider;
-        private readonly string _cipherText;
-        private readonly Func<Optional<SecureString>> _authenticationRequestor;
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
+        private readonly string _cipherText = cipherText.ThrowIfNullOrEmpty(nameof(cipherText));
+        private readonly Func<Optional<SecureString>> _authenticationRequestor = authenticationRequestor.ThrowIfNull(nameof(authenticationRequestor));
 
         public int MaxAttempts { get; set; } = 3;
         public SecureString LastAuthenticatedPassword { get; private set; }
-
-        public PasswordAuthenticator(ICryptographyProvider cryptographyProvider,
-                                     string cipherText,
-                                     Func<Optional<SecureString>> authenticationRequestor)
-        {
-            _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
-            _cipherText = cipherText.ThrowIfNullOrEmpty(nameof(cipherText));
-            _authenticationRequestor = authenticationRequestor.ThrowIfNull(nameof(authenticationRequestor));
-        }
 
         public bool Authenticate(SecureString password)
         {

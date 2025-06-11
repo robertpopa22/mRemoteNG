@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.Runtime.Versioning;
 using System.Windows.Forms.Design;
@@ -12,12 +13,12 @@ namespace mRemoteNG.UI.Controls.Adapters
     {
         private IWindowsFormsEditorService _editorService;
 
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context)
         {
             return UITypeEditorEditStyle.DropDown;
         }
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object? EditValue(ITypeDescriptorContext? context, IServiceProvider provider, object? value)
         {
             if (provider == null) return value;
             _editorService = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
@@ -30,7 +31,7 @@ namespace mRemoteNG.UI.Controls.Adapters
 
             _editorService.DropDownControl(listBox);
             if (listBox.SelectedItem == listBox.NoneSelection)
-                return null;
+                return null!;
             if (listBox.SelectedItem == listBox.AddNewSelection)
             {
                 //var newCred = new CredentialRecord();
@@ -41,7 +42,7 @@ namespace mRemoteNG.UI.Controls.Adapters
             return listBox.SelectedItem ?? value;
         }
 
-        private void ListBoxOnSelectedValueChanged(object sender, EventArgs eventArgs)
+        private void ListBoxOnSelectedValueChanged([NotNull] object? sender, EventArgs eventArgs)
         {
             _editorService.CloseDropDown();
         }

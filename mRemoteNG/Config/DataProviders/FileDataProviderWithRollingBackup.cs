@@ -3,14 +3,9 @@
 namespace mRemoteNG.Config.DataProviders
 {
     [SupportedOSPlatform("windows")]
-    public class FileDataProviderWithRollingBackup : FileDataProvider
+    public class FileDataProviderWithRollingBackup(string filePath) : FileDataProvider(filePath)
     {
-        private readonly FileBackupCreator _fileBackupCreator;
-
-        public FileDataProviderWithRollingBackup(string filePath) : base(filePath)
-        {
-            _fileBackupCreator = new FileBackupCreator();
-        }
+        private readonly FileBackupCreator _fileBackupCreator = new FileBackupCreator();
 
         public override void Save(string content)
         {

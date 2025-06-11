@@ -14,21 +14,15 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 {
     [SupportedOSPlatform("windows")]
-    public class XmlConnectionsSerializer : ISerializer<ConnectionTreeModel, string>,
+    public class XmlConnectionsSerializer(ICryptographyProvider cryptographyProvider,
+                                    ISerializer<ConnectionInfo, XElement> connectionNodeSerializer) : ISerializer<ConnectionTreeModel, string>,
                                             ISerializer<ConnectionInfo, string>
     {
-        private readonly ICryptographyProvider _cryptographyProvider;
-        private readonly ISerializer<ConnectionInfo, XElement> _connectionNodeSerializer;
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider;
+        private readonly ISerializer<ConnectionInfo, XElement> _connectionNodeSerializer = connectionNodeSerializer;
 
         public Version Version => _connectionNodeSerializer.Version;
         public bool UseFullEncryption { get; set; }
-
-        public XmlConnectionsSerializer(ICryptographyProvider cryptographyProvider,
-                                        ISerializer<ConnectionInfo, XElement> connectionNodeSerializer)
-        {
-            _cryptographyProvider = cryptographyProvider;
-            _connectionNodeSerializer = connectionNodeSerializer;
-        }
 
         public string Serialize(ConnectionTreeModel connectionTreeModel)
         {

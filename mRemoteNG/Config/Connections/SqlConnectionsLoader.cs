@@ -19,21 +19,15 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Connections
 {
     [SupportedOSPlatform("windows")]
-    public class SqlConnectionsLoader : IConnectionsLoader
+    public class SqlConnectionsLoader(
+        IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> localConnectionPropertiesDeserializer,
+        IDataProvider<string> dataProvider) : IConnectionsLoader
     {
-        private readonly IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> _localConnectionPropertiesDeserializer;
+        private readonly IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> _localConnectionPropertiesDeserializer = localConnectionPropertiesDeserializer.ThrowIfNull(nameof(localConnectionPropertiesDeserializer));
 
-        private readonly IDataProvider<string> _dataProvider;
+        private readonly IDataProvider<string> _dataProvider = dataProvider.ThrowIfNull(nameof(dataProvider));
 
         private Func<Optional<SecureString>> AuthenticationRequestor { get; set; } = () => MiscTools.PasswordDialog("", false);
-
-        public SqlConnectionsLoader(
-            IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> localConnectionPropertiesDeserializer,
-            IDataProvider<string> dataProvider)
-        {
-            _localConnectionPropertiesDeserializer = localConnectionPropertiesDeserializer.ThrowIfNull(nameof(localConnectionPropertiesDeserializer));
-            _dataProvider = dataProvider.ThrowIfNull(nameof(dataProvider));
-        }
 
         public ConnectionTreeModel Load()
         {

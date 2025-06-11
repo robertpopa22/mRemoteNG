@@ -11,22 +11,15 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 {
     // ReSharper disable once InconsistentNaming
     [SupportedOSPlatform("windows")]
-    public class XmlConnectionNodeSerializer27 : ISerializer<ConnectionInfo, XElement>
+    public class XmlConnectionNodeSerializer27(ICryptographyProvider cryptographyProvider,
+                                         SecureString encryptionKey,
+                                         SaveFilter saveFilter) : ISerializer<ConnectionInfo, XElement>
     {
-        private readonly ICryptographyProvider _cryptographyProvider;
-        private readonly SecureString _encryptionKey;
-        private readonly SaveFilter _saveFilter;
+        private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider ?? throw new ArgumentNullException(nameof(cryptographyProvider));
+        private readonly SecureString _encryptionKey = encryptionKey ?? throw new ArgumentNullException(nameof(encryptionKey));
+        private readonly SaveFilter _saveFilter = saveFilter ?? throw new ArgumentNullException(nameof(saveFilter));
 
         public Version Version { get; } = new Version(2, 7);
-
-        public XmlConnectionNodeSerializer27(ICryptographyProvider cryptographyProvider,
-                                             SecureString encryptionKey,
-                                             SaveFilter saveFilter)
-        {
-            _cryptographyProvider = cryptographyProvider ?? throw new ArgumentNullException(nameof(cryptographyProvider));
-            _encryptionKey = encryptionKey ?? throw new ArgumentNullException(nameof(encryptionKey));
-            _saveFilter = saveFilter ?? throw new ArgumentNullException(nameof(saveFilter));
-        }
 
         public XElement Serialize(ConnectionInfo connectionInfo)
         {

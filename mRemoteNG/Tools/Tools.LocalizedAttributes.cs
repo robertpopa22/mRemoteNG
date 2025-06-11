@@ -9,15 +9,10 @@ namespace mRemoteNG.Tools
     public class LocalizedAttributes
     {
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedCategoryAttribute : CategoryAttribute
+        public class LocalizedCategoryAttribute(string value, int Order = 1) : CategoryAttribute(value)
         {
             private const int MaxOrder = 10;
-            private int Order;
-
-            public LocalizedCategoryAttribute(string value, int Order = 1) : base(value)
-            {
-                this.Order = Order > MaxOrder ? MaxOrder : Order;
-            }
+            private int Order = Order > MaxOrder ? MaxOrder : Order;
 
             protected override string GetLocalizedString(string value)
             {
@@ -32,14 +27,9 @@ namespace mRemoteNG.Tools
         }
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDisplayNameAttribute : DisplayNameAttribute
+        public class LocalizedDisplayNameAttribute(string value) : DisplayNameAttribute(value)
         {
-            private bool Localized;
-
-            public LocalizedDisplayNameAttribute(string value) : base(value)
-            {
-                Localized = false;
-            }
+            private bool Localized = false;
 
             public override string DisplayName
             {
@@ -57,14 +47,9 @@ namespace mRemoteNG.Tools
         }
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDescriptionAttribute : DescriptionAttribute
+        public class LocalizedDescriptionAttribute(string value) : DescriptionAttribute(value)
         {
-            private bool Localized;
-
-            public LocalizedDescriptionAttribute(string value) : base(value)
-            {
-                Localized = false;
-            }
+            private bool Localized = false;
 
             public override string Description
             {
@@ -82,11 +67,8 @@ namespace mRemoteNG.Tools
         }
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDefaultValueAttribute : DefaultValueAttribute
+        public class LocalizedDefaultValueAttribute(string name) : DefaultValueAttribute(Language.ResourceManager.GetString(name))
         {
-            public LocalizedDefaultValueAttribute(string name) : base(Language.ResourceManager.GetString(name))
-            {
-            }
 
             // This allows localized attributes in a derived class to override a matching
             // non-localized attribute inherited from its base class
@@ -96,14 +78,9 @@ namespace mRemoteNG.Tools
         #region Special localization - with String.Format
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDisplayNameInheritAttribute : DisplayNameAttribute
+        public class LocalizedDisplayNameInheritAttribute(string value) : DisplayNameAttribute(value)
         {
-            private bool Localized;
-
-            public LocalizedDisplayNameInheritAttribute(string value) : base(value)
-            {
-                Localized = false;
-            }
+            private bool Localized = false;
 
             public override string DisplayName
             {
@@ -122,14 +99,9 @@ namespace mRemoteNG.Tools
         }
 
         [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = true)]
-        public class LocalizedDescriptionInheritAttribute : DescriptionAttribute
+        public class LocalizedDescriptionInheritAttribute(string value) : DescriptionAttribute(value)
         {
-            private bool Localized;
-
-            public LocalizedDescriptionInheritAttribute(string value) : base(value)
-            {
-                Localized = false;
-            }
+            private bool Localized = false;
 
             public override string Description
             {

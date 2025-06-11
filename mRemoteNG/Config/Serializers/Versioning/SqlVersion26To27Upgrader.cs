@@ -8,14 +8,9 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.Serializers.Versioning
 {
     [SupportedOSPlatform("windows")]
-    public class SqlVersion26To27Upgrader : IVersionUpgrader
+    public class SqlVersion26To27Upgrader(IDatabaseConnector databaseConnector) : IVersionUpgrader
     {
-        private readonly IDatabaseConnector _databaseConnector;
-
-        public SqlVersion26To27Upgrader(IDatabaseConnector databaseConnector)
-        {
-            _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
-        }
+        private readonly IDatabaseConnector _databaseConnector = databaseConnector ?? throw new ArgumentNullException(nameof(databaseConnector));
 
         public bool CanUpgrade(Version currentVersion)
         {

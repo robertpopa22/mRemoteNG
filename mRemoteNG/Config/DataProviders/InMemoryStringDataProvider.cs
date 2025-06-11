@@ -1,13 +1,8 @@
 ﻿namespace mRemoteNG.Config.DataProviders
 {
-    public class InMemoryStringDataProvider : IDataProvider<string>
+    public class InMemoryStringDataProvider(string initialContents = "") : IDataProvider<string>
     {
-        private string _contents;
-
-        public InMemoryStringDataProvider(string initialContents = "")
-        {
-            _contents = initialContents;
-        }
+        private string _contents = initialContents;
 
         public string Load()
         {

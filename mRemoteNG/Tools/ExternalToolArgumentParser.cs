@@ -11,14 +11,9 @@ using mRemoteNG.Tools.Cmdline;
 namespace mRemoteNG.Tools
 {
     [SupportedOSPlatform("windows")]
-    public class ExternalToolArgumentParser
+    public class ExternalToolArgumentParser(ConnectionInfo connectionInfo)
     {
-        private readonly ConnectionInfo _connectionInfo;
-
-        public ExternalToolArgumentParser(ConnectionInfo connectionInfo)
-        {
-            _connectionInfo = connectionInfo;
-        }
+        private readonly ConnectionInfo _connectionInfo = connectionInfo;
 
         public string ParseArguments(string input)
         {
@@ -246,20 +241,13 @@ namespace mRemoteNG.Tools
             None
         }
 
-        private struct Replacement
+        private struct Replacement(int start, int length, string value)
         {
-            public int Start { get; }
+            public int Start { get; } = start;
 
-            public int Length { get; }
+            public int Length { get; } = length;
 
-            public string Value { get; }
-
-            public Replacement(int start, int length, string value)
-            {
-                Start = start;
-                Length = length;
-                Value = value;
-            }
+            public string Value { get; } = value;
         }
     }
 }

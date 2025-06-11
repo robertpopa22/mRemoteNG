@@ -185,14 +185,9 @@ namespace mRemoteNG.UI.Controls
 
         #region Events
 
-        public class ConnectRequestedEventArgs : EventArgs
+        public class ConnectRequestedEventArgs(string connectionString) : EventArgs
         {
-            public ConnectRequestedEventArgs(string connectionString)
-            {
-                ConnectionString = connectionString;
-            }
-
-            public string ConnectionString { get; }
+            public string ConnectionString { get; } = connectionString;
         }
 
         public delegate void ConnectRequestedEventHandler(object sender, ConnectRequestedEventArgs e);
@@ -212,14 +207,9 @@ namespace mRemoteNG.UI.Controls
             ConnectRequestedEvent?.Invoke(this, new ConnectRequestedEventArgs(e.ConnectionString));
         }
 
-        public class ProtocolChangedEventArgs : EventArgs
+        public class ProtocolChangedEventArgs(ProtocolType protocol) : EventArgs
         {
-            public ProtocolChangedEventArgs(ProtocolType protocol)
-            {
-                Protocol = protocol;
-            }
-
-            public ProtocolType Protocol { get; }
+            public ProtocolType Protocol { get; } = protocol;
         }
 
         public delegate void ProtocolChangedEventHandler(object sender, ProtocolChangedEventArgs e);

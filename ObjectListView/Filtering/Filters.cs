@@ -185,15 +185,11 @@ namespace BrightIdeasSoftware
     /// A model object must satisfy all filters to be included.
     /// If there are no filters, all model objects are included
     /// </summary>
-    public class CompositeAllFilter : CompositeFilter {
-
-        /// <summary>
-        /// Create a filter
-        /// </summary>
-        /// <param name="filters"></param>
-        public CompositeAllFilter(List<IModelFilter> filters)
-            : base(filters) {
-        }
+    /// <remarks>
+    /// Create a filter
+    /// </remarks>
+    /// <param name="filters"></param>
+    public class CompositeAllFilter(List<IModelFilter> filters) : CompositeFilter(filters) {
 
         /// <summary>
         /// Decide whether or not the given model should be included by the filter
@@ -215,15 +211,11 @@ namespace BrightIdeasSoftware
     /// A model object must only satisfy one of the filters to be included.
     /// If there are no filters, all model objects are included
     /// </summary>
-    public class CompositeAnyFilter : CompositeFilter {
-
-        /// <summary>
-        /// Create a filter from the given filters
-        /// </summary>
-        /// <param name="filters"></param>
-        public CompositeAnyFilter(List<IModelFilter> filters)
-            : base(filters) {
-        }
+    /// <remarks>
+    /// Create a filter from the given filters
+    /// </remarks>
+    /// <param name="filters"></param>
+    public class CompositeAnyFilter(List<IModelFilter> filters) : CompositeFilter(filters) {
 
         /// <summary>
         /// Decide whether or not the given model should be included by the filter

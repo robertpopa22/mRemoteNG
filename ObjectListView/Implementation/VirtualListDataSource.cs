@@ -145,20 +145,17 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// A do-nothing implementation of the VirtualListDataSource interface.
     /// </summary>
-    public class AbstractVirtualListDataSource : IVirtualListDataSource, IFilterableDataSource
+    /// <remarks>
+    /// Creates an AbstractVirtualListDataSource
+    /// </remarks>
+    /// <param name="listView"></param>
+    public class AbstractVirtualListDataSource(VirtualObjectListView listView) : IVirtualListDataSource, IFilterableDataSource
     {
-        /// <summary>
-        /// Creates an AbstractVirtualListDataSource
-        /// </summary>
-        /// <param name="listView"></param>
-        public AbstractVirtualListDataSource(VirtualObjectListView listView) {
-            this.listView = listView;
-        }
 
         /// <summary>
         /// The list view that this data source is giving information to.
         /// </summary>
-        protected VirtualObjectListView listView;
+        protected VirtualObjectListView listView = listView;
 
         /// <summary>
         /// 
@@ -295,15 +292,12 @@ namespace BrightIdeasSoftware
     /// <summary>
     /// This class mimics the behavior of VirtualObjectListView v1.x.
     /// </summary>
-    public class VirtualListVersion1DataSource : AbstractVirtualListDataSource
+    /// <remarks>
+    /// Creates a VirtualListVersion1DataSource
+    /// </remarks>
+    /// <param name="listView"></param>
+    public class VirtualListVersion1DataSource(VirtualObjectListView listView) : AbstractVirtualListDataSource(listView)
     {
-        /// <summary>
-        /// Creates a VirtualListVersion1DataSource
-        /// </summary>
-        /// <param name="listView"></param>
-        public VirtualListVersion1DataSource(VirtualObjectListView listView)
-            : base(listView) {
-        }
 
         #region Public properties
 

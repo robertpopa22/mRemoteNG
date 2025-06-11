@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -115,18 +115,11 @@ namespace mRemoteNG.Tools.Cmdline
 
         #region Protected Classes
 
-        protected class Argument
+        protected class Argument(string text, bool isFileName = false, bool forceQuotes = false)
         {
-            public Argument(string text, bool isFileName = false, bool forceQuotes = false)
-            {
-                Text = text;
-                IsFileName = isFileName;
-                ForceQuotes = forceQuotes;
-            }
-
-            public string Text { get; set; }
-            public bool IsFileName { get; set; }
-            public bool ForceQuotes { get; set; }
+            public string Text { get; set; } = text;
+            public bool IsFileName { get; set; } = isFileName;
+            public bool ForceQuotes { get; set; } = forceQuotes;
         }
 
         #endregion

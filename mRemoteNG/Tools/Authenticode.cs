@@ -1,12 +1,13 @@
-#if !PORTABLE
+﻿#if !PORTABLE
 using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
-using System.Reflection;
 using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 // ReSharper disable UnusedMember.Local
 // ReSharper disable NotAccessedField.Local
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -16,15 +17,10 @@ using System.ComponentModel;
 
 namespace mRemoteNG.Tools
 {
-	public class Authenticode
-	{
-        #region Public Methods
-		public Authenticode(string filePath)
-		{
-			FilePath = filePath;
-		}
-			
-		public StatusValue Verify()
+    [SupportedOSPlatform("windows")]
+    public class Authenticode(string filePath)
+    {
+        public StatusValue Verify()
 		{
             IntPtr trustFileInfoPointer = default(IntPtr);
             IntPtr trustDataPointer = default(IntPtr);
@@ -50,14 +46,17 @@ namespace mRemoteNG.Tools
 						return Status;
 					}
 
+                    //X509Certificate2 certificate2 = new(X509Certificate.CreateFromSignedFile(FilePath));
+
                     X509Certificate2 certificate2 = new(X509Certificate.CreateFromSignedFile(FilePath));
-					_thumbprint = certificate2.Thumbprint;
-					if (_thumbprint != ThumbprintToMatch)
-					{
-						Status = StatusValue.ThumbprintNotMatch;
-						return Status;
-					}
-				}
+                    _thumbprint = certificate2.Thumbprint;
+
+                    if (_thumbprint != ThumbprintToMatch)
+                    {
+                        Status = StatusValue.ThumbprintNotMatch;
+                        return Status;
+                    }
+                }
 
                 NativeMethods.WINTRUST_FILE_INFO trustFileInfo = new() { pcwszFilePath = FilePath};
 			    trustFileInfoPointer = Marshal.AllocCoTaskMem(Marshal.SizeOf(trustFileInfo));
@@ -78,8 +77,7 @@ namespace mRemoteNG.Tools
 
                 IntPtr windowHandle = DisplayParentForm?.Handle ?? IntPtr.Zero;
 					
-				_trustProviderErrorCode =
- NativeMethods.WinVerifyTrust(windowHandle, NativeMethods.WINTRUST_ACTION_GENERIC_VERIFY_V2, trustDataPointer);
+				_trustProviderErrorCode =  NativeMethods.WinVerifyTrust(windowHandle, NativeMethods.WINTRUST_ACTION_GENERIC_VERIFY_V2, trustDataPointer);
 			    // ReSharper disable once SwitchStatementMissingSomeCases
 				switch (_trustProviderErrorCode)
 				{
@@ -104,8 +102,7 @@ namespace mRemoteNG.Tools
 
 			    if (ex is CryptographicException)
 			    {
-                    PropertyInfo hResultProperty =
- ex.GetType().GetProperty("HResult", BindingFlags.NonPublic | BindingFlags.Instance);
+                    PropertyInfo? hResultProperty = ex.GetType().GetProperty("HResult", BindingFlags.NonPublic | BindingFlags.Instance);
 			        if (hResultProperty != null)
 			        {
                         int hResult = Convert.ToInt32(hResultProperty.GetValue(ex, null));
@@ -134,61 +131,54 @@ namespace mRemoteNG.Tools
 				}
 			}
 		}
-        #endregion
+        
 			
         #region Public Properties
 
 	    private DisplayValue Display { get; set; } = DisplayValue.None;
 
 	    private DisplayContextValue DisplayContext {get; set;}
-	    private Form DisplayParentForm {get; set;}
-	    internal Exception Exception {get; private set;}
-	    private string FilePath {get; set;}
+        private Form? DisplayParentForm { get; set; } = null; // Use nullable reference type
+        internal Exception? Exception { get; private set; } = null; // Set to null to satisfy non-nullable property
+        private string FilePath { get; set; } = filePath;
         internal bool RequireThumbprintMatch { get; set;}
 
 	    internal StatusValue Status { get; private set; }
 
-	    public string GetStatusMessage()
-	    {
-	        // ReSharper disable once SwitchStatementMissingSomeCases
-	        switch (Status)
-	        {
-	            case StatusValue.Verified:
-	                return "The file was verified successfully.";
-	            case StatusValue.FileNotExist:
-	                return "The specified file does not exist.";
-	            case StatusValue.FileEmpty:
-	                return "The specified file is empty.";
-	            case StatusValue.NoSignature:
-	                return "The specified file is not digitally signed.";
-	            case StatusValue.NoThumbprintToMatch:
-	                return "A thumbprint match is required but no thumbprint to match against was specified.";
-	            case StatusValue.ThumbprintNotMatch:
-	                /* (char)0x2260 == the "not equal to" symbol (which I cannot print in here without changing the encoding of the file)
-                     * Fancy...
-                     * 
-                     * "<>" is  fiarly cryptic for non-programers
-                     * So is "!="
-                     * "=/=" gets the job done, no?
-                     * What about plain old English (or localized value): X is not equal to Y?
-                     * :P
-                     */
-	                return $"The thumbprint does not match. {_thumbprint} {(char) 0x2260} {ThumbprintToMatch}.";
-	            case StatusValue.TrustProviderError:
+        public string GetStatusMessage()
+        {
+            // ReSharper disable once SwitchStatementMissingSomeCases
+            switch (Status)
+            {
+                case StatusValue.Verified:
+                    return "The file was verified successfully.";
+                case StatusValue.FileNotExist:
+                    return "The specified file does not exist.";
+                case StatusValue.FileEmpty:
+                    return "The specified file is empty.";
+                case StatusValue.NoSignature:
+                    return "The specified file is not digitally signed.";
+                case StatusValue.NoThumbprintToMatch:
+                    return "A thumbprint match is required but no thumbprint to match against was specified.";
+                case StatusValue.ThumbprintNotMatch:
+                    return $"The thumbprint does not match. {_thumbprint} {(char)0x2260} {ThumbprintToMatch}.";
+                case StatusValue.TrustProviderError:
                     Win32Exception ex = new(_trustProviderErrorCode);
-	                return $"The trust provider returned an error. {ex.Message}";
-	            case StatusValue.UnhandledException:
-	                return $"An unhandled exception occurred. {Exception.Message}";
-	            default:
-	                return "The status is unknown.";
-	        }
-	    }
+                    return $"The trust provider returned an error. {ex.Message}";
+                case StatusValue.UnhandledException:
+                    return Exception != null
+                        ? $"An unhandled exception occurred. {Exception.Message}"
+                        : "An unhandled exception occurred, but no exception details are available.";
+                default:
+                    return "The status is unknown.";
+            }
+        }
 			
-		private string _thumbprint;
+		private string _thumbprint = string.Empty;
 
-        internal string ThumbprintToMatch { get; set;}
-			
-		private int _trustProviderErrorCode;
+        internal string ThumbprintToMatch { get; set; } = string.Empty; // Initialize to an empty string to satisfy non-nullable property
+
+        private int _trustProviderErrorCode;
 
 	    #endregion
 		

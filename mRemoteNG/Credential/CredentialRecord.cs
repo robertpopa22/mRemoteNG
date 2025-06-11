@@ -76,7 +76,7 @@ namespace mRemoteNG.Credential
             return Title;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void RaisePropertyChangedEvent(string propertyName)
         {

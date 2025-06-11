@@ -51,17 +51,20 @@
  * If you wish to use this code in a closed source application, please contact phillip.piper@gmail.com.
  */
 
+using BrightIdeasSoftware.Properties;
+
 using System;
 using System.Drawing;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Windows.Forms.VisualStyles;
 using System.Drawing.Drawing2D;
-using BrightIdeasSoftware.Properties;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Security.Permissions;
+using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace BrightIdeasSoftware
 {
+    [SupportedOSPlatform("windows")]
     /// <summary>
     /// Class used to capture window messages for the header of the list view
     /// control.

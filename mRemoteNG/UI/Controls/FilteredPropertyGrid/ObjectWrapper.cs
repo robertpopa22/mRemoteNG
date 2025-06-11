@@ -15,7 +15,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// <param name="obj">A reference to the selected object that will linked to the parent PropertyGrid.</param>
         internal ObjectWrapper(object obj)
         {
-            SelectedObject = obj;
+            SelectedObject = obj ?? throw new ArgumentNullException(nameof(obj));
         }
 
         /// <summary>
@@ -26,11 +26,11 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// <summary>
         /// Get or set a reference to the collection of properties to show in the parent PropertyGrid
         /// </summary>
-        public List<PropertyDescriptor> PropertyDescriptors { get; set; } = [];
+        public List<PropertyDescriptor> PropertyDescriptors { get; set; } = new List<PropertyDescriptor>();
 
         #region ICustomTypeDescriptor Members
 
-        public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
+        public PropertyDescriptorCollection GetProperties(Attribute[]? attributes)
         {
             return GetProperties();
         }
@@ -55,7 +55,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// <returns>String</returns>
         public string GetClassName()
         {
-            return TypeDescriptor.GetClassName(SelectedObject, true);
+            return TypeDescriptor.GetClassName(SelectedObject, true) ?? string.Empty;
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// <returns>String</returns>
         public string GetComponentName()
         {
-            return TypeDescriptor.GetComponentName(SelectedObject, true);
+            return TypeDescriptor.GetComponentName(SelectedObject, true) ?? string.Empty;
         }
 
         /// <summary>
@@ -80,8 +80,9 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// GetDefaultEvent
         /// </summary>
         /// <returns>EventDescriptor</returns>
-        public EventDescriptor GetDefaultEvent()
+        public EventDescriptor? GetDefaultEvent()
         {
+            // Explicitly mark the return type as nullable to handle the possibility of null.
             return TypeDescriptor.GetDefaultEvent(SelectedObject, true);
         }
 
@@ -89,7 +90,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// GetDefaultProperty
         /// </summary>
         /// <returns>PropertyDescriptor</returns>
-        public PropertyDescriptor GetDefaultProperty()
+        public PropertyDescriptor? GetDefaultProperty()
         {
             return TypeDescriptor.GetDefaultProperty(SelectedObject, true);
         }
@@ -99,12 +100,12 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
         /// </summary>
         /// <param name="editorBaseType">editorBaseType</param>
         /// <returns>object</returns>
-        public object GetEditor(Type editorBaseType)
+        public object? GetEditor(Type editorBaseType)
         {
             return TypeDescriptor.GetEditor(this, editorBaseType, true);
         }
 
-        public EventDescriptorCollection GetEvents(Attribute[] attributes)
+        public EventDescriptorCollection GetEvents(Attribute[]? attributes)
         {
             return TypeDescriptor.GetEvents(SelectedObject, attributes, true);
         }
@@ -114,7 +115,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
             return TypeDescriptor.GetEvents(SelectedObject, true);
         }
 
-        public object GetPropertyOwner(PropertyDescriptor pd)
+        public object? GetPropertyOwner(PropertyDescriptor? pd)
         {
             return SelectedObject;
         }

@@ -28,6 +28,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             ApplyTheme();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.SQLDatabase_16x);
             _databaseConnectionTester = new DatabaseConnectionTester();
+            pageRegSettingsInstance = new OptRegistrySqlServerPage(); // Initialize the field to avoid nullability issues
         }
 
         public override string PageName
@@ -195,13 +196,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             imgConnectionStatus.Image = Properties.Resources.Loading_Spinner;
             btnTestConnection.Enabled = false;
 
-            string connectionString = "Data Source=172.22.155.100,1433;Initial Catalog=Demo;User ID=sa;Password=London123";
-            DatabaseConnectionTester.TestConnection(connectionString);
-            //ConnectionTestResult connectionTestResult = true
-            //    await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
+            // Replace the hardcoded connection string with the actual parameters
+            string connectionString = $"Data Source={server};Initial Catalog={database};User ID={username};Password={password}";
+            ConnectionTestResult connectionTestResult = await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
 
             btnTestConnection.Enabled = true;
-            /*
+
             switch (connectionTestResult)
             {
                 case ConnectionTestResult.ConnectionSucceded:
@@ -232,7 +232,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblTestConnectionResults.Text = BuildTestFailedMessage(Language.RdpErrorUnknown);
                     break;
             }
-            */
         }
 
         private void UpdateConnectionImage(bool connectionSuccess)
@@ -365,7 +364,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             DCMSetupddschema.DropDown += DCMSetupddschema_DropDown;
         }
 
-        private void DCMSetupddschema_DropDown(object sender, EventArgs e)
+        private void DCMSetupddschema_DropDown(object? sender, EventArgs e)
         {
             // Refresh files each time dropdown is opened
             RefreshSchemaFiles();
@@ -376,7 +375,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             try
             {
                 // Store the currently selected item
-                string currentSelection = DCMSetupddschema.SelectedValue?.ToString();
+                string? currentSelection = DCMSetupddschema.SelectedValue?.ToString();
 
                 // Get the application's running directory
                 string schemasFolder = Path.Combine(Application.StartupPath, "Schemas");

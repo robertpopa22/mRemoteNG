@@ -12,22 +12,22 @@ namespace mRemoteNG.Connection
     {
         public static string[] Icons = { };
 
-        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext? context)
         {
             return new StandardValuesCollection(Icons);
         }
 
-        public override bool GetStandardValuesExclusive(ITypeDescriptorContext context)
+        public override bool GetStandardValuesExclusive(ITypeDescriptorContext? context)
         {
             return true;
         }
 
-        public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+        public override bool GetStandardValuesSupported(ITypeDescriptorContext? context)
         {
             return true;
         }
 
-        public static System.Drawing.Icon FromString(string iconName)
+        public static System.Drawing.Icon? FromString(string iconName)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace mRemoteNG.Connection
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg, $"Couldn\'t get Icon from String" + Environment.NewLine + ex.Message);
+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg, $"Couldn't get Icon from String" + Environment.NewLine + ex.Message);
             }
 
             return null;

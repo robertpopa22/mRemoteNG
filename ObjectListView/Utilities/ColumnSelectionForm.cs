@@ -233,13 +233,9 @@ namespace BrightIdeasSoftware
         /// A Comparer that will sort a list of columns so that visible ones come before hidden ones,
         /// and that are ordered by their display order.
         /// </summary>
-        private class SortByDisplayOrder : IComparer<OLVColumn>
+        private class SortByDisplayOrder(ColumnSelectionForm form) : IComparer<OLVColumn>
         {
-            public SortByDisplayOrder(ColumnSelectionForm form)
-            {
-                this.Form = form;
-            }
-            private ColumnSelectionForm Form;
+            private ColumnSelectionForm Form = form;
 
             #region IComparer<OLVColumn> Members
 

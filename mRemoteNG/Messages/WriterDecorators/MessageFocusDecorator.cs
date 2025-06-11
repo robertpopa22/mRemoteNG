@@ -11,19 +11,12 @@ using WeifenLuo.WinFormsUI.Docking;
 namespace mRemoteNG.Messages.WriterDecorators
 {
     [SupportedOSPlatform("windows")]
-    public class MessageFocusDecorator : IMessageWriter
+    public class MessageFocusDecorator(ErrorAndInfoWindow messageWindow, IMessageTypeFilteringOptions filter, IMessageWriter decoratedWriter) : IMessageWriter
     {
-        private readonly IMessageTypeFilteringOptions _filter;
-        private readonly IMessageWriter _decoratedWriter;
-        private readonly ErrorAndInfoWindow _messageWindow;
+        private readonly IMessageTypeFilteringOptions _filter = filter ?? throw new ArgumentNullException(nameof(filter));
+        private readonly IMessageWriter _decoratedWriter = decoratedWriter ?? throw new ArgumentNullException(nameof(decoratedWriter));
+        private readonly ErrorAndInfoWindow _messageWindow = messageWindow ?? throw new ArgumentNullException(nameof(messageWindow));
         private readonly FrmMain _frmMain = FrmMain.Default;
-
-        public MessageFocusDecorator(ErrorAndInfoWindow messageWindow, IMessageTypeFilteringOptions filter, IMessageWriter decoratedWriter)
-        {
-            _filter = filter ?? throw new ArgumentNullException(nameof(filter));
-            _messageWindow = messageWindow ?? throw new ArgumentNullException(nameof(messageWindow));
-            _decoratedWriter = decoratedWriter ?? throw new ArgumentNullException(nameof(decoratedWriter));
-        }
 
         public async void Write(IMessage message)
         {

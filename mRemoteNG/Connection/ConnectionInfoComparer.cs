@@ -6,18 +6,17 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Connection
 {
     [SupportedOSPlatform("windows")]
-    public class ConnectionInfoComparer<TProperty> : IComparer<ConnectionInfo> where TProperty : IComparable<TProperty>
+    public class ConnectionInfoComparer<TProperty>(Func<ConnectionInfo, TProperty> sortExpression) : IComparer<ConnectionInfo> where TProperty : IComparable<TProperty>
     {
-        private readonly Func<ConnectionInfo, TProperty> _sortExpression;
+        private readonly Func<ConnectionInfo, TProperty> _sortExpression = sortExpression;
         public ListSortDirection SortDirection { get; set; } = ListSortDirection.Ascending;
 
-        public ConnectionInfoComparer(Func<ConnectionInfo, TProperty> sortExpression)
+        public int Compare(ConnectionInfo? x, ConnectionInfo? y)
         {
-            _sortExpression = sortExpression;
-        }
+            if (x == null && y == null) return 0;
+            if (x == null) return SortDirection == ListSortDirection.Ascending ? -1 : 1;
+            if (y == null) return SortDirection == ListSortDirection.Ascending ? 1 : -1;
 
-        public int Compare(ConnectionInfo x, ConnectionInfo y)
-        {
             return SortDirection == ListSortDirection.Ascending ? CompareAscending(x, y) : CompareDescending(x, y);
         }
 

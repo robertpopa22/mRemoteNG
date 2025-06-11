@@ -17,21 +17,40 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
     public class DatabaseConnectionTester
     {
-        //string connectionString = "Data Source=172.22.155.100,1433;Initial Catalog=Demo;User ID=sa;Password=London123";
-        
-        public static void TestConnection(string connectionString)
+        public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password)
         {
             try
             {
+                // Build the connection string based on the provided parameters
+                string connectionString = $"Data Source={server};Initial Catalog={database};User ID={username};Password={password}";
+
+                // Attempt to open a connection to the database
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-                    Console.WriteLine("Connection successful!");
+                    await connection.OpenAsync();
+                }
+
+                return ConnectionTestResult.ConnectionSucceded;
+            }
+            catch (SqlException ex)
+            {
+                // Handle specific SQL exceptions
+                switch (ex.Number)
+                {
+                    case 4060: // Invalid Database
+                        return ConnectionTestResult.UnknownDatabase;
+                    case 18456: // Login Failed
+                        return ConnectionTestResult.CredentialsRejected;
+                    case -1: // Server not accessible
+                        return ConnectionTestResult.ServerNotAccessible;
+                    default:
+                        return ConnectionTestResult.UnknownError;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Connection failed: {ex.Message}");
+                // Handle any other exceptions
+                return ConnectionTestResult.UnknownError;
             }
         }
     }

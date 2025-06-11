@@ -2180,15 +2180,12 @@ namespace BrightIdeasSoftware
         /// <summary>
         /// This class sorts branches according to how their respective model objects are sorted
         /// </summary>
-        public class BranchComparer : IComparer<Branch>
+        /// <remarks>
+        /// Create a BranchComparer
+        /// </remarks>
+        /// <param name="actualComparer"></param>
+        public class BranchComparer(IComparer actualComparer) : IComparer<Branch>
         {
-            /// <summary>
-            /// Create a BranchComparer
-            /// </summary>
-            /// <param name="actualComparer"></param>
-            public BranchComparer(IComparer actualComparer) {
-                this.actualComparer = actualComparer;
-            }
 
             /// <summary>
             /// Order the two branches
@@ -2200,7 +2197,7 @@ namespace BrightIdeasSoftware
                 return this.actualComparer.Compare(x.Model, y.Model);
             }
 
-            private readonly IComparer actualComparer;
+            private readonly IComparer actualComparer = actualComparer;
         }
 
     }

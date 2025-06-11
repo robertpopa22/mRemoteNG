@@ -14,7 +14,7 @@ using System.Security;
 namespace mRemoteNG.Connection
 {
     [SupportedOSPlatform("windows")]
-    public abstract class AbstractConnectionRecord : INotifyPropertyChanged
+    public abstract class AbstractConnectionRecord(string uniqueId) : INotifyPropertyChanged
     {
         #region Fields
 
@@ -829,7 +829,7 @@ namespace mRemoteNG.Connection
 
         #region Misc
 
-        [Browsable(false)] public string ConstantID { get; }
+        [Browsable(false)] public string ConstantID { get; } = uniqueId.ThrowIfNullOrEmpty(nameof(uniqueId));
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.ExternalToolBefore)),
@@ -1032,20 +1032,14 @@ namespace mRemoteNG.Connection
         }
 
         #endregion
-
         #endregion
-
-        protected AbstractConnectionRecord(string uniqueId)
-        {
-            ConstantID = uniqueId.ThrowIfNullOrEmpty(nameof(uniqueId));
-        }
 
         protected virtual TPropertyType GetPropertyValue<TPropertyType>(string propertyName, TPropertyType value)
         {
             return (TPropertyType)GetType().GetProperty(propertyName)?.GetValue(this, null);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void RaisePropertyChangedEvent(object sender, PropertyChangedEventArgs args)
         {

@@ -9,10 +9,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         //UserControl overrides dispose to clean up the component list.
         [System.Diagnostics.DebuggerNonUserCode()]
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
+        protected override void Dispose(bool disposing) => base.Dispose(disposing);
 
         //NOTE: The following procedure is required by the Windows Form Designer
         //It can be modified using the Windows Form Designer.

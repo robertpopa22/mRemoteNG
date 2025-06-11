@@ -369,14 +369,8 @@ namespace BrightIdeasSoftware.Design
         /// only have to modify the returned collection of actions, but we have to implement
         /// the properties and commands that the returned actions use. </para>
         /// </remarks>
-        private class ListViewActionListAdapter : DesignerActionList
+        private class ListViewActionListAdapter(ObjectListViewDesigner designer, DesignerActionList wrappedList) : DesignerActionList(wrappedList.Component)
         {
-            public ListViewActionListAdapter(ObjectListViewDesigner designer, DesignerActionList wrappedList)
-                : base(wrappedList.Component) {
-                this.designer = designer;
-                this.wrappedList = wrappedList;
-            }
-
             public override DesignerActionItemCollection GetSortedActionItems() {
                 DesignerActionItemCollection items = wrappedList.GetSortedActionItems();
                 items.RemoveAt(2); // remove Edit Groups
@@ -425,21 +419,16 @@ namespace BrightIdeasSoftware.Design
                 set { SetValue(base.Component, "View", value); }
             }
 
-            ObjectListViewDesigner designer;
-            DesignerActionList wrappedList;
+            ObjectListViewDesigner designer = designer;
+            DesignerActionList wrappedList = wrappedList;
         }
 
         #endregion
 
         #region DesignerCommandSet
 
-        private class CDDesignerCommandSet : DesignerCommandSet
+        private class CDDesignerCommandSet(ComponentDesigner componentDesigner) : DesignerCommandSet
         {
-
-            public CDDesignerCommandSet(ComponentDesigner componentDesigner) {
-                this.componentDesigner = componentDesigner;
-            }
-
             public override ICollection GetCommands(string name) {
                 // Debug.WriteLine("CDDesignerCommandSet.GetCommands:" + name);
                 if (componentDesigner != null) {
@@ -453,7 +442,7 @@ namespace BrightIdeasSoftware.Design
                 return base.GetCommands(name);
             }
 
-            private readonly ComponentDesigner componentDesigner;
+            private readonly ComponentDesigner componentDesigner = componentDesigner;
         }
 
         #endregion
@@ -463,15 +452,12 @@ namespace BrightIdeasSoftware.Design
     /// This class works in conjunction with the OLVColumns property to allow OLVColumns
     /// to be added to the ObjectListView.
     /// </summary>
-    public class OLVColumnCollectionEditor : System.ComponentModel.Design.CollectionEditor
+    /// <remarks>
+    /// Create a OLVColumnCollectionEditor
+    /// </remarks>
+    /// <param name="t"></param>
+    public class OLVColumnCollectionEditor(Type t) : System.ComponentModel.Design.CollectionEditor(t)
     {
-        /// <summary>
-        /// Create a OLVColumnCollectionEditor
-        /// </summary>
-        /// <param name="t"></param>
-        public OLVColumnCollectionEditor(Type t)
-            : base(t) {
-        }
 
         /// <summary>
         /// What type of object does this editor create?
