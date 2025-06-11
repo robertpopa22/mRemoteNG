@@ -15,9 +15,8 @@ namespace mRemoteNG.Connection
     [SupportedOSPlatform("windows")]
     public sealed class PuttySessionInfo : ConnectionInfo, IComponent
     {
-        #region Properties
-
-        [Browsable(false)] public RootPuttySessionsNodeInfo RootRootPuttySessionsInfo { get; set; }
+        [Browsable(false)]
+        public RootPuttySessionsNodeInfo RootRootPuttySessionsInfo { get; set; } = default!;
 
         [ReadOnly(true)] public override string PuttySession { get; set; } = string.Empty;
 
@@ -35,7 +34,7 @@ namespace mRemoteNG.Connection
         [ReadOnly(true), Browsable(false)]
         public override string Panel
         {
-            get => Parent?.Panel;
+            get => Parent?.Panel ?? string.Empty; // Provide a default value to handle null cases
             set { }
         }
 
@@ -58,7 +57,7 @@ namespace mRemoteNG.Connection
 
         [ReadOnly(true), Browsable(false)] public override string UserField { get; set; } = string.Empty;
 
-        #endregion
+        
 
         [Command(), LocalizedAttributes.LocalizedDisplayName("strPuttySessionSettings")]
         public void SessionSettings()
