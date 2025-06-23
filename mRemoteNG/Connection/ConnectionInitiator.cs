@@ -406,21 +406,16 @@ namespace mRemoteNG.Connection
             try
             {
                 ProtocolBase prot = (ProtocolBase)sender;
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ConnenctionCloseEvent,
-                                                    true);
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ConnenctionCloseEvent, true);
                 string connDetail;
-                if (prot.InterfaceControl.OriginalInfo.Hostname == "" &&
-                    prot.InterfaceControl.Info.Protocol == ProtocolType.IntApp)
+                if (prot.InterfaceControl.OriginalInfo.Hostname == "" && prot.InterfaceControl.Info.Protocol == ProtocolType.IntApp)
                     connDetail = prot.InterfaceControl.Info.ExtApp;
                 else if (prot.InterfaceControl.OriginalInfo.Hostname != "")
                     connDetail = prot.InterfaceControl.OriginalInfo.Hostname;
                 else
                     connDetail = "UNKNOWN";
 
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    string.Format(Language.ConnenctionClosedByUser, connDetail,
-                                                                  prot.InterfaceControl.Info.Protocol,
-                                                                  Environment.UserName));
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.ConnenctionClosedByUser, connDetail, prot.InterfaceControl.Info.Protocol, Environment.UserName));
                 prot.InterfaceControl.OriginalInfo.OpenConnections.Remove(prot);
                 if (_activeConnections.Contains(prot.InterfaceControl.Info.ConstantID))
                     _activeConnections.Remove(prot.InterfaceControl.Info.ConstantID);

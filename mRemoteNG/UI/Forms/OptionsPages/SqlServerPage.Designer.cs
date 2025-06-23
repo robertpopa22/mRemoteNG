@@ -972,7 +972,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             DCMSetupddschema.Anchor = System.Windows.Forms.AnchorStyles.Left;
             DCMSetupddschema.FormattingEnabled = true;
-            DCMSetupddschema.Location = new System.Drawing.Point(219, 33);
+            DCMSetupddschema.Location = new System.Drawing.Point(219, 34);
             DCMSetupddschema.Name = "DCMSetupddschema";
             DCMSetupddschema.Size = new System.Drawing.Size(210, 21);
             DCMSetupddschema.TabIndex = 3;
