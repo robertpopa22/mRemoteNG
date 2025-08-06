@@ -101,6 +101,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 case "allow desktop composition":
                     connectionInfo.EnableDesktopComposition = value == "1";
                     break;
+                case "keyboardhook":
+                    connectionInfo.RedirectKeys = value == "1";
+                    break;
                 case "redirectsmartcards":
                     connectionInfo.RedirectSmartCards = value == "1";
                     break;
@@ -155,6 +158,32 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                     break;
                 case "gatewayhostname":
                     connectionInfo.RDGatewayHostname = value;
+                    break;
+                case "gatewaycredentialssource":
+                    switch(value)
+                    {
+                        case "0":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.ExternalCredentialProvider;
+                            break;
+                        case "1":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.SmartCard;
+                            break;
+                        case "2":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.Yes;
+                            break;
+                        case "3":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.No;
+                            break;
+                        case "4":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.No;
+                            break;
+                        case "5":
+                            connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.AccessToken;
+                            break;
+                    }
+                    break;
+                case "gatewayaccesstoken":
+                    connectionInfo.RDGatewayAccessToken = value;
                     break;
                 case "alternate shell":
                     connectionInfo.RDPStartProgram = value;
