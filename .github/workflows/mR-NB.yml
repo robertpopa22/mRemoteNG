@@ -31,7 +31,7 @@ jobs:
 
       - name: 05. Build Release
         shell: pwsh
-        run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release Installer and Portable" -p:Platform=x64 /verbosity:minimal
+        run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
 
       - name: 06. Upload MSI Artifact
         uses: actions/upload-artifact@v4
