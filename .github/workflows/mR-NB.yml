@@ -15,7 +15,7 @@ jobs:
       - name: 02. Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: '17.12.4'
+          vs-version: '17.14.11'
 
       - name: 03. Cache NuGet Packages
         uses: actions/cache@v3
