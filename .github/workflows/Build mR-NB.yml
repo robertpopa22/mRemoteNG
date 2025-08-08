@@ -43,17 +43,30 @@ jobs:
       - name: 07. Compress Release Output
         shell: pwsh
         run: |
-          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $assemblyInfoPath = "${{ github.workspace }}\mRemoteNG\Properties\AssemblyInfo.cs"
+          $line = Get-Content $assemblyInfoPath | Where-Object { $_ -match 'AssemblyVersion\("(.+?)"\)' }
+          if ($line -match 'AssemblyVersion\("(?<ver>\d+\.\d+\.\d+)\.(?<build>\d+)"\)') {
+            $version = $matches['ver']
+            $build = $matches['build']
+          } else {
+            throw "Could not extract version and build number"
+          }
+          $date = Get-Date -Format "ddMMyyyy"
+          $zipName = "mRemoteNG-$version-(NB_$build)_$date.zip"
+          
           $source = "${{ github.workspace }}\mRemoteNG\bin\x64\Release\win-x64"
-          $destination = "${{ github.workspace }}\release-x64.zip"
+          $destination = "${{ github.workspace }}\$zipName"
+
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
           if (Test-Path $destination) { Remove-Item $destination }
           [System.IO.Compression.ZipFile]::CreateFromDirectory($source, $destination)
+          echo "::set-output name=zipname::$zipName"
 
       - name: 08. Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-x64
-          path: ${{ github.workspace }}\release-x64.zip
+          path: ${{ github.workspace }}\${{ steps.zipstep.outputs.zipname }}
           if-no-files-found: error
 
   Create-Release:
