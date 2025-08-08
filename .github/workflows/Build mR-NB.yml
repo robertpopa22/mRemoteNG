@@ -41,6 +41,7 @@ jobs:
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
 
       - name: 07. Compress Release Output
+        id: zipstep
         shell: pwsh
         run: |
           $assemblyInfoPath = "${{ github.workspace }}\mRemoteNG\Properties\AssemblyInfo.cs"
@@ -62,12 +63,11 @@ jobs:
           [System.IO.Compression.ZipFile]::CreateFromDirectory($source, $destination)
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
 
-      - name: 08. Upload Artifact
+      - name: 08. Upload Final ZIP as Artifact
         uses: actions/upload-artifact@v4
         with:
-          asset_path: ${{ github.workspace }}/${{ steps.zipstep.outputs.zipname }}
-          asset_name: ${{ steps.zipstep.outputs.zipname }}
-          if-no-files-found: error
+          name: ${{ steps.zipstep.outputs.zipname }}
+          path: ${{ github.workspace }}/${{ steps.zipstep.outputs.zipname }}
 
   Create-Release:
     needs: [Build-Release]
