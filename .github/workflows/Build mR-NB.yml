@@ -8,6 +8,10 @@ on:
 jobs:
   Build-Release:
     runs-on: windows-2022
+    outputs:
+      zipname: ${{ steps.version.outputs.zipname }}
+      version: ${{ steps.version.outputs.version }}
+      build: ${{ steps.version.outputs.build }}
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
@@ -78,6 +82,16 @@ jobs:
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
+
+      - name: !!!. Debug Info
+        run: |
+          echo "=== DEBUG: Job Outputs ==="
+          echo "Zipname: ${{ needs.Build-Release.outputs.zipname }}"
+          echo "Version: ${{ needs.Build-Release.outputs.version }}"
+          echo "Build: ${{ needs.Build-Release.outputs.build }}"
+          echo "=== DEBUG: Files ==="
+          ls -la
+
           
       - name: 03. Create Release and Upload Asset
         shell: bash
