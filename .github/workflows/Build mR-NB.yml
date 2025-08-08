@@ -68,6 +68,7 @@ jobs:
     # Add explicit permissions for this job
     permissions:
       contents: write
+      
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
