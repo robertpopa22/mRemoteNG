@@ -88,4 +88,4 @@ jobs:
             --title "v1.77.3-dev-${GITHUB_RUN_NUMBER}" \
             --prerelease \
             --generate-notes \
-            release-x64.zip
+            ${{ steps.zipstep.outputs.zipname }}
