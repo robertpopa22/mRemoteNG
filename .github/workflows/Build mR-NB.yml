@@ -5,6 +5,10 @@ on:
     branches:
       - v1.78.2-dev
 
+# Add explicit permissions for the workflow
+permissions:
+  contents: write
+  
 jobs:
   Build-Release:
     runs-on: windows-2022
