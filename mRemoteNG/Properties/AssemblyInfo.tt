@@ -29,12 +29,20 @@ using System.Resources;
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
 
 <#+
-    //build is a number of days from date of last release + curent hour + curent minute of build
     int major = 1;
     int minor = 78;
     int revision = 2;
     string channel = "Nightly Build";
-    DateTime lastReleaseDate = new DateTime(2019, 9, 2);
-    DateTime CurrentDate = DateTime.UtcNow;
-    int build = (int)((currentDate - lastReleaseDate).TotalMinutes / 1000);
+    int build;
+
+    DateTime GetLastReleaseDate() => new DateTime(2019, 9, 2);
+
+    void InitializeVersion()
+    {
+        var elapsedTime = DateTime.UtcNow - GetLastReleaseDate();
+        var totalMinutes = elapsedTime.TotalMinutes;
+        build = (int)(totalMinutes / 1000);
+    }
+
+    InitializeVersion(); // Trigger version calculation
 #>
