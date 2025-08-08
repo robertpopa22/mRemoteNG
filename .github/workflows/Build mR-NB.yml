@@ -65,18 +65,23 @@ jobs:
   Create-Release:
     needs: [Build-Release]
     runs-on: ubuntu-22.04
+    # Add explicit permissions for this job
+    permissions:
+      contents: write
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
+        
       - name: 02. Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
-          path: ${{ needs.Build-Release.outputs.zipname }}
+          path: ./
+          
       - name: 03. Create Release and Upload Asset
         shell: bash
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Create tag name
           TAG="v${{ needs.Build-Release.outputs.version }}-${{ needs.Build-Release.outputs.build }}-${GITHUB_RUN_NUMBER}"
@@ -86,4 +91,4 @@ jobs:
             --title "mRemoteNG ${{ needs.Build-Release.outputs.version }} Build ${{ needs.Build-Release.outputs.build }}" \
             --notes "Development build of mRemoteNG version ${{ needs.Build-Release.outputs.version }}" \
             --prerelease \
-            "${{ needs.Build-Release.outputs.zipname }}/${{ needs.Build-Release.outputs.zipname }}"
+            "${{ needs.Build-R
