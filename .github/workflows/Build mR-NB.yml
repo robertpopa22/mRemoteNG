@@ -60,13 +60,13 @@ jobs:
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           if (Test-Path $destination) { Remove-Item $destination }
           [System.IO.Compression.ZipFile]::CreateFromDirectory($source, $destination)
-          echo "::set-output name=zipname::$zipName"
+          echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
 
       - name: 08. Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-x64
-          path: ${{ github.workspace }}\${{ steps.zipstep.outputs.zipname }}
+          asset_path: ${{ github.workspace }}/${{ steps.zipstep.outputs.zipname }}
+          asset_name: ${{ steps.zipstep.outputs.zipname }}
           if-no-files-found: error
 
   Create-Release:
