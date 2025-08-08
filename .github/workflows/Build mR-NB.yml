@@ -92,4 +92,4 @@ jobs:
             --title "mRemoteNG ${{ needs.Build-Release.outputs.version }} Build ${{ needs.Build-Release.outputs.build }}" \
             --notes "Development build of mRemoteNG version ${{ needs.Build-Release.outputs.version }}" \
             --prerelease \
-            "${{ needs.Build-R
+            "${{ needs.Build-Release.outputs.zipname }}"
