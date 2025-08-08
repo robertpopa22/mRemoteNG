@@ -40,8 +40,8 @@ jobs:
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
 
-      - name: 07. Compress Release Output
-        id: zipstep
+      - name: 07. Generate Version Info
+        id: version
         shell: pwsh
         run: |
           $assemblyInfoPath = "${{ github.workspace }}\mRemoteNG\Properties\AssemblyInfo.cs"
@@ -54,20 +54,13 @@ jobs:
           }
           $date = Get-Date -Format "ddMMyyyy"
           $zipName = "mRemoteNG-$version-(NB_$build)_$date.zip"
-          
-          $source = "${{ github.workspace }}\mRemoteNG\bin\x64\Release\win-x64"
-          $destination = "${{ github.workspace }}\$zipName"
-
-          Add-Type -AssemblyName System.IO.Compression.FileSystem
-          if (Test-Path $destination) { Remove-Item $destination }
-          [System.IO.Compression.ZipFile]::CreateFromDirectory($source, $destination)
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
-
-      - name: 08. Upload Final ZIP as Artifact
+          
+      - name: 08. Upload Release Output as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.zipstep.outputs.zipname }}
-          path: ${{ github.workspace }}/${{ steps.zipstep.outputs.zipname }}
+          name: ${{ steps.version.outputs.zipname }}
+          path: ${{ github.workspace }}\mRemoteNG\bin\x64\Release\win-x64\*
 
   Create-Release:
     needs: [Build-Release]
@@ -75,17 +68,21 @@ jobs:
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
-
       - name: 02. Download Artifacts
         uses: actions/download-artifact@v4
-
+        with:
+          name: ${{ needs.Build-Release.outputs.zipname }}
+          path: release-files
       - name: 03. Create Release on GitHub
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          cd release-files
+          zip -r ../${{ needs.Build-Release.outputs.zipname }} .
+          cd ..
           gh release create "v1.77.3-dev-${GITHUB_RUN_NUMBER}" \
             --title "v1.77.3-dev-${GITHUB_RUN_NUMBER}" \
             --prerelease \
             --generate-notes \
-            ${{ steps.zipstep.outputs.zipname }}
+            ${{ needs.Build-Release.outputs.zipname }}
