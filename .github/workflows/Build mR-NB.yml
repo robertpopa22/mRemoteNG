@@ -21,7 +21,7 @@ jobs:
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
-          $ttFile = "$env:GITHUB_WORKSPACE\YourProject\Properties\AssemblyInfo.tt"
+          $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
           dotnet-t4 $ttFile
   
       - name: 04. Cache NuGet Packages
