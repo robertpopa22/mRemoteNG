@@ -172,9 +172,11 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                             connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.Yes;
                             break;
                         case "3":
+                            // Both 3 and 4 require that the user enter gateway credentials manually
                             connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.No;
                             break;
                         case "4":
+                            // Both 3 and 4 require that the user enter gateway credentials manually
                             connectionInfo.RDGatewayUseConnectionCredentials = RDGatewayUseConnectionCredentials.No;
                             break;
                         case "5":
