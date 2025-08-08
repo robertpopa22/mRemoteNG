@@ -68,21 +68,22 @@ jobs:
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
-      - name: 02. Download Artifacts
+      - name: 02. Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
-          path: release-files
-      - name: 03. Create Release on GitHub
+          path: ${{ needs.Build-Release.outputs.zipname }}
+      - name: 03. Create Release and Upload Asset
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cd release-files
-          zip -r ../${{ needs.Build-Release.outputs.zipname }} .
-          cd ..
-          gh release create "v1.77.3-dev-${GITHUB_RUN_NUMBER}" \
-            --title "v1.77.3-dev-${GITHUB_RUN_NUMBER}" \
+          # Create tag name
+          TAG="v${{ needs.Build-Release.outputs.version }}-${{ needs.Build-Release.outputs.build }}-${GITHUB_RUN_NUMBER}"
+          
+          # Create release with tag and attach artifact
+          gh release create "$TAG" \
+            --title "mRemoteNG ${{ needs.Build-Release.outputs.version }} Build ${{ needs.Build-Release.outputs.build }}" \
+            --notes "Development build of mRemoteNG version ${{ needs.Build-Release.outputs.version }}" \
             --prerelease \
-            --generate-notes \
-            ${{ needs.Build-Release.outputs.zipname }}
+            "${{ needs.Build-Release.outputs.zipname }}/${{ needs.Build-Release.outputs.zipname }}"
