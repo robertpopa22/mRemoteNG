@@ -66,11 +66,25 @@ jobs:
           
       - name: (09) Extract release notes from CHANGELOG.md
         id: changelog
+        shell: pwsh
         run: |
-          notes=$(awk '/^## /{i++} i==1{print}' CHANGELOG.md)
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$notes" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          $content = Get-Content CHANGELOG.md
+          $section = ""
+          $inSection = $false
+
+          foreach ($line in $content) {
+              if ($line -match '^## ') {
+                  if (-not $inSection) {
+                      $inSection = $true
+                      $section += $line + "`n"
+                  } else {
+                      break
+                  }
+              } elseif ($inSection) {
+                  $section += $line + "`n"
+              }
+          }
+
           
       - name: (10) Create release and upload asset
         shell: bash
