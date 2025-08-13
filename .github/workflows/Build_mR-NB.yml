@@ -1,5 +1,4 @@
 name: Build_mR-NB
-
 on:
   push:
     branches:
@@ -15,7 +14,7 @@ jobs:
     steps:
       - name: 01.1 Checkout Repository
         uses: actions/checkout@v4
-
+        
       - name: 01.2 Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
@@ -35,15 +34,15 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-
+            
       - name: 01.5 Restore NuGet Packages
         shell: pwsh
         run: dotnet restore
-
+        
       - name: 01.6 Build Release
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
-
+        
       - name: 01.7 Generate Version Info
         id: version
         shell: pwsh
@@ -62,11 +61,18 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           
-      - name: 01.8 Upload Release Output as Artifact
+      - name: 01.8 Create Zip File
+        shell: pwsh
+        run: |
+          $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
+          $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
+          Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
+          
+      - name: 01.9 Upload Zip File
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.version.outputs.zipname }}
-          path: ${{ github.workspace }}\mRemoteNG\bin\x64\Release\win-x64\*
+          path: ${{ github.workspace }}\mRemoteNG-${{ steps.version.outputs.zipname }}
 
   Create-Release:
     needs: [Build-Release]
@@ -76,16 +82,13 @@ jobs:
       - name: 02.1 Checkout Repository
         uses: actions/checkout@v4
         
-      - name: 02.2 Download Artifact
+      - name: 02.2 Download Artifact (Raw Format)
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
+          archive-format: raw
           
-      - name: 02.2.1 Move ZIP to root
-        run: |
-          mv "./${{ needs.build-release.outputs.zipname }}/${{ needs.build-release.outputs.zipname }}" ./
-
       - name: 02.3 Extract release notes from CHANGELOG.md
         id: changelog
         run: |
@@ -93,16 +96,7 @@ jobs:
           echo "notes<<EOF" >> $GITHUB_OUTPUT
           echo "$notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
-      - name: Debug Info
-        run: |
-          echo "=== DEBUG: Job Outputs ==="
-          echo "Zipname: ${{ needs.Build-Release.outputs.zipname }}"
-          echo "Version: ${{ needs.Build-Release.outputs.version }}"
-          echo "Build: ${{ needs.Build-Release.outputs.build }}"
-          echo "=== DEBUG: Files ==="
-          ls -la
-
+          
       - name: 02.4 Create release and upload asset
         shell: bash
         env:
@@ -110,14 +104,9 @@ jobs:
         run: |
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ needs.build-release.outputs.version }}-NB-${{ needs.build-release.outputs.build }}"
-          echo "Tag: $TAG"
-
           ZIP="${{ needs.build-release.outputs.zipname }}"
-          echo "Found ZIP: $ZIP"
-
           gh release create "$TAG" \
           --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
           --prerelease \
           "$ZIP"
-
