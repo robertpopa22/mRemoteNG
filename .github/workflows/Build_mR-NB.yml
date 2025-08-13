@@ -84,7 +84,10 @@ jobs:
                   $section += $line + "`n"
               }
           }
-
+          $section.TrimEnd("`n") | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          echo "notes<<EOF" >> $env:GITHUB_OUTPUT
+          Get-Content $env:GITHUB_OUTPUT | Select-Object -Skip 1 | ForEach-Object { echo $_ } >> $env:GITHUB_OUTPUT
+          echo "EOF" >> $env:GITHUB_OUTPUT
           
       - name: (10) Create release and upload asset
         shell: bash
@@ -92,10 +95,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date +'%Y.%m.%d')
-          TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
+          TAG="${{DATE}}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
           ZIP="${{ steps.version.outputs.zipname }}"
           gh release create "$TAG" \
-          --title "mRemoteNG ${{ steps.version.outputs.version }} Build ${{ steps.version.outputs.build }}" \
+          --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
           --prerelease \
-          "$ZIP"
+          "$destFile"
