@@ -81,10 +81,10 @@ jobs:
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
+          
       - name: 02.2.1 Move ZIP to root
         run: |
-          mv "./${{ needs.Build-Release.outputs.zipname }}/${{ needs.Build-Release.outputs.zipname }}" ./
-
+          mv "./${{ needs.build-release.outputs.zipname }}/${{ needs.build-release.outputs.zipname }}" ./
 
       - name: 02.3 Extract release notes from CHANGELOG.md
         id: changelog
@@ -112,11 +112,12 @@ jobs:
           TAG="${DATE}-v${{ needs.build-release.outputs.version }}-NB-${{ needs.build-release.outputs.build }}"
           echo "Tag: $TAG"
 
-          ZIP="./${{ needs.build-release.outputs.zipname }}/${{ needs.build-release.outputs.zipname }}"
+          ZIP="${{ needs.build-release.outputs.zipname }}"
           echo "Found ZIP: $ZIP"
 
           gh release create "$TAG" \
-            --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
-            --notes "${{ steps.changelog.outputs.notes }}" \
-            --prerelease \
-            "${{ needs.build-release.outputs.zipname }}"
+          --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
+          --notes "${{ steps.changelog.outputs.notes }}" \
+          --prerelease \
+          "$ZIP"
+
