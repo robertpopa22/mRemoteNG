@@ -108,6 +108,8 @@ jobs:
           TAG="${DATE}-v${{ needs.build-release.outputs.version }}-NB-${{ needs.build-release.outputs.build }}"
           echo "Tag: $TAG"
 
+          ZIP=$(find . -name "${{ needs.build-release.outputs.zipname }}" -type f)
+
           gh release create "$TAG" \
             --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
             --notes "${{ steps.changelog.outputs.notes }}" \
