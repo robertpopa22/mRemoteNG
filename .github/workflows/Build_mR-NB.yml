@@ -19,7 +19,7 @@ jobs:
       - name: 02. Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: '17.14.11'
+          vs-version: '17.14.12'
           
       - name: Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
@@ -56,9 +56,11 @@ jobs:
           } else {
             throw "Could not extract version and build number"
           }
-          $date = Get-Date -Format "ddMMyyyy"
-          $zipName = "mRemoteNG-$version-(NB_$build)_$date.zip"
+          $date = Get-Date -Format "yyyyMMdd"
+          $zipName = "mRemoteNG-$date-v$version-NB-$build.zip"
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
+          echo "version=$version" >> $env:GITHUB_OUTPUT
+          echo "build=$build" >> $env:GITHUB_OUTPUT
           
       - name: 08. Upload Release Output as Artifact
         uses: actions/upload-artifact@v4
@@ -69,10 +71,7 @@ jobs:
   Create-Release:
     needs: [Build-Release]
     runs-on: ubuntu-22.04
-    # Add explicit permissions for this job
-    permissions:
-      contents: write
-      
+    
     steps:
       - name: 01. Checkout Repository
         uses: actions/checkout@v4
@@ -82,6 +81,14 @@ jobs:
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
+          
+      - name: Extract release notes from CHANGELOG.md
+        id: changelog
+        run: |
+          notes=$(awk '/^## /{i++} i==1{print}' CHANGELOG.md)
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$notes" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Debug Info
         run: |
@@ -92,19 +99,17 @@ jobs:
           echo "=== DEBUG: Files ==="
           ls -la
 
-          
-      - name: 03. Create Release and Upload Asset
+      - name: Create release and upload asset
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Create tag name
-          TAG="v${{ needs.Build-Release.outputs.version }}-${{ needs.Build-Release.outputs.build }}-${GITHUB_RUN_NUMBER}"
-          echo "Tag: "v${{ needs.Build-Release.outputs.version }}-${{ needs.Build-Release.outputs.build }}-${GITHUB_RUN_NUMBER}""
-          
-          # Create release with tag and attach artifact
+          DATE=$(date +'%Y.%m.%d')
+          TAG="${DATE}-v${{ needs.build-release.outputs.version }}-NB-${{ needs.build-release.outputs.build }}"
+          echo "Tag: $TAG"
+
           gh release create "$TAG" \
-            --title "mRemoteNG ${{ needs.Build-Release.outputs.version }} Build ${{ needs.Build-Release.outputs.build }}" \
-            --notes "Development build of mRemoteNG version ${{ needs.Build-Release.outputs.version }}" \
+            --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
+            --notes "${{ steps.changelog.outputs.notes }}" \
             --prerelease \
-            "${{ needs.Build-Release.outputs.zipname }}"
+            "${{ needs.build-release.outputs.zipname }}"
