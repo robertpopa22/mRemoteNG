@@ -96,6 +96,13 @@ jobs:
           echo "$notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
+      - name: (02.04.01) Debug Check file existence
+        run: |
+          echo "Checking for zip file..."
+          ls -la ${{ needs.Build-Release.outputs.zipname }}
+          echo "File exists: $?"
+
+          
       - name: (02.04) Create release and upload asset
         shell: bash
         env:
@@ -104,6 +111,7 @@ jobs:
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ needs.build-release.outputs.version }}-NB-${{ needs.build-release.outputs.build }}"
           ZIP="${{ needs.build-release.outputs.zipname }}"
+          path: ${{ github.workspace }}/${{ steps.version.outputs.zipname }}
           gh release create "$TAG" \
           --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
