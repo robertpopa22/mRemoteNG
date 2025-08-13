@@ -96,11 +96,14 @@ jobs:
           echo "$notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-      - name: (02.04.01) Debug Check file existence
+      - name: Debug Info
         run: |
-          echo "Checking for zip file..."
-          ls -la 
-          echo "File exists: $?"
+          echo "=== DEBUG: Job Outputs ==="
+          echo "Zipname: ${{ needs.Build-Release.outputs.zipname }}"
+          echo "Version: ${{ needs.Build-Release.outputs.version }}"
+          echo "Build: ${{ needs.Build-Release.outputs.build }}"
+          echo "=== DEBUG: Files ==="
+          ls -la
 
           
       - name: (02.04) Create release and upload asset
