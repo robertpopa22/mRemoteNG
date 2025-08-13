@@ -87,7 +87,6 @@ jobs:
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
-          archive-format: raw
           
       - name: (02.03) Extract release notes from CHANGELOG.md
         id: changelog
