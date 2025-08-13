@@ -8,22 +8,22 @@ jobs:
   Build_and_Release:
     runs-on: windows-2022
     steps:
-      - name: [01.01] Checkout Repository
+      - name: (01) Checkout Repository
         uses: actions/checkout@v4
         
-      - name: [01.02] Setup MSBuild
+      - name: (02) Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
           vs-version: '17.14.12'
           
-      - name: [01.03] Install and run dotnet-t4 to transform T4 templates
+      - name: (03) Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
           t4 $ttFile
   
-      - name: [01.04] Cache NuGet Packages
+      - name: (04) Cache NuGet Packages
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
@@ -31,15 +31,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
-      - name: [01.05] Restore NuGet Packages
+      - name: (05) Restore NuGet Packages
         shell: pwsh
         run: dotnet restore
         
-      - name: [01.06] Build Release
+      - name: (06) Build Release
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
         
-      - name: [01.07] Generate Version Info
+      - name: (07) Generate Version Info
         id: version
         shell: pwsh
         run: |
@@ -57,14 +57,14 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           
-      - name: [01.08] Create Zip File
+      - name: (08) Create Zip File
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
           $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
           
-      - name: [01.09] Extract release notes from CHANGELOG.md
+      - name: (09) Extract release notes from CHANGELOG.md
         id: changelog
         run: |
           notes=$(awk '/^## /{i++} i==1{print}' CHANGELOG.md)
@@ -72,7 +72,7 @@ jobs:
           echo "$notes" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-      - name: [01.10] Create release and upload asset
+      - name: (10) Create release and upload asset
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
