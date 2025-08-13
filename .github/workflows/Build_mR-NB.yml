@@ -99,7 +99,7 @@ jobs:
       - name: (02.04.01) Debug Check file existence
         run: |
           echo "Checking for zip file..."
-          ls -la ${{ needs.Build-Release.outputs.zipname }}
+          ls -la 
           echo "File exists: $?"
 
           
