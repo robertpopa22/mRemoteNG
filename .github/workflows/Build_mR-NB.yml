@@ -12,22 +12,22 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       build: ${{ steps.version.outputs.build }}
     steps:
-      - name: 01.1 Checkout Repository
+      - name: 01.01 Checkout Repository
         uses: actions/checkout@v4
         
-      - name: 01.2 Setup MSBuild
+      - name: 01.02 Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
           vs-version: '17.14.12'
           
-      - name: 01.3 Install and run dotnet-t4 to transform T4 templates
+      - name: 01.03 Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
           t4 $ttFile
   
-      - name: 01.4 Cache NuGet Packages
+      - name: 01.04 Cache NuGet Packages
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
@@ -35,15 +35,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
             
-      - name: 01.5 Restore NuGet Packages
+      - name: 01.05 Restore NuGet Packages
         shell: pwsh
         run: dotnet restore
         
-      - name: 01.6 Build Release
+      - name: 01.06 Build Release
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
         
-      - name: 01.7 Generate Version Info
+      - name: 01.07 Generate Version Info
         id: version
         shell: pwsh
         run: |
@@ -61,18 +61,18 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           
-      - name: 01.8 Create Zip File
+      - name: 01.08 Create Zip File
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
           $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
           
-      - name: 01.9 Upload Zip File
+      - name: 01.09 Upload Zip File
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.version.outputs.zipname }}
-          path: ${{ github.workspace }}/${{ steps.version.outputs.zipname }}
+          path: ${{ github.workspace }}\mRemoteNG\bin\x64\Release\win-x64\*
 
   Create-Release:
     needs: [Build-Release]
