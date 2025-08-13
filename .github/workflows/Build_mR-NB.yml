@@ -103,7 +103,7 @@ jobs:
           echo "Version: ${{ needs.Build-Release.outputs.version }}"
           echo "Build: ${{ needs.Build-Release.outputs.build }}"
           echo "=== DEBUG: Files ==="
-          ls -la
+          ls 
 
           
       - name: (02.04) Create release and upload asset
