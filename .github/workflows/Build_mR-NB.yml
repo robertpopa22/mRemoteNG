@@ -1,4 +1,4 @@
-name: Build mR-NB
+name: Build_mR-NB
 
 on:
   push:
