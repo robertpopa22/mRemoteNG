@@ -13,22 +13,22 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       build: ${{ steps.version.outputs.build }}
     steps:
-      - name: 01. Checkout Repository
+      - name: 01.1 Checkout Repository
         uses: actions/checkout@v4
 
-      - name: 02. Setup MSBuild
+      - name: 01.2 Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
           vs-version: '17.14.12'
           
-      - name: Install and run dotnet-t4 to transform T4 templates
+      - name: 01.3 Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
           t4 $ttFile
   
-      - name: 04. Cache NuGet Packages
+      - name: 01.4 Cache NuGet Packages
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
@@ -36,15 +36,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
 
-      - name: 05. Restore NuGet Packages
+      - name: 01.5 Restore NuGet Packages
         shell: pwsh
         run: dotnet restore
 
-      - name: 06. Build Release
+      - name: 01.6 Build Release
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
 
-      - name: 07. Generate Version Info
+      - name: 01.7 Generate Version Info
         id: version
         shell: pwsh
         run: |
@@ -62,7 +62,7 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           
-      - name: 08. Upload Release Output as Artifact
+      - name: 01.8 Upload Release Output as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.version.outputs.zipname }}
@@ -73,16 +73,20 @@ jobs:
     runs-on: ubuntu-22.04
     
     steps:
-      - name: 01. Checkout Repository
+      - name: 02.1 Checkout Repository
         uses: actions/checkout@v4
         
-      - name: 02. Download Artifact
+      - name: 02.2 Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
-          
-      - name: Extract release notes from CHANGELOG.md
+      - name: 02.2.1 Move ZIP to root
+        run: |
+          mv "./${{ needs.Build-Release.outputs.zipname }}/${{ needs.Build-Release.outputs.zipname }}" ./
+
+
+      - name: 02.3 Extract release notes from CHANGELOG.md
         id: changelog
         run: |
           notes=$(awk '/^## /{i++} i==1{print}' CHANGELOG.md)
@@ -99,7 +103,7 @@ jobs:
           echo "=== DEBUG: Files ==="
           ls -la
 
-      - name: Create release and upload asset
+      - name: 02.4 Create release and upload asset
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
