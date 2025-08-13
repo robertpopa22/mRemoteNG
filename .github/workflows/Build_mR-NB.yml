@@ -83,7 +83,7 @@ jobs:
           name: ${{ needs.Build-Release.outputs.zipname }}
           path: ./
 
-      - name: !!!. Debug Info
+      - name: Debug Info
         run: |
           echo "=== DEBUG: Job Outputs ==="
           echo "Zipname: ${{ needs.Build-Release.outputs.zipname }}"
