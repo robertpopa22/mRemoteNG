@@ -116,7 +116,7 @@ jobs:
           ZIP="${{ needs.build-release.outputs.zipname }}"
           path: ${{ github.workspace }}/${{ steps.version.outputs.zipname }}
           gh release create "$TAG" \
-          --title "mRemoteNG ${{ needs.build-release.outputs.version }} Build ${{ needs.build-release.outputs.build }}" \
+          --title "mRemoteNG ${{ needs.build-release.outputs.version }} NB ${{ needs.build-release.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
           --prerelease \
-          "$ZIP"
+          "${{ github.workspace }}/${{ steps.version.outputs.zipname }}"
