@@ -103,8 +103,9 @@ jobs:
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
           ZIP="${{ steps.version.outputs.zipname }}"
+          echo 
           gh release create "$TAG" \
           --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
           --prerelease \
-          "$destFile"
+          "$zipName"
