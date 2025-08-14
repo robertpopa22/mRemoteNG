@@ -63,7 +63,23 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          
+          $version = "${{ steps.version.outputs.version }}"
+          $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
+          $content = Get-Content $changelogPath -Raw
+      
+          # Match the section for the current version
+          $pattern = "## \[$version\][^\#]+"
+          if ($content -match $pattern) {
+            $section = $matches[0].Trim()
+          } else {
+            $section = "No changelog entry found for version $version."
+          }
+      
+          # Escape newlines for GitHub Actions output
+          $escaped = $section -replace "`r`n", "`n" -replace "`n", "%0A"
+          echo "log=$escaped" >> $env:GITHUB_OUTPUT
+
+
       
       - name: (08) Create Zip File
         shell: pwsh
@@ -82,9 +98,8 @@ jobs:
           name: "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}"
           files: ${{ steps.version.outputs.zipname }}
           body: |
-            Changes in this Release
-            - First Change
-            - Second Change
+            Changes in this Release:
+            ${{ steps.changelog.outputs.log }}
 
             Last Commit Message:
             ${{ steps.version.outputs.message }}
