@@ -64,32 +64,50 @@ jobs:
           echo "build=$build" >> $env:GITHUB_OUTPUT
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
           $version = "${{ steps.version.outputs.version }}"
+
+      - name: (08) Extract Changelog Section
+        id: changelog
+        shell: pwsh
+        run: |
           $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
-          $content = Get-Content $changelogPath -Raw
-          echo "Content: $content"
-          
-          # Match the section for the current version
-          $pattern = "## \[$version\][^\#]+"
-          if ($content -match $pattern) {
-            $section = $matches[0].Trim()
-          } else {
-            $section = "No changelog entry found for version $version."
+          $lines = Get-Content $changelogPath
+      
+          # Find all version header lines
+          $versionLines = $lines | Where-Object { $_ -match '^## \[\d+\.\d+\.\d+.*\]' }
+          if ($versionLines.Count -lt 1) {
+            throw "No version headers found in CHANGELOG.md"
           }
       
-          # Escape newlines for GitHub Actions output
-          $escaped = $section -replace "`r`n", "`n" -replace "`n", "%0A"
-          echo "log=$escaped" >> $env:GITHUB_OUTPUT
-
-
+          # Get the index of the first version header
+          $firstHeader = $versionLines[0]
+          $startIndex = $lines.FindIndex({ $_ -eq $firstHeader })
       
-      - name: (08) Create Zip File
+          # Find the next version header after the first one
+          $nextIndex = ($lines[$startIndex + 1..$lines.Count] | ForEach-Object { $_ }) `
+            | Select-Object -Index ((0..($lines.Count - $startIndex - 1)) | Where-Object {
+                $lines[$startIndex + $_] -match '^## \[\d+\.\d+\.\d+.*\]'
+              }) | ForEach-Object { $lines.IndexOf($_) }
+      
+          # If no second header is found, take everything to the end
+          if (-not $nextIndex) {
+            $section = $lines[$startIndex..($lines.Count - 1)]
+          } else {
+            $section = $lines[$startIndex..($nextIndex - 1)]
+          }
+      
+          # Join and escape for GitHub Actions output
+          $joined = $section -join "`n"
+          $escaped = $joined -replace "`r`n", "`n" -replace "`n", "%0A"
+          echo "log=$escaped" >> $env:GITHUB_OUTPUT
+                
+      - name: (09) Create Zip File
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
 
-      - name: (09) Create release
+      - name: (10) Create release
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
