@@ -67,15 +67,20 @@ jobs:
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
           echo "Token: secrets.GitHubActions"
-          
-      - name: (09) Create release
+      
+      - name: (09) Format tag
+        id: format_tag
+        run: |
+          echo "tag=$(date +'%Y%m%d')-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}" >> $GITHUB_OUTPUT
+
+
+      - name: (10) Create release
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-
         with:
-          tag_name: "$(date +'%Y%m%d')-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
+          tag_name: ${{ steps.format_tag.outputs.tag }}
           name: "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}"
           files: $ZIP
           body: |
