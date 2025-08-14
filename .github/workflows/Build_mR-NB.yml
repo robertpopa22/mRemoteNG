@@ -6,7 +6,9 @@ on:
   
 jobs:
   Build-and-Release:
-    runs-on: windows-2022
+    runs-on: windows-latest
+    env:
+          GH_TOKEN: ${{ secrets.GitHubActions }}
     steps:
       - name: (01) Checkout Repository
         uses: actions/checkout@v4
@@ -64,11 +66,11 @@ jobs:
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
           echo "Token: secrets.GitHubActions"
+          # Authenticate with GitHub CLI
+          gh auth login --with-token $env:GH_TOKEN
           
       - name: (09) Create release and upload asset
         shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GitHubActions }}
         run: |
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
