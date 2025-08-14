@@ -56,9 +56,11 @@ jobs:
           }
           $date = Get-Date -Format "yyyyMMdd"
           $zipName = "mRemoteNG-$date-v$version-NB-$build.zip"
+          $tag = "$(date +'%Y.%m.%d')-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
+          echo "tag=$tag" >> $GITHUB_OUTPUT
           
       - name: (08) Create Zip File
         shell: pwsh
@@ -70,8 +72,7 @@ jobs:
       - name: (09) Format tag
         id: format_tag
         run: |
-          echo "tag=$(date +'%Y%m%d')-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}" >> $GITHUB_OUTPUT
-          echo "Tag to be used: ${{ steps.format_tag.outputs.tag }}"
+          echo "Tag to be used: ${{ steps.version.outputs.tag }}"
 
       - name: (10) Create release
         id: create_release
@@ -79,7 +80,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.format_tag.outputs.tag }}
+          tag_name:  ${{ steps.version.outputs.tag }}"
           name: "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}"
           files: $ZIP
           body: |
