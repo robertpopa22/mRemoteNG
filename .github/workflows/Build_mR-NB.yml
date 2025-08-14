@@ -64,19 +64,7 @@ jobs:
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
           
-      - name: (09) Upload Zip File
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ steps.version.outputs.zipname }}
-          path: ${{ github.workspace }}\${{ steps.version.outputs.zipname }}
-          
-      - name: (10) Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ steps.version.outputs.zipname }}
-          path: ./
-          
-      - name: (11) Create release and upload asset
+      - name: (09) Create release and upload asset
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -86,6 +74,7 @@ jobs:
           ZIP="./${{ steps.version.outputs.zipname }}"
           gh release create "$TAG" \
           --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
-          --notes "${{ steps.changelog.outputs.notes }}" \
+          --notes "Automated release from GitHub Actions" \
           --prerelease \
           "$ZIP"
+          echo "File: $ZIP"
