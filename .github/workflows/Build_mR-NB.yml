@@ -64,6 +64,7 @@ jobs:
           $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
           echo "Dest Path: $destFile"
+          echo "File: $($env:GITHUB_OUTPUT.Split('=')[1])"
           
       - name: (09) Upload Zip File
         uses: actions/upload-artifact@v4
