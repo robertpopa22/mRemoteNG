@@ -60,10 +60,10 @@ jobs:
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
-          echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "tag=$tag" >> $env:GITHUB_OUTPUT
           echo "zipname = $zipName"
           echo "tag = $tag"
-          echo "date = $date"
+  
           
       - name: (08) Create Zip File
         shell: pwsh
