@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.78.2]
+### Fixed
+- #2715: Disable WinForms analyzers and suppress WFO1000 build errors for ObjectListView
+- #2712: VNCEvent_Disconnected send the ProtocolBase based object reference
+- #2668: fix ssh quickconnect exception
+- #2611: correct registry path
+- #2496: use pwfile instead of cleartext password for putty connections 
+
+### Added
+- #2723: Read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File
+- #2690: தமிழ் (ta) Translation update
+- #2643: Registry Settings: enhancements and new settings implementation
+- #2591: add Clickstudios Passwordstate API connector
+
+### Updated
+- #2597: Remember the opened connection file on relaunch
+- #2502: Updated Polish translation  
+
 ## [1.77.3.1784]
 ### Fixed
 - #2362: Fix use of sql database
