@@ -3,12 +3,13 @@ on:
   push:
     branches:
       - v1.78.2-dev
+      
+permissions:
+  contents: write
   
 jobs:
   Build-and-Release:
     runs-on: windows-latest
-    env:
-          GH_TOKEN: ${{ secrets.GitHubActions }}
     steps:
       - name: (01) Checkout Repository
         uses: actions/checkout@v4
@@ -67,18 +68,31 @@ jobs:
           echo "File: ${{ steps.version.outputs.zipname }}"
           echo "Token: secrets.GitHubActions"
           
-      - name: (09) Create release and upload asset
-        shell: bash
-        run: |
-          DATE=$(date +'%Y.%m.%d')
-          TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
-          ZIP="./${{ steps.version.outputs.zipname }}"
-          # Authenticate with GitHub CLI
-          gh auth login --with-token $env:GH_TOKEN
+      - name: (09) Create release
+        id: create_release
+        uses: actions/create-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: true
+          prerelease: true
+
+        #run: |
+        #  DATE=$(date +'%Y.%m.%d')
+        #  TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
+        #  ZIP="./${{ steps.version.outputs.zipname }}"
+          
           # Create release with attached asset
-          gh release create "$TAG" \
-          --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
-          --notes "Automated release from GitHub Actions" \
-          --prerelease \
-          "$ZIP"
-          echo "File: $ZIP"
+        #  gh release create "$TAG" \
+        #  --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
+        #  --notes "Automated release from GitHub Actions" \
+        #  --prerelease \
+        #  "$ZIP"
+        #  echo "File: $ZIP"
