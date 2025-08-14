@@ -8,7 +8,7 @@ permissions:
   contents: write
   
 jobs:
-  Build-and-Release:
+  NB-Build-and-Release:
     runs-on: windows-latest
     steps:
       - name: (01) Checkout Repository
@@ -42,7 +42,7 @@ jobs:
         shell: pwsh
         run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
         
-      - name: (07) Generate Version Info
+      - name: (07) Release Information
         id: version
         shell: pwsh
         run: |
