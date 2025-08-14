@@ -63,7 +63,7 @@ jobs:
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
-          echo "Token: ${{ secrets.GITHUB_TOKEN }}"
+          echo "Token: secrets.GitHubActions"
           
       - name: (09) Create release and upload asset
         shell: bash
