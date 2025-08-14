@@ -68,7 +68,7 @@ jobs:
       - name: (09) Create release and upload asset
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GitHubActions: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
