@@ -108,4 +108,4 @@ jobs:
           --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
           --prerelease \
-          "$zipName"
+          "$ZIP"
