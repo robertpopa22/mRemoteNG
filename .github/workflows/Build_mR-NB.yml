@@ -71,7 +71,7 @@ jobs:
         id: format_tag
         run: |
           echo "tag=$(date +'%Y%m%d')-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}" >> $GITHUB_OUTPUT
-          echo "Tag to be used: ${{ steps.format_tag.outputs.tag }}
+          echo "Tag to be used: ${{ steps.format_tag.outputs.tag }}"
 
       - name: (10) Create release
         id: create_release
