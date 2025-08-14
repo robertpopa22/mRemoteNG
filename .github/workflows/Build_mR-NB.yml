@@ -5,7 +5,7 @@ on:
       - v1.78.2-dev
   
 jobs:
-  Build_and_Release:
+  Build-and-Release:
     runs-on: windows-2022
     steps:
       - name: (01) Checkout Repository
@@ -64,46 +64,26 @@ jobs:
           $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
           
-      - name: (09) Extract release notes from CHANGELOG.md
-        id: changelog
-        shell: pwsh
-        run: |
-          $content = Get-Content CHANGELOG.md
-          $section = ""
-          $inSection = $false
-
-          foreach ($line in $content) {
-              # Skip empty lines
-              if ([string]::IsNullOrWhiteSpace($line)) {
-                  continue
-              }
-              
-              if ($line -match '^## (.*)') {
-                  if (-not $inSection) {
-                      $inSection = $true
-                      $section += $line + "`n"
-                  } else {
-                      break
-                  }
-              } elseif ($inSection) {
-                  $section += $line + "`n"
-              }
-          }
-
-          $section = $section.TrimEnd("`n")
-          Write-Output "notes<<EOF"
-          Write-Output $section
-          Write-Output "EOF"
+      - name: (09) Upload Zip File
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.zipname }}
+          path: ${{ github.workspace }}/${{ steps.version.outputs.zipname }}
           
-      - name: (10) Create release and upload asset
+      - name: (10) Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.version.outputs.zipname }}
+          path: ./
+          
+      - name: (11) Create release and upload asset
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
-          ZIP="${{ steps.version.outputs.zipname }}"
-          echo 
+          ZIP="./${{ steps.version.outputs.zipname }}"
           gh release create "$TAG" \
           --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
           --notes "${{ steps.changelog.outputs.notes }}" \
