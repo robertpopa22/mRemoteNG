@@ -73,7 +73,12 @@ jobs:
           $inSection = $false
 
           foreach ($line in $content) {
-              if ($line -match '^## ') {
+              # Skip empty lines
+              if ([string]::IsNullOrWhiteSpace($line)) {
+                  continue
+              }
+              
+              if ($line -match '^## (.*)') {
                   if (-not $inSection) {
                       $inSection = $true
                       $section += $line + "`n"
@@ -84,10 +89,11 @@ jobs:
                   $section += $line + "`n"
               }
           }
-          $section.TrimEnd("`n") | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          echo "notes<<EOF" >> $env:GITHUB_OUTPUT
-          Get-Content $env:GITHUB_OUTPUT | Select-Object -Skip 1 | ForEach-Object { echo $_ } >> $env:GITHUB_OUTPUT
-          echo "EOF" >> $env:GITHUB_OUTPUT
+
+          $section = $section.TrimEnd("`n")
+          Write-Output "notes<<EOF"
+          Write-Output $section
+          Write-Output "EOF"
           
       - name: (10) Create release and upload asset
         shell: bash
