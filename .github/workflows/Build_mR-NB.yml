@@ -66,8 +66,6 @@ jobs:
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
           echo "Token: secrets.GitHubActions"
-          # Authenticate with GitHub CLI
-          gh auth login --with-token $env:GH_TOKEN
           
       - name: (09) Create release and upload asset
         shell: bash
@@ -75,6 +73,9 @@ jobs:
           DATE=$(date +'%Y.%m.%d')
           TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
           ZIP="./${{ steps.version.outputs.zipname }}"
+          # Authenticate with GitHub CLI
+          gh auth login --with-token $env:GH_TOKEN
+          # Create release with attached asset
           gh release create "$TAG" \
           --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
           --notes "Automated release from GitHub Actions" \
