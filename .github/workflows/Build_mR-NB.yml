@@ -61,10 +61,8 @@ jobs:
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
-          $destFile = "$Env:GITHUB_WORKSPACE\$($env:GITHUB_OUTPUT.Split('=')[1])"
-          Compress-Archive -Path "$sourceDir\*" -DestinationPath $destFile
-          echo "Dest Path: $destFile"
-          echo "File: $($env:GITHUB_OUTPUT.Split('=')[1])"
+          Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
+          echo "File: ${{ steps.version.outputs.zipname }}"
           
       - name: (09) Upload Zip File
         uses: actions/upload-artifact@v4
