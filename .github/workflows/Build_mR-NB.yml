@@ -57,28 +57,22 @@ jobs:
           $date = Get-Date -Format "yyyyMMdd"
           $zipName = "mRemoteNG-$date-v$version-NB-$build.zip"
           $tag = "$date-v$version-NB-($build)"
+          $message = git log -1 --pretty=%B
+          echo "message=$message" >> $env:GITHUB_OUTPUT
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          echo "zipname = $zipName"
-          echo "tag = $tag"
-  
           
+      
       - name: (08) Create Zip File
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
-      
-      - name: (09) Format tag
-        id: format_tag
-        run: |
-          echo "Tag to be used: ${{ steps.version.outputs.tag }}"
-          ls
 
-      - name: (10) Create release
+      - name: (09) Create release
         id: create_release
         uses: softprops/action-gh-release@v1
         env:
@@ -91,18 +85,9 @@ jobs:
             Changes in this Release
             - First Change
             - Second Change
+
+            Last Commit Message:
+            ${{ steps.version.outputs.message }}
+
           draft: false
           prerelease: true
-
-        #run: |
-        #  DATE=$(date +'%Y.%m.%d')
-        #  TAG="${DATE}-v${{ steps.version.outputs.version }}-NB-${{ steps.version.outputs.build }}"
-        #  ZIP="./${{ steps.version.outputs.zipname }}"
-          
-          # Create release with attached asset
-        #  gh release create "$TAG" \
-        #  --title "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}" \
-        #  --notes "Automated release from GitHub Actions" \
-        #  --prerelease \
-        #  "$ZIP"
-        #  echo "File: $ZIP"
