@@ -56,7 +56,7 @@ jobs:
           }
           $date = Get-Date -Format "yyyyMMdd"
           $zipName = "mRemoteNG-$date-v$version-NB-$build.zip"
-          $tag = "$(date +'%Y.%m.%d')-v$version-NB-($build)"
+          $tag = "$date-v$version-NB-($build)"
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
