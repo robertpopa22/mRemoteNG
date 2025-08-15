@@ -1,0 +1,49 @@
+name: Post to Reddit via PowerShell
+
+on:
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: windows-latest
+    steps:
+      - name: Authenticate and post to Reddit
+        shell: pwsh
+        env:
+          CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+          SUBREDDIT: ${{ secrets.REDDIT_SUBREDDIT }}
+        run: |
+          # Step 1: Get access token
+          $authHeaders = @{
+            Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("$env:CLIENT_ID:$env:CLIENT_SECRET"))
+            "User-Agent" = "github-to-reddit-pwsh/0.1"
+          }
+
+          $authBody = @{
+            grant_type = "password"
+            username   = $env:USERNAME
+            password   = $env:PASSWORD
+          }
+
+          $authResponse = Invoke-RestMethod -Uri "https://www.reddit.com/api/v1/access_token" -Method Post -Headers $authHeaders -Body $authBody
+          $token = $authResponse.access_token
+
+          # Step 2: Post to subreddit
+          $postHeaders = @{
+            Authorization = "bearer $token"
+            "User-Agent"  = "github-to-reddit-pwsh/0.1"
+          }
+
+          $postBody = @{
+            sr    = $env:SUBREDDIT
+            title = "Hello from GitHub Actions (PowerShell)"
+            kind  = "self"
+            text  = "This post was made using PowerShell in GitHub Actions."
+          }
+
+          $postResponse = Invoke-RestMethod -Uri "https://oauth.reddit.com/api/submit" -Method Post -Headers $postHeaders -Body $postBody
+          Write-Host "Posted: $($postResponse.json.url)"
+
