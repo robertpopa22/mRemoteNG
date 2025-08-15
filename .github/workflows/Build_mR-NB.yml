@@ -72,33 +72,23 @@ jobs:
           $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
           $lines = Get-Content $changelogPath
       
-          # Find all version header lines
-          $versionLines = $lines | Where-Object { $_ -match '^## \[\d+\.\d+\.\d+.*\]' }
-          if ($versionLines.Count -lt 1) {
-            throw "No version headers found in CHANGELOG.md"
+          $startIndex = $lines.FindIndex({ $_ -match '^## \[' })
+          if ($startIndex -eq -1) {
+            throw "No version header found in CHANGELOG.md"
           }
       
-          # Get the index of the first version header
-          $firstHeader = $versionLines[0]
-          $startIndex = $lines.FindIndex({ $_ -eq $firstHeader })
-      
-          # Find the next version header after the first one
-          $nextIndex = ($lines[$startIndex + 1..$lines.Count] | ForEach-Object { $_ }) `
-            | Select-Object -Index ((0..($lines.Count - $startIndex - 1)) | Where-Object {
-                $lines[$startIndex + $_] -match '^## \[\d+\.\d+\.\d+.*\]'
-              }) | ForEach-Object { $lines.IndexOf($_) }
-      
-          # If no second header is found, take everything to the end
-          if (-not $nextIndex) {
-            $section = $lines[$startIndex..($lines.Count - 1)]
-          } else {
-            $section = $lines[$startIndex..($nextIndex - 1)]
+          $section = @()
+          for ($i = $startIndex; $i -lt $lines.Count; $i++) {
+            if ($i -ne $startIndex -and $lines[$i] -match '^## ') {
+              break
+            }
+            $section += $lines[$i]
           }
       
-          # Join and escape for GitHub Actions output
           $joined = $section -join "`n"
           $escaped = $joined -replace "`r`n", "`n" -replace "`n", "%0A"
           echo "log=$escaped" >> $env:GITHUB_OUTPUT
+          echo "log=$escaped"
                 
       - name: (09) Create Zip File
         shell: pwsh
