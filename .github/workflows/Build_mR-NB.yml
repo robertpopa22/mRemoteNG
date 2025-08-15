@@ -72,7 +72,14 @@ jobs:
           $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
           $lines = Get-Content $changelogPath
       
-          $startIndex = $lines.FindIndex({ $_ -match '^## \[' })
+          $startIndex = -1
+          for ($i = 0; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^## \[') {
+              $startIndex = $i
+              break
+            }
+          }
+      
           if ($startIndex -eq -1) {
             throw "No version header found in CHANGELOG.md"
           }
@@ -88,6 +95,8 @@ jobs:
           $joined = $section -join "`n"
           $escaped = $joined -replace "`r`n", "`n" -replace "`n", "%0A"
           echo "log=$escaped" >> $env:GITHUB_OUTPUT
+
+
           echo "log=$escaped"
                 
       - name: (09) Create Zip File
