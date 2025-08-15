@@ -85,18 +85,18 @@ jobs:
           }
       
           $section = @()
-          for ($i = $startIndex; $i -lt $lines.Count; $i++) {
-            if ($i -ne $startIndex -and $lines[$i] -match '^## ') {
+          for ($i = $startIndex + 1; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^## ') {
               break
             }
             $section += $lines[$i]
           }
       
           $joined = $section -join "`n"
-          $escaped = $joined -replace "`r`n", "`n" -replace "`n", "%0A"
-          echo "log=$escaped" >> $env:GITHUB_OUTPUT
-
-
+          echo "log<<EOF" >> $env:GITHUB_OUTPUT
+          echo $joined >> $env:GITHUB_OUTPUT
+          echo "EOF" >> $env:GITHUB_OUTPUT
+      
           echo "log=$escaped"
                 
       - name: (09) Create Zip File
