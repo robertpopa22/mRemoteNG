@@ -9,7 +9,16 @@ permissions:
   
 jobs:
   NB-Build-and-Release:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - runner: windows-latest
+            platform: x64
+            arch: x64
+          - runner: windows-11-arm
+            platform: ARM64
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: (01) Checkout Repository
         uses: actions/checkout@v4
@@ -30,9 +39,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          key: ${{ runner.os }}-${{ matrix.arch }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
-            ${{ runner.os }}-nuget-
+            ${{ runner.os }}-${{ matrix.arch }}-nuget-
             
       - name: (05) Restore NuGet Packages
         shell: pwsh
@@ -40,7 +49,8 @@ jobs:
         
       - name: (06) Build Release
         shell: pwsh
-        run: msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=x64 /verbosity:minimal
+        run: |
+          msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=${{ matrix.platform }} /verbosity:minimal
         
       - name: (07) Release Information
         id: version
@@ -55,7 +65,7 @@ jobs:
             throw "Could not extract version and build number"
           }
           $date = Get-Date -Format "yyyyMMdd"
-          $zipName = "mRemoteNG-$date-v$version-NB-$build.zip"
+          $zipName = "mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}.zip"
           $tag = "$date-v$version-NB-($build)"
           $message = git log -1 --pretty=%B
           echo "message=$message" >> $env:GITHUB_OUTPUT
@@ -102,7 +112,7 @@ jobs:
       - name: (09) Create Zip File
         shell: pwsh
         run: |
-          $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\x64\Release\win-x64"
+          $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
 

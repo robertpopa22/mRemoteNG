@@ -3,7 +3,7 @@
     <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <IsPackable>false</IsPackable>
-    <Platforms>x64</Platforms>
+    <Platforms>x64;arm64</Platforms>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <Configurations>Debug;Release;Debug Portable;Release Portable;Release Installer;Deploy to github</Configurations>
     <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
