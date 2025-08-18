@@ -599,7 +599,7 @@
   <ItemGroup>
     <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="92.0.25" />
   </ItemGroup>
-  <ItemGroup Condition="'$(PlatformTarget)'=='arm64'">
+  <ItemGroup Condition="'$(Platform)'=='arm64'">
     <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="92.0.25" />
   </ItemGroup>
   <!--
