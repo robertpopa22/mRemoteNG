@@ -7,9 +7,14 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
-    <PlatformTarget>x64</PlatformTarget>
     <NoWarn>$(NoWarn);WFO1000</NoWarn>
     <EnableWinFormsAnalyzers>false</EnableWinFormsAnalyzers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'ARM64'">
+    <PlatformTarget>ARM64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="CustomDictionary.xml" Link="CustomDictionary.xml" />
