@@ -33,7 +33,7 @@ jobs:
         run: |
           dotnet tool install --global dotnet-t4
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
-          t4 $ttFile
+          t4 $ttFile -p:PlatformParam="${{ matrix.platform }}"
   
       - name: (04) Cache NuGet Packages
         uses: actions/cache@v3
