@@ -18,6 +18,7 @@ using System.Resources;
     TimeSpan elapsed = DateTime.UtcNow - lastReleaseDate;
     int build = (int)(elapsed.TotalMinutes / 1000);
     string platform = Environment.GetEnvironmentVariable("Platform") ?? "Any CPU";
+    
     // Try T4 parameter passed via dotnet-t4 -p
     if (!string.IsNullOrWhiteSpace(PlatformParam) && (PlatformParam == "x64" || PlatformParam == "ARM64"))
     {
