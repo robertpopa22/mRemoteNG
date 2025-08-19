@@ -7,21 +7,24 @@ using System.Resources;
 
 // Compute version values
 
+//Any CPU
+
+
 // General Information
 [assembly: AssemblyTitle("mRemoteNG")]
 [assembly: AssemblyDescription("Multi-Remote Next Generation Connection Manager")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Any CPU")]
 [assembly: AssemblyCompany("Profi-KOM Ltd.")]
 [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
 [assembly: AssemblyCopyright("(c) 2025 mRemoteNG")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("Profi-KOM LTd.")]
 [assembly: AssemblyCulture("")]
 
 // Version information
-[assembly: AssemblyVersion("1.78.2.3120")]
-[assembly: AssemblyFileVersion("1.78.2.3120")]
+[assembly: AssemblyVersion("1.78.2.3137")]
+[assembly: AssemblyFileVersion("1.78.2.3137")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
-[assembly: AssemblyInformationalVersion("1.78.2 (Nightly Build 3120)")]
+[assembly: AssemblyInformationalVersion("1.78.2 (Nightly Build 3137)")]
 
 // Logging
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]

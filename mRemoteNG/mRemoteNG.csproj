@@ -149,6 +149,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
     <PackageReference Include="Microsoft.NETCore.Platforms" />
     <PackageReference Include="Microsoft.NETCore.Targets" />
+    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.VSHost" />
     <PackageReference Include="Microsoft.Web.WebView2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
     <PackageReference Include="MySql.Data" />
@@ -335,8 +336,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="Properties\AssemblyInfo.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Update="Icons\Admin.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -602,11 +603,6 @@
   <ItemGroup Condition="'$(Platform)'=='arm64'">
     <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="92.0.25" />
   </ItemGroup>
-  <!--
-  <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-x86" Version="92.0.25" />
-  </ItemGroup>
-  -->
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
@@ -626,37 +622,24 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy to github|ARM64'">
     <WarningLevel>8</WarningLevel>
   </PropertyGroup>
-  <!--
-  <Target Name="MoveAssemblies" AfterTargets="Build">
-    <ItemGroup>
-      <Assemblies Include="$(OutputPath)**\*.dll" Exclude="$(OutputPath)Assemblies\**\*" />
-    </ItemGroup>
-    
-    <MakeDir Directories="$(OutputPath)Languages" />
-    <Copy SourceFiles="@(Assemblies)" DestinationFolder="$(OutputPath)Assemblies" />
-    <Delete Files="@(Assemblies)" /> 
-  </Target>  
-  -->
-  <!--<ItemGroup>
-  
-    <None Update="**\*.resources.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>Languages\%(Culture)\%(Filename)%(Extension)</TargetPath>
-    </None>
+  <ItemGroup>
+  <!-- Pass the $(Platform) MSBuild property as a T4 parameter -->
+    <T4ParameterValues Include="Platform">
+      <Value>$(Platform)</Value>
+      <Visible>false</Visible>
+    </T4ParameterValues>
   </ItemGroup>
-  -->
-  <!--
-  <Target Name="MoveSatelliteResources" AfterTargets="Build">
-    <ItemGroup>
-      <SatelliteResources Include="$(OutputPath)**\*.resources.dll" />
-    </ItemGroup>
-    <MakeDir Directories="$(OutputPath)Languages" />
-    <Move SourceFiles="@(SatelliteResources)" DestinationFolder="$(OutputPath)Languages\%(RecursiveDir)" />
-    <RemoveDir Directories="@(SatelliteResources->'%(RootDir)%(Directory)')" Condition="Exists('%(RootDir)%(Directory)')" />
-  </Target>-->
   <Target Name="CopyPackageAssembliesToSubFolder" AfterTargets="ResolveReferences">
     <ItemGroup>
       <ReferenceCopyLocalPaths Condition=" '%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' " Update="%(ReferenceCopyLocalPaths)" DestinationSubDirectory="Assemblies\" />
     </ItemGroup>
   </Target>
+  <!-- New PropertyGroup for T4 build-time transformation -->
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
+  </PropertyGroup>
+  <!-- New Import for T4 build tasks -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion).0\TextTemplating\Microsoft.TextTemplating.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion).0\TextTemplating\Microsoft.TextTemplating.targets')" />
 </Project>
