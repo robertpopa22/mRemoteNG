@@ -32,9 +32,17 @@ jobs:
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
+
+          # Refresh PATH to include global tools
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+      
           $interopPath = "$env:GITHUB_WORKSPACE\mRemoteNG\libs\Microsoft.VisualStudio.Interop.dll"
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
+      
+          Write-Host "Transforming T4 template with InteropPath: $interopPath"
           t4 $ttFile -p:InteropPath="$interopPath"
+
+
 
 
   
