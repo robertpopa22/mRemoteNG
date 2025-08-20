@@ -39,8 +39,9 @@ jobs:
           $interopPath = "$env:GITHUB_WORKSPACE\mRemoteNG\libs\Microsoft.VisualStudio.Interop.dll"
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
       
-          Write-Host "Transforming T4 template with InteropPath: $interopPath"
-          t4 $ttFile -p:InteropPath="$interopPath"
+          Write-Host "Transforming T4 template"
+          t4 $ttFile -P platformType=${{ matrix.platform }}
+
 
 
 
