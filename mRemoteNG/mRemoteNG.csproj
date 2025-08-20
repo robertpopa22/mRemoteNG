@@ -622,24 +622,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy to github|ARM64'">
     <WarningLevel>8</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
-  <!-- Pass the $(Platform) MSBuild property as a T4 parameter -->
-    <T4ParameterValues Include="Platform">
-      <Value>$(Platform)</Value>
-      <Visible>false</Visible>
-    </T4ParameterValues>
-  </ItemGroup>
   <Target Name="CopyPackageAssembliesToSubFolder" AfterTargets="ResolveReferences">
     <ItemGroup>
       <ReferenceCopyLocalPaths Condition=" '%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' " Update="%(ReferenceCopyLocalPaths)" DestinationSubDirectory="Assemblies\" />
     </ItemGroup>
   </Target>
-  <!-- New PropertyGroup for T4 build-time transformation -->
-  <PropertyGroup>
-    <TransformOnBuild>true</TransformOnBuild>
-    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
-    <TransformOutOfDateOnly>false</TransformOutOfDateOnly>
-  </PropertyGroup>
-  <!-- New Import for T4 build tasks -->
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion).0\TextTemplating\Microsoft.TextTemplating.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion).0\TextTemplating\Microsoft.TextTemplating.targets')" />
 </Project>
