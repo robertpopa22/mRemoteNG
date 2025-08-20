@@ -1,25 +1,24 @@
-﻿<#@ assembly name="mRemoteNG\\libs\\Microsoft.VisualStudio.Interop.dll" #>
-<#@ import namespace="EnvDTE" #>
-<#@ import namespace="System" #>
+﻿<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
 
-<#
+<# 
     string platformFromDte = null;
 
-    try
-    {
-        if (Host != null)
-        {
+    try {
+        string repoRoot = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Host.TemplateFile), @"..\"));
+        string dllPath = Path.Combine(repoRoot, @"libs\Microsoft.VisualStudio.Interop.dll");
+        if (File.Exists(dllPath)) {
+            Assembly.LoadFrom(dllPath);
             var sp = Host as IServiceProvider;
-            var dte = sp?.GetService(typeof(DTE)) as DTE;
+            var dte = sp?.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
             var projectItem = dte?.Solution?.FindProjectItem(Host.TemplateFile);
             var project = projectItem?.ContainingProject;
             var cfg = project?.ConfigurationManager?.ActiveConfiguration;
             platformFromDte = cfg?.PlatformName;
-        }
-    }
-    catch
-    {
-        // Ignore and fallback
+        } 
+    } catch (Exception ex) {
+        // Log the exception if necessary
     }
 
     platformValue = platformFromDte 
