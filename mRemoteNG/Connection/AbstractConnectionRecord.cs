@@ -38,7 +38,7 @@ namespace mRemoteNG.Connection
         
         private string _sshTunnelConnectionName = "";
         private ProtocolType _protocol;
-        private RdpVersion _rdpProtocolVersion;
+        private RdpVersion _rdpProtocolVersion = RdpVersion.Rdc10;
         private string _extApp;
         private int _port;
         private string _sshOptions = "";
