@@ -1,0 +1,29 @@
+﻿<#@ assembly name="mRemoteNG\\libs\\Microsoft.VisualStudio.Interop.dll" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
+
+<#
+    string platformFromDte = null;
+
+    try
+    {
+        if (Host != null)
+        {
+            var sp = Host as IServiceProvider;
+            var dte = sp?.GetService(typeof(DTE)) as DTE;
+            var projectItem = dte?.Solution?.FindProjectItem(Host.TemplateFile);
+            var project = projectItem?.ContainingProject;
+            var cfg = project?.ConfigurationManager?.ActiveConfiguration;
+            platformFromDte = cfg?.PlatformName;
+        }
+    }
+    catch
+    {
+        // Ignore and fallback
+    }
+
+    platformValue = platformFromDte 
+                 ?? Environment.GetEnvironmentVariable("Platform") 
+                 ?? Environment.GetEnvironmentVariable("PLATFORM") 
+                 ?? "Any CPU";
+#>
