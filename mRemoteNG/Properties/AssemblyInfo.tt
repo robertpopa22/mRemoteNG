@@ -1,8 +1,8 @@
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="tools/libs/EnvDTE.dll" #>
-<#@ import namespace="System" #>
+<#@ assembly name="Microsoft.VisualStudio.Interop.dll" #>
 <#@ import namespace="EnvDTE" #>
+<#@ import namespace="System" #>
 <#
     string platformFromDte = null;
     try
