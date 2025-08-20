@@ -1,6 +1,11 @@
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="mRemoteNG\\libs\\Microsoft.VisualStudio.Interop.dll" #>
+<#@ parameter name="InteropPath" type="System.String" #>
+<# if (string.IsNullOrEmpty(InteropPath)) { #>
+    // InteropPath not provided—skipping assembly reference
+<# } else { #>
+    <#@ assembly name="mRemoteNG\\libs\\Microsoft.VisualStudio.Interop.dll" #>
+<# } #>
 <#@ import namespace="EnvDTE" #>
 <#@ import namespace="System" #>
 <#
