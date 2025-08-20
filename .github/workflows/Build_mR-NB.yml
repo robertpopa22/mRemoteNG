@@ -32,8 +32,11 @@ jobs:
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
+          $interopPath = "$env:GITHUB_WORKSPACE\mRemoteNG\libs\Microsoft.VisualStudio.Interop.dll"
           $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
-          t4 $ttFile
+          t4 $ttFile -p:InteropPath="$interopPath"
+
+
   
       - name: (04) Cache NuGet Packages
         uses: actions/cache@v3
