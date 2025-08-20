@@ -1,6 +1,6 @@
 <#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ output extension=".cs" #>
-<#@ assembly name="EnvDTE" #>
+<#@ assembly name="C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\PublicAssemblies\EnvDTE.dll" #>
 <#@ import namespace="System" #>
 <#@ import namespace="EnvDTE" #>
 <#
