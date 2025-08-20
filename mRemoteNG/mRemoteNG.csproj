@@ -141,6 +141,7 @@
     <PackageReference Include="Cucumber.Messages" />
     <PackageReference Include="DockPanelSuite" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" />
+    <PackageReference Include="envdte" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="LiteDB" />
     <PackageReference Include="log4net" />
