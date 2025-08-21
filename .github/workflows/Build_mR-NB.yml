@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     steps:
       - name: (01) Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: (02) Setup MSBuild
         uses: microsoft/setup-msbuild@v2
