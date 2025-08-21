@@ -48,7 +48,7 @@ jobs:
 
   
       - name: (04) Cache NuGet Packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-${{ matrix.arch }}-nuget-${{ hashFiles('**/*.csproj') }}
