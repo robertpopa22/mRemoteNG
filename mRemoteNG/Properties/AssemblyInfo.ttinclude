@@ -17,7 +17,7 @@
             var cfg = project?.ConfigurationManager?.ActiveConfiguration;
             platformFromDte = cfg?.PlatformName;
         } 
-    } catch (Exception ex) {
+    } catch {
         // Log the exception if necessary
     }
 
