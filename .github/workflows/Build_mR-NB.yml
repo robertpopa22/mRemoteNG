@@ -41,7 +41,8 @@ jobs:
       
           Write-Host "Transforming T4 template"
           t4 $ttFile -P platformType=${{ matrix.platform }}
-
+        env:
+          PLATFORM: '${{ matrix.platform }}'
 
 
 
