@@ -26,4 +26,3 @@
                  ?? Environment.GetEnvironmentVariable("PLATFORM") 
                  ?? "Any CPU";
 #>
-<#@ import namespace="EnvDTE" #>
