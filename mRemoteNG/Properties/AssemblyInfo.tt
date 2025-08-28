@@ -9,7 +9,7 @@
     if (string.IsNullOrEmpty(platformValue))
     {
 #>
-    // temporary disabled <#@ include file="AssemblyInfo.ttinclude" #>
+    <#@ include file="AssemblyInfo.ttinclude" #>
 <#
     }
 #>
@@ -32,7 +32,6 @@ using System.Resources;
     DateTime lastReleaseDate = new DateTime(2019, 9, 2);
     TimeSpan elapsed = DateTime.UtcNow - lastReleaseDate;
     int build = (int)(elapsed.TotalMinutes / 1000);
-    platformValue = "x64";
 #>
 
 // General Information
