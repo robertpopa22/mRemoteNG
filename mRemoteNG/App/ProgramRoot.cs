@@ -1,14 +1,20 @@
-﻿using System;
+﻿using mRemoteNG.Config.Settings;
+using mRemoteNG.DotNet.Update;
+using mRemoteNG.UI.Forms;
+
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
-using mRemoteNG.Config.Settings;
-using mRemoteNG.UI.Forms;
-using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using mRemoteNG.DotNet.Update;
+
+
 
 namespace mRemoteNG.App
 {
@@ -25,13 +31,48 @@ namespace mRemoteNG.App
         [STAThread]
         public static void Main(string[] args)
         {
-            Trace.WriteLine("!!!!!!=============== TEST ==================!!!!!!!!!!!!!");
-            // Forcing to load System.Configuration.ConfigurationManager before any other assembly to be able to check settings 
             try
             {
-                string assemblyFile = "System.Configuration.ConfigurationManager" + ".dll";
-                string assemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assemblies", assemblyFile);
+                // FIX: Awaited Task<bool> synchronously to obtain bool result
+                bool isInstalled = DotNetRuntimeCheck
+                    .IsDotnetRuntimeInstalled(DotNetRuntimeCheck.RequiredDotnetVersion)
+                    .GetAwaiter()
+                    .GetResult();
 
+                if (!isInstalled)
+                {
+                    Trace.WriteLine($".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is NOT installed.");
+                    Trace.WriteLine("Please download and install it from:");
+                    Trace.WriteLine("https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.8-windows-x64-installer");
+
+                    try
+                    {
+                        MessageBox.Show(
+                            $".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is required.\n" +
+                            "The application will now exit.\n\nDownload:\nhttps://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.8-windows-x64-installer",
+                            "Missing .NET Runtime",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    } catch {
+                        // Ignore UI issues
+                    }
+
+                    Environment.Exit(1);
+                    return;
+                }
+
+                Trace.WriteLine($".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is installed.");
+            } catch (Exception ex) {
+                Trace.WriteLine("Runtime check failed: " + ex);
+                Environment.Exit(1);
+                return;
+            }
+
+            Trace.WriteLine("!!!!!!=============== TEST ==================!!!!!!!!!!!!!");
+            try
+            {
+                string assemblyFile = "System.Configuration.ConfigurationManager.dll";
+                string assemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assemblies", assemblyFile);
 
                 if (File.Exists(assemblyPath))
                 {
@@ -40,13 +81,11 @@ namespace mRemoteNG.App
             }
             catch (FileNotFoundException ex)
             {
-               Trace.WriteLine("Error occured: " + ex.Message);
+                Trace.WriteLine("Error occured: " + ex.Message);
             }
 
-            //Subscribe to AssemblyResolve event
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
-            //Check if needed runtime is installed
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 string runtimeVersion = RuntimeInformation.FrameworkDescription;
@@ -66,12 +105,9 @@ namespace mRemoteNG.App
                 Console.WriteLine("This application requires the .NET Desktop Runtime 9.0.2 on Windows.");
             }
 
-
-
-            //Check if local settings DB exist or accessible
             CheckLockalDB();
 
-            Lazy<bool> singleInstanceOption = new Lazy<bool>(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
+            Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
 
             if (singleInstanceOption.Value)
             {
@@ -87,12 +123,12 @@ namespace mRemoteNG.App
         {
             LocalDBManager settingsManager = new LocalDBManager(dbPath: "mRemoteNG.appSettings", useEncryption: false, schemaFilePath: "");
         }
+
         private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs resolveArgs)
         {
             string assemblyName = new AssemblyName(resolveArgs.Name).Name.Replace(".resources", string.Empty);
             string assemblyFile = assemblyName + ".dll";
             string assemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assemblies", assemblyFile);
-
 
             if (File.Exists(assemblyPath))
             {
@@ -100,7 +136,7 @@ namespace mRemoteNG.App
             }
             return null;
         }
-        
+
         private static void StartApplication()
         {
             CatchAllUnhandledExceptions();
@@ -114,7 +150,6 @@ namespace mRemoteNG.App
             Rectangle viewport = targetScreen.WorkingArea;
             _frmSplashScreen.Top = viewport.Top;
             _frmSplashScreen.Left = viewport.Left;
-            // normally it should be screens[1] however due DPI apply 1 size "same" as default with 100%
             _frmSplashScreen.Left = viewport.Left + (targetScreen.Bounds.Size.Width - _frmSplashScreen.Width) / 2;
             _frmSplashScreen.Top = viewport.Top + (targetScreen.Bounds.Size.Height - _frmSplashScreen.Height) / 2;
             _frmSplashScreen.ShowInTaskbar = false;
@@ -168,14 +203,13 @@ namespace mRemoteNG.App
 
         private static void CatchAllUnhandledExceptions()
         {
-            System.Windows.Forms.Application.ThreadException += ApplicationOnThreadException;
-            System.Windows.Forms.Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += ApplicationOnThreadException;
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
         }
 
         private static void ApplicationOnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            // if (PresentationSource.FromVisual(FrmSplashScreenNew))
             FrmSplashScreenNew.GetInstance().Close();
 
             if (FrmMain.Default.IsDisposed) return;
@@ -186,13 +220,8 @@ namespace mRemoteNG.App
 
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            //TODO: Check if splash closed properly
-            //if (!FrmSplashScreenNew.GetInstance().IsDisposed)
-            //    FrmSplashScreenNew.GetInstance().Close();
-
             FrmUnhandledException window = new(e.ExceptionObject as Exception, e.IsTerminating);
             window.ShowDialog(FrmMain.Default);
         }
-        
     }
 }
