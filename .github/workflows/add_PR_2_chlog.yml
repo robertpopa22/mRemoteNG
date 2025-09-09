@@ -1,20 +1,16 @@
-name: Update Changelog for Renovate PR
+name: Update Changelog After Renovate PR Merge
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
     branches:
-      - v1.78.2-dev
+      - v1.78.2-dev  # Replace with actual default branch
+
   workflow_dispatch:
     inputs:
       dryRun:
-        description: 'Run without committing changes'
+        description: 'Manual run without committing changes'
         required: false
         default: 'true'
-      prTitle:
-        description: 'Simulated PR title'
-        required: false
-        default: 'chore(deps): update dependency X'
 
 jobs:
   update-changelog:
@@ -24,51 +20,81 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Determine PR title
-        id: pr_title
+      - name: Get last commit info
+        id: commit
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "title=${{ github.event.inputs.prTitle }}" >> $GITHUB_OUTPUT
-          else
-            TITLE=$(git log -1 --pretty=%B | grep -oP '(?<=\n).*')
-            echo "title=$TITLE" >> $GITHUB_OUTPUT
-          fi
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
+
+      - name: Extract PR and dependency info
+        id: extract
+        shell: pwsh
+        run: |
+          $dryRun = "${{ github.event.inputs.dryRun }}"
+          $commitMessage = git log -1 --pretty=%B
+
+          if ($dryRun -eq "") { $dryRun = "false" }
+
+          if ($commitMessage -match '#(\d+)') {
+            $prNumber = $matches[1]
+          } else {
+            throw "❌ No PR number found in commit message"
+          }
+
+          if ($commitMessage -match 'update dependency ([\w\.\-]+) to ([\d\.]+)') {
+            $depName = $matches[1]
+            $depVersion = $matches[2]
+          } else {
+            throw "❌ No dependency update found in commit message"
+          }
+
+          echo "prNumber=$prNumber" >> $env:GITHUB_OUTPUT
+          echo "depName=$depName" >> $env:GITHUB_OUTPUT
+          echo "depVersion=$depVersion" >> $env:GITHUB_OUTPUT
+          echo "dryRun=$dryRun" >> $env:GITHUB_OUTPUT
 
       - name: Append to CHANGELOG.md
         shell: pwsh
         run: |
           $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
           $lines = Get-Content $changelogPath
-          $prTitle = "${{ steps.pr_title.outputs.title }}"
-          $date = Get-Date -Format "yyyy-MM-dd"
+          $prNumber = "${{ steps.extract.outputs.prNumber }}"
+          $depName = "${{ steps.extract.outputs.depName }}"
+          $depVersion = "${{ steps.extract.outputs.depVersion }}"
+          $entry = "- #$prNumber: update $depName to $depVersion"
 
-          $unreleasedIndex = $lines.FindIndex({ $_ -match '^## \[Dependency update\]' })
-          if ($unreleasedIndex -eq -1) {
-            throw "Dependency update section not found"
+          # Find latest version section (e.g., ## [1.78.2])
+          $versionIndex = $lines.FindIndex({ $_ -match '^## \[\d+\.\d+\.\d+\]' })
+          if ($versionIndex -eq -1) {
+            throw "❌ No version header found"
           }
 
-          $updatesIndex = -1
-          for ($i = $unreleasedIndex + 1; $i -lt $lines.Count; $i++) {
-            if ($lines[$i] -match '^### Updates') {
-              $updatesIndex = $i
+          # Find or create '### Dependency update' section
+          $depIndex = -1
+          for ($i = $versionIndex + 1; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^### Dependency update') {
+              $depIndex = $i
               break
             }
             if ($lines[$i] -match '^## ') { break }
           }
 
-          if ($updatesIndex -eq -1) {
-            $lines.Insert($unreleasedIndex + 1, "### Updates")
-            $updatesIndex = $unreleasedIndex + 1
+          if ($depIndex -eq -1) {
+            $lines.Insert($versionIndex + 1, "### Dependency update")
+            $depIndex = $versionIndex + 1
           }
 
-          $lines.Insert($updatesIndex + 1, "- $date: ${prTitle}")
+          $lines.Insert($depIndex + 1, $entry)
           Set-Content -Path $changelogPath -Value $lines
 
+          Write-Host "✅ Changelog updated with:"
+          Write-Host $entry
+
       - name: Commit changelog update
-        if: ${{ github.event.inputs.dryRun != 'true' }}
+        if: steps.extract.outputs.dryRun != 'true'
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add CHANGELOG.md
-          git commit -m "docs: update changelog"
+          git commit -m "docs: update changelog for #${{ steps.extract.outputs.prNumber }}"
           git push
