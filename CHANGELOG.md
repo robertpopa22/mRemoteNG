@@ -11,7 +11,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - #2496: use pwfile instead of cleartext password for putty connections 
 - #2734: fix native build for Windows-x64
 
-
 ### Added
 - #2728 Add support for building mRemoteNG on Windows ARM64
 - #2723: Read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File
@@ -21,7 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Updated
 - #2597: Remember the opened connection file on relaunch
-- #2502: Updated Polish translation  
+- #2502: Updated Polish translation
+
+### Dependency update
 
 ## [1.77.3.1784]
 ### Fixed
