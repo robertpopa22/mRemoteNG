@@ -1,10 +1,10 @@
 name: Update Changelog for Renovate PR
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
     branches:
       - v1.78.2-dev
+
   workflow_dispatch:
     inputs:
       dryRun:
@@ -14,32 +14,76 @@ on:
       prTitle:
         description: 'Simulated PR title'
         required: false
-        default: 'chore(deps): update dependency X'
+        default: 'chore(deps): update dependency'
 
 jobs:
   update-changelog:
-    if: github.actor == 'renovate[bot]'  # Only run for Renovate PRs
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Extract PR title
-        id: pr_title
-        run: echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
-
-      - name: Update CHANGELOG.md
+      - name: Get last commit info
+        id: commit
         run: |
-          TITLE="${{ steps.pr_title.outputs.title }}"
-          DATE=$(date +'%Y-%m-%d')
-          sed -i "/## \[Dependency update\]/a\\
-          - ${DATE}: ${TITLE}" CHANGELOG.md
+          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
+          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
+
+      - name: Check if last commit is from Renovate
+        if: |
+          contains(steps.commit.outputs.message, 'Merge pull request') &&
+          contains(steps.commit.outputs.message, 'renovate') &&
+          steps.commit.outputs.author == 'GitHub'
+        run: echo "✅ Detected merged Renovate PR"
+
+      - name: Extract PR title from commit message
+        id: pr_title
+        if: |
+          contains(steps.commit.outputs.message, 'Merge pull request') &&
+          contains(steps.commit.outputs.message, 'renovate')
+        run: |
+          echo "Full commit message:"
+          echo "${{ steps.commit.outputs.message }}"
+          TITLE=$(echo "${{ steps.commit.outputs.message }}" | grep -oP '(?<=\n).*')
+          echo "title=$TITLE" >> $GITHUB_OUTPUT
+
+      - name: Append to CHANGELOG.md
+        if: steps.pr_title.outputs.title != ''
+        shell: pwsh
+        run: |
+          $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
+          $lines = Get-Content $changelogPath
+          $prTitle = "${{ steps.pr_title.outputs.title }}"
+          $date = Get-Date -Format "yyyy-MM-dd"
+
+          $unreleasedIndex = $lines.FindIndex({ $_ -match '^## \[Unreleased\]' })
+          if ($unreleasedIndex -eq -1) {
+            throw "Unreleased section not found"
+          }
+
+          $updatesIndex = -1
+          for ($i = $unreleasedIndex + 1; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^### Updates') {
+              $updatesIndex = $i
+              break
+            }
+            if ($lines[$i] -match '^## ') { break }
+          }
+
+          if ($updatesIndex -eq -1) {
+            $lines.Insert($unreleasedIndex + 1, "### Updates")
+            $updatesIndex = $unreleasedIndex + 1
+          }
+
+          $lines.Insert($updatesIndex + 1, "- $date: $prTitle")
+          Set-Content -Path $changelogPath -Value $lines
 
       - name: Commit changelog update
+        if: steps.pr_title.outputs.title != ''
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add CHANGELOG.md
-          git commit -m "docs: update changelog for Renovate PR"
+          git commit -m "docs: update changelog after Renovate PR merge"
           git push
