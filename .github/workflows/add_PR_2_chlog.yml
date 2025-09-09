@@ -1,0 +1,45 @@
+name: Update Changelog for Renovate PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - v1.78.2-dev
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Run without committing changes'
+        required: false
+        default: 'true'
+      prTitle:
+        description: 'Simulated PR title'
+        required: false
+        default: 'chore(deps): update dependency X'
+
+jobs:
+  update-changelog:
+    if: github.actor == 'renovate[bot]'  # Only run for Renovate PRs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Extract PR title
+        id: pr_title
+        run: echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+
+      - name: Update CHANGELOG.md
+        run: |
+          TITLE="${{ steps.pr_title.outputs.title }}"
+          DATE=$(date +'%Y-%m-%d')
+          sed -i "/## \[Dependency update\]/a\\
+          - ${DATE}: ${TITLE}" CHANGELOG.md
+
+      - name: Commit changelog update
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add CHANGELOG.md
+          git commit -m "docs: update changelog for Renovate PR"
+          git push
