@@ -18,28 +18,57 @@ on:
 
 jobs:
   update-changelog:
-    if: github.actor == 'renovate[bot]'  # Only run for Renovate PRs
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Extract PR title
+      - name: Determine PR title
         id: pr_title
-        run: echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
-
-      - name: Update CHANGELOG.md
         run: |
-          TITLE="${{ steps.pr_title.outputs.title }}"
-          DATE=$(date +'%Y-%m-%d')
-          sed -i "/## \[Dependency update\]/a\\
-          - ${DATE}: ${TITLE}" CHANGELOG.md
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "title=${{ github.event.inputs.prTitle }}" >> $GITHUB_OUTPUT
+          else
+            TITLE=$(git log -1 --pretty=%B | grep -oP '(?<=\n).*')
+            echo "title=$TITLE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Append to CHANGELOG.md
+        shell: pwsh
+        run: |
+          $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
+          $lines = Get-Content $changelogPath
+          $prTitle = "${{ steps.pr_title.outputs.title }}"
+          $date = Get-Date -Format "yyyy-MM-dd"
+
+          $unreleasedIndex = $lines.FindIndex({ $_ -match '^## \[Dependency update\]' })
+          if ($unreleasedIndex -eq -1) {
+            throw "Dependency update section not found"
+          }
+
+          $updatesIndex = -1
+          for ($i = $unreleasedIndex + 1; $i -lt $lines.Count; $i++) {
+            if ($lines[$i] -match '^### Updates') {
+              $updatesIndex = $i
+              break
+            }
+            if ($lines[$i] -match '^## ') { break }
+          }
+
+          if ($updatesIndex -eq -1) {
+            $lines.Insert($unreleasedIndex + 1, "### Updates")
+            $updatesIndex = $unreleasedIndex + 1
+          }
+
+          $lines.Insert($updatesIndex + 1, "- $date: $prTitle")
+          Set-Content -Path $changelogPath -Value $lines
 
       - name: Commit changelog update
+        if: ${{ github.event.inputs.dryRun != 'true' }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add CHANGELOG.md
-          git commit -m "docs: update changelog for Renovate PR"
+          git commit -m "docs: update changelog"
           git push
