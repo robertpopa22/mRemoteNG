@@ -11,6 +11,10 @@ on:
         description: 'Manual run without committing changes'
         required: false
         default: 'true'
+      prTitle:
+        description: 'Simulated PR title'
+        required: false
+        default: 'chore(deps): update dependency'
 
 jobs:
   update-changelog:
@@ -58,6 +62,7 @@ jobs:
         run: |
           $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
           $lines = Get-Content $changelogPath
+
           $prNumber = "${{ steps.extract.outputs.prNumber }}"
           $depName = "${{ steps.extract.outputs.depName }}"
           $depVersion = "${{ steps.extract.outputs.depVersion }}"

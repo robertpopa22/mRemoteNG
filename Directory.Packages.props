@@ -60,8 +60,8 @@
     <PackageVersion Include="SpecFlow.NUnit" Version="3.9.74" />
     <PackageVersion Include="SSH.NET" Version="2025.0.0" />
     <PackageVersion Include="System.Buffers" Version="4.6.1" />
+    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.9" />
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.9" />
-    <PackageVersion Include="System.Configuration.ConfigurationManager" Version="9.0.8" />
     <PackageVersion Include="System.Console" Version="4.3.1" />
     <PackageVersion Include="System.Data.Common" Version="4.3.0" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="9.0.8" />
