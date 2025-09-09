@@ -4,7 +4,17 @@ on:
   pull_request:
     types: [opened, synchronize]
     branches:
-      - dev  # or your target branch
+      - v1.78.2-dev
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Run without committing changes'
+        required: false
+        default: 'true'
+      prTitle:
+        description: 'Simulated PR title'
+        required: false
+        default: 'chore(deps): update dependency X'
 
 jobs:
   update-changelog:
