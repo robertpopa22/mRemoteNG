@@ -61,7 +61,7 @@ jobs:
             $updatesIndex = $unreleasedIndex + 1
           }
 
-          $lines.Insert($updatesIndex + 1, "- $date: $prTitle")
+          $lines.Insert($updatesIndex + 1, "- $date: ${prTitle}")
           Set-Content -Path $changelogPath -Value $lines
 
       - name: Commit changelog update
