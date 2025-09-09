@@ -8,13 +8,13 @@ on:
   workflow_dispatch:
     inputs:
       dryRun:
-        description: 'Manual run without committing changes'
+        description: 'Run without committing changes?'
         required: false
         default: 'true'
       prTitle:
-        description: 'Simulated PR title'
+        description: 'Provide PR title:'
         required: false
-        default: 'chore(deps): update dependency'
+        default: 'update dependency'
 
 jobs:
   update-changelog:
@@ -24,20 +24,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Get last commit info
+      - name: Get last commit message
         id: commit
         run: |
-          echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
-          echo "author=$(git log -1 --pretty=%an)" >> $GITHUB_OUTPUT
+          echo "message<<EOF" >> $GITHUB_OUTPUT
+          git log -1 --pretty=%B >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Extract PR and dependency info
+      - name: Parse Renovate PR info
         id: extract
         shell: pwsh
         run: |
           $dryRun = "${{ github.event.inputs.dryRun }}"
-          $commitMessage = git log -1 --pretty=%B
-
           if ($dryRun -eq "") { $dryRun = "false" }
+
+          $commitMessage = @'
+${{ steps.commit.outputs.message }}
+'@
 
           if ($commitMessage -match '#(\d+)') {
             $prNumber = $matches[1]
@@ -62,7 +65,6 @@ jobs:
         run: |
           $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
           $lines = Get-Content $changelogPath
-
           $prNumber = "${{ steps.extract.outputs.prNumber }}"
           $depName = "${{ steps.extract.outputs.depName }}"
           $depVersion = "${{ steps.extract.outputs.depVersion }}"
