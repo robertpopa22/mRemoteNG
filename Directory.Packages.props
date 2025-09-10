@@ -91,7 +91,7 @@
     <PackageVersion Include="System.Security.Cryptography.OpenSsl" Version="5.0.0" />
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="9.0.8" />
     <PackageVersion Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
-    <PackageVersion Include="System.Security.Permissions" Version="9.0.8" />
+    <PackageVersion Include="System.Security.Permissions" Version="9.0.9" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.Text.Encoding.CodePages" Version="9.0.8" />
     <PackageVersion Include="System.Text.Json" Version="9.0.8" />
