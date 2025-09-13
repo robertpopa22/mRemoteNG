@@ -1,10 +1,16 @@
 name: Update Changelog After Renovate PR Merge
 
 on:
+  # 1) Auto on pushes to your repo’s default branch (merge commits included)
   push:
     branches:
-      - v1.78.2-dev   # ← replace with your repo’s default branch
+      - '${{ github.event.repository.default_branch }}'
 
+  # 2) Auto when a PR is closed (so you can merge manually via the UI)
+  pull_request_target:
+    types: [closed]
+
+  # 3) Manual trigger
   workflow_dispatch:
     inputs:
       dryRun:
@@ -15,6 +21,15 @@ on:
 jobs:
   update-changelog:
     runs-on: ubuntu-latest
+
+    # Only proceed if…
+    # - manual dispatch  
+    # - OR a closed PR that was merged by you  
+    # - OR a push to default branch  
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && github.actor == 'Dimitrij') ||
+      github.event_name == 'push'
 
     steps:
       - name: Checkout code
@@ -28,7 +43,6 @@ jobs:
             echo "isRenovate=true" >> $GITHUB_OUTPUT
             exit 0
           fi
-
           msg="$(git log -1 --pretty=%B)"
           if echo "$msg" | grep -q 'chore(deps): update dependency'; then
             echo "isRenovate=true" >> $GITHUB_OUTPUT
@@ -53,17 +67,16 @@ jobs:
 
           # 2) Read full commit message
           $fullMsg = git log -1 --pretty=%B
-          Write-Host "📝 Commit message:"
-          Write-Host $fullMsg
+          Write-Host "📝 Commit message:"; Write-Host $fullMsg
 
-          # 3) Extract PR number from merge subject
+          # 3) Extract PR number
           if ($fullMsg -match 'Merge pull request #(\d+)') {
             $prNumber = $matches[1]
           } else {
             throw "❌ Could not locate PR number in merge commit"
           }
 
-          # 4) Extract dependency update from body
+          # 4) Extract dependency name & version
           if ($fullMsg -match 'chore\(deps\): update dependency ([\w\.\-]+) to ([\d\.]+)') {
             $depName    = $matches[1]
             $depVersion = $matches[2]
@@ -71,7 +84,7 @@ jobs:
             throw "❌ Could not parse dependency name/version"
           }
 
-          # 5) Persist outputs
+          # 5) Export outputs
           echo "pr=$prNumber"        >> $env:GITHUB_OUTPUT
           echo "depName=$depName"    >> $env:GITHUB_OUTPUT
           echo "depVersion=$depVersion" >> $env:GITHUB_OUTPUT
@@ -83,24 +96,20 @@ jobs:
         run: |
           $path   = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
           if (-not (Test-Path $path)) { throw "❌ CHANGELOG.md not found" }
-
           $lines  = Get-Content $path
           $pr     = '${{ steps.extract.outputs.pr }}'
           $dep    = '${{ steps.extract.outputs.depName }}'
           $ver    = '${{ steps.extract.outputs.depVersion }}'
-          $entry  = "- #$pr: update $dep to $ver"
+          $entry  = "- #$pr: update dependency $dep to $ver"
 
           # Find latest version header: ## [x.y.z]
           $vIndex = $lines.FindIndex({ $_ -match '^## \[\d+\.\d+\.\d+\]' })
           if ($vIndex -lt 0) { throw "❌ No version header found" }
 
-          # Locate or create '### Dependency update'
+          # Locate or create "### Dependency update"
           $depIndex = -1
           for ($i = $vIndex + 1; $i -lt $lines.Count; $i++) {
-            if ($lines[$i] -match '^### Dependency update') {
-              $depIndex = $i
-              break
-            }
+            if ($lines[$i] -match '^### Dependency update') { $depIndex = $i; break }
             if ($lines[$i] -match '^## ') { break }
           }
           if ($depIndex -eq -1) {
@@ -108,12 +117,10 @@ jobs:
             $depIndex = $vIndex + 1
           }
 
-          # Insert the entry
+          # Insert the changelog entry
           $lines.Insert($depIndex + 1, $entry)
           Set-Content -Path $path -Value $lines
-
-          Write-Host "✅ Inserted in CHANGELOG.md:"
-          Write-Host "   $entry"
+          Write-Host "✅ Inserted in CHANGELOG.md:"; Write-Host "   $entry"
 
       - name: Commit & push
         if: steps.check-renovate.outputs.isRenovate == 'true' && steps.extract.outputs.dryRun != 'true'
