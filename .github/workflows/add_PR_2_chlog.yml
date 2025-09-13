@@ -4,7 +4,7 @@ on:
   # 1) Auto on pushes to your repo’s default branch (merge commits included)
   push:
     branches:
-      - '${{ github.event.repository.default_branch }}'
+      - v1.78.2-dev
 
   # 2) Auto when a PR is closed (so you can merge manually via the UI)
   pull_request_target:
