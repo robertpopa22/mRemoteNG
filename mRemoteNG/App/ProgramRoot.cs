@@ -1,4 +1,6 @@
-﻿using mRemoteNG.Config.Settings;
+﻿using mRemoteNG.App.Update;
+using mRemoteNG.Config.Settings;
+using mRemoteNG.DotNet.Update;
 using mRemoteNG.DotNet.Update;
 using mRemoteNG.UI.Forms;
 
@@ -10,9 +12,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
-using System.Windows.Forms;
 using System.Threading.Tasks;
-using mRemoteNG.DotNet.Update;
+using System.Windows.Forms;
 
 
 
@@ -21,120 +22,90 @@ namespace mRemoteNG.App
     [SupportedOSPlatform("windows")]
     public static class ProgramRoot
     {
-        private static Mutex _mutex;
+        private static Mutex? _mutex;
         private static FrmSplashScreenNew _frmSplashScreen = null;
         private static string customResourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Languages");
 
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        private static System.Threading.Thread? _wpfSplashThread;
+        private static FrmSplashScreenNew? _wpfSplash;
+
         [STAThread]
         public static void Main(string[] args)
         {
-            try
+            // Ensure the real entry point is definitely STA
+            MainAsync(args).GetAwaiter().GetResult();
+        }
+
+        private static Task MainAsync(string[] args)
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
+
+            string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();
+
+            if (InternetConnection.IsPosible())
             {
-                // FIX: Awaited Task<bool> synchronously to obtain bool result
-                bool isInstalled = DotNetRuntimeCheck
-                    .IsDotnetRuntimeInstalled(DotNetRuntimeCheck.RequiredDotnetVersion)
-                    .GetAwaiter()
-                    .GetResult();
+                var (latestRuntimeVersion, downloadUrl) = DotNetRuntimeCheck.GetLatestAvailableDotNetVersionAsync().GetAwaiter().GetResult();
 
-                if (!isInstalled)
+                if (string.IsNullOrEmpty(installedVersion))
                 {
-                    Trace.WriteLine($".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is NOT installed.");
-                    Trace.WriteLine("Please download and install it from:");
-                    Trace.WriteLine("https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.8-windows-x64-installer");
-
                     try
                     {
-                        MessageBox.Show(
-                            $".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is required.\n" +
-                            "The application will now exit.\n\nDownload:\nhttps://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.8-windows-x64-installer",
-                            "Missing .NET Runtime",
+                        _ = MessageBox.Show(
+                            $".NET Desktop Runtime at least {DotNetRuntimeCheck.RequiredDotnetVersion}.0 is required.\n" +
+                            "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl,
+                            "Missing .NET " + DotNetRuntimeCheck.RequiredDotnetVersion + " Runtime",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
-                    } catch {
-                        // Ignore UI issues
+
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo(fileName: downloadUrl) { UseShellExecute = true });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Unable to open download link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        Environment.Exit(0);
                     }
-
-                    Environment.Exit(1);
-                    return;
+                    catch { }
                 }
-
-                Trace.WriteLine($".NET Desktop Runtime {DotNetRuntimeCheck.RequiredDotnetVersion} is installed.");
-            } catch (Exception ex) {
-                Trace.WriteLine("Runtime check failed: " + ex);
-                Environment.Exit(1);
-                return;
             }
 
-            Trace.WriteLine("!!!!!!=============== TEST ==================!!!!!!!!!!!!!");
+            Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
+            if (singleInstanceOption.Value)
+                StartApplicationAsSingleInstance();
+            else
+                StartApplication();
+
+            return Task.CompletedTask;
+        }
+
+        // Assembly resolve handler
+        private static Assembly? OnAssemblyResolve(object? sender, ResolveEventArgs args)
+        {
             try
             {
-                string assemblyFile = "System.Configuration.ConfigurationManager.dll";
+                string assemblyName = new AssemblyName(args.Name).Name ?? string.Empty;
+                if (assemblyName.EndsWith(".resources", StringComparison.OrdinalIgnoreCase))
+                    return null;
+
+                string assemblyFile = assemblyName + ".dll";
                 string assemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assemblies", assemblyFile);
 
                 if (File.Exists(assemblyPath))
-                {
-                    Assembly.LoadFrom(assemblyPath);
-                }
+                    return Assembly.LoadFrom(assemblyPath);
             }
-            catch (FileNotFoundException ex)
+            catch
             {
-                Trace.WriteLine("Error occured: " + ex.Message);
+                // Suppress resolution exceptions; return null to continue standard probing
             }
-
-            AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                string runtimeVersion = RuntimeInformation.FrameworkDescription;
-                if (runtimeVersion.Contains(".NET 9.0.2"))
-                {
-                    Console.WriteLine(".NET Desktop Runtime 9.0.2 is already installed.");
-                }
-                else
-                {
-                    Console.WriteLine(".NET Desktop Runtime 9.0.2 is not installed. Please download and install it from the following link:");
-                    Console.WriteLine("https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.2-windows-x64-installer");
-                    Console.WriteLine("After installation, please restart the application.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("This application requires the .NET Desktop Runtime 9.0.2 on Windows.");
-            }
-
-            CheckLockalDB();
-
-            Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
-
-            if (singleInstanceOption.Value)
-            {
-                StartApplicationAsSingleInstance();
-            }
-            else
-            {
-                StartApplication();
-            }
+            return null;
         }
 
         private static void CheckLockalDB()
         {
             LocalDBManager settingsManager = new LocalDBManager(dbPath: "mRemoteNG.appSettings", useEncryption: false, schemaFilePath: "");
-        }
-
-        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs resolveArgs)
-        {
-            string assemblyName = new AssemblyName(resolveArgs.Name).Name.Replace(".resources", string.Empty);
-            string assemblyFile = assemblyName + ".dll";
-            string assemblyPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assemblies", assemblyFile);
-
-            if (File.Exists(assemblyPath))
-            {
-                return Assembly.LoadFrom(assemblyPath);
-            }
-            return null;
         }
 
         private static void StartApplication()
@@ -143,17 +114,7 @@ namespace mRemoteNG.App
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            _frmSplashScreen = FrmSplashScreenNew.GetInstance();
-
-            Screen targetScreen = Screen.PrimaryScreen;
-
-            Rectangle viewport = targetScreen.WorkingArea;
-            _frmSplashScreen.Top = viewport.Top;
-            _frmSplashScreen.Left = viewport.Left;
-            _frmSplashScreen.Left = viewport.Left + (targetScreen.Bounds.Size.Width - _frmSplashScreen.Width) / 2;
-            _frmSplashScreen.Top = viewport.Top + (targetScreen.Bounds.Size.Height - _frmSplashScreen.Height) / 2;
-            _frmSplashScreen.ShowInTaskbar = false;
-            _frmSplashScreen.Show();
+            ShowSplashOnStaThread();
 
             Application.Run(FrmMain.Default);
         }
@@ -210,10 +171,8 @@ namespace mRemoteNG.App
 
         private static void ApplicationOnThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            FrmSplashScreenNew.GetInstance().Close();
-
+            CloseSplash();
             if (FrmMain.Default.IsDisposed) return;
-
             FrmUnhandledException window = new(e.Exception, false);
             window.ShowDialog(FrmMain.Default);
         }
@@ -222,6 +181,39 @@ namespace mRemoteNG.App
         {
             FrmUnhandledException window = new(e.ExceptionObject as Exception, e.IsTerminating);
             window.ShowDialog(FrmMain.Default);
+        }
+
+        private static void ShowSplashOnStaThread()
+        {
+            _wpfSplashThread = new System.Threading.Thread(() =>
+            {
+                _wpfSplash = FrmSplashScreenNew.GetInstance();
+
+                // Center the splash screen on the primary screen before showing it
+                _wpfSplash.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+
+                _wpfSplash.ShowInTaskbar = false;
+                _wpfSplash.Show();
+                System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop(_wpfSplash);
+                System.Windows.Threading.Dispatcher.Run(); // WPF message loop
+            })
+            { IsBackground = true };
+            _wpfSplashThread.SetApartmentState(System.Threading.ApartmentState.STA);
+            _wpfSplashThread.Start();
+        }
+
+        private static void CloseSplash()
+        {
+            if (_wpfSplash != null)
+            {
+                _wpfSplash.Dispatcher.Invoke(() => _wpfSplash.Close());
+                _wpfSplash = null;
+            }
+            if (_wpfSplashThread != null)
+            {
+                _wpfSplashThread.Join();
+                _wpfSplashThread = null;
+            }
         }
     }
 }

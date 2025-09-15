@@ -1,66 +1,107 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace mRemoteNG.DotNet.Update
 {
+    [SupportedOSPlatform("windows")]
     public class DotNetRuntimeCheck
     {
-        public const string RequiredDotnetVersion = "9.0.8";
-        public const string DotnetInstallerUrl = "https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-9.0.8-windows-x64-installer";
-        public const string DotnetInstallerFileName = "windowsdesktop-runtime-9.0.8-win-x64.exe";
+        public const string RequiredDotnetVersion = "9.0";
+        private const string ReleaseFeedUrl = "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json";
 
-        public static async Task Main(string[] args)
-        {
-            if (await IsDotnetRuntimeInstalled(RequiredDotnetVersion))
-            {
-                Console.WriteLine($".NET Desktop Runtime {RequiredDotnetVersion} is installed. Launching application...");
-            }
-            else
-            {
-                Console.WriteLine($".NET Desktop Runtime {RequiredDotnetVersion} is not installed.");
-            }
-        }
+        #region Installed Version Check
         /// <summary>
-        /// Checks if a specific version of the .NET runtime is installed by running `dotnet --list-runtimes`.
+        /// Gets the installed .NET 9 runtime version if present
         /// </summary>
-        public static async Task<bool> IsDotnetRuntimeInstalled(string version)
+        /// <returns>The version string (e.g., "v9.0.0") or null if not found</returns>
+        [SupportedOSPlatform("windows")]
+        public static string? GetLatestDotNetRuntimeVersion()
+        {
+            string[] registryPaths = new[]
+            {
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\x86",
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\x64"
+            };
+
+            foreach (string path in registryPaths)
             {
                 try
                 {
-                    // Set up a process to run the 'dotnet' command.
-                    var process = new Process
+                    using RegistryKey? key = Registry.LocalMachine.OpenSubKey(path);
+                    if (key == null)
                     {
-                        StartInfo = new ProcessStartInfo
+                        continue;
+                    }
+
+                    // Check for the "sharedhost" subkey
+                    using (RegistryKey? sharedHostKey = key.OpenSubKey("sharedhost"))
+                    {
+                        if (sharedHostKey == null) {
+                            continue;
+                        };
+
+                        // Look for the "Version" value in sharedhost
+                        object? versionValue = sharedHostKey.GetValue("Version");
+                        if (versionValue != null)
                         {
-                            FileName = "dotnet",
-                            Arguments = "--list-runtimes",
-                            RedirectStandardOutput = true,
-                            UseShellExecute = false,
-                            CreateNoWindow = true,
+                            string? version = versionValue.ToString();
+                            if (!string.IsNullOrWhiteSpace(version))
+                            {
+                                return version;
+                            }
                         }
-                    };
-
-                    process.Start();
-
-                // Read the output from the command.
-                var output = await process.StandardOutput.ReadToEndAsync();
-                    process.WaitForExit();
-
-                    // Check if the output contains the required runtime and version.
-                    // The format is typically: Microsoft.NETCore.App 9.0.0 [C:\Program Files\dotnet\shared\Microsoft.NETCore.App]
-                    return output.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                                 .Any(line => line.Trim().StartsWith($"Microsoft.NETCore.App {version}") ||
-                                              line.Trim().StartsWith($"Microsoft.WindowsDesktop.App {version}"));
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Could not check .NET runtimes. Please ensure 'dotnet' is in your PATH. Error: {ex.Message}");
-                    return false;
+                    Console.WriteLine($"Error checking registry fallback: {ex.Message}");
                 }
             }
-        } //Check
+
+            return null;
+        }
+        #endregion Installed Version Check
+        #region Latest Online Version Check
+        public static async Task<(string latestRuntimeVersion, string downloadUrl)> GetLatestAvailableDotNetVersionAsync()
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "DotNetRuntimeChecker");
+
+                string jsonContent = await httpClient.GetStringAsync(ReleaseFeedUrl);
+                JObject releasesIndex = JObject.Parse(jsonContent);
+
+                // Find the entry for .NET matching RequiredDotnetVersion
+                JToken? dotnetEntry = releasesIndex["releases-index"]?.FirstOrDefault(entry => entry["channel-version"]?.ToString() == RequiredDotnetVersion);
+
+                if (dotnetEntry != null && dotnetEntry["latest-runtime"] != null)
+                {
+                    string? latestRuntimeVersion = dotnetEntry["latest-runtime"]?.ToString();
+                    if (!string.IsNullOrEmpty(latestRuntimeVersion))
+                    {
+                        // Construct the download URL using the latest version
+                        string downloadUrl = $"https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-{latestRuntimeVersion}-windows-x64-installer";
+                        return (latestRuntimeVersion, downloadUrl);
+                    }
+                }
+
+                return ("Unknown", "");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching latest version: {ex.Message}");
+                return ("Unknown", "");
+            }
+        }
+        #endregion Latest Online Version Check
+    }
 }

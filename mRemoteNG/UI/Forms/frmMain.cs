@@ -34,6 +34,7 @@ using mRemoteNG.UI.Controls;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Config.Settings.Registry;
+using System.Threading; // ADDED
 #endregion
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -43,7 +44,32 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public partial class FrmMain
     {
-        public static FrmMain Default { get; } = new FrmMain();
+        // CHANGED: lazy, thread-safe, STA-enforced initialization
+        private static readonly Lazy<FrmMain> s_default =
+            new(InitializeOnSta, LazyThreadSafetyMode.ExecutionAndPublication);
+
+        public static FrmMain Default => s_default.Value;
+
+        public static bool IsCreated => s_default.IsValueCreated;
+
+        private static FrmMain InitializeOnSta()
+        {
+            // Enforce STA to avoid OLE/WinForms threading violations
+            if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
+            {
+                // If we're already on a WinForms UI thread with a sync context, marshal to it
+                if (SynchronizationContext.Current is WindowsFormsSynchronizationContext ctx)
+                {
+                    FrmMain created = null;
+                    ctx.Send(_ => created = new FrmMain(), null);
+                    return created!;
+                }
+
+                throw new ThreadStateException("FrmMain must be created on an STA thread.");
+            }
+
+            return new FrmMain();
+        }
 
         private static ClipboardchangeEventHandler _clipboardChangedEvent;
         private bool _inSizeMove;
@@ -208,7 +234,11 @@ namespace mRemoteNG.UI.Forms
 
             pnlDock.ShowDocumentIcon = true;
 
-            FrmSplashScreenNew.GetInstance().Close();
+            FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
+            if (splash.Dispatcher.CheckAccess())
+                splash.Close();
+            else
+                splash.Dispatcher.Invoke(() => splash.Close());
 
             if (Properties.OptionsStartupExitPage.Default.StartMinimized)
             {
