@@ -45,7 +45,7 @@
     <PackageVersion Include="NUnit3TestAdapter" Version="5.1.0" />
     <PackageVersion Include="OpenCover" Version="4.7.1221" />
     <PackageVersion Include="Renci.SshNet.Async" Version="1.4.0" />
-    <PackageVersion Include="ReportGenerator" Version="5.4.12" />
+    <PackageVersion Include="ReportGenerator" Version="5.4.13" />
     <PackageVersion Include="runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl" Version="4.3.3" />
     <PackageVersion Include="runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl" Version="4.3.3" />
     <PackageVersion Include="runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl" Version="4.3.3" />
@@ -64,7 +64,7 @@
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.9" />
     <PackageVersion Include="System.Console" Version="4.3.1" />
     <PackageVersion Include="System.Data.Common" Version="4.3.0" />
-    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="9.0.8" />
+    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="9.0.9" />
     <PackageVersion Include="System.Drawing.Common" Version="9.0.9" />
     <PackageVersion Include="System.Diagnostics.EventLog" Version="9.0.9" />
     <PackageVersion Include="System.DirectoryServices" Version="9.0.9" />
@@ -93,12 +93,12 @@
     <PackageVersion Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
     <PackageVersion Include="System.Security.Permissions" Version="9.0.9" />
     <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
-    <PackageVersion Include="System.Text.Encoding.CodePages" Version="9.0.8" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.8" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="9.0.9" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.9" />
     <PackageVersion Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
     <PackageVersion Include="System.ValueTuple" Version="4.6.1" />
-    <PackageVersion Include="System.Windows.Extensions" Version="9.0.8" />
+    <PackageVersion Include="System.Windows.Extensions" Version="9.0.9" />
     <PackageVersion Include="System.Xml.ReaderWriter" Version="4.3.1" />
     <PackageVersion Include="VncSharpCore" Version="1.2.1" />
     <PackageVersion Include="ZstdSharp.Port" Version="0.8.6" />
