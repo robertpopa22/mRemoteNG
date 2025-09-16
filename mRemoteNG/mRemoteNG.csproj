@@ -627,4 +627,8 @@
       <ReferenceCopyLocalPaths Condition=" '%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' " Update="%(ReferenceCopyLocalPaths)" DestinationSubDirectory="Assemblies\" />
     </ItemGroup>
   </Target>
+  <PropertyGroup>
+    <!-- Disable CET compatibility check in .NET 9 AppHost -->
+    <CETCompat>false</CETCompat>
+  </PropertyGroup>
 </Project>
