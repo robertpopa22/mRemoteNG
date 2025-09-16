@@ -133,6 +133,10 @@ public class LocalDBManager
         {
             if (!string.IsNullOrWhiteSpace(schemaFilePath) && File.Exists(schemaFilePath))
             {
+                if (schemaFilePath == null || schemaFilePath.Contains("../") || schemaFilePath.Contains(@"..\"))
+                {
+                    throw new ArgumentException("Invalid file path");
+                }
                 var schemaJson = File.ReadAllText(schemaFilePath);
                 using (JsonDocument doc = JsonDocument.Parse(schemaJson))
                 {
@@ -269,6 +273,10 @@ public void EncryptDatabase()
     {
         if (File.Exists(jsonFilePath))
         {
+            if (jsonFilePath == null || jsonFilePath.Contains("../") || jsonFilePath.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             var json = File.ReadAllText(jsonFilePath);
             var settingsData = JsonSerializer.Deserialize<Dictionary<string, List<Setting>>>(json);
 
@@ -308,6 +316,10 @@ public void EncryptDatabase()
             }
 
             var json = JsonSerializer.Serialize(settingsData, new JsonSerializerOptions { WriteIndented = true });
+            if (jsonFilePath == null || jsonFilePath.Contains("../") || jsonFilePath.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             File.WriteAllText(jsonFilePath, json);
             Console.WriteLine("Settings successfully exported to JSON file.");
         }
