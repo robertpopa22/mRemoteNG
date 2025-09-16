@@ -19,6 +19,10 @@ namespace mRemoteNG.Config.DataProviders
 
                 string backupFileName =
                     string.Format(Properties.OptionsBackupPage.Default.BackupFileNameFormat, fileName, DateTime.Now);
+                if (fileName == null || fileName.Contains("../") || fileName.Contains(@"..\"))
+                    throw new ArgumentException("Invalid file path");
+                if (backupFileName == null || backupFileName.Contains("../") || backupFileName.Contains(@"..\"))
+                    throw new ArgumentException("Invalid file path");
                 File.Copy(fileName, backupFileName);
             }
             catch (Exception ex)
