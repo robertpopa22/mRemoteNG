@@ -1,0 +1,2419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>பற்றி</value>
+  </data>
+  <data name="ActiveDirectory" xml:space="preserve">
+    <value>செயலில் உள்ள அடைவு</value>
+  </data>
+  <data name="AddNodeFromXmlFailed" xml:space="preserve">
+    <value>நீகுமொயிலிருந்துமுனைசேர் தோல்வியுற்றது!</value>
+  </data>
+  <data name="AllowOnlySingleInstance" xml:space="preserve">
+    <value>பயன்பாட்டின் ஒரு நிகழ்வை மட்டுமே அனுமதிக்கவும் (பயன்பாடு மறுதொடக்கம் தேவை)</value>
+  </data>
+  <data name="Always" xml:space="preserve">
+    <value>எப்போதும்</value>
+  </data>
+  <data name="AlwaysConnectEvenIfAuthFails" xml:space="preserve">
+    <value>ஏற்பு தோல்வியுற்றாலும் எப்போதும் இணை</value>
+  </data>
+  <data name="AlwaysShowPanelSelection" xml:space="preserve">
+    <value>இணைப்புகளைத் திறக்கும்போது எப்போதும் குழு தேர்வு உரையாடலைக் காண்பி</value>
+  </data>
+  <data name="AlwaysShowPanelTabs" xml:space="preserve">
+    <value>எப்போதும் குழு தாவல்களைக் காட்டு</value>
+  </data>
+  <data name="AlwaysShowSysTrayIcon" xml:space="preserve">
+    <value>எப்போதும் அறிவிப்பு பகுதி சின்னத்தை காட்டு</value>
+  </data>
+  <data name="AskUpdatesCommandAskLater" xml:space="preserve">
+    <value>பின்னர் என்னிடம் மீண்டும் கேள்</value>
+  </data>
+  <data name="AskUpdatesCommandCustom" xml:space="preserve">
+    <value>அமைப்புகளை இப்போது தனிப்பயனாக்கு</value>
+  </data>
+  <data name="AskUpdatesCommandRecommended" xml:space="preserve">
+    <value>பரிந்துரைக்கப்பட்ட அமைப்புகளைப் பயன்படுத்து</value>
+  </data>
+  <data name="AskUpdatesContent" xml:space="preserve">
+    <value>{0} புதிய நற்பொருத்தங்கள் மற்றும் பிழை திருத்தங்களை வழங்கக்கூடிய புதுப்பிப்புகளை தானாகவே சரிபார்க்கலாம். வாரந்தோறும் புதுப்பிப்புகளை சரிபார்க்க {0} அனுமதிக்க பரிந்துரைக்கப்படுகிறது.</value>
+  </data>
+  <data name="AskUpdatesMainInstruction" xml:space="preserve">
+    <value>தானியங்கி புதுப்பிப்பு அமைப்புகள்</value>
+  </data>
+  <data name="Aspect" xml:space="preserve">
+    <value>நற்பொருத்தம்</value>
+  </data>
+  <data name="AutoSaveEvery" xml:space="preserve">
+    <value>நிமையங்களில் தானி சேமி நேரத்தை (0 என்றால் முடக்கப்பட்டது):</value>
+  </data>
+  <data name="AvailableVersion" xml:space="preserve">
+    <value>அண்மைக் கால பதிப்பு</value>
+  </data>
+  <data name="_Browse" xml:space="preserve">
+    <value>உலாவு...</value>
+  </data>
+  <data name="_Cancel" xml:space="preserve">
+    <value>கைவிடு</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>மாற்றம்</value>
+  </data>
+  <data name="_Close" xml:space="preserve">
+    <value>மூடு</value>
+  </data>
+  <data name="ButtonDefaultInheritance" xml:space="preserve">
+    <value>இயல்புநிலை பரம்பரை</value>
+  </data>
+  <data name="ButtonDefaultProperties" xml:space="preserve">
+    <value>இயல்புநிலை பண்புகள்</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>துண்டி</value>
+  </data>
+  <data name="Icon" xml:space="preserve">
+    <value>படவுரு</value>
+  </data>
+  <data name="_Import" xml:space="preserve">
+    <value>இறக்குமதி</value>
+  </data>
+  <data name="Inheritance" xml:space="preserve">
+    <value>பரம்பரை</value>
+  </data>
+  <data name="_Launch" xml:space="preserve">
+    <value>ஏவுதல்</value>
+  </data>
+  <data name="ButtonLaunchPutty" xml:space="preserve">
+    <value>புட்டியை அறிமுகப்படுத்து</value>
+  </data>
+  <data name="_Ok" xml:space="preserve">
+    <value>சரி</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>பண்புகள்</value>
+  </data>
+  <data name="_Scan" xml:space="preserve">
+    <value>வருடல்</value>
+  </data>
+  <data name="_Stop" xml:space="preserve">
+    <value>நிறுத்து</value>
+  </data>
+  <data name="TestProxy" xml:space="preserve">
+    <value>சோதனை பதிலாள்</value>
+  </data>
+  <data name="CannotStartPortScan" xml:space="preserve">
+    <value>துறைமுகம் வருடல் தொடங்க முடியாது, தவறான முகவரி வடிவமைப்பு!</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>தோற்றம்</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>இணைப்பு</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>காட்சி</value>
+  </data>
+  <data name="RDPGateway" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில்</value>
+  </data>
+  <data name="Miscellaneous" xml:space="preserve">
+    <value>மற்றவை</value>
+  </data>
+  <data name="Protocol" xml:space="preserve">
+    <value>நெறிமுறை</value>
+  </data>
+  <data name="Redirect" xml:space="preserve">
+    <value>திருப்பி விடுங்கள்</value>
+  </data>
+  <data name="CheckFailed" xml:space="preserve">
+    <value>சரிபார்ப்பு தோல்வியுற்றது!</value>
+  </data>
+  <data name="CheckboxAutomaticReconnect" xml:space="preserve">
+    <value>சேவையகத்திலிருந்து துண்டிக்கப்படும்போது இணைப்பு உரையாடலைக் காண்பி (தொபநெ மற்றும் ஐசிஏ மட்டும்)</value>
+  </data>
+  <data name="CheckboxDoNotShowThisMessageAgain" xml:space="preserve">
+    <value>இந்த செய்தியை மீண்டும் காட்ட வேண்டாம்.</value>
+  </data>
+  <data name="CheckboxProxyAuthentication" xml:space="preserve">
+    <value>இந்த பதிலாள் சேவையகத்திற்கு ஏற்பு தேவை</value>
+  </data>
+  <data name="CheckboxPuttyPath" xml:space="preserve">
+    <value>தனிப்பயன் புட்டி பாதையைப் பயன்படுத்து:</value>
+  </data>
+  <data name="CheckboxReconnectWhenReady" xml:space="preserve">
+    <value>தயாராக இருக்கும்போது மீண்டும் இணை</value>
+  </data>
+  <data name="CheckboxUpdateUseProxy" xml:space="preserve">
+    <value>இணைக்க பதிலாள் சேவையகத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="UserViaAPI" xml:space="preserve">
+    <value>பநிஇ பயனர் அடையாளம்</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>பயனர்பெயர்</value>
+  </data>
+  <data name="WaitForExit" xml:space="preserve">
+    <value>வெளியேற காத்திரு</value>
+  </data>
+  <data name="CheckAgain" xml:space="preserve">
+    <value>மீண்டும் சரிபார்</value>
+  </data>
+  <data name="CheckForUpdatesOnStartup" xml:space="preserve">
+    <value>தொடக்கத்தில் புதுப்பிப்புகளைச் சரிபார்</value>
+  </data>
+  <data name="CheckNow" xml:space="preserve">
+    <value>இப்போது சரிபார்</value>
+  </data>
+  <data name="CheckProperInstallationOfComponentsAtStartup" xml:space="preserve">
+    <value>தொடக்கத்தில் கூறுகளின் சரியான நிறுவலை சரிபார்</value>
+  </data>
+  <data name="ChoosePanelBeforeConnecting" xml:space="preserve">
+    <value>இணைப்பதற்கு முன் பலகத்தைத் தேர்வுசெய்</value>
+  </data>
+  <data name="ClosedPorts" xml:space="preserve">
+    <value>மூடிய துறைமுகங்கள்</value>
+  </data>
+  <data name="CollapseAllFolders" xml:space="preserve">
+    <value>அனைத்து கோப்புறைகளையும் சரிவு</value>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>வாதங்கள்</value>
+  </data>
+  <data name="Filename" xml:space="preserve">
+    <value>கோப்புப்பெயர்</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>செய்தி</value>
+  </data>
+  <data name="CommandExitProgram" xml:space="preserve">
+    <value>வெளியேறு {0}</value>
+  </data>
+  <data name="CommandLineArgsCouldNotBeParsed" xml:space="preserve">
+    <value>கட்டளை வரி ஆர்க்சை அலச முடியவில்லை!</value>
+  </data>
+  <data name="CommandOpenConnectionFile" xml:space="preserve">
+    <value>இணைப்பு கோப்பைத் திற</value>
+  </data>
+  <data name="_TryAgain" xml:space="preserve">
+    <value>மீண்டும் முயற்சி</value>
+  </data>
+  <data name="CompatibilityLenovoAutoScrollUtilityDetected" xml:space="preserve">
+    <value>மண்டலம் இந்த கணினியில் இயங்கும் லெனோவா தானி உருள் பயன்பாட்டைக் கண்டறிந்துள்ளது. இந்த பயன்பாடு {0} உடன் சிக்கல்களை ஏற்படுத்தும் என்று அறியப்படுகிறது. நீங்கள் அதை முடக்க அல்லது நிறுவல் நீக்க பரிந்துரைக்கப்படுகிறது.</value>
+  </data>
+  <data name="CompatibilityProblemDetected" xml:space="preserve">
+    <value>பொருந்தக்கூடிய சிக்கல் கண்டறியப்பட்டது</value>
+  </data>
+  <data name="ConfigPropertyGridButtonIconClickFailed" xml:space="preserve">
+    <value>பொத்தான்சின்னம்_சொடுக்கு தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConfigPropertyGridHideItemsFailed" xml:space="preserve">
+    <value>கட்டஉருப்படிகள்காட்டுமறை தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConfigPropertyGridMenuClickFailed" xml:space="preserve">
+    <value>சின்னம்பட்டியல்_சொடுக்கு தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConfigPropertyGridObjectFailed" xml:space="preserve">
+    <value>பண்பு கட்டம் பொருள் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="ConfigPropertyGridSetHostStatusFailed" xml:space="preserve">
+    <value>புரவலன்நிலைஅமை தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConfigPropertyGridValueFailed" xml:space="preserve">
+    <value>பிகட்டம்_பண்புமதிப்புமற்றப்பட்டது தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConfigUiLoadFailed" xml:space="preserve">
+    <value>கட்டமைப்பு இடைமுகம் சுமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="ConfirmCloseConnectionPanelMainInstruction" xml:space="preserve">
+    <value>"{0}" என்ற பலகையை மூட விரும்புகிறீர்களா? அதில் உள்ள எந்த இணைப்புகளும் மூடப்படும்.</value>
+  </data>
+  <data name="ConfirmDeleteExternalTool" xml:space="preserve">
+    <value>"{0}" என்ற வெளிப்புற கருவியை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConfirmDeleteExternalToolMultiple" xml:space="preserve">
+    <value>{0} தேர்ந்தெடுக்கப்பட்ட வெளிப்புற கருவிகளை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConfirmDeleteNodeConnection" xml:space="preserve">
+    <value>"{0}" என்ற இணைப்பை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConfirmDeleteNodeFolder" xml:space="preserve">
+    <value>"{0}" என்ற வெற்று கோப்புறையை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConfirmDeleteNodeFolderNotEmpty" xml:space="preserve">
+    <value>"{0}" என்ற கோப்புறையை நீக்க விரும்புகிறீர்களா? அதில் உள்ள எந்த கோப்புறைகள் அல்லது இணைப்புகளும் நீக்கப்படும்.</value>
+  </data>
+  <data name="ConfirmExitMainInstruction" xml:space="preserve">
+    <value>அனைத்து திறந்த இணைப்புகளையும் மூட விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConfirmResetLayout" xml:space="preserve">
+    <value>பலகைகளை அவற்றின் இயல்புநிலை தளவமைப்புக்கு மீட்டமைக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="Connect" xml:space="preserve">
+    <value>இணை</value>
+  </data>
+  <data name="ConnectInFullscreen" xml:space="preserve">
+    <value>முழுத்திரை பயன்முறையில் இணை</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>இணைத்தல்...</value>
+  </data>
+  <data name="ConnectionEventConnected" xml:space="preserve">
+    <value>நெறிமுறை நிகழ்வு இணைக்கப்பட்டுள்ளது</value>
+  </data>
+  <data name="ConnectionEventConnectedDetail" xml:space="preserve">
+    <value>பயனரால் நிறுவப்பட்ட "{1}" வழியாக "{0}" உடன் இணைப்பு "{2}" (விளக்கம்: "{3}"; பயனர் புலம்: "{4}")</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>இணைப்பு தோல்வியடைந்தது!</value>
+  </data>
+  <data name="ConnectionEventErrorOccured" xml:space="preserve">
+    <value>இணைப்பு நெறிமுறை பிழை ஏற்பட்டது. புரவலன்: "{1}"; பிழைக் குறியீடு: "{2}"; பிழை விளக்கம்: "{0}"</value>
+  </data>
+  <data name="ConnectionOpenFailed" xml:space="preserve">
+    <value>இணைப்பு தோல்வியுற்றது!</value>
+  </data>
+  <data name="ConnectionOpenFailedNoHostname" xml:space="preserve">
+    <value>இணைப்பைத் திறக்க முடியாது: புரவலன்பெயர் எதுவும் குறிப்பிடப்படவில்லை!</value>
+  </data>
+  <data name="Connections" xml:space="preserve">
+    <value>இணைப்புகள்</value>
+  </data>
+  <data name="ConnectionSetDefaultPortFailed" xml:space="preserve">
+    <value>இயல்புநிலை துறைமுகத்தை அமைக்க முடியவில்லை!</value>
+  </data>
+  <data name="ConnectionsFileBackupFailed" xml:space="preserve">
+    <value>இணைப்புகள் கோப்பின் காப்புப்பிரதியை உருவாக்க முடியவில்லை!</value>
+  </data>
+  <data name="ConnectionsFileCouldNotBeLoaded" xml:space="preserve">
+    <value>இணைப்புகள் கோப்பை "{0}" ஏற்ற முடியவில்லை!</value>
+  </data>
+  <data name="ConnectionsFileCouldNotBeLoadedNew" xml:space="preserve">
+    <value>இணைப்புகள் கோப்பை "{0}" ஏற்ற முடியவில்லை!
+ புதிய இணைப்புகள் கோப்பில் தொடங்குகிறது.</value>
+  </data>
+  <data name="ConnectionsFileCouldNotSaveAs" xml:space="preserve">
+    <value>இணைப்புகள் கோப்பை "{0}" என சேமிக்க முடியவில்லை!</value>
+  </data>
+  <data name="ConnectNoCredentials" xml:space="preserve">
+    <value>நற்சான்றிதழ்கள் இல்லாமல் இணை</value>
+  </data>
+  <data name="ConnectToConsoleSession" xml:space="preserve">
+    <value>பணியக அமர்வுடன் இணை</value>
+  </data>
+  <data name="ConnectWithOptions" xml:space="preserve">
+    <value>இணை (விருப்பங்களுடன்)</value>
+  </data>
+  <data name="ConnenctionClosedByUser" xml:space="preserve">
+    <value>இதற்கான {0} இணைப்பு {1}வழியாக பயனர் {2} மூலம் மூடப்பட்டது.</value>
+  </data>
+  <data name="ConnenctionCloseEvent" xml:space="preserve">
+    <value>இணைப்பு நிகழ்வு மூடப்பட்டது</value>
+  </data>
+  <data name="ConnenctionCloseEventFailed" xml:space="preserve">
+    <value>இணைப்பு நிகழ்வு மூடப்பட்டது தோல்வியடைந்தது!</value>
+  </data>
+  <data name="CouldNotCreateNewConnectionsFile" xml:space="preserve">
+    <value>புதிய இணைப்புகள் கோப்பை உருவாக்க முடியவில்லை!</value>
+  </data>
+  <data name="CouldNotFindToolStripInFilteredPropertyGrid" xml:space="preserve">
+    <value>வடிகட்டப்பட்டபண்புகட்டத்தில் கருவித்தடக் கட்டுப்பாட்டைக் கண்டுபிடிக்க முடியவில்லை.</value>
+  </data>
+  <data name="Detect" xml:space="preserve">
+    <value>கண்டறி</value>
+  </data>
+  <data name="DontConnectToConsoleSession" xml:space="preserve">
+    <value>பணியக அமர்வுடன் இணைக்க வேண்டாம்</value>
+  </data>
+  <data name="DontConnectWhenAuthFails" xml:space="preserve">
+    <value>ஏற்பு தோல்வியுற்றால் இணைக்க வேண்டாம்</value>
+  </data>
+  <data name="DoubleClickTabClosesIt" xml:space="preserve">
+    <value>தாவலில் இருமுறை சொடுக்கு மூடுகிறது</value>
+  </data>
+  <data name="DownloadAndInstall" xml:space="preserve">
+    <value>பதிவிறக்கம் செய்து நிறுவு</value>
+  </data>
+  <data name="Duplicate" xml:space="preserve">
+    <value>நகல்</value>
+  </data>
+  <data name="EmptyPasswordContinue" xml:space="preserve">
+    <value>கடவுச்சொல் இல்லாமல் தொடர விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="EmptyUsernamePasswordDomainFields" xml:space="preserve">
+    <value>வெற்று பயனர்பெயருக்கு, கடவுச்சொல் அல்லது தள புலங்கள் பயன்படுத்துகின்றன:</value>
+  </data>
+  <data name="EncryptCompleteConnectionFile" xml:space="preserve">
+    <value>இணைப்பு கோப்பை முழுமையாக குறியாக்கு</value>
+  </data>
+  <data name="LastIp" xml:space="preserve">
+    <value>கடைசி முகவரி</value>
+  </data>
+  <data name="LastPort" xml:space="preserve">
+    <value>கடைசி துறைமுகம்</value>
+  </data>
+  <data name="ErrorAddExternalToolsToToolBarFailed" xml:space="preserve">
+    <value>AddExternalToolStotoolbar (frmmain) தோல்வியடைந்தது. {0}</value>
+  </data>
+  <data name="ErrorAddFolderFailed" xml:space="preserve">
+    <value>கோப்புறைசேர் (Ui.window.connectiontreewindow) தோல்வியடைந்தது. {0}</value>
+  </data>
+  <data name="ErrorBadDatabaseVersion" xml:space="preserve">
+    <value>{1} இன் இந்த பதிப்போடு தரவுத்தள பதிப்பு {0} பொருந்தாது.</value>
+  </data>
+  <data name="ErrorConnectionListSaveFailed" xml:space="preserve">
+    <value>இணைப்பு பட்டியலை சேமிக்க முடியவில்லை.</value>
+  </data>
+  <data name="ErrorCouldNotLaunchPutty" xml:space="preserve">
+    <value>புட்டியை தொடங்க முடியவில்லை.</value>
+  </data>
+  <data name="ErrorDecryptionFailed" xml:space="preserve">
+    <value>மறைகுறியாக்கம் தோல்வியடைந்தது. {0}</value>
+  </data>
+  <data name="ErrorEncryptionFailed" xml:space="preserve">
+    <value>குறியாக்கம் தோல்வியடைந்தது. {0}</value>
+  </data>
+  <data name="ErrorFipsPolicyIncompatible" xml:space="preserve">
+    <value>சாளரங்கள் பாதுகாப்பு அமைப்பு, "இயக்க கிரிப்டோகிராபி: குறியாக்கம், ஆசிங் மற்றும் கையொப்பமிடுவதற்கு கூதசெத இணக்க வழிமுறைகளைப் பயன்படுத்துங்கள்", இயக்கப்பட்டது.
+
+ மேலும் தகவலுக்கு நுண்மென் உதவி கட்டுரையை http://support.microsoft.com/kb/811833 இல் காண்க.
+
+ {0} முழுமையாக கூதசெத இணக்கமாக இல்லை. உங்கள் சொந்த விருப்பப்படி தொடர சரி என்பதைக் சொடுக்கு செய்க அல்லது வெளியேற நீக்கறல்.</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>பிழைகள்</value>
+  </data>
+  <data name="ErrorStartupConnectionFileLoad" xml:space="preserve">
+    <value>தொடக்க இணைப்பு கோப்பை ஏற்ற முடியவில்லை.</value>
+  </data>
+  <data name="ErrorVerifyDatabaseVersionFailed" xml:space="preserve">
+    <value>VerifyDatabaseversion (config.connections.save) தோல்வியடைந்தது. {0}</value>
+  </data>
+  <data name="ExpandAllFolders" xml:space="preserve">
+    <value>அனைத்து கோப்புறைகளையும் விரிவாக்குங்கள்</value>
+  </data>
+  <data name="Experimental" xml:space="preserve">
+    <value>சோதனை</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>ஏற்றுமதி</value>
+  </data>
+  <data name="ExportEverything" xml:space="preserve">
+    <value>எல்லாவற்றையும் ஏற்றுமதி செய்</value>
+  </data>
+  <data name="ExportFile" xml:space="preserve">
+    <value>ஏற்றுமதி கோப்பு</value>
+  </data>
+  <data name="ExportItems" xml:space="preserve">
+    <value>ஏற்றுமதி பொருட்கள்</value>
+  </data>
+  <data name="ExportProperties" xml:space="preserve">
+    <value>ஏற்றுமதி பண்புகள்</value>
+  </data>
+  <data name="ExportSelectedConnection" xml:space="preserve">
+    <value>தற்போது தேர்ந்தெடுக்கப்பட்ட இணைப்பை ஏற்றுமதி செய்</value>
+  </data>
+  <data name="ExportSelectedFolder" xml:space="preserve">
+    <value>தற்போது தேர்ந்தெடுக்கப்பட்ட கோப்புறையை ஏற்றுமதி செய்</value>
+  </data>
+  <data name="_ExportToFile" xml:space="preserve">
+    <value>கோப்புக்கு ஏற்றுமதி...</value>
+  </data>
+  <data name="ExternalToolDefaultName" xml:space="preserve">
+    <value>புதிய வெளிப்புற கருவி</value>
+  </data>
+  <data name="FileFormat" xml:space="preserve">
+    <value>கோப்பு வடிவம்:</value>
+  </data>
+  <data name="FilterAll" xml:space="preserve">
+    <value>எல்லா கோப்புகளும் (*.*)</value>
+  </data>
+  <data name="FilterAllImportable" xml:space="preserve">
+    <value>இறக்குமதி செய்யக்கூடிய அனைத்து கோப்புகளும்</value>
+  </data>
+  <data name="FilterApplication" xml:space="preserve">
+    <value>பயன்பாட்டு கோப்புகள் (*.exe)</value>
+  </data>
+  <data name="FiltermRemoteCSV" xml:space="preserve">
+    <value>பலதொலை காபிம கோப்புகள் (*.csv)</value>
+  </data>
+  <data name="FiltermRemoteXML" xml:space="preserve">
+    <value>பலதொலை நீகுமொ கோப்புகள் (*.xml)</value>
+  </data>
+  <data name="FilterPuttyConnectionManager" xml:space="preserve">
+    <value>புட்டி இணைப்பு மேலாளர் கோப்புகள்</value>
+  </data>
+  <data name="FilterRdgFiles" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை இணைப்பு மேலாளர் கோப்புகள் (*.rdg)</value>
+  </data>
+  <data name="FilterRDP" xml:space="preserve">
+    <value>தொபநெ கோப்புகள் (*.rdp)</value>
+  </data>
+  <data name="FormatInherit" xml:space="preserve">
+    <value>மரபுரிமை {0}</value>
+  </data>
+  <data name="FormatInheritDescription" xml:space="preserve">
+    <value>பரம்பரை சொத்தின் விளக்கம்: {0}</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>கட்டற்ற</value>
+  </data>
+  <data name="Fullscreen" xml:space="preserve">
+    <value>முழு திரை</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>பொது</value>
+  </data>
+  <data name="GetConnectionInfoFromXmlFailed" xml:space="preserve">
+    <value>"{1}" இலிருந்து "{0}" க்கான இணைப்பு உள்ளீட்டை ஏற்றும்போது பிழை ஏற்பட்டது. {2}</value>
+  </data>
+  <data name="GroupboxAutomaticReconnect" xml:space="preserve">
+    <value>தானியங்கி மீண்டும் இணை</value>
+  </data>
+  <data name="ExternalToolProperties" xml:space="preserve">
+    <value>வெளிப்புற கருவி பண்புகள்</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>கோப்புகள்</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>விருந்தோம்பி</value>
+  </data>
+  <data name="Http" xml:space="preserve">
+    <value>உஉபநொ</value>
+  </data>
+  <data name="HttpConnectFailed" xml:space="preserve">
+    <value>உஉபநொ இணைப்பு தோல்வியுற்றது!</value>
+  </data>
+  <data name="HttpConnectionFailed" xml:space="preserve">
+    <value>புதிய உஉபநொ இணைப்பை உருவாக்க முடியவில்லை!</value>
+  </data>
+  <data name="HttpDocumentTileChangeFailed" xml:space="preserve">
+    <value>உஉபநொ ஆவண ஓடு மாற்றுவது தோல்வியடைந்தது!</value>
+  </data>
+  <data name="HttpInternetExplorer" xml:space="preserve">
+    <value>இணைய உலாவி</value>
+  </data>
+  <data name="Https" xml:space="preserve">
+    <value>உஉபநொபா</value>
+  </data>
+  <data name="HttpSetPropsFailed" xml:space="preserve">
+    <value>உஉபநொ பண்புகள் அமைக்க தோல்வியடைந்தது!</value>
+  </data>
+  <data name="IdentifyQuickConnectTabs" xml:space="preserve">
+    <value>"விரைவு:" என்ற முன்னொட்டைச் சேர்ப்பதன் மூலம் விரைவான இணைப்பு தாவல்களை அடையாளம் காணவும்</value>
+  </data>
+  <data name="ImportAD" xml:space="preserve">
+    <value>செயலில் உள்ள கோப்பகத்திலிருந்து இறக்குமதி</value>
+  </data>
+  <data name="ImportFileFailedContent" xml:space="preserve">
+    <value>"{0}" கோப்பை இறக்குமதி செய்யும் போது பிழை ஏற்பட்டது.</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>கோப்பிலிருந்து இறக்குமதி...</value>
+  </data>
+  <data name="ImportPortScan" xml:space="preserve">
+    <value>துறைமுகம் வருடல் மூலம் இறக்குமதி</value>
+  </data>
+  <data name="Informations" xml:space="preserve">
+    <value>தகவல்கள்</value>
+  </data>
+  <data name="IntAppDisposeFailed" xml:space="preserve">
+    <value>உள் பயன்பாட்டு செயல்முறையை அப்புறப்படுத்துவது தோல்வியடைந்தது!</value>
+  </data>
+  <data name="IntAppFocusFailed" xml:space="preserve">
+    <value>உள் பயன் கவனம் தோல்வியுற்றது!</value>
+  </data>
+  <data name="IntAppHandle" xml:space="preserve">
+    <value>உள் பயன் கைப்பிடி: {0}</value>
+  </data>
+  <data name="IntAppKillFailed" xml:space="preserve">
+    <value>உள் பயன்பாட்டு செயல்முறை கொல்லப்படுவது தோல்வியடைந்தது!</value>
+  </data>
+  <data name="IntAppResizeFailed" xml:space="preserve">
+    <value>உள் பயன்பாடு மறுஅளவு தோல்வியுற்றது!</value>
+  </data>
+  <data name="IntAppStuff" xml:space="preserve">
+    <value>--- உள்பயன் பொருள் ---</value>
+  </data>
+  <data name="IntAppTitle" xml:space="preserve">
+    <value>உள் பயன்பாட்டு தலைப்பு: {0}</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>முகவரி:</value>
+  </data>
+  <data name="ClosingConnections" xml:space="preserve">
+    <value>இணைப்புகளை மூடும்போது:</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>காட்சி பெயர்</value>
+  </data>
+  <data name="Domain" xml:space="preserve">
+    <value>தளம்</value>
+  </data>
+  <data name="Hostname" xml:space="preserve">
+    <value>புரவலன்பெயர்:</value>
+  </data>
+  <data name="PortableEdition" xml:space="preserve">
+    <value>சிறிய பதிப்பு</value>
+  </data>
+  <data name="PuttySessionsConfig" xml:space="preserve">
+    <value>புட்டி அமர்வுகளை உள்ளமைக்க இந்த பொத்தானைக் சொடுக்கு செய்க:</value>
+  </data>
+  <data name="PuttyTimeout" xml:space="preserve">
+    <value>அதிகபட்ச புட்டி மற்றும் ஒருங்கிணைந்த வெளிப்புற கருவிகள் காத்திருப்பு நேரம்:</value>
+  </data>
+  <data name="ReleasedUnderGPL" xml:space="preserve">
+    <value>குனு பொது பொது உரிமத்தின் (சிபிஎல்) கீழ் வெளியிடப்பட்டது</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>நொடிகள்</value>
+  </data>
+  <data name="SelectPanel" xml:space="preserve">
+    <value>கீழேயுள்ள பட்டியலிலிருந்து ஒரு பேனலைத் தேர்ந்தெடு அல்லது புதிய ஒன்றைச் சேர்க்க புதியதைக் சொடுக்கு செய்யவும். தொடர சரி என்பதைக் சொடுக்கு செய்க.</value>
+  </data>
+  <data name="ServerStatus" xml:space="preserve">
+    <value>சேவையக நிலை:</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>தரவுத்தளம்:</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>சரிபார்:</value>
+  </data>
+  <data name="LanguageString" xml:space="preserve">
+    <value>மொழி</value>
+  </data>
+  <data name="LanguageDefault" xml:space="preserve">
+    <value>(தானாகவே கண்டறியவும்)</value>
+  </data>
+  <data name="LanguageRestartRequired" xml:space="preserve">
+    <value>{0} மொழியில் மாற்றங்கள் நடைமுறைக்கு வருவதற்கு முன்பு மறுதொடக்கம் செய்யப்பட வேண்டும்.</value>
+  </data>
+  <data name="LoadFromSqlFailed" xml:space="preserve">
+    <value>கவிமொ இலிருந்து ஏற்றுதல் தோல்வியடைந்தது</value>
+  </data>
+  <data name="LoadFromSqlFailedContent" xml:space="preserve">
+    <value>இணைப்பு தகவலை கவிமொ சேவையகத்திலிருந்து ஏற்ற முடியவில்லை.</value>
+  </data>
+  <data name="LoadFromXmlFailed" xml:space="preserve">
+    <value>எக்ச்எம்எல்லிலிருந்து ஏற்றுதல் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="LocalFile" xml:space="preserve">
+    <value>உள்ளக கோப்பு</value>
+  </data>
+  <data name="LocalFileDoesNotExist" xml:space="preserve">
+    <value>உள்ளக கோப்பு இல்லை!</value>
+  </data>
+  <data name="AddConnectionPanel" xml:space="preserve">
+    <value>இணைப்பு பலகையைச் சேர்</value>
+  </data>
+  <data name="CheckForUpdates" xml:space="preserve">
+    <value>புதுப்பிப்புகளை சரிபார்</value>
+  </data>
+  <data name="Config" xml:space="preserve">
+    <value>கட்டமைப்பு</value>
+  </data>
+  <data name="ConnectionPanels" xml:space="preserve">
+    <value>இணைப்பு பலகைகள்</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>நகலெடு</value>
+  </data>
+  <data name="CtrlAltDel" xml:space="preserve">
+    <value>கட்டு-மாற்று-நீக்கு</value>
+  </data>
+  <data name="CtrlEsc" xml:space="preserve">
+    <value>கட்டு-தப்பி</value>
+  </data>
+  <data name="DeleteExternalTool" xml:space="preserve">
+    <value>வெளிப்புற கருவியை நீக்கு...</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>நன்கொடை</value>
+  </data>
+  <data name="DuplicateTab" xml:space="preserve">
+    <value>நகல் தாவல்</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>வெளியேறு</value>
+  </data>
+  <data name="ExternalToolsToolbar" xml:space="preserve">
+    <value>வெளிப்புற கருவிகள் கருவிப்பட்டி</value>
+  </data>
+  <data name="_File" xml:space="preserve">
+    <value>கோப்பு</value>
+  </data>
+  <data name="_Help" xml:space="preserve">
+    <value>உதவி</value>
+  </data>
+  <data name="HelpContents" xml:space="preserve">
+    <value>பலதொலைஅத உதவி</value>
+  </data>
+  <data name="LaunchExternalTool" xml:space="preserve">
+    <value>வெளிப்புற கருவியைத் தொடங்கு</value>
+  </data>
+  <data name="NewConnectionFile" xml:space="preserve">
+    <value>புதிய இணைப்பு கோப்பு</value>
+  </data>
+  <data name="NewExternalTool" xml:space="preserve">
+    <value>புதிய வெளிப்புற கருவி</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>அறிவிப்புகள்</value>
+  </data>
+  <data name="CopyAll" xml:space="preserve">
+    <value>அனைத்தையும் நகலெடு</value>
+  </data>
+  <data name="DeleteAll" xml:space="preserve">
+    <value>அனைத்தையும் நீக்கு</value>
+  </data>
+  <data name="OpenConnectionFile" xml:space="preserve">
+    <value>இணைப்பு கோப்பு திற...</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>விருப்பங்கள்</value>
+  </data>
+  <data name="PortScan" xml:space="preserve">
+    <value>துறைமுகம் வருடல்</value>
+  </data>
+  <data name="QuickConnectToolbar" xml:space="preserve">
+    <value>விரைவான இணைக்க கருவிப்பட்டி</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>மீண்டும் இணை</value>
+  </data>
+  <data name="RefreshScreen" xml:space="preserve">
+    <value>திரை புதுப்பிப்பு (விஎன்சி)</value>
+  </data>
+  <data name="RenameTab" xml:space="preserve">
+    <value>தாவலை மறுபெயரிடுங்கள்</value>
+  </data>
+  <data name="ReportBug" xml:space="preserve">
+    <value>ஒரு பிழையைப் புகாரளி</value>
+  </data>
+  <data name="ResetLayout" xml:space="preserve">
+    <value>தளவமைப்பை மீட்டமை</value>
+  </data>
+  <data name="SaveConnectionFile" xml:space="preserve">
+    <value>இணைப்பு கோப்பைச் சேமி</value>
+  </data>
+  <data name="SaveConnectionFileAs" xml:space="preserve">
+    <value>இணைப்பு கோப்பை சேமி...</value>
+  </data>
+  <data name="SendSpecialKeys" xml:space="preserve">
+    <value>சிறப்பு விசைகளை அனுப்பு (விஎன்சி)</value>
+  </data>
+  <data name="ShowHelpText" xml:space="preserve">
+    <value> உதவி உரையைக் காட்டு</value>
+  </data>
+  <data name="ShowText" xml:space="preserve">
+    <value>காட்டு உரை</value>
+  </data>
+  <data name="SmartSize" xml:space="preserve">
+    <value>அறிவளவு (தொபநெ/விஎன்சி)</value>
+  </data>
+  <data name="SshFileTransfer" xml:space="preserve">
+    <value>பாஓடு கோப்பு பரிமாற்றம்</value>
+  </data>
+  <data name="StartChat" xml:space="preserve">
+    <value>அரட்டையைத் தொடங்கு (விஎன்சி)</value>
+  </data>
+  <data name="SupportForum" xml:space="preserve">
+    <value>உதவி மன்றம்</value>
+  </data>
+  <data name="_Tools" xml:space="preserve">
+    <value>கருவிகள்</value>
+  </data>
+  <data name="TransferFile" xml:space="preserve">
+    <value>பரிமாற்றக் கோப்பு (பாஓடு)</value>
+  </data>
+  <data name="_View" xml:space="preserve">
+    <value>காண்க</value>
+  </data>
+  <data name="ViewOnly" xml:space="preserve">
+    <value>பார்க்க மட்டுமே</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>வலைத்தளம்</value>
+  </data>
+  <data name="MinimizeToSysTray" xml:space="preserve">
+    <value>அறிவிப்பு பகுதிக்கு குறை</value>
+  </data>
+  <data name="MoveDown" xml:space="preserve">
+    <value>கீழே செல்</value>
+  </data>
+  <data name="MoveUp" xml:space="preserve">
+    <value>மேலே செல்</value>
+  </data>
+  <data name="MremoteNgCsv" xml:space="preserve">
+    <value>பலதொலைஅத காபிம</value>
+  </data>
+  <data name="MremoteNgXml" xml:space="preserve">
+    <value>பலதொலைஅத நீகுமொ</value>
+  </data>
+  <data name="MyCurrentWindowsCreds" xml:space="preserve">
+    <value>எனது தற்போதைய நற்சான்றிதழ்கள் (சாளரங்கள் உள்நுழைவு தகவல்)</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>ஒருபோதும்</value>
+  </data>
+  <data name="NewConnection" xml:space="preserve">
+    <value>புதிய இணைப்பு</value>
+  </data>
+  <data name="NewFolder" xml:space="preserve">
+    <value>புதிய கோப்புறை</value>
+  </data>
+  <data name="NewPanel" xml:space="preserve">
+    <value>புதிய குழு</value>
+  </data>
+  <data name="NewTitle" xml:space="preserve">
+    <value>புதிய தலைப்பு</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>இல்லை</value>
+  </data>
+  <data name="NoCompression" xml:space="preserve">
+    <value>சுருக்கு இல்லை</value>
+  </data>
+  <data name="NoExtAppDefined" xml:space="preserve">
+    <value>வெளி பயன்பாடு குறிப்பிடவில்லை.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>இயல்பான</value>
+  </data>
+  <data name="NoSmartSize" xml:space="preserve">
+    <value>அறிவளவு இல்லை</value>
+  </data>
+  <data name="NoUpdateAvailable" xml:space="preserve">
+    <value>புதுப்பிப்பு எதுவும் கிடைக்கவில்லை</value>
+  </data>
+  <data name="OldConffile" xml:space="preserve">
+    <value>பலதொலையின் ஆரம்ப பதிப்பைப் பயன்படுத்தி உருவாக்கப்பட்ட இணைப்பு கோப்பை ஏற்ற முயற்சிக்கிறீர்கள், இது இயக்க நேர பிழையை ஏற்படுத்தும்.
+ அத்தகைய பிழையை நீங்கள் இயக்கினால், தயவுசெய்து ஒரு புதிய இணைப்பு கோப்பை உருவாக்கு!</value>
+  </data>
+  <data name="OpenNewTabRight" xml:space="preserve">
+    <value>தற்போது தேர்ந்தெடுக்கப்பட்ட தாவலின் வலதுபுறத்தில் புதிய தாவலைத் திற</value>
+  </data>
+  <data name="OpenPorts" xml:space="preserve">
+    <value>திறந்த துறைமுகங்கள்</value>
+  </data>
+  <data name="OptionsProxyTesting" xml:space="preserve">
+    <value>சோதனை...</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>கருப்பொருள்</value>
+  </data>
+  <data name="_Delete" xml:space="preserve">
+    <value>நீக்கு</value>
+  </data>
+  <data name="_New" xml:space="preserve">
+    <value>புதிய</value>
+  </data>
+  <data name="PanelName" xml:space="preserve">
+    <value>குழு பெயர்</value>
+  </data>
+  <data name="PasswordProtect" xml:space="preserve">
+    <value>கடவுச்சொல் பாதுகாக்க</value>
+  </data>
+  <data name="PasswordStatusMustMatch" xml:space="preserve">
+    <value>இரண்டு கடவுச்சொற்களும் பொருந்த வேண்டும்.</value>
+  </data>
+  <data name="PasswordStatusTooShort" xml:space="preserve">
+    <value>கடவுச்சொல் குறைந்தது 3 எழுத்துக்கள் நீளமாக இருக்க வேண்டும்.</value>
+  </data>
+  <data name="PleaseFillAllFields" xml:space="preserve">
+    <value>எல்லா புலங்களையும் நிரப்பு</value>
+  </data>
+  <data name="PortScanComplete" xml:space="preserve">
+    <value>துறைமுகம் வருடல் முடிந்தது.</value>
+  </data>
+  <data name="PortScanCouldNotLoadPanel" xml:space="preserve">
+    <value>துறைமுகவருடலுக்கான் பலகையை ஏற்ற முடியவில்லை!</value>
+  </data>
+  <data name="PropertyDescriptionHostnameIp" xml:space="preserve">
+    <value>நீங்கள் இணைக்க விரும்பும் புரவலன்பெயர் அல்லது முகவரியை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionAll" xml:space="preserve">
+    <value>அனைத்து பரம்பரை விருப்பங்களையும் மாற்று.</value>
+  </data>
+  <data name="PropertyDescriptionAuthenticationLevel" xml:space="preserve">
+    <value>இந்த இணைப்பு எந்த அங்கீகார நிலையைப் பயன்படுத்த வேண்டும் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionAuthenticationMode" xml:space="preserve">
+    <value>விஎன்சி சேவையகத்திற்கு எதிராக நீங்கள் எவ்வாறு ஒப்புதல்அளிக்க விரும்புகிறீர்கள் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionAutomaticResize" xml:space="preserve">
+    <value>சாளரம் மறுஅளவிடப்படும்போது அல்லது முழுத்திரை பயன்முறை மாற்றப்படும்போது தானாகவே இணைப்பை மறுஅளவாக்க வேண்டுமா என்பதைத் தேர்ந்தெடு. தொபஇ 8.0 அல்லது அதற்கு மேற்பட்டது தேவை.</value>
+  </data>
+  <data name="PropertyDescriptionCacheBitmaps" xml:space="preserve">
+    <value>இருமவரைபட தற்காலிகசேமிப்பைப் பயன்படுத்தலாமா வேண்டாமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionColors" xml:space="preserve">
+    <value>பயன்படுத்த வேண்டிய வண்ண தரத்தைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionCompression" xml:space="preserve">
+    <value>பயன்படுத்த வேண்டிய சுருக்க மதிப்பைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionDescription" xml:space="preserve">
+    <value>உங்கள் குறிப்புகள் அல்லது புரவலனுக்கான விளக்கத்தை இங்கே வைக்கவும்.</value>
+  </data>
+  <data name="PropertyDescriptionDisplayThemes" xml:space="preserve">
+    <value>தொலை புரவலத்தின் கருப்பொருள் காட்டப்பட வேண்டும் என்றால் ஆம் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionDisplayWallpaper" xml:space="preserve">
+    <value>தொலை புரவலன் பின்னணி காட்டப்பட வேண்டும் என்றால் ஆம் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionDomain" xml:space="preserve">
+    <value>உங்கள் களத்தை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionEnableDesktopComposition" xml:space="preserve">
+    <value>பணிமேடை கலவையைப் பயன்படுத்தலாமா வேண்டாமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionEnableFontSmoothing" xml:space="preserve">
+    <value>எழுத்துரு மென்மையாக்குவதா இல்லையா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionEncoding" xml:space="preserve">
+    <value>பயன்படுத்த வேண்டிய குறியாக்க பயன்முறையைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionExternalTool" xml:space="preserve">
+    <value>தொடங்க வேண்டிய வெளிப்புற கருவியைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionExternalToolAfter" xml:space="preserve">
+    <value>தொலை புரவலத்துடன் துண்டிக்கப்பட்ட பிறகு தொடங்க வேண்டிய வெளிப்புற கருவியைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionExternalToolBefore" xml:space="preserve">
+    <value>தொலை புரவலத்துடனான இணைப்பு நிறுவப்படுவதற்கு முன்பு தொடங்க வேண்டிய வெளிப்புற கருவியைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionIcon" xml:space="preserve">
+    <value>புரவலத்துடன் இணைக்கப்படும்போது காண்பிக்கப்படும் சின்னத்தைத் தேர்வுசெய்க.</value>
+  </data>
+  <data name="PropertyDescriptionLoadBalanceInfo" xml:space="preserve">
+    <value>சிறந்த சேவையகத்தைத் தேர்வுசெய்ய சுமை சமநிலைப்படுத்தும் திசைவிகள் மூலம் பயன்படுத்த சுமை சமநிலைப்படுத்தும் தகவலைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionMACAddress" xml:space="preserve">
+    <value>தொலை புரவலத்தின் மேக் முகவரியை நீங்கள் வெளிப்புற கருவியில் பயன்படுத்த விரும்பினால் உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionName" xml:space="preserve">
+    <value>இணைப்புகள் மரத்தில் காட்டப்படும் பெயர் இது.</value>
+  </data>
+  <data name="PropertyDescriptionPanel" xml:space="preserve">
+    <value>இணைப்பு திறக்கப்படும் பலகத்தை அமைக்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionPassword" xml:space="preserve">
+    <value>உங்கள் கடவுச்சொல்லை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionPort" xml:space="preserve">
+    <value>துறைமுகத்தை உள்ளிடவும் தேர்ந்தெடுக்கப்பட்ட நெறிமுறை கேட்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionProtocol" xml:space="preserve">
+    <value>புரவலனுடன் இணைக்க பலதொலைஅத பயன்படுத்த வேண்டிய நெறிமுறையைத் தேர்வுசெய்க.</value>
+  </data>
+  <data name="PropertyDescriptionPuttySession" xml:space="preserve">
+    <value>இணைக்கும்போது பயன்படுத்த வேண்டிய புட்டி அமர்வைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRDGatewayDomain" xml:space="preserve">
+    <value>தொக நுழைவாயில் சேவையகத்துடன் இணைக்க ஒரு பயனர் வழங்கும் டொமைன் பெயரைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionRDGatewayHostname" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை நுழைவாயில் சேவையகத்தின் புரவலன் பெயரைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionRdpGatewayUsageMethod" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை நுழைவாயில் (தொப நுழைவாயில்) சேவையகத்தைப் பயன்படுத்தும்போது குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionRDGatewayUseConnectionCredentials" xml:space="preserve">
+    <value>இணைப்பின் அதே பயனர்பெயர் மற்றும் கடவுச்சொல்லைப் பயன்படுத்தி நுழைவாயிலில் உள்நுழையலாமா வேண்டாமா என்பதைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionRDGatewayUsername" xml:space="preserve">
+    <value>RD நுழைவாயில் சேவையகத்துடன் இணைக்க ஒரு பயனர் வழங்கும் பயனர் பெயரைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectDrives" xml:space="preserve">
+    <value>தொலைநிலை புரவலனில் உள்ளக வட்டு இயக்கிகள் காட்டப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectKeys" xml:space="preserve">
+    <value>முக்கிய சேர்க்கைகள் (எ.கா. மாற்று-தாவல்) தொலை புரவலனுக்கு திருப்பி விடப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectPorts" xml:space="preserve">
+    <value>தொலைநிலை புரவலனில் உள்ளக துறைமுகங்கள் (அதாவது காம், இணை) காட்டப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectPrinters" xml:space="preserve">
+    <value>தொலை புரவலனில் உள்ளக அச்சுப்பொறிகள் காட்டப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectClipboard" xml:space="preserve">
+    <value>இடைநிலைப்பலகை பகிரப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectSmartCards" xml:space="preserve">
+    <value>உள்ளக அறிவு அட்டைகள் தொலை புரவலனில் கிடைக்க வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectSounds" xml:space="preserve">
+    <value>தொலைநிலை ஒலி எவ்வாறு திருப்பி விடப்பட வேண்டும் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectAudioCapture" xml:space="preserve">
+    <value>தொலை கணினியில் இயல்புநிலை ஒலி உள்ளீட்டு சாதனம் இந்த கணினிக்கு திருப்பி விடப்பட வேண்டுமா என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionRenderingEngine" xml:space="preserve">
+    <value>உஉகுமொஐக் காண்பிக்கப் பயன்படுத்தப்படும் கிடைக்கக்கூடிய வழங்குதல் பொறிகளில் ஒன்றைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionResolution" xml:space="preserve">
+    <value>தீர்மானம் அல்லது பயன்முறையைத் தேர்வுசெய்க இந்த இணைப்பு திறக்கப்படும்.</value>
+  </data>
+  <data name="PropertyDescriptionSmartSizeMode" xml:space="preserve">
+    <value>பயன்படுத்த வேண்டிய அறிவளவு பயன்முறையைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionUseConsoleSession" xml:space="preserve">
+    <value>தொலை புரவலன் பணியக அமர்வுடன் இணை.</value>
+  </data>
+  <data name="PropertyDescriptionUseCredSsp" xml:space="preserve">
+    <value>நற்சான்றிதழ் பாதுகாப்பு உதவி வழங்குநரை (சான்றுஎச்எச்பி) கிடைத்தால் ஒப்புதல் அளிபதற்கு பயன்படுத்து.</value>
+  </data>
+  <data name="PropertyDescriptionUseRestrictedAdmin" xml:space="preserve">
+    <value>இலக்கு புரவலனில் (உள்ளூர் கணினி சூழல்) தடைசெய்யப்பட்ட நிர்வாக பயன்முறையைப் பயன்படுத்து.</value>
+  </data>
+  <data name="PropertyDescriptionUseRCG" xml:space="preserve">
+    <value>தொபநெ கால்வாய் மூலம் இலக்கை நோக்கி மீண்டும் மூலத்திற்கு சுரங்கப்பாதை அங்கீகாரத்திற்கு தொலை நற்சான்றிதழ் காவலரைப் பயன்படுத்து.</value>
+  </data>
+  <data name="PropertyDescriptionUser1" xml:space="preserve">
+    <value>உங்களுக்கு தேவையான எந்த தகவலையும் இங்கே உள்ளிட தயங்க வேண்டாம்.</value>
+  </data>
+  <data name="PropertyDescriptionUserViaAPI" xml:space="preserve">
+    <value>வெளிப்புற பநிஇ (எ.கா. மறைமுக சேவையகம்) இல் பயனர் தரவின் அடையாளத்தை உள்ளிடவும். பயன்படுத்தும்போது, ​​பயனர்பெயர்/கடவுச்சொல்/தளம் புலங்களை காலியாக விடவும்</value>
+  </data>
+  <data name="PropertyDescriptionUsername" xml:space="preserve">
+    <value>உங்கள் பயனர்பெயரை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionViewOnly" xml:space="preserve">
+    <value>புரவலனுடன் மட்டுமே ஒரு பார்வை இணைப்பை நீங்கள் நிறுவ விரும்பினால் ஆம் என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionVNCProxyAddress" xml:space="preserve">
+    <value>பயன்படுத்த வேண்டிய பதிலாள் முகவரியை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionVNCProxyPassword" xml:space="preserve">
+    <value>பதிலாளிக்கு எதிராக ஒப்புதல்அளிக்க உங்கள் கடவுச்சொல்லை உள்ளிடவும்.</value>
+  </data>
+  <data name="PropertyDescriptionVNCProxyPort" xml:space="preserve">
+    <value>துறைமுகத்தை உள்ளிடவும் பதிலாள் சேவையகம் கேட்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionVNCProxyType" xml:space="preserve">
+    <value>விஎன்சி இணைப்புகளை சுரங்கப்பாதை செய்ய நீங்கள் பதிலாளியைப் பயன்படுத்தினால், அது எந்த வகை என்பதைத் தேர்ந்தெடு.</value>
+  </data>
+  <data name="PropertyDescriptionVNCProxyUsername" xml:space="preserve">
+    <value>பதிலாளிக்கு எதிராக ஒப்புதல்அளிக்க உங்கள் பயனர்பெயரை உள்ளிடவும்.</value>
+  </data>
+  <data name="HostnameIp" xml:space="preserve">
+    <value>புரவலன்பெயர்/முகவரி</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>அனைத்தும்</value>
+  </data>
+  <data name="AuthenticationLevel" xml:space="preserve">
+    <value>சேவையக ஏற்பு</value>
+  </data>
+  <data name="AuthenticationMode" xml:space="preserve">
+    <value>அங்கீகார முறை</value>
+  </data>
+  <data name="AutomaticResize" xml:space="preserve">
+    <value>தானியங்கி மறுஅளவிடுதல்</value>
+  </data>
+  <data name="CacheBitmaps" xml:space="preserve">
+    <value>தற்காலிக சேமிப்பு இருமவரைபடங்கள்</value>
+  </data>
+  <data name="Colors" xml:space="preserve">
+    <value>நிறங்கள்</value>
+  </data>
+  <data name="Compression" xml:space="preserve">
+    <value>சுருக்க</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>விவரம்</value>
+  </data>
+  <data name="DisplayThemes" xml:space="preserve">
+    <value>கருப்பொருள்களைக் காண்பி</value>
+  </data>
+  <data name="DisplayWallpaper" xml:space="preserve">
+    <value>பின்னணியைக் காண்பி</value>
+  </data>
+  <data name="EnableDesktopComposition" xml:space="preserve">
+    <value>பணிமேடை கலவை</value>
+  </data>
+  <data name="FontSmoothing" xml:space="preserve">
+    <value>எழுத்துரு மென்மையாக்குதல்</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>குறியாக்கம்</value>
+  </data>
+  <data name="ExternalTool" xml:space="preserve">
+    <value>வெளிப்புற கருவி</value>
+  </data>
+  <data name="ExternalToolAfter" xml:space="preserve">
+    <value>பின்னர் வெளிப்புற கருவி</value>
+  </data>
+  <data name="ExternalToolBefore" xml:space="preserve">
+    <value>முன் வெளிப்புற கருவி</value>
+  </data>
+  <data name="LoadBalanceInfo" xml:space="preserve">
+    <value>இருப்பு தகவலை ஏற்று</value>
+  </data>
+  <data name="MacAddress" xml:space="preserve">
+    <value>மேக் முகவரி</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>பெயர்</value>
+  </data>
+  <data name="Panel" xml:space="preserve">
+    <value>பலகம்</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>கடவுச்சொல்</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>துறைமுகம்</value>
+  </data>
+  <data name="PuttySession" xml:space="preserve">
+    <value>புட்டி அமர்வு</value>
+  </data>
+  <data name="RdpGatewayDomain" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் களம்</value>
+  </data>
+  <data name="RdpGatewayHostname" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் புரவலன்பெயர்</value>
+  </data>
+  <data name="RdpGatewayPassword" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் கடவுச்சொல்</value>
+  </data>
+  <data name="RdpGatewayUsageMethod" xml:space="preserve">
+    <value>தொபநெ நுழைவாயில் பயன்படுத்து</value>
+  </data>
+  <data name="RdpGatewayUseConnectionCredentials" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் நற்சான்றிதழ்கள்</value>
+  </data>
+  <data name="RdpGatewayUsername" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் பயனர்பெயர்</value>
+  </data>
+  <data name="DiskDrives" xml:space="preserve">
+    <value>வட்டு இயக்கிகள்</value>
+  </data>
+  <data name="RedirectKeys" xml:space="preserve">
+    <value>முக்கிய கலவைகள்</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>துறைமுகங்கள்</value>
+  </data>
+  <data name="Printers" xml:space="preserve">
+    <value>அச்சுப்பொறிகள்</value>
+  </data>
+  <data name="Clipboard" xml:space="preserve">
+    <value>இடைநிலைப் பலகை</value>
+  </data>
+  <data name="Sounds" xml:space="preserve">
+    <value>ஒலிகள்</value>
+  </data>
+  <data name="AudioCapture" xml:space="preserve">
+    <value>ஒலிதம் பிடிப்பு</value>
+  </data>
+  <data name="RenderingEngine" xml:space="preserve">
+    <value>வழங்குதல் பொறி</value>
+  </data>
+  <data name="Resolution" xml:space="preserve">
+    <value>பகுத்தல்</value>
+  </data>
+  <data name="SmartSizeMode" xml:space="preserve">
+    <value>அறிவளவு பயன்முறை</value>
+  </data>
+  <data name="UseConsoleSession" xml:space="preserve">
+    <value>பணியக அமர்வைப் பயன்படுத்து</value>
+  </data>
+  <data name="UseCredSsp" xml:space="preserve">
+    <value>சான்றுஎச்எச்பி ஐப் பயன்படுத்து</value>
+  </data>
+  <data name="UseRestrictedAdmin" xml:space="preserve">
+    <value>தடைசெய்யப்பட்ட நிர்வாகியைப் பயன்படுத்து</value>
+  </data>
+  <data name="UseRCG" xml:space="preserve">
+    <value>தொலை நற்சான்றிதழ் காவலரைப் பயன்படுத்து</value>
+  </data>
+  <data name="UserField" xml:space="preserve">
+    <value>பயனர் புலம்</value>
+  </data>
+  <data name="ProxyAddress" xml:space="preserve">
+    <value>பதிலாள் முகவரி</value>
+  </data>
+  <data name="ProxyPassword" xml:space="preserve">
+    <value>பதிலாள் கடவுச்சொல்</value>
+  </data>
+  <data name="ProxyPort" xml:space="preserve">
+    <value>பதிலாள் துறைமுகம்</value>
+  </data>
+  <data name="ProxyType" xml:space="preserve">
+    <value>பதிலாள் வகை</value>
+  </data>
+  <data name="ProxyUsername" xml:space="preserve">
+    <value>பதிலாள் பயனர்பெயர்</value>
+  </data>
+  <data name="ProtocolEventDisconnected" xml:space="preserve">
+    <value>நெறிமுறை நிகழ்வு துண்டிக்கப்பட்டது. புரவலன்: "{1}"; நெறிமுறை: "{2}" செய்தி: "{0}"</value>
+  </data>
+  <data name="ProtocolEventDisconnectFailed" xml:space="preserve">
+    <value>நெறிமுறை நிகழ்வு துண்டிக்கப்பட்டது தோல்வியடைந்தது.
+ {0}</value>
+  </data>
+  <data name="ProtocolToImport" xml:space="preserve">
+    <value>இறக்குமதி செய்வதற்கான நெறிமுறை</value>
+  </data>
+  <data name="ProxyTestFailed" xml:space="preserve">
+    <value>பதிலாள் சோதனை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="ProxyTestSucceeded" xml:space="preserve">
+    <value>பதிலாள் சோதனை செய் பெற்றது!</value>
+  </data>
+  <data name="PuttyDisposeFailed" xml:space="preserve">
+    <value>புட்டி செயல்முறையை அப்புறப்படுத்துவது தோல்வியடைந்தது!</value>
+  </data>
+  <data name="PuttyFocusFailed" xml:space="preserve">
+    <value>கவனம் செலுத்த முடியவில்லை!</value>
+  </data>
+  <data name="PuttyHandle" xml:space="preserve">
+    <value>புட்டி கைப்பிடி: {0}</value>
+  </data>
+  <data name="PuttyKillFailed" xml:space="preserve">
+    <value>புட்டி செயல்முறை கொலை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="PanelHandle" xml:space="preserve">
+    <value>குழு கைப்பிடி: {0}</value>
+  </data>
+  <data name="PuttyResizeFailed" xml:space="preserve">
+    <value>புட்டி மறுஅளவிடுதல் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="PuttySavedSessionsRootName" xml:space="preserve">
+    <value>புட்டி சேமித்த அமர்வுகள்</value>
+  </data>
+  <data name="PuttySettings" xml:space="preserve">
+    <value>புட்டி அமைப்புகள்</value>
+  </data>
+  <data name="PuttyShowSettingsDialogFailed" xml:space="preserve">
+    <value>புட்டி அமைப்புகள் உரையாடல் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="PuttyStuff" xml:space="preserve">
+    <value>--- புட்டி பொருள் ---</value>
+  </data>
+  <data name="PuttyTitle" xml:space="preserve">
+    <value>புட்டி தலைப்பு: {0}</value>
+  </data>
+  <data name="Quick" xml:space="preserve">
+    <value>விரைவு: {0}</value>
+  </data>
+  <data name="QuickConnect" xml:space="preserve">
+    <value>விரைவான இணைப்பு</value>
+  </data>
+  <data name="QuickConnectAddFailed" xml:space="preserve">
+    <value>விரைவான இணைப்பு சேர் தோல்வியுற்றது!</value>
+  </data>
+  <data name="QuickConnectFailed" xml:space="preserve">
+    <value>விரைவான இணைப்பை உருவாக்குவது தோல்வியடைந்தது</value>
+  </data>
+  <data name="_CloseWarnAll" xml:space="preserve">
+    <value>இணைப்புகளை மூடும்போது எனக்கு தெரிவி</value>
+  </data>
+  <data name="RadioCloseWarnExit" xml:space="preserve">
+    <value>பலதொலைஅத வெளியேறும்போது மட்டுமே எனக்கு தெரிவி</value>
+  </data>
+  <data name="RadioCloseWarnMultiple" xml:space="preserve">
+    <value>மூடும்போது மற்றும் பல இணைப்புகளை மட்டுமே தெரிவி</value>
+  </data>
+  <data name="RadioCloseWarnNever" xml:space="preserve">
+    <value>இணைப்புகளை மூடும்போது என்னை எச்சரிக்க வேண்டாம்</value>
+  </data>
+  <data name="Raw" xml:space="preserve">
+    <value>மூல</value>
+  </data>
+  <data name="Rdp" xml:space="preserve">
+    <value>தொபநெ</value>
+  </data>
+  <data name="Rdp16777216Colors" xml:space="preserve">
+    <value>16777216 வண்ணங்கள் (24-பிட்)</value>
+  </data>
+  <data name="Rdp256Colors" xml:space="preserve">
+    <value>256 வண்ணங்கள் (8-பிட்)</value>
+  </data>
+  <data name="Rdp32768Colors" xml:space="preserve">
+    <value>32768 வண்ணங்கள் (15-பிட்)</value>
+  </data>
+  <data name="Rdp4294967296Colors" xml:space="preserve">
+    <value>16777216 வண்ணங்கள் (32-பிட்)</value>
+  </data>
+  <data name="Rdp65536Colors" xml:space="preserve">
+    <value>65536 வண்ணங்கள் (16-பிட்)</value>
+  </data>
+  <data name="RdpControlCreationFailed" xml:space="preserve">
+    <value>தொபநெ கட்டுப்பாட்டை உருவாக்க முடியவில்லை, தயவுசெய்து mrmoteng தேவைகளை சரிபார்.</value>
+  </data>
+  <data name="DisableCursorBlinking" xml:space="preserve">
+    <value>நிலை காட்டி மின்னுதல் முடக்கு</value>
+  </data>
+  <data name="DisableCursorShadow" xml:space="preserve">
+    <value>நிலை காட்டி நிழலை முடக்கு</value>
+  </data>
+  <data name="DisableFullWindowDrag" xml:space="preserve">
+    <value>முழு சாளர இழுவை முடக்கு</value>
+  </data>
+  <data name="DisableMenuAnimations" xml:space="preserve">
+    <value>பட்டியல் அனிமேசன்களை முடக்கு</value>
+  </data>
+  <data name="RdpDisconnectFailed" xml:space="preserve">
+    <value>தொபநெ துண்டிப்பு தோல்வியுற்றது, மூட முயற்சிக்கிறது!</value>
+  </data>
+  <data name="RdpErrorCode1" xml:space="preserve">
+    <value>உள் பிழைக் குறியீடு 1.</value>
+  </data>
+  <data name="RdpErrorCode2" xml:space="preserve">
+    <value>உள் பிழைக் குறியீடு 2.</value>
+  </data>
+  <data name="RdpErrorCode3" xml:space="preserve">
+    <value>உள் பிழைக் குறியீடு 3. இது சரியான நிலை அல்ல.</value>
+  </data>
+  <data name="RdpErrorCode4" xml:space="preserve">
+    <value>உள் பிழைக் குறியீடு 4.</value>
+  </data>
+  <data name="RdpErrorConnection" xml:space="preserve">
+    <value>கிளையன்ட் இணைப்பின் போது மீட்டெடுக்க முடியாத பிழை ஏற்பட்டுள்ளது.</value>
+  </data>
+  <data name="RdpErrorGetFailure" xml:space="preserve">
+    <value>பிழைபெறு தோல்வியுற்றது (மீளமுடியாதபிழைகள்)</value>
+  </data>
+  <data name="RdpErrorOutOfMemory" xml:space="preserve">
+    <value>நினைவுக்கு வெளியே பிழை ஏற்பட்டது.</value>
+  </data>
+  <data name="RdpErrorUnknown" xml:space="preserve">
+    <value>தெரியாத பிழை ஏற்பட்டது.</value>
+  </data>
+  <data name="RdpErrorWindowCreation" xml:space="preserve">
+    <value>சாளர உருவாக்கும் பிழை ஏற்பட்டது.</value>
+  </data>
+  <data name="RdpErrorWinsock" xml:space="preserve">
+    <value>சாளரகுதைகுழி தொபநெ பிழை.</value>
+  </data>
+  <data name="FitToPanel" xml:space="preserve">
+    <value>பலகைக்கு ஏற்றது</value>
+  </data>
+  <data name="RdpFocusFailed" xml:space="preserve">
+    <value>தொபநெ கவனம் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpGatewayIsSupported" xml:space="preserve">
+    <value>தொபநெ நுழைவாயில் ஆதரிக்கப்படுகிறது.</value>
+  </data>
+  <data name="RdpGatewayNotSupported" xml:space="preserve">
+    <value>தொபநெ நுழைவாயில் ஆதரிக்கப்படவில்லை!</value>
+  </data>
+  <data name="RdpReconnectCount" xml:space="preserve">
+    <value>தொபநெ மீண்டும் இணைக்க எண்ணிக்கை:</value>
+  </data>
+  <data name="RdpSetAuthenticationLevelFailed" xml:space="preserve">
+    <value>தொபநெ ஒப்புதல்அளிநிலைஅமை தோல்வியுற்றது!</value>
+  </data>
+  <data name="RdpSetConsoleSessionFailed" xml:space="preserve">
+    <value>தொபநெ பணியகஅமர்வுபயன்படுத்துஅமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetConsoleSwitch" xml:space="preserve">
+    <value>தொபஇ {0} க்கான தொபநெ அமைத்தல் பணியக மாற்றுக்குமிழ்.</value>
+  </data>
+  <data name="RdpSetCredentialsFailed" xml:space="preserve">
+    <value>தொபநெ சான்றுகள்அமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetEventHandlersFailed" xml:space="preserve">
+    <value>தொபநெ நிகழ்வுகையாளுபவர்கள்அமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetGatewayFailed" xml:space="preserve">
+    <value>தொபநெ தொபநுழைவாயில்அமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetPerformanceFlagsFailed" xml:space="preserve">
+    <value>தொபநெ செயல்திறன்கொடிகள்அமை தோல்வியுற்றது!</value>
+  </data>
+  <data name="RdpSetPortFailed" xml:space="preserve">
+    <value>தொபநெ துறைமுகம்அமை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetPropsFailed" xml:space="preserve">
+    <value>தொபநெ அமைபண்புகள் தோல்வியுற்றது!</value>
+  </data>
+  <data name="RdpSetRedirectionFailed" xml:space="preserve">
+    <value>தொபநெ அமை திருப்பிவிடுதல் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="RdpSetRedirectKeysFailed" xml:space="preserve">
+    <value>தொபநெ கணம் வழிமாற்றி விசைகள் தோல்வியடைந்தன!</value>
+  </data>
+  <data name="RdpSetResolutionFailed" xml:space="preserve">
+    <value>தொபநெ தெளிவுத்திறன்அமை தோல்வியுற்றது!</value>
+  </data>
+  <data name="RdpSoundBringToThisComputer" xml:space="preserve">
+    <value>இந்த கணினிக்கு கொண்டு வாருங்கள்</value>
+  </data>
+  <data name="DoNotPlay" xml:space="preserve">
+    <value>விளையாட வேண்டாம்</value>
+  </data>
+  <data name="RdpSoundLeaveAtRemoteComputer" xml:space="preserve">
+    <value>தொலை கணினியில் விடுங்கள்</value>
+  </data>
+  <data name="RdpToggleFullscreenFailed" xml:space="preserve">
+    <value>தொபநெ மாற்றுமுழுதிரை தோல்வியுற்றது!</value>
+  </data>
+  <data name="RdpToggleSmartSizeFailed" xml:space="preserve">
+    <value>தொபநெ மாற்றுஅறிவளவு தோல்வியுற்றது!</value>
+  </data>
+  <data name="ReconnectAtStartup" xml:space="preserve">
+    <value>தொடக்கத்தில் முன்னர் திறக்கப்பட்ட அமர்வுகளுடன் மீண்டும் இணை</value>
+  </data>
+  <data name="RemoteFile" xml:space="preserve">
+    <value>தொலை கோப்பு</value>
+  </data>
+  <data name="RemoveAll" xml:space="preserve">
+    <value>அனைத்தையும் அகற்று</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>மறுபெயரிடுங்கள்</value>
+  </data>
+  <data name="Rlogin" xml:space="preserve">
+    <value>ஆர்உள்நுழைவு</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>சேமி</value>
+  </data>
+  <data name="SaveAll" xml:space="preserve">
+    <value>அனைத்தையும் சேமி</value>
+  </data>
+  <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
+    <value>இன்னொன்றை ஏற்றுவதற்கு முன் தற்போதைய இணைப்புகள் கோப்பை சேமிக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="ConnectionsBackupFrequencyDaily" xml:space="preserve">
+    <value>நாள்தோறும்</value>
+  </data>
+  <data name="strConnectionBackupFrequency" xml:space="preserve">
+    <value>இணைப்பு காப்பு அதிர்வெண்</value>
+  </data>
+  <data name="ConnectionsBackupFrequencyWeekly" xml:space="preserve">
+    <value>வாராந்திர</value>
+  </data>
+  <data name="strConnectionsBackupMaxCount" xml:space="preserve">
+    <value>அதிகபட்ச காப்புப்பிரதிகளின் எண்ணிக்கை</value>
+  </data>
+  <data name="strConnectionsBackupPath" xml:space="preserve">
+    <value>இணைப்பு கோப்பு காப்புப்பிரதியின் இடம்</value>
+  </data>
+  <data name="ConnectionsBackupFrequencyOnEdit" xml:space="preserve">
+    <value>திருத்தத்தில்</value>
+  </data>
+  <data name="ConnectionsBackupFrequencyOnExit" xml:space="preserve">
+    <value>வெளியேறும்போது</value>
+  </data>
+  <data name="ConnectionsBackupFrequencyNever" xml:space="preserve">
+    <value>ஒருபோதும் காப்புப்பிரதி இணைப்புகள்</value>
+  </data>
+  <data name="strBrowse" xml:space="preserve">
+    <value>உலாவுக...</value>
+  </data>
+  <data name="strBackup" xml:space="preserve">
+    <value>காப்புப்பிரதி</value>
+  </data>
+  <data name="SaveImageFilter" xml:space="preserve">
+    <value>வரைகலை இடமாற்ற வடிவமைப்பு கோப்பு (.gif) |*.GIF | கூட்டு புகைப்பட வல்லுநர்கள் குழு கோப்பு (.jpeg) |</value>
+  </data>
+  <data name="Screen" xml:space="preserve">
+    <value>திரை</value>
+  </data>
+  <data name="Screenshot" xml:space="preserve">
+    <value>திரைக்காட்சி</value>
+  </data>
+  <data name="Screenshots" xml:space="preserve">
+    <value>திரைக்காட்சிகள்</value>
+  </data>
+  <data name="SearchPrompt" xml:space="preserve">
+    <value>தேடல்</value>
+  </data>
+  <data name="SendTo" xml:space="preserve">
+    <value>இதற்கு அனுப்பு...</value>
+  </data>
+  <data name="SetHostnameLikeDisplayName" xml:space="preserve">
+    <value>இணைப்புகளை உருவாக்கும்போது அல்லது மறுபெயரிடும்போது காட்சி பெயர் போன்ற புரவலன்பெயரை அமை</value>
+  </data>
+  <data name="SettingsCouldNotBeSavedOrTrayDispose" xml:space="preserve">
+    <value>அமைப்புகளைச் சேமிக்கவோ அல்லது முறைமைதட்டு சின்னமுருவை அப்புறப்படுத்தவோ முடியவில்லை!</value>
+  </data>
+  <data name="ShowDescriptionTooltips" xml:space="preserve">
+    <value>இணைப்பு மரத்தில் விளக்க உதவிக்குறிப்புகளைக் காட்டு</value>
+  </data>
+  <data name="ShowFullConsFilePath" xml:space="preserve">
+    <value>சாளர தலைப்பில் முழு இணைப்புகள் கோப்பு பாதையை காட்டு</value>
+  </data>
+  <data name="ShowLogonInfoOnTabs" xml:space="preserve">
+    <value>தாவல் பெயர்களில் உள்நுழைவு தகவலைக் காட்டு</value>
+  </data>
+  <data name="ShowProtocolOnTabs" xml:space="preserve">
+    <value>தாவல் பெயர்களில் நெறிமுறைகளைக் காட்டு</value>
+  </data>
+  <data name="SingleClickOnConnectionOpensIt" xml:space="preserve">
+    <value>இணைப்பில் ஒற்றை சொடுக்கு அதைத் திறக்கிறது</value>
+  </data>
+  <data name="SingleClickOnOpenConnectionSwitchesToIt" xml:space="preserve">
+    <value>திறந்த இணைப்பு தாவலுக்கு இணைப்பில் திறந்த இணைப்பில் ஒற்றை சொடுக்கு செய்</value>
+  </data>
+  <data name="Socks5" xml:space="preserve">
+    <value>குதைகுழிகள்5</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>வரிசைப்படுத்து</value>
+  </data>
+  <data name="SortAsc" xml:space="preserve">
+    <value>ஏறுவரிசை (A-Z)</value>
+  </data>
+  <data name="SortDesc" xml:space="preserve">
+    <value>இறங்கு (இசட்-ஏ)</value>
+  </data>
+  <data name="SQLInfo" xml:space="preserve">
+    <value>மேலும் தகவலுக்கு உதவி - தொடங்குதல் - கவிமொ உள்ளமைவு பார்!</value>
+  </data>
+  <data name="SQLServer" xml:space="preserve">
+    <value>கவிமொ சேவையகம்</value>
+  </data>
+  <data name="SshV1" xml:space="preserve">
+    <value>பாஓடு பதிப்பு 1</value>
+  </data>
+  <data name="SshV2" xml:space="preserve">
+    <value>பாஓடு பதிப்பு 2</value>
+  </data>
+  <data name="SshBackgroundTransferFailed" xml:space="preserve">
+    <value>பாஓடு பின்னணி பரிமாற்றம் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="SshTransferFailed" xml:space="preserve">
+    <value>பாஓடு பரிமாற்றம் தோல்வியடைந்தது.</value>
+  </data>
+  <data name="FirstIp" xml:space="preserve">
+    <value>முதல் முகவரி</value>
+  </data>
+  <data name="FirstPort" xml:space="preserve">
+    <value>முதல் துறைமுகம்</value>
+  </data>
+  <data name="StartupExit" xml:space="preserve">
+    <value>தொடங்கு/வெளியேறு</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>நிலை</value>
+  </data>
+  <data name="SwitchToErrorsAndInfos" xml:space="preserve">
+    <value>அறிவிப்புகள் குழுவுக்கு மாறு:</value>
+  </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>மேம்பட்ட</value>
+  </data>
+  <data name="TabsAndPanels" xml:space="preserve">
+    <value>தாவல்கள் மற்றும் பலகைகள்</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>புதுப்பிப்புகள்</value>
+  </data>
+  <data name="Telnet" xml:space="preserve">
+    <value>தொலைவலை</value>
+  </data>
+  <data name="TheFollowing" xml:space="preserve">
+    <value>பின்வருபவை:</value>
+  </data>
+  <data name="TitleError" xml:space="preserve">
+    <value>பிழை ({0})</value>
+  </data>
+  <data name="TitleInformation" xml:space="preserve">
+    <value>செய்தி ({0})</value>
+  </data>
+  <data name="TitlePassword" xml:space="preserve">
+    <value>பலதொலைஅத கடவுச்சொல்</value>
+  </data>
+  <data name="TitlePasswordWithName" xml:space="preserve">
+    <value>{0} க்கான பலதொலைஅத கடவுச்சொல்</value>
+  </data>
+  <data name="TitleSelectPanel" xml:space="preserve">
+    <value>பலகையைத் தேர்ந்தெடு</value>
+  </data>
+  <data name="TitleWarning" xml:space="preserve">
+    <value>முன்னறிவிப்பு ({0})</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>இடமாற்றம்</value>
+  </data>
+  <data name="TryToIntegrate" xml:space="preserve">
+    <value>ஒருங்கிணைக்க முயற்சி செய்</value>
+  </data>
+  <data name="ShowOnToolbar" xml:space="preserve">
+    <value>கருவிப்பட்டியில் காண்பி</value>
+  </data>
+  <data name="UltraVncRepeater" xml:space="preserve">
+    <value>மிகை விஎன்சி மறுநிகழ்கருவி</value>
+  </data>
+  <data name="UltraVNCSCListeningPort" xml:space="preserve">
+    <value>மிகை விஎன்சிஎச்சிகேட்கும் துறைமுகம்:</value>
+  </data>
+  <data name="UncheckProperties" xml:space="preserve">
+    <value>சேமிக்கப்படக்கூடாது என்று நீங்கள் விரும்பும் பண்புகளைத் தேர்வுசெய்க!</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>பலதொலைஅதக்கு ஒரு புதுப்பிப்பு தேவை</value>
+  </data>
+  <data name="UpdateCheck" xml:space="preserve">
+    <value>புதுப்பிப்புகளைச் சரிபார்க்க பலதொலைஅத அவ்வப்போது பலதொலைஅத வலைத்தளத்துடன் இணைக்க முடியும்.</value>
+  </data>
+  <data name="UpdateCheckCompleteFailed" xml:space="preserve">
+    <value>புதுப்பிப்பு தகவல்களை பதிவிறக்கம் செய்ய முடியவில்லை.</value>
+  </data>
+  <data name="UpdateDownloadComplete" xml:space="preserve">
+    <value>பதிவிறக்கம் முடிந்தது!
+ பலதொலைஅத இப்போது வெளியேறி நிறுவலுடன் தொடங்கும்.</value>
+  </data>
+  <data name="UpdateDownloadCompleteFailed" xml:space="preserve">
+    <value>புதுப்பிப்பை பதிவிறக்கம் செய்ய முடியவில்லை.</value>
+  </data>
+  <data name="UpdateDownloadFailed" xml:space="preserve">
+    <value>புதுப்பிப்பு பதிவிறக்கத்தைத் தொடங்க முடியவில்லை.</value>
+  </data>
+  <data name="UpdateFrequencyCustom" xml:space="preserve">
+    <value>ஒவ்வொரு {0} நாட்களும்</value>
+  </data>
+  <data name="Daily" xml:space="preserve">
+    <value>நாள்தோறும்</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>மாதாந்திர</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>வாராந்திர</value>
+  </data>
+  <data name="UpdateGetChangeLogFailed" xml:space="preserve">
+    <value>மாற்ற பதிவை பதிவிறக்கம் செய்ய முடியவில்லை.</value>
+  </data>
+  <data name="UseDifferentUsernameAndPassword" xml:space="preserve">
+    <value>வேறு பயனர்பெயர் மற்றும் கடவுச்சொல்லைப் பயன்படுத்து</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>பயனர்</value>
+  </data>
+  <data name="UseSameUsernameAndPassword" xml:space="preserve">
+    <value>அதே பயனர்பெயர் மற்றும் கடவுச்சொல்லைப் பயன்படுத்து</value>
+  </data>
+  <data name="UseSmartCard" xml:space="preserve">
+    <value>அறிவுள்ள அட்டைப் பயன்படுத்து</value>
+  </data>
+  <data name="UseSQLServer" xml:space="preserve">
+    <value>இணைப்புகளைச் ஏற்ற &amp;&amp; சேமிக்க கவிமொ சேவையகத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>பதிப்பு</value>
+  </data>
+  <data name="Vnc" xml:space="preserve">
+    <value>விஎன்சி</value>
+  </data>
+  <data name="VncConnectionDisconnectFailed" xml:space="preserve">
+    <value>விஎன்சி துண்டிப்பு தோல்வியுற்றது!</value>
+  </data>
+  <data name="VncRefreshFailed" xml:space="preserve">
+    <value>விஎன்சி புதுப்பிப்பு திரை தோல்வியடைந்தது!</value>
+  </data>
+  <data name="VncSendSpecialKeysFailed" xml:space="preserve">
+    <value>விஎன்சி சிறப்புதிறவுகோல்அனுப்பு தோல்வியுற்றது!</value>
+  </data>
+  <data name="VncSetEventHandlersFailed" xml:space="preserve">
+    <value>விஎன்சி அமை நிகழ்வு கையாளுபவை தோல்வியடைந்து!</value>
+  </data>
+  <data name="VncSetPropsFailed" xml:space="preserve">
+    <value>விஎன்சி அமை பண்புகள் தோல்வியடைந்தது!</value>
+  </data>
+  <data name="VncToggleSmartSizeFailed" xml:space="preserve">
+    <value>விஎன்சி மாற்று அறிவளவு தோல்வியுற்றது!</value>
+  </data>
+  <data name="VncToggleViewOnlyFailed" xml:space="preserve">
+    <value>விஎன்சி பார்க்கமட்டும் தோல்வியுற்றது!</value>
+  </data>
+  <data name="WarnIfAuthFails" xml:space="preserve">
+    <value>ஏற்பு தோல்வியுற்றால் எனக்கு அறிவி</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>முன்னறிவிப்புகள்</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>ஆம்</value>
+  </data>
+  <data name="RdpOverallConnectionTimeout" xml:space="preserve">
+    <value>தொபநெ இணைப்பு நேரம் முடிந்தது</value>
+  </data>
+  <data name="NodeAlreadyInFolder" xml:space="preserve">
+    <value>இந்த முனை ஏற்கனவே இந்த கோப்புறையில் உள்ளது.</value>
+  </data>
+  <data name="NodeCannotDragOnSelf" xml:space="preserve">
+    <value>முனையை தன்னைத்தானே இழுக்க முடியாது.</value>
+  </data>
+  <data name="NodeCannotDragParentOnChild" xml:space="preserve">
+    <value>பெற்றோர் முனையை குழந்தை மீது இழுக்க முடியாது.</value>
+  </data>
+  <data name="NodeNotDraggable" xml:space="preserve">
+    <value>இந்த முனை இழுக்க முடியாதது.</value>
+  </data>
+  <data name="EncryptionBlockCipherMode" xml:space="preserve">
+    <value>தொகுதி மறைக்குறியீடு பயன்முறை</value>
+  </data>
+  <data name="EncryptionEngine" xml:space="preserve">
+    <value>குறியாக்க இயந்திரம்</value>
+  </data>
+  <data name="TabSecurity" xml:space="preserve">
+    <value>பாதுகாப்பு</value>
+  </data>
+  <data name="EncryptionKeyDerivationIterations" xml:space="preserve">
+    <value>முக்கிய வழித்தோன்றல் செயல்பாடு மறு செய்கைகள்</value>
+  </data>
+  <data name="Dynamic" xml:space="preserve">
+    <value>மாறும்</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>உயர்ந்த</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>சராசரி</value>
+  </data>
+  <data name="PropertyDescriptionSoundQuality" xml:space="preserve">
+    <value>நெறிமுறை வழங்கிய ஒலி தரத்தைத் தேர்வுசெய்க: மாறும், நடுத்தர, உயர்</value>
+  </data>
+  <data name="SoundQuality" xml:space="preserve">
+    <value>ஒலி தகுதி</value>
+  </data>
+  <data name="UpdatePortableDownloadComplete" xml:space="preserve">
+    <value>பதிவிறக்கம் முடிந்தது!</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>பதிவிறக்கம்</value>
+  </data>
+  <data name="PropertyDescriptionRDPMinutesToIdleTimeout" xml:space="preserve">
+    <value>தொபநெ அமர்வுக்கான நிமையங்களின் எண்ணிக்கை தானாக துண்டிக்கப்படுவதற்கு முன்பு செயலற்றதாக வேண்டும் (வரம்புக்கு 0 பயன்படுத்த 0)</value>
+  </data>
+  <data name="MinutesToIdleTimeout" xml:space="preserve">
+    <value>செயலற்ற நிமையங்கள்</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>கூட்டு</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>தலைப்பு</value>
+  </data>
+  <data name="ConfirmDeleteCredentialRecord" xml:space="preserve">
+    <value>நற்சான்றிதழ் பதிவை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="PropertyDescriptionRDPAlertIdleTimeout" xml:space="preserve">
+    <value>செயலற்ற தன்மை காரணமாக தொபநெ அமர்வு துண்டிக்கப்பட்ட பிறகு முன்னறிவிப்பைப் பெறலாமா என்பதைத் தேர்ந்தெடு</value>
+  </data>
+  <data name="PasswordConstainsSpecialCharactersConstraintHint" xml:space="preserve">
+    <value>கடவுச்சொல்லில் பின்வரும் எழுத்துக்களில் குறைந்தபட்சம் {0} இருக்க வேண்டும்: {1}</value>
+  </data>
+  <data name="PasswordContainsLowerCaseConstraintHint" xml:space="preserve">
+    <value>கடவுச்சொல்லில் குறைந்தது {0} சிறிய எழுத்து(கள்) இருக்க வேண்டும்</value>
+  </data>
+  <data name="PasswordContainsNumbersConstraint" xml:space="preserve">
+    <value>கடவுச்சொல்லில் குறைந்தது {0} எண்(கள்) இருக்க வேண்டும்</value>
+  </data>
+  <data name="PasswordContainsUpperCaseConstraintHint" xml:space="preserve">
+    <value>கடவுச்சொல்லில் குறைந்தது {0} மேல் வழக்கு எழுத்து(கள்) இருக்க வேண்டும்</value>
+  </data>
+  <data name="PasswordLengthConstraintHint" xml:space="preserve">
+    <value>கடவுச்சொல் நீளம் {0} மற்றும் {1} க்கு இடையில் இருக்க வேண்டும்</value>
+  </data>
+  <data name="ChooseLogPath" xml:space="preserve">
+    <value>Mrymoteng பதிவு கோப்பிற்கான பாதையைத் தேர்வுசெய்க</value>
+  </data>
+  <data name="Debug" xml:space="preserve">
+    <value>பிழைத்திருத்தம்</value>
+  </data>
+  <data name="ShowTheseMessageTypes" xml:space="preserve">
+    <value>இந்த செய்தி வகைகளைக் காட்டு</value>
+  </data>
+  <data name="LogFilePath" xml:space="preserve">
+    <value>பதிவு கோப்பு பாதை</value>
+  </data>
+  <data name="LogTheseMessageTypes" xml:space="preserve">
+    <value>இந்த செய்தி வகைகளை பதிவு செய்</value>
+  </data>
+  <data name="ChoosePath" xml:space="preserve">
+    <value>பாதையைத் தேர்வுசெய்க</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>கோப்பை திற</value>
+  </data>
+  <data name="UseDefault" xml:space="preserve">
+    <value>இயல்புநிலையைப் பயன்படுத்து</value>
+  </data>
+  <data name="Logging" xml:space="preserve">
+    <value>பதிவு</value>
+  </data>
+  <data name="Popups" xml:space="preserve">
+    <value>மேல்தோன்றல்கள்</value>
+  </data>
+  <data name="LogToAppDir" xml:space="preserve">
+    <value>பயன்பாட்டு கோப்பகத்திற்கு பதிவு செய்</value>
+  </data>
+  <data name="AssignedCredential" xml:space="preserve">
+    <value>நற்சான்றிதழ் ஒதுக்கப்பட்டது</value>
+  </data>
+  <data name="Credentials" xml:space="preserve">
+    <value>நற்சான்றிதழ்கள்</value>
+  </data>
+  <data name="OpenADifferentFile" xml:space="preserve">
+    <value>வேறு கோப்பைத் திற</value>
+  </data>
+  <data name="CredentialUnavailable" xml:space="preserve">
+    <value>நற்சான்றிதழ் கிடைக்கவில்லை</value>
+  </data>
+  <data name="OptionsThemeDeleteConfirmation" xml:space="preserve">
+    <value>நீங்கள் உண்மையில் கருப்பொருளை நீக்க விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="OptionsThemeNewThemeCaption" xml:space="preserve">
+    <value>புதிய கருப்பொருள் பெயர்</value>
+  </data>
+  <data name="OptionsThemeNewThemeError" xml:space="preserve">
+    <value>பெயரில் கருப்பொருள், பெயர் ஏற்கனவே இருக்கும் அல்லது சிறப்பு எழுத்துக்களை உருவாக்க முடியாது</value>
+  </data>
+  <data name="OptionsThemeNewThemeText" xml:space="preserve">
+    <value>புதிய கருப்பொருள் பெயரைத் தட்டச்சு செய்க</value>
+  </data>
+  <data name="OptionsThemeChangeWarning" xml:space="preserve">
+    <value>முன்னறிவிப்பு: எந்த கருப்பொருள் உள்ளமைவு மாற்றத்தையும் செய்ய மறுதொடக்கம் தேவை.</value>
+  </data>
+  <data name="CouldNotFindExternalTool" xml:space="preserve">
+    <value>"{0}" என்ற பெயருடன் வெளிப்புற கருவியைக் கண்டுபிடிக்க முடியவில்லை</value>
+  </data>
+  <data name="ConfigurationCreateNew" xml:space="preserve">
+    <value>புதிய இணைப்பு கோப்பை உருவாக்கு</value>
+  </data>
+  <data name="ConnectionFileNotFound" xml:space="preserve">
+    <value>இணைப்பு கோப்பைக் கண்டுபிடிக்க முடியவில்லை.</value>
+  </data>
+  <data name="ConfigurationImportFile" xml:space="preserve">
+    <value>ஏற்கனவே உள்ள கோப்பை இறக்குமதி செய்</value>
+  </data>
+  <data name="ConfigurationCustomPath" xml:space="preserve">
+    <value>தனிப்பயன் கோப்பு பாதையைப் பயன்படுத்து</value>
+  </data>
+  <data name="TestingConnection" xml:space="preserve">
+    <value>சோதனை இணைப்பு</value>
+  </data>
+  <data name="ServerNotAccessible" xml:space="preserve">
+    <value>சேவையகம் '{0}' அணுக முடியாது.</value>
+  </data>
+  <data name="ConnectionSuccessful" xml:space="preserve">
+    <value>இணைப்பு வெற்றிகரமாக</value>
+  </data>
+  <data name="LoginFailedForUser" xml:space="preserve">
+    <value>பயனருக்கு '{0}' க்கு உள்நுழைவு தோல்வியுற்றது.</value>
+  </data>
+  <data name="DatabaseNotAvailable" xml:space="preserve">
+    <value>தரவுத்தளம் '{0}' கிடைக்கவில்லை.</value>
+  </data>
+  <data name="SaveConnectionsAfterEveryEdit" xml:space="preserve">
+    <value>ஒவ்வொரு திருத்தத்திற்குப் பிறகு இணைப்புகளைச் சேமி</value>
+  </data>
+  <data name="FilterSearchMatchesInConnectionTree" xml:space="preserve">
+    <value>இணைப்பு மரத்தில் தேடல் போட்டிகளை வடிகட்டு</value>
+  </data>
+  <data name="TestConnection" xml:space="preserve">
+    <value>சோதனை இணைப்பு</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>படிக்க மட்டும்:</value>
+  </data>
+  <data name="LoadBalanceInfoUseUtf8" xml:space="preserve">
+    <value>தொபநெ "சுமை இருப்பு செய்தி" சொத்துக்கு UTF8 குறியாக்கத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="TimeoutInSeconds" xml:space="preserve">
+    <value>நேரம் முடிந்தது [நொடிகள்]</value>
+  </data>
+  <data name="WorkingDirectory" xml:space="preserve">
+    <value>வேலை செய்யும் அடைவு:</value>
+  </data>
+  <data name="RunElevated" xml:space="preserve">
+    <value>உயர்த்தப்பட்ட ஓடு</value>
+  </data>
+  <data name="ShowOnToolbarColumnHeader" xml:space="preserve">
+    <value>கருவிப்பட்டி நெடுவரிசையில் காண்பி</value>
+  </data>
+  <data name="WorkingDirColumnHeader" xml:space="preserve">
+    <value>வேலை அடைவு</value>
+  </data>
+  <data name="LockToolbars" xml:space="preserve">
+    <value>கருவிப்பட்டி நிலைகளை பூட்டு</value>
+  </data>
+  <data name="MultiSshToolbar" xml:space="preserve">
+    <value>பல பாஓடு கருவிப்பட்டி</value>
+  </data>
+  <data name="ImportSubOUs" xml:space="preserve">
+    <value>இறக்குமதி துணை</value>
+  </data>
+  <data name="AdvancedSecurityOptions" xml:space="preserve">
+    <value>மேம்பட்ட பாதுகாப்பு விருப்பங்கள்</value>
+  </data>
+  <data name="OptionsPageTitle" xml:space="preserve">
+    <value>பலதொலைஅத விருப்பங்கள்</value>
+  </data>
+  <data name="CreateEmptyPanelOnStartUp" xml:space="preserve">
+    <value>பலதொலைஅத தொடங்கும் போது வெற்று பலகையை உருவாக்கு</value>
+  </data>
+  <data name="MustBeBetween0And255" xml:space="preserve">
+    <value>0 முதல் 255 வரை இருக்க வேண்டும்</value>
+  </data>
+  <data name="OutOfRange" xml:space="preserve">
+    <value>வரம்பிற்கு வெளியே</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>நீக்கு</value>
+  </data>
+  <data name="ReconnectAllConnections" xml:space="preserve">
+    <value>எல்லா இணைப்புகளையும் மீண்டும் இணை</value>
+  </data>
+  <data name="UltraVNCSingleClick" xml:space="preserve">
+    <value>அல்ட்ராவ் சிங்க்லிக்</value>
+  </data>
+  <data name="DisconnectOthersRight" xml:space="preserve">
+    <value>வலதுபுற தாவல்களை துண்டி</value>
+  </data>
+  <data name="DisconnectOthers" xml:space="preserve">
+    <value>இதைத் தவிர மற்ற அனைத்தையும் துண்டி</value>
+  </data>
+  <data name="ConfirmCloseConnectionOthersInstruction" xml:space="preserve">
+    <value>"{0}" தவிர அனைத்து இணைப்புகளையும் மூட விரும்புகிறீர்களா?</value>
+  </data>
+  <data name="AutomaticReconnectError" xml:space="preserve">
+    <value>தொபநெ புரவலன் '{0}' உடன் மீண்டும் இணைக்க முயற்சிக்கும் போது பிழை ஏற்பட்டது</value>
+  </data>
+  <data name="ChangeConnectionResolutionError" xml:space="preserve">
+    <value>இணைப்பு தீர்மானத்தை '{0}' புரவலன் செய்ய முயற்சிக்கும் போது பிழை ஏற்பட்டது</value>
+  </data>
+  <data name="StackTrace" xml:space="preserve">
+    <value>அடுக்கு சுவடு</value>
+  </data>
+  <data name="ExceptionMessage" xml:space="preserve">
+    <value>விதிவிலக்கு செய்தி</value>
+  </data>
+  <data name="mRemoteNGUnhandledException" xml:space="preserve">
+    <value>பலதொலைஅத விதிவிலக்கு</value>
+  </data>
+  <data name="UnhandledExceptionOccured" xml:space="preserve">
+    <value>தடையற்ற விதிவிலக்கு ஏற்பட்டுள்ளது</value>
+  </data>
+  <data name="ExceptionForcesmRemoteNGToClose" xml:space="preserve">
+    <value>இந்த விதிவிலக்கு பலதொலைஅதகை மூடுவதற்கு கட்டாயப்படுத்தும்</value>
+  </data>
+  <data name="CopyHostname" xml:space="preserve">
+    <value>புரவலன்பெயரை நகலெடு</value>
+  </data>
+  <data name="PlaceSearchBarAboveConnectionTree" xml:space="preserve">
+    <value>இணைப்பு மரத்திற்கு மேலே தேடல் பட்டியை வை</value>
+  </data>
+  <data name="TrackActiveConnectionInConnectionTree" xml:space="preserve">
+    <value>இணைப்பு மரத்தில் செயலில் இணைப்பைக் கண்காணி</value>
+  </data>
+  <data name="AlwaysShowConnectionTabs" xml:space="preserve">
+    <value>எப்போதும் இணைப்பு தாவல்களைக் காட்டு</value>
+  </data>
+  <data name="ReleaseChannel" xml:space="preserve">
+    <value>வெளியீட்டு கால்வாய்</value>
+  </data>
+  <data name="ReleaseChannelExplanation" xml:space="preserve">
+    <value>நிலையான கால்வாயில் இறுதி வெளியீடுகள் மட்டுமே அடங்கும்.
+ முன்னோட்ட கால்வாயில் ஆவண்ணா வெளியீட்டுகள் உள்ளது.
+ இரவு கால்வாயில் ஆன்னா, ஆவண்ணா வெளியீட்டுகள் உள்ளது.</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>இடு</value>
+  </data>
+  <data name="Proxy" xml:space="preserve">
+    <value>பதிலாள்</value>
+  </data>
+  <data name="MultiSsh" xml:space="preserve">
+    <value>பல பாஓடு:</value>
+  </data>
+  <data name="MultiSshToolTip" xml:space="preserve">
+    <value>அனுப்ப உள்ளிடு அழுத்தவும். Ctrl+C உடனடியாக அனுப்பப்படுகிறது.</value>
+  </data>
+  <data name="PropertyDescriptionFavorite" xml:space="preserve">
+    <value>பிடித்தவை பட்டியலில் இந்த இணைப்பைக் காட்டு.</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>பிடித்த</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>பிடித்தவை</value>
+  </data>
+  <data name="ClearSearchString" xml:space="preserve">
+    <value>தேடல் சரத்தை அழி</value>
+  </data>
+  <data name="ConnectInViewOnlyMode" xml:space="preserve">
+    <value>பார்வையில் மட்டும் பயன்முறையில் இணை</value>
+  </data>
+  <data name="DoNotTrimUsername" xml:space="preserve">
+    <value>பயனர்பெயர்களிலிருந்து இடங்களை ஒழுங்கமைக்க வேண்டாம்</value>
+  </data>
+  <data name="Environment" xml:space="preserve">
+    <value>சூழல்</value>
+  </data>
+  <data name="EncryptionTestResultMessage" xml:space="preserve">
+    <value>{3}/{1} மற்றும் {2} மறு செய்கைகளைப் பயன்படுத்தி {0} உள்ளீடுகளை குறியாக்கம் {4} வினாடிகள் எடுத்தது.</value>
+  </data>
+  <data name="EncryptionTest" xml:space="preserve">
+    <value>குறியாக்க சோதனை</value>
+  </data>
+  <data name="TestSettings" xml:space="preserve">
+    <value>சோதனை அமைப்புகள்</value>
+  </data>
+  <data name="PropertyDescriptionRdpVersion" xml:space="preserve">
+    <value>இணைப்புகளைத் திறக்கும்போது பயன்படுத்த தொபநெ இன் பதிப்பை அமைக்கிறது.</value>
+  </data>
+  <data name="RdpVersion" xml:space="preserve">
+    <value>தொபநெ பதிப்பு</value>
+  </data>
+  <data name="PropertyDescriptionUseVmId" xml:space="preserve">
+    <value>ஐப்பர்-வி இல் இயங்கும் விஎம் உடன் இணைக்க மெக அடையாளத்தைப் பயன்படுத்து.</value>
+  </data>
+  <data name="PropertyDescriptionVmId" xml:space="preserve">
+    <value>இணைக்க உயர்-5 மெய்நிகர் இயந்திரத்தின் அடையாளம்.</value>
+  </data>
+  <data name="UseVmId" xml:space="preserve">
+    <value>மெக அடையாளத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="VmId" xml:space="preserve">
+    <value>மெக அடையாளம்</value>
+  </data>
+  <data name="RdpProtocolVersionNotSupported" xml:space="preserve">
+    <value>தொபநெ கிளையண்டை உருவாக்க முடியவில்லை. தொபநெ நெறிமுறை பதிப்பு {0} இந்த கணினியில் ஆதரிக்கப்படவில்லை. பழைய நெறிமுறை பதிப்பைத் தேர்வுசெய்க.</value>
+  </data>
+  <data name="PropertyDescriptionSshTunnel" xml:space="preserve">
+    <value>ஒரு பாஓடு சுரங்கப்பாதை மூலம் இணைப்புக்கு (புரவலன் தாண்டு) பாஓடு சுரங்கப்பாதையை நிறுவ பாஓடு இணைப்பைக் குறிப்பிடு.</value>
+  </data>
+  <data name="SshTunnel" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை</value>
+  </data>
+  <data name="PropertyDescriptionSshOptions" xml:space="preserve">
+    <value>பாஓடு இணைப்புக்கு பயன்படுத்தப்பட வேண்டிய கூடுதல் விருப்பங்களை இங்கே குறிப்பிடவும். மேலும் விவரங்களுக்கு புட்டி ஆவணங்களைப் பார்.</value>
+  </data>
+  <data name="SshOptions" xml:space="preserve">
+    <value>பாஓடு விருப்பங்கள்</value>
+  </data>
+  <data name="SshTunnelConfigProblem" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை இணைப்பு உள்ளமைவு சிக்கல். இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. பாஓடு சுரங்கப்பாதை மற்றும் நெறிமுறை பாஓடு பதிப்பு 1 அல்லது SSH2 பதிப்பு 2 என கட்டமைக்கப்பட்ட பெயருடன் இணைப்பை இணைப்பு மரத்தில் காண முடியாது. பாஓடு சுரங்கப்பாதை உள்ளமைவை அழிக்கவும் அல்லது இருக்கும் பாஓடு இணைப்பைக் குறிப்பிடவும்.</value>
+  </data>
+  <data name="SshTunnelIsNotPutty" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை உள்ளமைவு சிக்கல். இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. மரத்தில் காணப்படும் பாஓடு சுரங்கப்பாதையாக உள்ளமைக்கப்பட்ட இணைப்பு, ஆனால் நெறிமுறை புட்டியிலிருந்து பெறப்படவில்லை. பாஓடு சுரங்கப்பாதை பாஓடு நெறிமுறையைப் பயன்படுத்துவதால் இணைப்பு கட்டமைக்கப்பட்டுள்ளதை உறுதிப்படுத்திக் கொள்.</value>
+  </data>
+  <data name="SshTunnelNotInitialized" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை துவக்க சிக்கல். இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. பாஓடு இணைப்பைத் தொடங்க முடியவில்லை. பாஓடு சுரங்கப்பாதை என கட்டமைக்கப்பட்ட இணைப்பில் ஏதேனும் சிக்கல்களைச் சரிபார்.</value>
+  </data>
+  <data name="SshTunnelNotConnected" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை இணைப்பு சிக்கல். இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. பாஓடு இணைப்பு தோல்வியடைந்தது. பாஓடு சுரங்கப்பாதை என கட்டமைக்கப்பட்ட இணைப்பில் ஏதேனும் சிக்கல்களைச் சரிபார்.</value>
+  </data>
+  <data name="SshTunnelFailed" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை இணைப்பு தோல்வியடைந்தது. இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. புட்டி செயல்முறை நிறுத்தப்பட்டது. பாஓடு சுரங்கப்பாதை என கட்டமைக்கப்பட்ட இணைப்பில் ஏதேனும் சிக்கல்களைச் சரிபார்.</value>
+  </data>
+  <data name="SshTunnelPortNotReadyInTime" xml:space="preserve">
+    <value>பாஓடு சுரங்கப்பாதை இணைப்பு நேரம் முடிந்தது. இதற்கான இணைப்பு: பாஓடு சுரங்கப்பாதை வழியாக "{0}": "{1}" சாத்தியமில்லை. உள்ளக சுரங்கப்பாதை துறைமுகம் சரியான நேரத்தில் கிடைக்கவில்லை. பாஓடு சுரங்கப்பாதை என கட்டமைக்கப்பட்ட இணைப்பில் ஏதேனும் சிக்கல்களைச் சரிபார்.</value>
+  </data>
+  <data name="StartMinimized" xml:space="preserve">
+    <value>குறைக்கத் தொடங்குங்கள்</value>
+  </data>
+  <data name="PropertyDescriptionPasswordProtect" xml:space="preserve">
+    <value>இணைப்பு கோப்பை குறியாக்க தேவையான கடவுச்சொல்லை அமை. பலதொலைஅதகைத் தொடங்குவதற்கு முன்பு உங்கள் கடவுக்குறியீட்டை உள்ளிடும்படி கேட்கப்படுவீர்கள்.</value>
+  </data>
+  <data name="PropertyDescriptionUseEnhancedMode" xml:space="preserve">
+    <value>மேம்படுத்தப்பட்ட பயன்முறையுடன் உயர்-5 புரவலனுடன் இணை.</value>
+  </data>
+  <data name="UseEnhancedMode" xml:space="preserve">
+    <value>மேம்படுத்தப்பட்ட பயன்முறையைப் பயன்படுத்து</value>
+  </data>
+  <data name="PropertyDescriptionRdpGatewayPassword" xml:space="preserve">
+    <value>தொலை பணிமேடை நுழைவாயில் சேவையகத்தின் கடவுச்சொல்லைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="CloseToSysTray" xml:space="preserve">
+    <value>அறிவிப்பு பகுதிக்கு அருகில்</value>
+  </data>
+  <data name="Windows" xml:space="preserve">
+    <value>சாளரங்கள்</value>
+  </data>
+  <data name="PowerShell" xml:space="preserve">
+    <value>ஆற்றல்ஓடு</value>
+  </data>
+  <data name="Changelog" xml:space="preserve">
+    <value>மாற்றபதிவு</value>
+  </data>
+  <data name="Credits" xml:space="preserve">
+    <value>வரவு</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>உரிமம்</value>
+  </data>
+  <data name="PropertyDescriptionDisableCursorBlinking" xml:space="preserve">
+    <value>நிலை காட்டி மின்னுதல் முடக்கப்பட வேண்டுமா என்பதை தீர்மானிக்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionDisableCursorShadow" xml:space="preserve">
+    <value>சுட்டி நிழல் காணப்பட வேண்டுமா என்பதை தீர்மானிக்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionDisableFullWindowDrag" xml:space="preserve">
+    <value>சாளரத்தை புதிய இடத்திற்கு இழுக்கும்போது சாளர உள்ளடக்கம் காட்டப்படுகிறதா என்பதை தீர்மானிக்கிறது.</value>
+  </data>
+  <data name="PropertyDescriptionDisableMenuAnimations" xml:space="preserve">
+    <value>தொலைநிலை அமர்வில் அசைவுட்ட விளைவுகளுடன் பட்டியல்கள் மற்றும் சாளரங்கள் காட்ட முடியுமா என்பதை தீர்மானிக்கிறது.</value>
+  </data>
+  <data name="HttpCEF" xml:space="preserve">
+    <value>விளிம்பு நிறமி</value>
+  </data>
+  <data name="HttpFailedUrlBuild" xml:space="preserve">
+    <value>ஏற்றுவதற்கு முகவரியை உருவாக்குவதில் தோல்வி</value>
+  </data>
+  <data name="ShowHideMenu" xml:space="preserve">
+    <value>பட்டியல் துண்டு காட்டு/மறை</value>
+  </data>
+  <data name="PropertyDescriptionRDPStartProgram" xml:space="preserve">
+    <value>இணைப்பின் போது தொலை சேவையகத்தில் தொடங்கப்பட வேண்டிய நிரல்.</value>
+  </data>
+  <data name="PropertyDescriptionRDPStartProgramWorkDir" xml:space="preserve">
+    <value>மாற்று ஓட்டின் வேலை கோப்பகத்தைக் குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="RDPStartProgram" xml:space="preserve">
+    <value>மாற்று ஓடு</value>
+    <comment>https://docs.microsoft.com/en-us/windows/win32/termserv/imstscsecuredsettings-startprogram</comment>
+  </data>
+  <data name="RDPStartProgramWorkDir" xml:space="preserve">
+    <value>மாற்று ஓடு வேலை அடைவு</value>
+    <comment>https://docs.microsoft.com/en-us/windows/win32/termserv/imstscsecuredsettings-workdir</comment>
+  </data>
+  <data name="OpeningCommand" xml:space="preserve">
+    <value>திறப்பு ஒருங்கிணைப்பு செய்யவேண்டிய</value>
+  </data>
+  <data name="PropertyDescriptionOpeningCommand" xml:space="preserve">
+    <value>திறப்பு ஒருங்கிணைப்பு செய்யவேண்டியவையின் விளக்கம்</value>
+  </data>
+  <data name="RedirectDrives" xml:space="preserve">
+    <value>வட்டு இயக்கிகள்</value>
+  </data>
+  <data name="RedirectSmartCards" xml:space="preserve">
+    <value>அறிவுள்ள அட்டைகள்</value>
+  </data>
+  <data name="ApplyInheritanceToChildren" xml:space="preserve">
+    <value>குழந்தைகளுக்கு பரம்பரை பயன்படுத்துங்கள்</value>
+  </data>
+  <data name="ApplyDefaultInheritance" xml:space="preserve">
+    <value>இயல்புநிலை பரம்பரை பயன்படுத்துங்கள்</value>
+  </data>
+  <data name="SmartCard" xml:space="preserve">
+    <value>அறிவுள்ள அட்டை</value>
+  </data>
+  <data name="RemoteDesktopServices" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை சேவைகள்</value>
+  </data>
+  <data name="EC2InstanceId" xml:space="preserve">
+    <value>இசி2 நிகழ்வு அடையாளம்</value>
+  </data>
+  <data name="EC2Region" xml:space="preserve">
+    <value>இசி2 பகுதி</value>
+  </data>
+  <data name="PropertyDescriptionEC2InstanceId" xml:space="preserve">
+    <value>அவசே இசி2 நிகழ்விலிருந்து பொது முகவரி பெற இந்த நிகழ்வு அடையாளத்தைப் பயன்படுத்து</value>
+  </data>
+  <data name="PropertyDescriptionEC2Region" xml:space="preserve">
+    <value>இந்த பிராந்தியத்திலிருந்து அவசே நிகழ்வு தகவலைப் பெறுங்கள்</value>
+  </data>
+  <data name="ACLPermissionsHidden" xml:space="preserve">
+    <value>மறைக்கப்பட்ட</value>
+    <comment>Permission then option will be hide completly from user</comment>
+  </data>
+  <data name="ACLPermissionsReadOnly" xml:space="preserve">
+    <value>படிக்கமட்டும்</value>
+    <comment>Permission then option is visible but user can't modify it</comment>
+  </data>
+  <data name="ACLPermissionsWriteAllow" xml:space="preserve">
+    <value>எழுதஇசைவு</value>
+    <comment>Permission then user could modify an option value</comment>
+  </data>
+  <data name="lblConnectionsBackupPath" xml:space="preserve">
+    <value>இணைப்பு தரவு காப்பு கோப்புறைக்கு இருப்பிடத்தைத் தேர்ந்தெடு</value>
+  </data>
+  <data name="btnBrowsePath" xml:space="preserve">
+    <value>உலாவு</value>
+  </data>
+  <data name="lblACL" xml:space="preserve">
+    <value>பயனருக்கு ஏசிஎல்</value>
+  </data>
+  <data name="lblBackupEnable" xml:space="preserve">
+    <value>இணைப்பு தரவுகளுக்கான காப்புப்பிரதிகள்</value>
+  </data>
+  <data name="lblBackupNameFormat" xml:space="preserve">
+    <value>காப்புப்பிரதி கோப்பு பெயர் வடிவம்</value>
+  </data>
+  <data name="lblBackupType" xml:space="preserve">
+    <value>காப்பு வகை</value>
+  </data>
+  <data name="lblConnectionsBackupFrequency" xml:space="preserve">
+    <value>இணைப்பு காப்பு அதிர்வெண்</value>
+  </data>
+  <data name="lblConnectionsBackupMaxCount" xml:space="preserve">
+    <value>அதிகபட்ச காப்புப்பிரதிகளின் எண்ணிக்கை</value>
+  </data>
+  <data name="PageСontrolInOptionsMenu" xml:space="preserve">
+    <value>விருப்பங்கள் பட்டியலில் பக்க கட்டுப்பாடு</value>
+  </data>
+  <data name="ShowForUser" xml:space="preserve">
+    <value>பயனருக்காக காட்டு</value>
+  </data>
+  <data name="FiltermRemoteRemoteDesktopManagerCSV" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை மேலாளர் கோப்புகள் (*.csv)</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>கோப்பு பட்டியல்</value>
+  </data>
+  <data name="FileMenuWillBeHiddenNow" xml:space="preserve">
+    <value>கோப்பு பட்டியல் இப்போது மறைக்கப்பட்டுள்ளது. பார்வைக்கு மாற்று பொத்தானை அழுத்து</value>
+  </data>
+  <data name="ECPDelineaSecretServer" xml:space="preserve">
+    <value>டெலினியா மறைமுக சேவையகம்</value>
+  </data>
+  <data name="ECPClickstudiosPasswordstate" xml:space="preserve">
+    <value>கலைக்கூடம்சொடுக்கு கடவுச்சொல்நிலை</value>
+  </data>
+  <data name="ECPNone" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="EAPAmazonWebServices" xml:space="preserve">
+    <value>அமேசான்இசி 2</value>
+  </data>
+  <data name="EAPNone" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="ExternalCredentialProvider" xml:space="preserve">
+    <value>வெளிப்புற நற்சான்றிதழ் வழங்குநர்</value>
+  </data>
+  <data name="PropertyDescriptionExternalCredentialProvider" xml:space="preserve">
+    <value>சான்றுகளை மீட்டெடுக்க வெளிப்புற நற்சான்றிதழ் வழங்குநர் / பெட்டகம்</value>
+  </data>
+  <data name="PropertyDescriptionExternalAddressProvider" xml:space="preserve">
+    <value>புரவலன் முகவரியை மீட்டெடுக்க வெளிப்புற வழங்குநர்</value>
+  </data>
+  <data name="ExternalAddressProvider" xml:space="preserve">
+    <value>வெளிப்புற முகவரி வழங்குநர்</value>
+  </data>
+  <data name="UseExternalCredentialProvider" xml:space="preserve">
+    <value>வெளிப்புற நற்சான்றிதழ் வழங்குநரைப் பயன்படுத்து</value>
+  </data>
+  <data name="CheckboxNoReconnect" xml:space="preserve">
+    <value>சேவையகத்திலிருந்து துண்டிக்கப்படும்போது தானாகவே மீண்டும் இணைக்க முயற்சிக்கவும் (தொபநெ &amp;&amp; ஐசிஏ மட்டும்)</value>
+  </data>
+  <data name="PropertyDescriptionRedirectDiskDrivesCustom" xml:space="preserve">
+    <value>திருப்பிவிட தனிப்பயன் இயக்கிகளை உள்ளிடவும்: சி, டி, ஃச்</value>
+  </data>
+  <data name="RdpDrivesAll" xml:space="preserve">
+    <value>அனைத்தும்</value>
+  </data>
+  <data name="RdpDrivesCustom" xml:space="preserve">
+    <value>தனிப்பயன்</value>
+  </data>
+  <data name="RdpDrivesLocal" xml:space="preserve">
+    <value>உள்ளக</value>
+  </data>
+  <data name="RdpDrivesNone" xml:space="preserve">
+    <value>எதுவுமில்லை</value>
+  </data>
+  <data name="RedirectDiskDrivesCustom" xml:space="preserve">
+    <value>தனிப்பயன் இயக்கிகள்</value>
+  </data>
+  <data name="PropertyDescriptionRdpGatewayAccessToken" xml:space="preserve">
+    <value>தொலைநிலை பணிமேடை நுழைவாயில் சேவையகத்திற்கான அணுகல் கிள்ளாக்கை குறிப்பிடுகிறது.</value>
+  </data>
+  <data name="RdpGatewayAccessToken" xml:space="preserve">
+    <value>தொபநெ-நுழைவாயில் அணுகல் கிள்ளாக்கு</value>
+  </data>
+  <data name="UseAccessToken" xml:space="preserve">
+    <value>RD நுழைவாயில் அணுகல் கிள்ளாக்கைப் பயன்படுத்து</value>
+  </data>
+  <data name="PsCanceled" xml:space="preserve">
+    <value>உள்நுழைவு நீக்கறல் செய்யப்பட்டது! தேவைப்பட்டால் மறுதொடக்கம் செய்.</value>
+    <comment>C# to Powershell transfer issue with encoding possible</comment>
+  </data>
+  <data name="PsConnectionFailed" xml:space="preserve">
+    <value>தயவுசெய்து பயனர்பெயர் மற்றும் கடவுச்சொல்லை சரிபார்த்து மீண்டும் முயற்சிக்கவும். சேவையகத்தில் ஆஓதொலை இயக்கப்பட்டிருந்தால், அதை முதலில் இயக்கு.</value>
+    <comment>C# to Powershell transfer issue with encoding possible</comment>
+  </data>
+  <data name="PsFailed" xml:space="preserve">
+    <value>உள்நுழைவு தோல்வியுற்றது!</value>
+    <comment>C# to Powershell transfer issue with encoding possible</comment>
+  </data>
+  <data name="PsLoginAttempts" xml:space="preserve">
+    <value>அதிகபட்ச உள்நுழைவு முயற்சிகள் மீறின. மீண்டும் இணை.</value>
+    <comment>C# to Powershell transfer issue with encoding possible</comment>
+  </data>
+  <data name="FilterSecureCRT" xml:space="preserve">
+    <value>பாதுகாப்புசிஆர்டி (*.xml)</value>
+  </data>
+  <data name="OptionsCompanyPolicyMessage" xml:space="preserve">
+    <value>*சில அமைப்புகள் உங்கள் நிறுவனத்தால் தீர்மானிக்கப்படுகின்றன. மேலும் தகவலுக்கு, உங்கள் நிர்வாகியை தொடர்பு கொள்ளவும்</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>நுழைவாயில்</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>வெளியேறும்போதுஇணைப்புசேமி</value>
+  </data>
+  <data name="SetHostnameLikeDisplayNameNewConnection" xml:space="preserve">
+    <value>புதியஇணைப்புகாட்சிபெயர்புரவலன்பெயர்அமை</value>
+  </data>
+  <data name="RdpReconnectionCount" xml:space="preserve">
+    <value>தொபநெ மறு இணைப்பு எண்ணிக்கை:</value>
+  </data>
+  <data name="RdpConnectionTimeout" xml:space="preserve">
+    <value>தொபநெ இணைப்பு நேரம் முடிந்தது</value>
+  </data>
+  <data name="WhenClosingConnections" xml:space="preserve">
+    <value>இணைப்புகளை மூடும் போது</value>
+  </data>
+  <data name="WarnMeWhenClosingConnections" xml:space="preserve">
+    <value>இணைப்புகளைமூடும்போதுஎனக்குஅறிவி</value>
+  </data>
+  <data name="WarnMeOnlyWhenExitingProgram" xml:space="preserve">
+    <value>முன்னறிவிப்பு திட்டம்</value>
+  </data>
+  <data name="DoNotWarnMeWhenClosingConnections" xml:space="preserve">
+    <value>இணைப்புகளை மூடும்போது எனக்கு அறிவிப்பு வேண்டாம்</value>
+  </data>
+  <data name="StartFullScreen" xml:space="preserve">
+    <value>முழுத் திரையைத் தொடங்கு</value>
+  </data>
+  <data name="ReconnectToPreviouslyOpenedSessionsOnStartup" xml:space="preserve">
+    <value>மீண்டும் இணைக்கப்பட்டது</value>
+  </data>
+  <data name="SaveConnectionsOnExit" xml:space="preserve">
+    <value>வெளியேறும்போதுஇணைப்புகளைசேமி</value>
+  </data>
+  <data name="TrackActiveConnectionInTheConnectionTree" xml:space="preserve">
+    <value>இணைப்பு மரத்தில் செயலில் இணைப்பைக் கண்காணி</value>
+  </data>
+  <data name="AutoSaveInMinutes" xml:space="preserve">
+    <value>தானிசேமி நிமையங்களில்</value>
+  </data>
+  <data name="WebView2InitializationFailed" xml:space="preserve">
+    <value>தளபார்வை2தொடக்கம்தொல்வி</value>
+  </data>
+  <data name="WarnMeOnlyWhenClosingMultipleConnections" xml:space="preserve">
+    <value>முன்னறிவிப்பு</value>
+  </data>
+</root>
