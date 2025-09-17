@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace mRemoteNG.DotNet.Update
 {
@@ -28,7 +29,8 @@ namespace mRemoteNG.DotNet.Update
             string[] registryPaths = new[]
             {
                 @"SOFTWARE\dotnet\Setup\InstalledVersions\x86",
-                @"SOFTWARE\dotnet\Setup\InstalledVersions\x64"
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\x64",
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\arm64"
             };
 
             foreach (string path in registryPaths)
@@ -86,10 +88,25 @@ namespace mRemoteNG.DotNet.Update
                 if (dotnetEntry != null && dotnetEntry["latest-runtime"] != null)
                 {
                     string? latestRuntimeVersion = dotnetEntry["latest-runtime"]?.ToString();
+                    string arch;
+                    switch (RuntimeInformation.OSArchitecture)
+                    {
+                        case Architecture.Arm64:
+                            arch = "arm64";
+                            break;
+                        case Architecture.X86:
+                            arch = "x86";
+                            break;
+                       case Architecture.X64:
+                           arch = "x64";
+                           break;
+                       default:
+                           throw new NotSupportedException($"Unsupported architecture: {RuntimeInformation.OSArchitecture}");
+                   }
                     if (!string.IsNullOrEmpty(latestRuntimeVersion))
                     {
                         // Construct the download URL using the latest version
-                        string downloadUrl = $"https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-{latestRuntimeVersion}-windows-x64-installer";
+                        string downloadUrl = $"https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-{latestRuntimeVersion}-windows-{arch}-installer";
                         return (latestRuntimeVersion, downloadUrl);
                     }
                 }
