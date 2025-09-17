@@ -28,7 +28,8 @@ namespace mRemoteNG.DotNet.Update
             string[] registryPaths = new[]
             {
                 @"SOFTWARE\dotnet\Setup\InstalledVersions\x86",
-                @"SOFTWARE\dotnet\Setup\InstalledVersions\x64"
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\x64",
+                @"SOFTWARE\dotnet\Setup\InstalledVersions\arm64"
             };
 
             foreach (string path in registryPaths)
@@ -86,10 +87,13 @@ namespace mRemoteNG.DotNet.Update
                 if (dotnetEntry != null && dotnetEntry["latest-runtime"] != null)
                 {
                     string? latestRuntimeVersion = dotnetEntry["latest-runtime"]?.ToString();
+                    string arch = RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64"
+                                  : RuntimeInformation.OSArchitecture == Architecture.X86   ? "x86"
+                                  : "x64";
                     if (!string.IsNullOrEmpty(latestRuntimeVersion))
                     {
                         // Construct the download URL using the latest version
-                        string downloadUrl = $"https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-{latestRuntimeVersion}-windows-x64-installer";
+                        string downloadUrl = $"https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-{latestRuntimeVersion}-windows-{arch}-installer";
                         return (latestRuntimeVersion, downloadUrl);
                     }
                 }
