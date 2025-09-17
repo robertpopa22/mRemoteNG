@@ -88,9 +88,21 @@ namespace mRemoteNG.DotNet.Update
                 if (dotnetEntry != null && dotnetEntry["latest-runtime"] != null)
                 {
                     string? latestRuntimeVersion = dotnetEntry["latest-runtime"]?.ToString();
-                    string arch = RuntimeInformation.OSArchitecture == Architecture.Arm64 ? "arm64"
-                                  : RuntimeInformation.OSArchitecture == Architecture.X86   ? "x86"
-                                  : "x64";
+                    string arch;
+                    switch (RuntimeInformation.OSArchitecture)
+                    {
+                        case Architecture.Arm64:
+                            arch = "arm64";
+                            break;
+                        case Architecture.X86:
+                            arch = "x86";
+                            break;
+                       case Architecture.X64:
+                           arch = "x64";
+                           break;
+                       default:
+                           throw new NotSupportedException($"Unsupported architecture: {RuntimeInformation.OSArchitecture}");
+                   }
                     if (!string.IsNullOrEmpty(latestRuntimeVersion))
                     {
                         // Construct the download URL using the latest version
