@@ -46,6 +46,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsStartupExitPage.Default.SingleInstance = chkSingleInstance.Checked;
             Properties.OptionsStartupExitPage.Default.StartMinimized = chkStartMinimized.Checked;
             Properties.OptionsStartupExitPage.Default.StartFullScreen = chkStartFullScreen.Checked;
+            Properties.OptionsStartupExitPage.Default.DisableRefocus = chkDisableRefocus.Checked;
         }
 
         public override void LoadRegistrySettings()
@@ -104,6 +105,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkSingleInstance.Checked = Properties.OptionsStartupExitPage.Default.SingleInstance;
             chkStartMinimized.Checked = Properties.OptionsStartupExitPage.Default.StartMinimized;
             chkStartFullScreen.Checked = Properties.OptionsStartupExitPage.Default.StartFullScreen;
+            chkDisableRefocus.Checked = Properties.OptionsStartupExitPage.Default.DisableRefocus;
         }
 
         private void chkStartFullScreen_CheckedChanged(object sender, EventArgs e)
