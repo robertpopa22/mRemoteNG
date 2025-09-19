@@ -168,7 +168,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                if (Properties.OptionsStartupExitPage.Default.DisableRefocus != true)
+                if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
                 {
                     Control.GotFocus += RdpClient_GotFocus;
                 }
