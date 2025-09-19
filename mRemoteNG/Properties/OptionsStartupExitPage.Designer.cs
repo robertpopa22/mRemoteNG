@@ -94,5 +94,17 @@ namespace mRemoteNG.Properties {
                 this["cbStartupExitPageInOptionMenu"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisableRefocus {
+            get {
+                return ((bool)(this["DisableRefocus"]));
+            }
+            set {
+                this["DisableRefocus"] = value;
+            }
+        }
     }
 }

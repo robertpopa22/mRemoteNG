@@ -38,6 +38,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkSingleInstance = new MrngCheckBox();
             chkStartMinimized = new MrngCheckBox();
             chkStartFullScreen = new MrngCheckBox();
+            chkDisableRefocus = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -93,8 +94,21 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkStartFullScreen.UseVisualStyleBackColor = true;
             chkStartFullScreen.CheckedChanged += chkStartFullScreen_CheckedChanged;
             // 
+            // chkDisableRefocus
+            // 
+            chkDisableRefocus._mice = MrngCheckBox.MouseState.OUT;
+            chkDisableRefocus.AutoSize = true;
+            chkDisableRefocus.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkDisableRefocus.Location = new System.Drawing.Point(6, 96);
+            chkDisableRefocus.Name = "chkDisableRefocus";
+            chkDisableRefocus.Size = new System.Drawing.Size(108, 17);
+            chkDisableRefocus.TabIndex = 6;
+            chkDisableRefocus.Text = "Disable Refocus";
+            chkDisableRefocus.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
+            pnlOptions.Controls.Add(chkDisableRefocus);
             pnlOptions.Controls.Add(chkStartFullScreen);
             pnlOptions.Controls.Add(chkReconnectOnStart);
             pnlOptions.Controls.Add(chkStartMinimized);
@@ -136,6 +150,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkSingleInstance;
         internal MrngCheckBox chkStartMinimized;
         internal MrngCheckBox chkStartFullScreen;
+        internal MrngCheckBox chkDisableRefocus;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
         internal System.Windows.Forms.Panel pnlOptions;
     }
