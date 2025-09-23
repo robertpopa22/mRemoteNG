@@ -6,11 +6,7 @@ on:
     branches:
       - v1.78.2-dev
 
-  # 2) Auto when a PR is closed (so you can merge manually via the UI)
-  pull_request_target:
-    types: [closed]
-
-  # 3) Manual trigger
+  # 2) Manual trigger
   workflow_dispatch:
     inputs:
       dryRun:
@@ -23,12 +19,10 @@ jobs:
     runs-on: ubuntu-latest
 
     # Only proceed if…
-    # - manual dispatch  
-    # - OR a closed PR that was merged by you  
-    # - OR a push to default branch  
+    # - manual dispatch
+    # - OR a push to default branch
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && github.actor == 'Dimitrij') ||
       github.event_name == 'push'
 
     steps:
