@@ -598,7 +598,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="139.0.28" />
+    <PackageReference Update="chromiumembeddedframework.runtime.win-x64" Version="140.1.14" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='arm64'">
     <PackageReference Update="chromiumembeddedframework.runtime.win-arm64" Version="139.0.28" />
