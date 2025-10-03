@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Data.Common;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.Config.DatabaseConnectors;
@@ -126,11 +127,20 @@ namespace mRemoteNG.Config.Connections
 
             if (rootTreeNode != null)
             {
-                dbQuery =
-                    databaseConnector.DbCommand(
-                        "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES('" +
-                        MiscTools.PrepareValueForDB(rootTreeNode.Name) + "', 0, '" + strProtected + "','" +
-                        ConnectionsFileInfo.ConnectionFileVersion + "')");
+                dbQuery = databaseConnector.DbCommand(
+                    "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @Version)");
+                DbParameter nameParam = dbQuery.CreateParameter();
+                nameParam.ParameterName = "@Name";
+                nameParam.Value = rootTreeNode.Name;
+                DbParameter protectedParam = dbQuery.CreateParameter();
+                protectedParam.ParameterName = "@Protected";
+                protectedParam.Value = strProtected;
+                DbParameter versionParam = dbQuery.CreateParameter();
+                versionParam.ParameterName = "@Version";
+                versionParam.Value = ConnectionsFileInfo.ConnectionFileVersion;
+                dbQuery.Parameters.Add(nameParam);
+                dbQuery.Parameters.Add(protectedParam);
+                dbQuery.Parameters.Add(versionParam);
                 dbQuery.ExecuteNonQuery();
             }
             else
