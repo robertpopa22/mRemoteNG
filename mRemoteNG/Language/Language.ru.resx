@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>О программе</value>
   </data>
+  <data name="ActiveDirectory" xml:space="preserve">
+    <value>Активный каталог</value>
+  </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
     <value>AddNodeFromXML не удалось!</value>
   </data>
@@ -195,6 +198,9 @@
   <data name="Inheritance" xml:space="preserve">
     <value>Наследование</value>
   </data>
+  <data name="_Launch" xml:space="preserve">
+    <value>&amp;Запуск</value>
+  </data>
   <data name="ButtonLaunchPutty" xml:space="preserve">
     <value>Запуск PuTTY</value>
   </data>
@@ -224,9 +230,6 @@
   </data>
   <data name="Display" xml:space="preserve">
     <value>Вид</value>
-  </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>Шлюз</value>
   </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>Разное</value>
@@ -294,8 +297,17 @@
   <data name="Message" xml:space="preserve">
     <value>Сообщение</value>
   </data>
+  <data name="CommandExitProgram" xml:space="preserve">
+    <value>В&amp;ыход {0}</value>
+  </data>
   <data name="CommandLineArgsCouldNotBeParsed" xml:space="preserve">
     <value>Невозможно разобрать аргументы командной строки!</value>
+  </data>
+  <data name="CommandOpenConnectionFile" xml:space="preserve">
+    <value>&amp;Открыть файл подключения</value>
+  </data>
+  <data name="_TryAgain" xml:space="preserve">
+    <value>&amp;Попробуй еще раз</value>
   </data>
   <data name="CompatibilityLenovoAutoScrollUtilityDetected" xml:space="preserve">
     <value>{0} обнаружено что на этой системе работает утилита Lenovo Auto Scroll. Известно, что эта утилита вызывает проблемы с {0}. Рекомендуется отключить или удалить ее.</value>
@@ -394,6 +406,9 @@
   <data name="ConnectionsFileCouldNotSaveAs" xml:space="preserve">
     <value>Невозможно сохранить файл в качестве подключения "{0}"!</value>
   </data>
+  <data name="ConnectNoCredentials" xml:space="preserve">
+    <value>Подключение без учетных данных</value>
+  </data>
   <data name="ConnectToConsoleSession" xml:space="preserve">
     <value>Подключение к сеансу пользователя (Сеанс консоли)</value>
   </data>
@@ -417,6 +432,9 @@
   </data>
   <data name="Detect" xml:space="preserve">
     <value>Обнаружение</value>
+  </data>
+  <data name="DontConnectToConsoleSession" xml:space="preserve">
+    <value>Не подключайтесь к сеансу консоли</value>
   </data>
   <data name="DontConnectWhenAuthFails" xml:space="preserve">
     <value>Не подключать без проверки</value>
@@ -457,11 +475,21 @@
   <data name="ErrorConnectionListSaveFailed" xml:space="preserve">
     <value>Невозможно сохранить список подключений.</value>
   </data>
+  <data name="ErrorCouldNotLaunchPutty" xml:space="preserve">
+    <value>PuTTY не может быть запущен.</value>
+  </data>
   <data name="ErrorDecryptionFailed" xml:space="preserve">
     <value>Не удалось расшифровать. {0}</value>
   </data>
   <data name="ErrorEncryptionFailed" xml:space="preserve">
     <value>Не удалось зашифровать. {0}</value>
+  </data>
+  <data name="ErrorFipsPolicyIncompatible" xml:space="preserve">
+    <value>Параметр безопасности Windows «Системная криптография: использовать FIPS-совместимые алгоритмы для шифрования, хеширования и подписывания» включен.
+
+См. Статью поддержки Microsoft по адресу http://support.microsoft.com/kb/811833 для получения дополнительной информации.
+
+{0} не является полностью FIPS совместимый. Нажмите OK, чтобы продолжить по своему усмотрению, или Отмена, чтобы выйти.</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Ошибки</value>
@@ -481,8 +509,38 @@
   <data name="Export" xml:space="preserve">
     <value>Экспорт</value>
   </data>
+  <data name="ExportEverything" xml:space="preserve">
+    <value>Экспортировать все</value>
+  </data>
+  <data name="ExportFile" xml:space="preserve">
+    <value>Файл экспорта</value>
+  </data>
+  <data name="ExportItems" xml:space="preserve">
+    <value>Пункт импорта</value>
+  </data>
+  <data name="ExportProperties" xml:space="preserve">
+    <value>Экспорт свойств</value>
+  </data>
+  <data name="ExportSelectedConnection" xml:space="preserve">
+    <value>Экспорт выбранного соединения</value>
+  </data>
+  <data name="ExportSelectedFolder" xml:space="preserve">
+    <value>Экспорт выбранной папки</value>
+  </data>
+  <data name="_ExportToFile" xml:space="preserve">
+    <value>Экспорт в файл...</value>
+  </data>
+  <data name="ExternalToolDefaultName" xml:space="preserve">
+    <value>Новый внешний инструмент</value>
+  </data>
+  <data name="FileFormat" xml:space="preserve">
+    <value>Формат файла:</value>
+  </data>
   <data name="FilterAll" xml:space="preserve">
     <value>Все файлы (*.*)</value>
+  </data>
+  <data name="FilterAllImportable" xml:space="preserve">
+    <value>Все импортируемые файлы</value>
   </data>
   <data name="FilterApplication" xml:space="preserve">
     <value>Файлы приложений (*. EXE)</value>
@@ -492,6 +550,12 @@
   </data>
   <data name="FiltermRemoteXML" xml:space="preserve">
     <value>mRemote XML-файлы (*. XML)</value>
+  </data>
+  <data name="FilterPuttyConnectionManager" xml:space="preserve">
+    <value>Файлы диспетчера соединений PuTTY</value>
+  </data>
+  <data name="FilterRdgFiles" xml:space="preserve">
+    <value>Файлы диспетчера подключений удаленного рабочего стола (* .rdg)</value>
   </data>
   <data name="FilterRDP" xml:space="preserve">
     <value>RDP-файлы (*. RDP)</value>
@@ -526,6 +590,9 @@
   <data name="Host" xml:space="preserve">
     <value>Хост</value>
   </data>
+  <data name="Http" xml:space="preserve">
+    <value>HTTP</value>
+  </data>
   <data name="HttpConnectFailed" xml:space="preserve">
     <value>Ошибка HTTP подключения!</value>
   </data>
@@ -535,6 +602,12 @@
   <data name="HttpDocumentTileChangeFailed" xml:space="preserve">
     <value>Изменение HTTP документа не удалось!</value>
   </data>
+  <data name="HttpInternetExplorer" xml:space="preserve">
+    <value>Интернет Эксплорер</value>
+  </data>
+  <data name="Https" xml:space="preserve">
+    <value>HTTPS</value>
+  </data>
   <data name="HttpSetPropsFailed" xml:space="preserve">
     <value>Не удалось задать параметры HTTP!</value>
   </data>
@@ -543,6 +616,12 @@
   </data>
   <data name="ImportAD" xml:space="preserve">
     <value>Импорт из Active Directory</value>
+  </data>
+  <data name="ImportFileFailedContent" xml:space="preserve">
+    <value>Произошла ошибка при импорте файла "{0}".</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Импорт из &amp;файла...</value>
   </data>
   <data name="ImportPortScan" xml:space="preserve">
     <value>Импорт из просканированных портов</value>
@@ -624,6 +703,9 @@
   </data>
   <data name="LoadFromSqlFailed" xml:space="preserve">
     <value>Загрузить из SQL не удалось!</value>
+  </data>
+  <data name="LoadFromSqlFailedContent" xml:space="preserve">
+    <value>Не удалось загрузить информацию о соединении с SQL-сервера.</value>
   </data>
   <data name="LoadFromXmlFailed" xml:space="preserve">
     <value>Загрузить из XML не удалось!</value>
@@ -775,6 +857,12 @@
   <data name="MoveUp" xml:space="preserve">
     <value>Вверх</value>
   </data>
+  <data name="MremoteNgCsv" xml:space="preserve">
+    <value>mRemoteNG CSV</value>
+  </data>
+  <data name="MremoteNgXml" xml:space="preserve">
+    <value>mRemoteNG XML</value>
+  </data>
   <data name="MyCurrentWindowsCreds" xml:space="preserve">
     <value>Мои текущие учетные данные (Windows учетные данные)</value>
   </data>
@@ -824,6 +912,9 @@
   <data name="OpenPorts" xml:space="preserve">
     <value>Открытые порты</value>
   </data>
+  <data name="OptionsProxyTesting" xml:space="preserve">
+    <value>Тестирование...</value>
+  </data>
   <data name="Theme" xml:space="preserve">
     <value>Тема</value>
   </data>
@@ -839,8 +930,17 @@
   <data name="PasswordProtect" xml:space="preserve">
     <value>Защита паролем</value>
   </data>
+  <data name="PasswordStatusMustMatch" xml:space="preserve">
+    <value>Оба пароля должны совпадать.</value>
+  </data>
+  <data name="PasswordStatusTooShort" xml:space="preserve">
+    <value>Пароль должен содержать не менее 3 символов.</value>
+  </data>
   <data name="PleaseFillAllFields" xml:space="preserve">
     <value>Пожалуйста, заполните все поля</value>
+  </data>
+  <data name="PortScanComplete" xml:space="preserve">
+    <value>Сканирование портов завершено.</value>
   </data>
   <data name="PortScanCouldNotLoadPanel" xml:space="preserve">
     <value>Не удалось загрузить панель Сканера портов!</value>
@@ -856,6 +956,9 @@
   </data>
   <data name="PropertyDescriptionAuthenticationMode" xml:space="preserve">
     <value>Выберите способ авторизации на сервере VNC.</value>
+  </data>
+  <data name="PropertyDescriptionAutomaticResize" xml:space="preserve">
+    <value>Выберите, следует ли автоматически изменять размер соединения при изменении размера окна или при переключении полноэкранного режима. Требуется RDC 8.0 или выше.</value>
   </data>
   <data name="PropertyDescriptionCacheBitmaps" xml:space="preserve">
     <value>Выберите использовать или нет, кэширование графики.</value>
@@ -898,6 +1001,9 @@
   </data>
   <data name="PropertyDescriptionIcon" xml:space="preserve">
     <value>Значок, который будет отображаться при подключении к хосту.</value>
+  </data>
+  <data name="PropertyDescriptionLoadBalanceInfo" xml:space="preserve">
+    <value>Задает информацию о балансировке нагрузки для использования маршрутизаторами балансировки нагрузки для выбора лучшего сервера.</value>
   </data>
   <data name="PropertyDescriptionMACAddress" xml:space="preserve">
     <value>Введите МАС-адрес удаленного хоста, если вы хотите использовать его во внешнем инструменте.</value>
@@ -946,6 +1052,9 @@
   </data>
   <data name="PropertyDescriptionRedirectPrinters" xml:space="preserve">
     <value>Укажите, будут ли локальные принтеры доступны на удаленном хосте.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectClipboard" xml:space="preserve">
+    <value>Укажите, будут ли буфер обмена должен использоваться совместно.</value>
   </data>
   <data name="PropertyDescriptionRedirectSmartCards" xml:space="preserve">
     <value>Укажите, будут ли локальные смарт-карты доступны на удаленном хосте.</value>
@@ -1004,6 +1113,9 @@
   <data name="AuthenticationMode" xml:space="preserve">
     <value>Режим авторизации</value>
   </data>
+  <data name="AutomaticResize" xml:space="preserve">
+    <value>Автоматическое изменение размера</value>
+  </data>
   <data name="CacheBitmaps" xml:space="preserve">
     <value>Кэш графики</value>
   </data>
@@ -1039,6 +1151,9 @@
   </data>
   <data name="ExternalToolBefore" xml:space="preserve">
     <value>Внеш. Инстр. До</value>
+  </data>
+  <data name="LoadBalanceInfo" xml:space="preserve">
+    <value>Информация о балансе нагрузки</value>
   </data>
   <data name="MacAddress" xml:space="preserve">
     <value>MAC-адрес</value>
@@ -1087,6 +1202,9 @@
   </data>
   <data name="Printers" xml:space="preserve">
     <value>Принтеры</value>
+  </data>
+  <data name="Clipboard" xml:space="preserve">
+    <value>буфер обмена</value>
   </data>
   <data name="Sounds" xml:space="preserve">
     <value>Звуки</value>
@@ -1358,9 +1476,6 @@
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>Перед загрузкой нового подключения, хотите сохранить текущий файл подключения?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>Сохранять подключения при выходе</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>Файл Graphics Interchange Format (GIF.) | *. GIF | Файл Joint Photographic Experts Group (JPEG.) | *. JPEG | Файл Joint Photographic Experts Group (JPG.) | *. JPG | Файл Portable Network Graphics (PNG). | *. PNG</value>
   </data>
@@ -1472,6 +1587,9 @@
   <data name="TitlePassword" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="TitlePasswordWithName" xml:space="preserve">
+    <value>Пароль для {0}</value>
+  </data>
   <data name="TitleSelectPanel" xml:space="preserve">
     <value>Выбор Панели</value>
   </data>
@@ -1483,6 +1601,9 @@
   </data>
   <data name="TryToIntegrate" xml:space="preserve">
     <value>Интеграция</value>
+  </data>
+  <data name="ShowOnToolbar" xml:space="preserve">
+    <value>Отобразить на панели инструментов:</value>
   </data>
   <data name="UltraVncRepeater" xml:space="preserve">
     <value>Ultra VNC Repeater</value>
@@ -1523,6 +1644,9 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Еженедельно</value>
+  </data>
+  <data name="UpdateGetChangeLogFailed" xml:space="preserve">
+    <value>Журнал изменений не может быть загружен.</value>
   </data>
   <data name="UseDifferentUsernameAndPassword" xml:space="preserve">
     <value>Использовать другое имя пользователя и пароль</value>
@@ -1574,153 +1698,6 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
-  </data>
-  <data name="WorkingDirectory" xml:space="preserve">
-    <value>Рабочий каталог:</value>
-  </data>
-  <data name="_Launch" xml:space="preserve">
-    <value>&amp;Запуск</value>
-  </data>
-  <data name="RunElevated" xml:space="preserve">
-    <value>Выполнить с повышенными правами</value>
-  </data>
-  <data name="ShowOnToolbar" xml:space="preserve">
-    <value>Отобразить на панели инструментов:</value>
-  </data>
-  <data name="ShowOnToolbarColumnHeader" xml:space="preserve">
-    <value>Отобразить на панели инструментов</value>
-  </data>
-  <data name="WorkingDirColumnHeader" xml:space="preserve">
-    <value>Рабочий каталог</value>
-  </data>
-  <data name="_ExportToFile" xml:space="preserve">
-    <value>Экспорт в файл...</value>
-  </data>
-  <data name="ImportFromFile" xml:space="preserve">
-    <value>Импорт из &amp;файла...</value>
-  </data>
-  <data name="LockToolbars" xml:space="preserve">
-    <value>Закрепить позицию панели инструментов</value>
-  </data>
-  <data name="MultiSshToolbar" xml:space="preserve">
-    <value>Панель инструментов SSH</value>
-  </data>
-  <data name="AssignedCredential" xml:space="preserve">
-    <value>Назначенные учетные данные</value>
-  </data>
-  <data name="ExportEverything" xml:space="preserve">
-    <value>Экспортировать все</value>
-  </data>
-  <data name="ExportFile" xml:space="preserve">
-    <value>Файл экспорта</value>
-  </data>
-  <data name="ExportItems" xml:space="preserve">
-    <value>Пункт импорта</value>
-  </data>
-  <data name="ExportProperties" xml:space="preserve">
-    <value>Экспорт свойств</value>
-  </data>
-  <data name="ExportSelectedConnection" xml:space="preserve">
-    <value>Экспорт выбранного соединения</value>
-  </data>
-  <data name="ExportSelectedFolder" xml:space="preserve">
-    <value>Экспорт выбранной папки</value>
-  </data>
-  <data name="FileFormat" xml:space="preserve">
-    <value>Формат файла:</value>
-  </data>
-  <data name="ImportSubOUs" xml:space="preserve">
-    <value>Импорт подразделений</value>
-  </data>
-  <data name="LoadBalanceInfoUseUtf8" xml:space="preserve">
-    <value>Используйте кодировку UTF8 для свойства RDP "Информация о балансе нагрузки"</value>
-  </data>
-  <data name="TimeoutInSeconds" xml:space="preserve">
-    <value>Время ожидания в секундах:</value>
-  </data>
-  <data name="ActiveDirectory" xml:space="preserve">
-    <value>Активный каталог</value>
-  </data>
-  <data name="CommandExitProgram" xml:space="preserve">
-    <value>В&amp;ыход {0}</value>
-  </data>
-  <data name="CommandOpenConnectionFile" xml:space="preserve">
-    <value>&amp;Открыть файл подключения</value>
-  </data>
-  <data name="_TryAgain" xml:space="preserve">
-    <value>&amp;Попробуй еще раз</value>
-  </data>
-  <data name="ConnectNoCredentials" xml:space="preserve">
-    <value>Подключение без учетных данных</value>
-  </data>
-  <data name="DontConnectToConsoleSession" xml:space="preserve">
-    <value>Не подключайтесь к сеансу консоли</value>
-  </data>
-  <data name="ErrorCouldNotLaunchPutty" xml:space="preserve">
-    <value>PuTTY не может быть запущен.</value>
-  </data>
-  <data name="ExternalToolDefaultName" xml:space="preserve">
-    <value>Новый внешний инструмент</value>
-  </data>
-  <data name="FilterAllImportable" xml:space="preserve">
-    <value>Все импортируемые файлы</value>
-  </data>
-  <data name="FilterPuttyConnectionManager" xml:space="preserve">
-    <value>Файлы диспетчера соединений PuTTY</value>
-  </data>
-  <data name="FilterRdgFiles" xml:space="preserve">
-    <value>Файлы диспетчера подключений удаленного рабочего стола (* .rdg)</value>
-  </data>
-  <data name="Http" xml:space="preserve">
-    <value>HTTP</value>
-  </data>
-  <data name="HttpInternetExplorer" xml:space="preserve">
-    <value>Интернет Эксплорер</value>
-  </data>
-  <data name="Https" xml:space="preserve">
-    <value>HTTPS</value>
-  </data>
-  <data name="ImportFileFailedContent" xml:space="preserve">
-    <value>Произошла ошибка при импорте файла "{0}".</value>
-  </data>
-  <data name="LoadFromSqlFailedContent" xml:space="preserve">
-    <value>Не удалось загрузить информацию о соединении с SQL-сервера.</value>
-  </data>
-  <data name="MremoteNgCsv" xml:space="preserve">
-    <value>mRemoteNG CSV</value>
-  </data>
-  <data name="MremoteNgXml" xml:space="preserve">
-    <value>mRemoteNG XML</value>
-  </data>
-  <data name="OptionsProxyTesting" xml:space="preserve">
-    <value>Тестирование...</value>
-  </data>
-  <data name="PasswordStatusMustMatch" xml:space="preserve">
-    <value>Оба пароля должны совпадать.</value>
-  </data>
-  <data name="PasswordStatusTooShort" xml:space="preserve">
-    <value>Пароль должен содержать не менее 3 символов.</value>
-  </data>
-  <data name="PortScanComplete" xml:space="preserve">
-    <value>Сканирование портов завершено.</value>
-  </data>
-  <data name="PropertyDescriptionAutomaticResize" xml:space="preserve">
-    <value>Выберите, следует ли автоматически изменять размер соединения при изменении размера окна или при переключении полноэкранного режима. Требуется RDC 8.0 или выше.</value>
-  </data>
-  <data name="PropertyDescriptionLoadBalanceInfo" xml:space="preserve">
-    <value>Задает информацию о балансировке нагрузки для использования маршрутизаторами балансировки нагрузки для выбора лучшего сервера.</value>
-  </data>
-  <data name="AutomaticResize" xml:space="preserve">
-    <value>Автоматическое изменение размера</value>
-  </data>
-  <data name="LoadBalanceInfo" xml:space="preserve">
-    <value>Информация о балансе нагрузки</value>
-  </data>
-  <data name="TitlePasswordWithName" xml:space="preserve">
-    <value>Пароль для {0}</value>
-  </data>
-  <data name="UpdateGetChangeLogFailed" xml:space="preserve">
-    <value>Журнал изменений не может быть загружен.</value>
   </data>
   <data name="RdpOverallConnectionTimeout" xml:space="preserve">
     <value>Время ожидания соединения RDP</value>
@@ -1836,6 +1813,9 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   <data name="LogToAppDir" xml:space="preserve">
     <value>Войдите в каталог приложений</value>
   </data>
+  <data name="AssignedCredential" xml:space="preserve">
+    <value>Назначенные учетные данные</value>
+  </data>
   <data name="Credentials" xml:space="preserve">
     <value>Полномочия</value>
   </data>
@@ -1856,6 +1836,9 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   </data>
   <data name="OptionsThemeNewThemeText" xml:space="preserve">
     <value>Введите новое название темы</value>
+  </data>
+  <data name="OptionsThemeChangeWarning" xml:space="preserve">
+    <value>Предупреждение: перезагрузка требуется для принятия каких-либо изменений конфигурации темы.</value>
   </data>
   <data name="CouldNotFindExternalTool" xml:space="preserve">
     <value>Не удалось найти внешний инструмент с именем "{0}"</value>
@@ -1899,6 +1882,33 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   <data name="ReadOnly" xml:space="preserve">
     <value>Только чтение:</value>
   </data>
+  <data name="LoadBalanceInfoUseUtf8" xml:space="preserve">
+    <value>Используйте кодировку UTF8 для свойства RDP "Информация о балансе нагрузки"</value>
+  </data>
+  <data name="TimeoutInSeconds" xml:space="preserve">
+    <value>Время ожидания в секундах:</value>
+  </data>
+  <data name="WorkingDirectory" xml:space="preserve">
+    <value>Рабочий каталог:</value>
+  </data>
+  <data name="RunElevated" xml:space="preserve">
+    <value>Выполнить с повышенными правами</value>
+  </data>
+  <data name="ShowOnToolbarColumnHeader" xml:space="preserve">
+    <value>Отобразить на панели инструментов</value>
+  </data>
+  <data name="WorkingDirColumnHeader" xml:space="preserve">
+    <value>Рабочий каталог</value>
+  </data>
+  <data name="LockToolbars" xml:space="preserve">
+    <value>Закрепить позицию панели инструментов</value>
+  </data>
+  <data name="MultiSshToolbar" xml:space="preserve">
+    <value>Панель инструментов SSH</value>
+  </data>
+  <data name="ImportSubOUs" xml:space="preserve">
+    <value>Импорт подразделений</value>
+  </data>
   <data name="AdvancedSecurityOptions" xml:space="preserve">
     <value>Расширенные параметры безопасности</value>
   </data>
@@ -1906,29 +1916,7 @@ mRemoteNG сейчас прекратит работу и начнет проц�
     <value>Параметры mRemoteNG</value>
   </data>
   <data name="CreateEmptyPanelOnStartUp" xml:space="preserve">
-    <value>Создайте пустую панель при запуске mRemoteNG</value>
-  </data>
-  <data name="DisconnectOthersRight" xml:space="preserve">
-    <value>Отключить вкладки справа</value>
-  </data>
-  <data name="ConfirmCloseConnectionOthersInstruction" xml:space="preserve">
-    <value>Хотите закрыть все подключения, кроме "{0}"?</value>
-  </data>
-  <data name="ErrorFipsPolicyIncompatible" xml:space="preserve">
-    <value>Параметр безопасности Windows «Системная криптография: использовать FIPS-совместимые алгоритмы для шифрования, хеширования и подписывания» включен.
-
-См. Статью поддержки Microsoft по адресу http://support.microsoft.com/kb/811833 для получения дополнительной информации.
-
-{0} не является полностью FIPS совместимый. Нажмите OK, чтобы продолжить по своему усмотрению, или Отмена, чтобы выйти.</value>
-  </data>
-  <data name="PropertyDescriptionRedirectClipboard" xml:space="preserve">
-    <value>Укажите, будут ли буфер обмена должен использоваться совместно.</value>
-  </data>
-  <data name="Clipboard" xml:space="preserve">
-    <value>буфер обмена</value>
-  </data>
-  <data name="OptionsThemeChangeWarning" xml:space="preserve">
-    <value>Предупреждение: перезагрузка требуется для принятия каких-либо изменений конфигурации темы.</value>
+    <value>Создавать пустую панель при запуске mRemoteNG</value>
   </data>
   <data name="MustBeBetween0And255" xml:space="preserve">
     <value>Должно быть от 0 до 255</value>
@@ -1945,8 +1933,14 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   <data name="UltraVNCSingleClick" xml:space="preserve">
     <value>UltraVNC SingleClick</value>
   </data>
+  <data name="DisconnectOthersRight" xml:space="preserve">
+    <value>Отключить вкладки справа</value>
+  </data>
   <data name="DisconnectOthers" xml:space="preserve">
     <value>Отключите все Но этот</value>
+  </data>
+  <data name="ConfirmCloseConnectionOthersInstruction" xml:space="preserve">
+    <value>Хотите закрыть все подключения, кроме "{0}"?</value>
   </data>
   <data name="AutomaticReconnectError" xml:space="preserve">
     <value>Произошла ошибка при попытке переподключиться к узлу RDP '{0}'</value>
@@ -1994,5 +1988,11 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   </data>
   <data name="Proxy" xml:space="preserve">
     <value>Proxy</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Шлюз</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>Сохранять подключения при выходе</value>
   </data>
 </root>
