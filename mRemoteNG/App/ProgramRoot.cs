@@ -1,4 +1,6 @@
-﻿using mRemoteNG.App.Update;
+﻿using Microsoft.IdentityModel.Tokens;
+
+using mRemoteNG.App.Update;
 using mRemoteNG.Config.Settings;
 using mRemoteNG.DotNet.Update;
 using mRemoteNG.DotNet.Update;
@@ -42,21 +44,23 @@ namespace mRemoteNG.App
 
             string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();
 
-            if (InternetConnection.IsPosible())
+            var checkFail = false;
+
+            // Checking .NET Runtime version
+            var (latestRuntimeVersion, downloadUrl) = DotNetRuntimeCheck.GetLatestAvailableDotNetVersionAsync().GetAwaiter().GetResult();
+            if (string.IsNullOrEmpty(installedVersion))
             {
-                var (latestRuntimeVersion, downloadUrl) = DotNetRuntimeCheck.GetLatestAvailableDotNetVersionAsync().GetAwaiter().GetResult();
-
-                if (string.IsNullOrEmpty(installedVersion))
+                try
                 {
-                    try
-                    {
-                        _ = MessageBox.Show(
-                            $".NET Desktop Runtime at least {DotNetRuntimeCheck.RequiredDotnetVersion}.0 is required.\n" +
-                            "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl,
-                            "Missing .NET " + DotNetRuntimeCheck.RequiredDotnetVersion + " Runtime",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                    _ = MessageBox.Show(
+                        $".NET Desktop Runtime at least {DotNetRuntimeCheck.RequiredDotnetVersion}.0 is required.\n" +
+                        "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl,
+                        "Missing .NET " + DotNetRuntimeCheck.RequiredDotnetVersion + " Runtime",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
 
+                    if (InternetConnection.IsPosible())
+                    {
                         try
                         {
                             Process.Start(new ProcessStartInfo(fileName: downloadUrl) { UseShellExecute = true });
@@ -65,11 +69,44 @@ namespace mRemoteNG.App
                         {
                             MessageBox.Show($"Unable to open download link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-
-                        Environment.Exit(0);
                     }
-                    catch { }
                 }
+                catch { }
+                checkFail = true;
+            }
+
+            // Checking Visual C++ Redistributable version
+            if (VCppRuntimeCheck.GetInstalledVcRedistVersions() == null || VCppRuntimeCheck.GetInstalledVcRedistVersions().Count == 0)
+            {
+                var downloadUrl2 = "https://aka.ms/vs/17/release/vc_redist.x86.exe";
+                try
+                {
+                    _ = MessageBox.Show(
+                        $"A Visual C++ (MSVC) runtime library is required.\n" +
+                        "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl2,
+                        "Missing Visual C++ Redistributable x86 Runtime",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                    if (InternetConnection.IsPosible())
+                    {
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo(fileName: downloadUrl2) { UseShellExecute = true });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Unable to open download link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch { }
+                checkFail = true;
+            }
+
+            if (checkFail)
+            {
+                Environment.Exit(0);
             }
 
             Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
