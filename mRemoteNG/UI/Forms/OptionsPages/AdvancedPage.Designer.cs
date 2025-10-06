@@ -62,7 +62,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             chkAutomaticReconnect._mice = MrngCheckBox.MouseState.OUT;
             chkAutomaticReconnect.AutoSize = true;
-            chkAutomaticReconnect.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkAutomaticReconnect.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             chkAutomaticReconnect.Location = new System.Drawing.Point(9, 8);
             chkAutomaticReconnect.Name = "chkAutomaticReconnect";
             chkAutomaticReconnect.Size = new System.Drawing.Size(421, 17);
@@ -74,11 +74,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // numPuttyWaitTime
             // 
             numPuttyWaitTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            numPuttyWaitTime.Location = new System.Drawing.Point(840, 321);
-            numPuttyWaitTime.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            numPuttyWaitTime.Location = new System.Drawing.Point(379, 175);
+            numPuttyWaitTime.Margin = new System.Windows.Forms.Padding(6);
             numPuttyWaitTime.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
             numPuttyWaitTime.Name = "numPuttyWaitTime";
-            numPuttyWaitTime.Size = new System.Drawing.Size(135, 22);
+            numPuttyWaitTime.Size = new System.Drawing.Size(64, 22);
             numPuttyWaitTime.TabIndex = 7;
             numPuttyWaitTime.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
@@ -86,10 +86,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             chkUseCustomPuttyPath._mice = MrngCheckBox.MouseState.OUT;
             chkUseCustomPuttyPath.AutoSize = true;
-            chkUseCustomPuttyPath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkUseCustomPuttyPath.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             chkUseCustomPuttyPath.Location = new System.Drawing.Point(9, 78);
             chkUseCustomPuttyPath.Name = "chkUseCustomPuttyPath";
-            chkUseCustomPuttyPath.Size = new System.Drawing.Size(148, 17);
+            chkUseCustomPuttyPath.Size = new System.Drawing.Size(146, 17);
             chkUseCustomPuttyPath.TabIndex = 3;
             chkUseCustomPuttyPath.Text = "Use custom PuTTY path:";
             chkUseCustomPuttyPath.UseVisualStyleBackColor = true;
@@ -107,11 +107,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // numUVNCSCPort
             // 
             numUVNCSCPort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            numUVNCSCPort.Location = new System.Drawing.Point(840, 384);
-            numUVNCSCPort.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            numUVNCSCPort.Location = new System.Drawing.Point(379, 202);
+            numUVNCSCPort.Margin = new System.Windows.Forms.Padding(6);
             numUVNCSCPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
             numUVNCSCPort.Name = "numUVNCSCPort";
-            numUVNCSCPort.Size = new System.Drawing.Size(135, 22);
+            numUVNCSCPort.Size = new System.Drawing.Size(64, 22);
             numUVNCSCPort.TabIndex = 8;
             numUVNCSCPort.Value = new decimal(new int[] { 5500, 0, 0, 0 });
             numUVNCSCPort.Visible = false;
@@ -120,7 +120,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             txtCustomPuttyPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtCustomPuttyPath.Enabled = false;
-            txtCustomPuttyPath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtCustomPuttyPath.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             txtCustomPuttyPath.Location = new System.Drawing.Point(27, 100);
             txtCustomPuttyPath.Name = "txtCustomPuttyPath";
             txtCustomPuttyPath.Size = new System.Drawing.Size(346, 22);
@@ -176,7 +176,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             chkLoadBalanceInfoUseUtf8._mice = MrngCheckBox.MouseState.OUT;
             chkLoadBalanceInfoUseUtf8.AutoSize = true;
-            chkLoadBalanceInfoUseUtf8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkLoadBalanceInfoUseUtf8.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             chkLoadBalanceInfoUseUtf8.Location = new System.Drawing.Point(9, 54);
             chkLoadBalanceInfoUseUtf8.Name = "chkLoadBalanceInfoUseUtf8";
             chkLoadBalanceInfoUseUtf8.Size = new System.Drawing.Size(317, 17);
@@ -188,7 +188,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             chkNoReconnect._mice = MrngCheckBox.MouseState.OUT;
             chkNoReconnect.AutoSize = true;
-            chkNoReconnect.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkNoReconnect.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             chkNoReconnect.Location = new System.Drawing.Point(27, 31);
             chkNoReconnect.Name = "chkNoReconnect";
             chkNoReconnect.Size = new System.Drawing.Size(430, 17);
@@ -214,9 +214,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Controls.Add(lblUVNCSCPort);
             Controls.Add(lblSeconds);
             Controls.Add(btnBrowseCustomPuttyPath);
-            Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            Margin = new System.Windows.Forms.Padding(4);
             Name = "AdvancedPage";
-            Size = new System.Drawing.Size(610, 490);
+            Size = new System.Drawing.Size(589, 440);
             ((System.ComponentModel.ISupportInitialize)numPuttyWaitTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)numUVNCSCPort).EndInit();
             ResumeLayout(false);
