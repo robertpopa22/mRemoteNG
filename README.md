@@ -1,6 +1,3 @@
-**NOTICE: This project currently transited to a new maintainer. Development help would be greatly appreciated.**
-
-<br/><br/>
 <p align="center">
   <img width="450" src="https://github.com/mRemoteNG/mRemoteNG/blob/mRemoteNGProjectFiles/Header_dark.png">
 </p>
@@ -27,9 +24,6 @@
 <p align="center">
   <a href="https://www.paypal.com/paypalme/mremoteng">
     <img alt="PayPal" src="https://img.shields.io/badge/%24-PayPal-blue.svg?label=Donate&logo=PayPal&style=flat-square">
-  </a>
-  <a href="bitcoin:16fUnHUM3k7W9Fvpc6dug7TAdfeGEcLbSg">
-    <img alt="Bitcoin" src="https://img.shields.io/badge/%24-Bitcoin.svg?label=Donate&logo=bitcoin&style=flat-square">
   </a>
 </p>
 
