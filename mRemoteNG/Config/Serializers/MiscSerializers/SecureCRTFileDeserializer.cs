@@ -2,6 +2,7 @@
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Container;
+using mRemoteNG.Security;
 using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using System;
@@ -22,8 +23,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             RootNodeInfo root = new(RootNodeType.Connection);
             connectionTreeModel.AddRootNode(root);
 
-            XmlDocument xmlDocument = new();
-            xmlDocument.LoadXml(content);
+            XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(content);
 
             XmlNode sessionsNode = xmlDocument.SelectSingleNode("/VanDyke/key[@name=\"Sessions\"]");
 

@@ -20,8 +20,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             RootNodeInfo root = new(RootNodeType.Connection);
             connectionTreeModel.AddRootNode(root);
 
-            XmlDocument xmlDocument = new();
-            xmlDocument.LoadXml(puttycmConnectionsXml);
+            XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(puttycmConnectionsXml);
 
             XmlNode configurationNode = xmlDocument.SelectSingleNode("/configuration");
 

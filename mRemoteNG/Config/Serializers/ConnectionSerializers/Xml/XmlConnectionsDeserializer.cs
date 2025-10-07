@@ -94,8 +94,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             connections = _decryptor.LegacyFullFileDecrypt(connections);
             if (connections != "")
             {
-                _xmlDocument = new XmlDocument();
-                _xmlDocument.LoadXml(connections);
+                _xmlDocument = SecureXmlHelper.LoadXmlFromString(connections);
             }
         }
 

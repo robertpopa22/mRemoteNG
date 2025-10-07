@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Xml;
+using mRemoteNG.Security;
 using mRemoteNG.Themes;
 
 namespace mRemoteNG.Themes
@@ -17,8 +18,7 @@ namespace mRemoteNG.Themes
         //warning, defaultpalette should always contain all the values, because when is loaded there is no default palette (parameter is null
         public MremoteNGPaletteManipulator(byte[] file, ExtendedColorPalette defaultPalette = null)
         {
-            _xml = new XmlDocument();
-            _xml.LoadXml(new StreamReader(new MemoryStream(file)).ReadToEnd());
+            _xml = SecureXmlHelper.LoadXmlFromString(new StreamReader(new MemoryStream(file)).ReadToEnd());
             _defaultPalette = defaultPalette ?? new ExtendedColorPalette();
         }
 
