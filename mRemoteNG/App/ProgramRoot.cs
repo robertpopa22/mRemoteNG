@@ -79,7 +79,7 @@ namespace mRemoteNG.App
             // Checking Visual C++ Redistributable version
             if (VCppRuntimeCheck.GetInstalledVcRedistVersions() == null || VCppRuntimeCheck.GetInstalledVcRedistVersions().Count == 0)
             {
-                var downloadUrl2 = "https://aka.ms/vs/17/release/vc_redist.x86.exe";
+                var downloadUrl2 = "https://aka.ms/vs/17/release/vc_redist.x64.exe";
                 try
                 {
                     var result = MessageBox.Show(

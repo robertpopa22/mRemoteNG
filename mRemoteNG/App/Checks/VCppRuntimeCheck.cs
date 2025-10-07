@@ -24,7 +24,7 @@ namespace mRemoteNG.App.Update
                     string version = $"{major}.{minor}";
                     foreach (var baseKey in baseKeys)
                     {
-                        string path = $@"{baseKey}\{version}\VC\Runtimes\x86";
+                        string path = $@"{baseKey}\{version}\VC\Runtimes\x64";
                         using (RegistryKey? key = Registry.LocalMachine.OpenSubKey(path))
                         {
                             if (key?.GetValue("Installed") is int installed && installed == 1)
