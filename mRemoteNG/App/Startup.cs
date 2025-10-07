@@ -84,10 +84,8 @@ namespace mRemoteNG.App
             try
             {
                 await _appUpdate.GetUpdateInfoAsync();
-                if (_appUpdate.IsUpdateAvailable())
-                {
-                    Windows.Show(WindowType.Update);
-                }
+                // Update is available, but don't show the panel automatically at startup
+                // User can check for updates manually via Help > Check for Updates menu
             }
             catch (Exception ex)
             {

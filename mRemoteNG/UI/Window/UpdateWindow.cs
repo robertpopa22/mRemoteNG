@@ -35,6 +35,15 @@ namespace mRemoteNG.UI.Window
             FontOverrider.FontOverride(this);
         }
 
+        /// <summary>
+        /// Checks for updates and displays the results in the window.
+        /// Call this method when you want to trigger an update check.
+        /// </summary>
+        public async Task PerformUpdateCheckAsync()
+        {
+            await CheckForUpdateAsync();
+        }
+
         #endregion
 
         #region Form Stuff
@@ -44,7 +53,6 @@ namespace mRemoteNG.UI.Window
             ApplyTheme();
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             ApplyLanguage();
-            await CheckForUpdateAsync();
         }
 
         private new void ApplyTheme()
