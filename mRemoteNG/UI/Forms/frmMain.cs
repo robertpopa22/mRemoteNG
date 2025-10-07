@@ -216,6 +216,14 @@ namespace mRemoteNG.UI.Forms
 
             Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsServiceOnConnectionsLoaded;
             Runtime.ConnectionsService.ConnectionsSaved += ConnectionsServiceOnConnectionsSaved;
+            
+            // Close splash screen before loading connections to ensure password dialog appears on top
+            FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
+            if (splash.Dispatcher.CheckAccess())
+                splash.Close();
+            else
+                splash.Dispatcher.Invoke(() => splash.Close());
+
             CredsAndConsSetup credsAndConsSetup = new();
             credsAndConsSetup.LoadCredsAndCons();
 
@@ -233,12 +241,6 @@ namespace mRemoteNG.UI.Forms
             //Fix MagicRemove , revision on panel strategy for mdi
 
             pnlDock.ShowDocumentIcon = true;
-
-            FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
-            if (splash.Dispatcher.CheckAccess())
-                splash.Close();
-            else
-                splash.Dispatcher.Invoke(() => splash.Close());
 
             if (Properties.OptionsStartupExitPage.Default.StartMinimized)
             {
