@@ -908,7 +908,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Compression)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionCompression)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC),
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
          Browsable(false)]
         public ProtocolVNC.Compression VNCCompression
         {
@@ -920,7 +920,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Encoding)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionEncoding)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC),
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
          Browsable(false)]
         public ProtocolVNC.Encoding VNCEncoding
         {
@@ -932,7 +932,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.AuthenticationMode)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionAuthenticationMode)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC),
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
          Browsable(false)]
         public ProtocolVNC.AuthMode VNCAuthMode
         {
@@ -944,7 +944,7 @@ namespace mRemoteNG.Connection
             LocalizedAttributes.LocalizedDisplayName(nameof(Language.ProxyType)),
             LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVNCProxyType)),
             TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-            AttributeUsedInProtocol(ProtocolType.VNC),
+            AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
             Browsable(false)]
         public ProtocolVNC.ProxyType VNCProxyType
         {
@@ -955,7 +955,7 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Proxy), 7),
             LocalizedAttributes.LocalizedDisplayName(nameof(Language.ProxyAddress)),
             LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVNCProxyAddress)),
-            AttributeUsedInProtocol(ProtocolType.VNC),
+            AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
             Browsable(false)]
         public string VNCProxyIP
         {
@@ -966,7 +966,7 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Proxy), 7),
             LocalizedAttributes.LocalizedDisplayName(nameof(Language.ProxyPort)),
             LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVNCProxyPort)),
-            AttributeUsedInProtocol(ProtocolType.VNC),
+            AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
             Browsable(false)]
         public int VNCProxyPort
         {
@@ -977,7 +977,7 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Proxy), 7),
             LocalizedAttributes.LocalizedDisplayName(nameof(Language.ProxyUsername)),
             LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVNCProxyUsername)),
-            AttributeUsedInProtocol(ProtocolType.VNC),
+            AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
             Browsable(false)]
         public string VNCProxyUsername
         {
@@ -989,7 +989,7 @@ namespace mRemoteNG.Connection
             LocalizedAttributes.LocalizedDisplayName(nameof(Language.ProxyPassword)),
             LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVNCProxyPassword)),
             PasswordPropertyText(true),
-            AttributeUsedInProtocol(ProtocolType.VNC),
+            AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
             Browsable(false)]
         public string VNCProxyPassword
         {
@@ -1001,7 +1001,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Colors)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionColors)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC),
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
          Browsable(false)]
         public ProtocolVNC.Colors VNCColors
         {
@@ -1013,7 +1013,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.SmartSizeMode)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionSmartSizeMode)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC)]
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD)]
         public ProtocolVNC.SmartSizeMode VNCSmartSizeMode
         {
             get => GetPropertyValue("VNCSmartSizeMode", _vncSmartSizeMode);
@@ -1024,7 +1024,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.ViewOnly)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionViewOnly)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC)]
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD)]
         public bool VNCViewOnly
         {
             get => GetPropertyValue("VNCViewOnly", _vncViewOnly);
