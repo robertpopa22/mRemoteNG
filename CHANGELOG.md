@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.78.2]
 ### Fixed
+- #2855: Fix missing Username field for HTTP and HTTPS protocols
+- #2852: Fix XML External Entity (XXE) vulnerability in XML deserialization
+- #2851: Fix path traversal vulnerability in file operations
+- #2850: Fix password dialog appearing behind splash screen on startup
+- #2842: Fix element placement in options window
 - #2715: Disable WinForms analyzers and suppress WFO1000 build errors for ObjectListView
 - #2712: VNCEvent_Disconnected send the ProtocolBase based object reference
 - #2668: fix ssh quickconnect exception
@@ -19,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - #2591: add Clickstudios Passwordstate API connector
 
 ### Updated
+- #2854: Refactor settings dialog to be opened in dockable panel (for consistency)
 - #2597: Remember the opened connection file on relaunch
 - #2502: Updated Polish translation
 
