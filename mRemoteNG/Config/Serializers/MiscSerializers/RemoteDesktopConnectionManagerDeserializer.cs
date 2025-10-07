@@ -26,9 +26,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             ConnectionTreeModel connectionTreeModel = new();
             RootNodeInfo root = new(RootNodeType.Connection);
 
-            XmlDocument xmlDocument = new();
-            xmlDocument.LoadXml(rdcmConnectionsXml);
-
+            XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(rdcmConnectionsXml);
 
             XmlNode rdcManNode = xmlDocument.SelectSingleNode("/RDCMan");
             VerifySchemaVersion(rdcManNode);

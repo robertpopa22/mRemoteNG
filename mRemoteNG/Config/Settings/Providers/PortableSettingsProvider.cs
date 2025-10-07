@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Collections.Specialized;
 using System.Xml;
 using System.IO;
+using mRemoteNG.Security;
 
 //using mRemoteNG.App;
 
@@ -61,8 +62,7 @@ namespace mRemoteNG.Config.Settings.Providers
                 if (_xmlDocument != null) return _xmlDocument;
                 try
                 {
-                    _xmlDocument = new XmlDocument();
-                    _xmlDocument.Load(_filePath);
+                    _xmlDocument = SecureXmlHelper.LoadXmlFromFile(_filePath);
                 }
                 catch (Exception /*ex*/)
                 {

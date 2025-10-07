@@ -5,6 +5,7 @@ using mRemoteNG.UI.Forms;
 using System.IO;
 using System.Xml;
 using mRemoteNG.Messages;
+using mRemoteNG.Security;
 using mRemoteNG.Tools;
 using mRemoteNG.UI.Controls;
 using System.Runtime.Versioning;
@@ -40,18 +41,18 @@ namespace mRemoteNG.Config.Settings
  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), GeneralAppInfo.ProductName, SettingsFileInfo.ExtAppsFilesName);
 #endif
             string newPath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.ExtAppsFilesName);
-            XmlDocument xDom = new();
+            XmlDocument xDom;
             if (File.Exists(newPath))
             {
                 _messageCollector.AddMessage(MessageClass.InformationMsg, $"Loading External Apps from: {newPath}",
                                              true);
-                xDom.Load(newPath);
+                xDom = SecureXmlHelper.LoadXmlFromFile(newPath);
             }
 #if !PORTABLE
 			else if (File.Exists(oldPath))
 			{
                 _messageCollector.AddMessage(MessageClass.InformationMsg, $"Loading External Apps from: {oldPath}", true);
-                xDom.Load(oldPath);
+                xDom = SecureXmlHelper.LoadXmlFromFile(oldPath);
 
 			}
 #endif
