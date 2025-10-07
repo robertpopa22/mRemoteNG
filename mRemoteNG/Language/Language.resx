@@ -159,6 +159,9 @@
   <data name="AskUpdatesMainInstruction" xml:space="preserve">
     <value>Automatic update settings</value>
   </data>
+  <data name="Ard" xml:space="preserve">
+    <value>ARD (Apple Remote Desktop)</value>
+  </data>
   <data name="Aspect" xml:space="preserve">
     <value>Aspect</value>
   </data>

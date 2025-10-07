@@ -115,6 +115,7 @@ namespace mRemoteNGTests.Connection
         [TestCase(ProtocolType.SSH2, ExpectedResult = 22)]
         [TestCase(ProtocolType.Telnet, ExpectedResult = 23)]
         [TestCase(ProtocolType.VNC, ExpectedResult = 5900)]
+        [TestCase(ProtocolType.ARD, ExpectedResult = 5900)]
         public int GetDefaultPortReturnsCorrectPortForProtocol(ProtocolType protocolType)
         {
             _connectionInfo.Protocol = protocolType;
