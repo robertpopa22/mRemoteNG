@@ -26,7 +26,7 @@ namespace mRemoteNG.App
 
         internal static ConfigWindow ConfigForm { get; set; } = new ConfigWindow();
         internal static ErrorAndInfoWindow ErrorsForm { get; set; } = new ErrorAndInfoWindow();
-        private static UpdateWindow UpdateForm { get; set; } = new UpdateWindow();
+        internal static UpdateWindow UpdateForm { get; set; } = new UpdateWindow();
         internal static SSHTransferWindow SshtransferForm { get; private set; } = new SSHTransferWindow();
         internal static OptionsWindow OptionsFormWindow { get; private set; }
 

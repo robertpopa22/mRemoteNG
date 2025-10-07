@@ -215,9 +215,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             InitialiseCheckForUpdatesOnStartupComboBox();
         }
 
-        private void btnUpdateCheckNow_Click(object sender, EventArgs e)
+        private async void btnUpdateCheckNow_Click(object sender, EventArgs e)
         {
             App.Windows.Show(WindowType.Update);
+            var updateWindow = App.Windows.UpdateForm;
+            if (updateWindow != null && !updateWindow.IsDisposed)
+            {
+                await updateWindow.PerformUpdateCheckAsync();
+            }
         }
 
         private void chkUseProxyForAutomaticUpdates_CheckedChanged(object sender, EventArgs e)
