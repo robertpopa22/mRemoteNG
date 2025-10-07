@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - #2502: Updated Polish translation
 
 ### Dependency update
+- #3bd2fe8: puttyng updated to x64 version (and signed)
 
 ## [1.77.3.1784]
 ### Fixed
