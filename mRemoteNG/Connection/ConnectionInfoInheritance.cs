@@ -55,6 +55,8 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionColor)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
         public bool Color { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display), 2),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.TabColor)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionTabColor)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

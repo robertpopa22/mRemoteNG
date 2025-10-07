@@ -160,13 +160,17 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Color)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionColor)),
          Editor(typeof(System.Drawing.Design.ColorEditor), typeof(System.Drawing.Design.UITypeEditor)),
-         TypeConverter(typeof(System.Drawing.ColorConverter))]
+         TypeConverter(typeof(MiscTools.TabColorConverter))]
         public virtual string Color
         {
             get => GetPropertyValue("Color", _color);
             set => SetField(ref _color, value, "Color");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.TabColor)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionTabColor)),
+         Editor(typeof(System.Drawing.Design.ColorEditor), typeof(System.Drawing.Design.UITypeEditor)),
          TypeConverter(typeof(MiscTools.TabColorConverter))]
         public virtual string TabColor
         {
