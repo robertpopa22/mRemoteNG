@@ -398,8 +398,9 @@ namespace mRemoteNG.UI.Forms
 
             if (CTaskDialog.CommandButtonResult != 1) return;
 
-            OptionsForm.SetActivatedPage(Language.Updates);
-            OptionsForm.ShowDialog(this);
+            App.Windows.Show(WindowType.Options);
+            if (App.Windows.OptionsFormWindow != null)
+                App.Windows.OptionsFormWindow.SetActivatedPage(Language.Updates);
         }
 
         private async Task CheckForUpdates()
