@@ -5,6 +5,7 @@ using mRemoteNG.Connection.Protocol.Rlogin;
 using mRemoteNG.Connection.Protocol.SSH;
 using mRemoteNG.Connection.Protocol.Telnet;
 using mRemoteNG.Connection.Protocol.VNC;
+using mRemoteNG.Connection.Protocol.ARD;
 using System;
 using mRemoteNG.Connection.Protocol.PowerShell;
 using mRemoteNG.Resources.Language;
@@ -28,6 +29,8 @@ namespace mRemoteNG.Connection.Protocol
                     return rdp;
                 case ProtocolType.VNC:
                     return new ProtocolVNC();
+                case ProtocolType.ARD:
+                    return new ProtocolARD();
                 case ProtocolType.SSH1:
                     return new ProtocolSSH1();
                 case ProtocolType.SSH2:
