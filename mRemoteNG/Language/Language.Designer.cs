@@ -3406,7 +3406,7 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OpeningCommand TODO.
+        ///   Looks up a localized string similar to Opening Command .
         /// </summary>
         internal static string OpeningCommand {
             get {

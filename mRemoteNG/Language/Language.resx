@@ -2215,7 +2215,8 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
     <comment>https://docs.microsoft.com/en-us/windows/win32/termserv/imstscsecuredsettings-workdir</comment>
   </data>
   <data name="OpeningCommand" xml:space="preserve">
-    <value>OpeningCommand TODO</value>
+    <value>Opening Command </value>
+    <comment>Command what will be run after connection</comment>
   </data>
   <data name="PropertyDescriptionOpeningCommand" xml:space="preserve">
     <value>Description of OpeningCommand TODO</value>
