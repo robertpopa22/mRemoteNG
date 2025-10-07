@@ -84,7 +84,7 @@ You will need to compile it yourself using Visual Studio.
 
 ### Minimum Requirements
 
-* [[Microsoft .NET Desktop Runtime 9.0](https://dotnet.microsoft.com/download/dotnet/6.0](https://dotnet.microsoft.com/en-us/download/dotnet/9.0))
+* [Microsoft .NET Desktop Runtime 9.0](https://dotnet.microsoft.com/download/dotnet/6.0)
 * Microsoft Terminal Service Client 6.0 or later (needed if you use RDP with mstscax.dll and/or msrdp.ocx to be registered)
 
 ### Download
