@@ -19,7 +19,7 @@ namespace mRemoteNG.Resources.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -421,6 +421,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ARD (Apple Remote Desktop).
+        /// </summary>
+        internal static string Ard {
+            get {
+                return ResourceManager.GetString("Ard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arguments.
         /// </summary>
         internal static string Arguments {
@@ -606,15 +615,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string CacheBitmaps {
             get {
                 return ResourceManager.GetString("CacheBitmaps", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Color.
-        /// </summary>
-        internal static string Color {
-            get {
-                return ResourceManager.GetString("Color", resourceCulture);
             }
         }
         
@@ -849,6 +849,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string CollapseAllFolders {
             get {
                 return ResourceManager.GetString("CollapseAllFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        internal static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
             }
         }
         
@@ -4333,6 +4342,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sets the color of the connection tab. Leave empty for default theme color..
+        /// </summary>
+        internal static string PropertyDescriptionTabColor {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionTabColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect to the console session of the remote host..
         /// </summary>
         internal static string PropertyDescriptionUseConsoleSession {
@@ -6204,6 +6222,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string SwitchToErrorsAndInfos {
             get {
                 return ResourceManager.GetString("SwitchToErrorsAndInfos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tab Color.
+        /// </summary>
+        internal static string TabColor {
+            get {
+                return ResourceManager.GetString("TabColor", resourceCulture);
             }
         }
         
