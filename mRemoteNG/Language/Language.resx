@@ -1020,6 +1020,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PropertyDescriptionPanel" xml:space="preserve">
     <value>Sets the panel in which the connection will open.</value>
   </data>
+  <data name="PropertyDescriptionTabColor" xml:space="preserve">
+    <value>Sets the color of the connection tab. Leave empty for default theme color.</value>
+  </data>
   <data name="PropertyDescriptionPassword" xml:space="preserve">
     <value>Enter your password.</value>
   </data>
@@ -1181,6 +1184,9 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="Panel" xml:space="preserve">
     <value>Panel</value>
+  </data>
+  <data name="TabColor" xml:space="preserve">
+    <value>Tab Color</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
