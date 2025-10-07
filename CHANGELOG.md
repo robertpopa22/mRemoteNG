@@ -17,8 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - #2734: fix native build for Windows-x64
 
 ### Added
-- Add configurable connection tab colors to distinguish between different environments (e.g., Dev, Test, Live)
-- #2728 Add support for building mRemoteNG on Windows ARM64
+ 
+- #2865: Add configurable connection tab colors to distinguish between different environments
+- #2864: Add Color property to connections and folders with inheritance support
+- #2863: Add ARD (Apple Remote Desktop) protocol support for macOS connections
+- #2728: Add support for building mRemoteNG on Windows ARM64
 - #2723: Read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File
 - #2690: தமிழ் (ta) Translation update
 - #2643: Registry Settings: enhancements and new settings implementation
