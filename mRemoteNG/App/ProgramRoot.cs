@@ -43,6 +43,7 @@ namespace mRemoteNG.App
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
             string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();
+            //installedVersion = ""; // Force check for testing purposes
 
             var checkFail = false;
 
@@ -52,14 +53,14 @@ namespace mRemoteNG.App
             {
                 try
                 {
-                    _ = MessageBox.Show(
+                    var result = MessageBox.Show(
                         $".NET Desktop Runtime at least {DotNetRuntimeCheck.RequiredDotnetVersion}.0 is required.\n" +
                         "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl,
                         "Missing .NET " + DotNetRuntimeCheck.RequiredDotnetVersion + " Runtime",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Information);
 
-                    if (InternetConnection.IsPosible())
+                    if (result == DialogResult.OK && InternetConnection.IsPosible())
                     {
                         try
                         {
@@ -81,14 +82,14 @@ namespace mRemoteNG.App
                 var downloadUrl2 = "https://aka.ms/vs/17/release/vc_redist.x86.exe";
                 try
                 {
-                    _ = MessageBox.Show(
+                    var result = MessageBox.Show(
                         $"A Visual C++ (MSVC) runtime library is required.\n" +
                         "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl2,
                         "Missing Visual C++ Redistributable x86 Runtime",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Information);
 
-                    if (InternetConnection.IsPosible())
+                    if (result == DialogResult.OK && InternetConnection.IsPosible())
                     {
                         try
                         {
@@ -190,8 +191,24 @@ namespace mRemoteNG.App
             Process currentProcess = Process.GetCurrentProcess();
             foreach (Process enumeratedProcess in Process.GetProcessesByName(currentProcess.ProcessName))
             {
+                // Safely check for null MainModule and FileName
+                string? enumeratedFileName = null;
+                string? currentFileName = null;
+                try
+                {
+                    enumeratedFileName = enumeratedProcess.MainModule?.FileName;
+                    currentFileName = currentProcess.MainModule?.FileName;
+                }
+                catch
+                {
+                    // Access to MainModule can throw exceptions for some processes; ignore and continue
+                    continue;
+                }
+
                 if (enumeratedProcess.Id != currentProcess.Id &&
-                    enumeratedProcess.MainModule.FileName == currentProcess.MainModule.FileName &&
+                    !string.IsNullOrEmpty(enumeratedFileName) &&
+                    !string.IsNullOrEmpty(currentFileName) &&
+                    enumeratedFileName == currentFileName &&
                     enumeratedProcess.MainWindowHandle != IntPtr.Zero)
                     windowHandle = enumeratedProcess.MainWindowHandle;
             }
