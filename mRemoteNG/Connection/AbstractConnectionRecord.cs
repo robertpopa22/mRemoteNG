@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.RDP;
@@ -22,6 +23,7 @@ namespace mRemoteNG.Connection
         private string _description;
         private string _icon;
         private string _panel;
+        private string _tabColor;
 
         private string _hostname;
         private ExternalAddressProvider _externalAddressProvider;
@@ -151,6 +153,16 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Panel", _panel);
             set => SetField(ref _panel, value, "Panel");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.TabColor)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionTabColor)),
+         TypeConverter(typeof(ColorConverter))]
+        public virtual string TabColor
+        {
+            get => GetPropertyValue("TabColor", _tabColor);
+            set => SetField(ref _tabColor, value, "TabColor");
         }
 
         #endregion
