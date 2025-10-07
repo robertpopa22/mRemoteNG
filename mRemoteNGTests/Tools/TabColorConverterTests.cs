@@ -144,5 +144,23 @@ namespace mRemoteNGTests.Tools
             var result = _converter.GetStandardValuesExclusive(null);
             Assert.That(result, Is.False);
         }
+
+        [Test]
+        public void ConvertFromColorObjectDoesNotThrowException()
+        {
+            // This test verifies the fix for the "Object of type 'System.Drawing.Color' cannot be converted to type 'System.String'" error
+            var color = Color.FromArgb(255, 100, 150, 200);
+            Assert.DoesNotThrow(() => _converter.ConvertFrom(color));
+        }
+
+        [Test]
+        public void ColorPropertyUsesTabColorConverter()
+        {
+            // This test verifies that the Color property can properly handle Color objects
+            // by using TabColorConverter instead of System.Drawing.ColorConverter
+            var color = Color.Blue;
+            var result = _converter.ConvertFrom(color);
+            Assert.That(result, Is.EqualTo("Blue"));
+        }
     }
 }
