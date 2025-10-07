@@ -2,6 +2,7 @@
 using mRemoteNG.Config.DataProviders;
 using mRemoteNGTests.TestHelpers;
 using NUnit.Framework;
+using System;
 
 namespace mRemoteNGTests.Config.DataProviders;
 
@@ -45,5 +46,19 @@ public class FileBackupCreatorTests
         _fileBackupCreator.CreateBackupFile(_testFilePath);
         var backupFileExists = File.Exists(_testFilePathBackup);
         Assert.That(backupFileExists, Is.False);
+    }
+
+    [Test]
+    public void CreateBackupFile_WithPathTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"..\..\..\Windows\System32\config.xml";
+        Assert.Throws<ArgumentException>(() => _fileBackupCreator.CreateBackupFile(maliciousPath));
+    }
+
+    [Test]
+    public void CreateBackupFile_WithForwardSlashTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"../../../etc/passwd";
+        Assert.Throws<ArgumentException>(() => _fileBackupCreator.CreateBackupFile(maliciousPath));
     }
 }

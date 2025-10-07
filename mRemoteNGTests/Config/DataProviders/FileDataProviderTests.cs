@@ -56,4 +56,32 @@ public class FileDataProviderTests
         _dataProvider.Save("");
         Assert.That(File.Exists(fileThatShouldExist), Is.True);
     }
+
+    [Test]
+    public void Constructor_WithPathTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"C:\Users\..\..\..\Windows\System32\config.xml";
+        Assert.Throws<ArgumentException>(() => new FileDataProvider(maliciousPath));
+    }
+
+    [Test]
+    public void FilePath_SetWithPathTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"..\..\..\Windows\System32\config.xml";
+        Assert.Throws<ArgumentException>(() => _dataProvider.FilePath = maliciousPath);
+    }
+
+    [Test]
+    public void MoveTo_WithPathTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"..\..\..\Windows\System32\config.xml";
+        // The method catches the exception internally, so we need to verify it doesn't move the file
+        _dataProvider.Save("test");
+        _dataProvider.MoveTo(maliciousPath);
+        
+        // Verify the file wasn't moved to the malicious path
+        Assert.That(File.Exists(maliciousPath), Is.False);
+        // Verify the original file still exists
+        Assert.That(File.Exists(_testFilePath), Is.True);
+    }
 }
