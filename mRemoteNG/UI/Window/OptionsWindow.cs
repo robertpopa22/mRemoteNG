@@ -60,9 +60,30 @@ namespace mRemoteNG.UI.Window
                 _optionsForm.TopLevel = false;
                 _optionsForm.FormBorderStyle = FormBorderStyle.None;
                 _optionsForm.Dock = DockStyle.Fill;
+                _optionsForm.VisibleChanged += OptionsForm_VisibleChanged;
                 Controls.Add(_optionsForm);
-                _optionsForm.Show();
             }
+            _optionsForm.Show();
+        }
+
+        private void OptionsForm_VisibleChanged(object sender, EventArgs e)
+        {
+            // When the embedded FrmOptions is hidden (OK/Cancel clicked), close this window
+            if (_optionsForm != null && !_optionsForm.Visible)
+            {
+                this.Close();
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Detach the FrmOptions form so it can be reused
+            if (_optionsForm != null)
+            {
+                _optionsForm.VisibleChanged -= OptionsForm_VisibleChanged;
+                Controls.Remove(_optionsForm);
+            }
+            base.OnFormClosing(e);
         }
 
         public void SetActivatedPage(string pageName)
