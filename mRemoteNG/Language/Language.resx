@@ -1025,6 +1025,7 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="PropertyDescriptionColor" xml:space="preserve">
     <value>Sets the color for the connection or folder in the connections tree. Connections inherit this color from their parent folder.</value>
+  </data>
   <data name="PropertyDescriptionTabColor" xml:space="preserve">
     <value>Sets the color of the connection tab. Leave empty for default theme color.</value>
   </data>

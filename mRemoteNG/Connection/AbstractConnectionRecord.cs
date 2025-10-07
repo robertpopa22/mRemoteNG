@@ -165,9 +165,10 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Color", _color);
             set => SetField(ref _color, value, "Color");
-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.TabColor)),
-         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionTabColor)),
-         TypeConverter(typeof(MiscTools.TabColorConverter))]
+        }
+        [LocalizedAttributes.LocalizedDisplayName(nameof(Language.TabColor)),
+        LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionTabColor)),
+        TypeConverter(typeof(MiscTools.TabColorConverter))]
         public virtual string TabColor
         {
             get => GetPropertyValue("TabColor", _tabColor);
