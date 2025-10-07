@@ -87,6 +87,26 @@ Icon
 The icon indicates the visual identifier for the connection.
 Clicking the icon will let you set a different icon for the connection.
 
+Tab Color
+---------
+
+.. note::
+
+    The Tab Color property is available in the Display category of the connection properties.
+
+You can set a custom color for connection tabs to help distinguish between different environments (e.g., Development, Testing, Production).
+This can be especially useful when working with critical systems like Live servers, where you want a clear visual reminder.
+
+To set a tab color:
+
+1. Select your connection in the Connections panel
+2. In the Config panel, expand the **Display** category
+3. Find the **Tab Color** property
+4. Enter a color name (e.g., "Red", "Green", "Blue") or a hex color code (e.g., "#FF0000", "#00FF00")
+5. Leave empty to use the default theme color
+
+The tab color will be applied when you open the connection. You can use inheritance to set the same color for multiple connections in a folder.
+
 Status
 ------
 

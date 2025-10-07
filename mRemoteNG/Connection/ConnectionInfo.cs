@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using mRemoteNG.App;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Connection.Protocol.ARD;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.PowerShell;
 using mRemoteNG.Connection.Protocol.RAW;
@@ -254,6 +255,8 @@ namespace mRemoteNG.Connection
                         return (int)RdpProtocol.Defaults.Port;
                     case ProtocolType.VNC:
                         return (int)ProtocolVNC.Defaults.Port;
+                    case ProtocolType.ARD:
+                        return (int)ProtocolARD.Defaults.Port;
                     case ProtocolType.SSH1:
                         return (int)ProtocolSSH1.Defaults.Port;
                     case ProtocolType.SSH2:
@@ -290,6 +293,7 @@ namespace mRemoteNG.Connection
             Icon = Settings.Default.ConDefaultIcon;
             Panel = Language.General;
             Color = string.Empty;
+            TabColor = string.Empty;
         }
 
         private void SetConnectionDefaults()

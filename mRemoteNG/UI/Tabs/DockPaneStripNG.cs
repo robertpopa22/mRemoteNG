@@ -991,8 +991,11 @@ namespace mRemoteNG.UI.Tabs
             rectText = DrawHelper.RtlTransform(this, rectText);
             rectIcon = DrawHelper.RtlTransform(this, rectIcon);
 
-            Color activeColor = DockPane.DockPanel.Theme.ColorPalette.TabSelectedActive.Background;
-            Color lostFocusColor = DockPane.DockPanel.Theme.ColorPalette.TabSelectedInactive.Background;
+            // Get custom tab color if available
+            Color? customTabColor = GetCustomTabColor(tab.Content);
+
+            Color activeColor = customTabColor ?? DockPane.DockPanel.Theme.ColorPalette.TabSelectedActive.Background;
+            Color lostFocusColor = customTabColor ?? DockPane.DockPanel.Theme.ColorPalette.TabSelectedInactive.Background;
             Color inactiveColor = DockPane.DockPanel.Theme.ColorPalette.MainWindowActive.Background;
             Color mouseHoverColor = DockPane.DockPanel.Theme.ColorPalette.TabUnselectedHovered.Background;
 
@@ -1054,6 +1057,31 @@ namespace mRemoteNG.UI.Tabs
 
             if (rectTab.Contains(rectIcon) && DockPane.DockPanel.ShowDocumentIcon)
                 g.DrawIcon(tab.Content.DockHandler.Icon, rectIcon);
+        }
+
+        private Color? GetCustomTabColor(IDockContent content)
+        {
+            try
+            {
+                if (content is ConnectionTab connectionTab)
+                {
+                    InterfaceControl interfaceControl = InterfaceControl.FindInterfaceControl(connectionTab);
+                    if (interfaceControl?.Info != null)
+                    {
+                        string tabColorStr = interfaceControl.Info.TabColor;
+                        if (!string.IsNullOrEmpty(tabColorStr))
+                        {
+                            ColorConverter converter = new ColorConverter();
+                            return (Color)converter.ConvertFromString(tabColorStr);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // If there's any error parsing the color, just return null to use default
+            }
+            return null;
         }
 
         private bool m_isMouseDown;

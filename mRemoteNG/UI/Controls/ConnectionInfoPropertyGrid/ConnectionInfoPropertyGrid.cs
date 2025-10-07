@@ -168,6 +168,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
                             strHide.AddRange(SpecialRdpExclusions());
                             break;
                         case ProtocolType.VNC:
+                        case ProtocolType.ARD:
                             strHide.AddRange(SpecialVncExclusions());
                             break;
                     }

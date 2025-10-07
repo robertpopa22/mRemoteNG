@@ -159,6 +159,9 @@
   <data name="AskUpdatesMainInstruction" xml:space="preserve">
     <value>Automatic update settings</value>
   </data>
+  <data name="Ard" xml:space="preserve">
+    <value>ARD (Apple Remote Desktop)</value>
+  </data>
   <data name="Aspect" xml:space="preserve">
     <value>Aspect</value>
   </data>
@@ -1022,6 +1025,8 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="PropertyDescriptionColor" xml:space="preserve">
     <value>Sets the color for the connection or folder in the connections tree. Connections inherit this color from their parent folder.</value>
+  <data name="PropertyDescriptionTabColor" xml:space="preserve">
+    <value>Sets the color of the connection tab. Leave empty for default theme color.</value>
   </data>
   <data name="PropertyDescriptionPassword" xml:space="preserve">
     <value>Enter your password.</value>
@@ -1187,6 +1192,9 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="Panel" xml:space="preserve">
     <value>Panel</value>
+  </data>
+  <data name="TabColor" xml:space="preserve">
+    <value>Tab Color</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
