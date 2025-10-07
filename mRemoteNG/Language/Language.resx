@@ -1020,6 +1020,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PropertyDescriptionPanel" xml:space="preserve">
     <value>Sets the panel in which the connection will open.</value>
   </data>
+  <data name="PropertyDescriptionColor" xml:space="preserve">
+    <value>Sets the color for the connection or folder in the connections tree. Connections inherit this color from their parent folder.</value>
+  </data>
   <data name="PropertyDescriptionPassword" xml:space="preserve">
     <value>Enter your password.</value>
   </data>
@@ -1136,6 +1139,9 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="CacheBitmaps" xml:space="preserve">
     <value>Cache Bitmaps</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
   </data>
   <data name="Colors" xml:space="preserve">
     <value>Colors</value>

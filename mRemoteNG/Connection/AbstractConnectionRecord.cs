@@ -22,6 +22,7 @@ namespace mRemoteNG.Connection
         private string _description;
         private string _icon;
         private string _panel;
+        private string _color;
 
         private string _hostname;
         private ExternalAddressProvider _externalAddressProvider;
@@ -151,6 +152,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Panel", _panel);
             set => SetField(ref _panel, value, "Panel");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.Color)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionColor)),
+         Editor(typeof(System.Drawing.Design.ColorEditor), typeof(System.Drawing.Design.UITypeEditor)),
+         TypeConverter(typeof(System.Drawing.ColorConverter))]
+        public virtual string Color
+        {
+            get => GetPropertyValue("Color", _color);
+            set => SetField(ref _color, value, "Color");
         }
 
         #endregion

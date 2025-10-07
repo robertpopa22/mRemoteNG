@@ -50,6 +50,12 @@ namespace mRemoteNG.Connection
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
         public bool Panel { get; set; }
 
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display), 2),
+         LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.Color)),
+         LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionColor)),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool Color { get; set; }
+
         #endregion
 
         #region Connection
