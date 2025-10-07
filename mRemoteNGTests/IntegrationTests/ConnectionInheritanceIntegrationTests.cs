@@ -68,5 +68,29 @@ namespace mRemoteNGTests.IntegrationTests
             folder3.AddChild(connection);
             Assert.That(connection.Icon, Is.EqualTo(folder1.Icon));
         }
+
+        [Test]
+        public void ConnectionInheritsColorFromFolder()
+        {
+            var folder = new ContainerInfo { Color = "Red" };
+            var connection = new ConnectionInfo { Inheritance = { Color = true } };
+            _rootNode.AddChild(folder);
+            folder.AddChild(connection);
+            Assert.That(connection.Color, Is.EqualTo(folder.Color));
+        }
+
+        [Test]
+        public void CanInheritColorThroughMultipleFolderLevels()
+        {
+            var folder1 = new ContainerInfo { Color = "Blue" };
+            var folder2 = new ContainerInfo { Inheritance = { Color = true } };
+            var folder3 = new ContainerInfo { Inheritance = { Color = true } };
+            var connection = new ConnectionInfo { Inheritance = { Color = true } };
+            _rootNode.AddChild(folder1);
+            folder1.AddChild(folder2);
+            folder2.AddChild(folder3);
+            folder3.AddChild(connection);
+            Assert.That(connection.Color, Is.EqualTo(folder1.Color));
+        }
     }
 }
