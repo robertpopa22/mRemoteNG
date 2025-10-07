@@ -51,6 +51,10 @@ namespace mRemoteNG.Connection
         public bool Panel { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Display), 2),
+         LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.Color)),
+         LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionColor)),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool Color { get; set; }
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.TabColor)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionTabColor)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

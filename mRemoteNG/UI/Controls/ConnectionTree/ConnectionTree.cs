@@ -166,6 +166,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             ModelDropped += _dragAndDropHandler.HandleEvent_ModelDropped;
             BeforeLabelEdit += OnBeforeLabelEdit;
             AfterLabelEdit += OnAfterLabelEdit;
+            FormatCell += ConnectionTree_FormatCell;
         }
 
         /// <summary>
@@ -510,6 +511,27 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
             _nodeInEditMode = true;
             _contextMenu.DisableShortcutKeys();
+        }
+
+        private void ConnectionTree_FormatCell(object sender, FormatCellEventArgs e)
+        {
+            if (e.Model is not ConnectionInfo connectionInfo)
+                return;
+
+            string colorString = connectionInfo.Color;
+            if (string.IsNullOrEmpty(colorString))
+                return;
+
+            try
+            {
+                System.Drawing.ColorConverter converter = new();
+                System.Drawing.Color color = (System.Drawing.Color)converter.ConvertFromString(colorString);
+                e.SubItem.ForeColor = color;
+            }
+            catch
+            {
+                // If color parsing fails, just ignore and use default color
+            }
         }
 
         private void OnAfterLabelEdit(object sender, LabelEditEventArgs e)

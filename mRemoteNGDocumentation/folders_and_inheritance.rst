@@ -57,3 +57,22 @@ Only the Name and Hostname/IP properties are left over,
 everything else will be inherited from the parent folder.
 Of course you can also only let some of the properties be inherited.
 Just play around with this a bit and you'll get the hang of it.
+
+Color Property
+==============
+You can set a color for each connection or folder in the connections list.
+This makes things clearer when you have many connections.
+
+To set a color:
+
+1. Select a connection or folder in the connections tree
+2. In the properties panel, find the **Color** property under the Display category
+3. Click on the color value and select a color from the color picker
+
+When you set a color on a folder, all connections under that folder can inherit the same color
+if their Color inheritance is enabled. This provides a visual way to group and identify
+related connections in the tree view.
+
+.. note::
+   The Color property can be inherited just like other properties. Enable inheritance
+   in the inheritance view to have connections automatically use their parent folder's color.

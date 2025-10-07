@@ -610,6 +610,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        internal static string Color {
+            get {
+                return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot start Port Scan, incorrect IP format!.
         /// </summary>
         internal static string CannotStartPortScan {
@@ -3771,6 +3780,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string PropertyDescriptionCacheBitmaps {
             get {
                 return ResourceManager.GetString("PropertyDescriptionCacheBitmaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sets the color for the connection or folder in the connections tree. Connections inherit this color from their parent folder..
+        /// </summary>
+        internal static string PropertyDescriptionColor {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionColor", resourceCulture);
             }
         }
         
