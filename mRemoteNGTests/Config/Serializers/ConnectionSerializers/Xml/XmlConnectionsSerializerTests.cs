@@ -35,8 +35,7 @@ public class XmlConnectionsSerializerTests
     public void ChildNestingSerializedCorrectly()
     {
         var serializedConnections = _serializer.Serialize(_connectionTreeModel);
-        var xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(serializedConnections);
+        var xmlDoc = SecureXmlHelper.LoadXmlFromString(serializedConnections);
         var nodeCon4 = xmlDoc.DocumentElement?.SelectSingleNode("Node[@Name='folder2']/Node[@Name='folder3']/Node[@Name='con4']");
         Assert.That(nodeCon4, Is.Not.Null);
     }
@@ -46,8 +45,7 @@ public class XmlConnectionsSerializerTests
     {
         var connectionInfo = new ConnectionInfo { Name = "myConnection" };
         var serializedConnections = _serializer.Serialize(connectionInfo);
-        var xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(serializedConnections);
+        var xmlDoc = SecureXmlHelper.LoadXmlFromString(serializedConnections);
         var connectionNode = xmlDoc.DocumentElement?.SelectSingleNode($"Node[@Name='{connectionInfo.Name}']");
         Assert.That(connectionNode, Is.Not.Null);
     }
