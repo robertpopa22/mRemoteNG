@@ -61,6 +61,10 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                     if (host.Vnc)
                         finalProtocol = ProtocolType.VNC;
                     break;
+                case ProtocolType.ARD:
+                    if (host.Vnc)
+                        finalProtocol = ProtocolType.ARD;
+                    break;
                 default:
                     protocolValid = false;
                     break;
