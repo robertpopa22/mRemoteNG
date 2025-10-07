@@ -45,5 +45,15 @@ namespace mRemoteNGTests.UI.Forms
             cancelButton.PerformClick();
             Assert.That(eventFired, Is.True);
         }
+
+        [Test]
+        public void PasswordFieldHasAutofocus()
+        {
+            // Find the password textbox control
+            TextBox passwordTextBox = _passwordForm.FindControl<TextBox>("txtPassword");
+            
+            // Verify that the password field has focus when the form is loaded
+            Assert.That(passwordTextBox.Focused, Is.True, "Password field should have autofocus when form loads");
+        }
     }
 }

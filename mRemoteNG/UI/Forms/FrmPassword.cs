@@ -61,9 +61,14 @@ namespace mRemoteNG.UI.Forms
             pbLock.Image = display.ScaleImage(pbLock.Image);
             Height = tableLayoutPanel1.Height;
 
-            if (NewPasswordMode) return;
+            if (NewPasswordMode)
+            {
+                txtPassword.Focus();
+                return;
+            }
             lblVerify.Visible = false;
             txtVerify.Visible = false;
+            txtPassword.Focus();
         }
 
         private void PasswordForm_FormClosed(object sender, FormClosedEventArgs e)
