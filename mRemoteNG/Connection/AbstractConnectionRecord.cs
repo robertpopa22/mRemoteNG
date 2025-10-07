@@ -158,7 +158,7 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.TabColor)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionTabColor)),
-         TypeConverter(typeof(ColorConverter))]
+         TypeConverter(typeof(MiscTools.TabColorConverter))]
         public virtual string TabColor
         {
             get => GetPropertyValue("TabColor", _tabColor);
