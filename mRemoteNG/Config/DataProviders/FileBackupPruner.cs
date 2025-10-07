@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using mRemoteNG.Tools;
 
 namespace mRemoteNG.Config.DataProviders
 {
@@ -7,6 +8,8 @@ namespace mRemoteNG.Config.DataProviders
     {
         public void PruneBackupFiles(string filePath, int maxBackupsToKeep)
         {
+            PathValidator.ValidatePathOrThrow(filePath, nameof(filePath));
+
             string fileName = Path.GetFileName(filePath);
             string directoryName = Path.GetDirectoryName(filePath);
 

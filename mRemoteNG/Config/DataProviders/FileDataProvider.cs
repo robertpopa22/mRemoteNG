@@ -2,14 +2,31 @@
 using System.IO;
 using System.Runtime.Versioning;
 using mRemoteNG.App;
+using mRemoteNG.Tools;
 
 namespace mRemoteNG.Config.DataProviders
 {
     [SupportedOSPlatform("windows")]
-    public class FileDataProvider(string filePath) : IDataProvider<string>
+    public class FileDataProvider : IDataProvider<string>
     {
+        private string _filePath;
+
         [SupportedOSPlatform("windows")]
-        public string FilePath { get; set; } = filePath;
+        public string FilePath
+        {
+            get => _filePath;
+            set
+            {
+                PathValidator.ValidatePathOrThrow(value, nameof(FilePath));
+                _filePath = value;
+            }
+        }
+
+        public FileDataProvider(string filePath)
+        {
+            PathValidator.ValidatePathOrThrow(filePath, nameof(filePath));
+            _filePath = filePath;
+        }
 
         public virtual string Load()
         {
@@ -54,6 +71,7 @@ namespace mRemoteNG.Config.DataProviders
         {
             try
             {
+                PathValidator.ValidatePathOrThrow(newPath, nameof(newPath));
                 File.Move(FilePath, newPath);
                 FilePath = newPath;
             }

@@ -4,6 +4,7 @@ using System.Runtime.Versioning;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.Tools;
 
 namespace mRemoteNG.Config.DataProviders
 {
@@ -17,12 +18,13 @@ namespace mRemoteNG.Config.DataProviders
                 if (WeDontNeedToBackup(fileName))
                     return;
 
+                PathValidator.ValidatePathOrThrow(fileName, nameof(fileName));
+
                 string backupFileName =
                     string.Format(Properties.OptionsBackupPage.Default.BackupFileNameFormat, fileName, DateTime.Now);
-                if (fileName == null || fileName.Contains("../") || fileName.Contains(@"..\"))
-                    throw new ArgumentException("Invalid file path");
-                if (backupFileName == null || backupFileName.Contains("../") || backupFileName.Contains(@"..\"))
-                    throw new ArgumentException("Invalid file path");
+                
+                PathValidator.ValidatePathOrThrow(backupFileName, nameof(backupFileName));
+                
                 File.Copy(fileName, backupFileName);
             }
             catch (Exception ex)
