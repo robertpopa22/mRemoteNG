@@ -79,13 +79,13 @@ For a detailed feature list and general usage support, refer to the [Documentati
 
 #### Source package
 
-This contains the source code from which mRemoteNG is build.
+This contains the source code from which mRemoteNG is built.
 You will need to compile it yourself using Visual Studio.
 
 ### Minimum Requirements
 
-* [Microsoft .NET Desktop Runtime 9.0](https://dotnet.microsoft.com/download/dotnet/6.0)
-* [Microsoft Visual C++ Redistributable x86 (note: use 32-bit, required until #2870 is resolved)](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version)
+* [Microsoft .NET Desktop Runtime 9.0](https://dotnet.microsoft.com/download/dotnet/9.0)
+* [Microsoft Visual C++ 2015-2022 Redistributable x64](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) - [download latest](https://aka.ms/vs/17/release/vc_redist.x64.exe) (note: use x64 installer also in ARM environments as the installer contains both; ~32-bit version required until #2870 is resolved~)
 * Microsoft Terminal Service Client 6.0 or later (needed if you use RDP with mstscax.dll and/or msrdp.ocx to be registered)
 
 ### Download
