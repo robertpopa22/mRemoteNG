@@ -17,7 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - #2734: fix native build for Windows-x64
 
 ### Added
- 
+
+- #2212: Add 1Password integration
 - #2865: Add configurable connection tab colors to distinguish between different environments
 - #2864: Add Color property to connections and folders with inheritance support
 - #2863: Add ARD (Apple Remote Desktop) protocol support for macOS connections
