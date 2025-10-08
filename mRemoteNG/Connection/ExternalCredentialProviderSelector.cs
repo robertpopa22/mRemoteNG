@@ -12,7 +12,9 @@ namespace mRemoteNG.Connection
         DelineaSecretServer = 1,
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ECPClickstudiosPasswordstate))]
-        ClickstudiosPasswordState = 2
+        ClickstudiosPasswordState = 2,
 
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.ECPOnePassword))]
+        OnePassword = 3,
     }
 }

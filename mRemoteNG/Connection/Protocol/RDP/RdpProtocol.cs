@@ -470,6 +470,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
                             }
                         }
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword)
+                        {
+                            try
+                            {
+                                string RDGUserViaAPI = InterfaceControl.Info.RDGatewayUserViaAPI;
+                                ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{RDGUserViaAPI}", out gwu, out gwp, out gwd, out pkey);
+                            }
+                            catch (Exception ex)
+                            {
+                                Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
+                            }
+                        }
 
 
                         if (connectionInfo.RDGatewayUseConnectionCredentials != RDGatewayUseConnectionCredentials.AccessToken)
@@ -568,6 +580,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     catch (Exception ex)
                     {
                         Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
+                    }
+                }
+                else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword)
+                {
+                    try
+                    {
+                        ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{userViaApi}", out userName, out password, out domain, out pkey);
+                    }
+                    catch (Exception ex)
+                    {
+                        Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
                     }
                 }
 
