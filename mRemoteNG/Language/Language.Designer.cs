@@ -1871,6 +1871,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1Password.
+        /// </summary>
+        internal static string ECPOnePassword {
+            get {
+                return ResourceManager.GetString("ECPOnePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to continue with no password?.
         /// </summary>
         internal static string EmptyPasswordContinue {

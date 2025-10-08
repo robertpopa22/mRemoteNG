@@ -2308,6 +2308,9 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="ECPClickstudiosPasswordstate" xml:space="preserve">
     <value>Clickstudios Passwordstate</value>
   </data>
+  <data name="ECPOnePassword" xml:space="preserve">
+    <value>1Password</value>
+  </data>
   <data name="ECPNone" xml:space="preserve">
     <value>None</value>
   </data>

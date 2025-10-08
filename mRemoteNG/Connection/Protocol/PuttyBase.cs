@@ -151,6 +151,16 @@ namespace mRemoteNG.Connection.Protocol
                                 Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
                             }
                         }
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+                            try
+                            {
+                                ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out domain, out privatekey);
+                            }
+                            catch (Exception ex)
+                            {
+                                Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
+                            }
+                        }
 
 
                         if (string.IsNullOrEmpty(username))
