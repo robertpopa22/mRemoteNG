@@ -4,6 +4,7 @@ using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using LiteDB;
+using mRemoteNG.Resources.Language;
 
 namespace mRemoteNG.Config.DatabaseConnectors
 {
@@ -111,19 +112,19 @@ namespace mRemoteNG.Config.DatabaseConnectors
             catch (PlatformNotSupportedException ex)
             {
                 // Log or handle architecture mismatch
-                Console.WriteLine($"Platform error: {ex.Message}");
+                Console.WriteLine(string.Format(Language.ErrorPlatformNotSupported, ex.Message));
                 return ConnectionTestResult.UnknownError;
             }
             catch (DllNotFoundException ex)
             {
                 // Handle missing native dependencies
-                Console.WriteLine($"Missing dependency: {ex.Message}");
+                Console.WriteLine(string.Format(Language.ErrorMissingDependency, ex.Message));
                 return ConnectionTestResult.UnknownError;
             }
             catch (BadImageFormatException ex)
             {
                 // Handle architecture mismatch in native libraries
-                Console.WriteLine($"Architecture mismatch: {ex.Message}");
+                Console.WriteLine(string.Format(Language.ErrorArchitectureMismatch, ex.Message));
                 return ConnectionTestResult.UnknownError;
             }
             catch (SqlException sqlException)
