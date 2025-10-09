@@ -3,9 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.App.Info;
+using mRemoteNG.Config;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Container;
+using mRemoteNG.Properties;
 using mRemoteNG.Tools;
 using mRemoteNG.Tools.Clipboard;
 using mRemoteNG.Tree;
@@ -13,6 +16,7 @@ using mRemoteNG.Tree.Root;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Security;
+using mRemoteNG.UI.TaskDialog;
 
 // ReSharper disable UnusedParameter.Local
 
@@ -794,6 +798,27 @@ namespace mRemoteNG.UI.Controls
             try
             {
                 if (connectionInfo == null) return;
+                
+                // Check if confirmation is needed based on settings
+                if (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All)
+                {
+                    string confirmMessage = string.Format(Language.ConfirmDisconnectConnection, connectionInfo.Name);
+                    DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName,
+                                                        confirmMessage, "", "", "",
+                                                        Language.CheckboxDoNotShowThisMessageAgain,
+                                                        ETaskDialogButtons.YesNo, ESysIcons.Question,
+                                                        ESysIcons.Question);
+                    if (CTaskDialog.VerificationChecked)
+                    {
+                        Settings.Default.ConfirmCloseConnection--;
+                    }
+
+                    if (result == DialogResult.No)
+                    {
+                        return; // User cancelled the disconnect
+                    }
+                }
+                
                 ContainerInfo nodeAsContainer = connectionInfo as ContainerInfo;
                 if (nodeAsContainer != null)
                 {

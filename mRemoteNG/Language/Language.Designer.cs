@@ -1042,6 +1042,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to disconnect &quot;{0}&quot;?.
+        /// </summary>
+        internal static string ConfirmDisconnectConnection {
+            get {
+                return ResourceManager.GetString("ConfirmDisconnectConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete the credential record, {0}?.
         /// </summary>
         internal static string ConfirmDeleteCredentialRecord {
