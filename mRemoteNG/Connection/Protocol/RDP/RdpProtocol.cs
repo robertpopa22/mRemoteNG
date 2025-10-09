@@ -477,9 +477,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 string RDGUserViaAPI = InterfaceControl.Info.RDGatewayUserViaAPI;
                                 ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{RDGUserViaAPI}", out gwu, out gwp, out gwd, out pkey);
                             }
-                            catch (Exception ex)
+                            catch (ExternalConnectors.OP.OnePasswordCliException ex)
                             {
-                                Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
 
@@ -588,9 +589,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     {
                         ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{userViaApi}", out userName, out password, out domain, out pkey);
                     }
-                    catch (Exception ex)
+                    catch (ExternalConnectors.OP.OnePasswordCliException ex)
                     {
-                        Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                     }
                 }
 

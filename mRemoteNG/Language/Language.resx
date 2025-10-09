@@ -2311,6 +2311,12 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="ECPOnePassword" xml:space="preserve">
     <value>1Password</value>
   </data>
+  <data name="ECPOnePasswordReadFailed" xml:space="preserve">
+    <value>1Password read failed</value>
+  </data>
+  <data name="ECPOnePasswordCommandLine" xml:space="preserve">
+    <value>1Password command line</value>
+  </data>
   <data name="ECPNone" xml:space="preserve">
     <value>None</value>
   </data>

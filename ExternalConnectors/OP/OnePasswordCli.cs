@@ -5,11 +5,9 @@ using System.Web;
 
 namespace ExternalConnectors.OP;
 
-public class OnePasswordCliException : Exception
+public class OnePasswordCliException(string message, string arguments) : Exception(message)
 {
-	public OnePasswordCliException(string message) : base(message)
-	{
-	}
+	public string Arguments { get; set; } = arguments;
 }
 
 public class OnePasswordCli
@@ -68,11 +66,13 @@ public class OnePasswordCli
 			password = string.Empty;
 			privateKey = string.Empty;
 			domain = string.Empty;
-			throw new OnePasswordCliException($"Error running op item get: {error}");
+			throw new OnePasswordCliException($"Error running op item get: {error}",
+				OnePasswordCliExecutable + " " + string.Join(' ', args));
 		}
 
 		var items = JsonSerializer.Deserialize<VaultItem>(output, JsonSerializerOptions) ??
-		            throw new OnePasswordCliException("1Password returned null");
+		            throw new OnePasswordCliException("1Password returned null",
+			            OnePasswordCliExecutable + " " + string.Join(' ', args));
 		username = items.Fields?.FirstOrDefault(x => x.Purpose == UserNamePurpose)?.Value ?? string.Empty;
 		password = items.Fields?.FirstOrDefault(x => x.Purpose == PasswordPurpose)?.Value ?? string.Empty;
 		privateKey = items.Fields?.FirstOrDefault(x => x.Type == SshKeyType)?.Value ?? string.Empty;

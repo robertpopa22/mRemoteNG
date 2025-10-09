@@ -156,9 +156,10 @@ namespace mRemoteNG.Connection.Protocol
                             {
                                 ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out domain, out privatekey);
                             }
-                            catch (Exception ex)
+                            catch (ExternalConnectors.OP.OnePasswordCliException ex)
                             {
-                                Event_ErrorOccured(this, "1Password Interface Error: " + ex.Message, 0);
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
+                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
 
