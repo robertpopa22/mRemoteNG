@@ -1940,6 +1940,15 @@ mRemoteNG will now quit and begin with the installation.</value>
   <data name="DatabaseNotAvailable" xml:space="preserve">
     <value>Database '{0}' not available.</value>
   </data>
+  <data name="ErrorPlatformNotSupported" xml:space="preserve">
+    <value>Platform error: {0}</value>
+  </data>
+  <data name="ErrorMissingDependency" xml:space="preserve">
+    <value>Missing dependency: {0}</value>
+  </data>
+  <data name="ErrorArchitectureMismatch" xml:space="preserve">
+    <value>Architecture mismatch: {0}</value>
+  </data>
   <data name="SaveConnectionsAfterEveryEdit" xml:space="preserve">
     <value>Save connections after every edit</value>
   </data>
