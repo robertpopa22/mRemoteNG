@@ -1,4 +1,5 @@
 ﻿using System;
+using mRemoteNG.Config;
 using mRemoteNG.Config.Connections;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
@@ -14,9 +15,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private OptRegistryConnectionsPage pageRegSettingsInstance;
         private readonly FrmMain _frmMain = FrmMain.Default;
 
-        // never used, added: Jun 15, 2024
-        //private List<DropdownList> _connectionWarning;  
-
         #endregion
 
         public ConnectionsPage()
@@ -29,10 +27,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
              * Comments added: Jun 15, 2024 
              * These settings are not used on the settings page. It doesn't matter if they are set or not; nothing happens:
              * 1) chkSaveConnectionsAfterEveryEdit: never used
-             * 2) pnlConfirmCloseConnection: seems to be unfinished. _connectionWarning or other corresponding settings are not available.
             */
             chkSaveConnectionsAfterEveryEdit.Visible = false; // Temporary hide control, never used, added: Jun 15, 2024 
-            pnlConfirmCloseConnection.Visible = false; // Temporary hide control, never used, added: Jun 15, 2024 
         }
 
         public override string PageName
@@ -45,23 +41,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             base.ApplyLanguage();
 
-            /* 
-             * Comments added: Jun 15, 2024
-             * 
-             * Seems to be unfinished or old
-             */
-            /*_connectionWarning = new List<DropdownList>
-            {
-                { new DropdownList((int)ConfirmCloseEnum.Never, Language.RadioCloseWarnMultiple)},
-                { new DropdownList((int)ConfirmCloseEnum.Exit, Language.RadioCloseWarnExit)},
-                { new DropdownList((int)ConfirmCloseEnum.Multiple, Language.RadioCloseWarnMultiple)},
-                { new DropdownList((int)ConfirmCloseEnum.All, Language._CloseWarnAll)}
-            };*/
-
-            //comboBoxConnectionWarning.DataSource = _connectionWarning;
-            //comboBoxConnectionWarning.DisplayMember = "DisplayString";
-            //comboBoxConnectionWarning.ValueMember = "Index";
-
             chkSingleClickOnConnectionOpensIt.Text = Language.SingleClickOnConnectionOpensIt;
             chkSingleClickOnOpenedConnectionSwitchesToIt.Text = Language.SingleClickOnOpenConnectionSwitchesToIt;
             chkConnectionTreeTrackActiveConnection.Text = Language.TrackActiveConnectionInConnectionTree;
@@ -73,7 +52,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblRdpReconnectionCount.Text = Language.RdpReconnectCount;
             lblRDPConTimeout.Text = Language.RdpOverallConnectionTimeout;
             lblAutoSave1.Text = Language.AutoSaveEvery;
-            //ngLabel1.Text = Language.strLabelClosingConnections;
+
+            lblClosingConnections.Text = Language.ClosingConnections;
+            radCloseWarnAll.Text = Language._CloseWarnAll;
+            radCloseWarnMultiple.Text = Language.RadioCloseWarnMultiple;
+            radCloseWarnExit.Text = Language.RadioCloseWarnExit;
+            radCloseWarnNever.Text = Language.RadioCloseWarnNever;
 
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
         }
@@ -93,7 +77,25 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             numRDPConTimeout.Value = Convert.ToDecimal(Settings.Default.ConRDPOverallConnectionTimeout);
             numAutoSave.Value = Convert.ToDecimal(Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes);
 
-            //comboBoxConnectionWarning.SelectedValue = Settings.Default.ConfirmCloseConnection;
+            // Load ConfirmCloseConnection setting
+            switch (Settings.Default.ConfirmCloseConnection)
+            {
+                case (int)ConfirmCloseEnum.Never:
+                    radCloseWarnNever.Checked = true;
+                    break;
+                case (int)ConfirmCloseEnum.Exit:
+                    radCloseWarnExit.Checked = true;
+                    break;
+                case (int)ConfirmCloseEnum.Multiple:
+                    radCloseWarnMultiple.Checked = true;
+                    break;
+                case (int)ConfirmCloseEnum.All:
+                    radCloseWarnAll.Checked = true;
+                    break;
+                default:
+                    radCloseWarnAll.Checked = true;
+                    break;
+            }
 
             if (Properties.OptionsBackupPage.Default.SaveConnectionsFrequency == (int)ConnectionsBackupFrequencyEnum.Unassigned)
             {
@@ -136,7 +138,23 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 _frmMain.tmrAutoSave.Enabled = false;
             }
 
-            //Settings.Default.ConfirmCloseConnection = (int)comboBoxConnectionWarning.SelectedValue;
+            // Save ConfirmCloseConnection setting
+            if (radCloseWarnNever.Checked)
+            {
+                Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+            }
+            else if (radCloseWarnExit.Checked)
+            {
+                Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Exit;
+            }
+            else if (radCloseWarnMultiple.Checked)
+            {
+                Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Multiple;
+            }
+            else if (radCloseWarnAll.Checked)
+            {
+                Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.All;
+            }
         }
 
         public override void LoadRegistrySettings()
