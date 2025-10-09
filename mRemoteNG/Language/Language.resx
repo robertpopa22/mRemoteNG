@@ -348,6 +348,9 @@
   <data name="ConfirmCloseConnectionPanelMainInstruction" xml:space="preserve">
     <value>Are you sure you want to close the panel, "{0}"? Any connections that it contains will also be closed.</value>
   </data>
+  <data name="ConfirmDisconnectConnection" xml:space="preserve">
+    <value>Are you sure you want to disconnect "{0}"?</value>
+  </data>
   <data name="ConfirmDeleteExternalTool" xml:space="preserve">
     <value>Are you sure you want to delete the external tool, "{0}"?</value>
   </data>
