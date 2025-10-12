@@ -77,13 +77,20 @@ namespace mRemoteNG.UI.Window
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Detach the FrmOptions form so it can be reused
-            if (_optionsForm != null)
-            {
-                _optionsForm.VisibleChanged -= OptionsForm_VisibleChanged;
-                Controls.Remove(_optionsForm);
-            }
+            // With HideOnClose = true, we don't dispose the window
+            // so we keep the embedded form in Controls for reuse
             base.OnFormClosing(e);
+        }
+
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            
+            // When the window becomes visible, ensure the embedded form is also shown
+            if (Visible && _optionsForm != null && !_optionsForm.Visible)
+            {
+                _optionsForm.Show();
+            }
         }
 
         public void SetActivatedPage(string pageName)
@@ -100,6 +107,7 @@ namespace mRemoteNG.UI.Window
             // OptionsWindow
             // 
             ClientSize = new System.Drawing.Size(800, 600);
+            HideOnClose = true;
             Name = "OptionsWindow";
             Text = Language.Options;
             TabText = Language.Options;
