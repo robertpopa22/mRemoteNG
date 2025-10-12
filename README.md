@@ -1,3 +1,18 @@
+<p align="Left">
+	Developing mRemoteNG to its fullest potential is my personal priority.<br>
+While the project remains non-commercial, it does come with ongoing costs — including VPS hosting for testing, AI tools, domain fees, and more. <br> If you find value in mRemoteNG and want to support its future, even a small donation from our community can make a huge difference.<br>
+Your support helps me keep the project secure, modern, and accessible for everyone who relies on it — and brings us closer to a brighter, more collaborative future.<br><br>
+Consider donating — every contribution counts!
+	<br><br>
+	<a href="https://www.paypal.com/paypalme/mremoteng">
+    	<img height='36' alt="PayPal" style='border:0px;height:36px;' src="https://img.shields.io/badge/%24-PayPal-blue.svg?label=Donate&logo=PayPal&style=flat-square">
+	</a><br>
+	<a href='https://ko-fi.com/Q5Q41I7JS' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+  </a>
+</p>
+
+---
+
 <p align="center">
   <img width="450" src="https://github.com/mRemoteNG/mRemoteNG/blob/mRemoteNGProjectFiles/Header_dark.png">
 </p>
@@ -20,11 +35,6 @@
   <a href="https://app.element.io/#/room/#mremoteng:matrix.org">
     <img alt="Element" src="https://img.shields.io/matrix/mremoteng:matrix.org?label=Join%20to%20chat%20about%20mRemoteNG&logo=element&style=social&link=https://app.element.io/#/room/#mremoteng:matrix.org">
   </a>  
-</p>
-<p align="center">
-  <a href="https://www.paypal.com/paypalme/mremoteng">
-    <img alt="PayPal" src="https://img.shields.io/badge/%24-PayPal-blue.svg?label=Donate&logo=PayPal&style=flat-square">
-  </a>
 </p>
 
 <p align="center">
