@@ -1,7 +1,9 @@
 # Contributors
 
 ## Current mRemoteNG dev team
+[Dimitrij Gorodeckij](https://github.com/Kvarkas)
 
+## Past Contributors
 [David Sparer](http://github.com/sparerd)  
 [Sean Kaim](http://github.com/kmscode)  
 [Faryan Rezagholi](http://github.com/farosch)  
@@ -27,8 +29,6 @@ Tony Lambert
 [Cristian Abelleira](http://github.com/CrAbelleira)  
 [MitchellBot](http://github.com/MitchellBot)  
 [Filippo Ferrazini](http://github.com/Filippo125)
-
-## Past Contributors
 
 Felix Deimel - mRemote original developer  
 Riley McArdle - mRemoteNG original developer  
