@@ -1995,4 +1995,8 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   <data name="SaveConsOnExit" xml:space="preserve">
     <value>Сохранять подключения при выходе</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

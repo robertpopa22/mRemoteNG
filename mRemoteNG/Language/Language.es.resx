@@ -225,9 +225,6 @@
   <data name="Display" xml:space="preserve">
     <value>Pantalla</value>
   </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>Puerta de Enlace</value>
-  </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>Varios</value>
   </data>
@@ -1330,9 +1327,6 @@ Mensaje:
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>¿Quiere guardar el actual archivo de conexiones antes de cargar otro?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>Guardar conexiones al salir</value>
-  </data>
   <data name="Screen" xml:space="preserve">
     <value>Pantalla</value>
   </data>
@@ -1540,5 +1534,15 @@ mRemoteNG ahora se cerrará y comenzará la instalación.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sí</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Puerta de Enlace</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>Guardar conexiones al salir</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

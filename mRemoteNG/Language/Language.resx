@@ -2453,4 +2453,7 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="WarnMeOnlyWhenClosingMultipleConnections" xml:space="preserve">
     <value>WarnMeOnlyWhenClosingMultipleConnections</value>
   </data>
+  <data name="VaultOpenbao" xml:space="preserve">
+    <value>Vault or Openbao</value>
+  </data>
 </root>

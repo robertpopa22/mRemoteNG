@@ -195,6 +195,9 @@
   <data name="Inheritance" xml:space="preserve">
     <value>Arv</value>
   </data>
+  <data name="_Launch" xml:space="preserve">
+    <value>&amp;Start</value>
+  </data>
   <data name="ButtonLaunchPutty" xml:space="preserve">
     <value>Start PuTTY</value>
   </data>
@@ -224,9 +227,6 @@
   </data>
   <data name="Display" xml:space="preserve">
     <value>Skjerm</value>
-  </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>Gateway</value>
   </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>Diverse</value>
@@ -294,8 +294,17 @@
   <data name="Message" xml:space="preserve">
     <value>Melding</value>
   </data>
+  <data name="CommandExitProgram" xml:space="preserve">
+    <value>Avslu&amp;tt {0}</value>
+  </data>
   <data name="CommandLineArgsCouldNotBeParsed" xml:space="preserve">
     <value>Kunne ikke tolke kommandolinjeargumenter!</value>
+  </data>
+  <data name="CommandOpenConnectionFile" xml:space="preserve">
+    <value>Åpne tilkoblingsfil</value>
+  </data>
+  <data name="_TryAgain" xml:space="preserve">
+    <value>Prøv igjen</value>
   </data>
   <data name="CompatibilityLenovoAutoScrollUtilityDetected" xml:space="preserve">
     <value>{0} har oppdaget at Lenovo Auto Scroll-verktøyet kjører på dette systemet. Dette verktøyet er kjent for å forårsake problemer med {0}. Det anbefales at du deaktiverer eller avinstallerer dette programmet.</value>
@@ -394,6 +403,9 @@ Starter med ny tilkoblingsfil.</value>
   <data name="ConnectionsFileCouldNotSaveAs" xml:space="preserve">
     <value>Kunne ikke lagre tilkoblingsfilen som "{0}"!</value>
   </data>
+  <data name="ConnectNoCredentials" xml:space="preserve">
+    <value>Koble til uten legitimasjon</value>
+  </data>
   <data name="ConnectToConsoleSession" xml:space="preserve">
     <value>Koble til konsolløkt</value>
   </data>
@@ -417,6 +429,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="Detect" xml:space="preserve">
     <value>Oppdag</value>
+  </data>
+  <data name="DontConnectToConsoleSession" xml:space="preserve">
+    <value>Ikke koble til konsollsesjon</value>
   </data>
   <data name="DontConnectWhenAuthFails" xml:space="preserve">
     <value>Ikke koble til dersom godkjenning mislykkes</value>
@@ -457,11 +472,22 @@ Starter med ny tilkoblingsfil.</value>
   <data name="ErrorConnectionListSaveFailed" xml:space="preserve">
     <value>Tilkoblingslisten kan ikke lagres.</value>
   </data>
+  <data name="ErrorCouldNotLaunchPutty" xml:space="preserve">
+    <value>PuTTY kunne ikke startes.</value>
+  </data>
   <data name="ErrorDecryptionFailed" xml:space="preserve">
     <value>Dekryptering mislyktes. {0}</value>
   </data>
   <data name="ErrorEncryptionFailed" xml:space="preserve">
     <value>Kryptering mislyktes. {0}</value>
+  </data>
+  <data name="ErrorFipsPolicyIncompatible" xml:space="preserve">
+    <value>Sikkerhetsinnstillingen "Systemkryptografi: Bruk FIPS-kompatible algoritmer til kryptering, hash-koding og signering" i Windows er aktivert.
+
+Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for mer informasjon.
+
+{0} er ikke fullt ut FIPS-kompatibel. Klikk OK for å fortsette, eller Avbryt for å avslutte.
+</value>
   </data>
   <data name="Errors" xml:space="preserve">
     <value>Feil</value>
@@ -481,8 +507,38 @@ Starter med ny tilkoblingsfil.</value>
   <data name="Export" xml:space="preserve">
     <value>Eksporter</value>
   </data>
+  <data name="ExportEverything" xml:space="preserve">
+    <value>Eksporter alt</value>
+  </data>
+  <data name="ExportFile" xml:space="preserve">
+    <value>Eksporter fil</value>
+  </data>
+  <data name="ExportItems" xml:space="preserve">
+    <value>Eksporter elementer</value>
+  </data>
+  <data name="ExportProperties" xml:space="preserve">
+    <value>Eksporter egenskaper</value>
+  </data>
+  <data name="ExportSelectedConnection" xml:space="preserve">
+    <value>Eksporter valgt tilkobling</value>
+  </data>
+  <data name="ExportSelectedFolder" xml:space="preserve">
+    <value>Eksporter valgt mappe</value>
+  </data>
+  <data name="_ExportToFile" xml:space="preserve">
+    <value>&amp;Eksporter til fil...</value>
+  </data>
+  <data name="ExternalToolDefaultName" xml:space="preserve">
+    <value>Nytt eksternt verktøy</value>
+  </data>
+  <data name="FileFormat" xml:space="preserve">
+    <value>&amp;Filformat:</value>
+  </data>
   <data name="FilterAll" xml:space="preserve">
     <value>Alle filer (*.*)</value>
+  </data>
+  <data name="FilterAllImportable" xml:space="preserve">
+    <value>Alle filer som kan importeres</value>
   </data>
   <data name="FilterApplication" xml:space="preserve">
     <value>Programfiler (*.exe)</value>
@@ -492,6 +548,12 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="FiltermRemoteXML" xml:space="preserve">
     <value>mRemote XML-filer (*.xml)</value>
+  </data>
+  <data name="FilterPuttyConnectionManager" xml:space="preserve">
+    <value>PuTTY Connection Manager-filer</value>
+  </data>
+  <data name="FilterRdgFiles" xml:space="preserve">
+    <value>Remote Desktop Connection Manager-filer (*.rdg)</value>
   </data>
   <data name="FilterRDP" xml:space="preserve">
     <value>RDP-filer (*.rdp)</value>
@@ -543,6 +605,12 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="ImportAD" xml:space="preserve">
     <value>Importer fra Active Directory</value>
+  </data>
+  <data name="ImportFileFailedContent" xml:space="preserve">
+    <value>En feil har oppstått under import av filen "{0}".</value>
+  </data>
+  <data name="ImportFromFile" xml:space="preserve">
+    <value>Importer fra &amp;fil...</value>
   </data>
   <data name="ImportPortScan" xml:space="preserve">
     <value>Import fra Port Scan</value>
@@ -624,6 +692,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="LoadFromSqlFailed" xml:space="preserve">
     <value>Innlasting fra SQL mislyktes!</value>
+  </data>
+  <data name="LoadFromSqlFailedContent" xml:space="preserve">
+    <value>Tilkoblingsinformasjonen kunne ikke lastes fra SQL server.</value>
   </data>
   <data name="LoadFromXmlFailed" xml:space="preserve">
     <value>Innlasting fra XML mislyktes!</value>
@@ -838,8 +909,17 @@ Starter med ny tilkoblingsfil.</value>
   <data name="PasswordProtect" xml:space="preserve">
     <value>Passordbeskyttelse</value>
   </data>
+  <data name="PasswordStatusMustMatch" xml:space="preserve">
+    <value>Begge passordene må være like.</value>
+  </data>
+  <data name="PasswordStatusTooShort" xml:space="preserve">
+    <value>Passordet må være minst 3 tegn langt.</value>
+  </data>
   <data name="PleaseFillAllFields" xml:space="preserve">
     <value>Vennligst fyll inn alle felt</value>
+  </data>
+  <data name="PortScanComplete" xml:space="preserve">
+    <value>Portskanning ferdig.</value>
   </data>
   <data name="PortScanCouldNotLoadPanel" xml:space="preserve">
     <value>Kunne ikke laste inn portskanningpanelet!</value>
@@ -855,6 +935,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="PropertyDescriptionAuthenticationMode" xml:space="preserve">
     <value>Velg hvordan du ønsker å autentisere deg mot VNC-serveren.</value>
+  </data>
+  <data name="PropertyDescriptionAutomaticResize" xml:space="preserve">
+    <value>Velg om tilkoblingen skal endre størrelse når vinduet endrer størrelse eller fullskjermsmodus slås av eller på. Krever RDC 8.0 eller høyere.</value>
   </data>
   <data name="PropertyDescriptionCacheBitmaps" xml:space="preserve">
     <value>Velg om du vil bruke hurtigbufring av punktgrafikk eller ikke.</value>
@@ -897,6 +980,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="PropertyDescriptionIcon" xml:space="preserve">
     <value>Velg et ikon som skal vises når man er tilkoblet verten.</value>
+  </data>
+  <data name="PropertyDescriptionLoadBalanceInfo" xml:space="preserve">
+    <value>Angi informasjon for lastbalanseringsrutere for å velge den beste verten.</value>
   </data>
   <data name="PropertyDescriptionMACAddress" xml:space="preserve">
     <value>Angi MAC-adressen til den eksterne verten dersom du ønsker å bruke denne i et eksternt verktøy.</value>
@@ -946,11 +1032,17 @@ Starter med ny tilkoblingsfil.</value>
   <data name="PropertyDescriptionRedirectPrinters" xml:space="preserve">
     <value>Velg om lokale skrivere skal vises på den eksterne verten.</value>
   </data>
+  <data name="PropertyDescriptionRedirectClipboard" xml:space="preserve">
+    <value>Velg om utklippstavlen skal deles.</value>
+  </data>
   <data name="PropertyDescriptionRedirectSmartCards" xml:space="preserve">
     <value>Velg om lokale smartkort skal være tilgjengelig på den eksterne verten.</value>
   </data>
   <data name="PropertyDescriptionRedirectSounds" xml:space="preserve">
     <value>Velg hvordan ekstern lyd skal omadresseres.</value>
+  </data>
+  <data name="PropertyDescriptionRedirectAudioCapture" xml:space="preserve">
+    <value>Velg om standard lydinndataenhet på den eksterne maskinen skal omadresseres til denne maskinen.</value>
   </data>
   <data name="PropertyDescriptionRenderingEngine" xml:space="preserve">
     <value>Velg en av de tilgjengelige renderingsmotorene som skal brukes til å vise HTML.</value>
@@ -1003,6 +1095,9 @@ Starter med ny tilkoblingsfil.</value>
   <data name="AuthenticationMode" xml:space="preserve">
     <value>Godkjenningsmodus</value>
   </data>
+  <data name="AutomaticResize" xml:space="preserve">
+    <value>Automatisk størrelsesendring</value>
+  </data>
   <data name="CacheBitmaps" xml:space="preserve">
     <value>Hurtigbufring av punktgrafikk</value>
   </data>
@@ -1038,6 +1133,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="ExternalToolBefore" xml:space="preserve">
     <value>Eksternt verktøy før</value>
+  </data>
+  <data name="LoadBalanceInfo" xml:space="preserve">
+    <value>Lastbalanseringsinformasjon</value>
   </data>
   <data name="MacAddress" xml:space="preserve">
     <value>MAC-adresse</value>
@@ -1087,8 +1185,14 @@ Starter med ny tilkoblingsfil.</value>
   <data name="Printers" xml:space="preserve">
     <value>Skrivere</value>
   </data>
+  <data name="Clipboard" xml:space="preserve">
+    <value>Utklippstavle</value>
+  </data>
   <data name="Sounds" xml:space="preserve">
     <value>Lyder</value>
+  </data>
+  <data name="AudioCapture" xml:space="preserve">
+    <value>Lydopptak</value>
   </data>
   <data name="RenderingEngine" xml:space="preserve">
     <value>Renderingsmotor</value>
@@ -1355,9 +1459,6 @@ Starter med ny tilkoblingsfil.</value>
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>Vil du lagre den gjeldende tilkoblingsfilen før du laster inn en annen?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>Lagre tilkoblinger ved avslutning</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>Graphics Interchange Format File (.gif)|*.gif|Joint Photographic Experts Group File (.jpeg)|*.jpeg|Joint Photographic Experts Group File (.jpg)|*.jpg|Portable Network Graphics File (.png)|*.png</value>
   </data>
@@ -1469,6 +1570,9 @@ Starter med ny tilkoblingsfil.</value>
   <data name="TitlePassword" xml:space="preserve">
     <value>Passord</value>
   </data>
+  <data name="TitlePasswordWithName" xml:space="preserve">
+    <value>Passord for {0}</value>
+  </data>
   <data name="TitleSelectPanel" xml:space="preserve">
     <value>Velg panel</value>
   </data>
@@ -1480,6 +1584,9 @@ Starter med ny tilkoblingsfil.</value>
   </data>
   <data name="TryToIntegrate" xml:space="preserve">
     <value>Prøv å integrere</value>
+  </data>
+  <data name="ShowOnToolbar" xml:space="preserve">
+    <value>Vis på verktøylinjen</value>
   </data>
   <data name="UltraVncRepeater" xml:space="preserve">
     <value>Ultra VNC Repeater</value>
@@ -1520,6 +1627,9 @@ mRemoteNG vil nå avslutte og starte installasjonen.</value>
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Ukentlig</value>
+  </data>
+  <data name="UpdateGetChangeLogFailed" xml:space="preserve">
+    <value>Endringsloggen kunne ikke lastes ned.</value>
   </data>
   <data name="UseDifferentUsernameAndPassword" xml:space="preserve">
     <value>Bruk et annet brukernavn og/eller passord</value>
@@ -1571,122 +1681,6 @@ mRemoteNG vil nå avslutte og starte installasjonen.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
-  </data>
-  <data name="_Launch" xml:space="preserve">
-    <value>&amp;Start</value>
-  </data>
-  <data name="CommandExitProgram" xml:space="preserve">
-    <value>Avslu&amp;tt {0}</value>
-  </data>
-  <data name="CommandOpenConnectionFile" xml:space="preserve">
-    <value>Åpne tilkoblingsfil</value>
-  </data>
-  <data name="_TryAgain" xml:space="preserve">
-    <value>Prøv igjen</value>
-  </data>
-  <data name="ConnectNoCredentials" xml:space="preserve">
-    <value>Koble til uten legitimasjon</value>
-  </data>
-  <data name="DontConnectToConsoleSession" xml:space="preserve">
-    <value>Ikke koble til konsollsesjon</value>
-  </data>
-  <data name="ErrorCouldNotLaunchPutty" xml:space="preserve">
-    <value>PuTTY kunne ikke startes.</value>
-  </data>
-  <data name="ErrorFipsPolicyIncompatible" xml:space="preserve">
-    <value>Sikkerhetsinnstillingen "Systemkryptografi: Bruk FIPS-kompatible algoritmer til kryptering, hash-koding og signering" i Windows er aktivert.
-
-Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for mer informasjon.
-
-{0} er ikke fullt ut FIPS-kompatibel. Klikk OK for å fortsette, eller Avbryt for å avslutte.
-</value>
-  </data>
-  <data name="ExportEverything" xml:space="preserve">
-    <value>Eksporter alt</value>
-  </data>
-  <data name="ExportFile" xml:space="preserve">
-    <value>Eksporter fil</value>
-  </data>
-  <data name="ExportItems" xml:space="preserve">
-    <value>Eksporter elementer</value>
-  </data>
-  <data name="ExportProperties" xml:space="preserve">
-    <value>Eksporter egenskaper</value>
-  </data>
-  <data name="ExportSelectedConnection" xml:space="preserve">
-    <value>Eksporter valgt tilkobling</value>
-  </data>
-  <data name="ExportSelectedFolder" xml:space="preserve">
-    <value>Eksporter valgt mappe</value>
-  </data>
-  <data name="_ExportToFile" xml:space="preserve">
-    <value>&amp;Eksporter til fil...</value>
-  </data>
-  <data name="ExternalToolDefaultName" xml:space="preserve">
-    <value>Nytt eksternt verktøy</value>
-  </data>
-  <data name="FileFormat" xml:space="preserve">
-    <value>&amp;Filformat:</value>
-  </data>
-  <data name="FilterAllImportable" xml:space="preserve">
-    <value>Alle filer som kan importeres</value>
-  </data>
-  <data name="FilterPuttyConnectionManager" xml:space="preserve">
-    <value>PuTTY Connection Manager-filer</value>
-  </data>
-  <data name="FilterRdgFiles" xml:space="preserve">
-    <value>Remote Desktop Connection Manager-filer (*.rdg)</value>
-  </data>
-  <data name="ImportFileFailedContent" xml:space="preserve">
-    <value>En feil har oppstått under import av filen "{0}".</value>
-  </data>
-  <data name="ImportFromFile" xml:space="preserve">
-    <value>Importer fra &amp;fil...</value>
-  </data>
-  <data name="LoadFromSqlFailedContent" xml:space="preserve">
-    <value>Tilkoblingsinformasjonen kunne ikke lastes fra SQL server.</value>
-  </data>
-  <data name="PasswordStatusMustMatch" xml:space="preserve">
-    <value>Begge passordene må være like.</value>
-  </data>
-  <data name="PasswordStatusTooShort" xml:space="preserve">
-    <value>Passordet må være minst 3 tegn langt.</value>
-  </data>
-  <data name="PortScanComplete" xml:space="preserve">
-    <value>Portskanning ferdig.</value>
-  </data>
-  <data name="PropertyDescriptionAutomaticResize" xml:space="preserve">
-    <value>Velg om tilkoblingen skal endre størrelse når vinduet endrer størrelse eller fullskjermsmodus slås av eller på. Krever RDC 8.0 eller høyere.</value>
-  </data>
-  <data name="PropertyDescriptionLoadBalanceInfo" xml:space="preserve">
-    <value>Angi informasjon for lastbalanseringsrutere for å velge den beste verten.</value>
-  </data>
-  <data name="PropertyDescriptionRedirectClipboard" xml:space="preserve">
-    <value>Velg om utklippstavlen skal deles.</value>
-  </data>
-  <data name="PropertyDescriptionRedirectAudioCapture" xml:space="preserve">
-    <value>Velg om standard lydinndataenhet på den eksterne maskinen skal omadresseres til denne maskinen.</value>
-  </data>
-  <data name="AutomaticResize" xml:space="preserve">
-    <value>Automatisk størrelsesendring</value>
-  </data>
-  <data name="LoadBalanceInfo" xml:space="preserve">
-    <value>Lastbalanseringsinformasjon</value>
-  </data>
-  <data name="Clipboard" xml:space="preserve">
-    <value>Utklippstavle</value>
-  </data>
-  <data name="AudioCapture" xml:space="preserve">
-    <value>Lydopptak</value>
-  </data>
-  <data name="TitlePasswordWithName" xml:space="preserve">
-    <value>Passord for {0}</value>
-  </data>
-  <data name="ShowOnToolbar" xml:space="preserve">
-    <value>Vis på verktøylinjen</value>
-  </data>
-  <data name="UpdateGetChangeLogFailed" xml:space="preserve">
-    <value>Endringsloggen kunne ikke lastes ned.</value>
   </data>
   <data name="RdpOverallConnectionTimeout" xml:space="preserve">
     <value>RDP tidsavbrudd</value>
@@ -2004,5 +1998,15 @@ Nightly-kanalen inkluderer alpha-, beta- og release candidate-versjoner.</value>
   </data>
   <data name="Environment" xml:space="preserve">
     <value>Miljø</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Gateway</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>Lagre tilkoblinger ved avslutning</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

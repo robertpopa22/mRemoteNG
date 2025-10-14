@@ -233,9 +233,6 @@
   <data name="Display" xml:space="preserve">
     <value>ディスプレイ</value>
   </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>ゲートウェイ</value>
-  </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>その他</value>
   </data>
@@ -1486,9 +1483,6 @@ Message:
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>Do you want to save the current connections file before loading another?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>終了時に保存する</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>Graphics Interchange Format File (.gif)|*.gif|Joint Photographic Experts Group File (.jpeg)|*.jpeg|Joint Photographic Experts Group File (.jpg)|*.jpg|Portable Network Graphics File (.png)|*.png</value>
   </data>
@@ -1715,5 +1709,15 @@ mRemoteNGを終了してインストールを開始します</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>はい</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>ゲートウェイ</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>終了時に保存する</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

@@ -1042,15 +1042,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to disconnect &quot;{0}&quot;?.
-        /// </summary>
-        internal static string ConfirmDisconnectConnection {
-            get {
-                return ResourceManager.GetString("ConfirmDisconnectConnection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete the credential record, {0}?.
         /// </summary>
         internal static string ConfirmDeleteCredentialRecord {
@@ -1101,6 +1092,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string ConfirmDeleteNodeFolderNotEmpty {
             get {
                 return ResourceManager.GetString("ConfirmDeleteNodeFolderNotEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to disconnect &quot;{0}&quot;?.
+        /// </summary>
+        internal static string ConfirmDisconnectConnection {
+            get {
+                return ResourceManager.GetString("ConfirmDisconnectConnection", resourceCulture);
             }
         }
         
@@ -1534,33 +1534,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string DatabaseNotAvailable {
             get {
                 return ResourceManager.GetString("DatabaseNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Platform error: {0}.
-        /// </summary>
-        internal static string ErrorPlatformNotSupported {
-            get {
-                return ResourceManager.GetString("ErrorPlatformNotSupported", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Missing dependency: {0}.
-        /// </summary>
-        internal static string ErrorMissingDependency {
-            get {
-                return ResourceManager.GetString("ErrorMissingDependency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Architecture mismatch: {0}.
-        /// </summary>
-        internal static string ErrorArchitectureMismatch {
-            get {
-                return ResourceManager.GetString("ErrorArchitectureMismatch", resourceCulture);
             }
         }
         
@@ -2051,6 +2024,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Architecture mismatch: {0}.
+        /// </summary>
+        internal static string ErrorArchitectureMismatch {
+            get {
+                return ResourceManager.GetString("ErrorArchitectureMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The database version {0} is not compatible with this version of {1}..
         /// </summary>
         internal static string ErrorBadDatabaseVersion {
@@ -2105,6 +2087,24 @@ namespace mRemoteNG.Resources.Language {
         internal static string ErrorFipsPolicyIncompatible {
             get {
                 return ResourceManager.GetString("ErrorFipsPolicyIncompatible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing dependency: {0}.
+        /// </summary>
+        internal static string ErrorMissingDependency {
+            get {
+                return ResourceManager.GetString("ErrorMissingDependency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Platform error: {0}.
+        /// </summary>
+        internal static string ErrorPlatformNotSupported {
+            get {
+                return ResourceManager.GetString("ErrorPlatformNotSupported", resourceCulture);
             }
         }
         
@@ -6781,6 +6781,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string UseVmId {
             get {
                 return ResourceManager.GetString("UseVmId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vault or Openbao.
+        /// </summary>
+        internal static string VaultOpenbao {
+            get {
+                return ResourceManager.GetString("VaultOpenbao", resourceCulture);
             }
         }
         
