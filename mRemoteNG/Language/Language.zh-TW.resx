@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -105,17 +105,17 @@
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
   </resheader>
   <resheader name="version">
     <value>2.0</value>
   </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
     <value>關於</value>
@@ -224,9 +224,6 @@
   </data>
   <data name="Display" xml:space="preserve">
     <value>顯示</value>
-  </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>閘道</value>
   </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>雜項</value>
@@ -1358,9 +1355,6 @@
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>您要在載入另一個之前先儲存目前的連線檔案嗎?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>結束時儲存連線</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>Graphics Interchange Format 檔案 (.gif)|*.gif|Joint Photographic Experts Group 檔案 (.jpeg)|*.jpeg|Joint Photographic Experts Group 檔案 (.jpg)|*.jpg|Portable Network Graphics 檔案 (.png)|*.png</value>
   </data>
@@ -1574,5 +1568,11 @@ mRemoteNG 將立即結束並開始安裝。</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>閘道</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>結束時儲存連線</value>
   </data>
 </root>

@@ -231,9 +231,6 @@
   <data name="Display" xml:space="preserve">
     <value>显示</value>
   </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>网关</value>
-  </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>杂项</value>
   </data>
@@ -1483,9 +1480,6 @@
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>打开其它连接配置文件前，是否保存当前配置文件？</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>退出时保存连接配置文件</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>图形交换格式文件 (.gif)|*.gif|联合图像专家组文件 (.jpeg)|*.jpeg|联合图像专家组文件 (.jpg)|*.jpg|便携式网络图形文件 (.png)|*.png</value>
   </data>
@@ -2079,5 +2073,11 @@ mRemoteNG 将退出并安装更新。</value>
   </data>
   <data name="PowerShell" xml:space="preserve">
     <value>PowerShell</value>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>网关</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>退出时保存连接配置文件</value>
   </data>
 </root>

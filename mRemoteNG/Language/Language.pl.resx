@@ -231,9 +231,6 @@
   <data name="Display" xml:space="preserve">
     <value>Wyświetl</value>
   </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>Brama</value>
-  </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>Pozostałe</value>
   </data>
@@ -2358,5 +2355,8 @@ Kanał nocny obejmuje wersje alfa, beta i RC (gotowe do wydania).</value>
   <data name="PsLoginAttempts" xml:space="preserve">
     <value>Maksymalna liczba prób została przekroczona. Proszę połączyć się ponownie.</value>
     <comment>Problem z transferem z C# do Powershell z możliwym kodowaniem</comment>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Brama</value>
   </data>
 </root>

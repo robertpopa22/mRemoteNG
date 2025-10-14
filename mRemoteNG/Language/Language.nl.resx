@@ -225,9 +225,6 @@
   <data name="Display" xml:space="preserve">
     <value>Scherm</value>
   </data>
-  <data name="Gateway" xml:space="preserve">
-    <value>Gateway</value>
-  </data>
   <data name="Miscellaneous" xml:space="preserve">
     <value>Diversen</value>
   </data>
@@ -1355,9 +1352,6 @@ Bericht:
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>Wil je de huidige verbindingen opslaan voordat er een andere wordt geopend?</value>
   </data>
-  <data name="SaveConsOnExit" xml:space="preserve">
-    <value>Sla verbindingen op bij afsluiten</value>
-  </data>
   <data name="SaveImageFilter" xml:space="preserve">
     <value>Graphics Interchange Format bestand (.gif)|*.gif|Joint Photographic Experts Group bestand (.jpeg)|*.jpeg|Joint Photographic Experts Group bestand (.jpg)|*.jpg|Portable Network Graphics bestand (.png)|*.png</value>
   </data>
@@ -1587,5 +1581,11 @@ mRemoteNG zal nu worden gesloten en beginnen met de installatie.</value>
   <data name="PsLoginAttempts" xml:space="preserve">
     <value>Maximaal aantal inlogpogingen overschreden. Maak opnieuw verbinding.</value>
     <comment>C# to Powershell transfer issue with encoding possible</comment>
+  </data>
+  <data name="Gateway" xml:space="preserve">
+    <value>Gateway</value>
+  </data>
+  <data name="SaveConsOnExit" xml:space="preserve">
+    <value>Sla verbindingen op bij afsluiten</value>
   </data>
 </root>
