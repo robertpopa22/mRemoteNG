@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Hakkında</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -693,7 +693,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Bağlantı Paneli Ekle</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Güncelleştirmeleri Konrol Et</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -708,7 +708,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Harici Aracı Sil...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Bağış Yap</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -726,7 +726,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="_Help" xml:space="preserve">
     <value>&amp;Yardım</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG Yardım</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -768,7 +768,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="RenameTab" xml:space="preserve">
     <value>Sekmeyi Yeniden Adlandır</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Hata Raporla</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -798,7 +798,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="StartChat" xml:space="preserve">
     <value>Sohbet'i Başlat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Destek Forumu</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -813,7 +813,7 @@ PuTTY ve harici araçlar için en fazla bekleme süresi:</value>
   <data name="ViewOnly" xml:space="preserve">
     <value>Yalnızca Gör (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Web Sitesi</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

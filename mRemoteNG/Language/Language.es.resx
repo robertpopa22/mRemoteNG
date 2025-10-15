@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Acerca de</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -625,7 +625,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Agregar Panel de Conexión</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Comprobar Actualizaciones</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -646,7 +646,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Borrar Herramienta Externa...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Donar</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -664,7 +664,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="_Help" xml:space="preserve">
     <value>&amp;Ayuda</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>Ayuda de mRemoteNG</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -706,7 +706,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="RenameTab" xml:space="preserve">
     <value>Renombrar Pestaña</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Informar de un Bug</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -736,7 +736,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="StartChat" xml:space="preserve">
     <value>Comenzar Chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Foro de Soporte</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -751,7 +751,7 @@ Arrancando con un nuevo archivo de conexiones.</value>
   <data name="ViewOnly" xml:space="preserve">
     <value>Solo Ver (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Sitio Web</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

@@ -27,7 +27,7 @@ namespace mRemoteNG.UI.Forms
         private void ApplyLanguage()
         {
             lblLicense.Text = Language.ReleasedUnderGPL;
-            base.Text = Language.About;
+            base.Text = Language.MenuItem_About;
             llChangelog.Text = Language.Changelog;
             llCredits.Text = Language.Credits;
             llLicense.Text = Language.License;

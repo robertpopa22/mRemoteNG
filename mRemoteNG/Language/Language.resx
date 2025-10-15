@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>About</value>
   </data>
   <data name="ActiveDirectory" xml:space="preserve">
@@ -731,7 +731,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Add Connection Panel</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Check for Updates</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -752,7 +752,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Delete External Tool...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Donate</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -770,7 +770,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="_Help" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG Help</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -812,8 +812,8 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="RenameTab" xml:space="preserve">
     <value>Rename Tab</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
-    <value>Report a Bug</value>
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
+    <value>Report an Issue</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
     <value>Reset layout</value>
@@ -842,7 +842,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="StartChat" xml:space="preserve">
     <value>Start Chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Support Forum</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -857,7 +857,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="ViewOnly" xml:space="preserve">
     <value>View Only</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Website</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">
@@ -2466,5 +2466,13 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   </data>
   <data name="MsgRuntimeIsRequired" xml:space="preserve">
     <value>runtime library is required</value>
+  </data>
+  <data name="MenuItem_Chat" xml:space="preserve">
+    <value>mR Chat</value>
+    <comment>Chat to dev</comment>
+  </data>
+  <data name="MenuItem_Community" xml:space="preserve">
+    <value>Community</value>
+    <comment>Reddit</comment>
   </data>
 </root>

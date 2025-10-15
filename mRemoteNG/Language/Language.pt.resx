@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Sobre</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -627,7 +627,7 @@
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Adicionar o Painel de Ligação</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Verificar se há atualizações</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -648,7 +648,7 @@
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Excluir ferramenta externa...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Doar</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -666,7 +666,7 @@
   <data name="_Help" xml:space="preserve">
     <value>&amp;Ajuda</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>Ajuda mRemoteNG</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -708,7 +708,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>Renomear aba</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Relatar um erro</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -735,7 +735,7 @@
   <data name="StartChat" xml:space="preserve">
     <value>Iniciar chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Fórum de suporte</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -750,7 +750,7 @@
   <data name="ViewOnly" xml:space="preserve">
     <value>Somente ver (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Sítio</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

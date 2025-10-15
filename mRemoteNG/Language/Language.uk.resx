@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Про програму</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -698,7 +698,7 @@
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Додати панель з'єднання</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Перевірка наявності оновлень</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -719,7 +719,7 @@
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Видалити зовнішній інструмент…</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Пожертва</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -737,7 +737,7 @@
   <data name="_Help" xml:space="preserve">
     <value>&amp;Довідка</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>Довідка mRemoteNG</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -779,7 +779,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>Перейменувати вкладку</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Повідомити про помилку</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -806,7 +806,7 @@
   <data name="StartChat" xml:space="preserve">
     <value>Почати чат (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Форум підтримки</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -821,7 +821,7 @@
   <data name="ViewOnly" xml:space="preserve">
     <value>Перегляд (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Веб-сайт</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

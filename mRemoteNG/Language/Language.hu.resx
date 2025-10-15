@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Névjegy</value>
   </data>
   <data name="Always" xml:space="preserve">
@@ -267,7 +267,7 @@
   <data name="LanguageDefault" xml:space="preserve">
     <value>(Automatikus észlelés)</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Frissítés keresése</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -294,7 +294,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>Fül átnevezése</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Hibabejelentés</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -306,7 +306,7 @@
   <data name="SaveConnectionFileAs" xml:space="preserve">
     <value>Kapcsolatfájl mentése, mint...</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Honlap</value>
   </data>
   <data name="Never" xml:space="preserve">

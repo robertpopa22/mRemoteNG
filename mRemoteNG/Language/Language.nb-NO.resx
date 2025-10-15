@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Om</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -708,7 +708,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Legg til tilkoblingspanel</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Se etter oppdateringer</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -729,7 +729,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Slett eksternt verktøy...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Donér</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -747,7 +747,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="_Help" xml:space="preserve">
     <value>&amp;Hjelp</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG-hjelp</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -789,7 +789,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="RenameTab" xml:space="preserve">
     <value>Gi nytt navn til fane</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Rapporter en feil</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -819,7 +819,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="StartChat" xml:space="preserve">
     <value>Start chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Forum for brukerstøtte</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -834,7 +834,7 @@ Se Microsofts support-artikkel på http://support.microsoft.com/kb/811833 for me
   <data name="ViewOnly" xml:space="preserve">
     <value>Kun visning (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Nettsted</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

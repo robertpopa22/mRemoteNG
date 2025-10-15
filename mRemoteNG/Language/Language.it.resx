@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Informazioni su</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -622,7 +622,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Aggiungi pannello delle connessioni</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Verifica la presenza di aggiornamenti</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -643,7 +643,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Elimina applicazione esterna...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Effettua una donazione</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -661,7 +661,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="_Help" xml:space="preserve">
     <value>&amp;Aiuto</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>Guida di mRemoteNG</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -703,7 +703,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="RenameTab" xml:space="preserve">
     <value>Rinomina tab</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Segnala un bug</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -733,7 +733,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="StartChat" xml:space="preserve">
     <value>Avvia chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Forum di supporto</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -748,7 +748,7 @@ Creazione di un nuovo file delle connessioni.</value>
   <data name="ViewOnly" xml:space="preserve">
     <value>Visualizza soltanto (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Sito web</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

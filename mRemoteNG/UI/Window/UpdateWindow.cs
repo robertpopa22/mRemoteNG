@@ -66,8 +66,8 @@ namespace mRemoteNG.UI.Window
 
         private void ApplyLanguage()
         {
-            Text = Language.CheckForUpdates;
-            TabText = Language.CheckForUpdates;
+            Text = Language.MenuItem_CheckForUpdates;
+            TabText = Language.MenuItem_CheckForUpdates;
             btnCheckForUpdate.Text = Language.CheckAgain;
             btnDownload.Text = Runtime.IsPortableEdition
                 ? Language.Download
@@ -116,7 +116,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            lblStatus.Text = Language.CheckForUpdates;
+            lblStatus.Text = Language.MenuItem_CheckForUpdates;
             lblStatus.ForeColor = SystemColors.WindowText;
             lblLatestVersionLabel.Visible = false;
             lblInstalledVersion.Visible = false;
@@ -213,11 +213,11 @@ namespace mRemoteNG.UI.Window
                 prgbDownload.Visible = false;
 
                 if (Runtime.IsPortableEdition)
-                    MessageBox.Show(Language.UpdatePortableDownloadComplete, Language.CheckForUpdates,
+                    MessageBox.Show(Language.UpdatePortableDownloadComplete, Language.MenuItem_CheckForUpdates,
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
                 {
-                    if (MessageBox.Show(Language.UpdateDownloadComplete, Language.CheckForUpdates,
+                    if (MessageBox.Show(Language.UpdateDownloadComplete, Language.MenuItem_CheckForUpdates,
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
                         Shutdown.Quit(_appUpdate.CurrentUpdateInfo.UpdateFilePath);
