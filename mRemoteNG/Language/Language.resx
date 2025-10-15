@@ -2453,6 +2453,20 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="WarnMeOnlyWhenClosingMultipleConnections" xml:space="preserve">
     <value>WarnMeOnlyWhenClosingMultipleConnections</value>
   </data>
+  <data name="MsgExit" xml:space="preserve">
+    <value>The application will now exit.</value>
+    <comment>Message shown then application will normally close</comment>
+  </data>
+  <data name="MsgDownloadLatestRuntime" xml:space="preserve">
+    <value>Please download and install latest runtime:</value>
+    <comment>Appears then missing a runtime</comment>
+  </data>
+  <data name="MsgMissingRuntime" xml:space="preserve">
+    <value>Missing Runtime:</value>
+  </data>
+  <data name="MsgRuntimeIsRequired" xml:space="preserve">
+    <value>runtime library is required</value>
+  </data>
   <data name="VaultOpenbao" xml:space="preserve">
     <value>Vault or Openbao</value>
   </data>

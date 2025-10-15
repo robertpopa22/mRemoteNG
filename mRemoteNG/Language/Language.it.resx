@@ -1556,7 +1556,4 @@ mRemoteNG verrà chiuso e l'installazione avrà inizio.</value>
   <data name="SaveConsOnExit" xml:space="preserve">
     <value>Salva le connessioni all'uscita</value>
   </data>
-  <data name="VaultOpenbao" xml:space="preserve">
-    <value>Vault o Openbao</value>
-  </data>
 </root>

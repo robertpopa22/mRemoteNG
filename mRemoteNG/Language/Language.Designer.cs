@@ -19,7 +19,7 @@ namespace mRemoteNG.Resources.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -3203,6 +3203,42 @@ namespace mRemoteNG.Resources.Language {
         internal static string MremoteNgXml {
             get {
                 return ResourceManager.GetString("MremoteNgXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please download and install latest runtime:.
+        /// </summary>
+        internal static string MsgDownloadLatestRuntime {
+            get {
+                return ResourceManager.GetString("MsgDownloadLatestRuntime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The application will now exit..
+        /// </summary>
+        internal static string MsgExit {
+            get {
+                return ResourceManager.GetString("MsgExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Runtime:.
+        /// </summary>
+        internal static string MsgMissingRuntime {
+            get {
+                return ResourceManager.GetString("MsgMissingRuntime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to runtime library is required.
+        /// </summary>
+        internal static string MsgRuntimeIsRequired {
+            get {
+                return ResourceManager.GetString("MsgRuntimeIsRequired", resourceCulture);
             }
         }
         

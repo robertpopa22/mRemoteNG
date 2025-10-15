@@ -5,7 +5,7 @@ using mRemoteNG.Config.Settings;
 using mRemoteNG.DotNet.Update;
 using mRemoteNG.DotNet.Update;
 using mRemoteNG.UI.Forms;
-
+using mRemoteNG.Resources.Language;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -53,12 +53,11 @@ namespace mRemoteNG.App
             {
                 try
                 {
-                    var result = MessageBox.Show(
-                        $".NET Desktop Runtime at least {DotNetRuntimeCheck.RequiredDotnetVersion}.0 is required.\n" +
-                        "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl,
-                        "Missing .NET " + DotNetRuntimeCheck.RequiredDotnetVersion + " Runtime",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Information);
+                    var result = ShowDownloadCancelDialog(
+                        $".NET " + DotNetRuntimeCheck.RequiredDotnetVersion + ".0 " + Language.MsgRuntimeIsRequired + "\n\n" +
+                        Language.MsgDownloadLatestRuntime + "\n" + downloadUrl + "\n\n" +
+                        Language.MsgExit + "\n\n",
+                        Language.MsgMissingRuntime + " .NET " + DotNetRuntimeCheck.RequiredDotnetVersion);
 
                     if (result == DialogResult.OK && InternetConnection.IsPosible())
                     {
@@ -82,12 +81,11 @@ namespace mRemoteNG.App
                 var downloadUrl2 = "https://aka.ms/vs/17/release/vc_redist.x64.exe";
                 try
                 {
-                    var result = MessageBox.Show(
-                        $"A Visual C++ (MSVC) runtime library is required.\n" +
-                        "The application will now exit.\n\nPlease download and install latest desktop runtime:\n" + downloadUrl2,
-                        "Missing Visual C++ Redistributable x86 Runtime",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Information);
+                    var result = ShowDownloadCancelDialog(
+                        $"A Visual C++ (MSVC) " + Language.MsgRuntimeIsRequired + "\n\n" +
+                        Language.MsgDownloadLatestRuntime + "\n" + downloadUrl2 + "\n\n" +
+                        Language.MsgExit + "\n\n",
+                        Language.MsgMissingRuntime + " Visual C++ Redistributable x64");
 
                     if (result == DialogResult.OK && InternetConnection.IsPosible())
                     {
@@ -268,6 +266,102 @@ namespace mRemoteNG.App
                 _wpfSplashThread.Join();
                 _wpfSplashThread = null;
             }
+        }
+
+        // Helper to show a dialog with "Download" and "Cancel" buttons.
+        // Returns DialogResult.OK if Download clicked, otherwise DialogResult.Cancel.
+        private static DialogResult ShowDownloadCancelDialog(string message, string caption)
+        {
+            using Form dialog = new Form()
+            {
+                Text = caption,
+                StartPosition = FormStartPosition.CenterScreen,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                ShowInTaskbar = false,
+                ClientSize = new Size(560, 200),
+                Icon = SystemIcons.Information
+            };
+
+            // Try to find a URL in the message (very simple heuristic: first "http" until whitespace/newline)
+            int urlStart = message.IndexOf("http", StringComparison.OrdinalIgnoreCase);
+            string? url = null;
+            if (urlStart >= 0)
+            {
+                int urlEnd = message.IndexOfAny(new char[] { ' ', '\r', '\n', '\t' }, urlStart);
+                if (urlEnd == -1) urlEnd = message.Length;
+                url = message.Substring(urlStart, urlEnd - urlStart);
+            }
+
+            LinkLabel lbl = new LinkLabel()
+            {
+                AutoSize = false,
+                Text = message,
+                Location = new Point(12, 12),
+                Size = new Size(dialog.ClientSize.Width - 24, dialog.ClientSize.Height - 60),
+                TextAlign = ContentAlignment.TopLeft,
+                LinkBehavior = LinkBehavior.SystemDefault
+            };
+            lbl.MaximumSize = new Size(dialog.ClientSize.Width - 24, 0);
+
+            if (!string.IsNullOrEmpty(url) && urlStart >= 0)
+            {
+                // Ensure link indices are within bounds of the LinkLabel text
+                int linkStartInLabel = urlStart;
+                int linkLength = url.Length;
+                if (linkStartInLabel + linkLength <= lbl.Text.Length)
+                {
+                    lbl.Links.Add(linkStartInLabel, linkLength, url);
+                }
+            }
+
+            lbl.LinkClicked += (s, e) =>
+            {
+                string? linkUrl = e.Link.LinkData as string;
+                if (string.IsNullOrEmpty(linkUrl))
+                    return;
+                if (!InternetConnection.IsPosible())
+                {
+                    MessageBox.Show("No internet connection is available.", "Network", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Treat clicking the link the same as clicking the "Download" button:
+                // set DialogResult to OK so the caller receives DialogResult.OK and can proceed to open the download URL.
+                dialog.DialogResult = DialogResult.OK;
+                // Do not call Process.Start here to avoid duplicate launches; caller already opens the URL when it sees DialogResult.OK.
+            };
+
+            Button btnDownload = new Button()
+            {
+                Text = "Download",
+                DialogResult = DialogResult.OK,
+                Size = new Size(100, 28),
+            };
+            Button btnCancel = new Button()
+            {
+                Text = "Cancel",
+                DialogResult = DialogResult.Cancel,
+                Size = new Size(100, 28),
+            };
+
+            // Position buttons
+            int padding = 12;
+            btnCancel.Location = new Point(dialog.ClientSize.Width - padding - btnCancel.Width, dialog.ClientSize.Height - padding - btnCancel.Height);
+            btnDownload.Location = new Point(btnCancel.Left - 8 - btnDownload.Width, btnCancel.Top);
+
+            // Set dialog defaults
+            dialog.Controls.Add(lbl);
+            dialog.Controls.Add(btnDownload);
+            dialog.Controls.Add(btnCancel);
+            dialog.AcceptButton = btnDownload;
+            dialog.CancelButton = btnCancel;
+
+            // Adjust label height to wrap text properly
+            lbl.Height = btnCancel.Top - lbl.Top - 8;
+
+            return dialog.ShowDialog();
         }
     }
 }

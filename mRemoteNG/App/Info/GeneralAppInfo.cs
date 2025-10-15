@@ -16,7 +16,7 @@ namespace mRemoteNG.App.Info
         public const string UrlHome = "https://mremoteng.org";
         public const string UrlDonate = "https://mremoteng.org/contribute";
         public const string UrlForum = "https://www.reddit.com/r/mRemoteNG";
-        public const string UrlBugs = "https://bugs.mremoteng.org";
+        public const string UrlBugs = "https://github.com/mRemoteNG/mRemoteNG/issues/new";
         public const string UrlDocumentation = "https://mremoteng.readthedocs.io/en/latest/";
         public static readonly string ApplicationVersion = Application.ProductVersion;
         public static readonly string ProductName = Application.ProductName;

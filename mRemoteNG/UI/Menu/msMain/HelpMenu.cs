@@ -22,6 +22,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripSeparator _mMenInfoSep3;
         private ToolStripSeparator _mMenInfoSep4;
         private ToolStripMenuItem _mMenInfoForum;
+        private ToolStripMenuItem _mMenInfoBug;
         private ToolStripMenuItem _mMenToolsUpdate;
 
         public HelpMenu()
@@ -36,6 +37,7 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoWebsite = new ToolStripMenuItem();
             _mMenInfoDonate = new ToolStripMenuItem();
             _mMenInfoForum = new ToolStripMenuItem();
+            _mMenInfoBug = new ToolStripMenuItem();
             _mMenToolsUpdate = new ToolStripMenuItem();
             _mMenInfoSep2 = new ToolStripSeparator();
             _mMenInfoSep3 = new ToolStripSeparator();
@@ -51,6 +53,7 @@ namespace mRemoteNG.UI.Menu
                 _mMenInfoSep1,
                 _mMenInfoWebsite,
                 _mMenInfoForum,
+                _mMenInfoBug,
                 _mMenInfoSep2,
                 _mMenToolsUpdate,
                 _mMenInfoSep3,
@@ -108,6 +111,13 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoForum.Text = Language.SupportForum;
             _mMenInfoForum.Click += mMenInfoForum_Click;
             // 
+            // mMenInfoBug
+            // 
+            _mMenInfoBug.Name = "mMenInfoBug";
+            _mMenInfoBug.Size = new System.Drawing.Size(190, 22);
+            _mMenInfoBug.Text = Language.ReportBug;
+            _mMenInfoBug.Click += mMenInfoBug_Click;
+            // 
             // mMenInfoSep2
             // 
             _mMenInfoSep2.Name = "mMenInfoSep2";
@@ -139,6 +149,7 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoWebsite.Text = Language.Website;
             _mMenInfoDonate.Text = Language.Donate;
             _mMenInfoForum.Text = Language.SupportForum;
+            _mMenInfoBug.Text = Language.ReportBug;
             _mMenInfoAbout.Text = Language.About;
             _mMenToolsUpdate.Text = Language.CheckForUpdates;
         }
@@ -158,6 +169,8 @@ namespace mRemoteNG.UI.Menu
         private void mMenInfoHelp_Click(object sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlDocumentation);
 
         private void mMenInfoForum_Click(object sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlForum);
+
+        private void mMenInfoBug_Click(object sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlBugs);
 
         private void mMenInfoWebsite_Click(object sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlHome);
 

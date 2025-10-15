@@ -2153,8 +2153,4 @@ Le canal nightly inclut les versions alpha, beta et release candidates.</value>
   <data name="WebView2InitializationFailed" xml:space="preserve">
     <value>Création WebView2 échouée avec une exception</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
 </root>
