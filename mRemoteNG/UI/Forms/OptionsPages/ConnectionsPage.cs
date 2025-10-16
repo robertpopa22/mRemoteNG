@@ -29,6 +29,17 @@ namespace mRemoteNG.UI.Forms.OptionsPages
              * 1) chkSaveConnectionsAfterEveryEdit: never used
             */
             chkSaveConnectionsAfterEveryEdit.Visible = false; // Temporary hide control, never used, added: Jun 15, 2024 
+            
+            // Reload settings when page becomes visible to reflect any changes made outside the Options dialog
+            VisibleChanged += ConnectionsPage_VisibleChanged;
+        }
+
+        private void ConnectionsPage_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                LoadSettings();
+            }
         }
 
         public override string PageName
