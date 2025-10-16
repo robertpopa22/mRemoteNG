@@ -1519,6 +1519,12 @@ If you run into such an error, please create a new connection file!</value>
   <data name="SaveConnectionsFileBeforeOpeningAnother" xml:space="preserve">
     <value>Do you want to save the current connections file before loading another?</value>
   </data>
+  <data name="SaveOptionsBeforeClosing" xml:space="preserve">
+    <value>Do you want to save the changes made to the options?</value>
+  </data>
+  <data name="Discard" xml:space="preserve">
+    <value>Discard</value>
+  </data>
   <data name="ConnectionsBackupFrequencyDaily" xml:space="preserve">
     <value>Daily</value>
   </data>

@@ -24,6 +24,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public virtual Icon PageIcon { get; protected set; }
         public virtual Image IconImage => PageIcon?.ToBitmap();
 
+        /// <summary>
+        /// Indicates whether the settings on this page have been modified.
+        /// </summary>
+        [Browsable(false)]
+        public bool HasChanges { get; set; }
+
         #endregion
 
         #region Public Methods
