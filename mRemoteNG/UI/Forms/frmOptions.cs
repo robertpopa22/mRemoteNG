@@ -22,6 +22,7 @@ namespace mRemoteNG.UI.Forms
         private string _pageName;
         private readonly DisplayProperties _display = new();
         private readonly List<string> _optionPageObjectNames;
+        private bool _isInitialized = false;
 
         public FrmOptions() : this(Language.StartupExit)
         {
@@ -57,6 +58,13 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmOptions_Load(object sender, EventArgs e)
         {
+            // Only initialize once to prevent multiple event subscriptions and page reloading
+            if (_isInitialized)
+            {
+                this.Visible = true;
+                return;
+            }
+
             this.Visible = true;
             FontOverrider.FontOverride(this);
             SetActivatedPage();
@@ -71,6 +79,7 @@ namespace mRemoteNG.UI.Forms
             //ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
             lstOptionPages.SelectedIndex = 0;
+            _isInitialized = true;
         }
 
         private void ApplyTheme()
@@ -274,6 +283,9 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmOptions_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // Ensure Application.Idle handler is removed if still attached
+            Application.Idle -= Application_Idle;
+            
             e.Cancel = true;
             this.Visible = false;
         }
