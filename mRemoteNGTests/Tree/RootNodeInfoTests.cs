@@ -48,6 +48,14 @@ namespace mRemoteNGTests.Tree
             Assert.That(_rootNodeInfo.PasswordString, Is.EqualTo(password));
         }
 
+        [Test]
+        public void PasswordStringReturnsDefaultWhenPasswordPropertySetWithoutPasswordString()
+        {
+            // Edge case: Password property set to true directly without setting PasswordString
+            _rootNodeInfo.Password = true;
+            Assert.That(_rootNodeInfo.PasswordString, Is.EqualTo(_rootNodeInfo.DefaultPassword));
+        }
+
         [TestCase(RootNodeType.Connection, TreeNodeType.Root)]
         [TestCase(RootNodeType.PuttySessions, TreeNodeType.PuttyRoot)]
         public void RootNodeHasCorrectTreeNodeType(RootNodeType rootNodeType, TreeNodeType expectedTreeNodeType)
