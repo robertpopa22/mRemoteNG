@@ -89,7 +89,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
              * Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs nerver used
              */
             //Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs = chkAlwaysShowConnectionTabs.Checked;
-            FrmMain.Default.ShowHidePanelTabs();
+            
+            // Defer the ShowHidePanelTabs call to avoid corrupting the Options window
+            // This ensures the call happens after the Options window is closed
+            FrmMain.Default.BeginInvoke(new System.Windows.Forms.MethodInvoker(FrmMain.Default.ShowHidePanelTabs));
 
             /* 
              * Comment added: June 16, 2024
