@@ -16,7 +16,7 @@ namespace mRemoteNG.UI.Forms
     {
         public static frmAbout Instance { get; set; } = new frmAbout();
 
-        private frmAbout()
+        public frmAbout()
         {
             InitializeComponent();
             Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.UIAboutBox_16x);

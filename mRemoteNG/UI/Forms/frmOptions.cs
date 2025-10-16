@@ -23,6 +23,7 @@ namespace mRemoteNG.UI.Forms
         private readonly DisplayProperties _display = new();
         private readonly List<string> _optionPageObjectNames;
         private bool _isLoading = true;
+        private bool _isInitialized = false; // Add this field to the FrmOptions class
 
         public FrmOptions() : this(Language.StartupExit)
         {
@@ -82,6 +83,9 @@ namespace mRemoteNG.UI.Forms
             
             // Handle visibility changes to ensure panel is populated when form is shown
             this.VisibleChanged += FrmOptions_VisibleChanged;
+
+            // Mark as initialized
+            _isInitialized = true;
         }
 
         private void FrmOptions_VisibleChanged(object sender, EventArgs e)

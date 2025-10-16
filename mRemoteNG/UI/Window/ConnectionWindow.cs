@@ -294,13 +294,7 @@ namespace mRemoteNG.UI.Window
                  Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
                  connDock.Documents.Count() > 1))
             {
-                DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName,
-                                                    string
-                                                        .Format(Language.ConfirmCloseConnectionPanelMainInstruction,
-                                                                Text), "", "", "",
-                                                    Language.CheckboxDoNotShowThisMessageAgain,
-                                                    ETaskDialogButtons.YesNo, ESysIcons.Question,
-                                                    ESysIcons.Question);
+                DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName, string.Format(Language.ConfirmCloseConnectionPanelMainInstruction, Text), "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
                 if (CTaskDialog.VerificationChecked)
                 {
                     Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
