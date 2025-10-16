@@ -71,6 +71,20 @@ namespace mRemoteNG.UI.Forms
             //ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
             lstOptionPages.SelectedIndex = 0;
+            
+            // Handle visibility changes to ensure panel is populated when form is shown
+            this.VisibleChanged += FrmOptions_VisibleChanged;
+        }
+
+        private void FrmOptions_VisibleChanged(object sender, EventArgs e)
+        {
+            // When the form becomes visible, ensure the panel is populated with the selected page
+            if (this.Visible && pnlMain.Controls.Count == 0)
+            {
+                OptionsPage page = (OptionsPage)lstOptionPages.SelectedObject;
+                if (page != null)
+                    pnlMain.Controls.Add(page);
+            }
         }
 
         private void ApplyTheme()
@@ -269,6 +283,11 @@ namespace mRemoteNG.UI.Forms
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            // Revert settings for all pages when Cancel is clicked
+            foreach (OptionsPage page in _optionPages)
+            {
+                page.RevertSettings();
+            }
             this.Visible = false;
         }
 
