@@ -202,7 +202,12 @@ namespace mRemoteNG.UI.Menu
 
         private void mMenInfoDonate_Click(object? sender, EventArgs e) => Process.Start("explorer.exe", GeneralAppInfo.UrlDonate);
 
-        private void mMenInfoAbout_Click(object? sender, EventArgs e) => frmAbout.Instance.Show();
+        private void mMenInfoAbout_Click(object? sender, EventArgs e)
+        {
+            if (frmAbout.Instance == null || frmAbout.Instance.IsDisposed)
+                frmAbout.Instance = new frmAbout();
+            frmAbout.Instance.Show(FrmMain.Default.pnlDock);
+        }
 
         #endregion
     }
