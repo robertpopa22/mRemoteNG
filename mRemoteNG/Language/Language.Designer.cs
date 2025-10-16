@@ -5767,6 +5767,24 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
+        /// </summary>
+        internal static string SaveOptionsBeforeClosing {
+            get {
+                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        internal static string Discard {
+            get {
+                return ResourceManager.GetString("Discard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SaveConnectionsOnExit.
         /// </summary>
         internal static string SaveConnectionsOnExit {

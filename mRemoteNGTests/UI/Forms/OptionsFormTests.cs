@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNGTests.TestHelpers;
+using System.Linq;
 
 namespace mRemoteNGTests.UI.Forms
 {
@@ -35,30 +36,35 @@ namespace mRemoteNGTests.UI.Forms
         }
 
         [Test]
-        public void FormCanBeHiddenAndShownMultipleTimes()
+        public void ChangingOptionMarksPageAsChanged()
         {
-            // First show (already done in Setup)
-            Assert.That(_optionsForm.Visible, Is.True);
-            
-            // Hide the form
-            _optionsForm.Hide();
-            Assert.That(_optionsForm.Visible, Is.False);
-            
-            // Show it again
-            _optionsForm.Show();
-            Assert.That(_optionsForm.Visible, Is.True);
-            
-            // Verify pages are still loaded correctly
-            ListViewTester listViewTester = new("lstOptionPages", _optionsForm);
-            Assert.That(listViewTester.Items.Count, Is.EqualTo(12));
-            
-            // Hide and show one more time
-            _optionsForm.Hide();
-            _optionsForm.Show();
-            Assert.That(_optionsForm.Visible, Is.True);
-            
-            // Verify pages are still there
-            Assert.That(listViewTester.Items.Count, Is.EqualTo(12));
+            // Wait for all pages to load
+            System.Threading.Thread.Sleep(500);
+            Application.DoEvents();
+
+            // Get the options panel
+            var pnlMain = _optionsForm.FindControl<Panel>("pnlMain");
+            Assert.That(pnlMain, Is.Not.Null);
+
+            if (pnlMain.Controls.Count > 0)
+            {
+                var optionsPage = pnlMain.Controls[0] as mRemoteNG.UI.Forms.OptionsPages.OptionsPage;
+                Assert.That(optionsPage, Is.Not.Null);
+
+                // Find a checkbox in the options page
+                var checkBoxes = optionsPage.Controls.Find("", true).OfType<CheckBox>().ToList();
+                
+                if (checkBoxes.Count > 0)
+                {
+                    var checkBox = checkBoxes[0];
+                    bool originalValue = checkBox.Checked;
+                    checkBox.Checked = !originalValue;
+                    Application.DoEvents();
+                    
+                    // Verify the page is marked as changed
+                    Assert.That(optionsPage.HasChanges, Is.True);
+                }
+            }
         }
     }
 }

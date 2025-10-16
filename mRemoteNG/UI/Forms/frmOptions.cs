@@ -22,7 +22,7 @@ namespace mRemoteNG.UI.Forms
         private string _pageName;
         private readonly DisplayProperties _display = new();
         private readonly List<string> _optionPageObjectNames;
-        private bool _isInitialized = false;
+        private bool _isLoading = true;
 
         public FrmOptions() : this(Language.StartupExit)
         {
@@ -127,6 +127,8 @@ namespace mRemoteNG.UI.Forms
             if (_currentIndex >= _optionPageObjectNames.Count)
             {
                 Application.Idle -= new EventHandler(Application_Idle);
+                // All pages loaded, now start tracking changes
+                _isLoading = false;
             }
             else
             {
@@ -232,6 +234,9 @@ namespace mRemoteNG.UI.Forms
             page.LoadSettings();
             _optionPages.Add(page);
             lstOptionPages.AddObject(page);
+            
+            // Track changes in all controls on the page
+            TrackChangesInControls(page);
         }
 
         private object ImageGetter(object rowobject)
@@ -260,12 +265,16 @@ namespace mRemoteNG.UI.Forms
         private void BtnOK_Click(object sender, EventArgs e)
         {
             SaveOptions();
+            // Clear change flags after saving
+            ClearChangeFlags();
             this.Visible = false;
         }
 
         private void BtnApply_Click(object sender, EventArgs e)
         {
             SaveOptions();
+            // Clear change flags after applying
+            ClearChangeFlags();
         }
 
         private void SaveOptions()
@@ -291,21 +300,113 @@ namespace mRemoteNG.UI.Forms
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            // Revert settings for all pages when Cancel is clicked
-            foreach (OptionsPage page in _optionPages)
-            {
-                page.RevertSettings();
-            }
+            // When Cancel is clicked, we don't check for changes
+            // The user explicitly wants to cancel
             this.Visible = false;
         }
 
         private void FrmOptions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Ensure Application.Idle handler is removed if still attached
-            Application.Idle -= Application_Idle;
+            // Check if any page has unsaved changes
+            bool hasChanges = _optionPages.Any(page => page.HasChanges);
             
-            e.Cancel = true;
-            this.Visible = false;
+            if (hasChanges)
+            {
+                DialogResult result = MessageBox.Show(
+                    Language.SaveOptionsBeforeClosing,
+                    Language.Options,
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question);
+                
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        SaveOptions();
+                        ClearChangeFlags();
+                        e.Cancel = true;
+                        this.Visible = false;
+                        break;
+                    case DialogResult.No:
+                        // Discard changes
+                        ClearChangeFlags();
+                        e.Cancel = true;
+                        this.Visible = false;
+                        break;
+                    case DialogResult.Cancel:
+                        // Cancel closing - keep the dialog open
+                        e.Cancel = true;
+                        break;
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+                this.Visible = false;
+            }
+        }
+
+        private void TrackChangesInControls(Control control)
+        {
+            foreach (Control childControl in control.Controls)
+            {
+                // Track changes for common input controls
+                if (childControl is TextBox textBox)
+                {
+                    textBox.TextChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                else if (childControl is CheckBox checkBox)
+                {
+                    checkBox.CheckedChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                else if (childControl is RadioButton radioButton)
+                {
+                    radioButton.CheckedChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                else if (childControl is ComboBox comboBox)
+                {
+                    comboBox.SelectedIndexChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                else if (childControl is NumericUpDown numericUpDown)
+                {
+                    numericUpDown.ValueChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                else if (childControl is ListBox listBox)
+                {
+                    listBox.SelectedIndexChanged += (s, e) => MarkPageAsChanged(control);
+                }
+                
+                // Recursively track changes in nested controls
+                if (childControl.Controls.Count > 0)
+                {
+                    TrackChangesInControls(childControl);
+                }
+            }
+        }
+
+        private void MarkPageAsChanged(Control control)
+        {
+            // Don't track changes during initial loading
+            if (_isLoading) return;
+            
+            // Find the parent OptionsPage
+            Control current = control;
+            while (current != null && !(current is OptionsPage))
+            {
+                current = current.Parent;
+            }
+            
+            if (current is OptionsPage page)
+            {
+                page.HasChanges = true;
+            }
+        }
+
+        private void ClearChangeFlags()
+        {
+            foreach (OptionsPage page in _optionPages)
+            {
+                page.HasChanges = false;
+            }
         }
     }
 }
