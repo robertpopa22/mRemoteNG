@@ -6830,6 +6830,42 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mount.
+        /// </summary>
+        internal static string VaultOpenbaoMount {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoMount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mount where the secret is stored.
+        /// </summary>
+        internal static string VaultOpenbaoMountDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoMountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string VaultOpenbaoRole {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name or path of the secret.
+        /// </summary>
+        internal static string VaultOpenbaoRoleDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoRoleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verify:.
         /// </summary>
         internal static string Verify {

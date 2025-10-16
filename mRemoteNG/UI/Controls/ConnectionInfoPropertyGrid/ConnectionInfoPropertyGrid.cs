@@ -238,6 +238,8 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
             if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.None)
             {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultMount));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultRole));
             }
             else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer
                 || SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState)
@@ -245,8 +247,18 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
                 strHide.Add(nameof(AbstractConnectionRecord.Domain));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultMount));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultRole));
             }
-
+            else if(SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+                strHide.Add(nameof(AbstractConnectionRecord.VaultMount));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultRole));
+            }
+            else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                strHide.Add(nameof(AbstractConnectionRecord.Username));
+                strHide.Add(nameof(AbstractConnectionRecord.Password));
+                strHide.Add(nameof(AbstractConnectionRecord.Domain));
+            }
             return strHide;
         }
 

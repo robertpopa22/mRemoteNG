@@ -2470,4 +2470,16 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="VaultOpenbao" xml:space="preserve">
     <value>Vault or Openbao</value>
   </data>
+  <data name="VaultOpenbaoMount" xml:space="preserve">
+    <value>Mount</value>
+  </data>
+  <data name="VaultOpenbaoMountDescription" xml:space="preserve">
+    <value>Mount where the secret is stored</value>
+  </data>
+  <data name="VaultOpenbaoRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="VaultOpenbaoRoleDescription" xml:space="preserve">
+    <value>Name or path of the secret</value>
+  </data>
 </root>

@@ -248,6 +248,22 @@ namespace mRemoteNG.Connection
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoMount)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoMountDescription)),
+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.VNC, ProtocolType.ARD, ProtocolType.SSH1,
+             ProtocolType.SSH2, ProtocolType.Telnet, ProtocolType.RAW, ProtocolType.HTTP, ProtocolType.HTTPS,
+             ProtocolType.IntApp)]
+        public virtual string VaultMount { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoRole)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoRoleDescription)),
+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.VNC, ProtocolType.ARD, ProtocolType.SSH1,
+             ProtocolType.SSH2, ProtocolType.Telnet, ProtocolType.RAW, ProtocolType.HTTP, ProtocolType.HTTPS,
+             ProtocolType.IntApp)]
+        public virtual string VaultRole { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Domain)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionDomain)),
          AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.IntApp, ProtocolType.PowerShell)]

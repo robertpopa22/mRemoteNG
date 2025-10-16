@@ -1878,11 +1878,23 @@ mRemoteNG se nyní ukončí a zahájí instalaci.</value>
   <data name="AutoSaveInMinutes" xml:space="preserve">
     <value>Kliknutím na již otevřené připojení v seznamu otevře jeho záložku</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="WarnMeOnlyWhenClosingMultipleConnections1" xml:space="preserve">
     <value>Upozornit mě pouze při ukončení několika připojení</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="VaultOpenbaoMount" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoMountDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoRole" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoRoleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

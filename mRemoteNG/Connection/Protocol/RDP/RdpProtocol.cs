@@ -595,6 +595,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                     }
                 }
+                else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                    try {
+                        ExternalConnectors.VO.VaultOpenbao.ReadPassword($"{userViaApi}", out userName, out password, out domain, out pkey);
+                    } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
+                        Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                    }
+                }
 
                 if (string.IsNullOrEmpty(userName))
                 {
