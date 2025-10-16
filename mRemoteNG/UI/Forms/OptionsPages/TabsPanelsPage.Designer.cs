@@ -79,7 +79,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkIdentifyQuickConnectTabs._mice = MrngCheckBox.MouseState.OUT;
             chkIdentifyQuickConnectTabs.AutoSize = true;
             chkIdentifyQuickConnectTabs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkIdentifyQuickConnectTabs.Location = new System.Drawing.Point(3, 118);
+            chkIdentifyQuickConnectTabs.Location = new System.Drawing.Point(3, 72);
             chkIdentifyQuickConnectTabs.Name = "chkIdentifyQuickConnectTabs";
             chkIdentifyQuickConnectTabs.Size = new System.Drawing.Size(315, 17);
             chkIdentifyQuickConnectTabs.TabIndex = 4;
@@ -103,7 +103,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkAlwaysShowPanelSelectionDlg._mice = MrngCheckBox.MouseState.OUT;
             chkAlwaysShowPanelSelectionDlg.AutoSize = true;
             chkAlwaysShowPanelSelectionDlg.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkAlwaysShowPanelSelectionDlg.Location = new System.Drawing.Point(3, 164);
+            chkAlwaysShowPanelSelectionDlg.Location = new System.Drawing.Point(3, 118);
             chkAlwaysShowPanelSelectionDlg.Name = "chkAlwaysShowPanelSelectionDlg";
             chkAlwaysShowPanelSelectionDlg.Size = new System.Drawing.Size(347, 17);
             chkAlwaysShowPanelSelectionDlg.TabIndex = 6;
@@ -115,7 +115,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowLogonInfoOnTabs._mice = MrngCheckBox.MouseState.OUT;
             chkShowLogonInfoOnTabs.AutoSize = true;
             chkShowLogonInfoOnTabs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkShowLogonInfoOnTabs.Location = new System.Drawing.Point(3, 72);
+            chkShowLogonInfoOnTabs.Location = new System.Drawing.Point(3, 26);
             chkShowLogonInfoOnTabs.Name = "chkShowLogonInfoOnTabs";
             chkShowLogonInfoOnTabs.Size = new System.Drawing.Size(226, 17);
             chkShowLogonInfoOnTabs.TabIndex = 2;
@@ -127,7 +127,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoubleClickClosesTab._mice = MrngCheckBox.MouseState.OUT;
             chkDoubleClickClosesTab.AutoSize = true;
             chkDoubleClickClosesTab.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkDoubleClickClosesTab.Location = new System.Drawing.Point(3, 141);
+            chkDoubleClickClosesTab.Location = new System.Drawing.Point(3, 95);
             chkDoubleClickClosesTab.Name = "chkDoubleClickClosesTab";
             chkDoubleClickClosesTab.Size = new System.Drawing.Size(170, 17);
             chkDoubleClickClosesTab.TabIndex = 5;
@@ -139,7 +139,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowProtocolOnTabs._mice = MrngCheckBox.MouseState.OUT;
             chkShowProtocolOnTabs.AutoSize = true;
             chkShowProtocolOnTabs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkShowProtocolOnTabs.Location = new System.Drawing.Point(3, 95);
+            chkShowProtocolOnTabs.Location = new System.Drawing.Point(3, 49);
             chkShowProtocolOnTabs.Name = "chkShowProtocolOnTabs";
             chkShowProtocolOnTabs.Size = new System.Drawing.Size(180, 17);
             chkShowProtocolOnTabs.TabIndex = 3;
@@ -151,7 +151,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart._mice = MrngCheckBox.MouseState.OUT;
             chkCreateEmptyPanelOnStart.AutoSize = true;
             chkCreateEmptyPanelOnStart.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            chkCreateEmptyPanelOnStart.Location = new System.Drawing.Point(3, 187);
+            chkCreateEmptyPanelOnStart.Location = new System.Drawing.Point(3, 141);
             chkCreateEmptyPanelOnStart.Name = "chkCreateEmptyPanelOnStart";
             chkCreateEmptyPanelOnStart.Size = new System.Drawing.Size(271, 17);
             chkCreateEmptyPanelOnStart.TabIndex = 7;
@@ -162,7 +162,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // txtBoxPanelName
             // 
             txtBoxPanelName.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            txtBoxPanelName.Location = new System.Drawing.Point(35, 223);
+            txtBoxPanelName.Location = new System.Drawing.Point(35, 177);
             txtBoxPanelName.Name = "txtBoxPanelName";
             txtBoxPanelName.Size = new System.Drawing.Size(213, 22);
             txtBoxPanelName.TabIndex = 8;
@@ -170,7 +170,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // lblPanelName
             // 
             lblPanelName.AutoSize = true;
-            lblPanelName.Location = new System.Drawing.Point(32, 207);
+            lblPanelName.Location = new System.Drawing.Point(32, 161);
             lblPanelName.Name = "lblPanelName";
             lblPanelName.Size = new System.Drawing.Size(69, 13);
             lblPanelName.TabIndex = 9;
@@ -192,7 +192,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 262);
+            pnlOptions.Size = new System.Drawing.Size(610, 216);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
