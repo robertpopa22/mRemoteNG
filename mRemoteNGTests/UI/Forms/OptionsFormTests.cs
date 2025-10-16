@@ -33,5 +33,32 @@ namespace mRemoteNGTests.UI.Forms
             ListViewTester listViewTester = new("lstOptionPages", _optionsForm);
             Assert.That(listViewTester.Items.Count, Is.EqualTo(12));
         }
+
+        [Test]
+        public void FormCanBeHiddenAndShownMultipleTimes()
+        {
+            // First show (already done in Setup)
+            Assert.That(_optionsForm.Visible, Is.True);
+            
+            // Hide the form
+            _optionsForm.Hide();
+            Assert.That(_optionsForm.Visible, Is.False);
+            
+            // Show it again
+            _optionsForm.Show();
+            Assert.That(_optionsForm.Visible, Is.True);
+            
+            // Verify pages are still loaded correctly
+            ListViewTester listViewTester = new("lstOptionPages", _optionsForm);
+            Assert.That(listViewTester.Items.Count, Is.EqualTo(12));
+            
+            // Hide and show one more time
+            _optionsForm.Hide();
+            _optionsForm.Show();
+            Assert.That(_optionsForm.Visible, Is.True);
+            
+            // Verify pages are still there
+            Assert.That(listViewTester.Items.Count, Is.EqualTo(12));
+        }
     }
 }

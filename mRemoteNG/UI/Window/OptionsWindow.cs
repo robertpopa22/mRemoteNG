@@ -12,6 +12,7 @@ namespace mRemoteNG.UI.Window
     public partial class OptionsWindow : BaseWindow
     {
         private FrmOptions _optionsForm;
+        private bool _isInitialized = false;
 
         #region Public Methods
 
@@ -34,8 +35,14 @@ namespace mRemoteNG.UI.Window
 
         private void Options_Load(object sender, EventArgs e)
         {
+            // Only subscribe to ThemeChanged once to prevent multiple subscriptions
+            if (!_isInitialized)
+            {
+                ThemeManager.getInstance().ThemeChanged += ApplyTheme;
+                _isInitialized = true;
+            }
+            
             ApplyTheme();
-            ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             ApplyLanguage();
             LoadOptionsForm();
         }
