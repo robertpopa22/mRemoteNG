@@ -18,6 +18,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private readonly ThemeManager _themeManager;
         private readonly bool _oriActiveTheming;
+        private ThemeInfo _oriActiveTheme;
         private readonly List<ThemeInfo> modifiedThemes = [];
 
         #endregion
@@ -65,6 +66,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // ReSharper disable once CoVariantArrayConversion
             cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name).ToArray());
             cboTheme.SelectedItem = _themeManager.ActiveTheme;
+            // Store the original active theme for reverting
+            _oriActiveTheme = _themeManager.ActiveTheme;
             cboTheme_SelectionChangeCommitted(this, new EventArgs());
             cboTheme.DisplayMember = "Name";
 
@@ -107,6 +110,20 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             base.RevertSettings();
             _themeManager.ThemingActive = _oriActiveTheming;
+            
+            // Clear the modified themes list without saving
+            modifiedThemes.Clear();
+            
+            // Restore the original theme selection
+            if (_oriActiveTheme != null)
+            {
+                _themeManager.ActiveTheme = _oriActiveTheme;
+                // Reload the theme list to reflect the original state
+                cboTheme.Items.Clear();
+                cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name).ToArray());
+                cboTheme.SelectedItem = _oriActiveTheme;
+                cboTheme_SelectionChangeCommitted(this, new EventArgs());
+            }
         }
 
         #region Private Methods
