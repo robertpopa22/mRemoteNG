@@ -145,7 +145,8 @@ namespace mRemoteNG.UI.Window
 
                 // Ensure the ConnectionWindow is visible before adding the tab
                 // This prevents visibility issues when the window was created but not yet shown
-                if (!Visible)
+                // Check DockState instead of Visible to properly detect if window is shown in DockPanel
+                if (DockState == DockState.Unknown || DockState == DockState.Hidden || !Visible)
                 {
                     Show(FrmMain.Default.pnlDock, DockState.Document);
                 }
