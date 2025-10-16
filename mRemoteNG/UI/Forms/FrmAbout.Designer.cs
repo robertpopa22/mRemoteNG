@@ -142,14 +142,9 @@
             Controls.Add(pbLogo);
             Font = new System.Drawing.Font("Segoe UI", 8.25F);
             ForeColor = System.Drawing.SystemColors.ControlText;
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(20000, 10000);
-            MinimizeBox = false;
             Name = "frmAbout";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "About";
-            TopMost = true;
+            TabText = "About";
             ((System.ComponentModel.ISupportInitialize)pbLogo).EndInit();
             pnlBottom.ResumeLayout(false);
             pnlBottom.PerformLayout();
