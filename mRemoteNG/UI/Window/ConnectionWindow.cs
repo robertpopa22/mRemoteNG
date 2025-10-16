@@ -143,6 +143,12 @@ namespace mRemoteNG.UI.Window
                 // TODO: See if we can make this work with DPS...
                 //TabController.HideTabsMode = TabControl.HideTabsModes.HideAlways;
 
+                // Ensure the ConnectionWindow is visible before adding the tab
+                // This prevents visibility issues when the window was created but not yet shown
+                if (!Visible)
+                {
+                    Show(FrmMain.Default.pnlDock, DockState.Document);
+                }
 
                 //Show the tab
                 conTab.Show(connDock, DockState.Document);
