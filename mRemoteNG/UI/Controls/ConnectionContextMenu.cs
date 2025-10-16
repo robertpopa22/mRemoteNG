@@ -811,6 +811,7 @@ namespace mRemoteNG.UI.Controls
                     if (CTaskDialog.VerificationChecked)
                     {
                         Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                        Settings.Default.Save();
                     }
 
                     if (result == DialogResult.No)
