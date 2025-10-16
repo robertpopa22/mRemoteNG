@@ -22,6 +22,7 @@ namespace mRemoteNG.UI.Forms
         private string _pageName;
         private readonly DisplayProperties _display = new();
         private readonly List<string> _optionPageObjectNames;
+        private bool _isLoading = true;
 
         public FrmOptions() : this(Language.StartupExit)
         {
@@ -105,6 +106,8 @@ namespace mRemoteNG.UI.Forms
             if (_currentIndex >= _optionPageObjectNames.Count)
             {
                 Application.Idle -= new EventHandler(Application_Idle);
+                // All pages loaded, now start tracking changes
+                _isLoading = false;
             }
             else
             {
@@ -361,6 +364,9 @@ namespace mRemoteNG.UI.Forms
 
         private void MarkPageAsChanged(Control control)
         {
+            // Don't track changes during initial loading
+            if (_isLoading) return;
+            
             // Find the parent OptionsPage
             Control current = control;
             while (current != null && !(current is OptionsPage))
