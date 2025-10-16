@@ -470,7 +470,7 @@ namespace mRemoteNG.UI.Forms
                     DialogResult result = CTaskDialog.MessageBox(this, Application.ProductName, Language.ConfirmExitMainInstruction, "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
                     if (CTaskDialog.VerificationChecked)
                     {
-                        Properties.Settings.Default.ConfirmCloseConnection--; //--?
+                        Properties.Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
                     }
 
                     if (result == DialogResult.No)
