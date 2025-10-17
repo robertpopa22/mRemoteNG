@@ -163,12 +163,7 @@ namespace mRemoteNG.Connection.Protocol
                         }
                         else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                             try {
-                                RootNodeInfo? rootNode = InterfaceControl.Info?.GetRootParent() as RootNodeInfo;
-                                if (rootNode == null) {
-                                    Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
-                                    return false;
-                                }
-                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH(rootNode.VaultOpenbaoUrl, rootNode.VaultOpenbaoToken, (int)InterfaceControl.Info?.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info?.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
                             } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                                 Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                             }

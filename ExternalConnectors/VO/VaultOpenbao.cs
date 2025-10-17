@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,29 @@ namespace ExternalConnectors.VO {
     }
 
     public static class VaultOpenbao {
-        private static VaultClient GetClient(string url, string token) {
+        private static RegistryKey baseKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\mRemoteVaultOpenbao");
+        private static string token = "";
+        private static VaultClient GetClient() {
+            string url = (string)baseKey.GetValue("URL", "");
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(token)) {
+                using VaultOpenbaoConnectionForm voForm = new();
+                voForm.tbUrl.Text = url;
+                _ = voForm.ShowDialog();
+                if (voForm.DialogResult != DialogResult.OK)
+                    throw new VaultOpenbaoException($"No credential provided", null);
+                url = voForm.tbUrl.Text;
+                token = voForm.tbToken.Text;
+            }
             IAuthMethodInfo authMethod = new TokenAuthMethodInfo(token);
             var vaultClientSettings = new VaultClientSettings(url, authMethod);
-            return new(vaultClientSettings);
+            VaultClient client = new(vaultClientSettings);
+            var sysInfo = client.V1.System.GetInitStatusAsync().Result;
+            if (!sysInfo) {
+                MessageBox.Show("Test connection failed", "Vault Openbao", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new VaultOpenbaoException($"Url not working", null);
+            }
+            baseKey.SetValue("URL", url);
+            return client;
         }
         private static void TestMountType(VaultClient vaultClient, string mount, int VaultOpenbaoSecretEngine) {
             switch (vaultClient.V1.System.GetSecretBackendAsync(mount).Result.Data.Type.Type) {
@@ -28,8 +49,8 @@ namespace ExternalConnectors.VO {
                     throw new VaultOpenbaoException($"Backend of type ldap does not match expected type {VaultOpenbaoSecretEngine}", null);
             }
         }
-        public static void ReadPasswordSSH(string url, string token, int secretEngine, string mount, string role, string username, out string password) {
-            VaultClient vaultClient = GetClient(url, token);
+        public static void ReadPasswordSSH(int secretEngine, string mount, string role, string username, out string password) {
+            VaultClient vaultClient = GetClient();
             TestMountType(vaultClient, mount, secretEngine);
             switch (secretEngine) {
                 case 0:
@@ -45,8 +66,8 @@ namespace ExternalConnectors.VO {
             }
 
         }
-        public static void ReadPasswordRDP(string url, string token, int secretEngine, string mount, string role, ref string username, out string password) {
-            VaultClient vaultClient = GetClient(url, token);
+        public static void ReadPasswordRDP(int secretEngine, string mount, string role, ref string username, out string password) {
+            VaultClient vaultClient = GetClient();
             TestMountType(vaultClient, mount, secretEngine);
             switch (secretEngine) {
                 case 0:
@@ -63,7 +84,7 @@ namespace ExternalConnectors.VO {
                     username = ldaps.Data.Username;
                     password = ldaps.Data.Password;
                     return;
-           
+
                 default:
                     throw new VaultOpenbaoException($"Backend of type {secretEngine} is not supported", null);
             }

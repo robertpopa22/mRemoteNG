@@ -483,14 +483,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao)
                         {
                             try {
-                                RootNodeInfo? rootNode = connectionInfo?.GetRootParent() as RootNodeInfo;
-                                if (rootNode == null) {
-                                    Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
-                                    return;
-                                }
                                 if (connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
                                     gwu = connectionInfo.RDGatewayUsername;
-                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.VaultOpenbaoUrl, rootNode.VaultOpenbaoToken, (int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo.VaultOpenbaoMount, connectionInfo.VaultOpenbaoRole, ref gwu, out gwp);
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP((int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo.VaultOpenbaoMount, connectionInfo.VaultOpenbaoRole, ref gwu, out gwp);
                             } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                                 Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                             }
@@ -609,14 +604,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                     try {
-                        RootNodeInfo? rootNode = connectionInfo?.GetRootParent() as RootNodeInfo;
-                        if (rootNode == null) {
-                            Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
-                            return;
-                        }
                         if(connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
                             userName = connectionInfo?.Username ?? "";
-                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.VaultOpenbaoUrl, rootNode.VaultOpenbaoToken, (int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo?.VaultOpenbaoMount ?? "", connectionInfo?.VaultOpenbaoRole ?? "", ref userName, out password);
+                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP((int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo?.VaultOpenbaoMount ?? "", connectionInfo?.VaultOpenbaoRole ?? "", ref userName, out password);
                     } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                         Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                     }
