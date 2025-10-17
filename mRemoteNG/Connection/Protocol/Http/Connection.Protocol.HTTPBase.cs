@@ -8,6 +8,8 @@ using mRemoteNG.UI.Tabs;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using System.Windows.Forms.VisualStyles;
+using System.IO;
+using System.Threading.Tasks;
 
 
 namespace mRemoteNG.Connection.Protocol.Http
@@ -21,6 +23,8 @@ namespace mRemoteNG.Connection.Protocol.Http
         private string _tabTitle;
         protected string httpOrS;
         protected int defaultPort;
+        private string _userDataFolder;
+        private CoreWebView2Environment _webView2Environment;
 
         #endregion
 
@@ -32,6 +36,14 @@ namespace mRemoteNG.Connection.Protocol.Http
             {
                 if (renderingEngine == RenderingEngine.EdgeChromium)
                 {
+                    // Create a unique user data folder for each WebView2 instance
+                    // This prevents session sharing between multiple HTTP/HTTPS connections
+                    _userDataFolder = Path.Combine(
+                        Path.GetTempPath(),
+                        "mRemoteNG_WebView2",
+                        Guid.NewGuid().ToString()
+                    );
+                    
                     Control = new Microsoft.Web.WebView2.WinForms.WebView2()
                     {
                         Dock = DockStyle.Fill,
@@ -69,6 +81,9 @@ namespace mRemoteNG.Connection.Protocol.Http
                 {
                     Microsoft.Web.WebView2.WinForms.WebView2 edge = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
                     edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
+                    
+                    // Initialize WebView2 with unique user data folder asynchronously
+                    InitializeWebView2Async(edge);
                 }
                 else
                 {
@@ -91,13 +106,52 @@ namespace mRemoteNG.Connection.Protocol.Http
             }
         }
 
+        private async void InitializeWebView2Async(Microsoft.Web.WebView2.WinForms.WebView2 webView2)
+        {
+            try
+            {
+                // Create the WebView2 environment with a unique user data folder
+                _webView2Environment = await CoreWebView2Environment.CreateAsync(null, _userDataFolder);
+                
+                // Initialize the WebView2 control with the custom environment
+                await webView2.EnsureCoreWebView2Async(_webView2Environment);
+                
+                // Prevent popups from opening in new windows
+                webView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpSetPropsFailed, ex);
+            }
+        }
+
         public override bool Connect()
         {
             try
             {
                 if (InterfaceControl.Info.RenderingEngine == RenderingEngine.EdgeChromium)
                 {
-                    ((Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser).Source = new Uri(GetUrl());
+                    var webView2 = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
+                    
+                    // Check if WebView2 is initialized, if not, navigate when it's ready
+                    if (webView2.CoreWebView2 != null)
+                    {
+                        webView2.Source = new Uri(GetUrl());
+                    }
+                    else
+                    {
+                        // WebView2 is still initializing, navigate when initialization completes
+                        EventHandler<CoreWebView2InitializationCompletedEventArgs> handler = null;
+                        handler = (s, e) =>
+                        {
+                            if (e.IsSuccess)
+                            {
+                                webView2.Source = new Uri(GetUrl());
+                            }
+                            webView2.CoreWebView2InitializationCompleted -= handler;
+                        };
+                        webView2.CoreWebView2InitializationCompleted += handler;
+                    }
                 }
                 else
                 {
@@ -210,6 +264,39 @@ namespace mRemoteNG.Connection.Protocol.Http
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpDocumentTileChangeFailed, ex);
             }
+        }
+
+        #endregion
+
+        #region Cleanup
+
+        public override void Close()
+        {
+            try
+            {
+                // Dispose of WebView2 environment
+                _webView2Environment?.Dispose();
+                
+                // Clean up the temporary user data folder
+                if (!string.IsNullOrEmpty(_userDataFolder) && Directory.Exists(_userDataFolder))
+                {
+                    try
+                    {
+                        Directory.Delete(_userDataFolder, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log but don't throw - cleanup is best effort
+                        Runtime.MessageCollector.AddExceptionStackTrace("Failed to clean up WebView2 user data folder", ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error during HTTPBase cleanup", ex);
+            }
+            
+            base.Close();
         }
 
         #endregion
