@@ -156,7 +156,11 @@ namespace mRemoteNG.Connection.Protocol.Http
                             {
                                 Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpConnectFailed, t.Exception);
                             }
-                        });
+                        }, 
+                        // Use UI thread scheduler if available, otherwise use default
+                        System.Threading.SynchronizationContext.Current != null 
+                            ? TaskScheduler.FromCurrentSynchronizationContext() 
+                            : TaskScheduler.Default);
                     }
                     else if (webView2.CoreWebView2 != null)
                     {
@@ -292,15 +296,19 @@ namespace mRemoteNG.Connection.Protocol.Http
                     var cleanupTask = _webView2InitializationTask.ContinueWith(_ => 
                     {
                         DisposeWebView2Environment();
-                    });
+                    }, TaskScheduler.Default); // Use default scheduler to avoid UI thread issues
                     
-                    // Give it a reasonable time to complete, but don't block the Close operation
-                    if (!cleanupTask.Wait(TimeSpan.FromSeconds(2)))
+                    // Give it a reasonable time to complete, but don't block indefinitely
+                    // Using a background thread to avoid blocking UI thread
+                    Task.Run(() =>
                     {
-                        // Initialization is taking too long, proceed with disposal anyway
-                        Runtime.MessageCollector.AddMessage(mRemoteNG.Messages.MessageClass.WarningMsg, 
-                            "WebView2 initialization did not complete in time during cleanup");
-                    }
+                        if (!cleanupTask.Wait(TimeSpan.FromSeconds(2)))
+                        {
+                            // Initialization is taking too long, log and continue
+                            Runtime.MessageCollector.AddMessage(mRemoteNG.Messages.MessageClass.WarningMsg, 
+                                "WebView2 initialization did not complete in time during cleanup");
+                        }
+                    });
                 }
                 else
                 {
