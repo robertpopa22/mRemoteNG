@@ -2482,16 +2482,31 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="VaultOpenbaoRoleDescription" xml:space="preserve">
     <value>Name or path of the secret</value>
   </data>
-  <data name="OpenbaoVaultToken" xml:space="preserve">
-    <value>Token for Openbao/Vault</value>
+  <data name="VaultOpenbaoToken" xml:space="preserve">
+    <value>Token for Vault/Openbao</value>
   </data>
-  <data name="OpenbaoVaultTokenPropertyDescription" xml:space="preserve">
-    <value>Token to access Openbao/Vault server</value>
+  <data name="VaultOpenbaoTokenPropertyDescription" xml:space="preserve">
+    <value>Token to access Vault/Openbao server</value>
   </data>
-  <data name="OpenbaoVaultUrl" xml:space="preserve">
-    <value>Openbao/Vault Url</value>
+  <data name="VaultOpenbaoUrl" xml:space="preserve">
+    <value>Vault/Openbao Url</value>
   </data>
-  <data name="OpenbaoVaultUrlPropertyDescription" xml:space="preserve">
-    <value>The URL of the Openbao/Vault server to retrieve credentials</value>
+  <data name="VaultOpenbaoUrlPropertyDescription" xml:space="preserve">
+    <value>The URL of the Vault/Openbao server to retrieve credentials</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngine" xml:space="preserve">
+    <value>Vault/Openbao Secret Engine</value>
+  </data>
+  <data name="PropertyDescriptionVaultOpenbaoSecretEngine" xml:space="preserve">
+    <value>Secret engine used in Vault/Openbao to store the secret</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineKeyValue" xml:space="preserve">
+    <value>KeyValue (Username as Key)</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPDynamic" xml:space="preserve">
+    <value>LDAP dynamic role</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPStatic" xml:space="preserve">
+    <value>LDAP static role</value>
   </data>
 </root>

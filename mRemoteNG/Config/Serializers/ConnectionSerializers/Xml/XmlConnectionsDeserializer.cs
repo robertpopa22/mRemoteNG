@@ -120,7 +120,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private void InitializeRootNode(XmlElement connectionsRootElement)
         {
             _rootNodeInfo.Name = connectionsRootElement?.Attributes["Name"]?.Value.Trim();
-            _rootNodeInfo.OpenbaoVaultUrl = connectionsRootElement?.Attributes["OpenbaoVaultUrl"]?.Value.Trim();
+            _rootNodeInfo.VaultOpenbaoUrl = connectionsRootElement?.Attributes["VaultOpenbaoUrl"]?.Value.Trim();
         }
 
         private void CreateDecryptor(RootNodeInfo rootNodeInfo, XmlElement connectionsRootElement = null)
@@ -517,8 +517,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.UserViaAPI = xmlnode.GetAttributeAsString("UserViaAPI");
                     connectionInfo.Inheritance.UserViaAPI = xmlnode.GetAttributeAsBool("InheritUserViaAPI");
                     connectionInfo.ExternalAddressProvider = xmlnode.GetAttributeAsEnum("ExternalAddressProvider", ExternalAddressProvider.None);
-                    connectionInfo.VaultMount = xmlnode.GetAttributeAsString("VaultMount");
-                    connectionInfo.VaultRole = xmlnode.GetAttributeAsString("VaultRole");
+                    connectionInfo.VaultOpenbaoMount = xmlnode.GetAttributeAsString("VaultOpenbaoMount");
+                    connectionInfo.VaultOpenbaoRole = xmlnode.GetAttributeAsString("VaultOpenbaoRole");
+                    connectionInfo.VaultOpenbaoSecretEngine = xmlnode.GetAttributeAsEnum("VaultOpenbaoSecretEngine", VaultOpenbaoSecretEngine.Kv);
                     connectionInfo.EC2InstanceId = xmlnode.GetAttributeAsString("EC2InstanceId");
                     connectionInfo.EC2Region = xmlnode.GetAttributeAsString("EC2Region");
                     connectionInfo.UseRestrictedAdmin = xmlnode.GetAttributeAsBool("UseRestrictedAdmin");

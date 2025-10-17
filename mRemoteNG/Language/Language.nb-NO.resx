@@ -2018,16 +2018,31 @@ Nightly-kanalen inkluderer alpha-, beta- og release candidate-versjoner.</value>
   <data name="VaultOpenbaoRoleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="OpenbaoVaultToken" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="VaultOpenbaoToken" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="OpenbaoVaultTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="VaultOpenbaoTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="OpenbaoVaultUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="VaultOpenbaoUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="OpenbaoVaultUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+  <data name="VaultOpenbaoUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoSecretEngine" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="PropertyDescriptionVaultOpenbaoSecretEngine" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoSecretEngineKeyValue" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPDynamic" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

@@ -3487,42 +3487,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Token for Openbao/Vault.
-        /// </summary>
-        internal static string OpenbaoVaultToken {
-            get {
-                return ResourceManager.GetString("OpenbaoVaultToken", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Token to access Openbao/Vault server.
-        /// </summary>
-        internal static string OpenbaoVaultTokenPropertyDescription {
-            get {
-                return ResourceManager.GetString("OpenbaoVaultTokenPropertyDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Openbao/Vault Url.
-        /// </summary>
-        internal static string OpenbaoVaultUrl {
-            get {
-                return ResourceManager.GetString("OpenbaoVaultUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The URL of the Openbao/Vault server to retrieve credentials.
-        /// </summary>
-        internal static string OpenbaoVaultUrlPropertyDescription {
-            get {
-                return ResourceManager.GetString("OpenbaoVaultUrlPropertyDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open Connection File....
         /// </summary>
         internal static string OpenConnectionFile {
@@ -4563,6 +4527,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string PropertyDescriptionUseVmId {
             get {
                 return ResourceManager.GetString("PropertyDescriptionUseVmId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret engine used in Vault/Openbao to store the secret.
+        /// </summary>
+        internal static string PropertyDescriptionVaultOpenbaoSecretEngine {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionVaultOpenbaoSecretEngine", resourceCulture);
             }
         }
         
@@ -6898,6 +6871,78 @@ namespace mRemoteNG.Resources.Language {
         internal static string VaultOpenbaoRoleDescription {
             get {
                 return ResourceManager.GetString("VaultOpenbaoRoleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vault/Openbao Secret Engine.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngine {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeyValue (Username as Key).
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineKeyValue {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineKeyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LDAP dynamic role.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineLDAPDynamic {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineLDAPDynamic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LDAP static role.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineLDAPStatic {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineLDAPStatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token for Vault/Openbao.
+        /// </summary>
+        internal static string VaultOpenbaoToken {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token to access Vault/Openbao server.
+        /// </summary>
+        internal static string VaultOpenbaoTokenPropertyDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoTokenPropertyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vault/Openbao Url.
+        /// </summary>
+        internal static string VaultOpenbaoUrl {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The URL of the Vault/Openbao server to retrieve credentials.
+        /// </summary>
+        internal static string VaultOpenbaoUrlPropertyDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoUrlPropertyDescription", resourceCulture);
             }
         }
         

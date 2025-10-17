@@ -14,8 +14,8 @@ namespace mRemoteNG.Tree.Root
     {
         private string _name = Language.Connections;
         private string _customPassword = "";
-        private string _openbaoVaultToken = "";
-        private string _openbaoVaultUrl = "";
+        private string _vaultOpenbaoToken = "";
+        private string _vaultOpenbaoUrl = "";
 
         public RootNodeInfo(RootNodeType rootType)
             : this(rootType, Guid.NewGuid().ToString())
@@ -66,21 +66,21 @@ namespace mRemoteNG.Tree.Root
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
          Browsable(true),
          LocalizedAttributes.LocalizedDefaultValue(nameof(Language.Connections)),
-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.OpenbaoVaultUrl)),
-         LocalizedAttributes.LocalizedDescription(nameof(Language.OpenbaoVaultUrlPropertyDescription))]
-        public string OpenbaoVaultUrl {
-            get => _openbaoVaultUrl;
-            set => _openbaoVaultUrl = value;
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoUrl)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoUrlPropertyDescription))]
+        public string VaultOpenbaoUrl {
+            get => _vaultOpenbaoUrl;
+            set => _vaultOpenbaoUrl = value;
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
          Browsable(true),
          LocalizedAttributes.LocalizedDefaultValue(nameof(Language.Connections)),
-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.OpenbaoVaultToken)),
-         LocalizedAttributes.LocalizedDescription(nameof(Language.OpenbaoVaultTokenPropertyDescription))]
-        public string OpenbaoVaultToken {
-            get => _openbaoVaultToken;
-            set => _openbaoVaultToken = value;
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoToken)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoTokenPropertyDescription))]
+        public string VaultOpenbaoToken {
+            get => _vaultOpenbaoToken;
+            set => _vaultOpenbaoToken = value;
         }
 
         #endregion

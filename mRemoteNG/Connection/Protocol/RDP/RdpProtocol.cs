@@ -488,7 +488,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                     Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
                                     return;
                                 }
-                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.OpenbaoVaultUrl, rootNode.OpenbaoVaultToken, connectionInfo.VaultMount, connectionInfo.VaultRole, out gwu, out gwp);
+                                if (connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
+                                    gwu = connectionInfo.RDGatewayUsername;
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.VaultOpenbaoUrl, rootNode.VaultOpenbaoToken, (int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo.VaultOpenbaoMount, connectionInfo.VaultOpenbaoRole, ref gwu, out gwp);
                             } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                                 Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                             }
@@ -612,7 +614,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
                             return;
                         }
-                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.OpenbaoVaultUrl, rootNode.OpenbaoVaultToken, connectionInfo?.VaultMount ?? "", connectionInfo?.VaultRole ?? "", out userName, out password);
+                        if(connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
+                            userName = connectionInfo?.Username ?? "";
+                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.VaultOpenbaoUrl, rootNode.VaultOpenbaoToken, (int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo?.VaultOpenbaoMount ?? "", connectionInfo?.VaultOpenbaoRole ?? "", ref userName, out password);
                     } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                         Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                     }
