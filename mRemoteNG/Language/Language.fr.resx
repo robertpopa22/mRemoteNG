@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>À propos</value>
   </data>
   <data name="ActiveDirectory" xml:space="preserve">
@@ -719,7 +719,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Ajouter un panneau de connexion</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Rechercher les mises à jour</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -740,7 +740,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Supprimer l'outil externe...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Faire un don</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -758,7 +758,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="_Help" xml:space="preserve">
     <value>&amp;Aide</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>Aide mRemoteNG</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -800,7 +800,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="RenameTab" xml:space="preserve">
     <value>Renommer l'onglet</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Signaler un bug</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -830,7 +830,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="StartChat" xml:space="preserve">
     <value>Démarrer le chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Forum du support</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -845,7 +845,7 @@ Voir l'article de support Microsoft http://support.microsoft.com/kb/811833 pour 
   <data name="ViewOnly" xml:space="preserve">
     <value>Voir seulement (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Site web</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

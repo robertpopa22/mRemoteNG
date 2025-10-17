@@ -214,15 +214,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About.
-        /// </summary>
-        internal static string About {
-            get {
-                return ResourceManager.GetString("About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hidden.
         /// </summary>
         internal static string ACLPermissionsHidden {
@@ -732,15 +723,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string CheckFailed {
             get {
                 return ResourceManager.GetString("CheckFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check for Updates.
-        /// </summary>
-        internal static string CheckForUpdates {
-            get {
-                return ResourceManager.GetString("CheckForUpdates", resourceCulture);
             }
         }
         
@@ -1709,15 +1691,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Donate.
-        /// </summary>
-        internal static string Donate {
-            get {
-                return ResourceManager.GetString("Donate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Do not play.
         /// </summary>
         internal static string DoNotPlay {
@@ -2586,15 +2559,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mRemoteNG Help.
-        /// </summary>
-        internal static string HelpContents {
-            get {
-                return ResourceManager.GetString("HelpContents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to High.
         /// </summary>
         internal static string High {
@@ -3113,6 +3077,87 @@ namespace mRemoteNG.Resources.Language {
         internal static string Medium {
             get {
                 return ResourceManager.GetString("Medium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string MenuItem_About {
+            get {
+                return ResourceManager.GetString("MenuItem_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mR Chat.
+        /// </summary>
+        internal static string MenuItem_Chat {
+            get {
+                return ResourceManager.GetString("MenuItem_Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for Updates.
+        /// </summary>
+        internal static string MenuItem_CheckForUpdates {
+            get {
+                return ResourceManager.GetString("MenuItem_CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community.
+        /// </summary>
+        internal static string MenuItem_Community {
+            get {
+                return ResourceManager.GetString("MenuItem_Community", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Donate.
+        /// </summary>
+        internal static string MenuItem_Donate {
+            get {
+                return ResourceManager.GetString("MenuItem_Donate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mRemoteNG Help.
+        /// </summary>
+        internal static string MenuItem_HelpContents {
+            get {
+                return ResourceManager.GetString("MenuItem_HelpContents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report an Issue.
+        /// </summary>
+        internal static string MenuItem_ReportIssue {
+            get {
+                return ResourceManager.GetString("MenuItem_ReportIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support Forum.
+        /// </summary>
+        internal static string MenuItem_SupportForum {
+            get {
+                return ResourceManager.GetString("MenuItem_SupportForum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Website.
+        /// </summary>
+        internal static string MenuItem_Website {
+            get {
+                return ResourceManager.GetString("MenuItem_Website", resourceCulture);
             }
         }
         
@@ -5641,15 +5686,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report a Bug.
-        /// </summary>
-        internal static string ReportBug {
-            get {
-                return ResourceManager.GetString("ReportBug", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Reset layout.
         /// </summary>
         internal static string ResetLayout {
@@ -5736,6 +5772,24 @@ namespace mRemoteNG.Resources.Language {
         internal static string SaveConnectionsFileBeforeOpeningAnother {
             get {
                 return ResourceManager.GetString("SaveConnectionsFileBeforeOpeningAnother", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
+        /// </summary>
+        internal static string SaveOptionsBeforeClosing {
+            get {
+                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        internal static string Discard {
+            get {
+                return ResourceManager.GetString("Discard", resourceCulture);
             }
         }
         
@@ -6312,15 +6366,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string strConnectionsBackupPath {
             get {
                 return ResourceManager.GetString("strConnectionsBackupPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Support Forum.
-        /// </summary>
-        internal static string SupportForum {
-            get {
-                return ResourceManager.GetString("SupportForum", resourceCulture);
             }
         }
         
@@ -7105,15 +7150,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string WarnMeWhenClosingConnections {
             get {
                 return ResourceManager.GetString("WarnMeWhenClosingConnections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Website.
-        /// </summary>
-        internal static string Website {
-            get {
-                return ResourceManager.GetString("Website", resourceCulture);
             }
         }
         

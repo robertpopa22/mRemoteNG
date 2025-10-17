@@ -810,7 +810,8 @@ namespace mRemoteNG.UI.Controls
                                                         ESysIcons.Question);
                     if (CTaskDialog.VerificationChecked)
                     {
-                        Settings.Default.ConfirmCloseConnection--;
+                        Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                        Settings.Default.Save();
                     }
 
                     if (result == DialogResult.No)

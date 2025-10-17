@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>关于</value>
   </data>
   <data name="ActiveDirectory" xml:space="preserve">
@@ -719,7 +719,7 @@
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>添加连接面板</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>检查更新</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -740,7 +740,7 @@
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>删除外部工具...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>捐赠</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -758,7 +758,7 @@
   <data name="_Help" xml:space="preserve">
     <value>帮助(&amp;H)</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG 帮助</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -800,7 +800,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>重命名标签</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>报告问题</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -830,7 +830,7 @@
   <data name="StartChat" xml:space="preserve">
     <value>启动 Chat(VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>支持论坛</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -845,7 +845,7 @@
   <data name="ViewOnly" xml:space="preserve">
     <value>仅查看</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>网站</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

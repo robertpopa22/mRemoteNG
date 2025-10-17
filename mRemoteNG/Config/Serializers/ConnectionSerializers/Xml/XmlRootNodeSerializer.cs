@@ -29,7 +29,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private XAttribute CreateProtectedAttribute(RootNodeInfo rootNodeInfo, ICryptographyProvider cryptographyProvider)
         {
             XAttribute attribute = new(XName.Get("Protected"), "");
-            string plainText = rootNodeInfo.Password ? "ThisIsProtected" : "ThisIsNotProtected";
+            string plainText = (rootNodeInfo.PasswordString != rootNodeInfo.DefaultPassword) ? "ThisIsProtected" : "ThisIsNotProtected";
             System.Security.SecureString encryptionPassword = rootNodeInfo.PasswordString.ConvertToSecureString();
             attribute.Value = cryptographyProvider.Encrypt(plainText, encryptionPassword);
             return attribute;

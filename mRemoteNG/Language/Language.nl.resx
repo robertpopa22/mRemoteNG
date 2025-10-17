@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>Over</value>
   </data>
   <data name="AddNodeFromXmlFailed" xml:space="preserve">
@@ -631,7 +631,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>Voeg Connectie Paneel toe</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>Controleer voor beschikbare Updates</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -652,7 +652,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>Verwijder Externe Applicatie...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>Doneer</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -670,7 +670,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="_Help" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG Help</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -712,7 +712,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="RenameTab" xml:space="preserve">
     <value>Hernoem Tab</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Meld een bug</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -742,7 +742,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="StartChat" xml:space="preserve">
     <value>Start Chat (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>Ondersteunings Forum</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -757,7 +757,7 @@ Beginnen met nieuwe Connectie bestand.</value>
   <data name="ViewOnly" xml:space="preserve">
     <value>Alleen bekijken (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>Website</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

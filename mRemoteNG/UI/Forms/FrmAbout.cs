@@ -7,15 +7,16 @@ using System.Reflection;
 using mRemoteNG.Properties;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
+using mRemoteNG.UI.Window;
 
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class frmAbout : Form
+    public partial class frmAbout : BaseWindow
     {
         public static frmAbout Instance { get; set; } = new frmAbout();
 
-        private frmAbout()
+        public frmAbout()
         {
             InitializeComponent();
             Icon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.UIAboutBox_16x);
@@ -27,7 +28,8 @@ namespace mRemoteNG.UI.Forms
         private void ApplyLanguage()
         {
             lblLicense.Text = Language.ReleasedUnderGPL;
-            base.Text = Language.About;
+            base.Text = Language.MenuItem_About;
+            TabText = Language.MenuItem_About;
             llChangelog.Text = Language.Changelog;
             llCredits.Text = Language.Credits;
             llLicense.Text = Language.License;
@@ -50,9 +52,9 @@ namespace mRemoteNG.UI.Forms
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-
-            e.Cancel = true;
-            Hide();
+            
+            // Don't cancel close when shown in DockPanel
+            // This allows the tab to close properly without showing connection close dialog
         }
 
         private void llLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

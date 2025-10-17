@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>பற்றி</value>
   </data>
   <data name="ActiveDirectory" xml:space="preserve">
@@ -725,7 +725,7 @@
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>இணைப்பு பலகையைச் சேர்</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>புதுப்பிப்புகளை சரிபார்</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -746,7 +746,7 @@
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>வெளிப்புற கருவியை நீக்கு...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>நன்கொடை</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -764,7 +764,7 @@
   <data name="_Help" xml:space="preserve">
     <value>உதவி</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>பலதொலைஅத உதவி</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -806,7 +806,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>தாவலை மறுபெயரிடுங்கள்</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>ஒரு பிழையைப் புகாரளி</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -836,7 +836,7 @@
   <data name="StartChat" xml:space="preserve">
     <value>அரட்டையைத் தொடங்கு (விஎன்சி)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>உதவி மன்றம்</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -851,7 +851,7 @@
   <data name="ViewOnly" xml:space="preserve">
     <value>பார்க்க மட்டுமே</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>வலைத்தளம்</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">

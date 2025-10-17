@@ -143,6 +143,13 @@ namespace mRemoteNG.UI.Window
                 // TODO: See if we can make this work with DPS...
                 //TabController.HideTabsMode = TabControl.HideTabsModes.HideAlways;
 
+                // Ensure the ConnectionWindow is visible before adding the tab
+                // This prevents visibility issues when the window was created but not yet shown
+                // Check DockState instead of Visible to properly detect if window is shown in DockPanel
+                if (DockState == DockState.Unknown || DockState == DockState.Hidden || !Visible)
+                {
+                    Show(FrmMain.Default.pnlDock, DockState.Document);
+                }
 
                 //Show the tab
                 conTab.Show(connDock, DockState.Document);
@@ -288,16 +295,11 @@ namespace mRemoteNG.UI.Window
                  Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
                  connDock.Documents.Count() > 1))
             {
-                DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName,
-                                                    string
-                                                        .Format(Language.ConfirmCloseConnectionPanelMainInstruction,
-                                                                Text), "", "", "",
-                                                    Language.CheckboxDoNotShowThisMessageAgain,
-                                                    ETaskDialogButtons.YesNo, ESysIcons.Question,
-                                                    ESysIcons.Question);
+                DialogResult result = CTaskDialog.MessageBox(this, GeneralAppInfo.ProductName, string.Format(Language.ConfirmCloseConnectionPanelMainInstruction, Text), "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
                 if (CTaskDialog.VerificationChecked)
                 {
-                    Settings.Default.ConfirmCloseConnection--;
+                    Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                    Settings.Default.Save();
                 }
 
                 if (result == DialogResult.No)
@@ -662,7 +664,8 @@ namespace mRemoteNG.UI.Window
                                                     ESysIcons.Question);
                 if (CTaskDialog.VerificationChecked)
                 {
-                    Settings.Default.ConfirmCloseConnection--;
+                    Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                    Settings.Default.Save();
                 }
 
                 if (result == DialogResult.No)

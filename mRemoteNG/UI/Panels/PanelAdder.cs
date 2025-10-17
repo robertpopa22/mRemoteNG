@@ -15,14 +15,17 @@ namespace mRemoteNG.UI.Panels
     [SupportedOSPlatform("windows")]
     public class PanelAdder
     {
-        public ConnectionWindow AddPanel(string title = "")
+        public ConnectionWindow AddPanel(string title = "", bool showImmediately = true)
         {
             try
             {
                 ConnectionWindow connectionForm = new(new DockContent());
                 BuildConnectionWindowContextMenu(connectionForm);
                 SetConnectionWindowTitle(title, connectionForm);
-                ShowConnectionWindow(connectionForm);
+                // Only show immediately if requested (for user-created empty panels)
+                // When opening connections, we defer showing until first tab is added
+                if (showImmediately)
+                    ShowConnectionWindow(connectionForm);
                 PrepareTabSupport(connectionForm);
                 return connectionForm;
             }

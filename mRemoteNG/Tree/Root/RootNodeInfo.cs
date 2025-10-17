@@ -45,7 +45,7 @@ namespace mRemoteNG.Tree.Root
         [Browsable(false)]
         public string PasswordString
         {
-            get => Password ? _customPassword : DefaultPassword;
+            get => (Password && !string.IsNullOrEmpty(_customPassword)) ? _customPassword : DefaultPassword;
             set
             {
                 _customPassword = value;

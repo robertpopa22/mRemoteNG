@@ -98,6 +98,36 @@ public class XmlRootNodeSerializerTests
     }
 
     [Test]
+    public void ProtectedStringSerializedWhenPasswordPropertySetDirectly()
+    {
+        // Simulate edge case where Password property is set to true directly
+        // without setting PasswordString (leaving _customPassword empty)
+        _rootNodeInfo.Password = true;
+        var element = _rootNodeSerializer.SerializeRootNodeInfo(_rootNodeInfo, _cryptographyProvider, _version);
+        var attributeValue = element.Attribute(XName.Get("Protected"))?.Value;
+        // Should use default password and serialize as "ThisIsNotProtected"
+        var attributeValuePlainText =
+            _cryptographyProvider.Decrypt(attributeValue, _rootNodeInfo.PasswordString.ConvertToSecureString());
+        Assert.That(attributeValuePlainText, Is.EqualTo("ThisIsNotProtected"));
+    }
+
+    [Test]
+    public void FullFileEncryptionWorksWithPasswordPropertySetDirectly()
+    {
+        // Simulate edge case where Password property is set to true directly
+        // This should not cause encryption to fail
+        _rootNodeInfo.Password = true;
+        var element = _rootNodeSerializer.SerializeRootNodeInfo(_rootNodeInfo, _cryptographyProvider, _version, fullFileEncryption: true);
+        var fullFileEncryptionValue = element.Attribute(XName.Get("FullFileEncryption"))?.Value;
+        Assert.That(bool.Parse(fullFileEncryptionValue), Is.True);
+        // Verify Protected attribute can be decrypted successfully
+        var protectedValue = element.Attribute(XName.Get("Protected"))?.Value;
+        Assert.That(protectedValue, Is.Not.Null.And.Not.Empty);
+        var decryptedProtected = _cryptographyProvider.Decrypt(protectedValue, _rootNodeInfo.PasswordString.ConvertToSecureString());
+        Assert.That(decryptedProtected, Is.EqualTo("ThisIsNotProtected"));
+    }
+
+    [Test]
     public void ConfVersionSerialized()
     {
         var element = _rootNodeSerializer.SerializeRootNodeInfo(_rootNodeInfo, _cryptographyProvider, _version);

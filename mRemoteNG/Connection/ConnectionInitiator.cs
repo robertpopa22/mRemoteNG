@@ -320,7 +320,8 @@ namespace mRemoteNG.Connection
             ConnectionWindow connectionForm = conForm ?? Runtime.WindowList.FromString(connectionPanel) as ConnectionWindow;
 
             if (connectionForm == null)
-                connectionForm = _panelAdder.AddPanel(connectionPanel);
+                // Don't show the panel immediately - it will be shown when first tab is added
+                connectionForm = _panelAdder.AddPanel(connectionPanel, showImmediately: false);
             else
                 connectionForm.Show(FrmMain.Default.pnlDock);
 

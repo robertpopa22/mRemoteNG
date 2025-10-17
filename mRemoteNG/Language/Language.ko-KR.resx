@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
+  <data name="MenuItem_About" xml:space="preserve">
     <value>mRemoteNG 정보</value>
   </data>
   <data name="ActiveDirectory" xml:space="preserve">
@@ -712,7 +712,7 @@
   <data name="AddConnectionPanel" xml:space="preserve">
     <value>연결 패널 추가</value>
   </data>
-  <data name="CheckForUpdates" xml:space="preserve">
+  <data name="MenuItem_CheckForUpdates" xml:space="preserve">
     <value>업데이트 확인</value>
   </data>
   <data name="Config" xml:space="preserve">
@@ -733,7 +733,7 @@
   <data name="DeleteExternalTool" xml:space="preserve">
     <value>외부 도구를 삭제 ...</value>
   </data>
-  <data name="Donate" xml:space="preserve">
+  <data name="MenuItem_Donate" xml:space="preserve">
     <value>기부</value>
   </data>
   <data name="DuplicateTab" xml:space="preserve">
@@ -751,7 +751,7 @@
   <data name="_Help" xml:space="preserve">
     <value>도움말(&amp;H)</value>
   </data>
-  <data name="HelpContents" xml:space="preserve">
+  <data name="MenuItem_HelpContents" xml:space="preserve">
     <value>mRemoteNG 도움말</value>
   </data>
   <data name="LaunchExternalTool" xml:space="preserve">
@@ -793,7 +793,7 @@
   <data name="RenameTab" xml:space="preserve">
     <value>탭 이름 바꾸기</value>
   </data>
-  <data name="ReportBug" xml:space="preserve">
+  <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>버그 신고</value>
   </data>
   <data name="ResetLayout" xml:space="preserve">
@@ -823,7 +823,7 @@
   <data name="StartChat" xml:space="preserve">
     <value>채팅 시작 (VNC)</value>
   </data>
-  <data name="SupportForum" xml:space="preserve">
+  <data name="MenuItem_SupportForum" xml:space="preserve">
     <value>지원 포럼</value>
   </data>
   <data name="_Tools" xml:space="preserve">
@@ -838,7 +838,7 @@
   <data name="ViewOnly" xml:space="preserve">
     <value>보기 전용 (VNC)</value>
   </data>
-  <data name="Website" xml:space="preserve">
+  <data name="MenuItem_Website" xml:space="preserve">
     <value>웹 사이트</value>
   </data>
   <data name="MinimizeToSysTray" xml:space="preserve">
