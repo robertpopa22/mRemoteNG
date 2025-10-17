@@ -119,9 +119,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                         BrowsableProperties = new[]
                         {
                             nameof(RootNodeInfo.Name),
-                            nameof(RootNodeInfo.Password),
-                            nameof(RootNodeInfo.VaultOpenbaoUrl),
-                            nameof(RootNodeInfo.VaultOpenbaoToken)
+                            nameof(RootNodeInfo.Password)
                         };
                     }
 

@@ -1610,6 +1610,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        internal static string Discard {
+            get {
+                return ResourceManager.GetString("Discard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disconnect.
         /// </summary>
         internal static string Disconnect {
@@ -5776,24 +5785,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
-        /// </summary>
-        internal static string SaveOptionsBeforeClosing {
-            get {
-                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discard.
-        /// </summary>
-        internal static string Discard {
-            get {
-                return ResourceManager.GetString("Discard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SaveConnectionsOnExit.
         /// </summary>
         internal static string SaveConnectionsOnExit {
@@ -5817,6 +5808,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string SaveImageFilter {
             get {
                 return ResourceManager.GetString("SaveImageFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
+        /// </summary>
+        internal static string SaveOptionsBeforeClosing {
+            get {
+                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
             }
         }
         
@@ -6970,24 +6970,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string VaultOpenbaoTokenPropertyDescription {
             get {
                 return ResourceManager.GetString("VaultOpenbaoTokenPropertyDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vault/Openbao Url.
-        /// </summary>
-        internal static string VaultOpenbaoUrl {
-            get {
-                return ResourceManager.GetString("VaultOpenbaoUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The URL of the Vault/Openbao server to retrieve credentials.
-        /// </summary>
-        internal static string VaultOpenbaoUrlPropertyDescription {
-            get {
-                return ResourceManager.GetString("VaultOpenbaoUrlPropertyDescription", resourceCulture);
             }
         }
         

@@ -1560,12 +1560,6 @@ mRemoteNG ahora se cerrará y comenzará la instalación.</value>
   <data name="VaultOpenbaoTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="VaultOpenbaoUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="VaultOpenbaoUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="VaultOpenbaoSecretEngine" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>

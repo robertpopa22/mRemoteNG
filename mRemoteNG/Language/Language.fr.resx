@@ -2172,12 +2172,6 @@ Le canal nightly inclut les versions alpha, beta et release candidates.</value>
   <data name="VaultOpenbaoTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="VaultOpenbaoUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="VaultOpenbaoUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="VaultOpenbaoSecretEngine" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>

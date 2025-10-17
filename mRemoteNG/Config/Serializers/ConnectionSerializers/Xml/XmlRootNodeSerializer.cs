@@ -15,7 +15,6 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             XElement element = new(xmlNamespace + "Connections");
             element.Add(new XAttribute(XNamespace.Xmlns + "mrng", xmlNamespace));
             element.Add(new XAttribute(XName.Get("Name"), rootNodeInfo.Name));
-            element.Add(new XAttribute(XName.Get("VaultOpenbaoUrl"), rootNodeInfo.VaultOpenbaoUrl));
             element.Add(new XAttribute(XName.Get("Export"), "false"));
             element.Add(new XAttribute(XName.Get("EncryptionEngine"), cryptographyProvider.CipherEngine));
             element.Add(new XAttribute(XName.Get("BlockCipherMode"), cryptographyProvider.CipherMode));

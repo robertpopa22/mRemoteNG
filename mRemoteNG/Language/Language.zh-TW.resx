@@ -1594,12 +1594,6 @@ mRemoteNG 將立即結束並開始安裝。</value>
   <data name="VaultOpenbaoTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="VaultOpenbaoUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
-  <data name="VaultOpenbaoUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="VaultOpenbaoSecretEngine" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>

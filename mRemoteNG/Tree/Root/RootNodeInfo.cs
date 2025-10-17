@@ -14,8 +14,6 @@ namespace mRemoteNG.Tree.Root
     {
         private string _name = Language.Connections;
         private string _customPassword = "";
-        private string _vaultOpenbaoToken = "";
-        private string _vaultOpenbaoUrl = "";
 
         public RootNodeInfo(RootNodeType rootType)
             : this(rootType, Guid.NewGuid().ToString())
@@ -63,26 +61,6 @@ namespace mRemoteNG.Tree.Root
                 ? TreeNodeType.Root
                 : TreeNodeType.PuttyRoot;
         }
-        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
-         Browsable(true),
-         LocalizedAttributes.LocalizedDefaultValue(nameof(Language.Connections)),
-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoUrl)),
-         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoUrlPropertyDescription))]
-        public string VaultOpenbaoUrl {
-            get => _vaultOpenbaoUrl;
-            set => _vaultOpenbaoUrl = value;
-        }
-
-        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous)),
-         Browsable(true),
-         LocalizedAttributes.LocalizedDefaultValue(nameof(Language.Connections)),
-         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoToken)),
-         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoTokenPropertyDescription))]
-        public string VaultOpenbaoToken {
-            get => _vaultOpenbaoToken;
-            set => _vaultOpenbaoToken = value;
-        }
-
         #endregion
     }
 }

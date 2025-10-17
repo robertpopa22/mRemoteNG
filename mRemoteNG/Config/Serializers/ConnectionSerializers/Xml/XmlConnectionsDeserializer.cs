@@ -120,7 +120,6 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private void InitializeRootNode(XmlElement connectionsRootElement)
         {
             _rootNodeInfo.Name = connectionsRootElement?.Attributes["Name"]?.Value.Trim();
-            _rootNodeInfo.VaultOpenbaoUrl = connectionsRootElement?.Attributes["VaultOpenbaoUrl"]?.Value.Trim();
         }
 
         private void CreateDecryptor(RootNodeInfo rootNodeInfo, XmlElement connectionsRootElement = null)
