@@ -25,6 +25,7 @@ namespace mRemoteNG.Connection.Protocol.Http
         protected int defaultPort;
         private string _userDataFolder;
         private CoreWebView2Environment _webView2Environment;
+        private Task _webView2InitializationTask;
 
         #endregion
 
@@ -83,7 +84,7 @@ namespace mRemoteNG.Connection.Protocol.Http
                     edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
                     
                     // Initialize WebView2 with unique user data folder asynchronously
-                    InitializeWebView2Async(edge);
+                    _webView2InitializationTask = InitializeWebView2Async(edge);
                 }
                 else
                 {
@@ -106,7 +107,7 @@ namespace mRemoteNG.Connection.Protocol.Http
             }
         }
 
-        private async void InitializeWebView2Async(Microsoft.Web.WebView2.WinForms.WebView2 webView2)
+        private async Task InitializeWebView2Async(Microsoft.Web.WebView2.WinForms.WebView2 webView2)
         {
             try
             {
@@ -133,24 +134,30 @@ namespace mRemoteNG.Connection.Protocol.Http
                 {
                     var webView2 = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
                     
-                    // Check if WebView2 is initialized, if not, navigate when it's ready
-                    if (webView2.CoreWebView2 != null)
+                    // Wait for WebView2 initialization to complete before connecting
+                    if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
                     {
-                        webView2.Source = new Uri(GetUrl());
-                    }
-                    else
-                    {
-                        // WebView2 is still initializing, navigate when initialization completes
-                        EventHandler<CoreWebView2InitializationCompletedEventArgs> handler = null;
-                        handler = (s, e) =>
+                        // Schedule navigation after initialization completes
+                        _webView2InitializationTask.ContinueWith(t =>
                         {
-                            if (e.IsSuccess)
+                            if (t.IsCompletedSuccessfully && webView2.CoreWebView2 != null)
                             {
-                                webView2.Source = new Uri(GetUrl());
+                                // Use Invoke to ensure we're on the UI thread
+                                if (webView2.InvokeRequired)
+                                {
+                                    webView2.Invoke(new Action(() => webView2.Source = new Uri(GetUrl())));
+                                }
+                                else
+                                {
+                                    webView2.Source = new Uri(GetUrl());
+                                }
                             }
-                            webView2.CoreWebView2InitializationCompleted -= handler;
-                        };
-                        webView2.CoreWebView2InitializationCompleted += handler;
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                    }
+                    else if (webView2.CoreWebView2 != null)
+                    {
+                        // WebView2 is already initialized, navigate immediately
+                        webView2.Source = new Uri(GetUrl());
                     }
                 }
                 else
@@ -274,6 +281,19 @@ namespace mRemoteNG.Connection.Protocol.Http
         {
             try
             {
+                // Wait for initialization to complete before disposing
+                if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
+                {
+                    try
+                    {
+                        _webView2InitializationTask.Wait(TimeSpan.FromSeconds(5));
+                    }
+                    catch (Exception ex)
+                    {
+                        Runtime.MessageCollector.AddExceptionStackTrace("Error waiting for WebView2 initialization to complete", ex);
+                    }
+                }
+                
                 // Dispose of WebView2 environment
                 _webView2Environment?.Dispose();
                 
@@ -282,7 +302,15 @@ namespace mRemoteNG.Connection.Protocol.Http
                 {
                     try
                     {
-                        Directory.Delete(_userDataFolder, true);
+                        // Verify the path is within the expected temp directory for safety
+                        string tempPath = Path.GetTempPath();
+                        string fullUserDataPath = Path.GetFullPath(_userDataFolder);
+                        
+                        if (fullUserDataPath.StartsWith(Path.GetFullPath(tempPath), StringComparison.OrdinalIgnoreCase) &&
+                            fullUserDataPath.Contains("mRemoteNG_WebView2"))
+                        {
+                            Directory.Delete(_userDataFolder, true);
+                        }
                     }
                     catch (Exception ex)
                     {
