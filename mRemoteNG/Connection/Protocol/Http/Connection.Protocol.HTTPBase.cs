@@ -152,7 +152,11 @@ namespace mRemoteNG.Connection.Protocol.Http
                                     webView2.Source = new Uri(GetUrl());
                                 }
                             }
-                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                            else if (t.IsFaulted)
+                            {
+                                Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpConnectFailed, t.Exception);
+                            }
+                        });
                     }
                     else if (webView2.CoreWebView2 != null)
                     {
@@ -281,19 +285,40 @@ namespace mRemoteNG.Connection.Protocol.Http
         {
             try
             {
-                // Wait for initialization to complete before disposing
+                // Wait for initialization to complete before disposing (non-blocking approach)
                 if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
                 {
-                    try
+                    // Create a continuation to dispose after initialization completes
+                    var cleanupTask = _webView2InitializationTask.ContinueWith(_ => 
                     {
-                        _webView2InitializationTask.Wait(TimeSpan.FromSeconds(5));
-                    }
-                    catch (Exception ex)
+                        DisposeWebView2Environment();
+                    });
+                    
+                    // Give it a reasonable time to complete, but don't block the Close operation
+                    if (!cleanupTask.Wait(TimeSpan.FromSeconds(2)))
                     {
-                        Runtime.MessageCollector.AddExceptionStackTrace("Error waiting for WebView2 initialization to complete", ex);
+                        // Initialization is taking too long, proceed with disposal anyway
+                        Runtime.MessageCollector.AddMessage(mRemoteNG.Messages.MessageClass.WarningMsg, 
+                            "WebView2 initialization did not complete in time during cleanup");
                     }
                 }
-                
+                else
+                {
+                    DisposeWebView2Environment();
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error during HTTPBase cleanup", ex);
+            }
+            
+            base.Close();
+        }
+
+        private void DisposeWebView2Environment()
+        {
+            try
+            {
                 // Dispose of WebView2 environment
                 _webView2Environment?.Dispose();
                 
@@ -321,10 +346,8 @@ namespace mRemoteNG.Connection.Protocol.Http
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector.AddExceptionStackTrace("Error during HTTPBase cleanup", ex);
+                Runtime.MessageCollector.AddExceptionStackTrace("Error disposing WebView2 environment", ex);
             }
-            
-            base.Close();
         }
 
         #endregion
