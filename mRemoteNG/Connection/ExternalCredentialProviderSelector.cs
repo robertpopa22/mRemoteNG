@@ -16,5 +16,8 @@ namespace mRemoteNG.Connection
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ECPOnePassword))]
         OnePassword = 3,
+
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbao))]
+        VaultOpenbao = 4,
     }
 }

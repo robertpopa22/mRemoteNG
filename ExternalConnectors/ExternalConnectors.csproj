@@ -20,10 +20,14 @@
     <PackageReference Include="AWSSDK.EC2" />
     <PackageReference Include="BouncyCastle.Cryptography" />
     <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="VaultSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="AWS\AWSConnectionForm.cs" />
     <Compile Update="CPS\CPSConnectionForm.cs" />
     <Compile Update="DSS\SSConnectionForm.cs" />
+    <Compile Update="VO\VaultOpenbaoConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

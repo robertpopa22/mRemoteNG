@@ -2473,6 +2473,42 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="MsgRuntimeIsRequired" xml:space="preserve">
     <value>runtime library is required</value>
   </data>
+  <data name="VaultOpenbao" xml:space="preserve">
+    <value>Vault or Openbao</value>
+  </data>
+  <data name="VaultOpenbaoMount" xml:space="preserve">
+    <value>Mount</value>
+  </data>
+  <data name="VaultOpenbaoMountDescription" xml:space="preserve">
+    <value>Mount where the secret is stored</value>
+  </data>
+  <data name="VaultOpenbaoRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="VaultOpenbaoRoleDescription" xml:space="preserve">
+    <value>Name or path of the secret</value>
+  </data>
+  <data name="VaultOpenbaoToken" xml:space="preserve">
+    <value>Token for Vault/Openbao</value>
+  </data>
+  <data name="VaultOpenbaoTokenPropertyDescription" xml:space="preserve">
+    <value>Token to access Vault/Openbao server</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngine" xml:space="preserve">
+    <value>Vault/Openbao Secret Engine</value>
+  </data>
+  <data name="PropertyDescriptionVaultOpenbaoSecretEngine" xml:space="preserve">
+    <value>Secret engine used in Vault/Openbao to store the secret</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineKeyValue" xml:space="preserve">
+    <value>KeyValue (Username as Key)</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPDynamic" xml:space="preserve">
+    <value>LDAP dynamic role</value>
+  </data>
+  <data name="VaultOpenbaoSecretEngineLDAPStatic" xml:space="preserve">
+    <value>LDAP static role</value>
+  </data>
   <data name="MenuItem_Chat" xml:space="preserve">
     <value>mR Chat</value>
     <comment>Chat to dev</comment>

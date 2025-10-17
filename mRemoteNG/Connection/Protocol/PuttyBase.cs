@@ -5,6 +5,7 @@ using mRemoteNG.Security;
 using mRemoteNG.Security.SymmetricEncryption;
 using mRemoteNG.Tools;
 using mRemoteNG.Tools.Cmdline;
+using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using System;
 using System.Diagnostics;
@@ -15,7 +16,6 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
@@ -104,7 +104,6 @@ namespace mRemoteNG.Connection.Protocol
                         string username = InterfaceControl.Info?.Username ?? "";
                         //string password = InterfaceControl.Info?.Password?.ConvertToUnsecureString() ?? "";
                         string password = InterfaceControl.Info?.Password ?? "";
-                        string domain = InterfaceControl.Info?.Domain ?? "";
                         string UserViaAPI = InterfaceControl.Info?.UserViaAPI ?? "";
                         string privatekey = "";
 
@@ -113,7 +112,7 @@ namespace mRemoteNG.Connection.Protocol
                         {
                             try
                             {
-                                ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out domain, out privatekey);
+                                ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
 
                                 if (!string.IsNullOrEmpty(privatekey))
                                 {
@@ -134,7 +133,7 @@ namespace mRemoteNG.Connection.Protocol
                         {
                             try
                             {
-                                ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out domain, out privatekey);
+                                ExternalConnectors.CPS.PasswordstateInterface.FetchSecretFromServer($"{UserViaAPI}", out username, out password, out _, out privatekey);
 
                                 if (!string.IsNullOrEmpty(privatekey))
                                 {
@@ -154,7 +153,7 @@ namespace mRemoteNG.Connection.Protocol
                         else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
                             try
                             {
-                                ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out domain, out privatekey);
+                                ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
                             }
                             catch (ExternalConnectors.OP.OnePasswordCliException ex)
                             {
@@ -162,7 +161,13 @@ namespace mRemoteNG.Connection.Protocol
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
-
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                            try {
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH((int)InterfaceControl.Info?.VaultOpenbaoSecretEngine, InterfaceControl.Info?.VaultOpenbaoMount ?? "", InterfaceControl.Info?.VaultOpenbaoRole ?? "", InterfaceControl.Info?.Username ?? "root", out password);
+                            } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
+                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                            }
+                        }
 
                         if (string.IsNullOrEmpty(username))
                         {
@@ -181,7 +186,7 @@ namespace mRemoteNG.Connection.Protocol
                                         try
                                         {
                                             ExternalConnectors.DSS.SecretServerInterface.FetchSecretFromServer(
-                                                $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out domain, out privatekey);
+                                                $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
                                         }
                                         catch (Exception ex)
                                         {
@@ -214,7 +219,7 @@ namespace mRemoteNG.Connection.Protocol
 
                             if (!string.IsNullOrEmpty(password))
                             {
-                                string random = string.Join("", Guid.NewGuid().ToString("n").Take(8).Select(o => o));
+                                string random = string.Join("", Guid.NewGuid().ToString("n").Take(8));
                                 // write data to pipe
                                 Thread thread = new(new ParameterizedThreadStart(CreatePipe));
                                 thread.Start($"{random}{password}");

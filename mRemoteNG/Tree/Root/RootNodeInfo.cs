@@ -61,7 +61,6 @@ namespace mRemoteNG.Tree.Root
                 ? TreeNodeType.Root
                 : TreeNodeType.PuttyRoot;
         }
-
         #endregion
     }
 }

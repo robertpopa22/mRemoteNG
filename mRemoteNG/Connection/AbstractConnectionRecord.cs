@@ -35,6 +35,9 @@ namespace mRemoteNG.Connection
         private string _username = "";
         //private SecureString _password = null;
         private string _password = null;
+        private string _vaultRole = null;
+        private string _vaultMount = null;
+        private VaultOpenbaoSecretEngine _vaultSecretEngine = VaultOpenbaoSecretEngine.Kv;
         private string _domain = "";
         private string _vmId = "";
         private bool _useEnhancedMode;
@@ -246,6 +249,36 @@ namespace mRemoteNG.Connection
             get => GetPropertyValue("Password", _password);
             set => SetField(ref _password, value, "Password");
         }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoMount)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoMountDescription)),
+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2)]
+        public virtual string VaultOpenbaoMount {
+            get => GetPropertyValue("VaultOpenbaoMount", _vaultMount);
+            set => SetField(ref _vaultMount, value, "VaultOpenbaoMount");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoRole)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoRoleDescription)),
+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2)]
+        public virtual string VaultOpenbaoRole {
+            get => GetPropertyValue("VaultOpenbaoRole", _vaultRole);
+            set => SetField(ref _vaultRole, value, "VaultOpenbaoRole");
+        }
+
+        // external credential provider selector
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoSecretEngine)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionVaultOpenbaoSecretEngine)),
+         TypeConverter(typeof(MiscTools.EnumTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH1, ProtocolType.SSH2)]
+        public VaultOpenbaoSecretEngine VaultOpenbaoSecretEngine {
+            get => GetPropertyValue("VaultOpenbaoSecretEngine", _vaultSecretEngine);
+            set => SetField(ref _vaultSecretEngine, value, "VaultOpenbaoSecretEngine");
+        }
+
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Domain)),

@@ -19,7 +19,7 @@ namespace mRemoteNG.Resources.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -1606,6 +1606,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string DisableMenuAnimations {
             get {
                 return ResourceManager.GetString("DisableMenuAnimations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard.
+        /// </summary>
+        internal static string Discard {
+            get {
+                return ResourceManager.GetString("Discard", resourceCulture);
             }
         }
         
@@ -4576,6 +4585,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Secret engine used in Vault/Openbao to store the secret.
+        /// </summary>
+        internal static string PropertyDescriptionVaultOpenbaoSecretEngine {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionVaultOpenbaoSecretEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you want to establish a view only connection to the host select yes..
         /// </summary>
         internal static string PropertyDescriptionViewOnly {
@@ -5767,24 +5785,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
-        /// </summary>
-        internal static string SaveOptionsBeforeClosing {
-            get {
-                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Discard.
-        /// </summary>
-        internal static string Discard {
-            get {
-                return ResourceManager.GetString("Discard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SaveConnectionsOnExit.
         /// </summary>
         internal static string SaveConnectionsOnExit {
@@ -5808,6 +5808,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string SaveImageFilter {
             get {
                 return ResourceManager.GetString("SaveImageFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to the options?.
+        /// </summary>
+        internal static string SaveOptionsBeforeClosing {
+            get {
+                return ResourceManager.GetString("SaveOptionsBeforeClosing", resourceCulture);
             }
         }
         
@@ -6862,6 +6871,105 @@ namespace mRemoteNG.Resources.Language {
         internal static string UseVmId {
             get {
                 return ResourceManager.GetString("UseVmId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vault or Openbao.
+        /// </summary>
+        internal static string VaultOpenbao {
+            get {
+                return ResourceManager.GetString("VaultOpenbao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mount.
+        /// </summary>
+        internal static string VaultOpenbaoMount {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoMount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mount where the secret is stored.
+        /// </summary>
+        internal static string VaultOpenbaoMountDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoMountDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string VaultOpenbaoRole {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name or path of the secret.
+        /// </summary>
+        internal static string VaultOpenbaoRoleDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoRoleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vault/Openbao Secret Engine.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngine {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KeyValue (Username as Key).
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineKeyValue {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineKeyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LDAP dynamic role.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineLDAPDynamic {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineLDAPDynamic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LDAP static role.
+        /// </summary>
+        internal static string VaultOpenbaoSecretEngineLDAPStatic {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoSecretEngineLDAPStatic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token for Vault/Openbao.
+        /// </summary>
+        internal static string VaultOpenbaoToken {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token to access Vault/Openbao server.
+        /// </summary>
+        internal static string VaultOpenbaoTokenPropertyDescription {
+            get {
+                return ResourceManager.GetString("VaultOpenbaoTokenPropertyDescription", resourceCulture);
             }
         }
         
