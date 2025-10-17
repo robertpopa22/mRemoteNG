@@ -5,6 +5,7 @@ using mRemoteNG.Security;
 using mRemoteNG.Security.SymmetricEncryption;
 using mRemoteNG.Tools;
 using mRemoteNG.Tools.Cmdline;
+using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using System;
 using System.Diagnostics;
@@ -160,7 +161,18 @@ namespace mRemoteNG.Connection.Protocol
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
-
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                            try {
+                                RootNodeInfo? rootNode = InterfaceControl.Info?.GetRootParent() as RootNodeInfo;
+                                if (rootNode == null) {
+                                    Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
+                                    return false;
+                                }
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordSSH(rootNode.OpenbaoVaultUrl, rootNode.OpenbaoVaultToken, InterfaceControl.Info?.VaultMount ?? "", InterfaceControl.Info?.VaultRole ?? "", InterfaceControl.Info?.Hostname ?? "", InterfaceControl.Info?.Username ?? "root", out password);
+                            } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
+                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                            }
+                        }
 
                         if (string.IsNullOrEmpty(username))
                         {

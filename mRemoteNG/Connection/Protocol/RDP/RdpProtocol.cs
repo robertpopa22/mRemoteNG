@@ -1,26 +1,23 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Timers;
-using System.Windows.Forms;
-using AxMSTSCLib;
+﻿using AxMSTSCLib;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 using mRemoteNG.Properties;
+using mRemoteNG.Resources.Language;
 using mRemoteNG.Security.SymmetricEncryption;
 using mRemoteNG.Tools;
+using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Tabs;
 using MSTSCLib;
-using mRemoteNG.Resources.Language;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
-using FileDialog = Microsoft.Win32.FileDialog;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.DirectoryServices.ActiveDirectory;
-using mRemoteNG.Security;
+using System.Threading;
+using System.Timers;
+using System.Windows.Forms;
 
 namespace mRemoteNG.Connection.Protocol.RDP
 {
@@ -483,9 +480,22 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao)
+                        {
+                            try {
+                                RootNodeInfo? rootNode = connectionInfo?.GetRootParent() as RootNodeInfo;
+                                if (rootNode == null) {
+                                    Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
+                                    return;
+                                }
+                                ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.OpenbaoVaultUrl, rootNode.OpenbaoVaultToken, connectionInfo.VaultMount, connectionInfo.VaultRole, out gwu, out gwp);
+                            } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
+                                Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
+                            }
+                        }
 
 
-                        if (connectionInfo.RDGatewayUseConnectionCredentials != RDGatewayUseConnectionCredentials.AccessToken)
+                            if (connectionInfo.RDGatewayUseConnectionCredentials != RDGatewayUseConnectionCredentials.AccessToken)
                         {
                             _rdpClient.TransportSettings2.GatewayUsername = gwu;
                             _rdpClient.TransportSettings2.GatewayPassword = gwp;
@@ -597,7 +607,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                     try {
-                        ExternalConnectors.VO.VaultOpenbao.ReadPassword($"{userViaApi}", out userName, out password, out domain, out pkey);
+                        RootNodeInfo? rootNode = connectionInfo?.GetRootParent() as RootNodeInfo;
+                        if (rootNode == null) {
+                            Event_ErrorOccured(this, "Secret Server Interface Error: No valid Openbao/Vault data found in root node.", 0);
+                            return;
+                        }
+                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP(rootNode.OpenbaoVaultUrl, rootNode.OpenbaoVaultToken, connectionInfo?.VaultMount ?? "", connectionInfo?.VaultRole ?? "", out userName, out password);
                     } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                         Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                     }
