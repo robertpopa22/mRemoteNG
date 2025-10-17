@@ -2482,4 +2482,16 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="VaultOpenbaoRoleDescription" xml:space="preserve">
     <value>Name or path of the secret</value>
   </data>
+  <data name="OpenbaoVaultToken" xml:space="preserve">
+    <value>Token for Openbao/Vault</value>
+  </data>
+  <data name="OpenbaoVaultTokenPropertyDescription" xml:space="preserve">
+    <value>Token to access Openbao/Vault server</value>
+  </data>
+  <data name="OpenbaoVaultUrl" xml:space="preserve">
+    <value>Openbao/Vault Url</value>
+  </data>
+  <data name="OpenbaoVaultUrlPropertyDescription" xml:space="preserve">
+    <value>The URL of the Openbao/Vault server to retrieve credentials</value>
+  </data>
 </root>

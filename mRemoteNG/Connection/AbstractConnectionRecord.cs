@@ -35,6 +35,8 @@ namespace mRemoteNG.Connection
         private string _username = "";
         //private SecureString _password = null;
         private string _password = null;
+        private string _vaultRole = null;
+        private string _vaultMount = null;
         private string _domain = "";
         private string _vmId = "";
         private bool _useEnhancedMode;
@@ -253,7 +255,10 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.VNC, ProtocolType.ARD, ProtocolType.SSH1,
              ProtocolType.SSH2, ProtocolType.Telnet, ProtocolType.RAW, ProtocolType.HTTP, ProtocolType.HTTPS,
              ProtocolType.IntApp)]
-        public virtual string VaultMount { get; set; }
+        public virtual string VaultMount {
+            get => GetPropertyValue("VaultMount", _vaultMount);
+            set => SetField(ref _vaultMount, value, "VaultMount");
+        }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.VaultOpenbaoRole)),
@@ -261,7 +266,10 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.VNC, ProtocolType.ARD, ProtocolType.SSH1,
              ProtocolType.SSH2, ProtocolType.Telnet, ProtocolType.RAW, ProtocolType.HTTP, ProtocolType.HTTPS,
              ProtocolType.IntApp)]
-        public virtual string VaultRole { get; set; }
+        public virtual string VaultRole {
+            get => GetPropertyValue("VaultRole", _vaultRole);
+            set => SetField(ref _vaultRole, value, "VaultRole");
+        }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Domain)),

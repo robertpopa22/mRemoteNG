@@ -1882,9 +1882,6 @@ mRemoteNG se nyní ukončí a zahájí instalaci.</value>
   <data name="VaultOpenbao" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
-  <data name="WarnMeOnlyWhenClosingMultipleConnections1" xml:space="preserve">
-    <value>Upozornit mě pouze při ukončení několika připojení</value>
-  </data>
   <data name="VaultOpenbaoMount" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
@@ -1895,6 +1892,21 @@ mRemoteNG se nyní ukončí a zahájí instalaci.</value>
     <value />
   </data>
   <data name="VaultOpenbaoRoleDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="OpenbaoVaultToken" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="OpenbaoVaultTokenPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="WarnMeOnlyWhenClosingMultipleConnections1" xml:space="preserve">
+    <value>Upozornit mě pouze při ukončení několika připojení</value>
+  </data>
+  <data name="OpenbaoVaultUrl" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="OpenbaoVaultUrlPropertyDescription" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
 </root>

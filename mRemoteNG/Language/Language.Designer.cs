@@ -19,7 +19,7 @@ namespace mRemoteNG.Resources.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -3483,6 +3483,42 @@ namespace mRemoteNG.Resources.Language {
         internal static string OpenADifferentFile {
             get {
                 return ResourceManager.GetString("OpenADifferentFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token for Openbao/Vault.
+        /// </summary>
+        internal static string OpenbaoVaultToken {
+            get {
+                return ResourceManager.GetString("OpenbaoVaultToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token to access Openbao/Vault server.
+        /// </summary>
+        internal static string OpenbaoVaultTokenPropertyDescription {
+            get {
+                return ResourceManager.GetString("OpenbaoVaultTokenPropertyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Openbao/Vault Url.
+        /// </summary>
+        internal static string OpenbaoVaultUrl {
+            get {
+                return ResourceManager.GetString("OpenbaoVaultUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The URL of the Openbao/Vault server to retrieve credentials.
+        /// </summary>
+        internal static string OpenbaoVaultUrlPropertyDescription {
+            get {
+                return ResourceManager.GetString("OpenbaoVaultUrlPropertyDescription", resourceCulture);
             }
         }
         

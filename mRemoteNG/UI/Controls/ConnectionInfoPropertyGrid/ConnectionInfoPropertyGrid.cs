@@ -134,7 +134,9 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
                         BrowsableProperties = new[]
                         {
                             nameof(RootNodeInfo.Name),
-                            nameof(RootNodeInfo.Password)
+                            nameof(RootNodeInfo.Password),
+                            nameof(RootNodeInfo.OpenbaoVaultUrl),
+                            nameof(RootNodeInfo.OpenbaoVaultToken)
                         };
                     }
 
@@ -255,9 +257,9 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
                 strHide.Add(nameof(AbstractConnectionRecord.VaultRole));
             }
             else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
-                strHide.Add(nameof(AbstractConnectionRecord.Domain));
             }
             return strHide;
         }

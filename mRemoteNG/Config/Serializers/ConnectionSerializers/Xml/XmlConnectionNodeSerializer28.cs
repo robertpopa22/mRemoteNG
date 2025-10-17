@@ -152,6 +152,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("EC2Region", connectionInfo.EC2Region));
             element.Add(new XAttribute("ExternalCredentialProvider", connectionInfo.ExternalCredentialProvider));
             element.Add(new XAttribute("ExternalAddressProvider", connectionInfo.ExternalAddressProvider));
+
+            // Vault/OpenBao specific
+            element.Add(new XAttribute("VaultMount", connectionInfo.VaultMount ?? string.Empty));
+            element.Add(new XAttribute("VaultRole", connectionInfo.VaultRole ?? string.Empty));
         }
 
         private void SetInheritanceAttributes(XContainer element, IInheritable connectionInfo)
