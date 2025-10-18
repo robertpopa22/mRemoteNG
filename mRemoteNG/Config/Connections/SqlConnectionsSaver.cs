@@ -172,6 +172,8 @@ namespace mRemoteNG.Config.Connections
             
             DbParameter lastUpdateParam = dbQuery.CreateParameter();
             lastUpdateParam.ParameterName = "@LastUpdate";
+            // Use DBTimeStampNow() instead of DBDate() - the column is datetime type, not string
+            // DBTimeStampNow() returns the appropriate .NET type (DateTime or MySqlDateTime) for parameterized queries
             lastUpdateParam.Value = MiscTools.DBTimeStampNow();
             dbQuery.Parameters.Add(lastUpdateParam);
             
