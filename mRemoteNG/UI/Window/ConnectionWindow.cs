@@ -339,6 +339,61 @@ namespace mRemoteNG.UI.Window
             ResizeEnd?.Invoke(sender, e);
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Handle Ctrl+Tab and Ctrl+PgDn to navigate to next tab
+            if (keyData == (Keys.Control | Keys.Tab) || keyData == (Keys.Control | Keys.PageDown))
+            {
+                NavigateToNextTab();
+                return true;
+            }
+
+            // Handle Ctrl+Shift+Tab and Ctrl+PgUp to navigate to previous tab
+            if (keyData == (Keys.Control | Keys.Shift | Keys.Tab) || keyData == (Keys.Control | Keys.PageUp))
+            {
+                NavigateToPreviousTab();
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void NavigateToNextTab()
+        {
+            try
+            {
+                var documents = connDock.DocumentsToArray();
+                if (documents.Length <= 1) return;
+
+                var currentIndex = Array.IndexOf(documents, connDock.ActiveContent);
+                var nextIndex = (currentIndex + 1) % documents.Length;
+                documents[nextIndex].DockHandler.Activate();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("NavigateToNextTab (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
+
+        private void NavigateToPreviousTab()
+        {
+            try
+            {
+                var documents = connDock.DocumentsToArray();
+                if (documents.Length <= 1) return;
+
+                var currentIndex = Array.IndexOf(documents, connDock.ActiveContent);
+                var previousIndex = currentIndex - 1;
+                if (previousIndex < 0)
+                    previousIndex = documents.Length - 1;
+                documents[previousIndex].DockHandler.Activate();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("NavigateToPreviousTab (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
+
         #endregion
 
         #region Events
