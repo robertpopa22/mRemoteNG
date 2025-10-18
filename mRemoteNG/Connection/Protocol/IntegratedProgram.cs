@@ -139,10 +139,13 @@ namespace mRemoteNG.Connection.Protocol
             try
             {
                 if (InterfaceControl.Size == Size.Empty) return;
-                NativeMethods.MoveWindow(_handle, -SystemInformation.FrameBorderSize.Width,
-                                         -(SystemInformation.CaptionHeight + SystemInformation.FrameBorderSize.Height),
-                                         InterfaceControl.Width + SystemInformation.FrameBorderSize.Width * 2,
-                                         InterfaceControl.Height + SystemInformation.CaptionHeight +
+                // Use ClientRectangle to account for padding (for connection frame color)
+                Rectangle clientRect = InterfaceControl.ClientRectangle;
+                NativeMethods.MoveWindow(_handle, 
+                                         clientRect.X - SystemInformation.FrameBorderSize.Width,
+                                         clientRect.Y - (SystemInformation.CaptionHeight + SystemInformation.FrameBorderSize.Height),
+                                         clientRect.Width + SystemInformation.FrameBorderSize.Width * 2,
+                                         clientRect.Height + SystemInformation.CaptionHeight +
                                          SystemInformation.FrameBorderSize.Height * 2, true);
             }
             catch (Exception ex)
