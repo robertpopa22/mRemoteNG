@@ -168,7 +168,13 @@ namespace mRemoteNG.Config.Connections
             // TODO: use transaction
             System.Data.Common.DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblUpdate");
             dbQuery.ExecuteNonQuery();
-            dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES('" + MiscTools.DBDate(DateTime.Now.ToUniversalTime()) + "')");
+            dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
+            
+            DbParameter lastUpdateParam = dbQuery.CreateParameter();
+            lastUpdateParam.ParameterName = "@LastUpdate";
+            lastUpdateParam.Value = MiscTools.DBTimeStampNow();
+            dbQuery.Parameters.Add(lastUpdateParam);
+            
             dbQuery.ExecuteNonQuery();
         }
 
