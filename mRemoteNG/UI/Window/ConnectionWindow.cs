@@ -366,7 +366,12 @@ namespace mRemoteNG.UI.Window
                 if (documents.Length <= 1) return;
 
                 var currentIndex = Array.IndexOf(documents, connDock.ActiveContent);
-                if (currentIndex == -1) return;
+                if (currentIndex == -1)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                        "NavigateToNextTab: ActiveContent not found in documents array");
+                    return;
+                }
 
                 var nextIndex = (currentIndex + 1) % documents.Length;
                 documents[nextIndex].DockHandler.Activate();
@@ -385,7 +390,12 @@ namespace mRemoteNG.UI.Window
                 if (documents.Length <= 1) return;
 
                 var currentIndex = Array.IndexOf(documents, connDock.ActiveContent);
-                if (currentIndex == -1) return;
+                if (currentIndex == -1)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                        "NavigateToPreviousTab: ActiveContent not found in documents array");
+                    return;
+                }
 
                 var previousIndex = currentIndex - 1;
                 if (previousIndex < 0)
