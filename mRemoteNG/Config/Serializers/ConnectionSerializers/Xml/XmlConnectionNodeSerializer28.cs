@@ -105,6 +105,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("PostExtApp", connectionInfo.PostExtApp));
             element.Add(new XAttribute("MacAddress", connectionInfo.MacAddress));
             element.Add(new XAttribute("UserField", connectionInfo.UserField));
+            element.Add(new XAttribute("EnvironmentTags", connectionInfo.EnvironmentTags));
             element.Add(new XAttribute("Favorite", connectionInfo.Favorite));
             element.Add(new XAttribute("ExtApp", connectionInfo.ExtApp));
             element.Add(new XAttribute("StartProgram", connectionInfo.RDPStartProgram));
@@ -262,6 +263,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritMacAddress", inheritance.MacAddress.ToString().ToLowerInvariant()));
             if (inheritance.UserField)
                 element.Add(new XAttribute("InheritUserField", inheritance.UserField.ToString().ToLowerInvariant()));
+            if (inheritance.EnvironmentTags)
+                element.Add(new XAttribute("InheritEnvironmentTags", inheritance.EnvironmentTags.ToString().ToLowerInvariant()));
             if (inheritance.Favorite)
                 element.Add(new XAttribute("InheritFavorite", inheritance.Favorite.ToString().ToLowerInvariant()));
             if (inheritance.ExtApp)

@@ -177,6 +177,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritUseRestrictedAdmin", typeof(bool));
             dataTable.Columns.Add("InheritUseVmId", typeof(bool));
             dataTable.Columns.Add("InheritUserField", typeof(bool));
+            dataTable.Columns.Add("InheritEnvironmentTags", typeof(bool));
             dataTable.Columns.Add("InheritUserViaAPI", typeof(bool));
             dataTable.Columns.Add("InheritUsername", typeof(bool));
             dataTable.Columns.Add("InheritVNCAuthMode", typeof(bool));
@@ -240,6 +241,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("UseRestrictedAdmin", typeof(bool));
             dataTable.Columns.Add("UseVmId", typeof(bool));
             dataTable.Columns.Add("UserField", typeof(string));
+            dataTable.Columns.Add("EnvironmentTags", typeof(string));
             dataTable.Columns.Add("UserViaAPI", typeof(string));
             dataTable.Columns.Add("Username", typeof(string));
             dataTable.Columns.Add("VNCAuthMode", typeof(string));
@@ -612,6 +614,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["UseRestrictedAdmin"] = connectionInfo.UseRestrictedAdmin;
             dataRow["UseVmId"] = connectionInfo.UseVmId;
             dataRow["UserField"] = connectionInfo.UserField;
+            dataRow["EnvironmentTags"] = connectionInfo.EnvironmentTags;
             dataRow["Username"] = _saveFilter.SaveUsername ? connectionInfo.Username : "";
             dataRow["VNCAuthMode"] = connectionInfo.VNCAuthMode;
             dataRow["VNCColors"] = connectionInfo.VNCColors;
@@ -690,6 +693,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritUseRestrictedAdmin"] = connectionInfo.Inheritance.UseRestrictedAdmin;
                 dataRow["InheritUseVmId"] = connectionInfo.Inheritance.UseVmId;
                 dataRow["InheritUserField"] = connectionInfo.Inheritance.UserField;
+                dataRow["InheritEnvironmentTags"] = connectionInfo.Inheritance.EnvironmentTags;
                 dataRow["InheritUserViaAPI"] = connectionInfo.Inheritance.UserViaAPI;
                 dataRow["InheritUsername"] = connectionInfo.Inheritance.Username;
                 dataRow["InheritVNCAuthMode"] = connectionInfo.Inheritance.VNCAuthMode;
@@ -767,6 +771,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritUseRCG"] = false;
                 dataRow["InheritUseRestrictedAdmin"] = false;
                 dataRow["InheritUserField"] = false;
+                dataRow["InheritEnvironmentTags"] = false;
                 dataRow["InheritUserViaAPI"] = false;
                 dataRow["InheritUsername"] = false;
                 dataRow["InheritVNCAuthMode"] = false;

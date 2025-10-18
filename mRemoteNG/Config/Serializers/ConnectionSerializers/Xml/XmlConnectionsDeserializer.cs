@@ -539,6 +539,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                         connectionInfo.RedirectDiskDrives = xmlnode.GetAttributeAsEnum<RDPDiskDrives>("RedirectDiskDrives");
                         connectionInfo.RedirectDiskDrivesCustom = xmlnode.GetAttributeAsString("RedirectDiskDrivesCustom");
                         connectionInfo.Inheritance.RedirectDiskDrivesCustom = xmlnode.GetAttributeAsBool("InheritRedirectDiskDrivesCustom");
+                        connectionInfo.EnvironmentTags = xmlnode.GetAttributeAsString("EnvironmentTags");
+                        connectionInfo.Inheritance.EnvironmentTags = xmlnode.GetAttributeAsBool("InheritEnvironmentTags");
                         break;
 
                     case >= 0.5:

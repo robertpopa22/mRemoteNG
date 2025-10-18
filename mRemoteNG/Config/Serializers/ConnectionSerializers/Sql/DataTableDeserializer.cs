@@ -145,6 +145,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.UseRCG = MiscTools.GetBooleanValue(dataRow["UseRCG"]);
             connectionInfo.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["UseRestrictedAdmin"]);
             connectionInfo.UserField = (string)dataRow["UserField"];
+            connectionInfo.EnvironmentTags = dataRow.Table.Columns.Contains("EnvironmentTags") ? (string)dataRow["EnvironmentTags"] : "";
             connectionInfo.Username = (string)dataRow["Username"];
             connectionInfo.UseVmId = MiscTools.GetBooleanValue(dataRow["UseVmId"]);
             connectionInfo.VmId = (string)dataRow["VmId"];
@@ -224,6 +225,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.UseRCG = MiscTools.GetBooleanValue(dataRow["InheritUseRCG"]);
             connectionInfo.Inheritance.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["InheritUseRestrictedAdmin"]);
             connectionInfo.Inheritance.UserField = MiscTools.GetBooleanValue(dataRow["InheritUserField"]);
+            if (dataRow.Table.Columns.Contains("InheritEnvironmentTags"))
+                connectionInfo.Inheritance.EnvironmentTags = MiscTools.GetBooleanValue(dataRow["InheritEnvironmentTags"]);
             connectionInfo.Inheritance.Username = MiscTools.GetBooleanValue(dataRow["InheritUsername"]);
             connectionInfo.Inheritance.UseVmId = MiscTools.GetBooleanValue(dataRow["InheritUseVmId"]);
             connectionInfo.Inheritance.VmId = MiscTools.GetBooleanValue(dataRow["InheritVmId"]);
