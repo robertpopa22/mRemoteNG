@@ -8,6 +8,8 @@ using mRemoteNG.UI.Tabs;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using System.Windows.Forms.VisualStyles;
+using System.IO;
+using System.Threading.Tasks;
 
 
 namespace mRemoteNG.Connection.Protocol.Http
@@ -21,6 +23,9 @@ namespace mRemoteNG.Connection.Protocol.Http
         private string _tabTitle;
         protected string httpOrS;
         protected int defaultPort;
+        private string _userDataFolder;
+        private CoreWebView2Environment _webView2Environment;
+        private Task _webView2InitializationTask;
 
         #endregion
 
@@ -32,6 +37,14 @@ namespace mRemoteNG.Connection.Protocol.Http
             {
                 if (renderingEngine == RenderingEngine.EdgeChromium)
                 {
+                    // Create a unique user data folder for each WebView2 instance
+                    // This prevents session sharing between multiple HTTP/HTTPS connections
+                    _userDataFolder = Path.Combine(
+                        Path.GetTempPath(),
+                        "mRemoteNG_WebView2",
+                        Guid.NewGuid().ToString()
+                    );
+                    
                     Control = new Microsoft.Web.WebView2.WinForms.WebView2()
                     {
                         Dock = DockStyle.Fill,
@@ -69,6 +82,9 @@ namespace mRemoteNG.Connection.Protocol.Http
                 {
                     Microsoft.Web.WebView2.WinForms.WebView2 edge = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
                     edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
+                    
+                    // Initialize WebView2 with unique user data folder asynchronously
+                    _webView2InitializationTask = InitializeWebView2Async(edge);
                 }
                 else
                 {
@@ -91,13 +107,66 @@ namespace mRemoteNG.Connection.Protocol.Http
             }
         }
 
+        private async Task InitializeWebView2Async(Microsoft.Web.WebView2.WinForms.WebView2 webView2)
+        {
+            try
+            {
+                // Create the WebView2 environment with a unique user data folder
+                _webView2Environment = await CoreWebView2Environment.CreateAsync(null, _userDataFolder);
+                
+                // Initialize the WebView2 control with the custom environment
+                await webView2.EnsureCoreWebView2Async(_webView2Environment);
+                
+                // Prevent popups from opening in new windows
+                webView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpSetPropsFailed, ex);
+            }
+        }
+
         public override bool Connect()
         {
             try
             {
                 if (InterfaceControl.Info.RenderingEngine == RenderingEngine.EdgeChromium)
                 {
-                    ((Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser).Source = new Uri(GetUrl());
+                    var webView2 = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
+                    
+                    // Wait for WebView2 initialization to complete before connecting
+                    if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
+                    {
+                        // Schedule navigation after initialization completes
+                        _webView2InitializationTask.ContinueWith(t =>
+                        {
+                            if (t.IsCompletedSuccessfully && webView2.CoreWebView2 != null)
+                            {
+                                // Use Invoke to ensure we're on the UI thread
+                                if (webView2.InvokeRequired)
+                                {
+                                    webView2.Invoke(new Action(() => webView2.Source = new Uri(GetUrl())));
+                                }
+                                else
+                                {
+                                    webView2.Source = new Uri(GetUrl());
+                                }
+                            }
+                            else if (t.IsFaulted)
+                            {
+                                Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpConnectFailed, t.Exception);
+                            }
+                        }, 
+                        // Use UI thread scheduler if available, otherwise use default
+                        System.Threading.SynchronizationContext.Current != null 
+                            ? TaskScheduler.FromCurrentSynchronizationContext() 
+                            : TaskScheduler.Default);
+                    }
+                    else if (webView2.CoreWebView2 != null)
+                    {
+                        // WebView2 is already initialized, navigate immediately
+                        webView2.Source = new Uri(GetUrl());
+                    }
                 }
                 else
                 {
@@ -209,6 +278,83 @@ namespace mRemoteNG.Connection.Protocol.Http
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpDocumentTileChangeFailed, ex);
+            }
+        }
+
+        #endregion
+
+        #region Cleanup
+
+        public override void Close()
+        {
+            try
+            {
+                // Wait for initialization to complete before disposing (non-blocking approach)
+                if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
+                {
+                    // Create a continuation to dispose after initialization completes
+                    var cleanupTask = _webView2InitializationTask.ContinueWith(_ => 
+                    {
+                        DisposeWebView2Environment();
+                    }, TaskScheduler.Default); // Use default scheduler to avoid UI thread issues
+                    
+                    // Give it a reasonable time to complete, but don't block indefinitely
+                    // Using a background thread to avoid blocking UI thread
+                    Task.Run(() =>
+                    {
+                        if (!cleanupTask.Wait(TimeSpan.FromSeconds(2)))
+                        {
+                            // Initialization is taking too long, log and continue
+                            Runtime.MessageCollector.AddMessage(mRemoteNG.Messages.MessageClass.WarningMsg, 
+                                "WebView2 initialization did not complete in time during cleanup");
+                        }
+                    });
+                }
+                else
+                {
+                    DisposeWebView2Environment();
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error during HTTPBase cleanup", ex);
+            }
+            
+            base.Close();
+        }
+
+        private void DisposeWebView2Environment()
+        {
+            try
+            {
+                // Dispose of WebView2 environment
+                _webView2Environment?.Dispose();
+                
+                // Clean up the temporary user data folder
+                if (!string.IsNullOrEmpty(_userDataFolder) && Directory.Exists(_userDataFolder))
+                {
+                    try
+                    {
+                        // Verify the path is within the expected temp directory for safety
+                        string tempPath = Path.GetTempPath();
+                        string fullUserDataPath = Path.GetFullPath(_userDataFolder);
+                        
+                        if (fullUserDataPath.StartsWith(Path.GetFullPath(tempPath), StringComparison.OrdinalIgnoreCase) &&
+                            fullUserDataPath.Contains("mRemoteNG_WebView2"))
+                        {
+                            Directory.Delete(_userDataFolder, true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log but don't throw - cleanup is best effort
+                        Runtime.MessageCollector.AddExceptionStackTrace("Failed to clean up WebView2 user data folder", ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error disposing WebView2 environment", ex);
             }
         }
 
