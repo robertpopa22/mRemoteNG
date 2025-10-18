@@ -19,7 +19,7 @@ namespace mRemoteNG.Resources.Language {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Language {
@@ -1195,6 +1195,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection Frame Color.
+        /// </summary>
+        internal static string ConnectionFrameColor {
+            get {
+                return ResourceManager.GetString("ConnectionFrameColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening connection failed!.
         /// </summary>
         internal static string ConnectionOpenFailed {
@@ -1988,6 +1997,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Environment Tags.
+        /// </summary>
+        internal static string EnvironmentTags {
+            get {
+                return ResourceManager.GetString("EnvironmentTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AddExternalToolsToToolBar (frmMain) failed. {0}.
         /// </summary>
         internal static string ErrorAddExternalToolsToToolBarFailed {
@@ -2510,6 +2528,60 @@ namespace mRemoteNG.Resources.Language {
         internal static string FormatInheritDescription {
             get {
                 return ResourceManager.GetString("FormatInheritDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blue (Development).
+        /// </summary>
+        internal static string FrameColorBlue {
+            get {
+                return ResourceManager.GetString("FrameColorBlue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Green (Test).
+        /// </summary>
+        internal static string FrameColorGreen {
+            get {
+                return ResourceManager.GetString("FrameColorGreen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string FrameColorNone {
+            get {
+                return ResourceManager.GetString("FrameColorNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purple (Custom).
+        /// </summary>
+        internal static string FrameColorPurple {
+            get {
+                return ResourceManager.GetString("FrameColorPurple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red (Production).
+        /// </summary>
+        internal static string FrameColorRed {
+            get {
+                return ResourceManager.GetString("FrameColorRed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yellow (Staging/UAT).
+        /// </summary>
+        internal static string FrameColorYellow {
+            get {
+                return ResourceManager.GetString("FrameColorYellow", resourceCulture);
             }
         }
         
@@ -3973,6 +4045,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sets a colored border around the connection panel to visually distinguish between different environments (e.g., production, test, development)..
+        /// </summary>
+        internal static string PropertyDescriptionConnectionFrameColor {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionConnectionFrameColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Put your notes or a description for the host here..
         /// </summary>
         internal static string PropertyDescriptionDescription {
@@ -4086,6 +4167,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string PropertyDescriptionEncoding {
             get {
                 return ResourceManager.GetString("PropertyDescriptionEncoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags to categorize the environment (e.g., #PROD, #UAT, #TEST, #BETA, #FINDEPARTMENT).
+        /// </summary>
+        internal static string PropertyDescriptionEnvironmentTags {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionEnvironmentTags", resourceCulture);
             }
         }
         
@@ -6817,24 +6907,6 @@ namespace mRemoteNG.Resources.Language {
         internal static string UserField {
             get {
                 return ResourceManager.GetString("UserField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Environment Tags.
-        /// </summary>
-        internal static string EnvironmentTags {
-            get {
-                return ResourceManager.GetString("EnvironmentTags", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tags to categorize the environment (e.g., #PROD, #UAT, #TEST, #BETA, #FINDEPARTMENT).
-        /// </summary>
-        internal static string PropertyDescriptionEnvironmentTags {
-            get {
-                return ResourceManager.GetString("PropertyDescriptionEnvironmentTags", resourceCulture);
             }
         }
         
