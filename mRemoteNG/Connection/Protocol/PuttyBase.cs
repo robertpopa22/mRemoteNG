@@ -338,17 +338,22 @@ namespace mRemoteNG.Connection.Protocol
                 if (_isPuttyNg)
                 {
                     // PuTTYNG 0.70.0.1 and later doesn't have any window borders
-                    NativeMethods.MoveWindow(PuttyHandle, 0, 0, InterfaceControl.Width, InterfaceControl.Height, true);
+                    // Use ClientRectangle to account for padding (for connection frame color)
+                    Rectangle clientRect = InterfaceControl.ClientRectangle;
+                    NativeMethods.MoveWindow(PuttyHandle, clientRect.X, clientRect.Y, clientRect.Width, clientRect.Height, true);
                 }
                 else
                 {
                     int scaledFrameBorderHeight = _display.ScaleHeight(SystemInformation.FrameBorderSize.Height);
                     int scaledFrameBorderWidth = _display.ScaleWidth(SystemInformation.FrameBorderSize.Width);
 
-                    NativeMethods.MoveWindow(PuttyHandle, -scaledFrameBorderWidth,
-                                             -(SystemInformation.CaptionHeight + scaledFrameBorderHeight),
-                                             InterfaceControl.Width + scaledFrameBorderWidth * 2,
-                                             InterfaceControl.Height + SystemInformation.CaptionHeight +
+                    // Use ClientRectangle to account for padding (for connection frame color)
+                    Rectangle clientRect = InterfaceControl.ClientRectangle;
+                    NativeMethods.MoveWindow(PuttyHandle, 
+                                             clientRect.X - scaledFrameBorderWidth,
+                                             clientRect.Y - (SystemInformation.CaptionHeight + scaledFrameBorderHeight),
+                                             clientRect.Width + scaledFrameBorderWidth * 2,
+                                             clientRect.Height + SystemInformation.CaptionHeight +
                                              scaledFrameBorderHeight * 2,
                                              true);
                 }

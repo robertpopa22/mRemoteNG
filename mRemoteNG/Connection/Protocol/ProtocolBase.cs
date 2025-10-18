@@ -116,9 +116,8 @@ namespace mRemoteNG.Connection.Protocol
 
 
                 Control.Name = Name;
-                Control.Location = _interfaceControl.Location;
-                Control.Size = InterfaceControl.Size;
-                Control.Anchor = _interfaceControl.Anchor;
+                // Use Dock.Fill to respect padding (e.g., for connection frame color)
+                Control.Dock = DockStyle.Fill;
                 _interfaceControl.Controls.Add(Control);
 
                 return true;
