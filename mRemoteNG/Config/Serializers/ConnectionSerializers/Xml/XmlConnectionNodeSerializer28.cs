@@ -43,6 +43,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("Icon", connectionInfo.Icon));
             element.Add(new XAttribute("Panel", connectionInfo.Panel));
             element.Add(new XAttribute("TabColor", connectionInfo.TabColor));
+            element.Add(new XAttribute("ConnectionFrameColor", connectionInfo.ConnectionFrameColor));
             element.Add(new XAttribute("Id", connectionInfo.ConstantID));
 
             if (!Runtime.UseCredentialManager)
@@ -195,6 +196,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritPanel", inheritance.Panel.ToString().ToLowerInvariant()));
             if (inheritance.TabColor)
                 element.Add(new XAttribute("InheritTabColor", inheritance.TabColor.ToString().ToLowerInvariant()));
+            if (inheritance.ConnectionFrameColor)
+                element.Add(new XAttribute("InheritConnectionFrameColor", inheritance.ConnectionFrameColor.ToString().ToLowerInvariant()));
             if (inheritance.Password)
                 element.Add(new XAttribute("InheritPassword", inheritance.Password.ToString().ToLowerInvariant()));
             if (inheritance.Port)

@@ -25,6 +25,7 @@ namespace mRemoteNG.Connection
         private string _panel;
         private string _color;
         private string _tabColor;
+        private ConnectionFrameColor _connectionFrameColor;
 
         private string _hostname;
         private ExternalAddressProvider _externalAddressProvider;
@@ -179,6 +180,16 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("TabColor", _tabColor);
             set => SetField(ref _tabColor, value, "TabColor");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.ConnectionFrameColor)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionConnectionFrameColor)),
+         TypeConverter(typeof(MiscTools.EnumTypeConverter))]
+        public virtual ConnectionFrameColor ConnectionFrameColor
+        {
+            get => GetPropertyValue("ConnectionFrameColor", _connectionFrameColor);
+            set => SetField(ref _connectionFrameColor, value, "ConnectionFrameColor");
         }
 
         #endregion

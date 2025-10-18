@@ -62,6 +62,12 @@ namespace mRemoteNG.Connection
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
         public bool TabColor { get; set; }
 
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display), 2),
+         LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.ConnectionFrameColor)),
+         LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionConnectionFrameColor)),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool ConnectionFrameColor { get; set; }
+
         #endregion
 
         #region Connection
