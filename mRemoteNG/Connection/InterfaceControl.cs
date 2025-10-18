@@ -35,6 +35,9 @@ namespace mRemoteNG.Connection
                 
                 // Enable custom painting for border
                 this.Paint += InterfaceControl_Paint;
+                
+                // Set padding to prevent content from covering the frame border
+                UpdatePaddingForFrameColor();
             }
             catch (Exception ex)
             {
@@ -63,6 +66,22 @@ namespace mRemoteNG.Connection
                     );
                     e.Graphics.DrawRectangle(pen, rect);
                 }
+            }
+        }
+
+        private void UpdatePaddingForFrameColor()
+        {
+            // Add padding to prevent content from covering the frame border
+            if (Info?.ConnectionFrameColor != null && Info.ConnectionFrameColor != ConnectionFrameColor.None)
+            {
+                int borderWidth = 4; // Must match the border width in InterfaceControl_Paint
+                // Add 2px margin so the border is fully visible and not covered by child controls
+                int padding = borderWidth / 2 + 2;
+                this.Padding = new Padding(padding);
+            }
+            else
+            {
+                this.Padding = new Padding(0);
             }
         }
 
