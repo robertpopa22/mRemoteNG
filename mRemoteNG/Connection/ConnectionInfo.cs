@@ -379,6 +379,7 @@ namespace mRemoteNG.Connection
             PostExtApp = Settings.Default.ConDefaultPostExtApp;
             MacAddress = Settings.Default.ConDefaultMacAddress;
             UserField = Settings.Default.ConDefaultUserField;
+            EnvironmentTags = Settings.Default.ConDefaultEnvironmentTags;
             Favorite = Settings.Default.ConDefaultFavorite;
             RDPStartProgram = Settings.Default.ConDefaultRDPStartProgram;
             RDPStartProgramWorkDir = Settings.Default.ConDefaultRDPStartProgramWorkDir;

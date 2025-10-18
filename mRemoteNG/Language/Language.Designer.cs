@@ -6821,6 +6821,24 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Environment Tags.
+        /// </summary>
+        internal static string EnvironmentTags {
+            get {
+                return ResourceManager.GetString("EnvironmentTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags to categorize the environment (e.g., #PROD, #UAT, #TEST, #BETA, #FINDEPARTMENT).
+        /// </summary>
+        internal static string PropertyDescriptionEnvironmentTags {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionEnvironmentTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         internal static string Username {

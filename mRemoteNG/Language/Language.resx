@@ -1272,6 +1272,12 @@ If you run into such an error, please create a new connection file!</value>
   <data name="UserField" xml:space="preserve">
     <value>User Field</value>
   </data>
+  <data name="EnvironmentTags" xml:space="preserve">
+    <value>Environment Tags</value>
+  </data>
+  <data name="PropertyDescriptionEnvironmentTags" xml:space="preserve">
+    <value>Tags to categorize the environment (e.g., #PROD, #UAT, #TEST, #BETA, #FINDEPARTMENT)</value>
+  </data>
   <data name="ProxyAddress" xml:space="preserve">
     <value>Proxy Address</value>
   </data>

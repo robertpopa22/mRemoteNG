@@ -1061,6 +1061,30 @@ namespace mRemoteNG.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConDefaultEnvironmentTags {
+            get {
+                return ((string)(this["ConDefaultEnvironmentTags"]));
+            }
+            set {
+                this["ConDefaultEnvironmentTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultEnvironmentTags {
+            get {
+                return ((bool)(this["InhDefaultEnvironmentTags"]));
+            }
+            set {
+                this["InhDefaultEnvironmentTags"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ConDefaultExtApp {
             get {
                 return ((string)(this["ConDefaultExtApp"]));

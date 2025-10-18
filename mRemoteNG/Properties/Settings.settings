@@ -257,6 +257,12 @@
     <Setting Name="InhDefaultUserField" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ConDefaultEnvironmentTags" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="InhDefaultEnvironmentTags" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="ConDefaultExtApp" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
