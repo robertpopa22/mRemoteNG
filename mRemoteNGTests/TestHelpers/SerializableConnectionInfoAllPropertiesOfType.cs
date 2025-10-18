@@ -59,6 +59,7 @@
 		public TType PostExtApp { get; set; }
 		public TType MacAddress { get; set; }
         public TType UserField { get; set; }
+        public TType EnvironmentTags { get; set; }
         public TType Favorite { get; set; }
         public TType VmId { get; set; }
         public TType UseVmId { get; set; }
