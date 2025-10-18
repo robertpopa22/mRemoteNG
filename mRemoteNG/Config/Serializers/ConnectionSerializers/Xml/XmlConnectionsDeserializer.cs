@@ -328,6 +328,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.Icon = xmlnode.GetAttributeAsBool("InheritIcon");
                     connectionInfo.Inheritance.Panel = xmlnode.GetAttributeAsBool("InheritPanel");
                     connectionInfo.Inheritance.TabColor = xmlnode.GetAttributeAsBool("InheritTabColor");
+                    connectionInfo.Inheritance.ConnectionFrameColor = xmlnode.GetAttributeAsBool("InheritConnectionFrameColor");
                     connectionInfo.Inheritance.Port = xmlnode.GetAttributeAsBool("InheritPort");
                     connectionInfo.Inheritance.Protocol = xmlnode.GetAttributeAsBool("InheritProtocol");
                     connectionInfo.Inheritance.PuttySession = xmlnode.GetAttributeAsBool("InheritPuttySession");
@@ -351,6 +352,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Icon = xmlnode.GetAttributeAsString("Icon");
                     connectionInfo.Panel = xmlnode.GetAttributeAsString("Panel");
                     connectionInfo.TabColor = xmlnode.GetAttributeAsString("TabColor");
+                    connectionInfo.ConnectionFrameColor = xmlnode.GetAttributeAsEnum<ConnectionFrameColor>("ConnectionFrameColor");
                 }
                 else
                 {

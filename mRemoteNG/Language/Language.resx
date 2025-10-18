@@ -2517,4 +2517,28 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
     <value>Community</value>
     <comment>Reddit</comment>
   </data>
+  <data name="ConnectionFrameColor" xml:space="preserve">
+    <value>Connection Frame Color</value>
+  </data>
+  <data name="PropertyDescriptionConnectionFrameColor" xml:space="preserve">
+    <value>Sets a colored border around the connection panel to visually distinguish between different environments (e.g., production, test, development).</value>
+  </data>
+  <data name="FrameColorNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="FrameColorRed" xml:space="preserve">
+    <value>Red (Production)</value>
+  </data>
+  <data name="FrameColorYellow" xml:space="preserve">
+    <value>Yellow (Staging/UAT)</value>
+  </data>
+  <data name="FrameColorGreen" xml:space="preserve">
+    <value>Green (Test)</value>
+  </data>
+  <data name="FrameColorBlue" xml:space="preserve">
+    <value>Blue (Development)</value>
+  </data>
+  <data name="FrameColorPurple" xml:space="preserve">
+    <value>Purple (Custom)</value>
+  </data>
 </root>

@@ -294,6 +294,7 @@ namespace mRemoteNG.Connection
             Panel = Language.General;
             Color = string.Empty;
             TabColor = string.Empty;
+            ConnectionFrameColor = ConnectionFrameColor.None;
         }
 
         private void SetConnectionDefaults()
