@@ -3,7 +3,6 @@
 using mRemoteNG.App.Update;
 using mRemoteNG.Config.Settings;
 using mRemoteNG.DotNet.Update;
-using mRemoteNG.DotNet.Update;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
 using System;

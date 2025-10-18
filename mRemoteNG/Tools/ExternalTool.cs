@@ -157,7 +157,10 @@ namespace mRemoteNG.Tools
             process.StartInfo.UseShellExecute = true;
             process.StartInfo.FileName = argParser.ParseArguments(FileName);
             var parsedArgs = argParser.ParseArguments(Arguments).Split(' ');
-            process.StartInfo.ArgumentList.AddRange(parsedArgs);
+            foreach (var arg in parsedArgs)
+            {
+                process.StartInfo.ArgumentList.Add(arg);
+            }
             if (WorkingDir != "") process.StartInfo.WorkingDirectory = argParser.ParseArguments(WorkingDir);
             if (RunElevated) process.StartInfo.Verb = "runas";
         }

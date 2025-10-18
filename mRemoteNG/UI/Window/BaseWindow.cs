@@ -1,9 +1,9 @@
 ﻿using mRemoteNG.Themes;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Runtime.Versioning;
-
-// ReSharper disable UnusedAutoPropertyAccessor.Global
-
+using System.Windows.Forms;
+using mRemoteNG.Messages;
+using mRemoteNG.UI.Window;
 
 namespace mRemoteNG.UI.Window
 {
@@ -32,6 +32,31 @@ namespace mRemoteNG.UI.Window
         {
             Text = t;
             TabText = t;
+        }
+
+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, Keys keyData)
+        {
+            // Handle Ctrl+Tab and Ctrl+PgDn to navigate to next tab
+            if (keyData == (Keys.Control | Keys.Tab) || keyData == (Keys.Control | Keys.PageDown))
+            {
+                if (this is ConnectionWindow connectionWindow)
+                {
+                    connectionWindow.NavigateToNextTab();
+                    return true;
+                }
+            }
+
+            // Handle Ctrl+Shift+Tab and Ctrl+PgUp to navigate to previous tab
+            if (keyData == (Keys.Control | Keys.Shift | Keys.Tab) || keyData == (Keys.Control | Keys.PageUp))
+            {
+                if (this is ConnectionWindow connectionWindow)
+                {
+                    connectionWindow.NavigateToPreviousTab();
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         #endregion
@@ -70,8 +95,7 @@ namespace mRemoteNG.UI.Window
             // BaseWindow
             // 
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular,
-                                                System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "BaseWindow";
             this.ResumeLayout(false);
         }

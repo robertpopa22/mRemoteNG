@@ -1,4 +1,4 @@
-using mRemoteNG.Tools;
+﻿using mRemoteNG.Tools;
 using mRemoteNG.Resources.Language;
 
 namespace mRemoteNG.Connection

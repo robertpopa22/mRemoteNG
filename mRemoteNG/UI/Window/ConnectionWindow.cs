@@ -339,26 +339,7 @@ namespace mRemoteNG.UI.Window
             ResizeEnd?.Invoke(sender, e);
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            // Handle Ctrl+Tab and Ctrl+PgDn to navigate to next tab
-            if (keyData == (Keys.Control | Keys.Tab) || keyData == (Keys.Control | Keys.PageDown))
-            {
-                NavigateToNextTab();
-                return true;
-            }
-
-            // Handle Ctrl+Shift+Tab and Ctrl+PgUp to navigate to previous tab
-            if (keyData == (Keys.Control | Keys.Shift | Keys.Tab) || keyData == (Keys.Control | Keys.PageUp))
-            {
-                NavigateToPreviousTab();
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        private void NavigateToNextTab()
+        internal void NavigateToNextTab()
         {
             try
             {
@@ -381,7 +362,7 @@ namespace mRemoteNG.UI.Window
             }
         }
 
-        private void NavigateToPreviousTab()
+        internal void NavigateToPreviousTab()
         {
             try
             {
@@ -741,7 +722,7 @@ namespace mRemoteNG.UI.Window
                 }
             }
 
-            foreach (IDockContent dockContent in connDock.DocumentsToArray())
+            foreach (IDockContent dockContent in connDock.Documents.ToArray())
             {
                 ConnectionTab tab = (ConnectionTab)dockContent;
                 if (selectedTab != tab)

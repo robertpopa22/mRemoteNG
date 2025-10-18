@@ -24,7 +24,7 @@ namespace mRemoteNG.Connection.Protocol.Http
         protected string httpOrS;
         protected int defaultPort;
         private string _userDataFolder;
-        private CoreWebView2Environment _webView2Environment;
+        private CoreWebView2Environment? _webView2Environment;
         private Task _webView2InitializationTask;
 
         #endregion
@@ -327,8 +327,8 @@ namespace mRemoteNG.Connection.Protocol.Http
         {
             try
             {
-                // Dispose of WebView2 environment
-                _webView2Environment?.Dispose();
+                // There is no Dispose method for CoreWebView2Environment, so just set to null
+                _webView2Environment = null;
                 
                 // Clean up the temporary user data folder
                 if (!string.IsNullOrEmpty(_userDataFolder) && Directory.Exists(_userDataFolder))

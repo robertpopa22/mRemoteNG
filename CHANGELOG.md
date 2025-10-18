@@ -4,30 +4,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.78.2]
 ### Fixed
-- #2855: Fix missing Username field for HTTP and HTTPS protocols
-- #2852: Fix XML External Entity (XXE) vulnerability in XML deserialization
-- #2851: Fix path traversal vulnerability in file operations
-- #2850: Fix password dialog appearing behind splash screen on startup
-- #2842: Fix element placement in options window
-- #2715: Disable WinForms analyzers and suppress WFO1000 build errors for ObjectListView
-- #2712: VNCEvent_Disconnected send the ProtocolBase based object reference
-- #2668: fix ssh quickconnect exception
-- #2611: correct registry path
-- #2496: use pwfile instead of cleartext password for putty connections 
-- #2734: fix native build for Windows-x64
+- #2939: fixed SQL injection vulnerabilities via parameterized queries 
+- #2940: fixed for Possible command injection via Process.Start 
+- #2932: fixed HTTP/HTTPS protocol to support multiple concurrent connections
+- #2855: fixed missing Username field for HTTP and HTTPS protocols
+- #2852: fixed XML External Entity (XXE) vulnerability in XML deserialization
+- #2851: fixed path traversal vulnerability in file operations
+- #2850: fixed password dialog appearing behind splash screen on startup
+- #2842: fixed element placement in options window
+- #2734: fixed native build for Windows-x64
+- #2715: fixed Disable WinForms analyzers and suppress WFO1000 build errors for ObjectListView
+- #2712: fixed VNCEvent_Disconnected send the ProtocolBase based object reference
+- #2668: fixed ssh quickconnect exception
+- #2611: fixed correct registry path
+- #2496: fixed use pwfile instead of cleartext password for putty connections 
 
 ### Added
-- #2212: Add 1Password integration
-- #2865: Add configurable connection tab colors to distinguish between different environments
-- #2864: Add Color property to connections and folders with inheritance support
-- #2863: Add ARD (Apple Remote Desktop) protocol support for macOS connections
-- #2728: Add support for building mRemoteNG on Windows ARM64
-- #2723: Read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File
-- #2690: தமிழ் (ta) Translation update
-- #2643: Registry Settings: enhancements and new settings implementation
+- #2931: added vault openbao connector
+- #2900: added "Report a Bug" menu item to Help menu and update bug report URL to GitHub issues 
+- #2865: added configurable connection tab colors to distinguish between different environments
+- #2864: added color property to connections and folders with inheritance support
+- #2863: added ARD (Apple Remote Desktop) protocol support for macOS connections
+- #2728: added support for building mRemoteNG on Windows ARM64
+- #2723: added read keyboardhook, gatewayaccesstoken and gatewaycredentialssource from RDP File
+- #2690: added தமிழ் (ta) Translation update
+- #2643: added registry Settings: enhancements and new settings implementation
 - #2591: add Clickstudios Passwordstate API connector
+- #2212: added 1Password integration
 
 ### Updated
+- #2883: Improve 1Password logging 
 - #2854: Refactor settings dialog to be opened in dockable panel (for consistency)
 - #2597: Remember the opened connection file on relaunch
 - #2502: Updated Polish translation
