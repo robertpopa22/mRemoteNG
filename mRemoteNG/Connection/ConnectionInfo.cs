@@ -8,6 +8,7 @@ using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.ARD;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.PowerShell;
+using mRemoteNG.Connection.Protocol.Terminal;
 using mRemoteNG.Connection.Protocol.RAW;
 using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Connection.Protocol.Rlogin;
@@ -273,6 +274,8 @@ namespace mRemoteNG.Connection
                         return (int)ProtocolHTTPS.Defaults.Port;
                     case ProtocolType.PowerShell:
                         return (int)ProtocolPowerShell.Defaults.Port;
+                    case ProtocolType.Terminal:
+                        return (int)ProtocolTerminal.Defaults.Port;
                     case ProtocolType.IntApp:
                         return (int)IntegratedProgram.Defaults.Port;
                 }
