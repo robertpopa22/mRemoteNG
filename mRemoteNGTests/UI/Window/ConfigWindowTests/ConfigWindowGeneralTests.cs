@@ -332,6 +332,14 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Port),
                     });
                     break;
+                case ProtocolType.WSL:
+                    expectedProperties.AddRange(new[]
+                    {
+                        nameof(ConnectionInfo.Password),
+                        nameof(ConnectionInfo.Domain),
+                        nameof(ConnectionInfo.Port),
+                    });
+                    break;
                 case ProtocolType.IntApp:
                     expectedProperties.AddRange(new[]
                     {
