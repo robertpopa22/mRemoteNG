@@ -8,6 +8,7 @@ using mRemoteNG.Connection.Protocol.VNC;
 using mRemoteNG.Connection.Protocol.ARD;
 using System;
 using mRemoteNG.Connection.Protocol.PowerShell;
+using mRemoteNG.Connection.Protocol.WSL;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 
@@ -47,6 +48,8 @@ namespace mRemoteNG.Connection.Protocol
                     return new ProtocolHTTPS(connectionInfo.RenderingEngine);
                 case ProtocolType.PowerShell:
                     return new ProtocolPowerShell(connectionInfo);
+                case ProtocolType.WSL:
+                    return new ProtocolWSL(connectionInfo);
                 case ProtocolType.IntApp:
                     if (connectionInfo.ExtApp == "")
                     {

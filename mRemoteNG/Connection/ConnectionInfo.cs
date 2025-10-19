@@ -273,6 +273,8 @@ namespace mRemoteNG.Connection
                         return (int)ProtocolHTTPS.Defaults.Port;
                     case ProtocolType.PowerShell:
                         return (int)ProtocolPowerShell.Defaults.Port;
+                    case ProtocolType.WSL:
+                        return (int)ProtocolWSL.Defaults.Port;
                     case ProtocolType.IntApp:
                         return (int)IntegratedProgram.Defaults.Port;
                 }

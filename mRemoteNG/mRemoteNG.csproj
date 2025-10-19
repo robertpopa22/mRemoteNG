@@ -399,6 +399,9 @@
     <None Update="Icons\PowerShell.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Icons\WSL.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Icons\Production.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
