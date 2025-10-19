@@ -25,7 +25,7 @@ namespace mRemoteNG.Connection.Protocol.Terminal
         {
             try
             {
-                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, "Attempting to start Windows Terminal session.", true);
+                Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, "Attempting to start Terminal session.", true);
 
                 _consoleControl = new ConsoleControl.ConsoleControl
                 {
@@ -36,11 +36,9 @@ namespace mRemoteNG.Connection.Protocol.Terminal
                     Padding = new Padding(0, 20, 0, 0)
                 };
 
-                // Path to Windows Terminal executable
-                string terminalExe = @"%LocalAppData%\Microsoft\WindowsApps\wt.exe";
-                
-                // Expand environment variables
-                terminalExe = Environment.ExpandEnvironmentVariables(terminalExe);
+                // Path to command prompt or PowerShell - can be configured through options
+                // Using cmd.exe as default for Terminal protocol
+                string terminalExe = @"C:\Windows\System32\cmd.exe";
 
                 // Setup arguments based on whether hostname is provided
                 string arguments = "";
@@ -58,14 +56,18 @@ namespace mRemoteNG.Connection.Protocol.Terminal
                     
                     if (!string.IsNullOrEmpty(username))
                     {
-                        arguments = $"ssh {username}@{_connectionInfo.Hostname}";
+                        arguments = $"/K ssh {username}@{_connectionInfo.Hostname}";
                     }
                     else
                     {
-                        arguments = $"ssh {_connectionInfo.Hostname}";
+                        arguments = $"/K ssh {_connectionInfo.Hostname}";
                     }
                 }
-                // If no hostname or localhost, just open a local terminal session
+                else
+                {
+                    // For local sessions, just start cmd with /K to keep it open
+                    arguments = "/K";
+                }
 
                 _consoleControl.StartProcess(terminalExe, arguments);
 
