@@ -81,7 +81,20 @@ namespace mRemoteNG.Connection.Protocol.Terminal
 
                 _consoleControl.StartProcess(terminalExe, arguments);
 
-                while (!_consoleControl.IsHandleCreated) break;
+                // Wait for the console control to create its handle
+                int maxWaitMs = 5000; // 5 seconds timeout
+                int startTicks = Environment.TickCount;
+                while (!_consoleControl.IsHandleCreated && 
+                       Environment.TickCount < startTicks + maxWaitMs)
+                {
+                    System.Threading.Thread.Sleep(10);
+                }
+
+                if (!_consoleControl.IsHandleCreated)
+                {
+                    throw new Exception("Console control failed to create handle within timeout period");
+                }
+
                 _handle = _consoleControl.Handle;
                 NativeMethods.SetParent(_handle, InterfaceControl.Handle);
 
