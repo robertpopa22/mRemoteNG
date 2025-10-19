@@ -36,9 +36,9 @@ namespace mRemoteNG.Connection.Protocol.Terminal
                     Padding = new Padding(0, 20, 0, 0)
                 };
 
-                // Path to command prompt or PowerShell - can be configured through options
-                // Using cmd.exe as default for Terminal protocol
-                string terminalExe = @"C:\Windows\System32\cmd.exe";
+                // Path to command prompt - dynamically determined from system
+                // Using COMSPEC environment variable which points to the system's command processor
+                string terminalExe = Environment.GetEnvironmentVariable("COMSPEC") ?? @"C:\Windows\System32\cmd.exe";
 
                 // Setup arguments based on whether hostname is provided
                 string arguments = "";
@@ -48,20 +48,30 @@ namespace mRemoteNG.Connection.Protocol.Terminal
                 if (!useLocalHost)
                 {
                     // If hostname is provided, try to connect via SSH
+                    // Note: Domain field is not used for SSH as it's Windows-specific
+                    // SSH authentication will use standard SSH mechanisms (password prompt, keys, etc.)
                     string username = _connectionInfo.Username;
-                    if (!string.IsNullOrEmpty(_connectionInfo.Domain))
+                    int port = _connectionInfo.Port;
+                    
+                    // Build SSH command
+                    string sshCommand = "ssh";
+                    
+                    // Add port if it's not the default SSH port (22)
+                    if (port > 0 && port != 22)
                     {
-                        username = $"{_connectionInfo.Domain}\\{username}";
+                        sshCommand += $" -p {port}";
                     }
                     
                     if (!string.IsNullOrEmpty(username))
                     {
-                        arguments = $"/K ssh {username}@{_connectionInfo.Hostname}";
+                        sshCommand += $" {username}@{_connectionInfo.Hostname}";
                     }
                     else
                     {
-                        arguments = $"/K ssh {_connectionInfo.Hostname}";
+                        sshCommand += $" {_connectionInfo.Hostname}";
                     }
+                    
+                    arguments = $"/K {sshCommand}";
                 }
                 else
                 {
