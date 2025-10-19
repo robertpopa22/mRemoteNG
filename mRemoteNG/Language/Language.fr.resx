@@ -2105,6 +2105,9 @@ Le canal nightly inclut les versions alpha, beta et release candidates.</value>
   <data name="PowerShell" xml:space="preserve">
     <value>PowerShell</value>
   </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
   <data name="Changelog" xml:space="preserve">
     <value>Historique des modifications</value>
   </data>

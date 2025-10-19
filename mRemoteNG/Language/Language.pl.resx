@@ -2152,6 +2152,9 @@ Kanał nocny obejmuje wersje alfa, beta i RC (gotowe do wydania).</value>
   <data name="PowerShell" xml:space="preserve">
     <value>PowerShell</value>
   </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
   <data name="Changelog" xml:space="preserve">
     <value>Dziennik zmian</value>
   </data>

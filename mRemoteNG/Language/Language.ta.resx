@@ -2155,6 +2155,9 @@
   <data name="PowerShell" xml:space="preserve">
     <value>ஆற்றல்ஓடு</value>
   </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
   <data name="Changelog" xml:space="preserve">
     <value>மாற்றபதிவு</value>
   </data>

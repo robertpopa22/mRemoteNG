@@ -40,6 +40,8 @@ namespace mRemoteNG.Connection.Protocol
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.Wsl))]
         WSL = 12,
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.Terminal))]
+        Terminal = 12,
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]
         IntApp = 20
@@ -50,6 +52,7 @@ namespace mRemoteNG.Connection.Protocol
         public static bool SupportBlankHostname(ProtocolType protocolType)
         {
             return (protocolType == ProtocolType.IntApp || protocolType == ProtocolType.PowerShell || protocolType == ProtocolType.WSL);
+            return (protocolType == ProtocolType.IntApp || protocolType == ProtocolType.PowerShell || protocolType == ProtocolType.Terminal);
         }
     }
 }
