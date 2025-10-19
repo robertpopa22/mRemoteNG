@@ -2074,6 +2074,9 @@ mRemoteNG 将退出并安装更新。</value>
   <data name="PowerShell" xml:space="preserve">
     <value>PowerShell</value>
   </data>
+  <data name="Terminal" xml:space="preserve">
+    <value>Terminal</value>
+  </data>
   <data name="Gateway" xml:space="preserve">
     <value>网关</value>
   </data>
