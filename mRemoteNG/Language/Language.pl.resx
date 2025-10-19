@@ -2396,4 +2396,7 @@ Kanał nocny obejmuje wersje alfa, beta i RC (gotowe do wydania).</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Wsl" xml:space="preserve">
+    <value>WSL</value>
+  </data>
 </root>

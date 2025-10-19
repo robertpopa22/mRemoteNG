@@ -2190,4 +2190,7 @@ Le canal nightly inclut les versions alpha, beta et release candidates.</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Wsl" xml:space="preserve">
+    <value>WSL</value>
+  </data>
 </root>

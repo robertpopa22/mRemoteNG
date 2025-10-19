@@ -2117,4 +2117,7 @@ mRemoteNG 将退出并安装更新。</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="Wsl" xml:space="preserve">
+    <value>WSL</value>
+  </data>
 </root>

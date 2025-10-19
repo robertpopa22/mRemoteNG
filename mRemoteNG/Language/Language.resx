@@ -2550,4 +2550,7 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="FrameColorPurple" xml:space="preserve">
     <value>Purple (Custom)</value>
   </data>
+  <data name="Wsl" xml:space="preserve">
+    <value>WSL</value>
+  </data>
 </root>
