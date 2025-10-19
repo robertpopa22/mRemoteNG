@@ -83,16 +83,16 @@ namespace mRemoteNG.Connection.Protocol.Terminal
 
                 // Wait for the console control to create its handle
                 int maxWaitMs = 5000; // 5 seconds timeout
-                int startTicks = Environment.TickCount;
+                long startTicks = Environment.TickCount64;
                 while (!_consoleControl.IsHandleCreated && 
-                       Environment.TickCount < startTicks + maxWaitMs)
+                       Environment.TickCount64 < startTicks + maxWaitMs)
                 {
-                    System.Threading.Thread.Sleep(10);
+                    System.Threading.Thread.Sleep(50);
                 }
 
                 if (!_consoleControl.IsHandleCreated)
                 {
-                    throw new Exception("Console control failed to create handle within timeout period");
+                    throw new Exception("Failed to initialize terminal console within 5 seconds. This may indicate system resource constraints or permission issues.");
                 }
 
                 _handle = _consoleControl.Handle;
