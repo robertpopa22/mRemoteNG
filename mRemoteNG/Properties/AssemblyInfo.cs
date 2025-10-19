@@ -28,6 +28,3 @@ using System.Resources;
 [assembly: AssemblyFileVersion("1.78.2.3177")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 [assembly: AssemblyInformationalVersion("1.78.2 (Nightly Build 3177) x64")]
-
-// Logging
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config")]
