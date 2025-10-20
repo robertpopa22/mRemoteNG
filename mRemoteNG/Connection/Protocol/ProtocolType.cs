@@ -43,6 +43,9 @@ namespace mRemoteNG.Connection.Protocol
         [LocalizedAttributes.LocalizedDescription(nameof(Language.Terminal))]
         Terminal = 12,
 
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.AnyDesk))]
+        AnyDesk = 13,
+
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]
         IntApp = 20
     }

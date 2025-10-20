@@ -10,6 +10,7 @@ using System;
 using mRemoteNG.Connection.Protocol.PowerShell;
 using mRemoteNG.Connection.Protocol.WSL;
 using mRemoteNG.Connection.Protocol.Terminal;
+using mRemoteNG.Connection.Protocol.AnyDesk;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 
@@ -53,6 +54,8 @@ namespace mRemoteNG.Connection.Protocol
                     return new ProtocolWSL(connectionInfo);
                 case ProtocolType.Terminal:
                     return new ProtocolTerminal(connectionInfo);
+                case ProtocolType.AnyDesk:
+                    return new ProtocolAnyDesk(connectionInfo);
                 case ProtocolType.IntApp:
                     if (connectionInfo.ExtApp == "")
                     {
