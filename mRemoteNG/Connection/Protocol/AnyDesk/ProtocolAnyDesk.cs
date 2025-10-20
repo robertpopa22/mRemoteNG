@@ -246,7 +246,8 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             {
                 // Use PowerShell to pipe the password to AnyDesk
                 // This is the recommended way according to AnyDesk documentation
-                string powershellCommand = $"echo '{_connectionInfo.Password}' | & '{anydeskPath}' {arguments}";
+                string escapedPassword = _connectionInfo.Password.Replace("'", "''");
+                string powershellCommand = $"echo '{escapedPassword}' | & '{anydeskPath}' {arguments}";
 
                 _process = new Process
                 {
