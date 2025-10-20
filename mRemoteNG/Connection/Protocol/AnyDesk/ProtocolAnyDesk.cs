@@ -184,7 +184,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             string pathVariable = Environment.GetEnvironmentVariable("PATH");
             if (pathVariable != null)
             {
-                var paths = pathVariable.Split(';');
+                var paths = pathVariable.Split(Path.PathSeparator);
                 foreach (var path in paths)
                 {
                     var exePath = Path.Combine(path.Trim(), "AnyDesk.exe");
