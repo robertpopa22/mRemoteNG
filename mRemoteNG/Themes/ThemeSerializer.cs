@@ -30,6 +30,8 @@ namespace mRemoteNG.Themes
 
         public static void DeleteFile(ThemeInfo themeToDelete)
         {
+            if (themeToDelete.URI == null || themeToDelete.URI.Contains("../") || themeToDelete.URI.Contains(@"..\"))
+                throw new ArgumentException("Invalid file path");
             File.Delete(themeToDelete.URI);
         }
 
