@@ -120,16 +120,44 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
         {
             try
             {
-                if (_process != null && !_process.HasExited)
+                // Try to close all AnyDesk processes related to this connection
+                if (_process != null)
                 {
-                    _process.Kill();
-                    _process.Dispose();
-                    _process = null;
+                    try
+                    {
+                        if (!_process.HasExited)
+                        {
+                            _process.Kill();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Runtime.MessageCollector?.AddExceptionMessage(Language.IntAppKillFailed, ex);
+                    }
+                    finally
+                    {
+                        _process?.Dispose();
+                        _process = null;
+                    }
+                }
+
+                // Also try to close by window handle if we have it
+                if (_handle != IntPtr.Zero)
+                {
+                    try
+                    {
+                        NativeMethods.SendMessage(_handle, 0x0010, IntPtr.Zero, IntPtr.Zero); // WM_CLOSE
+                    }
+                    catch
+                    {
+                        // Ignore errors when closing by handle
+                    }
+                    _handle = IntPtr.Zero;
                 }
             }
             catch (Exception ex)
             {
-                Runtime.MessageCollector?.AddExceptionMessage(Language.IntAppKillFailed, ex);
+                Runtime.MessageCollector?.AddExceptionMessage("Error closing AnyDesk connection.", ex);
             }
 
             base.Close();
@@ -215,7 +243,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             {
                 // Use PowerShell to pipe the password to AnyDesk
                 // This is the recommended way according to AnyDesk documentation
-                string powershellCommand = $"'{_connectionInfo.Password}' | & '{anydeskPath}' {arguments}";
+                string powershellCommand = $"echo '{_connectionInfo.Password}' | & '{anydeskPath}' {arguments}";
 
                 _process = new Process
                 {
@@ -226,7 +254,8 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         RedirectStandardOutput = false,
-                        RedirectStandardError = false
+                        RedirectStandardError = false,
+                        RedirectStandardInput = false
                     },
                     EnableRaisingEvents = true
                 };
@@ -235,6 +264,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                 _process.Start();
 
                 // Wait for the AnyDesk window to appear
+                // Note: The window belongs to the AnyDesk process, not PowerShell
                 if (!WaitForAnydeskWindow())
                 {
                     Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg,
@@ -297,23 +327,43 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
 
             while (elapsedTime < maxWaitTime)
             {
-                if (_process != null && !_process.HasExited)
+                // Find AnyDesk process by name
+                Process[] anydeskProcesses = Process.GetProcessesByName("AnyDesk");
+                
+                foreach (Process anydeskProcess in anydeskProcesses)
                 {
-                    _process.Refresh();
-
-                    // Try to get the main window handle
-                    if (_process.MainWindowHandle != IntPtr.Zero)
+                    try
                     {
-                        _handle = _process.MainWindowHandle;
-
-                        // Try to integrate the window
-                        if (InterfaceControl != null)
+                        anydeskProcess.Refresh();
+                        
+                        // Try to get the main window handle
+                        if (anydeskProcess.MainWindowHandle != IntPtr.Zero)
                         {
-                            NativeMethods.SetParent(_handle, InterfaceControl.Handle);
-                            Resize(this, new EventArgs());
-                        }
+                            _handle = anydeskProcess.MainWindowHandle;
 
-                        return true;
+                            // Store the actual AnyDesk process for later cleanup
+                            // Dispose the PowerShell process if it's different
+                            if (_process != null && _process.ProcessName != "AnyDesk")
+                            {
+                                _process.Exited -= ProcessExited;
+                                _process = anydeskProcess;
+                                _process.EnableRaisingEvents = true;
+                                _process.Exited += ProcessExited;
+                            }
+
+                            // Try to integrate the window
+                            if (InterfaceControl != null)
+                            {
+                                NativeMethods.SetParent(_handle, InterfaceControl.Handle);
+                                Resize(this, new EventArgs());
+                            }
+
+                            return true;
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore errors for individual processes
                     }
                 }
 
