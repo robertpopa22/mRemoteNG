@@ -333,41 +333,55 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             {
                 // Find AnyDesk process by name
                 Process[] anydeskProcesses = Process.GetProcessesByName("AnyDesk");
-                
-                foreach (Process anydeskProcess in anydeskProcesses)
+                Process processToKeep = null;
+                try
                 {
-                    try
+                    foreach (Process anydeskProcess in anydeskProcesses)
                     {
-                        anydeskProcess.Refresh();
-                        
-                        // Try to get the main window handle
-                        if (anydeskProcess.MainWindowHandle != IntPtr.Zero)
+                        try
                         {
-                            _handle = anydeskProcess.MainWindowHandle;
+                            anydeskProcess.Refresh();
 
-                            // Store the actual AnyDesk process for later cleanup
-                            // Dispose the PowerShell process if it's different
-                            if (_process != null && _process.ProcessName != "AnyDesk")
+                            // Try to get the main window handle
+                            if (anydeskProcess.MainWindowHandle != IntPtr.Zero)
                             {
-                                _process.Exited -= ProcessExited;
-                                _process = anydeskProcess;
-                                _process.EnableRaisingEvents = true;
-                                _process.Exited += ProcessExited;
-                            }
+                                _handle = anydeskProcess.MainWindowHandle;
 
-                            // Try to integrate the window
-                            if (InterfaceControl != null)
-                            {
-                                NativeMethods.SetParent(_handle, InterfaceControl.Handle);
-                                Resize(this, new EventArgs());
-                            }
+                                // Store the actual AnyDesk process for later cleanup
+                                // Dispose the PowerShell process if it's different
+                                if (_process != null && _process.ProcessName != "AnyDesk")
+                                {
+                                    _process.Exited -= ProcessExited;
+                                    _process = anydeskProcess;
+                                    _process.EnableRaisingEvents = true;
+                                    _process.Exited += ProcessExited;
+                                    processToKeep = anydeskProcess;
+                                }
 
-                            return true;
+                                // Try to integrate the window
+                                if (InterfaceControl != null)
+                                {
+                                    NativeMethods.SetParent(_handle, InterfaceControl.Handle);
+                                    Resize(this, new EventArgs());
+                                }
+
+                                return true;
+                            }
+                        }
+                        catch
+                        {
+                            // Ignore errors for individual processes
                         }
                     }
-                    catch
+                }
+                finally
+                {
+                    foreach (Process anydeskProcess in anydeskProcesses)
                     {
-                        // Ignore errors for individual processes
+                        if (anydeskProcess != processToKeep)
+                        {
+                            anydeskProcess.Dispose();
+                        }
                     }
                 }
 
