@@ -204,6 +204,9 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             {
                 // Build AnyDesk arguments
                 // Format: AnyDesk.exe [ID|alias@ad] [options]
+                // Hostname field contains the AnyDesk ID (e.g., 123456789 or alias@ad)
+                // Username field is optional and not used in the CLI (reserved for future use)
+                // Password field is piped via stdin when --with-password flag is used
                 string anydeskId = _connectionInfo.Hostname.Trim();
                 string arguments = $"{anydeskId}";
 

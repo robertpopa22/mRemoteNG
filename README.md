@@ -72,6 +72,7 @@ The following protocols are supported:
 * rlogin (Remote Login)
 * Raw Socket Connections
 * Powershell remoting
+* AnyDesk
 
 For a detailed feature list and general usage support, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
