@@ -42,6 +42,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoubleClickClosesTab = new MrngCheckBox();
             chkShowProtocolOnTabs = new MrngCheckBox();
             chkCreateEmptyPanelOnStart = new MrngCheckBox();
+            chkBindConnectionsAndConfigPanels = new MrngCheckBox();
             txtBoxPanelName = new MrngTextBox();
             lblPanelName = new MrngLabel();
             pnlOptions = new System.Windows.Forms.Panel();
@@ -159,6 +160,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart.UseVisualStyleBackColor = true;
             chkCreateEmptyPanelOnStart.CheckedChanged += chkCreateEmptyPanelOnStart_CheckedChanged;
             // 
+            // chkBindConnectionsAndConfigPanels
+            // 
+            chkBindConnectionsAndConfigPanels._mice = MrngCheckBox.MouseState.OUT;
+            chkBindConnectionsAndConfigPanels.AutoSize = true;
+            chkBindConnectionsAndConfigPanels.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkBindConnectionsAndConfigPanels.Location = new System.Drawing.Point(3, 210);
+            chkBindConnectionsAndConfigPanels.Name = "chkBindConnectionsAndConfigPanels";
+            chkBindConnectionsAndConfigPanels.Size = new System.Drawing.Size(350, 17);
+            chkBindConnectionsAndConfigPanels.TabIndex = 9;
+            chkBindConnectionsAndConfigPanels.Text = "Bind Connections and Config panels together when auto-hidden";
+            chkBindConnectionsAndConfigPanels.UseVisualStyleBackColor = true;
+            // 
             // txtBoxPanelName
             // 
             txtBoxPanelName.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -184,6 +197,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(txtBoxPanelName);
             pnlOptions.Controls.Add(chkDoubleClickClosesTab);
             pnlOptions.Controls.Add(chkCreateEmptyPanelOnStart);
+            pnlOptions.Controls.Add(chkBindConnectionsAndConfigPanels);
             pnlOptions.Controls.Add(chkShowLogonInfoOnTabs);
             pnlOptions.Controls.Add(chkAlwaysShowPanelSelectionDlg);
             pnlOptions.Controls.Add(chkAlwaysShowConnectionTabs);
@@ -192,7 +206,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 216);
+            pnlOptions.Size = new System.Drawing.Size(610, 240);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
@@ -230,6 +244,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkDoubleClickClosesTab;
         internal MrngCheckBox chkShowProtocolOnTabs;
         private MrngCheckBox chkCreateEmptyPanelOnStart;
+        private MrngCheckBox chkBindConnectionsAndConfigPanels;
         private Controls.MrngTextBox txtBoxPanelName;
         private Controls.MrngLabel lblPanelName;
         private System.Windows.Forms.Panel pnlOptions;

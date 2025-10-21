@@ -227,6 +227,9 @@ namespace mRemoteNG.UI.Forms
             CredsAndConsSetup credsAndConsSetup = new();
             credsAndConsSetup.LoadCredsAndCons();
 
+            // Initialize panel binding for Connections and Config panels
+            UI.Panels.PanelBinder.Instance.Initialize();
+
             App.Windows.TreeForm.Focus();
 
             PuttySessionsManager.Instance.StartWatcher();
