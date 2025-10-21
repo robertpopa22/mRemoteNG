@@ -29,22 +29,21 @@ namespace mRemoteNG.UI.Panels
             if (Windows.TreeForm != null)
             {
                 Windows.TreeForm.VisibleChanged += OnTreeFormVisibleChanged;
-                Windows.TreeForm.DockStateChanged += OnTreeFormDockStateChanged;
             }
 
             if (Windows.ConfigForm != null)
             {
                 Windows.ConfigForm.VisibleChanged += OnConfigFormVisibleChanged;
-                Windows.ConfigForm.DockStateChanged += OnConfigFormDockStateChanged;
             }
         }
 
         private void OnTreeFormVisibleChanged(object sender, EventArgs e)
         {
+            // Only act when binding is enabled and not already processing
             if (!OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels || _isProcessing)
                 return;
 
-            // Only act when the panel becomes visible
+            // Only act when the panel becomes visible (expanded from auto-hide)
             if (!Windows.TreeForm.Visible)
                 return;
 
@@ -55,6 +54,7 @@ namespace mRemoteNG.UI.Panels
             _isProcessing = true;
             try
             {
+                // Show the Config panel by activating it
                 ShowPanel(Windows.ConfigForm);
             }
             finally
@@ -65,10 +65,11 @@ namespace mRemoteNG.UI.Panels
 
         private void OnConfigFormVisibleChanged(object sender, EventArgs e)
         {
+            // Only act when binding is enabled and not already processing
             if (!OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels || _isProcessing)
                 return;
 
-            // Only act when the panel becomes visible
+            // Only act when the panel becomes visible (expanded from auto-hide)
             if (!Windows.ConfigForm.Visible)
                 return;
 
@@ -79,24 +80,13 @@ namespace mRemoteNG.UI.Panels
             _isProcessing = true;
             try
             {
+                // Show the Connections panel by activating it
                 ShowPanel(Windows.TreeForm);
             }
             finally
             {
                 _isProcessing = false;
             }
-        }
-
-        private void OnTreeFormDockStateChanged(object sender, EventArgs e)
-        {
-            // This event helps us track when panels transition to/from auto-hide
-            // We don't need to take action here, just be aware of state changes
-        }
-
-        private void OnConfigFormDockStateChanged(object sender, EventArgs e)
-        {
-            // This event helps us track when panels transition to/from auto-hide
-            // We don't need to take action here, just be aware of state changes
         }
 
         /// <summary>
@@ -120,6 +110,7 @@ namespace mRemoteNG.UI.Panels
         {
             if (panel != null && IsPanelAutoHidden(panel))
             {
+                // Activate the panel to show it from auto-hide
                 panel.Activate();
             }
         }
