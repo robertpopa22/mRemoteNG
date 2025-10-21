@@ -91,8 +91,10 @@ namespace mRemoteNG.UI.Forms
         private void FrmOptions_VisibleChanged(object sender, EventArgs e)
         {
             // When the form becomes visible, ensure the panel is populated with the selected page
-            if (this.Visible && pnlMain.Controls.Count == 0)
+            if (this.Visible)
             {
+                // Clear and re-add the selected page to ensure it's properly displayed
+                pnlMain.Controls.Clear();
                 OptionsPage page = (OptionsPage)lstOptionPages.SelectedObject;
                 if (page != null)
                     pnlMain.Controls.Add(page);
