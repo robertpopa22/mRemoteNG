@@ -90,8 +90,9 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmOptions_VisibleChanged(object sender, EventArgs e)
         {
-            // When the form becomes visible, ensure the panel is populated with the selected page
-            if (this.Visible)
+            // When the form becomes visible after initial load, ensure the panel is populated with the selected page
+            // Skip this during initial load to avoid interfering with the normal initialization
+            if (this.Visible && _isInitialized)
             {
                 // Clear and re-add the selected page to ensure it's properly displayed
                 pnlMain.Controls.Clear();
