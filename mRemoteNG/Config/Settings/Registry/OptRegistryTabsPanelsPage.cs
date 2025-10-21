@@ -48,6 +48,11 @@ namespace mRemoteNG.Config.Settings.Registry
         /// </summary>
         public WinRegistryEntry<string> StartUpPanelName { get; private set; }
 
+        /// <summary>
+        /// Specifies whether Connections and Config panels are bound together when auto-hidden.
+        /// </summary>
+        public WinRegistryEntry<bool> BindConnectionsAndConfigPanels { get; private set; }
+
         public OptRegistryTabsPanelsPage()
         {
             RegistryHive hive = WindowsRegistryInfo.Hive;
@@ -61,6 +66,7 @@ namespace mRemoteNG.Config.Settings.Registry
             AlwaysShowPanelSelectionDlg = new WinRegistryEntry<bool>(hive, subKey, nameof(AlwaysShowPanelSelectionDlg)).Read();
             CreateEmptyPanelOnStartUp = new WinRegistryEntry<bool>(hive, subKey, nameof(CreateEmptyPanelOnStartUp)).Read();
             StartUpPanelName = new WinRegistryEntry<string>(hive, subKey, nameof(StartUpPanelName)).Read();
+            BindConnectionsAndConfigPanels = new WinRegistryEntry<bool>(hive, subKey, nameof(BindConnectionsAndConfigPanels)).Read();
 
             SetupValidation();
             Apply();
@@ -87,6 +93,7 @@ namespace mRemoteNG.Config.Settings.Registry
             ApplyAlwaysShowPanelSelectionDlg();
             ApplyCreateEmptyPanelOnStartUp();
             ApplyStartUpPanelName();
+            ApplyBindConnectionsAndConfigPanels();
         }
 
         private void ApplyAlwaysShowPanelTabs()
@@ -135,6 +142,12 @@ namespace mRemoteNG.Config.Settings.Registry
         {
             if (StartUpPanelName.IsSet)
                 Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = StartUpPanelName.Value;
+        }
+
+        private void ApplyBindConnectionsAndConfigPanels()
+        {
+            if (BindConnectionsAndConfigPanels.IsSet)
+                Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels = BindConnectionsAndConfigPanels.Value;
         }
     }
 }

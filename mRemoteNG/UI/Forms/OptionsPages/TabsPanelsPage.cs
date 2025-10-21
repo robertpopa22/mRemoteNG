@@ -45,6 +45,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoubleClickClosesTab.Text = Language.DoubleClickTabClosesIt;
             chkAlwaysShowPanelSelectionDlg.Text = Language.AlwaysShowPanelSelection;
             chkCreateEmptyPanelOnStart.Text = Language.CreateEmptyPanelOnStartUp;
+            chkBindConnectionsAndConfigPanels.Text = "Bind Connections and Config panels together when auto-hidden";
             lblPanelName.Text = $@"{Language.PanelName}:";
 
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
@@ -75,6 +76,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoubleClickClosesTab.Checked = Properties.OptionsTabsPanelsPage.Default.DoubleClickOnTabClosesIt;
             chkAlwaysShowPanelSelectionDlg.Checked = Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg;
             chkCreateEmptyPanelOnStart.Checked = Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp;
+            chkBindConnectionsAndConfigPanels.Checked = Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels;
             txtBoxPanelName.Text = Properties.OptionsTabsPanelsPage.Default.StartUpPanelName;
             UpdatePanelNameTextBox();
         }
@@ -106,6 +108,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsTabsPanelsPage.Default.DoubleClickOnTabClosesIt = chkDoubleClickClosesTab.Checked;
             Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg = chkAlwaysShowPanelSelectionDlg.Checked;
             Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp = chkCreateEmptyPanelOnStart.Checked;
+            Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels = chkBindConnectionsAndConfigPanels.Checked;
             Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = txtBoxPanelName.Text;
         }
 
@@ -144,6 +147,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (pageRegSettingsInstance.StartUpPanelName.IsSet)
                 DisableControl(txtBoxPanelName);
 
+            if (pageRegSettingsInstance.BindConnectionsAndConfigPanels.IsSet)
+                DisableControl(chkBindConnectionsAndConfigPanels);
+
             // Updates the visibility of the information label indicating whether registry settings are used.
             lblRegistrySettingsUsedInfo.Visible = ShowRegistrySettingsUsedInfo();
         }
@@ -160,7 +166,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 || pageRegSettingsInstance.DoubleClickOnTabClosesIt.IsSet
                 || pageRegSettingsInstance.AlwaysShowPanelSelectionDlg.IsSet
                 || pageRegSettingsInstance.CreateEmptyPanelOnStartUp.IsSet
-                || pageRegSettingsInstance.StartUpPanelName.IsSet;
+                || pageRegSettingsInstance.StartUpPanelName.IsSet
+                || pageRegSettingsInstance.BindConnectionsAndConfigPanels.IsSet;
         }
 
         private void UpdatePanelNameTextBox()
