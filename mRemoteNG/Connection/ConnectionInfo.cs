@@ -9,6 +9,7 @@ using mRemoteNG.Connection.Protocol.ARD;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.PowerShell;
 using mRemoteNG.Connection.Protocol.Terminal;
+using mRemoteNG.Connection.Protocol.WSL;
 using mRemoteNG.Connection.Protocol.RAW;
 using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Connection.Protocol.Rlogin;

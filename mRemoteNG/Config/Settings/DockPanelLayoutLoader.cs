@@ -63,7 +63,7 @@ namespace mRemoteNG.Config.Settings
             }
         }
 
-        private IDockContent GetContentFromPersistString(string persistString)
+        private IDockContent? GetContentFromPersistString(string persistString)
         {
             // pnlLayout.xml persistence XML fix for refactoring to mRemoteNG
             if (persistString.StartsWith("mRemote."))
@@ -72,13 +72,13 @@ namespace mRemoteNG.Config.Settings
             try
             {
                 if (persistString == typeof(ConfigWindow).ToString())
-                    return App.Windows.ConfigForm;
+                    return AppWindows.ConfigForm;
 
                 if (persistString == typeof(ConnectionTreeWindow).ToString())
-                    return App.Windows.TreeForm;
+                    return AppWindows.TreeForm;
 
                 if (persistString == typeof(ErrorAndInfoWindow).ToString())
-                    return App.Windows.ErrorsForm;
+                    return AppWindows.ErrorsForm;
             }
             catch (Exception ex)
             {

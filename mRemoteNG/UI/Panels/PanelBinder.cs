@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Runtime.Versioning;
 using mRemoteNG.App;
 using mRemoteNG.Properties;
 using WeifenLuo.WinFormsUI.Docking;
-
+using mRemoteNG.UI; 
 namespace mRemoteNG.UI.Panels
 {
     /// <summary>
@@ -26,14 +26,14 @@ namespace mRemoteNG.UI.Panels
         /// </summary>
         public void Initialize()
         {
-            if (Windows.TreeForm != null)
+            if (AppWindows.TreeForm != null)
             {
-                Windows.TreeForm.VisibleChanged += OnTreeFormVisibleChanged;
+                AppWindows.TreeForm.VisibleChanged += OnTreeFormVisibleChanged;
             }
 
-            if (Windows.ConfigForm != null)
+            if (AppWindows.ConfigForm != null)
             {
-                Windows.ConfigForm.VisibleChanged += OnConfigFormVisibleChanged;
+                AppWindows.ConfigForm.VisibleChanged += OnConfigFormVisibleChanged;
             }
         }
 
@@ -44,18 +44,18 @@ namespace mRemoteNG.UI.Panels
                 return;
 
             // Only act when the panel becomes visible (expanded from auto-hide)
-            if (!Windows.TreeForm.Visible)
+            if (!AppWindows.TreeForm.Visible)
                 return;
 
             // Only bind when both panels are in auto-hide state
-            if (!IsPanelAutoHidden(Windows.TreeForm) || !IsPanelAutoHidden(Windows.ConfigForm))
+            if (!IsPanelAutoHidden(AppWindows.TreeForm) || !IsPanelAutoHidden(AppWindows.ConfigForm))
                 return;
 
             _isProcessing = true;
             try
             {
                 // Show the Config panel by activating it
-                ShowPanel(Windows.ConfigForm);
+                ShowPanel(AppWindows.ConfigForm);
             }
             finally
             {
@@ -70,18 +70,18 @@ namespace mRemoteNG.UI.Panels
                 return;
 
             // Only act when the panel becomes visible (expanded from auto-hide)
-            if (!Windows.ConfigForm.Visible)
+            if (!AppWindows.ConfigForm.Visible)
                 return;
 
             // Only bind when both panels are in auto-hide state
-            if (!IsPanelAutoHidden(Windows.TreeForm) || !IsPanelAutoHidden(Windows.ConfigForm))
+            if (!IsPanelAutoHidden(AppWindows.TreeForm) || !IsPanelAutoHidden(AppWindows.ConfigForm))
                 return;
 
             _isProcessing = true;
             try
             {
                 // Show the Connections panel by activating it
-                ShowPanel(Windows.TreeForm);
+                ShowPanel(AppWindows.TreeForm);
             }
             finally
             {

@@ -217,8 +217,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private async void btnUpdateCheckNow_Click(object sender, EventArgs e)
         {
-            App.Windows.Show(WindowType.Update);
-            var updateWindow = App.Windows.UpdateForm;
+            AppWindows.Show(WindowType.Update);
+            var updateWindow = AppWindows.UpdateForm;
             if (updateWindow != null && !updateWindow.IsDisposed)
             {
                 await updateWindow.PerformUpdateCheckAsync();

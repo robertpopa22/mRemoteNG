@@ -230,7 +230,7 @@ namespace mRemoteNG.UI.Forms
             // Initialize panel binding for Connections and Config panels
             UI.Panels.PanelBinder.Instance.Initialize();
 
-            App.Windows.TreeForm.Focus();
+            AppWindows.TreeForm.Focus();
 
             PuttySessionsManager.Instance.StartWatcher();
 
@@ -322,7 +322,7 @@ namespace mRemoteNG.UI.Forms
 
         private void SetMenuDependencies()
         {
-            fileMenu.TreeWindow = App.Windows.TreeForm;
+            fileMenu.TreeWindow = AppWindows.TreeForm;
 
             viewMenu.TsExternalTools = _externalToolsToolStrip;
             viewMenu.TsQuickConnect = _quickConnectToolStrip;
@@ -401,9 +401,9 @@ namespace mRemoteNG.UI.Forms
 
             if (CTaskDialog.CommandButtonResult != 1) return;
 
-            App.Windows.Show(WindowType.Options);
-            if (App.Windows.OptionsFormWindow != null)
-                App.Windows.OptionsFormWindow.SetActivatedPage(Language.Updates);
+            AppWindows.Show(WindowType.Options);
+            if (AppWindows.OptionsFormWindow != null)
+                AppWindows.OptionsFormWindow.SetActivatedPage(Language.Updates);
         }
 
         private async Task CheckForUpdates()
@@ -705,7 +705,7 @@ namespace mRemoteNG.UI.Forms
                 titleBuilder.Append(SelectedConnection.Name);
 
                 if (Properties.Settings.Default.TrackActiveConnectionInConnectionTree)
-                    App.Windows.TreeForm.JumpToNode(SelectedConnection);
+                    AppWindows.TreeForm.JumpToNode(SelectedConnection);
             }
 
             Text = titleBuilder.ToString();
@@ -765,9 +765,9 @@ namespace mRemoteNG.UI.Forms
         {
             pnlDock.Visible = false;
 
-            App.Windows.TreeForm.Show(pnlDock, DockState.DockLeft);
-            App.Windows.ConfigForm.Show(pnlDock, DockState.DockLeft);
-            App.Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+            AppWindows.TreeForm.Show(pnlDock, DockState.DockLeft);
+            AppWindows.ConfigForm.Show(pnlDock, DockState.DockLeft);
+            AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
             viewMenu._mMenViewErrorsAndInfos.Checked = true;
 
             ShowFileMenu();
@@ -794,7 +794,7 @@ namespace mRemoteNG.UI.Forms
 
             if (Properties.Settings.Default.ViewMenuMessages == true)
             {
-                App.Windows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+                AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
                 viewMenu._mMenViewErrorsAndInfos.Checked = true;
             }
             else

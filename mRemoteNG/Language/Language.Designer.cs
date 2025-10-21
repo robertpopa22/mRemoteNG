@@ -376,6 +376,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AnyDesk.
+        /// </summary>
+        internal static string AnyDesk {
+            get {
+                return ResourceManager.GetString("AnyDesk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance.
         /// </summary>
         internal static string Appearance {
@@ -6505,6 +6514,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Terminal.
+        /// </summary>
+        internal static string Terminal {
+            get {
+                return ResourceManager.GetString("Terminal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test connection.
         /// </summary>
         internal static string TestConnection {
@@ -7276,6 +7294,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string WorkingDirectory {
             get {
                 return ResourceManager.GetString("WorkingDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WSL.
+        /// </summary>
+        internal static string Wsl {
+            get {
+                return ResourceManager.GetString("Wsl", resourceCulture);
             }
         }
         

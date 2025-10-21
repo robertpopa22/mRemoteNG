@@ -77,14 +77,16 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 using MethodInvoker = System.Windows.Forms.MethodInvoker;
 
 namespace BrightIdeasSoftware
 {
+    [SupportedOSPlatform("windows")]
     /// <summary>
     /// A virtual object list view operates in virtual mode, that is, it only gets model objects for
     /// a row when it is needed. This gives it the ability to handle very large numbers of rows with

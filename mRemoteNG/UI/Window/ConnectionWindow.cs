@@ -515,14 +515,14 @@ namespace mRemoteNG.UI.Window
                 InterfaceControl interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
-                App.Windows.Show(WindowType.SSHTransfer);
+                AppWindows.Show(WindowType.SSHTransfer);
                 ConnectionInfo connectionInfo = interfaceControl.Info;
 
-                App.Windows.SshtransferForm.Hostname = connectionInfo.Hostname;
-                App.Windows.SshtransferForm.Username = connectionInfo.Username;
+                AppWindows.SshtransferForm.Hostname = connectionInfo.Hostname;
+                AppWindows.SshtransferForm.Username = connectionInfo.Username;
                 //App.Windows.SshtransferForm.Password = connectionInfo.Password.ConvertToUnsecureString();
-                App.Windows.SshtransferForm.Password = connectionInfo.Password;
-                App.Windows.SshtransferForm.Port = Convert.ToString(connectionInfo.Port);
+                AppWindows.SshtransferForm.Password = connectionInfo.Password;
+                AppWindows.SshtransferForm.Port = Convert.ToString(connectionInfo.Port);
             }
             catch (Exception ex)
             {

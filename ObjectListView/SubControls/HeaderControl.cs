@@ -431,7 +431,7 @@ namespace BrightIdeasSoftware
         /// Override the basic message pump
         /// </summary>
         /// <param name="m"></param>
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+        //[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
         protected override void WndProc(ref Message m)
         {
             const int WM_DESTROY = 2;
@@ -492,7 +492,7 @@ namespace BrightIdeasSoftware
             base.WndProc(ref m);
         }
 
-        private bool HandleReflectNotify(ref Message m)
+        private static bool HandleReflectNotify(ref Message m)
         {
             NativeMethods.NMHDR nmhdr = (NativeMethods.NMHDR)m.GetLParam(typeof(NativeMethods.NMHDR));
             System.Diagnostics.Debug.WriteLine(String.Format("rn: {0}", nmhdr.code));

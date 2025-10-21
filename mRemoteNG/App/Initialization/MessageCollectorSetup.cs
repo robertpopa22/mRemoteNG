@@ -57,9 +57,9 @@ namespace mRemoteNG.App.Initialization
             return new OnlyLogMessageFilter(
                 new MessageTypeFilterDecorator(
                     new NotificationPanelMessageFilteringOptions(),
-                    new MessageFocusDecorator(Windows.ErrorsForm,
+                    new MessageFocusDecorator(AppWindows.ErrorsForm,
                     new NotificationPanelSwitchOnMessageFilteringOptions(),
-                    new NotificationPanelMessageWriter(Windows.ErrorsForm))
+                    new NotificationPanelMessageWriter(AppWindows.ErrorsForm))
                     )
                 );
         }

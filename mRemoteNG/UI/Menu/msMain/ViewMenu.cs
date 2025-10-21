@@ -198,7 +198,7 @@ namespace mRemoteNG.UI.Menu
 
         internal void mMenView_DropDownOpening(object sender, EventArgs e)
         {
-            _mMenViewErrorsAndInfos.Checked = !App.Windows.ErrorsForm.IsHidden;
+            _mMenViewErrorsAndInfos.Checked = !AppWindows.ErrorsForm.IsHidden;
             _mMenViewLockToolbars.Checked = Settings.Default.LockToolbars;
 
             _mMenViewExtAppsToolbar.Checked = TsExternalTools.Visible;
@@ -227,12 +227,12 @@ namespace mRemoteNG.UI.Menu
         {
             if (_mMenViewErrorsAndInfos.Checked == false)
             {
-                App.Windows.ErrorsForm.Show(MainForm.pnlDock);
+                AppWindows.ErrorsForm.Show(MainForm.pnlDock);
                 _mMenViewErrorsAndInfos.Checked = true;
             }
             else
             {
-                App.Windows.ErrorsForm.Hide();
+                AppWindows.ErrorsForm.Hide();
                 _mMenViewErrorsAndInfos.Checked = false;
             }
         }

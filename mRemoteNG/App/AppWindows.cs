@@ -10,7 +10,7 @@ using mRemoteNG.UI.Window;
 namespace mRemoteNG.App
 {
     [SupportedOSPlatform("windows")]
-    public static class Windows
+    public static class AppWindows
     {
         private static ActiveDirectoryImportWindow _adimportForm;
         private static ExternalToolsWindow _externalappsForm;
