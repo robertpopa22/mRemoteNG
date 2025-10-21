@@ -582,8 +582,6 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Versioning;
 using System.Threading;
 using System.Windows.Forms;
@@ -5870,12 +5868,7 @@ namespace BrightIdeasSoftware
             // Now that we have stored our state, convert it to a byte array
             using (MemoryStream ms = new MemoryStream())
             {
-                //BinaryFormatter serializer = new BinaryFormatter();
-                //serializer.AssemblyFormat = FormatterAssemblyStyle.Simple;
-                //serializer.Serialize(ms, olvState);
-                //return ms.ToArray();
-
-                // Use System.Text.Json for serialization instead of BinaryFormatter
+                // Use System.Text.Json for serialization
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = false
@@ -5896,47 +5889,6 @@ namespace BrightIdeasSoftware
         {
             using (MemoryStream ms = new MemoryStream(state))
             {
-                /*
-                BinaryFormatter deserializer = new BinaryFormatter();
-                ObjectListViewState olvState;
-                try
-                {
-                    olvState = deserializer.Deserialize(ms) as ObjectListViewState;
-                }
-                catch (System.Runtime.Serialization.SerializationException)
-                {
-                    return false;
-                }
-                // The number of columns has changed. We have no way to match old
-                // columns to the new ones, so we just give up.
-                if (olvState == null || olvState.NumberOfColumns != this.AllColumns.Count)
-                    return false;
-                if (olvState.SortColumn == -1)
-                {
-                    this.PrimarySortColumn = null;
-                    this.PrimarySortOrder = SortOrder.None;
-                }
-                else
-                {
-                    this.PrimarySortColumn = this.AllColumns[olvState.SortColumn];
-                    this.PrimarySortOrder = olvState.LastSortOrder;
-                }
-                for (int i = 0; i < olvState.NumberOfColumns; i++)
-                {
-                    OLVColumn column = this.AllColumns[i];
-                    column.Width = (int)olvState.ColumnWidths[i];
-                    column.IsVisible = (bool)olvState.ColumnIsVisible[i];
-                    column.LastDisplayIndex = (int)olvState.ColumnDisplayIndicies[i];
-                }
-                // ReSharper disable RedundantCheckBeforeAssignment
-                if (olvState.IsShowingGroups != this.ShowGroups)
-                    // ReSharper restore RedundantCheckBeforeAssignment
-                    this.ShowGroups = olvState.IsShowingGroups;
-                if (this.View == olvState.CurrentView)
-                    this.RebuildColumns();
-                else
-                    this.View = olvState.CurrentView;
-                */
                 ObjectListViewState olvState;
                 try
                 {
