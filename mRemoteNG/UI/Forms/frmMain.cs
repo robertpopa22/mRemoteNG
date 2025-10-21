@@ -257,8 +257,11 @@ namespace mRemoteNG.UI.Forms
             }
 
             OptionsForm = new FrmOptions();
-            
-            if (!Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp) return;
+
+            if (!Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp)
+            {
+                return;
+            }
             string panelName = !string.IsNullOrEmpty(Properties.OptionsTabsPanelsPage.Default.StartUpPanelName) ? Properties.OptionsTabsPanelsPage.Default.StartUpPanelName : Language.NewPanel;
 
             PanelAdder panelAdder = new();
@@ -307,7 +310,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private void ConnectionsServiceOnConnectionsLoaded(object sender, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)
+        private void ConnectionsServiceOnConnectionsLoaded(object? sender, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)
         {
             UpdateWindowTitle();
         }
