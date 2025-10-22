@@ -67,13 +67,21 @@ namespace mRemoteNG.Connection.Protocol
                 }
 
                 ExternalToolArgumentParser argParser = new(_externalTool.ConnectionInfo);
+                string parsedFileName = argParser.ParseArguments(_externalTool.FileName);
+                string parsedArguments = argParser.ParseArguments(_externalTool.Arguments);
+
+                // Validate the executable path to prevent command injection
+                PathValidator.ValidateExecutablePathOrThrow(parsedFileName, nameof(_externalTool.FileName));
+
                 _process = new Process
                 {
                     StartInfo =
                     {
-                        UseShellExecute = true,
-                        FileName = argParser.ParseArguments(_externalTool.FileName),
-                        Arguments = argParser.ParseArguments(_externalTool.Arguments)
+                        // Use UseShellExecute = false for better security
+                        // Only use true if we need runas for elevation (which IntegratedProgram doesn't use)
+                        UseShellExecute = false,
+                        FileName = parsedFileName,
+                        Arguments = parsedArguments
                     },
                     EnableRaisingEvents = true
                 };

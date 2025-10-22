@@ -81,6 +81,9 @@ namespace mRemoteNG.Connection.Protocol
             {
                 _isPuttyNg = PuttyTypeDetector.GetPuttyType() == PuttyTypeDetector.PuttyType.PuttyNg;
 
+                // Validate PuttyPath to prevent command injection
+                PathValidator.ValidateExecutablePathOrThrow(PuttyPath, nameof(PuttyPath));
+
                 PuttyProcess = new Process
                 {
                     StartInfo =

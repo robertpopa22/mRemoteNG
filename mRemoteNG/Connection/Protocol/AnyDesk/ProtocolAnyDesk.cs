@@ -56,6 +56,9 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                     return false;
                 }
 
+                // Validate the executable path to prevent command injection
+                PathValidator.ValidateExecutablePathOrThrow(anydeskPath, nameof(anydeskPath));
+
                 // Validate connection info
                 if (string.IsNullOrEmpty(_connectionInfo.Hostname))
                 {
@@ -296,7 +299,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                     {
                         FileName = anydeskPath,
                         Arguments = arguments,
-                        UseShellExecute = true
+                        UseShellExecute = false // Changed to false for better security
                     },
                     EnableRaisingEvents = true
                 };
