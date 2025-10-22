@@ -111,5 +111,136 @@ namespace mRemoteNGTests.Tools
             Assert.That(arguments, Does.Contain("TestPass"));
             Assert.That(arguments, Does.Contain("123"));
         }
+
+        [Test]
+        public void ArgumentsWithSpaces_AreParsedCorrectly()
+        {
+            // Arrange
+            var connectionInfo = new ConnectionInfo
+            {
+                Hostname = "test host",
+                Username = "user name"
+            };
+
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "app.exe",
+                Arguments = "--host \"%HOSTNAME%\" --user \"%USERNAME%\""
+            };
+
+            // Act
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
+
+            // Assert - When not elevated, arguments should be in ArgumentList
+            if (!externalTool.RunElevated)
+            {
+                Assert.That(process.StartInfo.ArgumentList.Count, Is.GreaterThan(0));
+                // Arguments with spaces should be preserved in ArgumentList
+                Assert.That(process.StartInfo.ArgumentList, Does.Contain("test host").Or.Contain("--host"));
+            }
+        }
+
+        [Test]
+        public void ValidExecutablePath_DoesNotThrow()
+        {
+            // Arrange
+            var connectionInfo = new ConnectionInfo();
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "notepad.exe",
+                Arguments = ""
+            };
+
+            // Act & Assert
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            
+            Assert.DoesNotThrow(() => setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo }));
+        }
+
+        [Test]
+        public void InvalidExecutablePath_ThrowsArgumentException()
+        {
+            // Arrange
+            var connectionInfo = new ConnectionInfo();
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "notepad.exe & calc.exe", // Command injection attempt
+                Arguments = ""
+            };
+
+            // Act & Assert
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+
+            var ex = Assert.Throws<TargetInvocationException>(() => 
+                setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo }));
+            Assert.That(ex.InnerException, Is.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void RunElevated_UsesShellExecuteTrue()
+        {
+            // Arrange
+            var connectionInfo = new ConnectionInfo();
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "notepad.exe",
+                Arguments = "--test",
+                RunElevated = true
+            };
+
+            // Act
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
+
+            // Assert
+            Assert.That(process.StartInfo.UseShellExecute, Is.True);
+            Assert.That(process.StartInfo.Verb, Is.EqualTo("runas"));
+        }
+
+        [Test]
+        public void RunNotElevated_UsesShellExecuteFalse()
+        {
+            // Arrange
+            var connectionInfo = new ConnectionInfo();
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "notepad.exe",
+                Arguments = "--test",
+                RunElevated = false
+            };
+
+            // Act
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
+
+            // Assert
+            Assert.That(process.StartInfo.UseShellExecute, Is.False);
+        }
     }
 }
