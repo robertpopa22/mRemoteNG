@@ -154,15 +154,96 @@ namespace mRemoteNG.Tools
         private void SetProcessProperties(Process process, ConnectionInfo startConnectionInfo)
         {
             ExternalToolArgumentParser argParser = new(startConnectionInfo);
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = argParser.ParseArguments(FileName);
-            var parsedArgs = argParser.ParseArguments(Arguments).Split(' ');
-            foreach (var arg in parsedArgs)
+            string parsedFileName = argParser.ParseArguments(FileName);
+            
+            // Validate the executable path to prevent command injection
+            PathValidator.ValidateExecutablePathOrThrow(parsedFileName, nameof(FileName));
+            
+            // When RunElevated is true, we must use UseShellExecute = true for the "runas" verb
+            // When false, we use UseShellExecute = false for better security with ArgumentList
+            process.StartInfo.UseShellExecute = RunElevated;
+            process.StartInfo.FileName = parsedFileName;
+            
+            if (RunElevated)
             {
-                process.StartInfo.ArgumentList.Add(arg);
+                // With UseShellExecute = true, we must use Arguments property, not ArgumentList
+                // The argument parser already handles escaping properly
+                process.StartInfo.Arguments = argParser.ParseArguments(Arguments);
+                process.StartInfo.Verb = "runas";
             }
-            if (WorkingDir != "") process.StartInfo.WorkingDirectory = argParser.ParseArguments(WorkingDir);
-            if (RunElevated) process.StartInfo.Verb = "runas";
+            else
+            {
+                // With UseShellExecute = false, use ArgumentList for better security
+                // Parse arguments using CommandLineArguments for proper splitting
+                var cmdLineArgs = new Cmdline.CommandLineArguments { EscapeForShell = false };
+                string parsedArguments = argParser.ParseArguments(Arguments);
+                
+                // Split arguments respecting quotes
+                var argumentParts = SplitCommandLineArguments(parsedArguments);
+                foreach (var arg in argumentParts)
+                {
+                    if (!string.IsNullOrWhiteSpace(arg))
+                    {
+                        process.StartInfo.ArgumentList.Add(arg);
+                    }
+                }
+            }
+            
+            if (WorkingDir != "") 
+            {
+                string parsedWorkingDir = argParser.ParseArguments(WorkingDir);
+                PathValidator.ValidatePathOrThrow(parsedWorkingDir, nameof(WorkingDir));
+                process.StartInfo.WorkingDirectory = parsedWorkingDir;
+            }
+        }
+        
+        /// <summary>
+        /// Splits command line arguments respecting quotes
+        /// </summary>
+        private static List<string> SplitCommandLineArguments(string arguments)
+        {
+            List<string> result = new();
+            if (string.IsNullOrWhiteSpace(arguments))
+                return result;
+            
+            bool inQuotes = false;
+            int startIndex = 0;
+            
+            for (int i = 0; i < arguments.Length; i++)
+            {
+                char c = arguments[i];
+                
+                if (c == '"')
+                {
+                    inQuotes = !inQuotes;
+                }
+                else if (c == ' ' && !inQuotes)
+                {
+                    if (i > startIndex)
+                    {
+                        string arg = arguments.Substring(startIndex, i - startIndex).Trim();
+                        // Remove surrounding quotes if present
+                        if (arg.StartsWith("\"") && arg.EndsWith("\"") && arg.Length > 1)
+                            arg = arg.Substring(1, arg.Length - 2);
+                        if (!string.IsNullOrWhiteSpace(arg))
+                            result.Add(arg);
+                    }
+                    startIndex = i + 1;
+                }
+            }
+            
+            // Add the last argument
+            if (startIndex < arguments.Length)
+            {
+                string arg = arguments.Substring(startIndex).Trim();
+                // Remove surrounding quotes if present
+                if (arg.StartsWith("\"") && arg.EndsWith("\"") && arg.Length > 1)
+                    arg = arg.Substring(1, arg.Length - 2);
+                if (!string.IsNullOrWhiteSpace(arg))
+                    result.Add(arg);
+            }
+            
+            return result;
         }
 
         private void StartIntegrated()

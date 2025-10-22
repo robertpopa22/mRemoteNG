@@ -16,6 +16,9 @@ namespace mRemoteNG.Tools
 
         public bool Start(string fileName, CommandLineArguments arguments = null)
         {
+            // Validate the executable path to prevent command injection
+            PathValidator.ValidateExecutablePathOrThrow(fileName, nameof(fileName));
+            
             Process.StartInfo.UseShellExecute = false;
             Process.StartInfo.FileName = fileName;
             if (arguments != null)
