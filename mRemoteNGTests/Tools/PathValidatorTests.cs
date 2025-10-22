@@ -88,4 +88,161 @@ public class PathValidatorTests
         var exception = Assert.Throws<ArgumentException>(() => PathValidator.ValidatePathOrThrow(maliciousPath, "customParam"));
         Assert.That(exception.ParamName, Is.EqualTo("customParam"));
     }
+
+    #region IsValidExecutablePath Tests
+
+    [Test]
+    public void IsValidExecutablePath_ValidWindowsPath_ReturnsTrue()
+    {
+        string validPath = @"C:\Windows\System32\notepad.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(validPath), Is.True);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_ValidRelativePath_ReturnsTrue()
+    {
+        string validPath = @"app.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(validPath), Is.True);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithSpaces_ReturnsTrue()
+    {
+        string validPath = @"C:\Program Files\App\app.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(validPath), Is.True);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithCommandInjectionAmpersand_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe & calc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithCommandInjectionPipe_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe | calc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithCommandInjectionSemicolon_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe; calc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithRedirection_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe > output.txt";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithInputRedirection_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe < input.txt";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithParentheses_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe (calc.exe)";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithCaret_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe^calc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithNewline_ReturnsFalse()
+    {
+        string maliciousPath = "notepad.exe\ncalc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithCarriageReturn_ReturnsFalse()
+    {
+        string maliciousPath = "notepad.exe\rcalc.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithMultipleQuotes_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe """"";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithMultipleSingleQuotes_ReturnsFalse()
+    {
+        string maliciousPath = @"notepad.exe ''";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_EmptyPath_ReturnsFalse()
+    {
+        Assert.That(PathValidator.IsValidExecutablePath(""), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_NullPath_ReturnsFalse()
+    {
+        Assert.That(PathValidator.IsValidExecutablePath(null), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_WhitespacePath_ReturnsFalse()
+    {
+        Assert.That(PathValidator.IsValidExecutablePath("   "), Is.False);
+    }
+
+    [Test]
+    public void IsValidExecutablePath_PathWithTraversal_ReturnsFalse()
+    {
+        string maliciousPath = @"..\notepad.exe";
+        Assert.That(PathValidator.IsValidExecutablePath(maliciousPath), Is.False);
+    }
+
+    [Test]
+    public void ValidateExecutablePathOrThrow_ValidPath_DoesNotThrow()
+    {
+        string validPath = @"C:\Windows\System32\notepad.exe";
+        Assert.DoesNotThrow(() => PathValidator.ValidateExecutablePathOrThrow(validPath));
+    }
+
+    [Test]
+    public void ValidateExecutablePathOrThrow_PathWithCommandInjection_ThrowsArgumentException()
+    {
+        string maliciousPath = @"notepad.exe & calc.exe";
+        var exception = Assert.Throws<ArgumentException>(() => PathValidator.ValidateExecutablePathOrThrow(maliciousPath));
+        Assert.That(exception.Message, Does.Contain("dangerous characters"));
+    }
+
+    [Test]
+    public void ValidateExecutablePathOrThrow_PathWithTraversal_ThrowsArgumentException()
+    {
+        string maliciousPath = @"..\notepad.exe";
+        Assert.Throws<ArgumentException>(() => PathValidator.ValidateExecutablePathOrThrow(maliciousPath));
+    }
+
+    [Test]
+    public void ValidateExecutablePathOrThrow_WithCustomParameterName_IncludesParameterName()
+    {
+        string maliciousPath = @"notepad.exe & calc.exe";
+        var exception = Assert.Throws<ArgumentException>(() => PathValidator.ValidateExecutablePathOrThrow(maliciousPath, "executablePath"));
+        Assert.That(exception.ParamName, Is.EqualTo("executablePath"));
+    }
+
+    #endregion
 }
