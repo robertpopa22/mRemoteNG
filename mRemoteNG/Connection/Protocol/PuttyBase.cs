@@ -246,7 +246,7 @@ namespace mRemoteNG.Connection.Protocol
                             arguments.Add("-auth-plugin");
                             string random = string.Join("", Guid.NewGuid().ToString("n").Take(8));
                             string pipename = $"mRemoteNGSecretPipe{random}";
-                            arguments.Add($"{App.Info.GeneralAppInfo.HomePath}\\vault-ssh-helper-plugin.exe {username} --pipeName={pipename} --output=D:\\log.txt");
+                            arguments.Add($"{App.Info.GeneralAppInfo.HomePath}\\vault-ssh-helper-plugin.exe {username} --pipeName={pipename}");
                             System.Threading.Tasks.Task.Run(async () => {
                                 using NamedPipeServerStream server = CreatePipeServer(pipename);
                                 var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)).Token;
