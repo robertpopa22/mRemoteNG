@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -57,7 +57,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                 }
 
                 // Validate the executable path to prevent command injection
-                PathValidator.ValidateExecutablePathOrThrow(anydeskPath, nameof(anydeskPath));
+                Tools.PathValidator.ValidateExecutablePathOrThrow(anydeskPath, nameof(anydeskPath));
 
                 // Validate connection info
                 if (string.IsNullOrEmpty(_connectionInfo.Hostname))

@@ -2120,4 +2120,7 @@ mRemoteNG 将退出并安装更新。</value>
   <data name="Wsl" xml:space="preserve">
     <value>WSL</value>
   </data>
+  <data name="VaultOpenbaoSecretEngineSSHOTP" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

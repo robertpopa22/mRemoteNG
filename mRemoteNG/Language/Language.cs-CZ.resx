@@ -1918,4 +1918,7 @@ mRemoteNG se nyní ukončí a zahájí instalaci.</value>
   <data name="WarnMeOnlyWhenClosingMultipleConnections1" xml:space="preserve">
     <value>Upozornit mě pouze při ukončení několika připojení</value>
   </data>
+  <data name="VaultOpenbaoSecretEngineSSHOTP" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

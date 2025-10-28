@@ -2039,4 +2039,7 @@ Nightly-kanalen inkluderer alpha-, beta- og release candidate-versjoner.</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="VaultOpenbaoSecretEngineSSHOTP" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

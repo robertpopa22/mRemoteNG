@@ -2206,4 +2206,7 @@ Nattliga kanalen inkluderar Alfa, Betor &amp; Utgåvokandidater.</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="VaultOpenbaoSecretEngineSSHOTP" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

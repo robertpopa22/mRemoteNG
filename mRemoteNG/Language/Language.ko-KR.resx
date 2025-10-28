@@ -1840,4 +1840,7 @@ mRemoteNG는 이제 종료되고 설치로 시작됩니다.</value>
   <data name="VaultOpenbaoSecretEngineLDAPStatic" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="VaultOpenbaoSecretEngineSSHOTP" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

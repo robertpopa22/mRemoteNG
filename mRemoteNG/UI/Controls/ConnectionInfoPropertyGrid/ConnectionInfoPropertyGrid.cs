@@ -211,6 +211,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
 
             if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.None) {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
             } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer
@@ -218,14 +219,17 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
                 strHide.Add(nameof(AbstractConnectionRecord.Domain));
+                strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
             } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+                strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
             } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
-                if (SelectedConnectionInfo.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.Kv)
+                if (SelectedConnectionInfo.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.Kv
+                    && SelectedConnectionInfo.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.SSHOTP)
                     strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
             }
