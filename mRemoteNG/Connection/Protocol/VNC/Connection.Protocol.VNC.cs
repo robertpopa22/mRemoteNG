@@ -24,6 +24,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private static bool _isConnectionSuccessful;
         private static Exception _socketexception;
         private static readonly ManualResetEvent TimeoutObject = new(false);
+        private static readonly object _testConnectLock = new();
 
         #endregion
 
@@ -161,27 +162,31 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static bool TestConnect(string hostName, int port, int timeoutMSec)
         {
-            TcpClient tcpclient = new();
-
-            TimeoutObject.Reset();
-            tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
-
-            if (TimeoutObject.WaitOne(timeoutMSec, false))
+            lock (_testConnectLock)
             {
-                if (_isConnectionSuccessful) return true;
-                // Connection completed but failed - tcpclient is already closed in CallBackMethod
-                if (_socketexception != null)
+                TcpClient tcpclient = new();
+
+                TimeoutObject.Reset();
+                _socketexception = null;
+                tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
+
+                if (TimeoutObject.WaitOne(timeoutMSec, false))
                 {
-                    throw _socketexception;
+                    if (_isConnectionSuccessful) return true;
+                    // Connection completed but failed - tcpclient will be closed in CallBackMethod's finally block
+                    if (_socketexception != null)
+                    {
+                        throw _socketexception;
+                    }
                 }
-            }
-            else
-            {
-                tcpclient.Close();
-                throw new TimeoutException($"Connection timed out to host " + hostName + " on port " + port);
-            }
+                else
+                {
+                    tcpclient.Close();
+                    throw new TimeoutException($"Connection timed out to host " + hostName + " on port " + port);
+                }
 
-            return false;
+                return false;
+            }
         }
 
         private static void CallBackMethod(IAsyncResult asyncresult)
