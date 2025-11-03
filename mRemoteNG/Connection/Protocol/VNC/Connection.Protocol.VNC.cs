@@ -22,7 +22,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private VncSharpCore.RemoteDesktop _vnc;
         private ConnectionInfo _info;
-        private static bool _isConnectionSuccessful;
+        private static volatile bool _isConnectionSuccessful;
         private static ExceptionDispatchInfo _socketexception;
         private static readonly ManualResetEvent TimeoutObject = new(false);
         private static readonly object _testConnectLock = new();
