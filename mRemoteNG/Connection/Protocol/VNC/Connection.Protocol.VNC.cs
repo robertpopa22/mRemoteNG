@@ -169,6 +169,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
             if (TimeoutObject.WaitOne(timeoutMSec, false))
             {
                 if (_isConnectionSuccessful) return true;
+                // Connection completed but failed - tcpclient is already closed in CallBackMethod
+                if (_socketexception != null)
+                {
+                    throw _socketexception;
+                }
             }
             else
             {
@@ -181,10 +186,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static void CallBackMethod(IAsyncResult asyncresult)
         {
+            TcpClient tcpclient = null;
             try
             {
                 _isConnectionSuccessful = false;
-                TcpClient tcpclient = asyncresult.AsyncState as TcpClient;
+                tcpclient = asyncresult.AsyncState as TcpClient;
 
                 if (tcpclient?.Client == null) return;
 
@@ -198,6 +204,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
             finally
             {
+                tcpclient?.Close();
                 TimeoutObject.Set();
             }
         }
