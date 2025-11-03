@@ -165,10 +165,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             lock (_testConnectLock)
             {
+                _socketexception = null;
                 TcpClient tcpclient = new();
 
                 TimeoutObject.Reset();
-                _socketexception = null;
                 tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
 
                 if (TimeoutObject.WaitOne(timeoutMSec, false))
