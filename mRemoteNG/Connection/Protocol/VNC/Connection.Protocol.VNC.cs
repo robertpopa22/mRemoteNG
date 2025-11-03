@@ -8,6 +8,7 @@ using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Security;
+using System.Runtime.ExceptionServices;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
@@ -21,9 +22,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private VncSharpCore.RemoteDesktop _vnc;
         private ConnectionInfo _info;
-        private static bool _isConnectionSuccessful;
-        private static Exception _socketexception;
+        private static volatile bool _isConnectionSuccessful;
+        private static ExceptionDispatchInfo _socketexception;
         private static readonly ManualResetEvent TimeoutObject = new(false);
+        private static readonly object _testConnectLock = new();
 
         #endregion
 
@@ -161,30 +163,40 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static bool TestConnect(string hostName, int port, int timeoutMSec)
         {
-            TcpClient tcpclient = new();
-
-            TimeoutObject.Reset();
-            tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
-
-            if (TimeoutObject.WaitOne(timeoutMSec, false))
+            lock (_testConnectLock)
             {
-                if (_isConnectionSuccessful) return true;
-            }
-            else
-            {
-                tcpclient.Close();
-                throw new TimeoutException($"Connection timed out to host " + hostName + " on port " + port);
-            }
+                _socketexception = null;
+                TcpClient tcpclient = new();
 
-            return false;
+                TimeoutObject.Reset();
+                tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
+
+                if (TimeoutObject.WaitOne(timeoutMSec, false))
+                {
+                    if (_isConnectionSuccessful) return true;
+                    // Connection completed but failed - tcpclient will be closed in CallBackMethod's finally block
+                    if (_socketexception != null)
+                    {
+                        _socketexception.Throw();
+                    }
+                }
+                else
+                {
+                    tcpclient.Close();
+                    throw new TimeoutException($"Connection timed out to host " + hostName + " on port " + port);
+                }
+
+                return false;
+            }
         }
 
         private static void CallBackMethod(IAsyncResult asyncresult)
         {
+            TcpClient tcpclient = null;
             try
             {
                 _isConnectionSuccessful = false;
-                TcpClient tcpclient = asyncresult.AsyncState as TcpClient;
+                tcpclient = asyncresult.AsyncState as TcpClient;
 
                 if (tcpclient?.Client == null) return;
 
@@ -194,10 +206,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
             catch (Exception ex)
             {
                 _isConnectionSuccessful = false;
-                _socketexception = ex;
+                _socketexception = ExceptionDispatchInfo.Capture(ex);
             }
             finally
             {
+                tcpclient?.Close();
                 TimeoutObject.Set();
             }
         }
