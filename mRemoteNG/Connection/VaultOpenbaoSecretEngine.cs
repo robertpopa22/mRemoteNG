@@ -1,10 +1,5 @@
 ﻿using mRemoteNG.Resources.Language;
 using mRemoteNG.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace mRemoteNG.Connection {
     public enum VaultOpenbaoSecretEngine {
@@ -16,5 +11,8 @@ namespace mRemoteNG.Connection {
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoSecretEngineLDAPStatic))]
         LdapStatic = 2,
+
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.VaultOpenbaoSecretEngineSSHOTP))]
+        SSHOTP = 3,
     }
 }

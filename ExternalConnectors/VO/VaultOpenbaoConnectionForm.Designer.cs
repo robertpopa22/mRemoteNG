@@ -57,6 +57,7 @@
             tbToken.Size = new Size(559, 27);
             tbToken.TabIndex = 2;
             tbToken.UseSystemPasswordChar = true;
+            tbToken.Focus();
             // 
             // btnOK
             // 
