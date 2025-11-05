@@ -1,4 +1,5 @@
-﻿using mRemoteNG.Config.Settings.Registry;
+﻿using mRemoteNG.App;
+using mRemoteNG.Config.Settings.Registry;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
 using System;
@@ -117,6 +118,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Type settingsType = typeof(OptRegistryTabsPanelsPage);
             RegistryLoader.RegistrySettings.TryGetValue(settingsType, out var settings);
             pageRegSettingsInstance = settings as OptRegistryTabsPanelsPage;
+
+            // If registry settings don't exist, create a default instance to prevent null reference exceptions
+            if (pageRegSettingsInstance == null)
+            {
+                pageRegSettingsInstance = new OptRegistryTabsPanelsPage();
+                Logger.Instance.Log?.Debug("[TabsPanelsPage.LoadRegistrySettings] pageRegSettingsInstance was null, created default instance");
+            }
 
             RegistryLoader.Cleanup(settingsType);
 

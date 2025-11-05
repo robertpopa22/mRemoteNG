@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Versioning;
+using mRemoteNG.App;
 using mRemoteNG.Config.Settings.Registry;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
@@ -54,6 +55,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Type settingsType = typeof(OptRegistryStartupExitPage);
             RegistryLoader.RegistrySettings.TryGetValue(settingsType, out var settings);
             pageRegSettingsInstance = settings as OptRegistryStartupExitPage;
+
+            // If registry settings don't exist, create a default instance to prevent null reference exceptions
+            if (pageRegSettingsInstance == null)
+            {
+                pageRegSettingsInstance = new OptRegistryStartupExitPage();
+                Logger.Instance.Log?.Debug("[StartupExitPage.LoadRegistrySettings] pageRegSettingsInstance was null, created default instance");
+            }
 
             RegistryLoader.Cleanup(settingsType);
 

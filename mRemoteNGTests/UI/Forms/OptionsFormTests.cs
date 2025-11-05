@@ -66,5 +66,117 @@ namespace mRemoteNGTests.UI.Forms
                 }
             }
         }
+
+        [Test]
+        public void MultipleOpenCloseWithoutConnectionsDoesNotFreeze()
+        {
+            // Test for issue #2907: Options panel should not freeze after multiple open/close cycles
+            for (int i = 0; i < 25; i++)
+            {
+                // Show the form
+                _optionsForm.Show();
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(50);
+
+                // Verify panel has content
+                var pnlMain = _optionsForm.FindControl<Panel>("pnlMain");
+                Assert.That(pnlMain, Is.Not.Null, $"pnlMain is null on iteration {i}");
+                Assert.That(pnlMain.Controls.Count, Is.GreaterThan(0), $"pnlMain has no controls on iteration {i}");
+
+                // Hide the form (simulating OK/Cancel)
+                _optionsForm.Visible = false;
+                Application.DoEvents();
+            }
+
+            // Final check - form should still be responsive
+            _optionsForm.Show();
+            Application.DoEvents();
+            var finalPanel = _optionsForm.FindControl<Panel>("pnlMain");
+            Assert.That(finalPanel.Controls.Count, Is.GreaterThan(0), "Final pnlMain has no controls after 25 cycles");
+        }
+
+        [Test]
+        public void OptionsFormHasValidSelectedPageAfterMultipleShows()
+        {
+            // Test for issue #2907: lstOptionPages.SelectedObject should remain valid
+            for (int i = 0; i < 10; i++)
+            {
+                _optionsForm.Show();
+                Application.DoEvents();
+
+                // Use reflection to check lstOptionPages.SelectedObject
+                var lstOptionPages = _optionsForm.GetType()
+                    .GetField("lstOptionPages", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    ?.GetValue(_optionsForm);
+
+                Assert.That(lstOptionPages, Is.Not.Null, $"lstOptionPages is null on iteration {i}");
+
+                var selectedObject = lstOptionPages.GetType()
+                    .GetProperty("SelectedObject")
+                    ?.GetValue(lstOptionPages);
+
+                Assert.That(selectedObject, Is.Not.Null, $"SelectedObject is null on iteration {i}");
+
+                _optionsForm.Visible = false;
+                Application.DoEvents();
+            }
+        }
+
+        [Test]
+        public void OptionsFormControlStateRemainsValidAfterHideShow()
+        {
+            // Test for issue #2907: Control handles should remain valid after hide/show
+            _optionsForm.Show();
+            Application.DoEvents();
+            System.Threading.Thread.Sleep(500); // Wait for all pages to load
+
+            var pnlMain = _optionsForm.FindControl<Panel>("pnlMain");
+            Assert.That(pnlMain.Controls.Count, Is.GreaterThan(0));
+
+            var firstPage = pnlMain.Controls[0];
+            Assert.That(firstPage.IsHandleCreated, Is.True, "Page handle should be created initially");
+
+            // Hide and show multiple times
+            for (int i = 0; i < 5; i++)
+            {
+                _optionsForm.Visible = false;
+                Application.DoEvents();
+                _optionsForm.Show();
+                Application.DoEvents();
+
+                var currentPanel = _optionsForm.FindControl<Panel>("pnlMain");
+                Assert.That(currentPanel.Controls.Count, Is.GreaterThan(0), $"Panel should have controls on iteration {i}");
+
+                var currentPage = currentPanel.Controls[0];
+                Assert.That(currentPage.IsHandleCreated, Is.True, $"Page handle should remain valid on iteration {i}");
+                Assert.That(currentPage.IsDisposed, Is.False, $"Page should not be disposed on iteration {i}");
+            }
+        }
+
+        [Test]
+        public void RapidOpenCloseDoesNotCauseNullReference()
+        {
+            // Test for issue #2907: Rapid open/close should not cause null reference exceptions
+            for (int i = 0; i < 50; i++)
+            {
+                try
+                {
+                    _optionsForm.Show();
+                    _optionsForm.Visible = false;
+                    Application.DoEvents();
+                }
+                catch (System.NullReferenceException ex)
+                {
+                    Assert.Fail($"NullReferenceException on iteration {i}: {ex.Message}");
+                }
+            }
+
+            // Should be able to show normally after rapid cycles
+            Assert.DoesNotThrow(() =>
+            {
+                _optionsForm.Show();
+                Application.DoEvents();
+            });
+        }
     }
 }
