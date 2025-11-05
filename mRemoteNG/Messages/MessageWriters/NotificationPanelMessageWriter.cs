@@ -20,9 +20,33 @@ namespace mRemoteNG.Messages.MessageWriters
 
         private void AddToList(ListViewItem lvItem)
         {
+            // Check if the control is disposed or handle not created (during shutdown)
+            if (_messageWindow.lvErrorCollector.IsDisposed || !_messageWindow.lvErrorCollector.IsHandleCreated)
+            {
+                return;
+            }
+
             if (_messageWindow.lvErrorCollector.InvokeRequired)
             {
-                _messageWindow.lvErrorCollector.Invoke((MethodInvoker)(() => AddToList(lvItem)));
+                try
+                {
+                    _messageWindow.lvErrorCollector.Invoke((MethodInvoker)(() => AddToList(lvItem)));
+                }
+                catch (System.ComponentModel.InvalidAsynchronousStateException)
+                {
+                    // Destination thread no longer exists (application shutting down)
+                    return;
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Control has been disposed (application shutting down)
+                    return;
+                }
+                catch (InvalidOperationException)
+                {
+                    // Control handle no longer exists or other invalid operation (application shutting down)
+                    return;
+                }
             }
             else
             {
