@@ -325,10 +325,11 @@ namespace mRemoteNG.UI.Forms
                 pnlMain.Controls.Clear();
                 Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] pnlMain.Controls cleared");
 
-                OptionsPage page = lstOptionPages.SelectedObject as OptionsPage;
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] SelectedObject: {(page != null ? page.PageName : "NULL")}");
-
-                if (page == null)
+                if (lstOptionPages.SelectedObject is OptionsPage page)
+                {
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] SelectedObject: {page.PageName}");
+                }
+                else
                 {
                     Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] Page is NULL - cannot display. This may indicate a selection issue.");
                     return;
