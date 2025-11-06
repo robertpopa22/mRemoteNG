@@ -1,4 +1,5 @@
 ﻿using System;
+using mRemoteNG.App;
 using mRemoteNG.Config;
 using mRemoteNG.Config.Connections;
 using mRemoteNG.Properties;
@@ -173,6 +174,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Type settingsType = typeof(OptRegistryConnectionsPage);
             RegistryLoader.RegistrySettings.TryGetValue(settingsType, out var settings);
             pageRegSettingsInstance = settings as OptRegistryConnectionsPage;
+
+            // If registry settings don't exist, create a default instance to prevent null reference exceptions
+            if (pageRegSettingsInstance == null)
+            {
+                pageRegSettingsInstance = new OptRegistryConnectionsPage();
+                Logger.Instance.Log?.Debug("[ConnectionsPage.LoadRegistrySettings] pageRegSettingsInstance was null, created default instance");
+            }
 
             RegistryLoader.Cleanup(settingsType);
 

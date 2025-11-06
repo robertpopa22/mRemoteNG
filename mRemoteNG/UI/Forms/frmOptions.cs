@@ -1,4 +1,5 @@
 ﻿#region  Usings
+using mRemoteNG.App;
 using mRemoteNG.UI.Forms.OptionsPages;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,13 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public partial class FrmOptions : Form
     {
-        private int _currentIndex = 0;
         private readonly List<OptionsPage> _optionPages = [];
         private string _pageName;
         private readonly DisplayProperties _display = new();
         private readonly List<string> _optionPageObjectNames;
         private bool _isLoading = true;
-        private bool _isInitialized = false; // Add this field to the FrmOptions class
+        private bool _isInitialized = false;
+        private bool _isHandlingSelectionChange = false; // Guard flag to prevent recursive event handling
 
         public FrmOptions() : this(Language.StartupExit)
         {
@@ -59,13 +60,20 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmOptions_Load(object sender, EventArgs e)
         {
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] START - IsInitialized: {_isInitialized}, Visible: {this.Visible}, Handle: {this.Handle}");
+
             // Only initialize once to prevent multiple event subscriptions and page reloading
             if (_isInitialized)
             {
+                Logger.Instance.Log?.Debug($"[FrmOptions_Load] Already initialized - calling ValidateControlState");
+                // On subsequent loads, validate and recover control state if needed
+                ValidateControlState();
                 this.Visible = true;
+                Logger.Instance.Log?.Debug($"[FrmOptions_Load] END (already initialized)");
                 return;
             }
 
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] First initialization");
             this.Visible = true;
             FontOverrider.FontOverride(this);
             SetActivatedPage();
@@ -80,26 +88,11 @@ namespace mRemoteNG.UI.Forms
             //ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
             lstOptionPages.SelectedIndex = 0;
-            
-            // Handle visibility changes to ensure panel is populated when form is shown
-            this.VisibleChanged += FrmOptions_VisibleChanged;
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] Selected index set to 0");
 
             // Mark as initialized
             _isInitialized = true;
-        }
-
-        private void FrmOptions_VisibleChanged(object sender, EventArgs e)
-        {
-            // When the form becomes visible after initial load, ensure the panel is populated with the selected page
-            // Skip this during initial load to avoid interfering with the normal initialization
-            if (this.Visible && _isInitialized)
-            {
-                // Clear and re-add the selected page to ensure it's properly displayed
-                pnlMain.Controls.Clear();
-                OptionsPage page = (OptionsPage)lstOptionPages.SelectedObject;
-                if (page != null)
-                    pnlMain.Controls.Add(page);
-            }
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] END (first initialization complete)");
         }
 
         private void ApplyTheme()
@@ -122,25 +115,33 @@ namespace mRemoteNG.UI.Forms
 
         private void InitOptionsPagesToListView()
         {
+            Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] START - Loading {_optionPageObjectNames.Count} pages");
+
             lstOptionPages.RowHeight = _display.ScaleHeight(lstOptionPages.RowHeight);
             lstOptionPages.AllColumns.First().ImageGetter = ImageGetter;
 
-            InitOptionsPage(_optionPageObjectNames[_currentIndex++]);
-            Application.Idle += new EventHandler(Application_Idle);
-        }
-
-        private void Application_Idle(object sender, EventArgs e)
-        {
-            if (_currentIndex >= _optionPageObjectNames.Count)
+            // Suspend layout to prevent flickering during batch loading
+            lstOptionPages.BeginUpdate();
+            try
             {
-                Application.Idle -= new EventHandler(Application_Idle);
+                // Load all pages synchronously for faster, more responsive loading
+                // This is especially important when the form is recreated (second+ open)
+                foreach (var pageName in _optionPageObjectNames)
+                {
+                    Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] Loading page: {pageName}");
+                    InitOptionsPage(pageName);
+                }
+
                 // All pages loaded, now start tracking changes
                 _isLoading = false;
+                Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] All {_optionPageObjectNames.Count} pages loaded");
             }
-            else
+            finally
             {
-                InitOptionsPage(_optionPageObjectNames[_currentIndex++]);
+                lstOptionPages.EndUpdate();
             }
+
+            Logger.Instance.Log?.Debug($"[InitOptionsPagesToListView] END");
         }
 
         private void InitOptionsPage(string pageName)
@@ -256,6 +257,13 @@ namespace mRemoteNG.UI.Forms
         {
             _pageName = pageName ?? Language.StartupExit;
 
+            // Ensure we have items loaded before trying to access them
+            if (lstOptionPages.Items.Count == 0)
+            {
+                Logger.Instance.Log?.Warn($"[SetActivatedPage] No items in lstOptionPages, cannot set active page to '{_pageName}'");
+                return;
+            }
+
             bool isSet = false;
             for (int i = 0; i < lstOptionPages.Items.Count; i++)
             {
@@ -265,58 +273,111 @@ namespace mRemoteNG.UI.Forms
                 break;
             }
 
-            if (!isSet)
+            if (!isSet && lstOptionPages.Items.Count > 0)
                 lstOptionPages.Items[0].Selected = true;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
+            Logger.Instance.Log?.Debug($"[BtnOK_Click] START");
             SaveOptions();
             // Clear change flags after saving
             ClearChangeFlags();
             this.Visible = false;
+            Logger.Instance.Log?.Debug($"[BtnOK_Click] END - Visible set to false");
         }
 
         private void BtnApply_Click(object sender, EventArgs e)
         {
+            Logger.Instance.Log?.Debug($"[BtnApply_Click] START");
             SaveOptions();
             // Clear change flags after applying
             ClearChangeFlags();
+            Logger.Instance.Log?.Debug($"[BtnApply_Click] END");
         }
 
         private void SaveOptions()
         {
             foreach (OptionsPage page in _optionPages)
             {
-                Debug.WriteLine(page.PageName);
+                Logger.Instance.Log?.Debug($"[SaveOptions] Saving page: {page.PageName}");
                 page.SaveSettings();
             }
 
-            Debug.WriteLine((ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)).FilePath);
+            Logger.Instance.Log?.Debug($"[SaveOptions] Configuration file: {(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None)).FilePath}");
             Settings.Default.Save();
         }
 
         private void LstOptionPages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlMain.Controls.Clear();
+            // Guard against recursive calls that can cause infinite loops
+            if (_isHandlingSelectionChange)
+            {
+                Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] RECURSIVE CALL BLOCKED - Preventing infinite loop");
+                return;
+            }
 
-            OptionsPage page = (OptionsPage)lstOptionPages.SelectedObject;
-            if (page != null)
+            _isHandlingSelectionChange = true;
+            try
+            {
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] START - IsLoading: {_isLoading}, SelectedIndex: {lstOptionPages.SelectedIndex}, Items.Count: {lstOptionPages.Items.Count}");
+
+                pnlMain.Controls.Clear();
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] pnlMain.Controls cleared");
+
+                if (lstOptionPages.SelectedObject is OptionsPage page)
+                {
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] SelectedObject: {page.PageName}");
+                }
+                else
+                {
+                    Logger.Instance.Log?.Warn($"[LstOptionPages_SelectedIndexChanged] Page is NULL - cannot display. This may indicate a selection issue.");
+                    return;
+                }
+
+                if (page.IsDisposed)
+                {
+                    Logger.Instance.Log?.Error($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' is disposed - cannot display");
+                    return;
+                }
+
+                // Ensure the page has a valid window handle
+                if (!page.IsHandleCreated)
+                {
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' has no handle - creating handle");
+                    var handle = page.Handle; // This creates the handle
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Handle created: {handle}");
+                }
+
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Adding page '{page.PageName}' to pnlMain");
                 pnlMain.Controls.Add(page);
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page added successfully. pnlMain.Controls.Count: {pnlMain.Controls.Count}");
+
+                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] END");
+            }
+            finally
+            {
+                _isHandlingSelectionChange = false;
+            }
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            Logger.Instance.Log?.Debug($"[BtnCancel_Click] START");
             // When Cancel is clicked, we don't check for changes
             // The user explicitly wants to cancel
             this.Visible = false;
+            Logger.Instance.Log?.Debug($"[BtnCancel_Click] END - Visible set to false");
         }
 
         private void FrmOptions_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] START - CloseReason: {e.CloseReason}, Cancel: {e.Cancel}");
+
             // Check if any page has unsaved changes
             bool hasChanges = _optionPages.Any(page => page.HasChanges);
-            
+            Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] HasChanges: {hasChanges}");
+
             if (hasChanges)
             {
                 DialogResult result = MessageBox.Show(
@@ -324,7 +385,9 @@ namespace mRemoteNG.UI.Forms
                     Language.Options,
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
-                
+
+                Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] User choice: {result}");
+
                 switch (result)
                 {
                     case DialogResult.Yes:
@@ -332,16 +395,19 @@ namespace mRemoteNG.UI.Forms
                         ClearChangeFlags();
                         e.Cancel = true;
                         this.Visible = false;
+                        Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] Saved and hiding");
                         break;
                     case DialogResult.No:
                         // Discard changes
                         ClearChangeFlags();
                         e.Cancel = true;
                         this.Visible = false;
+                        Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] Discarded and hiding");
                         break;
                     case DialogResult.Cancel:
                         // Cancel closing - keep the dialog open
                         e.Cancel = true;
+                        Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] User cancelled close");
                         break;
                 }
             }
@@ -349,7 +415,10 @@ namespace mRemoteNG.UI.Forms
             {
                 e.Cancel = true;
                 this.Visible = false;
+                Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] No changes - hiding");
             }
+
+            Logger.Instance.Log?.Debug($"[FrmOptions_FormClosing] END - Cancel: {e.Cancel}, Visible: {this.Visible}");
         }
 
         private void TrackChangesInControls(Control control)
@@ -414,6 +483,60 @@ namespace mRemoteNG.UI.Forms
             {
                 page.HasChanges = false;
             }
+        }
+
+        private void ValidateControlState()
+        {
+            Logger.Instance.Log?.Debug($"[ValidateControlState] START - Items.Count: {lstOptionPages.Items.Count}, pnlMain.Controls.Count: {pnlMain.Controls.Count}");
+
+            // Ensure we have pages loaded
+            if (lstOptionPages.Items.Count == 0)
+            {
+                Logger.Instance.Log?.Debug($"[ValidateControlState] No items loaded - returning");
+                return;
+            }
+
+            OptionsPage currentPage = lstOptionPages.SelectedObject as OptionsPage;
+            Logger.Instance.Log?.Debug($"[ValidateControlState] Current page: {(currentPage != null ? currentPage.PageName : "NULL")}");
+
+            if (currentPage == null)
+            {
+                Logger.Instance.Log?.Warn($"[ValidateControlState] SelectedObject is NULL - this may indicate a selection issue");
+                // Don't try to fix this - let the normal selection handling deal with it
+                return;
+            }
+
+            if (currentPage.IsDisposed)
+            {
+                Logger.Instance.Log?.Warn($"[ValidateControlState] Page '{currentPage.PageName}' is disposed");
+                return;
+            }
+
+            Logger.Instance.Log?.Debug($"[ValidateControlState] Page '{currentPage.PageName}' is valid - IsHandleCreated: {currentPage.IsHandleCreated}");
+
+            // Ensure the page has a valid window handle
+            if (!currentPage.IsHandleCreated)
+            {
+                Logger.Instance.Log?.Debug($"[ValidateControlState] Creating handle for page '{currentPage.PageName}'");
+                // Force handle creation
+                var handle = currentPage.Handle;
+                Logger.Instance.Log?.Debug($"[ValidateControlState] Handle created: {handle}");
+            }
+
+            // Ensure the page is displayed in the panel
+            if (!pnlMain.Controls.Contains(currentPage))
+            {
+                Logger.Instance.Log?.Debug($"[ValidateControlState] Page '{currentPage.PageName}' not in pnlMain - adding it now");
+                pnlMain.Controls.Clear();
+                pnlMain.Controls.Add(currentPage);
+                Logger.Instance.Log?.Debug($"[ValidateControlState] Page added. pnlMain.Controls.Count: {pnlMain.Controls.Count}");
+            }
+            else
+            {
+                Logger.Instance.Log?.Debug($"[ValidateControlState] Page '{currentPage.PageName}' already in pnlMain - OK");
+            }
+
+            Logger.Instance.Log?.Debug($"[ValidateControlState] END");
         }
     }
 }

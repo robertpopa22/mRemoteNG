@@ -85,6 +85,26 @@ namespace mRemoteNG.UI.Forms
         private readonly FileBackupPruner _backupPruner = new();
         public static FrmOptions OptionsForm;
 
+        /// <summary>
+        /// Recreates the OptionsForm if it has been disposed.
+        /// This method should be called when OptionsForm is in an invalid state.
+        /// </summary>
+        public static void RecreateOptionsForm()
+        {
+            Logger.Instance.Log?.Debug("[FrmMain.RecreateOptionsForm] Recreating OptionsForm");
+
+            // Dispose the old form if it exists
+            if (OptionsForm != null && !OptionsForm.IsDisposed)
+            {
+                Logger.Instance.Log?.Debug("[FrmMain.RecreateOptionsForm] Disposing old OptionsForm");
+                OptionsForm.Dispose();
+            }
+
+            // Create a new instance
+            OptionsForm = new FrmOptions();
+            Logger.Instance.Log?.Debug("[FrmMain.RecreateOptionsForm] New OptionsForm created");
+        }
+
         internal FullscreenHandler Fullscreen { get; set; }
 
         //Added theming support
