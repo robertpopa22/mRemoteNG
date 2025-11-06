@@ -159,16 +159,9 @@ namespace mRemoteNGTests.UI.Forms
             // Test for issue #2907: Rapid open/close should not cause null reference exceptions
             for (int i = 0; i < 50; i++)
             {
-                try
-                {
-                    _optionsForm.Show();
-                    _optionsForm.Visible = false;
-                    Application.DoEvents();
-                }
-                catch (System.NullReferenceException ex)
-                {
-                    Assert.Fail($"NullReferenceException on iteration {i}: {ex.Message}");
-                }
+                _optionsForm.Show();
+                _optionsForm.Visible = false;
+                Application.DoEvents();
             }
 
             // Should be able to show normally after rapid cycles
