@@ -298,7 +298,7 @@ namespace mRemoteNGTests.Connection.Protocol
         private class TestableRdpProtocol8 : IDisposable
         {
             private readonly Form _mainForm;
-            private FormWindowState _lastWindowState = FormWindowState.Minimized;
+            private FormWindowState _lastWindowState = FormWindowState.Normal;
             private bool _hasPendingResize = false;
 
             public int DoResizeControlCallCount { get; private set; }
