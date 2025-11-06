@@ -63,8 +63,7 @@ namespace mRemoteNG.UI.Window
             if (_optionsForm != null && !_optionsForm.IsDisposed)
             {
                 Logger.Instance.Log?.Debug($"[OptionsWindow.EnsureOptionsFormReady] Processing Application.DoEvents");
-                // Process any pending Application.Idle events to ensure all pages are loaded
-                // This prevents race conditions with async page loading
+                // Process any pending UI events to ensure the form is fully rendered
                 Application.DoEvents();
             }
 
