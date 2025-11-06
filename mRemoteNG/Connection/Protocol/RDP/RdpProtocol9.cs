@@ -13,11 +13,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc9;
 
-        public RdpProtocol9()
-        {
-            _frmMain.ResizeEnd += ResizeEnd;
-        }
-        
+        // Constructor not needed - ResizeEnd is already registered in RdpProtocol8 base class
+
         public override bool Initialize()
         {
             if (!base.Initialize())
@@ -37,7 +34,14 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                RdpClient9.UpdateSessionDisplaySettings(width, height, width, height, Orientation, DesktopScaleFactor, DeviceScaleFactor);
+                if (RdpClient9 != null)
+                {
+                    RdpClient9.UpdateSessionDisplaySettings(width, height, width, height, Orientation, DesktopScaleFactor, DeviceScaleFactor);
+                }
+                else
+                {
+                    base.UpdateSessionDisplaySettings(width, height);
+                }
             }
             catch (Exception)
             {
