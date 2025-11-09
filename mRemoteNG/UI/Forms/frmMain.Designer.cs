@@ -60,7 +60,7 @@ namespace mRemoteNG.UI.Forms
             // 
             this.pnlDock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDock.DockBackColor = System.Drawing.SystemColors.Control;
-            this.pnlDock.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi;
+            this.pnlDock.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
             this.pnlDock.Location = new System.Drawing.Point(0, 0);
             this.pnlDock.Name = "pnlDock";
             this.pnlDock.Size = new System.Drawing.Size(1129, 546);
