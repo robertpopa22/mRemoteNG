@@ -98,7 +98,8 @@ public class OnePasswordCli
     private static string FindField(VaultItem items, string purpose, string fallbackLabel)
     {
         return items.Fields?.FirstOrDefault(x => x.Purpose == purpose)?.Value ??
-			items.Fields?.FirstOrDefault(x => x.Type == StringType && x.Label == fallbackLabel)?.Value ??
+			items.Fields?.FirstOrDefault(x => x.Type == StringType && string.Equals(x.Id, fallbackLabel, StringComparison.InvariantCultureIgnoreCase))?.Value ??
+		 	items.Fields?.FirstOrDefault(x => x.Type == StringType && string.Equals(x.Label, fallbackLabel, StringComparison.InvariantCultureIgnoreCase))?.Value ??
 		 	string.Empty;
     }
 
