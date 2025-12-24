@@ -91,7 +91,7 @@ public class OnePasswordCli
         domain = items.Fields?.FirstOrDefault(x => x.Type == StringType && x.Label == DomainLabel)?.Value ?? string.Empty;
 		if(string.IsNullOrEmpty(password) && string.IsNullOrEmpty(privateKey))
 		{
-			throw new OnePasswordCliException("No secret found in 1Password", commandLine);
+			throw new OnePasswordCliException("No secret found in 1Password. At least fields with labels username/password or a SshKey are expected.", commandLine);
 		}
     }
 
