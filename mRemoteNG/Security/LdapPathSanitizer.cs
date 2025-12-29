@@ -75,7 +75,7 @@ namespace mRemoteNG.Security
                         if (c < 0x20 || c == 0x7F)
                         {
                             result.Append("\\");
-                            result.Append(((int)c).ToString("X2"));
+                            result.Append(((int)c).ToString("x2"));
                         }
                         else
                         {

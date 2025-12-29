@@ -207,7 +207,7 @@ namespace mRemoteNGTests.Security
         }
 
         [Test]
-        public void SanitizeDistinguishedName_PreventsSQLInjectionAttempt()
+        public void SanitizeDistinguishedName_PreventsLdapInjectionAttempt()
         {
             // Test common LDAP injection patterns
             string input = "*)(objectClass=*))(|(cn=*";
@@ -217,7 +217,7 @@ namespace mRemoteNGTests.Security
         }
 
         [Test]
-        public void SanitizeFilterValue_PreventsSQLInjectionAttempt()
+        public void SanitizeFilterValue_PreventsLdapInjectionAttempt()
         {
             // Test common LDAP injection patterns
             string input = "*)(uid=*))(|(uid=*";
