@@ -46,10 +46,10 @@ namespace mRemoteNGTests.Installer
         }
 
         [Test]
-        public void SanitizeKbId_ValidNumberOnly_ReturnsUppercased()
+        public void SanitizeKbId_ValidNumberOnly_ReturnsWithKbPrefix()
         {
             var result = InvokeSanitizeKbId("1234567");
-            Assert.That(result, Is.EqualTo("1234567"));
+            Assert.That(result, Is.EqualTo("KB1234567"));
         }
 
         [Test]
@@ -173,6 +173,20 @@ namespace mRemoteNGTests.Installer
         {
             var result = InvokeBuildWhereClause(new[] { "kb1234567", "KB7654321" });
             Assert.That(result, Is.EqualTo("HotFixID='KB1234567' OR HotFixID='KB7654321'"));
+        }
+
+        [Test]
+        public void BuildWhereClause_DigitOnlyKb_AddsKbPrefix()
+        {
+            var result = InvokeBuildWhereClause(new[] { "1234567" });
+            Assert.That(result, Is.EqualTo("HotFixID='KB1234567'"));
+        }
+
+        [Test]
+        public void BuildWhereClause_MixedPrefixedAndDigitOnly_NormalizesAll()
+        {
+            var result = InvokeBuildWhereClause(new[] { "1234567", "KB7654321", "kb9999999" });
+            Assert.That(result, Is.EqualTo("HotFixID='KB1234567' OR HotFixID='KB7654321' OR HotFixID='KB9999999'"));
         }
 
         #endregion

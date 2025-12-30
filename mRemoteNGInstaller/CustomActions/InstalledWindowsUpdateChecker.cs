@@ -94,8 +94,14 @@ namespace CustomActions
             if (!KbPattern.IsMatch(trimmedKb))
                 return string.Empty;
 
-            // Return the sanitized value (uppercased for consistency)
-            return trimmedKb.ToUpperInvariant();
+            // Normalize to uppercase
+            var normalizedKb = trimmedKb.ToUpperInvariant();
+            
+            // Ensure KB prefix is present (Win32_QuickFixEngineering always uses the KB prefix)
+            if (!normalizedKb.StartsWith("KB"))
+                normalizedKb = "KB" + normalizedKb;
+
+            return normalizedKb;
         }
     }
 }
