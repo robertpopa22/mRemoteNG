@@ -157,7 +157,7 @@ namespace mRemoteNGTests.Installer
         [Test]
         public void BuildWhereClause_EmptyList_ReturnsEmpty()
         {
-            var result = InvokeBuildWhereClause(new string[0]);
+            var result = InvokeBuildWhereClause(Array.Empty<string>());
             Assert.That(result, Is.Empty);
         }
 

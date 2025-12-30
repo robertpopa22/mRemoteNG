@@ -9,6 +9,7 @@ namespace CustomActions
     public class InstalledWindowsUpdateChecker
     {
         private readonly ManagementScope _managementScope;
+        private static readonly Regex KbPattern = new Regex(@"^(KB)?\d+$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public InstalledWindowsUpdateChecker()
         {
@@ -88,12 +89,9 @@ namespace CustomActions
 
             // KB IDs should match the pattern: KB followed by digits (e.g., KB1234567)
             // or just digits (e.g., 1234567)
-            // This regex allows optional "KB" prefix followed by one or more digits
-            var kbPattern = new Regex(@"^(KB)?\d+$", RegexOptions.IgnoreCase);
-            
             // Trim whitespace and check if it matches the expected pattern
             var trimmedKb = kbId.Trim();
-            if (!kbPattern.IsMatch(trimmedKb))
+            if (!KbPattern.IsMatch(trimmedKb))
                 return string.Empty;
 
             // Return the sanitized value (uppercased for consistency)
