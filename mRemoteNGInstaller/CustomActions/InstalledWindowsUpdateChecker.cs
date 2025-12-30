@@ -2,6 +2,7 @@
 using System.Management;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace CustomActions
 {
@@ -61,12 +62,42 @@ namespace CustomActions
             var counter = 0;
             foreach (var kb in kbList)
             {
+                var sanitizedKb = SanitizeKbId(kb);
+                if (string.IsNullOrEmpty(sanitizedKb))
+                    continue; // Skip invalid KB IDs
+                
                 if (counter > 0)
                     whereClause += " OR ";
-                whereClause += $"HotFixID='{kb}'";
+                whereClause += $"HotFixID='{sanitizedKb}'";
                 counter++;
             }
             return whereClause;
+        }
+
+        /// <summary>
+        /// Sanitizes a KB ID to prevent WQL injection attacks.
+        /// KB IDs must match the pattern: optional "KB" prefix followed by digits,
+        /// or just digits. Any other characters are rejected.
+        /// </summary>
+        /// <param name="kbId">The KB ID to sanitize</param>
+        /// <returns>The sanitized KB ID, or empty string if invalid</returns>
+        private string SanitizeKbId(string kbId)
+        {
+            if (string.IsNullOrWhiteSpace(kbId))
+                return string.Empty;
+
+            // KB IDs should match the pattern: KB followed by digits (e.g., KB1234567)
+            // or just digits (e.g., 1234567)
+            // This regex allows optional "KB" prefix followed by one or more digits
+            var kbPattern = new Regex(@"^(KB)?\d+$", RegexOptions.IgnoreCase);
+            
+            // Trim whitespace and check if it matches the expected pattern
+            var trimmedKb = kbId.Trim();
+            if (!kbPattern.IsMatch(trimmedKb))
+                return string.Empty;
+
+            // Return the sanitized value (uppercased for consistency)
+            return trimmedKb.ToUpperInvariant();
         }
     }
 }
