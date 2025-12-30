@@ -87,8 +87,8 @@ namespace CustomActions
             if (string.IsNullOrWhiteSpace(kbId))
                 return string.Empty;
 
-            // KB IDs should match the pattern: KB followed by digits (e.g., KB1234567)
-            // or just digits (e.g., 1234567)
+            // KB IDs should match the pattern: optional KB prefix followed by digits
+            // (e.g., KB1234567 or 1234567)
             // Trim whitespace and check if it matches the expected pattern
             var trimmedKb = kbId.Trim();
             if (!KbPattern.IsMatch(trimmedKb))
