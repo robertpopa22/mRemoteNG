@@ -17,7 +17,7 @@
     <PackageVersion Include="DockPanelSuite.ThemeVS2015" Version="3.1.1" />
     <PackageVersion Include="envdte" Version="17.14.40260" />
     <PackageVersion Include="Gherkin" Version="37.0.1" />
-    <PackageVersion Include="Google.Protobuf" Version="3.33.2" />
+    <PackageVersion Include="Google.Protobuf" Version="3.33.4" />
     <PackageVersion Include="LiteDB" Version="5.0.21" />
     <PackageVersion Include="log4net" Version="3.2.0" />
     <PackageVersion Include="Microsoft.Data.SqlClient" Version="6.1.3" />
