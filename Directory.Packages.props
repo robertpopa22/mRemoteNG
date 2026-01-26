@@ -32,7 +32,7 @@
     <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
     <PackageVersion Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageVersion Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
-    <PackageVersion Include="MySql.Data" Version="9.5.0" />
+    <PackageVersion Include="MySql.Data" Version="9.6.0" />
     <PackageVersion Include="NETStandard.Library" Version="2.0.3" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="Newtonsoft.Json.Schema" Version="4.0.1" />
