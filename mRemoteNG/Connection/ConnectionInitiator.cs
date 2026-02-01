@@ -80,7 +80,7 @@ namespace mRemoteNG.Connection
                 {
                     if (!ProtocolFeature.SupportBlankHostname(connectionInfo.Protocol))
                     {
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.ConnectionOpenFailedNoHostname);
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ConnectionOpenFailedNoHostname);
                         return;
                     }
 
