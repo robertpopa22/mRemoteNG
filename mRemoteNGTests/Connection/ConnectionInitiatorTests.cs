@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Messages;
+using mRemoteNG.Resources.Language;
 using NUnit.Framework;
 
 namespace mRemoteNGTests.Connection
@@ -41,18 +43,10 @@ namespace mRemoteNGTests.Connection
             // Act
             _connectionInitiator.OpenConnection(connectionInfo);
 
-            // Give a moment for async operations
-            System.Threading.Thread.Sleep(100);
-
-            // Assert
-            var errorMessages = _messageCollector.Messages
-                .Where(m => m.Class == MessageClass.ErrorMsg)
-                .ToList();
-
-            Assert.That(errorMessages, Is.Not.Empty, "Expected at least one error message");
-            Assert.That(errorMessages.Any(m => m.Text.Contains("hostname")), 
-                Is.True, 
-                "Expected error message to mention 'hostname'");
+            // Assert - poll for message with timeout
+            var foundMessage = WaitForMessage(MessageClass.ErrorMsg, timeoutMs: 1000);
+            Assert.That(foundMessage, Is.Not.Null, "Expected an error message to be added");
+            Assert.That(foundMessage.Text, Is.EqualTo(Language.ConnectionOpenFailedNoHostname));
         }
 
         [Test]
@@ -69,18 +63,10 @@ namespace mRemoteNGTests.Connection
             // Act
             _connectionInitiator.OpenConnection(connectionInfo);
 
-            // Give a moment for async operations
-            System.Threading.Thread.Sleep(100);
-
-            // Assert
-            var errorMessages = _messageCollector.Messages
-                .Where(m => m.Class == MessageClass.ErrorMsg)
-                .ToList();
-
-            Assert.That(errorMessages, Is.Not.Empty, "Expected at least one error message");
-            Assert.That(errorMessages.Any(m => m.Text.Contains("hostname")), 
-                Is.True, 
-                "Expected error message to mention 'hostname'");
+            // Assert - poll for message with timeout
+            var foundMessage = WaitForMessage(MessageClass.ErrorMsg, timeoutMs: 1000);
+            Assert.That(foundMessage, Is.Not.Null, "Expected an error message to be added");
+            Assert.That(foundMessage.Text, Is.EqualTo(Language.ConnectionOpenFailedNoHostname));
         }
 
         [Test]
@@ -97,16 +83,35 @@ namespace mRemoteNGTests.Connection
             // Act
             _connectionInitiator.OpenConnection(connectionInfo);
 
-            // Give a moment for async operations
-            System.Threading.Thread.Sleep(100);
+            // Give a moment for any potential async operations
+            System.Threading.Thread.Sleep(200);
 
             // Assert
             var hostnameErrors = _messageCollector.Messages
-                .Where(m => m.Text.Contains("No hostname specified"))
+                .Where(m => m.Text == Language.ConnectionOpenFailedNoHostname)
                 .ToList();
 
             Assert.That(hostnameErrors, Is.Empty, 
                 "Should not have hostname error when hostname is provided");
+        }
+
+        /// <summary>
+        /// Polls the message collector for a message of the specified class
+        /// </summary>
+        private IMessage WaitForMessage(MessageClass messageClass, int timeoutMs = 1000)
+        {
+            var startTime = DateTime.Now;
+            while ((DateTime.Now - startTime).TotalMilliseconds < timeoutMs)
+            {
+                var message = _messageCollector.Messages
+                    .FirstOrDefault(m => m.Class == messageClass);
+                
+                if (message != null)
+                    return message;
+
+                System.Threading.Thread.Sleep(50); // Poll every 50ms
+            }
+            return null;
         }
     }
 }
