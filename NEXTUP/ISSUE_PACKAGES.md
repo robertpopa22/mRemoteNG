@@ -120,7 +120,8 @@ Current status (fork execution branch):
 - #2972: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`) so default custom credentials path now honors selected external provider in RDP/SSH flows.
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
-  - CI validation pending current push.
+  - CI-validated:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
 
 ## Practical Execution Order
 

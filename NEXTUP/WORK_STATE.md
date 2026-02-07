@@ -207,7 +207,8 @@ Phase 2: P0 security integration and critical issue burn-down.
   - change:
     - when the last tab closes, panel now auto-closes in a guarded/debounced UI-safe path
   - validation:
-    - CI pending current push
+    - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
+    - result: `success` (`x86`, `x64`, `ARM64`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -220,8 +221,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Validate current push in `PR_Validation` (x86/x64/ARM64) for panel empty-state follow-up.
-2. Execute next deterministic P4 batches with `comment-p4-version-debt-batch.ps1` and log evidence.
+1. Execute next deterministic P4 batches with `comment-p4-version-debt-batch.ps1` and log evidence.
+2. Continue P5 stabilization by selecting the next fixable tab/panel regression candidate.
 3. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`, `#3110`) and iterate quickly.
 
 ## Decision Log
@@ -255,7 +256,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Confirmed branch-head CI green after PR-6 state/doc updates (`21785223094`).
 - 2026-02-07: Drove `Need 2 check` stale bucket to zero (`P2 stale >365d = 0`) via targeted comment sweep and snapshot refresh.
 - 2026-02-07: Added deterministic P4 triage automation and executed first 12-comment version-label debt batch.
-- 2026-02-07: Implemented panel auto-close follow-up when the last connection tab is closed; awaiting CI evidence for this push.
+- 2026-02-07: Implemented panel auto-close follow-up when the last connection tab is closed.
+- 2026-02-07: Validated panel auto-close follow-up in CI (`21785604947`) with full `x86/x64/ARM64` matrix green.
 
 ## Resume Checklist (after reboot)
 

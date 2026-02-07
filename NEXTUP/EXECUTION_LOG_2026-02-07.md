@@ -672,8 +672,17 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
    - behavior:
      - panel now auto-closes when the last tab is closed,
      - close path guarded with UI-thread scheduling and dispose checks.
+5. Validated Session 29 patchset in CI:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
+   - result: `success`
+   - jobs green:
+     - `Build solution (x86)`
+     - `Build solution (x64)`
+     - `Build solution (ARM64)`
+     - `Build tests and specs (x86)`
+     - `Build tests and specs (x64)`
 
 #### Current Open Technical Blocker
 
-- CI validation for Session 29 code changes is pending push/watch.
+- No active CI blocker on this patchset.
 - Upstream close/relabel operations remain permission-gated.
