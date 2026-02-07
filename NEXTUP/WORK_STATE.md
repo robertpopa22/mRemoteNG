@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 7)  
+Last updated: 2026-02-07 (session 8)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -64,20 +64,33 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## In Progress
 
-- [ ] Close remaining P0 critical security gap for issues `#2988` and `#3080` (no upstream PR available yet).
+- [x] Implement LDAP hardening pass for `#3080`:
+  - centralized LDAP path sanitization in `LdapPathSanitizer`
+  - blocked LDAP URL query/fragment characters (`?`, `#`)
+  - removed duplicated sanitizer logic from:
+    - `Config/Serializers/MiscSerializers/ActiveDirectoryDeserializer.cs`
+    - `Tools/ADhelper.cs`
+- [x] Implement importer guardrail pass for `#2988` attack surface:
+  - `MRemoteNGCsvImporter` now returns early on missing file.
+  - `MRemoteNGXmlImporter` now returns early on missing file.
+- [x] Added targeted regression/security tests:
+  - `mRemoteNGTests/Security/LdapPathSanitizerTests.cs`
+  - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+  - `mRemoteNGTests/Config/Import/MRemoteNGImportersTests.cs`
+- [ ] Full compile/test validation pending due local toolchain mismatch (`ResolveComReference` with `dotnet` MSBuild core).
 
 ## Blockers
 
+- Local validation blocker in this environment:
+  - `dotnet test` hits `MSB4803` (`ResolveComReference` not supported on .NET Core MSBuild).
+  - full framework `MSBuild.exe` exists, but SDK resolver bridge to portable `dotnet` runtime is incomplete in this shell image.
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
-- High warning volume remains (nullable/platform analyzer warnings), though x64 build is green.
-- No upstream fix PR currently found for critical issues `#2988` and `#3080`.
+- High warning volume remains (nullable/platform analyzer warnings), though baseline CI previously passed.
 
 ## Immediate Next Actions
 
-1. Implement and validate fork-side fixes for critical issues:
-   - `#2988` (deserialization risk)
-   - `#3080` (LDAP query injection risk)
-2. Create mapping evidence note: upstream issue -> fork commit(s) for already integrated `#2989`/PR `#3038`.
+1. Run full build+tests on a machine/shell where framework MSBuild + SDK resolver are fully wired, then push this P0 patchset.
+2. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
 3. Start duplicate cleanup package P1 (6 currently open).
 
 ## Decision Log
@@ -89,6 +102,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Fixed arm64 ALINK blocker by enabling `GenerateSatelliteAssembliesForCore` under arm64 platform condition.
 - 2026-02-07: PR validation workflow is live and green on first run.
 - 2026-02-07: Security hardening PR content (#3038, #3054) is integrated in fork and locally validated.
+- 2026-02-07: Implemented additional fork-side P0 hardening for LDAP path validation and import-missing-file guardrails; awaiting environment-compatible full validation.
 
 ## Resume Checklist (after reboot)
 

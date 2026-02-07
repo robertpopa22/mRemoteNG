@@ -93,6 +93,32 @@ Goal:
 5. P5 release blockers
 6. P4 version label debt
 
+## Focused Live Triage Snapshot (2026-02-07)
+
+Priority packages extracted from currently visible open issues:
+
+- Security core:
+  - `#2988` (RCE via object deserialize path)
+  - `#2989` (XXE)
+  - `#3080` (LDAP query injection)
+  - `#2998` (RCE from MD5-hashed password path)
+  - `#3088` (RC4 vulnerability)
+
+- Stability/UX cluster (candidate duplicates):
+  - `#3069` crash when closing tab
+  - `#3062` focus behavior when closing tab
+  - historical likely-related close-tab behavior issues (`#2881`, `#2756`)
+
+- Connectivity/integration:
+  - `#3083` telnet + Cisco behavior
+  - `#3092` password issue after upgrade
+  - `#3027` MySQL locking
+  - `#3005` PuTTY script deployment issue
+
+- Infra / non-core split:
+  - `#3103` website redirect
+  - `#2818` CSP hardening (website scope)
+
 ## Notes
 
 - "No issues" is interpreted as "no unresolved actionable issues for release scope" plus aggressive backlog hygiene.

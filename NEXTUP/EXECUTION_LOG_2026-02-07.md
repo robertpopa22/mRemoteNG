@@ -143,3 +143,33 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - Upstream critical issues `#2988` and `#3080` still have no mapped fix PR.
 - Next technical execution should target fork-side remediation for those two issues.
+
+### Session 8 Addendum
+
+#### Additional Actions
+
+1. Implemented LDAP sanitizer hardening and centralization:
+   - Added `SanitizeLdapPath()` in `mRemoteNG/Security/LdapPathSanitizer.cs`.
+   - Hardened LDAP URI validation to reject unsafe URL query/fragment delimiters (`?`, `#`).
+   - Removed duplicated sanitization logic and routed callers to shared helper:
+     - `mRemoteNG/Config/Serializers/MiscSerializers/ActiveDirectoryDeserializer.cs`
+     - `mRemoteNG/Tools/ADhelper.cs`
+
+2. Implemented importer safety guardrails (missing-file early return):
+   - `mRemoteNG/Config/Import/MRemoteNGCsvImporter.cs`
+   - `mRemoteNG/Config/Import/MRemoteNGXmlImporter.cs`
+
+3. Added/extended tests for regression and security behavior:
+   - `mRemoteNGTests/Security/LdapPathSanitizerTests.cs`
+   - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+   - `mRemoteNGTests/Config/Import/MRemoteNGImportersTests.cs` (new)
+
+#### Validation Attempt + Blocker
+
+1. `dotnet test` on `mRemoteNGTests` fails in this shell image due:
+   - `MSB4803` (`ResolveComReference` unsupported on .NET Core MSBuild path).
+2. Framework `MSBuild.exe` is present, but this shell image has incomplete SDK-resolver bridge to portable `dotnet` runtime, blocking a clean full validation run here.
+
+#### Current Open Technical Blocker
+
+- Full compile/test validation for this specific patchset is pending environment-compatible MSBuild execution.
