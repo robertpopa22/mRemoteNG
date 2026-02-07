@@ -509,3 +509,47 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Upstream close/relabel actions are still permission-gated for maintainer roles.
+
+### Session 24 Addendum
+
+#### Additional Actions
+
+1. Reproduced and root-caused failing `x86` CI run:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21784889033`
+   - failures:
+     - `Build solution (x86)`: `MSB4126` invalid `Release|x86` solution configuration.
+     - `Build tests and specs (x86)`: duplicate assembly attributes in temporary WPF x86 compile (`CS0579`) due missing x86 config blocks in `mRemoteNG.csproj`.
+2. Applied x86 configuration fixes across solution/project graph:
+   - `mRemoteNG.sln`:
+     - added `Debug|x86`, `Release|x86`, `Release Installer and Portable|x86`
+     - added x86 project mappings for `mRemoteNG`, `ExternalConnectors`, `ObjectListView.NetCore`
+   - `mRemoteNG/mRemoteNG.csproj`:
+     - platforms updated to `x86;x64;arm64`
+     - runtime identifiers updated to `win-x86;win-x64;win-arm64`
+     - added x86 property groups for:
+       - `Debug`
+       - `Release`
+       - `Debug Portable`
+       - `Release Portable`
+       - `Release Installer`
+       - `Deploy to github`
+     - added platform target block for `x86` (`PlatformTarget=x86`, `CopyLocalLockFileAssemblies=true`)
+   - `ExternalConnectors/ExternalConnectors.csproj`:
+     - platforms updated to `x86;x64;arm64`
+     - added `Release Portable|x86` block
+   - `mRemoteNGTests/mRemoteNGTests.csproj`:
+     - platforms updated to `x86;x64;arm64`
+   - `mRemoteNGSpecs/mRemoteNGSpecs.csproj`:
+     - platforms updated to `x86;x64`
+   - `ObjectListView/ObjectListView.NetCore.csproj`:
+     - added x86 platform target block (`PlatformTarget=x86`)
+3. Updated persistent state tracker for reboot-safe continuation:
+   - `NEXTUP/WORK_STATE.md`
+
+#### Validation Status
+
+- Local full compile is still blocked in this shell image by SDK mismatch (`net10` target vs local `dotnet 9.0.310`), so CI rerun is required as execution gate.
+
+#### Current Open Technical Blocker
+
+- Need fresh CI run on branch head to confirm `x86` + `x64` + `ARM64` green after this fixset.

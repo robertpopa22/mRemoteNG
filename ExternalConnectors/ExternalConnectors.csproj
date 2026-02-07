@@ -5,9 +5,12 @@
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <UseWindowsForms>True</UseWindowsForms>
-    <Platforms>x64;arm64</Platforms>
+    <Platforms>x86;x64;arm64</Platforms>
     <Configurations>Debug;Release;Debug Portable;Release Portable;Deploy to github</Configurations>
     <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x86'">
+    <Optimize>True</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x64'">
     <Optimize>True</Optimize>

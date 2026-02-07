@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 20)  
+Last updated: 2026-02-07 (session 21)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -147,6 +147,22 @@ Phase 2: P0 security integration and critical issue burn-down.
 - [x] Windows architecture coverage expanded in fork CI/release workflows:
   - `PR_Validation`: now includes `x86`, `x64`, `ARM64` solution builds
   - `Build_and_Release_mR-NB`: now includes `x86`, `x64`, `ARM64` artifact builds
+- [x] Root-cause + fix for first `x86` CI breakage (`PR_Validation` run `21784889033`):
+  - root causes:
+    - missing `Release|x86` and related `x86` mappings in `mRemoteNG.sln`
+    - missing `x86` platform/config blocks in project files
+    - `x86` test build hit duplicate assembly attributes because `GenerateAssemblyInfo` was not disabled for new x86 configs in `mRemoteNG.csproj`
+  - fixes applied:
+    - added `x86` solution configurations and project mappings in `mRemoteNG.sln`
+    - enabled `x86` platform declarations in:
+      - `mRemoteNG/mRemoteNG.csproj`
+      - `ExternalConnectors/ExternalConnectors.csproj`
+      - `mRemoteNGTests/mRemoteNGTests.csproj`
+      - `mRemoteNGSpecs/mRemoteNGSpecs.csproj`
+    - added `x86` platform target handling in:
+      - `mRemoteNG/mRemoteNG.csproj`
+      - `ObjectListView/ObjectListView.NetCore.csproj`
+    - added x86 configuration property groups in `mRemoteNG/mRemoteNG.csproj` (`Debug`, `Release`, `Debug Portable`, `Release Portable`, `Release Installer`, `Deploy to github`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -161,7 +177,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`) and iterate quickly.
 2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
-3. Validate first CI run with `x86` enabled; then trigger next test/release rehearsal.
+3. Push x86 solution/project fixset and validate new CI runs for:
+   - `PR_Validation` (`x86`, `x64`, `ARM64`)
+   - `Build_and_Release_mR-NB` rehearsal for `x86` artifact output.
 
 ## Decision Log
 
@@ -188,6 +206,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Opened upstream draft PR package set (`#3105`, `#3106`, `#3107`, `#3108`) on dedicated `codex/pr*` branches.
 - 2026-02-07: Marked upstream package PRs as ready for review and posted CI evidence comments on each PR.
 - 2026-02-07: Opened upstream PR `#3109` to unblock `#2989/#3044`; expanded fork workflows to include `x86`.
+- 2026-02-07: Fixed first x86 CI regression by adding explicit x86 mappings/configurations across solution + project graph.
 
 ## Resume Checklist (after reboot)
 

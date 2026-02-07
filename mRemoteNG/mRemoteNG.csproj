@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Platforms>x64;arm64</Platforms>
-    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -14,7 +14,7 @@
     <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>
     <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>
     <PackageProjectUrl>https://mremoteng.org/</PackageProjectUrl>
-    <Platforms>x64;arm64</Platforms>
+    <Platforms>x86;x64;arm64</Platforms>
     <Configurations>Debug;Release;Debug Portable;Release Portable;Release Installer;Deploy to github</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>
@@ -30,6 +30,15 @@
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <UserSecretsId>1307e3e3-38d6-41ee-8301-0a9bae87038b</UserSecretsId>
     <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>DEBUG</DefineConstants>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Optimize>False</Optimize>
+    <WarningLevel>8</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DefineConstants>DEBUG</DefineConstants>
@@ -48,6 +57,16 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <Optimize>False</Optimize>
     <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants />
+    <Optimize>True</Optimize>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <WarningLevel>8</WarningLevel>
+    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants />
@@ -69,6 +88,15 @@
     <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Portable|x86'">
+    <DefineConstants>DEBUG;PORTABLE</DefineConstants>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\x86\Debug Portable\</OutputPath>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Portable|x64'">
     <DefineConstants>DEBUG;PORTABLE</DefineConstants>
     <Optimize>False</Optimize>
@@ -87,6 +115,16 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <WarningLevel>8</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x86'">
+    <DefineConstants>PORTABLE</DefineConstants>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\x86\Release Portable\</OutputPath>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <WarningLevel>8</WarningLevel>
+    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x64'">
     <DefineConstants>PORTABLE</DefineConstants>
     <Optimize>True</Optimize>
@@ -104,6 +142,12 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <WarningLevel>8</WarningLevel>
+    <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Installer|x86'">
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Optimize>True</Optimize>
     <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
@@ -609,6 +653,14 @@
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Deploy to github|x86'">
+    <WarningLevel>8</WarningLevel>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Platform)'=='x64'">
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
