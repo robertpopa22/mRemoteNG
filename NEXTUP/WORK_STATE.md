@@ -77,7 +77,11 @@ Phase 2: P0 security integration and critical issue burn-down.
   - `mRemoteNGTests/Security/LdapPathSanitizerTests.cs`
   - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
   - `mRemoteNGTests/Config/Import/MRemoteNGImportersTests.cs`
-- [ ] Full compile/test validation pending due local toolchain mismatch (`ResolveComReference` with `dotnet` MSBuild core).
+- [x] CI validation green after patchset push:
+  - failed first run due missing `using System` in test file
+  - fixed with follow-up commit and rerun
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21781854896`
+- [ ] P0 issue closure workflow still pending (issue comments/closure + mapping notes).
 
 ## Blockers
 
@@ -89,9 +93,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Run full build+tests on a machine/shell where framework MSBuild + SDK resolver are fully wired, then push this P0 patchset.
-2. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
-3. Start duplicate cleanup package P1 (6 currently open).
+1. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
+2. Start duplicate cleanup package P1 (6 currently open).
+3. Open upstream-ready PR draft for P0 patchset split (LDAP hardening + importer guardrails).
 
 ## Decision Log
 
@@ -103,6 +107,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: PR validation workflow is live and green on first run.
 - 2026-02-07: Security hardening PR content (#3038, #3054) is integrated in fork and locally validated.
 - 2026-02-07: Implemented additional fork-side P0 hardening for LDAP path validation and import-missing-file guardrails; awaiting environment-compatible full validation.
+- 2026-02-07: P0 hardening patchset is now CI-green on fork after one follow-up fix for missing test import (`using System`).
 
 ## Resume Checklist (after reboot)
 

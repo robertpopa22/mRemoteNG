@@ -173,3 +173,23 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Full compile/test validation for this specific patchset is pending environment-compatible MSBuild execution.
+
+### Session 9 Addendum
+
+#### Additional Actions
+
+1. Pushed P0 patchset commit:
+   - `3c419ded` (`p0-ldap-import-hardening`)
+2. Observed CI failure in `Build tests and specs (x64)`:
+   - Missing `using System;` in `mRemoteNGTests/Security/LdapPathSanitizerTests.cs`.
+3. Applied follow-up fix:
+   - commit `8680c53f` (`fix-ldap-tests-missing-system-using`)
+4. Re-ran PR validation workflow and confirmed green:
+   - Run ID: `21781854896`
+   - URL: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21781854896`
+   - Jobs: all succeeded (`tests/specs x64`, `solution x64`, `solution ARM64`)
+
+#### Current Open Technical Blocker
+
+- No CI blocker on this patchset.
+- Remaining work is issue-management and upstream packaging, not build stability.
