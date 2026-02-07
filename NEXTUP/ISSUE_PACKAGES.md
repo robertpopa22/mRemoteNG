@@ -99,6 +99,13 @@ Scope:
 Goal:
 - Reclassify by current product state instead of historical branch context.
 
+Current status (2026-02-07 execution):
+- added deterministic batch triage script:
+  - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
+- executed first P4 comment wave (12 issues) with retest + relabel guidance.
+- evidence:
+  - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
+
 ## Package P5 - Release Stabilization Candidates
 
 Scope:
@@ -111,6 +118,9 @@ Current status (fork execution branch):
 - #3069: implemented and CI-validated (`mRemoteNG/UI/Window/ConnectionWindow.cs`).
 - #3092: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
 - #2972: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`) so default custom credentials path now honors selected external provider in RDP/SSH flows.
+- panel auto-close follow-up for last-tab scenario implemented in:
+  - `mRemoteNG/UI/Window/ConnectionWindow.cs`
+  - CI validation pending current push.
 
 ## Practical Execution Order
 

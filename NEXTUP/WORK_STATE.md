@@ -194,6 +194,20 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3110`
   - upstream issue cross-link comment:
     - `https://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3865102490`
+- [x] P4 version-label debt triage automation + first batch completed:
+  - new script:
+    - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
+  - first batch posted:
+    - 12 issue comments with retest/relabel guidance
+  - evidence:
+    - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P5 panel empty-state follow-up implemented:
+  - file:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs`
+  - change:
+    - when the last tab closes, panel now auto-closes in a guarded/debounced UI-safe path
+  - validation:
+    - CI pending current push
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -206,9 +220,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`, `#3110`) and iterate quickly.
-2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
-3. Trigger `Build_and_Release_mR-NB` rehearsal and validate x86 artifact packaging output path/content.
+1. Validate current push in `PR_Validation` (x86/x64/ARM64) for panel empty-state follow-up.
+2. Execute next deterministic P4 batches with `comment-p4-version-debt-batch.ps1` and log evidence.
+3. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`, `#3110`) and iterate quickly.
 
 ## Decision Log
 
@@ -240,6 +254,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Added explicit SqlClient SNI runtime references and opened upstream PR `#3110` for `#3005`.
 - 2026-02-07: Confirmed branch-head CI green after PR-6 state/doc updates (`21785223094`).
 - 2026-02-07: Drove `Need 2 check` stale bucket to zero (`P2 stale >365d = 0`) via targeted comment sweep and snapshot refresh.
+- 2026-02-07: Added deterministic P4 triage automation and executed first 12-comment version-label debt batch.
+- 2026-02-07: Implemented panel auto-close follow-up when the last connection tab is closed; awaiting CI evidence for this push.
 
 ## Resume Checklist (after reboot)
 

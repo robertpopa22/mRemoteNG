@@ -653,3 +653,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active technical blocker on fork execution branch.
 - Remaining limitations are upstream permissions (closing/relabeling issues) and maintainer review cycle.
+
+### Session 29 Addendum
+
+#### Additional Actions
+
+1. Added P4 deterministic triage automation:
+   - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
+2. Executed first P4 version-label debt comment wave:
+   - 12 issues received retest/relabel guidance.
+   - evidence file:
+     - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
+3. Refreshed package snapshot after P4 activity:
+   - script: `NEXTUP/scripts/refresh-p1-p5.ps1`
+   - report: `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
+4. Implemented P5 panel empty-state follow-up:
+   - file: `mRemoteNG/UI/Window/ConnectionWindow.cs`
+   - behavior:
+     - panel now auto-closes when the last tab is closed,
+     - close path guarded with UI-thread scheduling and dispose checks.
+
+#### Current Open Technical Blocker
+
+- CI validation for Session 29 code changes is pending push/watch.
+- Upstream close/relabel operations remain permission-gated.

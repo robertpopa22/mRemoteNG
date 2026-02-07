@@ -45,15 +45,21 @@ Cutoff for stale triage: 2025-02-07
 
 ## P5 - Release stabilization candidates
 
+- #2160 - Closing the last tab in a panel does not close the panel | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2160
+- #2161 - Tab bar no longer scrolls when dragging tab in the case of tab strip overflow. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2161
+- #2636 - is it possible to view the password on saved connections? Thanks | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2636
+- #2557 - XmingPortablePuttySessions.Watcher.StartWatching() failed: 'sessions' does not exist. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2557
+- #2320 - add default password for each protocol - particularly windows and putty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2320
+- #1826 - Copy & Paste not working in RDP Sessions | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1826
 - #2625 - Not able to RDP to servers if I disconnect and move to another machine and reconnect to the same session | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2625
 - #420 - Feature Request: PROXY support for RDP connections | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/420
 - #290 - Focus issue in PuTTYNG session after switching tabs | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/290
 - #274 - Cannot connect to TightVNC Server When Unauthenticated  | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/274
 - #3005 - SQL Server Connection - mRemoteNG 1.78.2 NB 3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3005
 - #2989 - Possible command injection via Process.Start - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2989
-- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
 - #3092 - 1Password integration doesn't fetch username and password for RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3092
 - #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
+- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
 - #3069 - Exeption occurred on closing panel with connections inside | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3069
 - #3080 - LDAP query injection may lead to data exposure - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3080
 - #2988 - Object deserialize can lead to remote code execution - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2988
@@ -69,12 +75,6 @@ Cutoff for stale triage: 2025-02-07
 - #1656 - Application crashes with unhanded exception (Cannot access a disposed object.) | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1656
 - #1969 - The startup connection file could not be loaded. connectionFilePath cannot be null or empty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1969
 - #1977 - Column 'Domain' does not belong to table . | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1977
-- #1986 - Can`t connection to sql database | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1986
-- #2270 - Clicking close on the applications X with a panel open presents an are you sure type message - but response is ignored | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2270
-- #822 - mRemoteNG doesn't start if keyfile not available | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/822
-- #1031 - Can't save ConfCons.xml | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1031
-- #627 - Mouse pointer disappears in edit mode when the background is White | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/627
-- #662 - scrollbars added to RDP window after minimize/restore of mRemoteNG on v1.75 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/662
 
 ## Next Moves
 
