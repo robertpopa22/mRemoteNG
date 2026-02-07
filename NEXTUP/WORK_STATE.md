@@ -172,6 +172,10 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `Build solution (x64)`
     - `Build tests and specs (x64)`
     - `Build solution (ARM64)`
+- [x] Head-state CI check after PR-6 documentation sync:
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785223094`
+  - result: `success`
+  - jobs green: `Build solution/tests` on `x86`, `x64`, `ARM64`
 - [x] Implemented SQL Server connector packaging hardening for issue `#3005`:
   - change:
     - explicit `Microsoft.Data.SqlClient.SNI`
@@ -228,6 +232,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Fixed first x86 CI regression by adding explicit x86 mappings/configurations across solution + project graph.
 - 2026-02-07: Confirmed full PR validation pass with x86 enabled (`21785039669`).
 - 2026-02-07: Added explicit SqlClient SNI runtime references and opened upstream PR `#3110` for `#3005`.
+- 2026-02-07: Confirmed branch-head CI green after PR-6 state/doc updates (`21785223094`).
 
 ## Resume Checklist (after reboot)
 

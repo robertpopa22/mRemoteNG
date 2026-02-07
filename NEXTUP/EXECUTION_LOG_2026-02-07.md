@@ -605,3 +605,19 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active CI blocker on fork release branch.
 - Awaiting maintainer/reporter validation feedback on upstream PR `#3110`.
+
+### Session 27 Addendum
+
+#### Additional Actions
+
+1. Pushed PR-6 state/doc updates on release branch:
+   - commit: `5c254d86` (`docs-add-pr6-sqlclient-package-and-ci-evidence`)
+2. Revalidated branch head in CI:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785223094`
+   - result: `success`
+   - matrix green for `x86`, `x64`, `ARM64` solution/tests jobs.
+
+#### Current Open Technical Blocker
+
+- No active CI blocker on release branch.
+- Next gating dependency is upstream review/feedback on open PR package set (`#3105`-`#3110`).
