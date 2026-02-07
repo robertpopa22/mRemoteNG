@@ -288,6 +288,16 @@ Phase 2: P0 security integration and critical issue burn-down.
   - `#3092` -> `https://github.com/mRemoteNG/mRemoteNG/issues/3092#issuecomment-3865585855` (mapped PR `#3107`)
   - `#2972` -> `https://github.com/mRemoteNG/mRemoteNG/issues/2972#issuecomment-3865586187` (mapped PR `#3108`)
   - `#3069` -> `https://github.com/mRemoteNG/mRemoteNG/issues/3069#issuecomment-3865586563` (mapped PR `#3106`)
+- [x] P5 startup resilience hardening for PuTTY session provider failures (issue `#822` candidate):
+  - file:
+    - `mRemoteNG/Config/Putty/PuttySessionsManager.cs`
+  - change:
+    - provider-level exception guard added in `AddSessionsFromProvider`; broken PuTTY session sources no longer abort connections-file load/startup
+  - regression test:
+    - `mRemoteNGTests/Connection/ConnectionsServicePuttySessionsResilienceTests.cs`
+  - local validation:
+    - full Framework MSBuild build of `mRemoteNGTests` (`Release|x64`) passed
+    - targeted test filter `FullyQualifiedName~ConnectionsService` passed (`4/4`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -299,7 +309,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Track upstream feedback on PR-7/PR-8 (`#3111`, `#3112`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#822` startup keyfile handling).
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#811` startup XML exception handling).
 3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
 
 ## Decision Log
@@ -339,6 +349,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Validated panel auto-close follow-up in CI (`21785604947`) with full `x86/x64/ARM64` matrix green.
 - 2026-02-07: Implemented #850 Config PropertyGrid splitter persistence across minimize/maximize and validated CI green (`21786942297`).
 - 2026-02-07: Opened upstream PR `#3112` for #850 and posted issue/CI cross-links.
+- 2026-02-08: Implemented PuTTY provider startup resilience hardening for #822 candidate and added regression coverage in `ConnectionsServicePuttySessionsResilienceTests`.
 
 ## Resume Checklist (after reboot)
 

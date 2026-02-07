@@ -145,6 +145,11 @@ Current status (fork execution branch):
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3113`
   - upstream issue update:
     - `https://github.com/mRemoteNG/mRemoteNG/issues/1969#issuecomment-3865576670`
+- #822 startup resilience candidate implemented (defensive hardening):
+  - `mRemoteNG/Config/Putty/PuttySessionsManager.cs`
+  - provider failures while enumerating PuTTY sessions now log warning and no longer abort connection-file loading
+  - regression test:
+    - `mRemoteNGTests/Connection/ConnectionsServicePuttySessionsResilienceTests.cs`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:
