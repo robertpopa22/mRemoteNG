@@ -163,6 +163,15 @@ Phase 2: P0 security integration and critical issue burn-down.
       - `mRemoteNG/mRemoteNG.csproj`
       - `ObjectListView/ObjectListView.NetCore.csproj`
     - added x86 configuration property groups in `mRemoteNG/mRemoteNG.csproj` (`Debug`, `Release`, `Debug Portable`, `Release Portable`, `Release Installer`, `Deploy to github`)
+- [x] Verified x86 remediation in CI:
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785039669`
+  - result: `success`
+  - jobs green:
+    - `Build solution (x86)`
+    - `Build tests and specs (x86)`
+    - `Build solution (x64)`
+    - `Build tests and specs (x64)`
+    - `Build solution (ARM64)`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -177,9 +186,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`) and iterate quickly.
 2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
-3. Push x86 solution/project fixset and validate new CI runs for:
-   - `PR_Validation` (`x86`, `x64`, `ARM64`)
-   - `Build_and_Release_mR-NB` rehearsal for `x86` artifact output.
+3. Trigger `Build_and_Release_mR-NB` rehearsal and validate x86 artifact packaging output path/content.
 
 ## Decision Log
 
@@ -207,6 +214,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Marked upstream package PRs as ready for review and posted CI evidence comments on each PR.
 - 2026-02-07: Opened upstream PR `#3109` to unblock `#2989/#3044`; expanded fork workflows to include `x86`.
 - 2026-02-07: Fixed first x86 CI regression by adding explicit x86 mappings/configurations across solution + project graph.
+- 2026-02-07: Confirmed full PR validation pass with x86 enabled (`21785039669`).
 
 ## Resume Checklist (after reboot)
 

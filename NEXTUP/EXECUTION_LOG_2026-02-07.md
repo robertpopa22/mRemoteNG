@@ -553,3 +553,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Need fresh CI run on branch head to confirm `x86` + `x64` + `ARM64` green after this fixset.
+
+### Session 25 Addendum
+
+#### Additional Actions
+
+1. Pushed x86 remediation commit:
+   - `37821761` (`fix-x86-solution-project-config-and-unblock-ci`)
+2. Monitored validation run end-to-end:
+   - workflow: `PR_Validation`
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785039669`
+   - conclusion: `success`
+3. Confirmed all matrix jobs green after x86 enablement:
+   - `Build solution (x86)`
+   - `Build tests and specs (x86)`
+   - `Build solution (x64)`
+   - `Build tests and specs (x64)`
+   - `Build solution (ARM64)`
+4. Updated persistent state tracker:
+   - `NEXTUP/WORK_STATE.md`
+
+#### Current Open Technical Blocker
+
+- No active CI blocker on `codex/release-1.79-bootstrap`.
+- Remaining blockers are backlog/triage and upstream permission boundaries (close/relabel).
