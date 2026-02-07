@@ -123,3 +123,5 @@ Priority packages extracted from currently visible open issues:
 
 - "No issues" is interpreted as "no unresolved actionable issues for release scope" plus aggressive backlog hygiene.
 - Full zero-open backlog is typically unrealistic in mature OSS; the operational target is zero critical/release-blocking plus disciplined triage.
+- Execution snapshot/report for P1-P5 is tracked in:
+  - `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`

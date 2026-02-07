@@ -193,3 +193,32 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No CI blocker on this patchset.
 - Remaining work is issue-management and upstream packaging, not build stability.
+
+### Session 10 Addendum
+
+#### Additional Actions
+
+1. Added persistent package extraction script for P1-P5:
+   - `NEXTUP/scripts/refresh-p1-p5.ps1`
+2. Generated fresh P1-P5 execution report:
+   - `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
+3. Exported machine-readable package artifacts:
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p1_duplicate_open.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p2_need2check_open.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p2_need2check_stale.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p2_batch1.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p3_inprogress_open.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p3_inprogress_stale.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p3_indevelopment_open.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p3_indevelopment_stale.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p4_version_debt.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p4_version_label_counts.json`
+   - `D:\github\LOCAL\analysis\mRemoteNG\packages\p5_release_candidates.json`
+4. Started P5 implementation candidate for issue #3069:
+   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
+   - improved `Prot_Event_Closed` with UI-thread marshalling via `BeginInvoke` and dispose/handle guards.
+   - removed redundant `Invoke` call in reconnect path.
+
+#### Current Open Technical Blocker
+
+- Pending CI verification for the #3069 candidate patch.
