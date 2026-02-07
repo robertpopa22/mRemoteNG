@@ -577,3 +577,31 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active CI blocker on `codex/release-1.79-bootstrap`.
 - Remaining blockers are backlog/triage and upstream permission boundaries (close/relabel).
+
+### Session 26 Addendum
+
+#### Additional Actions
+
+1. Implemented next P5 stabilization candidate for SQL Server backend issue `#3005`:
+   - file: `mRemoteNG/mRemoteNG.csproj`
+   - change:
+     - add explicit `Microsoft.Data.SqlClient.SNI`
+     - add explicit `Microsoft.Data.SqlClient.SNI.runtime`
+2. Pushed fix commit on release branch:
+   - `15378281` (`sqlclient-add-explicit-sni-runtime-references`)
+3. Validated in CI:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785156992`
+   - result: `success` on `x86`, `x64`, `ARM64` matrix.
+4. Opened upstream PR package #6:
+   - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3110`
+   - branch: `codex/pr6-sqlclient-sni-runtime`
+5. Posted cross-link/update on issue `#3005`:
+   - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3865102490`
+6. Updated persistent package/state docs:
+   - `NEXTUP/WORK_STATE.md`
+   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+
+#### Current Open Technical Blocker
+
+- No active CI blocker on fork release branch.
+- Awaiting maintainer/reporter validation feedback on upstream PR `#3110`.

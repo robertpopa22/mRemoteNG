@@ -89,6 +89,23 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3109
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3109#issuecomment-3865049494
 
+## PR-6 SQL Server Connector Runtime Packaging Hardening (`#3005`)
+
+Scope:
+- explicit SqlClient native SNI runtime package references for platform-targeted builds.
+
+Primary commit:
+- `8623d978`
+
+Core file:
+- `mRemoteNG/mRemoteNG.csproj`
+
+Execution status:
+- branch: `codex/pr6-sqlclient-sni-runtime`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3110
+- issue link comment: https://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3865102490
+- CI evidence (fork): https://github.com/robertpopa22/mRemoteNG/actions/runs/21785156992
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -103,6 +120,7 @@ Execution status:
 3. PR-2 (close-panel stability)
 4. PR-3 (1Password regression)
 5. PR-4 (default external provider handling)
+6. PR-6 (SQL Server SNI runtime packaging)
 
 ## Operational Guidance
 

@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 21)  
+Last updated: 2026-02-07 (session 22)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -172,6 +172,18 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `Build solution (x64)`
     - `Build tests and specs (x64)`
     - `Build solution (ARM64)`
+- [x] Implemented SQL Server connector packaging hardening for issue `#3005`:
+  - change:
+    - explicit `Microsoft.Data.SqlClient.SNI`
+    - explicit `Microsoft.Data.SqlClient.SNI.runtime`
+    - file: `mRemoteNG/mRemoteNG.csproj`
+  - validation:
+    - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785156992`
+    - result: `success` (`x86`, `x64`, `ARM64`)
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3110`
+  - upstream issue cross-link comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3865102490`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -184,7 +196,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`) and iterate quickly.
+1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`, `#3110`) and iterate quickly.
 2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
 3. Trigger `Build_and_Release_mR-NB` rehearsal and validate x86 artifact packaging output path/content.
 
@@ -215,6 +227,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Opened upstream PR `#3109` to unblock `#2989/#3044`; expanded fork workflows to include `x86`.
 - 2026-02-07: Fixed first x86 CI regression by adding explicit x86 mappings/configurations across solution + project graph.
 - 2026-02-07: Confirmed full PR validation pass with x86 enabled (`21785039669`).
+- 2026-02-07: Added explicit SqlClient SNI runtime references and opened upstream PR `#3110` for `#3005`.
 
 ## Resume Checklist (after reboot)
 
