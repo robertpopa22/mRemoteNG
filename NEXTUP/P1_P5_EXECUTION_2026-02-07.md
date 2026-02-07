@@ -45,6 +45,10 @@ Cutoff for stale triage: 2025-02-07
 
 ## P5 - Release stabilization candidates
 
+- #3069 - Exeption occurred on closing panel with connections inside | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3069
+- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
+- #3092 - 1Password integration doesn't fetch username and password for RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3092
+- #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
 - #1969 - The startup connection file could not be loaded. connectionFilePath cannot be null or empty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1969
 - #850 - Config panel column width NOT remembered between minimize/maximize action | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/850
 - #2721 - Site Download Page Error | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2721
@@ -55,7 +59,6 @@ Cutoff for stale triage: 2025-02-07
 - #1883 - Error when saving to SQL | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1883
 - #1916 - MySQL error Missing the DataColumn 'DisableCursorBlinking' | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1916
 - #847 - RDP fullscreen and redirect keys | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/847
-- #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
 - #1650 - Application automatically goes to background in various scenarios | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1650
 - #1649 - When a master password is defined, mRemoteNG may be lock after a while or when minimized | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1649
 - #290 - Focus issue in PuTTYNG session after switching tabs | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/290
@@ -72,9 +75,6 @@ Cutoff for stale triage: 2025-02-07
 - #192 - RDP using multiple monitors | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/192
 - #2510 - COM object that has been separated from its underlying RCW cannot be used. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2510
 - #2509 - Opening Command pass password option | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2509
-- #2907 - mRemoteNG frequently freezes when opening and closing Options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2907
-- #2899 - mRemoteNg 1.76.20.24615 cannot use MySQL DB 9.4 as connexion storage backend ? | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2899
-- #738 - Feature Request: registry key for disabling saving passwords | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/738
 
 ## Next Moves
 

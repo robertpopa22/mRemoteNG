@@ -283,6 +283,11 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3865581826`
   - mapped fix PR:
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3106`
+- [x] Upstream issue cross-link pass for already-packaged P5 fixes:
+  - `#3044` -> `https://github.com/mRemoteNG/mRemoteNG/issues/3044#issuecomment-3865585451` (mapped PR `#3109`)
+  - `#3092` -> `https://github.com/mRemoteNG/mRemoteNG/issues/3092#issuecomment-3865585855` (mapped PR `#3107`)
+  - `#2972` -> `https://github.com/mRemoteNG/mRemoteNG/issues/2972#issuecomment-3865586187` (mapped PR `#3108`)
+  - `#3069` -> `https://github.com/mRemoteNG/mRemoteNG/issues/3069#issuecomment-3865586563` (mapped PR `#3106`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
