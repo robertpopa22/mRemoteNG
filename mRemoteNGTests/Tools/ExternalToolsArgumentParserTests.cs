@@ -140,5 +140,4 @@ namespace mRemoteNGTests.Tools
             Assert.That(result, Is.EqualTo("pass^,word^;test^&more"));
         }
     }
-    }
 }

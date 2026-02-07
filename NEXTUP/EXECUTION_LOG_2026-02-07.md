@@ -119,3 +119,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No CI execution blocker on PR validation baseline.
 - Next blocker domain is security/backlog debt, not build pipeline.
+
+### Session 7 Addendum
+
+#### Additional Actions
+
+1. Pulled upstream security PR branches locally:
+   - `pr-3038` (command injection hardening)
+   - `pr-3054` (external tool password delimiter escaping)
+2. Integrated relevant commits into fork execution branch:
+   - `ef75b890`, `fc854772`, `31c152dd`, `06e87e33` (PR #3038 content)
+   - `a75cf606`, `be716360`, `a4ea2a3d` (PR #3054 content)
+3. Found and fixed one post-cherry-pick regression in tests:
+   - `mRemoteNGTests/Tools/ExternalToolsArgumentParserTests.cs`
+   - compile error `CS1022` caused by extra closing brace.
+4. Revalidated with full MSBuild after fix:
+   - `mRemoteNG.sln` (Release|x64): success
+   - `mRemoteNG.sln` (Release|ARM64): success
+   - `mRemoteNGTests` (Release|x64): success
+   - `mRemoteNGSpecs` (Release|x64): success
+
+#### Current Open Technical Blocker
+
+- Upstream critical issues `#2988` and `#3080` still have no mapped fix PR.
+- Next technical execution should target fork-side remediation for those two issues.

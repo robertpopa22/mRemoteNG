@@ -1,11 +1,11 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 4)  
+Last updated: 2026-02-07 (session 7)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
 
-Phase 1: technical foundation stabilization (build/test/CI).
+Phase 2: P0 security integration and critical issue burn-down.
 
 ## Baseline Evidence
 
@@ -48,24 +48,37 @@ Phase 1: technical foundation stabilization (build/test/CI).
   - Run: `PR_Validation` #`21781330218`
   - Result: `success`
   - URL: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21781330218`
+- [x] Validate second GitHub Actions execution for PR validation workflow:
+  - Run: `PR_Validation` #`21781383069`
+  - Result: `success`
+  - URL: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21781383069`
+- [x] Integrate upstream security-oriented PR content into fork branch:
+  - PR #3038 (Process.Start command-injection hardening)
+  - PR #3054 (password delimiter escaping for external tools)
+- [x] Fix post-integration test regression in `ExternalToolsArgumentParserTests` (`CS1022` due to extra brace).
+- [x] Revalidate after security PR integration:
+  - `mRemoteNG.sln` (Release|x64) builds
+  - `mRemoteNG.sln` (Release|ARM64) builds
+  - `mRemoteNGTests` (Release|x64) builds
+  - `mRemoteNGSpecs` (Release|x64) builds
 
 ## In Progress
 
-- [ ] Start security package P0 execution.
+- [ ] Close remaining P0 critical security gap for issues `#2988` and `#3080` (no upstream PR available yet).
 
 ## Blockers
 
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
 - High warning volume remains (nullable/platform analyzer warnings), though x64 build is green.
+- No upstream fix PR currently found for critical issues `#2988` and `#3080`.
 
 ## Immediate Next Actions
 
-1. Start security package P0 execution:
-   - PR #3038
-   - PR #3054
-   - issues #2988, #2989, #3080
-2. Start duplicate cleanup package P1 (6 currently open).
-3. Review and prioritize warning reduction backlog (focus on high-signal nullability and package compatibility).
+1. Implement and validate fork-side fixes for critical issues:
+   - `#2988` (deserialization risk)
+   - `#3080` (LDAP query injection risk)
+2. Create mapping evidence note: upstream issue -> fork commit(s) for already integrated `#2989`/PR `#3038`.
+3. Start duplicate cleanup package P1 (6 currently open).
 
 ## Decision Log
 
@@ -75,6 +88,7 @@ Phase 1: technical foundation stabilization (build/test/CI).
 - 2026-02-07: Full MSBuild standardized as validation path for this repo.
 - 2026-02-07: Fixed arm64 ALINK blocker by enabling `GenerateSatelliteAssembliesForCore` under arm64 platform condition.
 - 2026-02-07: PR validation workflow is live and green on first run.
+- 2026-02-07: Security hardening PR content (#3038, #3054) is integrated in fork and locally validated.
 
 ## Resume Checklist (after reboot)
 
