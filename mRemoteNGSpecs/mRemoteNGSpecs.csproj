@@ -42,6 +42,8 @@
     <PackageReference Include="runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
     <PackageReference Include="runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
     <PackageReference Include="runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
+    <PackageReference Include="SpecFlow" />
+    <PackageReference Include="SpecFlow.NUnit" />
     <PackageReference Include="System.Buffers" />
     <PackageReference Include="System.Collections.Immutable" />
     <PackageReference Include="System.Configuration.ConfigurationManager" />

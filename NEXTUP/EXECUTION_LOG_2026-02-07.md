@@ -43,3 +43,27 @@ Persistent planning + first modernization pass (framework/test baseline cleanup)
 ## Next Session Entry Point
 
 Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
+
+---
+
+## Session 3 Addendum
+
+### Additional Actions
+
+1. Fixed test/spec compile issues after TFM alignment:
+   - Added missing `System` import in `ExternalToolTests`.
+   - Disambiguated `CategoryAttribute` usage in `ColorPropertyAttributeTests`.
+   - Updated secure XML test to avoid getter usage not available in current API shape.
+   - Removed direct dependency on internal resource class in `ConnectionInitiatorTests` using reflection helper.
+   - Added SpecFlow packages via central package management:
+     - `SpecFlow`
+     - `SpecFlow.NUnit`
+
+2. Validation rerun with full MSBuild:
+   - `mRemoteNGTests` (Release|x64): success.
+   - `mRemoteNGSpecs` (Release|x64): success.
+   - `mRemoteNG.sln` (Release|x64): success.
+
+### Current Open Technical Blocker
+
+- arm64 build still failing with `ALINK : error AL1012`.

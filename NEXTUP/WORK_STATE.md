@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 2)  
+Last updated: 2026-02-07 (session 3)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -12,10 +12,9 @@ Phase 1: technical foundation stabilization (build/test/CI).
 - Fork: `https://github.com/robertpopa22/mRemoteNG`
 - Upstream remote configured to `mRemoteNG/mRemoteNG`.
 - Open issues observed upstream: `830`.
-- x64 build: passes with warnings.
+- x64 solution build: passes with warnings.
 - arm64 build: fails with `ALINK : error AL1012: 'ARM64' is not a valid setting for option 'platform'`.
-- Target framework mismatch was removed by aligning test-related projects to `net10.0-windows10.0.26100.0`.
-- Remaining test/spec build blockers are now compile/dependency related (details below).
+- `dotnet build` is not sufficient for this solution because of COMReference (`MSB4803`); full MSBuild is required for reliable validation.
 
 ## Completed
 
@@ -28,40 +27,42 @@ Phase 1: technical foundation stabilization (build/test/CI).
   - `mRemoteNGSpecs/mRemoteNGSpecs.csproj`
   - `ExternalConnectors/ExternalConnectors.csproj`
   - `ObjectListView/ObjectListView.NetCore.csproj`
-- [x] Decouple test build from WiX project dependency by linking installer checker source file in tests.
+- [x] Remove direct WiX installer project dependency from tests.
+- [x] Preserve installer unit coverage by compiling linked `InstalledWindowsUpdateChecker.cs` in tests.
+- [x] Reintroduce SpecFlow package references for specs.
+- [x] Fix test compile errors exposed after framework alignment.
+- [x] Verify with full MSBuild (Release|x64):
+  - `mRemoteNGTests` compiles
+  - `mRemoteNGSpecs` compiles
+  - `mRemoteNG.sln` builds
 
 ## In Progress
 
-- [ ] Stabilize `mRemoteNGTests` compile after TFM alignment.
-- [ ] Stabilize `mRemoteNGSpecs` dependencies after TFM alignment.
+- [ ] Arm64 build remediation (`ALINK` platform issue).
+- [ ] PR CI workflow hardening (full MSBuild + explicit test jobs).
 
 ## Blockers
 
-- `arm64` build not releasable due to ALINK platform error.
-- CI release workflow mostly condition-skipped on normal pushes.
-- `dotnet build` is not valid for this solution due COMReference (`MSB4803`); full MSBuild must be used for core/test/spec builds.
-- `mRemoteNGTests` compile errors (current set):
-  - inaccessible `Language` type in connection tests
-  - ambiguous `CategoryAttribute` (NUnit vs System.ComponentModel)
-  - missing `ArgumentException` type qualification/import in `ExternalToolTests`
-  - `XmlDocument.XmlResolver` getter usage issue in `SecureXmlHelperTests`
-- `mRemoteNGSpecs` missing SpecFlow binding types (`TechTalk.*`) — package/reference gap.
+- arm64 build not releasable due to ALINK platform error.
+- Current release workflow is often skipped on regular pushes (trigger condition dependency).
+- High warning volume remains (nullable/platform analyzer warnings), though x64 build is green.
 
 ## Immediate Next Actions
 
-1. Fix `mRemoteNGTests` compile errors listed above and verify with:
-   - `MSBuild.exe mRemoteNGTests\mRemoteNGTests.csproj /restore /p:Configuration=Release /p:Platform=x64 /clp:ErrorsOnly`
-2. Restore SpecFlow dependencies for `mRemoteNGSpecs` and verify with:
-   - `MSBuild.exe mRemoteNGSpecs\mRemoteNGSpecs.csproj /restore /p:Configuration=Release /p:Platform=x64 /clp:ErrorsOnly`
-3. Add/adjust PR CI workflow to use full MSBuild (not dotnet-only) for Windows job.
-4. Start arm64 diagnosis and isolate minimal fix for ALINK platform error.
+1. Add/adjust PR CI workflow to use full MSBuild (Windows) and include test/spec build jobs.
+2. Diagnose and isolate arm64 ALINK fix candidate.
+3. Start security package P0 execution:
+   - PR #3038
+   - PR #3054
+   - issues #2988, #2989, #3080
+4. Start duplicate cleanup package P1 (6 currently open).
 
 ## Decision Log
 
 - 2026-02-07: Chosen strategy is release-focused fork, with upstream sync but independent stable cadence.
 - 2026-02-07: Deferred large feature PR merges (#2997, #3001) until after stable release.
 - 2026-02-07: Kept .NET baseline on `net10` (current stable major).
-- 2026-02-07: Tests no longer reference installer project directly; installer checker source is compiled into test assembly for unit coverage without WiX dependency.
+- 2026-02-07: Full MSBuild standardized as validation path for this repo.
 
 ## Resume Checklist (after reboot)
 
