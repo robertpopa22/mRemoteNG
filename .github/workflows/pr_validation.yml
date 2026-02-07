@@ -1,0 +1,76 @@
+name: PR_Validation
+
+on:
+  pull_request:
+    branches:
+      - v1.78.2-dev
+  push:
+    branches:
+      - v1.78.2-dev
+      - codex/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-solution:
+    name: Build solution (${{ matrix.platform }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            platform: x64
+          - runner: windows-11-arm
+            platform: ARM64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: "17.14.12"
+
+      - name: Build solution
+        shell: pwsh
+        run: |
+          msbuild "$env:GITHUB_WORKSPACE\mRemoteNG.sln" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=${{ matrix.platform }}
+
+  build-tests:
+    name: Build tests and specs (x64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: "17.14.12"
+
+      - name: Build mRemoteNGTests
+        shell: pwsh
+        run: |
+          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGTests\mRemoteNGTests.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=x64
+
+      - name: Build mRemoteNGSpecs
+        shell: pwsh
+        run: |
+          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGSpecs\mRemoteNGSpecs.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=x64

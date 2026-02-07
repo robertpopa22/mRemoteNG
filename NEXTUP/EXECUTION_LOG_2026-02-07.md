@@ -64,6 +64,36 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
    - `mRemoteNGSpecs` (Release|x64): success.
    - `mRemoteNG.sln` (Release|x64): success.
 
-### Current Open Technical Blocker
+### Session 4 Addendum
 
-- arm64 build still failing with `ALINK : error AL1012`.
+#### Additional Actions
+
+1. Root-caused arm64 build failure to legacy satellite assembly generation path using `al.exe` with unsupported ARM64 platform switch.
+2. Implemented arm64-specific fix in:
+   - `mRemoteNG/mRemoteNG.csproj`
+   - Added `GenerateSatelliteAssembliesForCore=true` under the arm64 property group.
+3. Revalidated builds with full MSBuild:
+   - `mRemoteNG/mRemoteNG.csproj` (Release|ARM64): success.
+   - `mRemoteNG.sln` (Release|ARM64): success.
+
+#### Current Open Technical Blocker
+
+- No arm64 compile blocker remains.
+- CI workflow hardening is now the next execution gate.
+
+### Session 5 Addendum
+
+#### Additional Actions
+
+1. Added dedicated PR validation workflow:
+   - `.github/workflows/pr_validation.yml`
+2. Workflow coverage includes:
+   - solution build matrix on `x64` and `ARM64`,
+   - explicit `mRemoteNGTests` and `mRemoteNGSpecs` builds on `x64`,
+   - triggers on `pull_request`, `push` (`v1.78.2-dev`, `codex/**`) and manual dispatch.
+3. Revalidated locally after arm64 fix:
+   - `mRemoteNG.sln` (Release|x64): success.
+
+#### Current Open Technical Blocker
+
+- Awaiting first GitHub Actions execution result for new PR validation workflow.

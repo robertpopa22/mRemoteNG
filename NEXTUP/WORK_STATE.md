@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 3)  
+Last updated: 2026-02-07 (session 4)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -13,7 +13,7 @@ Phase 1: technical foundation stabilization (build/test/CI).
 - Upstream remote configured to `mRemoteNG/mRemoteNG`.
 - Open issues observed upstream: `830`.
 - x64 solution build: passes with warnings.
-- arm64 build: fails with `ALINK : error AL1012: 'ARM64' is not a valid setting for option 'platform'`.
+- arm64 solution build: passes with warnings.
 - `dotnet build` is not sufficient for this solution because of COMReference (`MSB4803`); full MSBuild is required for reliable validation.
 
 ## Completed
@@ -35,27 +35,34 @@ Phase 1: technical foundation stabilization (build/test/CI).
   - `mRemoteNGTests` compiles
   - `mRemoteNGSpecs` compiles
   - `mRemoteNG.sln` builds
+- [x] Resolve arm64 satellite resource build blocker by forcing core satellite assembly generation for arm64:
+  - `mRemoteNG/mRemoteNG.csproj`
+- [x] Verify with full MSBuild (Release|ARM64):
+  - `mRemoteNG/mRemoteNG.csproj` builds
+  - `mRemoteNG.sln` builds
+- [x] Add PR validation workflow with full MSBuild gates:
+  - `.github/workflows/pr_validation.yml`
+  - build matrix for solution (`x64`, `ARM64`)
+  - explicit test/spec build job (`x64`)
 
 ## In Progress
 
-- [ ] Arm64 build remediation (`ALINK` platform issue).
-- [ ] PR CI workflow hardening (full MSBuild + explicit test jobs).
+- [ ] Validate first GitHub Actions run for `.github/workflows/pr_validation.yml`.
 
 ## Blockers
 
-- arm64 build not releasable due to ALINK platform error.
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
+- PR validation workflow added but not yet observed as green in GitHub Actions.
 - High warning volume remains (nullable/platform analyzer warnings), though x64 build is green.
 
 ## Immediate Next Actions
 
-1. Add/adjust PR CI workflow to use full MSBuild (Windows) and include test/spec build jobs.
-2. Diagnose and isolate arm64 ALINK fix candidate.
-3. Start security package P0 execution:
+1. Validate first run of `.github/workflows/pr_validation.yml` and fix any runner/platform issues.
+2. Start security package P0 execution:
    - PR #3038
    - PR #3054
    - issues #2988, #2989, #3080
-4. Start duplicate cleanup package P1 (6 currently open).
+3. Start duplicate cleanup package P1 (6 currently open).
 
 ## Decision Log
 
@@ -63,6 +70,7 @@ Phase 1: technical foundation stabilization (build/test/CI).
 - 2026-02-07: Deferred large feature PR merges (#2997, #3001) until after stable release.
 - 2026-02-07: Kept .NET baseline on `net10` (current stable major).
 - 2026-02-07: Full MSBuild standardized as validation path for this repo.
+- 2026-02-07: Fixed arm64 ALINK blocker by enabling `GenerateSatelliteAssembliesForCore` under arm64 platform condition.
 
 ## Resume Checklist (after reboot)
 
