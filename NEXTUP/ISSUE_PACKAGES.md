@@ -122,6 +122,10 @@ Current status (fork execution branch):
 - #3069: implemented and CI-validated (`mRemoteNG/UI/Window/ConnectionWindow.cs`).
 - #3092: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
 - #2972: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`) so default custom credentials path now honors selected external provider in RDP/SSH flows.
+- #1916/#1883 SQL save compatibility hardening implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21786116643`):
+  - `mRemoteNG/Config/DataProviders/SqlDataProvider.cs`
+  - `mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs`
+  - `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:

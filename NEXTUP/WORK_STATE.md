@@ -226,6 +226,13 @@ Phase 2: P0 security integration and critical issue burn-down.
     - always load SQL reader schema even when `tblCons` has 0 rows
     - auto-add missing serializer columns when source SQL schema is partial/outdated
     - add regression test for missing-column source schema
+  - CI validation:
+    - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21786116643`
+    - result: `success` (`x86`, `x64`, `ARM64`)
+  - upstream issue updates:
+    - `#1916`: `https://github.com/mRemoteNG/mRemoteNG/issues/1916#issuecomment-3865218242`
+    - `#1883`: `https://github.com/mRemoteNG/mRemoteNG/issues/1883#issuecomment-3865226419`
+    - `#2290`: `https://github.com/mRemoteNG/mRemoteNG/issues/2290#issuecomment-3865226895`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers

@@ -766,3 +766,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Need CI run for definitive validation of session 33 SQL compatibility patchset.
+
+### Session 34 Addendum
+
+#### Additional Actions
+
+1. Pushed combined automation + SQL compatibility patchset:
+   - commit: `cd6eee37` (`p4-exhaustion-and-sql-schema-compat-fix-1916`)
+2. Validated in CI:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21786116643`
+   - result: `success`
+   - jobs green:
+     - `Build tests and specs (x86)`
+     - `Build tests and specs (x64)`
+     - `Build solution (x86)`
+     - `Build solution (x64)`
+     - `Build solution (ARM64)`
+3. Posted upstream issue cross-links/retest requests tied to the SQL compatibility fix:
+   - `#1916`: `https://github.com/mRemoteNG/mRemoteNG/issues/1916#issuecomment-3865218242`
+   - `#1883`: `https://github.com/mRemoteNG/mRemoteNG/issues/1883#issuecomment-3865226419`
+   - `#2290`: `https://github.com/mRemoteNG/mRemoteNG/issues/2290#issuecomment-3865226895`
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel permissions remain maintainer-gated for final backlog state transitions.
