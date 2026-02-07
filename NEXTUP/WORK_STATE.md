@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 36)  
+Last updated: 2026-02-07 (session 37)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -251,6 +251,32 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3112`
   - upstream issue update:
     - `#850`: `https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466`
+- [x] P5 fix candidate #1969 implemented and upstream-packaged:
+  - files:
+    - `mRemoteNG/Connection/ConnectionsService.cs`
+    - `mRemoteNGTests/Connection/ConnectionsServiceStartupPathTests.cs`
+  - change:
+    - startup file path now falls back to default when `ConnectionFilePath` is `null`, empty, or whitespace
+    - regression test coverage added for `null`, empty, and whitespace values
+  - fork CI validation evidence:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21787167552`
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3113`
+  - upstream issue update:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/1969#issuecomment-3865576670`
+- [x] Windows compatibility baseline lowered for broader client coverage while keeping `.NET 10`:
+  - changed from `windows10.0.26100.0` to `windows10.0.19041.0` across:
+    - `mRemoteNG/mRemoteNG.csproj`
+    - `ExternalConnectors/ExternalConnectors.csproj`
+    - `ObjectListView/ObjectListView.NetCore.csproj`
+    - `mRemoteNGSpecs/mRemoteNGSpecs.csproj`
+    - `mRemoteNGTests/mRemoteNGTests.csproj`
+  - local validation:
+    - solution build: `Release|x86`, `Release|x64`, `Release|ARM64`
+    - tests/specs build: `Release|x86`, `Release|x64`
+  - fork CI validation:
+    - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21787440752`
+    - result: `success` (`x86`, `x64`, `ARM64`, tests/specs)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers

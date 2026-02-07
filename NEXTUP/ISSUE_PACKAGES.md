@@ -134,10 +134,21 @@ Current status (fork execution branch):
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3112`
   - upstream issue update:
     - `https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466`
+- #1969 startup connection path null/empty fallback implemented:
+  - `mRemoteNG/Connection/ConnectionsService.cs`
+  - `mRemoteNGTests/Connection/ConnectionsServiceStartupPathTests.cs`
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3113`
+  - upstream issue update:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/1969#issuecomment-3865576670`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:
     - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
+- compatibility hardening for older client machines completed:
+  - baseline lowered to `windows10.0.19041.0` while staying on `.NET 10`
+  - CI-validated:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21787440752`
 
 ## Practical Execution Order
 

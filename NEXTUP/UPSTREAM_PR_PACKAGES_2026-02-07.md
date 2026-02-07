@@ -144,6 +144,27 @@ Execution status:
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3112#issuecomment-3865499667
 - fork CI evidence: https://github.com/robertpopa22/mRemoteNG/actions/runs/21786942297
 
+## PR-9 Startup Connection Path Null/Empty Fallback (`#1969`)
+
+Scope:
+- avoid startup-load failure when `ConnectionFilePath` is null/empty/whitespace.
+- add regression tests for null/empty/whitespace startup path cases.
+
+Primary commits:
+- `0c3d2ae1`
+- `bc4bb565`
+
+Core files:
+- `mRemoteNG/Connection/ConnectionsService.cs`
+- `mRemoteNGTests/Connection/ConnectionsServiceStartupPathTests.cs`
+
+Execution status:
+- branch: `codex/pr9-startup-path-fallback-1969`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3113
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1969#issuecomment-3865576670
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3113#issuecomment-3865577217
+- fork CI evidence (same fix validated on release branch): https://github.com/robertpopa22/mRemoteNG/actions/runs/21787167552
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -161,6 +182,7 @@ Execution status:
 6. PR-6 (SQL Server SNI runtime packaging)
 7. PR-7 (SQL schema compatibility hardening)
 8. PR-8 (config panel splitter persistence)
+9. PR-9 (startup path null/empty fallback)
 
 ## Operational Guidance
 
