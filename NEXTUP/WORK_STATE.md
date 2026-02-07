@@ -44,25 +44,28 @@ Phase 1: technical foundation stabilization (build/test/CI).
   - `.github/workflows/pr_validation.yml`
   - build matrix for solution (`x64`, `ARM64`)
   - explicit test/spec build job (`x64`)
+- [x] Validate first GitHub Actions execution for PR validation workflow:
+  - Run: `PR_Validation` #`21781330218`
+  - Result: `success`
+  - URL: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21781330218`
 
 ## In Progress
 
-- [ ] Validate first GitHub Actions run for `.github/workflows/pr_validation.yml`.
+- [ ] Start security package P0 execution.
 
 ## Blockers
 
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
-- PR validation workflow added but not yet observed as green in GitHub Actions.
 - High warning volume remains (nullable/platform analyzer warnings), though x64 build is green.
 
 ## Immediate Next Actions
 
-1. Validate first run of `.github/workflows/pr_validation.yml` and fix any runner/platform issues.
-2. Start security package P0 execution:
+1. Start security package P0 execution:
    - PR #3038
    - PR #3054
    - issues #2988, #2989, #3080
-3. Start duplicate cleanup package P1 (6 currently open).
+2. Start duplicate cleanup package P1 (6 currently open).
+3. Review and prioritize warning reduction backlog (focus on high-signal nullability and package compatibility).
 
 ## Decision Log
 
@@ -71,6 +74,7 @@ Phase 1: technical foundation stabilization (build/test/CI).
 - 2026-02-07: Kept .NET baseline on `net10` (current stable major).
 - 2026-02-07: Full MSBuild standardized as validation path for this repo.
 - 2026-02-07: Fixed arm64 ALINK blocker by enabling `GenerateSatelliteAssembliesForCore` under arm64 platform condition.
+- 2026-02-07: PR validation workflow is live and green on first run.
 
 ## Resume Checklist (after reboot)
 
