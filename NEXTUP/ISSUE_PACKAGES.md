@@ -150,6 +150,15 @@ Current status (fork execution branch):
   - provider failures while enumerating PuTTY sessions now log warning and no longer abort connection-file loading
   - regression test:
     - `mRemoteNGTests/Connection/ConnectionsServicePuttySessionsResilienceTests.cs`
+- #811 startup XML exception resilience candidate implemented:
+  - files:
+    - `mRemoteNG/Config/Connections/XmlConnectionsLoader.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+    - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+  - behavior:
+    - malformed startup XML now attempts deterministic recovery from the newest valid `*.backup`
+    - successful recovery auto-restores `confCons.xml` from backup
+    - parser now surfaces explicit `XmlException` for unparsable documents
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:

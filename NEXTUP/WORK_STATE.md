@@ -308,6 +308,19 @@ Phase 2: P0 security integration and critical issue burn-down.
   - local validation:
     - full Framework MSBuild build of `mRemoteNGTests` (`Release|x64`) passed
     - targeted test filter `FullyQualifiedName~ConnectionsService` passed (`4/4`)
+- [x] P5 startup XML resilience hardening for malformed `confCons.xml` (issue `#811` candidate):
+  - files:
+    - `mRemoteNG/Config/Connections/XmlConnectionsLoader.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+    - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+  - change:
+    - when startup XML parsing fails, loader now attempts deterministic recovery from the newest valid `*.backup` file
+    - successful recovery auto-restores the primary file from backup
+    - deserializer now throws explicit `XmlException` on unparsable XML document state (instead of null-reference failure path)
+  - local validation:
+    - full Framework MSBuild build of `mRemoteNGTests` (`Release|x64`) passed
+    - targeted test filter `FullyQualifiedName~XmlConnectionsLoaderTests` passed (`4/4`)
+    - startup sanity filter `FullyQualifiedName~ConnectionsService` passed (`4/4`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -319,7 +332,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Track upstream feedback on PR-7/PR-8 (`#3111`, `#3112`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#811` startup XML exception handling).
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#2785` PuTTY CJK session handling).
 3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
 
 ## Decision Log
@@ -361,6 +374,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Opened upstream PR `#3112` for #850 and posted issue/CI cross-links.
 - 2026-02-08: Implemented PuTTY provider startup resilience hardening for #822 candidate and added regression coverage in `ConnectionsServicePuttySessionsResilienceTests`.
 - 2026-02-08: Upgraded CI x86/x64 jobs to VS2026/MSBuild18-class hosted runners with ARM fallback to VS2022/MSBuild17.14 due current ARM image availability.
+- 2026-02-08: Implemented startup XML recovery hardening for malformed `confCons.xml` (#811 candidate) with deterministic fallback to newest valid backup and regression coverage in `XmlConnectionsLoaderTests`.
 
 ## Resume Checklist (after reboot)
 
