@@ -90,7 +90,7 @@ Phase 2: P0 security integration and critical issue burn-down.
   - hardening: dispose-safe + thread-safe tab close callback in `Prot_Event_Closed`
   - reconnect path simplified to avoid redundant `Invoke`.
   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21782034958`
-- [x] P5 fix candidate #3092 implemented (pending CI validation):
+- [x] P5 fix candidate #3092 implemented and CI-validated:
   - file: `ExternalConnectors/OP/OnePasswordCli.cs`
   - fixes:
     - robust `op://` parser supports vault/item names with spaces
@@ -98,6 +98,7 @@ Phase 2: P0 security integration and critical issue burn-down.
     - purpose lookup ignores empty values before fallback by label/id
   - tests:
     - `mRemoteNGTests/ExternalConnectors/OnePasswordCliTests.cs`
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`
 - [ ] P0 issue closure workflow still pending (issue comments/closure + mapping notes).
 
 ## Blockers
@@ -111,10 +112,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
-2. Push #3092 patchset and validate CI run (`tests/specs x64`, `solution x64`, `solution ARM64`).
-3. Start duplicate cleanup package P1 (6 currently open).
-4. Start P2 batch-1 triage workflow (25 oldest stale Need 2 check).
-5. Open upstream-ready PR draft for P0 + P5 patchset split.
+2. Start duplicate cleanup package P1 (6 currently open).
+3. Start P2 batch-1 triage workflow (25 oldest stale Need 2 check).
+4. Open upstream-ready PR draft for P0 + P5 patchset split.
 
 ## Decision Log
 
@@ -129,7 +129,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: P0 hardening patchset is now CI-green on fork after one follow-up fix for missing test import (`using System`).
 - 2026-02-07: P1-P5 triage baseline is now generated automatically and versioned in `NEXTUP`.
 - 2026-02-07: P5 close-panel crash candidate (#3069) implemented and validated green in CI.
-- 2026-02-07: P5 1Password candidate (#3092) implemented with parser + field extraction hardening; awaiting CI validation.
+- 2026-02-07: P5 1Password candidate (#3092) implemented with parser + field extraction hardening and validated green in CI (`21782320844`).
 
 ## Resume Checklist (after reboot)
 

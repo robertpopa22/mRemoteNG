@@ -86,7 +86,7 @@ Goal:
 
 Current status (fork execution branch):
 - #3069: implemented and CI-validated (`mRemoteNG/UI/Window/ConnectionWindow.cs`).
-- #3092: implemented (pending CI) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
+- #3092: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
 
 ## Practical Execution Order
 
