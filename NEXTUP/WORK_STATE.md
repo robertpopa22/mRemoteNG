@@ -153,6 +153,16 @@ Phase 2: P0 security integration and critical issue burn-down.
 - [x] Windows architecture coverage expanded in fork CI/release workflows:
   - `PR_Validation`: now includes `x86`, `x64`, `ARM64` solution builds
   - `Build_and_Release_mR-NB`: now includes `x86`, `x64`, `ARM64` artifact builds
+- [x] CI toolchain uplift for .NET 10 build agents (x86/x64):
+  - workflows updated:
+    - `.github/workflows/pr_validation.yml`
+    - `.github/workflows/Build_mR-NB.yml`
+  - x86/x64 jobs now run on `windows-2025-vs2026` with MSBuild `18.x` (`[18.0,19.0)`)
+  - ARM64 jobs keep VS/MSBuild `17.14.12` fallback on `windows-11-arm` (current hosted runner limitation)
+  - validation:
+    - initial direct `18.x` for ARM failed (`Unable to find MSBuild`)
+    - fallback patch validated green in CI:
+      - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21787921877`
 - [x] Root-cause + fix for first `x86` CI breakage (`PR_Validation` run `21784889033`):
   - root causes:
     - missing `Release|x86` and related `x86` mappings in `mRemoteNG.sln`
@@ -350,6 +360,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Implemented #850 Config PropertyGrid splitter persistence across minimize/maximize and validated CI green (`21786942297`).
 - 2026-02-07: Opened upstream PR `#3112` for #850 and posted issue/CI cross-links.
 - 2026-02-08: Implemented PuTTY provider startup resilience hardening for #822 candidate and added regression coverage in `ConnectionsServicePuttySessionsResilienceTests`.
+- 2026-02-08: Upgraded CI x86/x64 jobs to VS2026/MSBuild18-class hosted runners with ARM fallback to VS2022/MSBuild17.14 due current ARM image availability.
 
 ## Resume Checklist (after reboot)
 
