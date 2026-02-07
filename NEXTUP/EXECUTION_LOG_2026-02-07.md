@@ -289,3 +289,84 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - No CI blocker for the #3092 patchset.
+
+### Session 14 Addendum
+
+#### Additional Actions
+
+1. Executed P1 duplicate triage pass on all current duplicate-labeled open issues:
+   - #520, #1684, #1837, #1874, #2537, #3051
+2. Added explicit canonical tracking comments where mapping is clear:
+   - #1684 -> #1657
+   - #520 -> #290
+   - #1837 -> #316
+   - #2537 -> #2019
+   - #3051 -> #2982 / #2934
+3. For #1874, added maintainer request to link canonical duplicate target (or adjust label).
+4. Executed P2 batch-1 stale triage (25 issues):
+   - posted reproducibility refresh comments on all 25 oldest stale `Need 2 check` issues.
+5. Added consolidated execution artifact:
+   - `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+
+#### Permission Blocker
+
+1. Upstream close operation is not available for current account:
+   - `GraphQL: robertpopa22 does not have the correct permissions to execute CloseIssue (closeIssue)`
+2. Resulting workflow:
+   - comment-level triage performed immediately,
+   - maintainer close action remains pending upstream.
+
+### Session 15 Addendum
+
+#### Additional Actions
+
+1. Added reusable P2 triage automation script:
+   - `NEXTUP/scripts/comment-p2-need2check-batch.ps1`
+2. Executed P2 batch-2 triage using script (`Skip=25`, `Take=25`, `Comment`):
+   - 25 additional stale `Need 2 check` issues received reproducibility refresh comments.
+3. Extended consolidated artifact:
+   - `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+   - now includes both batch-1 and batch-2 evidence links.
+
+#### Current Open Technical Blocker
+
+- No technical blocker for continuing P2 batch-3.
+- Upstream issue closing remains permission-blocked (comment triage only).
+
+### Session 16 Addendum
+
+#### Additional Actions
+
+1. Executed P2 batch-3 (`Skip=50`, `Take=25`) with comment automation.
+2. Executed accelerated additional P2 passes (`Skip=75,100,125,150,175,200`).
+3. Identified batching overlap root cause:
+   - script sorted by `updatedAt`,
+   - posting comments modifies `updatedAt`,
+   - later skip windows overlapped.
+4. Fixed automation for deterministic batching:
+   - updated `NEXTUP/scripts/comment-p2-need2check-batch.ps1`
+   - added `SortBy` parameter and defaulted to `createdAt`.
+
+#### Current Open Technical Blocker
+
+- No blocker to continue deterministic P2 batches.
+- Upstream close permission still missing for final closure actions.
+
+### Session 17 Addendum
+
+#### Additional Actions
+
+1. Implemented P5 fix candidate for issue #2972 (default credentials + 1Password):
+   - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+   - `mRemoteNG/Connection/Protocol/PuttyBase.cs`
+2. Behavior change:
+   - when `EmptyCredentials` is `custom`, code now uses `ExternalCredentialProviderDefault` for:
+     - `DelineaSecretServer`
+     - `ClickstudiosPasswordState`
+     - `OnePassword`
+   - previously RDP/SSH default path effectively handled only Delinea.
+
+#### Validation Status
+
+- Local validation still limited by SDK mismatch in this shell image (`net10` target, local SDK `9.0.310`).
+- CI push/validation pending for this patchset.

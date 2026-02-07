@@ -44,6 +44,11 @@ Goal:
 Done criteria:
 - Duplicate-labeled issues closed and cross-linked.
 
+Current status (2026-02-07 execution):
+- 6/6 duplicate issues triaged and cross-linked by comment.
+- Upstream close action is permission-blocked for current account; maintainer close is pending.
+- Evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+
 ## Package P2 - Need-2-Check Backlog
 
 Scope:
@@ -56,6 +61,14 @@ Execution model:
 - Batch of 25 per pass.
 - Apply reproducibility template.
 - Close `no-response`/`not reproducible` with explicit rationale.
+
+Current status (2026-02-07 execution):
+- Batch-1 completed: 25 oldest stale issues commented with retest/repro request.
+- Batch-2 completed: 25 additional stale issues commented with retest/repro request.
+- Batch-3 and extended passes executed for broader stale refresh.
+- Batching script corrected to deterministic `createdAt` sorting to avoid overlap from `updatedAt` mutation.
+- Next step: continue deterministic batches until full stale set is covered.
+- Evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P3 - Stale In-Progress Labels
 

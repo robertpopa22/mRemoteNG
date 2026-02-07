@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 12)  
+Last updated: 2026-02-07 (session 14)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -99,6 +99,27 @@ Phase 2: P0 security integration and critical issue burn-down.
   - tests:
     - `mRemoteNGTests/ExternalConnectors/OnePasswordCliTests.cs`
   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`
+- [x] P1 duplicate package triage pass completed (comment-level):
+  - all 6 duplicate-labeled open issues reviewed and cross-linked/commented
+  - close action blocked by upstream permission (`CloseIssue` denied for current account)
+  - execution log: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P2 batch-1 triage pass completed:
+  - 25 oldest stale `Need 2 check` issues received reproducibility refresh comments
+  - execution log: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P2 batch-2 triage pass completed:
+  - next 25 `Need 2 check` issues received reproducibility refresh comments
+  - helper script added: `NEXTUP/scripts/comment-p2-need2check-batch.ps1`
+  - execution log: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P2 batch-3 + extended triage passes executed:
+  - additional refresh comments posted to accelerate stale backlog cleanup
+  - initial overlap discovered when sorting by `updatedAt`; script corrected to deterministic `createdAt` ordering
+  - evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P5 fix candidate #2972 implemented (pending CI):
+  - files:
+    - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+    - `mRemoteNG/Connection/Protocol/PuttyBase.cs`
+  - change:
+    - `EmptyCredentials=custom` now respects `ExternalCredentialProviderDefault` for OnePassword/Clickstudios (not only Delinea)
 - [ ] P0 issue closure workflow still pending (issue comments/closure + mapping notes).
 
 ## Blockers
@@ -112,9 +133,10 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
-2. Start duplicate cleanup package P1 (6 currently open).
-3. Start P2 batch-1 triage workflow (25 oldest stale Need 2 check).
-4. Open upstream-ready PR draft for P0 + P5 patchset split.
+2. Push #2972 patchset and validate CI run (`tests/specs x64`, `solution x64`, `solution ARM64`).
+3. Continue P2 deterministic batches using `createdAt` sorting in script.
+4. Start P3 stale label cleanup (`In progress` / `In development`).
+5. Open upstream-ready PR draft for P0 + P5 patchset split.
 
 ## Decision Log
 
@@ -130,6 +152,11 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: P1-P5 triage baseline is now generated automatically and versioned in `NEXTUP`.
 - 2026-02-07: P5 close-panel crash candidate (#3069) implemented and validated green in CI.
 - 2026-02-07: P5 1Password candidate (#3092) implemented with parser + field extraction hardening and validated green in CI (`21782320844`).
+- 2026-02-07: P1 duplicates triaged with canonical links/comments, but upstream close action is permission-blocked for current account.
+- 2026-02-07: P2 batch-1 (`25` stale `Need 2 check`) triage comments executed and logged.
+- 2026-02-07: P2 batch-2 (`25` additional `Need 2 check`) triage comments executed and script-automated for repeatable runs.
+- 2026-02-07: P2 extended passes found `updatedAt` overlap behavior; batching automation updated to `createdAt` sorting.
+- 2026-02-07: Implemented #2972 fix for default external credential provider handling in RDP/SSH protocols; awaiting CI.
 
 ## Resume Checklist (after reboot)
 
