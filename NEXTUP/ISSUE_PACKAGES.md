@@ -81,6 +81,11 @@ Goal:
 Done criteria:
 - Each item either revalidated and kept active, or relabeled/closed.
 
+Current status (2026-02-07 execution):
+- stale `In progress` and `In development` sets fully commented for status refresh/relabel guidance.
+- close/relabel actions require maintainer write permissions upstream.
+- Evidence: `NEXTUP/P3_TRIAGE_EXECUTION_2026-02-07.md`
+
 ## Package P4 - Version Label Debt
 
 Scope:
@@ -100,6 +105,7 @@ Goal:
 Current status (fork execution branch):
 - #3069: implemented and CI-validated (`mRemoteNG/UI/Window/ConnectionWindow.cs`).
 - #3092: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844`) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
+- #2972: implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`) so default custom credentials path now honors selected external provider in RDP/SSH flows.
 
 ## Practical Execution Order
 

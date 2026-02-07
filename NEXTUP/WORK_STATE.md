@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 14)  
+Last updated: 2026-02-07 (session 18)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -114,12 +114,17 @@ Phase 2: P0 security integration and critical issue burn-down.
   - additional refresh comments posted to accelerate stale backlog cleanup
   - initial overlap discovered when sorting by `updatedAt`; script corrected to deterministic `createdAt` ordering
   - evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
-- [x] P5 fix candidate #2972 implemented (pending CI):
+- [x] P5 fix candidate #2972 implemented and CI-validated:
   - files:
     - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
     - `mRemoteNG/Connection/Protocol/PuttyBase.cs`
   - change:
     - `EmptyCredentials=custom` now respects `ExternalCredentialProviderDefault` for OnePassword/Clickstudios (not only Delinea)
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`
+- [x] P3 stale label triage pass completed (comment-level):
+  - stale `In progress` set commented (19 issues)
+  - stale `In development` set commented (27 issues)
+  - evidence: `NEXTUP/P3_TRIAGE_EXECUTION_2026-02-07.md`
 - [ ] P0 issue closure workflow still pending (issue comments/closure + mapping notes).
 
 ## Blockers
@@ -133,10 +138,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
-2. Push #2972 patchset and validate CI run (`tests/specs x64`, `solution x64`, `solution ARM64`).
-3. Continue P2 deterministic batches using `createdAt` sorting in script.
-4. Start P3 stale label cleanup (`In progress` / `In development`).
-5. Open upstream-ready PR draft for P0 + P5 patchset split.
+2. Continue P2 deterministic batches using `createdAt` sorting in script.
+3. Open upstream-ready PR draft for P0 + P5 patchset split.
+4. Prepare maintainer handoff note for P1/P3 close+relabel actions (requires upstream write permissions).
 
 ## Decision Log
 
@@ -156,7 +160,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: P2 batch-1 (`25` stale `Need 2 check`) triage comments executed and logged.
 - 2026-02-07: P2 batch-2 (`25` additional `Need 2 check`) triage comments executed and script-automated for repeatable runs.
 - 2026-02-07: P2 extended passes found `updatedAt` overlap behavior; batching automation updated to `createdAt` sorting.
-- 2026-02-07: Implemented #2972 fix for default external credential provider handling in RDP/SSH protocols; awaiting CI.
+- 2026-02-07: Implemented #2972 fix for default external credential provider handling in RDP/SSH protocols; validated green in CI (`21783476996`).
+- 2026-02-07: P3 stale status comments executed for both `In progress` and `In development` issue sets.
 
 ## Resume Checklist (after reboot)
 

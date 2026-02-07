@@ -370,3 +370,23 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - Local validation still limited by SDK mismatch in this shell image (`net10` target, local SDK `9.0.310`).
 - CI push/validation pending for this patchset.
+
+### Session 18 Addendum
+
+#### Additional Actions
+
+1. CI validated commit `35831bb5`:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996`
+   - jobs green: `tests/specs x64`, `solution x64`, `solution ARM64`
+2. Posted upstream issue update for #2972 with commit/CI evidence:
+   - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2972#issuecomment-3864823791`
+3. Executed P3 stale-label status pass:
+   - stale `In progress`: 19 comments
+   - stale `In development`: 27 comments
+   - execution artifact: `NEXTUP/P3_TRIAGE_EXECUTION_2026-02-07.md`
+4. Added P3 comment automation:
+   - `NEXTUP/scripts/comment-p3-stale-status.ps1`
+
+#### Current Open Technical Blocker
+
+- Upstream relabel/close operations remain permission-blocked; only comment-level triage is available with current account.
