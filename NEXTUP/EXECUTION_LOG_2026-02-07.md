@@ -709,3 +709,21 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active CI blocker.
 - Upstream close/relabel operations remain permission-gated.
+
+### Session 31 Addendum
+
+#### Additional Actions
+
+1. Executed third deterministic P4 batch (`SortBy=createdAt`):
+   - 12 additional version-label debt issues commented.
+   - cumulative P4 comments today: `36`.
+2. Refreshed package snapshot:
+   - `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
+3. Validated head-state CI after latest push:
+   - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785730623`
+   - result: `success`
+
+#### Current Open Technical Blocker
+
+- No active CI blocker.
+- Upstream close/relabel operations remain permission-gated.

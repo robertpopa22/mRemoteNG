@@ -102,7 +102,7 @@ Goal:
 Current status (2026-02-07 execution):
 - added deterministic batch triage script:
   - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
-- executed two P4 comment waves (24 issues total) with retest + relabel guidance.
+- executed three P4 comment waves (36 issues total) with retest + relabel guidance.
 - evidence:
   - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
 

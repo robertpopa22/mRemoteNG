@@ -68,3 +68,28 @@ Issues updated:
 ## Consolidated Status
 
 - P4 comments posted today: 24 issues (2 batches x 12).
+
+## Batch 3 (12 additional comments posted)
+
+Command used:
+
+`pwsh -File NEXTUP/scripts/comment-p4-version-debt-batch.ps1 -Repo mRemoteNG/mRemoteNG -Take 12 -MinDaysSinceUpdate 180 -SortBy createdAt -Comment`
+
+Issues updated:
+
+1. #2563 - https://github.com/mRemoteNG/mRemoteNG/issues/2563#issuecomment-3865156745
+2. #398 - https://github.com/mRemoteNG/mRemoteNG/issues/398#issuecomment-3865156770
+3. #2165 - https://github.com/mRemoteNG/mRemoteNG/issues/2165#issuecomment-3865156797
+4. #2166 - https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3865156823
+5. #1692 - https://github.com/mRemoteNG/mRemoteNG/issues/1692#issuecomment-3865156843
+6. #1931 - https://github.com/mRemoteNG/mRemoteNG/issues/1931#issuecomment-3865156872
+7. #886 - https://github.com/mRemoteNG/mRemoteNG/issues/886#issuecomment-3865156889
+8. #2171 - https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3865156904
+9. #2172 - https://github.com/mRemoteNG/mRemoteNG/issues/2172#issuecomment-3865156926
+10. #1934 - https://github.com/mRemoteNG/mRemoteNG/issues/1934#issuecomment-3865156943
+11. #2175 - https://github.com/mRemoteNG/mRemoteNG/issues/2175#issuecomment-3865156963
+12. #1936 - https://github.com/mRemoteNG/mRemoteNG/issues/1936#issuecomment-3865156981
+
+## Updated Consolidated Status
+
+- P4 comments posted today: 36 issues (3 batches x 12).
