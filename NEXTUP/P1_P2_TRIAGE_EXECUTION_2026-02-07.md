@@ -134,6 +134,6 @@ Result:
 
 ## Next
 
-1. P2 batch-3: next 25 oldest `Need 2 check`.
-2. P3 cleanup: stale `In progress` / `In development` relabel pass.
-3. Continue P5 with next fixable high-impact issue.
+1. Keep `createdAt`-sorted script for future P2 refresh waves (avoid `updatedAt` overlap).
+2. Close/relabel actions require maintainer permissions; use `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`.
+3. Continue upstream PR packaging using `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`.

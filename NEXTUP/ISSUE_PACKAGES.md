@@ -27,6 +27,10 @@ Current status (fork execution branch):
 - Integrated PR #3054 content into fork (external tool argument escaping hardening).
 - Remaining criticals without upstream fix PR mapping: #2988, #3080.
 - Mapping evidence file created: `NEXTUP/P0_MAPPING_2026-02-07.md`.
+- Upstream evidence comments posted:
+  - #2988: https://github.com/mRemoteNG/mRemoteNG/issues/2988#issuecomment-3864889173
+  - #3080: https://github.com/mRemoteNG/mRemoteNG/issues/3080#issuecomment-3864889174
+- Awaiting maintainer close decision or reproducible PoC feedback.
 
 Goal:
 - No unresolved critical security risk in fork release branch.
@@ -68,7 +72,7 @@ Current status (2026-02-07 execution):
 - Batch-2 completed: 25 additional stale issues commented with retest/repro request.
 - Batch-3 and extended passes executed for broader stale refresh.
 - Batching script corrected to deterministic `createdAt` sorting to avoid overlap from `updatedAt` mutation.
-- Next step: continue deterministic batches until full stale set is covered.
+- Next step: run deterministic batches only for newly stale/unrefreshed entries.
 - Evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P3 - Stale In-Progress Labels

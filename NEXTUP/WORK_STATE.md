@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 18)  
+Last updated: 2026-02-07 (session 20)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -128,21 +128,28 @@ Phase 2: P0 security integration and critical issue burn-down.
 - [x] P0 mapping evidence note completed:
   - file: `NEXTUP/P0_MAPPING_2026-02-07.md`
   - maps #2988/#2989/#3080 to integrated commits and residual risk notes
-- [ ] P0 issue closure workflow still pending (issue comments/closure).
+- [x] P0 issue evidence comments posted upstream:
+  - #2988 comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2988#issuecomment-3864889173`
+  - #3080 comment: `https://github.com/mRemoteNG/mRemoteNG/issues/3080#issuecomment-3864889174`
+- [x] Maintainer close/relabel handoff package created:
+  - `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`
+- [x] Upstream PR split plan documented:
+  - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+- [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
 
 - Local validation blocker in this environment:
-  - `dotnet test` hits `MSB4803` (`ResolveComReference` not supported on .NET Core MSBuild).
-  - full framework `MSBuild.exe` exists, but SDK resolver bridge to portable `dotnet` runtime is incomplete in this shell image.
+  - local SDK is `.NET 9.0.310`, while repo targets `net10.0-windows10.0.26100.0`.
+  - `dotnet test` fails with `NETSDK1045` unless .NET 10 SDK is installed in the shell image.
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
 - High warning volume remains (nullable/platform analyzer warnings), though baseline CI previously passed.
 
 ## Immediate Next Actions
 
-1. Continue P2 deterministic batches using `createdAt` sorting in script.
-2. Open upstream-ready PR draft for P0 + P5 patchset split.
-3. Prepare maintainer handoff note for P1/P3 close+relabel actions (requires upstream write permissions).
+1. Create first upstream PR package branch (PR-1 security follow-up) from `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`.
+2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
+3. Request maintainer close/relabel actions using `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`.
 
 ## Decision Log
 
@@ -165,6 +172,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Implemented #2972 fix for default external credential provider handling in RDP/SSH protocols; validated green in CI (`21783476996`).
 - 2026-02-07: P3 stale status comments executed for both `In progress` and `In development` issue sets.
 - 2026-02-07: P0 mapping evidence note recorded in `NEXTUP/P0_MAPPING_2026-02-07.md`.
+- 2026-02-07: Posted P0 evidence comments upstream for `#2988` and `#3080`; created maintainer handoff + upstream PR package documents.
 
 ## Resume Checklist (after reboot)
 

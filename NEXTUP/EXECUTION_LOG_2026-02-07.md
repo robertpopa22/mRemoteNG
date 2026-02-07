@@ -408,3 +408,34 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No CI blocker on current head.
 - Upstream write permission still required for final close/relabel actions.
+
+### Session 20 Addendum
+
+#### Additional Actions
+
+1. Reviewed open critical issues with no discussion and posted evidence comments:
+   - `#2988`: https://github.com/mRemoteNG/mRemoteNG/issues/2988#issuecomment-3864889173
+   - `#3080`: https://github.com/mRemoteNG/mRemoteNG/issues/3080#issuecomment-3864889174
+2. Updated P0 mapping note with latest assessment and upstream comment links:
+   - `NEXTUP/P0_MAPPING_2026-02-07.md`
+3. Added maintainer action queue document (close/relabel permissions handoff):
+   - `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`
+4. Added upstream PR split plan with package-by-package commit strategy:
+   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+5. Updated persistent state docs:
+   - `NEXTUP/WORK_STATE.md`
+   - `NEXTUP/ISSUE_PACKAGES.md`
+
+#### Validation Attempt + Environment Finding
+
+1. Local targeted test attempt:
+   - `dotnet test ... --filter FullyQualifiedName~LdapPathSanitizerTests`
+2. Result:
+   - blocked by SDK mismatch (`NETSDK1045`) because shell image has `.NET SDK 9.0.310` while repo targets `net10.0-windows10.0.26100.0`.
+3. CI status on branch head remains green:
+   - https://github.com/robertpopa22/mRemoteNG/actions/runs/21783642311
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel permissions are still missing for current account.
+- Local `dotnet test` remains blocked until .NET 10 SDK is present in shell environment.
