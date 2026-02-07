@@ -45,6 +45,11 @@ Cutoff for stale triage: 2025-02-07
 
 ## P5 - Release stabilization candidates
 
+- #2163 - mRemoteNG crashes if panel containing connection(s) is closed | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2163
+- #2562 - Import .xml from Remote Desktop Manager (RDM) | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2562
+- #2561 - External Tools Request | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2561
+- #2664 - Windows 11 24h2, RDP no longer works on mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2664
+- #1262 - Use native OpenSSH client on newer Windows 10 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1262
 - #2160 - Closing the last tab in a panel does not close the panel | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2160
 - #2161 - Tab bar no longer scrolls when dragging tab in the case of tab strip overflow. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2161
 - #2636 - is it possible to view the password on saved connections? Thanks | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2636
@@ -59,10 +64,10 @@ Cutoff for stale triage: 2025-02-07
 - #2989 - Possible command injection via Process.Start - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2989
 - #3092 - 1Password integration doesn't fetch username and password for RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3092
 - #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
-- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
 - #3069 - Exeption occurred on closing panel with connections inside | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3069
-- #3080 - LDAP query injection may lead to data exposure - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3080
+- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
 - #2988 - Object deserialize can lead to remote code execution - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2988
+- #3080 - LDAP query injection may lead to data exposure - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3080
 - #2017 - mRemoteNG closes sometimes when trying to establish RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2017
 - #834 - Disk Drive Redirect Option missing from connections inside a folder | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/834
 - #2633 - Make ICryptographyProvider interface and implementations more secure | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2633
@@ -70,11 +75,6 @@ Cutoff for stale triage: 2025-02-07
 - #2429 - MySQL database connection needs a table | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2429
 - #2189 - Idea: allow Windows Account for encryption (Data Protection API/DPAPI) | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2189
 - #2554 - Feature Request: Shared username/password | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2554
-- #2460 - Error when using special characters in credentials | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2460
-- #2290 - mysql db problem - new item creation impossible | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2290
-- #1656 - Application crashes with unhanded exception (Cannot access a disposed object.) | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1656
-- #1969 - The startup connection file could not be loaded. connectionFilePath cannot be null or empty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1969
-- #1977 - Column 'Domain' does not belong to table . | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1977
 
 ## Next Moves
 

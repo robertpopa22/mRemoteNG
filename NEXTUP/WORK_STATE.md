@@ -197,8 +197,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - [x] P4 version-label debt triage automation + first batch completed:
   - new script:
     - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
-  - first batch posted:
-    - 12 issue comments with retest/relabel guidance
+  - batches posted:
+    - 24 issue comments with retest/relabel guidance
   - evidence:
     - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
 - [x] P5 panel empty-state follow-up implemented:
@@ -256,6 +256,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Confirmed branch-head CI green after PR-6 state/doc updates (`21785223094`).
 - 2026-02-07: Drove `Need 2 check` stale bucket to zero (`P2 stale >365d = 0`) via targeted comment sweep and snapshot refresh.
 - 2026-02-07: Added deterministic P4 triage automation and executed first 12-comment version-label debt batch.
+- 2026-02-07: Extended P4 version-label debt triage to 24 commented issues across two deterministic batches.
 - 2026-02-07: Implemented panel auto-close follow-up when the last connection tab is closed.
 - 2026-02-07: Validated panel auto-close follow-up in CI (`21785604947`) with full `x86/x64/ARM64` matrix green.
 
