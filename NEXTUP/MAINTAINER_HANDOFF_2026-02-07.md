@@ -6,6 +6,17 @@ Prepared on branch: `codex/release-1.79-bootstrap`
 Purpose:
 - capture all upstream actions that cannot be completed by current account (`robertpopa22`) because close/relabel permissions are missing.
 
+## Upstream Draft PR Set (already opened)
+
+1. Security follow-up:
+   - https://github.com/mRemoteNG/mRemoteNG/pull/3105
+2. Close-panel stability fix (`#3069`):
+   - https://github.com/mRemoteNG/mRemoteNG/pull/3106
+3. OnePassword fix (`#3092`):
+   - https://github.com/mRemoteNG/mRemoteNG/pull/3107
+4. Default external provider fix (`#2972`):
+   - https://github.com/mRemoteNG/mRemoteNG/pull/3108
+
 ## Permission Constraint
 
 - `gh issue close` is blocked on upstream repo for current account:

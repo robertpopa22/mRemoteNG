@@ -135,6 +135,11 @@ Phase 2: P0 security integration and critical issue burn-down.
   - `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`
 - [x] Upstream PR split plan documented:
   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+- [x] Upstream PR package branches created and draft PRs opened:
+  - PR-1: `https://github.com/mRemoteNG/mRemoteNG/pull/3105`
+  - PR-2: `https://github.com/mRemoteNG/mRemoteNG/pull/3106`
+  - PR-3: `https://github.com/mRemoteNG/mRemoteNG/pull/3107`
+  - PR-4: `https://github.com/mRemoteNG/mRemoteNG/pull/3108`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -147,7 +152,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Create first upstream PR package branch (PR-1 security follow-up) from `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`.
+1. Follow maintainer feedback on upstream draft PRs (`#3105`, `#3106`, `#3107`, `#3108`) and iterate quickly.
 2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
 3. Request maintainer close/relabel actions using `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`.
 
@@ -173,6 +178,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: P3 stale status comments executed for both `In progress` and `In development` issue sets.
 - 2026-02-07: P0 mapping evidence note recorded in `NEXTUP/P0_MAPPING_2026-02-07.md`.
 - 2026-02-07: Posted P0 evidence comments upstream for `#2988` and `#3080`; created maintainer handoff + upstream PR package documents.
+- 2026-02-07: Opened upstream draft PR package set (`#3105`, `#3106`, `#3107`, `#3108`) on dedicated `codex/pr*` branches.
 
 ## Resume Checklist (after reboot)
 

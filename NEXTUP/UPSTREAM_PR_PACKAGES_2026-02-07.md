@@ -1,4 +1,4 @@
-# Upstream PR Packages (Proposed)
+# Upstream PR Packages
 
 Date: 2026-02-07  
 Execution branch: `codex/release-1.79-bootstrap`
@@ -25,6 +25,10 @@ Core files:
 - `mRemoteNG/Config/Import/MRemoteNGXmlImporter.cs`
 - tests under `mRemoteNGTests/Security` and `mRemoteNGTests/Config`
 
+Execution status:
+- branch: `codex/pr1-security-followup`
+- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3105
+
 ## PR-2 Stability Fix: Close-Panel Race (`#3069`) (P5)
 
 Primary commit:
@@ -36,6 +40,10 @@ Core file:
 Notes:
 - if upstream wants minimal diff, cherry-pick only relevant hunk from `c12abbe1`.
 
+Execution status:
+- branch: `codex/pr2-closepanel-stability`
+- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3106
+
 ## PR-3 1Password Parsing and Field Fallback (`#3092`) (P5)
 
 Primary commit:
@@ -44,6 +52,10 @@ Primary commit:
 Core files:
 - `ExternalConnectors/OP/OnePasswordCli.cs`
 - `mRemoteNGTests/ExternalConnectors/OnePasswordCliTests.cs`
+
+Execution status:
+- branch: `codex/pr3-onepassword-3092`
+- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3107
 
 ## PR-4 Default External Credential Provider Handling (`#2972`) (P5)
 
@@ -56,6 +68,10 @@ Core files:
 
 Notes:
 - for clean upstream PR, isolate only protocol changes from this mixed commit.
+
+Execution status:
+- branch: `codex/pr4-default-provider-2972`
+- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3108
 
 ## Excluded From Upstream PRs
 

@@ -439,3 +439,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - Upstream close/relabel permissions are still missing for current account.
 - Local `dotnet test` remains blocked until .NET 10 SDK is present in shell environment.
+
+### Session 21 Addendum
+
+#### Additional Actions
+
+1. Opened upstream draft PR package #1 (security follow-up):
+   - branch: `codex/pr1-security-followup`
+   - PR: https://github.com/mRemoteNG/mRemoteNG/pull/3105
+2. Opened upstream draft PR package #2 (`#3069` close-panel fix):
+   - branch: `codex/pr2-closepanel-stability`
+   - PR: https://github.com/mRemoteNG/mRemoteNG/pull/3106
+3. Opened upstream draft PR package #3 (`#3092` OnePassword fix):
+   - branch: `codex/pr3-onepassword-3092`
+   - PR: https://github.com/mRemoteNG/mRemoteNG/pull/3107
+4. Opened upstream draft PR package #4 (`#2972` default provider fix):
+   - branch: `codex/pr4-default-provider-2972`
+   - PR: https://github.com/mRemoteNG/mRemoteNG/pull/3108
+5. Updated persistent package tracker:
+   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+
+#### Notes
+
+- Each PR branch was created from `upstream/v1.78.2-dev` and intentionally excludes local `NEXTUP/*` files.
+- PRs are currently draft to allow maintainer review flow before final merge intent.
