@@ -26,6 +26,7 @@ Current status (fork execution branch):
 - Integrated PR #3038 content into fork (addresses issue #2989 attack surface).
 - Integrated PR #3054 content into fork (external tool argument escaping hardening).
 - Remaining criticals without upstream fix PR mapping: #2988, #3080.
+- Mapping evidence file created: `NEXTUP/P0_MAPPING_2026-02-07.md`.
 
 Goal:
 - No unresolved critical security risk in fork release branch.
