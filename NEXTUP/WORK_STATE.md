@@ -142,6 +142,11 @@ Phase 2: P0 security integration and critical issue burn-down.
   - PR-4: `https://github.com/mRemoteNG/mRemoteNG/pull/3108`
 - [x] Upstream PRs moved from draft to ready-for-review.
 - [x] CI evidence comments posted on each upstream PR.
+- [x] Upstream PR-5 opened for command-line hardening + external-tools escaping:
+  - PR-5: `https://github.com/mRemoteNG/mRemoteNG/pull/3109`
+- [x] Windows architecture coverage expanded in fork CI/release workflows:
+  - `PR_Validation`: now includes `x86`, `x64`, `ARM64` solution builds
+  - `Build_and_Release_mR-NB`: now includes `x86`, `x64`, `ARM64` artifact builds
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -154,9 +159,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`) and iterate quickly.
+1. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`) and iterate quickly.
 2. Continue P2 deterministic comment batches using `createdAt` script only when new stale items accumulate.
-3. Request maintainer close/relabel actions using `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`.
+3. Validate first CI run with `x86` enabled; then trigger next test/release rehearsal.
 
 ## Decision Log
 
@@ -182,6 +187,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Posted P0 evidence comments upstream for `#2988` and `#3080`; created maintainer handoff + upstream PR package documents.
 - 2026-02-07: Opened upstream draft PR package set (`#3105`, `#3106`, `#3107`, `#3108`) on dedicated `codex/pr*` branches.
 - 2026-02-07: Marked upstream package PRs as ready for review and posted CI evidence comments on each PR.
+- 2026-02-07: Opened upstream PR `#3109` to unblock `#2989/#3044`; expanded fork workflows to include `x86`.
 
 ## Resume Checklist (after reboot)
 

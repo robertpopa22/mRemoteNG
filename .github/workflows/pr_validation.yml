@@ -25,6 +25,8 @@ jobs:
       matrix:
         include:
           - runner: windows-latest
+            platform: x86
+          - runner: windows-latest
             platform: x64
           - runner: windows-11-arm
             platform: ARM64
@@ -49,8 +51,14 @@ jobs:
           msbuild "$env:GITHUB_WORKSPACE\mRemoteNG.sln" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=${{ matrix.platform }}
 
   build-tests:
-    name: Build tests and specs (x64)
+    name: Build tests and specs (${{ matrix.platform }})
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: x86
+          - platform: x64
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -68,9 +76,9 @@ jobs:
       - name: Build mRemoteNGTests
         shell: pwsh
         run: |
-          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGTests\mRemoteNGTests.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=x64
+          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGTests\mRemoteNGTests.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=${{ matrix.platform }}
 
       - name: Build mRemoteNGSpecs
         shell: pwsh
         run: |
-          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGSpecs\mRemoteNGSpecs.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=x64
+          msbuild "$env:GITHUB_WORKSPACE\mRemoteNGSpecs\mRemoteNGSpecs.csproj" /restore /m /verbosity:minimal -p:Configuration=Release -p:Platform=${{ matrix.platform }}

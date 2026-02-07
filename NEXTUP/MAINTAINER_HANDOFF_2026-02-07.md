@@ -16,6 +16,8 @@ Purpose:
    - https://github.com/mRemoteNG/mRemoteNG/pull/3107
 4. Default external provider fix (`#2972`):
    - https://github.com/mRemoteNG/mRemoteNG/pull/3108
+5. Process.Start hardening + external-tools escaping (`#2989`, `#3044`):
+   - https://github.com/mRemoteNG/mRemoteNG/pull/3109
 
 ## Permission Constraint
 

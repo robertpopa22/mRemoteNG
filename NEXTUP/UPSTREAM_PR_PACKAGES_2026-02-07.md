@@ -77,6 +77,18 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3108
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3108#issuecomment-3865040693
 
+## PR-5 Command-Line Hardening + External Tool Escaping (`#2989`, `#3044`)
+
+Scope:
+- Process.Start invocation hardening.
+- AnyDesk validation tests.
+- external-tools argument escaping fixes for comma/semicolon in credentials.
+
+Execution status:
+- branch: `codex/pr5-commandline-security`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3109
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3109#issuecomment-3865049494
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -87,9 +99,10 @@ Execution status:
 ## Recommended Merge Order
 
 1. PR-1 (security)
-2. PR-2 (close-panel stability)
-3. PR-3 (1Password regression)
-4. PR-4 (default external provider handling)
+2. PR-5 (command-line/process hardening + external-tools escaping)
+3. PR-2 (close-panel stability)
+4. PR-3 (1Password regression)
+5. PR-4 (default external provider handling)
 
 ## Operational Guidance
 

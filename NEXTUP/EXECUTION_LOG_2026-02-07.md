@@ -485,3 +485,27 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 - Fork release branch CI remains green:
   - run: `21783991656`
   - result: `success`
+
+### Session 23 Addendum
+
+#### Additional Actions
+
+1. Opened upstream PR-5 to unblock command-line/security backlog:
+   - PR: https://github.com/mRemoteNG/mRemoteNG/pull/3109
+   - scope: Process.Start hardening + external-tools escaping + tests (`#2989`, `#3044`)
+2. Posted issue update links for active bugs with mapped upstream PRs:
+   - `#2972` -> `#3108`
+   - `#3069` -> `#3106`
+   - `#3092` -> `#3107`
+   - `#2989`, `#3044` -> `#3109`
+3. Expanded architecture coverage for fork workflows:
+   - `PR_Validation` now builds solution for `x86`, `x64`, `ARM64`
+   - `PR_Validation` now builds tests/specs for `x86` and `x64`
+   - `Build_and_Release_mR-NB` now includes `x86` artifacts in matrix
+4. Hardened release matrix execution:
+   - added `actions/setup-dotnet@v5` (`10.0.x`) in release workflow
+   - added `max-parallel: 1` in release matrix to reduce release tag race risk
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel actions are still permission-gated for maintainer roles.

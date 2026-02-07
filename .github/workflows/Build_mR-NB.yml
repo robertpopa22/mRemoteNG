@@ -17,8 +17,12 @@ permissions:
 jobs:
   NB-Build-and-Release:
     strategy:
+      max-parallel: 1
       matrix:
         include:
+          - runner: windows-latest
+            platform: x86
+            arch: x86
           - runner: windows-latest
             platform: x64
             arch: x64
@@ -36,13 +40,18 @@ jobs:
     steps:
       - name: (01) Checkout Repository
         uses: actions/checkout@v6
+
+      - name: (02) Setup dotnet
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
         
-      - name: (02) Setup MSBuild
+      - name: (03) Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
           vs-version: '17.14.12'
           
-      - name: (03) Install and run dotnet-t4 to transform T4 templates
+      - name: (04) Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
         run: |
           dotnet tool install --global dotnet-t4
@@ -56,7 +65,7 @@ jobs:
         env:
           PLATFORM: '${{ matrix.platform }}'
   
-      - name: (04) Cache NuGet Packages
+      - name: (05) Cache NuGet Packages
         uses: actions/cache@v5
         with:
           path: ~/.nuget/packages
@@ -64,16 +73,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-nuget-
             
-      - name: (05) Restore NuGet Packages
+      - name: (06) Restore NuGet Packages
         shell: pwsh
         run: dotnet restore
         
-      - name: (06) Build Release
+      - name: (07) Build Release
         shell: pwsh
         run: |
           msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=${{ matrix.platform }} /verbosity:minimal
         
-      - name: (07) Release Information
+      - name: (08) Release Information
         id: version
         shell: pwsh
         run: |
@@ -96,7 +105,7 @@ jobs:
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
           $version = "${{ steps.version.outputs.version }}"
 
-      - name: (08) Extract Changelog Section
+      - name: (09) Extract Changelog Section
         id: changelog
         shell: pwsh
         run: |
@@ -130,14 +139,14 @@ jobs:
       
           echo "log=$escaped"
                 
-      - name: (09) Create Zip File
+      - name: (10) Create Zip File
         shell: pwsh
         run: |
           $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release"
           Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
           echo "File: ${{ steps.version.outputs.zipname }}"
 
-      - name: (10) Create release
+      - name: (11) Create release
         id: create_release
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
         env:
