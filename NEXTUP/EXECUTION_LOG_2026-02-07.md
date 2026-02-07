@@ -621,3 +621,35 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active CI blocker on release branch.
 - Next gating dependency is upstream review/feedback on open PR package set (`#3105`-`#3110`).
+
+### Session 28 Addendum
+
+#### Additional Actions
+
+1. Re-ran backlog snapshot tooling:
+   - script: `NEXTUP/scripts/refresh-p1-p5.ps1`
+2. Executed targeted P2 stale sweep comments for remaining `Need 2 check` stale set:
+   - #2624: https://github.com/mRemoteNG/mRemoteNG/issues/2624#issuecomment-3865121773
+   - #2628: https://github.com/mRemoteNG/mRemoteNG/issues/2628#issuecomment-3865121794
+   - #2625: https://github.com/mRemoteNG/mRemoteNG/issues/2625#issuecomment-3865121813
+   - #2642: https://github.com/mRemoteNG/mRemoteNG/issues/2642#issuecomment-3865121837
+   - #2655: https://github.com/mRemoteNG/mRemoteNG/issues/2655#issuecomment-3865121853
+   - #2659: https://github.com/mRemoteNG/mRemoteNG/issues/2659#issuecomment-3865121870
+3. Recorded additional deterministic refresh evidence:
+   - #274: https://github.com/mRemoteNG/mRemoteNG/issues/274#issuecomment-3865120650
+   - #290: https://github.com/mRemoteNG/mRemoteNG/issues/290#issuecomment-3865120664
+   - #370: https://github.com/mRemoteNG/mRemoteNG/issues/370#issuecomment-3865120687
+   - #420: https://github.com/mRemoteNG/mRemoteNG/issues/420#issuecomment-3865120707
+   - #516: https://github.com/mRemoteNG/mRemoteNG/issues/516#issuecomment-3865120727
+   - #520: https://github.com/mRemoteNG/mRemoteNG/issues/520#issuecomment-3865120750
+4. Regenerated snapshot confirms:
+   - `P2 need2check stale (>365d): 0`
+   - source report: `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
+5. Updated persistent triage evidence:
+   - `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+   - `NEXTUP/WORK_STATE.md`
+
+#### Current Open Technical Blocker
+
+- No active technical blocker on fork execution branch.
+- Remaining limitations are upstream permissions (closing/relabeling issues) and maintainer review cycle.

@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 22)  
+Last updated: 2026-02-07 (session 23)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -114,6 +114,12 @@ Phase 2: P0 security integration and critical issue burn-down.
   - additional refresh comments posted to accelerate stale backlog cleanup
   - initial overlap discovered when sorting by `updatedAt`; script corrected to deterministic `createdAt` ordering
   - evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- [x] P2 stale sweep finalized:
+  - additional targeted refresh comments posted for residual stale `Need 2 check` items
+  - regenerated snapshot now shows `P2 need2check stale (>365d): 0`
+  - evidence:
+    - `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+    - `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
 - [x] P5 fix candidate #2972 implemented and CI-validated:
   - files:
     - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
@@ -233,6 +239,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Confirmed full PR validation pass with x86 enabled (`21785039669`).
 - 2026-02-07: Added explicit SqlClient SNI runtime references and opened upstream PR `#3110` for `#3005`.
 - 2026-02-07: Confirmed branch-head CI green after PR-6 state/doc updates (`21785223094`).
+- 2026-02-07: Drove `Need 2 check` stale bucket to zero (`P2 stale >365d = 0`) via targeted comment sweep and snapshot refresh.
 
 ## Resume Checklist (after reboot)
 

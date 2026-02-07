@@ -137,3 +137,31 @@ Result:
 1. Keep `createdAt`-sorted script for future P2 refresh waves (avoid `updatedAt` overlap).
 2. Close/relabel actions require maintainer permissions; use `NEXTUP/MAINTAINER_HANDOFF_2026-02-07.md`.
 3. Continue upstream PR packaging using `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`.
+
+## P2 Need-2-Check (Final stale sweep to zero)
+
+Objective:
+- clear remaining `Need 2 check` issues with `updatedAt < 2025-02-07` from stale bucket.
+
+Actions taken:
+
+Initial refresh links:
+1. #274 - https://github.com/mRemoteNG/mRemoteNG/issues/274#issuecomment-3865120650
+2. #290 - https://github.com/mRemoteNG/mRemoteNG/issues/290#issuecomment-3865120664
+3. #370 - https://github.com/mRemoteNG/mRemoteNG/issues/370#issuecomment-3865120687
+4. #420 - https://github.com/mRemoteNG/mRemoteNG/issues/420#issuecomment-3865120707
+5. #516 - https://github.com/mRemoteNG/mRemoteNG/issues/516#issuecomment-3865120727
+6. #520 - https://github.com/mRemoteNG/mRemoteNG/issues/520#issuecomment-3865120750
+
+Targeted stale residual links:
+1. #2624 - https://github.com/mRemoteNG/mRemoteNG/issues/2624#issuecomment-3865121773
+2. #2628 - https://github.com/mRemoteNG/mRemoteNG/issues/2628#issuecomment-3865121794
+3. #2625 - https://github.com/mRemoteNG/mRemoteNG/issues/2625#issuecomment-3865121813
+4. #2642 - https://github.com/mRemoteNG/mRemoteNG/issues/2642#issuecomment-3865121837
+5. #2655 - https://github.com/mRemoteNG/mRemoteNG/issues/2655#issuecomment-3865121853
+6. #2659 - https://github.com/mRemoteNG/mRemoteNG/issues/2659#issuecomment-3865121870
+
+Result:
+- Regenerated package snapshot confirms:
+  - `P2 need2check stale (>365d): 0`
+  - source report: `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
