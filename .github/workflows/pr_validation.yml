@@ -24,9 +24,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: windows-latest
+          - runner: windows-2025-vs2026
             platform: x86
-          - runner: windows-latest
+          - runner: windows-2025-vs2026
             platform: x64
           - runner: windows-11-arm
             platform: ARM64
@@ -43,7 +43,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: "17.14.12"
+          vs-version: "[18.0,19.0)"
 
       - name: Build solution
         shell: pwsh
@@ -52,7 +52,7 @@ jobs:
 
   build-tests:
     name: Build tests and specs (${{ matrix.platform }})
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     strategy:
       fail-fast: false
       matrix:
@@ -71,7 +71,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: "17.14.12"
+          vs-version: "[18.0,19.0)"
 
       - name: Build mRemoteNGTests
         shell: pwsh
