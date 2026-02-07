@@ -27,7 +27,8 @@ Core files:
 
 Execution status:
 - branch: `codex/pr1-security-followup`
-- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3105
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3105
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3105#issuecomment-3865040700
 
 ## PR-2 Stability Fix: Close-Panel Race (`#3069`) (P5)
 
@@ -42,7 +43,8 @@ Notes:
 
 Execution status:
 - branch: `codex/pr2-closepanel-stability`
-- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3106
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3106
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3106#issuecomment-3865040687
 
 ## PR-3 1Password Parsing and Field Fallback (`#3092`) (P5)
 
@@ -55,7 +57,8 @@ Core files:
 
 Execution status:
 - branch: `codex/pr3-onepassword-3092`
-- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3107
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3107
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3107#issuecomment-3865040688
 
 ## PR-4 Default External Credential Provider Handling (`#2972`) (P5)
 
@@ -71,7 +74,8 @@ Notes:
 
 Execution status:
 - branch: `codex/pr4-default-provider-2972`
-- upstream draft PR: https://github.com/mRemoteNG/mRemoteNG/pull/3108
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3108
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3108#issuecomment-3865040693
 
 ## Excluded From Upstream PRs
 

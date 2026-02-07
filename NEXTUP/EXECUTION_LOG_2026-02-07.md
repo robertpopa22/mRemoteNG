@@ -463,3 +463,25 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - Each PR branch was created from `upstream/v1.78.2-dev` and intentionally excludes local `NEXTUP/*` files.
 - PRs are currently draft to allow maintainer review flow before final merge intent.
+
+### Session 22 Addendum
+
+#### Additional Actions
+
+1. Moved upstream package PRs from draft to ready-for-review:
+   - `#3105`, `#3106`, `#3107`, `#3108`
+2. Investigated missing CI checks on upstream PR branches:
+   - confirmed `pr_validation.yml` does not exist on `codex/pr*` branches (these branches are intentionally minimal and based on `v1.78.2-dev`).
+3. Posted validation evidence comments on all 4 upstream PRs with equivalent green CI runs from fork release branch:
+   - `#3105`: https://github.com/mRemoteNG/mRemoteNG/pull/3105#issuecomment-3865040700
+   - `#3106`: https://github.com/mRemoteNG/mRemoteNG/pull/3106#issuecomment-3865040687
+   - `#3107`: https://github.com/mRemoteNG/mRemoteNG/pull/3107#issuecomment-3865040688
+   - `#3108`: https://github.com/mRemoteNG/mRemoteNG/pull/3108#issuecomment-3865040693
+4. Updated package tracker with current status:
+   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+
+#### Validation Status
+
+- Fork release branch CI remains green:
+  - run: `21783991656`
+  - result: `success`
