@@ -126,6 +126,8 @@ Current status (fork execution branch):
   - `mRemoteNG/Config/DataProviders/SqlDataProvider.cs`
   - `mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs`
   - `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3111`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:

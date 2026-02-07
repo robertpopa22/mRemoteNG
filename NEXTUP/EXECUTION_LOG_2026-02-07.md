@@ -790,3 +790,20 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Upstream close/relabel permissions remain maintainer-gated for final backlog state transitions.
+
+### Session 35 Addendum
+
+#### Additional Actions
+
+1. Opened upstream PR-7 for SQL schema compatibility hardening:
+   - branch: `codex/pr7-sql-schema-compat-1916`
+   - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3111`
+   - commit: `ed9ac050`
+2. PR-7 CI evidence comment posted:
+   - `https://github.com/mRemoteNG/mRemoteNG/pull/3111#issuecomment-3865236823`
+3. Updated upstream package tracker:
+   - `NEXTUP/UPSTREAM_PR_PACKAGES_2026-02-07.md`
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel permissions remain maintainer-gated for final backlog state transitions.

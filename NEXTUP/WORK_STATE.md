@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 33)  
+Last updated: 2026-02-07 (session 35)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -233,21 +233,24 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `#1916`: `https://github.com/mRemoteNG/mRemoteNG/issues/1916#issuecomment-3865218242`
     - `#1883`: `https://github.com/mRemoteNG/mRemoteNG/issues/1883#issuecomment-3865226419`
     - `#2290`: `https://github.com/mRemoteNG/mRemoteNG/issues/2290#issuecomment-3865226895`
+- [x] Upstream PR-7 opened for SQL schema compatibility hardening:
+  - branch: `codex/pr7-sql-schema-compat-1916`
+  - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3111`
+  - CI evidence comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3111#issuecomment-3865236823`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
 
-- Local validation blocker in this environment:
-  - local SDK is `.NET 9.0.310`, while repo targets `net10.0-windows10.0.26100.0`.
-  - `dotnet test` fails with `NETSDK1045` unless .NET 10 SDK is installed in the shell image.
+- Local `dotnet test` via .NET SDK 10 is available through `D:\github\LOCAL\env.cmd`, but this solution still needs full Framework MSBuild for COMReference paths (`MSB4803` on .NET Core MSBuild path).
 - Current release workflow is often skipped on regular pushes (trigger condition dependency).
 - High warning volume remains (nullable/platform analyzer warnings), though baseline CI previously passed.
 
 ## Immediate Next Actions
 
-1. Push SQL compatibility patchset and validate `PR_Validation` CI on `x86/x64/ARM64`.
-2. Post upstream cross-link/evidence comment for issue `#1916` if CI is green.
-3. Continue P5 stabilization by selecting the next fixable non-security regression candidate.
+1. Track upstream feedback on PR-7 (`#3111`) and fast-follow any review fixes.
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#822` startup keyfile handling or `#850` config panel width persistence).
+3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
 
 ## Decision Log
 

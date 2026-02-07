@@ -106,6 +106,25 @@ Execution status:
 - issue link comment: https://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3865102490
 - CI evidence (fork): https://github.com/robertpopa22/mRemoteNG/actions/runs/21785156992
 
+## PR-7 SQL Schema Compatibility Hardening (`#1916`, `#1883`)
+
+Scope:
+- resilient SQL schema handling for empty and partially outdated `tblCons` schemas.
+
+Primary commit:
+- `ed9ac050`
+
+Core files:
+- `mRemoteNG/Config/DataProviders/SqlDataProvider.cs`
+- `mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs`
+- `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
+
+Execution status:
+- branch: `codex/pr7-sql-schema-compat-1916`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3111
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3111#issuecomment-3865236823
+- fork CI evidence: https://github.com/robertpopa22/mRemoteNG/actions/runs/21786116643
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -121,6 +140,7 @@ Execution status:
 4. PR-3 (1Password regression)
 5. PR-4 (default external provider handling)
 6. PR-6 (SQL Server SNI runtime packaging)
+7. PR-7 (SQL schema compatibility hardening)
 
 ## Operational Guidance
 
