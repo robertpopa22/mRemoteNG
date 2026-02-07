@@ -93,3 +93,28 @@ Issues updated:
 ## Updated Consolidated Status
 
 - P4 comments posted today: 36 issues (3 batches x 12).
+
+## Exhaustion Sweep (stateful full pass)
+
+Command used:
+
+`pwsh -File NEXTUP/scripts/run-p4-to-exhaustion.ps1 -Repo mRemoteNG/mRemoteNG -Take 50 -MinDaysSinceUpdate 0 -SortBy createdAt -MaxRounds 10 -Comment`
+
+Automation updates:
+
+- `NEXTUP/scripts/comment-p4-version-debt-batch.ps1` now supports local idempotent state:
+  - `-StateFile`
+  - `-IgnoreState`
+  - `-ResetState`
+- `NEXTUP/scripts/run-p4-to-exhaustion.ps1` added for repeated deterministic waves until no candidates remain.
+
+Stateful execution result:
+
+- processed IDs tracked in: `NEXTUP/p4_state_processed.txt`
+- tracked/commented issues in state file: `328`
+- final runner output: `No version-debt issues found ... DONE after 7 rounds`
+
+Outcome:
+
+- All current P4 candidates in the deterministic selection scope were comment-triaged.
+- Remaining open count in upstream snapshot is unchanged until maintainer relabel/close actions are applied.

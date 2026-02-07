@@ -45,36 +45,36 @@ Cutoff for stale triage: 2025-02-07
 
 ## P5 - Release stabilization candidates
 
-- #1936 - MSSQL - Bug with empty username/password | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1936
-- #2175 - Focus Remote Session When Mouse is over RDP Area | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2175
-- #1934 - MySQL latest Dev Branch Concurrency Error | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1934
-- #2171 - Config / Connections Tabs not saving positions | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2171
-- #2166 - Crashes / Tab Issues When Idling and Resized | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2166
-- #398 - mRemoteNG to front | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/398
-- #2163 - mRemoteNG crashes if panel containing connection(s) is closed | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2163
-- #2562 - Import .xml from Remote Desktop Manager (RDM) | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2562
-- #2561 - External Tools Request | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2561
-- #2664 - Windows 11 24h2, RDP no longer works on mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2664
-- #1262 - Use native OpenSSH client on newer Windows 10 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1262
-- #2160 - Closing the last tab in a panel does not close the panel | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2160
-- #2161 - Tab bar no longer scrolls when dragging tab in the case of tab strip overflow. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2161
-- #2636 - is it possible to view the password on saved connections? Thanks | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2636
-- #2557 - XmingPortablePuttySessions.Watcher.StartWatching() failed: 'sessions' does not exist. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2557
-- #2320 - add default password for each protocol - particularly windows and putty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2320
-- #1826 - Copy & Paste not working in RDP Sessions | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1826
-- #2625 - Not able to RDP to servers if I disconnect and move to another machine and reconnect to the same session | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2625
-- #420 - Feature Request: PROXY support for RDP connections | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/420
-- #290 - Focus issue in PuTTYNG session after switching tabs | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/290
-- #274 - Cannot connect to TightVNC Server When Unauthenticated  | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/274
-- #3005 - SQL Server Connection - mRemoteNG 1.78.2 NB 3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3005
-- #2989 - Possible command injection via Process.Start - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2989
-- #3092 - 1Password integration doesn't fetch username and password for RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3092
-- #2972 - 1password integration doesn't work from credentials inside options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2972
+- #850 - Config panel column width NOT remembered between minimize/maximize action | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/850
+- #1916 - MySQL error Missing the DataColumn 'DisableCursorBlinking' | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1916
+- #847 - RDP fullscreen and redirect keys | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/847
 - #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
-- #3069 - Exeption occurred on closing panel with connections inside | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3069
-- #3080 - LDAP query injection may lead to data exposure - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3080
-- #2988 - Object deserialize can lead to remote code execution - mRemoteNG | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2988
-- #2017 - mRemoteNG closes sometimes when trying to establish RDP connection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2017
+- #1650 - Application automatically goes to background in various scenarios | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1650
+- #1649 - When a master password is defined, mRemoteNG may be lock after a while or when minimized | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1649
+- #290 - Focus issue in PuTTYNG session after switching tabs | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/290
+- #822 - mRemoteNG doesn't start if keyfile not available | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/822
+- #274 - Cannot connect to TightVNC Server When Unauthenticated  | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/274
+- #811 - Error during startup System.Xml.XmlException | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/811
+- #1640 - Password protection | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1640
+- #251 - Add global SmartSize option for RDP/VNC | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/251
+- #2653 - RDP clipboard not working with Server 2025 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2653
+- #3005 - SQL Server Connection - mRemoteNG 1.78.2 NB 3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3005
+- #2651 - [Feature Request] Improved SSH Reconnect Experience | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2651
+- #2987 - Where is user.config in mR 1.78.2 NB 3228? | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2987
+- #1634 - Expose protocol as variable for external tools | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1634
+- #1883 - Error when saving to SQL | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1883
+- #192 - RDP using multiple monitors | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/192
+- #2510 - COM object that has been separated from its underlying RCW cannot be used. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2510
+- #2509 - Opening Command pass password option | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2509
+- #2907 - mRemoteNG frequently freezes when opening and closing Options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2907
+- #2899 - mRemoteNg 1.76.20.24615 cannot use MySQL DB 9.4 as connexion storage backend ? | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2899
+- #738 - Feature Request: registry key for disabling saving passwords | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/738
+- #1137 - export and import with encryption | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1137
+- #1127 - Middle-clicking panel tab to close specific panel closes all open panels | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1127
+- #2880 - New color options return error Property value is not valid | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2880
+- #2500 - Errors with MySQL database - Version Testing | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2500
+- #2492 - SSH tunneling option is not shown in v1.76.20 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2492
+- #2290 - mysql db problem - new item creation impossible | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2290
 
 ## Next Moves
 

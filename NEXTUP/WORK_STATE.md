@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 23)  
+Last updated: 2026-02-07 (session 33)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -209,6 +209,23 @@ Phase 2: P0 security integration and critical issue burn-down.
   - validation:
     - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
     - result: `success` (`x86`, `x64`, `ARM64`)
+- [x] P4 version-label debt comment triage exhausted (stateful):
+  - script updates:
+    - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
+    - `NEXTUP/scripts/run-p4-to-exhaustion.ps1`
+  - state file:
+    - `NEXTUP/p4_state_processed.txt` (`328` processed issue IDs)
+  - runner terminal state:
+    - `No version-debt issues found ... DONE after 7 rounds`
+- [x] SQL provider/serializer compatibility hardening for legacy DB schemas (issue `#1916` candidate):
+  - files:
+    - `mRemoteNG/Config/DataProviders/SqlDataProvider.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs`
+    - `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
+  - change:
+    - always load SQL reader schema even when `tblCons` has 0 rows
+    - auto-add missing serializer columns when source SQL schema is partial/outdated
+    - add regression test for missing-column source schema
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -221,9 +238,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Execute next deterministic P4 batches with `comment-p4-version-debt-batch.ps1` and log evidence.
-2. Continue P5 stabilization by selecting the next fixable tab/panel regression candidate.
-3. Follow maintainer feedback on upstream PRs (`#3105`, `#3106`, `#3107`, `#3108`, `#3109`, `#3110`) and iterate quickly.
+1. Push SQL compatibility patchset and validate `PR_Validation` CI on `x86/x64/ARM64`.
+2. Post upstream cross-link/evidence comment for issue `#1916` if CI is green.
+3. Continue P5 stabilization by selecting the next fixable non-security regression candidate.
 
 ## Decision Log
 

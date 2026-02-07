@@ -102,7 +102,11 @@ Goal:
 Current status (2026-02-07 execution):
 - added deterministic batch triage script:
   - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
-- executed three P4 comment waves (36 issues total) with retest + relabel guidance.
+- added exhaustion runner:
+  - `NEXTUP/scripts/run-p4-to-exhaustion.ps1`
+- executed stateful P4 waves to exhaustion:
+  - `328` issues comment-triaged (tracked in `NEXTUP/p4_state_processed.txt`)
+  - runner reached terminal state (`No version-debt issues found`)
 - evidence:
   - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
 

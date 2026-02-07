@@ -727,3 +727,42 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No active CI blocker.
 - Upstream close/relabel operations remain permission-gated.
+
+### Session 32 Addendum
+
+#### Additional Actions
+
+1. Extended P4 triage automation with idempotent state support:
+   - updated `NEXTUP/scripts/comment-p4-version-debt-batch.ps1` with:
+     - `-StateFile`, `-IgnoreState`, `-ResetState`
+2. Added exhaustion runner:
+   - `NEXTUP/scripts/run-p4-to-exhaustion.ps1`
+3. Seeded/used state tracking file:
+   - `NEXTUP/p4_state_processed.txt`
+4. Executed P4 waves to terminal state:
+   - runner output ended with `No version-debt issues found ... DONE after 7 rounds`
+   - processed/commented issue IDs tracked in state file: `328`
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel operations remain permission-gated.
+
+### Session 33 Addendum
+
+#### Additional Actions
+
+1. Implemented SQL schema compatibility hardening for issue `#1916` candidate:
+   - `mRemoteNG/Config/DataProviders/SqlDataProvider.cs`
+     - always load SQL reader into `DataTable` so schema is available even when `tblCons` has zero rows.
+   - `mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs`
+     - added schema compatibility pass to inject missing serializer-required columns into partially outdated source schemas.
+2. Added regression test:
+   - `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
+   - verifies missing columns are added when source SQL schema is incomplete.
+3. Local validation attempt:
+   - `dotnet test mRemoteNGTests\mRemoteNGTests.csproj -c Release -p:Platform=x64 --filter DataTableSerializerTests --no-restore`
+   - environment outcome: blocked by `MSB4803` (`ResolveComReference` unsupported on .NET Core MSBuild path).
+
+#### Current Open Technical Blocker
+
+- Need CI run for definitive validation of session 33 SQL compatibility patchset.
