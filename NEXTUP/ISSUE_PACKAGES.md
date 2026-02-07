@@ -84,6 +84,10 @@ Scope:
 Goal:
 - Curate minimal risk fixset for `v1.79.0`.
 
+Current status (fork execution branch):
+- #3069: implemented and CI-validated (`mRemoteNG/UI/Window/ConnectionWindow.cs`).
+- #3092: implemented (pending CI) with 1Password parser/field extraction hardening (`ExternalConnectors/OP/OnePasswordCli.cs`).
+
 ## Practical Execution Order
 
 1. P0 Security Critical

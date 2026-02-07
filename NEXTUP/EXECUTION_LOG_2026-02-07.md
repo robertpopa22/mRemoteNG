@@ -238,3 +238,35 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 
 - No CI blocker for P0/P5 patchsets.
 - Remaining work is triage/execution for P1 and P2 batches.
+
+### Session 12 Addendum
+
+#### Additional Actions
+
+1. Implemented P5 fix candidate for issue #3092 (1Password read failure):
+   - `ExternalConnectors/OP/OnePasswordCli.cs`
+2. Changes included:
+   - replaced strict `Uri` parsing with a dedicated `op://` parser that accepts unescaped spaces in vault/item names.
+   - added validation and explicit `OnePasswordCliException` errors for malformed references.
+   - improved field extraction to support `CONCEALED` password fields and ignore empty purpose-matched values before label/id fallback.
+3. Added targeted regression tests:
+   - `mRemoteNGTests/ExternalConnectors/OnePasswordCliTests.cs`
+   - coverage for:
+     - unescaped-space references
+     - vaultless references
+     - encoded references + account query parsing
+     - malformed reference rejection
+     - concealed field fallback extraction behavior
+
+#### Validation Attempt + Blocker
+
+1. Local targeted test run attempted:
+   - `dotnet test mRemoteNGTests\mRemoteNGTests.csproj -c Release -p:Platform=x64 --filter OnePasswordCliTests`
+2. Local environment blocker:
+   - only .NET SDK `9.0.310` is installed in this shell image.
+   - solution targets `net10.0-windows10.0.26100.0`.
+   - error: `NETSDK1045` (SDK does not support targeting .NET 10.0).
+
+#### Current Open Technical Blocker
+
+- CI validation for this patchset is still pending push (local toolchain is below target SDK level).
