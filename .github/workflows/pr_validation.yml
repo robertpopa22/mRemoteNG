@@ -43,7 +43,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: "[18.0,19.0)"
+          vs-version: ${{ matrix.platform == 'ARM64' && '17.14.12' || '[18.0,19.0)' }}
 
       - name: Build solution
         shell: pwsh
