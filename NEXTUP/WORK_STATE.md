@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 10)  
+Last updated: 2026-02-07 (session 11)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -85,10 +85,11 @@ Phase 2: P0 security integration and critical issue burn-down.
   - script: `NEXTUP/scripts/refresh-p1-p5.ps1`
   - report: `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
   - JSON artifacts: `D:\github\LOCAL\analysis\mRemoteNG\packages\*.json`
-- [ ] P5 fix candidate #3069 implemented locally, pending CI confirmation:
+- [x] P5 fix candidate #3069 implemented and CI-validated:
   - file: `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - hardening: dispose-safe + thread-safe tab close callback in `Prot_Event_Closed`
   - reconnect path simplified to avoid redundant `Invoke`.
+  - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21782034958`
 - [ ] P0 issue closure workflow still pending (issue comments/closure + mapping notes).
 
 ## Blockers
@@ -102,8 +103,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Create mapping evidence note: upstream issue -> fork commit(s) for `#2988/#2989/#3080`.
-2. Push and validate P5 fix candidate for issue `#3069`.
-3. Start duplicate cleanup package P1 (6 currently open).
+2. Start duplicate cleanup package P1 (6 currently open).
+3. Start P2 batch-1 triage workflow (25 oldest stale Need 2 check).
 4. Open upstream-ready PR draft for P0 + P5 patchset split.
 
 ## Decision Log
@@ -118,6 +119,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Implemented additional fork-side P0 hardening for LDAP path validation and import-missing-file guardrails; awaiting environment-compatible full validation.
 - 2026-02-07: P0 hardening patchset is now CI-green on fork after one follow-up fix for missing test import (`using System`).
 - 2026-02-07: P1-P5 triage baseline is now generated automatically and versioned in `NEXTUP`.
+- 2026-02-07: P5 close-panel crash candidate (#3069) implemented and validated green in CI.
 
 ## Resume Checklist (after reboot)
 

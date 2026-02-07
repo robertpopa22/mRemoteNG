@@ -222,3 +222,19 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Pending CI verification for the #3069 candidate patch.
+
+### Session 11 Addendum
+
+#### Additional Actions
+
+1. Pushed P1-P5 snapshot + P5 close-panel fix bundle:
+   - commit `c12abbe1` (`p1-p5-snapshot-and-p5-closepanel-fix`)
+2. Validated workflow end-to-end:
+   - Run ID: `21782034958`
+   - URL: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21782034958`
+   - Jobs: all succeeded (`tests/specs x64`, `solution x64`, `solution ARM64`)
+
+#### Current Open Technical Blocker
+
+- No CI blocker for P0/P5 patchsets.
+- Remaining work is triage/execution for P1 and P2 batches.
