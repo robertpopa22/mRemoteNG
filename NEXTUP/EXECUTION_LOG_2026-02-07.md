@@ -807,3 +807,32 @@ Open `NEXTUP/WORK_STATE.md` and execute `Immediate Next Actions` item 1.
 #### Current Open Technical Blocker
 
 - Upstream close/relabel permissions remain maintainer-gated for final backlog state transitions.
+
+### Session 36 Addendum
+
+#### Additional Actions
+
+1. Implemented P5 fix candidate for issue `#850` (config panel width reset on minimize/maximize):
+   - file: `mRemoteNG/UI/Window/ConfigWindow.cs`
+   - change:
+     - cache and reapply Config `PropertyGrid` label/value splitter width across minimize/maximize and resize/layout cycles
+     - reflection-based fallback handling for WinForms internal splitter APIs
+2. Pushed release-branch commits:
+   - `77101215` (`fix-config-panel-splitter-width-reset-850`)
+   - `560b69de` (`fix-ambiguous-methodinvoker-in-configwindow`)
+3. CI validation sequence:
+   - first run failed due `MethodInvoker` ambiguity (`System.Windows.Forms` vs `System.Reflection`):
+     - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21786875163`
+   - follow-up fix applied and rerun green:
+     - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21786942297`
+     - result: `success` (`x86`, `x64`, `ARM64`, tests/specs)
+4. Opened upstream PR-8 package:
+   - branch: `codex/pr8-configpanel-splitter-850`
+   - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3112`
+5. Posted upstream cross-links:
+   - issue `#850` update: `https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466`
+   - PR CI evidence comment: `https://github.com/mRemoteNG/mRemoteNG/pull/3112#issuecomment-3865499667`
+
+#### Current Open Technical Blocker
+
+- Upstream close/relabel permissions remain maintainer-gated for final backlog state transitions.

@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 35)  
+Last updated: 2026-02-07 (session 36)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -238,6 +238,19 @@ Phase 2: P0 security integration and critical issue burn-down.
   - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3111`
   - CI evidence comment:
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3111#issuecomment-3865236823`
+- [x] P5 fix candidate #850 implemented and CI-validated:
+  - file:
+    - `mRemoteNG/UI/Window/ConfigWindow.cs`
+  - change:
+    - preserve Config PropertyGrid label/value splitter width across minimize/maximize and resize layout cycles
+    - runtime-safe reflection fallback for WinForms internal splitter APIs
+  - CI validation:
+    - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21786942297`
+    - result: `success` (`x86`, `x64`, `ARM64`)
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3112`
+  - upstream issue update:
+    - `#850`: `https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -248,8 +261,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7 (`#3111`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#822` startup keyfile handling or `#850` config panel width persistence).
+1. Track upstream feedback on PR-7/PR-8 (`#3111`, `#3112`) and fast-follow any review fixes.
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#822` startup keyfile handling).
 3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
 
 ## Decision Log
@@ -287,6 +300,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-07: Extended P4 version-label debt triage to 36 commented issues across three deterministic batches.
 - 2026-02-07: Implemented panel auto-close follow-up when the last connection tab is closed.
 - 2026-02-07: Validated panel auto-close follow-up in CI (`21785604947`) with full `x86/x64/ARM64` matrix green.
+- 2026-02-07: Implemented #850 Config PropertyGrid splitter persistence across minimize/maximize and validated CI green (`21786942297`).
+- 2026-02-07: Opened upstream PR `#3112` for #850 and posted issue/CI cross-links.
 
 ## Resume Checklist (after reboot)
 

@@ -128,6 +128,12 @@ Current status (fork execution branch):
   - `mRemoteNGTests/Config/Serializers/DataTableSerializerTests.cs`
   - upstream PR:
     - `https://github.com/mRemoteNG/mRemoteNG/pull/3111`
+- #850 config panel splitter persistence implemented and CI-validated (`https://github.com/robertpopa22/mRemoteNG/actions/runs/21786942297`):
+  - `mRemoteNG/UI/Window/ConfigWindow.cs`
+  - upstream PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3112`
+  - upstream issue update:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:

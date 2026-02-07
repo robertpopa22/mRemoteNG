@@ -125,6 +125,25 @@ Execution status:
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3111#issuecomment-3865236823
 - fork CI evidence: https://github.com/robertpopa22/mRemoteNG/actions/runs/21786116643
 
+## PR-8 Config Panel Splitter Persistence (`#850`)
+
+Scope:
+- preserve Config PropertyGrid splitter width after minimize/maximize and resize layout cycles.
+
+Primary commits:
+- `774fb246`
+- `130db77c`
+
+Core file:
+- `mRemoteNG/UI/Window/ConfigWindow.cs`
+
+Execution status:
+- branch: `codex/pr8-configpanel-splitter-850`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3112
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/850#issuecomment-3865499466
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3112#issuecomment-3865499667
+- fork CI evidence: https://github.com/robertpopa22/mRemoteNG/actions/runs/21786942297
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -141,6 +160,7 @@ Execution status:
 5. PR-4 (default external provider handling)
 6. PR-6 (SQL Server SNI runtime packaging)
 7. PR-7 (SQL schema compatibility hardening)
+8. PR-8 (config panel splitter persistence)
 
 ## Operational Guidance
 
