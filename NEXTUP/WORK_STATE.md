@@ -277,6 +277,12 @@ Phase 2: P0 security integration and critical issue burn-down.
   - fork CI validation:
     - run: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21787440752`
     - result: `success` (`x86`, `x64`, `ARM64`, tests/specs)
+- [x] Stability duplicate-triage follow-up for close-tab crash cluster:
+  - issue `#3062` cross-linked as likely duplicate of `#3069` (same `Prot_Event_Closed` disposed-object call path)
+  - upstream triage comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3865581826`
+  - mapped fix PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3106`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers

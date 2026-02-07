@@ -45,7 +45,14 @@ Cutoff for stale triage: 2025-02-07
 
 ## P5 - Release stabilization candidates
 
+- #1969 - The startup connection file could not be loaded. connectionFilePath cannot be null or empty | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1969
 - #850 - Config panel column width NOT remembered between minimize/maximize action | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/850
+- #2721 - Site Download Page Error | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2721
+- #2785 - PuTTY saved sessions with CJK characters fail to display and connect | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2785
+- #2735 - Lost focus on RDP's in SmartSize mode. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2735
+- #2420 - Public Disclosure of issue 726 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2420
+- #2290 - mysql db problem - new item creation impossible | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2290
+- #1883 - Error when saving to SQL | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1883
 - #1916 - MySQL error Missing the DataColumn 'DisableCursorBlinking' | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1916
 - #847 - RDP fullscreen and redirect keys | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/847
 - #3044 - With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/3044
@@ -62,19 +69,12 @@ Cutoff for stale triage: 2025-02-07
 - #2651 - [Feature Request] Improved SSH Reconnect Experience | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2651
 - #2987 - Where is user.config in mR 1.78.2 NB 3228? | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2987
 - #1634 - Expose protocol as variable for external tools | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1634
-- #1883 - Error when saving to SQL | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1883
 - #192 - RDP using multiple monitors | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/192
 - #2510 - COM object that has been separated from its underlying RCW cannot be used. | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2510
 - #2509 - Opening Command pass password option | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2509
 - #2907 - mRemoteNG frequently freezes when opening and closing Options | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2907
 - #2899 - mRemoteNg 1.76.20.24615 cannot use MySQL DB 9.4 as connexion storage backend ? | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2899
 - #738 - Feature Request: registry key for disabling saving passwords | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/738
-- #1137 - export and import with encryption | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1137
-- #1127 - Middle-clicking panel tab to close specific panel closes all open panels | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/1127
-- #2880 - New color options return error Property value is not valid | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2880
-- #2500 - Errors with MySQL database - Version Testing | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2500
-- #2492 - SSH tunneling option is not shown in v1.76.20 | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2492
-- #2290 - mysql db problem - new item creation impossible | updated 2026-02-07 | https://github.com/mRemoteNG/mRemoteNG/issues/2290
 
 ## Next Moves
 

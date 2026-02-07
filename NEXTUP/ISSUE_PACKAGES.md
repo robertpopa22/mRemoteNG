@@ -145,6 +145,11 @@ Current status (fork execution branch):
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:
     - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21785604947`
+- #3062 triage updated as likely duplicate/alias of #3069 close-path crash:
+  - upstream cross-link comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3865581826`
+  - mapped fix PR:
+    - `https://github.com/mRemoteNG/mRemoteNG/pull/3106`
 - compatibility hardening for older client machines completed:
   - baseline lowered to `windows10.0.19041.0` while staying on `.NET 10`
   - CI-validated:
