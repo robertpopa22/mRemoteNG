@@ -64,4 +64,50 @@ internal class XmlConnectionsLoaderTests
             Assert.That(File.ReadAllText(filePath), Is.EqualTo(ValidConnectionsXml));
         }
     }
+
+    [Test]
+    public void ThrowsWhenNoBackupsExistAndPrimaryIsCorrupt()
+    {
+        using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
+        {
+            File.WriteAllText(filePath, "this is not xml at all");
+
+            XmlConnectionsLoader loader = new(filePath);
+
+            Assert.Throws<XmlException>(() => loader.Load());
+        }
+    }
+
+    [Test]
+    public void ThrowsWhenAllBackupsAreAlsoCorrupt()
+    {
+        using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
+        {
+            File.WriteAllText(filePath, "corrupt primary");
+
+            string backup1 = $"{filePath}.20250207-1100000000.backup";
+            File.WriteAllText(backup1, "corrupt backup 1");
+
+            string backup2 = $"{filePath}.20250207-1200000000.backup";
+            File.WriteAllText(backup2, "corrupt backup 2");
+
+            XmlConnectionsLoader loader = new(filePath);
+
+            Assert.Throws<XmlException>(() => loader.Load());
+        }
+    }
+
+    [Test]
+    public void LoadsSuccessfullyWhenPrimaryFileIsValid()
+    {
+        using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
+        {
+            File.WriteAllText(filePath, ValidConnectionsXml);
+
+            XmlConnectionsLoader loader = new(filePath);
+            var loadedTree = loader.Load();
+
+            Assert.That(loadedTree, Is.Not.Null);
+        }
+    }
 }

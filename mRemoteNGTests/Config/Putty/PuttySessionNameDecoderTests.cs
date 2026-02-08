@@ -39,6 +39,56 @@ public class PuttySessionNameDecoderTests
         Assert.That(decodedName, Is.EqualTo("서버 설치"));
     }
 
+    [Test]
+    public void Decode_ReturnsEmptyStringForNull()
+    {
+        string decodedName = PuttySessionNameDecoder.Decode(null);
+
+        Assert.That(decodedName, Is.EqualTo(string.Empty));
+    }
+
+    [Test]
+    public void Decode_ReturnsEmptyStringForEmptyInput()
+    {
+        string decodedName = PuttySessionNameDecoder.Decode("");
+
+        Assert.That(decodedName, Is.EqualTo(string.Empty));
+    }
+
+    [Test]
+    public void Decode_PreservesPlainAsciiName()
+    {
+        string decodedName = PuttySessionNameDecoder.Decode("Default%20Settings");
+
+        Assert.That(decodedName, Is.EqualTo("Default Settings"));
+    }
+
+    [Test]
+    public void Decode_HandlesTrailingPercentWithoutHexDigits()
+    {
+        string decodedName = PuttySessionNameDecoder.Decode("test%");
+
+        Assert.That(decodedName, Is.EqualTo("test%"));
+    }
+
+    [Test]
+    public void Decode_HandlesMixedAsciiAndCjk()
+    {
+        const string encodedName = "Server-%EC%84%9C%EB%B2%84-01";
+
+        string decodedName = PuttySessionNameDecoder.Decode(encodedName);
+
+        Assert.That(decodedName, Is.EqualTo("Server-서버-01"));
+    }
+
+    [Test]
+    public void Decode_HandlesLowercaseHexDigits()
+    {
+        string decodedName = PuttySessionNameDecoder.Decode("%2f%2e");
+
+        Assert.That(decodedName, Is.EqualTo("/."));
+    }
+
     private static string PercentEncode(string value, Encoding encoding)
     {
         byte[] bytes = encoding.GetBytes(value);

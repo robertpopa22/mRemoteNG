@@ -33,4 +33,38 @@ public class ConnectionsServiceStartupPathTests
             connectionFilePathProperty.SetValue(settingsInstance, originalPath);
         }
     }
+
+    [Test]
+    public void StartupConnectionPathReturnsConfiguredPathWhenSet()
+    {
+        var connectionsService = new ConnectionsService(PuttySessionsManager.Instance);
+        var optionsType = typeof(ConnectionsService).Assembly.GetType("mRemoteNG.Properties.OptionsConnectionsPage", throwOnError: true);
+        var defaultProperty = optionsType!.GetProperty("Default", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        var settingsInstance = defaultProperty!.GetValue(null);
+        var connectionFilePathProperty = optionsType.GetProperty("ConnectionFilePath", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+        var originalPath = (string)connectionFilePathProperty!.GetValue(settingsInstance);
+        try
+        {
+            const string customPath = @"C:\MyConnections\custom.xml";
+            connectionFilePathProperty.SetValue(settingsInstance, customPath);
+
+            var startupPath = connectionsService.GetStartupConnectionFileName();
+
+            Assert.That(startupPath, Is.EqualTo(customPath));
+        }
+        finally
+        {
+            connectionFilePathProperty.SetValue(settingsInstance, originalPath);
+        }
+    }
+
+    [Test]
+    public void DefaultStartupConnectionFileNameIsNotNullOrEmpty()
+    {
+        var connectionsService = new ConnectionsService(PuttySessionsManager.Instance);
+
+        var defaultPath = connectionsService.GetDefaultStartupConnectionFileName();
+
+        Assert.That(defaultPath, Is.Not.Null.And.Not.Empty);
+    }
 }

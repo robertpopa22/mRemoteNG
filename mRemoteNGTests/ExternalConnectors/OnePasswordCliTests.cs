@@ -78,6 +78,145 @@ public class OnePasswordCliTests
 		Assert.That(result.PrivateKey, Is.EqualTo(string.Empty));
 	}
 
+	[Test]
+	public void ExtractCredentialsFromJson_ExtractsUsernameAndPasswordByPurpose()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "user", "type": "STRING", "purpose": "USERNAME", "value": "admin" },
+		                        { "id": "password", "label": "pass", "type": "CONCEALED", "purpose": "PASSWORD", "value": "hunter2" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Username, Is.EqualTo("admin"));
+		Assert.That(result.Password, Is.EqualTo("hunter2"));
+		Assert.That(result.Domain, Is.EqualTo(string.Empty));
+		Assert.That(result.PrivateKey, Is.EqualTo(string.Empty));
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_FallsBackToLabelWhenPurposeMissing()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "username", "type": "STRING", "purpose": "", "value": "svc_acct" },
+		                        { "id": "password", "label": "password", "type": "CONCEALED", "purpose": "", "value": "Pa$$w0rd" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Username, Is.EqualTo("svc_acct"));
+		Assert.That(result.Password, Is.EqualTo("Pa$$w0rd"));
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ExtractsSshKeyByType()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "username", "type": "STRING", "purpose": "USERNAME", "value": "git" },
+		                        { "id": "privkey", "label": "private key", "type": "SSHKEY", "purpose": "", "value": "-----BEGIN OPENSSH PRIVATE KEY-----\ntest\n-----END OPENSSH PRIVATE KEY-----" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Username, Is.EqualTo("git"));
+		Assert.That(result.Password, Is.EqualTo(string.Empty));
+		Assert.That(result.PrivateKey, Does.StartWith("-----BEGIN OPENSSH PRIVATE KEY-----"));
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ThrowsWhenNoPasswordOrKey()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "username", "type": "STRING", "purpose": "USERNAME", "value": "admin" }
+		                      ]
+		                    }
+		                    """;
+
+		var ex = Assert.Throws<TargetInvocationException>(() =>
+			InvokePrivate<(string, string, string, string)>("ExtractCredentialsFromJson", json, "op.exe item get"));
+
+		Assert.That(ex?.InnerException, Is.TypeOf<OnePasswordCliException>());
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ThrowsForNullDeserialization()
+	{
+		const string json = "null";
+
+		var ex = Assert.Throws<TargetInvocationException>(() =>
+			InvokePrivate<(string, string, string, string)>("ExtractCredentialsFromJson", json, "op.exe item get"));
+
+		Assert.That(ex?.InnerException, Is.TypeOf<OnePasswordCliException>());
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ExtractsDomain()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "username", "type": "STRING", "purpose": "USERNAME", "value": "admin" },
+		                        { "id": "password", "label": "password", "type": "CONCEALED", "purpose": "PASSWORD", "value": "secret" },
+		                        { "id": "domain", "label": "domain", "type": "STRING", "purpose": "", "value": "CORP" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Domain, Is.EqualTo("CORP"));
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_EmptyFieldsArrayThrows()
+	{
+		const string json = """{ "fields": [] }""";
+
+		var ex = Assert.Throws<TargetInvocationException>(() =>
+			InvokePrivate<(string, string, string, string)>("ExtractCredentialsFromJson", json, "op.exe item get"));
+
+		Assert.That(ex?.InnerException, Is.TypeOf<OnePasswordCliException>());
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_SkipsFieldsWithEmptyValues()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "username", "label": "username", "type": "STRING", "purpose": "USERNAME", "value": "" },
+		                        { "id": "username2", "label": "username", "type": "STRING", "purpose": "", "value": "fallback_user" },
+		                        { "id": "password", "label": "password", "type": "CONCEALED", "purpose": "PASSWORD", "value": "" },
+		                        { "id": "password2", "label": "password", "type": "CONCEALED", "purpose": "", "value": "fallback_pass" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Username, Is.EqualTo("fallback_user"));
+		Assert.That(result.Password, Is.EqualTo("fallback_pass"));
+	}
+
 	private static T InvokePrivate<T>(string methodName, params object[] args)
 	{
 		var method = typeof(OnePasswordCli).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static);

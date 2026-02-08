@@ -145,5 +145,22 @@ namespace mRemoteNGTests.Tools
             var result = parser.ParseArguments("%PASSWORD%");
             Assert.That(result, Is.EqualTo("pass^,word^;test^&more"));
         }
+
+        [TestCase(ProtocolType.SSH2, "SSH2")]
+        [TestCase(ProtocolType.VNC, "VNC")]
+        [TestCase(ProtocolType.Telnet, "Telnet")]
+        [TestCase(ProtocolType.HTTP, "HTTP")]
+        [TestCase(ProtocolType.HTTPS, "HTTPS")]
+        [TestCase(ProtocolType.SSH1, "SSH1")]
+        [TestCase(ProtocolType.Rlogin, "Rlogin")]
+        [TestCase(ProtocolType.RAW, "RAW")]
+        [TestCase(ProtocolType.IntApp, "IntApp")]
+        public void ProtocolTokenReturnsCorrectValueForEachProtocol(ProtocolType protocol, string expected)
+        {
+            var connectionInfo = new ConnectionInfo { Protocol = protocol };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("%PROTOCOL%");
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }
