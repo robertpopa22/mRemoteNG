@@ -321,6 +321,21 @@ Phase 2: P0 security integration and critical issue burn-down.
     - full Framework MSBuild build of `mRemoteNGTests` (`Release|x64`) passed
     - targeted test filter `FullyQualifiedName~XmlConnectionsLoaderTests` passed (`4/4`)
     - startup sanity filter `FullyQualifiedName~ConnectionsService` passed (`4/4`)
+- [x] P5 PuTTY CJK session name decode hardening (issue `#2785` candidate):
+  - files:
+    - `mRemoteNG/Config/Putty/PuttySessionNameDecoder.cs`
+    - `mRemoteNG/Config/Putty/PuttySessionsRegistryProvider.cs`
+    - `mRemoteNG/Config/Putty/AbstractPuttySessionsProvider.cs`
+    - `mRemoteNGTests/Config/Putty/PuttySessionNameDecoderTests.cs`
+  - change:
+    - centralized PuTTY session-name decoding with UTF-8-first strategy and deterministic fallback for legacy non-UTF8 percent-encoded names
+    - provider and removal-path normalization now share the same decode logic
+  - local validation:
+    - full Framework MSBuild build of `mRemoteNGTests` (`Release|x64`) passed
+    - targeted test filter `FullyQualifiedName~PuttySessionNameDecoderTests` passed (`3/3`)
+    - regression sanity retained:
+      - `FullyQualifiedName~XmlConnectionsLoaderTests` passed (`4/4`)
+      - `FullyQualifiedName~ConnectionsService` passed (`4/4`)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -332,7 +347,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Track upstream feedback on PR-7/PR-8 (`#3111`, `#3112`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#2785` PuTTY CJK session handling).
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#2735` SmartSize focus behavior).
 3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
 
 ## Decision Log
@@ -375,6 +390,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented PuTTY provider startup resilience hardening for #822 candidate and added regression coverage in `ConnectionsServicePuttySessionsResilienceTests`.
 - 2026-02-08: Upgraded CI x86/x64 jobs to VS2026/MSBuild18-class hosted runners with ARM fallback to VS2022/MSBuild17.14 due current ARM image availability.
 - 2026-02-08: Implemented startup XML recovery hardening for malformed `confCons.xml` (#811 candidate) with deterministic fallback to newest valid backup and regression coverage in `XmlConnectionsLoaderTests`.
+- 2026-02-08: Implemented PuTTY session-name decode hardening for CJK/legacy percent-encoded registry keys (#2785 candidate) and added dedicated decoder tests.
 
 ## Resume Checklist (after reboot)
 

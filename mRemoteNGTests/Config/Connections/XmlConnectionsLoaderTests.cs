@@ -27,7 +27,7 @@ internal class XmlConnectionsLoaderTests
     [Test]
     public void ThrowsXmlExceptionForXxePayload()
     {
-        const string xxePayload = @"<?xml version='1.0'?>
+        const string xxePayload = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <!DOCTYPE foo [
 <!ELEMENT foo ANY >
 <!ENTITY xxe SYSTEM 'file:///etc/passwd' >]>
@@ -47,10 +47,10 @@ internal class XmlConnectionsLoaderTests
     {
         using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
         {
-            File.WriteAllText(filePath, "<LocalConnections>");
+            File.WriteAllText(filePath, @"<?xml version=""1.0"" encoding=""utf-8""?><LocalConnections>");
 
             string olderBrokenBackup = $"{filePath}.20250207-1100000000.backup";
-            File.WriteAllText(olderBrokenBackup, "<Connections");
+            File.WriteAllText(olderBrokenBackup, @"<?xml version=""1.0"" encoding=""utf-8""?><Connections");
             File.SetLastWriteTimeUtc(olderBrokenBackup, DateTime.UtcNow.AddMinutes(-10));
 
             string newerValidBackup = $"{filePath}.20250207-1200000000.backup";

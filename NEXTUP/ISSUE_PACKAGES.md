@@ -159,6 +159,15 @@ Current status (fork execution branch):
     - malformed startup XML now attempts deterministic recovery from the newest valid `*.backup`
     - successful recovery auto-restores `confCons.xml` from backup
     - parser now surfaces explicit `XmlException` for unparsable documents
+- #2785 PuTTY CJK session-name decode resilience candidate implemented:
+  - files:
+    - `mRemoteNG/Config/Putty/PuttySessionNameDecoder.cs`
+    - `mRemoteNG/Config/Putty/PuttySessionsRegistryProvider.cs`
+    - `mRemoteNG/Config/Putty/AbstractPuttySessionsProvider.cs`
+    - `mRemoteNGTests/Config/Putty/PuttySessionNameDecoderTests.cs`
+  - behavior:
+    - centralized UTF-8-first decode with deterministic legacy-encoding fallback for percent-encoded PuTTY registry session names
+    - shared normalization path now used both when listing and pruning session entries
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:
