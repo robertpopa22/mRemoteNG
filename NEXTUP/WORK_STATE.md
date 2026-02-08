@@ -557,6 +557,17 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3125`: `https://github.com/mRemoteNG/mRemoteNG/pull/3125`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/811#issuecomment-3867038036`
+- [x] P5 empty-panel close package opened upstream (`#2160`):
+  - file:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs`
+  - change:
+    - auto-close panel when last tab closes and no documents remain
+    - defer panel close to UI tick and guard against dispose/invalid-handle races
+    - skip empty-panel auto-close when full app shutdown is already in progress
+  - upstream packaging:
+    - PR `#3126`: `https://github.com/mRemoteNG/mRemoteNG/pull/3126`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2160#issuecomment-3867237778`
 - [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
   - issue comments:
     - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
@@ -586,9 +597,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-1..PR-21 (`#3105`..`#3125`) and fast-follow any review fixes with minimal delta commits.
+1. Track upstream feedback on PR-1..PR-22 (`#3105`..`#3126`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, package local `#2160` fix first (`da963c01` -> dedicated upstream PR), then continue with `#2161`, `#2171`, `#2166` after reproduction confirmation.
+3. If no parent feedback lands, continue next unmapped runtime cluster after `#2160`: `#2161`, `#2171`, `#2166` (repro-first, one issue package at a time).
 
 ## Decision Log
 
@@ -657,6 +668,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Linked disposed-object panel-close issue family (`#2118`, `#2163`, `#2459`, `#2706`, `#3062`) to upstream PR `#3106` to accelerate maintainer regroup/closure decisions.
 - 2026-02-08: Refreshed unresolved regroup with full label-debt snapshot (`Need 2 check`, `In progress`, `In development`, unlabeled) and identified unmapped active runtime cluster (`#2160`, `#2161`, `#2171`, `#2166`).
 - 2026-02-08: Identified that `#2160` is already implemented locally in commit `da963c01` (`ConnectionWindow.ClosePanelIfEmpty`) and marked it as first candidate for dedicated upstream packaging after restart.
+- 2026-02-08: Packaged `#2160` into dedicated parent PR `#3126` from branch `codex/pr22-close-empty-panel-2160` and posted issue cross-link comment.
+- 2026-02-08: Updated RC regroup to move `#2160` from unmapped cluster into mapped/open-PR closure debt.
 
 ## Resume Checklist (after reboot)
 

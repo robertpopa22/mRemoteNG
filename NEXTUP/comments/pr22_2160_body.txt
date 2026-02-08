@@ -1,0 +1,12 @@
+## Summary 
+- close panel automatically when it becomes empty after tab-close flow 
+- schedule close on UI tick and guard dispose/invalid-handle races 
+- skip auto-close when main app shutdown is already running 
+ 
+## Scope 
+- file: mRemoteNG/UI/Window/ConnectionWindow.cs 
+- issue: #2160 
+ 
+## Notes 
+- packages local fix lineage from commit da963c01 
+- excludes #3069 callback hardening (tracked separately in PR #3106)

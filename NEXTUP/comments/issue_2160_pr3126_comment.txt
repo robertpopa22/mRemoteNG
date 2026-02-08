@@ -1,0 +1,1 @@
+Packaged fix is now available in PR #3126: https://github.com/mRemoteNG/mRemoteNG/pull/3126. This adds auto-close for empty panels after last-tab close flow in ConnectionWindow and guards against shutdown/dispose race paths.

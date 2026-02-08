@@ -420,6 +420,24 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3125
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/811#issuecomment-3867038036
 
+## PR-22 Close Empty Panel After Last Tab Closes (`#2160`)
+
+Scope:
+- auto-close panel when its last tab closes and no documents remain.
+- queue panel close on next UI tick to avoid re-entrancy while tab close is in progress.
+- guard auto-close flow against shutdown/dispose/invalid-handle paths.
+
+Primary commit:
+- `96b4a0b2`
+
+Core file:
+- `mRemoteNG/UI/Window/ConnectionWindow.cs`
+
+Execution status:
+- branch: `codex/pr22-close-empty-panel-2160`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3126
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2160#issuecomment-3867237778
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -450,6 +468,7 @@ Execution status:
 19. PR-19 (external-tool protocol token)
 20. PR-20 (main close cancel behavior with open panels)
 21. PR-21 (startup XML backup recovery)
+22. PR-22 (close empty panel after last tab closes)
 
 ## Operational Guidance
 
