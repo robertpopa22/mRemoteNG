@@ -1,0 +1,12 @@
+## Summary 
+- restore horizontal auto-scroll while dragging document tabs across an overflowed tab strip 
+- add edge-triggered scroll left/right based on pointer position during left-button drag 
+- throttle scrolling to avoid rapid jump behavior during drag 
+ 
+## Scope 
+- file: mRemoteNG/UI/Tabs/DockPaneStripNG.cs 
+- issue: #2161 
+ 
+## Notes 
+- isolated to DockPaneStripNG; no dependency/package changes 
+- local toolchain unavailable in this shell (no dotnet/msbuild), so verification is CI/manual-repro oriented

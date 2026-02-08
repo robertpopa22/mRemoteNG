@@ -438,6 +438,24 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3126
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2160#issuecomment-3867237778
 
+## PR-23 Document Tab Drag Auto-Scroll On Overflow (`#2161`)
+
+Scope:
+- restore tab-strip auto-scroll while dragging document tabs in an overflowed strip.
+- trigger scroll when pointer reaches left/right tab-strip edges during drag.
+- throttle auto-scroll step rate to keep drag behavior stable.
+
+Primary commit:
+- `c028a0d6`
+
+Core file:
+- `mRemoteNG/UI/Tabs/DockPaneStripNG.cs`
+
+Execution status:
+- branch: `codex/pr23-tab-drag-overflow-scroll-2161`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3127
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2161#issuecomment-3867296728
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -469,6 +487,7 @@ Execution status:
 20. PR-20 (main close cancel behavior with open panels)
 21. PR-21 (startup XML backup recovery)
 22. PR-22 (close empty panel after last tab closes)
+23. PR-23 (document tab drag auto-scroll on overflow)
 
 ## Operational Guidance
 

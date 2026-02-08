@@ -568,6 +568,17 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3126`: `https://github.com/mRemoteNG/mRemoteNG/pull/3126`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2160#issuecomment-3867237778`
+- [x] P5 document-tab drag autoscroll package opened upstream (`#2161`):
+  - file:
+    - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs`
+  - change:
+    - restore left/right edge-triggered tab-strip autoscroll while dragging in document overflow mode
+    - throttle drag autoscroll updates to reduce jumpy behavior
+    - keep scope isolated to `DockPaneStripNG` without dependency/package changes
+  - upstream packaging:
+    - PR `#3127`: `https://github.com/mRemoteNG/mRemoteNG/pull/3127`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2161#issuecomment-3867296728`
 - [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
   - issue comments:
     - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
@@ -597,9 +608,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-1..PR-22 (`#3105`..`#3126`) and fast-follow any review fixes with minimal delta commits.
+1. Track upstream feedback on PR-1..PR-23 (`#3105`..`#3127`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, continue next unmapped runtime cluster after `#2160`: `#2161`, `#2171`, `#2166` (repro-first, one issue package at a time).
+3. If no parent feedback lands, continue next unmapped runtime cluster after `#2161`: `#2171`, `#2166` (repro-first, one issue package at a time).
 
 ## Decision Log
 
@@ -670,6 +681,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Identified that `#2160` is already implemented locally in commit `da963c01` (`ConnectionWindow.ClosePanelIfEmpty`) and marked it as first candidate for dedicated upstream packaging after restart.
 - 2026-02-08: Packaged `#2160` into dedicated parent PR `#3126` from branch `codex/pr22-close-empty-panel-2160` and posted issue cross-link comment.
 - 2026-02-08: Updated RC regroup to move `#2160` from unmapped cluster into mapped/open-PR closure debt.
+- 2026-02-08: Packaged `#2161` into dedicated parent PR `#3127` from branch `codex/pr23-tab-drag-overflow-scroll-2161` and posted issue cross-link comment.
+- 2026-02-08: Updated RC regroup to move `#2161` from unmapped cluster into mapped/open-PR closure debt (`#2171`, `#2166` remain next).
 
 ## Resume Checklist (after reboot)
 
