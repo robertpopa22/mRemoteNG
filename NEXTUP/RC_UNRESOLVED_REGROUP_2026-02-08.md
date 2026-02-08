@@ -105,6 +105,9 @@ Most active unresolved runtime/UI issues not currently mapped to an open package
 - `#2171` config/connections tab position persistence
 - `#2166` tab/panel crash+resize behavior bundle
 
+Checkpoint note:
+- `#2160` has a local implementation already present on `codex/release-1.79-bootstrap` (`da963c01`, `ConnectionWindow.ClosePanelIfEmpty`), but it is not yet packaged as a dedicated upstream PR branch.
+
 Execution rule:
 - treat this as next P5 coding wave only after parent feedback cycle on `#3105..#3125`.
 

@@ -588,7 +588,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 1. Track upstream feedback on PR-1..PR-21 (`#3105`..`#3125`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, start next P5 package from unmapped active cluster (`#2160`, `#2161`, `#2171`, `#2166`) after reproduction confirmation.
+3. If no parent feedback lands, package local `#2160` fix first (`da963c01` -> dedicated upstream PR), then continue with `#2161`, `#2171`, `#2166` after reproduction confirmation.
 
 ## Decision Log
 
@@ -656,6 +656,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Linked issue `#811` directly to upstream PR `#3125` via parent issue comment for closure traceability.
 - 2026-02-08: Linked disposed-object panel-close issue family (`#2118`, `#2163`, `#2459`, `#2706`, `#3062`) to upstream PR `#3106` to accelerate maintainer regroup/closure decisions.
 - 2026-02-08: Refreshed unresolved regroup with full label-debt snapshot (`Need 2 check`, `In progress`, `In development`, unlabeled) and identified unmapped active runtime cluster (`#2160`, `#2161`, `#2171`, `#2166`).
+- 2026-02-08: Identified that `#2160` is already implemented locally in commit `da963c01` (`ConnectionWindow.ClosePanelIfEmpty`) and marked it as first candidate for dedicated upstream packaging after restart.
 
 ## Resume Checklist (after reboot)
 
