@@ -1,0 +1,4 @@
+command-output/
+command-feedback.jsonl
+COMMAND_FEEDBACK_LOG.md
+COMMAND_FEEDBACK_METRICS.md

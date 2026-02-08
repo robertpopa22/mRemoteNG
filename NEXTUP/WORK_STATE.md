@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-07 (session 37)  
+Last updated: 2026-02-08 (session 38)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -404,6 +404,30 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `NEXTUP/P1_P5_EXECUTION_2026-02-08.md`
   - JSON artifacts:
     - `D:\github\LOCAL\analysis\mRemoteNG\packages\*.json`
+- [x] Added persistent command-learning system to reduce repeated execution errors:
+  - rules:
+    - `NEXTUP/LESSONS.md`
+  - logs:
+    - `NEXTUP/COMMAND_FEEDBACK_LOG.md`
+    - `NEXTUP/command-feedback.jsonl`
+  - tooling:
+    - `NEXTUP/scripts/log-command-feedback.ps1`
+    - `NEXTUP/scripts/find-lesson.ps1`
+- [x] Added frequency/time-loss metrics for command failures and slow actions:
+  - script:
+    - `NEXTUP/scripts/refresh-command-feedback-metrics.ps1`
+  - report:
+    - `NEXTUP/COMMAND_FEEDBACK_METRICS.md`
+  - log schema update:
+    - `Duration(s)` and `Lost(s)` in `COMMAND_FEEDBACK_LOG.md`
+    - `duration_seconds` and `lost_time_seconds` in `command-feedback.jsonl`
+- [x] Added short alias launcher for readable command execution:
+  - script:
+    - `NEXTUP/scripts/nx.cmd`
+  - aliases:
+    - `g|git`, `h|gh`, `p|ps`, `lesson`, `metrics`, `paths`
+  - interactive shell integration:
+    - `D:\github\LOCAL\env.cmd` now defines `nx`, `nxpaths`, `nxlesson`, `nxmetrics`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -467,6 +491,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Opened upstream PR package `#3116` for SmartSize focus resilience (`#2735`) with CI evidence + issue cross-link.
 - 2026-02-08: Opened upstream PR package `#3117` for fullscreen/redirect-keys guardrail (`#847`) with CI evidence + issue cross-link.
 - 2026-02-08: Opened upstream PR package `#3118` for fullscreen-exit refocus hardening (`#1650`) with CI evidence + issue cross-link.
+- 2026-02-08: Standardized local command-feedback loop (rules + searchable logs + scripts) to preserve lessons and avoid repeated shell/tooling errors across restarts.
+- 2026-02-08: Added quantitative prioritization for execution errors (frequency counters + lost-time aggregation) to focus fixes on highest operational cost first.
+- 2026-02-08: Added `nx.cmd` alias runner and environment alias hooks to reduce command verbosity and improve execution/log readability.
 
 ## Resume Checklist (after reboot)
 
