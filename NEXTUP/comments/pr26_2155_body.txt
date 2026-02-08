@@ -1,0 +1,11 @@
+## Summary 
+- auto-size the Config PropertyGrid name column based on visible property display names 
+- re-apply sizing after config state transitions and property-sort updates 
+- cap label width to preserve a minimum value-column width 
+ 
+## Validation 
+- `MSBuild.exe mRemoteNG.sln /m /p:Configuration=Release /p:Platform=x64 /t:Restore` 
+- `MSBuild.exe mRemoteNG.sln /m /p:Configuration=Release /p:Platform=x64 /t:Build` 
+ 
+## Issue 
+- closes #2155

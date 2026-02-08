@@ -493,6 +493,24 @@ Execution status:
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3867358613
 - note: form-closing enumeration trace from `#2166` is covered by PR `#3124`
 
+## PR-26 Inheritance Property Label Auto-Size (`#2155`)
+
+Scope:
+- auto-size Config/Inheritance property-name column width using visible display names.
+- re-apply label-column sizing after config state transitions and property-sort updates.
+- cap name-column width to preserve a minimum value column.
+
+Primary commit:
+- `c0eae51a`
+
+Core file:
+- `mRemoteNG/UI/Window/ConfigWindow.cs`
+
+Execution status:
+- branch: `codex/pr26-inheritance-label-width-2155`
+- parent compare/create URL: `https://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1`
+- note: parent PR creation + issue comment are pending because GitHub API auth is unavailable in this session.
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -527,6 +545,7 @@ Execution status:
 23. PR-23 (document tab drag auto-scroll on overflow)
 24. PR-24 (preserve restored Config/Connections panel focus)
 25. PR-25 (tab close/resize crash hardening)
+26. PR-26 (inheritance property label auto-size)
 
 ## Operational Guidance
 

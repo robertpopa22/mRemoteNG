@@ -1,0 +1,7 @@
+Packaged fix for inheritance property-label truncation into parent package branch `codex/pr26-inheritance-label-width-2155`. 
+ 
+Parent compare/create URL: 
+https://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1 
+ 
+Local validation: 
+- x64 restore + build with MSBuild (warnings only).
