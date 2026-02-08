@@ -186,6 +186,62 @@ Execution status:
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2785#issuecomment-3865800159
 - fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820
 
+## PR-12 RDP SmartSize Focus Resilience (`#2735`)
+
+Scope:
+- restore active-session focus when app re-activates (Alt+Tab path).
+- harden active-tab lookup fallback for activation flow.
+
+Primary commit:
+- `734c8a72`
+
+Core file:
+- `mRemoteNG/UI/Forms/frmMain.cs`
+
+Execution status:
+- branch: `codex/pr12-rdp-smartsize-focus-2735`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3116
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2735#issuecomment-3865832228
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3116#issuecomment-3865832482
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789349478
+
+## PR-13 RDP Fullscreen/Redirect-Keys Guardrail (`#847`)
+
+Scope:
+- prevent unstable fullscreen-exit toggle path when redirect-keys mode is active.
+
+Primary commit:
+- `c93ac33f`
+
+Core files:
+- `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+- `mRemoteNG/UI/Window/ConnectionWindow.cs`
+
+Execution status:
+- branch: `codex/pr13-rdp-redirectkeys-fullscreen-847`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3117
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/847#issuecomment-3865842009
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3117#issuecomment-3865842198
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789456797
+
+## PR-14 RDP Fullscreen Exit Refocus (`#1650`)
+
+Scope:
+- reduce background/focus-loss behavior after leaving RDP fullscreen via connection bar.
+
+Primary commit:
+- `6df1e7f5`
+
+Core file:
+- `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+
+Execution status:
+- branch: `codex/pr14-rdp-fullscreen-exit-refocus-1650`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3118
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1650#issuecomment-3865854500
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3118#issuecomment-3865854782
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789549099
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -204,6 +260,10 @@ Execution status:
 7. PR-7 (SQL schema compatibility hardening)
 8. PR-8 (config panel splitter persistence)
 9. PR-9 (startup path null/empty fallback)
+10. PR-11 (PuTTY CJK session-name decode)
+11. PR-12 (SmartSize focus resilience)
+12. PR-13 (fullscreen/redirect-keys guardrail)
+13. PR-14 (fullscreen-exit refocus)
 
 ## Operational Guidance
 

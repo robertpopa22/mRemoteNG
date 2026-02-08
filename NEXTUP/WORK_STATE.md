@@ -357,6 +357,12 @@ Phase 2: P0 security integration and critical issue burn-down.
     - note:
       - existing unrelated unstable test observed in local run:
         - `RdpProtocol8ResizeTests.MinimizeRestore_Sequence_WorksCorrectly` (expected `DoResizeClientCallCount=1`, got `0`)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21789349478`
+  - upstream packaging:
+    - PR `#3116`: `https://github.com/mRemoteNG/mRemoteNG/pull/3116`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2735#issuecomment-3865832228`
 - [x] P5 RDP fullscreen/redirect-keys guardrail (issue `#847` candidate):
   - files:
     - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
@@ -371,6 +377,12 @@ Phase 2: P0 security integration and critical issue burn-down.
       - `FullyQualifiedName~ConnectionsService` (`4/4`)
       - `FullyQualifiedName~XmlConnectionsLoaderTests` (`4/4`)
       - `FullyQualifiedName~PuttySessionNameDecoderTests` (`3/3`)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21789456797`
+  - upstream packaging:
+    - PR `#3117`: `https://github.com/mRemoteNG/mRemoteNG/pull/3117`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/847#issuecomment-3865842009`
 - [x] P5 fullscreen-exit refocus hardening (issue `#1650` candidate):
   - file:
     - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
@@ -381,6 +393,12 @@ Phase 2: P0 security integration and critical issue burn-down.
     - full Framework MSBuild build of solution (`Release|x64`) passed
     - targeted regression passed:
       - `FullyQualifiedName~ConnectionsService` (`4/4`)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21789549099`
+  - upstream packaging:
+    - PR `#3118`: `https://github.com/mRemoteNG/mRemoteNG/pull/3118`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/1650#issuecomment-3865854500`
 - [x] Refreshed P1-P5 execution snapshot (2026-02-08):
   - report:
     - `NEXTUP/P1_P5_EXECUTION_2026-02-08.md`
@@ -396,7 +414,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-11 (`#3111`, `#3112`, `#3115`) and fast-follow any review fixes.
+1. Track upstream feedback on PR-7/PR-8/PR-11/PR-12/PR-13/PR-14 (`#3111`, `#3112`, `#3115`, `#3116`, `#3117`, `#3118`) and fast-follow any review fixes.
 2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1649` lock/minimize behavior with master password).
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
@@ -446,6 +464,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented `#2735` SmartSize focus resilience hardening in `frmMain` (reactivation refocus + active-tab fallback lookup) and validated local build/regression subset.
 - 2026-02-08: Implemented `#847` runtime guardrail so fullscreen toggle is locked while redirect-keys mode is active in fullscreen, preventing unstable exit path from tab context menu.
 - 2026-02-08: Implemented `#1650` fullscreen-exit refocus hardening in `RdpProtocol` (`OnLeaveFullScreenMode` now actively restores/activates main form and refocuses session).
+- 2026-02-08: Opened upstream PR package `#3116` for SmartSize focus resilience (`#2735`) with CI evidence + issue cross-link.
+- 2026-02-08: Opened upstream PR package `#3117` for fullscreen/redirect-keys guardrail (`#847`) with CI evidence + issue cross-link.
+- 2026-02-08: Opened upstream PR package `#3118` for fullscreen-exit refocus hardening (`#1650`) with CI evidence + issue cross-link.
 
 ## Resume Checklist (after reboot)
 
