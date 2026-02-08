@@ -328,6 +328,34 @@ Execution status:
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3121#issuecomment-3866359364
 
+## PR-18 Master-Password Autolock on Minimize/Idle (`#1649`)
+
+Scope:
+- add root-level `Auto lock on minimize` option, shown only when password protection is enabled.
+- persist autolock setting in root XML attribute `AutoLockOnMinimize`.
+- lock app when minimized and after 5 minutes of inactivity when autolock is enabled.
+- require current master password to unlock when restoring from tray/taskbar.
+- add regression coverage for root default and XML serialize/deserialize of autolock flag.
+
+Primary commit:
+- `f24380b0`
+
+Core files:
+- `mRemoteNG/Tree/Root/RootNodeInfo.cs`
+- `mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs`
+- `mRemoteNG/UI/Forms/frmMain.cs`
+- `mRemoteNG/Tools/NotificationAreaIcon.cs`
+- `mRemoteNG/App/NativeMethods.cs`
+- `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlRootNodeSerializer.cs`
+- `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+- tests under `mRemoteNGTests/Config/Serializers/ConnectionSerializers/Xml` and `mRemoteNGTests/Tree`
+
+Execution status:
+- branch: `codex/pr18-autolock-1649`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3122
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1649#issuecomment-3866405356
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3122#issuecomment-3866406010
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -354,6 +382,7 @@ Execution status:
 15. PR-15 (SmartSize RCW/COM resilience)
 16. PR-16 (settings path observability + troubleshooting clarification)
 17. PR-17 (require current password before disabling protection)
+18. PR-18 (master-password autolock on minimize/idle)
 
 ## Operational Guidance
 

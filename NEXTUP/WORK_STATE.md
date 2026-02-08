@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-08 (session 38)  
+Last updated: 2026-02-08 (session 39)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -481,6 +481,39 @@ Phase 2: P0 security integration and critical issue burn-down.
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072`
     - CI evidence comment:
       - `https://github.com/mRemoteNG/mRemoteNG/pull/3121#issuecomment-3866359364`
+- [x] P5 master-password autolock on minimize/idle (`#1649`):
+  - files:
+    - `mRemoteNG/Tree/Root/RootNodeInfo.cs`
+    - `mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs`
+    - `mRemoteNG/UI/Forms/frmMain.cs`
+    - `mRemoteNG/Tools/NotificationAreaIcon.cs`
+    - `mRemoteNG/App/NativeMethods.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlRootNodeSerializer.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+    - tests:
+      - `mRemoteNGTests/Config/Serializers/ConnectionSerializers/Xml/XmlRootNodeSerializerTests.cs`
+      - `mRemoteNGTests/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializerTests.cs`
+      - `mRemoteNGTests/Tree/RootNodeInfoTests.cs`
+  - change:
+    - add root option `Auto lock on minimize` (available only when `Password protect` is enabled)
+    - when enabled, app autolocks on minimize and after 5 minutes of system inactivity
+    - restore from tray/taskbar now requires current master password while locked
+    - autolock setting is persisted via root XML attribute `AutoLockOnMinimize`
+  - local validation:
+    - full-framework MSBuild build for `mRemoteNGTests` (`Release|x64`) passed using VS Build Tools + .NET SDK path setup
+    - targeted tests passed:
+      - `FullyQualifiedName~AutoLockOnMinimizeSerialized` (`2/2`)
+      - `FullyQualifiedName~RootNodeAutoLockOnMinimizeGetsDeserialized` (`1/1`)
+      - `FullyQualifiedName~AutoLockOnMinimizeIsDisabledByDefault` (`1/1`)
+      - `FullyQualifiedName~RootNodeInfoTests` (`18/18`)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21794326986`
+  - upstream packaging:
+    - PR `#3122`: `https://github.com/mRemoteNG/mRemoteNG/pull/3122`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/1649#issuecomment-3866405356`
+    - CI evidence comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/pull/3122#issuecomment-3866406010`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -491,8 +524,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1649` lock/minimize behavior with master password).
+1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`) and fast-follow any review fixes.
+2. Continue P5 stabilization with next fixable runtime/UI candidate from refreshed backlog snapshot.
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
 ## Decision Log
@@ -552,6 +585,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented settings-path observability + troubleshooting clarification for `#2987` and opened upstream PR `#3120`.
 - 2026-02-08: Rebased/cleaned PR `#3120` branch onto `upstream/v1.78.2-dev` so upstream diff contains only the intended 3-file package.
 - 2026-02-08: Implemented password-protection disable guardrail for `#2673` and opened upstream PR `#3121`.
+- 2026-02-08: Implemented master-password autolock on minimize/idle for `#1649` and opened upstream PR `#3122`.
 
 ## Resume Checklist (after reboot)
 
