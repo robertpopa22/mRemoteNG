@@ -498,8 +498,12 @@ namespace mRemoteNG.UI.Forms
 
             if (Runtime.WindowList != null)
             {
-                foreach (BaseWindow window in Runtime.WindowList)
+                BaseWindow[] windowsToClose = Runtime.WindowList.Cast<BaseWindow>().ToArray();
+                foreach (BaseWindow window in windowsToClose)
                 {
+                    if (window == null || window.IsDisposed)
+                        continue;
+
                     window.Close();
                 }
 
