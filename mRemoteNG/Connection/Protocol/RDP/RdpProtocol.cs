@@ -53,28 +53,60 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             get
             {
+                if (_rdpClient == null)
+                {
+                    return false;
+                }
+
                 try
                 {
                     return _rdpClient.AdvancedSettings2.SmartSizing;
                 }
-                catch (System.Runtime.InteropServices.InvalidComObjectException)
+                catch (InvalidComObjectException ex)
                 {
-                    // The COM object is separated from its RCW, try reacquiring the RCW or recreating the COM object
-                    _rdpClient = new MsRdpClient6NotSafeForScripting();
-                    return _rdpClient.AdvancedSettings2.SmartSizing;
+                    Runtime.MessageCollector.AddExceptionMessage(
+                        "Unable to read RDP SmartSize state because the COM client is no longer valid.",
+                        ex,
+                        MessageClass.WarningMsg,
+                        false);
+                    return false;
+                }
+                catch (COMException ex)
+                {
+                    Runtime.MessageCollector.AddExceptionMessage(
+                        "Unable to read RDP SmartSize state due to a COM access error.",
+                        ex,
+                        MessageClass.WarningMsg,
+                        false);
+                    return false;
                 }
             }
             protected set
             {
+                if (_rdpClient == null)
+                {
+                    return;
+                }
+
                 try
                 {
                     _rdpClient.AdvancedSettings2.SmartSizing = value;
                 }
-                catch (System.Runtime.InteropServices.InvalidComObjectException)
+                catch (InvalidComObjectException ex)
                 {
-                    // The COM object is separated from its RCW, try reacquiring the RCW or recreating the COM object
-                    _rdpClient = new MsRdpClient6NotSafeForScripting();
-                    _rdpClient.AdvancedSettings2.SmartSizing = value;
+                    Runtime.MessageCollector.AddExceptionMessage(
+                        "Unable to update RDP SmartSize because the COM client is no longer valid.",
+                        ex,
+                        MessageClass.WarningMsg,
+                        false);
+                }
+                catch (COMException ex)
+                {
+                    Runtime.MessageCollector.AddExceptionMessage(
+                        "Unable to update RDP SmartSize due to a COM access error.",
+                        ex,
+                        MessageClass.WarningMsg,
+                        false);
                 }
             }
         }

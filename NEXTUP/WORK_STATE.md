@@ -428,6 +428,17 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `g|git`, `h|gh`, `p|ps`, `lesson`, `metrics`, `paths`
   - interactive shell integration:
     - `D:\github\LOCAL\env.cmd` now defines `nx`, `nxpaths`, `nxlesson`, `nxmetrics`
+- [x] P5 RCW/COM resilience hardening for RDP resize path (issue `#2510` candidate):
+  - files:
+    - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+    - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs`
+  - change:
+    - removed unsafe RCW recreation fallback in `SmartSize` getter/setter
+    - `SmartSize` access now handles invalid/disconnected COM object states without surfacing popup exceptions
+    - resize path now skips when RDP controls are disposed/unavailable
+  - local validation:
+    - local full-framework MSBuild validation currently blocked in this shell runtime by SDK resolver/tooling mismatch
+    - patch queued for CI validation on push (`PR_Validation` matrix)
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -494,6 +505,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Standardized local command-feedback loop (rules + searchable logs + scripts) to preserve lessons and avoid repeated shell/tooling errors across restarts.
 - 2026-02-08: Added quantitative prioritization for execution errors (frequency counters + lost-time aggregation) to focus fixes on highest operational cost first.
 - 2026-02-08: Added `nx.cmd` alias runner and environment alias hooks to reduce command verbosity and improve execution/log readability.
+- 2026-02-08: Hardened RDP SmartSize/resize path for RCW-disconnected COM access (`#2510` candidate), preventing runtime exception popups during resize/drag scenarios.
 
 ## Resume Checklist (after reboot)
 
