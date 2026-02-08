@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Net.NetworkInformation;
@@ -44,6 +45,7 @@ namespace mRemoteNG.UI.Window
         private bool _applySplitterWidthQueued;
         private const int MinPropertyNameColumnWidth = 50;
         private const int MinPropertyValueColumnWidth = 80;
+        private const int PropertyNameTextPadding = 24;
         private static readonly BindingFlags NonPublicInstanceBinding = BindingFlags.Instance | BindingFlags.NonPublic;
 
         private ConnectionInfo _selectedTreeNode;
@@ -351,6 +353,7 @@ namespace mRemoteNG.UI.Window
                 UpdateShowDefaultInheritanceButton();
                 UpdateHostStatusButton();
                 UpdateIconButton();
+                QueueApplyPropertyGridSplitterWidth();
             }
             catch (Exception ex)
             {
@@ -491,7 +494,7 @@ namespace mRemoteNG.UI.Window
 
         private void QueueApplyPropertyGridSplitterWidth()
         {
-            if (_applySplitterWidthQueued || _cachedPropertyGridLabelWidth <= 0 || !_pGrid.IsHandleCreated || IsDisposed || Disposing)
+            if (_applySplitterWidthQueued || !_pGrid.IsHandleCreated || IsDisposed || Disposing)
                 return;
 
             _applySplitterWidthQueued = true;
@@ -501,6 +504,7 @@ namespace mRemoteNG.UI.Window
                 {
                     _applySplitterWidthQueued = false;
                     TryApplyCachedPropertyGridLabelWidth();
+                    EnsureMinimumPropertyGridLabelWidth();
                 }));
             }
             catch (ObjectDisposedException)
@@ -535,6 +539,53 @@ namespace mRemoteNG.UI.Window
                 return;
 
             TrySetPropertyGridLabelWidth(_pGrid, targetLabelWidth);
+        }
+
+        private void EnsureMinimumPropertyGridLabelWidth()
+        {
+            if (!_pGrid.IsHandleCreated || !_pGrid.Visible || _pGrid.SelectedObject == null)
+                return;
+
+            int requiredLabelWidth = CalculateRequiredPropertyGridLabelWidth();
+            if (requiredLabelWidth <= MinPropertyNameColumnWidth)
+                return;
+
+            int maxLabelWidth = Math.Max(MinPropertyNameColumnWidth, _pGrid.ClientSize.Width - MinPropertyValueColumnWidth);
+            int targetLabelWidth = Math.Min(requiredLabelWidth, maxLabelWidth);
+            if (targetLabelWidth <= MinPropertyNameColumnWidth)
+                return;
+
+            if (TryGetPropertyGridLabelWidth(_pGrid, out int currentLabelWidth) && currentLabelWidth >= targetLabelWidth)
+            {
+                _cachedPropertyGridLabelWidth = Math.Max(_cachedPropertyGridLabelWidth, currentLabelWidth);
+                return;
+            }
+
+            if (TrySetPropertyGridLabelWidth(_pGrid, targetLabelWidth))
+                _cachedPropertyGridLabelWidth = Math.Max(_cachedPropertyGridLabelWidth, targetLabelWidth);
+        }
+
+        private int CalculateRequiredPropertyGridLabelWidth()
+        {
+            if (_pGrid.SelectedObject == null)
+                return 0;
+
+            int requiredLabelWidth = 0;
+            PropertyDescriptorCollection objectProperties = TypeDescriptor.GetProperties(_pGrid.SelectedObject);
+
+            foreach (string propertyName in VisibleObjectProperties)
+            {
+                PropertyDescriptor descriptor = objectProperties.Find(propertyName, true);
+                string displayName = descriptor?.DisplayName;
+                if (string.IsNullOrWhiteSpace(displayName))
+                    continue;
+
+                int labelWidth = TextRenderer.MeasureText(displayName, _pGrid.Font).Width + PropertyNameTextPadding;
+                if (labelWidth > requiredLabelWidth)
+                    requiredLabelWidth = labelWidth;
+            }
+
+            return requiredLabelWidth;
         }
 
         private static bool TryGetPropertyGridLabelWidth(PropertyGrid propertyGrid, out int labelWidth)
