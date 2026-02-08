@@ -371,6 +371,16 @@ Phase 2: P0 security integration and critical issue burn-down.
       - `FullyQualifiedName~ConnectionsService` (`4/4`)
       - `FullyQualifiedName~XmlConnectionsLoaderTests` (`4/4`)
       - `FullyQualifiedName~PuttySessionNameDecoderTests` (`3/3`)
+- [x] P5 fullscreen-exit refocus hardening (issue `#1650` candidate):
+  - file:
+    - `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+  - change:
+    - when RDP raises `OnLeaveFullScreenMode`, handler now restores main form from minimized state if needed, activates main window, and refocuses the active session control
+    - prevents window-background/focus-loss behavior after leaving fullscreen via RDP connection bar
+  - local validation:
+    - full Framework MSBuild build of solution (`Release|x64`) passed
+    - targeted regression passed:
+      - `FullyQualifiedName~ConnectionsService` (`4/4`)
 - [x] Refreshed P1-P5 execution snapshot (2026-02-08):
   - report:
     - `NEXTUP/P1_P5_EXECUTION_2026-02-08.md`
@@ -387,7 +397,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 ## Immediate Next Actions
 
 1. Track upstream feedback on PR-7/PR-8/PR-11 (`#3111`, `#3112`, `#3115`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1650` app/background focus behavior).
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1649` lock/minimize behavior with master password).
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
 ## Decision Log
@@ -435,6 +445,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Refreshed P1-P5 snapshot (`NEXTUP/P1_P5_EXECUTION_2026-02-08.md`) and confirmed latest docs-sync CI green (`21789189892`).
 - 2026-02-08: Implemented `#2735` SmartSize focus resilience hardening in `frmMain` (reactivation refocus + active-tab fallback lookup) and validated local build/regression subset.
 - 2026-02-08: Implemented `#847` runtime guardrail so fullscreen toggle is locked while redirect-keys mode is active in fullscreen, preventing unstable exit path from tab context menu.
+- 2026-02-08: Implemented `#1650` fullscreen-exit refocus hardening in `RdpProtocol` (`OnLeaveFullScreenMode` now actively restores/activates main form and refocuses session).
 
 ## Resume Checklist (after reboot)
 

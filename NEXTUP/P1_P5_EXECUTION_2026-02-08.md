@@ -28,6 +28,9 @@ Cutoff for stale triage: 2025-02-08
   - exposed `RedirectKeysEnabled` on `RdpProtocol`
   - fullscreen context-menu action now locks only when redirect-keys mode is active and session is already fullscreen
   - prevents accidental fullscreen exit in this state
+- #1650 fullscreen-exit refocus hardening implemented:
+  - `RdpProtocol` now restores/activates main form and refocuses active session after `OnLeaveFullScreenMode`
+  - reduces cases where mRemoteNG falls to background after leaving fullscreen via RDP control bar
 
 ## P1 - Duplicate (open)
 
