@@ -165,6 +165,27 @@ Execution status:
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3113#issuecomment-3865577217
 - fork CI evidence (same fix validated on release branch): https://github.com/robertpopa22/mRemoteNG/actions/runs/21787167552
 
+## PR-10 PuTTY Provider Startup Resilience (`#822`)
+
+Scope:
+- avoid startup aborts when PuTTY sessions provider fails (for example missing key file / invalid provider state).
+- keep loading the main connections file and log provider failure as warning.
+- add regression coverage for provider failure path in startup loading flow.
+
+Primary commit:
+- `55a61ba0`
+
+Core files:
+- `mRemoteNG/Config/Putty/PuttySessionsManager.cs`
+- `mRemoteNGTests/Connection/ConnectionsServicePuttySessionsResilienceTests.cs`
+
+Execution status:
+- branch: `codex/pr10-putty-provider-resilience-822`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3114
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/822#issuecomment-3865638580
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3114#issuecomment-3865639177
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21787754981
+
 ## PR-11 PuTTY CJK Session Name Decoding (`#2785`)
 
 Scope:
@@ -242,6 +263,48 @@ Execution status:
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3118#issuecomment-3865854782
 - fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789549099
 
+## PR-15 RDP SmartSize RCW/COM Disconnection Resilience (`#2510`)
+
+Scope:
+- harden SmartSize read/write against invalid/disconnected COM RCW states.
+- remove unsafe RCW recreation fallback and handle COM access failures gracefully.
+- skip resize path when RDP controls are unavailable/disposed.
+
+Primary commit:
+- `1cf71834`
+
+Core files:
+- `mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs`
+- `mRemoteNG/Connection/Protocol/RDP/RdpProtocol8.cs`
+
+Execution status:
+- branch: `codex/pr15-rdp-rcw-smartsize-2510`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3119
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2510#issuecomment-3866311674
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3119#issuecomment-3866311780
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21793657159
+
+## PR-16 Settings Path Observability + Troubleshooting Clarification (`#2987`)
+
+Scope:
+- expose effective user settings file path via `SettingsFileInfo.UserSettingsFilePath`.
+- log startup line `User settings file: <full path>` for deterministic support/recovery.
+- update troubleshooting documentation for installed vs portable settings file locations.
+
+Primary commit:
+- `a47e43ec`
+
+Core files:
+- `mRemoteNG/App/Info/SettingsFileInfo.cs`
+- `mRemoteNG/App/Initialization/StartupDataLogger.cs`
+- `mRemoteNGDocumentation/troubleshooting.rst`
+
+Execution status:
+- branch: `codex/pr16-settings-path-observability-2987`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3120
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2987#issuecomment-3866329467
+- CI evidence comment: pending (clean PR branch does not currently include fork-side PR validation workflow file)
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -260,10 +323,13 @@ Execution status:
 7. PR-7 (SQL schema compatibility hardening)
 8. PR-8 (config panel splitter persistence)
 9. PR-9 (startup path null/empty fallback)
-10. PR-11 (PuTTY CJK session-name decode)
-11. PR-12 (SmartSize focus resilience)
-12. PR-13 (fullscreen/redirect-keys guardrail)
-13. PR-14 (fullscreen-exit refocus)
+10. PR-10 (PuTTY provider startup resilience)
+11. PR-11 (PuTTY CJK session-name decode)
+12. PR-12 (SmartSize focus resilience)
+13. PR-13 (fullscreen/redirect-keys guardrail)
+14. PR-14 (fullscreen-exit refocus)
+15. PR-15 (SmartSize RCW/COM resilience)
+16. PR-16 (settings path observability + troubleshooting clarification)
 
 ## Operational Guidance
 

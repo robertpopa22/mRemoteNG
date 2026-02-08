@@ -439,6 +439,28 @@ Phase 2: P0 security integration and critical issue burn-down.
   - local validation:
     - local full-framework MSBuild validation currently blocked in this shell runtime by SDK resolver/tooling mismatch
     - patch queued for CI validation on push (`PR_Validation` matrix)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21793657159`
+  - upstream packaging:
+    - PR `#3119`: `https://github.com/mRemoteNG/mRemoteNG/pull/3119`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2510#issuecomment-3866311674`
+- [x] P5 settings-path observability hardening for startup recovery (issue `#2987` candidate):
+  - files:
+    - `mRemoteNG/App/Info/SettingsFileInfo.cs`
+    - `mRemoteNG/App/Initialization/StartupDataLogger.cs`
+    - `mRemoteNGDocumentation/troubleshooting.rst`
+  - change:
+    - expose resolved per-user settings file path via `SettingsFileInfo.UserSettingsFilePath`
+    - startup now logs `User settings file: <full path>` for deterministic recovery/debug
+    - troubleshooting docs now clarify installed vs portable settings file locations
+  - local validation:
+    - local .NET SDK build path still blocked for full solution validation by COMReference requirement (`MSB4803`)
+    - full validation remains CI-first for this repo/toolchain
+  - upstream packaging:
+    - PR `#3120`: `https://github.com/mRemoteNG/mRemoteNG/pull/3120`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2987#issuecomment-3866329467`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -449,7 +471,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-11/PR-12/PR-13/PR-14 (`#3111`, `#3112`, `#3115`, `#3116`, `#3117`, `#3118`) and fast-follow any review fixes.
+1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`) and fast-follow any review fixes.
 2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1649` lock/minimize behavior with master password).
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
@@ -506,6 +528,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Added quantitative prioritization for execution errors (frequency counters + lost-time aggregation) to focus fixes on highest operational cost first.
 - 2026-02-08: Added `nx.cmd` alias runner and environment alias hooks to reduce command verbosity and improve execution/log readability.
 - 2026-02-08: Hardened RDP SmartSize/resize path for RCW-disconnected COM access (`#2510` candidate), preventing runtime exception popups during resize/drag scenarios.
+- 2026-02-08: Opened upstream PR `#3119` for SmartSize RCW/COM resilience (`#2510`) with issue + CI cross-links.
+- 2026-02-08: Implemented settings-path observability + troubleshooting clarification for `#2987` and opened upstream PR `#3120`.
+- 2026-02-08: Rebased/cleaned PR `#3120` branch onto `upstream/v1.78.2-dev` so upstream diff contains only the intended 3-file package.
 
 ## Resume Checklist (after reboot)
 
