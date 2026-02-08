@@ -375,6 +375,24 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3123
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1634#issuecomment-3866512854
 
+## PR-20 Main Close Cancel Behavior With Open Panels (`#2270`)
+
+Scope:
+- fix main-window shutdown flow to respect cancelled child panel closes.
+- avoid hiding main form before child panel close confirmations complete.
+- keep app visible when user chooses `No` in panel-close confirmation during app close.
+
+Primary commit:
+- `c8dfd10a`
+
+Core file:
+- `mRemoteNG/UI/Forms/frmMain.cs`
+
+Execution status:
+- branch: `codex/pr20-main-close-cancel-2270`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3124
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2270#issuecomment-3866527936
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -403,6 +421,7 @@ Execution status:
 17. PR-17 (require current password before disabling protection)
 18. PR-18 (master-password autolock on minimize/idle)
 19. PR-19 (external-tool protocol token)
+20. PR-20 (main close cancel behavior with open panels)
 
 ## Operational Guidance
 

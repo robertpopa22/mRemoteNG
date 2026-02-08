@@ -534,6 +534,20 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3123`: `https://github.com/mRemoteNG/mRemoteNG/pull/3123`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/1634#issuecomment-3866512854`
+- [x] P5 main close cancel behavior with open panels (`#2270`):
+  - file:
+    - `mRemoteNG/UI/Forms/frmMain.cs`
+  - change:
+    - reordered shutdown flow so main form is not hidden before child panel close confirmations complete
+    - when a child panel close is cancelled (user clicks `No`), main app close is cancelled and window remains visible
+    - extracted helper `GetOpenConnectionsCount()` for deterministic open-connection checks
+  - local validation:
+    - full-framework MSBuild restore/build passed (`Release|x64`)
+    - note: `OptionsFormTests` still has pre-existing unstable failures in this environment (not introduced by this patch)
+  - upstream packaging:
+    - PR `#3124`: `https://github.com/mRemoteNG/mRemoteNG/pull/3124`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2270#issuecomment-3866527936`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -544,7 +558,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18/PR-19 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`, `#3123`) and fast-follow any review fixes.
+1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18/PR-19/PR-20 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`, `#3123`, `#3124`) and fast-follow any review fixes.
 2. Continue P5 stabilization with next fixable runtime/UI candidate from refreshed backlog snapshot.
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
@@ -607,6 +621,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented password-protection disable guardrail for `#2673` and opened upstream PR `#3121`.
 - 2026-02-08: Implemented master-password autolock on minimize/idle for `#1649` and opened upstream PR `#3122`.
 - 2026-02-08: Implemented external-tool `PROTOCOL` token support for `#1634` and opened upstream PR `#3123`.
+- 2026-02-08: Implemented main-close cancel behavior fix for open panels (`#2270`) and opened upstream PR `#3124`.
 - 2026-02-08: Posted consolidation triage comments for `#1880` and `#2653` recommending close unless reproducible on latest builds.
 
 ## Resume Checklist (after reboot)
