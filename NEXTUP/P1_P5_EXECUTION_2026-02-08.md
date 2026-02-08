@@ -24,6 +24,10 @@ Cutoff for stale triage: 2025-02-08
   - local validation:
     - `Release|x64` solution build passed
     - targeted regressions passed (`ConnectionsService`, `XmlConnectionsLoaderTests`, `PuttySessionNameDecoderTests`)
+- #847 RDP fullscreen/redirect-keys guardrail implemented:
+  - exposed `RedirectKeysEnabled` on `RdpProtocol`
+  - fullscreen context-menu action now locks only when redirect-keys mode is active and session is already fullscreen
+  - prevents accidental fullscreen exit in this state
 
 ## P1 - Duplicate (open)
 

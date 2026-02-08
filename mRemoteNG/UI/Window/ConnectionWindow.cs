@@ -485,6 +485,7 @@ namespace mRemoteNG.UI.Window
                 {
                     RdpProtocol rdp = (RdpProtocol)interfaceControl.Protocol;
                     cmenTabFullscreen.Visible = true;
+                    cmenTabFullscreen.Enabled = !rdp.RedirectKeysEnabled || !rdp.Fullscreen;
                     cmenTabFullscreen.Checked = rdp.Fullscreen;
                     cmenTabSmartSize.Visible = true;
                     cmenTabSmartSize.Checked = rdp.SmartSize;
@@ -492,6 +493,7 @@ namespace mRemoteNG.UI.Window
                 else
                 {
                     cmenTabFullscreen.Visible = false;
+                    cmenTabFullscreen.Enabled = true;
                     cmenTabSmartSize.Visible = false;
                 }
 
@@ -671,6 +673,8 @@ namespace mRemoteNG.UI.Window
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
                 RdpProtocol rdp = interfaceControl?.Protocol as RdpProtocol;
+                if (rdp?.RedirectKeysEnabled == true && rdp.Fullscreen)
+                    return;
                 rdp?.ToggleFullscreen();
             }
             catch (Exception ex)
