@@ -555,6 +555,15 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
   - upstream packaging:
     - PR `#3125`: `https://github.com/mRemoteNG/mRemoteNG/pull/3125`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/811#issuecomment-3867038036`
+- [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
+  - issue comments:
+    - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
+    - `#2163`: `https://github.com/mRemoteNG/mRemoteNG/issues/2163#issuecomment-3867046749`
+    - `#2459`: `https://github.com/mRemoteNG/mRemoteNG/issues/2459#issuecomment-3867046753`
+    - `#2706`: `https://github.com/mRemoteNG/mRemoteNG/issues/2706#issuecomment-3867046751`
+    - `#3062`: `https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3867046757`
 - [x] Re-read and regrouped unresolved upstream issues for RC handoff:
   - file:
     - `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md`
@@ -563,7 +572,10 @@ Phase 2: P0 security integration and critical issue burn-down.
     - critical: `3`
     - security: `27`
     - need2check: `207`
+    - in progress: `30`
+    - in development: `35`
     - duplicate: `6`
+    - unlabeled: `10`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -576,7 +588,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 1. Track upstream feedback on PR-1..PR-21 (`#3105`..`#3125`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. Continue P5 stabilization only for reproducible items not yet mapped to an open upstream PR.
+3. If no parent feedback lands, start next P5 package from unmapped active cluster (`#2160`, `#2161`, `#2171`, `#2166`) after reproduction confirmation.
 
 ## Decision Log
 
@@ -641,6 +653,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Posted consolidation triage comments for `#1880` and `#2653` recommending close unless reproducible on latest builds.
 - 2026-02-08: Opened upstream PR `#3125` for startup XML recovery fallback package (`#811`).
 - 2026-02-08: Re-grouped unresolved upstream issues for RC in `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` and aligned next actions to parent-project merge/closure gates.
+- 2026-02-08: Linked issue `#811` directly to upstream PR `#3125` via parent issue comment for closure traceability.
+- 2026-02-08: Linked disposed-object panel-close issue family (`#2118`, `#2163`, `#2459`, `#2706`, `#3062`) to upstream PR `#3106` to accelerate maintainer regroup/closure decisions.
+- 2026-02-08: Refreshed unresolved regroup with full label-debt snapshot (`Need 2 check`, `In progress`, `In development`, unlabeled) and identified unmapped active runtime cluster (`#2160`, `#2161`, `#2171`, `#2166`).
 
 ## Resume Checklist (after reboot)
 

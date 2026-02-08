@@ -1,74 +1,82 @@
 # RC Unresolved Regroup
 
-Date: 2026-02-08  
-Scope: `mRemoteNG/mRemoteNG` (parent project) + fork execution branch `codex/release-1.79-bootstrap`
+Date: 2026-02-08 (refresh after issue re-read)  
+Scope: `mRemoteNG/mRemoteNG` (parent) + fork execution branch `codex/release-1.79-bootstrap`
 
-## Baseline (current upstream view)
+## Baseline (open issues, parent repo)
 
 - Open issues: `830`
 - `critical`: `3` (`#2988`, `#2989`, `#3080`)
 - `Security`: `27`
 - `Need 2 check`: `207`
-- `Duplicate`: `6`
 - `In progress`: `30`
 - `In development`: `35`
+- `Duplicate`: `6`
+- unlabeled open issues: `10`
 
-## What Changed Since Previous Snapshot
+Source snapshot:
+- `NEXTUP/command-output/issues_open_snapshot_2026-02-08.json`
 
-- Prior package set `PR-1..PR-20` (`#3105..#3124`) is still open upstream.
-- New package opened for startup XML recovery:
-  - `PR-21`: https://github.com/mRemoteNG/mRemoteNG/pull/3125 (issue `#811`)
-- Several issues already fixed in fork remain open upstream only because merge/close/relabel is pending in the parent repo.
+## What Changed In This Pass
 
-## RC-R0 Parent-Project Merge Queue (Primary RC Gate)
+- Parent-link cross-reference posted for XML recovery package:
+  - issue `#811` -> PR `#3125`
+  - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/811#issuecomment-3867038036`
+- Additional parent-link regroup comments posted for disposed-object panel-close family:
+  - `#2118` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`)
+  - `#2163` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2163#issuecomment-3867046749`)
+  - `#2459` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2459#issuecomment-3867046753`)
+  - `#2706` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2706#issuecomment-3867046751`)
+  - `#3062` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3867046757`)
 
-All package PRs opened from fork and awaiting parent maintainer action:
+## RC-R0 Parent Merge Queue (primary RC gate)
 
-- `#3105` (security follow-up: LDAP/import hardening)
-- `#3106` (close-panel race `#3069`)
-- `#3107` (1Password parser `#3092`)
-- `#3108` (default external provider `#2972`)
-- `#3109` (Process.Start hardening + external-tools escaping `#2989/#3044`)
-- `#3110` (SqlClient SNI runtime `#3005`)
-- `#3111` (SQL schema compatibility `#1916/#1883`)
-- `#3112` (config splitter persistence `#850`)
-- `#3113` (startup path fallback `#1969`)
-- `#3114` (PuTTY provider startup resilience `#822`)
-- `#3115` (PuTTY CJK decode `#2785`)
-- `#3116` (RDP SmartSize focus `#2735`)
-- `#3117` (RDP redirect-keys/fullscreen guard `#847`)
-- `#3118` (RDP fullscreen exit refocus `#1650`)
-- `#3119` (RDP RCW/COM SmartSize resilience `#2510`)
-- `#3120` (settings path observability `#2987`)
-- `#3121` (password-protect disable guardrail `#2673`)
-- `#3122` (master-password autolock `#1649`)
-- `#3123` (external tool `PROTOCOL` token `#1634`)
-- `#3124` (main close cancel behavior `#2270`)
-- `#3125` (startup malformed XML recovery `#811`)
+All fork packages are open upstream and `CLEAN` (no local merge conflicts):
+
+- `#3105` security follow-up (LDAP/import hardening)
+- `#3106` close-panel race/disposed callback hardening (`#3069` family)
+- `#3107` 1Password parser fallback
+- `#3108` default external provider handling
+- `#3109` `Process.Start` hardening + external-tools escaping
+- `#3110` SqlClient SNI runtime packaging
+- `#3111` SQL schema compatibility hardening
+- `#3112` config splitter persistence
+- `#3113` startup path fallback
+- `#3114` PuTTY provider startup resilience
+- `#3115` PuTTY CJK decode
+- `#3116` RDP SmartSize focus resilience
+- `#3117` fullscreen/redirect-keys guardrail
+- `#3118` fullscreen-exit refocus
+- `#3119` RDP RCW/COM SmartSize resilience
+- `#3120` settings path observability
+- `#3121` password-protect disable guardrail
+- `#3122` master-password autolock
+- `#3123` external tool `PROTOCOL` token
+- `#3124` main close cancel behavior
+- `#3125` malformed startup XML recovery from newest valid backup
 
 RC implication:
-- parent merge/review throughput is now the dominant constraint, not missing fork implementation capacity.
+- merge throughput in parent repo is still the dominant RC constraint.
 
-## RC-R1 Critical Security Still Open (Must Resolve for RC Sign-Off)
+## RC-R1 Critical Security Still Open (must close for RC sign-off)
 
-- `#2988` (open) -> mapped fix evidence in `#3105`
-- `#2989` (open) -> mapped fix evidence in `#3109`
-- `#3080` (open) -> mapped fix evidence in `#3105`
+- `#2988` -> mapped to `#3105`
+- `#2989` -> mapped to `#3109`
+- `#3080` -> mapped to `#3105`
 
-Required maintainer action in parent project:
-- merge mapped PRs, or close with explicit rationale if not reproducible on current code.
+Required parent action:
+- merge mapped PRs and close/relabel these issues (or document non-repro rationale).
 
-## RC-R2 Implemented But Still Open (Label/Closure Debt)
+## RC-R2 Implemented, Still Open (closure/relabel debt)
 
-High-value mapped issues that remain open despite implementation + upstream PR linkage:
+Mapped implementation already exists in open parent PRs:
 
 - `#3069` -> `#3106`
 - `#3092` -> `#3107`
 - `#2972` -> `#3108`
 - `#3044` -> `#3109`
 - `#3005` -> `#3110`
-- `#1916` -> `#3111`
-- `#1883` -> `#3111`
+- `#1916`, `#1883` -> `#3111`
 - `#850` -> `#3112`
 - `#1969` -> `#3113`
 - `#822` -> `#3114`
@@ -84,32 +92,43 @@ High-value mapped issues that remain open despite implementation + upstream PR l
 - `#2270` -> `#3124`
 - `#811` -> `#3125`
 
+Likely same crash family, now cross-linked to `#3106` for parent verification:
+
+- `#2118`, `#2163`, `#2459`, `#2706`, `#3062`
+
+## RC-R3 Unmapped Active Runtime Cluster (next coding candidates)
+
+Most active unresolved runtime/UI issues not currently mapped to an open package PR:
+
+- `#2160` closing last tab should close panel
+- `#2161` tab strip overflow drag/scroll regression
+- `#2171` config/connections tab position persistence
+- `#2166` tab/panel crash+resize behavior bundle
+
+Execution rule:
+- treat this as next P5 coding wave only after parent feedback cycle on `#3105..#3125`.
+
+## RC-R4 Parent Permission-Gated Hygiene
+
+- duplicates still open (`6`): `#520`, `#1684`, `#1837`, `#1874`, `#2537`, `#3051`
+- status-label debt remains high:
+  - `Need 2 check`: `207`
+  - `In progress`: `30`
+  - `In development`: `35`
+
 RC implication:
-- issue list still overstates unresolved runtime risk until parent labels/closures catch up with merged code.
+- fork account cannot close/relabel these directly; parent maintainer pass is required.
 
-## RC-R3 Parent Permission-Gated Hygiene (Non-Code, Still Blocking Signal)
+## RC-R5 Deferred / non-RC blockers
 
-Duplicates still open (`6`):
-- `#520`, `#1684`, `#1837`, `#1874`, `#2537`, `#3051`
-
-Status-label debt still open:
-- `Need 2 check`: `207`
-- `In progress`: `30`
-- `In development`: `35`
-
-RC implication:
-- maintainers need to execute close/relabel actions that fork account cannot perform directly.
-
-## RC-R4 Deferred/Out-of-Scope for Current RC
-
-- large experimental features still open and intentionally deferred:
-  - `#2997` (SSH dotnet terminal)
-  - `#3001` (SCP/SFTP browser)
-- non-core website/project issues should remain tracked but not block runtime RC:
-  - e.g. `#3103`, `#2721`
+- intentionally deferred large feature tracks:
+  - `#2997` SSH dotnet terminal
+  - `#3001` SCP/SFTP browser
+- website/project infrastructure (track but do not block runtime RC):
+  - `#3103`, `#2721`, `#2441`, `#2474`
 
 ## Next Execution Wave
 
-1. Track parent reviews for `#3105..#3125` daily and fast-follow requested changes.
-2. Keep posting concise issue-level cross-links so maintainers can close/relabel immediately after merge.
-3. Keep new P5 coding only for issues that are both reproducible now and not already mapped to an open PR.
+1. Continue daily parent follow-up for PRs `#3105..#3125` and fast-follow review requests.
+2. Keep issue-level cross-linking so maintainers can close/relabel immediately after merge.
+3. If no parent feedback arrives, start P5 package for one unmapped active runtime issue from RC-R3.

@@ -1,0 +1,1 @@
+Packaged fix is now available in PR #3125: https://github.com/mRemoteNG/mRemoteNG/pull/3125. This includes deterministic recovery from malformed primary XML by loading the newest valid backup and restoring the primary file, plus regression coverage in XmlConnectionsLoaderTests.

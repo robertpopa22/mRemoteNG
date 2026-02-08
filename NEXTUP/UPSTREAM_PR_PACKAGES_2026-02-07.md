@@ -45,6 +45,12 @@ Execution status:
 - branch: `codex/pr2-closepanel-stability`
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3106
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3106#issuecomment-3865040687
+- related issue-family cross-links:
+  - `#2118`: https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750
+  - `#2163`: https://github.com/mRemoteNG/mRemoteNG/issues/2163#issuecomment-3867046749
+  - `#2459`: https://github.com/mRemoteNG/mRemoteNG/issues/2459#issuecomment-3867046753
+  - `#2706`: https://github.com/mRemoteNG/mRemoteNG/issues/2706#issuecomment-3867046751
+  - `#3062`: https://github.com/mRemoteNG/mRemoteNG/issues/3062#issuecomment-3867046757
 
 ## PR-3 1Password Parsing and Field Fallback (`#3092`) (P5)
 
@@ -412,6 +418,7 @@ Core files:
 Execution status:
 - branch: `codex/pr21-xml-recovery-811`
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3125
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/811#issuecomment-3867038036
 
 ## Excluded From Upstream PRs
 

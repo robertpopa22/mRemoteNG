@@ -1,0 +1,1 @@
+This appears to match the same ConnectionWindow.Prot_Event_Closed disposed-object close-path as #3069. Candidate upstream fix package is PR #3106: https://github.com/mRemoteNG/mRemoteNG/pull/3106. After merge in parent, please retest on a build that includes that commit; if still reproducible with exact steps/logs, keep this issue open, otherwise close as duplicate of #3069.
