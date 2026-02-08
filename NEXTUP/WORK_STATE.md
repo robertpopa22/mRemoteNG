@@ -598,8 +598,9 @@ Phase 2: P0 security integration and critical issue burn-down.
     - queue tab close on UI message loop to avoid close-during-layout races
     - handle transient docking race exceptions in queued close path without app crash
   - local validation:
-    - `dotnet build mRemoteNG.sln -c Release -p:Platform=x64` runs until known COMReference gate (`MSB4803`) with no new compile errors attributed to this patch
-    - full-framework `MSBuild.exe` in current shell still lacks SDK resolver wiring for SDK-style projects (environment/tooling blocker)
+    - `dotnet build mRemoteNG.sln -c Release -p:Platform=x64` reaches known COMReference gate (`MSB4803`) on .NET Core MSBuild path
+    - full-framework build succeeds when SDK is made discoverable in shell:
+      - `set PATH=C:\Progra~1\dotnet;%PATH% && C:\Progra~2\MICROS~4\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe mRemoteNG.sln /m /p:Configuration=Release /p:Platform=x64 /t:Build`
   - upstream packaging:
     - PR `#3129`: `https://github.com/mRemoteNG/mRemoteNG/pull/3129`
     - issue update comment:
