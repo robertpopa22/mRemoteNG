@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-08 (session 39)  
+Last updated: 2026-02-08 (session 40)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -548,6 +548,22 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3124`: `https://github.com/mRemoteNG/mRemoteNG/pull/3124`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2270#issuecomment-3866527936`
+- [x] P5 startup XML recovery package opened upstream (`#811`):
+  - files:
+    - `mRemoteNG/Config/Connections/XmlConnectionsLoader.cs`
+    - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+    - `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+  - upstream packaging:
+    - PR `#3125`: `https://github.com/mRemoteNG/mRemoteNG/pull/3125`
+- [x] Re-read and regrouped unresolved upstream issues for RC handoff:
+  - file:
+    - `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md`
+  - baseline reconfirmed:
+    - open issues: `830`
+    - critical: `3`
+    - security: `27`
+    - need2check: `207`
+    - duplicate: `6`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -558,9 +574,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18/PR-19/PR-20 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`, `#3123`, `#3124`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate from refreshed backlog snapshot.
-3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
+1. Track upstream feedback on PR-1..PR-21 (`#3105`..`#3125`) and fast-follow any review fixes with minimal delta commits.
+2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
+3. Continue P5 stabilization only for reproducible items not yet mapped to an open upstream PR.
 
 ## Decision Log
 
@@ -623,6 +639,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented external-tool `PROTOCOL` token support for `#1634` and opened upstream PR `#3123`.
 - 2026-02-08: Implemented main-close cancel behavior fix for open panels (`#2270`) and opened upstream PR `#3124`.
 - 2026-02-08: Posted consolidation triage comments for `#1880` and `#2653` recommending close unless reproducible on latest builds.
+- 2026-02-08: Opened upstream PR `#3125` for startup XML recovery fallback package (`#811`).
+- 2026-02-08: Re-grouped unresolved upstream issues for RC in `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` and aligned next actions to parent-project merge/closure gates.
 
 ## Resume Checklist (after reboot)
 

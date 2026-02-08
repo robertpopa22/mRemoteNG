@@ -393,6 +393,26 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3124
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2270#issuecomment-3866527936
 
+## PR-21 Startup XML Recovery From Newest Valid Backup (`#811`)
+
+Scope:
+- recover startup from malformed primary XML by loading the newest valid `*.backup`.
+- restore primary connections file from the recovered backup.
+- ensure invalid XML surfaces as `XmlException` so recovery path is deterministic and testable.
+- add regression tests for empty path, XXE rejection, and backup fallback behavior.
+
+Primary commit:
+- `dd794c43`
+
+Core files:
+- `mRemoteNG/Config/Connections/XmlConnectionsLoader.cs`
+- `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+- `mRemoteNGTests/Config/Connections/XmlConnectionsLoaderTests.cs`
+
+Execution status:
+- branch: `codex/pr21-xml-recovery-811`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3125
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -422,6 +442,7 @@ Execution status:
 18. PR-18 (master-password autolock on minimize/idle)
 19. PR-19 (external-tool protocol token)
 20. PR-20 (main close cancel behavior with open panels)
+21. PR-21 (startup XML backup recovery)
 
 ## Operational Guidance
 
