@@ -519,6 +519,21 @@ Phase 2: P0 security integration and critical issue burn-down.
     - `https://github.com/mRemoteNG/mRemoteNG/issues/1880#issuecomment-3866421863`
   - issue `#2653` comment:
     - `https://github.com/mRemoteNG/mRemoteNG/issues/2653#issuecomment-3866422644`
+- [x] P5 external-tool protocol token support (`#1634`):
+  - files:
+    - `mRemoteNG/Tools/ExternalToolArgumentParser.cs`
+    - `mRemoteNGTests/Tools/ExternalToolsArgumentParserTests.cs`
+  - change:
+    - added `protocol` replacement variable in external tool argument parser
+    - added parser coverage for `%PROTOCOL%`, `%-PROTOCOL%`, `%!PROTOCOL%`
+  - local validation:
+    - full-framework MSBuild solution build (`Release|x64`) passed
+    - targeted parser tests passed via vstest filter:
+      - `FullyQualifiedName~mRemoteNGTests.Tools.ExternalToolsArgumentParserTests` (`37/37`)
+  - upstream packaging:
+    - PR `#3123`: `https://github.com/mRemoteNG/mRemoteNG/pull/3123`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/1634#issuecomment-3866512854`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -529,7 +544,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`) and fast-follow any review fixes.
+1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17/PR-18/PR-19 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`, `#3122`, `#3123`) and fast-follow any review fixes.
 2. Continue P5 stabilization with next fixable runtime/UI candidate from refreshed backlog snapshot.
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
@@ -591,6 +606,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Rebased/cleaned PR `#3120` branch onto `upstream/v1.78.2-dev` so upstream diff contains only the intended 3-file package.
 - 2026-02-08: Implemented password-protection disable guardrail for `#2673` and opened upstream PR `#3121`.
 - 2026-02-08: Implemented master-password autolock on minimize/idle for `#1649` and opened upstream PR `#3122`.
+- 2026-02-08: Implemented external-tool `PROTOCOL` token support for `#1634` and opened upstream PR `#3123`.
 - 2026-02-08: Posted consolidation triage comments for `#1880` and `#2653` recommending close unless reproducible on latest builds.
 
 ## Resume Checklist (after reboot)

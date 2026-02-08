@@ -356,6 +356,25 @@ Execution status:
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1649#issuecomment-3866405356
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3122#issuecomment-3866406010
 
+## PR-19 External Tool Protocol Token (`#1634`)
+
+Scope:
+- add `PROTOCOL` variable support in external tool argument parsing.
+- keep escaping behavior unchanged for token variants (`%`, `%-`, `%!` prefixes).
+- add parser regression coverage for protocol token parsing.
+
+Primary commit:
+- `aae9005e`
+
+Core files:
+- `mRemoteNG/Tools/ExternalToolArgumentParser.cs`
+- `mRemoteNGTests/Tools/ExternalToolsArgumentParserTests.cs`
+
+Execution status:
+- branch: `codex/pr19-protocol-1634`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3123
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/1634#issuecomment-3866512854
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -383,6 +402,7 @@ Execution status:
 16. PR-16 (settings path observability + troubleshooting clarification)
 17. PR-17 (require current password before disabling protection)
 18. PR-18 (master-password autolock on minimize/idle)
+19. PR-19 (external-tool protocol token)
 
 ## Operational Guidance
 
