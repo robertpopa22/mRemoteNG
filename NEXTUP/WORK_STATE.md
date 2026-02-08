@@ -590,6 +590,22 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3128`: `https://github.com/mRemoteNG/mRemoteNG/pull/3128`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3867317211`
+- [x] P5 tab/panel crash+resize hardening package opened upstream (`#2166`):
+  - file:
+    - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs`
+  - change:
+    - validate tab index/content before close action
+    - queue tab close on UI message loop to avoid close-during-layout races
+    - handle transient docking race exceptions in queued close path without app crash
+  - local validation:
+    - `dotnet build mRemoteNG.sln -c Release -p:Platform=x64` runs until known COMReference gate (`MSB4803`) with no new compile errors attributed to this patch
+    - full-framework `MSBuild.exe` in current shell still lacks SDK resolver wiring for SDK-style projects (environment/tooling blocker)
+  - upstream packaging:
+    - PR `#3129`: `https://github.com/mRemoteNG/mRemoteNG/pull/3129`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3867358613`
+    - note:
+      - form-closing enumeration trace from `#2166` is already covered by PR `#3124`
 - [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
   - issue comments:
     - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
@@ -619,9 +635,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-1..PR-24 (`#3105`..`#3128`) and fast-follow any review fixes with minimal delta commits.
+1. Track upstream feedback on PR-1..PR-25 (`#3105`..`#3129`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, continue next unmapped runtime cluster after `#2171`: `#2166` (repro-first, one issue package at a time).
+3. If no parent feedback lands, refresh open-issue snapshot and package next unmapped runtime/UI candidate.
 
 ## Decision Log
 
@@ -696,6 +712,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Updated RC regroup to move `#2161` from unmapped cluster into mapped/open-PR closure debt (`#2171`, `#2166` remain next).
 - 2026-02-08: Packaged `#2171` into dedicated parent PR `#3128` from branch `codex/pr24-config-tree-layout-2171` and posted issue cross-link comment.
 - 2026-02-08: Updated RC regroup to move `#2171` from unmapped cluster into mapped/open-PR closure debt (`#2166` remains next).
+- 2026-02-08: Packaged `#2166` into dedicated parent PR `#3129` from branch `codex/pr25-tab-crash-resize-hardening-2166` and posted issue cross-link comment.
+- 2026-02-08: Updated RC regroup to map full `#2166` crash bundle across PR `#3129` (tab-close race path) and PR `#3124` (form-closing enumeration path).
 
 ## Resume Checklist (after reboot)
 

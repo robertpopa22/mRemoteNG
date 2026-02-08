@@ -1,0 +1,15 @@
+Summary
+- harden document-tab close path under resize/reconnect layout churn
+- validate tab index/content before close and defer close to UI queue
+- avoid unhandled dock-layout race exceptions during queued close
+
+Why
+Issue #2166 reports close-tab crashes around RDP resize/reconnect.
+One stack reaches DockPaneStripNG.TabCloseButtonHit/CloseContent during layout transitions.
+
+Notes
+- form-closing enumeration trace from #2166 is covered by parent PR #3124.
+
+Validation
+- local dotnet build reaches known COMReference gate MSB4803 in this shell/runtime
+- full-framework msbuild sdk resolver is not fully wired in this shell; CI/manual repro is source of truth for this package

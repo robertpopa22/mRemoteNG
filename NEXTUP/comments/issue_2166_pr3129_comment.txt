@@ -1,0 +1,4 @@
+RC update: packaged in parent PR #3129 and ready for retest on latest RC builds.
+PR: https://github.com/mRemoteNG/mRemoteNG/pull/3129
+Scope: harden document-tab close path during resize/reconnect layout churn (deferred close plus guards in DockPaneStripNG).
+Note: the FormClosing enumeration trace from this issue is covered by parent PR #3124.

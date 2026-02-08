@@ -31,6 +31,9 @@ Source snapshot:
 - Parent-link cross-reference posted for config/connections panel persistence package:
   - issue `#2171` -> PR `#3128`
   - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3867317211`
+- Parent-link cross-reference posted for tab/panel crash+resize hardening package:
+  - issue `#2166` -> PR `#3129`
+  - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3867358613`
 - Additional parent-link regroup comments posted for disposed-object panel-close family:
   - `#2118` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`)
   - `#2163` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2163#issuecomment-3867046749`)
@@ -66,6 +69,7 @@ All fork packages are open upstream and `CLEAN` (no local merge conflicts):
 - `#3126` close empty panel after last tab closes
 - `#3127` document-tab drag auto-scroll on overflow
 - `#3128` preserve restored config/connections panel focus on startup
+- `#3129` tab close/resize crash hardening (`DockPaneStripNG`)
 
 RC implication:
 - merge throughput in parent repo is still the dominant RC constraint.
@@ -106,6 +110,7 @@ Mapped implementation already exists in open parent PRs:
 - `#2160` -> `#3126`
 - `#2161` -> `#3127`
 - `#2171` -> `#3128`
+- `#2166` -> `#3129` (tab-close/resize path) and `#3124` (form-closing enumeration path)
 
 Likely same crash family, now cross-linked to `#3106` for parent verification:
 
@@ -115,10 +120,10 @@ Likely same crash family, now cross-linked to `#3106` for parent verification:
 
 Most active unresolved runtime/UI issues not currently mapped to an open package PR:
 
-- `#2166` tab/panel crash+resize behavior bundle
+- none in the previously tracked `#2160/#2161/#2171/#2166` cluster
 
 Execution rule:
-- treat this as next P5 coding wave only after parent feedback cycle on `#3105..#3128`.
+- treat next P5 coding wave as snapshot-driven (pick next unmapped runtime issue after parent feedback cycle on `#3105..#3129`).
 
 ## RC-R4 Parent Permission-Gated Hygiene
 
@@ -141,6 +146,6 @@ RC implication:
 
 ## Next Execution Wave
 
-1. Continue daily parent follow-up for PRs `#3105..#3128` and fast-follow review requests.
+1. Continue daily parent follow-up for PRs `#3105..#3129` and fast-follow review requests.
 2. Keep issue-level cross-linking so maintainers can close/relabel immediately after merge.
-3. If no parent feedback arrives, start P5 package for one unmapped active runtime issue from RC-R3.
+3. If no parent feedback arrives, refresh issue snapshot and start the next unmapped runtime issue package.

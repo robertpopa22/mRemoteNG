@@ -474,6 +474,25 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3128
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3867317211
 
+## PR-25 Tab Close/Resize Crash Hardening (`#2166`)
+
+Scope:
+- harden document-tab close path during resize/reconnect layout churn.
+- validate tab index/content before close and queue close on UI message loop.
+- avoid unhandled tab-close crashes from transient dock layout race states.
+
+Primary commit:
+- `f95e6ff3`
+
+Core file:
+- `mRemoteNG/UI/Tabs/DockPaneStripNG.cs`
+
+Execution status:
+- branch: `codex/pr25-tab-crash-resize-hardening-2166`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3129
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3867358613
+- note: form-closing enumeration trace from `#2166` is covered by PR `#3124`
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -507,6 +526,7 @@ Execution status:
 22. PR-22 (close empty panel after last tab closes)
 23. PR-23 (document tab drag auto-scroll on overflow)
 24. PR-24 (preserve restored Config/Connections panel focus)
+25. PR-25 (tab close/resize crash hardening)
 
 ## Operational Guidance
 
