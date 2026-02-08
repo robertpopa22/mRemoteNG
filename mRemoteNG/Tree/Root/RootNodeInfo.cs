@@ -20,6 +20,8 @@ namespace mRemoteNG.Tree.Root
         public RootNodeInfo(RootNodeType rootType)
             : this(rootType, Guid.NewGuid().ToString())
         {
+            // Re-set name after base ContainerInfo constructor overrides it via SetDefaults()
+            _name = Language.Connections;
         }
 
         #region Public Properties

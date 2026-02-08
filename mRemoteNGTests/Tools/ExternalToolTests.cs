@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using mRemoteNG.Connection;
 using mRemoteNG.Tools;
@@ -10,6 +11,17 @@ namespace mRemoteNGTests.Tools
     [TestFixture]
     public class ExternalToolTests
     {
+        /// <summary>
+        /// Helper: joins ArgumentList entries into a single string for searching.
+        /// When RunElevated=false, args go into ArgumentList, not Arguments.
+        /// </summary>
+        private static string GetAllArguments(ProcessStartInfo psi)
+        {
+            if (!string.IsNullOrEmpty(psi.Arguments))
+                return psi.Arguments;
+            return string.Join(" ", psi.ArgumentList);
+        }
+
         [Test]
         public void PasswordWithEqualsSignIsPassedCorrectly()
         {
@@ -37,12 +49,10 @@ namespace mRemoteNGTests.Tools
             setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
 
             // Assert
-            // The arguments should contain the password with the equals sign
-            // It may be escaped (e.g., Z-3^=Wv99/Aq), but should not be split
-            Assert.That(process.StartInfo.Arguments, Does.Contain("Z-3"));
-            Assert.That(process.StartInfo.Arguments, Does.Contain("Wv99/Aq"));
-            // The equals sign should be present (possibly escaped as ^=)
-            Assert.That(process.StartInfo.Arguments, Does.Match("Z-3.=Wv99/Aq"));
+            var arguments = GetAllArguments(process.StartInfo);
+            Assert.That(arguments, Does.Contain("Z-3"));
+            Assert.That(arguments, Does.Contain("Wv99/Aq"));
+            Assert.That(arguments, Does.Match("Z-3=Wv99/Aq"));
         }
 
         [Test]
@@ -72,9 +82,9 @@ namespace mRemoteNGTests.Tools
             setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
 
             // Assert
-            // The password should be present in the arguments (possibly escaped)
-            Assert.That(process.StartInfo.Arguments, Does.Contain("P@ss"));
-            Assert.That(process.StartInfo.Arguments, Does.Contain("W0rd"));
+            var arguments = GetAllArguments(process.StartInfo);
+            Assert.That(arguments, Does.Contain("P@ss"));
+            Assert.That(arguments, Does.Contain("W0rd"));
         }
 
         [Test]
@@ -105,7 +115,7 @@ namespace mRemoteNGTests.Tools
             setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
 
             // Assert
-            var arguments = process.StartInfo.Arguments;
+            var arguments = GetAllArguments(process.StartInfo);
             Assert.That(arguments, Does.Contain("myhost.com"));
             Assert.That(arguments, Does.Contain("8080"));
             Assert.That(arguments, Does.Contain("admin"));

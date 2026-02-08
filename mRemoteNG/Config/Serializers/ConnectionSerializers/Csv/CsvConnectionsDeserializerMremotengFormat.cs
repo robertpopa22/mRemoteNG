@@ -104,7 +104,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 ? connectionCsv[headers.IndexOf("Panel")]
                 : "";
 
-            connectionRecord.Username = headers.Contains("UserViaAPI")
+            connectionRecord.UserViaAPI = headers.Contains("UserViaAPI")
                 ? connectionCsv[headers.IndexOf("UserViaAPI")]
                 : "";
 
@@ -175,6 +175,23 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
 
             connectionRecord.ExtApp = headers.Contains("ExtApp")
                 ? connectionCsv[headers.IndexOf("ExtApp")] : "";
+
+            connectionRecord.TabColor = headers.Contains("TabColor")
+                ? connectionCsv[headers.IndexOf("TabColor")] : "";
+
+            connectionRecord.ConnectionFrameColor = headers.Contains("ConnectionFrameColor")
+                ? Enum.TryParse(connectionCsv[headers.IndexOf("ConnectionFrameColor")], out ConnectionFrameColor cfColor)
+                    ? cfColor : default
+                : default;
+
+            connectionRecord.RedirectDiskDrivesCustom = headers.Contains("RedirectDiskDrivesCustom")
+                ? connectionCsv[headers.IndexOf("RedirectDiskDrivesCustom")] : "";
+
+            connectionRecord.EC2InstanceId = headers.Contains("EC2InstanceId")
+                ? connectionCsv[headers.IndexOf("EC2InstanceId")] : "";
+
+            connectionRecord.EC2Region = headers.Contains("EC2Region")
+                ? connectionCsv[headers.IndexOf("EC2Region")] : "";
 
             connectionRecord.VNCProxyUsername = headers.Contains("VNCProxyUsername")
                 ? connectionCsv[headers.IndexOf("VNCProxyUsername")]
@@ -570,6 +587,24 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritPanel")], out bool value))
                     connectionRecord.Inheritance.Panel = value;
+            }
+
+            if (headers.Contains("InheritTabColor"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritTabColor")], out bool value))
+                    connectionRecord.Inheritance.TabColor = value;
+            }
+
+            if (headers.Contains("InheritConnectionFrameColor"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritConnectionFrameColor")], out bool value))
+                    connectionRecord.Inheritance.ConnectionFrameColor = value;
+            }
+
+            if (headers.Contains("InheritColor"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritColor")], out bool value))
+                    connectionRecord.Inheritance.Color = value;
             }
 
             if (headers.Contains("InheritPassword"))

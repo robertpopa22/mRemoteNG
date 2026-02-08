@@ -51,7 +51,8 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayUsername),
                         nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayPassword),
                         nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayDomain),
-                        nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayUseConnectionCredentials)
+                        nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayUseConnectionCredentials),
+                        nameof(mRemoteNG.Connection.ConnectionInfo.RDGatewayAccessToken)
                     });
                     break;
                 case RDGatewayUseConnectionCredentials.SmartCard:

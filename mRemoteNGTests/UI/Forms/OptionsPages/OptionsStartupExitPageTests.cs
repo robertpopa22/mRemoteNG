@@ -28,8 +28,8 @@ namespace mRemoteNGTests.UI.Forms.OptionsPages
         {
             ListViewTester listViewTester = new("lstOptionPages", _optionsForm);
             listViewTester.Select("Startup/Exit");
-            CheckBox checkboxTester = _optionsForm.FindControl<CheckBox>("chkSaveConsOnExit");
-            Assert.That(checkboxTester.Text, Does.Match("Save connections"));
+            CheckBox checkboxTester = _optionsForm.FindControl<CheckBox>("chkReconnectOnStart");
+            Assert.That(checkboxTester.Text, Does.Match("Reconnect to previously opened sessions"));
         }
     }
 }

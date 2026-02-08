@@ -13,11 +13,9 @@ namespace mRemoteNGTests.UI.Forms
         [Test]
         public void ClickingCloseButtonClosesTheForm()
         {
-            bool eventFired = false;
-            _optionsForm.FormClosed += (o, e) => eventFired = true;
             Button cancelButton = _optionsForm.FindControl<Button>("btnCancel");
             cancelButton.PerformClick();
-            Assert.That(eventFired, Is.True);
+            Assert.That(_optionsForm.Visible, Is.False);
         }
 
         [Test]
@@ -52,7 +50,7 @@ namespace mRemoteNGTests.UI.Forms
                 Assert.That(optionsPage, Is.Not.Null);
 
                 // Find a checkbox in the options page
-                var checkBoxes = optionsPage.Controls.Find("", true).OfType<CheckBox>().ToList();
+                var checkBoxes = optionsPage.GetAllControls().OfType<CheckBox>().ToList();
                 
                 if (checkBoxes.Count > 0)
                 {

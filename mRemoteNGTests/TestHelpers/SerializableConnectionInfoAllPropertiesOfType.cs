@@ -9,6 +9,9 @@
 		public TType Description { get; set; }
 		public TType Icon { get; set; }
 		public TType Panel { get; set; }
+		public TType Color { get; set; }
+		public TType TabColor { get; set; }
+		public TType ConnectionFrameColor { get; set; }
 		public TType Username { get; set; }
 		public TType Password { get; set; }
 		public TType Domain { get; set; }
@@ -31,6 +34,7 @@
 		public TType RDGatewayUsername { get; set; }
 		public TType RDGatewayPassword { get; set; }
 		public TType RDGatewayDomain { get; set; }
+		public TType RDGatewayAccessToken { get; set; }
 		public TType RDGatewayExternalCredentialProvider { get; set; }
 		public TType RDGatewayUserViaAPI { get; set; }
 		public TType Resolution { get; set; }
@@ -83,6 +87,9 @@
 		public TType OpeningCommand { get; set; }
 		public TType ExternalCredentialProvider { get; set; }
 		public TType UserViaAPI { get; set; }
+		public TType VaultOpenbaoMount { get; set; }
+		public TType VaultOpenbaoRole { get; set; }
+		public TType VaultOpenbaoSecretEngine { get; set; }
 		public TType EC2InstanceId { get; set; }
 		public TType ExternalAddressProvider { get; set; }
 		public TType EC2Region { get; set; }

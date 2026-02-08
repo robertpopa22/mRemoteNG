@@ -21,6 +21,7 @@
       <xs:attribute name="FullFileEncryption" type="xs:boolean" use="required" />
       <xs:attribute name="Protected" type="xs:string" use="required" />
       <xs:attribute name="ConfVersion" type="xs:float" use="required" />
+      <xs:attribute name="AutoLockOnMinimize" type="xs:boolean" use="optional" />
     </xs:complexType>
   </xs:element>
 
@@ -36,6 +37,9 @@
     <xs:attribute name="Descr" type="xs:string" use="required" />
     <xs:attribute name="Icon" type="xs:string" use="required" />
     <xs:attribute name="Panel" type="xs:string" use="required" />
+    <xs:attribute name="Color" type="xs:string" use="optional" />
+    <xs:attribute name="TabColor" type="xs:string" use="optional" />
+    <xs:attribute name="ConnectionFrameColor" type="xs:string" use="optional" />
     <xs:attribute name="Username" type="xs:string" use="required" />
     <xs:attribute name="Domain" type="xs:string" use="required" />
     <xs:attribute name="Password" type="xs:string" use="required" />
@@ -83,6 +87,7 @@
     <xs:attribute name="PostExtApp" type="xs:string" use="required" />
     <xs:attribute name="MacAddress" type="xs:string" use="required" />
     <xs:attribute name="UserField" type="xs:string" use="required" />
+    <xs:attribute name="EnvironmentTags" type="xs:string" use="optional" />
     <xs:attribute name="ExtApp" type="xs:string" use="required" />
     <xs:attribute name="Favorite" type="xs:string" use="required" />
     <xs:attribute name="VNCCompression" type="xs:string" use="required" />
@@ -104,6 +109,7 @@
     <xs:attribute name="RDGatewayDomain" type="xs:string" use="required" />
     <xs:attribute name="RDGatewayExternalCredentialProvider" type="xs:string" use="required" />
     <xs:attribute name="RDGatewayUserViaAPI" type="xs:string" use="required" />
+    <xs:attribute name="RDGatewayAccessToken" type="xs:string" use="optional" />
     <xs:attribute name="InheritCredentialRecord" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritCacheBitmaps" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritColors" type="xs:boolean" use="optional" />
@@ -188,6 +194,18 @@
     <xs:attribute name="UseRestrictedAdmin" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseRCG" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseRestrictedAdmin" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserViaAPI" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritExternalAddressProvider" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritEC2InstanceId" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritEC2Region" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritColor" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritTabColor" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritConnectionFrameColor" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritEnvironmentTags" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritOpeningCommand" type="xs:boolean" use="optional" />
+    <xs:attribute name="VaultOpenbaoMount" type="xs:string" use="optional" />
+    <xs:attribute name="VaultOpenbaoRole" type="xs:string" use="optional" />
+    <xs:attribute name="VaultOpenbaoSecretEngine" type="xs:string" use="optional" />
 
   </xs:complexType>
 </xs:schema>

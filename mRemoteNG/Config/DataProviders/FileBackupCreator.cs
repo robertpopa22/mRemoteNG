@@ -15,10 +15,10 @@ namespace mRemoteNG.Config.DataProviders
         {
             try
             {
+                PathValidator.ValidatePathOrThrow(fileName, nameof(fileName));
+
                 if (WeDontNeedToBackup(fileName))
                     return;
-
-                PathValidator.ValidatePathOrThrow(fileName, nameof(fileName));
 
                 string backupFileName =
                     string.Format(Properties.OptionsBackupPage.Default.BackupFileNameFormat, fileName, DateTime.Now);

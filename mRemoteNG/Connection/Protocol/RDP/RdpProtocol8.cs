@@ -75,8 +75,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             if (_frmMain == null) return;
 
-            // Skip resize entirely when minimized or minimizing
-            if (_frmMain.WindowState == FormWindowState.Minimized) return;
+            // Skip resize entirely when minimized or minimizing, but track state
+            if (_frmMain.WindowState == FormWindowState.Minimized)
+            {
+                LastWindowState = FormWindowState.Minimized;
+                return;
+            }
 
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
                 $"Resize() called - WindowState={_frmMain.WindowState}, LastWindowState={LastWindowState}");

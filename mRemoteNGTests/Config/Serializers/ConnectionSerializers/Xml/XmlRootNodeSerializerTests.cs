@@ -37,7 +37,9 @@ public class XmlRootNodeSerializerTests
     [SetUICulture("en-US")]
     public void RootNodeInfoNameSerialized()
     {
-        var element = _rootNodeSerializer.SerializeRootNodeInfo(_rootNodeInfo, _cryptographyProvider, _version);
+        // Create RootNodeInfo inside the test so SetUICulture("en-US") is active
+        var rootNodeInfo = new RootNodeInfo(RootNodeType.Connection);
+        var element = _rootNodeSerializer.SerializeRootNodeInfo(rootNodeInfo, _cryptographyProvider, _version);
         var attributeValue = element.Attribute(XName.Get("Name"))?.Value;
         Assert.That(attributeValue, Is.EqualTo("Connections"));
     }

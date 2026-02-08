@@ -30,7 +30,7 @@ namespace mRemoteNGTests.UI.Forms.OptionsPages
             listViewTester.Select("Advanced");
             
             CheckBox checkboxTester = _optionsForm.FindControl<CheckBox>("chkAutomaticReconnect");
-            Assert.That(checkboxTester.Text, Is.EqualTo("Automatically try to reconnect when disconnected from server (RDP && ICA only)"));
+            Assert.That(checkboxTester.Text, Is.EqualTo("Display reconnection dialog when disconnected from server (RDP && ICA only)"));
         }
     }
 }

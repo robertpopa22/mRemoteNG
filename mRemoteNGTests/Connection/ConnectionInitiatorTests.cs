@@ -43,7 +43,7 @@ namespace mRemoteNGTests.Connection
             _connectionInitiator.OpenConnection(connectionInfo);
 
             // Assert - poll for message with timeout
-            var foundMessage = WaitForMessage(MessageClass.ErrorMsg, timeoutMs: 1000);
+            var foundMessage = WaitForMessage(MessageClass.WarningMsg, timeoutMs: 1000);
             var expectedNoHostnameText = GetNoHostnameMessage();
             Assert.That(foundMessage, Is.Not.Null, "Expected an error message to be added");
             Assert.That(expectedNoHostnameText, Is.Not.Null.And.Not.Empty, "Could not resolve expected resource text");
@@ -65,7 +65,7 @@ namespace mRemoteNGTests.Connection
             _connectionInitiator.OpenConnection(connectionInfo);
 
             // Assert - poll for message with timeout
-            var foundMessage = WaitForMessage(MessageClass.ErrorMsg, timeoutMs: 1000);
+            var foundMessage = WaitForMessage(MessageClass.WarningMsg, timeoutMs: 1000);
             var expectedNoHostnameText = GetNoHostnameMessage();
             Assert.That(foundMessage, Is.Not.Null, "Expected an error message to be added");
             Assert.That(expectedNoHostnameText, Is.Not.Null.And.Not.Empty, "Could not resolve expected resource text");

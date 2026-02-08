@@ -42,6 +42,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("Descr", connectionInfo.Description));
             element.Add(new XAttribute("Icon", connectionInfo.Icon));
             element.Add(new XAttribute("Panel", connectionInfo.Panel));
+            element.Add(new XAttribute("Color", connectionInfo.Color ?? string.Empty));
             element.Add(new XAttribute("TabColor", connectionInfo.TabColor));
             element.Add(new XAttribute("ConnectionFrameColor", connectionInfo.ConnectionFrameColor));
             element.Add(new XAttribute("Id", connectionInfo.ConstantID));
@@ -133,6 +134,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("RDGatewayUseConnectionCredentials", connectionInfo.RDGatewayUseConnectionCredentials));
             element.Add(new XAttribute("RDGatewayExternalCredentialProvider", connectionInfo.RDGatewayExternalCredentialProvider));
             element.Add(new XAttribute("RDGatewayUserViaAPI", connectionInfo.RDGatewayUserViaAPI));
+            element.Add(new XAttribute("RDGatewayAccessToken", connectionInfo.RDGatewayAccessToken ?? string.Empty));
 
             element.Add(_saveFilter.SaveUsername
                 ? new XAttribute("RDGatewayUsername", connectionInfo.RDGatewayUsername)
@@ -195,6 +197,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritIcon", inheritance.Icon.ToString().ToLowerInvariant()));
             if (inheritance.Panel)
                 element.Add(new XAttribute("InheritPanel", inheritance.Panel.ToString().ToLowerInvariant()));
+            if (inheritance.Color)
+                element.Add(new XAttribute("InheritColor", inheritance.Color.ToString().ToLowerInvariant()));
             if (inheritance.TabColor)
                 element.Add(new XAttribute("InheritTabColor", inheritance.TabColor.ToString().ToLowerInvariant()));
             if (inheritance.ConnectionFrameColor)
