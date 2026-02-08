@@ -461,6 +461,24 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3120`: `https://github.com/mRemoteNG/mRemoteNG/pull/3120`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2987#issuecomment-3866329467`
+- [x] P5 password-protection disable guardrail (`#2673`):
+  - files:
+    - `mRemoteNG/Tree/Root/RootNodeInfo.cs`
+    - `mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs`
+    - `mRemoteNG/UI/Forms/FrmPassword.cs`
+    - `mRemoteNGTests/Tree/RootNodeInfoTests.cs`
+  - change:
+    - disabling root `Password protect` now requires current password confirmation
+    - if password prompt is cancelled or mismatched, protection remains enabled
+    - fixed `FrmPassword` new-password flow so `OK` is blocked on verify mismatch
+    - added root password-matching tests (including disabled-flag scenario)
+  - local validation:
+    - `dotnet test mRemoteNGTests\mRemoteNGTests.csproj --filter FullyQualifiedName~RootNodeInfoTests` still blocked at project build by COMReference requirement (`MSB4803`)
+    - CI-first validation remains required for this environment
+  - upstream packaging:
+    - PR `#3121`: `https://github.com/mRemoteNG/mRemoteNG/pull/3121`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -471,7 +489,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`) and fast-follow any review fixes.
+1. Track upstream feedback on PR-7/PR-8/PR-10/PR-11/PR-12/PR-13/PR-14/PR-15/PR-16/PR-17 (`#3111`, `#3112`, `#3114`, `#3115`, `#3116`, `#3117`, `#3118`, `#3119`, `#3120`, `#3121`) and fast-follow any review fixes.
 2. Continue P5 stabilization with next fixable runtime/UI candidate (`#1649` lock/minimize behavior with master password).
 3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
@@ -531,6 +549,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Opened upstream PR `#3119` for SmartSize RCW/COM resilience (`#2510`) with issue + CI cross-links.
 - 2026-02-08: Implemented settings-path observability + troubleshooting clarification for `#2987` and opened upstream PR `#3120`.
 - 2026-02-08: Rebased/cleaned PR `#3120` branch onto `upstream/v1.78.2-dev` so upstream diff contains only the intended 3-file package.
+- 2026-02-08: Implemented password-protection disable guardrail for `#2673` and opened upstream PR `#3121`.
 
 ## Resume Checklist (after reboot)
 

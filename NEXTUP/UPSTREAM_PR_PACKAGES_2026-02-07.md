@@ -303,7 +303,30 @@ Execution status:
 - branch: `codex/pr16-settings-path-observability-2987`
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3120
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2987#issuecomment-3866329467
-- CI evidence comment: pending (clean PR branch does not currently include fork-side PR validation workflow file)
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3120#issuecomment-3866338725
+
+## PR-17 Require Current Password Before Disabling Protection (`#2673`)
+
+Scope:
+- require current password verification before allowing root-node `Password protect` to be disabled.
+- keep protection enabled when the password dialog is cancelled or an incorrect password is entered.
+- harden `FrmPassword` new-password flow so `OK` does not continue when password verification fails.
+- add root password-matching regression tests.
+
+Primary commit:
+- `a44d210f`
+
+Core files:
+- `mRemoteNG/Tree/Root/RootNodeInfo.cs`
+- `mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs`
+- `mRemoteNG/UI/Forms/FrmPassword.cs`
+- `mRemoteNGTests/Tree/RootNodeInfoTests.cs`
+
+Execution status:
+- branch: `codex/pr17-password-protect-disable-2673`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3121
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072
+- CI evidence comment: pending
 
 ## Excluded From Upstream PRs
 
@@ -330,6 +353,7 @@ Execution status:
 14. PR-14 (fullscreen-exit refocus)
 15. PR-15 (SmartSize RCW/COM resilience)
 16. PR-16 (settings path observability + troubleshooting clarification)
+17. PR-17 (require current password before disabling protection)
 
 ## Operational Guidance
 
