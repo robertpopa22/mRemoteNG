@@ -644,6 +644,14 @@ Phase 2: P0 security integration and critical issue burn-down.
     - duplicate: `6`
     - unlabeled: `10`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
+- [x] P6 test fix milestone: resolved all 81 pre-existing test failures (2148/2148 pass):
+  - commit: `79c5e4cf` on `codex/release-1.79-bootstrap`
+  - 25 files changed, 198 insertions, 76 deletions across 12 fix categories
+  - detailed changelog: `NEXTUP/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
+  - fixes span: CSV serialization, XML serialization, XSD schema, RDP resize,
+    ContainerInfo comparison, OptionsForm UI tests, ConfigWindow property grid,
+    ExternalTool escaping, RootNodeInfo i18n, TabColorConverter, FileBackupCreator,
+    CredentialRecordTypeConverter, ConnectionInitiator validation
 
 ## Blockers
 
@@ -653,9 +661,11 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-1..PR-26 (`#3105`..`#3130`) and fast-follow any review fixes with minimal delta commits.
-2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, refresh open-issue snapshot and package next unmapped runtime/UI candidate.
+1. Analyze test coverage gaps for all 26 PRs (#3105-#3130) and write missing tests.
+2. Track upstream feedback on PR-1..PR-26 and fast-follow any review fixes.
+3. Phase 3: Careful per-issue triage and closure on fork (verify each issue individually).
+4. Phase 4: Analyze + fix remaining ~200 unmapped issues.
+5. If no parent feedback lands, refresh open-issue snapshot and package next unmapped runtime/UI candidate.
 
 ## Decision Log
 
@@ -733,6 +743,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Packaged `#2166` into dedicated parent PR `#3129` from branch `codex/pr25-tab-crash-resize-hardening-2166` and posted issue cross-link comment.
 - 2026-02-08: Updated RC regroup to map full `#2166` crash bundle across PR `#3129` (tab-close race path) and PR `#3124` (form-closing enumeration path).
 - 2026-02-08: Opened upstream PR `#3130` for `#2155` (inheritance field-label autosize in `ConfigWindow`) and posted issue cross-link comment (`#issuecomment-3867428399`).
+- 2026-02-08: Resolved all 81 pre-existing test failures in single atomic commit `79c5e4cf` across 12 fix categories (CSV/XML serialization, RDP resize, UI tests, property grid, etc.); test suite now at 2148/2148 green.
 
 ## Resume Checklist (after reboot)
 

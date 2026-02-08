@@ -191,6 +191,36 @@ Current status (fork execution branch):
 - #3044 upstream issue cross-link for external-tool escaping fix:
   - `https://github.com/mRemoteNG/mRemoteNG/issues/3044#issuecomment-3865585451`
 
+## Package P6 - Pre-existing Test Failures
+
+Scope:
+- 81 pre-existing test failures across 12 categories in upstream `v1.78.2-dev`.
+
+Goal:
+- 2148/2148 tests green; zero test debt before release.
+
+Current status (2026-02-08, COMPLETED):
+- commit: `79c5e4cf` on `codex/release-1.79-bootstrap`
+- 25 files changed (13 source, 12 test)
+- detailed per-file changelog: `NEXTUP/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
+
+Fix categories:
+1. CSV serializer header bug + missing properties (~28 tests)
+2. CSV deserializer missing mappings + UserViaAPI bug (~4 tests)
+3. XML serializer missing Color, RDGatewayAccessToken, InheritColor (2 tests)
+4. XML deserializer wrong attribute name for InheritRedirectAudioCapture (1 test)
+5. XSD schema missing attributes Color, RDGatewayAccessToken (1 test)
+6. ContainerInfo comparer NRE on null property values (2 tests)
+7. RDP resize: minimize state not tracked → restore not detected (1 test)
+8. ConfigWindow property grid: IntApp missing Username in expected list (~18 tests)
+9. ExternalTool regex assertion bug (1 test)
+10. RootNodeInfo SetUICulture timing in test setup (1 test)
+11. OptionsForm: control names, expected text, visibility check (4 tests)
+12. Test helpers: TabColorConverter, FileBackupCreator, CredentialRecordTypeConverter, ConnectionInitiator (~18 tests)
+
+Done criteria:
+- All 2148 tests pass locally and in CI.
+
 ## Practical Execution Order
 
 1. P0 Security Critical

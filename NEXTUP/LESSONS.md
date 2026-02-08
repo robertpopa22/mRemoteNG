@@ -36,6 +36,23 @@ Create a persistent memory of what works, what fails, and the fastest known fix 
 | GitHub REST polling returns rate-limit or inconsistent access | Unauthenticated requests | Use `gh api` / `gh run view` with authenticated session |
 | `MSB4803` / COMReference failures with `dotnet build` | .NET Core MSBuild path cannot handle full Framework COM flow | Use full MSBuild path from VS Build Tools |
 
+## Test Fix Lessons (2026-02-08, commit 79c5e4cf)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| `[SetUICulture("en-US")]` on test method doesn't affect `[SetUp]` | NUnit applies `SetUICulture` only during test execution, NOT during `[SetUp]` | Create locale-dependent objects inside the test method, not in `[SetUp]` |
+| `XAttribute` constructor throws `ArgumentNullException` | String property defaults to `null` in C#; `XAttribute(name, null)` is invalid | Use `connectionInfo.Color ?? string.Empty` |
+| `Controls.Find("", true)` throws `ArgumentNullException` | .NET `Control.ControlCollection.Find()` rejects empty/null key | Use recursive `GetAllControls().OfType<T>()` instead |
+| XML deserialization reads wrong attribute name | `InheritRedirectAudioCapture` was deserialized from `"RedirectAudioCapture"` (missing `Inherit` prefix) | Fix attribute name string to `"InheritRedirectAudioCapture"` |
+| CSV header column misalignment causes ~28 failures | Missing semicolon: `RedirectDiskDrivesCustomRedirectPorts` was one column instead of two | Add semicolon: `RedirectDiskDrivesCustom;RedirectPorts` |
+| CSV `UserViaAPI` deserialized into wrong property | Code set `connectionRecord.Username` from `"UserViaAPI"` header | Fix to `connectionRecord.UserViaAPI` |
+| `prop.GetValue(obj).GetHashCode()` throws NRE | Some serializable properties (Color, RDGatewayAccessToken) default to null | Use `prop.GetValue(obj)?.GetHashCode() ?? 0` |
+| RDP MinimizeRestore test: DoResizeClient not called on restore | `Resize()` returns early when minimized without updating `LastWindowState` | Update `LastWindowState = Minimized` before returning |
+| OptionsForm `btnCancel` doesn't fire `FormClosed` | `BtnCancel_Click` sets `Visible = false`, never calls `Close()` | Test should assert `Visible == false` instead of `FormClosed` event |
+| Property grid test fails for IntApp protocol | `Username` has `[AttributeUsedInProtocol(... IntApp)]` but test's expected list omitted it | Add `Username` to IntApp expected properties |
+| New properties not in XSD schema → `ValidateSchema` fails | Serializer writes attributes not declared in `.xsd` | Always update `mremoteng_confcons_v2_8.xsd` when adding serialized attributes |
+| Properties without `[AttributeUsedInProtocol]` show for ALL protocols | `GetCustomAttribute<AttributeUsedInProtocol>()?.SupportedProtocolTypes.Contains(protocol) != false` — null-conditional returns null, `null != false` is true | This is by design; be aware when adding unattributed properties to `AbstractConnectionRecord` |
+
 ## Daily Loop
 
 1. Run command.
