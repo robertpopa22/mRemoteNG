@@ -514,6 +514,11 @@ Phase 2: P0 security integration and critical issue burn-down.
       - `https://github.com/mRemoteNG/mRemoteNG/issues/1649#issuecomment-3866405356`
     - CI evidence comment:
       - `https://github.com/mRemoteNG/mRemoteNG/pull/3122#issuecomment-3866406010`
+- [x] P5 triage consolidation for likely stale/no-repro runtime issues:
+  - issue `#1880` comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/1880#issuecomment-3866421863`
+  - issue `#2653` comment:
+    - `https://github.com/mRemoteNG/mRemoteNG/issues/2653#issuecomment-3866422644`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -586,6 +591,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Rebased/cleaned PR `#3120` branch onto `upstream/v1.78.2-dev` so upstream diff contains only the intended 3-file package.
 - 2026-02-08: Implemented password-protection disable guardrail for `#2673` and opened upstream PR `#3121`.
 - 2026-02-08: Implemented master-password autolock on minimize/idle for `#1649` and opened upstream PR `#3122`.
+- 2026-02-08: Posted consolidation triage comments for `#1880` and `#2653` recommending close unless reproducible on latest builds.
 
 ## Resume Checklist (after reboot)
 
