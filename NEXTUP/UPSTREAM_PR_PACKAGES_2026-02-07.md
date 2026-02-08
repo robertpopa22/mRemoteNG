@@ -456,6 +456,24 @@ Execution status:
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3127
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2161#issuecomment-3867296728
 
+## PR-24 Preserve Restored Config/Connections Panel Focus (`#2171`)
+
+Scope:
+- preserve dock-layout-restored active panel state for Config/Connections on startup.
+- stop forcing `Connections` panel focus immediately after `pnlLayout.xml` restore.
+- keep a safe fallback: focus `Connections` only when no active dock content exists.
+
+Primary commit:
+- `cc294d2b`
+
+Core file:
+- `mRemoteNG/UI/Forms/frmMain.cs`
+
+Execution status:
+- branch: `codex/pr24-config-tree-layout-2171`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3128
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3867317211
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
@@ -488,6 +506,7 @@ Execution status:
 21. PR-21 (startup XML backup recovery)
 22. PR-22 (close empty panel after last tab closes)
 23. PR-23 (document tab drag auto-scroll on overflow)
+24. PR-24 (preserve restored Config/Connections panel focus)
 
 ## Operational Guidance
 

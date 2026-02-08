@@ -1,0 +1,3 @@
+RC update: packaged in parent PR #3128 and ready for retest on latest RC builds.
+PR: https://github.com/mRemoteNG/mRemoteNG/pull/3128
+Scope: stop forcing Tree panel focus after dock-layout restore; preserve restored active Config/Connections panel state.

@@ -579,6 +579,17 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3127`: `https://github.com/mRemoteNG/mRemoteNG/pull/3127`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2161#issuecomment-3867296728`
+- [x] P5 Config/Connections panel-position persistence package opened upstream (`#2171`):
+  - file:
+    - `mRemoteNG/UI/Forms/frmMain.cs`
+  - change:
+    - stop forcing `Connections` panel focus immediately after dock-layout restore
+    - preserve active Config/Connections panel restored from persisted layout
+    - keep fallback focus only when no active dock content is restored
+  - upstream packaging:
+    - PR `#3128`: `https://github.com/mRemoteNG/mRemoteNG/pull/3128`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2171#issuecomment-3867317211`
 - [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
   - issue comments:
     - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
@@ -608,9 +619,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-1..PR-23 (`#3105`..`#3127`) and fast-follow any review fixes with minimal delta commits.
+1. Track upstream feedback on PR-1..PR-24 (`#3105`..`#3128`) and fast-follow any review fixes with minimal delta commits.
 2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-3. If no parent feedback lands, continue next unmapped runtime cluster after `#2161`: `#2171`, `#2166` (repro-first, one issue package at a time).
+3. If no parent feedback lands, continue next unmapped runtime cluster after `#2171`: `#2166` (repro-first, one issue package at a time).
 
 ## Decision Log
 
@@ -683,6 +694,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Updated RC regroup to move `#2160` from unmapped cluster into mapped/open-PR closure debt.
 - 2026-02-08: Packaged `#2161` into dedicated parent PR `#3127` from branch `codex/pr23-tab-drag-overflow-scroll-2161` and posted issue cross-link comment.
 - 2026-02-08: Updated RC regroup to move `#2161` from unmapped cluster into mapped/open-PR closure debt (`#2171`, `#2166` remain next).
+- 2026-02-08: Packaged `#2171` into dedicated parent PR `#3128` from branch `codex/pr24-config-tree-layout-2171` and posted issue cross-link comment.
+- 2026-02-08: Updated RC regroup to move `#2171` from unmapped cluster into mapped/open-PR closure debt (`#2166` remains next).
 
 ## Resume Checklist (after reboot)
 

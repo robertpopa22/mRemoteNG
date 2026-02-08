@@ -1,0 +1,12 @@
+Summary
+- preserve the active Config/Connections panel restored from persisted dock layout
+- avoid forcing Connections panel focus right after layout restore
+- keep fallback focus to Connections only when no active dock content exists
+
+Why
+Issue #2171 reports Config/Connections panel position or selection not retained after restart.
+Startup always called AppWindows.TreeForm.Focus and could override restored active panel state.
+
+Validation
+- local shell in this session has no dotnet or msbuild in PATH
+- validation is CI and manual repro first for this package
