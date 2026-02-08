@@ -342,6 +342,26 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3115`: `https://github.com/mRemoteNG/mRemoteNG/pull/3115`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2785#issuecomment-3865800159`
+- [x] P5 SmartSize focus resilience hardening (issue `#2735` candidate):
+  - file:
+    - `mRemoteNG/UI/Forms/frmMain.cs`
+  - change:
+    - on `WM_ACTIVATEAPP` when app is re-activated and `DisableRefocus=false`, queued activation now explicitly re-focuses active connection protocol
+    - `ActivateConnection()` now uses resilient active-tab discovery fallback (`DockPane` and `DockPanel.ActiveContent`) instead of relying only on `ConnectionWindow.ActiveControl`
+  - local validation:
+    - full Framework MSBuild build of solution (`Release|x64`) passed
+    - targeted regressions passed:
+      - `FullyQualifiedName~ConnectionsService` (`4/4`)
+      - `FullyQualifiedName~XmlConnectionsLoaderTests` (`4/4`)
+      - `FullyQualifiedName~PuttySessionNameDecoderTests` (`3/3`)
+    - note:
+      - existing unrelated unstable test observed in local run:
+        - `RdpProtocol8ResizeTests.MinimizeRestore_Sequence_WorksCorrectly` (expected `DoResizeClientCallCount=1`, got `0`)
+- [x] Refreshed P1-P5 execution snapshot (2026-02-08):
+  - report:
+    - `NEXTUP/P1_P5_EXECUTION_2026-02-08.md`
+  - JSON artifacts:
+    - `D:\github\LOCAL\analysis\mRemoteNG\packages\*.json`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -352,9 +372,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Track upstream feedback on PR-7/PR-8 (`#3111`, `#3112`) and fast-follow any review fixes.
-2. Continue P5 stabilization with next fixable runtime/UI candidate (`#2735` SmartSize focus behavior).
-3. Refresh P1-P5 snapshot and report percentage against release-scope backlog.
+1. Track upstream feedback on PR-7/PR-8/PR-11 (`#3111`, `#3112`, `#3115`) and fast-follow any review fixes.
+2. Continue P5 stabilization with next fixable runtime/UI candidate (`#847` RDP fullscreen/redirect-keys behavior).
+3. Continue maintainer handoff for permission-gated closes/relabels (P1/P3/P4).
 
 ## Decision Log
 
@@ -398,6 +418,8 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Implemented startup XML recovery hardening for malformed `confCons.xml` (#811 candidate) with deterministic fallback to newest valid backup and regression coverage in `XmlConnectionsLoaderTests`.
 - 2026-02-08: Implemented PuTTY session-name decode hardening for CJK/legacy percent-encoded registry keys (#2785 candidate) and added dedicated decoder tests.
 - 2026-02-08: Validated #2785 patchset green in fork CI (`21789090820`) and opened upstream PR `#3115`.
+- 2026-02-08: Refreshed P1-P5 snapshot (`NEXTUP/P1_P5_EXECUTION_2026-02-08.md`) and confirmed latest docs-sync CI green (`21789189892`).
+- 2026-02-08: Implemented `#2735` SmartSize focus resilience hardening in `frmMain` (reactivation refocus + active-tab fallback lookup) and validated local build/regression subset.
 
 ## Resume Checklist (after reboot)
 
