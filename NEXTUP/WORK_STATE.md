@@ -336,6 +336,12 @@ Phase 2: P0 security integration and critical issue burn-down.
     - regression sanity retained:
       - `FullyQualifiedName~XmlConnectionsLoaderTests` passed (`4/4`)
       - `FullyQualifiedName~ConnectionsService` passed (`4/4`)
+  - fork CI validation:
+    - `https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820`
+  - upstream packaging:
+    - PR `#3115`: `https://github.com/mRemoteNG/mRemoteNG/pull/3115`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2785#issuecomment-3865800159`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
@@ -391,6 +397,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Upgraded CI x86/x64 jobs to VS2026/MSBuild18-class hosted runners with ARM fallback to VS2022/MSBuild17.14 due current ARM image availability.
 - 2026-02-08: Implemented startup XML recovery hardening for malformed `confCons.xml` (#811 candidate) with deterministic fallback to newest valid backup and regression coverage in `XmlConnectionsLoaderTests`.
 - 2026-02-08: Implemented PuTTY session-name decode hardening for CJK/legacy percent-encoded registry keys (#2785 candidate) and added dedicated decoder tests.
+- 2026-02-08: Validated #2785 patchset green in fork CI (`21789090820`) and opened upstream PR `#3115`.
 
 ## Resume Checklist (after reboot)
 

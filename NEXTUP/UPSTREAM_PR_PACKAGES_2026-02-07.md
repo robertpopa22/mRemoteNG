@@ -165,6 +165,27 @@ Execution status:
 - CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3113#issuecomment-3865577217
 - fork CI evidence (same fix validated on release branch): https://github.com/robertpopa22/mRemoteNG/actions/runs/21787167552
 
+## PR-11 PuTTY CJK Session Name Decoding (`#2785`)
+
+Scope:
+- improve decoding of percent-encoded PuTTY registry session names for CJK/legacy non-UTF8 encodings.
+- keep plus-sign behavior stable and unify decode logic across provider paths.
+
+Primary commit:
+- `78544cf3`
+
+Core files:
+- `mRemoteNG/Config/Putty/PuttySessionNameDecoder.cs`
+- `mRemoteNG/Config/Putty/PuttySessionsRegistryProvider.cs`
+- `mRemoteNG/Config/Putty/AbstractPuttySessionsProvider.cs`
+- `mRemoteNGTests/Config/Putty/PuttySessionNameDecoderTests.cs`
+
+Execution status:
+- branch: `codex/pr11-putty-cjk-decode-2785`
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3115
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2785#issuecomment-3865800159
+- fork CI evidence (release branch validation): https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820
+
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:

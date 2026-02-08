@@ -168,6 +168,11 @@ Current status (fork execution branch):
   - behavior:
     - centralized UTF-8-first decode with deterministic legacy-encoding fallback for percent-encoded PuTTY registry session names
     - shared normalization path now used both when listing and pruning session entries
+  - validation:
+    - fork CI: `https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820`
+  - upstream package:
+    - PR: `https://github.com/mRemoteNG/mRemoteNG/pull/3115`
+    - issue update: `https://github.com/mRemoteNG/mRemoteNG/issues/2785#issuecomment-3865800159`
 - panel auto-close follow-up for last-tab scenario implemented in:
   - `mRemoteNG/UI/Window/ConnectionWindow.cs`
   - CI-validated:
