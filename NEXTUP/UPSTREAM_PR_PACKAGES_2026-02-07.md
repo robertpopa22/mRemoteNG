@@ -326,7 +326,7 @@ Execution status:
 - branch: `codex/pr17-password-protect-disable-2673`
 - upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3121
 - issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072
-- CI evidence comment: pending
+- CI evidence comment: https://github.com/mRemoteNG/mRemoteNG/pull/3121#issuecomment-3866359364
 
 ## Excluded From Upstream PRs
 

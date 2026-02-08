@@ -479,6 +479,8 @@ Phase 2: P0 security integration and critical issue burn-down.
     - PR `#3121`: `https://github.com/mRemoteNG/mRemoteNG/pull/3121`
     - issue update comment:
       - `https://github.com/mRemoteNG/mRemoteNG/issues/2673#issuecomment-3866347072`
+    - CI evidence comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/pull/3121#issuecomment-3866359364`
 - [ ] P0 issue closure workflow still pending (maintainer close decision + permissions).
 
 ## Blockers
