@@ -34,10 +34,9 @@ Source snapshot:
 - Parent-link cross-reference posted for tab/panel crash+resize hardening package:
   - issue `#2166` -> PR `#3129`
   - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2166#issuecomment-3867358613`
-- New runtime/UI package prepared for inheritance-label truncation:
-  - issue `#2155` -> package branch `codex/pr26-inheritance-label-width-2155`
-  - fork compare/create URL (parent PR pending auth in current session):
-    - `https://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1`
+- Parent-link cross-reference posted for inheritance-label truncation package:
+  - issue `#2155` -> PR `#3130`
+  - comment: `https://github.com/mRemoteNG/mRemoteNG/issues/2155#issuecomment-3867428399`
 - Additional parent-link regroup comments posted for disposed-object panel-close family:
   - `#2118` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`)
   - `#2163` -> `#3106` (`https://github.com/mRemoteNG/mRemoteNG/issues/2163#issuecomment-3867046749`)
@@ -74,8 +73,7 @@ All fork packages are open upstream and `CLEAN` (no local merge conflicts):
 - `#3127` document-tab drag auto-scroll on overflow
 - `#3128` preserve restored config/connections panel focus on startup
 - `#3129` tab close/resize crash hardening (`DockPaneStripNG`)
-- pending open (auth-blocked in current session):
-  - `#2155` inheritance property-label auto-size package (`codex/pr26-inheritance-label-width-2155`)
+- `#3130` inheritance property-label auto-size (`#2155`)
 
 RC implication:
 - merge throughput in parent repo is still the dominant RC constraint.
@@ -117,7 +115,7 @@ Mapped implementation already exists in open parent PRs:
 - `#2161` -> `#3127`
 - `#2171` -> `#3128`
 - `#2166` -> `#3129` (tab-close/resize path) and `#3124` (form-closing enumeration path)
-- `#2155` -> pending parent PR from `codex/pr26-inheritance-label-width-2155` (auth-blocked in current session)
+- `#2155` -> `#3130`
 
 Likely same crash family, now cross-linked to `#3106` for parent verification:
 
@@ -153,7 +151,6 @@ RC implication:
 
 ## Next Execution Wave
 
-1. Continue daily parent follow-up for PRs `#3105..#3129` and fast-follow review requests.
-2. Publish parent PR for `#2155` package from `codex/pr26-inheritance-label-width-2155` when API auth is available, then post issue cross-link comment.
-3. Keep issue-level cross-linking so maintainers can close/relabel immediately after merge.
-4. If no parent feedback arrives, refresh issue snapshot and start the next unmapped runtime issue package.
+1. Continue daily parent follow-up for PRs `#3105..#3130` and fast-follow review requests.
+2. Keep issue-level cross-linking so maintainers can close/relabel immediately after merge.
+3. If no parent feedback arrives, refresh issue snapshot and start the next unmapped runtime issue package.

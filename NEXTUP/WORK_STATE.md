@@ -1,6 +1,6 @@
 # Work State Tracker
 
-Last updated: 2026-02-08 (session 40)  
+Last updated: 2026-02-08 (session 41)  
 Branch: `codex/release-1.79-bootstrap`
 
 ## Current Objective
@@ -620,10 +620,10 @@ Phase 2: P0 security integration and critical issue burn-down.
   - upstream packaging:
     - branch pushed:
       - `codex/pr26-inheritance-label-width-2155`
-    - parent compare/create URL:
-      - `https://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1`
-    - note:
-      - parent PR creation + issue cross-link comment are pending because GitHub API auth is unavailable in current session
+    - upstream PR:
+      - `https://github.com/mRemoteNG/mRemoteNG/pull/3130`
+    - issue update comment:
+      - `https://github.com/mRemoteNG/mRemoteNG/issues/2155#issuecomment-3867428399`
 - [x] Added issue-family parent links for disposed-object close-path cluster (mapped to PR `#3106`):
   - issue comments:
     - `#2118`: `https://github.com/mRemoteNG/mRemoteNG/issues/2118#issuecomment-3867046750`
@@ -653,10 +653,9 @@ Phase 2: P0 security integration and critical issue burn-down.
 
 ## Immediate Next Actions
 
-1. Publish parent PR for package branch `codex/pr26-inheritance-label-width-2155` and post issue `#2155` cross-link comment once GitHub API auth is available.
-2. Track upstream feedback on PR-1..PR-25 (`#3105`..`#3129`) and fast-follow any review fixes with minimal delta commits.
-3. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
-4. If no parent feedback lands, refresh open-issue snapshot and package next unmapped runtime/UI candidate.
+1. Track upstream feedback on PR-1..PR-26 (`#3105`..`#3130`) and fast-follow any review fixes with minimal delta commits.
+2. Drive maintainer close/relabel pass using `NEXTUP/RC_UNRESOLVED_REGROUP_2026-02-08.md` (critical + implemented-but-open clusters first).
+3. If no parent feedback lands, refresh open-issue snapshot and package next unmapped runtime/UI candidate.
 
 ## Decision Log
 
@@ -733,7 +732,7 @@ Phase 2: P0 security integration and critical issue burn-down.
 - 2026-02-08: Updated RC regroup to move `#2171` from unmapped cluster into mapped/open-PR closure debt (`#2166` remains next).
 - 2026-02-08: Packaged `#2166` into dedicated parent PR `#3129` from branch `codex/pr25-tab-crash-resize-hardening-2166` and posted issue cross-link comment.
 - 2026-02-08: Updated RC regroup to map full `#2166` crash bundle across PR `#3129` (tab-close race path) and PR `#3124` (form-closing enumeration path).
-- 2026-02-08: Implemented `#2155` inheritance field-label autosize hardening in `ConfigWindow`, validated local x64 restore/build, and pushed upstream package branch `codex/pr26-inheritance-label-width-2155` (parent PR publish pending session auth).
+- 2026-02-08: Opened upstream PR `#3130` for `#2155` (inheritance field-label autosize in `ConfigWindow`) and posted issue cross-link comment (`#issuecomment-3867428399`).
 
 ## Resume Checklist (after reboot)
 

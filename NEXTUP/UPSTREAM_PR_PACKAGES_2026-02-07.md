@@ -508,8 +508,8 @@ Core file:
 
 Execution status:
 - branch: `codex/pr26-inheritance-label-width-2155`
-- parent compare/create URL: `https://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1`
-- note: parent PR creation + issue comment are pending because GitHub API auth is unavailable in this session.
+- upstream PR (ready for review): https://github.com/mRemoteNG/mRemoteNG/pull/3130
+- issue update comment: https://github.com/mRemoteNG/mRemoteNG/issues/2155#issuecomment-3867428399
 
 ## Excluded From Upstream PRs
 
