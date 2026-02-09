@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - SecurityPage KDF iterations NumericUpDown Maximum increased from 50,000 to 1,000,000 to match new 600K default
 - Dark theme: debug/info messages in ErrorAndInfoWindow no longer use hardcoded LightSteelBlue
 - GDI resource leaks in MrngButton and MrngComboBox (SolidBrush/Pen disposal)
+- UI thread deadlocks in external credential providers (VaultOpenbao, SecretServer, Passwordstate) — async calls now run on thread pool
 
 ### UI/UX
 - Live theme switching: changing themes no longer requires an application restart
