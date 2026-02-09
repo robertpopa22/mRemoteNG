@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using mRemoteNG.UI.Forms;
 
 namespace mRemoteNGTests.UI.Forms
@@ -22,16 +23,18 @@ namespace mRemoteNGTests.UI.Forms
         [TearDown]
         public void Teardown()
         {
-            try
-            {
-                _optionsForm?.Close();
-                _optionsForm?.Dispose();
-            }
-            catch
-            {
-                // Swallow dispose errors - test teardown must not crash the host
-            }
+            var form = _optionsForm;
             _optionsForm = null;
+
+            if (form == null) return;
+
+            try { form.Close(); } catch { }
+            try { form.Dispose(); } catch { }
+
+            // Force finalization now while the runtime is still alive,
+            // preventing CLR assert during AppDomain shutdown.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }
