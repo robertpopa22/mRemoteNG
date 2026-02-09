@@ -61,10 +61,20 @@ namespace mRemoteNG.Config.Connections
                     return;
                 }
 
-                metaDataRetriever.WriteDatabaseMetaData(rootTreeNode, dbConnector);
-                UpdateConnectionsTable(rootTreeNode, dbConnector);
-                UpdateUpdatesTable(dbConnector);
-
+                using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
+                try
+                {
+                    metaDataRetriever.WriteDatabaseMetaData(rootTreeNode, dbConnector, transaction);
+                    UpdateConnectionsTable(rootTreeNode, dbConnector, transaction);
+                    UpdateUpdatesTable(dbConnector, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Runtime.MessageCollector.AddExceptionStackTrace(Language.ErrorConnectionListSaveFailed, ex);
+                    throw;
+                }
             }
 
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, "Saved connections to database");
@@ -102,6 +112,11 @@ namespace mRemoteNG.Config.Connections
 
         private void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
         {
+            UpdateRootNodeTable(rootTreeNode, databaseConnector, null);
+        }
+
+        private void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction)
+        {
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             string strProtected;
             if (rootTreeNode != null)
@@ -121,7 +136,13 @@ namespace mRemoteNG.Config.Connections
                 strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
             }
 
-            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            bool mustDisposeTransaction = false;
+            if (transaction == null)
+            {
+                transaction = databaseConnector.DbConnection().BeginTransaction();
+                mustDisposeTransaction = true;
+            }
+
             try
             {
                 DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblRoot");
@@ -152,16 +173,29 @@ namespace mRemoteNG.Config.Connections
                     Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
                 }
 
-                transaction.Commit();
+                if (mustDisposeTransaction)
+                {
+                    transaction.Commit();
+                }
             }
             catch
             {
-                transaction.Rollback();
+                if (mustDisposeTransaction)
+                {
+                    transaction.Rollback();
+                }
                 throw;
+            }
+            finally
+            {
+                if (mustDisposeTransaction)
+                {
+                    transaction.Dispose();
+                }
             }
         }
 
-        private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
+        private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction = null)
         {
             SqlDataProvider dataProvider = new(databaseConnector);
             DataTable currentDataTable = dataProvider.Load();
@@ -172,12 +206,18 @@ namespace mRemoteNG.Config.Connections
 
             DataTable dataTable = serializer.Serialize(rootTreeNode);
             
-            dataProvider.Save(dataTable);
+            dataProvider.Save(dataTable, transaction);
         }
 
-        private void UpdateUpdatesTable(IDatabaseConnector databaseConnector)
+        private void UpdateUpdatesTable(IDatabaseConnector databaseConnector, DbTransaction transaction = null)
         {
-            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            bool mustDisposeTransaction = false;
+            if (transaction == null)
+            {
+                transaction = databaseConnector.DbConnection().BeginTransaction();
+                mustDisposeTransaction = true;
+            }
+
             try
             {
                 DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblUpdate");
@@ -193,12 +233,26 @@ namespace mRemoteNG.Config.Connections
                 dbQuery.Parameters.Add(lastUpdateParam);
 
                 dbQuery.ExecuteNonQuery();
-                transaction.Commit();
+                
+                if (mustDisposeTransaction)
+                {
+                    transaction.Commit();
+                }
             }
             catch
             {
-                transaction.Rollback();
+                if (mustDisposeTransaction)
+                {
+                    transaction.Rollback();
+                }
                 throw;
+            }
+            finally
+            {
+                if (mustDisposeTransaction)
+                {
+                    transaction.Dispose();
+                }
             }
         }
 

@@ -28,6 +28,11 @@ namespace mRemoteNG.Config.DataProviders
 
         public void Save(DataTable dataTable)
         {
+            Save(dataTable, null);
+        }
+
+        public void Save(DataTable dataTable, System.Data.Common.DbTransaction transaction)
+        {
             if (DbUserIsReadOnly())
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "Trying to save connections but the SQL read only checkbox is checked, aborting!");
@@ -36,42 +41,87 @@ namespace mRemoteNG.Config.DataProviders
 
             if (!DatabaseConnector.IsConnected)
                 OpenConnection();
+
             if (DatabaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
             {
                 SqlConnection sqlConnection = (SqlConnection)DatabaseConnector.DbConnection();
-                using SqlTransaction transaction = sqlConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
-                using SqlCommand sqlCommand = new();
-                sqlCommand.Connection = sqlConnection;
-                sqlCommand.Transaction = transaction;
-                sqlCommand.CommandText = "SELECT * FROM tblCons";
-                using SqlDataAdapter dataAdapter = new();
-                dataAdapter.SelectCommand = sqlCommand;
+                SqlTransaction sqlTransaction = (SqlTransaction)transaction;
+                bool mustDisposeTransaction = false;
 
-                SqlCommandBuilder builder = new(dataAdapter)
+                if (sqlTransaction == null)
                 {
-                    // Avoid optimistic concurrency, check if it is necessary.
-                    ConflictOption = ConflictOption.OverwriteChanges
-                };
+                    sqlTransaction = sqlConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
+                    mustDisposeTransaction = true;
+                }
 
-                dataAdapter.UpdateCommand = builder.GetUpdateCommand();
-                dataAdapter.DeleteCommand = builder.GetDeleteCommand();
-                dataAdapter.InsertCommand = builder.GetInsertCommand();
-                dataAdapter.Update(dataTable);
-                transaction.Commit();
+                try
+                {
+                    using SqlCommand sqlCommand = new();
+                    sqlCommand.Connection = sqlConnection;
+                    sqlCommand.Transaction = sqlTransaction;
+                    sqlCommand.CommandText = "SELECT * FROM tblCons";
+                    using SqlDataAdapter dataAdapter = new();
+                    dataAdapter.SelectCommand = sqlCommand;
+
+                    SqlCommandBuilder builder = new(dataAdapter)
+                    {
+                        // Avoid optimistic concurrency, check if it is necessary.
+                        ConflictOption = ConflictOption.OverwriteChanges
+                    };
+
+                    dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+                    dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+                    dataAdapter.InsertCommand = builder.GetInsertCommand();
+                    dataAdapter.Update(dataTable);
+
+                    if (mustDisposeTransaction)
+                    {
+                        sqlTransaction.Commit();
+                    }
+                }
+                finally
+                {
+                    if (mustDisposeTransaction)
+                    {
+                        sqlTransaction.Dispose();
+                    }
+                }
             }
             else if (DatabaseConnector.GetType() == typeof(MySqlDatabaseConnector))
             {
-                MySqlConnection dbConnection = (MySqlConnection) DatabaseConnector.DbConnection();
-                using MySqlTransaction transaction = dbConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
-                using MySqlCommand sqlCommand = new();
-                sqlCommand.Connection = dbConnection;
-                sqlCommand.Transaction = transaction;
-                sqlCommand.CommandText = "SELECT * FROM tblCons";
-                using MySqlDataAdapter dataAdapter = new(sqlCommand);
-                dataAdapter.UpdateBatchSize = 1000;
-                using MySqlCommandBuilder cb = new(dataAdapter);
-                dataAdapter.Update(dataTable);
-                transaction.Commit();
+                MySqlConnection dbConnection = (MySqlConnection)DatabaseConnector.DbConnection();
+                MySqlTransaction mySqlTransaction = (MySqlTransaction)transaction;
+                bool mustDisposeTransaction = false;
+
+                if (mySqlTransaction == null)
+                {
+                    mySqlTransaction = dbConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
+                    mustDisposeTransaction = true;
+                }
+
+                try
+                {
+                    using MySqlCommand sqlCommand = new();
+                    sqlCommand.Connection = dbConnection;
+                    sqlCommand.Transaction = mySqlTransaction;
+                    sqlCommand.CommandText = "SELECT * FROM tblCons";
+                    using MySqlDataAdapter dataAdapter = new(sqlCommand);
+                    dataAdapter.UpdateBatchSize = 1000;
+                    using MySqlCommandBuilder cb = new(dataAdapter);
+                    dataAdapter.Update(dataTable);
+
+                    if (mustDisposeTransaction)
+                    {
+                        mySqlTransaction.Commit();
+                    }
+                }
+                finally
+                {
+                    if (mustDisposeTransaction)
+                    {
+                        mySqlTransaction.Dispose();
+                    }
+                }
             }
         }
 

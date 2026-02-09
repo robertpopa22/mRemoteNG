@@ -69,6 +69,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
         public void WriteDatabaseMetaData(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
         {
+            WriteDatabaseMetaData(rootTreeNode, databaseConnector, null);
+        }
+
+        public void WriteDatabaseMetaData(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction)
+        {
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
 
             string strProtected;
@@ -91,7 +96,13 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
             }
 
-            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            bool mustDisposeTransaction = false;
+            if (transaction == null)
+            {
+                transaction = databaseConnector.DbConnection().BeginTransaction();
+                mustDisposeTransaction = true;
+            }
+
             try
             {
                 DbCommand cmd = databaseConnector.DbCommand("DELETE FROM tblRoot");
@@ -126,12 +137,25 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
                 }
 
-                transaction.Commit();
+                if (mustDisposeTransaction)
+                {
+                    transaction.Commit();
+                }
             }
             catch
             {
-                transaction.Rollback();
+                if (mustDisposeTransaction)
+                {
+                    transaction.Rollback();
+                }
                 throw;
+            }
+            finally
+            {
+                if (mustDisposeTransaction)
+                {
+                    transaction.Dispose();
+                }
             }
         }
 
