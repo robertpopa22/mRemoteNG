@@ -288,6 +288,35 @@ Result: https://github.com/orgs/mRemoteNG/discussions/3131
 - Active files at root of `.project-roadmap/`, archived files in `historical/v1.79.0/`
 - Keep temp files in `.gitignore` (test-output.txt, nul, run-tests.ps1, etc.)
 
+## BinaryFormatter Removal — .NET 10 Startup Crash (2026-02-09)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| `NotSupportedException: BinaryFormatter serialization and deserialization are disabled` at startup | .NET 10 removed `BinaryFormatter` from the runtime. DockPanelSuite 3.1.1 uses it via `ResourceReader` to deserialize theme images (`VS2015LightTheme` -> `ImageService` -> `Dockindicator_PaneDiamond_Hotspot`). | Add `System.Runtime.Serialization.Formatters` 10.0.2 NuGet package + set `<EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>` in every project with binary .resx resources. |
+
+**Affected projects (all have .resx files with `application/x-microsoft.net.object.binary.base64` entries):**
+- `mRemoteNG` (89 .resx files) — crashes at startup via DockPanelSuite theme loading
+- `ExternalConnectors` (2 .resx files) — forms with binary-serialized resources
+- `ObjectListView` (2 .resx files) — already had `EnableUnsafeBinaryFormatterSerialization=true`
+- `mRemoteNGTests` (4 .resx files) — test forms with binary-serialized resources
+
+**No direct C# usage** of `BinaryFormatter`, `IFormatter`, or `SoapFormatter` was found in the codebase. The dependency is exclusively through:
+1. **DockPanelSuite 3.1.1** — internal `ResourceReader.DeserializeObject()` for theme images
+2. **WinForms .resx** — binary-serialized `System.Drawing.Bitmap` and other objects
+
+**Long-term fix:** Upgrade DockPanelSuite when a version drops BinaryFormatter, or fork and convert resources to non-binary format. Track in `.project-roadmap/ISSUE_BINARYFORMATTER.md`.
+
+**Stack trace (for reference):**
+```
+System.NotSupportedException: BinaryFormatter serialization and deserialization are disabled
+  at System.Resources.ResourceReader.DeserializeObject(Int32 typeIndex)
+  at WeifenLuo.WinFormsUI.ThemeVS2012.Resources.get_Dockindicator_PaneDiamond_Hotspot()
+  at WeifenLuo.WinFormsUI.ThemeVS2012.ImageService..ctor(ThemeBase theme)
+  at WeifenLuo.WinFormsUI.ThemeVS2015.VS2015ThemeBase..ctor(Byte[] resources)
+  at WeifenLuo.WinFormsUI.Docking.VS2015LightTheme..ctor()
+  at mRemoteNG.Themes.ThemeManager.get_DefaultTheme()
+```
+
 ## Daily Loop
 
 1. Run command.

@@ -138,6 +138,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 | `.project-roadmap/ISSUE_PACKAGES.md` | Triage methodology and issue package definitions |
 | `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md` | Test coverage gaps — drives next test work |
 | `.project-roadmap/UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
+| `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
 | `.project-roadmap/COMMAND_FEEDBACK_LOG.md` | Command failure history for troubleshooting |
 
 ### Scripts (reusable automation)

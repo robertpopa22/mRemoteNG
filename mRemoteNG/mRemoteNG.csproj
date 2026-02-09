@@ -234,6 +234,7 @@
     <PackageReference Include="System.Reflection.Metadata" />
     <PackageReference Include="System.Resources.ResourceManager" />
     <PackageReference Include="System.Runtime.Extensions" />
+    <PackageReference Include="System.Runtime.Serialization.Formatters" />
     <PackageReference Include="System.Security.AccessControl" />
     <PackageReference Include="System.Security.Cryptography.Algorithms" />
     <PackageReference Include="System.Security.Cryptography.Cng" />
@@ -688,5 +689,10 @@
   <PropertyGroup>
     <!-- Disable CET compatibility check in .NET 9 AppHost -->
     <CETCompat>false</CETCompat>
+    <!-- .NET 10 removed BinaryFormatter from the runtime. DockPanelSuite 3.1.1
+         and WinForms .resx files still need it for resource deserialization.
+         The compat package (System.Runtime.Serialization.Formatters) re-adds
+         the implementation; this switch activates it. -->
+    <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
 </Project>
