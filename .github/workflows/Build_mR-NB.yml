@@ -59,19 +59,35 @@ jobs:
         with:
           vs-version: ${{ matrix.platform == 'ARM64' && '17.14.12' || '[18.0,19.0)' }}
           
-      - name: (04) Install and run dotnet-t4 to transform T4 templates
+      - name: (04) Generate AssemblyInfo.cs from T4 template values
         shell: pwsh
         run: |
-          dotnet tool install --global dotnet-t4
-          # Refresh PATH to include global tools
-          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
-          $ttFile = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.tt"
-          # VS Enterprise 2022 assemblies
-          $vsPath = "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\PublicAssemblies"
-          Write-Host "Transforming T4 template"
-          t4 $ttFile -P platformType=${{ matrix.platform }} -r:"$vsPath\EnvDTE.dll" -r:"$vsPath\Microsoft.VisualStudio.Interop.dll"
-        env:
-          PLATFORM: '${{ matrix.platform }}'
+          $major = 1; $minor = 79; $revision = 0; $channel = "Release"
+          $base = [datetime]"2019-09-02"
+          $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
+          $platform = "${{ matrix.platform }}"
+          $year = [datetime]::UtcNow.Year
+          $content = @"
+          //Generated for platform: $platform
+          using System.Reflection;
+          using System.Resources;
+          //Build nr: $build
+          [assembly: AssemblyTitle("mRemoteNG")]
+          [assembly: AssemblyDescription("Multi-Remote Next Generation Connection Manager")]
+          [assembly: AssemblyConfiguration("$platform")]
+          [assembly: AssemblyCompany("Profi-KOM Ltd.")]
+          [assembly: AssemblyProduct("mRemoteNG Connection Manager")]
+          [assembly: AssemblyCopyright("(c) $year mRemoteNG")]
+          [assembly: AssemblyTrademark("Profi-KOM LTd.")]
+          [assembly: AssemblyCulture("")]
+          [assembly: AssemblyVersion("$major.$minor.$revision.$build")]
+          [assembly: AssemblyFileVersion("$major.$minor.$revision.$build")]
+          [assembly: NeutralResourcesLanguageAttribute("en-US")]
+          [assembly: AssemblyInformationalVersion("$major.$minor.$revision ($channel $build) $platform")]
+          "@
+          $outPath = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.cs"
+          Set-Content -Path $outPath -Value $content -Encoding UTF8
+          Write-Host "Generated AssemblyInfo.cs: v$major.$minor.$revision.$build ($channel) $platform"
   
       - name: (05) Cache NuGet Packages
         uses: actions/cache@v5
