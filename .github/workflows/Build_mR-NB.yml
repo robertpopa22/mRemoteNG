@@ -35,10 +35,15 @@ jobs:
     runs-on: ${{ matrix.runner }}
     # Only run if:
     # - manual dispatch, OR
+    # - push to release branch or tag, OR
     # - push event AND commit message contains "NB release"
     if: >
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && (startsWith(github.ref, 'refs/tags/v') || contains(github.event.head_commit.message, 'NB release')))
+      (github.event_name == 'push' && (
+        startsWith(github.ref, 'refs/tags/v') ||
+        github.ref == 'refs/heads/codex/release-1.79-bootstrap' ||
+        contains(github.event.head_commit.message, 'NB release')
+      ))
 
     steps:
       - name: (01) Checkout Repository
