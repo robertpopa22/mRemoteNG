@@ -129,7 +129,7 @@ public class PasswordstateInterface
             client.DefaultRequestHeaders.Add("User-Agent", "mRemote");
             client.DefaultRequestHeaders.Add("OTP", CPSConnectionData.ssOTP);
 
-            var json = client.GetStringAsync(url).Result;
+            var json = Task.Run(() => client.GetStringAsync(url)).GetAwaiter().GetResult();
             JsonNode? data = JsonSerializer.Deserialize<JsonNode>(json);
             if (data == null)
                 return false;
@@ -144,7 +144,7 @@ public class PasswordstateInterface
             client.DefaultRequestHeaders.Add("APIKey", CPSConnectionData.ssPassword);
             client.DefaultRequestHeaders.Add("OTP", CPSConnectionData.ssOTP);
 
-            var json = client.GetStringAsync(url).Result;
+            var json = Task.Run(() => client.GetStringAsync(url)).GetAwaiter().GetResult();
             JsonNode? data = JsonSerializer.Deserialize<JsonNode>(json);
             if (data == null)
                 return false;
@@ -161,7 +161,7 @@ public class PasswordstateInterface
         client.DefaultRequestHeaders.Add("User-Agent", "mRemote");
         client.DefaultRequestHeaders.Add("OTP", CPSConnectionData.ssOTP);
 
-        var json = client.GetStringAsync(url).Result;
+        var json = Task.Run(() => client.GetStringAsync(url)).GetAwaiter().GetResult();
         JsonNode? data = JsonSerializer.Deserialize<JsonNode>(json);
         if (data == null)
             return null;
@@ -178,7 +178,7 @@ public class PasswordstateInterface
         client.DefaultRequestHeaders.Add("APIKey", CPSConnectionData.ssPassword);
         client.DefaultRequestHeaders.Add("OTP", CPSConnectionData.ssOTP);
 
-        var json = client.GetStringAsync(url).Result;
+        var json = Task.Run(() => client.GetStringAsync(url)).GetAwaiter().GetResult();
         JsonNode? data = JsonSerializer.Deserialize<JsonNode>(json);
         if (data == null)
             return null;

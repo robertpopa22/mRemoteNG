@@ -157,7 +157,7 @@ public class SecretServerInterface
     private static void FetchSecret(int secretID, out string secretUsername, out string secretPassword, out string secretDomain, out string privatekey)
     {
         var client = ConstructSecretsServiceClient();
-        SecretModel secret = client.GetSecretAsync(false, true, secretID, null).Result;
+        SecretModel secret = Task.Run(() => client.GetSecretAsync(false, true, secretID, null)).GetAwaiter().GetResult();
 
         // clear return variables
         secretDomain = "";
@@ -178,7 +178,7 @@ public class SecretServerInterface
             else if (item.FieldName.ToLower().Equals("private key"))
             {
                 client.ReadResponseNoJSONConvert = true;
-                privatekey = client.GetFieldAsync(false, false, secretID, "private-key").Result;
+                privatekey = Task.Run(() => client.GetFieldAsync(false, false, secretID, "private-key")).GetAwaiter().GetResult();
                 client.ReadResponseNoJSONConvert = false;
             }
             else if (item.FieldName.ToLower().Equals("private key passphrase"))
@@ -275,7 +275,7 @@ public class SecretServerInterface
                 TokenResponse token = new();
                 try
                 {
-                    token = tokenClient.AuthorizeAsync(Grant_type.Refresh_token, null, null, SSConnectionData.ssTokenRefresh, null).Result;
+                    token = Task.Run(() => tokenClient.AuthorizeAsync(Grant_type.Refresh_token, null, null, SSConnectionData.ssTokenRefresh, null)).GetAwaiter().GetResult();
                     var tokenResult = token.Access_token;
 
                     SSConnectionData.ssTokenBearer = tokenResult;
@@ -314,7 +314,7 @@ public class SecretServerInterface
             // Authenticate:
             var tokenClient = new OAuth2ServiceClient(SSConnectionData.ssUrl, httpClient);
             // call below will throw an exception if the creds are invalid
-            var token = tokenClient.AuthorizeAsync(Grant_type.Password, SSConnectionData.ssUsername, SSConnectionData.ssPassword, null, SSConnectionData.ssOTP).Result;
+            var token = Task.Run(() => tokenClient.AuthorizeAsync(Grant_type.Password, SSConnectionData.ssUsername, SSConnectionData.ssPassword, null, SSConnectionData.ssOTP)).GetAwaiter().GetResult();
             // here we can be sure the creds are ok - return success state                   
             var tokenResult = token.Access_token;
 
