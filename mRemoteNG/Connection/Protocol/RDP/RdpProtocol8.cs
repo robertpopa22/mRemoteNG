@@ -45,6 +45,19 @@ namespace mRemoteNG.Connection.Protocol.RDP
             if (!base.Initialize())
                 return false;
 
+            return PostInitialize();
+        }
+
+        public override async System.Threading.Tasks.Task<bool> InitializeAsync()
+        {
+            if (!await base.InitializeAsync())
+                return false;
+
+            return PostInitialize();
+        }
+
+        private bool PostInitialize()
+        {
             if (RdpVersion < Versions.RDC81) return false; // minimum dll version checked, loaded MSTSCLIB dll version is not capable
 
             // https://learn.microsoft.com/en-us/windows/win32/termserv/imsrdpextendedsettings-property
@@ -57,7 +70,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 SetExtendedProperty("DisableCredentialsDelegation", true);
                 SetExtendedProperty("RedirectedAuthentication", true);
             }
-            
+
             return true;
         }
 

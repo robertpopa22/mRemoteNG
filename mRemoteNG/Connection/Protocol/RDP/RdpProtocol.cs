@@ -171,6 +171,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override bool Initialize()
         {
+            // Keep synchronous Initialize for backward compatibility,
+            // but use the same logic (minus the await).
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
@@ -182,7 +184,33 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 RdpVersion = new Version(_rdpClient.Version);
 
-                if (RdpVersion < Versions.RDC61) return false; // only RDP versions 6.1 and greater are supported; minimum dll version checked, MSTSCLIB is not capable 
+                if (RdpVersion < Versions.RDC61) return false;
+
+                SetRdpClientProperties();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetPropsFailed, ex);
+                return false;
+            }
+        }
+
+        public override async System.Threading.Tasks.Task<bool> InitializeAsync()
+        {
+            connectionInfo = InterfaceControl.Info;
+            Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
+            Control = CreateActiveXRdpClientControl();
+            base.Initialize();
+
+            try
+            {
+                if (!await InitializeActiveXControlAsync()) return false;
+
+                RdpVersion = new Version(_rdpClient.Version);
+
+                if (RdpVersion < Versions.RDC61) return false;
 
                 SetRdpClientProperties();
 
@@ -227,6 +255,51 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx();
                 
+                return true;
+            }
+            catch (COMException ex)
+            {
+                if (ex.Message.Contains("CLASS_E_CLASSNOTAVAILABLE"))
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, string.Format(Language.RdpProtocolVersionNotSupported, connectionInfo.RdpVersion));
+                }
+                else
+                {
+                    Runtime.MessageCollector.AddExceptionMessage(Language.RdpControlCreationFailed, ex);
+                }
+                Control.Dispose();
+                return false;
+            }
+        }
+
+        private async System.Threading.Tasks.Task<bool> InitializeActiveXControlAsync()
+        {
+            try
+            {
+                if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
+                {
+                    Control.GotFocus += RdpClient_GotFocus;
+                }
+
+                Control.CreateControl();
+
+                var deadline = Environment.TickCount64 + 10_000;
+                while (!Control.Created)
+                {
+                    if (Environment.TickCount64 > deadline)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                            "RDP ActiveX control creation timed out after 10 seconds.");
+                        Control.Dispose();
+                        return false;
+                    }
+                    
+                    await System.Threading.Tasks.Task.Delay(10);
+                }
+                Control.Anchor = AnchorStyles.None;
+
+                _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx();
+
                 return true;
             }
             catch (COMException ex)

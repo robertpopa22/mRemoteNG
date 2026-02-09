@@ -181,23 +181,17 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 |------|----------|
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
-| `.project-roadmap/ISSUE_PACKAGES.md` | Triage methodology and issue package definitions |
-| `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md` | Test coverage gaps — drives next test work |
-| `.project-roadmap/UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
-| `.project-roadmap/COMMAND_FEEDBACK_LOG.md` | Command failure history for troubleshooting |
 | `CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
 
-### Scripts (reusable automation)
+### Scripts
 | File | Purpose |
 |------|---------|
-| `.project-roadmap/scripts/nx.cmd` | Command wrapper with PATH fixes |
-| `.project-roadmap/scripts/log-command-feedback.ps1` | Log command failures |
 | `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
-| `.project-roadmap/scripts/refresh-command-feedback-metrics.ps1` | Refresh error metrics |
 | `.project-roadmap/scripts/refresh-issues.ps1` | Fetch fresh issue snapshot from upstream |
-| `.project-roadmap/scripts/refresh-p1-p5.ps1` | Generate P1-P5 package snapshots |
 
-### Archived (v1.79.0 release cycle)
-All completed execution logs, triage records, and release checklists are in:
-**`.project-roadmap/historical/v1.79.0/`** (13 files + comments/)
+### Archives
+| Folder | Contents |
+|--------|----------|
+| `.project-roadmap/historical/v1.79.0/` | v1.79.0 release cycle (26 PRs, triage, scripts, execution logs) |
+| `.project-roadmap/historical/v1.80.0/` | v1.80.0 code analysis & error backlog (12 items, all resolved) |

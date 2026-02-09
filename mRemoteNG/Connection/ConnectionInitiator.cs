@@ -165,7 +165,7 @@ namespace mRemoteNG.Connection
                     BuildConnectionInterfaceController(connectionInfoSshTunnel, protocolSshTunnel, connectionContainer);
                     protocolSshTunnel.InterfaceControl.OriginalInfo = connectionInfoSshTunnel;
 
-                    if (protocolSshTunnel.Initialize() == false)
+                    if (await protocolSshTunnel.InitializeAsync() == false)
                     {
                         protocolSshTunnel.Close();
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
@@ -244,7 +244,7 @@ namespace mRemoteNG.Connection
 
                 newProtocol.Force = force;
 
-                if (newProtocol.Initialize() == false)
+                if (await newProtocol.InitializeAsync() == false)
                 {
                     newProtocol.Close();
                     return;

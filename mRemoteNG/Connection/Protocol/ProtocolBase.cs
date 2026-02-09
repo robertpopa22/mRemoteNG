@@ -137,6 +137,11 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
+        public virtual System.Threading.Tasks.Task<bool> InitializeAsync()
+        {
+            return System.Threading.Tasks.Task.FromResult(Initialize());
+        }
+
         public virtual bool Connect()
         {
             if (InterfaceControl.Info.Protocol == ProtocolType.RDP) return false;
