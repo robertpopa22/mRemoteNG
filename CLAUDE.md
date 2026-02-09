@@ -12,29 +12,24 @@
 
 ### Correct build command (PowerShell):
 ```powershell
-& "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Launch-VsDevShell.ps1" -Arch amd64
-dotnet restore "D:\github\mRemoteNG\mRemoteNG.sln"
-msbuild "D:\github\mRemoteNG\mRemoteNG.sln" -m "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=x64"
-```
-
-### Or use the build script:
-```bash
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
 ```
 
-### Why this specific setup:
-1. **`dotnet build`** fails with `MSB4803: ResolveComReference not supported on .NET Core MSBuild`
-   - The project has a COM reference to `MSTSCLib` (RDP ActiveX control)
-2. **`D:\BuildTools\MSBuild`** (first BuildTools) fails - missing `Microsoft.DotNet.MSBuildSdkResolver`
-3. **`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\MSBuild`** (second BuildTools) WORKS
-   - Has both `.NET SDK resolver` AND `COM reference support`
-   - This is the correct MSBuild to use
+`build.ps1` auto-detects the newest VS installation (VS2026 > VS2022 > etc.). No hardcoded paths.
 
-### Two BuildTools installations on this machine:
-| Path | SDK Resolver | Use? |
-|------|-------------|------|
-| `D:\BuildTools` | NO (only NuGet resolver) | DO NOT USE for this project |
-| `C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools` | YES (has Microsoft.DotNet.MSBuildSdkResolver) | USE THIS ONE |
+### Why MSBuild (not `dotnet build`):
+- **`dotnet build`** fails with `MSB4803: ResolveComReference not supported on .NET Core MSBuild`
+- The project has a COM reference to `MSTSCLib` (RDP ActiveX control)
+- Must use full VS BuildTools MSBuild with `.NET SDK resolver` AND `COM reference support`
+
+### Build environments:
+| Environment | VS Version | MSBuild | Status |
+|-------------|-----------|---------|--------|
+| **CI** (`windows-2025-vs2026`) | **VS2026** | 18.x | Production builds (x86, x64, ARM64) |
+| **Local** (this machine) | **VS2022 BuildTools** | 17.x | Dev builds — compatible but older |
+| `D:\BuildTools` | Incomplete | N/A | DO NOT USE (missing SDK resolver) |
+
+> **TODO:** Install VS2026 BuildTools locally for CI/local parity.
 
 ## Testing
 
@@ -57,12 +52,14 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
 ### Current test status (codex/release-1.79-bootstrap, 2026-02-08):
-- **mRemoteNGTests:** 2176 total, **2174 passed, 2 env-flaky** (CueBanner P/Invoke)
+- **mRemoteNGTests:** 2176 total, **2174 passed, 2 skipped** (CueBanner — env-dependent Win32 EM_SETCUEBANNER)
 - **mRemoteNGSpecs:** 5 total, 5 passed
+- **Zero failures.** CueBanner tests use `Assume.That` to skip gracefully in batch runs.
 - All 81 pre-existing upstream failures resolved in commit `79c5e4cf`
 - 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
-- Detailed changelog: `NEXTUP/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
-- Coverage analysis: `NEXTUP/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
+- Defensive guard added to `GetCueBannerText()` for handle-less textboxes
+- Detailed changelog: `.project-roadmap/historical/v1.79.0/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
+- Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
 ### Historical baseline (upstream v1.78.2-dev, before fixes):
 - **mRemoteNGTests:** 2119 total, 2038 passed, 81 failed (pre-existing upstream bugs)
@@ -74,6 +71,17 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - CI workflow: `.github/workflows/pr_validation.yml` (build) and `Build_mR-NB.yml` (release)
 - Platforms: x86, x64, ARM64
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
+
+## Release Status (v1.79.0 Community Edition, 2026-02-09)
+- **Tag:** `v1.79.0` on `codex/release-1.79-bootstrap`
+- **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0
+- **NB Release (CI):** tag `20260209-v1.79.0-NB-(3387)`
+- **Assets:** 3 ZIPs (x64 ~20.9MB, x86 ~20.9MB, ARM64 ~20.8MB)
+- **CI Run:** #21814376762 — all 3 architectures PASSED
+- **All 26 PRs (#3105-#3130):** OPEN on upstream
+- **Upstream comments:** Posted on all 24 issues with release link
+- **Discussion:** https://github.com/orgs/mRemoteNG/discussions/3131
+- **Fork issues:** DISABLED on fork (GitHub limitation for forks)
 
 ## Branch Strategy (Codex work)
 - 26 fix branches: `codex/pr1-*` through `codex/pr26-*`
@@ -115,3 +123,33 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 | 3128 | codex/pr24-config-tree-layout-2171 | 2171 | Config connections panel focus |
 | 3129 | codex/pr25-tab-crash-resize-2166 | 2166 | Tab close race under resize |
 | 3130 | codex/pr26-inheritance-label-width-2155 | 2155 | Inheritance label width fix |
+
+---
+
+## .project-roadmap/ Documentation Index
+
+**READ `.project-roadmap/LESSONS.md` BEFORE starting any build, test, CI, or release task.**
+
+### Active Files
+| File | Contents |
+|------|----------|
+| `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
+| `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
+| `.project-roadmap/ISSUE_PACKAGES.md` | Triage methodology and issue package definitions |
+| `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md` | Test coverage gaps — drives next test work |
+| `.project-roadmap/UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
+| `.project-roadmap/COMMAND_FEEDBACK_LOG.md` | Command failure history for troubleshooting |
+
+### Scripts (reusable automation)
+| File | Purpose |
+|------|---------|
+| `.project-roadmap/scripts/nx.cmd` | Command wrapper with PATH fixes |
+| `.project-roadmap/scripts/log-command-feedback.ps1` | Log command failures |
+| `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
+| `.project-roadmap/scripts/refresh-command-feedback-metrics.ps1` | Refresh error metrics |
+| `.project-roadmap/scripts/refresh-issues.ps1` | Fetch fresh issue snapshot from upstream |
+| `.project-roadmap/scripts/refresh-p1-p5.ps1` | Generate P1-P5 package snapshots |
+
+### Archived (v1.79.0 release cycle)
+All completed execution logs, triage records, and release checklists are in:
+**`.project-roadmap/historical/v1.79.0/`** (13 files + comments/)
