@@ -127,107 +127,107 @@ namespace mRemoteNG.Connection
                     }
                     Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
                         $"SSH Tunnel connection '{connectionInfoOriginal.SSHTunnelConnectionName}' configured for '{connectionInfoOriginal.Name}' found. Finding free local port for use as local tunnel port ...");
-                    // Determine a free local port to use as local tunnel port.
-                    // KNOWN LIMITATION (TOCTOU): The port is released before the SSH client
-                    // binds to it. Another process could theoretically claim the port in between.
-                    // The race window is very small (milliseconds) and the retry loop below
-                    // will detect a bind failure, but the tunnel setup would fail in that case.
-                    // This cannot be avoided because PuTTY needs the port number as a CLI argument.
-                    System.Net.Sockets.TcpListener l = new(System.Net.IPAddress.Loopback, 0);
-                    l.Start();
-                    int localSshTunnelPort = ((System.Net.IPEndPoint)l.LocalEndpoint).Port;
-                    l.Stop();
-                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                        $"{localSshTunnelPort} will be used as local tunnel port. Establishing SSH connection to '{connectionInfoSshTunnel.Hostname}' with additional tunnel options for target connection ...");
 
-                    // clone SSH tunnel connection as tunnel options will be added to it, and those changes shall not be saved to the configuration
-                    connectionInfoSshTunnel = connectionInfoSshTunnel.Clone();
-                    connectionInfoSshTunnel.SSHOptions += " -L " + localSshTunnelPort + ":" + connectionInfoOriginal.Hostname + ":" + connectionInfoOriginal.Port;
+                    int localSshTunnelPort = 0;
+                    bool tunnelStarted = false;
+                    int retryCount = 0;
+                    const int maxRetries = 3;
 
-                    // clone target connection info as its hostname will be changed to localhost and port to local tunnel port to establish connection through tunnel, and those changes shall not be saved to the configuration
-                    connectionInfo = connectionInfoOriginal.Clone();
-                    connectionInfo.Name += " via " + connectionInfoSshTunnel.Name;
-                    connectionInfo.Hostname = "localhost";
-                    connectionInfo.Port = localSshTunnelPort;
-
-                    // connect the SSH connection to setup the tunnel
-                    ProtocolBase protocolSshTunnel = protocolFactory.CreateProtocol(connectionInfoSshTunnel);
-                    if (!(protocolSshTunnel is PuttyBase puttyBaseSshTunnel))
+                    while (!tunnelStarted && retryCount < maxRetries)
                     {
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                            string.Format(Language.SshTunnelIsNotPutty, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
-                        return;
-                    }
+                        retryCount++;
+                        
+                        // Determine a free local port to use as local tunnel port.
+                        System.Net.Sockets.TcpListener l = new(System.Net.IPAddress.Loopback, 0);
+                        l.Start();
+                        localSshTunnelPort = ((System.Net.IPEndPoint)l.LocalEndpoint).Port;
+                        l.Stop();
+                        
+                        Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                            $"Attempt {retryCount}: {localSshTunnelPort} will be used as local tunnel port. Establishing SSH connection to '{connectionInfoSshTunnel.Hostname}'...");
 
-                    SetConnectionFormEventHandlers(protocolSshTunnel, connectionForm);
-                    SetConnectionEventHandlers(protocolSshTunnel);
-                    connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
-                    BuildConnectionInterfaceController(connectionInfoSshTunnel, protocolSshTunnel, connectionContainer);
-                    protocolSshTunnel.InterfaceControl.OriginalInfo = connectionInfoSshTunnel;
+                        // clone SSH tunnel connection as tunnel options will be added to it, and those changes shall not be saved to the configuration
+                        var currentTunnelInfo = connectionInfoSshTunnel.Clone();
+                        currentTunnelInfo.SSHOptions += " -L " + localSshTunnelPort + ":" + connectionInfoOriginal.Hostname + ":" + connectionInfoOriginal.Port;
 
-                    if (await protocolSshTunnel.InitializeAsync() == false)
-                    {
-                        protocolSshTunnel.Close();
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                            string.Format(Language.SshTunnelNotInitialized, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
-                        return;
-                    }
-
-                    if (protocolSshTunnel.Connect() == false)
-                    {
-                        protocolSshTunnel.Close();
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                            string.Format(Language.SshTunnelNotConnected, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
-                        return;
-                    }
-
-                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                        "Putty started for SSH connection for tunnel. Waiting for local tunnel port to become available ...");
-
-                    // wait until SSH tunnel connection is ready, by checking if local port can be connected to, but max 60 sec.
-                    System.Net.Sockets.Socket testsock = new(System.Net.Sockets.SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
-                    System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                    while (stopwatch.ElapsedMilliseconds < 60000)
-                    {
-                        // confirm that SSH connection is still active
-                        // works only if putty is connfigured to always close window on exit
-                        // else, if connection attempt fails, window remains open and putty process remains running, and we cannot know that connection is already doomed
-                        // in this case the timeout will expire and the log message below will be created
-                        // awkward for user as he has already acknowledged the putty popup some seconds again when the below notification comes....
-                        if (!puttyBaseSshTunnel.isRunning())
+                        // connect the SSH connection to setup the tunnel
+                        ProtocolBase protocolSshTunnel = protocolFactory.CreateProtocol(currentTunnelInfo);
+                        if (!(protocolSshTunnel is PuttyBase puttyBaseSshTunnel))
                         {
-                            protocolSshTunnel.Close();
                             Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                                string.Format(Language.SshTunnelFailed, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
+                                string.Format(Language.SshTunnelIsNotPutty, connectionInfoOriginal.Name, currentTunnelInfo.Name));
                             return;
                         }
 
-                        try
+                        SetConnectionFormEventHandlers(protocolSshTunnel, connectionForm);
+                        SetConnectionEventHandlers(protocolSshTunnel);
+                        connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
+                        BuildConnectionInterfaceController(currentTunnelInfo, protocolSshTunnel, connectionContainer);
+                        protocolSshTunnel.InterfaceControl.OriginalInfo = currentTunnelInfo;
+
+                        if (await protocolSshTunnel.InitializeAsync() == false)
                         {
-                            testsock.Connect(System.Net.IPAddress.Loopback, localSshTunnelPort);
-                            testsock.Close();
-                            break;
+                            protocolSshTunnel.Close();
+                            continue;
                         }
-                        catch
+
+                        if (protocolSshTunnel.Connect() == false)
                         {
-                            await System.Threading.Tasks.Task.Delay(1000);
+                            protocolSshTunnel.Close();
+                            continue;
+                        }
+
+                        // wait until SSH tunnel connection is ready, by checking if local port can be connected to, but max 5 sec for retry
+                        System.Net.Sockets.Stopwatch stopwatch = System.Net.Sockets.Stopwatch.StartNew();
+                        while (stopwatch.ElapsedMilliseconds < 5000)
+                        {
+                            if (!puttyBaseSshTunnel.isRunning()) break;
+
+                            try
+                            {
+                                using (System.Net.Sockets.TcpClient client = new())
+                                {
+                                    await client.ConnectAsync(System.Net.IPAddress.Loopback, localSshTunnelPort);
+                                }
+                                tunnelStarted = true;
+                                break;
+                            }
+                            catch
+                            {
+                                await System.Threading.Tasks.Task.Delay(500);
+                            }
+                        }
+
+                        if (tunnelStarted)
+                        {
+                            // Success! Now prepare the target connection info
+                            connectionInfo = connectionInfoOriginal.Clone();
+                            connectionInfo.Name += " via " + connectionInfoSshTunnel.Name;
+                            connectionInfo.Hostname = "localhost";
+                            connectionInfo.Port = localSshTunnelPort;
+
+                            // Store references for cleanup and logging
+                            connectionInfoSshTunnel = currentTunnelInfo;
+                            
+                            Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                                "Local tunnel port is now available. Hiding putty display and setting up target connection via local tunnel port ...");
+
+                            protocolSshTunnel.InterfaceControl.Hide();
+                        }
+                        else
+                        {
+                            protocolSshTunnel.Close();
+                            Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                                $"SSH Tunnel attempt {retryCount} failed on port {localSshTunnelPort}. Retrying with another port...");
                         }
                     }
 
-                    if (stopwatch.ElapsedMilliseconds >= 60000)
+                    if (!tunnelStarted)
                     {
-                        protocolSshTunnel.Close();
-                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                            string.Format(Language.SshTunnelPortNotReadyInTime, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                            string.Format(Language.SshTunnelFailed, connectionInfoOriginal.Name, connectionInfoSshTunnel.Name));
                         return;
                     }
-
-                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
-                        "Local tunnel port is now available. Hiding putty display and setting up target connection via local tunnel port ...");
-
-                    // hide the display of the SSH tunnel connection which has been shown until this time, such that password can be entered if required or errors be seen
-                    // it stays invisible in the container however which will be reused for the actual connection and such that if the container is closed the SSH tunnel connection is closed as well
-                    protocolSshTunnel.InterfaceControl.Hide();
                 }
 
                 ProtocolBase newProtocol = protocolFactory.CreateProtocol(connectionInfo);
