@@ -17,7 +17,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Connection.Protocol
 {
     [SupportedOSPlatform("windows")]
-    public class ProtocolFactory
+    public class ProtocolFactory : IProtocolFactory
     {
         private readonly RdpProtocolFactory _rdpProtocolFactory = new();
 

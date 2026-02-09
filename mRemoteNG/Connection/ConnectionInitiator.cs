@@ -28,8 +28,16 @@ namespace mRemoteNG.Connection
     {
         private readonly PanelAdder _panelAdder = new();
         private readonly List<string> _activeConnections = [];
+        private readonly IProtocolFactory _protocolFactory;
+        private readonly ITunnelPortValidator _tunnelPortValidator;
 
         public IEnumerable<string> ActiveConnections => _activeConnections;
+
+        public ConnectionInitiator(IProtocolFactory protocolFactory = null, ITunnelPortValidator tunnelPortValidator = null)
+        {
+            _protocolFactory = protocolFactory ?? new ProtocolFactory();
+            _tunnelPortValidator = tunnelPortValidator ?? new TunnelPortValidator();
+        }
 
         public bool SwitchToOpenConnection(ConnectionInfo connectionInfo)
         {
@@ -105,7 +113,6 @@ namespace mRemoteNG.Connection
                         return;
                 }
 
-                ProtocolFactory protocolFactory = new();
                 string connectionPanel = SetConnectionPanel(connectionInfo, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
                 ConnectionWindow connectionForm = SetConnectionForm(conForm, connectionPanel);
@@ -151,7 +158,7 @@ namespace mRemoteNG.Connection
                         currentTunnelInfo.SSHOptions += " -L " + localSshTunnelPort + ":" + connectionInfoOriginal.Hostname + ":" + connectionInfoOriginal.Port;
 
                         // connect the SSH connection to setup the tunnel
-                        ProtocolBase protocolSshTunnel = protocolFactory.CreateProtocol(currentTunnelInfo);
+                        ProtocolBase protocolSshTunnel = _protocolFactory.CreateProtocol(currentTunnelInfo);
                         if (!(protocolSshTunnel is PuttyBase puttyBaseSshTunnel))
                         {
                             Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
@@ -177,26 +184,8 @@ namespace mRemoteNG.Connection
                             continue;
                         }
 
-                        // wait until SSH tunnel connection is ready, by checking if local port can be connected to, but max 5 sec for retry
-                        System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                        while (stopwatch.ElapsedMilliseconds < 5000)
-                        {
-                            if (!puttyBaseSshTunnel.isRunning()) break;
-
-                            try
-                            {
-                                using (System.Net.Sockets.TcpClient client = new())
-                                {
-                                    await client.ConnectAsync(System.Net.IPAddress.Loopback, localSshTunnelPort);
-                                }
-                                tunnelStarted = true;
-                                break;
-                            }
-                            catch
-                            {
-                                await System.Threading.Tasks.Task.Delay(500);
-                            }
-                        }
+                        // wait until SSH tunnel connection is ready, by checking if local port can be connected to
+                        tunnelStarted = await _tunnelPortValidator.ValidatePortAsync(localSshTunnelPort);
 
                         if (tunnelStarted)
                         {
@@ -230,7 +219,7 @@ namespace mRemoteNG.Connection
                     }
                 }
 
-                ProtocolBase newProtocol = protocolFactory.CreateProtocol(connectionInfo);
+                ProtocolBase newProtocol = _protocolFactory.CreateProtocol(connectionInfo);
                 SetConnectionFormEventHandlers(newProtocol, connectionForm);
                 SetConnectionEventHandlers(newProtocol);
                 // in case of connection through SSH tunnel the container is already defined and must be use, else it needs to be created here

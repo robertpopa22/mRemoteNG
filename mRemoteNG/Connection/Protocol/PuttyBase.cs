@@ -58,9 +58,9 @@ namespace mRemoteNG.Connection.Protocol
 
         #region Public Methods
 
-        public bool isRunning()
+        public virtual bool isRunning()
         {
-            return !PuttyProcess.HasExited;
+            return PuttyProcess != null && !PuttyProcess.HasExited;
         }
 
         public void CreatePipe(object oData)
