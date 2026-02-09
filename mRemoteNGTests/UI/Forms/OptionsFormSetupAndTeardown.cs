@@ -22,8 +22,15 @@ namespace mRemoteNGTests.UI.Forms
         [TearDown]
         public void Teardown()
         {
-            _optionsForm.Dispose();
-            while (_optionsForm.Disposing) ;
+            try
+            {
+                _optionsForm?.Close();
+                _optionsForm?.Dispose();
+            }
+            catch
+            {
+                // Swallow dispose errors - test teardown must not crash the host
+            }
             _optionsForm = null;
         }
     }

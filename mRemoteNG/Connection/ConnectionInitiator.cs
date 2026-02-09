@@ -178,7 +178,7 @@ namespace mRemoteNG.Connection
                         }
 
                         // wait until SSH tunnel connection is ready, by checking if local port can be connected to, but max 5 sec for retry
-                        System.Net.Sockets.Stopwatch stopwatch = System.Net.Sockets.Stopwatch.StartNew();
+                        System.Diagnostics.Stopwatch stopwatch = System.Diagnostics.Stopwatch.StartNew();
                         while (stopwatch.ElapsedMilliseconds < 5000)
                         {
                             if (!puttyBaseSshTunnel.isRunning()) break;

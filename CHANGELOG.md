@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Connection audit log (connectionAudit.log) — logs connect/disconnect/error events with timestamps
 
 ### Security
+- Hardcoded legacy encryption key extracted to `ConnectionFileDefaults.LegacyEncryptionKey` constant (no more magic strings in source)
 - RDP default authentication level changed from NoAuth to WarnOnFailedAuth
 - Master password minimum length increased from 3 to 8 characters with complexity requirement (upper, lower, digit)
 - PBKDF2 key derivation iterations increased from 1,000/10,000 to 600,000 (existing files auto-upgrade on save)
@@ -21,6 +22,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Vault clients (Passwordstate, Secret Server) now require HTTPS URLs
 
 ### Fixed
+- VNC: replaced NotImplementedException crash with graceful messages in StartChat/StartFileTransfer; hidden unsupported menu items
+- RDP ActiveX creation: added 10-second timeout guard to prevent infinite DoEvents loop on hung controls
+- SSH tunnel port allocation: added retry loop to mitigate TOCTOU race condition on ephemeral ports
+- SQL data safety: replaced TRUNCATE with DELETE to prevent implicit commits in MySQL; wrapped save operations in transactions with rollback
+- Localization: fixed OpeningCommand placeholder ("TODO" → actual description text)
 - PuTTY CJK session names: register CodePagesEncodingProvider at startup for correct EUC-KR/CJK decoding on .NET 10 (#2785)
 - SecurityPage KDF iterations NumericUpDown Maximum increased from 50,000 to 1,000,000 to match new 600K default
 - Dark theme: debug/info messages in ErrorAndInfoWindow no longer use hardcoded LightSteelBlue
@@ -44,6 +50,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - XML doc comments added to 6 core types: ConnectionInfo, ProtocolBase, ContainerInfo, ConnectionInitiator, ConnectionTreeModel, AeadCryptographyProvider, ThemeManager
 
 ### Improved
+- RDP initialization: replaced blocking Application.DoEvents loop with async InitializeAsync using Task.Delay
+- SQL save: entire connection save operation wrapped in a single transaction for atomicity
+- CI/CD: split release workflow into build + aggregate release job to prevent matrix race on tag creation
+- XmlConnectionsLoader: injectable MessageCollector for testability; 2 previously-ignored tests re-enabled
+- Removed dead code: RDM CSV serializer partial class, RDP Gateway decrypt methods (zero callers)
+- `[Serializable]` removed from SupportedCultures singleton (never serialized)
 - SQL connection hierarchy building optimized from O(n²) to O(n) via Dictionary lookup
 - PuTTY sessions provider: removed unnecessary .ToList() materialization per call
 - GetRecursiveChildList/GetRecursiveFavoriteChildList converted to yield return (zero allocations)
