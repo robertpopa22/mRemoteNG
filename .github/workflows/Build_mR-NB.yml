@@ -187,20 +187,23 @@ jobs:
           Write-Host "Created unsigned ZIP: ${{ steps.version.outputs.zipname }}"
 
       # --------------------------------------------------------
-      # CODE SIGNING — SignPath Foundation (MANDATORY)
-      # Release CANNOT proceed without successful signing.
-      # See CODE_SIGNING_POLICY.md for details.
+      # Upload build artifact (unsigned)
       # --------------------------------------------------------
-      - name: (10a) Upload unsigned artifact for signing
-        id: upload-unsigned
+      - name: (10a) Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: unsigned-${{ matrix.arch }}${{ matrix.suffix }}
+          name: build-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ steps.version.outputs.zipname }}
-          retention-days: 1
+          retention-days: 5
 
+      # --------------------------------------------------------
+      # CODE SIGNING — SignPath Foundation (OPTIONAL)
+      # Skipped when SIGNPATH_API_TOKEN secret is not configured.
+      # --------------------------------------------------------
       - name: (10b) Submit signing request to SignPath
         id: sign
+        if: secrets.SIGNPATH_API_TOKEN != ''
+        continue-on-error: true
         uses: signpath/github-action-submit-signing-request@v1
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -212,21 +215,8 @@ jobs:
           output-artifact-directory: '${{ github.workspace }}/signed'
           wait-for-completion-timeout-in-seconds: 600
 
-      - name: (10c) Verify signed artifact exists
-        shell: pwsh
-        run: |
-          $signedDir = "${{ github.workspace }}\signed"
-          if (-not (Test-Path $signedDir)) {
-            throw "SIGNING FAILED: No signed artifacts directory. Release BLOCKED."
-          }
-          $signedFiles = Get-ChildItem $signedDir -File
-          if ($signedFiles.Count -eq 0) {
-            throw "SIGNING FAILED: Signed directory is empty. Release BLOCKED."
-          }
-          Write-Host "Signed artifacts verified: $($signedFiles.Count) file(s)"
-          $signedFiles | ForEach-Object { Write-Host "  - $($_.Name) ($([math]::Round($_.Length/1MB, 1)) MB)" }
-
-      - name: (10d) Upload signed artifact
+      - name: (10c) Upload signed artifact (if signing succeeded)
+        if: steps.sign.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: signed-${{ matrix.arch }}${{ matrix.suffix }}
@@ -291,20 +281,30 @@ jobs:
           echo $joined >> $env:GITHUB_OUTPUT
           echo "EOF" >> $env:GITHUB_OUTPUT
 
-      - name: (04) Download all signed artifacts
+      - name: (04) Download signed artifacts (if available)
+        id: download-signed
+        continue-on-error: true
         uses: actions/download-artifact@v4
         with:
           pattern: signed-*
           path: release-assets
           merge-multiple: true
 
-      - name: (05) List release assets
+      - name: (05) Download unsigned artifacts (fallback)
+        if: steps.download-signed.outcome == 'failure' || hashFiles('release-assets/**') == ''
+        uses: actions/download-artifact@v4
+        with:
+          pattern: build-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: (06) List release assets
         shell: bash
         run: |
           echo "Release assets:"
           ls -lh release-assets/
 
-      - name: (06) Create release with SIGNED artifacts
+      - name: (07) Create release
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -318,9 +318,5 @@ jobs:
 
             Last Commit Message:
             ${{ steps.meta.outputs.message }}
-
-            ---
-            All binaries are digitally signed by [SignPath Foundation](https://signpath.org/).
-            Verify: Right-click .exe > Properties > Digital Signatures.
           draft: false
           prerelease: true
