@@ -327,6 +327,42 @@ System.NotSupportedException: BinaryFormatter serialization and deserialization 
   at mRemoteNG.Themes.ThemeManager.get_DefaultTheme()
 ```
 
+## v1.80.0 Release Lessons (2026-02-09)
+
+### Async Credential Provider Deadlocks (Task 004)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| UI freezes when fetching credentials from vault | `.Result` on async calls from WinForms UI thread deadlocks due to `SynchronizationContext` | Wrap with `Task.Run(() => asyncCall()).GetAwaiter().GetResult()` |
+
+**Affected files:** `VaultOpenbao.cs` (8 calls), `SecretServerInterface.cs` (4 calls), `PasswordstateInterface.cs` (4 calls).
+
+**Why not full async/await?** The callers (`PuttyBase.cs`, `RdpProtocol.cs`) are deeply synchronous WinForms event handlers. Converting the entire call chain to async would require major refactoring of the protocol layer. `Task.Run()` wrapper is the pragmatic fix — moves blocking to thread pool, keeps API surface unchanged.
+
+### Live Theme Switching (Task 020)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Theme change requires application restart | `ThemePage.SaveSettings()` showed restart dialog instead of applying live | Set `_themeManager.ActiveTheme = selectedTheme` directly |
+
+**Key insight:** `ThemeManager.ActiveTheme` setter already fires `NotifyThemeChanged` → `ThemeChangedEvent`. All UI components (`BaseWindow`, `mrng*` controls) subscribe to this event. Simply setting the property triggers live retheming across the entire application — no restart needed.
+
+### Self-Contained Build (Phase 1)
+
+| Key Decision | Rationale |
+| --- | --- |
+| No trimming | WinForms, WPF, COM interop (MSTSCLib) are too risky for IL trimming |
+| ReadyToRun enabled | Improves startup time for self-contained builds |
+| MSBuild property `SelfContained` | Default false; CI matrix builds both variants |
+
+### PBKDF2 Migration (Task 007)
+
+| Key Decision | Rationale |
+| --- | --- |
+| Store iteration count in XML header | `KdfIterations` attribute in confCons.xml enables forward compatibility |
+| Default 600,000 iterations | OWASP 2024 recommendation for PBKDF2-HMAC-SHA1 |
+| Old files still readable | Missing `KdfIterations` attribute defaults to 1,000 for backward compat |
+
 ## Daily Loop
 
 1. Run command.

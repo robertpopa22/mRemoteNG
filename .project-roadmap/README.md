@@ -2,38 +2,53 @@
 
 This folder is the persistent execution workspace for modernizing this fork to a stable, releasable version.
 
-Goals:
+## Current Release Cycle
+
+- **v1.79.0** — Released 2026-02-09 (26 PRs, 3 platforms)
+- **v1.80.0** — In progress (self-contained build, security hardening, performance, features, docs)
+
+## Goals
+
 - Keep a single source of truth for plan, status, and issue triage.
-- Make restart/resume trivial (after PC reboot, continue from `WORK_STATE.md`).
 - Track objective acceptance criteria before closing any phase.
+- Record lessons learned to avoid repeating mistakes.
 
-Files:
-- `MASTER_PLAN.md`: full phased plan with entry/exit criteria.
-- `WORK_STATE.md`: current progress, blockers, and next action queue.
-- `ISSUE_PACKAGES.md`: issue triage strategy and intervention packages.
-- `scripts/refresh-issues.ps1`: refreshes issue snapshots and package views.
-- `LESSONS.md`: durable rules from real failures and fixes.
-- `COMMAND_FEEDBACK_LOG.md`: chronological feedback log of commands.
-- `COMMAND_FEEDBACK_METRICS.md`: top recurring errors and time-loss hotspots.
+## Active Files
 
-Local analysis output location:
-- `D:\github\LOCAL\analysis\mRemoteNG`
+| File | Contents |
+|------|----------|
+| `LESSONS.md` | Durable rules from real failures and fixes (v1.79.0 + v1.80.0) |
+| `ISSUE_PACKAGES.md` | Issue triage strategy and intervention packages |
+| `P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md` | Test coverage gaps analysis |
+| `UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
+| `UPSTREAM_ISSUES_SNAPSHOT_2026-02-09.md` | Upstream issue state snapshot |
+| `ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash analysis |
+| `COMMAND_FEEDBACK_LOG.md` | Chronological feedback log of commands |
 
-Resume workflow:
-1. Open `.project-roadmap/WORK_STATE.md`.
-2. Execute the first item under `Immediate Next Actions`.
-3. Update status and evidence links after each completed action.
+## Archived
 
-Command learning loop:
+Completed execution logs for v1.79.0 release cycle are in `historical/v1.79.0/`.
+
+## Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/nx.cmd` | Command wrapper with PATH fixes |
+| `scripts/log-command-feedback.ps1` | Log command failures |
+| `scripts/find-lesson.ps1` | Search lessons by keyword |
+| `scripts/refresh-command-feedback-metrics.ps1` | Refresh error metrics |
+| `scripts/refresh-issues.ps1` | Fetch fresh issue snapshot from upstream |
+| `scripts/refresh-p1-p5.ps1` | Generate P1-P5 package snapshots |
+
+## Resume Workflow
+
+1. Read `LESSONS.md` before starting any build, test, CI, or release task.
+2. Check the plan file in Claude Code session for current phase progress.
+3. Run `build.ps1` to verify clean build before making changes.
+
+## Command Learning Loop
+
 1. Before repeating a risky command, search lessons:
    - `D:\github\mRemoteNG\.project-roadmap\scripts\nx.cmd lesson -Pattern "<keyword>"`
 2. After each failed/partial command, log it:
    - `powershell -File D:\github\mRemoteNG\.project-roadmap\scripts\log-command-feedback.ps1 -Command "<cmd>" -Result FAIL -Resolution "<fix>" -Category "<cat>" -ErrorPattern "<error>" -DurationSeconds <sec>`
-3. Refresh counters and time-loss report:
-   - `D:\github\mRemoteNG\.project-roadmap\scripts\nx.cmd metrics -Top 15`
-
-Alias runner:
-1. `D:\github\mRemoteNG\.project-roadmap\scripts\nx.cmd g -C D:\github\mRemoteNG status -sb`
-2. `D:\github\mRemoteNG\.project-roadmap\scripts\nx.cmd h auth status`
-3. `D:\github\mRemoteNG\.project-roadmap\scripts\nx.cmd paths`
-4. Optional for interactive shells: `call D:\github\LOCAL\env.cmd` then use `nx`, `nxlesson`, `nxmetrics`.
