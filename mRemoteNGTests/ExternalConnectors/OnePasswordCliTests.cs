@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.Json;
 using ExternalConnectors.OP;
 using NUnit.Framework;
 
@@ -215,6 +216,47 @@ public class OnePasswordCliTests
 
 		Assert.That(result.Username, Is.EqualTo("fallback_user"));
 		Assert.That(result.Password, Is.EqualTo("fallback_pass"));
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ThrowsWhenFieldsKeyIsMissing()
+	{
+		const string json = """{ "urls": [{ "label": "website", "href": "https://example.com" }] }""";
+
+		var ex = Assert.Throws<TargetInvocationException>(() =>
+			InvokePrivate<(string, string, string, string)>("ExtractCredentialsFromJson", json, "op.exe item get"));
+
+		Assert.That(ex?.InnerException, Is.TypeOf<OnePasswordCliException>());
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_ThrowsForMalformedJson()
+	{
+		const string json = "this is not valid json at all";
+
+		var ex = Assert.Throws<TargetInvocationException>(() =>
+			InvokePrivate<(string, string, string, string)>("ExtractCredentialsFromJson", json, "op.exe item get"));
+
+		Assert.That(ex?.InnerException, Is.TypeOf<JsonException>());
+	}
+
+	[Test]
+	public void ExtractCredentialsFromJson_FallsBackToLabelWhenIdDoesNotMatch()
+	{
+		const string json = """
+		                    {
+		                      "fields": [
+		                        { "id": "login_user", "label": "username", "type": "STRING", "purpose": "", "value": "alice" },
+		                        { "id": "login_pass", "label": "password", "type": "CONCEALED", "purpose": "", "value": "secret123" }
+		                      ]
+		                    }
+		                    """;
+
+		var result = InvokePrivate<(string Username, string Password, string Domain, string PrivateKey)>(
+			"ExtractCredentialsFromJson", json, "op.exe item get");
+
+		Assert.That(result.Username, Is.EqualTo("alice"));
+		Assert.That(result.Password, Is.EqualTo("secret123"));
 	}
 
 	private static T InvokePrivate<T>(string methodName, params object[] args)

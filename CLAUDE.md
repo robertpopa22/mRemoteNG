@@ -51,20 +51,25 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (codex/release-1.79-bootstrap, 2026-02-08):
-- **mRemoteNGTests:** 2176 total, **2174 passed, 2 skipped** (CueBanner — env-dependent Win32 EM_SETCUEBANNER)
+### Current test status (codex/release-1.79-bootstrap, 2026-02-09):
+- **mRemoteNGTests:** 2179 total, **2174 passed, 2 skipped, 3 ignored** (env-dependent)
 - **mRemoteNGSpecs:** 5 total, 5 passed
-- **Zero failures.** CueBanner tests use `Assume.That` to skip gracefully in batch runs.
+- **Zero failures.** Skipped/ignored tests are env-dependent WinForms tests:
+  - 2 skipped: CueBanner (`Assume.That` for Win32 EM_SETCUEBANNER)
+  - 2 ignored: XmlConnectionsLoader recovery failure path (triggers WinForms dialog via `Runtime.MessageCollector`)
+  - 1 ignored: `CanDeleteLastFolderInTheTree` (triggers WinForms confirmation dialog)
 - All 81 pre-existing upstream failures resolved in commit `79c5e4cf`
 - 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
-- Defensive guard added to `GetCueBannerText()` for handle-less textboxes
-- Detailed changelog: `.project-roadmap/historical/v1.79.0/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
+- 3 final coverage tests added (2026-02-09): OnePasswordCli null fields, malformed JSON, label fallback
+- **All Priority A test coverage gaps are now CLOSED**
+- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI.Controls&FullyQualifiedName!~UI.Window&FullyQualifiedName!~CueBanner" -- NUnit.DefaultTimeout=15000`
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
 ### Historical baseline (upstream v1.78.2-dev, before fixes):
 - **mRemoteNGTests:** 2119 total, 2038 passed, 81 failed (pre-existing upstream bugs)
 - 29 new tests added during codex work (2119 → 2148)
 - 28 new coverage tests added during P7 analysis (2148 → 2176)
+- 3 final coverage tests added (2176 → 2179)
 
 ## CI/CD
 - CI uses `windows-2025-vs2026` runners with MSBuild 18.x (VS2026)
