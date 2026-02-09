@@ -2,6 +2,45 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.79.0] - 2026-02-08 (Community Edition)
+
+### Security
+- #3105: LDAP filter sanitizer and XML importer guardrails
+- #3109: ProcessStart argument hardening and shell escaping
+
+### Fixed
+- #3106: Close panel race condition causing crash on tab close (#3069)
+- #3107: 1Password parser and fallback fix (#3092)
+- #3108: Default external credential provider selection (#2972)
+- #3110: SqlClient SNI runtime references for .NET 10 (#3005)
+- #3111: SQL schema compatibility hardening for legacy databases (#1916)
+- #3112: Config panel splitter width reset on resize (#850)
+- #3113: Startup path fallback when config directory is inaccessible (#1969)
+- #3114: PuTTY provider failure handling and resilience (#822)
+- #3115: PuTTY CJK session name decoding (#2785)
+- #3116: RDP SmartSize focus loss on resize (#2735)
+- #3117: RDP fullscreen toggle guard for RedirectKeys (#847)
+- #3118: RDP refocus after fullscreen exit (#1650)
+- #3119: RDP SmartSize RCW disconnect safety (#2510)
+- #3120: Settings path logging and observability (#2987)
+- #3121: Require password verification before disabling protection (#2673)
+- #3122: Master password autolock on minimize and idle (#1649)
+- #3123: PROTOCOL external tool token support (#1634)
+- #3124: Main form close cancel behavior (#2270)
+- #3125: Startup XML recovery for corrupt config files (#811)
+- #3126: Empty panel close after last tab disconnects (#2160)
+- #3127: Tab drag autoscroll on overflow (#2161)
+- #3128: Config connections panel focus and tree layout (#2171)
+- #3129: Tab close race condition under resize (#2166)
+- #3130: Inheritance label width fix (#2155)
+
+### Improved
+- CueBanner text get/set defensive handle validation
+- 81 pre-existing test failures resolved (upstream v1.78.2-dev baseline)
+- 28 new test coverage tests added across 5 areas
+- 2176/2176 tests passing, zero flaky
+
 ## [1.78.2]
 ### Fixed
 - #2939: fixed SQL injection vulnerabilities via parameterized queries 

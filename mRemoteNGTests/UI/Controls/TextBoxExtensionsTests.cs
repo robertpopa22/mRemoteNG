@@ -14,7 +14,12 @@ namespace mRemoteNGTests.UI.Controls
         public void Setup()
         {
             _textBoxExtensionsTestForm = new TextBoxExtensionsTestForm();
+            // Show() + force native handle creation so Win32 EM_SETCUEBANNER works
             _textBoxExtensionsTestForm.Show();
+            _ = _textBoxExtensionsTestForm.textBox1.Handle;
+            // Pump the message loop until the control is fully realized
+            for (int i = 0; i < 10; i++)
+                System.Windows.Forms.Application.DoEvents();
         }
 
         [TearDown]

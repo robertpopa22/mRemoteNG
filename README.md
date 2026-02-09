@@ -1,64 +1,111 @@
-<p align="Left">
-	Developing mRemoteNG to its fullest potential is my personal priority.<br>
-While the project remains non-commercial, it does come with ongoing costs — including VPS hosting for testing, AI tools, domain fees, and more. <br> If you find value in mRemoteNG and want to support its future, even a small donation from our community can make a huge difference.<br>
-Your support helps me keep the project secure, modern, and accessible for everyone who relies on it — and brings us closer to a brighter, more collaborative future.<br><br>
-Consider donating — every contribution counts!
-	<br><br>
-	<a href="https://www.paypal.com/paypalme/mremoteng">
-    	<img height='36' alt="PayPal" style='border:0px;height:36px;' src="https://img.shields.io/badge/%24-PayPal-blue.svg?label=Donate&logo=PayPal&style=flat-square">
-	</a><br>
-	<a href='https://ko-fi.com/Q5Q41I7JS' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-  </a>
-</p>
-
----
-
 <p align="center">
   <img width="450" src="https://github.com/mRemoteNG/mRemoteNG/blob/mRemoteNGProjectFiles/Header_dark.png">
 </p>
-  
-<p align="center">
-  An open source, multi-protocol, tabbed remote connections manager allowing you to view all of your connections in a simple yet powerful interface
-</p>
+
+# mRemoteNG v1.79.0 — Community Edition
+
+> Active fork with 26 bug fixes, improved security, and a complete test suite.
+> Based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
 
 <p align="center">
-  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/mremoteng/mremoteng/total?label=Overall%20Downloads&style=for-the-badge">
-</p>
-
-<p align="center">
-  <a href="https://www.reddit.com/r/mRemoteNG/">
-    <img alt="Subreddit subscribers" src="https://img.shields.io/reddit/subreddit-subscribers/mremoteng?label=Reddit&logo=Reddit&style=flat-square">
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0">
+    <img alt="Release" src="https://img.shields.io/badge/release-v1.79.0-blue?style=for-the-badge">
   </a>
-  <a href="https://twitter.com/mremoteng">
-    <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/mremoteng?color=%231DA1F2&label=Twitter&logo=Twitter&style=flat-square">
-  </a>
-  <a href="https://app.element.io/#/room/#mremoteng:matrix.org">
-    <img alt="Element" src="https://img.shields.io/matrix/mremoteng:matrix.org?label=Join%20to%20chat%20about%20mRemoteNG&logo=element&style=social&link=https://app.element.io/#/room/#mremoteng:matrix.org">
-  </a>  
-</p>
-
-<p align="center">
-  <a href="https://github.com/mRemoteNG/mRemoteNG/blob/develop/COPYING.TXT">
-    <img alt="License" src="https://img.shields.io/github/license/mremoteng/mremoteng?label=License&style=flat">
-  </a>
-  <a href="https://bestpractices.coreinfrastructure.org/projects/529">
-    <img alt="CII Best Practices" src="https://bestpractices.coreinfrastructure.org/projects/529/badge?style=flat">
-  </a>
-  <a href='https://mremoteng.readthedocs.io/en/latest/?badge=latest'>
-    <img src='https://readthedocs.org/projects/mremoteng/badge/?version=latest' alt='Documentation Status' />
-  </a>
-  <a href="https://gurubase.io/g/mremoteng">
-    <img alt="Gurubase" src="https://img.shields.io/badge/Gurubase-Ask%20mRemoteNG%20Guru-006BFF?style=flat-square">
+  <a href="https://github.com/robertpopa22/mRemoteNG/actions">
+    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
   </a>
 </p>
 
 ---
 
-| Channel | Build Status | Downloads |
-| ---------------|--------------|-----------|
-| Stable | ![Build status](https://ci.appveyor.com/api/projects/status/rqwxjxldail7btcf?svg=true) | [![Github Releases (by Release)](https://img.shields.io/github/downloads/mRemoteNG/mRemoteNG/v1.76.20/total.svg)](https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20) |
-| Preview | ![Build status](https://ci.appveyor.com/api/projects/status/rqwxjxldail7btcf/branch/preview?svg=true) | [![Github Releases (by Release)](https://img.shields.io/github/downloads/mRemoteNG/mRemoteNG/v1.77.1/total.svg)](https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.77.1) |
-| Nightly | ![Build status](https://ci.appveyor.com/api/projects/status/rqwxjxldail7btcf/branch/develop?svg=true) | [![Github Releases](https://img.shields.io/github/downloads/mRemoteNG/mRemoteNG/20250916-v1.78.2-NB-(3177)/total.svg)](https://github.com/mRemoteNG/mRemoteNG/releases/tag/20250916-v1.78.2-NB-(3177)) |
+## Download
+
+| Platform | Download |
+|----------|----------|
+| Windows x64 | [mRemoteNG-v1.79.0-x64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-x64.zip) |
+| Windows x86 | [mRemoteNG-v1.79.0-x86.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-x86.zip) |
+| Windows ARM64 | [mRemoteNG-v1.79.0-arm64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-arm64.zip) |
+
+### Requirements
+- [Microsoft .NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
+- Microsoft Visual C++ Redistributable 2015-2026 ([x64](https://aka.ms/vs/18/release/vc_redist.x64.exe) | [x86](https://aka.ms/vs/18/release/vc_redist.x86.exe) | [ARM64](https://aka.ms/vs/18/release/vc_redist.arm64.exe))
+
+---
+
+## What's New in v1.79.0?
+
+### Security
+- LDAP filter sanitizer and XML importer guardrails
+- ProcessStart argument hardening and shell escaping
+
+### Bug Fixes (26 total)
+- **RDP:** SmartSize focus loss, fullscreen toggle guard, refocus after exit, RCW disconnect safety
+- **PuTTY:** Provider failure handling, CJK session name decoding
+- **UI:** Close panel race, tab drag autoscroll, tab close race under resize, empty panel close, config panel splitter, inheritance label width, connections panel focus
+- **Data:** 1Password parser fix, SQL schema compatibility, SqlClient SNI runtime, default credential provider
+- **Core:** Startup path fallback, XML recovery for corrupt configs, main form close cancel, master password autolock, PROTOCOL external tool token, settings path logging, password protection verification
+
+### Quality
+- 2176 tests passing (81 pre-existing failures fixed, 28 new tests added)
+- Zero flaky tests
+- .NET 10, 3-architecture support (x64, x86, ARM64)
+
+---
+
+## All Fixes — Detailed Table
+
+| PR | Issue | Description |
+|----|-------|-------------|
+| [#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105) | — | LDAP sanitizer and importer guardrails |
+| [#3106](https://github.com/mRemoteNG/mRemoteNG/pull/3106) | [#3069](https://github.com/mRemoteNG/mRemoteNG/issues/3069) | Close panel race fix |
+| [#3107](https://github.com/mRemoteNG/mRemoteNG/pull/3107) | [#3092](https://github.com/mRemoteNG/mRemoteNG/issues/3092) | 1Password parser and fallback fix |
+| [#3108](https://github.com/mRemoteNG/mRemoteNG/pull/3108) | [#2972](https://github.com/mRemoteNG/mRemoteNG/issues/2972) | Default external provider fix |
+| [#3109](https://github.com/mRemoteNG/mRemoteNG/pull/3109) | — | ProcessStart hardening and escaping |
+| [#3110](https://github.com/mRemoteNG/mRemoteNG/pull/3110) | [#3005](https://github.com/mRemoteNG/mRemoteNG/issues/3005) | SqlClient SNI runtime references |
+| [#3111](https://github.com/mRemoteNG/mRemoteNG/pull/3111) | [#1916](https://github.com/mRemoteNG/mRemoteNG/issues/1916) | SQL schema compatibility hardening |
+| [#3112](https://github.com/mRemoteNG/mRemoteNG/pull/3112) | [#850](https://github.com/mRemoteNG/mRemoteNG/issues/850) | Config panel splitter width reset |
+| [#3113](https://github.com/mRemoteNG/mRemoteNG/pull/3113) | [#1969](https://github.com/mRemoteNG/mRemoteNG/issues/1969) | Startup path fallback |
+| [#3114](https://github.com/mRemoteNG/mRemoteNG/pull/3114) | [#822](https://github.com/mRemoteNG/mRemoteNG/issues/822) | PuTTY provider failure handling |
+| [#3115](https://github.com/mRemoteNG/mRemoteNG/pull/3115) | [#2785](https://github.com/mRemoteNG/mRemoteNG/issues/2785) | PuTTY CJK session name decoding |
+| [#3116](https://github.com/mRemoteNG/mRemoteNG/pull/3116) | [#2735](https://github.com/mRemoteNG/mRemoteNG/issues/2735) | RDP SmartSize focus loss fix |
+| [#3117](https://github.com/mRemoteNG/mRemoteNG/pull/3117) | [#847](https://github.com/mRemoteNG/mRemoteNG/issues/847) | RDP fullscreen toggle guard |
+| [#3118](https://github.com/mRemoteNG/mRemoteNG/pull/3118) | [#1650](https://github.com/mRemoteNG/mRemoteNG/issues/1650) | RDP refocus after fullscreen exit |
+| [#3119](https://github.com/mRemoteNG/mRemoteNG/pull/3119) | [#2510](https://github.com/mRemoteNG/mRemoteNG/issues/2510) | RDP SmartSize RCW disconnect fix |
+| [#3120](https://github.com/mRemoteNG/mRemoteNG/pull/3120) | [#2987](https://github.com/mRemoteNG/mRemoteNG/issues/2987) | Settings path logging |
+| [#3121](https://github.com/mRemoteNG/mRemoteNG/pull/3121) | [#2673](https://github.com/mRemoteNG/mRemoteNG/issues/2673) | Require password before disabling protection |
+| [#3122](https://github.com/mRemoteNG/mRemoteNG/pull/3122) | [#1649](https://github.com/mRemoteNG/mRemoteNG/issues/1649) | Master password autolock on minimize/idle |
+| [#3123](https://github.com/mRemoteNG/mRemoteNG/pull/3123) | [#1634](https://github.com/mRemoteNG/mRemoteNG/issues/1634) | PROTOCOL external tool token |
+| [#3124](https://github.com/mRemoteNG/mRemoteNG/pull/3124) | [#2270](https://github.com/mRemoteNG/mRemoteNG/issues/2270) | Main close cancel behavior |
+| [#3125](https://github.com/mRemoteNG/mRemoteNG/pull/3125) | [#811](https://github.com/mRemoteNG/mRemoteNG/issues/811) | Startup XML recovery |
+| [#3126](https://github.com/mRemoteNG/mRemoteNG/pull/3126) | [#2160](https://github.com/mRemoteNG/mRemoteNG/issues/2160) | Empty panel close after last tab |
+| [#3127](https://github.com/mRemoteNG/mRemoteNG/pull/3127) | [#2161](https://github.com/mRemoteNG/mRemoteNG/issues/2161) | Tab drag autoscroll on overflow |
+| [#3128](https://github.com/mRemoteNG/mRemoteNG/pull/3128) | [#2171](https://github.com/mRemoteNG/mRemoteNG/issues/2171) | Config connections panel focus |
+| [#3129](https://github.com/mRemoteNG/mRemoteNG/pull/3129) | [#2166](https://github.com/mRemoteNG/mRemoteNG/issues/2166) | Tab close race under resize |
+| [#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130) | [#2155](https://github.com/mRemoteNG/mRemoteNG/issues/2155) | Inheritance label width fix |
+
+---
+
+## How to Update
+
+### Portable (ZIP)
+1. Download the ZIP for your architecture
+2. Extract over your existing mRemoteNG installation
+3. Your `confCons.xml` and settings are preserved
+
+### Auto-Update (Optional)
+You can configure mRemoteNG to check this fork for updates:
+1. Go to **Tools > Options > Updates**
+2. Change the **Update Address** to: `https://raw.githubusercontent.com/robertpopa22/mRemoteNG/codex/release-1.79-bootstrap/docs/nightly-update-portable.txt`
+3. mRemoteNG will check this fork for new versions
+
+---
+
+## Upstream Relationship
+
+This fork is based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
+All 26 fixes have individual PRs open on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)), ready for upstream merge.
+
+---
 
 ## Features
 
@@ -80,85 +127,31 @@ For a detailed feature list and general usage support, refer to the [Documentati
 
 ### Supported Operating Systems
 
-- [Windows 11](https://en.wikipedia.org/wiki/Windows_11)
-- [Windows 10](https://en.wikipedia.org/wiki/Windows_10)
-- [Windows 8.1](https://en.wikipedia.org/wiki/Windows_8.1)
-- [Windows Server 2022](https://en.wikipedia.org/wiki/Windows_Server_2022)
-- [Windows Server 2019](https://en.wikipedia.org/wiki/Windows_Server_2019)
-- [Windows Server 2016](https://en.wikipedia.org/wiki/Windows_Server_2016)
-- [Windows Server 2012 R2](https://en.wikipedia.org/wiki/Windows_Server_2012_R2)
-
-#### Source package
-
-This contains the source code from which mRemoteNG is built.
-You will need to compile it yourself using Visual Studio.
+- Windows 11
+- Windows 10
+- Windows Server 2022
+- Windows Server 2019
+- Windows Server 2016
 
 ### Minimum Requirements
 
-Make sure you have the latest version installed:
+- [Microsoft .NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
+- Microsoft Visual C++ Redistributable 2015-2026
+- Microsoft Terminal Service Client 6.0 or later (for RDP)
 
-* [Microsoft .NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
-* Microsoft Visual C++ Redistributable 2015–2026 is needed:
- - [x64](https://aka.ms/vs/18/release/vc_redist.x64.exe)
- - [ARM64](https://aka.ms/vs/18/release/vc_redist.arm64.exe)
- - [x86](https://aka.ms/vs/18/release/vc_redist.x86.exe)
-* Microsoft Terminal Service Client 6.0 or later (needed if you use RDP with mstscax.dll and/or msrdp.ocx to be registered)
+## Build from Source
 
-### Download
+```powershell
+# Requires Visual Studio 2022 BuildTools with .NET SDK
+& "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Launch-VsDevShell.ps1" -Arch amd64
+dotnet restore mRemoteNG.sln
+msbuild mRemoteNG.sln -m -verbosity:minimal -p:Configuration=Release -p:Platform=x64
+```
 
-> :star: Starting Windows 11 you can use winget to install mRemoteNG. Just run `winget install -e --id mRemoteNG.mRemoteNG`
+## License
 
-mRemoteNG is available as a redistributable MSI package or as a portable ZIP package and can be downloaded from the following locations:
-* [GitHub](https://github.com/mRemoteNG/mRemoteNG/releases)
-* [Project Website](https://mremoteng.org/download)
+[GPL-2.0](COPYING.TXT)
 
-### Command line install
+## Contributing
 
-The MSI package of mRemoteNG can be installed using the command line:
-
-`msiexec /i [/qn] C:\Path\To\mRemoteNG-Installer.exe [INSTALLDIR=value] [IGNOREPREREQUISITES=value] [/lv* <log path>]`
-
-| Argument/Property | Value | Description |
-|-|-|-|
-| /qn | `Silent Installation` | Will run the installer silently in the background. |
-| /lv* | `Silent Installation` | Will write a logfile to the specified location. (For paths that contain spaces, enclose the path in double quotes) |
-| INSTALLDIR | `folder path` | Allows you to set the installation directory from the command line. (For paths that contain spaces, enclose the path in double quotes) |
-| IGNOREPREREQUISITES | `0` or `1` | When set to `1`, the installer will not be halted if any prerequisite check is not met. You must still run the installer as administrator. |
-
-## Manual Uninstall
-
-_If you are using the Portable version, simply deleting the folder that contains mRemoteNG should be sufficient. These uninstall instructions are only necessary for the normal binary .MSI installed version of mRemoteNG_
-
-* Delete the folder where mRemoteNG was installed. By default, this is:
-	`%PROGRAMFILES%\mRemoteNG` (for versions before 1.77 on a x64 Windows its `%programfiles(x86)%\mRemoteNG`)
-
-* Delete the mRemoteNG install entry from the following location. You may search for "mRemoteNG" in the DisplayName field:
-  * x86 Windows or mRemoteNG starting with v1.77: `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\`
-  * x64 Windows and mRemoteNG before 1.77: `HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\`
-* Remove the following registry key: `HKLM\SOFTWARE\mRemoteNG` (on x64 Windows with mRemoteNG before 1.77 it's `HKLM\SOFTWARE\WOW6432Node\mRemoteNG`)
-
-* (Optional) If you would also like to delete user data remove `%LOCALAPPDATA%\mRemoteNG`
-* (Optional) If you would also like to remove the connection configuration, delete `%APPDATA%\mRemoteNG`
-
-* (Optional) If no other software uses it, the "Microsoft Windows Desktop Runtime" may be uninstalled too.
-
-## Featured Projects
-
-* [PSmRemoteNG](https://github.com/realslacker/PSmRemoteNG) A module to create mRemoteNG connection files from PowerShell.
-* [mRemoteNGOpenVPN](https://github.com/T3los/mRemoteNGOpenVPN) A script that can be embedded as an external tool to control OpenVPN.
-* [mRemoteNG-Icons](https://github.com/bearlikelion/mRemoteNG-Icons) A collection of fancy icons to customize the connections
-
-## Contribute
-
-If you find mRemoteNG useful and would like to contribute, it would be greatly appreciated. When you contribute, you make it possible for the team to cover the costs of producing mRemoteNG.
-
-### Submit Code
-Check out the [Wiki page](https://github.com/mRemoteNG/mRemoteNG/wiki) on how to configure your development environment and submit a pull request.
-
-### Translate
-Check out the [Wiki page](https://github.com/mRemoteNG/mRemoteNG/wiki) on how to help make mRemoteNG a polyglot.
-
-</br>
-<p align="center">
-  <img alt="Developed with ReSharper" src="https://github.com/mRemoteNG/mRemoteNG/blob/mRemoteNGProjectFiles/icon_ReSharper.png">
-</p>
+Submit code via pull request. See the [Wiki](https://github.com/mRemoteNG/mRemoteNG/wiki) for development environment setup.

@@ -19,6 +19,7 @@ namespace mRemoteNG.UI
 
         public static string GetCueBannerText(this TextBox textBox)
         {
+            if (!textBox.IsHandleCreated) return null;
             StringBuilder cueBannerText = new(256);
             IntPtr result = NativeMethods.SendMessage(textBox.Handle, NativeMethods.EM_GETCUEBANNER, cueBannerText,
                                                    new IntPtr(cueBannerText.Capacity));
