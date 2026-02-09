@@ -22,6 +22,13 @@ using mRemoteNG.Resources.Language;
 
 namespace mRemoteNG.Security.SymmetricEncryption
 {
+    /// <summary>
+    /// Provides authenticated encryption with associated data (AEAD) using
+    /// AES-256-GCM via BouncyCastle. Used to encrypt/decrypt connection passwords
+    /// and the confCons.xml connection file. Key derivation uses PBKDF2 with a
+    /// configurable iteration count (default 600,000 as of v1.80.0) stored in
+    /// the file's <c>KdfIterations</c> attribute for forward/backward compatibility.
+    /// </summary>
     public class AeadCryptographyProvider : ICryptographyProvider
     {
         private readonly IAeadBlockCipher _aeadBlockCipher;
@@ -35,7 +42,7 @@ namespace mRemoteNG.Security.SymmetricEncryption
 
         //Preconfigured Password Key Derivation Parameters
         protected virtual int SaltBitSize { get; set; } = 128;
-        public virtual int KeyDerivationIterations { get; set; } = 1000;
+        public virtual int KeyDerivationIterations { get; set; } = 600_000;
         protected virtual int MinPasswordLength { get; set; } = 1;
 
 

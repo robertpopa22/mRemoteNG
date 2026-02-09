@@ -25,6 +25,7 @@ namespace mRemoteNG.UI.Controls
         private MrngToolStripSplitButton _btnQuickConnect;
         private ContextMenuStrip _mnuQuickConnectProtocol;
         private QuickConnectComboBox _cmbQuickConnect;
+        public QuickConnectComboBox QuickConnectComboBox => _cmbQuickConnect;
         private ContextMenuStrip _mnuConnections;
         private readonly ThemeManager _themeManager;
         private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender vsToolStripExtender;
@@ -61,9 +62,10 @@ namespace mRemoteNG.UI.Controls
             //Theming support
             //
             vsToolStripExtender = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(components);
-            // 
+            //
             // lblQuickConnect
-            // 
+            //
+            _lblQuickConnect.AccessibleName = "Quick Connect Label";
             _lblQuickConnect.Name = "lblQuickConnect";
             _lblQuickConnect.Size = new Size(55, 22);
             _lblQuickConnect.Text = Language.Connect;
@@ -71,6 +73,8 @@ namespace mRemoteNG.UI.Controls
             // 
             // cmbQuickConnect
             // 
+            _cmbQuickConnect.AccessibleName = "Hostname";
+            _cmbQuickConnect.AccessibleDescription = "Enter hostname or IP address to connect";
             _cmbQuickConnect.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             _cmbQuickConnect.AutoCompleteSource = AutoCompleteSource.ListItems;
             _cmbQuickConnect.Margin = new Padding(1, 0, 3, 0);
@@ -96,6 +100,8 @@ namespace mRemoteNG.UI.Controls
             // 
             // btnQuickConnect
             // 
+            _btnQuickConnect.AccessibleName = "Connect";
+            _btnQuickConnect.AccessibleDescription = "Connect to the specified host using the selected protocol";
             _btnQuickConnect.DropDown = _mnuQuickConnectProtocol;
             _btnQuickConnect.Image = Properties.Resources.Run_16x;
             _btnQuickConnect.ImageTransparentColor = Color.Magenta;
@@ -116,6 +122,8 @@ namespace mRemoteNG.UI.Controls
             // 
             // btnConnections
             // 
+            _btnConnections.AccessibleName = "Saved Connections";
+            _btnConnections.AccessibleDescription = "Browse and open saved connections";
             _btnConnections.DisplayStyle = ToolStripItemDisplayStyle.Image;
             _btnConnections.DropDown = _mnuConnections;
             _btnConnections.Image = Properties.Resources.ASPWebSite_16x;

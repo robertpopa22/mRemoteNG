@@ -6,6 +6,7 @@ using mRemoteNG.Config.Connections;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Serializers;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Csv;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Json;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
@@ -97,6 +98,9 @@ namespace mRemoteNG.App
                     case SaveFormat.mRCSV:
                         serializer =
                             new CsvConnectionsSerializerMremotengFormat(saveFilter, Runtime.CredentialProviderCatalog);
+                        break;
+                    case SaveFormat.mRJSON:
+                        serializer = new JsonConnectionsSerializer(saveFilter);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(saveFormat), saveFormat, null);

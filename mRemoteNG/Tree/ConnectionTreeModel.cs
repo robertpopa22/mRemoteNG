@@ -10,6 +10,14 @@ using mRemoteNG.Tree.Root;
 
 namespace mRemoteNG.Tree
 {
+    /// <summary>
+    /// The in-memory model backing the connection tree UI.
+    /// Holds one or more <see cref="RootNodeInfo"/> root nodes, each containing
+    /// a hierarchy of <see cref="ContainerInfo"/> folders and <see cref="ConnectionInfo"/> connections.
+    /// Raises <see cref="INotifyCollectionChanged.CollectionChanged"/> and
+    /// <see cref="INotifyPropertyChanged.PropertyChanged"/> events to keep the
+    /// tree view synchronized with the data model.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     public sealed class ConnectionTreeModel : INotifyCollectionChanged, INotifyPropertyChanged
     {

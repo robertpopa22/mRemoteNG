@@ -9,7 +9,7 @@
     <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Icons\mRemoteNG.ico</ApplicationIcon>
-    <Version>1.79.0</Version>
+    <Version>1.80.0</Version>
     <Description>Multi-protocol remote connections manager</Description>
     <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>
     <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>
@@ -694,5 +694,10 @@
          The compat package (System.Runtime.Serialization.Formatters) re-adds
          the implementation; this switch activates it. -->
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
+  </PropertyGroup>
+  <!-- Self-contained build: embeds the .NET runtime so users don't need to install it.
+       Pass /p:SelfContained=true to MSBuild to enable. Default is framework-dependent. -->
+  <PropertyGroup Condition="'$(SelfContained)' == 'true'">
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 </Project>

@@ -17,6 +17,7 @@ namespace mRemoteNG.App
         private static PortScanWindow _portscanForm;
         private static UltraVNCWindow _ultravncscForm;
         private static ConnectionTreeWindow _treeForm;
+        private static KeyboardShortcutsWindow _keyboardShortcutsForm;
 
         internal static ConnectionTreeWindow TreeForm
         {
@@ -73,6 +74,11 @@ namespace mRemoteNG.App
                         if (_ultravncscForm == null || _ultravncscForm.IsDisposed)
                             _ultravncscForm = new UltraVNCWindow();
                         _ultravncscForm.Show(dockPanel);
+                        break;
+                    case WindowType.KeyboardShortcuts:
+                        if (_keyboardShortcutsForm == null || _keyboardShortcutsForm.IsDisposed)
+                            _keyboardShortcutsForm = new KeyboardShortcutsWindow();
+                        _keyboardShortcutsForm.Show(dockPanel);
                         break;
                 }
             }

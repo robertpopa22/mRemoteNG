@@ -14,6 +14,7 @@ namespace mRemoteNG.UI.Menu
     public class HelpMenu : ToolStripMenuItem
     {
         private ToolStripMenuItem _mMenInfoHelp = null!;
+        private ToolStripMenuItem _mMenKeyboardShortcuts = null!;
         private ToolStripMenuItem _mMenInfoWebsite = null!;
         private ToolStripSeparator _mMenInfoSep1 = null!;
         private ToolStripMenuItem _mMenInfoAbout = null!;
@@ -35,6 +36,7 @@ namespace mRemoteNG.UI.Menu
         private void Initialize()
         {
             _mMenInfoHelp = new ToolStripMenuItem();
+            _mMenKeyboardShortcuts = new ToolStripMenuItem();
             _mMenInfoSep1 = new ToolStripSeparator();
             _mMenInfoWebsite = new ToolStripMenuItem();
             _mMenInfoDonate = new ToolStripMenuItem();
@@ -54,6 +56,7 @@ namespace mRemoteNG.UI.Menu
             DropDownItems.AddRange(new ToolStripItem[]
             {
                 _mMenInfoHelp,
+                _mMenKeyboardShortcuts,
                 _mMenInfoSep1,
                 _mMenInfoWebsite,
                 _mMenInfoForum,
@@ -80,7 +83,14 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoHelp.Size = new System.Drawing.Size(190, 22);
             _mMenInfoHelp.Text = Language.MenuItem_HelpContents;
             _mMenInfoHelp.Click += mMenInfoHelp_Click;
-            // 
+            //
+            // mMenKeyboardShortcuts
+            //
+            _mMenKeyboardShortcuts.Name = "mMenKeyboardShortcuts";
+            _mMenKeyboardShortcuts.Size = new System.Drawing.Size(190, 22);
+            _mMenKeyboardShortcuts.Text = "Keyboard Shortcuts";
+            _mMenKeyboardShortcuts.Click += mMenKeyboardShortcuts_Click;
+            //
             // mMenToolsUpdate
             // 
             _mMenToolsUpdate.Image = Properties.Resources.RunUpdate_16x;
@@ -186,6 +196,11 @@ namespace mRemoteNG.UI.Menu
             {
                 await updateWindow.PerformUpdateCheckAsync();
             }
+        }
+
+        private void mMenKeyboardShortcuts_Click(object sender, EventArgs e)
+        {
+            AppWindows.Show(WindowType.KeyboardShortcuts);
         }
 
         private void mMenInfoHelp_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlDocumentation);

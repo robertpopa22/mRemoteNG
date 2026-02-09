@@ -55,6 +55,7 @@ namespace mRemoteNG.Config.Settings
                 SetShowSystemTrayIcon();
                 SetAutoSave();
                 LoadExternalAppsFromXml();
+                LoadQuickConnectHistory();
                 SetAlwaysShowPanelTabs();
 
                 if (Properties.App.Default.ResetToolbars)
@@ -261,6 +262,12 @@ namespace mRemoteNG.Config.Settings
         private void LoadExternalAppsFromXml()
         {
             _externalAppsLoader.LoadExternalAppsFromXML();
+        }
+
+        private void LoadQuickConnectHistory()
+        {
+            QuickConnectHistoryLoader loader = new(_quickConnectToolStrip.QuickConnectComboBox);
+            loader.Load();
         }
 
         #endregion

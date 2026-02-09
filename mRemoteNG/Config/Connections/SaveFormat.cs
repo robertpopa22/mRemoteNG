@@ -5,6 +5,7 @@
         None,
         mRXML,
         mRCSV,
+        mRJSON,
         SQL
     }
 }

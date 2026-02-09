@@ -25,6 +25,14 @@ using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection
 {
+    /// <summary>
+    /// Represents a single remote connection with all its configuration properties.
+    /// This is the core data model for connections in mRemoteNG — each node in the
+    /// connection tree is backed by a <see cref="ConnectionInfo"/> instance.
+    /// Inherits connection properties (hostname, protocol, credentials, etc.) from
+    /// <see cref="AbstractConnectionRecord"/> and supports property inheritance
+    /// from parent folders via <see cref="ConnectionInfoInheritance"/>.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     [DefaultProperty("Name")]
     public class ConnectionInfo : AbstractConnectionRecord, IHasParent, IInheritable

@@ -12,6 +12,7 @@ namespace mRemoteNG.Messages
     [SupportedOSPlatform("windows")]
     public class MessageCollector : INotifyCollectionChanged
     {
+        private const int MaxMessages = 10_000;
         private readonly IList<IMessage> _messageList;
 
         public IEnumerable<IMessage> Messages => _messageList;
@@ -41,6 +42,10 @@ namespace mRemoteNG.Messages
                 _messageList.Add(message);
                 newMessages.Add(message);
             }
+
+            // Prevent unbounded growth in long-running sessions
+            while (_messageList.Count > MaxMessages)
+                _messageList.RemoveAt(0);
 
             if (newMessages.Any())
                 RaiseCollectionChangedEvent(NotifyCollectionChangedAction.Add, newMessages);

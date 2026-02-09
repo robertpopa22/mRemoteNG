@@ -66,44 +66,52 @@ namespace mRemoteNG.UI.Controls
         private void NG_DrawItem(object sender, DrawItemEventArgs e)
         {
             int index = e.Index >= 0 ? e.Index : 0;
-            Brush itemBrush = new SolidBrush(_themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Foreground"));
+            using SolidBrush itemBrush = new(_themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Foreground"));
+            Brush activeBrush = itemBrush;
 
-            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            SolidBrush selectedBrush = null;
+            try
             {
-                itemBrush = new SolidBrush(
-                                           _themeManager
-                                               .ActiveTheme.ExtendedPalette.getColor("List_Item_Selected_Foreground"));
-                e.Graphics.FillRectangle(
-                                         new SolidBrush(_themeManager
-                                                        .ActiveTheme.ExtendedPalette
-                                                        .getColor("List_Item_Selected_Background")),
-                                         e.Bounds);
-            }
-            else
-                e.Graphics.FillRectangle(
-                                         new SolidBrush(_themeManager
-                                                        .ActiveTheme.ExtendedPalette.getColor("ComboBox_Background")),
-                                         e.Bounds);
-
-            if (Items.Count > 0)
-            {
-                if (string.IsNullOrEmpty(DisplayMember))
-                    e.Graphics.DrawString(Items[index].ToString(), e.Font, itemBrush, e.Bounds,
-                                          StringFormat.GenericDefault);
+                if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                {
+                    selectedBrush = new SolidBrush(
+                        _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Selected_Foreground"));
+                    activeBrush = selectedBrush;
+                    using SolidBrush selectedBack = new(
+                        _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Selected_Background"));
+                    e.Graphics.FillRectangle(selectedBack, e.Bounds);
+                }
                 else
                 {
-                    if (Items[index].GetType().GetProperty(DisplayMember) != null)
+                    using SolidBrush normalBack = new(
+                        _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Background"));
+                    e.Graphics.FillRectangle(normalBack, e.Bounds);
+                }
+
+                if (Items.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(DisplayMember))
+                        e.Graphics.DrawString(Items[index].ToString(), e.Font, activeBrush, e.Bounds,
+                                              StringFormat.GenericDefault);
+                    else
                     {
-                        e.Graphics.DrawString(
-                                              Items[index]
-                                                  .GetType().GetProperty(DisplayMember)?.GetValue(Items[index], null)
-                                                  .ToString(),
-                                              e.Font, itemBrush, e.Bounds, StringFormat.GenericDefault);
+                        if (Items[index].GetType().GetProperty(DisplayMember) != null)
+                        {
+                            e.Graphics.DrawString(
+                                Items[index]
+                                    .GetType().GetProperty(DisplayMember)?.GetValue(Items[index], null)
+                                    .ToString(),
+                                e.Font, activeBrush, e.Bounds, StringFormat.GenericDefault);
+                        }
                     }
                 }
-            }
 
-            e.DrawFocusRectangle();
+                e.DrawFocusRectangle();
+            }
+            finally
+            {
+                selectedBrush?.Dispose();
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -152,7 +160,8 @@ namespace mRemoteNG.UI.Controls
             }
 
             //Arrow
-            e.Graphics.DrawString("\u25BC", Font, new SolidBrush(ButtFore), Width - 17, Height / 2 - 5);
+            using (SolidBrush arrowBrush = new(ButtFore))
+                e.Graphics.DrawString("\u25BC", Font, arrowBrush, Width - 17, Height / 2 - 5);
 
             //Text
             Rectangle textRect = new(2, 2, Width - 20, Height - 4);

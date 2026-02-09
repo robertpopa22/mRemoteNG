@@ -223,21 +223,21 @@ namespace mRemoteNG.UI.Window
                 {
                     case MessageClass.DebugMsg:
                         pbError.Image = _display.ScaleImage(Properties.Resources.Test_16x);
-                        if (_themeManager.ThemingActive)
+                        if (_themeManager.ActiveAndExtended)
                         {
-                            pnlErrorMsg.BackColor = Color.LightSteelBlue;
-                            txtMsgText.BackColor = Color.LightSteelBlue;
-                            lblMsgDate.BackColor = Color.LightSteelBlue;
+                            pnlErrorMsg.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
+                            txtMsgText.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
+                            lblMsgDate.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
                         }
 
                         break;
                     case MessageClass.InformationMsg:
                         pbError.Image = _display.ScaleImage(Properties.Resources.StatusInformation_16x);
-                        if (_themeManager.ThemingActive)
+                        if (_themeManager.ActiveAndExtended)
                         {
-                            pnlErrorMsg.BackColor = Color.LightSteelBlue;
-                            txtMsgText.BackColor = Color.LightSteelBlue;
-                            lblMsgDate.BackColor = Color.LightSteelBlue;
+                            pnlErrorMsg.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
+                            txtMsgText.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
+                            lblMsgDate.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
                         }
 
                         break;

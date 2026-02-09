@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - v1.78.2-dev
-      - codex/**
+      - release/**
   workflow_dispatch:
 
 permissions:

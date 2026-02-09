@@ -64,6 +64,13 @@ public class SecretServerInterface
                     ssPassword = f.tbPassword.Text;
                     ssUrl = f.tbSSURL.Text;
                     ssSSO = f.cbUseSSO.Checked;
+
+                    // Require HTTPS for vault connections
+                    if (!ssUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show("Secret Server URL must use HTTPS for secure communication.", "Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        continue;
+                    }
                     ssOTP = f.tbOTP.Text;
                     // check connection first
                     try

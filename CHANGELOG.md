@@ -3,6 +3,48 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.80.0] - Unreleased (Community Edition)
+
+### Added
+- Self-contained (.NET embedded) build variant — no .NET runtime installation required (#2998)
+- JSON export format for connection data alongside existing XML/CSV
+- Protocol/tag tree filtering: search with `protocol:RDP` or `tag:production` prefixes
+- `%ENVIRONMENTTAGS%` and `%SSHOPTIONS%` external tool tokens
+- Quick connect history persistence across application restarts (quickConnectHistory.xml)
+- Connection audit log (connectionAudit.log) — logs connect/disconnect/error events with timestamps
+
+### Security
+- RDP default authentication level changed from NoAuth to WarnOnFailedAuth
+- Master password minimum length increased from 3 to 8 characters with complexity requirement (upper, lower, digit)
+- PBKDF2 key derivation iterations increased from 1,000/10,000 to 600,000 (existing files auto-upgrade on save)
+- SSH temporary private key files securely wiped (zeroed) before deletion
+- Vault clients (Passwordstate, Secret Server) now require HTTPS URLs
+
+### Fixed
+- PuTTY CJK session names: register CodePagesEncodingProvider at startup for correct EUC-KR/CJK decoding on .NET 10 (#2785)
+- SecurityPage KDF iterations NumericUpDown Maximum increased from 50,000 to 1,000,000 to match new 600K default
+- Dark theme: debug/info messages in ErrorAndInfoWindow no longer use hardcoded LightSteelBlue
+- GDI resource leaks in MrngButton and MrngComboBox (SolidBrush/Pen disposal)
+
+### UI/UX
+- Live theme switching: changing themes no longer requires an application restart
+- Keyboard shortcuts reference panel: Help > Keyboard Shortcuts shows all available shortcuts
+- Accessibility: added AccessibleName/AccessibleDescription to main form controls, connection tree, quick connect toolbar, and search box
+
+### Documentation
+- CONTRIBUTING.md: developer onboarding guide with build instructions and PR workflow
+- ARCHITECTURE.md: system layers diagram with component descriptions and data flow
+- docs/TROUBLESHOOTING.md: common issues and solutions for installation, connections, security, and builds
+- Security/README.md: encryption subsystem documentation with KDF details and flow diagrams
+- XML doc comments added to 6 core types: ConnectionInfo, ProtocolBase, ContainerInfo, ConnectionInitiator, ConnectionTreeModel, AeadCryptographyProvider, ThemeManager
+
+### Improved
+- SQL connection hierarchy building optimized from O(n²) to O(n) via Dictionary lookup
+- PuTTY sessions provider: removed unnecessary .ToList() materialization per call
+- GetRecursiveChildList/GetRecursiveFavoriteChildList converted to yield return (zero allocations)
+- MessageCollector capped at 10,000 messages to prevent unbounded memory growth
+- CI/CD: dual-build matrix — 6 builds per release (3 framework-dependent + 3 self-contained)
+
 ## [1.79.0] - 2026-02-08 (Community Edition)
 
 ### Security

@@ -10,6 +10,14 @@ using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection.Protocol
 {
+    /// <summary>
+    /// Abstract base class for all remote connection protocols (RDP, SSH, VNC, etc.).
+    /// Each protocol implementation handles connecting, disconnecting, and hosting
+    /// its UI control within a <see cref="InterfaceControl"/> on a
+    /// <see cref="UI.Tabs.ConnectionTab"/>. Provides lifecycle events
+    /// (Connecting, Connected, Disconnected, Closed, ErrorOccured) that are consumed
+    /// by <see cref="ConnectionInitiator"/> for connection management and audit logging.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     public abstract class ProtocolBase : IDisposable
     {

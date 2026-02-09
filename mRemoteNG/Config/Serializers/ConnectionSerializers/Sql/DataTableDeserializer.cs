@@ -265,15 +265,20 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             };
             connectionTreeModel.AddRootNode(rootNode);
 
+            Dictionary<string, ConnectionInfo> nodeById = new(connectionList.Count, StringComparer.Ordinal);
+            foreach (ConnectionInfo node in connectionList)
+                nodeById[node.ConstantID] = node;
+
             foreach (DataRow row in dataTable.Rows)
             {
                 string id = (string)row["ConstantID"];
-                ConnectionInfo connectionInfo = connectionList.First(node => node.ConstantID == id);
+                if (!nodeById.TryGetValue(id, out ConnectionInfo connectionInfo))
+                    continue;
                 string parentId = (string)row["ParentID"];
-                if (parentId == "0" || connectionList.All(node => node.ConstantID != parentId))
+                if (parentId == "0" || !nodeById.TryGetValue(parentId, out ConnectionInfo parentNode))
                     rootNode.AddChild(connectionInfo);
                 else
-                    (connectionList.First(node => node.ConstantID == parentId) as ContainerInfo)?.AddChild(connectionInfo);
+                    (parentNode as ContainerInfo)?.AddChild(connectionInfo);
             }
 
             return connectionTreeModel;

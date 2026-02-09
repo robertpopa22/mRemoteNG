@@ -369,11 +369,32 @@ namespace mRemoteNG.Connection.Protocol
             }
             finally
             {
-                // make sure to remove the private key file
+                // Securely wipe then delete the temporary private key file
                 if (!string.IsNullOrEmpty(optionalTemporaryPrivateKeyPath))
                 {
                     System.Threading.Thread.Sleep(500);
-                    System.IO.File.Delete(optionalTemporaryPrivateKeyPath);
+                    try
+                    {
+                        if (System.IO.File.Exists(optionalTemporaryPrivateKeyPath))
+                        {
+                            var fi = new System.IO.FileInfo(optionalTemporaryPrivateKeyPath);
+                            long length = fi.Length;
+                            using (var fs = new System.IO.FileStream(optionalTemporaryPrivateKeyPath, System.IO.FileMode.Open, System.IO.FileAccess.Write, System.IO.FileShare.None))
+                            {
+                                byte[] zeros = new byte[Math.Min(length, 4096)];
+                                long remaining = length;
+                                while (remaining > 0)
+                                {
+                                    int toWrite = (int)Math.Min(remaining, zeros.Length);
+                                    fs.Write(zeros, 0, toWrite);
+                                    remaining -= toWrite;
+                                }
+                                fs.Flush();
+                            }
+                        }
+                    }
+                    catch { /* best-effort wipe */ }
+                    try { System.IO.File.Delete(optionalTemporaryPrivateKeyPath); } catch { }
                 }
             }
         }

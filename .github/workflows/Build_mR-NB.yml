@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - v1.78.2-dev
-      - codex/release-1.79-bootstrap
+      - release/1.80
     tags:
       - 'v*'
 
@@ -16,22 +16,45 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   NB-Build-and-Release:
     strategy:
       max-parallel: 1
       matrix:
         include:
+          # Framework-dependent builds (existing — requires .NET runtime on target)
           - runner: windows-2025-vs2026
             platform: x86
             arch: x86
+            selfcontained: false
+            suffix: ""
           - runner: windows-2025-vs2026
             platform: x64
             arch: x64
+            selfcontained: false
+            suffix: ""
           - runner: windows-11-arm
             platform: ARM64
             arch: arm64
+            selfcontained: false
+            suffix: ""
+          # Self-contained builds (new — embeds .NET runtime, no install required)
+          - runner: windows-2025-vs2026
+            platform: x86
+            arch: x86
+            selfcontained: true
+            suffix: "-selfcontained"
+          - runner: windows-2025-vs2026
+            platform: x64
+            arch: x64
+            selfcontained: true
+            suffix: "-selfcontained"
+          - runner: windows-11-arm
+            platform: ARM64
+            arch: arm64
+            selfcontained: true
+            suffix: "-selfcontained"
     runs-on: ${{ matrix.runner }}
     # Only run if:
     # - manual dispatch, OR
@@ -41,7 +64,7 @@ jobs:
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && (
         startsWith(github.ref, 'refs/tags/v') ||
-        github.ref == 'refs/heads/codex/release-1.79-bootstrap' ||
+        github.ref == 'refs/heads/release/1.80' ||
         contains(github.event.head_commit.message, 'NB release')
       ))
 
@@ -53,16 +76,16 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
-        
+
       - name: (03) Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
           vs-version: ${{ matrix.platform == 'ARM64' && '17.14.12' || '[18.0,19.0)' }}
-          
+
       - name: (04) Generate AssemblyInfo.cs from T4 template values
         shell: pwsh
         run: |
-          $major = 1; $minor = 79; $revision = 0; $channel = "Release"
+          $major = 1; $minor = 80; $revision = 0; $channel = "Release"
           $base = [datetime]"2019-09-02"
           $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
           $platform = "${{ matrix.platform }}"
@@ -88,7 +111,7 @@ jobs:
           $outPath = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.cs"
           Set-Content -Path $outPath -Value $content -Encoding UTF8
           Write-Host "Generated AssemblyInfo.cs: v$major.$minor.$revision.$build ($channel) $platform"
-  
+
       - name: (05) Cache NuGet Packages
         uses: actions/cache@v5
         with:
@@ -96,16 +119,33 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.arch }}-nuget-${{ hashFiles('**/*.csproj') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.arch }}-nuget-
-            
+
       - name: (06) Restore NuGet Packages
         shell: pwsh
-        run: dotnet restore
-        
+        run: |
+          if ('${{ matrix.selfcontained }}' -eq 'true') {
+            dotnet restore --runtime win-${{ matrix.arch }}
+          } else {
+            dotnet restore
+          }
+
       - name: (07) Build Release
         shell: pwsh
         run: |
-          msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" -p:Configuration="Release" -p:Platform=${{ matrix.platform }} /verbosity:minimal
-        
+          $msbuildArgs = @(
+            "`"$Env:GITHUB_WORKSPACE\mRemoteNG.sln`""
+            "-p:Configuration=Release"
+            "-p:Platform=${{ matrix.platform }}"
+            "/verbosity:minimal"
+          )
+          if ('${{ matrix.selfcontained }}' -eq 'true') {
+            $msbuildArgs += "-p:SelfContained=true"
+            $msbuildArgs += "-p:RuntimeIdentifier=win-${{ matrix.arch }}"
+          }
+          $cmd = "msbuild " + ($msbuildArgs -join " ")
+          Write-Host "Running: $cmd"
+          Invoke-Expression $cmd
+
       - name: (08) Release Information
         id: version
         shell: pwsh
@@ -119,7 +159,8 @@ jobs:
             throw "Could not extract version and build number"
           }
           $date = Get-Date -Format "yyyyMMdd"
-          $zipName = "mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}.zip"
+          $suffix = "${{ matrix.suffix }}"
+          $zipName = "mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}$suffix.zip"
           $tag = "$date-v$version-NB-($build)"
           $message = git log -1 --pretty=%B
           echo "message=$message" >> $env:GITHUB_OUTPUT
@@ -127,7 +168,6 @@ jobs:
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          $version = "${{ steps.version.outputs.version }}"
 
       - name: (09) Extract Changelog Section
         id: changelog
@@ -135,7 +175,7 @@ jobs:
         run: |
           $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
           $lines = Get-Content $changelogPath
-      
+
           $startIndex = -1
           for ($i = 0; $i -lt $lines.Count; $i++) {
             if ($lines[$i] -match '^## \[') {
@@ -143,11 +183,11 @@ jobs:
               break
             }
           }
-      
+
           if ($startIndex -eq -1) {
             throw "No version header found in CHANGELOG.md"
           }
-      
+
           $section = @()
           for ($i = $startIndex + 1; $i -lt $lines.Count; $i++) {
             if ($lines[$i] -match '^## ') {
@@ -155,14 +195,14 @@ jobs:
             }
             $section += $lines[$i]
           }
-      
+
           $joined = $section -join "`n"
           echo "log<<EOF" >> $env:GITHUB_OUTPUT
           echo $joined >> $env:GITHUB_OUTPUT
           echo "EOF" >> $env:GITHUB_OUTPUT
-      
+
           echo "log=$escaped"
-                
+
       - name: (10) Create Zip File
         shell: pwsh
         run: |

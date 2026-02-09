@@ -13,11 +13,15 @@ using System.Runtime.Versioning;
 
 namespace mRemoteNG.Themes
 {
-    [SupportedOSPlatform("windows")]
     /// <summary>
-    /// Main class of the theming component. Centralizes creation, loading and deletion of themes
-    /// Implemented as a singleton
+    /// Singleton manager for the theming subsystem. Centralizes loading, creation,
+    /// deletion, and live switching of visual themes. Themes are stored as
+    /// <c>.vstheme</c> XML files and can be either built-in (VS2015 Light/Dark/Blue)
+    /// or user-created extensions. Fires <see cref="ThemeChanged"/> events to notify
+    /// all subscribed UI components to refresh their appearance.
+    /// As of v1.80.0, theme changes are applied live without requiring a restart.
     /// </summary>
+    [SupportedOSPlatform("windows")]
     public class ThemeManager
     {
         #region Private Variables

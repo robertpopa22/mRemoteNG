@@ -32,6 +32,7 @@ namespace mRemoteNG.App.Info
         public static string ExtAppsFilesName { get; } = "extApps.xml";
         public static string ThemesFileName { get; } = "Themes.xml";
         public static string LocalConnectionProperties { get; } = "LocalConnectionProperties.xml";
+        public static string QuickConnectHistoryFileName { get; } = "quickConnectHistory.xml";
 
         public static string ThemeFolder { get; } =
             SettingsPath != null ? Path.Combine(SettingsPath, "Themes") : String.Empty;

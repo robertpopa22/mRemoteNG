@@ -39,6 +39,7 @@ namespace mRemoteNG.App
 
         private static Task MainAsync(string[] args)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
             string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();

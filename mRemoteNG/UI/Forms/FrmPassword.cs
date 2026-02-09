@@ -127,16 +127,33 @@ namespace mRemoteNG.UI.Forms
         // ReSharper disable once UnusedMethodReturnValue.Local
         private bool VerifyNewPassword()
         {
-            if (txtPassword.Text.Length >= 3)
+            if (txtPassword.Text.Length < 8)
             {
-                if (txtPassword.Text == txtVerify.Text)
-                    return true;
+                ShowStatus(Language.PasswordStatusTooShort);
+                return false;
+            }
+
+            if (txtPassword.Text != txtVerify.Text)
+            {
                 ShowStatus(Language.PasswordStatusMustMatch);
                 return false;
             }
 
-            ShowStatus(Language.PasswordStatusTooShort);
-            return false;
+            bool hasUpper = false, hasLower = false, hasDigit = false;
+            foreach (char c in txtPassword.Text)
+            {
+                if (char.IsUpper(c)) hasUpper = true;
+                else if (char.IsLower(c)) hasLower = true;
+                else if (char.IsDigit(c)) hasDigit = true;
+            }
+
+            if (!hasUpper || !hasLower || !hasDigit)
+            {
+                ShowStatus(Language.PasswordStatusTooShort);
+                return false;
+            }
+
+            return true;
         }
 
         private void ShowStatus(string status)

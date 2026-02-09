@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
@@ -110,6 +111,16 @@ namespace mRemoteNG.UI.Controls
             e.DrawFocusRectangle();
         }
 
+        /// <summary>
+        /// Public data class for persisting history items.
+        /// </summary>
+        public struct HistoryItemData
+        {
+            public string Hostname { get; set; }
+            public int Port { get; set; }
+            public ProtocolType Protocol { get; set; }
+        }
+
         private struct HistoryItem : IEquatable<HistoryItem>
         {
             public ConnectionInfo ConnectionInfo { get; set; }
@@ -181,6 +192,23 @@ namespace mRemoteNG.UI.Controls
             {
                 Runtime.MessageCollector.AddExceptionMessage(Language.QuickConnectAddFailed, ex);
             }
+        }
+
+        public IEnumerable<HistoryItemData> GetHistoryItems()
+        {
+            List<HistoryItemData> items = new();
+            if (_comboBox == null) return items;
+            foreach (object item in _comboBox.Items)
+            {
+                if (item is not HistoryItem historyItem) continue;
+                items.Add(new HistoryItemData
+                {
+                    Hostname = historyItem.ConnectionInfo.Hostname,
+                    Port = historyItem.ConnectionInfo.Port,
+                    Protocol = historyItem.ConnectionInfo.Protocol
+                });
+            }
+            return items;
         }
 
         #region Events

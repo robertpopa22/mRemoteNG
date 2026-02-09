@@ -4,7 +4,8 @@
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
 - **Main branch:** `main` (syncs with upstream `v1.78.2-dev`)
-- **Release branch:** `release/1.79` (v1.79.0 cumulative release)
+- **Release branch:** `release/1.80` (v1.80.0 — self-contained builds + security/perf/features)
+- **Previous release:** `release/1.79` (v1.79.0 cumulative release)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -17,6 +18,11 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\bui
 ```
 
 `build.ps1` auto-detects the newest VS installation (VS2026 > VS2022 > etc.). No hardcoded paths.
+
+### Self-contained build (embeds .NET runtime):
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1" -SelfContained
+```
 
 ### Why MSBuild (not `dotnet build`):
 - **`dotnet build`** fails with `MSB4803: ResolveComReference not supported on .NET Core MSBuild`
@@ -78,6 +84,12 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Platforms: x86, x64, ARM64
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 
+## Release Status (v1.80.0 Community Edition — In Progress)
+- **Branch:** `release/1.80`
+- **Key feature:** Self-contained (.NET embedded) build variant
+- **CI:** Dual-build matrix — 6 builds (3 framework-dependent + 3 self-contained)
+- **Build variants:** Framework-dependent (~21MB) and self-contained (~80-120MB)
+
 ## Release Status (v1.79.0 Community Edition, 2026-02-09)
 - **Tag:** `v1.79.0` on `release/1.79`
 - **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0
@@ -95,6 +107,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 | Branch | Purpose |
 |--------|---------|
 | `main` | Default branch, syncs with `upstream/v1.78.2-dev` |
+| `release/1.80` | v1.80.0 — self-contained builds + security/perf/features |
 | `release/1.79` | v1.79.0 cumulative release (all 26 fixes + tests + docs) |
 
 ### Naming convention for new branches
@@ -104,7 +117,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 | `feat/<issue>-<desc>` | New feature | `feat/1634-protocol-token` |
 | `security/<desc>` | Security hardening | `security/ldap-sanitizer` |
 | `chore/<desc>` | Infra, deps, CI | `chore/sqlclient-sni-runtime` |
-| `release/<version>` | Release branch | `release/1.79` |
+| `release/<version>` | Release branch | `release/1.80` |
 
 **Rules:**
 - Issue number after `/` when an issue exists

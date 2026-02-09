@@ -151,6 +151,7 @@ namespace mRemoteNG.UI.Forms
             cboFileFormat.Items.Clear();
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRXML));
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRCSV));
+            cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRJSON));
             cboFileFormat.SelectedIndex = 0;
             ApplyTheme();
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
@@ -173,6 +174,7 @@ namespace mRemoteNG.UI.Forms
                 List<string> fileTypes = new();
                 fileTypes.AddRange(new[] {Language.FiltermRemoteXML, "*.xml"});
                 fileTypes.AddRange(new[] {Language.FiltermRemoteCSV, "*.csv"});
+                fileTypes.AddRange(new[] {"mRemoteNG JSON|*.json"});
                 fileTypes.AddRange(new[] {Language.FilterAll, "*.*"});
 
                 saveFileDialog.Filter = string.Join("|", fileTypes.ToArray());
@@ -187,7 +189,12 @@ namespace mRemoteNG.UI.Forms
 
         private void SelectFileTypeBasedOnSaveFormat(FileDialog saveFileDialog)
         {
-            saveFileDialog.FilterIndex = SaveFormat == SaveFormat.mRCSV ? 2 : 1;
+            saveFileDialog.FilterIndex = SaveFormat switch
+            {
+                SaveFormat.mRCSV => 2,
+                SaveFormat.mRJSON => 3,
+                _ => 1
+            };
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -287,15 +294,13 @@ namespace mRemoteNG.UI.Forms
 
             public override string ToString()
             {
-                switch (Format)
+                return Format switch
                 {
-                    case SaveFormat.mRXML:
-                        return Language.MremoteNgXml;
-                    case SaveFormat.mRCSV:
-                        return Language.MremoteNgCsv;
-                    default:
-                        return Format.ToString();
-                }
+                    SaveFormat.mRXML => Language.MremoteNgXml,
+                    SaveFormat.mRCSV => Language.MremoteNgCsv,
+                    SaveFormat.mRJSON => "mRemoteNG JSON",
+                    _ => Format.ToString()
+                };
             }
 
             #endregion

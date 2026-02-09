@@ -207,6 +207,12 @@ namespace mRemoteNG.Tools
                 case "protocol":
                     replacement = _connectionInfo.Protocol.ToString();
                     break;
+                case "environmenttags":
+                    replacement = _connectionInfo.EnvironmentTags;
+                    break;
+                case "sshoptions":
+                    replacement = _connectionInfo.SSHOptions;
+                    break;
                 default:
                     return original;
             }

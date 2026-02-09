@@ -17,7 +17,16 @@ namespace mRemoteNG.Config.Putty
             if (!utf8Decoded.Contains('\uFFFD'))
                 return utf8Decoded;
 
-            Encoding fallback = fallbackEncoding ?? Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
+            Encoding fallback;
+            try
+            {
+                fallback = fallbackEncoding ?? Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.ANSICodePage);
+            }
+            catch
+            {
+                return utf8Decoded; // codepage not available, return best-effort UTF-8
+            }
+
             return DecodeWithEncoding(encodedSessionName, fallback);
         }
 

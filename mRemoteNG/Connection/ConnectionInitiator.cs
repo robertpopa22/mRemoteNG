@@ -16,6 +16,13 @@ using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection
 {
+    /// <summary>
+    /// Orchestrates opening, closing, and managing remote connections.
+    /// Responsible for creating protocol instances, wiring up lifecycle events
+    /// (Connected, Disconnected, Closed, Error), hosting protocol controls in
+    /// <see cref="ConnectionWindow"/> panels, and logging connection events
+    /// via <see cref="ConnectionAuditLogger"/>.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     public class ConnectionInitiator : IConnectionInitiator
     {
@@ -395,6 +402,7 @@ namespace mRemoteNG.Connection
                                                                   disconnectedMessage,
                                                                   strHostname,
                                                                   prot.InterfaceControl.Info.Protocol.ToString()));
+                ConnectionAuditLogger.LogConnectionDisconnected(strHostname, prot.InterfaceControl.Info.Protocol.ToString(), disconnectedMessage);
             }
             catch (Exception ex)
             {
@@ -417,6 +425,7 @@ namespace mRemoteNG.Connection
                     connDetail = "UNKNOWN";
 
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.ConnenctionClosedByUser, connDetail, prot.InterfaceControl.Info.Protocol, Environment.UserName));
+                ConnectionAuditLogger.LogConnectionClosed(connDetail, prot.InterfaceControl.Info.Protocol.ToString(), Environment.UserName);
                 prot.InterfaceControl.OriginalInfo.OpenConnections.Remove(prot);
                 if (_activeConnections.Contains(prot.InterfaceControl.Info.ConstantID))
                     _activeConnections.Remove(prot.InterfaceControl.Info.ConstantID);
@@ -442,6 +451,10 @@ namespace mRemoteNG.Connection
                                                               prot.InterfaceControl.Info.Protocol, Environment.UserName,
                                                               prot.InterfaceControl.Info.Description,
                                                               prot.InterfaceControl.Info.UserField));
+            ConnectionAuditLogger.LogConnectionEstablished(
+                prot.InterfaceControl.OriginalInfo.Hostname,
+                prot.InterfaceControl.Info.Protocol.ToString(),
+                Environment.UserName);
         }
 
         private static void Prot_Event_ErrorOccured(object sender, string errorMessage, int? errorCode)
@@ -456,6 +469,7 @@ namespace mRemoteNG.Connection
                                         prot.InterfaceControl.OriginalInfo.Hostname,
                                         errorCode?.ToString() ?? "-");
                 Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, msg);
+                ConnectionAuditLogger.LogConnectionError(prot.InterfaceControl.OriginalInfo.Hostname, prot.InterfaceControl.Info.Protocol.ToString(), errorMessage, errorCode);
             }
             catch (Exception ex)
             {

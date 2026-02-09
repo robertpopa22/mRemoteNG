@@ -73,6 +73,13 @@ public class PasswordstateInterface
                     ssPassword = f.tbAPIKey.Text;
                     ssUrl = f.tbServerURL.Text;
                     ssSSO = f.cbUseSSO.Checked;
+
+                    // Require HTTPS for vault connections
+                    if (!ssUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show("Passwordstate server URL must use HTTPS for secure communication.", "Security Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        continue;
+                    }
                     ssOTP = f.tbOTP.Text;
                     ssOTPTimeStampExpiration = DateTime.Now.AddSeconds(30);
                     // check connection first

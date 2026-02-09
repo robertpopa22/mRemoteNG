@@ -114,8 +114,10 @@ namespace mRemoteNG.UI.Controls
             }
 
 
-            e.Graphics.FillRectangle(new SolidBrush(back), e.ClipRectangle);
-            e.Graphics.DrawRectangle(new Pen(border, 1), 0, 0, Width - 1, Height - 1);
+            using (SolidBrush backBrush = new(back))
+                e.Graphics.FillRectangle(backBrush, e.ClipRectangle);
+            using (Pen borderPen = new(border, 1))
+                e.Graphics.DrawRectangle(borderPen, 0, 0, Width - 1, Height - 1);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
             //Warning. the app doesnt use many images in buttons so this positions are kinda tailored just for the used by the app

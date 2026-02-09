@@ -10,6 +10,14 @@ using mRemoteNG.Tree;
 
 namespace mRemoteNG.Container
 {
+    /// <summary>
+    /// Represents a folder in the connection tree that can contain child
+    /// <see cref="ConnectionInfo"/> nodes and other <see cref="ContainerInfo"/> folders.
+    /// Extends <see cref="ConnectionInfo"/> so that folder-level defaults can be
+    /// inherited by child connections via the inheritance system.
+    /// Implements <see cref="INotifyCollectionChanged"/> to notify the tree view
+    /// when children are added, removed, or reordered.
+    /// </summary>
     [SupportedOSPlatform("windows")]
     [DefaultProperty("Name")]
     public class ContainerInfo : ConnectionInfo, INotifyCollectionChanged
@@ -215,44 +223,29 @@ namespace mRemoteNG.Container
 
         public IEnumerable<ConnectionInfo> GetRecursiveChildList()
         {
-            List<ConnectionInfo> childList = new();
             foreach (ConnectionInfo child in Children)
             {
-                childList.Add(child);
-                ContainerInfo childContainer = child as ContainerInfo;
-                if (childContainer != null)
-                    childList.AddRange(GetRecursiveChildList(childContainer));
+                yield return child;
+                if (child is ContainerInfo childContainer)
+                {
+                    foreach (ConnectionInfo descendant in childContainer.GetRecursiveChildList())
+                        yield return descendant;
+                }
             }
-
-            return childList;
-        }
-
-        private IEnumerable<ConnectionInfo> GetRecursiveChildList(ContainerInfo container)
-        {
-            List<ConnectionInfo> childList = new();
-            foreach (ConnectionInfo child in container.Children)
-            {
-                childList.Add(child);
-                ContainerInfo childContainer = child as ContainerInfo;
-                if (childContainer != null)
-                    childList.AddRange(GetRecursiveChildList(childContainer));
-            }
-
-            return childList;
         }
 
         public IEnumerable<ConnectionInfo> GetRecursiveFavoriteChildList()
         {
-            List<ConnectionInfo> childList = new();
             foreach (ConnectionInfo child in Children)
             {
                 if (child.Favorite && child.GetTreeNodeType() == TreeNodeType.Connection)
-                    childList.Add(child);
-                ContainerInfo childContainer = child as ContainerInfo;
-                if (childContainer != null)
-                    childList.AddRange(GetRecursiveFavoritChildList(childContainer));
+                    yield return child;
+                if (child is ContainerInfo childContainer)
+                {
+                    foreach (ConnectionInfo descendant in childContainer.GetRecursiveFavoriteChildList())
+                        yield return descendant;
+                }
             }
-            return childList;
         }
 
         /// <summary>
@@ -281,20 +274,6 @@ namespace mRemoteNG.Container
             {
                 child.Inheritance = Inheritance.Clone(child);
             }
-        }
-
-        private IEnumerable<ConnectionInfo> GetRecursiveFavoritChildList(ContainerInfo container)
-        {
-            List<ConnectionInfo> childList = new();
-            foreach (ConnectionInfo child in container.Children)
-            {
-                if (child.Favorite && child.GetTreeNodeType() == TreeNodeType.Connection)
-                    childList.Add(child);
-                ContainerInfo childContainer = child as ContainerInfo;
-                if (childContainer != null)
-                    childList.AddRange(GetRecursiveFavoritChildList(childContainer));
-            }
-            return childList;
         }
 
         protected virtual void SubscribeToChildEvents(ConnectionInfo child)

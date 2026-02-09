@@ -51,7 +51,7 @@ namespace mRemoteNG.Connection
         private string _sshOptions = "";
         private string _puttySession;
         private bool _useConsoleSession;
-        private AuthenticationLevel _rdpAuthenticationLevel;
+        private AuthenticationLevel _rdpAuthenticationLevel = AuthenticationLevel.WarnOnFailedAuth;
         private int _rdpMinutesToIdleTimeout;
         private bool _rdpAlertIdleTimeout;
         private string _loadBalanceInfo;

@@ -93,6 +93,8 @@ namespace mRemoteNG.UI.Window
             // 
             // mMenAddConnection
             // 
+            this.mMenAddConnection.AccessibleName = "Add Connection";
+            this.mMenAddConnection.AccessibleDescription = "Add a new connection entry";
             this.mMenAddConnection.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mMenAddConnection.Image = global::mRemoteNG.Properties.Resources.AddItem_16x;
             this.mMenAddConnection.Name = "mMenAddConnection";
@@ -102,6 +104,8 @@ namespace mRemoteNG.UI.Window
             // 
             // mMenAddFolder
             // 
+            this.mMenAddFolder.AccessibleName = "Add Folder";
+            this.mMenAddFolder.AccessibleDescription = "Add a new folder to organize connections";
             this.mMenAddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mMenAddFolder.Image = global::mRemoteNG.Properties.Resources.AddFolder_16x;
             this.mMenAddFolder.Name = "mMenAddFolder";
@@ -126,6 +130,7 @@ namespace mRemoteNG.UI.Window
             // 
             // mMenSortAscending
             // 
+            this.mMenSort.AccessibleName = "Sort Connections";
             this.mMenSort.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mMenSort.Image = global::mRemoteNG.Properties.Resources.SortAscending_16x;
             this.mMenSort.Name = "mMenSort";
@@ -167,6 +172,8 @@ namespace mRemoteNG.UI.Window
             this.txtSearch.Size = new System.Drawing.Size(178, 15);
             this.txtSearch.TabIndex = 30;
             this.txtSearch.TabStop = false;
+            this.txtSearch.AccessibleName = "Search Connections";
+            this.txtSearch.AccessibleDescription = "Filter the connection tree by name, protocol, or tag";
             this.txtSearch.Text = "Search";
             this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearch_KeyDown);

@@ -58,6 +58,8 @@ namespace mRemoteNG.UI.Forms
             // 
             // pnlDock
             // 
+            this.pnlDock.AccessibleName = "Connection Panel";
+            this.pnlDock.AccessibleDescription = "Main docking panel for connection windows and tool panels";
             this.pnlDock.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDock.DockBackColor = System.Drawing.SystemColors.Control;
             this.pnlDock.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingWindow;
@@ -82,6 +84,8 @@ namespace mRemoteNG.UI.Forms
             this.msMain.Name = "msMain";
             this.msMain.Padding = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.msMain.Size = new System.Drawing.Size(151, 25);
+            this.msMain.AccessibleName = "Main Menu";
+            this.msMain.AccessibleDescription = "Main menu bar with File, View, Tools, and Help menus";
             this.msMain.Stretch = false;
             this.msMain.TabIndex = 0;
             this.msMain.Text = "Main Toolbar";
@@ -153,6 +157,8 @@ namespace mRemoteNG.UI.Forms
             // 
             // _quickConnectToolStrip
             // 
+            this._quickConnectToolStrip.AccessibleName = "Quick Connect";
+            this._quickConnectToolStrip.AccessibleDescription = "Quick connect toolbar for connecting to hosts by hostname";
             this._quickConnectToolStrip.BackColor = System.Drawing.SystemColors.Control;
             this._quickConnectToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this._quickConnectToolStrip.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -163,6 +169,8 @@ namespace mRemoteNG.UI.Forms
             // 
             // _multiSshToolStrip
             // 
+            this._multiSshToolStrip.AccessibleName = "Multi SSH";
+            this._multiSshToolStrip.AccessibleDescription = "Multi SSH toolbar for sending commands to multiple sessions";
             this._multiSshToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this._multiSshToolStrip.Location = new System.Drawing.Point(3, 0);
             this._multiSshToolStrip.MinimumSize = new System.Drawing.Size(300, 0);
@@ -172,6 +180,8 @@ namespace mRemoteNG.UI.Forms
             // 
             // _externalToolsToolStrip
             // 
+            this._externalToolsToolStrip.AccessibleName = "External Tools";
+            this._externalToolsToolStrip.AccessibleDescription = "External tools toolbar for launching external applications";
             this._externalToolsToolStrip.BackColor = System.Drawing.SystemColors.Control;
             this._externalToolsToolStrip.Dock = System.Windows.Forms.DockStyle.None;
             this._externalToolsToolStrip.ForeColor = System.Drawing.SystemColors.ControlText;
