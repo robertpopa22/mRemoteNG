@@ -115,12 +115,14 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         public void StartChat()
         {
-            throw new NotImplementedException();
+            Runtime.MessageCollector.AddMessage(Messages.MessageClass.InformationMsg,
+                                                "VNC chat is not supported by the current VNC library.");
         }
 
         public void StartFileTransfer()
         {
-            throw new NotImplementedException();
+            Runtime.MessageCollector.AddMessage(Messages.MessageClass.InformationMsg,
+                                                "VNC file transfer is not supported by the current VNC library.");
         }
 
         public void RefreshScreen()

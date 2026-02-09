@@ -165,8 +165,15 @@ namespace mRemoteNG.UI.Window
             if (Settings.Default.SingleClickSwitchesToOpenConnection)
                 singleClickHandlers.Add(new SwitchToConnectionClickHandler(Runtime.ConnectionInitiator));
 
+            // Middle-click always opens connection (standard UX: middle-click = open in new tab)
+            List<ITreeNodeClickHandler<ConnectionInfo>> middleClickHandlers = new()
+            {
+                new OpenConnectionClickHandler(Runtime.ConnectionInitiator)
+            };
+
             ConnectionTree.SingleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = singleClickHandlers };
             ConnectionTree.DoubleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = doubleClickHandlers };
+            ConnectionTree.MiddleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = middleClickHandlers };
         }
 
         private void ConnectionsServiceOnConnectionsLoaded(object o, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)

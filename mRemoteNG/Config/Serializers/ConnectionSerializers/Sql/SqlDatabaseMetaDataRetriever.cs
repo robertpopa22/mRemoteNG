@@ -69,8 +69,6 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
         public void WriteDatabaseMetaData(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
         {
-            // TODO: use transaction
-
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
 
             string strProtected;
@@ -93,34 +91,47 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
             }
 
-            DbCommand cmd = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
-            cmd.ExecuteNonQuery();
-
-            if (rootTreeNode != null)
+            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            try
             {
-                cmd = databaseConnector.DbCommand(
-                        "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @ConfVersion)");
-
-                DbParameter nameParam = cmd.CreateParameter();
-                nameParam.ParameterName = "@Name";
-                nameParam.Value = rootTreeNode.Name;
-                cmd.Parameters.Add(nameParam);
-
-                DbParameter protectedParam = cmd.CreateParameter();
-                protectedParam.ParameterName = "@Protected";
-                protectedParam.Value = strProtected;
-                cmd.Parameters.Add(protectedParam);
-
-                DbParameter confVersionParam = cmd.CreateParameter();
-                confVersionParam.ParameterName = "@ConfVersion";
-                confVersionParam.Value = ConnectionsFileInfo.ConnectionFileVersion.ToString();
-                cmd.Parameters.Add(confVersionParam);
-
+                DbCommand cmd = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
+                cmd.Transaction = transaction;
                 cmd.ExecuteNonQuery();
+
+                if (rootTreeNode != null)
+                {
+                    cmd = databaseConnector.DbCommand(
+                            "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @ConfVersion)");
+                    cmd.Transaction = transaction;
+
+                    DbParameter nameParam = cmd.CreateParameter();
+                    nameParam.ParameterName = "@Name";
+                    nameParam.Value = rootTreeNode.Name;
+                    cmd.Parameters.Add(nameParam);
+
+                    DbParameter protectedParam = cmd.CreateParameter();
+                    protectedParam.ParameterName = "@Protected";
+                    protectedParam.Value = strProtected;
+                    cmd.Parameters.Add(protectedParam);
+
+                    DbParameter confVersionParam = cmd.CreateParameter();
+                    confVersionParam.ParameterName = "@ConfVersion";
+                    confVersionParam.Value = ConnectionsFileInfo.ConnectionFileVersion.ToString();
+                    cmd.Parameters.Add(confVersionParam);
+
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
+                }
+
+                transaction.Commit();
             }
-            else
+            catch
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
+                transaction.Rollback();
+                throw;
             }
         }
 

@@ -20,6 +20,8 @@ This folder is the persistent execution workspace for modernizing this fork to a
 | `LESSONS.md` | Durable rules from real failures and fixes (v1.79.0 + v1.80.0) |
 | `ISSUE_PACKAGES.md` | Issue triage strategy and intervention packages |
 | `P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md` | Test coverage gaps analysis |
+| `ANALYSIS_2026-02-09_SUPPLEMENT.md` | Supplementary static analysis & TODO review |
+| `DEEP_DIVE_ANALYSIS_2026-02-09.md` | Deep dive analysis of concurrency, security, and SQL risks |
 | `UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
 | `UPSTREAM_ISSUES_SNAPSHOT_2026-02-09.md` | Upstream issue state snapshot |
 | `ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash analysis |
@@ -39,6 +41,19 @@ Completed execution logs for v1.79.0 release cycle are in `historical/v1.79.0/`.
 | `scripts/refresh-command-feedback-metrics.ps1` | Refresh error metrics |
 | `scripts/refresh-issues.ps1` | Fetch fresh issue snapshot from upstream |
 | `scripts/refresh-p1-p5.ps1` | Generate P1-P5 package snapshots |
+
+## Code Signing (MANDATORY for releases)
+
+All release binaries MUST be signed via SignPath Foundation. The CI workflow (`Build_mR-NB.yml`) enforces this:
+- Step 10c submits to SignPath — if it fails, the release step is skipped
+- No unsigned binaries are ever published
+- See `CODE_SIGNING_POLICY.md` at repo root for full policy
+
+### Setup (one-time, already done):
+1. Register at [signpath.org](https://signpath.org/) for free OSS certificate
+2. Add GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
+3. Configure SignPath project: slug `mRemoteNG`, policy `release-signing`
+4. Install SignPath GitHub App on the repository
 
 ## Resume Workflow
 

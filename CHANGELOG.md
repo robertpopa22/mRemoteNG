@@ -26,11 +26,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Dark theme: debug/info messages in ErrorAndInfoWindow no longer use hardcoded LightSteelBlue
 - GDI resource leaks in MrngButton and MrngComboBox (SolidBrush/Pen disposal)
 - UI thread deadlocks in external credential providers (VaultOpenbao, SecretServer, Passwordstate) — async calls now run on thread pool
+- TaskCanceledException crash when closing WPF splash screen from multiple code paths (ProgramRoot, frmMain, CompatibilityChecker, Runtime)
 
 ### UI/UX
 - Live theme switching: changing themes no longer requires an application restart
 - Keyboard shortcuts reference panel: Help > Keyboard Shortcuts shows all available shortcuts
 - Accessibility: added AccessibleName/AccessibleDescription to main form controls, connection tree, quick connect toolbar, and search box
+- Middle-click on connection tree node opens connection (standard browser UX)
+- Middle-click on tab closes the connection tab (standard browser UX)
+- Crash dialog "Submit Error" button: auto-submits GitHub issue via API (CI builds with token) or pre-fills browser (dev builds) — zero-click crash reporting in release builds
 
 ### Documentation
 - CONTRIBUTING.md: developer onboarding guide with build instructions and PR workflow
@@ -45,6 +49,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - GetRecursiveChildList/GetRecursiveFavoriteChildList converted to yield return (zero allocations)
 - MessageCollector capped at 10,000 messages to prevent unbounded memory growth
 - CI/CD: dual-build matrix — 6 builds per release (3 framework-dependent + 3 self-contained)
+- CI/CD: mandatory Authenticode code signing via SignPath Foundation — no unsigned releases
+- Self-contained build: fixed missing .NET runtime (now uses `-t:Publish` for correct packaging)
+- WPF splash screen: properly shutdown Dispatcher to prevent mouse input interference
+- DPI: added `Application.SetHighDpiMode(HighDpiMode.PerMonitorV2)` for .NET 10 compatibility
 
 ## [1.79.0] - 2026-02-08 (Community Edition)
 

@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using System.Security;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
@@ -115,7 +116,14 @@ namespace mRemoteNG.App
             }
             catch (Exception ex)
             {
-                FrmSplashScreenNew.GetInstance().Close();
+                try
+                {
+                    var splash = FrmSplashScreenNew.GetInstance();
+                    if (!splash.Dispatcher.HasShutdownStarted)
+                        splash.Dispatcher.Invoke(() => { splash.Close(); splash.Dispatcher.InvokeShutdown(); });
+                }
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
 
                 if (Properties.OptionsDBsPage.Default.UseSQLServer)
                 {

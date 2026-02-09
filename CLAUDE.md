@@ -23,6 +23,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\bui
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1" -SelfContained
 ```
+> **IMPORTANT:** Self-contained uses `-t:Publish` (not just `-p:SelfContained=true`). Output goes to `bin\x64\Release\win-x64-sc\`. The restore MUST include `/p:PublishReadyToRun=true` or publish fails with NETSDK1094. See `.project-roadmap/LESSONS.md` for details.
 
 ### Why MSBuild (not `dotnet build`):
 - **`dotnet build`** fails with `MSB4803: ResolveComReference not supported on .NET Core MSBuild`
@@ -82,6 +83,10 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - CI uses `windows-2025-vs2026` runners with MSBuild 18.x (VS2026)
 - CI workflow: `.github/workflows/pr_validation.yml` (build) and `Build_mR-NB.yml` (release)
 - Platforms: x86, x64, ARM64
+- **Code signing: MANDATORY** — SignPath Foundation (free for OSS)
+  - Release workflow fails if signing step fails — no unsigned binaries published
+  - See `CODE_SIGNING_POLICY.md` for team roles and verification steps
+  - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 
 ## Release Status (v1.80.0 Community Edition — In Progress)
@@ -181,6 +186,7 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 | `.project-roadmap/UPSTREAM_PR_PACKAGES_2026-02-07.md` | Catalog of all 26 upstream PRs |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
 | `.project-roadmap/COMMAND_FEEDBACK_LOG.md` | Command failure history for troubleshooting |
+| `CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
 
 ### Scripts (reusable automation)
 | File | Purpose |

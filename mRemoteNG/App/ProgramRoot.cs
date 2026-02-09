@@ -147,6 +147,7 @@ namespace mRemoteNG.App
         private static void StartApplication()
         {
             CatchAllUnhandledExceptions();
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -258,12 +259,24 @@ namespace mRemoteNG.App
         {
             if (_wpfSplash != null)
             {
-                _wpfSplash.Dispatcher.Invoke(() => _wpfSplash.Close());
+                try
+                {
+                    if (!_wpfSplash.Dispatcher.HasShutdownStarted)
+                    {
+                        _wpfSplash.Dispatcher.Invoke(() =>
+                        {
+                            _wpfSplash.Close();
+                            _wpfSplash.Dispatcher.InvokeShutdown();
+                        });
+                    }
+                }
+                catch (TaskCanceledException) { }
+                catch (OperationCanceledException) { }
                 _wpfSplash = null;
             }
             if (_wpfSplashThread != null)
             {
-                _wpfSplashThread.Join();
+                _wpfSplashThread.Join(TimeSpan.FromSeconds(3));
                 _wpfSplashThread = null;
             }
         }

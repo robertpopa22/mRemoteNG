@@ -163,6 +163,23 @@
     <WarningLevel>8</WarningLevel>
     <ResolveComReferenceSilent>True</ResolveComReferenceSilent>
   </PropertyGroup>
+  <!-- Crash report token: injected at build time via -p:CrashReportToken=ghp_xxx -->
+  <!-- Never commit the actual token value to source control -->
+  <PropertyGroup>
+    <CrashReportToken Condition="'$(CrashReportToken)' == ''"></CrashReportToken>
+  </PropertyGroup>
+  <Target Name="WriteCrashReportToken" BeforeTargets="CoreCompile" DependsOnTargets="PrepareForBuild">
+    <ItemGroup>
+      <_CrashTokenAttr Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>CrashReportToken</_Parameter1>
+        <_Parameter2>$(CrashReportToken)</_Parameter2>
+      </_CrashTokenAttr>
+    </ItemGroup>
+    <WriteCodeFragment AssemblyAttributes="@(_CrashTokenAttr)" Language="C#" OutputDirectory="$(IntermediateOutputPath)" OutputFile="CrashReportToken.g.cs">
+      <Output TaskParameter="OutputFile" ItemName="Compile" />
+      <Output TaskParameter="OutputFile" ItemName="FileWrites" />
+    </WriteCodeFragment>
+  </Target>
   <ItemGroup>
     <None Remove="buildenv.tmp" />
     <None Remove="UI\Font\HandelGotDBol.ttf" />

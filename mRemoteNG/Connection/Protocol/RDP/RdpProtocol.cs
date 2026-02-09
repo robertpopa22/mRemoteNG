@@ -206,9 +206,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 Control.CreateControl();
 
+                // ActiveX controls require the message pump to complete creation.
+                // DoEvents() is unavoidable here but introduces re-entrancy risk:
+                // the user can interact with the UI while the control is half-initialized.
+                // The timeout guard prevents an infinite loop if creation fails silently.
+                var deadline = Environment.TickCount64 + 10_000; // 10 second timeout
                 while (!Control.Created)
                 {
-                    Thread.Sleep(50);
+                    if (Environment.TickCount64 > deadline)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                            "RDP ActiveX control creation timed out after 10 seconds.");
+                        Control.Dispose();
+                        return false;
+                    }
+                    Thread.Sleep(10);
                     Application.DoEvents();
                 }
                 Control.Anchor = AnchorStyles.None;

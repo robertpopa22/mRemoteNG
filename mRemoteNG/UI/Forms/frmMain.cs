@@ -244,12 +244,30 @@ namespace mRemoteNG.UI.Forms
             Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsServiceOnConnectionsLoaded;
             Runtime.ConnectionsService.ConnectionsSaved += ConnectionsServiceOnConnectionsSaved;
             
-            // Close splash screen before loading connections to ensure password dialog appears on top
-            FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
-            if (splash.Dispatcher.CheckAccess())
-                splash.Close();
-            else
-                splash.Dispatcher.Invoke(() => splash.Close());
+            // Close splash screen and shut down its WPF Dispatcher to prevent the
+            // background WPF message pump from intercepting WinForms mouse events.
+            try
+            {
+                FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
+                if (!splash.Dispatcher.HasShutdownStarted)
+                {
+                    if (splash.Dispatcher.CheckAccess())
+                    {
+                        splash.Close();
+                        splash.Dispatcher.InvokeShutdown();
+                    }
+                    else
+                    {
+                        splash.Dispatcher.Invoke(() =>
+                        {
+                            splash.Close();
+                            splash.Dispatcher.InvokeShutdown();
+                        });
+                    }
+                }
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
 
             CredsAndConsSetup credsAndConsSetup = new();
             credsAndConsSetup.LoadCredsAndCons();

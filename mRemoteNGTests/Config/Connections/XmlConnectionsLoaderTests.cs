@@ -2,6 +2,7 @@
 using System.IO;
 using System.Xml;
 using mRemoteNG.Config.Connections;
+using mRemoteNG.Messages;
 using mRemoteNGTests.TestHelpers;
 using NUnit.Framework;
 
@@ -66,21 +67,19 @@ internal class XmlConnectionsLoaderTests
     }
 
     [Test]
-    [Ignore("Hangs in headless/batch test runs — XmlConnectionsLoader.Load() recovery failure path triggers WinForms dialog via Runtime.MessageCollector")]
     public void ThrowsWhenNoBackupsExistAndPrimaryIsCorrupt()
     {
         using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
         {
             File.WriteAllText(filePath, "this is not xml at all");
 
-            XmlConnectionsLoader loader = new(filePath);
+            XmlConnectionsLoader loader = new(filePath, new MessageCollector());
 
             Assert.Throws<XmlException>(() => loader.Load());
         }
     }
 
     [Test]
-    [Ignore("Hangs in headless/batch test runs — XmlConnectionsLoader.Load() recovery failure path triggers WinForms dialog via Runtime.MessageCollector")]
     public void ThrowsWhenAllBackupsAreAlsoCorrupt()
     {
         using (FileTestHelpers.DisposableTempFile(out var filePath, ".xml"))
@@ -93,7 +92,7 @@ internal class XmlConnectionsLoaderTests
             string backup2 = $"{filePath}.20250207-1200000000.backup";
             File.WriteAllText(backup2, "corrupt backup 2");
 
-            XmlConnectionsLoader loader = new(filePath);
+            XmlConnectionsLoader loader = new(filePath, new MessageCollector());
 
             Assert.Throws<XmlException>(() => loader.Load());
         }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.Serialization;
 using System.Runtime.Versioning;
 using mRemoteNG.Properties;
 
@@ -11,7 +10,6 @@ using mRemoteNG.Properties;
 namespace mRemoteNG.App
 {
     [SupportedOSPlatform("windows")]
-    [Serializable]
     public sealed class SupportedCultures : Dictionary<string, string>
     {
         private static SupportedCultures _Instance;
@@ -37,12 +35,6 @@ namespace mRemoteNG.App
                                 $"An exception occurred while adding the culture {CultureName} to the list of supported cultures. {ex.StackTrace}");
                 }
             }
-        }
-
-        // fix CA2229 - https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2229-implement-serialization-constructors?view=vs-2017
-        private SupportedCultures(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
         }
 
         public static bool IsNameSupported(string CultureName)

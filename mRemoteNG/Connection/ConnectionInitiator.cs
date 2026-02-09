@@ -127,7 +127,12 @@ namespace mRemoteNG.Connection
                     }
                     Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
                         $"SSH Tunnel connection '{connectionInfoOriginal.SSHTunnelConnectionName}' configured for '{connectionInfoOriginal.Name}' found. Finding free local port for use as local tunnel port ...");
-                    // determine a free local port to use as local tunnel port
+                    // Determine a free local port to use as local tunnel port.
+                    // KNOWN LIMITATION (TOCTOU): The port is released before the SSH client
+                    // binds to it. Another process could theoretically claim the port in between.
+                    // The race window is very small (milliseconds) and the retry loop below
+                    // will detect a bind failure, but the tunnel setup would fail in that case.
+                    // This cannot be avoided because PuTTY needs the port number as a CLI argument.
                     System.Net.Sockets.TcpListener l = new(System.Net.IPAddress.Loopback, 0);
                     l.Start();
                     int localSshTunnelPort = ((System.Net.IPEndPoint)l.LocalEndpoint).Port;

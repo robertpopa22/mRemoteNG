@@ -1170,12 +1170,36 @@ namespace mRemoteNG.UI.Tabs
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            if (e.Button != MouseButtons.Left || Appearance != DockPane.AppearanceStyle.Document)
+
+            if (Appearance != DockPane.AppearanceStyle.Document)
                 return;
 
             int indexHit = HitTest();
-            if (indexHit > -1)
+            if (indexHit < 0)
+                return;
+
+            // Middle-click anywhere on tab = close tab (standard browser UX)
+            if (e.Button == MouseButtons.Middle)
+            {
+                MiddleClickCloseTab(indexHit);
+                return;
+            }
+
+            // Left-click on close button = close tab
+            if (e.Button == MouseButtons.Left)
                 TabCloseButtonHit(indexHit);
+        }
+
+        private void MiddleClickCloseTab(int index)
+        {
+            if (index < 0 || index >= Tabs.Count)
+                return;
+
+            IDockContent tabContent = Tabs[index].Content;
+            if (tabContent == null || IsDisposed || Disposing || !IsHandleCreated)
+                return;
+
+            QueueCloseTab(tabContent);
         }
 
         private void TabCloseButtonHit(int index)

@@ -16,14 +16,20 @@ on:
 
 permissions:
   contents: write
+  actions: read
+  id-token: write
 
 jobs:
-  NB-Build-and-Release:
+  # ============================================================
+  # Job 1: Build all platform variants
+  # ============================================================
+  build:
+    name: Build ${{ matrix.arch }}${{ matrix.suffix }}
     strategy:
-      max-parallel: 1
+      fail-fast: false
       matrix:
         include:
-          # Framework-dependent builds (existing — requires .NET runtime on target)
+          # Framework-dependent builds (requires .NET runtime on target)
           - runner: windows-2025-vs2026
             platform: x86
             arch: x86
@@ -39,7 +45,7 @@ jobs:
             arch: arm64
             selfcontained: false
             suffix: ""
-          # Self-contained builds (new — embeds .NET runtime, no install required)
+          # Self-contained builds (embeds .NET runtime, no install required)
           - runner: windows-2025-vs2026
             platform: x86
             arch: x86
@@ -56,10 +62,6 @@ jobs:
             selfcontained: true
             suffix: "-selfcontained"
     runs-on: ${{ matrix.runner }}
-    # Only run if:
-    # - manual dispatch, OR
-    # - push to release branch or tag, OR
-    # - push event AND commit message contains "NB release"
     if: >
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && (
@@ -111,6 +113,9 @@ jobs:
           $outPath = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.cs"
           Set-Content -Path $outPath -Value $content -Encoding UTF8
           Write-Host "Generated AssemblyInfo.cs: v$major.$minor.$revision.$build ($channel) $platform"
+          echo "version=$major.$minor.$revision" >> $env:GITHUB_OUTPUT
+          echo "build=$build" >> $env:GITHUB_OUTPUT
+        id: version_info
 
       - name: (05) Cache NuGet Packages
         uses: actions/cache@v5
@@ -124,7 +129,7 @@ jobs:
         shell: pwsh
         run: |
           if ('${{ matrix.selfcontained }}' -eq 'true') {
-            dotnet restore --runtime win-${{ matrix.arch }}
+            dotnet restore --runtime win-${{ matrix.arch }} /p:PublishReadyToRun=true
           } else {
             dotnet restore
           }
@@ -136,11 +141,14 @@ jobs:
             "`"$Env:GITHUB_WORKSPACE\mRemoteNG.sln`""
             "-p:Configuration=Release"
             "-p:Platform=${{ matrix.platform }}"
+            "-p:CrashReportToken=${{ secrets.CRASH_REPORT_TOKEN }}"
             "/verbosity:minimal"
           )
           if ('${{ matrix.selfcontained }}' -eq 'true') {
             $msbuildArgs += "-p:SelfContained=true"
             $msbuildArgs += "-p:RuntimeIdentifier=win-${{ matrix.arch }}"
+            $msbuildArgs += "-p:PublishDir=bin\${{ matrix.platform }}\Release\publish\"
+            $msbuildArgs += "-t:Publish"
           }
           $cmd = "msbuild " + ($msbuildArgs -join " ")
           Write-Host "Running: $cmd"
@@ -161,19 +169,101 @@ jobs:
           $date = Get-Date -Format "yyyyMMdd"
           $suffix = "${{ matrix.suffix }}"
           $zipName = "mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}$suffix.zip"
-          $tag = "$date-v$version-NB-($build)"
-          $message = git log -1 --pretty=%B
-          echo "message=$message" >> $env:GITHUB_OUTPUT
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$version" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
-          echo "tag=$tag" >> $env:GITHUB_OUTPUT
 
-      - name: (09) Extract Changelog Section
+      - name: (09) Create unsigned ZIP
+        shell: pwsh
+        run: |
+          if ('${{ matrix.selfcontained }}' -eq 'true') {
+            $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release\publish"
+          } else {
+            $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release"
+          }
+          # Exclude build intermediates from ZIP
+          $items = Get-ChildItem -Path $sourceDir | Where-Object { $_.Name -notin @('ref','publish','win-x64','win-x86','win-arm64','win-x64-sc') }
+          Compress-Archive -Path $items.FullName -DestinationPath "$Env:GITHUB_WORKSPACE\${{ steps.version.outputs.zipname }}" -Force
+          Write-Host "Created unsigned ZIP: ${{ steps.version.outputs.zipname }}"
+
+      # --------------------------------------------------------
+      # CODE SIGNING — SignPath Foundation (MANDATORY)
+      # Release CANNOT proceed without successful signing.
+      # See CODE_SIGNING_POLICY.md for details.
+      # --------------------------------------------------------
+      - name: (10a) Upload unsigned artifact for signing
+        id: upload-unsigned
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-${{ matrix.arch }}${{ matrix.suffix }}
+          path: ${{ steps.version.outputs.zipname }}
+          retention-days: 1
+
+      - name: (10b) Submit signing request to SignPath
+        id: sign
+        uses: signpath/github-action-submit-signing-request@v1
+        with:
+          api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
+          organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
+          project-slug: 'mRemoteNG'
+          signing-policy-slug: 'release-signing'
+          github-artifact-id: '${{ steps.upload-unsigned.outputs.artifact-id }}'
+          wait-for-completion: true
+          output-artifact-directory: '${{ github.workspace }}/signed'
+          wait-for-completion-timeout-in-seconds: 600
+
+      - name: (10c) Verify signed artifact exists
+        shell: pwsh
+        run: |
+          $signedDir = "${{ github.workspace }}\signed"
+          if (-not (Test-Path $signedDir)) {
+            throw "SIGNING FAILED: No signed artifacts directory. Release BLOCKED."
+          }
+          $signedFiles = Get-ChildItem $signedDir -File
+          if ($signedFiles.Count -eq 0) {
+            throw "SIGNING FAILED: Signed directory is empty. Release BLOCKED."
+          }
+          Write-Host "Signed artifacts verified: $($signedFiles.Count) file(s)"
+          $signedFiles | ForEach-Object { Write-Host "  - $($_.Name) ($([math]::Round($_.Length/1MB, 1)) MB)" }
+
+      - name: (10d) Upload signed artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-${{ matrix.arch }}${{ matrix.suffix }}
+          path: ${{ github.workspace }}/signed/*
+          retention-days: 5
+
+  # ============================================================
+  # Job 2: Aggregate signed artifacts into a single release
+  # ============================================================
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: (01) Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: (02) Compute release metadata
+        id: meta
+        shell: pwsh
+        run: |
+          $major = 1; $minor = 80; $revision = 0
+          $base = [datetime]"2019-09-02"
+          $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
+          $date = Get-Date -Format "yyyyMMdd"
+          $tag = "$date-v$major.$minor.$revision-NB-($build)"
+          $message = git log -1 --pretty=%B
+          echo "tag=$tag" >> $env:GITHUB_OUTPUT
+          echo "version=$major.$minor.$revision" >> $env:GITHUB_OUTPUT
+          echo "build=$build" >> $env:GITHUB_OUTPUT
+          echo "message=$message" >> $env:GITHUB_OUTPUT
+
+      - name: (03) Extract Changelog Section
         id: changelog
         shell: pwsh
         run: |
-          $changelogPath = "$env:GITHUB_WORKSPACE\CHANGELOG.md"
+          $changelogPath = "$env:GITHUB_WORKSPACE/CHANGELOG.md"
           $lines = Get-Content $changelogPath
 
           $startIndex = -1
@@ -201,30 +291,36 @@ jobs:
           echo $joined >> $env:GITHUB_OUTPUT
           echo "EOF" >> $env:GITHUB_OUTPUT
 
-          echo "log=$escaped"
+      - name: (04) Download all signed artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: signed-*
+          path: release-assets
+          merge-multiple: true
 
-      - name: (10) Create Zip File
-        shell: pwsh
+      - name: (05) List release assets
+        shell: bash
         run: |
-          $sourceDir = "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release"
-          Compress-Archive -Path "$sourceDir\*" -DestinationPath ${{ steps.version.outputs.zipname }}
-          echo "File: ${{ steps.version.outputs.zipname }}"
+          echo "Release assets:"
+          ls -lh release-assets/
 
-      - name: (11) Create release
-        id: create_release
+      - name: (06) Create release with SIGNED artifacts
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name:  ${{ steps.version.outputs.tag }}
-          name: "mRemoteNG ${{ steps.version.outputs.version }} NB ${{ steps.version.outputs.build }}"
-          files: ${{ steps.version.outputs.zipname }}
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "mRemoteNG ${{ steps.meta.outputs.version }} NB ${{ steps.meta.outputs.build }}"
+          files: release-assets/*
           body: |
             Changes in this Release:
             ${{ steps.changelog.outputs.log }}
 
             Last Commit Message:
-            ${{ steps.version.outputs.message }}
+            ${{ steps.meta.outputs.message }}
 
+            ---
+            All binaries are digitally signed by [SignPath Foundation](https://signpath.org/).
+            Verify: Right-click .exe > Properties > Digital Signatures.
           draft: false
           prerelease: true

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using mRemoteNG.App.Info;
@@ -39,7 +40,14 @@ namespace mRemoteNG.App
             messageCollector.AddMessage(MessageClass.ErrorMsg, errorText, true);
 
             //About to pop up a message, let's not block it...
-            FrmSplashScreenNew.GetInstance().Close();
+            try
+            {
+                var splash = FrmSplashScreenNew.GetInstance();
+                if (!splash.Dispatcher.HasShutdownStarted)
+                    splash.Dispatcher.Invoke(() => { splash.Close(); splash.Dispatcher.InvokeShutdown(); });
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
 
             DialogResult ShouldIStayOrShouldIGo = CTaskDialog.MessageBox(Application.ProductName, Language.CompatibilityProblemDetected, errorText, "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.OkCancel, ESysIcons.Warning, ESysIcons.Warning);
             if (CTaskDialog.VerificationChecked && ShouldIStayOrShouldIGo == DialogResult.OK)

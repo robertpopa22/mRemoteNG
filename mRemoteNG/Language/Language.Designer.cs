@@ -4288,7 +4288,7 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description of OpeningCommand TODO.
+        ///   Looks up a localized string similar to Command to execute after the connection is established..
         /// </summary>
         internal static string PropertyDescriptionOpeningCommand {
             get {
@@ -6422,7 +6422,16 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("Status", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Submit Error.
+        /// </summary>
+        internal static string SubmitErrorReport {
+            get {
+                return ResourceManager.GetString("SubmitErrorReport", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Backup.
         /// </summary>

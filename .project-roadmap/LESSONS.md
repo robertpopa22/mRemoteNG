@@ -355,6 +355,42 @@ System.NotSupportedException: BinaryFormatter serialization and deserialization 
 | ReadyToRun enabled | Improves startup time for self-contained builds |
 | MSBuild property `SelfContained` | Default false; CI matrix builds both variants |
 
+### Self-Contained Build — `msbuild -p:SelfContained` Does NOT Embed Runtime (2026-02-09)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Self-contained ZIP (4.5MB) still asks user to install .NET | `msbuild -p:SelfContained=true` only sets the flag in `runtimeconfig.json` but does NOT copy runtime DLLs (`coreclr.dll`, `hostfxr.dll`, etc.) to output. Must use `-t:Publish` target. | Change `msbuild ... -p:SelfContained=true` to `msbuild ... -p:SelfContained=true -t:Publish -p:PublishDir=bin\x64\Release\win-x64-sc\` |
+
+**Also:** `dotnet restore --runtime win-x64 /p:PublishReadyToRun=true` is required — without `/p:PublishReadyToRun=true` in restore, the publish step fails with `NETSDK1094: Unable to optimize assemblies for performance`.
+
+**Correct self-contained ZIP:** ~116MB with 341 files (includes full .NET 10 runtime). Framework-dependent: ~21MB.
+
+### WPF Splash Screen Leaks Dispatcher Thread — Mouse Input Broken (2026-02-09)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Mouse barely works after startup, only keyboard works | WPF splash screen starts `Dispatcher.Run()` on a background STA thread. When splash closes (`splash.Close()`), the Dispatcher keeps running — a second message pump consuming Win32 mouse messages alongside the WinForms message pump. | Call `splash.Dispatcher.InvokeShutdown()` after `splash.Close()` in both `frmMain.cs` and `ProgramRoot.CloseSplash()` |
+
+**Also missing:** `Application.SetHighDpiMode(HighDpiMode.PerMonitorV2)` before `Application.Run()`. In .NET 10, DPI handling must be set programmatically, not just via `app.manifest`. Without it, mouse coordinates may be scaled incorrectly.
+
+**Files fixed:** `mRemoteNG/App/ProgramRoot.cs` (added `SetHighDpiMode`, fixed `CloseSplash`), `mRemoteNG/UI/Forms/frmMain.cs` (added `InvokeShutdown` after splash close).
+
+### AssemblyInfo.cs Must Be Regenerated After Version Bump (2026-02-09)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Splash screen shows 1.78.2 instead of 1.80.0 | `AssemblyInfo.tt` (T4 template) was updated to 1.80 but `AssemblyInfo.cs` (generated output) was stale from 1.78.2 build | Manually update `AssemblyInfo.cs` or run T4 template regeneration in VS |
+
+**Key rule:** After bumping version in `AssemblyInfo.tt`, always verify `AssemblyInfo.cs` matches. CI workflow regenerates it inline (PowerShell), but local builds may keep stale `.cs`.
+
+### Code Signing for Open Source Projects
+
+Open source projects **cannot** get free EV code signing certificates (required for SmartScreen reputation). Options:
+1. **SignPath.io** — free for OSS, integrates with CI, provides standard code signing (not EV)
+2. **Self-signed** — suppresses "unknown publisher" but not SmartScreen warning
+3. **Azure Trusted Signing** — ~$10/month, provides SmartScreen reputation
+4. **Standard practice:** Most open source WinForms apps ship unsigned; users dismiss the SmartScreen warning
+
 ### PBKDF2 Migration (Task 007)
 
 | Key Decision | Rationale |

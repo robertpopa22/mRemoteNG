@@ -818,6 +818,9 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="MenuItem_ReportIssue" xml:space="preserve">
     <value>Report an Issue</value>
   </data>
+  <data name="SubmitErrorReport" xml:space="preserve">
+    <value>Submit Error</value>
+  </data>
   <data name="ResetLayout" xml:space="preserve">
     <value>Reset layout</value>
   </data>
@@ -2249,7 +2252,7 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
     <comment>Command what will be run after connection</comment>
   </data>
   <data name="PropertyDescriptionOpeningCommand" xml:space="preserve">
-    <value>Description of OpeningCommand TODO</value>
+    <value>Command to execute after the connection is established.</value>
   </data>
   <data name="RedirectDrives" xml:space="preserve">
     <value>Disk Drives</value>

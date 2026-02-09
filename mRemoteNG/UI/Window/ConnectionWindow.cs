@@ -499,10 +499,9 @@ namespace mRemoteNG.UI.Window
 
                 if (interfaceControl.Info.Protocol == ProtocolType.VNC)
                 {
-                    ProtocolVNC vnc = (ProtocolVNC)interfaceControl.Protocol;
                     cmenTabSendSpecialKeys.Visible = true;
                     cmenTabSmartSize.Visible = true;
-                    cmenTabStartChat.Visible = true;
+                    cmenTabStartChat.Visible = false;
                     cmenTabRefreshScreen.Visible = true;
                     cmenTabTransferFile.Visible = false;
                 }

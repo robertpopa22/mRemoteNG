@@ -62,7 +62,7 @@ namespace mRemoteNG.Tree.Root
             }
         }
 
-        [Browsable(false)] public string DefaultPassword { get; } = "mR3m"; //TODO move password away from code to settings
+        [Browsable(false)] public string DefaultPassword { get; } = Security.ConnectionFileDefaults.LegacyEncryptionKey;
 
         [Browsable(false)]
         public bool IsPasswordMatch(SecureString? providedPassword)

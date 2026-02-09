@@ -102,7 +102,6 @@ namespace mRemoteNG.Config.Connections
 
         private void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
         {
-            // TODO: use transaction, but method not used at all?
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             string strProtected;
             if (rootTreeNode != null)
@@ -122,30 +121,43 @@ namespace mRemoteNG.Config.Connections
                 strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
             }
 
-            System.Data.Common.DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
-            dbQuery.ExecuteNonQuery();
-
-            if (rootTreeNode != null)
+            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            try
             {
-                dbQuery = databaseConnector.DbCommand(
-                    "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @Version)");
-                DbParameter nameParam = dbQuery.CreateParameter();
-                nameParam.ParameterName = "@Name";
-                nameParam.Value = rootTreeNode.Name;
-                DbParameter protectedParam = dbQuery.CreateParameter();
-                protectedParam.ParameterName = "@Protected";
-                protectedParam.Value = strProtected;
-                DbParameter versionParam = dbQuery.CreateParameter();
-                versionParam.ParameterName = "@Version";
-                versionParam.Value = ConnectionsFileInfo.ConnectionFileVersion;
-                dbQuery.Parameters.Add(nameParam);
-                dbQuery.Parameters.Add(protectedParam);
-                dbQuery.Parameters.Add(versionParam);
+                DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
+                dbQuery.Transaction = transaction;
                 dbQuery.ExecuteNonQuery();
+
+                if (rootTreeNode != null)
+                {
+                    dbQuery = databaseConnector.DbCommand(
+                        "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @Version)");
+                    dbQuery.Transaction = transaction;
+                    DbParameter nameParam = dbQuery.CreateParameter();
+                    nameParam.ParameterName = "@Name";
+                    nameParam.Value = rootTreeNode.Name;
+                    DbParameter protectedParam = dbQuery.CreateParameter();
+                    protectedParam.ParameterName = "@Protected";
+                    protectedParam.Value = strProtected;
+                    DbParameter versionParam = dbQuery.CreateParameter();
+                    versionParam.ParameterName = "@Version";
+                    versionParam.Value = ConnectionsFileInfo.ConnectionFileVersion;
+                    dbQuery.Parameters.Add(nameParam);
+                    dbQuery.Parameters.Add(protectedParam);
+                    dbQuery.Parameters.Add(versionParam);
+                    dbQuery.ExecuteNonQuery();
+                }
+                else
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
+                }
+
+                transaction.Commit();
             }
-            else
+            catch
             {
-                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
+                transaction.Rollback();
+                throw;
             }
         }
 
@@ -165,19 +177,29 @@ namespace mRemoteNG.Config.Connections
 
         private void UpdateUpdatesTable(IDatabaseConnector databaseConnector)
         {
-            // TODO: use transaction
-            System.Data.Common.DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblUpdate");
-            dbQuery.ExecuteNonQuery();
-            dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
-            
-            DbParameter lastUpdateParam = dbQuery.CreateParameter();
-            lastUpdateParam.ParameterName = "@LastUpdate";
-            // Use DBTimeStampNow() instead of DBDate() - the column is datetime type, not string
-            // DBTimeStampNow() returns the database-specific .NET type: DateTime for MSSQL, MySqlDateTime for MySQL
-            lastUpdateParam.Value = MiscTools.DBTimeStampNow();
-            dbQuery.Parameters.Add(lastUpdateParam);
-            
-            dbQuery.ExecuteNonQuery();
+            using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
+            try
+            {
+                DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblUpdate");
+                dbQuery.Transaction = transaction;
+                dbQuery.ExecuteNonQuery();
+
+                dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
+                dbQuery.Transaction = transaction;
+
+                DbParameter lastUpdateParam = dbQuery.CreateParameter();
+                lastUpdateParam.ParameterName = "@LastUpdate";
+                lastUpdateParam.Value = MiscTools.DBTimeStampNow();
+                dbQuery.Parameters.Add(lastUpdateParam);
+
+                dbQuery.ExecuteNonQuery();
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         private bool SqlUserIsReadOnly()

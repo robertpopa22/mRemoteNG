@@ -19,12 +19,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
             return null;
         }
 
-        public static string DecryptAuthCookieString(string cookieString) //TODO: decrypt is newer use, should we remove it?
-        {
-            return TsCryptDecryptString(Convert.FromBase64String(cookieString));
-        }
-
-
         [StructLayout(LayoutKind.Sequential)]
         struct CryptProtectPromptStruct
         {
@@ -47,16 +41,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         [DllImport("crypt32.dll", CharSet = CharSet.Unicode)]
         private static extern bool CryptProtectData(
-            ref DataBlob dataIn,
-            IntPtr description,
-            IntPtr optionalEntropy,
-            IntPtr reserved,
-            IntPtr promptStruct,
-            int flags,
-            out DataBlob dataOut);
-
-        [DllImport("crypt32.dll", CharSet = CharSet.Unicode)] //TODO: decrypt is newer use, should we remove it?
-        private static extern bool CryptUnprotectData(
             ref DataBlob dataIn,
             IntPtr description,
             IntPtr optionalEntropy,
@@ -90,34 +74,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
             Marshal.FreeHGlobal(outputBlob.Data);
 
             return outputData;
-        }
-
-        private static string TsCryptDecryptString(byte[] inputBytes) //TODO: decrypt is newer use, should we remove it?
-        {
-            DataBlob inputBlob;
-            DataBlob outputBlob;
-            byte[] outputData = null;
-
-            inputBlob.Size = inputBytes.Length;
-            inputBlob.Data = Marshal.AllocHGlobal(inputBytes.Length);
-            Marshal.Copy(inputBytes, 0, inputBlob.Data, inputBlob.Size);
-
-            if (CryptUnprotectData(ref inputBlob, IntPtr.Zero, IntPtr.Zero,
-                IntPtr.Zero, IntPtr.Zero, CRYPTPROTECT_UI_FORBIDDEN, out outputBlob))
-            {
-                outputData = new byte[outputBlob.Size];
-                Marshal.Copy(outputBlob.Data, outputData, 0, outputBlob.Size);
-            }
-
-            Marshal.FreeHGlobal(inputBlob.Data);
-            Marshal.FreeHGlobal(outputBlob.Data);
-
-            if (outputData != null)
-            {
-                return Encoding.Unicode.GetString(outputData).TrimEnd((Char)0);
-            }
-
-            return null;
         }
 
     }

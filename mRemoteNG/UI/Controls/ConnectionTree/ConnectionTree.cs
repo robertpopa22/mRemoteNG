@@ -49,6 +49,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public ITreeNodeClickHandler<ConnectionInfo> SingleClickHandler { get; set; } = new TreeNodeCompositeClickHandler();
 
+        public ITreeNodeClickHandler<ConnectionInfo> MiddleClickHandler { get; set; } = new TreeNodeCompositeClickHandler();
+
         public ConnectionTreeModel ConnectionTreeModel
         {
             get { return _connectionTreeModel; }
@@ -161,6 +163,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             SelectionChanged += TvConnections_AfterSelect;
             MouseDoubleClick += OnMouse_DoubleClick;
             MouseClick += OnMouse_SingleClick;
+            MouseClick += OnMouse_MiddleClick;
             CellToolTipShowing += TvConnections_CellToolTipShowing;
             ModelCanDrop += _dragAndDropHandler.HandleEvent_ModelCanDrop;
             ModelDropped += _dragAndDropHandler.HandleEvent_ModelDropped;
@@ -470,10 +473,19 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         private void OnMouse_SingleClick(object sender, MouseEventArgs mouseEventArgs)
         {
             if (mouseEventArgs.Clicks > 1) return;
+            if (mouseEventArgs.Button != MouseButtons.Left) return;
             // ReSharper disable once NotAccessedVariable
             OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
             if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
             SingleClickHandler.Execute(clickedNode);
+        }
+
+        private void OnMouse_MiddleClick(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (mouseEventArgs.Button != MouseButtons.Middle) return;
+            OLVListItem listItem = GetItemAt(mouseEventArgs.X, mouseEventArgs.Y, out _);
+            if (listItem?.RowObject is not ConnectionInfo clickedNode) return;
+            MiddleClickHandler.Execute(clickedNode);
         }
 
         private void TvConnections_CellToolTipShowing(object sender, ToolTipShowingEventArgs e)

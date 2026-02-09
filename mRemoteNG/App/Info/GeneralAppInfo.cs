@@ -18,7 +18,9 @@ namespace mRemoteNG.App.Info
         public const string UrlForum = "https://github.com/orgs/mRemoteNG/discussions";
         public const string UrlChat = "https://app.element.io/#/room/#mremoteng:matrix.org";
         public const string UrlCommunity = "https://www.reddit.com/r/mRemoteNG";
-        public const string UrlBugs = "https://github.com/mRemoteNG/mRemoteNG/issues/new";
+        public const string UrlBugs = "https://github.com/robertpopa22/mRemoteNG/issues/new";
+        public const string CrashReportOwner = "robertpopa22";
+        public const string CrashReportRepo = "mRemoteNG";
         public const string UrlDocumentation = "https://mremoteng.readthedocs.io/en/latest/";
         public static readonly string ApplicationVersion = Application.ProductVersion;
         public static readonly string ProductName = Application.ProductName;

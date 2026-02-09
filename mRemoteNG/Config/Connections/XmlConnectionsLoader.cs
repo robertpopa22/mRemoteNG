@@ -17,8 +17,9 @@ namespace mRemoteNG.Config.Connections
     public class XmlConnectionsLoader : IConnectionsLoader
     {
         private readonly string _connectionFilePath;
+        private readonly MessageCollector _messageCollector;
 
-        public XmlConnectionsLoader(string connectionFilePath)
+        public XmlConnectionsLoader(string connectionFilePath, MessageCollector messageCollector = null)
         {
             if (string.IsNullOrEmpty(connectionFilePath))
                 throw new ArgumentException($"{nameof(connectionFilePath)} cannot be null or empty");
@@ -27,6 +28,7 @@ namespace mRemoteNG.Config.Connections
                 throw new FileNotFoundException($"{connectionFilePath} does not exist");
 
             _connectionFilePath = connectionFilePath;
+            _messageCollector = messageCollector ?? Runtime.MessageCollector;
         }
 
         public ConnectionTreeModel Load()
@@ -41,7 +43,7 @@ namespace mRemoteNG.Config.Connections
             }
             catch (XmlException ex)
             {
-                Runtime.MessageCollector.AddExceptionMessage(
+                _messageCollector.AddExceptionMessage(
                     $"Failed to parse XML connection file '{_connectionFilePath}'. Attempting backup recovery.",
                     ex,
                     MessageClass.WarningMsg);
@@ -78,14 +80,14 @@ namespace mRemoteNG.Config.Connections
                         continue;
 
                     File.Copy(backupFile, _connectionFilePath, overwrite: true);
-                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"Recovered connection file from backup '{backupFile}'.");
+                    _messageCollector.AddMessage(MessageClass.WarningMsg, $"Recovered connection file from backup '{backupFile}'.");
 
                     recoveredTreeModel = backupTreeModel;
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    Runtime.MessageCollector.AddExceptionMessage(
+                    _messageCollector.AddExceptionMessage(
                         $"Failed to recover connections from backup '{backupFile}'.",
                         ex,
                         MessageClass.WarningMsg);
