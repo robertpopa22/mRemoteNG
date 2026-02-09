@@ -190,6 +190,7 @@ jobs:
       # Upload build artifact (unsigned)
       # --------------------------------------------------------
       - name: (10a) Upload build artifact
+        id: upload-build
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.arch }}${{ matrix.suffix }}
@@ -202,7 +203,7 @@ jobs:
       # --------------------------------------------------------
       - name: (10b) Submit signing request to SignPath
         id: sign
-        if: secrets.SIGNPATH_API_TOKEN != ''
+        if: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
         continue-on-error: true
         uses: signpath/github-action-submit-signing-request@v1
         with:
@@ -210,7 +211,7 @@ jobs:
           organization-id: '${{ secrets.SIGNPATH_ORGANIZATION_ID }}'
           project-slug: 'mRemoteNG'
           signing-policy-slug: 'release-signing'
-          github-artifact-id: '${{ steps.upload-unsigned.outputs.artifact-id }}'
+          github-artifact-id: '${{ steps.upload-build.outputs.artifact-id }}'
           wait-for-completion: true
           output-artifact-directory: '${{ github.workspace }}/signed'
           wait-for-completion-timeout-in-seconds: 600
