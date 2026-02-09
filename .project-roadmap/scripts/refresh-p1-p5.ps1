@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$Repo = "mRemoteNG/mRemoteNG",
-    [string]$OutputDir = "D:\github\mRemoteNG\NEXTUP",
+    [string]$OutputDir = "D:\github\mRemoteNG\.project-roadmap",
     [string]$AnalysisDir = "D:\github\LOCAL\analysis\mRemoteNG",
     [int]$P2BatchSize = 25,
     [int]$P5Top = 30

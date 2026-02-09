@@ -26,7 +26,7 @@ Current status (fork execution branch):
 - Integrated PR #3038 content into fork (addresses issue #2989 attack surface).
 - Integrated PR #3054 content into fork (external tool argument escaping hardening).
 - Remaining criticals without upstream fix PR mapping: #2988, #3080.
-- Mapping evidence file created: `NEXTUP/P0_MAPPING_2026-02-07.md`.
+- Mapping evidence file created: `.project-roadmap/P0_MAPPING_2026-02-07.md`.
 - Upstream evidence comments posted:
   - #2988: https://github.com/mRemoteNG/mRemoteNG/issues/2988#issuecomment-3864889173
   - #3080: https://github.com/mRemoteNG/mRemoteNG/issues/3080#issuecomment-3864889174
@@ -52,7 +52,7 @@ Done criteria:
 Current status (2026-02-07 execution):
 - 6/6 duplicate issues triaged and cross-linked by comment.
 - Upstream close action is permission-blocked for current account; maintainer close is pending.
-- Evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- Evidence: `.project-roadmap/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P2 - Need-2-Check Backlog
 
@@ -73,7 +73,7 @@ Current status (2026-02-07 execution):
 - Batch-3 and extended passes executed for broader stale refresh.
 - Batching script corrected to deterministic `createdAt` sorting to avoid overlap from `updatedAt` mutation.
 - Next step: run deterministic batches only for newly stale/unrefreshed entries.
-- Evidence: `NEXTUP/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
+- Evidence: `.project-roadmap/P1_P2_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P3 - Stale In-Progress Labels
 
@@ -89,7 +89,7 @@ Done criteria:
 Current status (2026-02-07 execution):
 - stale `In progress` and `In development` sets fully commented for status refresh/relabel guidance.
 - close/relabel actions require maintainer write permissions upstream.
-- Evidence: `NEXTUP/P3_TRIAGE_EXECUTION_2026-02-07.md`
+- Evidence: `.project-roadmap/P3_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P4 - Version Label Debt
 
@@ -101,14 +101,14 @@ Goal:
 
 Current status (2026-02-07 execution):
 - added deterministic batch triage script:
-  - `NEXTUP/scripts/comment-p4-version-debt-batch.ps1`
+  - `.project-roadmap/scripts/comment-p4-version-debt-batch.ps1`
 - added exhaustion runner:
-  - `NEXTUP/scripts/run-p4-to-exhaustion.ps1`
+  - `.project-roadmap/scripts/run-p4-to-exhaustion.ps1`
 - executed stateful P4 waves to exhaustion:
-  - `328` issues comment-triaged (tracked in `NEXTUP/p4_state_processed.txt`)
+  - `328` issues comment-triaged (tracked in `.project-roadmap/p4_state_processed.txt`)
   - runner reached terminal state (`No version-debt issues found`)
 - evidence:
-  - `NEXTUP/P4_TRIAGE_EXECUTION_2026-02-07.md`
+  - `.project-roadmap/P4_TRIAGE_EXECUTION_2026-02-07.md`
 
 ## Package P5 - Release Stabilization Candidates
 
@@ -202,7 +202,7 @@ Goal:
 Current status (2026-02-08, COMPLETED):
 - commit: `79c5e4cf` on `codex/release-1.79-bootstrap`
 - 25 files changed (13 source, 12 test)
-- detailed per-file changelog: `NEXTUP/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
+- detailed per-file changelog: `.project-roadmap/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
 
 Fix categories:
 1. CSV serializer header bug + missing properties (~28 tests)
@@ -261,4 +261,4 @@ Priority packages extracted from currently visible open issues:
 - "No issues" is interpreted as "no unresolved actionable issues for release scope" plus aggressive backlog hygiene.
 - Full zero-open backlog is typically unrealistic in mature OSS; the operational target is zero critical/release-blocking plus disciplined triage.
 - Execution snapshot/report for P1-P5 is tracked in:
-  - `NEXTUP/P1_P5_EXECUTION_2026-02-07.md`
+  - `.project-roadmap/P1_P5_EXECUTION_2026-02-07.md`

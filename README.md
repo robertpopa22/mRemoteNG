@@ -142,11 +142,11 @@ For a detailed feature list and general usage support, refer to the [Documentati
 ## Build from Source
 
 ```powershell
-# Requires Visual Studio 2022 BuildTools with .NET SDK
-& "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Launch-VsDevShell.ps1" -Arch amd64
-dotnet restore mRemoteNG.sln
-msbuild mRemoteNG.sln -m -verbosity:minimal -p:Configuration=Release -p:Platform=x64
+# Requires Visual Studio BuildTools (VS2026 or VS2022) with .NET SDK
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
 ```
+
+`build.ps1` auto-detects the newest VS installation. For manual builds, see `CLAUDE.md`.
 
 ## License
 

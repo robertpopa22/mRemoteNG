@@ -514,7 +514,7 @@ Execution status:
 ## Excluded From Upstream PRs
 
 - local triage automation/docs:
-  - `NEXTUP/*`
+  - `.project-roadmap/*`
   - local execution logs and report artifacts
 - comment-level issue triage evidence is already posted directly on upstream issues.
 

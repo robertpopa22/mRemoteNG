@@ -6,7 +6,7 @@ param(
     [switch]$Comment,
     [switch]$IgnoreState,
     [switch]$ResetState,
-    [string]$StateFile = "D:\github\mRemoteNG\NEXTUP\p4_state_processed.txt",
+    [string]$StateFile = "D:\github\mRemoteNG\.project-roadmap\p4_state_processed.txt",
     [string]$GhExe = "C:\Progra~1\GitHub~1\gh.exe",
     [ValidateSet("updatedAt", "createdAt", "number")]
     [string]$SortBy = "updatedAt",

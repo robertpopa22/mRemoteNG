@@ -227,7 +227,7 @@ $ghExe = "C:\PROGRA~1\GITHUB~1\gh.exe"
 $psExe = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
 
 $repoRoot = "D:\github\mRemoteNG"
-$nextupRoot = Join-Path $repoRoot "NEXTUP"
+$nextupRoot = Join-Path $repoRoot ".project-roadmap"
 $localRoot = "D:\github\LOCAL"
 $aliasLower = $aliasName.ToLowerInvariant()
 $context = New-CaptureContext -AliasName $aliasLower -ForwardArgs $forwardArgs -NextupRoot $nextupRoot
@@ -277,7 +277,7 @@ switch ($aliasLower) {
         $isInternal = $true
         $internalLines = @(
             "REPO_ROOT=$repoRoot"
-            "NEXTUP_ROOT=$nextupRoot"
+            ".project-roadmap_ROOT=$nextupRoot"
             "LOCAL_ROOT=$localRoot"
             "GIT_EXE=$gitExe"
             "GH_EXE=$ghExe"

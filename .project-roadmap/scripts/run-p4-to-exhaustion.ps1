@@ -5,8 +5,8 @@ param(
     [ValidateSet("updatedAt", "createdAt", "number")]
     [string]$SortBy = "createdAt",
     [int]$MaxRounds = 20,
-    [string]$StateFile = "D:\github\mRemoteNG\NEXTUP\p4_state_processed.txt",
-    [string]$BatchScript = "D:\github\mRemoteNG\NEXTUP\scripts\comment-p4-version-debt-batch.ps1",
+    [string]$StateFile = "D:\github\mRemoteNG\.project-roadmap\p4_state_processed.txt",
+    [string]$BatchScript = "D:\github\mRemoteNG\.project-roadmap\scripts\comment-p4-version-debt-batch.ps1",
     [switch]$Comment
 )
 

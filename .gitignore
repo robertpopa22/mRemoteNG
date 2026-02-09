@@ -286,3 +286,17 @@ InstallerProjects/Installer/Resources/License.rtf
 # mRemoteNG
 **/mRemoteNG/Properties/AssemblyInfo.tt
 **/mRemoteNG/Properties/AssemblyInfo.cs
+
+# Local build/test scripts
+build.ps1
+build.cmd
+build-and-test-baseline.ps1
+test.ps1
+run-tests.ps1
+CLAUDE.md
+agents.md
+
+# Temp test output
+test-output.txt
+test-results*.txt
+nul
