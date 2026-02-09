@@ -124,7 +124,7 @@ namespace mRemoteNG.Config.Connections
             using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
             try
             {
-                DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
+                DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblRoot");
                 dbQuery.Transaction = transaction;
                 dbQuery.ExecuteNonQuery();
 
@@ -180,7 +180,7 @@ namespace mRemoteNG.Config.Connections
             using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
             try
             {
-                DbCommand dbQuery = databaseConnector.DbCommand("TRUNCATE TABLE tblUpdate");
+                DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblUpdate");
                 dbQuery.Transaction = transaction;
                 dbQuery.ExecuteNonQuery();
 

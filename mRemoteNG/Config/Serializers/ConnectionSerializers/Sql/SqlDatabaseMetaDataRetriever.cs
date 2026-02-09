@@ -94,7 +94,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             using DbTransaction transaction = databaseConnector.DbConnection().BeginTransaction();
             try
             {
-                DbCommand cmd = databaseConnector.DbCommand("TRUNCATE TABLE tblRoot");
+                DbCommand cmd = databaseConnector.DbCommand("DELETE FROM tblRoot");
                 cmd.Transaction = transaction;
                 cmd.ExecuteNonQuery();
 
