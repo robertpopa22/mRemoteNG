@@ -16,6 +16,7 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Sql
         private DbConnection _mockConnection;
         private DbCommand _mockCommand;
         private DbTransaction _mockTransaction;
+        private DbParameterCollection _mockParameterCollection;
 
         [SetUp]
         public void Setup()
@@ -25,10 +26,13 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Sql
             _mockConnection = Substitute.For<DbConnection>();
             _mockCommand = Substitute.For<DbCommand>();
             _mockTransaction = Substitute.For<DbTransaction>();
+            _mockParameterCollection = Substitute.For<DbParameterCollection>();
 
             _mockConnector.DbConnection().Returns(_mockConnection);
             _mockConnector.DbCommand(Arg.Any<string>()).Returns(_mockCommand);
             _mockConnection.BeginTransaction().Returns(_mockTransaction);
+            _mockCommand.CreateParameter().Returns(_ => Substitute.For<DbParameter>());
+            _mockCommand.Parameters.Returns(_mockParameterCollection);
         }
 
         [Test]
