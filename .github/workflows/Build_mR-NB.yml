@@ -203,7 +203,6 @@ jobs:
       # --------------------------------------------------------
       - name: (10b) Submit signing request to SignPath
         id: sign
-        if: ${{ secrets.SIGNPATH_API_TOKEN != '' }}
         continue-on-error: true
         uses: signpath/github-action-submit-signing-request@v1
         with:
@@ -282,17 +281,7 @@ jobs:
           echo $joined >> $env:GITHUB_OUTPUT
           echo "EOF" >> $env:GITHUB_OUTPUT
 
-      - name: (04) Download signed artifacts (if available)
-        id: download-signed
-        continue-on-error: true
-        uses: actions/download-artifact@v4
-        with:
-          pattern: signed-*
-          path: release-assets
-          merge-multiple: true
-
-      - name: (05) Download unsigned artifacts (fallback)
-        if: steps.download-signed.outcome == 'failure' || hashFiles('release-assets/**') == ''
+      - name: (04) Download build artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: build-*
