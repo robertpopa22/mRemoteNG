@@ -126,7 +126,7 @@ if (!textBox.IsHandleCreated) return null;  // first line of GetCueBannerText()
 
 | Symptom | Root Cause | Immediate Fix |
 | --- | --- | --- |
-| Workflow `skipped` after push | `if` condition requires "NB release" in commit message | Add explicit branch check: `github.ref == 'refs/heads/<branch>'` to `if` AND add branch to `on.push.branches` |
+| Workflow `skipped` after push | `if` condition requires "NB release" in commit message | Add explicit branch check: `github.ref == 'refs/heads/release/1.79'` to `if` AND add branch to `on.push.branches` |
 | T4 template step fails (EnvDTE.dll not found) | `windows-2025-vs2026` has VS2026, NOT VS2022 Enterprise; path `C:\...\2022\Enterprise\...\EnvDTE.dll` doesn't exist | Replace T4 step with inline PowerShell that generates AssemblyInfo.cs directly |
 | `setup-msbuild` with `vs-version: '[17.0,18.0)'` fails | VS2026 = MSBuild 18.x, not 17.x | Use `'[18.0,19.0)'` for x86/x64; `'17.14.12'` for ARM64 |
 
@@ -222,9 +222,19 @@ $vsBasePaths = @("C:\Program Files\Microsoft Visual Studio", "C:\Program Files (
 
 - Created `agents.md` at repo root for Codex, Gemini, Copilot
 - Points to `CLAUDE.md` (main reference) and `.project-roadmap/LESSONS.md` (operational lessons)
-- Contains quick reference table and critical rules
+- Contains quick reference table, critical rules, and branch naming convention
 - Agent-specific sections for different AI platforms
 - Both `CLAUDE.md` and `agents.md` are in `.gitignore` (local-only, not committed to upstream PRs)
+
+### Branch Cleanup (2026-02-09)
+
+- Renamed `v1.78.2-dev` → `main` (set as default on GitHub, tracks `upstream/v1.78.2-dev`)
+- Renamed `codex/release-1.79-bootstrap` → `release/1.79`
+- Deleted 26 `codex/pr*` branches (local + remote) — all merged into `release/1.79`, PRs closed
+- Deleted 20 upstream mirror branches from origin (master, develop, v1.8-dev, etc.)
+- Deleted stale branches: `pr-3038`, `pr-3054`, `codex/pr18-autolock-1649-clean`
+- Fork went from 31 local + 47 remote → **2 local + 2 remote**
+- New naming convention: `fix/<issue>-<desc>`, `feat/<issue>-<desc>`, `security/<desc>`, `chore/<desc>`, `release/<version>`
 
 ### Background Task Accumulation
 
@@ -250,7 +260,7 @@ $vsBasePaths = @("C:\Program Files\Microsoft Visual Studio", "C:\Program Files (
 gh issue comment <number> --repo mRemoteNG/mRemoteNG --body "$(cat <<'EOF'
 ✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0
 
-**PR:** #XXXX | **Branch:** `codex/prNN-description`
+**PR:** #XXXX
 **Fix:** One-line description of what was fixed.
 
 3 platform builds (x64, x86, ARM64) available for download.

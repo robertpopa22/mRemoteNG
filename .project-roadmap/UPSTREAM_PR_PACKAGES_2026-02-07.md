@@ -1,10 +1,14 @@
 # Upstream PR Packages
 
 Date: 2026-02-07  
-Execution branch: `codex/release-1.79-bootstrap`
+Execution branch: `release/1.79`
 
 Purpose:
 - split fork changes into small, reviewable PRs for upstream maintainers.
+
+> **Note (2026-02-09):** The `codex/pr*` branch names referenced below are historical.
+> All 26 branches were merged into `release/1.79` and deleted during branch cleanup.
+> The PRs on GitHub (#3105-#3130) remain valid references.
 
 ## PR-1 Security Follow-up (P0)
 

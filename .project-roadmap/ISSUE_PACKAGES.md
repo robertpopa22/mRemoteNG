@@ -200,7 +200,7 @@ Goal:
 - 2148/2148 tests green; zero test debt before release.
 
 Current status (2026-02-08, COMPLETED):
-- commit: `79c5e4cf` on `codex/release-1.79-bootstrap`
+- commit: `79c5e4cf` on `release/1.79`
 - 25 files changed (13 source, 12 test)
 - detailed per-file changelog: `.project-roadmap/P6_TEST_FIX_CHANGELOG_2026-02-08.md`
 

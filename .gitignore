@@ -300,3 +300,6 @@ agents.md
 test-output.txt
 test-results*.txt
 nul
+
+# Auto Claude data directory
+.auto-claude/

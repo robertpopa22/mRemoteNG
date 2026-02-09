@@ -3,7 +3,8 @@
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `v1.78.2-dev`
+- **Main branch:** `main` (syncs with upstream `v1.78.2-dev`)
+- **Release branch:** `release/1.79` (v1.79.0 cumulative release)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -51,7 +52,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (codex/release-1.79-bootstrap, 2026-02-09):
+### Current test status (release/1.79, 2026-02-09):
 - **mRemoteNGTests:** 2179 total, **2174 passed, 2 skipped, 3 ignored** (env-dependent)
 - **mRemoteNGSpecs:** 5 total, 5 passed
 - **Zero failures.** Skipped/ignored tests are env-dependent WinForms tests:
@@ -78,7 +79,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 
 ## Release Status (v1.79.0 Community Edition, 2026-02-09)
-- **Tag:** `v1.79.0` on `codex/release-1.79-bootstrap`
+- **Tag:** `v1.79.0` on `release/1.79`
 - **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0
 - **NB Release (CI):** tag `20260209-v1.79.0-NB-(3387)`
 - **Assets:** 3 ZIPs (x64 ~20.9MB, x86 ~20.9MB, ARM64 ~20.8MB)
@@ -88,46 +89,68 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - **Discussion:** https://github.com/orgs/mRemoteNG/discussions/3131
 - **Fork issues:** DISABLED on fork (GitHub limitation for forks)
 
-## Branch Strategy (Codex work)
-- 26 fix branches: `codex/pr1-*` through `codex/pr26-*`
-- Each branch has 1 clean commit on top of `upstream/v1.78.2-dev`
-- `codex/release-1.79-bootstrap` = cumulative branch with all fixes + docs
-- PRs (#3105-#3130) were closed on upstream - reopen with `gh pr reopen <nr>` after testing
+## Branch Strategy & Naming Convention
+
+### Active branches
+| Branch | Purpose |
+|--------|---------|
+| `main` | Default branch, syncs with `upstream/v1.78.2-dev` |
+| `release/1.79` | v1.79.0 cumulative release (all 26 fixes + tests + docs) |
+
+### Naming convention for new branches
+| Prefix | When | Example |
+|--------|------|---------|
+| `fix/<issue>-<desc>` | Bug fix | `fix/2735-rdp-smartsize-focus` |
+| `feat/<issue>-<desc>` | New feature | `feat/1634-protocol-token` |
+| `security/<desc>` | Security hardening | `security/ldap-sanitizer` |
+| `chore/<desc>` | Infra, deps, CI | `chore/sqlclient-sni-runtime` |
+| `release/<version>` | Release branch | `release/1.79` |
+
+**Rules:**
+- Issue number after `/` when an issue exists
+- No tool prefixes (`codex/`, `copilot/`) — branches belong to the project
+- No PR numbers in branch names — PRs live on GitHub
+- Lowercase, kebab-case, max 50 chars after prefix
+
+### Syncing with upstream
+```bash
+git fetch upstream && git merge upstream/v1.78.2-dev   # on main
+```
 
 ## PR Workflow
-1. Test locally (build + run)
-2. When a fix is validated: `gh pr reopen <number>`
-3. PRs target `v1.78.2-dev` on upstream `mRemoteNG/mRemoteNG`
+1. Create branch from `main`: `git checkout -b fix/<issue>-<desc>`
+2. Test locally (build + run)
+3. Push and create PR targeting `v1.78.2-dev` on upstream `mRemoteNG/mRemoteNG`
 
-## PR Reference Table
-| PR# | Branch | Issue | Description |
-|-----|--------|-------|-------------|
-| 3105 | codex/pr1-security-followup | - | LDAP sanitizer and importer guardrails |
-| 3106 | codex/pr2-closepanel-stability | 3069 | Close panel race fix |
-| 3107 | codex/pr3-onepassword-3092 | 3092 | 1Password parser and fallback fix |
-| 3108 | codex/pr4-default-provider-2972 | 2972 | Default external provider fix |
-| 3109 | codex/pr5-commandline-security | - | ProcessStart hardening and escaping |
-| 3110 | codex/pr6-sqlclient-sni-runtime | 3005 | SqlClient SNI runtime references |
-| 3111 | codex/pr7-sql-schema-compat-1916 | 1916 | SQL schema compatibility hardening |
-| 3112 | codex/pr8-configpanel-splitter-850 | 850 | Config panel splitter width reset |
-| 3113 | codex/pr9-startup-path-fallback-1969 | 1969 | Startup path fallback |
-| 3114 | codex/pr10-putty-provider-resilience-822 | 822 | PuTTY provider failure handling |
-| 3115 | codex/pr11-putty-cjk-decode-2785 | 2785 | PuTTY CJK session name decoding |
-| 3116 | codex/pr12-rdp-smartsize-focus-2735 | 2735 | RDP SmartSize focus loss fix |
-| 3117 | codex/pr13-rdp-redirectkeys-fullscreen-847 | 847 | RDP fullscreen toggle guard |
-| 3118 | codex/pr14-rdp-fullscreen-exit-refocus-1650 | 1650 | RDP refocus after fullscreen exit |
-| 3119 | codex/pr15-rdp-rcw-smartsize-2510 | 2510 | RDP SmartSize RCW disconnect fix |
-| 3120 | codex/pr16-settings-path-observability-2987 | 2987 | Settings path logging |
-| 3121 | codex/pr17-password-protect-disable-2673 | 2673 | Require password before disabling protection |
-| 3122 | codex/pr18-autolock-1649 | 1649 | Master password autolock on minimize/idle |
-| 3123 | codex/pr19-protocol-1634 | 1634 | PROTOCOL external tool token |
-| 3124 | codex/pr20-main-close-cancel-2270 | 2270 | Main close cancel behavior |
-| 3125 | codex/pr21-xml-recovery-811 | 811 | Startup XML recovery |
-| 3126 | codex/pr22-close-empty-panel-2160 | 2160 | Empty panel close after last tab |
-| 3127 | codex/pr23-tab-drag-overflow-scroll-2161 | 2161 | Tab drag autoscroll on overflow |
-| 3128 | codex/pr24-config-tree-layout-2171 | 2171 | Config connections panel focus |
-| 3129 | codex/pr25-tab-crash-resize-2166 | 2166 | Tab close race under resize |
-| 3130 | codex/pr26-inheritance-label-width-2155 | 2155 | Inheritance label width fix |
+## v1.79.0 PR Reference (historical — branches cleaned up 2026-02-09)
+| PR# | Issue | Description |
+|-----|-------|-------------|
+| 3105 | - | LDAP sanitizer and importer guardrails |
+| 3106 | 3069 | Close panel race fix |
+| 3107 | 3092 | 1Password parser and fallback fix |
+| 3108 | 2972 | Default external provider fix |
+| 3109 | - | ProcessStart hardening and escaping |
+| 3110 | 3005 | SqlClient SNI runtime references |
+| 3111 | 1916 | SQL schema compatibility hardening |
+| 3112 | 850 | Config panel splitter width reset |
+| 3113 | 1969 | Startup path fallback |
+| 3114 | 822 | PuTTY provider failure handling |
+| 3115 | 2785 | PuTTY CJK session name decoding |
+| 3116 | 2735 | RDP SmartSize focus loss fix |
+| 3117 | 847 | RDP fullscreen toggle guard |
+| 3118 | 1650 | RDP refocus after fullscreen exit |
+| 3119 | 2510 | RDP SmartSize RCW disconnect fix |
+| 3120 | 2987 | Settings path logging |
+| 3121 | 2673 | Require password before disabling protection |
+| 3122 | 1649 | Master password autolock on minimize/idle |
+| 3123 | 1634 | PROTOCOL external tool token |
+| 3124 | 2270 | Main close cancel behavior |
+| 3125 | 811 | Startup XML recovery |
+| 3126 | 2160 | Empty panel close after last tab |
+| 3127 | 2161 | Tab drag autoscroll on overflow |
+| 3128 | 2171 | Config connections panel focus |
+| 3129 | 2166 | Tab close race under resize |
+| 3130 | 2155 | Inheritance label width fix |
 
 ---
 

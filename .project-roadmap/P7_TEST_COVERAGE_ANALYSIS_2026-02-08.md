@@ -1,7 +1,7 @@
 # P7 Test Coverage Analysis — PRs #3105-#3130
 
 Date: 2026-02-08 (updated 2026-02-09)
-Scope: 26 codex PRs on `codex/release-1.79-bootstrap`
+Scope: 26 codex PRs on `release/1.79`
 Baseline: 2148/2148 tests passing (before P7 work)
 
 ## Status: ALL PRIORITY A GAPS CLOSED

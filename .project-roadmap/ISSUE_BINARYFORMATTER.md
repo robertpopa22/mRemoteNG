@@ -3,7 +3,7 @@
 **Status:** Fixed (workaround applied)
 **Severity:** Critical (app won't start)
 **Affected versions:** v1.79.0+ (any build targeting `net10.0`)
-**Fixed in:** commit on `codex/release-1.79-bootstrap`
+**Fixed in:** commit on `release/1.79`
 
 ---
 
