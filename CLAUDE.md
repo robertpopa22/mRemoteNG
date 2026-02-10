@@ -61,7 +61,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (release/1.79, 2026-02-09):
+### Current test status (release/1.80, 2026-02-10):
 - **mRemoteNGTests:** 2179 total, **2174 passed, 2 skipped, 3 ignored** (env-dependent)
 - **mRemoteNGSpecs:** 5 total, 5 passed
 - **Zero failures.** Skipped/ignored tests are env-dependent WinForms tests:
@@ -91,11 +91,18 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
   - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 
-## Release Status (v1.80.0 Community Edition — In Progress)
-- **Branch:** `release/1.80`
-- **Key feature:** Self-contained (.NET embedded) build variant
-- **CI:** Dual-build matrix — 6 builds (3 framework-dependent + 3 self-contained)
-- **Build variants:** Framework-dependent (~21MB) and self-contained (~80-120MB)
+## Release Status (v1.80.0 Community Edition, 2026-02-10) ✅ RELEASED
+- **Tag:** `v1.80.0` on `release/1.80`
+- **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0
+- **NB Release (CI):** tag `20260210-v1.80.0-NB-(3389)`
+- **Assets:** 6 ZIPs (3 framework-dependent ~21MB + 3 self-contained ~108-116MB)
+- **Architectures:** x64, x86, ARM64
+- **CI Run:** All 3 workflows passed (6/6 builds)
+- **Upstream PR:** [#3134](https://github.com/mRemoteNG/mRemoteNG/pull/3134) — 177 files, 7.5K ins / 2K del (awaiting maintainer CI approval)
+- **Upstream status issue:** [#3133](https://github.com/mRemoteNG/mRemoteNG/issues/3133) — updated with release link
+- **Key features:** Self-contained builds, `%PUTTYSESSION%` token, Options panel fixes, batch password fix, 830-issue triage
+- **Issues addressed:** #2046, #2142, #2681, #2910, #2913, #2914, #2998, #3044
+- **CVE-2023-30367:** Assessed (132 refs / 54 files) — deferred to v1.81.0 (see `.project-roadmap/CVE-2023-30367_ASSESSMENT.md`)
 
 ## Release Status (v1.79.0 Community Edition, 2026-02-09)
 - **Tag:** `v1.79.0` on `release/1.79`
@@ -114,8 +121,8 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 | Branch | Purpose |
 |--------|---------|
 | `main` | Default branch, syncs with `upstream/v1.78.2-dev` |
-| `release/1.80` | v1.80.0 — self-contained builds + security/perf/features |
-| `release/1.79` | v1.79.0 cumulative release (all 26 fixes + tests + docs) |
+| `release/1.80` | v1.80.0 — RELEASED 2026-02-10 (self-contained builds + security/perf/features) |
+| `release/1.79` | v1.79.0 — RELEASED 2026-02-09 (26 fixes + tests + docs) |
 
 ### Naming convention for new branches
 | Prefix | When | Example |
@@ -154,6 +161,28 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
    ```
 7. Generate final report: `.\.project-roadmap\scripts\Generate-Report.ps1 -IncludeAll`
 8. Commit all JSON changes in `.project-roadmap/issues-db/`
+
+## v1.80.0 PR Reference
+| PR# | Issue | Description |
+|-----|-------|-------------|
+| 3134 | multiple | **Consolidated PR** on upstream — all v1.80.0 changes (177 files) |
+
+### Issues fixed in v1.80.0 (on top of v1.79.0)
+| Issue | Description |
+|-------|-------------|
+| 2046 | `%PUTTYSESSION%` external tool token |
+| 2142 | RDP auto-resize on monitor connect/disconnect |
+| 2681/2998 | Self-contained build variant |
+| 2910 | "Always show panel tabs" corrupts Options |
+| 2913 | SQL Server options fields enable fix + font |
+| 2914 | Options Cancel reverts theme/preview changes |
+| 3044 | Batch file password comma-splitting |
+
+### Triage completed (2026-02-10)
+- 25 issues marked `released` (24 v1.79.0 + 1 v1.80.0)
+- 8 issues marked `duplicate`
+- 9 issues marked `wontfix`
+- 830 total issues analyzed from upstream backlog
 
 ## v1.79.0 PR Reference (historical — branches cleaned up 2026-02-09)
 | PR# | Issue | Description |
@@ -254,6 +283,8 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
+| `.project-roadmap/CVE-2023-30367_ASSESSMENT.md` | CVE-2023-30367 assessment — SecureString migration deferred to v1.81.0 (132 refs, 54 files) |
+| `.project-roadmap/TRIAGE_PLAN_2026-02-10.md` | 830-issue triage plan — 5 phases, v1.80.0 scope, bulk actions |
 | `CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
 
 ### Scripts
