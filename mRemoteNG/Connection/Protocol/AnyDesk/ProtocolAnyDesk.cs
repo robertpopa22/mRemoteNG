@@ -217,7 +217,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                 if (!IsValidAnydeskId(anydeskId))
                 {
                     Runtime.MessageCollector?.AddMessage(MessageClass.ErrorMsg,
-                        "Invalid AnyDesk ID format. Only alphanumeric characters, @, -, and _ are allowed.", true);
+                        "Invalid AnyDesk ID format. Only alphanumeric characters, @, -, _, and . are allowed.", true);
                     return false;
                 }
                 
