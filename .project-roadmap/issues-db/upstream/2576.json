@@ -18,6 +18,18 @@
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Stale - RD Gateway failure, likely Windows config",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mXE3R",
@@ -40,20 +52,8 @@
                  ],
     "comments_cursor":  "2026-02-07T19:52:25Z",
     "unread_comments":  0,
-    "needs_action":  true,
+    "needs_action":  false,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:39:35Z",
-    "notes":  "",
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "wontfix",
-                           "description":  "Stale - RD Gateway failure, likely Windows config",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  null,
-                           "comment_posted":  false
-                       }
-                   ]
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }

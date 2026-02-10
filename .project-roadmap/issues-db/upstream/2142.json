@@ -18,6 +18,18 @@
     "target_release":  "v1.80.0",
     "our_branch":  null,
     "our_pr":  null,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Resize RDP connections on monitor connect/disconnect",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  "v1.80.0",
+                           "comment_posted":  false
+                       }
+                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM49pJXp",
@@ -87,18 +99,6 @@
     "unread_comments":  4,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:35:29Z",
-    "notes":  "",
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Resize RDP connections on monitor connect/disconnect",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  "v1.80.0",
-                           "comment_posted":  false
-                       }
-                   ]
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }

@@ -15,6 +15,18 @@
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "duplicate",
+                           "description":  "Duplicate of #2160 (fixed in PR #3126)",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ],
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDU5NzcxNjU3Ng==",
@@ -66,18 +78,6 @@
     "unread_comments":  3,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:39:35Z",
-    "notes":  "",
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "duplicate",
-                           "description":  "Duplicate of #2160 (fixed in PR #3126)",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  null,
-                           "comment_posted":  false
-                       }
-                   ]
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }

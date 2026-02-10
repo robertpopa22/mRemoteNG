@@ -17,6 +17,18 @@
     "target_release":  "v1.79.0",
     "our_branch":  null,
     "our_pr":  3106,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Close panel race fix",
+                           "pr":  3106,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mX-2P",
@@ -57,20 +69,8 @@
                  ],
     "comments_cursor":  "2026-02-09T06:26:16Z",
     "unread_comments":  0,
-    "needs_action":  true,
+    "needs_action":  false,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:35:29Z",
-    "notes":  "",
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Close panel race fix",
-                           "pr":  3106,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ]
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }

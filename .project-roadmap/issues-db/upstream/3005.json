@@ -18,6 +18,18 @@
     "target_release":  "v1.79.0",
     "our_branch":  null,
     "our_pr":  3110,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "SqlClient SNI runtime references",
+                           "pr":  3110,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7ahVRP",
@@ -96,18 +108,6 @@
     "unread_comments":  4,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:35:29Z",
-    "notes":  "",
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "SqlClient SNI runtime references",
-                           "pr":  3110,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ]
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }

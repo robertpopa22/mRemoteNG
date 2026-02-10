@@ -128,7 +128,7 @@
                          "id":  "IC_kwDOAAcIMM7m_63a",
                          "analyzed":  false,
                          "is_ours":  true,
-                         "snippet":  "@Alessio71 Thank you for testing v1.79.0 and confirming the issue persists. The comma-splitting behavior in batch files is a known edge case that our PR #3109 escaping didn\u0027t fully address for `.cmd` arguments.\n\nA fix is being worked on - will update here once it\u0027s available.",
+                         "snippet":  "@Alessio71 Thank you for testing v1.79.0 and confirming the issue persists. The comma-splitting behavior in batch files is a known edge case that our PR #3109 escaping didn\u0027t fully address for `.cmd` arguments.\n\nA fix is being worked on ΓÇö will update here once it\u0027s available.",
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-10T06:04:01Z"
@@ -138,6 +138,6 @@
     "unread_comments":  3,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
+    "last_synced":  "2026-02-10T10:15:26Z",
     "notes":  "ITERATION EXAMPLE: Fix applied (PR #3109) -\u003e user tested -\u003e still broken for .cmd batch files -\u003e re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }

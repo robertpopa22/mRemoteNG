@@ -9,10 +9,10 @@
                ],
     "author":  "Galandrix",
     "created_at":  "2021-04-17T13:38:54Z",
-    "github_updated_at":  "2026-02-08T03:24:11Z",
+    "github_updated_at":  "2026-02-10T06:55:32Z",
     "body_snippet":  "Hello, could you please fix winbox integration? When i start winbox, gray window is apear.\r\n\r\n![image](https://user-images.githubusercontent.com/27976371/115115173-8977a900-9f9b-11eb-9b82-53cf43e739af.png)\r\n",
-    "our_status":  "new",
-    "priority":  null,
+    "our_status":  "triaged",
+    "priority":  "P3-enhancement",
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
@@ -46,12 +46,21 @@
                          "author":  "Galandrix",
                          "action_needed":  true,
                          "date":  "2026-02-08T03:24:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nArmE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have tested on mRemoteNG 1.78.2 NB 3228 - still exist, but where to find - fork v1.79.x or upstream dev?",
+                         "author":  "Galandrix",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T06:55:32Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-08T03:24:11Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T06:43:06Z",
+    "comments_cursor":  "2026-02-10T06:55:32Z",
+    "unread_comments":  0,
+    "needs_action":  false,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T10:15:26Z",
     "notes":  ""
 }

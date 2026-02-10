@@ -15,15 +15,6 @@
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2025-12-05T21:09:04Z",
-    "unread_comments":  0,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T07:39:35Z",
-    "notes":  "",
     "iterations":  [
                        {
                            "seq":  1,
@@ -35,5 +26,14 @@
                            "release":  null,
                            "comment_posted":  false
                        }
-                   ]
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2025-12-05T21:09:04Z",
+    "unread_comments":  0,
+    "needs_action":  false,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T10:15:26Z",
+    "notes":  ""
 }
