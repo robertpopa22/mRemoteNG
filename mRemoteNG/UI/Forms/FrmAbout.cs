@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using mRemoteNG.App.Info;
 using mRemoteNG.Themes;
@@ -77,29 +78,74 @@ namespace mRemoteNG.UI.Forms
 
         private void OpenUrl(string url)
         {
+            // Validate URL format to prevent injection
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+            
+            // Basic URL validation - ensure it starts with http:// or https://
+            if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
+                !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                // Invalid URL format - don't try to open it
+                return;
+            }
+            
             try
             {
-                Process.Start(url);
+                // Use the standard .NET approach for opening URLs securely
+                // UseShellExecute=true delegates to the OS default handler
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
             }
             catch
             {
-                // hack because of this: https://github.com/dotnet/corefx/issues/10361
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                // Fallback for older .NET Core versions with bug: https://github.com/dotnet/corefx/issues/10361
+                // Use platform-specific URL launchers
+                try
                 {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    {
+                        // Use rundll32 with url.dll as fallback
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = "rundll32.exe",
+                            UseShellExecute = false,
+                            CreateNoWindow = true
+                        };
+                        startInfo.ArgumentList.Add("url.dll,FileProtocolHandler");
+                        startInfo.ArgumentList.Add(url);
+                        Process.Start(startInfo);
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    {
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = "xdg-open",
+                            UseShellExecute = false
+                        };
+                        startInfo.ArgumentList.Add(url);
+                        Process.Start(startInfo);
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    {
+                        var startInfo = new ProcessStartInfo
+                        {
+                            FileName = "open",
+                            UseShellExecute = false
+                        };
+                        startInfo.ArgumentList.Add(url);
+                        Process.Start(startInfo);
+                    }
                 }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                catch
                 {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
+                    // Unable to open URL - notify the user
+                    Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg, 
+                        "Unable to open URL in browser. Please open manually: " + url, true);
                 }
             }
         }
