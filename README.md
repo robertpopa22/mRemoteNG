@@ -8,11 +8,11 @@
 > Based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
 
 <p align="center">
-  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0">
-    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.79.0-blue?style=for-the-badge">
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0">
+    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.80.0-blue?style=for-the-badge">
   </a>
-  <a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.80">
-    <img alt="In Development" src="https://img.shields.io/badge/dev-v1.80.0-orange?style=for-the-badge">
+  <a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.81">
+    <img alt="In Development" src="https://img.shields.io/badge/dev-v1.81.0-orange?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
@@ -24,26 +24,55 @@
 
 ---
 
-## Latest Stable Release — v1.79.0
+## Latest Stable Release — v1.80.0
 
-<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0">
-  <img alt="Stable v1.79.0" src="https://img.shields.io/badge/stable-v1.79.0-blue">
+<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0">
+  <img alt="Stable v1.80.0" src="https://img.shields.io/badge/stable-v1.80.0-blue">
 </a>
 
-| Platform | Download |
-|----------|----------|
-| Windows x64 | [mRemoteNG-v1.79.0-x64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-x64.zip) |
-| Windows x86 | [mRemoteNG-v1.79.0-x86.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-x86.zip) |
-| Windows ARM64 | [mRemoteNG-v1.79.0-arm64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-arm64.zip) |
+| Variant | x64 | x86 | ARM64 |
+|---------|-----|-----|-------|
+| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-arm64.zip) |
+| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-arm64-selfcontained.zip) |
 
-**Requirements:** [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe)
+**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe).
+**Self-contained** includes the .NET runtime — no prerequisites needed.
 
 <details>
-<summary><strong>What's in v1.79.0?</strong> (26 bug fixes, security hardening, test suite)</summary>
+<summary><strong>What's in v1.80.0?</strong></summary>
 
-### Security
-- LDAP filter sanitizer and XML importer guardrails
-- ProcessStart argument hardening and shell escaping
+### Highlights
+- **Self-contained build variant** — includes .NET runtime, no install needed
+- **6 security hardening items** — encryption keys, auth levels, PBKDF2 600K, SSH wipe, HTTPS vaults
+- **External tool tokens** — `%PUTTYSESSION%`, `%ENVIRONMENTTAGS%`, `%SSHOPTIONS%`
+- **Options panel stability** — Cancel properly reverts, SQL fields work
+- **Batch file password fix** — comma in passwords no longer splits args
+
+### New Features
+- Self-contained (.NET embedded) build — no .NET runtime installation required
+- JSON export, protocol/tag filtering, quick connect history
+- Connection audit log, keyboard shortcuts panel
+- Middle-click: open connection from tree, close tab
+- Live theme switching (no restart), crash dialog auto-submit
+
+### Bug Fixes
+- External tool comma-splitting in batch files (#3044)
+- Options panel Cancel now reverts theme changes (#2914)
+- "Always show panel tabs" no longer corrupts Options (#2910)
+- SQL Server options fields properly enable (#2913)
+- RDP auto-resize on monitor connect/disconnect (#2142)
+- 15+ additional stability fixes
+
+### Performance
+- SQL hierarchy O(n^2) → O(n), async RDP init, yield return child lists
+- Dual-build matrix: 6 builds per release, mandatory code signing
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
+
+</details>
+
+<details>
+<summary><strong>Previous release: v1.79.0</strong> (26 bug fixes, security hardening, test suite)</summary>
 
 ### Bug Fixes (26 total)
 - **RDP:** SmartSize focus loss, fullscreen toggle guard, refocus after exit, RCW disconnect safety
@@ -54,91 +83,13 @@
 
 ### Quality
 - 2179 tests passing (81 pre-existing failures fixed, 31 new tests added)
-- Zero flaky tests
 - .NET 10, 3-architecture support (x64, x86, ARM64)
 
-### All Fixes — Detailed Table
-
-| PR | Issue | Description |
-|----|-------|-------------|
-| [#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105) | — | LDAP sanitizer and importer guardrails |
-| [#3106](https://github.com/mRemoteNG/mRemoteNG/pull/3106) | [#3069](https://github.com/mRemoteNG/mRemoteNG/issues/3069) | Close panel race fix |
-| [#3107](https://github.com/mRemoteNG/mRemoteNG/pull/3107) | [#3092](https://github.com/mRemoteNG/mRemoteNG/issues/3092) | 1Password parser and fallback fix |
-| [#3108](https://github.com/mRemoteNG/mRemoteNG/pull/3108) | [#2972](https://github.com/mRemoteNG/mRemoteNG/issues/2972) | Default external provider fix |
-| [#3109](https://github.com/mRemoteNG/mRemoteNG/pull/3109) | — | ProcessStart hardening and escaping |
-| [#3110](https://github.com/mRemoteNG/mRemoteNG/pull/3110) | [#3005](https://github.com/mRemoteNG/mRemoteNG/issues/3005) | SqlClient SNI runtime references |
-| [#3111](https://github.com/mRemoteNG/mRemoteNG/pull/3111) | [#1916](https://github.com/mRemoteNG/mRemoteNG/issues/1916) | SQL schema compatibility hardening |
-| [#3112](https://github.com/mRemoteNG/mRemoteNG/pull/3112) | [#850](https://github.com/mRemoteNG/mRemoteNG/issues/850) | Config panel splitter width reset |
-| [#3113](https://github.com/mRemoteNG/mRemoteNG/pull/3113) | [#1969](https://github.com/mRemoteNG/mRemoteNG/issues/1969) | Startup path fallback |
-| [#3114](https://github.com/mRemoteNG/mRemoteNG/pull/3114) | [#822](https://github.com/mRemoteNG/mRemoteNG/issues/822) | PuTTY provider failure handling |
-| [#3115](https://github.com/mRemoteNG/mRemoteNG/pull/3115) | [#2785](https://github.com/mRemoteNG/mRemoteNG/issues/2785) | PuTTY CJK session name decoding |
-| [#3116](https://github.com/mRemoteNG/mRemoteNG/pull/3116) | [#2735](https://github.com/mRemoteNG/mRemoteNG/issues/2735) | RDP SmartSize focus loss fix |
-| [#3117](https://github.com/mRemoteNG/mRemoteNG/pull/3117) | [#847](https://github.com/mRemoteNG/mRemoteNG/issues/847) | RDP fullscreen toggle guard |
-| [#3118](https://github.com/mRemoteNG/mRemoteNG/pull/3118) | [#1650](https://github.com/mRemoteNG/mRemoteNG/issues/1650) | RDP refocus after fullscreen exit |
-| [#3119](https://github.com/mRemoteNG/mRemoteNG/pull/3119) | [#2510](https://github.com/mRemoteNG/mRemoteNG/issues/2510) | RDP SmartSize RCW disconnect fix |
-| [#3120](https://github.com/mRemoteNG/mRemoteNG/pull/3120) | [#2987](https://github.com/mRemoteNG/mRemoteNG/issues/2987) | Settings path logging |
-| [#3121](https://github.com/mRemoteNG/mRemoteNG/pull/3121) | [#2673](https://github.com/mRemoteNG/mRemoteNG/issues/2673) | Require password before disabling protection |
-| [#3122](https://github.com/mRemoteNG/mRemoteNG/pull/3122) | [#1649](https://github.com/mRemoteNG/mRemoteNG/issues/1649) | Master password autolock on minimize/idle |
-| [#3123](https://github.com/mRemoteNG/mRemoteNG/pull/3123) | [#1634](https://github.com/mRemoteNG/mRemoteNG/issues/1634) | PROTOCOL external tool token |
-| [#3124](https://github.com/mRemoteNG/mRemoteNG/pull/3124) | [#2270](https://github.com/mRemoteNG/mRemoteNG/issues/2270) | Main close cancel behavior |
-| [#3125](https://github.com/mRemoteNG/mRemoteNG/pull/3125) | [#811](https://github.com/mRemoteNG/mRemoteNG/issues/811) | Startup XML recovery |
-| [#3126](https://github.com/mRemoteNG/mRemoteNG/pull/3126) | [#2160](https://github.com/mRemoteNG/mRemoteNG/issues/2160) | Empty panel close after last tab |
-| [#3127](https://github.com/mRemoteNG/mRemoteNG/pull/3127) | [#2161](https://github.com/mRemoteNG/mRemoteNG/issues/2161) | Tab drag autoscroll on overflow |
-| [#3128](https://github.com/mRemoteNG/mRemoteNG/pull/3128) | [#2171](https://github.com/mRemoteNG/mRemoteNG/issues/2171) | Config connections panel focus |
-| [#3129](https://github.com/mRemoteNG/mRemoteNG/pull/3129) | [#2166](https://github.com/mRemoteNG/mRemoteNG/issues/2166) | Tab close race under resize |
-| [#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130) | [#2155](https://github.com/mRemoteNG/mRemoteNG/issues/2155) | Inheritance label width fix |
+[v1.79.0 release page](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0)
 
 </details>
 
 [View all releases](https://github.com/robertpopa22/mRemoteNG/releases)
-
----
-
-## In Development — v1.80.0
-
-<a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.80">
-  <img alt="Dev v1.80.0" src="https://img.shields.io/badge/dev-v1.80.0-orange">
-</a>
-
-> **Note:** v1.80.0 is under active development on the [`release/1.80`](https://github.com/robertpopa22/mRemoteNG/tree/release/1.80) branch. No release artifacts yet.
-
-<details>
-<summary><strong>What's planned for v1.80.0?</strong></summary>
-
-### New Features
-- Self-contained (.NET embedded) build variant — no .NET runtime installation required
-- JSON export format for connection data alongside existing XML/CSV
-- Protocol/tag tree filtering: search with `protocol:RDP` or `tag:production` prefixes
-- `%ENVIRONMENTTAGS%` and `%SSHOPTIONS%` external tool tokens
-- Quick connect history persistence across application restarts
-- Connection audit log with timestamps
-
-### Security
-- Hardcoded legacy encryption key extracted to named constant
-- RDP default authentication level changed to WarnOnFailedAuth
-- Master password minimum length increased to 8 characters with complexity requirement
-- PBKDF2 iterations increased from 1K/10K to 600K (auto-upgrade on save)
-- SSH temporary private key files securely wiped before deletion
-- Vault clients require HTTPS URLs
-
-### UI/UX
-- Live theme switching without restart
-- Keyboard shortcuts reference panel
-- Accessibility improvements (AccessibleName/Description on main controls)
-- Middle-click to open connection / close tab
-- Crash dialog with auto-submit GitHub issue
-
-### Performance
-- SQL hierarchy building optimized from O(n^2) to O(n)
-- RDP initialization: async instead of blocking DoEvents loop
-- MessageCollector capped at 10K messages
-- GetRecursiveChildList converted to yield return (zero allocations)
-
-### Build
-- Dual-build matrix: 6 builds per release (3 framework-dependent + 3 self-contained)
-- Mandatory Authenticode code signing via SignPath Foundation
-
-</details>
 
 ---
 
@@ -192,7 +143,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
 ## Upstream Relationship
 
 This fork is based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
-All 26 fixes from v1.79.0 have individual PRs open on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)), ready for upstream merge.
+v1.79.0 fixes have individual PRs on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)).
+v1.80.0 consolidated status: [#3133](https://github.com/mRemoteNG/mRemoteNG/issues/3133).
 
 ## License
 
