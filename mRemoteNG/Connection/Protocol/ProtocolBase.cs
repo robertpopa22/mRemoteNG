@@ -112,6 +112,14 @@ namespace mRemoteNG.Connection.Protocol
         {
         }
 
+        /// <summary>
+        /// Called when system display settings change (e.g., monitor connected/disconnected).
+        /// Override in protocol implementations that need to adapt to new screen dimensions.
+        /// </summary>
+        public virtual void OnDisplaySettingsChanged()
+        {
+        }
+
         public virtual bool Initialize()
         {
             try

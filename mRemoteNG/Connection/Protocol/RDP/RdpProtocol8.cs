@@ -174,6 +174,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
             DoResizeClient();
         }
 
+        public override void OnDisplaySettingsChanged()
+        {
+            if (_frmMain == null || _frmMain.WindowState == FormWindowState.Minimized) return;
+
+            Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,
+                $"DisplaySettingsChanged for '{connectionInfo?.Hostname}' — scheduling resize");
+
+            DoResizeControl();
+            ScheduleDebouncedResize();
+        }
+
         protected override AxHost CreateActiveXRdpClientControl()
         {
             return new AxMsRdpClient8NotSafeForScripting();

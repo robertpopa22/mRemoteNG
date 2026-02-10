@@ -289,6 +289,7 @@ namespace mRemoteNG.UI.Forms
 
             _advancedWindowMenu.BuildAdditionalMenuItems();
             SystemEvents.DisplaySettingsChanged += _advancedWindowMenu.OnDisplayChanged;
+            SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
             ApplyLanguage();
 
             Opacity = 1;
@@ -545,6 +546,27 @@ namespace mRemoteNG.UI.Forms
             Shutdown.StartUpdate();
 
             Debug.Print("[END] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
+        }
+
+        private void OnDisplaySettingsChanged(object sender, EventArgs e)
+        {
+            // Notify all active connections that display settings changed (monitor connect/disconnect)
+            // so they can re-evaluate their resolution (fixes #2142)
+            if (pnlDock.Contents.Count == 0) return;
+
+            foreach (IDockContent dc in pnlDock.Contents)
+            {
+                if (dc is not ConnectionWindow cw) continue;
+                if (cw.Controls.Count < 1) continue;
+                if (cw.Controls[0] is not DockPanel dp) continue;
+
+                foreach (IDockContent tab in dp.Contents)
+                {
+                    if (tab is not UI.Tabs.ConnectionTab ct) continue;
+                    InterfaceControl ifc = InterfaceControl.FindInterfaceControl(ct);
+                    ifc?.Protocol?.OnDisplaySettingsChanged();
+                }
+            }
         }
 
         private int GetOpenConnectionsCount()
