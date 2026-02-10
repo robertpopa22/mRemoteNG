@@ -5,9 +5,7 @@
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` (syncs with upstream `v1.78.2-dev`)
-- **Release branch:** `release/1.80` (v1.80.0 — self-contained builds + security/perf/features)
-- **Previous release:** `release/1.79` (v1.79.0 cumulative release)
+- **Main branch:** `main` — active development branch (latest code, currently v1.80.0+)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -117,21 +115,24 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 
 ## Branch Strategy & Naming Convention
 
-### Active branches
+### Branch model
 | Branch | Purpose |
 |--------|---------|
-| `main` | Default branch, syncs with `upstream/v1.78.2-dev` |
-| `release/1.80` | v1.80.0 — RELEASED 2026-02-10 (self-contained builds + security/perf/features) |
-| `release/1.79` | v1.79.0 — RELEASED 2026-02-09 (26 fixes + tests + docs) |
+| `main` | **Active development** — always contains the latest code. Default branch on GitHub. |
+| `release/1.79` | Historical — v1.79.0 release (frozen) |
+| `release/1.80` | Historical — v1.80.0 release (frozen, merged into main) |
 
-### Naming convention for new branches
+- **Development happens on `main`**. No separate release branches needed unless maintaining parallel versions.
+- **Releases are marked with tags** (`v1.80.0`, `v1.81.0`, etc.)
+- **Upstream changes** are fetched and merged directly into `main`.
+
+### Naming convention for feature branches
 | Prefix | When | Example |
 |--------|------|---------|
 | `fix/<issue>-<desc>` | Bug fix | `fix/2735-rdp-smartsize-focus` |
 | `feat/<issue>-<desc>` | New feature | `feat/1634-protocol-token` |
 | `security/<desc>` | Security hardening | `security/ldap-sanitizer` |
 | `chore/<desc>` | Infra, deps, CI | `chore/sqlclient-sni-runtime` |
-| `release/<version>` | Release branch | `release/1.80` |
 
 **Rules:**
 - Issue number after `/` when an issue exists
@@ -145,9 +146,9 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 ```
 
 ## PR Workflow
-1. Create branch from `main`: `git checkout -b fix/<issue>-<desc>`
-2. Test locally (build + run)
-3. Push and create PR targeting `v1.78.2-dev` on upstream `mRemoteNG/mRemoteNG`
+1. Create feature branch from `main`: `git checkout -b fix/<issue>-<desc>`
+2. Develop and test locally (build + run)
+3. Merge back into `main` (or push and create PR targeting `v1.78.2-dev` on upstream)
 
 ## Release Checklist
 1. **MANDATORY: Run Issue Intelligence System sync** (see below)
