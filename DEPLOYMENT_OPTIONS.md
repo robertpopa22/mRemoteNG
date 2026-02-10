@@ -164,14 +164,4 @@ The original workflow `Build_and_Release_mR-NB.yml` is preserved. To migrate:
 2. Rename new workflow: `Build_and_Release_mR-NB-MultiDeploy.yml` → `Build_and_Release_mR-NB.yml`
 3. Commit and push with "NB release" in message
 
-Or run both workflows in parallel:
-- Old workflow: produces only Framework-Dependent builds
-- New workflow: produces all four variants
 
-## Future Enhancements
-
-Possible improvements:
-- Add single-file deployment option (`PublishSingleFile=true`)
-- Implement trimming to reduce self-contained size
-- Add compression option for even smaller packages
-- Create installer packages (.msi) for both deployment types
