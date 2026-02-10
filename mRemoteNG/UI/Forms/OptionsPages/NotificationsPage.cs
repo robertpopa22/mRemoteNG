@@ -417,8 +417,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 startInfo.ArgumentList.Add("/select,");
                 startInfo.ArgumentList.Add(path);
                 Process.Start(startInfo);
-            return true;
-        }
+                return true;
+            }
             catch
             {
                 // If necessary, the error can be logged here.
