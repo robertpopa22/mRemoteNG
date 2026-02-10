@@ -140,6 +140,17 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 2. Test locally (build + run)
 3. Push and create PR targeting `v1.78.2-dev` on upstream `mRemoteNG/mRemoteNG`
 
+## Release Checklist
+1. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
+2. Run tests (2179 total, verify zero regressions)
+3. Update CHANGELOG.md
+4. Tag and publish GitHub release
+5. **IMPORTANT: Check upstream issues (last 48h) for new comments and respond:**
+   - Acknowledge bug reports with fix status or ETA
+   - Thank users who confirm fixes
+   - Point users to the new release download link
+   - Respond to questions about availability/compatibility
+
 ## v1.79.0 PR Reference (historical — branches cleaned up 2026-02-09)
 | PR# | Issue | Description |
 |-----|-------|-------------|
