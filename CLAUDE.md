@@ -1,5 +1,7 @@
 # mRemoteNG - Build & Development Notes
 
+> **Parent:** [../CLAUDE.md](../CLAUDE.md) (Gestime Ecosystem — reguli universale)
+
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
