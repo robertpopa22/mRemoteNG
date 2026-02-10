@@ -41,6 +41,9 @@ namespace mRemoteNG.App
         {
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
+#if !SELF_CONTAINED
+            // Runtime checks only needed for framework-dependent deployments
+            // Self-contained builds include the runtime, so no check is needed
             string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();
             //installedVersion = ""; // Force check for testing purposes
 
@@ -106,6 +109,7 @@ namespace mRemoteNG.App
             {
                 Environment.Exit(0);
             }
+#endif
 
             Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
             if (singleInstanceOption.Value)
