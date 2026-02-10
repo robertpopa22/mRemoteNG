@@ -39,7 +39,8 @@ namespace mRemoteNGTests.Tools
                 MacAddress = TestString,
                 UserField = TestString,
                 EnvironmentTags = TestString,
-                SSHOptions = TestString
+                SSHOptions = TestString,
+                PuttySession = TestString
             };
             _argumentParser = new ExternalToolArgumentParser(connectionInfo);
         }
@@ -108,6 +109,9 @@ namespace mRemoteNGTests.Tools
                     yield return new TestCaseData("%SSHOPTIONS%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-SSHOPTIONS%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!SSHOPTIONS%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%PUTTYSESSION%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-PUTTYSESSION%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!PUTTYSESSION%").Returns(StringAfterNoEscaping);
                     yield return new TestCaseData("%%") {TestName = "EmptyVariableTagsNotParsed" }.Returns("%%");
                     yield return new TestCaseData("/k echo %!USERNAME%") { TestName = "ParsingWorksWhenVariableIsNotInFirstPosition" }.Returns(SampleCommandString);
                     yield return new TestCaseData("%COMSPEC%") { TestName = "EnvironmentVariablesParsed" }.Returns(Environment.GetEnvironmentVariable("comspec"));

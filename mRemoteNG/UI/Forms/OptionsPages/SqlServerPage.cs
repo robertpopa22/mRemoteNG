@@ -168,6 +168,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             if (!chkUseSQLServer.Enabled) return;
             pnlServerBlock.Visible = useSQLServer;
+            pnlServerBlock.Enabled = useSQLServer;
         }
 
         private void btnExpandOptions_Click(object sender, EventArgs e)

@@ -364,8 +364,20 @@ namespace mRemoteNG.UI.Forms
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Logger.Instance.Log?.Debug($"[BtnCancel_Click] START");
-            // When Cancel is clicked, we don't check for changes
-            // The user explicitly wants to cancel
+
+            foreach (OptionsPage page in _optionPages)
+            {
+                try
+                {
+                    page.RevertSettings();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Instance.Log?.Warn($"[BtnCancel_Click] RevertSettings failed for {page.GetType().Name}: {ex.Message}");
+                }
+            }
+
+            ClearChangeFlags();
             this.Visible = false;
             Logger.Instance.Log?.Debug($"[BtnCancel_Click] END - Visible set to false");
         }

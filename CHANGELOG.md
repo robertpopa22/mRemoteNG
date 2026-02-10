@@ -3,13 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.80.0] - Unreleased (Community Edition)
+## [1.80.0] - 2026-02-10 (Community Edition)
 
 ### Added
 - Self-contained (.NET embedded) build variant — no .NET runtime installation required (#2998)
 - JSON export format for connection data alongside existing XML/CSV
 - Protocol/tag tree filtering: search with `protocol:RDP` or `tag:production` prefixes
-- `%ENVIRONMENTTAGS%` and `%SSHOPTIONS%` external tool tokens
+- `%ENVIRONMENTTAGS%`, `%SSHOPTIONS%`, and `%PUTTYSESSION%` external tool tokens (#2046)
 - Quick connect history persistence across application restarts (quickConnectHistory.xml)
 - Connection audit log (connectionAudit.log) — logs connect/disconnect/error events with timestamps
 
@@ -36,6 +36,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - RDP connections now auto-resize when monitor is connected/disconnected (HDMI/DisplayPort hot-plug) (#2142)
 - OptionsPage Dispose crash on non-STA finalizer thread (NullReferenceException in Control.ContextMenuStrip) — fixes test host crashes
 - Stopwatch namespace bug in ConnectionInitiator SSH tunnel wait loop (System.Net.Sockets → System.Diagnostics)
+- External tool: password with comma no longer splits into multiple args in batch files (#3044)
+- Options panel: Cancel button now properly reverts theme and other preview changes (#2914)
+- Options panel: "Always show panel tabs" no longer corrupts Options display (#2910)
+- SQL Server options: fields now properly enable when SQL mode is activated (#2913)
+- SQL Server options: checkbox font normalized from 12pt to 9pt for consistent layout (#2913)
 
 ### UI/UX
 - Live theme switching: changing themes no longer requires an application restart

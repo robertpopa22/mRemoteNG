@@ -216,6 +216,9 @@ namespace mRemoteNG.Tools
                 case "sshoptions":
                     replacement = _connectionInfo.SSHOptions;
                     break;
+                case "puttysession":
+                    replacement = _connectionInfo.PuttySession;
+                    break;
                 default:
                     return original;
             }

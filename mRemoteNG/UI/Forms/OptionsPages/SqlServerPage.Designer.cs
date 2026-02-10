@@ -1141,7 +1141,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // chkUseSQLServer
             // 
             chkUseSQLServer.AutoSize = true;
-            chkUseSQLServer.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
+            chkUseSQLServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
             chkUseSQLServer.Location = new System.Drawing.Point(15, 89);
             chkUseSQLServer.Name = "chkUseSQLServer";
             chkUseSQLServer.Size = new System.Drawing.Size(240, 25);
