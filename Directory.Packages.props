@@ -5,7 +5,7 @@
     <NoWarn>$(NoWarn);NU1507;NU1701</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="AWSSDK.Core" Version="4.0.3.12" />
+    <PackageVersion Include="AWSSDK.Core" Version="4.0.3.13" />
     <PackageVersion Include="AWSSDK.EC2" Version="4.0.72" />
     <PackageVersion Include="BouncyCastle.Cryptography" Version="2.6.2" />
     <PackageVersion Include="Castle.Core" Version="5.2.1" />
