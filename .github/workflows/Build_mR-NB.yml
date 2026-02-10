@@ -182,7 +182,7 @@ jobs:
           echo "Size: $([math]::Round($fileSize, 2)) MB"
 
       - name: (10) Upload artifacts for combination
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: release-${{ matrix.arch }}-${{ matrix.deploy_suffix }}
           path: ${{ steps.version.outputs.zipname }}
@@ -196,7 +196,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           path: artifacts
 
