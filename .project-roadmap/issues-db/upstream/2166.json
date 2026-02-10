@@ -12,14 +12,11 @@
     "created_at":  "2022-02-11T19:48:33Z",
     "github_updated_at":  "2026-02-09T06:27:49Z",
     "body_snippet":  "I am not sure how to completely reproduce this, but have experienced a crash when I use regular RDP to an instance (ie - juimp server) and run mRemoteNG in that RDP session. When the RDP resizes or if I disconnect, I notice that in some special instances mRemoteNG tabs will become messed up and disassociate with the RDP session. They cannot be closed or removed unless you exit the app. I don\u0027t know how toi reproduce this 100%, but noted that it happens when mRemoteNG remains connected in an RDP ...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3129,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM49y0Jk",
@@ -80,6 +77,18 @@
     "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Tab close race under resize",
+                           "pr":  3129,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

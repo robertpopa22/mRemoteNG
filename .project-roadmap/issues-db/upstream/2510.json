@@ -12,14 +12,11 @@
     "created_at":  "2023-10-19T07:39:12Z",
     "github_updated_at":  "2026-02-09T06:27:07Z",
     "body_snippet":  "When moving the mRemoteNG main window it goes from full screen to window size. \r\n\r\nIf there is an active RDP connection, the following error pops up:\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/4305825/6b7dcd3b-c8eb-4237-806a-787275b4e2af)\r\n\r\n   at System.StubHelpers.StubHelpers.GetCOMIPFromRCW(Object objSrc, IntPtr pCPCMD, IntPtr\u0026 ppTarget, Boolean\u0026 pfNeedsRelease)\r\n   at MSTSCLib.IMsRdpClient6.get_AdvancedSettings2()\r\n   at mRemoteNG.Connection.Protocol.RDP.RdpProtocol.get_SmartS...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3119,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mXE6X",
@@ -62,6 +59,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "RDP SmartSize RCW disconnect fix",
+                           "pr":  3119,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

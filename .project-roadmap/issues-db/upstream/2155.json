@@ -12,14 +12,11 @@
     "created_at":  "2022-02-03T10:06:00Z",
     "github_updated_at":  "2026-02-09T06:27:54Z",
     "body_snippet":  "In the Inheritance window, the field names are often cut off due to length.  There is no means to expand the space allocated to the field names.\r\nExample:  \"Server Authentication\" is cut off at \"Server Authentica\".\r\n\r\n## Expected Behavior\r\nField names should be fully visible.\r\n\r\n## Current Behavior\r\nField names are sometimes cut off.\r\n\r\n## Possible Solution\r\nExpand field column width with text length.\r\n\r\n## Your Environment\r\nWindows 10 Enterprise 64-bit 20H2.",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3130,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM49UqcC",
@@ -80,6 +77,18 @@
     "unread_comments":  3,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Inheritance label width fix",
+                           "pr":  3130,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

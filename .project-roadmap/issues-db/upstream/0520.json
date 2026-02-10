@@ -13,14 +13,11 @@
     "created_at":  "2017-04-20T14:16:42Z",
     "github_updated_at":  "2026-02-07T19:12:17Z",
     "body_snippet":  "\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 Pro x64 |\r\n|mRemoteNG version| 1.75 hotfix 1 (2017-03-06)|\r\n\r\nHello all. I\u0027ve searched on the internet and I find many people reporting this issue. On foruns and Jira, but I didn\u0027t find the issue here. \r\nAlso reports I found are old.\r\n\r\nBasically, when i have mRemoteNG opened with at least a putty session, I can\u0027t cycle correctly thorough windows applications with alt tab.\r\n\r\n- Have mRemoteNG focused\r\n- Alt + Tab to another App -\u003e stay...",
-    "our_status":  "new",
+    "our_status":  "duplicate",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDI5NTc1ODE0Ng==",
@@ -432,6 +429,18 @@
     "unread_comments":  42,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "duplicate",
+                           "description":  "Duplicate - Alt Tab on Windows 10",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

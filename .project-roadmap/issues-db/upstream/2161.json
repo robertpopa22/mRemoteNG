@@ -13,14 +13,11 @@
     "created_at":  "2022-02-04T22:16:53Z",
     "github_updated_at":  "2026-02-09T06:27:42Z",
     "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen dragging a tab to reposition it in a panel where that tab strip has overflowed, that tab strip no longer scrolls.  This is a regression  in published nightly v1.77.2-nb.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nExpect pre-nightly v1.77.2-nb behavior whereby the tab strip scrolled when dragging ...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3127,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mYUz2",
@@ -63,6 +60,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Tab drag autoscroll on overflow",
+                           "pr":  3127,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

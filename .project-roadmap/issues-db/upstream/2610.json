@@ -11,14 +11,11 @@
     "created_at":  "2024-07-03T06:34:42Z",
     "github_updated_at":  "2026-02-07T20:31:42Z",
     "body_snippet":  "Hi, the last release was in 2019. Since then there have been quite literally hundreds of commits, including features which are mentioned in the documentation but not to be found in the release version.\r\n\r\nSo are there any plans to provide a) a new stable release or b) unstable/testing releases in the future?",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM6E5Rlp",
@@ -133,6 +130,18 @@
     "unread_comments":  11,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Stale - \u0027New release?\u0027 question, v1.79.0 and v1.80.0 now exist",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

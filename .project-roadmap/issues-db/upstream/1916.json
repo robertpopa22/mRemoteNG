@@ -12,14 +12,11 @@
     "created_at":  "2020-12-19T05:54:24Z",
     "github_updated_at":  "2026-02-09T06:26:30Z",
     "body_snippet":  "Hi developers, I am trying to configure mRemoteNG  version 1.77.1.27713 with mysql for saving my config file.\r\nBut I got an error msg while trying to create a new connection file\r\n\r\n## Current Behavior\r\nCouldn\u0027t save connections file as \"\"!\r\nMissing the DataColumn \u0027DisableCursorBlinking\u0027 in the DataTable \u0027tblCons\u0027 for the SourceColumn \u0027DisableCursorBlinking\u0027.\r\nI used this script to create database:\r\nDisableCursorBlinking tinyint(1) NOT NULL,\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Create new dat...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3111,
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDc3MzkzMTk5MA==",
@@ -116,6 +113,18 @@
     "unread_comments":  7,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "SQL schema compatibility hardening",
+                           "pr":  3111,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

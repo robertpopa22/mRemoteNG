@@ -10,14 +10,11 @@
     "created_at":  "2020-08-19T14:16:30Z",
     "github_updated_at":  "2026-02-07T16:39:52Z",
     "body_snippet":  "## Expected Behavior\r\nBe able to set use VM ID to yes and insert a VM ID\r\n\r\n## Current Behavior\r\nUse VM ID attribute and VM ID attribute are not showing up in mRemoteNG\r\n![image](https://user-images.githubusercontent.com/23084292/90646278-47237f80-e1f4-11ea-813b-d2e55c4cba42.png)\r\n\r\n\r\n## Possible Solution\r\nDid I miss a configuration step?\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Start mRemoteNG\r\n2. Create a new connection\r\n3. Look for \r\n\r\n## Context\r\nIt\u0027s the first time I\u0027ve had a need to add a h...",
-    "our_status":  "new",
+    "our_status":  "duplicate",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDY3ODYxNjA3Nw==",
@@ -51,6 +48,18 @@
     "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "duplicate",
+                           "description":  "Duplicate - Can\u0027t find Use VM ID property",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

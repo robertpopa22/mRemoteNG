@@ -12,14 +12,11 @@
     "created_at":  "2026-01-02T14:40:41Z",
     "github_updated_at":  "2026-02-09T06:26:16Z",
     "body_snippet":  "\n## Expected Behavior\nmRemotNG not crash and just close panel and connections in this panel\n\n## Current Behavior\nmRemotNG crash and need to be closed\n\n\n## Possible Solution\n\n## Steps to Reproduce (for bugs)\n\u003c!--- Provide an unambiguous set of steps to reproduce --\u003e\n\u003c!--- this bug. Include code to reproduce, if relevant --\u003e\n1. open 2 or more panels with one or more connections inside\n2. close one panel with one or more connections still opened\n3. some time mRemotNG don\u0027t crash\n\n## Context\n\n\n## Yo...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3106,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mX-2P",
@@ -62,6 +59,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Close panel race fix",
+                           "pr":  3106,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

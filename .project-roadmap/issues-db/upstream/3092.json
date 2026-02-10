@@ -14,14 +14,11 @@
     "created_at":  "2026-01-24T16:44:49Z",
     "github_updated_at":  "2026-02-09T16:51:46Z",
     "body_snippet":  "I\u0027m running Windows 11, 1Password for Windows 8.12.0 (81200013) and mRemoteNG 1.78 Nightly build 3228. \n\nI\u0027ve activated 1P CLI and tested it out in the terminal, it works fine. \n\nI\u0027ve created a RDP connection using IP address, set it to use 1Password as the External Credential Provider. In the API User ID field, I\u0027ve written \n\n`op://My Vault/My RDP item`\n\nWhen I try to connect, I get the normal Windows login dialog with the username prefilled, just like if I use the normal Windows RDP client. I\u0027...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3107,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7iSeKW",
@@ -145,6 +142,18 @@
     "unread_comments":  9,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "1Password parser and fallback fix",
+                           "pr":  3107,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

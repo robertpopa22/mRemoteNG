@@ -10,14 +10,11 @@
     "created_at":  "2020-01-31T15:46:58Z",
     "github_updated_at":  "2026-02-07T16:39:23Z",
     "body_snippet":  "When the last connection/tab in a panel closed the parent panel stays open. Imho it should close or there should be an option for it.\r\nKeeping open empty panels messes up the tab view.\r\n\r\nI\u0027m using version 1.77.1.27654 on windows 10.",
-    "our_status":  "new",
+    "our_status":  "duplicate",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDU5NzcxNjU3Ng==",
@@ -69,6 +66,18 @@
     "unread_comments":  3,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "duplicate",
+                           "description":  "Duplicate of #2160 (fixed in PR #3126)",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

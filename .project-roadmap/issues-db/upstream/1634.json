@@ -13,14 +13,11 @@
     "created_at":  "2019-10-28T15:52:56Z",
     "github_updated_at":  "2026-02-09T06:27:23Z",
     "body_snippet":  "Externalize the variable \"protocol\" for usage in the command line of external tools.\r\n\r\n## Expected Behavior\r\nI\u0027d like to be able to open connections of type HTTP + HTTPS in an external browser.\r\n\r\n## Current Behavior\r\n Currently, I need to external tool entries, to differentiate between HTTP and HTTPS, to make entries of the following kind:\r\n- `\"http://%Hostname%:%PORT%\"`\r\n- `\"https://%Hostname%:%PORT%\"`\r\n\r\nAdditionally, I need to know in advance if a certain entry is of type HTTP or HTTPS, to ...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3123,
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDg2OTY4MTc4NA==",
@@ -81,6 +78,18 @@
     "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "PROTOCOL external tool token",
+                           "pr":  3123,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

@@ -13,14 +13,11 @@
     "created_at":  "2025-12-25T12:17:21Z",
     "github_updated_at":  "2026-02-08T11:43:56Z",
     "body_snippet":  " at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\n   at mRemoteNG.UI.Window.ConnectionWindow.Prot_Event_Closed(Object sender) in D:\\a\\mRemoteNG\\mRemoteNG\\mRemoteNG\\UI\\Window\\ConnectionWindow.cs:line 832\n   at mRemoteNG.Connection.Protocol.ProtocolBase.CloseBG() in D:\\a\\mRemoteNG\\mRemoteNG\\mRemoteNG\\Connection\\Protocol\\ProtocolBase.cs:line 155\n   at System....",
-    "our_status":  "new",
+    "our_status":  "duplicate",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mYik-",
@@ -54,6 +51,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "duplicate",
+                           "description":  "Duplicate of #3069 (fixed in PR #3106)",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

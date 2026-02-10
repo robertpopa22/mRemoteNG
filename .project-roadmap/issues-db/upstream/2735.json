@@ -14,14 +14,11 @@
     "created_at":  "2025-08-19T21:11:20Z",
     "github_updated_at":  "2026-02-09T06:26:52Z",
     "body_snippet":  "I\u0027m using \"RDP\u0027s\" in SmartSize mode, and each time i\u0027m hitting [Alt + TAB] or [Win + TAB], and back to mRemote, it has lost fokus on the RDP session, and you had to click with the mouse in the window to get focus\n\nThe current version \"mRemoteNG 1.78.2 NB 3137\" (and many PreRelease versions before), has this focus problem, but is work in the last stable version.\n\nMaybe reference to: https://github.com/mRemoteNG/mRemoteNG/issues/520\n\nCan you help here @Kvarkas ",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3116,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM6-3nPg",
@@ -73,6 +70,18 @@
     "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "RDP SmartSize focus loss fix",
+                           "pr":  3116,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

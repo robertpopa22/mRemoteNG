@@ -13,14 +13,11 @@
     "created_at":  "2024-04-01T17:18:56Z",
     "github_updated_at":  "2026-02-07T19:52:25Z",
     "body_snippet":  "Failure to redirect connection to TS through the RD Gateway\r\n## Expected Behavior\r\nImporting an existing and functioning RDP connection file and using the loadbalanceinfo field should provide the possibility to connect to and RD Gateway and immediately redirect to a TS application.\r\n\r\n## Current Behavior\r\nThrough the file import, MR is connecting to RD Gateway server, but it\u0027s not redirecting to the TS.\r\n\r\n## Possible Solution\r\n\u003c!--- Not obligatory, but suggest a fix/reason for the bug, --\u003e\r\n\u003c!-...",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7mXE3R",
@@ -45,6 +42,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Stale - RD Gateway failure, likely Windows config",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

@@ -13,14 +13,11 @@
     "created_at":  "2022-01-28T01:56:45Z",
     "github_updated_at":  "2026-02-10T06:02:10Z",
     "body_snippet":  "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.80.0",
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM49pJXp",
@@ -90,6 +87,18 @@
     "unread_comments":  4,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Resize RDP connections on monitor connect/disconnect",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  "v1.80.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

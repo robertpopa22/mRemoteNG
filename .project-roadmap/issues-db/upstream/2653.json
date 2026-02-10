@@ -13,14 +13,11 @@
     "created_at":  "2024-11-13T23:28:24Z",
     "github_updated_at":  "2026-02-08T07:39:04Z",
     "body_snippet":  "When connected to RDP to a server 2025 server RDP clipboard doesnt work, Not able to copy in or out. Works with all other OS Win10/11 Server16-22. Copy paste also works locally on the remote machine from within the rdp session and when using mstsc.exe just not with mremote.\r\n\r\n## Expected Behavior\r\nShould be able to copy in and out normally with RDP clipboard.\r\n\r\n## Current Behavior\r\nClipboard is no longer shared from host or remote machine when using mRemote. Works with MSTSC.exe and can copy n...",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM6TkHmx",
@@ -99,6 +96,18 @@
     "unread_comments":  6,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Stale - RDP clipboard Server 2025, workaround confirmed (rdpclip.exe)",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

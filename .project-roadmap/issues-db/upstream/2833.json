@@ -10,14 +10,11 @@
     "created_at":  "2025-09-29T16:46:17Z",
     "github_updated_at":  "2026-02-10T01:15:21Z",
     "body_snippet":  "This issue lists Renovate updates and detected dependencies. Read the [Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/) docs to learn more.\u003cbr\u003e[View this repository on the Mend.io Web Portal](https://developer.mend.io/github/mRemoteNG/mRemoteNG).\n\n## Open\n\nThe following updates have all been created. To force a retry/rebase of any, click on a checkbox below.\n\n - [ ] \u003c!-- rebase-branch=renovate/aws-sdk-net-monorepo --\u003e[Update dependency AWSSDK.EC2 to 4.0.72](../pull/313...",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
 
                  ],
@@ -25,6 +22,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Not an issue - Renovate bot dependency dashboard",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

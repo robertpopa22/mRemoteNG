@@ -13,14 +13,11 @@
     "created_at":  "2022-08-04T14:39:57Z",
     "github_updated_at":  "2026-02-09T06:27:26Z",
     "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nClicking close on the applications X with a panel open presents the message\r\n_Are you sure you want to close the panel, \"General\"?..._\r\nClicking no should then prevent the panel, and therefore the application from closing, application remains on the taskbar.\r\n\r\n## Current Behavior\r\nThe application disappears from the task bar  - although it remains running in the system tray.\r\n\r\n## Steps to Reproduce (fo...",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3124,
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM5H2UGg",
@@ -81,6 +78,18 @@
     "unread_comments":  3,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Main close cancel behavior",
+                           "pr":  3124,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

@@ -12,14 +12,11 @@
     "created_at":  "2026-01-21T10:55:31Z",
     "github_updated_at":  "2026-02-09T09:17:43Z",
     "body_snippet":  "I am running a clean instance of mRemoteNG 1.78.2 NB 3228 on Win 11 25H2.\n\nWhen using Quick Connect to try to RDP to a machine, I get:\n[Window Title]\nRemote Desktop Connection\n\n[Content]\nAn authentication error has occurred (Code: 0x80080005).\n\nRemote computer: POC01\n\n[^] Hide details  [OK]\n\n[Expanded Information]\nError code: 0x0\nExtended error code: 0x0\nTimestamp (UTC): 01/21/26 10:53:14 AM\nActivity ID: e1c08c6b-b08c-4c30-8d66-c7c1a2c90000\n\n---\nAny suggestions?",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
                      {
                          "id":  "IC_kwDOAAcIMM7hajpP",
@@ -44,6 +41,18 @@
     "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Not our bug - Windows Update KB5074109 auth error, cannot reproduce",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

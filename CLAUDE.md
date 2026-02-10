@@ -267,10 +267,11 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 ### Issue Intelligence DB
 | File | Purpose |
 |------|---------|
+| `.project-roadmap/TRIAGE_PLAN_2026-02-10.md` | **Active triage plan** — 830 issues analyzed, 5-phase execution plan, v1.80.0 scope |
 | `.project-roadmap/issues-db/README.md` | **Full system documentation** — schema, workflow, rules |
 | `.project-roadmap/issues-db/_meta.json` | Sync metadata: last run, stats, config, comment templates |
 | `.project-roadmap/issues-db/_roadmap.json` | Prioritized items for next release |
-| `.project-roadmap/issues-db/upstream/` | Per-issue JSON files from `mRemoteNG/mRemoteNG` |
+| `.project-roadmap/issues-db/upstream/` | Per-issue JSON files from `mRemoteNG/mRemoteNG` (830 files) |
 | `.project-roadmap/issues-db/fork/` | Per-issue JSON files from `robertpopa22/mRemoteNG` |
 | `.project-roadmap/issues-db/reports/` | Generated markdown reports |
 

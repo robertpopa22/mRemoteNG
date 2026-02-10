@@ -11,14 +11,11 @@
     "created_at":  "2025-01-21T15:32:42Z",
     "github_updated_at":  "2025-02-12T11:48:59Z",
     "body_snippet":  "**Issue**\nSearch word \"variables\" using search field on documentation page\n\n![Image](https://github.com/user-attachments/assets/761ed9b1-f42f-43c9-9edb-8a284e68fe95)\nResults are:\n\n![Image](https://github.com/user-attachments/assets/29b91220-e1c0-4cf6-999d-d1a1e0cbe00a)\n\nSearch results are incomplete. For example, missed page with the list of available variables\n",
-    "our_status":  "new",
+    "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "iterations":  [
-
-                   ],
     "comments":  [
 
                  ],
@@ -26,6 +23,18 @@
     "unread_comments":  0,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:39:35Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "wontfix",
+                           "description":  "Website issue - not application code",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       }
+                   ]
 }

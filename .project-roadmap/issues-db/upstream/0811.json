@@ -11,14 +11,11 @@
     "created_at":  "2017-11-20T10:50:12Z",
     "github_updated_at":  "2026-02-09T06:27:35Z",
     "body_snippet":  "\u003c!-- Bug --\u003e\r\n|Application┬á: mRemoteNG.exe\r\nVersion du Framework┬á: v4.0.30319\r\nDescription : le processus a ├⌐t├⌐ arr├¬t├⌐ en raison d\u0027une exception non g├⌐r├⌐e.\r\nInformations sur l\u0027exception┬á: System.Xml.XmlException\r\nSee complete error in attachment\r\n\r\nl|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| : 1.75.7011.34963  |\r\n\r\n[error.txt](https://github.com/mRemoteNG/mRemoteNG/files/1487305/error.txt)\r\n\r\n",
-    "our_status":  "new",
+    "our_status":  "released",
     "priority":  null,
-    "target_release":  null,
+    "target_release":  "v1.79.0",
     "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
+    "our_pr":  3125,
     "comments":  [
                      {
                          "id":  "MDEyOklzc3VlQ29tbWVudDM0NTY4NTg0NA==",
@@ -70,6 +67,18 @@
     "unread_comments":  7,
     "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T06:43:06Z",
-    "notes":  ""
+    "last_synced":  "2026-02-10T07:35:29Z",
+    "notes":  "",
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-10",
+                           "type":  "released",
+                           "description":  "Startup XML recovery",
+                           "pr":  3125,
+                           "branch":  null,
+                           "release":  "v1.79.0",
+                           "comment_posted":  false
+                       }
+                   ]
 }

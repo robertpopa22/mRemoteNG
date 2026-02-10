@@ -127,7 +127,7 @@ Write-Host ""
 
 # --- Validate transition ---
 $validTransitions = @{
-    "new"         = @("triaged", "roadmap", "wontfix", "duplicate")
+    "new"         = @("triaged", "roadmap", "in-progress", "released", "wontfix", "duplicate")
     "triaged"     = @("roadmap", "in-progress", "wontfix", "duplicate")
     "roadmap"     = @("in-progress", "wontfix")
     "in-progress" = @("testing", "roadmap", "wontfix")
