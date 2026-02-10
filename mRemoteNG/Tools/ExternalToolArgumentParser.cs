@@ -15,14 +15,14 @@ namespace mRemoteNG.Tools
     {
         private readonly ConnectionInfo _connectionInfo = connectionInfo;
 
-        public string ParseArguments(string input)
+        public string ParseArguments(string input, bool escapeForShell = true)
         {
-            List<Replacement> replacements = BuildReplacementList(input);
+            List<Replacement> replacements = BuildReplacementList(input, escapeForShell);
             string result = PerformReplacements(input, replacements);
             return result;
         }
 
-        private List<Replacement> BuildReplacementList(string input)
+        private List<Replacement> BuildReplacementList(string input, bool escapeForShell)
         {
             int index = 0;
             List<Replacement> replacements = new();
@@ -115,19 +115,22 @@ namespace mRemoteNG.Tools
 
                 if (haveReplacement)
                 {
-                    char trailing = tokenEnd + 2 <= input.Length
-                        ? input.Substring(tokenEnd + 1, 1).ToCharArray()[0]
-                        : '\0';
-
-                    if (escape == EscapeType.All)
+                    if (escapeForShell)
                     {
-                        replacementValue = CommandLineArguments.EscapeBackslashes(replacementValue);
-                        if (trailing == '\'')
-                            replacementValue = CommandLineArguments.EscapeBackslashesForTrailingQuote(replacementValue);
-                    }
+                        char trailing = tokenEnd + 2 <= input.Length
+                            ? input.Substring(tokenEnd + 1, 1).ToCharArray()[0]
+                            : '\0';
 
-                    if (escape == EscapeType.All || escape == EscapeType.ShellMetacharacters)
-                        replacementValue = CommandLineArguments.EscapeShellMetacharacters(replacementValue);
+                        if (escape == EscapeType.All)
+                        {
+                            replacementValue = CommandLineArguments.EscapeBackslashes(replacementValue);
+                            if (trailing == '\'')
+                                replacementValue = CommandLineArguments.EscapeBackslashesForTrailingQuote(replacementValue);
+                        }
+
+                        if (escape == EscapeType.All || escape == EscapeType.ShellMetacharacters)
+                            replacementValue = CommandLineArguments.EscapeShellMetacharacters(replacementValue);
+                    }
 
                     replacements.Add(new Replacement(tokenStart, tokenLength, replacementValue));
                     index = tokenEnd + 1;

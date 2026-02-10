@@ -111,39 +111,44 @@ namespace mRemoteNGTests.Tools
         }
 
         [Test]
-        public void PasswordWithCommaIsEscaped()
+        public void PasswordWithCommaIsNotCaretEscaped()
         {
+            // Commas are cmd.exe weak delimiters — caret escaping never protected them.
+            // They are now left unescaped; callers must use double-quoting instead.
             var connectionInfo = new ConnectionInfo
             {
                 Password = "1234,56789"
             };
             var parser = new ExternalToolArgumentParser(connectionInfo);
             var result = parser.ParseArguments("%PASSWORD%");
-            Assert.That(result, Is.EqualTo("1234^,56789"));
+            Assert.That(result, Is.EqualTo("1234,56789"));
         }
 
         [Test]
-        public void PasswordWithSemicolonIsEscaped()
+        public void PasswordWithSemicolonIsNotCaretEscaped()
         {
+            // Semicolons are cmd.exe weak delimiters — caret escaping never protected them.
             var connectionInfo = new ConnectionInfo
             {
                 Password = "1234;56789"
             };
             var parser = new ExternalToolArgumentParser(connectionInfo);
             var result = parser.ParseArguments("%PASSWORD%");
-            Assert.That(result, Is.EqualTo("1234^;56789"));
+            Assert.That(result, Is.EqualTo("1234;56789"));
         }
 
         [Test]
         public void PasswordWithMultipleSpecialCharsIsEscaped()
         {
+            // Only & is still caret-escaped (strong shell metacharacter).
+            // Comma and semicolon are left raw — protected by quoting at the caller level.
             var connectionInfo = new ConnectionInfo
             {
                 Password = "pass,word;test&more"
             };
             var parser = new ExternalToolArgumentParser(connectionInfo);
             var result = parser.ParseArguments("%PASSWORD%");
-            Assert.That(result, Is.EqualTo("pass^,word^;test^&more"));
+            Assert.That(result, Is.EqualTo("pass,word;test^&more"));
         }
 
         [TestCase(ProtocolType.SSH2, "SSH2")]

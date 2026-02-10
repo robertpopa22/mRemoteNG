@@ -253,5 +253,66 @@ namespace mRemoteNGTests.Tools
             // Assert
             Assert.That(process.StartInfo.UseShellExecute, Is.False);
         }
+
+        [Test]
+        public void PasswordWithComma_BatchFile_PassedAsSingleArgument()
+        {
+            // Issue #3044: comma in password must not split into separate arguments
+            // when the target is a batch file (routed through cmd.exe).
+            var connectionInfo = new ConnectionInfo
+            {
+                Password = "1234,56789",
+                Hostname = "testhost",
+                Username = "testuser"
+            };
+
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "test.cmd",
+                Arguments = "-p %PASSWORD%"
+            };
+
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
+
+            // For batch files, Arguments string is used (not ArgumentList).
+            // The password must appear as a single double-quoted argument.
+            Assert.That(process.StartInfo.Arguments, Does.Contain("\"1234,56789\""));
+        }
+
+        [Test]
+        public void PasswordWithComma_ExeFile_PassedCorrectly()
+        {
+            // For .exe targets, ArgumentList is used (C-runtime quoting).
+            // The comma should appear intact in one ArgumentList entry.
+            var connectionInfo = new ConnectionInfo
+            {
+                Password = "1234,56789",
+                Hostname = "testhost",
+                Username = "testuser"
+            };
+
+            var externalTool = new ExternalTool
+            {
+                DisplayName = "Test Tool",
+                FileName = "test.exe",
+                Arguments = "-p %PASSWORD%"
+            };
+
+            var process = new Process();
+            var setProcessPropertiesMethod = typeof(ExternalTool).GetMethod(
+                "SetProcessProperties",
+                BindingFlags.NonPublic | BindingFlags.Instance
+            );
+            setProcessPropertiesMethod?.Invoke(externalTool, new object[] { process, connectionInfo });
+
+            // ArgumentList should contain the password as a single entry
+            Assert.That(process.StartInfo.ArgumentList, Does.Contain("1234,56789"));
+        }
     }
 }

@@ -2,23 +2,33 @@
   <img width="450" src="https://github.com/mRemoteNG/mRemoteNG/blob/mRemoteNGProjectFiles/Header_dark.png">
 </p>
 
-# mRemoteNG v1.79.0 — Community Edition
+# mRemoteNG — Community Edition
 
-> Active fork with 26 bug fixes, improved security, and a complete test suite.
+> Active fork with bug fixes, security hardening, and a complete test suite.
 > Based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
 
 <p align="center">
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0">
-    <img alt="Release" src="https://img.shields.io/badge/release-v1.79.0-blue?style=for-the-badge">
+    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.79.0-blue?style=for-the-badge">
+  </a>
+  <a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.80">
+    <img alt="In Development" src="https://img.shields.io/badge/dev-v1.80.0-orange?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
+  </a>
+  <a href="COPYING.TXT">
+    <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0-green?style=for-the-badge">
   </a>
 </p>
 
 ---
 
-## Download
+## Latest Stable Release — v1.79.0
+
+<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0">
+  <img alt="Stable v1.79.0" src="https://img.shields.io/badge/stable-v1.79.0-blue">
+</a>
 
 | Platform | Download |
 |----------|----------|
@@ -26,13 +36,10 @@
 | Windows x86 | [mRemoteNG-v1.79.0-x86.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-x86.zip) |
 | Windows ARM64 | [mRemoteNG-v1.79.0-arm64.zip](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.79.0/mRemoteNG-v1.79.0-arm64.zip) |
 
-### Requirements
-- [Microsoft .NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
-- Microsoft Visual C++ Redistributable 2015-2026 ([x64](https://aka.ms/vs/18/release/vc_redist.x64.exe) | [x86](https://aka.ms/vs/18/release/vc_redist.x86.exe) | [ARM64](https://aka.ms/vs/18/release/vc_redist.arm64.exe))
+**Requirements:** [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe)
 
----
-
-## What's New in v1.79.0?
+<details>
+<summary><strong>What's in v1.79.0?</strong> (26 bug fixes, security hardening, test suite)</summary>
 
 ### Security
 - LDAP filter sanitizer and XML importer guardrails
@@ -46,13 +53,11 @@
 - **Core:** Startup path fallback, XML recovery for corrupt configs, main form close cancel, master password autolock, PROTOCOL external tool token, settings path logging, password protection verification
 
 ### Quality
-- 2176 tests passing (81 pre-existing failures fixed, 28 new tests added)
+- 2179 tests passing (81 pre-existing failures fixed, 31 new tests added)
 - Zero flaky tests
 - .NET 10, 3-architecture support (x64, x86, ARM64)
 
----
-
-## All Fixes — Detailed Table
+### All Fixes — Detailed Table
 
 | PR | Issue | Description |
 |----|-------|-------------|
@@ -83,27 +88,57 @@
 | [#3129](https://github.com/mRemoteNG/mRemoteNG/pull/3129) | [#2166](https://github.com/mRemoteNG/mRemoteNG/issues/2166) | Tab close race under resize |
 | [#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130) | [#2155](https://github.com/mRemoteNG/mRemoteNG/issues/2155) | Inheritance label width fix |
 
----
+</details>
 
-## How to Update
-
-### Portable (ZIP)
-1. Download the ZIP for your architecture
-2. Extract over your existing mRemoteNG installation
-3. Your `confCons.xml` and settings are preserved
-
-### Auto-Update (Optional)
-You can configure mRemoteNG to check this fork for updates:
-1. Go to **Tools > Options > Updates**
-2. Change the **Update Address** to: `https://raw.githubusercontent.com/robertpopa22/mRemoteNG/codex/release-1.79-bootstrap/docs/nightly-update-portable.txt`
-3. mRemoteNG will check this fork for new versions
+[View all releases](https://github.com/robertpopa22/mRemoteNG/releases)
 
 ---
 
-## Upstream Relationship
+## In Development — v1.80.0
 
-This fork is based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
-All 26 fixes have individual PRs open on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)), ready for upstream merge.
+<a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.80">
+  <img alt="Dev v1.80.0" src="https://img.shields.io/badge/dev-v1.80.0-orange">
+</a>
+
+> **Note:** v1.80.0 is under active development on the [`release/1.80`](https://github.com/robertpopa22/mRemoteNG/tree/release/1.80) branch. No release artifacts yet.
+
+<details>
+<summary><strong>What's planned for v1.80.0?</strong></summary>
+
+### New Features
+- Self-contained (.NET embedded) build variant — no .NET runtime installation required
+- JSON export format for connection data alongside existing XML/CSV
+- Protocol/tag tree filtering: search with `protocol:RDP` or `tag:production` prefixes
+- `%ENVIRONMENTTAGS%` and `%SSHOPTIONS%` external tool tokens
+- Quick connect history persistence across application restarts
+- Connection audit log with timestamps
+
+### Security
+- Hardcoded legacy encryption key extracted to named constant
+- RDP default authentication level changed to WarnOnFailedAuth
+- Master password minimum length increased to 8 characters with complexity requirement
+- PBKDF2 iterations increased from 1K/10K to 600K (auto-upgrade on save)
+- SSH temporary private key files securely wiped before deletion
+- Vault clients require HTTPS URLs
+
+### UI/UX
+- Live theme switching without restart
+- Keyboard shortcuts reference panel
+- Accessibility improvements (AccessibleName/Description on main controls)
+- Middle-click to open connection / close tab
+- Crash dialog with auto-submit GitHub issue
+
+### Performance
+- SQL hierarchy building optimized from O(n^2) to O(n)
+- RDP initialization: async instead of blocking DoEvents loop
+- MessageCollector capped at 10K messages
+- GetRecursiveChildList converted to yield return (zero allocations)
+
+### Build
+- Dual-build matrix: 6 builds per release (3 framework-dependent + 3 self-contained)
+- Mandatory Authenticode code signing via SignPath Foundation
+
+</details>
 
 ---
 
@@ -123,6 +158,8 @@ The following protocols are supported:
 
 For a detailed feature list and general usage support, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
+---
+
 ## Installation
 
 ### Supported Operating Systems
@@ -133,11 +170,13 @@ For a detailed feature list and general usage support, refer to the [Documentati
 - Windows Server 2019
 - Windows Server 2016
 
-### Minimum Requirements
+### How to Update (Portable ZIP)
 
-- [Microsoft .NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0)
-- Microsoft Visual C++ Redistributable 2015-2026
-- Microsoft Terminal Service Client 6.0 or later (for RDP)
+1. Download the ZIP for your architecture
+2. Extract over your existing mRemoteNG installation
+3. Your `confCons.xml` and settings are preserved
+
+---
 
 ## Build from Source
 
@@ -147,6 +186,13 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
 ```
 
 `build.ps1` auto-detects the newest VS installation. For manual builds, see `CLAUDE.md`.
+
+---
+
+## Upstream Relationship
+
+This fork is based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
+All 26 fixes from v1.79.0 have individual PRs open on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)), ready for upstream merge.
 
 ## License
 

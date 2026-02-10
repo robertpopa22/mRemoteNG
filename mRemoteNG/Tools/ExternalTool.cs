@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.Versioning;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -155,49 +156,89 @@ namespace mRemoteNG.Tools
         {
             ExternalToolArgumentParser argParser = new(startConnectionInfo);
             string parsedFileName = argParser.ParseArguments(FileName);
-            
+
             // Validate the executable path to prevent command injection
             PathValidator.ValidateExecutablePathOrThrow(parsedFileName, nameof(FileName));
-            
+
             // When RunElevated is true, we must use UseShellExecute = true for the "runas" verb
             // When false, we use UseShellExecute = false for better security with ArgumentList
             process.StartInfo.UseShellExecute = RunElevated;
             process.StartInfo.FileName = parsedFileName;
-            
+
+            bool isBatch = IsBatchFile(parsedFileName);
+
             if (RunElevated)
             {
-                // With UseShellExecute = true, we must use Arguments property, not ArgumentList
-                // The argument parser already handles escaping properly
-                process.StartInfo.Arguments = argParser.ParseArguments(Arguments);
                 process.StartInfo.Verb = "runas";
+
+                if (isBatch)
+                {
+                    // Batch files run through cmd.exe — commas/semicolons are weak delimiters.
+                    // Double-quoting each argument is the only reliable protection.
+                    string rawArgs = argParser.ParseArguments(Arguments, escapeForShell: false);
+                    var parts = SplitCommandLineArguments(rawArgs);
+                    process.StartInfo.Arguments = string.Join(" ", parts
+                        .Where(a => !string.IsNullOrWhiteSpace(a))
+                        .Select(QuoteArgumentForCmd));
+                }
+                else
+                {
+                    // Non-batch elevated: shell escaping for cmd.exe passthrough
+                    process.StartInfo.Arguments = argParser.ParseArguments(Arguments);
+                }
             }
             else
             {
-                // With UseShellExecute = false, use ArgumentList for better security
-                // Parse arguments using CommandLineArguments for proper splitting
-                // Note: argParser will still escape shell metacharacters by default.
-                // If calling a program that doesn't expect escaped values, use %!VARIABLE% syntax
-                // to disable escaping (e.g., %!PASSWORD% instead of %PASSWORD%).
-                var cmdLineArgs = new Cmdline.CommandLineArguments { EscapeForShell = false };
-                string parsedArguments = argParser.ParseArguments(Arguments);
-                
-                // Split arguments respecting quotes
-                var argumentParts = SplitCommandLineArguments(parsedArguments);
-                foreach (var arg in argumentParts)
+                if (isBatch)
                 {
-                    if (!string.IsNullOrWhiteSpace(arg))
+                    // Batch files are routed through cmd.exe by Windows even with UseShellExecute=false.
+                    // ArgumentList uses C-runtime quoting which does NOT protect commas from cmd.exe.
+                    // Build a manually quoted Arguments string instead.
+                    string rawArgs = argParser.ParseArguments(Arguments, escapeForShell: false);
+                    var parts = SplitCommandLineArguments(rawArgs);
+                    process.StartInfo.Arguments = string.Join(" ", parts
+                        .Where(a => !string.IsNullOrWhiteSpace(a))
+                        .Select(QuoteArgumentForCmd));
+                }
+                else
+                {
+                    // Non-batch: use ArgumentList for proper C-runtime quoting
+                    string parsedArguments = argParser.ParseArguments(Arguments, escapeForShell: false);
+                    var argumentParts = SplitCommandLineArguments(parsedArguments);
+                    foreach (var arg in argumentParts)
                     {
-                        process.StartInfo.ArgumentList.Add(arg);
+                        if (!string.IsNullOrWhiteSpace(arg))
+                        {
+                            process.StartInfo.ArgumentList.Add(arg);
+                        }
                     }
                 }
             }
-            
-            if (WorkingDir != "") 
+
+            if (WorkingDir != "")
             {
                 string parsedWorkingDir = argParser.ParseArguments(WorkingDir);
                 PathValidator.ValidatePathOrThrow(parsedWorkingDir, nameof(WorkingDir));
                 process.StartInfo.WorkingDirectory = parsedWorkingDir;
             }
+        }
+
+        /// <summary>
+        /// Returns true if the file has a .cmd or .bat extension (batch file).
+        /// </summary>
+        private static bool IsBatchFile(string fileName)
+        {
+            string ext = Path.GetExtension(fileName);
+            return ext.Equals(".cmd", StringComparison.OrdinalIgnoreCase)
+                || ext.Equals(".bat", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Wraps an argument in double quotes for cmd.exe. Internal quotes are escaped as "".
+        /// </summary>
+        private static string QuoteArgumentForCmd(string arg)
+        {
+            return "\"" + arg.Replace("\"", "\"\"") + "\"";
         }
         
         /// <summary>
