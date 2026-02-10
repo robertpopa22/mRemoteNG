@@ -110,7 +110,7 @@ $repoFullName = if ($Repo -eq "upstream") { $meta.repos.upstream } else { $meta.
 
 # --- Load issue ---
 $padded = $Issue.ToString().PadLeft(4, '0')
-$filePath = Join-Path $DbRoot $Repo "$padded.json"
+$filePath = Join-Path (Join-Path $DbRoot $Repo) "$padded.json"
 
 if (!(Test-Path $filePath)) {
     throw "Issue #$Issue not found in $Repo DB. Run Sync-Issues.ps1 first."
