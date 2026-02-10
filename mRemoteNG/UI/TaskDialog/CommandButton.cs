@@ -40,7 +40,7 @@ namespace mRemoteNG.UI.TaskDialog
 
         //--------------------------------------------------------------------------------
         // Override this to make sure the control is invalidated (repainted) when 'Text' is changed
-        public override string Text
+        public override string? Text
         {
             get => base.Text;
             set

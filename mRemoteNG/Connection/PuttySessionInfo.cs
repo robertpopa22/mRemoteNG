@@ -103,7 +103,7 @@ namespace mRemoteNG.Connection
             Disposed?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler Disposed;
+        public event EventHandler? Disposed;
 
         #endregion
     }

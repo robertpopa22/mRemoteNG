@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NoWarn>$(NoWarn);NU1507</NoWarn>
+    <NoWarn>$(NoWarn);NU1507;NU1701</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="AWSSDK.Core" Version="4.0.3.12" />

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Platforms>x64;arm64</Platforms>
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -149,59 +150,16 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" />
     <PackageReference Include="Microsoft.NETCore.Platforms" />
     <PackageReference Include="Microsoft.NETCore.Targets" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.VSHost" />
     <PackageReference Include="Microsoft.Web.WebView2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
     <PackageReference Include="MySql.Data" />
-    <PackageReference Include="NETStandard.Library" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Newtonsoft.Json.Schema" />
     <PackageReference Include="OpenCover" />
     <PackageReference Include="Renci.SshNet.Async" />
     <PackageReference Include="ReportGenerator" />
-    <PackageReference Include="runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.native.System" />
-    <PackageReference Include="runtime.native.System.IO.Compression" />
-    <PackageReference Include="runtime.native.System.Net.Http" />
-    <PackageReference Include="runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl" />
     <PackageReference Include="SSH.NET" />
-    <PackageReference Include="System.Collections.Immutable" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" />
-    <PackageReference Include="System.Console" />
-    <PackageReference Include="System.Diagnostics.DiagnosticSource" />
-    <PackageReference Include="System.Diagnostics.EventLog" />
-    <PackageReference Include="System.DirectoryServices" />
-    <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="System.Formats.Asn1" />
-    <PackageReference Include="System.IO.Pipelines" />
     <PackageReference Include="System.Management" />
-    <PackageReference Include="System.Net.Primitives" />
-    <PackageReference Include="System.Net.Sockets" />
-    <PackageReference Include="System.Reflection.Emit" />
-    <PackageReference Include="System.Reflection.Emit.ILGeneration" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" />
-    <PackageReference Include="System.Reflection.Metadata" />
-    <PackageReference Include="System.Resources.ResourceManager" />
-    <PackageReference Include="System.Runtime.Extensions" />
-    <PackageReference Include="System.Security.AccessControl" />
-    <PackageReference Include="System.Security.Cryptography.Algorithms" />
-    <PackageReference Include="System.Security.Cryptography.Cng" />
-    <PackageReference Include="System.Security.Cryptography.OpenSsl" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
-    <PackageReference Include="System.Security.Cryptography.X509Certificates" />
-    <PackageReference Include="System.Security.Permissions" />
-    <PackageReference Include="System.Security.Principal.Windows" />
-    <PackageReference Include="System.Text.Encoding.CodePages" />
-    <PackageReference Include="System.Text.Json" />
-    <PackageReference Include="System.Text.RegularExpressions" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" />
-    <PackageReference Include="System.Windows.Extensions" />
-    <PackageReference Include="System.Xml.ReaderWriter" />
     <PackageReference Include="VncSharpCore" />
     <PackageReference Include="ZstdSharp.Port" />
   </ItemGroup>
