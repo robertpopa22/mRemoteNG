@@ -92,7 +92,7 @@ namespace mRemoteNG.Connection
         #region IComponent
 
         [Browsable(false)]
-        public ISite Site
+        public ISite? Site
         {
             get => new PropertyGridCommandSite(this);
             set => throw (new NotImplementedException());

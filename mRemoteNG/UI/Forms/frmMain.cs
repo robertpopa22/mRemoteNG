@@ -398,6 +398,11 @@ namespace mRemoteNG.UI.Forms
 
         private async void FrmMain_Shown(object sender, EventArgs e)
         {
+            // Bring the main window to the front after splash screen closes
+            Activate();
+            BringToFront();
+            NativeMethods.SetForegroundWindow(Handle);
+
             PromptForUpdatesPreference();
             await CheckForUpdates();
         }

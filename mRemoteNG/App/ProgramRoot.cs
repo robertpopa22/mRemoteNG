@@ -24,7 +24,6 @@ namespace mRemoteNG.App
     public static class ProgramRoot
     {
         private static Mutex? _mutex;
-        private static FrmSplashScreenNew _frmSplashScreen = null;
         private static string customResourcePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Languages");
 
         private static System.Threading.Thread? _wpfSplashThread;

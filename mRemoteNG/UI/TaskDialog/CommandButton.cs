@@ -109,13 +109,16 @@ namespace mRemoteNG.UI.TaskDialog
         //--------------------------------------------------------------------------------
         string GetLargeText()
         {
+            if (string.IsNullOrEmpty(Text))
+                return string.Empty;
+            
             string[] lines = Text.Split('\n');
             return lines[0];
         }
 
         string GetSmallText()
         {
-            if (Text.IndexOf('\n') < 0)
+            if (string.IsNullOrEmpty(Text) || Text.IndexOf('\n') < 0)
                 return "";
 
             string s = Text;
