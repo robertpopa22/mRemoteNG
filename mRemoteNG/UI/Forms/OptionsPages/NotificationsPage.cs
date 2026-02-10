@@ -414,7 +414,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     FileName = "explorer.exe",
                     UseShellExecute = false
                 };
-                startInfo.ArgumentList.Add($"/select,\"{path}\"");
+                startInfo.ArgumentList.Add("/select,");
+                startInfo.ArgumentList.Add(path);
                 Process.Start(startInfo);
             return true;
         }
