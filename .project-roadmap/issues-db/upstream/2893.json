@@ -1,0 +1,49 @@
+﻿{
+    "number":  2893,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Orphaned panel after closing several connections and reconnect again",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "UI/UX",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-12T16:37:57Z",
+    "github_updated_at":  "2026-02-07T19:55:43Z",
+    "body_snippet":  "On mRemoteNG 1.78.2 NB 3208:\n1. Set connections like this in two folders and several connections in each of folder.\n   \u003cimg width=\"137\" height=\"227\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/6af22a0f-9229-40a8-bc14-ef9e7df45871\" /\u003e\n2. In all connection from Project1 folder set Panel=Project1 and for each of connections in Project2 folder set Panel=Project2.\n3. Right click on Project1 folder and Connect.\n4. Right click on Project2 folder and Connect.\n5. Now close down one by one...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7KWkd7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, will add to todo list, btw if you acept invite in github it should let you set a labels ;)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-12T16:53:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiOM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:43Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

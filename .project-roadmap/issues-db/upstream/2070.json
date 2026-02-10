@@ -1,0 +1,38 @@
+﻿{
+    "number":  2070,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "REQUEST: Additional Command Line Switches",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low"
+               ],
+    "author":  "itbgjm",
+    "created_at":  "2021-11-29T11:39:18Z",
+    "github_updated_at":  "2021-11-29T15:53:09Z",
+    "body_snippet":  "It would be great if the command line switches could also include options for:\r\nCustom location for the mRemoteNG.settings.  Purpose is to point this file to the same location as the /cons\r\nCustom location for the log file through the command line and again to the same location as /cons \r\n\r\nBe able to use environmental variables to define these settings both in command line (working for the existing /cons) as well as the application.  Using this seems to create a folder with the environmental va...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM46hI46",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Settings may come from file, local db, global db, azure so its sounds a bit complicated to use from command line, however it may include only switches to allow you to run interface then you can set that options you like and from where to load. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-11-29T15:52:47Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-11-29T15:53:09Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

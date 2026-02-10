@@ -1,0 +1,59 @@
+﻿{
+    "number":  2899,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNg 1.76.20.24615 cannot use MySQL DB 9.4 as connexion storage backend ?",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "TechnicalDebt",
+                   "DBs",
+                   "1.76.20"
+               ],
+    "author":  "jeanbruder",
+    "created_at":  "2025-10-15T07:49:27Z",
+    "github_updated_at":  "2026-02-07T19:55:44Z",
+    "body_snippet":  "Dear mRemoteNG team,\n\nAs described in the documentation pages on using a database to save the configuration, I want to use MySQL. However, I am unable to connect to it. I have created a database named mRemoteNG and a user named mRemoteNG with full rights to this database. I can connect to it from a tool such as DBeaver, but not from mremoteng. Could you help me with this?\n\nThank you in advance, Jean",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7K-pxg",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Dear @Kvarkas \nmRemoteNG version is : 1.76.20.24615",
+                         "author":  "jeanbruder",
+                         "action_needed":  true,
+                         "date":  "2025-10-15T09:21:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7K_cIu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will check later, this version out of support but if i remember correctly it was some issues with correct table and need manualy run a script to fix it, but will check a bit later today, if its not production critical please try NB - \u003e https://github.com/mRemoteNG/mRemoteNG/releases/tag/20251007-v1.78.2-NB-(3208)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-15T10:10:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiOY",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.76.20",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:44Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:44Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

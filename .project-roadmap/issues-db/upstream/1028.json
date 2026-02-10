@@ -1,0 +1,48 @@
+﻿{
+    "number":  1028,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot use saved credentials",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check"
+               ],
+    "author":  "app/",
+    "created_at":  "2018-07-19T13:18:13Z",
+    "github_updated_at":  "2026-02-07T16:47:36Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\r\nI expect to connect to the machine via RDP without entering credentials.\r\n\r\n## Current Behavior\r\n\r\nFor some machines, when I attempt to connect to an RDP server, I get the message **\"server\u0027s authentication policy does not allow connection requests using saved credentials\"**  and I must type in the password to connect.  However, when I use the built-in Windows RDP client, I don\u0027t get the same message. ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNjI4MDE2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is not related to mRemoteNG, but rather a group policy setting set on the server.\r\n\r\nHere are a few articles on it:\r\n- https://answers.microsoft.com/en-us/windows/forum/windows_7-security/remote-desktop-connection-not-using-saved/13a17d84-b008-4767-95fb-b891e9e6bc66\r\n- https://serverfault.com/questions/279661/server-policy-problem-client-gets-your-credentials-did-not-work-when-connecti\r\n- https://myworldofit.net/?p=1210",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-07-19T13:41:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF9k",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:36Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:36Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

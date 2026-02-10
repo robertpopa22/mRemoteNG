@@ -1,0 +1,68 @@
+﻿{
+    "number":  2459,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Error when closing group tab with SSH conn",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "SSH",
+                   "1.77.3"
+               ],
+    "author":  "procajlok",
+    "created_at":  "2023-07-13T05:58:29Z",
+    "github_updated_at":  "2026-02-08T11:43:56Z",
+    "body_snippet":  "## Current Behavior\r\nWhen i closing group tab with SSH connection, improve error.\r\n\r\n```\r\nException Message\r\n\"cant access to delete object. \r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   w System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   w System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   w System.Windows.Forms.Control.Invoke(Delegate method)\r\n   w mRemoteNG.UI.Window.ConnectionWindow.Prot_Event_Cl...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5hYApT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This seems to be similar to #2118 and all its referenced issues... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-07-13T07:06:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhva",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdlhB",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Likely addressed by close-panel stability package in PR #3106 (same panel-close/disposed connection path). \r\n \r\nPlease retest on latest fork RC candidate build; if no longer reproducible, this can be closed as duplicate of #3069. \r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T08:23:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mfnNh",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "This appears to match the same ConnectionWindow.Prot_Event_Closed disposed-object close-path as #3069. Candidate upstream fix package is PR #3106: https://github.com/mRemoteNG/mRemoteNG/pull/3106. After merge in parent, please retest on a build that includes that commit; if still reproducible with exact steps/logs, keep this issue open, otherwise close as duplicate of #3069.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T11:43:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T11:43:56Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

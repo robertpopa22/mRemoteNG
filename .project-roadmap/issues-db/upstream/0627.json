@@ -1,0 +1,85 @@
+﻿{
+    "number":  627,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Mouse pointer disappears in edit mode when the background is White",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "ravirxz",
+    "created_at":  "2017-07-02T20:52:29Z",
+    "github_updated_at":  "2026-02-07T19:53:50Z",
+    "body_snippet":  "\r\n\r\n\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 | Windows 2008 / 2012 R2 \r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\nWhen opening a file to edit in notepad++ the mouse pointer disappears and makes it difficult to select a line or a field. The only way to select would be to do a select +all and due to the selection being grey the mouse appears. after select the required the mouse disappears again. \r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzE2NDUzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is this possibly a HiDPI issue? See #620 \u0026 #321",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-07-05T17:01:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzE2NzMzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\nThank you for getting back and yes, the issue is exactly as this user\nlisted 5 days ago on #321\n\neich0rn \u003chttps://github.com/eich0rn\u003e commented 5 days ago\n\u003chttps://github.com/mRemoteNG/mRemoteNG/issues/321#issuecomment-312198244\u003e\n\nSame Issue here.\n\n   - Computer: Surface 4 Pro with HighDPI\n   - OS: Windows 10 10.0.15063\n   - mRemoteNG Version: 1.75.7008.17907\n\nRDP Display sharp and clear, but when i enter e.g. an Editor like\npowershell ise or Notepad the Cursor disappears.\nNo Problems with W...",
+                         "author":  "ravirxz",
+                         "action_needed":  true,
+                         "date":  "2017-07-05T17:12:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NDMzNjU4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "having the same issue, any white (editable) box and the cursor disappears. Make trying to manage servers intresting.\r\nNote this was \"working before the latest update\"",
+                         "author":  "nige6",
+                         "action_needed":  true,
+                         "date":  "2017-11-14T17:35:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NDM0OTQ2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\n\nI still have this issue too - I am considering a different application\nbecause of this bug. I hate to lose mremote but it is becoming difficult to\nuse.\n\nThank you,\nR\n\nOn Tue, Nov 14, 2017 at 12:35 PM nigelp-vci \u003cnotifications@github.com\u003e\nwrote:\n\n\u003e having the same issue, any white (editable) box and the cursor disappears.\n\u003e Make trying to manage servers intresting.\n\u003e Note this was \"working before the latest update\"\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to ...",
+                         "author":  "ravirxz",
+                         "action_needed":  true,
+                         "date":  "2017-11-14T18:18:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGEZ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhsS",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:50Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

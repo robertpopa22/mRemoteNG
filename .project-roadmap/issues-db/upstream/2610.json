@@ -1,0 +1,138 @@
+﻿{
+    "number":  2610,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "New release at some point?",
+    "state":  "open",
+    "labels":  [
+                   "RTFM",
+                   "1.77.3"
+               ],
+    "author":  "FrankyBoy",
+    "created_at":  "2024-07-03T06:34:42Z",
+    "github_updated_at":  "2026-02-07T20:31:42Z",
+    "body_snippet":  "Hi, the last release was in 2019. Since then there have been quite literally hundreds of commits, including features which are mentioned in the documentation but not to be found in the release version.\r\n\r\nSo are there any plans to provide a) a new stable release or b) unstable/testing releases in the future?",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6E5Rlp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I see constant updates to the project so it\u0027s definitely not dead. Kind of odd that no new preview builds are being released. From what I understand the last v1.77.3-nb is broken and people are recommending v1.77.2.\r\n\r\nI am still using v1.76.20 but it is getting somewhat long in the tooth.",
+                         "author":  "ltctech",
+                         "action_needed":  true,
+                         "date":  "2024-07-15T23:19:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6E8YFJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "1.77.3-nb is not broken :) its disabled saving to settings due current refactoring of a way mR save settings, and to avoid a mess with working version because overwise it may create a mess due people don\u0027t read warning for NB version (its a beta test and definitely not for production - however it could be used in production environment, but we don\u0027t want to disturb oficial released in that case) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-07-16T09:19:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Ff4Qf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@FrankyBoy: I am happy that I am not alone! :)\r\n\r\nI have done a ticket 2020-05-25 about it:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\r\n\r\nLatest stable version is 1.76.20 (2019-04-12):\r\n- https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20\r\n\r\nAnd there are several CVEs in the latest current stable version:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues?q=is%3Aissue+cve\r\n\r\nLinked to:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\r\n- https://github.com/mRemoteNG/mRemot...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2024-07-19T17:29:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Gl1vX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e 1.77.3-nb is not broken :) its disabled saving to settings ...\r\n\r\nSorry @Kvarkas , but without settings enabled the NB is completly useless. Also, this version of NB is very old. Please consider the advantage of providing an alpha NB release every month with all settings enabled despite the state of development.\r\n\r\nThank you.\r\n\r\n",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2024-07-30T10:55:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Gl7GS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "just you don\u0027t get purpose of nb its doesn\u0027t mean it\u0027s useless :) its dedicated to test not for work! :) but yes more often releases of NB will start happening soon",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-07-30T11:07:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Gl-EM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e just you don\u0027t get purpose of nb its doesn\u0027t mean it\u0027s useless :) its dedicated to test not for work! :)\r\n\r\nIMHO if we can\u0027t configure/store a lot of complex parameters for a large list of different servers in the settings then I simply can\u0027t test anything. All \"settings disabled versions\" of mRemoteNG are only placebo releases. We can\u0027t test anything with them.\r\n\r\n\u003e but yes more often releases of NB will start happening soon\r\n\r\nGood news for my ears! ≡ƒæì ",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2024-07-30T11:13:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6GmVZ0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "for this version its a must due refactoring how we save settings to avoid mess with a \"normal\" settings for production app ;) however in next release it will be enabled as it will switch to a new method and you will be welcome to test all functionality ;)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-07-30T12:09:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6LGqd9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas ,\r\n\r\nWhy not focus *now* on *only* refactor the save settings? Any other improvement is useless because we can\u0027t use a version without settings saving functionality.\r\n",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2024-09-06T10:41:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Pq25V",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas,\r\nis there any Update on the settings refactoring topic? Do you have any plans when we\u0027ll see a new release? I\u0027d love to see a new version to test. Especially since the current stable version contains an increasing number of Security issues.",
+                         "author":  "simonregn",
+                         "action_needed":  true,
+                         "date":  "2024-10-14T08:08:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6zUPJ_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas: Any progress on a new stable version with CVE fixes?\nSecurity of users are very IMPORTANT.\n\nRecall: I have done a ticket 2020-05-25, more 5 years ago:\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\n\nLatest stable version is 1.76.20 (2019-04-12):\n- https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20\n\nAnd there are several CVEs in the latest current stable version:\n- https://github.com/mRemoteNG/mRemoteNG/issues?q=is%3Aissue+cve\n\nThanks in advance.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2025-06-26T13:04:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhs6",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mZBSj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@robertpopa22: No, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T20:31:42Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T20:31:42Z",
+    "unread_comments":  11,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

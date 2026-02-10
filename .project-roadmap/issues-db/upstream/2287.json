@@ -1,0 +1,66 @@
+﻿{
+    "number":  2287,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Console pane is out of position with tab panel",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX"
+               ],
+    "author":  "s-ccy",
+    "created_at":  "2022-09-13T17:44:26Z",
+    "github_updated_at":  "2023-07-28T14:24:42Z",
+    "body_snippet":  "When I open a fresh new connection(SSH/PUTTY), I am supposed to see the console opened as a new tab. This has behaved well for months, but one day I started seeing console window being out of position/offset to somewhere lower than it should be inside the tab pane. Bottom part of the console window is hidden as the bottom half of the console window is below the visible area of the tab panel. I cannot scroll further to make the bottom part of console visible. \r\nIn other words, the console window ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5KRTvF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Interesting bug, never seen that before. \r\nQuick question: Do you have the issue as well when using the \"Default\" Putty saved session? If not, would you mind sharing the putty saved session settings?\r\nAlso is it only on one stored connection or is it on all of them?\r\n\r\nA thing you could try instead of reinstalling mRemoteNG is to try to reset the view settings (Menu Bar -\u003e View -\u003e Reset to Default *or similar Button*). Does this help at all? \r\nFurther would you mind trying the Build 1.77.2-nb (c...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-09-13T23:28:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5KR4Ms",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@simonai1254 This happens to all the sessions I have, even the \"Default\" one. \r\n\r\nI have tried View \u003e Reset Layout , but it doesn\u0027t do anything\r\n\r\nI have also tried installing the nightly build 1.77.2-nb version and it seems behaving the same. \r\n\r\nIt makes no difference when I restore down, resize and maximize the window again. \r\nThe console panel stays at the same place/offset relative to the tab when I restore/resize/maximize. See images:\r\n![image](https://user-images.githubusercontent.com/373...",
+                         "author":  "s-ccy",
+                         "action_needed":  true,
+                         "date":  "2022-09-14T03:58:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5KSTAE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I found that, if I maximize and restore down the window every time before I open a new connection, the console window has a slightly higher chance of showing in the correct position. ",
+                         "author":  "s-ccy",
+                         "action_needed":  true,
+                         "date":  "2022-09-14T06:39:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5isTp0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have this issue as well, and it makes the application unusable for SSH sessions. I\u0027ve tried fiddling with the default PuTTY settings, reinstalling, resetting layout, etc., and nothing seems to correct it.",
+                         "author":  "michaelrstewart1",
+                         "action_needed":  true,
+                         "date":  "2023-07-28T14:24:41Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-07-28T14:24:42Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

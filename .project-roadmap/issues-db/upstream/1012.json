@@ -1,0 +1,74 @@
+﻿{
+    "number":  1012,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature to see what RDP sessions have been disconnected",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "Caspar035",
+    "created_at":  "2018-06-27T10:00:05Z",
+    "github_updated_at":  "2020-01-10T19:32:50Z",
+    "body_snippet":  "So sometimes I have like 10 RDP sessions open using mRemoteNG. However when we temporary lose internet connection for a longer time the RDP sessions will retry connecting but after a while they will be disconnected and I am not able to see what RDP sessions I had opened up.\r\n\r\n## Expected Behavior\r\nI would like to see what RDP sessions have been disconnected because it will not show you which ones you had opened up.\r\n\r\n## Current Behavior\r\nAt this moment after longer period of losing connectivit...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMDY0Mzg2OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Would it also work if we didn\u0027t close the tab that the connection was being shown in? That way the Reconnect and Reconnect All functionality could be used for reestablishing those lost connections.\r\n\r\nThis is already how the putty (SSH) sessions function, but I think it would still require some extra work for the RDP sessions to get that as well.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-06-27T11:47:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMDY1MzQ3Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi There, thanks for the reply\r\n\r\nI think it would work just fine, as long as the tabs remain opened up you could reconnect them. Would be an awesome feature, also for laptops that use it on the go and lose connectivity more often due to WIFI or moving to a different location.\r\n\r\n\r\n",
+                         "author":  "Caspar035",
+                         "action_needed":  true,
+                         "date":  "2018-06-27T12:26:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNzU0NDI2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is already possible if you activate this in the settings:\r\n![mremoteng_2018-07-24_22-34-50](https://user-images.githubusercontent.com/22905106/43164723-3154aadc-8f92-11e8-93db-6c2c38d421ee.png)\r\nThe tab of a disconnected rdp session will then stay open showing this:\r\n![mremoteng_2018-07-24_22-36-52](https://user-images.githubusercontent.com/22905106/43164742-46f0f9e0-8f92-11e8-8d01-340aa75d329b.png)\r\n",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-07-24T20:39:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2NjcwOTgxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I know this is old but the answer isn\u0027t really the same thing as what was asked for or at least it doesn\u0027t address my needs.  I work at a client once a week.  During the week other people RDP to servers and it kicks me out.  I don\u0027t want it to automatically try to reconnect since someone else is using the servers but I want the tabs open when I come in so I know what servers I was working on and can easily reconnect.  I guess the auto reconnect might cover that but it doesn\u0027t seem like it would....",
+                         "author":  "joelsplace",
+                         "action_needed":  true,
+                         "date":  "2019-12-17T19:21:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MzE3NDc3Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@joelsplace It does cover that. Just take a look at my screenshot or try it out yourself.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-01-10T19:32:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-01-10T19:32:50Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

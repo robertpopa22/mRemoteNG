@@ -1,0 +1,70 @@
+﻿{
+    "number":  2499,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "(Improvement) Writes config files into individual setting folder when in portable mode",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "In progress",
+                   "DBs",
+                   "Connections",
+                   "1.77.3",
+                   "Settings"
+               ],
+    "author":  "HorseLuke",
+    "created_at":  "2023-10-06T05:06:29Z",
+    "github_updated_at":  "2026-02-07T19:55:30Z",
+    "body_snippet":  "When mRemoteNG is in portable mode, app should writes config files (.xml) and backup files (.backup) into individual setting folder, not into root directory where exe file exist.\r\n\r\n## Expected Behavior\r\nWhen mRemoteNG is in portable mode, new version should writes config files (.xml) and backup files (.backup) into individual setting folder.\r\n\r\n## Current Behavior\r\nWhen mRemoteNG is in portable mode, current version writes config files (.xml) and backup files (.backup) into root directory where...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5oTs-V",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "One more thing.\r\n\r\nShould another config file `user.config` (located in `C:\\Users\\[username]\\AppData\\Local\\mRemoteNG\\mRemoteNG_Url_[id]\\[version]`) writes into such new individual setting folder when in portable mode? But it will break per-user setting behavior, and change this behavior seems not easy. I\u0027m not familier with .net ",
+                         "author":  "HorseLuke",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T05:14:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5odwTA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "in new version configuration bits are kept in same folder where mR is installed and perhaps will turn in to fully portable mode, so no files are creating outside of installation folder. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-09T09:21:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJBt",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiKy",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:30Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:30Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

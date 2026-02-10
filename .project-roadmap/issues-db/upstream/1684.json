@@ -1,0 +1,74 @@
+﻿{
+    "number":  1684,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Panel should close when last containing connection/tab closes",
+    "state":  "open",
+    "labels":  [
+                   "Duplicate"
+               ],
+    "author":  "CrazyOrange",
+    "created_at":  "2020-01-31T15:46:58Z",
+    "github_updated_at":  "2026-02-07T16:39:23Z",
+    "body_snippet":  "When the last connection/tab in a panel closed the parent panel stays open. Imho it should close or there should be an option for it.\r\nKeeping open empty panels messes up the tab view.\r\n\r\nI\u0027m using version 1.77.1.27654 on windows 10.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU5NzcxNjU3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That was a behavior that preexisted the current version, I would like to add my voice to this suggestion. It seems counter intuitive to a clean front-end",
+                         "author":  "RickMay57",
+                         "action_needed":  true,
+                         "date":  "2020-03-11T15:57:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU5ODA4OTkxNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, it would be better to close the panel after the last connection of this panel was closed!!",
+                         "author":  "GeriZ",
+                         "action_needed":  true,
+                         "date":  "2020-03-12T09:30:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjMxNjA0Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Duplicate of #1657",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-30T11:13:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXDuR",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:39:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXDwf",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:39:23Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:39:23Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

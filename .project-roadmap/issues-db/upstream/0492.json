@@ -1,0 +1,38 @@
+﻿{
+    "number":  492,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "External Tools do get empty %username% %password% fields",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "seju7",
+    "created_at":  "2017-04-07T10:52:47Z",
+    "github_updated_at":  "2017-04-20T18:20:14Z",
+    "body_snippet":  "For my connections I am mainly use the default username and password settings under Tools\u003eOptions\u003eConnections\u003e\"For empty Username, Password or Domain fields use:\".\r\n\r\n![grafik](https://cloud.githubusercontent.com/assets/27007110/24797233/9d319318-1b90-11e7-94e2-c630384078ae.png)\r\n\r\nWhen I call an external tools with %hostname%, %username% and %password%, where the config for this connections has empty fields for username \u0026 password, empty fields are passed on, instead of the default settings.\r\n\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTg0MzMzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I believe it was designed this way (to only use the default user/pass when connecting to the machine), or maybe was just an oversight. I\u0027m going to tag this as a \"feature request\" since nothing is technically broken, though I agree that we should expect the default credentials to be available everywhere in the application.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T18:20:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-04-20T18:20:14Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

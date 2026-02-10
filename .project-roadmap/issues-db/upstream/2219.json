@@ -1,0 +1,68 @@
+﻿{
+    "number":  2219,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Import compatibility for Microsoft Remote Desktop Connection Manager v2.90 and above",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Connections",
+                   "Import/Export",
+                   "1.77.3"
+               ],
+    "author":  "unusedcow",
+    "created_at":  "2022-05-05T21:06:10Z",
+    "github_updated_at":  "2026-02-07T19:53:06Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nExpecting successful file import for .rdg files used by Remote Desktop Connection Manager 2.90\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the d...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM51Vk84",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Heloo, \r\n\r\nI have confirmed no schema changes for Remote desktop manager file version  v2.7 (2.70), v2.8 (2.80), v2.9 (2.90)\r\n\r\nfor a success full import on mRemoteNG build v1.77.1\r\nopen your current connection file and save it as a new file \"backup\" before editing YOUR_FILE_NAME.rdg with a text editor\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/38083493/6341db0c-16f5-4eb6-9d36-45f29ddc5eb8)\r\n\r\nupdate the version from 2.80 or 2.90 \r\n![image](https://github.com/mRemoteNG/mRemoteNG/ass...",
+                         "author":  "HermanRas",
+                         "action_needed":  true,
+                         "date":  "2024-02-28T09:40:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6D7C6S",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "After changing programVersion=\"2.93\" to programVersion=\"2.7\", the import ran without problems.\r\n\r\nmRemoteNG v.1.77.3",
+                         "author":  "Wolvverine",
+                         "action_needed":  true,
+                         "date":  "2024-07-08T07:59:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFTZ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhdJ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:05Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:06Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

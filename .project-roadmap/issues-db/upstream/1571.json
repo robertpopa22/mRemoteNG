@@ -1,0 +1,78 @@
+﻿{
+    "number":  1571,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "note field",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "In development",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "hungrysnake",
+    "created_at":  "2019-09-09T04:48:07Z",
+    "github_updated_at":  "2026-02-07T19:54:59Z",
+    "body_snippet":  "Is it possible to add a note field to the host config?\r\ncurrent i use description to add the note information but it is very limited.\r\nhope this can be considered.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyOTMyMzc4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There a├╢ready is a user field that can be used for anything that doesn\u0027t fit into the description field.\r\n\r\n![image](https://user-images.githubusercontent.com/22905106/64508798-8e17ae00-d2de-11e9-837b-0248d1c0b44b.png)\r\n",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-09-09T06:48:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyOTc2OTQ0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks @farosch to point out the user field. I notice that the User Field is more for a parameter using in the custom command line to call out an external tool. What I\u0027m looking for is a text area that can enter multiline notes. user field and description is good for single one or short parameter.",
+                         "author":  "hungrysnake",
+                         "action_needed":  true,
+                         "date":  "2019-09-10T04:56:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MTI0MzY3MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "In addition to that I would find it very useful to be able to attach a file to a connection and maybe access it with an external program.",
+                         "author":  "nLeonardt95",
+                         "action_needed":  true,
+                         "date":  "2020-06-09T12:00:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5J1sqj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "like this\r\n![image](https://user-images.githubusercontent.com/32833966/188769878-74215c84-ee26-42a0-8df4-97ee885a3917.png)\r\n![image](https://user-images.githubusercontent.com/32833966/188770226-556290a5-f1a2-4db3-941e-df019030bddd.png)\r\n",
+                         "author":  "TomLiu-GitHub",
+                         "action_needed":  true,
+                         "date":  "2022-09-07T01:40:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiCq",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:59Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:59Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

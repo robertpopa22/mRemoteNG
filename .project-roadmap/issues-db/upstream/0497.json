@@ -1,0 +1,30 @@
+﻿{
+    "number":  497,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SQL Feature requests",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "Nicolaj-ITS",
+    "created_at":  "2017-04-10T13:32:51Z",
+    "github_updated_at":  "2017-04-10T21:35:40Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n- Read-Only SQL DB mode(Instead of using the readonly permission workaround)\r\n\r\n- Save-DB function(instead of working live in the DB, make the changes and hit save to write them to db)\r\n\r\n- SQL DB reload freq setting(Instead of it reloading constantly, eg. 60 secs or something)\r\n\r\n- MSSQL Windows Authentication(Right now it only uses SQL Auth, with windows auth we could use domain logins for the db)\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2017-04-10T21:35:40Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

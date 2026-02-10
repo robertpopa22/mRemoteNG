@@ -1,0 +1,85 @@
+﻿{
+    "number":  2193,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "feature request: copy password",
+    "state":  "open",
+    "labels":  [
+                   "Request For Comment",
+                   "Feature Request",
+                   "1.77.4"
+               ],
+    "author":  "TristisOris",
+    "created_at":  "2022-04-04T20:09:44Z",
+    "github_updated_at":  "2026-02-07T19:52:32Z",
+    "body_snippet":  "it\u0027s implemented at Remote Desktop Manager Free. almost killer feature for me.\r\nnow we can copy only hostname\r\n![╨╕╨╖╨╛╨▒╤Ç╨░╨╢╨╡╨╜╨╕╨╡](https://user-images.githubusercontent.com/1270117/161622623-cd30015a-eb61-4380-b751-8df0e556a6f3.png)\r\nbut this is required much more often.\r\n![╨╕╨╖╨╛╨▒╤Ç╨░╨╢╨╡╨╜╨╕╨╡](https://user-images.githubusercontent.com/1270117/161622716-98d0399e-6d90-4b51-8174-fba5b9a4c2e2.png)\r\n\r\nfor ex: after ssh login i anyway need sudo, so should type password again. Without this op...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5A36OD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "noted, its another idea to allow advanced scripting (still as idea) that will allow to use variables like {{hostUserName}}, {{hostUserPassword}} and this can be used in run_command option to engage after login, without exposing that password (as its a situation then passwords can be controlled centralised, and host login password not always same as sudo :) but will think about it",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-04-05T08:08:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5BxPGc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I almost hate to say this bc it may be \"fixed\" for security, but you can currently copy the password by highlighting the word Password in the config and pressing Ctrl+C on the keyboard...I use this a lot and it\u0027s always the first thing I test when I update MRemoteNG",
+                         "author":  "tsew2674",
+                         "action_needed":  true,
+                         "date":  "2022-04-20T03:11:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5CFLiM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "From a security perspective I have to agree that \"Copy Password\" could cause some rather large security issues. If interested in ability to copy/paste password for SUDO perhaps a password manager like Keepass should be useds so that it\u0027s not necessary to remember passwords after connecting.",
+                         "author":  "kfordaccela",
+                         "action_needed":  true,
+                         "date":  "2022-04-25T14:31:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5EUnPa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "#2239 ",
+                         "author":  "skewty",
+                         "action_needed":  true,
+                         "date":  "2022-06-03T18:37:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5EU9Iv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "not sure if this helps your use case, but check https://www.howtogeek.com/175692/3-tips-for-the-mremoteng-remote-connections-manager/ under \"password revealer\" section. could possibly pair it with https://superuser.com/questions/231023/windows-script-to-copy-some-text-to-the-clipboard to copy directly to clipboard\r\n\r\nEdit:\r\nDid some testing, this should work for you: go to Tool \u003e External Tools \u003e New and set it up like this:\r\n![image](https://user-images.githubusercontent.com/1124513/171954485-9...",
+                         "author":  "juventus18",
+                         "action_needed":  true,
+                         "date":  "2022-06-03T20:39:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhRM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:32Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:32Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

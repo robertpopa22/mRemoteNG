@@ -1,0 +1,77 @@
+﻿{
+    "number":  435,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Allow for folders to set Hostname/IP",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "countchappy",
+    "created_at":  "2017-03-06T15:48:37Z",
+    "github_updated_at":  "2026-02-07T19:51:58Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n## Issue that prompted feature request?\r\nFolders do not allow you to set a Hostname/IP for inheritance.\r\n\r\n### Fix for specified issue:\r\n- Allow folders to configure a Hostname/IP\r\n- Allow for sub-folders/connections underneath the folder to inherit the setting\r\n\r\nI can work on this myself and submit a PR if you would like",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NDQ2MzE5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@countchappy Could you provide some more details in regards to the use case?\r\n\r\nThe only thing that I can think of would be to have multiple connections with the same hostname/IP, but different credentials. Would like to understand this better.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-03-06T17:09:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NDQ5NjUwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode That is exactly what it would be for ≡ƒÿå\r\nCurrently we use mRemoteNG at my workplace to connect multiple users to our Terminal Server on a single workstation. So we have multiple users under a single folder for terminal server connections.\r\n*(Image below for reference)*\r\n![mremoteng_setup](https://cloud.githubusercontent.com/assets/23261143/23623692/f3965cc2-0270-11e7-8e26-2268968df9c2.JPG)\r\nAll of these connections connect to the same hostname `tserv.[redacted].com`\r\nThat\u0027s just an ex...",
+                         "author":  "countchappy",
+                         "action_needed":  true,
+                         "date":  "2017-03-06T19:00:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDQ1MTI4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would also like this feature. I would use it exactly the same way as described above.",
+                         "author":  "PrestigeComputing",
+                         "action_needed":  true,
+                         "date":  "2017-12-09T11:42:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4OTQ2MTc5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would like this ability too e.g. if you have docker installed on a host with different ssh ports for different machines, the machine is the same but the port and/or usernames would be different.\r\nFor testing application users with different access this would be ideal linking to the same host but with different credentials.",
+                         "author":  "ng3727",
+                         "action_needed":  true,
+                         "date":  "2019-05-05T20:44:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhGV",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:58Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

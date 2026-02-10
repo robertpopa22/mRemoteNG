@@ -1,0 +1,111 @@
+﻿{
+    "number":  1581,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Move a tab to a new window",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "1.8 (Fenix)"
+               ],
+    "author":  "cheesecracker",
+    "created_at":  "2019-09-13T13:46:43Z",
+    "github_updated_at":  "2026-02-07T19:55:01Z",
+    "body_snippet":  "Currently, we could only have a **single** window to show all the connections.  And every connection in a tab.  It would be nice if we could open a connection (ie a tab) to a new window.  Esp because I have two monitors and therefore it\u0027s very convenient to open two RDP windows in different monitor.\r\n\r\nThis behaviour is very common in browsers.  Take Firefox as an example:\r\n1. Open two web pages in two tabs\r\n2. Right-click on any tab to show the context menu\r\n3. Choose \"Move Tab \u003e Move to New Wi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2NzQ3OTE2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Would be good to have detachable tabs as separate windows. ",
+                         "author":  "DExUS5",
+                         "action_needed":  true,
+                         "date":  "2019-12-19T12:58:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE4ODM4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "in general that can be done, but in new version planning a lot of changes regarding how session windows will be look like so will see how its goes. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-21T16:47:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49nRK5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is it done? or included in the latest release?",
+                         "author":  "IgorKurkov",
+                         "action_needed":  true,
+                         "date":  "2022-02-09T12:22:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49wN61",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This issue is tagged with Fenix, which means it\u0027s planned to be included in the Fenix 1.8(0) release. This most likely will need some more time until it\u0027s implemented. ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-11T10:13:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49xvME",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It would be great! Do you have approximate date of the fenix release? ",
+                         "author":  "IgorKurkov",
+                         "action_needed":  true,
+                         "date":  "2022-02-11T17:34:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6ZK4oY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still waiting after 5 and a half years... ≡ƒÿÆ≡ƒÿô",
+                         "author":  "cheesecracker",
+                         "action_needed":  true,
+                         "date":  "2025-01-03T20:19:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6kV0GM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is it really that difficult to handle detachable tabs?",
+                         "author":  "digibum",
+                         "action_needed":  true,
+                         "date":  "2025-03-27T08:32:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6kx0xy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hi, nobody want to work on such - i am busy with other parts of thsi project, once release will have a look to ui ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-03-30T12:00:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiDN",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:01Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:01Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

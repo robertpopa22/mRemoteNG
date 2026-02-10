@@ -1,0 +1,38 @@
+﻿{
+    "number":  1499,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Reconnect on first connection",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "ahake",
+    "created_at":  "2019-06-25T03:49:11Z",
+    "github_updated_at":  "2019-06-25T12:44:25Z",
+    "body_snippet":  "This is not a high priority, just a nice-to-have. When a connection drops, mRemoteNG tries to reconnect. It would be nice if it would try to reconnect when you first connect. \r\n\r\n## Expected Behavior\r\nWhen you first connect to a server, if that connection cannot be made, mRemoteNG should retry to connect for as many times as it would do for a dropped connection (default: 20)\r\nThis should be optional, perhaps settable via a checkbox in the properties\r\n\r\n## Current Behavior\r\nmRemote tries to conne...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNTQxNTIyNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think this makes sense.\r\n\r\nI don\u0027t know if everyone has this issue, but with RDP connections, if I don\u0027t specify the user password in the connection settings, the first connection almost always (if not always) fails. I do get the RDP credentials window as with Windows RD client, but the connection never seems to be established correctly the first time, I have to attempt a connection for a second time and reintroduce the password again; this only happens when the password is not stored in the c...",
+                         "author":  "ner00",
+                         "action_needed":  true,
+                         "date":  "2019-06-25T12:06:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-06-25T12:44:25Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

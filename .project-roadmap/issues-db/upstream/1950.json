@@ -1,0 +1,66 @@
+﻿{
+    "number":  1950,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unclear where to set Zoom level",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check"
+               ],
+    "author":  "rohrkemper",
+    "created_at":  "2021-04-11T11:13:43Z",
+    "github_updated_at":  "2026-02-07T16:46:02Z",
+    "body_snippet":  "I\u0027m working sometimes on a 4K monitor and sometimes on a 5K 2K monitor. I\u0027d like to have the zoom set to 200%. I\u0027ve seen some very specific issues related to this question, but no general explanation. Could someone help me get started even if there\u0027s no optimal solution? I have a very high bandwidth connection. Which other settings would you recommend to have the best display quality possible?",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDgyNTcwMzU5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "sometimes zooming just not work(but sometime it works) for me with mRemoteNG \u0026 4K monitor, and it will blur\r\n\r\nyou can try **[censored]**, it will zoom on your 4k monitor as long as you set the zoom on local machine.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-04-23T14:37:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDgyNzcyNDg4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e sometimes zooming just not work(but sometime it works) for me with mRemoteNG \u0026 4K monitor, and it will blur\r\n\u003e \r\n\u003e you can try **[censored]**, it will zoom on your 4k monitor as long as you set the zoom on local machine.\r\n\r\nGreat idea, but I cannot install other applications on this platform. ItΓÇÖs managed by our IT. Is there another way to solve the issue with mRemoteNG?",
+                         "author":  "rohrkemper",
+                         "action_needed":  true,
+                         "date":  "2021-04-27T16:02:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTE2Njk0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Great idea, but I cannot install other applications on this platform. ItΓÇÖs managed by our IT. Is there another way to solve the issue with mRemoteNG?\r\n\r\nIt was some PR related DPI scaling, will do a check but its should be possible to fix/add\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-27T13:50:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFgu",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:02Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

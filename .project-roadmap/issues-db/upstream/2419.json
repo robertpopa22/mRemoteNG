@@ -1,0 +1,68 @@
+﻿{
+    "number":  2419,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Export Saves password in OPEN TEXT",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Security",
+                   "Import/Export",
+                   "1.77.3"
+               ],
+    "author":  "Scott-db",
+    "created_at":  "2023-04-03T15:34:18Z",
+    "github_updated_at":  "2026-02-07T19:52:28Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen you export your configuration to a CSV file Password are in open text.\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nEncrypted\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference fr...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZImvo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\ncan confirm. It\u0027s also possible to export everything, not only a single server.\r\n\r\nRegards,\r\nJ.",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T06:38:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZJSrg",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I dont count that as a bug but as a feature :) as user may want to export it in open text, but technicaly we need add option for such perhaps, but need to think about - if we do encryption its use local machine so exported file will be useless on another machine. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T09:03:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZWckf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I dont count that as a bug but as a feature :) as user may want to export it in open text, but technicaly we need add option for such perhaps, but need to think about - if we do encryption its use local machine so exported file will be useless on another machine.\r\n\r\nIf you choose to also export credentials you should perhaps be able to password protect the credentials.",
+                         "author":  "brolifen",
+                         "action_needed":  true,
+                         "date":  "2023-04-06T13:21:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhP3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:28Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,58 @@
+﻿{
+    "number":  2579,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG with SQLDB to share connections",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "DBs",
+                   "1.77.3"
+               ],
+    "author":  "Weben-is-me",
+    "created_at":  "2024-04-10T15:28:42Z",
+    "github_updated_at":  "2026-02-07T19:52:40Z",
+    "body_snippet":  "I\u0027ve just deployed mRemoteNG in a Windows Servers 2016 and I\u0027d like to set SQL as DB to store more than 1000 connections and share them in a team. I\u0027ve followed the instructions:\r\n    https://github.com/mRemoteNG/mRemoteNG/blob/v1.77.3-dev/mRemoteNGDocumentation/sql_configuration.rst\r\n\r\nand deployed the db with the following script:\r\n    https://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNGDocumentation/mssql_db_setup.sql\r\n\r\nI\u0027m able to connect to the database I create a connection but w...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6cdKr1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have same problem.\n\n**Stable v1.76.20**\n\n```plaintext\n----------\nErrorMsg\n01/30/2025 17:09:13\nFailed to save join list file \"\"!\nThe specified ColumnMapping object does not match any column in the source or target.\n----------\n```\n\n**Preview v1.77.1**\n\n```plaintext\n----------\nErrorMsg\n01/30/2025 17:05:27\nMetod VerifyDatabaseVersion (Config.Connections.Save) failed. Column names in each table must be unique. Column name \u0027RedirectClipboard\u0027 in table \u0027tblCons\u0027 is specified more than once.\n---------...",
+                         "author":  "maxXx1",
+                         "action_needed":  true,
+                         "date":  "2025-01-30T15:57:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE2g",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhT4",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:40Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:40Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

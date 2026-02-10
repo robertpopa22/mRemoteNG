@@ -1,0 +1,74 @@
+﻿{
+    "number":  521,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unable to input into \"Connect:\" field for PuTTY",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "JimmyTheRustler8",
+    "created_at":  "2017-04-21T11:02:38Z",
+    "github_updated_at":  "2026-02-07T16:48:02Z",
+    "body_snippet":  "When I open more than one tab I cannot click into the \"Connect:\" field to input another server for a new tab. It appears to be highlighting the text but when I type the output is displayed in my current active session, rather than the input field of the text box.\r\n\r\nHas/is anyone else having this issue?\r\n\r\nThanks\r\nJ \r\n\r\n\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNTU2OTg2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have been having this issue since version 1.74  a work around is to click the title bar a few times till it is highlighted then you can click/type into the connection box again.\r\n\r\nThis should be marked as a bug if it isn\u0027t already.",
+                         "author":  "absmith82",
+                         "action_needed":  true,
+                         "date":  "2017-06-01T17:52:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxNTg4OTgwNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m so glad to hear that someone else is also having this issue... because I definitely am having this issue myself.\r\n\r\nI\u0027m on Windows 10 Pro x64 and my mRemoteNG version is 1.75.7008.17907\r\n\r\n@adam-smith-sundance THANK you for the workaround... it\u0027s been fucking annoying dealing with this issue.\r\n\r\n",
+                         "author":  "KeiroD",
+                         "action_needed":  true,
+                         "date":  "2017-07-17T21:26:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNzg2OTE5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve had the same problem. Try to copy paste into this field and nothing. Can\u0027t even type into the field. This also happens with the MultiSSH field.\r\nWin 10 Pro x64 mRemoteNG v1.76.20.24669",
+                         "author":  "simon1tan",
+                         "action_needed":  true,
+                         "date":  "2019-08-02T23:13:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEA0",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGFv",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:48:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:48:02Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

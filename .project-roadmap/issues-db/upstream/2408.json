@@ -1,0 +1,184 @@
+﻿{
+    "number":  2408,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Allow two connections tab to merged and so windows splitted horizontally",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2023-03-24T13:56:04Z",
+    "github_updated_at":  "2026-02-07T19:52:18Z",
+    "body_snippet":  "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n    1. Open SSH connection to e.g. Linux computer and do some tasks.\r\n    2. Open new SSH connection to the same remote computer.\r\n  \r\nNow sometimes I would like both windows to bi displayed on the same screen. I have Image editor that has this nice split functionality.\r\n\r\nFirst image:\r\n![image](https://user-images.githubusercontent.com/10895030/227539651-04dbbe84-87b3-442c-8b7...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5YZCPI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think such already posible in curent NB with panels operations, will check",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-03-24T15:07:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jZgtc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just wondering... is idea in this ticket now already implemented. Why? I see split session image on https://mremoteng.org/ web page.\r\n\r\nI am currently still on 1.76.20 on Windows 10, because I need stable environment, but this feature I can\u0027t wait to have.  :-)\r\nMaybe there is time to create a new \"Nigthy\" release. I am pleased to test this.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2023-08-07T10:50:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jaIfX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "in connection settings (Panel) you could set that target name, so then you have 2 pannels under differente name and each connection goes to its own panel, however spliting same connection into 2 windows is not posible at the moment.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-07T12:47:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jejzS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ahhhhh.... I didn\u0027t know this _Panel_ functionality exists. Steps if someone else see this useful:\r\n1. Start session as normal.\r\n2. In the _Connection_ for specific connection change name of _Display | Panel_ from _General_ to something else e.g. _test_.\r\n3. Right click on connection and select _Connect_.\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/10895030/79d0a039-e62d-4e7b-9a07-1c66519f2265)\r\n4. Now \"super\" tabs appear _General_ and _test_. Click on _test_ and drag and multiple op...",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2023-08-08T05:58:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jfgUV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes a bit of improvement for this comning in 1.77.4 branch...\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-08T08:56:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vUgik",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "When using the split features, Window does not scale, how to fix this? Like Windows 11 start menu is missing inside the  mRemorenG",
+                         "author":  "monitor22",
+                         "action_needed":  true,
+                         "date":  "2023-12-22T12:45:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vUuKU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e When using the split features, Window does not scale, how to fix this? Like Windows 11 start menu is missing inside the mRemorenG\r\n\r\nI think this goes into automatically resizing, which is not yet working as I would really like it. One way to force the resizing is to reconnect (right click on the connection tab) the session, maybe you\u0027d like to try that? ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-22T13:41:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vWZ0w",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "some of such are limited by .net 6 library and its works with windows forms what way and its not something I could fix (i tryed) will be migrating to .net 8 in next version, they have a lot improvements for windows forms and they promise they fix scaling issues so I expect resizing as well, will see",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-12-23T00:10:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vWnDK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e reconnect (right click on the connection tab)\r\n\r\nAfter splitting the window, when I press reconnect, to goes back into the tab again and breaks the split screen.",
+                         "author":  "monitor22",
+                         "action_needed":  true,
+                         "date":  "2023-12-23T04:15:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vi_EB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I see. Maybe you\u0027d want to try to open the splitted connection in a new panel \"righ-half\" and move the panel to the right instead of the tab. Does this help when reconnecting?",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-28T19:37:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vkFwu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Does this help when reconnecting?\r\n\r\nWhere is the option for reconnecting again when we change drag the window and change the display size? I disabled it and I don\u0027t know the default option anymore.\r\nThis is what I get after splitting into two view. Windows 11 does not resize. It just cops.\r\nVersion 1.77.1.27654\r\n![000168](https://github.com/mRemoteNG/mRemoteNG/assets/112599327/d7cb5c6c-ccca-40cc-92aa-284726883979)",
+                         "author":  "monitor22",
+                         "action_needed":  true,
+                         "date":  "2023-12-29T05:06:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vnhYz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As I said if you set up the connection panels correctly in the connection properties (just give it a name) you should be able to manually start the reconnect with the right click.\r\nThe option of reconnecting to resize is not directly named like that, but having a look at the \"Appearance\" section in the device connection property should give you the elements you\u0027re looking for. I suggest you put Resolution \"Fit To Panel\" and Automatic Resize to \"Yes\".",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-31T00:09:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vn_aD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Resolution \"Fit To Panel\" and Automatic Resize to \"Yes\".\r\n\r\nI just cant make it work. After fiddling for 1 week.",
+                         "author":  "monitor22",
+                         "action_needed":  true,
+                         "date":  "2023-12-31T07:14:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vo2eU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "please try latest 1.77.3 NB version (its not save settings so should be no harm to test)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-12-31T15:48:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6LA92p",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still waiting for this feature in 2024. Currently on 1.77.2 (1.77.3 is unusable, I tried it) and the only way to do it with the clunky Panels workaround which requires selecting a specific Panel at connection start. \r\n\r\nNot great but at least it\u0027s something. ",
+                         "author":  "how-do-i-computer",
+                         "action_needed":  true,
+                         "date":  "2024-09-05T17:34:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE8m",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhMV",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:18Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:18Z",
+    "unread_comments":  15,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

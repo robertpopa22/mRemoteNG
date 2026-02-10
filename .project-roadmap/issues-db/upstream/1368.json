@@ -1,0 +1,47 @@
+﻿{
+    "number":  1368,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Application Crashes after Setting SQL Options",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "therealcode",
+    "created_at":  "2019-03-21T19:12:36Z",
+    "github_updated_at":  "2019-03-21T22:20:07Z",
+    "body_snippet":  "## Expected Behavior\r\nAfter updating mRemoteNG I go into options, check \"use SQL Server to load/save connections\", test the connection works, then hit OK. The data loads and all connections are available. The period save updates the database each time.\r\n\r\n## Current Behavior\r\nThis stopped working as of the second to current version (last two versions are broken). Once I hit \"Test Connection\" for the SQL option - I get a \"Connection Successful\" response. After I hit \"OK\" in the options window, it...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NTM5NjA3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have extra details from AppCrashView I included below.\r\n\r\nFYI - I also tried an `/sfc scannow` for corruption and also tried to do `regsvr32 KernelBase.dll`\r\n\r\n**AppCrashView** **Results:**\r\n-----------\r\n```\r\n∩╗┐Version=1\r\nEventType=CLR20r3\r\nEventTime=131976732450718834\r\nReportType=2\r\nConsent=1\r\nUploadTime=131976732456293711\r\nReportStatus=268435456\r\nReportIdentifier=54d2220e-4fa8-479f-a785-0e718b4a33c3\r\nIntegratorReportIdentifier=721e8fd3-8885-40ec-9aa5-db67ac2fc9a4\r\nWow64Host=34404\r\nWow64Gues...",
+                         "author":  "therealcode",
+                         "action_needed":  true,
+                         "date":  "2019-03-21T20:47:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NTQyNDk0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "**With Debug Log Enable Results**\r\n-------------------\r\n```\r\n2019-03-21 16:51:46,923 [1] INFO  - Saving connections...\r\n2019-03-21 16:51:47,003 [1] INFO  - Successfully saved connections\r\n2019-03-21 16:52:14,262 [1] INFO  - mRemoteNG 1.76.18.26260 starting.\r\n2019-03-21 16:52:14,271 [1] INFO  - Command Line: C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exe\r\n2019-03-21 16:52:15,398 [1] INFO  - Microsoft Windows 10 Home  64-bit\r\n2019-03-21 16:52:15,399 [1] INFO  - Microsoft .NET CLR 4.0.30319.42000\r\n...",
+                         "author":  "therealcode",
+                         "action_needed":  true,
+                         "date":  "2019-03-21T22:20:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-03-21T22:20:07Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,220 @@
+﻿{
+    "number":  290,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Focus issue in PuTTYNG session after switching tabs",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "Eldaw",
+    "created_at":  "2016-12-02T03:16:27Z",
+    "github_updated_at":  "2026-02-07T19:56:39Z",
+    "body_snippet":  "Normally, when a SSH session has focus and you click on something to take focus away (e.g. click on the taskbar or another application), if you then click back on the titlebar of the mRemoteNG window, focus is returned to the SSH session correctly.\r\n\r\nHowever, if you switch tabs just prior to taking focus away from mRemoteNG, then focus doesn\u0027t return to the SSH session correctly when you activate mRemoteNG again.\r\n\r\nTry this:\r\nHave 2 SSH tabs open (using PuTTYNG) with focus currently in the fir...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NDUxMDM0MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Focus issues with PuTTY are known. \r\n\r\nThis most likely isn\u0027t going to be fixable with PuTTY in use. The solution would be to replace PuTTY: #181",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-12-02T17:24:04Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTgzNjk5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Comment from @cusco  #520 \r\n\r\n\u003eHello all. I\u0027ve searched on the internet and I find many people reporting this issue. On foruns and Jira, but I didn\u0027t find the issue here.\r\n\u003eAlso reports I found are old.\r\n\u003e\r\n\u003eBasically, when i have mRemoteNG opened with at least a putty session, I can\u0027t cycle correctly thorough windows applications with alt tab.\r\n\u003e\r\n\u003e    Have mRemoteNG focused\r\n\u003e    Alt + Tab to another App -\u003e stays on mRemoteNG (is it focusing putty?)\r\n\u003e    Alt + Tab again to another App -\u003e stay...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T18:03:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxODc0MjMzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "From @cryptage21 #663\r\n\r\n\u003eI\u0027ve detected a bug with SSH sessions (Putty).\r\n\u003eAfter launching mRemoteNG, if you start a SSH connection, it\u0027s working perfectly.\r\n\u003e\r\n\u003eTo open a second connection, I click on the \"connections panel\" and when I want to write the name of the session, it\u0027s writing in the opened putty tab instead of selecting the name of the session in the list.\r\n\u003e\r\n\u003eAfter another click on the list, that\u0027s good. With 2 or more opened tabs, it\u0027s working correctly too.\r\n\u003eThe problem is only ...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-07-28T19:29:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzOTI3NzE4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am also experience focus issues with Putty - Solar Putty. Very annoying. I\u0027m downloading another client",
+                         "author":  "cimminob",
+                         "action_needed":  true,
+                         "date":  "2018-11-16T04:19:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNDY2OTA1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve done some work in this area recently that should finally fix any putty focus issues. Clicking/alt-tabbing is mostly working as expected now. I will update this issue once it has been merged",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-08-25T22:21:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNTI4NDg3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd : very good news ! Thank you.",
+                         "author":  "cryptage21",
+                         "action_needed":  true,
+                         "date":  "2019-08-27T12:47:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0MDYxMzY0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd : I really wish this issue is solved. For many years I\u0027ve been using mremoteng but this issue has always been very annoying when I\u0027m copy/pasting text between windows.",
+                         "author":  "pedroeloy",
+                         "action_needed":  true,
+                         "date":  "2019-10-10T14:27:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0MjkzNTA4MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve tested the bug on ssh_focus branch and it works!! I\u0027ll run with this version for a few days and update if I find any issues\r\nthanks\r\nEDIT\r\nI\u0027ve noticed this warning when a tab is closed, @sparerd I don\u0027t mean to bother, I\u0027m aware that this is a WIP. if you prefer that I won\u0027t report issues let me know\r\n```\r\n----------\r\nWarningMsg\r\n10/16/2019 20:01:13\r\nFailed to set external protocol window to foreground. name:\u0027Staging-\u003cHOSTNAME\u003e, protocol:\u0027SSH2\u0027, pid:18716, hwnd:200728\r\n----------\r\n```\r\n\r\nA...",
+                         "author":  "Idanatcox",
+                         "action_needed":  true,
+                         "date":  "2019-10-16T23:41:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNjk5NDM2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am sorry, any update on this? ",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2020-04-21T07:04:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MDIxMDk4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@aswzen Follow #181 for any news.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-06-07T12:27:04Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY5NjA4NTcxNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I\u0027ve done some work in this area recently that should finally fix any putty focus issues. Clicking/alt-tabbing is mostly working as expected now. I will update this issue once it has been merged\r\n\r\nv1.77.1 behaves the same for those wondering.",
+                         "author":  "spdfnet",
+                         "action_needed":  true,
+                         "date":  "2020-09-21T12:36:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5JrlZf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This issue was driving me crazy!!! But seems to be resolved in nightly 1.77.3. \r\n\r\nTHANK YOU!!!",
+                         "author":  "ryny24",
+                         "action_needed":  true,
+                         "date":  "2022-09-03T16:43:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5JsGTb",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e This issue was driving me crazy!!! But seems to be resolved in nightly 1.77.3.\r\n\u003e \r\n\u003e THANK YOU!!!\r\n\r\nWould be nice to have someone else confirm. This means that the fix will make it into the the next release, right?",
+                         "author":  "cusco",
+                         "action_needed":  true,
+                         "date":  "2022-09-04T09:25:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XnSks",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e This issue was driving me crazy!!! But seems to be resolved in nightly 1.77.3.\r\n\u003e \r\n\u003e THANK YOU!!!\r\n\r\nThe issue is **not** solved in v1.77.3-nb",
+                         "author":  "cesarmansur",
+                         "action_needed":  true,
+                         "date":  "2023-03-15T12:29:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XnSpE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e This issue was driving me crazy!!! But seems to be resolved in nightly 1.77.3.\r\n\u003e \u003e THANK YOU!!!\r\n\u003e \r\n\u003e Would be nice to have someone else confirm. This means that the fix will make it into the the next release, right?\r\n\r\nThe issue is **not** solved in v1.77.3-nb",
+                         "author":  "cesarmansur",
+                         "action_needed":  true,
+                         "date":  "2023-03-15T12:29:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Xo32N",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still looking forward to this fix.",
+                         "author":  "cesarmansur",
+                         "action_needed":  true,
+                         "date":  "2023-03-15T16:13:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XsyBn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Finally i have to move to other tool namely WindTerm (https://github.com/kingToolbox/WindTerm) since this alt+tab remote-ng issue has been bothering me for 6 years, even after using the latest version.. Thank you remote-ng developers for the tool, i really appreciated it ≡ƒæì≡ƒæì≡ƒæì",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2023-03-16T05:47:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5X2yOQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Focus issues with PuTTY are known.\r\n\u003e \r\n\u003e This most likely isn\u0027t going to be fixable with PuTTY in use. The solution would be to replace PuTTY: #181\r\n\r\nSuperPuTTY uses PuTTY and doesn\u0027t have this annoying issue with Alt+Tab. But I still prefer mRemoteNG over other tools. It would be great if the developers could pay a special attention to this bug and put some effort to fix it for good.",
+                         "author":  "cesarmansur",
+                         "action_needed":  true,
+                         "date":  "2023-03-17T15:03:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGHE",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:48:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYQ-Y",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:12:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYigx",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:39Z",
+    "unread_comments":  18,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

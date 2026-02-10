@@ -1,0 +1,481 @@
+﻿{
+    "number":  2474,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request: Promote a new version to stable",
+    "state":  "open",
+    "labels":  [
+                   "Project Infrastructure",
+                   "In progress",
+                   "1.77.3"
+               ],
+    "author":  "sdz2",
+    "created_at":  "2023-08-11T13:24:37Z",
+    "github_updated_at":  "2026-02-07T20:31:48Z",
+    "body_snippet":  "Please consider releasing new builds: stable, preview, and nightly.\r\n\r\nConsider branching from nightly then thoroughly testing all features.\r\n\r\nThe latest stable and preview versions are over four years old.  The RDP in v1.76.20 (stable) and v1.77.1 (preview) both still use the old RDP Automatic Resizing method, which takes 15 seconds and shows the Reconnecting dialog.\r\n\r\nThe RDP resizing works correctly in v1.77.3.1784-NB (nightly) Portable, but the build is full of other bugs: settings not sav...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5kOI5j",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sdz2: I am happy that I am not alone! :)\r\n\r\nI have done a ticket 2020-05-25 about it:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\r\n\r\nLatest stable version is 1.76.20 (2019-04-12):\r\n- https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20\r\n\r\nAnd there are several CVEs in the latest current stable version:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues?q=is%3Aissue+cve\r\n\r\nLinked to:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\r\n- https://github.com/mRemoteNG/mRemoteNG/i...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-08-17T00:19:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5kVA0R",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i dream of a day that there is a new release.  i personally think that they should\u0027ve shifted the branch to version 2 for the major overhaul and kept releasing minor versions of v1 for bug fixes, security etc. \r\n\r\n4 years is a VERY long time ...\r\n\r\nEdit: Reference for far too much done in a minor version: https://github.com/mRemoteNG/mRemoteNG/projects/3",
+                         "author":  "Laim",
+                         "action_needed":  true,
+                         "date":  "2023-08-18T02:10:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5kVBRE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Laim: Maybe the team has done a deal with several hacker teams to keep a software with CVEs.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-08-18T02:13:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lXRhe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello,\r\nlast years I only use putty, but I think its a good thing to use a tool like this. I found https://github.com/1Remote/1Remote and there I  found this project, but which project is better? 1Remote have a new version but only one developer, this project have a 4 years old stable version but, I think, more developers?",
+                         "author":  "BurtGummer",
+                         "action_needed":  true,
+                         "date":  "2023-08-31T08:33:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lXVyQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\nI don\u0027t think it\u0027s about the number of developers. For example, [wezterm](https://wezfurlong.org/wezterm/index.html) is done by a single person and has a very active user base as well as regular releases.\r\nWhat most people have a problem with (I think) is:\r\n- the amount of time its taken from the last release\r\n- no periodical (monthly, weekly) releases whatsoever\r\n- promises that have not been kept\r\n\r\nJust my 2ct\r\n\r\nRegards,\r\nJ.",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2023-08-31T08:44:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lYcxJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Promised releases and too many features at once are my issue.I downloaded the latest source and built it and it worked fine enough for a nightly or even pre-release, not sure whatΓÇÖs going on.Just feels like itΓÇÖs gone very stale.┬áSent from my iPhoneOn 31 Aug 2023, at 09:44, JeanPluzo ***@***.***\u003e wrote:∩╗┐\r\nHi,\r\nI don\u0027t think it\u0027s about the number of developers. For example, wezterm is done by a single person and has a very active user base as well as regular releases.\r\nWhat most people have...",
+                         "author":  "Laim",
+                         "action_needed":  true,
+                         "date":  "2023-08-31T12:02:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lZ6ZU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, just back after holidays so sorry for delayed responce, new release is planed to september, delay due a lot of changes going in local code (cant commit due to much changes) but working towards such, so be patient, one of change what mR will store settings in local db. (Encrypted, secured) another one - we dont load connections data into tree, only pointer to data source, that helps to avoid sensitive data leak reported in several cve for older versions what i dont want to support (to much...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-31T15:46:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ltV3O",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think what\u0027s worth thinking about is what @Laim suggested here: https://github.com/mRemoteNG/mRemoteNG/issues/2474#issuecomment-1683229969.\r\n\r\nAmbition and wanting to progress the project is a noble goal, but it should be done in a way that doesn\u0027t force you into a corner where you can\u0027t release for years because your working on a set of features. \r\n\r\nOpensource projects are a marathon not a race and one needs a strategy to deal with the demands of the project and at the very least address sec...",
+                         "author":  "Xhanti",
+                         "action_needed":  true,
+                         "date":  "2023-09-05T10:48:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5luiCM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I dont do release just to have release :) I am not interesting in increasing numbers, at same time i have a vision what and how product should be look like but acept what is not only coding is in my life so I am delaing with many other items and not only for this release so release will hapened this year for sure, as Russians says - speed is needed only then catching flees ;)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-09-05T14:08:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5n3gtc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Welp, september came and went. And no release whatsoever. I was kind of hoping that @Kvarkas kept his word this time, but sadly this is not the case.\r\nI know you have a lot to do @Kvarkas, but so do we and the whole world. And it is also OK to want big things with this project. But not keeping your word is very deplorable.\r\nAnd because of this I have been asked by my boss to uninstall and stop using mRemoteNG from all our PCs and servers. This is such a great piece of software and I\u0027m sad to hav...",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2023-10-02T08:30:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5oVAYy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Kvarkas wrote:\r\n\u003e I dont do release just to have release :) I am not interesting in increasing numbers\r\n\r\nNobody asked for a release just to have a release, so there is no need for such empty rhetoric. Please release to fix increasing number of security issues.\r\n\r\nI highly recommend to think about [Xhanthi\u0027s comment](https://github.com/mRemoteNG/mRemoteNG/issues/2474#issuecomment-1706384846) a 2nd time. The idea is to have this project use [A successful Git branching model](https://nvie.com/post...",
+                         "author":  "Buster-de",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T10:09:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5oWfWV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "In fact, just waiting, promises and promises...",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T13:57:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5odupO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey ho! I am back :) you must be know already that GitHub forced to enable 2FA and be carefull if you will lost you phone recover access abck is pain in the asset (just had this expirience!) :) any way I am back and start pushing weels again so they will move!",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-09T09:17:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pJOer",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas when is the next stable release planned? Any month if possible?",
+                         "author":  "dheeraj29",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T08:56:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pJe7e",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Don\u0027t get your hopes up. @Kvarkas already said that a new release would be coming [in september](https://github.com/mRemoteNG/mRemoteNG/issues/2474#issuecomment-1701291604), but like I said above, september came and went without any kind of update (you can even see that he lost github access for a few days/weeks in september).\r\nSo even if he says \"soon\" or \"december\" I wouldn\u0027t have a reason to believe him.",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T09:37:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pNQ68",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Buster-de , @VQFCOSTA-Infortech, @JeanPluzo \r\nPlease understand that most of the time just @Kvarkas is working on this project, taking from his free and/or family time. No need to be rude; is there any way you can help to speed-up the release of v1.77?\r\n\r\n@Kvarkas Perhaps the tickets labeled as enhancements could be moved to the v1.78 version just to shorten the ToDo list for v1.77? https://github.com/mRemoteNG/mRemoteNG/projects/3\r\n\r\nAll the best,\r\nSimo",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T18:47:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pNT-q",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@savornicesei \r\nI wasn\u0027t rude, but when I read, I saw that it\u0027s been more than 3 years just promising a new stable version and to this day the problems in the testing versions haven\u0027t stopped.\r\n\r\nSystem promises, such as support for MySQL and it doesn\u0027t work, simple schema error, but there is no database schema updated for the testing version anywhere.\r\n\r\nI wish I could help, but I don\u0027t have the necessary programming knowledge, so I\u0027m still waiting.",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T18:55:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pNh2j",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It is better to release several builds than only one.\r\nPeople would like a new stable build since 2019-04-12 (4 years, 6 months, 4 days).",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T19:38:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pOIfs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @savornicesei I wasn\u0027t rude, but when I read, I saw that it\u0027s been more than 3 years just promising a new stable version and to this day the problems in the testing versions haven\u0027t stopped.\r\n\u003e \r\n\u003e System promises, such as support for MySQL and it doesn\u0027t work, simple schema error, but there is no database schema updated for the testing version anywhere.\r\n\u003e \r\n\u003e I wish I could help, but I don\u0027t have the necessary programming knowledge, so I\u0027m still waiting.\r\n\r\nIt\u0027s been a long time since I done...",
+                         "author":  "Laim",
+                         "action_needed":  true,
+                         "date":  "2023-10-16T21:33:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pPPyL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @Buster-de , @VQFCOSTA-Infortech, @JeanPluzo \n\u003e \n\u003e Please understand that most of the time just @Kvarkas is working on this project, taking from his free and/or family time. No need to be rude; is there any way you can help to speed-up the release of v1.77?\n\u003e \n\u003e \n\u003e \n\u003e @Kvarkas Perhaps the tickets labeled as enhancements could be moved to the v1.78 version just to shorten the ToDo list for v1.77? https://github.com/mRemoteNG/mRemoteNG/projects/3\n\u003e \n\u003e \n\u003e \n\u003e All the best,\n\u003e \n\u003e Simo\n\nI feel to-do ...",
+                         "author":  "dheeraj29",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T03:26:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pP6WY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@savornicesei: what do you mean exactly by \"being rude\"?\r\nIf you read my post, I\u0027m just stating a fact: he said \"September\" and this did not happen. If you are not true to your word, what reason do I have to believe @Kvarkas when he says \"October\" or \"December\"?\r\nI didn\u0027t say \"hey everybody! Don\u0027t believe him\" which would be wrong from my part.\r\nOTOH he (@Kvarkas) keeps promising new features. Just last Wednesday he promised still another feature in the matrix channel for mRemoteNG but nothing s...",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T06:52:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pQhPp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That the reason why most of developers escaped from this project as they do it at free time, not for reward, but users start requesting to do that they want (even if they not spend a peni via donation) and they dont like that presure so they prefer stop contributing, I am long time in IT, I have resistance, francly speaking you wishes are good, but you are not (unfortunately) from managers group or stackholders so let me decide then it should happened, now as you try to push me into corner sayin...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T08:35:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pQmNB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e It is better to release several builds than only one. People would like a new stable build since 2019-04-12 (4 years, 6 months, 4 days).\r\n\r\nwhere is a reason for such ;) we completly rebuilding (moved to .net 6 after last release) so its a lot of functional changes in code, and more comming, so be patient it will happened soon (ok, ok, this year, but will not say exact date as your guys will spam all arround crying I promiss but its not happened...) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T08:47:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sJVfA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any eta on a new release?  Even just being DPI aware would be great at this point, mRemote feels very blurry on QHD monitors.",
+                         "author":  "Laim",
+                         "action_needed":  true,
+                         "date":  "2023-11-16T12:55:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sJlyX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Any eta on a new release? Even just being DPI aware would be great at this point, mRemote feels very blurry on QHD monitors.\r\n\r\nYes, working on it, in .Net 8 they improve winforms for such, but migration will be started on new branch (next year) after release (this year) - btw.  there is some improvements already in 1.77.3, but we are limiting by windows to do it properly in current version. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-16T13:38:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sJmGH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Sehr geehrte Damen und Herren, ich bin momentan nicht im B++ro. Mit freundlichen Gr+++∩┐╜en i.A. Albrecht Zwick GmbH ************************************************************************** Tel: Fax: +49 2331 35945-50 eMail:\r\n\r\nniht firstein :)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-16T13:39:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sZkZA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think a new stable would be great, and increase confidence in the tool, especially for new users. As a new user myself to mRemoteNG, I\u0027m very unsure which version I should get...? (The latest release comment is full of spelling errors and information about bugs about saving settings. Maybe not use that version?)",
+                         "author":  "cloudgreen",
+                         "action_needed":  true,
+                         "date":  "2023-11-20T09:39:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sZ8Q8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "savings are disabled to dont mess with current settigns if users have stable but want to try a latest that I call \"night build\" - NB but technicaly its beta version. \r\nAt this moment I am working to release next NB asap what have high potential turn into preview and finaly will be stable by end of this year. \r\nA lot changes planed for next branch but in this one are major fixes for security (mR dont store passwords anymore withing the app), will store all settings in local db, that allow do depl...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-20T10:07:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sa4Z0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Great, thanks for the input!",
+                         "author":  "cloudgreen",
+                         "action_needed":  true,
+                         "date":  "2023-11-20T12:36:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5uy8It",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think everyone now understands that @Kvarkas appointing as lead dev on this project was a mistake.\r\nHe\u0027s unable to set realistic goals and keep up with them.\r\nThis project is dead as of original dev has been retired.",
+                         "author":  "journeym",
+                         "action_needed":  true,
+                         "date":  "2023-12-16T15:44:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5uzD9n",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We are 2023-12-16, no new stable release build with CVE fixes...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-12-16T17:39:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5uzEJh",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I think everyone now understands that @Kvarkas appointing as lead dev on this project was a mistake. He\u0027s unable to set realistic goals and keep up with them. This project is dead as of original dev has been retired.\r\n\r\nOne may consider this project dead until there is a new stable release (hopefully soon), but I don\u0027t like your wording of it \"being a mistake to select the new development lead\". It is still a community project, and I wonder how you contributed to the success/future of this pro...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-16T17:42:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5uzKKd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I think everyone now understands that @Kvarkas appointing as lead dev on this project was a mistake.\n\u003e \n\u003e He\u0027s unable to set realistic goals and keep up with them.\n\u003e \n\u003e This project is dead as of original dev has been retired.\n\n\nI,like many others, am frustrated, but the tone here is not great. The original author and the current maintainer owe me and you nothing. We don\u0027t pay their bills or do anything for them. We can ask them,very nicely, to give of their time and create and maintain softwa...",
+                         "author":  "Xhanti",
+                         "action_needed":  true,
+                         "date":  "2023-12-16T18:47:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vWZC6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "its always funy to see some comments knowing what they not add even a line of code :) keep barking, the caravan continues to go",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-12-23T00:02:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vWb6l",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas: Contributor or not, security is important, currently mRemoteNG is not secure, badly...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-12-23T00:39:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vXy24",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "exactly and to make it secure i need to rewrite all tree stucture so its not save credentials, but only path from where to access them, then sensitive data could be protected by end users by many ways but that will be not mR bussines. :)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-12-24T12:44:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vnfPn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Since 2023-12-18, there is a new PuTTY version, 0.80 linked to Terrapin Attack:\r\n- https://www.openssh.com/security.html\r\n- https://www.google.com/search?q=Terrapin+Attack",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-12-30T23:03:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM57N7Fb",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 it has been a very long time now since the last stable version and there are missing critical patches for PuTTY\r\n\r\nThank you fellow commentors for the references to Royal TS, I had not heard of this and will be exploring it as a replacement",
+                         "author":  "Kickimanjaro",
+                         "action_needed":  true,
+                         "date":  "2024-04-19T20:32:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM57ODLU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "just FYI, PuTTYNG have its own branch and older versions don\u0027t know how to update so you may need to do it manually: https://github.com/mRemoteNG/PuTTYNG/releases",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-04-19T21:04:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM57PVVo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e +1 it has been a very long time now since the last stable version and there are missing critical patches for PuTTY\r\n\u003e \r\n\u003e Thank you fellow commentors for the references to Royal TS, I had not heard of this and will be exploring it as a replacement\r\n\r\nI used to use RoyalTS many years ago and I assumed it was deprecated by now. But no, [it seems to live and prosper](https://www.royalapps.com/ts/win/features)! Also, the classic [Microsoft/Sysinternals Remote Desktop Connection Manager](https://le...",
+                         "author":  "cloudgreen",
+                         "action_needed":  true,
+                         "date":  "2024-04-20T09:30:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Fe4H6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "5y w/o producing a release. Nice work",
+                         "author":  "journeym",
+                         "action_needed":  true,
+                         "date":  "2024-07-19T15:29:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Ffz2m",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The big problem, is the SECURITY, it is UNSECURE badly.\r\n\r\nYou can look my comment here:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/2474#issuecomment-1681428067\r\n\r\nIn 2020-05-25, I have done a ticket here, closed but always not solved:\r\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2024-07-19T17:15:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6FlxNR",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e The big problem, is the SECURITY, it is UNSECURE badly.\r\n\u003e \r\n\u003e You can look my comment here:\r\n\u003e \r\n\u003e * [Request: Promote a new version to stable┬á#2474 (comment)](https://github.com/mRemoteNG/mRemoteNG/issues/2474#issuecomment-1681428067)\r\n\u003e \r\n\u003e In 2020-05-25, I have done a ticket here, closed but always not solved:\r\n\u003e \r\n\u003e * [New release soon?┬á#1765](https://github.com/mRemoteNG/mRemoteNG/issues/1765)\r\n\r\nwell you maybe not happy but no need to lie, what you mean its UNSECURE badly? Its have al...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-07-20T19:32:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6FlxS8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e 5y w/o producing a release. Nice work\r\n\r\nand what? Windows release recently and what was a result? :D ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-07-20T19:34:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Fl03D",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "to be fair that wasnΓÇÖt a windows release, that was a crowdstrike release that impacted the kernel lol┬áSent from my iPhoneOn 20 Jul 2024, at 20:34, Dimitrij ***@***.***\u003e wrote:∩╗┐\r\n\r\n5y w/o producing a release. Nice work\r\n\r\nand what? Windows release recently and what was a result? :D\r\n\r\nΓÇöReply to this email directly, view it on GitHub, or unsubscribe.You are receiving this because you were mentioned.Message ID: ***@***.***\u003e",
+                         "author":  "Laim",
+                         "action_needed":  true,
+                         "date":  "2024-07-20T20:26:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJCF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXPEH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Last stable version: 2019. Keep up the good work committing stuff and unable to actually release anything ",
+                         "author":  "journeym",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T17:04:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYFnW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Always good.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T18:45:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh7o",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mZBgK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@robertpopa22: No, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T20:31:48Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T20:31:48Z",
+    "unread_comments":  48,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,32 @@
+﻿{
+    "number":  2293,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "filter by folder name but list all connections inside",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "Connections"
+               ],
+    "author":  "hungrysnake",
+    "created_at":  "2022-10-01T09:28:53Z",
+    "github_updated_at":  "2022-12-06T13:13:13Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\ni want to search by folder name and expand it to see all the connections inside\r\ncurrently the search/filter showing only the pattern match irregardless of connections or folder, which make it very difficult to search if only know/remember the folder name\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\nable to filter only by folder name and keep all the connection/subfolder inside\r\n\r\n\u003c...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2022-12-06T13:13:13Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

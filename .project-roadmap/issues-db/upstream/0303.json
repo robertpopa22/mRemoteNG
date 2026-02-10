@@ -1,0 +1,102 @@
+﻿{
+    "number":  303,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Printers do not appear to be redirected",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug"
+               ],
+    "author":  "thedudeiii",
+    "created_at":  "2016-12-07T21:55:22Z",
+    "github_updated_at":  "2022-03-21T02:22:16Z",
+    "body_snippet":  "When I connect to my cloud server, I am not getting any of my printers to appear.  My disk drives appear and my \"Send to One Note\" appears as redirected, but not any of my regular printers.  I have selected \"yes\" unders printers redirect.\r\n\r\n\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NTU4OTU1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tested in 1.75 Beta 3 portable... Printers do not appear to be redirected. However, I only have network printers available. RDP directly (mstsc) also did not redirect the network printers. Will need to review any limitations of this feature.\r\n\r\n@thedudeiii - could you please confirm if your printers are local or not? The option within mstsc specifically notes \"Local\" resources... I\u0027m guessing network resources will not be available.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-12-07T22:11:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NTc0ODk5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Both actually.  I have a printer that is local and several networked\nprinters.  None of them appear.\n\nOn Wed, Dec 7, 2016 at 4:11 PM, Sean Kaim \u003cnotifications@github.com\u003e wrote:\n\n\u003e Tested in 1.75 Beta 3 portable... Printers do not appear to be redirected.\n\u003e However, I only have network printers available. RDP directly (mstsc) also\n\u003e did not redirect the network printers. Will need to review any limitations\n\u003e of this feature.\n\u003e\n\u003e @thedudeiii \u003chttps://github.com/thedudeiii\u003e - could you please conf...",
+                         "author":  "thedudeiii",
+                         "action_needed":  true,
+                         "date":  "2016-12-08T14:13:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzA2NjQyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Can confirm that this is still an issue in 1.75 Hotfix 1.",
+                         "author":  "jemiller226",
+                         "action_needed":  true,
+                         "date":  "2017-03-16T14:04:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNTkyNzg0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same problem in Stable v1.75.7012",
+                         "author":  "MrFrr",
+                         "action_needed":  true,
+                         "date":  "2018-07-18T13:20:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTY0ODA0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Confirmed still an issue in v1.76.11.40527\r\nDisappointing as this is a crux point for us so we\u0027re having to use inferior solutions just because this doesn\u0027t work (even though it works in mstsc).",
+                         "author":  "relativenoob",
+                         "action_needed":  true,
+                         "date":  "2019-03-05T11:36:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3ODUwOTI3NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "**Still an issue in 1.76.18.26260\r\nPlease, correct this bug.**",
+                         "author":  "Naghual",
+                         "action_needed":  true,
+                         "date":  "2019-04-01T09:39:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3OTYzMDg0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This will very likely rely on #826 being implemented. We just set a switch on the RDP connection to say if we want to redirect printers or not, so this is very likely a bug in the version of the library we are using. \r\n\r\nTo fix this, we need to use a newer version of mstsclib. However, using a newer version will start to prevent older operating systems from using RDP from within mRemoteNG (depending on which newer version we select). The best option is to allow mRemoteNG to dynamically determine...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-04-03T19:41:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4_-yE4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I downloaded latest nightly version, changed protocol to rdp 9, printer redirection works now.",
+                         "author":  "xyxzxyz",
+                         "action_needed":  true,
+                         "date":  "2022-03-21T02:22:16Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-03-21T02:22:16Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

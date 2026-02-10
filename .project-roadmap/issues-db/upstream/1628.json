@@ -1,0 +1,49 @@
+﻿{
+    "number":  1628,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request : a drag\u0026drop switch on/off",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "Dustbr",
+    "created_at":  "2019-10-22T13:17:19Z",
+    "github_updated_at":  "2026-02-07T19:55:58Z",
+    "body_snippet":  "Hello guys,\r\nThe current product fits all my needs, I love it, great job ! ≡ƒæì \r\n\r\nThere is just a small feature that I would like to see added to mRemoNG and that is a switch to disable or enable the possibility to drag and drop the elements in the \"Connections\" windows.\r\nCurrently I often happen to have one of my connections or folders that moves out of my will in another place/folder in my connection tree.\r\n\r\nI do not really know the origin of this except that it happens when I am too fast i...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF1v",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiSH",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:58Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

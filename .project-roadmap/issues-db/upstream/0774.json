@@ -1,0 +1,38 @@
+﻿{
+    "number":  774,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add support for dynamic tab names",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "rubaboo",
+    "created_at":  "2017-11-05T06:40:05Z",
+    "github_updated_at":  "2017-11-05T12:21:32Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nAs detailed in [MR-571](https://mremoteng.atlassian.net/browse/MR-571):\r\n\r\n\u003e It would be great to have support for dynamic tab names, similar to the application SuperPutty. Escape codes in a terminal window set the tab name. This is useful in Cygwin terminals to change the tab name to the target of an ssh command, etc.\r\n\u003e \r\n\u003e For example this function in bash sets the tab title:\r\n\u003e \r\n\u003e title ()\r\n\u003e {\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MTk2OTA5OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "No worries about the Atlassian account - what you did here is perfect",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-11-05T12:21:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-11-05T12:21:32Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

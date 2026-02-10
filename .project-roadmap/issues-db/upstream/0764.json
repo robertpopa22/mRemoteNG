@@ -1,0 +1,75 @@
+﻿{
+    "number":  764,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Search stops at first occurence of a word even if there is an exact match",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Need 2 check"
+               ],
+    "author":  "farosch",
+    "created_at":  "2017-11-01T09:57:29Z",
+    "github_updated_at":  "2026-02-07T16:47:52Z",
+    "body_snippet":  "![2017-10-31 14_51_53-sdkesx siedle local vmware esxi](https://user-images.githubusercontent.com/22905106/32269470-c511ef80-bef2-11e7-8b0b-e4bbd5366ced.png)\r\nWhen searching through connections the first item that contains the search string gets selected, even if there is an exact match to the search string.\r\nThe search algorithm should at first always try to find an exact match. Only if this fails should it search for a connection just containing the search string.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0Mjg0MjA2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Current search implementation is not very robust. Reference #205 \u0026 #696",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-11-08T14:56:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNDk0ODI0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would like to have the option to filter the list. If you have many connections in your list the current search implementations isn\u0027t very clearly.\r\n![grafik](https://user-images.githubusercontent.com/1539498/44451016-c7f21580-a5f2-11e8-893a-edb49e028824.png)\r\nFiltered it could look like this.\r\n![grafik](https://user-images.githubusercontent.com/1539498/44451069-e9530180-a5f2-11e8-8996-ce7f89f8eded.png)\r\n",
+                         "author":  "proxymus",
+                         "action_needed":  true,
+                         "date":  "2018-08-22T08:05:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNDk5Mzc3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@proxymus v1.76.x has search filtering as a new feature",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-22T10:57:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEAf",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGCZ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:52Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:52Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

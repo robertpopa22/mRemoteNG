@@ -1,0 +1,103 @@
+﻿{
+    "number":  1461,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Alt Gr stops working after terminal reconnection",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "telecotxesco",
+    "created_at":  "2019-05-24T08:56:14Z",
+    "github_updated_at":  "2026-02-07T19:53:21Z",
+    "body_snippet":  "Alt Gr key stops working over the rest of the opened applications outside mRemoteNG, not being able to type special characters like \"@\", \"Γé¼\", etc.\r\n\r\n## Expected Behavior\r\nAlt Gr key to work as usual.\r\n\r\n## Current Behavior\r\nAlt Gr key stop working and has no efect after remote desktop connection is lost and reconnected.\r\n\r\n## Possible Solution\r\nI guess there is something on reconnection scenario that makes keyboard mess.\r\n\r\n## Context\r\nnRemoteNG with active Windows Servers Remote desktops con...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTYxNjQ2NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Was the RDP connection in full-screen mode or normal size?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T13:00:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTYyNDcwOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Normal size. mRemoteNG windowed but maximized, and the RDP inside the right tabbed panel. Connections panel fixed on left.",
+                         "author":  "telecotxesco",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T13:20:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwODQxOTA4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Had similar issue, but not linked with mremote (issue with and without mremote), probably with RDP itself. Found a workaround :\r\nGo in a RDP session (or open a new one) and press-release Alt-Gr in that session. Then it works back normal.",
+                         "author":  "Pouet78",
+                         "action_needed":  true,
+                         "date":  "2019-07-04T09:48:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNzAyNDEzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Try this :\r\nOn the remote desktop, open the task manager and start a new task \"explorer.exe\"\r\nThis solved the issue on my computer.",
+                         "author":  "dev-indb",
+                         "action_needed":  true,
+                         "date":  "2020-04-21T08:08:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNjQxODM1OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Long term pain continues.",
+                         "author":  "omrumcetin",
+                         "action_needed":  true,
+                         "date":  "2020-10-26T09:16:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49apvW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "When I do have that issue I just reconnect all windows sessions I have open at the time (it\u0027s a pain, but works). I encountered this issue also with other tools when using RDP (including mstsc.exe itself), I\u0027m not sure mRemoteNG can do much here... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-04T22:21:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF6M",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhiw",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:21Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

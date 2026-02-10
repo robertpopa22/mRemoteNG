@@ -1,0 +1,66 @@
+﻿{
+    "number":  1676,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Integrated App resize event hook",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "Needs implementation"
+               ],
+    "author":  "leaskovski",
+    "created_at":  "2020-01-21T16:08:41Z",
+    "github_updated_at":  "2021-11-17T23:04:43Z",
+    "body_snippet":  "Hi Guys, I have been using external apps to add in VMWare Player VMs into my setup.  This works great by increasing the default wait time from 2 seconds to 10 seconds for the VM to start, and then it runs integrated with the mRemoteNG container!  What I would like to do though, is get the current resize code that triggers after the external app has been launched, to also trigger when the external app decides to resize itself for some reason.\r\n\r\n## Expected Behavior\r\nSo, I would like a setting th...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4NDEyNzg1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Have started trying to implement this feature in a branch on my fork...\r\nhttps://github.com/leaskovski/mRemoteNG/tree/1676_integrated_app_resize_hook",
+                         "author":  "leaskovski",
+                         "action_needed":  true,
+                         "date":  "2020-02-10T13:41:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450_b0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would have thought that the Windows system and the use of Containers would automatically propagate the Resize window events. Therefore, I would assume that the child application (VMWare Client) doesn\u0027t handle resizing. But presumably @leaskovski has seen the standalone program work fine for resizing. \r\n\r\nSo, I have a feeling that MDI resize messages might be different to the normal Window ones. There are Window Event message debuggers you can use to check what messages arrive on a windows hand...",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T11:46:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4554uN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t have this code anymore, so I am sorry about this.  I can\u0027t even remember what changes I had made :(",
+                         "author":  "leaskovski",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T11:13:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM458xpE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If this can be reproduced simulating with a common program like Notepad.exe or something that would be ideal. It looks like there is no Resize hook at all. Someone can fix it, and hopefully it should work for the VMWare viewer too.\r\n\r\nIf you\u0027re reading this please try a range of common windows tools and see if any work in Integrated Mode. I tried Calc.exe and that didn\u0027t work. I haven\u0027t tried notepad.exe - your turn.",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T23:03:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-11-17T23:04:43Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

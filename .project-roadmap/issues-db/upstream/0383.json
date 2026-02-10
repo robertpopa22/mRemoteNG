@@ -1,0 +1,137 @@
+﻿{
+    "number":  383,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add \"Remote Audio Capture\" option",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "lineardraft",
+    "created_at":  "2017-01-31T13:50:46Z",
+    "github_updated_at":  "2022-07-27T17:19:38Z",
+    "body_snippet":  "Hi,\r\nIs it possible to request a  \"Remote Audio Capture\" under \"Redirect\" options in the \"Config\" section, as already existing in Windows default \"Remote Desktop Connection\" client (see pic below). Thank you.\r\n\r\n![image](https://cloud.githubusercontent.com/assets/25457572/22467208/fe95bb4e-e7c3-11e6-8738-43adc68f4ed1.png)\r\n\r\nBest regards\r\nVladimir",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MTQ4MDYyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode and @sparerd  I can go ahead and implement this and submit a PR. Unfortunately, my TS has the audio service disabled so I do not have a way to test this. ≡ƒÿå \r\n\r\nWould you be able to test if I submit the PR?",
+                         "author":  "countchappy",
+                         "action_needed":  true,
+                         "date":  "2017-02-21T21:07:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MTY4MzY0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@countchappy I should be able to test this. Feel free to submit a PR. Thanks!!!!",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-02-22T14:27:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MTY4NDIxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Looks like this is the property that is needed: https://msdn.microsoft.com/en-us/library/ee338627.aspx\r\n\r\nReference #403\r\n\r\n@Shamatix - you may want to follow this issue for updates. I apologize for directing you to open a new request.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-02-22T14:29:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MTc5OTExMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode Just submitted a PR. Please yell at me if something isn\u0027t working ≡ƒÿå ",
+                         "author":  "countchappy",
+                         "action_needed":  true,
+                         "date":  "2017-02-22T20:49:45Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MTgxMDQzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@countchappy Awesome. Thanks! I might not be able to test this until the weekend at the earliest. ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-02-22T21:30:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjQ1MDE2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode Ping!",
+                         "author":  "masaeedu",
+                         "action_needed":  true,
+                         "date":  "2017-03-14T15:06:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjQ1OTE2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@masaeedu see comments in the pull request #403 ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-03-14T15:32:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjQ1OTYyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode That doesn\u0027t look like a PR. Wrong issue number?",
+                         "author":  "masaeedu",
+                         "action_needed":  true,
+                         "date":  "2017-03-14T15:34:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjQ2MjA2MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry... #411",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-03-14T15:41:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NTg4MTIwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey Guys\r\nI note that the changes in PR #1414 has been added as part of the v1.77.0 pre-release.\r\nI have been trying to test this and get it working but have been unable to do so. The option is available \"Audio Capture\" and when I set it to \"Yes\" it correctly sets the input device to \"Remote Audio\" on the remote. Great.\r\nI note however that no input audio from my local is detected on the remote. The same actually applies to the output audio, none from the remote makes it to my local.\r\nWhen I con...",
+                         "author":  "aglasson",
+                         "action_needed":  true,
+                         "date":  "2020-07-09T03:44:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2NDQyOTQ3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "up",
+                         "author":  "llm163520",
+                         "action_needed":  true,
+                         "date":  "2020-07-27T14:27:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HWdSG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "up",
+                         "author":  "0biWanKenobi",
+                         "action_needed":  true,
+                         "date":  "2022-07-27T17:19:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-07-27T17:19:38Z",
+    "unread_comments":  12,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

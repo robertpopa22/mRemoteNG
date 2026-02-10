@@ -1,0 +1,60 @@
+﻿{
+    "number":  1719,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Option to disable the automatic backup of the XML parameters",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Connections",
+                   "Backups",
+                   "1.78.*",
+                   "Settings"
+               ],
+    "author":  "ics01",
+    "created_at":  "2020-03-24T14:05:11Z",
+    "github_updated_at":  "2026-02-07T19:52:07Z",
+    "body_snippet":  "Using a sync service (Hubic, for instance) to register the parameters of mRemote (configMRemote.xml) should be improved by the disabling ability of the automatic backup of parameters.\r\n\r\n## Expected Behavior\r\nNo creation of automatic backup\r\n\r\n## Current Behavior\r\nmRemote NG is creating an automatic backup (configMRemote.xml.20200324-1424534988, for example) at the opening and while closing the program. Depending on the option \"Register connexions on exit\", it may create other automatic backups....",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7JO60p",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Actually I think disabling the option \"Save connections on exit\" already achieves this.",
+                         "author":  "mennowo",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T10:11:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JO8Cx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, yes will could come as part of changes in regards how we save a data\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T10:12:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhJQ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:07Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

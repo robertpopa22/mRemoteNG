@@ -1,0 +1,39 @@
+﻿{
+    "number":  2257,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Given key was not present in Library when saving into MariaDb",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "DBs"
+               ],
+    "author":  "app/",
+    "created_at":  "2022-07-07T08:58:57Z",
+    "github_updated_at":  "2026-02-07T16:45:07Z",
+    "body_snippet":  "When performing any action (edit, move i.e.) on a connection it gives the following error:\r\n\r\n----------\r\nErrorMsg\r\n07/07/2022 10:55:36\r\nCouldn\u0027t save connections file as \"\"!\r\nThe given key \u00270\u0027 was not present in the dictionary.\r\n----------\r\n\r\nEDIT: The first record got processed correctly, it stopped working right after\r\nDuplicating the working record produces the same error\r\n\r\nEDIT2: I tried installing a clean install of MySQL to troubleshoot MariaDB compatibility, getting the same issue.\r\nEDI...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFRD",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:07Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

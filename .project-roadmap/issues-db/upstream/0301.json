@@ -1,0 +1,58 @@
+﻿{
+    "number":  301,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDS Session desktop shortcut",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Ready",
+                   "Help Wanted"
+               ],
+    "author":  "TomAltenburg",
+    "created_at":  "2016-12-07T13:39:54Z",
+    "github_updated_at":  "2024-03-20T10:45:34Z",
+    "body_snippet":  "I was sent here from the Subreddit.\r\n\r\nIt would be nice to have the ability to open a RDS session straight from your desktop, instead of having to open mRemoteNG first and scrolling through the connections tab.\r\n\r\nThanks in advance.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NTQ4ODg0MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reference: https://www.reddit.com/r/mRemoteNG/comments/5gzt28/shortcut/\r\n\r\n\u003e The only way that I can think of to implement this would be to add a command line switch to open a specific connection. With a command line switch, a shortcut could be made to open that specific connection.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-12-07T16:06:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5iO4Vh",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It would be nice indeed...",
+                         "author":  "AlexandreBourrieau",
+                         "action_needed":  true,
+                         "date":  "2023-07-24T14:52:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM53wsqk",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Upping this since this feature would truly make things much easier.",
+                         "author":  "neverw1nter",
+                         "action_needed":  true,
+                         "date":  "2024-03-20T10:45:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-03-20T10:45:34Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

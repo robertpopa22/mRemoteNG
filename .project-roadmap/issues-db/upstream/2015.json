@@ -1,0 +1,57 @@
+﻿{
+    "number":  2015,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Microsoft Remote Desktop Connection Manager v2.82 .rdg support",
+    "state":  "open",
+    "labels":  [
+                   "Improvement required",
+                   "Import/Export"
+               ],
+    "author":  "user9234739427",
+    "created_at":  "2021-08-05T19:39:53Z",
+    "github_updated_at":  "2021-12-24T14:27:15Z",
+    "body_snippet":  "Microsoft updated RDCMAN and changed something about how .rdg files are saved and now mRemoteNG does not open .rdg files anymore.\r\n\r\n## Expected Behavior\r\n.rdg files open in the Connections panel when going to File - Import - Import From File\r\n\r\n## Current Behavior\r\n\r\nError message pops up saying \"An error occurred while importing the file\"\r\n\r\n## Possible Solution\r\nnot sure\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Download new version of RDCMan 2.82 from https://docs.microsoft.com/en-us/sysintern...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM44YK1N",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "A simple explanation on how to export to the right format is all that is needed here @mremoteng-ci ",
+                         "author":  "pjamesburwell",
+                         "action_needed":  true,
+                         "date":  "2021-10-18T14:54:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47p89s",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@user9234739427 @pjamesburwell I had a look through the source code and found the cause of the issue here: https://github.com/brucetp/mRemoteNG/blob/develop/mRemoteV1/Config/Serializers/MiscSerializers/RemoteDesktopConnectionManagerDeserializer.cs#L52-L58\r\n\r\nAll I had to do for the import to complete successfully was to change the value of the `ProgramVersion` variable in my `.rdg` file from `2.83` to `2.7` so it can pass the hard-coded version check.\r\n\r\n**Before**\r\n```xml\r\n\u003c?xml version=\"1.0\" e...",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T14:12:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47p-Ot",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "good finding, perhaps we need to update version in schema and etc so it will match latest changes\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T14:26:42Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-12-24T14:27:15Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

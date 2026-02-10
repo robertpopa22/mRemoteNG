@@ -1,0 +1,47 @@
+﻿{
+    "number":  1183,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "On startup any selected item is disregarded shortly after",
+    "state":  "open",
+    "labels":  [
+
+               ],
+    "author":  "KvnSC",
+    "created_at":  "2018-11-08T16:23:51Z",
+    "github_updated_at":  "2018-11-09T07:49:20Z",
+    "body_snippet":  "Hello everyone,\r\n\r\nI\u0027ve been experiencing an issue regarding the latest mRemote version(1.76.11), that I use in conjunction with my SQL server 2017(WS2016). The issue is whenever I open mRemote and immediately start typing or clicking a connection/folder, the item that I just selected is no longer selected about 3 seconds after opening mRemote. Afterwards the \"Connections\"(globe icon) is selected and highlighted in my directory, as if I never touched anything. I\u0027ve tested this issue with an expa...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzNzE1NTk4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @KvnSC! Yes, this is a known issue with the current implementation and something we are looking to address. The next hotfix should resolve some of these issues (folders expanding on their own, for example).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-11-08T21:06:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzNzI3Nzg2MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you very much for the quick answer. I\u0027ll stay tuned for updates in the future! :)",
+                         "author":  "KvnSC",
+                         "action_needed":  true,
+                         "date":  "2018-11-09T07:49:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-11-09T07:49:20Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

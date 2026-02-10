@@ -1,0 +1,57 @@
+﻿{
+    "number":  1432,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Help Page Should Always Load in Its Own Panel Tab",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Request For Comment"
+               ],
+    "author":  "jcefoli",
+    "created_at":  "2019-05-01T07:16:57Z",
+    "github_updated_at":  "2020-06-04T20:44:09Z",
+    "body_snippet":  "When opening the help page, it is possible to get into a situation where it is impossible to close it when Options --\u003e Tabs \u0026 Panels --\u003e \"Always show Panel Tabs\" is unchecked (workaround is to open a connection). That option should only apply to connections, not the help page. \r\n\r\nSteps to reproduce:\r\n\r\n1. Launch mRemoteNG\r\n1. In Options --\u003e Tabs \u0026 Panels --\u003e Make sure \"Always show Panel Tabs\" is unchecked\r\n1. Do not open any connections\r\n1. Open Help Dialog (from F1 or Menu)\r\n\r\nActual: \r\n* Cann...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjMxNjMwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You\u0027re absolutely right @jcefoli \r\nThis is something that has been bothering me, too.\r\nI\u0027ll look into this, having a check surrounding that settings which will make it only valid for Windows of a specific window type.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-30T11:15:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjMxOTk4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "TBH I have no idea why we have that setting anyways.\r\nIt just makes things complicated and no other software I know of has that feature where it hides tabs when there is only one of them open.\r\nLooks like someone had been implementing this feature at the request of an individual. I can\u0027t believe this is actually something a reasonable percentage of users would want.\r\nSo I\u0027d be in absolute favor of removing this feature completely...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-30T11:49:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTEwNjQyMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The only one app I know that does this is total commander. but otherwise no other.",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2020-06-04T20:44:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-06-04T20:44:09Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -39,7 +39,8 @@ namespace mRemoteNGTests.Connection
             {
                 Name = "MyTunnel",
                 Hostname = "tunnel.host.com",
-                Protocol = ProtocolType.SSH2
+                Protocol = ProtocolType.SSH2,
+                Panel = "General"
             };
 
             _targetConnection = new ConnectionInfo
@@ -48,7 +49,8 @@ namespace mRemoteNGTests.Connection
                 Hostname = "target.internal.com",
                 Port = 80,
                 Protocol = ProtocolType.HTTP,
-                SSHTunnelConnectionName = "MyTunnel"
+                SSHTunnelConnectionName = "MyTunnel",
+                Panel = "General"
             };
 
             // Setup a real ConnectionTreeModel via ConnectionsService

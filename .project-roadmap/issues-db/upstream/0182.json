@@ -1,0 +1,121 @@
+﻿{
+    "number":  182,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Rewrite database (SQL) connection storage",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Ready",
+                   "Help Wanted"
+               ],
+    "author":  "kmscode",
+    "created_at":  "2016-10-19T02:14:56Z",
+    "github_updated_at":  "2021-11-16T10:30:26Z",
+    "body_snippet":  "Feature was experimental to being with. Lots of bugs/feature requests in JIRA (see list below).\n\nIn addition, would be beneficial to have support for MySQL/MariaDB, and/or SQLite. More general DB handling code could be implemented in order to support multiple DB types.\n\nJIRA tickets:\nhttps://mremoteng.atlassian.net/browse/MR-923\nhttps://mremoteng.atlassian.net/browse/MR-899\nhttps://mremoteng.atlassian.net/browse/MR-845\nhttps://mremoteng.atlassian.net/browse/MR-793\nhttps://mremoteng.atlassian.net...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1ODg4OTM3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "todo: investigate using Entity Framework to handle DB persistence\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-07T16:44:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NDE0OTIyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "my store, thank you a  lot.\r\n\r\n1. Can refresh config from DB by user , not restart NG.\r\n2. Design a feasible solution for sharing configuration\r\n3. #336 \r\n4. Can define tab backupcolor ",
+                         "author":  "ysqi",
+                         "action_needed":  true,
+                         "date":  "2017-03-04T12:43:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NTg0NzA5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 for different than MS SQL engines. \r\nwould be great to add mysql-compatible, or postgres. \r\neven firebird.",
+                         "author":  "mrPsycho",
+                         "action_needed":  true,
+                         "date":  "2017-11-20T22:04:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NjYwNjk0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 for SQLite support (on shared storage)",
+                         "author":  "mbirth",
+                         "action_needed":  true,
+                         "date":  "2018-12-12T14:30:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxMjA1OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Candidate for 1.8 as an improvment of 1.77 credential repository",
+                         "author":  "jotatsu",
+                         "action_needed":  true,
+                         "date":  "2019-02-07T17:03:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45oHFV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Google Drive support would make sense too. You login with your company\u0027s credentials. The storage could either be separate .config files in a folder, or they could be Rows in a Spreadsheet. The good thing with individual .config files is that it\u0027s easy for Managers to control access to credentials.",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-12T04:40:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45tX_R",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think an architecture that standardises and centralises on SQLite would have a lot of benefits.\r\n\r\n![Data Architecture drawio](https://user-images.githubusercontent.com/1159081/141665531-e8c73f62-ee4a-47da-8db7-95579e2105ff.png)\r\n\r\nDetails:\r\n\r\n- The Application only connects to the SQLite database. With WAL mode, and encryption.\r\n- Some Providers can be either built into the Application\r\n- An import/export provider is simple and enables what the application can already do today\r\n- A sync provi...",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-14T03:01:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45txBS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@merarischroeder  that is in my plans as nobody else want to go deeper in such :) as per now we use connection file, which is encrypting (if checked) as this app is also used in companies they want better control that user have access to. As far as I am aware most requirements are to have ability to load different servers and different set of password (separately) and control user access (read - then he not allow to change password, but allow to connect) and so on. My idea is to create a profile...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-11-14T14:13:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450uiY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas \r\n\r\nThat sounds really good.\r\n\r\nI don\u0027t think a jump server would be required even today with the System.Net.Socket namespace. See https://github.com/mRemoteNG/mRemoteNG/issues/420\r\n\r\nI mention in there about a planned OpenSource connection library. This will be part of an OpenSource access toolset that will be able to manage the connections as you describe, but also beyond. EG. If you need to connect over VPN to a device, then from that device to another device for example.",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T10:17:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450xJU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@merarischroeder I am working with a banks and they like to have jump servers so they control who have access to it (even if its require costly ACL licences) and firewalls are very strict so they only allow remote port to be opened and only for servers they want to be accessed so its depends, but yes that should not stop us from using modern approaches :) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T10:30:25Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-11-16T10:30:26Z",
+    "unread_comments":  10,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

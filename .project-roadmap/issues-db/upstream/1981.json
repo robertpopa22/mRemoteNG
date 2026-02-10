@@ -1,0 +1,41 @@
+﻿{
+    "number":  1981,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Multi SSH should allow Loading Scripts",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.8 (Fenix)",
+                   "Improvement required",
+                   "Multi SSH"
+               ],
+    "author":  "souman101",
+    "created_at":  "2021-06-29T10:57:48Z",
+    "github_updated_at":  "2026-02-07T19:53:47Z",
+    "body_snippet":  "I want to request for a feature where Multi SSH should allow Loading Scripts. This will save a lot of time. Instead of typing commands on MultiSSH one by one.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhrZ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:47Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:47Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

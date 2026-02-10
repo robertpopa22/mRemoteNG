@@ -1,0 +1,74 @@
+﻿{
+    "number":  1911,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Copy Paste between sessions does not work",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "saidseven-7",
+    "created_at":  "2020-12-07T12:59:31Z",
+    "github_updated_at":  "2026-02-07T16:46:13Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behavior --\u003e\r\n\r\n## Possible Solution\r\n\u003c!--- Not obligatory, but suggest a...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1MjM4Mzc3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You forgot to fill out all the usefull information in the template.\r\nFor me it\u0027s working.",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2020-12-30T09:08:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1NzQ0NDQ2NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Also for me Copy/Paste not working with 1.77.0.41307\r\n\r\nWith stable I can copy/paste from host to rdp sessions and vice versa.\r\n\r\nWith beta this is not working any longer.\r\n\r\nHost is W10 20H2 x64 and rdp clients also, using mRemoteNG portable\r\n",
+                         "author":  "awgithubaw",
+                         "action_needed":  true,
+                         "date":  "2021-01-10T09:23:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41Eeuo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 on copy/paste not working on v1.77.1",
+                         "author":  "JoeBrunsTR",
+                         "action_needed":  true,
+                         "date":  "2021-07-31T15:46:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM44eRfF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 on copy/paste not working on v1.77.241427",
+                         "author":  "JeromeTeam",
+                         "action_needed":  true,
+                         "date":  "2021-10-20T08:50:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFjr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:13Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:13Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

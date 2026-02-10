@@ -1,0 +1,137 @@
+﻿{
+    "number":  864,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unable to open more than ┬▒15-20 simultaneous connections to Windows 2012 R2 and higher",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "Quinfox",
+    "created_at":  "2018-01-11T20:37:05Z",
+    "github_updated_at":  "2026-02-07T16:47:41Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nWhen opening 15-20 simultaneous RDP connections to Windows 2012 R2 or higher, new connections are not made and return error 3334 1-2 seconds after filling in credentials and connecting. New connections to Windows 2008 R2 servers remain suc...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MTY1Mjg4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This behavior is not mRemoteNG specific. There a partial fix, but ultimately 2012 R2+ rdp connections use enough memory that the virtual memory runs out of space. There are two visual studio tool commands that can mostly fix this.\r\n\r\nhttps://social.technet.microsoft.com/Forums/windowsserver/en-US/679406ff-4639-46da-b211-3f3bde6bb47e/remote-desktop-connection-manager-can-only-open-6-sessions-at-a-time-on-server-2012?forum=winserverTS",
+                         "author":  "mmetully",
+                         "action_needed":  true,
+                         "date":  "2018-01-30T16:37:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MjkyMzc5OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This also happens with Windows Server 2016. Technet article refers to disabling a security setting, don\u0027t really like that. For now i open 15 connections with local mremoteng and start two mremoteng thru Published Apps.",
+                         "author":  "St1ng3r",
+                         "action_needed":  true,
+                         "date":  "2018-02-04T17:27:02Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MjkyNjk4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Right, and sensible. The particular fix I was focused on was using visual studio tools to enable large address spaces for the management software. I\u0027ve seen references to using it on rd manager exe and remoteng exe.",
+                         "author":  "mmetully",
+                         "action_needed":  true,
+                         "date":  "2018-02-04T18:13:02Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2Mjk0NzkzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@mmetully We already enable large address aware (LAA) on our exe before publishing it. We have looked into providing an x64 build of mRemoteNG as well, but that would prevent us from providing Citrix support (I have only been able to find a 32-bit version of their client library).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-04T23:02:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NDk1NDU5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I tested several other alternative remote desktop management tools (Remote Desktop Connection Manager, Terminals, EasyConnect), and all of them where able to connect to more than 20 servers simultaneously, so it appears to be a mRemoteNG specific issue. The memory load of mRemoteNG was always stuck near 1 GB when the issue happened, but closing existing connections (and freeing memory) made it impossible to start new ones after the issue happens.\r\nPersonally I don\u0027t use the Citrix client integra...",
+                         "author":  "Quinfox",
+                         "action_needed":  true,
+                         "date":  "2018-02-12T15:21:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTA1MjY4Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This might be mitigated by a v1.77 change that I\u0027ve been spiking that will allow you to select the version of the RDP client to use during connection (#826). Currently, we only support client version 8. Though I think the most recent is v10. This version bump might contain memory usage improvements or other bug fixes.\r\n\r\n`[...] or maybe try to spawn the child processes in separate memory?`\r\nWe could look into that as well",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-12T20:32:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MTI3MzI2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "RDP v6.1 seems to be \"magic\" version that worked best in my POC testing.  I successfully downgraded a 2016 server to RDP v6.1 and have been able to open 90+ concurrent RDP connections without issue.  I\u0027ve also been able to install both of the old 1.5 and 1.72 mR versions running in tandem on the 2016 POC server and both are working flawlessly so far.\r\nEdit \r\n- mR 1.50 only works with older servers (unless you regedit 2012 and 2016 [not recommended]) \r\n- the NG 1.72 limit in my POC appears to be ...",
+                         "author":  "Mr-Jazz",
+                         "action_needed":  true,
+                         "date":  "2020-01-06T19:17:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MjE2Mzk0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "A few more notes from my POC testing with mR 1.50 and mRNG 1.72 installed on Server 2016:\r\nmstsc-v6.1.7600.16385 ΓÇô 102 concurrent RDP connections in NG 1.72\r\nmstsc-v6.1.7601.24514 ΓÇô 94  concurrent RDP connections in NG 1.72\r\n\r\nGoing back to v6.0.6002.18356 causes the NLA failure (error 2825) in NG v1.72\r\nGoing forward  beyond 6.1.7601.24514 causes the \"A Website is trying to start a remote connection\" nag warning in mR v1.50\r\n\r\nRunning these two mR versions in tandem with RDP v6.1.7600.16385...",
+                         "author":  "Mr-Jazz",
+                         "action_needed":  true,
+                         "date":  "2020-01-08T17:05:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MjE2NDQ1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Based on my observations, the farther back you go in RDP versions - the higher the concurrent RDP count.\r\n\r\nQuestion:\r\nis it possible to implement NLA in mRNG using RDP v6.0.6001.18000?",
+                         "author":  "Mr-Jazz",
+                         "action_needed":  true,
+                         "date":  "2020-01-08T17:06:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4NzEyNjU2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Update:\r\nFeb 2020 updates pushed a new version of mstscax.dll - 10.0.14393.3503\r\nI had to revert back to my v6 dll.",
+                         "author":  "Mr-Jazz",
+                         "action_needed":  true,
+                         "date":  "2020-02-17T19:15:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47xeHq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There seems to be a x64 Build planned (see #915) which might as well help to increase the amount of connections due to the assumed RAM limitations...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2021-12-30T00:28:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF-_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:41Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:41Z",
+    "unread_comments":  11,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

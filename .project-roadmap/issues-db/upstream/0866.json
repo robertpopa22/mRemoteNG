@@ -1,0 +1,38 @@
+﻿{
+    "number":  866,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "HotKey going to quick connect",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "yoalor",
+    "created_at":  "2018-01-15T13:24:14Z",
+    "github_updated_at":  "2018-01-19T14:10:27Z",
+    "body_snippet":  "Hello,\r\n\r\nCan you add a hotkey for going to quick connect please?\r\n\r\nRegards.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1ODk3NjA2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "related to #196 ",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-01-19T14:10:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-01-19T14:10:27Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

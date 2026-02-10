@@ -1,0 +1,39 @@
+﻿{
+    "number":  2021,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request - customise appearance of tabbed session/connections",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "setta-uk",
+    "created_at":  "2021-08-12T14:27:01Z",
+    "github_updated_at":  "2021-08-13T09:21:57Z",
+    "body_snippet":  "Hello,\r\n\r\nIs is possible to customise the background colour of a SSH/Telnet session and also the font/size of the text?\r\n\r\nI have seen you can have themes but there doesn\u0027t seem to be anywhere to change the appearance of a tabbed SSH/Telnet session\r\n\r\nThanks! :)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM41hou6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This option is set by the profiles used in putty. For more information you can see here:\r\n\r\nIn \"Tools\" menu go to \"Options\"\r\nGo to \"Advanced\"\r\nPress \"Launch Putty\"\r\n\r\nNow here is where you organize appearance. See: https://turnkeyinternet.net/kb/how-to-change-puttys-appearance/\r\n\r\nThen in mRemoteNG you choose the session in the \"PuTTY Session\"\r\n\r\n![image](https://user-images.githubusercontent.com/383031/129277931-f21f5fb3-a692-4564-a1f5-35eff73b880f.png)\r\n\r\nNotice that putty is a third party app...",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-08-12T22:30:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-08-13T09:21:57Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,78 @@
+﻿{
+    "number":  2637,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Gnome Remote Desktop (Fedora 40 Workstation)",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Security",
+                   "Improvement required",
+                   "Linux",
+                   "1.77.3"
+               ],
+    "author":  "r-w-frederick",
+    "created_at":  "2024-09-01T21:18:09Z",
+    "github_updated_at":  "2026-02-07T19:54:54Z",
+    "body_snippet":  "## Expected Behavior\r\nAttempt to connect to remote Gnome Remote Desktop (Fedora 40 Workstation) with RDP protocol from Windows client.\r\nExpect behavior similar to remote connection to Windows via RDP, and remote Linux hosts via RDP/XRPD.\r\n\r\n## Current Behavior\r\nSupplying Username \u0026 Password leads to error.\r\nError code: 0x0\r\nExtended error code: 0x0\r\n\r\nRemove UN/PW from mRemoteNG config pops Windows Security dialog.  Supply correct UN/PW.\r\nGNOME Remote Desktop Handover Daemon complains:\r\n\"This co...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6R3oox",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This property is not implemented as a setting; however, the default RDP protocol uses [`MsRdpClient6NotSafeForScripting`](https://learn.microsoft.com/en-us/windows/win32/termserv/msrdpclient6notsafeforscripting) which does NOT have [UseRedirectionServerName](https://learn.microsoft.com/en-us/windows/win32/termserv/imsrdppreferredredirectioninfo-useredirectionservername); as this was implemented in [`MsRdpClient7NotSafeForScripting`](https://learn.microsoft.com/en-us/windows/win32/termserv/msrdpc...",
+                         "author":  "fuzzzerd",
+                         "action_needed":  true,
+                         "date":  "2024-10-30T14:04:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6SIiaI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Perhaps this needs to be implemented for the higher versions of RDP Protocol that support it?\r\n\r\nwe had this for windows 7 support, but as Microsoft stop supporting it I think we could drop it to. So far thinking to add in settings what protocol version to use and by default that will be hiest posible, not lowest as per now\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-01T11:15:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6SJJQq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e Perhaps this needs to be implemented for the higher versions of RDP Protocol that support it?\r\n\u003e \r\n\u003e we had this for windows 7 support, but as Microsoft stop supporting it I think we could drop it to. So far thinking to add in settings what protocol version to use and by default that will be hiest posible, not lowest as per now\r\n\r\nI think defaulting to \"Highest Possible\" would make sense; however, I also think that to fully resolve this the UseRedirectionServerName needs to be implemented in...",
+                         "author":  "fuzzzerd",
+                         "action_needed":  true,
+                         "date":  "2024-11-01T13:26:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6SKpOl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "version 12 recently was released, will try to switch on NB",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-01T17:15:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiBR",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:53Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:54Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

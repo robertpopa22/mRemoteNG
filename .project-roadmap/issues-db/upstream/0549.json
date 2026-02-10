@@ -1,0 +1,30 @@
+﻿{
+    "number":  549,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request: Another option when SQL fails to connect",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "LaurenceMillward",
+    "created_at":  "2017-05-10T10:39:41Z",
+    "github_updated_at":  "2017-05-28T02:40:08Z",
+    "body_snippet":  "Hi,\r\n\r\nAfter playing around with the SQL settings i\u0027ve managed to accidentally overwrite my whole database with a old connections file.\r\n\r\nmRemoteNG failed to connect to the database so gave me the option of either using a connections file, or quitting the program. After choosing a connections file that I haven\u0027t used in a few months just so i can actually edit the SQL settings it it loaded into the application, I changed the SQL settings and BOOM, the whole database was overridden.\r\n\r\nCould the...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2017-05-28T02:40:08Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

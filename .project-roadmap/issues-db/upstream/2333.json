@@ -1,0 +1,85 @@
+﻿{
+    "number":  2333,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Automatic XML Import from URI",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "darkpixel",
+    "created_at":  "2023-01-31T02:57:25Z",
+    "github_updated_at":  "2026-02-07T19:51:40Z",
+    "body_snippet":  "I would love to see a feature in mRemote where it would automatically load/import an XML config file on startup.\r\n\r\nThis would be helpful for provisioning mRemote for lots of users.\r\n\r\nAn example environment would be a call center where users needs to connect out to various offices to pull up records.\r\n\r\nRather than reminding everyone to \"delete their mRemote config and then re-import it from the usual location\", I would love to tell mRemote to always automatically load connections from ```https...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5UDJ0E",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "what will be posible with profiles implementation, but also its a lot of questions of security for such way - file should be encrypted, and user should have access to it, in my world (where i am working at the moment) we control credentials with cyberark, so user never know password. mremote have only connection details - then call cyberArk for credentials and login into system. On next login same credentials will not work if password or user name (or both) has been changed :)\r\n\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-01-31T10:28:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5UHSKb",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t see the direct use case when one could use a database for the connection profiles (current implementation works but requires improvement). The database would dynamically update the settings everywhere without the need of downloading config files on startup. I see this kind of distribution with proxy configurations and IMHO it\u0027s quite a pain to maintain...\r\n\r\nOn the other hand, the ability to import connections with a double click would be great, maybe also allowing for one-time use (like...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-01-31T23:06:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5UHVbh",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t want to:\r\n1. Provision a database in the cloud (why spend $15/mo?) and make it accessible from everywhere on the internet as users roam all over the place and don\u0027t have static IPs.\r\n2. Walk users through picking \"mysql\" from the dropdown, entering \"mremote-connections-do-user-134425-0.b.db.ondigitalocean.com\" in the hostname, entering a database name, username, password, and checking the \u0027read only\u0027 button.\r\n3. Spend 15 minutes telling each of 300 users the database password is \u0027tathie6...",
+                         "author":  "darkpixel",
+                         "action_needed":  true,
+                         "date":  "2023-01-31T23:21:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5UKbDq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "no, you should not, but it should be yours design not our how save you want to be :) we only give you a right way to do it, but we cant restrict you from using credentials in open form in flat file :) but as i mentioned idea is that once profiles will be implemented you my set from where to load it and how (it could be encrypted or not - up to you) and idea is that you as admin configure the settings - users dont need to know even from where credentilas are comming - you just share them connecti...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-02-01T13:00:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXI_g",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhCK",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:40Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:40Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

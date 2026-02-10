@@ -1,0 +1,40 @@
+﻿{
+    "number":  1283,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Object reference not set to an instance of an object",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Security",
+                   "DBs"
+               ],
+    "author":  "danbuntu",
+    "created_at":  "2019-01-21T20:37:56Z",
+    "github_updated_at":  "2021-06-28T10:49:26Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nI had mremoteng 1.76.11 installed, connected to a database and working fine. it was then pointed out to me that it was saving the passwords in plain text. \r\nSo I upgraded to 1.76.13 and I get the message \u0027Object reference not set to an instance of an object\u0027.\r\nI have tried to uninstall mremote, delete the folders in AppData and run a registry cleaner and then reinstalling.\r\n\r\n## Expected Behavior\r\nmremote should connect to th...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTM3NzkyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same issue with v1.76.13 prerelease.",
+                         "author":  "Nils98Ar",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T18:58:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T10:49:26Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

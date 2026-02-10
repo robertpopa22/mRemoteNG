@@ -1,0 +1,140 @@
+﻿{
+    "number":  2844,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Inconsistent display of missing dependencies",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "UI/UX",
+                   "Improvement required",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-06T13:32:59Z",
+    "github_updated_at":  "2026-02-07T19:55:33Z",
+    "body_snippet":  "I see [issue 2841](https://github.com/mRemoteNG/mRemoteNG/issues/2841) was closed down, because bug is now actually fixed.\n\nI have intentionally opened new issue, because this issue can be marked as feature request, because this is now UX inconsistency and \"beauty\" issue in grand aspect of _the same issues should have the same solution._\n\nI did:\n1. Removed previous mRemoteNG and downloaded latest v1.78.2-NB-3206.\n2. Intentionally uninstalled Microsoft Windows Desktop Runtime 9.0.9 (x64)\n3. Inten...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7I-KTC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, there is separate windows because its could be what .net installed, and c++ not, and but will see if i could combine in one window with condition to show only missing one. \n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T13:43:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JC9yf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just thinking... how to make this simpler to end-user. What about bundling this two runtimes with mRemoteNG without effecting operating system wide install and vice versa if someone changes/upgrades etc runtimes, to make sure that change is not effecting the mRemoteNG.\n\nIsn\u0027t there some self-contained deployments or something like this. I have seen .NET applications that bundles everything application needs (like run-times) inside installation program itself. If possible, this would be the frien...",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T17:32:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JIHVP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "bounding its a bit always a chalange - because then we will be responcible for all updates what we try to avoid, but technicaly in windows world vc++, and .net should be installed already :) Another case is corporate customers, they dont like bundled software or libraries but positive once you have list them as requirements, as its not only our software need them so they already certified them and deploy on all machines where they supouse to use mR. \nAlso I have a look and surprisely find out wh...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T21:47:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JMdYy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "mRemoteNG is not software that is used by average computer user, but probably by some computer literate users, so manually installing two dependencies runtimes should not be major issue and this is only done once before program is used. Bundling is so less of importance.\n\nAlso \"nice\" looking dependency info is additionally not super vital, because this is again only only displayed at install time.\n\n---\n\nMaybe what can quickly be changed is the red \"error\" icon when Visual C++ Runtime is missing....",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T07:04:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JMe8K",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, that could be easy change to \"Information\" type, thanks",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T07:07:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JSO5r",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "fui: \u003cimg width=\"456\" height=\"224\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/754bee2a-b07f-47df-bbaf-4b2510eb6b2a\" /\u003e",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T13:53:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Jprra",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just tested it in the Windows 10 Sandbox with Build 1.78.2-3208, and had to download both the .NET Desktop Runtime and the VC++ Runtime. \n\nThe .NET Runtime shows me the beautiful \"Get it Now\" button which automatically takes me to the download-page, while with the Visual C++ I have to manually type the URL into the browser window and download it (no, at least in Windows 10 the Visual C++ Runtime is not preinstalled unless you have other applications that require it).\nAt least it no longer shows ...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T20:38:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Jp_YE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If its not found it installed and you have internet on OK click it should open a page and download should starting, tested on win10,win11,windowsServer2025",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T21:02:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JqHwO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e If its not found it installed and you have internet on OK click it should open a page and download should starting, tested on win10,win11,windowsServer2025\n\nThis is cool, but then I guess one could also update the wording from \"OK\" to \"Download\". I just left the message open and typed the URL manually as it wasn\u0027t implied or stated anywhere...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T21:15:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Jt0Nl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e This is cool, but then I guess one could also update the wording from \"OK\" to \"Download\".\n\nSuggestions: \n1. Change text from \"Please download...\" to question: \"Do you want to download _file_name_?\".\n2. Try to [avoid like Yes/No buttons](https://github.com/mRemoteNG/mRemoteNG/issues/2403) and do instead _ACTION_/Cancel in this case Download/Cancel buttons.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-09T05:52:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Jw_u7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok,cancel are standart buttons set, will see if that could be customised, also may need to add text to language definition so could be translated",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-09T09:50:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiLi",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:33Z",
+    "unread_comments":  11,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

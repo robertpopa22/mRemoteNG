@@ -1,0 +1,59 @@
+﻿{
+    "number":  2624,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "REQ: Integrate zmodem support ",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "SSH",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "nelgin",
+    "created_at":  "2024-08-05T18:33:17Z",
+    "github_updated_at":  "2026-02-07T19:54:26Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nLePutty has integrated zmodem support so files can be transferred using the serial mechanism over ssh. This is important in our environment since otherwise we had to jump through 3 servers to get a file to a customer\u0027s box, whereas with this, it will use an already authenticated, secure channel.\r\n\r\nmRemoteNG is already an approved application and it\u0027s like pulling teeth to get a new one approved.\r\n\r\n## Possible Solution\r\nObta...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6HVjK9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "need more details ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-08-06T07:27:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYRPt",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "P2 refresh: please retest on latest build and share reproducible steps plus logs/screenshots. If not reproducible or no update, maintainers can close as stale.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:13:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh5O",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:26Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:26Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

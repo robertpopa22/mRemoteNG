@@ -1,0 +1,40 @@
+﻿{
+    "number":  2134,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Implement multi-user environment",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Needs implementation",
+                   "Connections"
+               ],
+    "author":  "Kvarkas",
+    "created_at":  "2022-01-18T16:29:35Z",
+    "github_updated_at":  "2022-01-19T16:11:24Z",
+    "body_snippet":  "If this application is used by several users at the same time (on server instance for example) it should allow select where to save settings of the app for each user (for example shared home folder) \r\n\r\n## Expected Behaviour\r\nadmin on behave of the user should be able to set path where config files should be saved for each user instead of C:\\Users\\{username}\\AppData\\Roaming\\mRemoteNG\r\n\r\n## Current Behaviour\r\nThe application configuration files are stored in the user profile, namely:\r\nC:\\Users\\{u...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM48mHVJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The AppData\\Roaming folder actually is intended to be synced over multiple machines, though I can see why it would be preferred to have it in a user home instead of saving the user profile. \r\nAnyways the configuration stored in the AppData\\Local should be put in the same folder as the connection file IMHO as it\u0027s almost as important. ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-01-19T16:11:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-01-19T16:11:24Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

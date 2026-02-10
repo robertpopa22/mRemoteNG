@@ -1,0 +1,30 @@
+﻿{
+    "number":  1459,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "feature request: prompt to save password",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "livilu",
+    "created_at":  "2019-05-24T06:15:47Z",
+    "github_updated_at":  "2019-05-24T12:49:12Z",
+    "body_snippet":  "**Feature request**: Prompt to save a new password if current is not working anymore\r\n\r\n## Expected Behavior\r\nsometimes password are changed due to security concerns or other reasons. It will make life easier if the app prompt to save a new password. This can be as an option or default behavior\r\n\r\n## Current Behavior\r\nCurrent behavior - SSH for example is that login is failing and server is asking a the password",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2019-05-24T12:49:12Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

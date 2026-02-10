@@ -1,0 +1,47 @@
+﻿{
+    "number":  401,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Bug: Panel name must not be translated ",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "banym",
+    "created_at":  "2017-02-13T13:50:33Z",
+    "github_updated_at":  "2025-04-02T12:52:22Z",
+    "body_snippet":  "If the language of mRemoteNG is changed the default panel name is translated. This means all new created sessions will have a different panel name by default. This behaviour is strange. The default panel name should be language independend. Otherwise you will have to rename the panel name of all sessions. \r\n\r\nIf the team you are sharing session configurations is using different system languages this is a bad default behaviour. \r\n\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG versi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MDAzMzQ1Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It was probably a design decision at the time, but I agree that it has some unintended consequences in your case. We will look at changing that, or at least making it an option that multilingual teams can turn off.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-02-15T14:59:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMDA5NTExNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Related to #468 ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-06-21T14:25:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-04-02T12:52:22Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

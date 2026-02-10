@@ -1,0 +1,56 @@
+﻿{
+    "number":  1182,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Printer Redirecting not working correctly",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "MartinBraz",
+    "created_at":  "2018-11-06T14:08:19Z",
+    "github_updated_at":  "2020-10-05T07:21:20Z",
+    "body_snippet":  "Hello,\r\n\r\nthe Printer redirecting not working correctly. \r\n\r\nwhen i connect to an host with printer redirecting, then just only 4 of 8 printer are redirecting. When i use the Windows RemoteClient (mstsc.exe), all printer are redirected. \r\n\r\nWhen i connect to our windows server 2008 R2, then only 4 / 8 printers are redirected. When i connect to an other server, then 3/8 printer are redirected. It varies from remote server to remote server...\r\n\r\nEnvironment:\r\n2 PCs with Windows 10 Pro in a domain ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MDI4NTQ0Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello @sparerd ,\r\n\r\ndo you already know the cause of the bug? Because our Employee need your tool with the printer redirection to connect to our servers.\r\n\r\nThanks,\r\nSamuel",
+                         "author":  "MartinBraz",
+                         "action_needed":  true,
+                         "date":  "2018-11-20T14:08:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MjUwNDU5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same issue on multiple clients.  Not all the printers are being redirected.  The default printer is not and that of course is the one needed.  If I use the RDP client built into windows the printers show up properly.  And yes, the redirect printers option is selected.",
+                         "author":  "spineytoad",
+                         "action_needed":  true,
+                         "date":  "2020-02-05T16:55:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMzQ1MDYwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue. Win10 x64, v. 7.76.20.24615",
+                         "author":  "ViterAlex",
+                         "action_needed":  true,
+                         "date":  "2020-10-05T07:21:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-10-05T07:21:20Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

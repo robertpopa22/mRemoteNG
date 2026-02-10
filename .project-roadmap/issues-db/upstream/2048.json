@@ -1,0 +1,65 @@
+﻿{
+    "number":  2048,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "New install -launching prompts for password",
+    "state":  "open",
+    "labels":  [
+                   "Improvement required"
+               ],
+    "author":  "johnm65",
+    "created_at":  "2021-09-16T03:36:24Z",
+    "github_updated_at":  "2021-09-16T17:51:22Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI downloaded mRemoteNG, tried to launch it but I am prompted for a password in a dialog box. Is there a default password?\r\n\r\nWhen I click \"Cancel\" on the Password dialog box the error below comes up.\r\n\r\n\r\n\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tel...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM423n7P",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is the password Dialog that comes up.\r\n\r\n![image](https://user-images.githubusercontent.com/90815031/133545690-20168309-7284-435b-b0b3-2b811d92f9f8.png)\r\n",
+                         "author":  "johnm65",
+                         "action_needed":  true,
+                         "date":  "2021-09-16T03:41:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM424viV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Seems you on first run accept to encode and encrypt and its set a password, so on next run its ask for such master password to get access to connection data. If you don\u0027t remember or don\u0027t know just delete connection.xml and restart app. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-09-16T12:07:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4243eN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I searched for connection.xml but only found this, is this the file you were referring to:\r\n![image](https://user-images.githubusercontent.com/90815031/133615999-2f872ed9-5f27-4f5b-a297-8b4ad59fe27c.png)\r\n",
+                         "author":  "johnm65",
+                         "action_needed":  true,
+                         "date":  "2021-09-16T12:56:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4244UQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I figured it out, thanks.",
+                         "author":  "johnm65",
+                         "action_needed":  true,
+                         "date":  "2021-09-16T13:01:44Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-09-16T17:51:22Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

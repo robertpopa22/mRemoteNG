@@ -1,0 +1,48 @@
+﻿{
+    "number":  1455,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "CTRL+ALT+END inside RDP sessions (Inception)",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "RDP"
+               ],
+    "author":  "TheDevilDan",
+    "created_at":  "2019-05-22T13:51:34Z",
+    "github_updated_at":  "2021-06-27T22:54:22Z",
+    "body_snippet":  "Hi,\r\n\r\nKey Combinations --\u003e ENABLE (true, yes)\r\nSend \"Windows Button\" --\u003e OK\r\nSend \"CTRL+ALT+END\" --\u003e NOK\r\n\r\nImpossible to send CTRL + ALT + (END) or (SUPPR) or (INSERT).\r\n\r\nComputer : Layer 0\r\nContext : I\u0027m connecting with my computer on a virtual desktop with VMWare Horizon (Layer 1)\r\nThen, I\u0027m connecting to a RDP desktop (Layer 2)\r\nAnd then, Connecting with MRemoteNG to RDP desktop (Layer 3)\r\n\r\nI enabled key combinations, the \"windows\" key is working now, but impossible to do the CTRL + ALT +...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NjI2NjY0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think this may be similar to what is requested in #1349",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-27T16:59:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4Nzc4NjU5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![As_RDCM_Miccrosoft](https://user-images.githubusercontent.com/16210381/109475407-be30af00-7a86-11eb-8551-61aa39b05f47.png)\r\n\r\nSee how this is work in another manager from microsoft",
+                         "author":  "HelpITru",
+                         "action_needed":  true,
+                         "date":  "2021-03-01T09:08:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T22:54:22Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

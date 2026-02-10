@@ -1,0 +1,66 @@
+﻿{
+    "number":  1988,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Auto close panel after close last tab not work, and not exist options in \"Options\"",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2021-07-06T18:11:03Z",
+    "github_updated_at":  "2026-02-07T16:45:55Z",
+    "body_snippet":  "After I close last tab in panel, panel continue exist. Empty.\r\n\r\n## Expected Behavior\r\nEmpty panel must be closed automatically, without think about this and mouse click.\r\n\r\n## Current Behavior\r\nPanel need close manually.\r\n\r\n## Possible Solution\r\nAdd option about this in \"Options\", if this \"by design\" :)\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Close last tab and look.\r\n2.\r\n3.\r\n4.\r\n\r\n## Context\r\n\u003c!--- How has this issue affected you? What are you trying to accomplish? --\u003e\r\n\u003c!--- Providing context...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3OTQ2MTYwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can confirm this. Version 1.76.20 automatically closes empty panels. V1.77 Prerelease and Nightly build don\u0027t close the panel after closing the last tab. Additionally, launching an external app created a new panel that doesn\u0027t close if the external app is not integrated. Version 1.76 doesn\u0027t leave an empty panel open in this case.",
+                         "author":  "kees-z",
+                         "action_needed":  true,
+                         "date":  "2021-07-13T23:04:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4110c4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Apollon-Theos @kees-z \r\nDo you have the option active to \"always show connection tabs\"?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-08-22T17:14:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4119e4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This?\r\n![image](https://user-images.githubusercontent.com/46534073/130371712-74d2eb08-af65-41fb-96cc-85098e642b02.png)\r\n\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-08-22T22:14:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFea",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:55Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

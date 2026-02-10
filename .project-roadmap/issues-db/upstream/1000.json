@@ -1,0 +1,30 @@
+﻿{
+    "number":  1000,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Connections][Filter]: UI improvements",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "PetbkA",
+    "created_at":  "2018-06-21T10:04:47Z",
+    "github_updated_at":  "2018-06-21T13:39:55Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n1. There should be a switch to enable/disable filtering, it should be in search filed, and it\u0027s state should be saved when app is restarted;\r\n2. If search returns no results when new symbol is entered in the keyword, app should prevent this symbol from input. ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2018-06-21T13:39:55Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

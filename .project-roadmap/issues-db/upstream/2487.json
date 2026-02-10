@@ -1,0 +1,66 @@
+﻿{
+    "number":  2487,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Allow import from SecureCRT",
+    "state":  "open",
+    "labels":  [
+                   "Third party",
+                   "Import/Export"
+               ],
+    "author":  "q9HugW",
+    "created_at":  "2023-09-05T15:52:18Z",
+    "github_updated_at":  "2024-02-08T19:42:59Z",
+    "body_snippet":  "Refers to [issue#2480](https://github.com/mRemoteNG/mRemoteNG/issues/2480)",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5v1g0I",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please assign to @magriggs ",
+                         "author":  "magriggs",
+                         "action_needed":  true,
+                         "date":  "2024-01-04T04:35:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v3meV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "welcome bro, make it independent please (https://github.com/mRemoteNG/mRemoteNG/tree/v1.77.3-dev/Add-ons), so we could use it as add-on ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-04T10:19:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v8nV0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@q9HugW I have a first working version of this, which I propose to commit. At present it will preserve the following connection types from a SecureCRT export file:\r\n\r\n1. Telnet sessions\r\n2. SSH1/SSH2 sessions\r\n3. RDP sessions\r\n4. RLogin sessions\r\n5. RAW sessions\r\n\r\nIt will bring the following fields across:\r\n\r\n1. Name\r\n2. Hostname\r\n3. Port\r\n4. Protocol\r\n5. Username\r\n6. Description (all lines merged into a single line)\r\n\r\nNote that, for security reasons, it will NOT decrypt passwords and will NOT...",
+                         "author":  "magriggs",
+                         "action_needed":  true,
+                         "date":  "2024-01-05T05:48:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5zUwqi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @q9HugW I have a first working version of this, which I propose to commit. At present it will preserve the following connection types from a SecureCRT export file:\r\n\u003e \r\n\u003e     1. Telnet sessions\r\n\u003e \r\n\u003e     2. SSH1/SSH2 sessions\r\n\u003e \r\n\u003e     3. RDP sessions\r\n\u003e \r\n\u003e     4. RLogin sessions\r\n\u003e \r\n\u003e     5. RAW sessions\r\n\u003e \r\n\u003e \r\n\u003e It will bring the following fields across:\r\n\u003e \r\n\u003e     1. Name\r\n\u003e \r\n\u003e     2. Hostname\r\n\u003e \r\n\u003e     3. Port\r\n\u003e \r\n\u003e     4. Protocol\r\n\u003e \r\n\u003e     5. Username\r\n\u003e \r\n\u003e     6. Description ...",
+                         "author":  "q9HugW",
+                         "action_needed":  true,
+                         "date":  "2024-02-08T19:42:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-02-08T19:42:59Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

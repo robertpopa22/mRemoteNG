@@ -1,0 +1,147 @@
+﻿{
+    "number":  551,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add support for X2GO client",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Help Wanted"
+               ],
+    "author":  "computersrmyfriends",
+    "created_at":  "2017-05-12T07:34:12Z",
+    "github_updated_at":  "2022-02-09T19:19:02Z",
+    "body_snippet":  "Hello,\r\nCan you please add support for X2GO client? It\u0027ll be very very useful if mremoteng works well with X2GO.\r\n\r\nThanks",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNDQ4OTA0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We will look into it",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-05-28T02:45:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNDQ5MjkxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you..Appeciate it..",
+                         "author":  "computersrmyfriends",
+                         "action_needed":  true,
+                         "date":  "2017-05-28T04:53:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzg0MjM4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 x2go is my choice of linux remote desktop, I will really appreciate it if x2go could be supported",
+                         "author":  "syu-id",
+                         "action_needed":  true,
+                         "date":  "2017-07-08T08:17:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1OTc5OTI0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 X2go or other X11 support please",
+                         "author":  "yann38",
+                         "action_needed":  true,
+                         "date":  "2018-01-23T14:01:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MjgwODc1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 for x2go... I use it on all remote servers",
+                         "author":  "bmullan",
+                         "action_needed":  true,
+                         "date":  "2018-02-03T13:53:46Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMDgxMzMxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 My too, I love X2GO and if you add x2go on mRemoteNG then the Ultimate App for remote pc linux",
+                         "author":  "etienne42g",
+                         "action_needed":  true,
+                         "date":  "2019-07-12T09:10:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjc5ODcwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1.  Thanks.",
+                         "author":  "richardlock",
+                         "action_needed":  true,
+                         "date":  "2019-07-31T10:49:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjg3NDM3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "DrMythnick",
+                         "action_needed":  true,
+                         "date":  "2019-07-31T14:30:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNTQ5MTcyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "hagen3000",
+                         "action_needed":  true,
+                         "date":  "2019-09-26T13:02:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMDAyMDcyMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This would be amazing",
+                         "author":  "DerekFroese",
+                         "action_needed":  true,
+                         "date":  "2020-04-06T20:31:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc0OTQyNjUxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 X2go support please",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2020-12-22T08:52:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM46x0Po",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 X2go support!!!",
+                         "author":  "darkmoon2",
+                         "action_needed":  true,
+                         "date":  "2021-12-04T23:54:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49o0Cl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 X2go support please!",
+                         "author":  "mkp-bartsch",
+                         "action_needed":  true,
+                         "date":  "2022-02-09T19:19:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-02-09T19:19:02Z",
+    "unread_comments":  13,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

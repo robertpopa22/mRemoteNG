@@ -1,0 +1,94 @@
+﻿{
+    "number":  2509,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Opening Command pass password option",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Feature Request",
+                   "1.77.4"
+               ],
+    "author":  "dheeraj29",
+    "created_at":  "2023-10-17T12:32:22Z",
+    "github_updated_at":  "2026-02-07T19:55:51Z",
+    "body_snippet":  "There shall be an option to pass password to opening command if required.\n\nEg:- sudo su",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5pSKlB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @dheeraj29 \r\nCould you add a little more context of the issue you encountered? Why do you need this? What is your scenario?\r\n\r\nThanks.",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T12:59:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pSPz3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @savornicesei yes, basically its a feature request or enhancement rather.\n\nExample if sudoers file doesn\u0027t define NOPASSWD then sudo command will ask for password. So even though password is saved in connection settings, still for sudo command, we have to store and copy password from elsewhere.\n\nAlso its even useful in maintaining separate connections and logging into databases like postgres by simply using pgsql -u username -p which will prompt password that gets passed by this feature when ...",
+                         "author":  "dheeraj29",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T13:11:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pSa0u",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Let me see if I got it right: So you\u0027re connecting to a linux box through SSH using username/passwd and on a successful connection you want to execute a remote command that uses the ssh credentials?\r\n\r\nSomething similar to Remote command in PUTTY\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/917232/3d2903b9-3360-4a23-92a8-b732d6fb49c3)\r\n\r\nThanks!",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T13:36:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pS7So",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@savornicesei you got it right",
+                         "author":  "dheeraj29",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T14:45:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pS7cG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@savornicesei you got it right",
+                         "author":  "dheeraj29",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T14:45:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5q98l7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "what need some coding to make it work, as you connect as a user then elevate with additional password. Current intention is to make mRemote working without saving passwords in app (to meet security requirements) so solution will be you should store encrypted password in connection file or db (or password manager of your choice) what you will be responcible for, not mRemote, and mRemote only will link connection item with that details. Where is some works already happening for that, but without p...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-06T11:35:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiQB",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:51Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

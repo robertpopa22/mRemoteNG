@@ -1,0 +1,74 @@
+﻿{
+    "number":  574,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Thumbnail of Group",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "changbowen",
+    "created_at":  "2017-06-02T06:43:12Z",
+    "github_updated_at":  "2021-03-29T10:09:05Z",
+    "body_snippet":  "Is it possible to add something like the thumbnail feature in Remote Desktop Connection Manager?\r\nNot just for viewing, also the thumbnails are accepting inputs so I can do simple operations on the thumbnails (such as logging off).\r\n![image](https://cloud.githubusercontent.com/assets/15975872/26713871/4e0e64c2-47a1-11e7-84aa-23543c4519cd.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNTc2NzQzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We can look into it. I remember there was a similar request proposed a while ago, but I can\u0027t seem to find the ticket now.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-06-02T12:03:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNjA3ODgzNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks! That would be the last nice feature that RDCMan has and mRemoteNG doesn\u0027t :)",
+                         "author":  "changbowen",
+                         "action_needed":  true,
+                         "date":  "2017-06-05T00:42:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1OTI1Njg1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, it will be great if mRemoteNG will support thumbnails.",
+                         "author":  "diflyon",
+                         "action_needed":  true,
+                         "date":  "2018-01-21T15:34:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNjYyNDUzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "In my case I need to open, side by side, 18 connections. This functionally will be amazing!",
+                         "author":  "alexcostars",
+                         "action_needed":  true,
+                         "date":  "2020-04-20T15:23:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDgwOTI1NTE3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, Is this still active? Any updates? ",
+                         "author":  "arashid290",
+                         "action_needed":  true,
+                         "date":  "2021-03-29T10:09:05Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-03-29T10:09:05Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

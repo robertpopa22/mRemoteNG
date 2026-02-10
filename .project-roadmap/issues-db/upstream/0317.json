@@ -1,0 +1,94 @@
+﻿{
+    "number":  317,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP: Select which drives to redirect",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Ready",
+                   "Help Wanted"
+               ],
+    "author":  "EdoaLive",
+    "created_at":  "2016-12-21T09:26:08Z",
+    "github_updated_at":  "2019-08-07T13:46:58Z",
+    "body_snippet":  "Hello,\r\nFirst of all, my compliments for your software. It\u0027s quite difficult to find on google, but it\u0027s very complete and works nicely.\r\n\r\nThis feature request is very old, as I found it in a 2010 post in your old forum: http://forum.mremoteng.org/viewtopic.php?f=4\u0026t=95 so maybe it has already been implemented but I couldn\u0027t find it.\r\nThe function should be quite simple: in addition to select \u0027Yes\u0027 or \u0027No\u0027 to \u0027Disk Drives\u0027 in \u0027Redirect\u0027 connection config menu, it would be nice to select which d...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjQ2NjA3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I agree with this completely.  I used mRemote years ago, and I just tried mRemoteNG since I use a lot of RDP connections.  Not being able to select only some drives was the first thing I noticed.  I\u0027m a network administrator.  I have tons of network drives.  When I RDP into servers on my own network, I already have those same drives present on the host server (auto-mapped via Group Policy).  The only other drive I want to connect back to is my local C drive (\\\\tsclient\\c).  I could turn of all d...",
+                         "author":  "SeethingSage",
+                         "action_needed":  true,
+                         "date":  "2017-03-14T15:53:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMDQxMDIwNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "FWIW I\u0027d like to add my request for this enhancement.  If I\u0027m connecting to a low bandwidth remote site I find myself reverting back to running RDP directly so I can limit to only one drive being shared.  I find Explorer to be quite slow when you have a lot of drives redirected and the connection is slow.\r\n\r\nBTW - Thanks for keeping this project alive.  I\u0027ve been a fan since mRemote.",
+                         "author":  "DennisT1",
+                         "action_needed":  true,
+                         "date":  "2017-06-22T15:12:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDQ1MTgzNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would also like this feature. When using Explorer on the remote system, it takes forever to display My Computer because it has to interrogate all of my local drives. I would really only want one or two of them connected. ",
+                         "author":  "PrestigeComputing",
+                         "action_needed":  true,
+                         "date":  "2017-12-09T11:45:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTEzMDAzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Bump",
+                         "author":  "boomshankerx",
+                         "action_needed":  true,
+                         "date":  "2018-02-13T02:20:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTI3MDc3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve scheduled other RDP work for v1.77, so this would fit in nicely",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-13T13:46:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMDA4OTk1OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "is this feature still scheduled for 1.77 ?? ",
+                         "author":  "gerootech",
+                         "action_needed":  true,
+                         "date":  "2019-07-10T14:39:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxOTEwNDI3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@gerootech Yes, unfortunately most of the devs have not had much time to work on the project lately.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-08-07T13:46:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-08-07T13:46:58Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

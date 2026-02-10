@@ -1,0 +1,56 @@
+﻿{
+    "number":  889,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG could work around longstanding \"Bypass RDG\" bug in MSTSC",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "JRVcr",
+    "created_at":  "2018-02-19T16:05:14Z",
+    "github_updated_at":  "2024-12-03T23:41:58Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008  |\r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\nEver since the Windows 8 MSTSC was released, the \"Bypass RD Gateway server for...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2Njc0NjU5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Very interesting, thanks for sharing this @JRVcr. This does look like a nice area where mRNG can step in and provide a fix. It doesn\u0027t sound like it will be too hard to implement, we will just need to handle the special cases (REALLY Detect turned on but no RDG info supplied, that sort of stuff).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-19T16:42:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxODg4MDgyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just adding in that this would help me greatly. We hit this same issue on a large scaled WAN due to subnet differences. At least half of my RDP connections go via our gateway and nearly double the latency.",
+                         "author":  "Chipa001",
+                         "action_needed":  true,
+                         "date":  "2019-08-06T23:30:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6V9Dqp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does anyone know if this issue is still ongoing? I am having issues with Bypass Gateway as well with devices in a different subnet.",
+                         "author":  "weservit-raoul",
+                         "action_needed":  true,
+                         "date":  "2024-12-03T23:41:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-12-03T23:41:58Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

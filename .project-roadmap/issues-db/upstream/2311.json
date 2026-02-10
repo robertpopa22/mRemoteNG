@@ -1,0 +1,85 @@
+﻿{
+    "number":  2311,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Status Icon next to each Connection at Overview",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "Chrisu02",
+    "created_at":  "2022-12-06T07:11:44Z",
+    "github_updated_at":  "2026-02-08T09:41:41Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nHello Team,\r\nI would like to Request an Option to see the \"Status\" LED Icon next to each PC at the Connection Overwiew.\r\n\r\n## Current Behavior\r\nCurrently, you need to click on each connection to see if a PC is available or not, you can not see quickly which Computers are Online and which not.\r\n\r\n## Possible Solution\r\nAdding an Option to show the \"Status\" LED Between the Connection Icon and Connection Nam...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5dSpLs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi\r\nWhich program are you using that gives you this status led behavior?",
+                         "author":  "zuricarmi",
+                         "action_needed":  true,
+                         "date":  "2023-05-27T02:33:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5dS332",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Hi Which program are you using that gives you this status led behavior?\r\n\r\nUnfortunately thats a internally written small tool that someone at the company i work for wrote for ages.\r\nSo i don\u0027t have the copyright to release this.\r\nThe only lucky thing is that it is not compiled, its files are readable code that is run via a script tool, so i can modify it to my need a little bit,  gut i don`t have the source code.\r\nI guess its C# or so.",
+                         "author":  "Chrisu02",
+                         "action_needed":  true,
+                         "date":  "2023-05-27T06:17:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5dTSYZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks for your reply\n\nOn Sat, May 27, 2023, 09:17 Chrisu02 ***@***.***\u003e wrote:\n\n\u003e Hi Which program are you using that gives you this status led behavior?\n\u003e\n\u003e Unfortunately thats a internally written small tool that someone at the\n\u003e company i work for wrote for ages.\n\u003e So i dont have the copyright to release this. The only lucky thing is\n\u003e that it is not compiled, its files are readable code that is run via a\n\u003e script tool, so i can modify it to my need a little bit, gut i dont have\n\u003e the source...",
+                         "author":  "zuricarmi",
+                         "action_needed":  true,
+                         "date":  "2023-05-27T10:29:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6T2jDN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "PLEASE DEVS... ADD THIS FEATURE NOW! xD",
+                         "author":  "truefriend-cz",
+                         "action_needed":  true,
+                         "date":  "2024-11-16T12:51:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYihk",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7meibU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, thanks for the triage note.\n\nI can retest on the latest upstream nightly/NB build from the official mRemoteNG GitHub Releases. However, IΓÇÖm not sure which ΓÇ£fork v1.79.xΓÇ¥ youΓÇÖre referring to (could you share a direct link to that fork/release, if itΓÇÖs different from upstream?).\n\nOnce I retest, IΓÇÖll report:\n\n- exact build/version tested\n- reproducible steps\n- expected vs. actual behavior\n- logs/screenshots if relevant\n\nThanks.",
+                         "author":  "truefriend-cz",
+                         "action_needed":  true,
+                         "date":  "2026-02-08T09:41:40Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T09:41:41Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

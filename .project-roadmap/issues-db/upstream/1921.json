@@ -1,0 +1,65 @@
+﻿{
+    "number":  1921,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "feature request - link connection panel to tab",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "TonyRoo2",
+    "created_at":  "2021-01-11T16:23:23Z",
+    "github_updated_at":  "2026-02-07T16:46:10Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nfeature request, it is very annoying (and dangerous) to have the connection panel links not affect the tab; I constantly am clicking on the server/connection in the connections panel and then think I am now working on that server, as it is has been chosen and is highlighted, but I am not; I have done work on the incorrect server several times because of this.  If a server/connection is chosen in the connection panel and there i...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1ODA2OTA2OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "to add to/clarify the above, I have since realized that if I double-click a connection in the connection panel, it does go to the already open tab of that connection; I think a single click should also do this if the tab is open already, as otherwise a connection can be highlight in the panel yet not be the active tab.",
+                         "author":  "TonyRoo2",
+                         "action_needed":  true,
+                         "date":  "2021-01-11T16:30:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1OTI2NTM1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "totally agree.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-01-13T07:37:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEEr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFi-",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:10Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:10Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

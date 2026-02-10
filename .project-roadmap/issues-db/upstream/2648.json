@@ -1,0 +1,68 @@
+﻿{
+    "number":  2648,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Featurerequest] call Powershell and let response modify parameter",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "Connections",
+                   "Profiles",
+                   "1.77.4"
+               ],
+    "author":  "wolfgangp-tak",
+    "created_at":  "2024-10-28T11:59:55Z",
+    "github_updated_at":  "2026-02-07T19:56:04Z",
+    "body_snippet":  "Hello \r\n\r\nwe are using a secure access tool to manage the access to RDP\r\n- the tool creates a tunnel (opens a session on a dynamic localhost port)\r\n- and also provides a password/username for every connection\r\n\r\nIt would be good to be able to execute a powershell script before each connections, which can modify the properties (username, password, protocol,.. more)\r\n\r\nbr\r\nWolfgang",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6RhQFy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This in my plans, should be implemented with connection profiles, then connection could be templated and then assign to a user with specific attributes or like in yours case fetch data from external tool and run connection (at this moment is refacturing a code what should not store connection data in mR app, what a prediction to implement profiles), but due amout of work, could expect in 1.77.4, also in 1.77.4 planing to add a can of worms - storage to place a scripts or scriptlets what could be...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-10-28T12:11:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6RpOJQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "fyi: we have that chat space (Element) -\u003e https://matrix.to/#/#mremoteng:matrix.org",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-10-29T08:00:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJK-",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiTh",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:04Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

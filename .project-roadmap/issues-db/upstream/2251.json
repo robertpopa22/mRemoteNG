@@ -1,0 +1,65 @@
+﻿{
+    "number":  2251,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Question]How to have mRemoteNG use KiTTY instead of PuTTY ?",
+    "state":  "open",
+    "labels":  [
+                   "SSH"
+               ],
+    "author":  "sebma",
+    "created_at":  "2022-06-22T12:08:34Z",
+    "github_updated_at":  "2022-10-11T14:18:21Z",
+    "body_snippet":  "How to have mRemoteNG use KiTTY instead of PuTTY ?\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used: 1.76.20.24615\r\n* Operating System and version : Windows 10 Pro v1903\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5FVQLP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Add support for KiTTY #851",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2022-06-22T14:45:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5FpDmV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "we are thinking about such, but at the moment its not implemented",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-06-28T08:16:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5L3pai",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not sure what the intention is to add kitty support, as i can\u0027t see a usecase for it, as mremote already brings \"tab support\" \"scp support\" and more.",
+                         "author":  "thetuxinator",
+                         "action_needed":  true,
+                         "date":  "2022-10-10T07:18:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5L9nTa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@thetuxinator Hi,\r\nKiTTY supports font size \"growing/zooming\" with CTRL+PLUS or CTRL+MouseScroll.\r\n\r\nPuTTY does not and it is a pain for each new SSH session to always change the font size manually in the PuTTY parameters-\u003eWindow-\u003eAppearance-\u003eFont settings-\u003eChange.",
+                         "author":  "sebma",
+                         "action_needed":  true,
+                         "date":  "2022-10-11T10:01:22Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-10-11T14:18:21Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

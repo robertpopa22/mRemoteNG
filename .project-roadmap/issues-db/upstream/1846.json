@@ -1,0 +1,156 @@
+﻿{
+    "number":  1846,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "`AzureAD\\` Prefix is ignored and you have to manually type it every time you want to login via RDP",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "BrainSlugs83",
+    "created_at":  "2020-08-28T03:49:32Z",
+    "github_updated_at":  "2026-02-07T19:54:48Z",
+    "body_snippet":  "It appears as though the `AzureAD\\` user principal name prefix is not honored as specified.  This causes login to fail on many versions of windows (See Recording below) when that machine is joined to an Azure AD domain (as opposed to an on-prem or hybrid AD domain).\r\n\r\nHere is a recording of this behavior, where you can see that I have specified `AzureAD\\` as a prefix to my user name (in the bottom left), and that the login fails and I have to manually type it to login (you can click on the imag...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY5Mjk4MDM4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "***AzureAD\\user@domain.com*** is **not** a username.\r\nUsername is **AzureAD\\user**\r\nDomain is **domain.com**\r\nPut those information in the appropriate fields and things should work:\r\n![image](https://user-images.githubusercontent.com/22905106/93265020-486eaa80-f7a8-11ea-8ec4-bc23d0e55961.png)\r\n\r\n\r\nI don\u0027t have any way to test this out but I cannot think of any reason why this shouldn\u0027t - If not feel free to reopen this for further investigation. ",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-09-15T21:08:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNDc2NDk3MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That does not work. -- Here is the error message you see if you try it that way.\r\n\r\n![image](https://user-images.githubusercontent.com/5217366/96930338-634fd100-1470-11eb-91f6-9fe30a27aac1.png)\r\n",
+                         "author":  "BrainSlugs83",
+                         "action_needed":  true,
+                         "date":  "2020-10-22T21:11:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNDc2NTQ1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch  -- I don\u0027t have an option to reopen, is it something you can do?",
+                         "author":  "BrainSlugs83",
+                         "action_needed":  true,
+                         "date":  "2020-10-22T21:12:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNDc2NjQyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "At any rate regardless of whether `AzureAD\\user@domain.com` is a username or not -- it\u0027s what you have to put in the username field.",
+                         "author":  "BrainSlugs83",
+                         "action_needed":  true,
+                         "date":  "2020-10-22T21:14:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc5MjUzMTI5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "For myself (in a year\u0027s time) and anyone else who might benefit:\r\n\r\n```\r\nHKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\r\nChange \"SecurityLayer\" to 0\r\n```\r\n\r\nDisable CredSSP (Set to No) in connection profile\r\nUsername: `.\\AzureAD\\\u003cupn\u003e` (yes the dot slash is required to avoid the AzureAD prefix from being removed)\r\nPassword: `\u003cOffice 365 password\u003e`\r\nDomain: `\u003cblank\u003e`",
+                         "author":  "matt-psaltis",
+                         "action_needed":  true,
+                         "date":  "2021-03-08T07:17:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM400x_o",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@BrainSlugs83 Sry for being absent so long!\r\nI will take a look at this.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-07-25T20:09:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42fjVR",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@matt-psaltis great find for the work around... it also works without disabling CredSSP for anyone else wanting to connect to their Azure VMs",
+                         "author":  "nrjohnstone",
+                         "action_needed":  true,
+                         "date":  "2021-09-07T11:57:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5USBdt",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e For myself (in a year\u0027s time) and anyone else who might benefit:\r\n\u003e \r\n\u003e ```\r\n\u003e HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\r\n\u003e Change \"SecurityLayer\" to 0\r\n\u003e ```\r\n\u003e \r\n\u003e Disable CredSSP (Set to No) in connection profile Username: `.\\AzureAD\\\u003cupn\u003e` (yes the dot slash is required to avoid the AzureAD prefix from being removed) Password: `\u003cOffice 365 password\u003e` Domain: `\u003cblank\u003e`\r\n\r\nThis was the answer for me as well, although the registry change wasn\u0027t re...",
+                         "author":  "jbenson-montgomery-twochicago",
+                         "action_needed":  true,
+                         "date":  "2023-02-02T16:21:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bPH3x",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, Out of the box still does not work. The \"SecurityLayer\" was already zero. \r\nI did get RDP to work, but NLA must be off on the AzureAD machine OR AzureAD VM and had to add these 2 lines to the end of the RDP file:\r\n\r\nenablecredsspsupport:i:0\r\nauthentication level:i:2\r\n\r\n(Worked like a champ, RDP does pass \".\\AzureAD\\\")\r\n\r\nThe Question, how to add these 2 lines to mRemoteNG to see if it will help?\r\nTurning off CredSSP creates a new error \"The connection cannot proceed because authentication i...",
+                         "author":  "dllimoges",
+                         "action_needed":  true,
+                         "date":  "2023-05-02T00:38:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5dL2Aq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e For myself (in a year\u0027s time) and anyone else who might benefit:\r\n\u003e \r\n\u003e ```\r\n\u003e HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\WinStations\\RDP-Tcp\r\n\u003e Change \"SecurityLayer\" to 0\r\n\u003e ```\r\n\u003e \r\n\u003e Disable CredSSP (Set to No) in connection profile Username: `.\\AzureAD\\\u003cupn\u003e` (yes the dot slash is required to avoid the AzureAD prefix from being removed) Password: `\u003cOffice 365 password\u003e` Domain: `\u003cblank\u003e`\r\n\r\nPS for that\r\n```powershell\r\n## READ THE VALUE\r\nGet-Itemproperty -path \"HKL...",
+                         "author":  "TiloGit",
+                         "action_needed":  true,
+                         "date":  "2023-05-25T19:10:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ntFe9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "For my future self:\r\n\r\nUsername: domain\\username\r\nPassword: O365 Password\r\nDomain: Blank\r\nUse CredSSP: No\r\n\r\nOn the laptop side, under System properties\u003eremote:\r\nCheck \"Allow Remote Assistance connections to this computer\"\r\nOnly select \"Allow remote connection to this computer\", no need to hit the check box underneath for NLA. \r\n\r\n\r\nThis allows me to connect with any other modifications. \r\n",
+                         "author":  "Nasyncs",
+                         "action_needed":  true,
+                         "date":  "2023-09-28T19:14:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM54EFIH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just throwing in my \"fix\"\r\n\r\nUsername: .\\AzureAD\\myname@mydomain.com\r\nPassword: My O365 password\r\nDomain: Blank\r\n\r\nUse CredSSP: No\r\nServer Authentication: \"Warn me if authentication fails\"\r\n\r\nThe server authentication part was what was missing for me.",
+                         "author":  "ageisen2000",
+                         "action_needed":  true,
+                         "date":  "2024-03-22T04:29:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFo6",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh_l",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:48Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:48Z",
+    "unread_comments":  12,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

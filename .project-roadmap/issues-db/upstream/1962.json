@@ -1,0 +1,56 @@
+﻿{
+    "number":  1962,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG sometimes crashes on connection",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "ZJouba",
+    "created_at":  "2021-05-25T06:57:36Z",
+    "github_updated_at":  "2026-02-07T16:45:57Z",
+    "body_snippet":  "I can open mRemoteNG without any issues but as soon as I connect to one of my RDP connections, my PC becomes sluggish and after a couple of seconds mRemoteNG crashes.\r\n\r\n## Expected Behavior\r\nWhen I try connect to one of my RDP instances, it should connect.\r\n\r\n## Current Behavior\r\nWhen I connect to one of my RDP instances, mRemoteNG crashes.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open mRemoteNG\r\n2. Connect to an RDP instance\r\n\r\n## Context\r\nThis only happens sometimes and after about 2 or 3 trie...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg1MDE3NTAyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think it only happens when mRemoteNG does not have the focus while connecting. So open a connection and immediately navigate to any other window",
+                         "author":  "ZJouba",
+                         "action_needed":  true,
+                         "date":  "2021-05-28T06:27:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEDg",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFfF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:57Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

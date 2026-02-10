@@ -1,0 +1,40 @@
+﻿{
+    "number":  675,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Password encryption based on a certificate",
+    "state":  "open",
+    "labels":  [
+                   "1.8 (Fenix)",
+                   "Needs implementation",
+                   "DBs"
+               ],
+    "author":  "FrancescoBonizzi",
+    "created_at":  "2017-08-07T09:55:51Z",
+    "github_updated_at":  "2026-02-07T19:54:29Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\r\nIn our company we have all logins stored in a SQL storage. We coded a little application to generate an mRemotNG XML configuration based on our data. The idea is to generate that configuration once and distribute such file over our company. \r\n\r\nWe don\u0027t understand how to encrypt correctly each remote desktop login password to make you application read it correctly. Do you have any suggestions? Maybe is there the possibility to encrypt / decrypt such passwords with a c...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh6i",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:29Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:29Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

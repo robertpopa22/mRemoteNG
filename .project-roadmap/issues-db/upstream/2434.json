@@ -1,0 +1,77 @@
+﻿{
+    "number":  2434,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP configuration does not allow for \"prompt for credentials on client:i:1\" to be configured within mRemoteNG",
+    "state":  "open",
+    "labels":  [
+                   "Needs User Verification",
+                   "RDP",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "Reedazz",
+    "created_at":  "2023-05-12T11:06:51Z",
+    "github_updated_at":  "2026-02-07T19:53:09Z",
+    "body_snippet":  "\r\n## Expected Behavior\r\nPrompt for credentials on client opposed to within the RDP window, which in certain scenarios does not present authentication prompt and authentication fails.\r\n\r\n## Current Behavior\r\nCommon RDP setting \"Prompt for credentials on client:i:1\" does not function when imported into mRemoteNG\r\n\r\n## Possible Solution\r\nEnable options to mimic RDP file option \"prompt for credentials on client:i:1\"\r\n\r\n## Context\r\nWhen traversing via an RDS to a PAM system \"prompt for credentials on...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5ccZZ-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, could you try NB version please?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-05-17T08:09:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lefVK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello\r\n\r\nMy apologises I passed this to a colleague to test, it was unsuccessful, appears that they downloaded a later version of NB. I have not been able to locate the NB version from the 17th of May. Please advise.",
+                         "author":  "Reedazz",
+                         "action_needed":  true,
+                         "date":  "2023-09-01T09:57:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5tUIT7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e hello, could you try NB version please?\r\n\r\n\r\nI just checked on v1.77.3.1784-NB and there is no prompt for password. Getting \u0027An authentication error has occurred\u0027. Meanwhile on RDP, using the file I imported into mRemote, I can connect no worries.",
+                         "author":  "meekowai",
+                         "action_needed":  true,
+                         "date":  "2023-11-30T15:24:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE7p",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYheH",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:09Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

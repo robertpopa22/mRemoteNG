@@ -1,0 +1,58 @@
+﻿{
+    "number":  2575,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request - Add option for Connections and Config panel display at the same time when unpinned",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "mtorres10",
+    "created_at":  "2024-03-27T20:48:18Z",
+    "github_updated_at":  "2026-02-07T19:52:21Z",
+    "body_snippet":  "Add an option so Connections and Config tabs both display at the same time on click when \"unpinned\".\r\n\r\n## Expected Behavior\r\nWhen Connections and Config tabs are **\"unpinned/hidden/collapsed\"** add an option that when clicking on either, it will display both tabs. Similar to the behavior when both tabs are **\"pinned/visible/uncollapsed\"**.\r\n\r\nIn my humble opinion, is easier to work with remote connections when you have both Connection and Config tabs available at the same time, regardless if is...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM54o2iS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There seems to be a similar request, #153, but in this case, the request is to have the panels take the whole screen. In My case I am requesting panels to be split vertically on the left side of the screen, as shown in the recordings ",
+                         "author":  "mtorres10",
+                         "action_needed":  true,
+                         "date":  "2024-03-27T20:57:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE3n",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhNs",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:21Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:21Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

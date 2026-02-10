@@ -1,0 +1,38 @@
+﻿{
+    "number":  1213,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG hang when using ssh with wromg credential",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "sadfriend",
+    "created_at":  "2018-12-18T12:35:53Z",
+    "github_updated_at":  "2021-06-27T23:03:10Z",
+    "body_snippet":  "mRemoteNG hang when using ssh with wromg credential when trying to connect to server with ssh by the saved credential witch is not the right credential and not response\r\n\r\n\r\n* Version used:1.76.12.38511\r\n* Operating System and version (e.g. Windows 10 1709 x64)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTE0MzAwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "May be duplicate of #1195",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-20T21:35:37Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T23:03:10Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,57 @@
+﻿{
+    "number":  1195,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG hangs if incorrect credentials are provided",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "VNC"
+               ],
+    "author":  "JRB68",
+    "created_at":  "2018-11-20T19:34:02Z",
+    "github_updated_at":  "2019-09-14T10:00:21Z",
+    "body_snippet":  "mRemoteNG hangs if incorrect credentials are provided\r\n\r\nHave the newest version of mRemote installed on Windows 10 build 1803. When setting up new connections if the credentials are incorrect, the program hangs and i have to end the task in task manager.  If the credentials are correct, i can login without issue.\r\n\r\nHave a second identical machine that works just fine, same versions of mRemote and Windows 10.\r\n\r\nI\u0027ve uninstalled reinstalled, tried an older version, nothing seems to work.\r\n\r\nFau...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTY3MTk2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "While MRemote is in that hung state use the task manager to take a memory dump of the process, then you\u0027ll need to analyze the hanging thread and find out which function is taking all the cycles.\r\n",
+                         "author":  "MitchellBot",
+                         "action_needed":  true,
+                         "date":  "2018-12-10T04:20:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NjI0ODU2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@JRB68 Which protocol causes the hang? RDP? VNC?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-11T15:42:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNjU2MDMzNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve just tried using mRemoteNG on a clean install of Windows 10 1903 (x86_64) and am seeing exactly this behaviour with VNC connections.",
+                         "author":  "WashJotson",
+                         "action_needed":  true,
+                         "date":  "2019-08-30T11:03:49Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-09-14T10:00:21Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

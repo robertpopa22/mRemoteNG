@@ -1,0 +1,85 @@
+﻿{
+    "number":  2140,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Do not update remote clipboard before pasting or until a copy is made",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Medium",
+                   "Needs implementation",
+                   "Clipboard"
+               ],
+    "author":  "aeb-dev",
+    "created_at":  "2022-01-24T15:12:39Z",
+    "github_updated_at":  "2022-01-25T08:45:57Z",
+    "body_snippet":  "I do not know how rdp works so this is basically a question about whether it is possible.\r\n\r\nWhen I enable clipboard and connect to the remote server, server\u0027s clipboard is automatically updated with my local computer\u0027s clipboard.\r\nIs there anyway to prevent this or can this be implemented?\r\n\r\nThe scenario is this: we are running a software that is using clipboard. If I connect while the software is running and if I had something on my local computer\u0027s clipboard, server\u0027s clipboard is updated. T...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM480HaW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, so disable clipboard to not this happened? Or i am not get that is exactly you wish to got?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-01-24T16:36:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM480WNv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I want to be able to use it.\r\n\r\nI am not sure if this is possible but, when I connect with clipboard enabled it should not update remote clipboard at first.\r\nWhen I paste current clipboard or copy something new than it should update the remote.\r\n\r\nBasically what I am saying is, is it possible to have an option to disable clipboard until new copy is made or paste command is pressed?",
+                         "author":  "aeb-dev",
+                         "action_needed":  true,
+                         "date":  "2022-01-24T17:28:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM480wOQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@aeb-dev What version of mRemoteNG are you running?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2022-01-24T19:26:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM481BvU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tested both on v1.76.20, v1.77.1\r\n\r\nI am using v1.77.1",
+                         "author":  "aeb-dev",
+                         "action_needed":  true,
+                         "date":  "2022-01-24T20:49:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM481Mk0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think this is the behavior of the Microsoft remote desktop to overwrite whatever is in the clipboard of the remote machine when connecting. As far as I know you can only or completely disable or fully enable it, I don\u0027t think it\u0027s possible to only send the information after the first copying when using the mstsc (or the library thereof used in this project I forgot the name of), though I like to be proven wrong :)",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-01-24T21:44:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM482IM9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@simonai1254 I found [this](https://docs.microsoft.com/en-us/windows/win32/termserv/imsrdpclipboard) hope it helps",
+                         "author":  "aeb-dev",
+                         "action_needed":  true,
+                         "date":  "2022-01-25T05:20:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-01-25T08:45:57Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

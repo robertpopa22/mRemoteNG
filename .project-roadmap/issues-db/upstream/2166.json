@@ -1,0 +1,85 @@
+﻿{
+    "number":  2166,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Crashes / Tab Issues When Idling and Resized",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "jcefoli",
+    "created_at":  "2022-02-11T19:48:33Z",
+    "github_updated_at":  "2026-02-09T06:27:49Z",
+    "body_snippet":  "I am not sure how to completely reproduce this, but have experienced a crash when I use regular RDP to an instance (ie - juimp server) and run mRemoteNG in that RDP session. When the RDP resizes or if I disconnect, I notice that in some special instances mRemoteNG tabs will become messed up and disassociate with the RDP session. They cannot be closed or removed unless you exit the app. I don\u0027t know how toi reproduce this 100%, but noted that it happens when mRemoteNG remains connected in an RDP ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM49y0Jk",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Interesting Bug. Would you mind telling us what Version of mRemoteNG you are using on both systems? \r\nIs that the latest build 1.77.2-nb (20220107) or is it the latest stable release 1.76.20? You can find that information in the Help\u003eAbout window. \r\n",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-11T23:06:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM496Opv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That\u0027s a good question, because I compile the dev branches myself. Pretty sure this still happens in the latest v1.77.3-dev branch",
+                         "author":  "jcefoli",
+                         "action_needed":  true,
+                         "date":  "2022-02-14T05:56:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZzX",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:37:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdlj3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Likely addressed by panel-close behavior fixes already packaged upstream: PR #3106 and follow-up panel empty-state fix on fork release branch. \r\n \r\nPlease retest on latest RC candidate build; if resolved, recommend close as duplicate/resolved. \r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T08:24:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mgzWV",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "RC update: packaged in parent PR #3129 and ready for retest on latest RC builds. \r\nPR: https://github.com/mRemoteNG/mRemoteNG/pull/3129 \r\nScope: harden document-tab close path during resize/reconnect layout churn (deferred close plus guards in DockPaneStripNG). \r\nNote: the FormClosing enumeration trace from this issue is covered by parent PR #3124. \r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T15:01:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpddx",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3129 | **Branch:** `codex/pr25-tab-crash-resize-2166`\n**Fix:** Tab close race condition under window resize resolved.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:27:49Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:27:49Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

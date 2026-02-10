@@ -1,0 +1,128 @@
+﻿{
+    "number":  912,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP Disconnected 6151",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "ibrahim052",
+    "created_at":  "2018-03-09T12:25:13Z",
+    "github_updated_at":  "2019-03-04T05:04:11Z",
+    "body_snippet":  "Its mainly for accessing Server 2016 RDP, I keep facing this error where I have to check and uncheck NETWORK LEVEL AUTHENTICATION accessing the server physically to be accessible by MRemoteNG, doesn\u0027t happen in 2012 but happens often in 2016. Specially when I have to reboot the server due to maintenance or updates.\r\n\r\n![image](https://user-images.githubusercontent.com/37214257/37207438-6e8eb0e8-23b6-11e8-98ad-78fc80812836.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4MjA0NjE2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Seems related to #220. This may be an issue between the version of the mstsc RDP library that we use and Windows Server 2016. I am doing some work in v1.77 to improve RDP compatibility (#826) that might help with this.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-04-17T15:57:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4MjA0ODI4Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Amazing. I still face this issue. Had tried alpha which doesn\u0027t have this problem at all but then ;-) other bugs are there plus stable is so stable. I am trying to manage somehow but it\u0027s a pain when it happens with a guest os as vm and then I have to access it physically to disable NLA or sometime check it again if unchecked.\r\n\r\n\r\n\r\nOn April 17, 2018 7:57:50 PM David Sparer \u003cnotifications@github.com\u003e wrote:\r\n\r\nSeems related to #220\u003chttps://github.com/mRemoteNG/mRemoteNG/issues/220\u003e. This may be...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2018-04-17T16:03:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDI5Nzc3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am sorry if I am asking too much but it happened that my mremoteng stopped working and didn\u0027t start at all. It appears on task manager and disappears immediately. I tried installing the latest pre release to try my luck and to my bad luck I realized that my settings were encrypted. Now I am unable to retain the settings. I am stuck, I tried to install the previous version but it\u0027s same. If there is any charges I would be happy to contribute as donation but this problem would cost my job becaus...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T07:53:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDQwNTg4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m sorry this has happened to you, @ibrahim052. Here are several pages that may be able to help. First, try to recover the last good backup of your connections file. Also, take a look at the log file to see what may be causing the application to stop working. You can also try deleting the user settings file. We have seen it cause startup problems if it is corrupted.\r\n\r\n- https://github.com/mRemoteNG/mRemoteNG/wiki/Backups-and-Recovery\r\n- https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooti...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T14:14:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDQ2Mjg4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tried renaming and to open the backup file, this is what I get. I had a whole half day of depression of making a mistake not taking any backup. I hope this gets resolved.\n\n[cid:image001.png@01D4AD13.5BD61E50]\n\nSent from Mail\u003chttps://go.microsoft.com/fwlink/?LinkId=550986\u003e for Windows 10\n\n________________________________\nFrom: David Sparer \u003cnotifications@github.com\u003e\nSent: Tuesday, January 15, 2019 6:14:32 PM\nTo: mRemoteNG/mRemoteNG\nCc: ibrahim052; Mention\nSubject: Re: [mRemoteNG/mRemoteNG] RDP Di...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T16:46:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDQ2NzA2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "(If you\u0027ve included an image, I am not able to see it. Images in emails do not get transferred to GitHub)\r\n\r\nYou may need to go back to an older backup. Checking the file size of the backups may help determine the last good backup (look for the largest file).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T16:56:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDQ3MTc4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Alright, sir you are GENIUS. This is what I did, from AppData\\Roaming\\mRemoteNG\\mRemoteNG.exe_Urlxxxxxxxxx current version folder I copied the user.config file to\nAppData\\Local\\mRemoteNG\\mRemoteNG.exe_Url_xxxxx renaming existing user.config and placing the copied one resolved the issue. WOOOHOOOOOOOOOOOOOO, still donating as promised. Phewwwww THANK YOU THANK YOU THANK YOU.\n\nSent from Mail\u003chttps://go.microsoft.com/fwlink/?LinkId=550986\u003e for Windows 10\n\n________________________________\nFrom: Ibra...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T17:09:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDQ3ODQxNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you for saving my day, your concern and response was enough to push me for giving it a try one more time. Made a small contribution to my favorite app which I use most.\n\nSent from Mail\u003chttps://go.microsoft.com/fwlink/?LinkId=550986\u003e for Windows 10\n\n________________________________\nFrom: Ibrahim Rasheed \u003cibrahim52@outlook.com\u003e\nSent: Tuesday, January 15, 2019 9:09:37 PM\nTo: mRemoteNG/mRemoteNG; mRemoteNG/mRemoteNG\nCc: Mention\nSubject: RE: [mRemoteNG/mRemoteNG] RDP Disconnected 6151 (#912)\n\nA...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T17:28:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NDUzOTkyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Glad to hear that you got it working! :)",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-01-15T20:30:40Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTAwMjA5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am sorry but it happened that MremoteNG was on , I lost battery and laptop switched off unexpectedly. After that as usual when I am trying to open mremoteng , it doesnΓÇÖt work and ask for password. Unfortunately there are no automatic backup as well since I emailed you last. Followed the same steps of solution I discovered last time but does not work this time.\n\nSent from Mail\u003chttps://go.microsoft.com/fwlink/?LinkId=550986\u003e for Windows 10\n\n________________________________\nFrom: David Sparer \u003c...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-03-03T08:51:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTExOTkxNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Never mind, the backup of back in jan 15 was still sufficient. Thank you but please if you can fix the surprise shutdown issue in future. Have a nice day.\n\nSent from Mail\u003chttps://go.microsoft.com/fwlink/?LinkId=550986\u003e for Windows 10\n\n________________________________\nFrom: Ibrahim Rasheed \u003cibrahim52@outlook.com\u003e\nSent: Sunday, March 3, 2019 12:51:45 PM\nTo: mRemoteNG/mRemoteNG; mRemoteNG/mRemoteNG\nCc: Mention\nSubject: RE: [mRemoteNG/mRemoteNG] RDP Disconnected 6151 (#912)\n\nI am sorry but it happen...",
+                         "author":  "ibrahim052",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T05:04:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-03-04T05:04:11Z",
+    "unread_comments":  11,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

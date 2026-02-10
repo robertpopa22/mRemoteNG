@@ -1,0 +1,59 @@
+﻿{
+    "number":  3062,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot access a disposed object. Object name: \u0027ConnectionWindow\u0027.",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.78.*",
+                   ".NET (dotNET)",
+                   "Nightly Build"
+               ],
+    "author":  "vndnua",
+    "created_at":  "2025-12-25T12:17:21Z",
+    "github_updated_at":  "2026-02-08T11:43:56Z",
+    "body_snippet":  " at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\n   at mRemoteNG.UI.Window.ConnectionWindow.Prot_Event_Closed(Object sender) in D:\\a\\mRemoteNG\\mRemoteNG\\mRemoteNG\\UI\\Window\\ConnectionWindow.cs:line 832\n   at mRemoteNG.Connection.Protocol.ProtocolBase.CloseBG() in D:\\a\\mRemoteNG\\mRemoteNG\\mRemoteNG\\Connection\\Protocol\\ProtocolBase.cs:line 155\n   at System....",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYik-",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7maBkC",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "This appears to be the same disposed-ConnectionWindow close-path as #3069 (same `Prot_Event_Closed` call stack).\r\n\u0026echo Fix is already proposed upstream here:\r\nhttps://github.com/mRemoteNG/mRemoteNG/pull/3106\r\n\u0026echo Validation evidence (fork CI):\r\nhttps://github.com/robertpopa22/mRemoteNG/actions/runs/21782034958\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T21:57:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mfnNl",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "This appears to match the same ConnectionWindow.Prot_Event_Closed disposed-object close-path as #3069. Candidate upstream fix package is PR #3106: https://github.com/mRemoteNG/mRemoteNG/pull/3106. After merge in parent, please retest on a build that includes that commit; if still reproducible with exact steps/logs, keep this issue open, otherwise close as duplicate of #3069.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T11:43:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T11:43:56Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

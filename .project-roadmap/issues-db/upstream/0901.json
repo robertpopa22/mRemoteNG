@@ -1,0 +1,38 @@
+﻿{
+    "number":  901,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Dynamic Connection Folder pulls connection list via REST",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "jerry-bonner",
+    "created_at":  "2018-03-01T16:45:30Z",
+    "github_updated_at":  "2018-10-25T09:25:17Z",
+    "body_snippet":  "Description\r\nA folder type that would pull (sync) a list of connections from a remote REST/JSON API, either periodically or on-demand. This feature would also support a sub-folder hierarchy.\r\n\r\nUse Case\r\nAn organization may have hundreds of hosts that are maintained in separate databases. There is a need to rapidly distribute updates to these lists to end users that would be exported from these systems.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjk3OTU5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We have rest services in our organization which maintain records of our hosts. It would be super useful to have this feature. We currently use a PowerShell script to generate connections.",
+                         "author":  "sajalshres",
+                         "action_needed":  true,
+                         "date":  "2018-10-25T09:25:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-10-25T09:25:17Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

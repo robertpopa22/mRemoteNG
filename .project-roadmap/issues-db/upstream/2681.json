@@ -1,0 +1,60 @@
+﻿{
+    "number":  2681,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Use dotnet self-contained deployment",
+    "state":  "open",
+    "labels":  [
+                   "Project Infrastructure",
+                   "Installer",
+                   "Improvement required",
+                   "1.78.*",
+                   ".NET (dotNET)"
+               ],
+    "author":  "o-l-a-v",
+    "created_at":  "2025-03-31T08:56:59Z",
+    "github_updated_at":  "2026-02-07T19:52:23Z",
+    "body_snippet":  "Instead of requiring users to install the correct dotnet runtime, consider using a self-contained deployment.\n\n* \u003chttps://learn.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained\u003e\n\nPaint.NET has used this since v4.3 released September 2021:\n\n* \u003chttps://forums.getpaint.net/topic/118660-paintnet-43-is-now-available/\u003e\n\nYes, installer will become bigger. But it\u0027s arguably worth it vs. all troubleshooting and scenarios one have to think about.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6k2cg1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It would be great to have to builds for this. If I have dotnet installed, I\u0027d like a smaller installer.",
+                         "author":  "winromulus",
+                         "action_needed":  true,
+                         "date":  "2025-03-31T09:54:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6lDq1l",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for such, will have a look. \n\n\u003e It would be great to have to builds for this. If I have dotnet installed, I\u0027d like a smaller installer.\n\nI am looking after release candidate to rework how bundle is assembled so thinking to add updater tool what could do check for new versions and download only new ones, as well where is always in release a zip package with all new files so if you need deploy you could just copy paste without installer at all and it will work. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-04-01T12:30:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhOj",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:23Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:23Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

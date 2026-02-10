@@ -1,0 +1,245 @@
+﻿{
+    "number":  2017,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG closes sometimes when trying to establish RDP connection",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "nob0dy80",
+    "created_at":  "2021-08-06T13:03:28Z",
+    "github_updated_at":  "2026-02-07T17:09:38Z",
+    "body_snippet":  "Hello,\r\nhaving this problem for a long time on different windows versions. It never happened to the original mremote software.\r\nSometimes, when i try to connect to my Windows Server 2012R2, mRemote just closes. No messages, no log-output.\r\nThis happens not often, but regular. I would guess. Every 20th time.\r\n\r\nI\u0027m using the portable version running on a network share.\r\n\r\n\r\n## Expected Behavior\r\nmRemote should establish the connection\r\n\r\n## Current Behavior\r\nmRemote closes without any messages or...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM41VCsV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does it happen when its not on a network drive?",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-08-07T21:25:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41VLRa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Good question. Never tried that cause it needs to be accessible to  more than one computer.\r\nGonna check this out and give you reply as soon as it happens, or in a few days when its not happening again.",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-08T05:02:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41XWiV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@nmat\r\nIt happens also when mremote-ng portable is started locally.\r\ni only loaded the confCons from the network share cause this file may only be stored on crypted storage.\r\n",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-09T15:20:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41YDj2",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@nob0dy80 Can you please upload your logfile?\r\nhttps://mremoteng.readthedocs.io/en/master/troubleshooting.html",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-08-09T19:56:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41YF9k",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not a github pro. dont see a possibility to upload here. so here its on pastebin.\r\ndont ask me what time it was, but there arent so many entries at all.\r\n\r\nhttps://pastebin.com/G1LUwuKu",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-09T20:11:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41YGE7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch \r\ndont see any bad in there..\r\nas said, when it crashes, no log is written.",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-09T20:11:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41YGOG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "damn, closed it by accident. how can i reopen?",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-09T20:12:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41Y_o9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e damn, closed it by exitend? how can i reopen?\r\n\r\nreopened the ticket",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-08-10T05:41:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41pYUQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch \r\n\r\nI tested the development branch (1.77.2.31270 Portable) as you recommended.\r\nSadly i have to tell that the error is still happening with this version too.",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-17T06:49:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4110Kp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@nob0dy80 Strange, I have no problem connecting to Server2012R2,. What exact version of 2012R2 is your server running? ",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-08-22T17:06:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4112bH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch \r\nwell, its nothing that disturbs me much. when it crashes, i restart mremote-ng and everything works fine.\r\n\r\nits Server 2012R2 Version 6.3 (Build 9600)\r\n",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-08-22T18:15:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42BBuE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can confirm this.\r\nmRemote NG - 1.77.0.41307 (portable)\r\n\r\nI\u0027m using a MySQL database.\r\nThe application starts normally, loads the connections from database.\r\nBut trying to open RDP randomly stops the application.\r\n\r\nI have activated logging (all Levels and will post my log, once this occurs again).\r\n\r\nThis is from the event log:\r\n\r\n```\r\nAnwendung: mRemoteNG.exe\r\nFrameworkversion: v4.0.30319\r\nBeschreibung: Der Prozess wurde aufgrund einer unbehandelten Ausnahme beendet.\r\nAusnahmeinformationen:...",
+                         "author":  "patx90",
+                         "action_needed":  true,
+                         "date":  "2021-08-26T09:18:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42HQ1_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@nob0dy80 Are you also using SQL for your connections file?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-08-29T21:12:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42PA31",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve experienced this issue on v 1.77.1.27654. I\u0027ve avoided the crash by not clicking anywhere else while the session is being established. Essentially I force myself to be patient for a few seconds. \r\nIt seems to be only an issue for me when the RDP session is trying to inject a saved password. However, I am not able to confirm that. ",
+                         "author":  "ToddStruiksma",
+                         "action_needed":  true,
+                         "date":  "2021-09-01T05:31:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43hWD1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch \r\nNope using standard.\r\nTake a look  @patx90.\r\n\r\nI guess its an initalization problem with built-in intel graphics ! I\u0027m using build in intel graphics too.\r\nMy guess, it happens when initializing the resolution for a windowed session.\r\n\r\n@ToddStruiksma  Do you use a intel build in graphics on the system where you try to connect from?",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T16:42:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43hcX_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @ToddStruiksma Do you use a intel build in graphics on the system where you try to connect from?\r\n\r\n@nob0dy80  Yes, I am using the integrated Intel graphics on a Lenovo T490s laptop.\r\n",
+                         "author":  "ToddStruiksma",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T17:17:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43hd7c",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@ToddStruiksma @patx90 \r\n\r\nOk, can you please provide me some more infos about drivers and kind ?\r\n\r\nMine is Intel(R) HD Graphics 530 with driver version 27.20.100.8681.\r\nI guess this is the driver version that windows installs automatically at this time.\r\n\r\n\r\nBut, to be honest, i dont believe this will be fixed soon. there are over 600 open issues here (holy shi*).",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T17:27:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43hnCs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@nob0dy80 \r\nI am using Intel UHD Graphics 620 with Driver Version 27.20.100.8935. I switched from the cutting edge dev branch over to the standard release and it seemed to resolve the issue for me. Not all the cool features, but it seems to work for me. \r\n\r\n",
+                         "author":  "ToddStruiksma",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T18:20:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43hsg4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@ToddStruiksma \r\n\r\nWell, have an eye on that and if anything change, let us know.\r\n\r\ninstalled the latest drivers from intel page, but still not solving this issue completly...BUT only 1 time of 50 and not 1 time of 5 like before.\r\n\r\npatx90 log file did it to me (i didnt run debug log mode), but its the same error.\r\n\r\ni think there must be some changes done in initializing the window mode cause that acts with the driver.",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T18:54:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43h4SO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  " @farosch \r\nEnough input for finding the bug?",
+                         "author":  "nob0dy80",
+                         "action_needed":  true,
+                         "date":  "2021-09-30T20:08:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM438Ye4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "**Driver Info**\r\nName: Intel(R) UHD Graphics 620\r\nVersion: 27.20.100.9171",
+                         "author":  "patx90",
+                         "action_needed":  true,
+                         "date":  "2021-10-08T11:44:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM475TWv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just to confirm, does anything show up in the Application Windows Event Log?\r\n\r\nThe same thing happens to me on Windows 10 20H2 using build 1.76.20.24615, and I see the following events after the mRemote window closes by itself while connecting or shortly after connecting via RDP:\r\n1. .NET Runtime event Id 1026 - https://i.ibb.co/t8VSVn9/mmc-CLwlc-HUu6-Q.png\r\n2. Application Error event Id 1000 - https://i.ibb.co/1bZKy6J/mmc-m0x-WHzg-Yk8.png\r\n\r\nApologies if this should go into a new issue.",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2022-01-04T14:53:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5EKbBY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have similar issue with 1.76.20.24615\r\nI use only SSH connections, no RDP, SQL or other. Sometimes, when app is idle, it unexpectedly closes. \r\nWhen I use it in foreground, I do not see this cases. No log records or windows event records found. \r\nI forced to relaunch app and reopen sessions.\r\n",
+                         "author":  "combrs",
+                         "action_needed":  true,
+                         "date":  "2022-06-01T13:02:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFdX",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T17:09:38Z",
+    "unread_comments":  23,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

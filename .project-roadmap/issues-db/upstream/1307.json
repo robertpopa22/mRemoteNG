@@ -1,0 +1,39 @@
+﻿{
+    "number":  1307,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request for new Settings: Do not dock to tab when minimazing from Full screen",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "vavra",
+    "created_at":  "2019-02-13T15:00:36Z",
+    "github_updated_at":  "2021-06-28T10:47:40Z",
+    "body_snippet":  "I\u0027fd like to have mRemoteNG only as a directory of connections and connection credentials.\r\n\r\n## Expected Behavior\r\nWhen a rdp window is in Full screen and I want to minimize or resize, the window returns back to the tab.\r\nI\u0027d like to have a general mRemoteNG settings that will leave rdp window as a standalone Windows window a let me manipulate such window like I currently can - eg. move to an another monitor, etc.\r\n\r\nNow, when minimazing I\u0027m also afraid of connection failures especially when I ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MzQxMjUzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Will propably be fixed with #1308",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-02-13T23:06:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T10:47:40Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

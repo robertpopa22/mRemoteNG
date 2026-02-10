@@ -1,0 +1,104 @@
+﻿{
+    "number":  3005,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SQL Server Connection - mRemoteNG 1.78.2 NB 3228",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "DBs",
+                   "1.78.*"
+               ],
+    "author":  "KaveSys",
+    "created_at":  "2025-11-11T10:01:35Z",
+    "github_updated_at":  "2026-02-09T16:42:29Z",
+    "body_snippet":  "Hello,\nI\u0027m opening a new issue after fix the SQL Injection vulnerability in mRemoteNG 1.78.2 NB 3228, an installation is not available and using the portable version, when try to attach a SQL Server Express database to share the connections with other people, mRemoteNG will stuck and is not possible to use it.\n\nFrom the logs:\n\nThe SSL connection could not be established, see inner exception.\nUnable to read data from the transport connection: An existing connection was forcibly closed by the remo...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7ahVRP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can confirm that connecting to MariaDB causes a freeze with this same error.",
+                         "author":  "4pack",
+                         "action_needed":  true,
+                         "date":  "2025-12-17T16:32:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7fzyq7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas some update on this?",
+                         "author":  "KaveSys",
+                         "action_needed":  true,
+                         "date":  "2026-01-15T13:38:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7f0L5m",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I just had my new VPS upgraded so planning to test on coming weekend",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-01-15T13:54:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYMia",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Potential fix PR opened: #3110.\r\n\r\nWhat changed:\r\n- added explicit Microsoft.Data.SqlClient.SNI and Microsoft.Data.SqlClient.SNI.runtime references in mRemoteNG/mRemoteNG.csproj so native SNI assets are resolved and copied more predictably per platform build.\r\n\r\nCI reference (fork validation, x86/x64/ARM64 green):\r\n- https://github.com/robertpopa22/mRemoteNG/actions/runs/21785156992\r\n\r\nIf possible, please validate this PR build against the SQL Server scenario that reproduced the BadImageFormatEx...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T18:58:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiar",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpbuo",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3110 | **Branch:** `codex/pr6-sqlclient-sni-runtime`\n**Fix:** SqlClient SNI runtime references included for SQL Server connections.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:26:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mqCJ5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas as you can see, @robertpopa22 publish something interesting. There is a way to make it officially released?\n\nThanks!",
+                         "author":  "KaveSys",
+                         "action_needed":  true,
+                         "date":  "2026-02-09T07:14:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7m1n9u",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "@KaveSys The decision to make an official release lies with the upstream maintainers. My work is published on the fork (https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0) and all corresponding PRs (#3105ΓÇô#3130) are open against upstream. If the maintainers choose to merge them, these fixes can become part of an official release.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T16:42:29Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T16:42:29Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

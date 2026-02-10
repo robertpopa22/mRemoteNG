@@ -1,0 +1,47 @@
+﻿{
+    "number":  1688,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Integrated Browser / Menu / Bookmarks / URL Link",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "thorntonp72",
+    "created_at":  "2020-02-06T02:28:52Z",
+    "github_updated_at":  "2026-02-07T16:46:51Z",
+    "body_snippet":  "Hi,\r\n\r\nFirstly. Awesome tool and great work.\r\n\r\nWhen I use the browser integration for either Firefox or Internet Explorer, there is never an option to either show/enable either the Menu, Bookmark or URL options at the top.\r\n\r\n## Expected Behavior\r\nOne would expect to be able to either use the setting defined by the Browser or be able to show/hide these options. At the moment it only opens the browser into a full screen mode with no menu options or bookmarks at all. The reason for wanting this i...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNTMyNTE0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey all, I fully agree to thorntonp72 and would appreciate this feature!",
+                         "author":  "tschroeder13",
+                         "action_needed":  true,
+                         "date":  "2020-05-07T15:27:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFv3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:51Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

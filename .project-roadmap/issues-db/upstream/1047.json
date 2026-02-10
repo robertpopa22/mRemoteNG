@@ -1,0 +1,166 @@
+﻿{
+    "number":  1047,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Nested credential inheritance for folders",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required"
+               ],
+    "author":  "BloodyIron",
+    "created_at":  "2018-07-26T22:31:52Z",
+    "github_updated_at":  "2026-02-07T19:54:20Z",
+    "body_snippet":  "I\u0027m on v1.75.7012.16814\r\n\r\nWhen I set a folder to inherit from a folder above it, that has login creds, the sub-folder does not seem to inherit the creds, and connections under the second folder do not seem to inherit the creds from the first folder.\r\n\r\nAny chance we could get this feature added?\r\n\r\nOr, I can\u0027t seem to find how this is done, as the normal inheritance method does not seem to do this.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODI5MDUwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does your setup look like this?\n\n- Folder1 (user/domain/password set)\n    - Folder2  (inheritance set for user/domain/password)\n         - Connection1 (inheritance set for user/domain/password)\n\nWhere folder2 and connection1 have inheritance set.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-07-27T02:14:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODQ4MDcyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That\u0027s what I tried, yes. Although I had inheritance set to all, not just auth creds.",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2018-07-27T17:06:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODUxNTY3Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m not able to replicate using v1.75.7012 or v1.76.4. We\u0027ve had a number of reports like what you are describing, but I\u0027ve never been able to replicate. There must be some very odd corner-case that is causing the issue that I never hit.\r\n\r\nCould you provide an export of a small section of your connection file? Be sure to change the names of hosts/usernames/passwords/domains. I really just need to see the general setup of the folders and the connection that isn\u0027t taking the credentials correctly...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-07-27T19:22:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODYxNjcxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Umm, I\u0027ll have to look into how I can do that, since this is at work, and well, it\u0027s the weekend :P \r\n\r\nI tried doing the nested creds early on though, so I didn\u0027t need to have a complex structure to see this issue, btw.",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2018-07-28T15:48:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwOTcwODc5NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd well, what steps have you taken for it to be \"working\"? Maybe the steps I\u0027m taking are different from yours. I may be able to get you an export, but perhaps let\u0027s compare notes on steps first? :)",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2018-08-01T20:20:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwOTc0NTIwMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Here is an example file that works fine for me. It\u0027s currently in the state as defined in step 3. All other program settings are set to default. Tested on 1.75.7012.16846 (portable). I added the `.txt` to get around GitHub\u0027s upload rules.\r\n\r\n[confCons.xml.txt](https://github.com/mRemoteNG/mRemoteNG/files/2251283/confCons.xml.txt)\r\n\r\nI tried a few things with it:\r\n1. 1 hop inheritance\r\n    - Created `folder1` under the root node, gave it user/domain/pass\r\n    - Created `New Connection` in the fol...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-01T22:26:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTA2MDA4OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd We use a SQL server database to share the connections across engineers. I\u0027d like this feature, but the credentials should not be shared i.e. not saved in the public database. \r\nWe cannot accomplish this with the default SSO/default account settings in the application, because we have two Windows domains to work with, hence every engineer has two sets of credentials. These should ideally be set on the top folder level under which the servers for the given domain are listed.",
+                         "author":  "SanderGit",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T15:17:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTA2NDMxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@SanderGit perhaps break that out into another ticket? I do like the sound of that method though :D\r\n\r\nAlthough, I would propose more flexibility in separating creds from connection info, as some of my situations there\u0027s many different creds to manage, and root creds wouldn\u0027t be flexible enough for me, but a central store of connection config info would be super rad!",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T15:33:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTEwNjA1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@SanderGit That use case will be possible once #208 is implemented. There is also a change being tested in the next v1.76 minor release that will handle saving certain properties on a user\u0027s machine rather than in the database. We will be using that to save some flags on individual user machines, but it will also be used for saving credential/connection assignments.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T19:11:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTEwNjM1NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @SanderGit That use case will be possible once #208 is implemented. \r\n\r\nThanks! I\u0027ll follow #208.",
+                         "author":  "SanderGit",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T19:13:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTEyODQwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is the SQL central storage method still considered Beta/Devel? The wiki page and other parts in the app seem to suggest yes. Pretty sweet feature, but is it just MS SQL that it works with? What about MySQL/MariaDB/ProstgreSQL?",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T22:25:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MTEzMjM4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@BloodyIron Yea it\u0027s still a beta feature. There are a few things we need to fix about it that isnt ideal.\n\nAlso, there is a PR to add MySQL support #1177.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-11-22T23:13:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjY0NTAxMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have a feature request but I want to make sure it\u0027s not covered already. This is the most rational issue that comes closest to my request.\r\n\r\nI have a rather large connections file (~100 connections) and I have upgraded to 1/77beta which introduces the Clipboard Sharing property to a connection. I\u0027d like this property to be \u0027yes\u0027 for all folders and connections.\r\n\r\nCurrently I am having to scroll through and set inheritance on each folder and sub-folder and connection. I\u0027d like to ability to \"...",
+                         "author":  "padillah",
+                         "action_needed":  true,
+                         "date":  "2019-05-15T13:02:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjY2MTUzMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@padillah Follow #870 for that feature. It\u0027s actually mostly implemented for the next 1.77 alpha. (Not yet merged to the develop branch for anyone who is building manually.)",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-15T13:46:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh1R",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:20Z",
+    "unread_comments":  14,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,40 @@
+﻿{
+    "number":  2031,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Internal error on imported connection attempt",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Improvement required",
+                   "Connections"
+               ],
+    "author":  "krwudtke",
+    "created_at":  "2021-08-27T17:23:22Z",
+    "github_updated_at":  "2026-02-07T16:45:48Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n**Internal error on imported connection attempt**\r\nWe have an RD Session Host server farm with 2 servers and a gateway performing load balancing. We\u0027ll call the servers RDSSERVER03 \u0026 RDSSERVER04 and the gateway server GATEWAY01 with an alias of RDS2. There is an rds2.rdp file that many people in the company use to connect to the servers and it works just fine (see attached). I imported that file into mRemoteNG, but I can\u0027t get ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFcz",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:48Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:48Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

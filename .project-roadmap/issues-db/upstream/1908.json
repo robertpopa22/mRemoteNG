@@ -1,0 +1,39 @@
+﻿{
+    "number":  1908,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Subfolders in the Icon folder",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "1.77.2"
+               ],
+    "author":  "Anders-Ryden",
+    "created_at":  "2020-12-01T07:57:18Z",
+    "github_updated_at":  "2026-02-07T19:56:38Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\nI\u0027ve made a gazillion colour coded icons to use for various customers and environments, DEV, TEST, AT, PROD, Fileshare etc, but the Icon folder has become very cluttered.\r\nIt would be nice to be able to use subfolders to get a better overview\r\n\r\n## Current B...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYigb",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:38Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

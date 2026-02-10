@@ -1,0 +1,58 @@
+﻿{
+    "number":  1880,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Missing server name in error 516 notification msg.",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check",
+                   "Improvement required"
+               ],
+    "author":  "daves127",
+    "created_at":  "2020-10-14T15:38:57Z",
+    "github_updated_at":  "2026-02-08T07:38:39Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nIf RDP disconnects, Notifications \u0027should\u0027 provide server name in error 516, like it does for error 260.\r\n   -- RDP disconnected!  516 Remote Desktop canΓÇÖt connect to the remote computer \u003c**computer name here**\u003e for one of...\r\n\r\n## Current Behavior\r\n   -- RDP disconnected!  516 Remote Desktop canΓÇÖt connect to the remote computer for one of...\r\n  -- RDP disconnected!  260 Remote Desktop can\u0027t find the...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFle",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mbD6A",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\r\nMy company doesn\u0027t allow us to use this software.┬á So in the detailed info provided when opened isn\u0027t sufficient to allow a dev to quickly check error msg code.. just close as stale plz. Thx\r\n\r\nYahoo Mail: Search, Organize, Conquer \r\n \r\n  On Sat, Feb 7, 2026 at 10:46, ***@***.***\u003e wrote:   robertpopa22 left a comment (mRemoteNG/mRemoteNG#1880)\r\nTriage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual ...",
+                         "author":  "daves127",
+                         "action_needed":  true,
+                         "date":  "2026-02-08T00:45:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdOpn",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Follow-up triage: current code path already injects host into disconnect notifications via `ProtocolEventDisconnected` formatting in `ConnectionInitiator.Prot_Event_Disconnected`. \r\n \r\n- Formatter includes host placeholder `Host: \\\"{1}\\\"` (`Language.ProtocolEventDisconnected`) \r\n- Runtime passes `strHostname` into that placeholder before logging \r\n \r\nReporter also confirmed they can no longer validate and requested stale closure. Recommend close as stale/resolved unless someone reproduces on lat...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T07:38:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T07:38:39Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

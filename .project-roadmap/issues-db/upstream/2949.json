@@ -1,0 +1,31 @@
+﻿{
+    "number":  2949,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Options do not belong to File menu",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-19T05:55:08Z",
+    "github_updated_at":  "2025-10-19T19:05:41Z",
+    "body_snippet":  "In latest NB mRemoteNG v1.78.2 NB 3224:\n1. File | Options\n2. Tabs \u0026 Panels and turn on \"Always show panel tabs\".\n3. File | New Connection file and create new file.\n4. Create new connection and double click.\n5. With new connection also new panel is displayed.\n6. File | Open Connection File and open previous file.\n7. Double click on connection and new connection opens with panel displayed.\n\nThis is little bit confusing. Are File | Options dependent of connection file or not? It looks like Options ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2025-10-19T19:05:41Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

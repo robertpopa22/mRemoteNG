@@ -1,0 +1,75 @@
+﻿{
+    "number":  1966,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "This scenario please: like Windows Remote Desktop (fullscreen/taskbar) but with WOL and systray menu?",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX"
+               ],
+    "author":  "m-7761",
+    "created_at":  "2021-06-08T05:41:30Z",
+    "github_updated_at":  "2021-07-06T11:08:04Z",
+    "body_snippet":  "FWIW I\u0027m hoping for more-or-less a wrapper around regular Windows Remote Desktop that\u0027s just more productive, so I don\u0027t have to go through the multiple clicks to connect, also requiring using a third-party WoL tool when the computer is off. Something like being able to make a shortcut with a command line would be ideal, or a systray app that pulls up a menu (nice for monitoring but more clicks and less flexible than a shortcut would be.) Probably a clever script could do all this without the ce...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2MTk0NTEwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![image](https://user-images.githubusercontent.com/10143738/122145058-21541f00-ce87-11eb-94e4-4e16be067739.png)\r\n",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-06-16T01:43:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2MTk0NTQ4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "or try my works\r\nhttps://github.com/VShawn/PRemoteM",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-06-16T01:44:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2MzM1NjE5OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks, I\u0027ll give PRemoteM a look before long. For the record that Full Screen option for me put black bars around a space the same size as the tab\u0027s view port when it connected. This also resized the desktop to the tab\u0027s dimensions, which is never fun because it moves everything around. (It could have been a bug.)\r\n\r\nP.S. I worked out how to make shortcuts directly to the computer to connect to and a WOL shortcut using a program called WolCmd.exe downloaded from a link recommended by the Winaer...",
+                         "author":  "m-7761",
+                         "action_needed":  true,
+                         "date":  "2021-06-17T15:49:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2MzY1MDY1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e full Screen option for me put black bars around a space the same size as the tab\u0027s view port when it connected. This also resized the desktop to the tab\u0027s dimensions, which is never fun because it moves everything around. (It could have been a bug.)\r\n\r\nIt works well for me, no any black bar.\r\n\r\n\u003e WolCmd.exe\r\n\r\nI do this by Apple HomeKit: \r\n\r\n1. In bios set the `Restore on AC Power Loss` to `Power ON`\r\n2. buy a wifi socket for PC.\r\n3. then you can power on your PC by homekit remotely",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-06-18T00:44:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NDY2ODc1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You can create a shortcut to do some actions on configured machines. See this screenshot:\r\n\r\n![image](https://user-images.githubusercontent.com/8928758/124590082-09a30180-de5b-11eb-8752-824a22757a8d.png)\r\n\r\nYou can see here some examples of external tools:\r\n\r\n![image](https://user-images.githubusercontent.com/8928758/124590210-2ccdb100-de5b-11eb-825b-b7ebd08c16b7.png)\r\n\r\nHope if this can help you.",
+                         "author":  "ErMaqui",
+                         "action_needed":  true,
+                         "date":  "2021-07-06T11:08:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-07-06T11:08:04Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,49 @@
+﻿{
+    "number":  1127,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Middle-clicking panel tab to close specific panel closes all open panels",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "C4rb0n",
+    "created_at":  "2018-10-09T22:17:56Z",
+    "github_updated_at":  "2026-02-07T19:55:37Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nIf you have multiple panels open, due to having connections in multiple panels, middle-clicking any one panel, to close it, closes all open panels.\r\n\r\nThis bug is a regression introduced in the latest release, v.1.76.x....  The previous release did not have have this issue.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\nOnly the middle-clicked panel should be the one closed.\r\n\u003c!--- If...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF9A",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiMn",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:37Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:37Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

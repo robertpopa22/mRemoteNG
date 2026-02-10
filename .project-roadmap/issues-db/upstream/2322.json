@@ -1,0 +1,57 @@
+﻿{
+    "number":  2322,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Vertical Connections Tabs List",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.78.*"
+               ],
+    "author":  "ThiagoMMontenegro",
+    "created_at":  "2023-01-10T17:21:25Z",
+    "github_updated_at":  "2026-02-07T19:23:34Z",
+    "body_snippet":  "With connections names being horizontal (as any other written word) would be good to have all connections listed horizontally in the left (or even right) side of the screen rather the horizontally on the top of the screen. \r\n\r\nHere\u0027s an example:\r\n![mRemoteNG_VerticalTabs](https://user-images.githubusercontent.com/62249584/211619045-e246724a-41c2-4503-acde-f6c3eb234a05.jpg)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5SKWfK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, yes that option is planed for new release 1.78",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-01-11T09:14:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5SPa7u",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you @Kvarkas.",
+                         "author":  "ThiagoMMontenegro",
+                         "action_needed":  true,
+                         "date":  "2023-01-12T03:45:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYUxM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:23:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:23:34Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

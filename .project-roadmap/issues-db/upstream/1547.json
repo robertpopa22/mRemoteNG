@@ -1,0 +1,38 @@
+﻿{
+    "number":  1547,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Clipboard issues on VNC X11 connections; Cannot disable syncing on VNC.",
+    "state":  "open",
+    "labels":  [
+                   "VNC"
+               ],
+    "author":  "God-damnit-all",
+    "created_at":  "2019-08-24T19:07:56Z",
+    "github_updated_at":  "2019-10-22T07:32:37Z",
+    "body_snippet":  "When you are connected to an X11 desktop environment (e.g. most Ubuntu installations), any time you highlight text, it is immediately deselected and copied to the client\u0027s clipboard. This means simple actions like selecting all with Ctrl+A so you can delete the text with backspace, which is practically muscle memory to me at this point, instead causes a lot of frustration.\r\n\r\n**This is not mRemoteNG\u0027s fault, but rather VNC\u0027s.**  X11 has two clipboards - the standard clipboard and the \u0027primary se...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0NDgzOTc0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This problem seems important since the intend of mRemoteNG is to provide connection to many VNC screen at once. In this case my clipboard becomes a mess from many VNCs copying to clipboard.\r\n\r\nAnother issue : clipboard is coped even in ViewOnly mode",
+                         "author":  "ndinev",
+                         "action_needed":  true,
+                         "date":  "2019-10-22T07:32:37Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-10-22T07:32:37Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

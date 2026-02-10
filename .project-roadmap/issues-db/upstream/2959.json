@@ -1,0 +1,68 @@
+﻿{
+    "number":  2959,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add option to bind Connections and Config panel together",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-21T14:58:54Z",
+    "github_updated_at":  "2026-02-07T19:55:57Z",
+    "body_snippet":  "Testing with mRemoteNG v1.78.2-NB-3224. Bellow is one small \"annoyance\" I constantly get into and it would be nice to have some improvements like feature request.\n\n1. I like to have Connections and Config tabs at left side collapsed to have as much of the screen available for my sessions. Like this:\n   \u003cimg width=\"255\" height=\"198\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d275fd0d-09fb-485a-8eb0-fb6681a4497a\" /\u003e\n2. When clicking on Connections tab to see or change some setting...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7Mb_1-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this is working, however not ideal, due a library what we are using to interact with a panels its not allow autohide to panels, so as work arround I apply is additional seting in options, once bind is enabled - auto hide (pin) will work a bit differently - panels will be autohide, but if user click to any of them - both will be shown and pined, but on click outside of them - they will regain auto hide status and hide.\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-21T23:13:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7McAj7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "p.s. option show still has a bug - its not load them properly for some reason, will try to solve this tommorow, in case if its hangs, need to restart mR",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-21T23:15:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Mny6d",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tested in mRemoteNG v1.78.2-NB-3224 and I can\u0027t see this working, there are still both panels (Connection and Config) bond together if both are manually pinned and both manually unpinned when I would like to collapse/hide them. I am reopening the issue. If there is this somehow implemented, I am more then happy to get some explanation.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-22T15:21:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiR0",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:57Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

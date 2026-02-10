@@ -1,0 +1,75 @@
+﻿{
+    "number":  1805,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mremoteNG quit sundenly on remote desktop machine",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check"
+               ],
+    "author":  "vupv",
+    "created_at":  "2020-06-26T03:59:39Z",
+    "github_updated_at":  "2026-02-07T16:46:38Z",
+    "body_snippet":  "Hi Support\r\n\r\nI got an issued when working on mRemoteNG on remote desktop machine, It was quit sudnenly and I get error in windows application log\r\n\r\nFaulting application name: mRemoteNG.exe, version: 1.76.20.24615, time stamp: 0x5cb09552\r\nFaulting module name: mstscax.dll, version: 10.0.18362.449, time stamp: 0xfa706577\r\nException code: 0xc0000005\r\nFault offset: 0x005be81b\r\nFaulting process id: 0x1638\r\nFaulting application start time: 0x01d64aa0f790c06f\r\nFaulting application path: C:\\Program Fi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1MDU4NTY5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This error was thrown in the `mstscax.dll`.\r\nAs you failed to fill out the issue template and inform us about the versions of windows your guest/host are running and what version of mRemoteNG you are using I\u0027ll go with this:\r\nUpdate your OS\r\n\r\nWill reopen this whenever you provide some real information.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-06-27T16:55:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NTI0NzI0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "My mRemoteNG version 1.76.20.24615\r\nWindows 10 1909 Build 18363.476",
+                         "author":  "vupv",
+                         "action_needed":  true,
+                         "date":  "2020-07-08T02:42:17Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NTk1OTg5OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n   --\u003e it should work normally in a remote desktop machine \r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behaviour --\u003e\r\n         -- \u003e  mremoteNG was quit suddenly on a remote desktop machine \r\n\u003c!--- If suggest...",
+                         "author":  "vupv",
+                         "action_needed":  true,
+                         "date":  "2020-07-09T07:38:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2Mzg3NTkyMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@vupv Does the error still appear when you replace your _mstscax.dll_ with the one below??\r\n\r\n[mstscax.zip](https://github.com/mRemoteNG/mRemoteNG/files/4975967/mstscax.zip)\r\n\r\n\r\nEDIT:\r\nThis dll comes from my system (Windows 10 2004 build 19041.207) and is version 10.0.19041.153, so it\u0027s slightly newer than the one on your system (10.0.18362.449).\r\nYou can find that dll in _C:\\windows\\system32_ . Just rename the original one to something else (e.g. add .orig to the filename) and put the one from...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-07-25T16:45:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFrw",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:37Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:38Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

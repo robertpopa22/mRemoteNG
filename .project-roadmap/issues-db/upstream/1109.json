@@ -1,0 +1,65 @@
+﻿{
+    "number":  1109,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Status of hosts",
+    "state":  "open",
+    "labels":  [
+                   "Not Planned"
+               ],
+    "author":  "spisarau",
+    "created_at":  "2018-09-24T07:04:52Z",
+    "github_updated_at":  "2019-09-24T06:44:07Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen I click host name I can see status button. \r\n## Expected Behavior\r\nIs it possible to to check check status of all host in expanded folder and change indication of host depending on accessible  host or not.\r\n\r\n\r\n\r\n## Context\r\nIt would be great to see all active and inactive hosts in current expanded directory.\r\n\r\n\r\n## Your Environment\r\n* Version used: ALL\r\n* Operating System and version (e.g. Windows 10 1709 x64):\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTczNTgzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@spisarau Are you thinking something like this?\r\n\r\n![image](https://user-images.githubusercontent.com/6999446/46260311-d52fd900-c4a9-11e8-810c-c4023508a4d7.png)\r\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T17:10:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTc0MDQzMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Maybe one of these examples \r\n![mremote](https://user-images.githubusercontent.com/37880579/46261014-6fb60980-c4f6-11e8-9e52-fd16d2531f82.png)\r\n",
+                         "author":  "spisarau",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T18:20:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTc0Mjg0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ahh ok, an overlay like how we show currently-connected entries",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T18:55:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MDA0MzMxMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That\u0027s probably a bad idea to implement. Maybe as a optional feature but even then I\u0027m pretty sceptical.\r\nAt least this should never be a default. Since we\u0027re detecting the host status by it\u0027s response to a ping we would need to permanently ping every single host to have a reliable indication.\r\nThis could be a neat gimmick for people with ~20 connections but for everyone else with a big list of hosts this is nothing but redundant network traffic.\r\n@spisarau If you need to be able to monitor your...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-12-27T00:00:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-09-24T06:44:07Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

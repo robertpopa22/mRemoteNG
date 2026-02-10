@@ -1,0 +1,48 @@
+﻿{
+    "number":  1543,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "UI issue - Config menu after inheritance menu for duplicated folder or connection",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "UpdogUpdogUpdog",
+    "created_at":  "2019-08-21T14:25:28Z",
+    "github_updated_at":  "2026-02-07T19:54:39Z",
+    "body_snippet":  "When I have connection which I\u0027ve created by duplicating another connection or folder, and I use the inheritance menu to change the inheritance properties of my duplicate, then click back to the Config menu, the Config menu displayed is the one for the source connection, not the new, duplicated connection. This allows me to inadvertently edit a connection or folder which is not the one selected in the Connections menu, and is not the one I was editing prior to using the Inheritance menu pane. \r\n...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF4E",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh9a",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:39Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

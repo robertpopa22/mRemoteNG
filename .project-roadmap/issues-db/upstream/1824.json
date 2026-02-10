@@ -1,0 +1,48 @@
+﻿{
+    "number":  1824,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unable to copy \u0026 paste from Local drive to a server connected thru mRemote",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "1.77.2"
+               ],
+    "author":  "pchackoCAS",
+    "created_at":  "2020-07-23T13:29:55Z",
+    "github_updated_at":  "2026-02-07T19:54:15Z",
+    "body_snippet":  "Hi,\r\n\r\nI am using mRemote 1.77.0.41252 to easily access my various servers. There are times I need to copy \u0026 paste between mRemote sessions and my local machine but the paste function does not work when I attempt to do that. Is this a set up issue? How do I resolve it?\r\n\r\nThanks\r\nPaul \r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2MzMwNjcyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![Snipaste_2020-07-24_08-56-26](https://user-images.githubusercontent.com/10143738/88352216-9d370b80-cd8b-11ea-8de5-d96e47647b5d.jpg)\r\n\r\ncheck these.\r\n\r\nif it still not working, maybe you meet the same bug with me. yesterday my server was dead for paste from local machine, then after a server reboot remote paste function works again. \r\n\r\n---\r\n**[censored]**\r\n\r\n",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-07-24T01:14:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhz4",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:15Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:15Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

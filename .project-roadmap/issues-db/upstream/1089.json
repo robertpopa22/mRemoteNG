@@ -1,0 +1,65 @@
+﻿{
+    "number":  1089,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Ensure connection filtering considers collapsed folders",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2018-08-25T18:56:35Z",
+    "github_updated_at":  "2018-12-07T08:09:56Z",
+    "body_snippet":  "As mentioned in #338, the current connection filtering implementation does not include entries within folders which are collapsed. This is a big shortcoming to filtering.\r\n\r\n## Expected Behavior\r\nFiltering connections should consider all connections within the connection tree. If a match is within a collapsed folder structure, the folders should be expanded to show the matching connection.\r\n\r\n## Current Behavior\r\nMatching entries within collapsed folders are not included in the filtered connecti...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTk4OTc4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The TreeListView object has a `Filtering` event that passes in all current (unfiltered) tree objects. If we listen for that event and set the `args.FilteredObjects` property, we can essentially override the normal filtering behavior with our own logic. This would let us search within folders and expand folders as needed before returning the list of filtered objects.\r\n\r\nWe might be able to reuse the logic used in the search class, which would cut down on development work.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-25T19:01:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTk5MTg0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Though it seems the `Filtering` event isn\u0027t called for TreeListViews... There is a `Tree` class which we could subclass and then override certain methods on to change the filtering strategy. Then we install it in the `TreeListView.TreeFactory` property.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-25T19:37:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTk5MjEzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Override the `RebuildList` method on the Tree class. This overrides more than we really want, but this should allow us to change the filtering.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-25T19:43:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTE1NTAzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is one of the most used items I use to find a connection. What is the progress here?",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2018-12-07T08:09:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-12-07T08:09:56Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

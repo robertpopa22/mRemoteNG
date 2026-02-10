@@ -1,0 +1,59 @@
+﻿{
+    "number":  2306,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Show \"Description\" in the host list",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "In development",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "av2k",
+    "created_at":  "2022-11-27T11:18:45Z",
+    "github_updated_at":  "2026-02-07T19:56:34Z",
+    "body_snippet":  "Show \"Description\" text in the host list\r\n\r\n## Expected Behavior\r\nThe Description text should (optionally) show up in the host list next to or below the host name. \r\n\r\n## Current Behavior\r\nThe host list pane doesn\u0027t show the description.\r\n\r\n## Possible Solution\r\nShow the Description text, either in full or the first X letters, in the host list pane. See the attached image, proposed display in red.\r\n\r\n## Context\r\nWhen managing a large number of switches in several buildings, it\u0027s useful to add th...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5PMz7v",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, something similar for such in plan to add but not in comming release yet\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-11-28T09:12:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXI-X",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYifM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:34Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

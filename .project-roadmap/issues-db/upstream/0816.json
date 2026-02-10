@@ -1,0 +1,47 @@
+﻿{
+    "number":  816,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request - Alternative hostname/IP connect option",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "sidedcore",
+    "created_at":  "2017-11-23T11:58:30Z",
+    "github_updated_at":  "2022-06-28T18:20:59Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\nAre there any plans to introduce an alternative Hostname/IP for connecting?\r\n\r\nThe servers I manage have Public and Private IP\u0027s and depending on location, access can be blocked.\r\n\r\nWould be useful to have an additional field that could be accessed by Right click \u003e Connect with options \u003e Alternative Hostname/IP\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5Fronl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I was looking for this feature as well. \r\nIn my case, I would just sometimes connect with IP instead of hostname.",
+                         "author":  "algogoal",
+                         "action_needed":  true,
+                         "date":  "2022-06-28T18:17:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5FrphF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That is possible now however above a bit different case. will try to implement with profiles",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-06-28T18:20:53Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-06-28T18:20:59Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

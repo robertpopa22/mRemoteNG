@@ -1,0 +1,75 @@
+﻿{
+    "number":  1206,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Autologin is not working any more",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "DERDomink",
+    "created_at":  "2018-12-10T12:41:39Z",
+    "github_updated_at":  "2021-06-27T23:04:44Z",
+    "body_snippet":  "Autologin is not working any more\r\n\r\n## Expected Behavior\r\nWhen saving the credentials I expect that I do not have to enter the credentials when connecting\r\n\r\n## Current Behavior\r\nSince 2 weeks (I made no changes) autologin is not possible for one maschine. When connecting the windows login screen appears and I have to enter username and password.\r\nOther maschines are working.\r\n\r\n## Steps to Reproduce (for bugs)\r\nEverytime I connect it asks for credentials. Same machine and same credentials work...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTk5NTY2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The only thing that I can think of is maybe [inheritance](https://github.com/mRemoteNG/mRemoteNG/wiki/Folders-and-Inheritance) has been accidentally/incorrectly configured for this connection.\r\n\r\nMaybe change from always connect to warn or don\u0027t connect might provide a more specific error message?",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2018-12-10T22:17:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NjEzMTY3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you for your reply.\r\n\r\nCause of inheritance I created the same connection in \"root\" but without success.\r\nMoreover I changed to warning when authentification problems but I get no warning oder other log entries.\r\n\r\nSometimes I get an exception in log:\r\n\"2\r\nEin interner Fehler ist aufgetreten.\"\r\nBut I dont get this error when starting mremote, connect to the concerned machine and close mremote.\r\n\r\nCould a complete deinstallation and reinstall help?",
+                         "author":  "DERDomink",
+                         "action_needed":  true,
+                         "date":  "2018-12-11T09:26:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NzQ4NTA0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\"An internal error has occurred\" is pretty generic.... Would you mind checking the event viewer (application log most likely, but possibly the system log) for any events that might coincide with a failed auto login?\r\n\r\nI don\u0027t think that an unisntall -\u003e reinstall will help - but it\u0027s not likely to hurt either, just make sure that you back up your [settings ](https://github.com/mRemoteNG/mRemoteNG/wiki/User-settings-file) and connections file.\r\n\r\nSounds more like a configuration issue with the on...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2018-12-14T21:30:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0ODEzNzczOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I tried to connect and checked the Windows eventlog. In both (system and application) is no entry during starting and connecting. But I suppose the internal error is something else and not in relation with my login problems.\r\n\r\nI did not delete the old one but I created a completly new connection with the credentials. Moreover I deleted all connections and reloaded the configuration files my teammates are using too.\r\n\r\nMaybe my problems just affect Win 7 Pro versions? The working connections con...",
+                         "author":  "DERDomink",
+                         "action_needed":  true,
+                         "date":  "2018-12-18T08:30:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4NDk2Mzg3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am not following this. Can you please explain a bit more and if so have you also tried using latest builds of mremoteng?",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2019-04-19T17:27:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T23:04:44Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

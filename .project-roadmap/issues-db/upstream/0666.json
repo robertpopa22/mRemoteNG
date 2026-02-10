@@ -1,0 +1,74 @@
+﻿{
+    "number":  666,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Option to hide menu strip",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "app/",
+    "created_at":  "2017-07-28T12:10:57Z",
+    "github_updated_at":  "2023-04-28T15:45:50Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\r\nTo maximize screen space it would be nice to be able to auto hide the Menu Strip at the top (File, View, Tools, Help) and/or be able to place it in line with connection tabs.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxODc2NjI1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Honestly, I did look into this every so briefly. I\u0027d like to to something similar to what Firefox does where the menu bar only appears if the alt key is pressed.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-07-28T21:29:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNTQwMDQ4MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Dear Team !\r\nCan we hide menu bar to maximize screen, same tab bar of firefox, chrome ?\r\nThank you very much !",
+                         "author":  "runguyenhuu",
+                         "action_needed":  true,
+                         "date":  "2018-07-16T22:25:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NDYwNzcyMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "#1332 ",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-03-19T22:22:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNzcxOTAxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please add this. Extra line limits screen space no matter how you make it or simply looks anoyingly ugly.\r\n\r\n![image](https://user-images.githubusercontent.com/85767/79976221-89ce8880-849c-11ea-871c-f9d334234e49.png)\r\n\r\nIt could be added on the left toolbar section just like Config and Connections or just havinig a convenient hotkey or as [proposed already](https://github.com/mRemoteNG/mRemoteNG/pull/1332#issuecomment-473525297) in system menu.\r\n",
+                         "author":  "majkinetor",
+                         "action_needed":  true,
+                         "date":  "2020-04-22T11:26:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bD7Y5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sweet, looks like this is available in the latest nightly build! https://mremoteng.readthedocs.io/en/latest/user_interface/menu_container.html#hide-menu-container",
+                         "author":  "ukanuk",
+                         "action_needed":  true,
+                         "date":  "2023-04-28T15:45:49Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-04-28T15:45:50Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,47 @@
+﻿{
+    "number":  1944,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unhandled Exception - Value cannot be null. Parameter v1.",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "mstock-speedling-com",
+    "created_at":  "2021-03-18T13:55:46Z",
+    "github_updated_at":  "2026-02-07T16:46:03Z",
+    "body_snippet":  "## Expected Behavior\r\nLately, when launching mRemoteNG I\u0027ve been getting a .NET Exception message. It\u0027s attached.\r\nIt\u0027s not every time I launch it, but I can\u0027t quite figure out why it does it. It does more often than not.\r\nI need to end-task the program, then when I try to re-open it works just fine.\r\n\r\n![mremoteng](https://user-images.githubusercontent.com/50890638/111637559-eaab3180-87cf-11eb-9348-10374e4f385c.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXD_q",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFg7",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:03Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

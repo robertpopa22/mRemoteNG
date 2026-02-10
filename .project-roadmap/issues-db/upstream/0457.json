@@ -1,0 +1,65 @@
+﻿{
+    "number":  457,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Reconnect on a new Panel should stay in the new panel and not go to the default panel",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "kaplandani",
+    "created_at":  "2017-03-16T11:35:44Z",
+    "github_updated_at":  "2017-06-04T02:29:33Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nWhen I use a new panel and the session dies - when doing RECONNECT- the new session is going back to the main screen. \r\nIt should stay on the panel it is cu...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMDA1NzI3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It is a good feature too have...",
+                         "author":  "Git2Swarm",
+                         "action_needed":  true,
+                         "date":  "2017-05-09T04:19:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMDA4MDgyMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Should/Good to have feature. ",
+                         "author":  "elan4u",
+                         "action_needed":  true,
+                         "date":  "2017-05-09T07:12:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMTE5MjYzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Use below option as a workaround: \r\n![image](https://cloud.githubusercontent.com/assets/7956309/26017935/b6c4d210-3731-11e7-888c-99166a43db25.png)\r\n\r\nWhen you reconnect, it still remembers your panel name and you have to pick the panel you prefer.",
+                         "author":  "kuroburki",
+                         "action_needed":  true,
+                         "date":  "2017-05-12T21:41:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwNjAxMzUzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kuroburki the work around increases the number of clicks and hence not a good idea from usability perspective ",
+                         "author":  "sjeeva",
+                         "action_needed":  true,
+                         "date":  "2017-06-04T02:29:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-06-04T02:29:33Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

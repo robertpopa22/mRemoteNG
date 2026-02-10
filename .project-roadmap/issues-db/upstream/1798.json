@@ -1,0 +1,66 @@
+﻿{
+    "number":  1798,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Grid lines are invisible in Config panel",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "Eldaw",
+    "created_at":  "2020-06-20T11:17:27Z",
+    "github_updated_at":  "2023-02-22T01:03:33Z",
+    "body_snippet":  "The grid lines in the Config panel, by default, are the same colour as the background, making it very difficult to see where to click to enter each field.\r\n\r\n![image](https://user-images.githubusercontent.com/3789849/85200505-dba25c00-b2ef-11ea-85d7-84f1513ca543.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2Mzg4MjM5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "~~The config panel does not show gridlines at all.~~\r\n~~All it shows is a horizontal line whenever a new configuration block begins.~~\r\n~~As soon as you click into an editable field the associated property field gets highlighted.~~\r\n~~I think this makes it very obvious where to click or what propertie you are about to change.~~\r\n\r\n~~I will not add gridlines to the config panel, as it has always been like that and you are the first one I have ever heard complaining about it.~~\r\n~~Chances are ther...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-07-25T17:49:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2NDQyMzkwMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think it\u0027s because English is not your native language, but your tone comes across as quite rude.\r\n\r\nIn any case, when you say \"The config panel does not show gridlines at all\", that is incorrect.\r\n\r\nTo demonstrate, if I simply change to a dark theme, it can be clearly seen that the config panel actually does render a grid.\r\n\r\n![image](https://user-images.githubusercontent.com/3789849/88552375-ee5d2e80-d01b-11ea-8a93-a2c2ff5c0c8f.png)\r\n\r\nIn my original post, I was quite correct in saying that ...",
+                         "author":  "Eldaw",
+                         "action_needed":  true,
+                         "date":  "2020-07-27T14:17:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2NTEzNzk5OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd @kmscode May I bring your attention to this report, please? Your colleague is a bit hostile, unfortunately, and has made factually incorrect assertions concerning this issue. I humbly request that it be re-opened.\r\n\r\nI had several pleasant email exchanges with some of the previous devs (Riley, Felix, etc.), discussing several areas of functionality in the early days and contributing several important bug reports (as well as making financial donations), and I\u0027m a bit shocked at the unnec...",
+                         "author":  "Eldaw",
+                         "action_needed":  true,
+                         "date":  "2020-07-28T16:21:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NzgyMDY2Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I think it\u0027s because English is not your native language, but your tone comes across as quite rude.\r\n\r\nNah, that was absolutely on purpose. I\u0027m sick and tired of people wanting help but not even taking the 10 minutes time to fill out a proper bug report or add some meaningful images!\r\n\r\nI would have understood you right away, if you had done so. Reopening now.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-09-06T15:31:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-02-22T01:03:33Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

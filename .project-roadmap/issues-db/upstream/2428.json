@@ -1,0 +1,104 @@
+﻿{
+    "number":  2428,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Open Web with Edge Chromium require folder permissions",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Improvement required",
+                   "WebView - Chromium",
+                   "1.77.3"
+               ],
+    "author":  "bitboy85",
+    "created_at":  "2023-04-24T14:41:59Z",
+    "github_updated_at":  "2026-02-07T19:52:54Z",
+    "body_snippet":  "Try open a webpage with default install and normal user. Set Engine to Edge Chromium.\r\nThe result is an empty page.\r\n\r\nGive the user modify permission on the installation directory of mremoteNG and retry. It works.\r\nAn additional folder \"mRemoteNG.exe.WebView2\" is created within the install directory.\r\n\r\nThis is a bad design. Normal users should never require write permissions in program folders.\r\n\r\nAffected: The current nightly, 1.77.3 1784",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5aoUVT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi\r\n\r\nThanks for reporting this. With issue #2256 a workaround with installing WebView2 for MS Edge (https://developer.microsoft.com/en-us/microsoft-edge/webview2/) was documented which then remediates the need of changing the folder permissions, but I am with you that this is a design or documentation issue that needs to be addressed. \r\n\r\nRegards\r\nSimon",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-04-24T16:55:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5aq-0F",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nWebView2 was installed and i still needed the folder permission. To check: Make sure Webview2 is installed and remove the folder \"mRemoteNG.exe.WebView2\" and also the permission -\u003e websites won\u0027t open again.\r\n\r\nSadly i\u0027m also affected with the self-signed certificate issue.\r\n\r\nHere is how to fix: https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/user-data-folder?tabs=dotnet\r\nAs path %APPDATA%\\mRemoteNG\\webview2 should work in most cases (roaming profile)",
+                         "author":  "bitboy85",
+                         "action_needed":  true,
+                         "date":  "2023-04-25T06:24:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jSiYm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just add this reg key to force redirect folder to appdata\\local.\r\n\r\nreg add \"HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\UserDataFolder\" /v mRemoteNG.exe    /t REG_SZ    /d \"C:\\Users\\\u003cuser\u003e\\AppData\\Local\\mRemoteNG\\WebView2\" /f\r\n\r\njust change \u003cuser\u003e on this command with your username.",
+                         "author":  "JustBeta",
+                         "action_needed":  true,
+                         "date":  "2023-08-04T15:37:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jcv1F",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@JustBeta your command can be executed directly like this so theres no need to replace anything :) just use the `%username%` variable.\r\n\r\n```\r\n reg add \"HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\UserDataFolder\" /v mRemoteNG.exe /t REG_SZ /d \"C:\\Users\\%username%\\AppData\\Local\\mRemoteNG\\WebView2\" /f\r\n```\r\n\r\nThank you for that solution works as expected Γ¥ñ∩╕Å",
+                         "author":  "supermarsx",
+                         "action_needed":  true,
+                         "date":  "2023-08-07T19:47:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jeIXC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes, the variable is ok, but is a choice.\r\nthis key is in the user hive, If you use the variable, change this key for the local machine\r\nThis impacts all your users with the modification.",
+                         "author":  "JustBeta",
+                         "action_needed":  true,
+                         "date":  "2023-08-08T03:13:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6EpCXt",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@JustBeta @supermarsx thanks. This is the only thing that got edge-chromium working as an embedded browser in mremoteng. Strangely, on my other 2 computers I did not have to do this. This one has a Windows 11 preview.\r\n\r\nI created the folders first, as they did not exist, and gave the user permissions to write in them.\r\n\r\nThen running this solved it.\r\n`reg add \"HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Edge\\WebView2\\UserDataFolder\" /v mRemoteNG.exe /t REG_SZ /d \"C:\\Users\\%username%\\AppData\\L...",
+                         "author":  "TrueOsiris",
+                         "action_needed":  true,
+                         "date":  "2024-07-12T11:11:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE8C",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhYb",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:54Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,75 @@
+﻿{
+    "number":  2563,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot select default connection file on startup",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "1.77.3"
+               ],
+    "author":  "David-Houser",
+    "created_at":  "2024-02-07T15:17:17Z",
+    "github_updated_at":  "2026-02-07T19:37:55Z",
+    "body_snippet":  "I am unable to select a default connection file to open on startup.\r\n\r\nI have tried adding the /c: and /cons: parameters, but these do not work.\r\n\r\nΓÇ£C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exeΓÇ¥ /c:ΓÇ¥C:\\OneDrive\\path\\to\\config.xml\"\r\n\r\nThere does not seem be an option for this in the mRemote application.\r\n\r\nAm I missing something? Is this possible in the current version? I\u0027m using build 1.77.3 (Nightly Build; 1784)\r\n\r\nThank you,\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5zLX3E",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Version 1.77.3-nb does not save settings as it\u0027s disabled due to development process in the settings saving section. If you want persistent settings, you currently have to use 1.77.2-nb. ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2024-02-07T16:00:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5zMKhb",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Understood, thank you.",
+                         "author":  "David-Houser",
+                         "action_needed":  true,
+                         "date":  "2024-02-07T17:47:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM54sS-o",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If somebody wants to test the dev builds with cons param, I made an **ugly** hack for myself and modified the following line:\r\n\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/6e64b0925693b1f4d86a24a950bb7d1e6e480e3a/mRemoteNG/App/Runtime.cs#L102\r\n\r\nfrom:\r\n\r\n```\r\n ConnectionsService.LoadConnections(Properties.OptionsDBsPage.Default.UseSQLServer, false, connectionFileName);\r\n```\r\n\r\n\r\nto:\r\n\r\n```\r\n if (Properties.OptionsBackupPage.Default.LoadConsFromCustomLocation \u0026\u0026 File.Exists(Properties.OptionsBac...",
+                         "author":  "cocoon",
+                         "action_needed":  true,
+                         "date":  "2024-03-28T10:36:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6qbtsn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is a kludge, but it works.\n\nRename or delete the default confCons.xml file in your default mRemote directory.\n\nThen setup a symbolic link of \"confCons.xml\" with the mklink command or other methods to your real/target .xml configuration file.\n\nhttps://www.howtogeek.com/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/\n\nmRemote will now load with the proper data.",
+                         "author":  "matthewb47",
+                         "action_needed":  true,
+                         "date":  "2025-05-07T17:09:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZyJ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:37:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:37:55Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

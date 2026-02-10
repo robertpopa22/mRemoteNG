@@ -1,0 +1,31 @@
+﻿{
+    "number":  1984,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "More bottom TABS :)",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2021-06-29T15:15:48Z",
+    "github_updated_at":  "2021-06-30T10:27:53Z",
+    "body_snippet":  "Instead \"Config\" tab in bottom at wing? msrk Tab \"Notifications\" and \"Screenshots\". Maybe \"Menu\" instead menu bar in main window.\r\n\r\n## Expected Behavior\r\nMore space for RDP sessions\r\n\r\n## Current Behavior\r\nMenu bar from main windows small, but use huge space.\r\n\r\n## Possible Solution\r\nEvolve idea with bottom tabs at wing, more tabs\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Only look at design \"by default\" :)\r\n2.\r\n3.\r\n4.\r\n\r\n## Context\r\nProductivity is must be high, all non needed element hide from ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2021-06-30T10:27:53Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

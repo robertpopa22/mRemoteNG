@@ -1,0 +1,39 @@
+﻿{
+    "number":  2004,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Bug: All connections stopped work after migrate XML to a new Windows System",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Connections"
+               ],
+    "author":  "Marsupilani",
+    "created_at":  "2021-07-25T11:24:45Z",
+    "github_updated_at":  "2026-02-07T16:45:51Z",
+    "body_snippet":  "I have a huge configfile with a lot of connection (About 300!). This profile works without any problems. \r\n\r\nmRemoteNG Version 1.76 (actual Stable Version)\r\n\r\nWhen I export the profile and import it on a other System (Windwos Server 2016) non of the connections work. \r\nBut when I setup a new connections, this connection inside the profile works, so it seems the application is installed correctly.\r\n\r\n## Expected Behavior\r\nIt should be possible copy of the XML file to a other machine to use the co...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFdt",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:51Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

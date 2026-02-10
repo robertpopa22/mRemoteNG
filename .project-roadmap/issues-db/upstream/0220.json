@@ -1,0 +1,47 @@
+﻿{
+    "number":  220,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG and Gateway and Windows 2016 without NLA",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "jumbor12",
+    "created_at":  "2016-11-03T10:07:17Z",
+    "github_updated_at":  "2019-02-07T17:17:34Z",
+    "body_snippet":  "Hello,\r\n\r\nI use usully mRemoteNG 1.72 to connect to my server 2012 R2 and a gateway (Windows 2012 R2 Remote APP) without problems. Last few days i try Windows 2016 in my test platform. But I m cannot connect to my windows 2016 server. NLA is disable on my windows server but I get windows alert \"La connexion ne peut pas se poursuivre car l\u0027authentification n\u0027est pas activ├⌐e et l\u0027ordinateur distant n├⌐cessite l\u0027activation de l\u0027authentification pour pouvoir se connecter.\" (sorry for french). I try...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NDI3NzEzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "May be an issue with the RDP library we use. We will need to investigate",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-12-01T19:57:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxNzUwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Candidate for 1.8",
+                         "author":  "jotatsu",
+                         "action_needed":  true,
+                         "date":  "2019-02-07T17:17:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-02-07T17:17:34Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

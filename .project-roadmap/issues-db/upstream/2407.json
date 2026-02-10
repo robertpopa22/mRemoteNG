@@ -1,0 +1,58 @@
+﻿{
+    "number":  2407,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Allow undock connection tab to new mRemote program instance and allow merge connection tab back to first program instance",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2023-03-24T13:42:35Z",
+    "github_updated_at":  "2026-02-07T19:52:17Z",
+    "body_snippet":  "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n    1. Open SSH connection to e.g. Linux computer and do some tasks.\r\n    2. Open new SSH connection to the same remote computer.\r\n    3. Now both windows (in both tabs) have some tasks executing.\r\n       \r\n       Sometimes I would like to have two mRemote programs each tab in its own program. In Firefox web browser for example I just click on tab and hold down to middle of win...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5YZE8p",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "it will not simple to do (at least dont see how on top of my head) if you run two mRemoteNG programs, however in curent NB versions panels allow you to do such by drag and drop, but its a some issues with operation, was planed to have a look on such this weekend perhaps so will check you suggestion as well.",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-03-24T15:13:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFMF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:44:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhL3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:17Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

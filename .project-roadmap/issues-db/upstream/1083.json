@@ -1,0 +1,48 @@
+﻿{
+    "number":  1083,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Closing Connection Improvement",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "spisarau",
+    "created_at":  "2018-08-24T15:22:08Z",
+    "github_updated_at":  "2021-06-28T10:59:08Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nSometime it is  happen I open a lot of connections in different folders and subfolders.\r\n## Expected Behavior\r\n\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nWhen I click right mouse button on the picture of folder I should see item Close all child connections and Close connections in current folder\r\n## Current Behavior\r\nI see only Item Disconnect\r\n## Your Environment\r\n\u003c!--- Include as many r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNjcxNjYwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Could you please clarify? When I use disconnect on a folder, all active connections will be disconnected.\r\n\r\n![image](https://user-images.githubusercontent.com/16654335/44746849-8ae9bf80-aad9-11e8-87ea-7ac637d476f1.png)\r\n",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2018-08-28T19:46:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNjcxOTkyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, in current folder. But if folder has sub-folder, connections in sub-folder will not be closed\r\nWhat if you want to close all connections in Windows folder and all sub-folders?",
+                         "author":  "spisarau",
+                         "action_needed":  true,
+                         "date":  "2018-08-28T19:57:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T10:59:08Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

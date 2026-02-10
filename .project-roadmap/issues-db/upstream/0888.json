@@ -1,0 +1,38 @@
+﻿{
+    "number":  888,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Connection Templates",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "fridtjof",
+    "created_at":  "2018-02-17T23:14:49Z",
+    "github_updated_at":  "2018-02-20T14:31:49Z",
+    "body_snippet":  "It would be really nice if there was a template system to make creating new connections faster.\r\n\r\nObviously global templates would be good, so I could change the default connection type from RDP to SSH if my environment is more SSH heavy.\r\n\r\nMaybe also have an option to \"import\" a connection as the template for the folder it\u0027s currently in. That way, you could set certain settings that should always be set to a default value when creating a new connection in that folder.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2Njk5NDg5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is somewhat covered by the current default connectioninfo system that we have, but I like the idea making these more of a template system. This would solve some of the issues around the current system and provide more flexibility without necessarily more complexity.\r\n\r\nRelated to #238 and #239 ",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-20T14:31:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-02-20T14:31:49Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

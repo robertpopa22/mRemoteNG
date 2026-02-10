@@ -1,0 +1,57 @@
+﻿{
+    "number":  2051,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "REQUEST: Support for connection presets",
+    "state":  "open",
+    "labels":  [
+                   "1.8 (Fenix)",
+                   "In development"
+               ],
+    "author":  "Russssty",
+    "created_at":  "2021-09-23T14:57:12Z",
+    "github_updated_at":  "2026-02-07T19:55:19Z",
+    "body_snippet":  "**Basic use case:**\r\n\r\nAs a user I have a different needs for sessions depending on type of task I planning to do.\r\n\r\n- For the task A I will need a connection to server 1, server 2 and client 1\r\n- For the task B I will need a connection to server 2 and clients 1-10.\r\n\r\nI don\u0027t want to open all the connections manually every time.\r\n\r\nI want to be able to save the open connections as a preset, so I can initiate/open them next time just by one click.\r\nThe presets should be listed in the \"Presets\" ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM43OGbe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this is planed to add in feature release ver 1.8 together with profiles implementation. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-09-24T08:24:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXI7m",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiH6",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:19Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:19Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

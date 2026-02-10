@@ -1,0 +1,66 @@
+﻿{
+    "number":  1656,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Application crashes with unhanded exception (Cannot access a disposed object.)",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "In progress"
+               ],
+    "author":  "vmlz",
+    "created_at":  "2019-12-17T09:45:49Z",
+    "github_updated_at":  "2026-02-07T16:55:40Z",
+    "body_snippet":  "## Current Behavior\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at mRemoteNG.UI.Window.ConnectionWin...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NjkwNDQyNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I get the same or a similar error - but only when I attempt to connect to a second server. Guess I\u0027ll pull down the source and see if I can debug later:\r\n```\r\n\r\n2019-12-27 23:45:34,163 [12] ERROR - Couldn\u0027t set InterfaceControl.Parent.Tag or Dispose Interface, probably form is already closed (Connection.Protocol.Base)\r\nCannot access a disposed object.\r\nObject name: \u0027InterfaceControl\u0027.\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean sync...",
+                         "author":  "Peter-LaComb",
+                         "action_needed":  true,
+                         "date":  "2020-01-21T22:02:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MjQzMDAxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I get the same exception everytime I close mRemoteNG and even sometimes when I close a panel containing a few open connections\r\n\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at Syst...",
+                         "author":  "babelone",
+                         "action_needed":  true,
+                         "date":  "2020-02-05T14:21:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5KPFYC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just checking in on this issue - is there an end in sight for this error?",
+                         "author":  "ktxtech",
+                         "action_needed":  true,
+                         "date":  "2022-09-13T14:08:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJAE",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:55:40Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

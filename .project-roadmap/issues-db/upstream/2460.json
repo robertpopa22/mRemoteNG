@@ -1,0 +1,68 @@
+﻿{
+    "number":  2460,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Error when using special characters in credentials",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "Security",
+                   "Connections",
+                   "1.77.3"
+               ],
+    "author":  "dirk-schuermann",
+    "created_at":  "2023-07-17T09:49:59Z",
+    "github_updated_at":  "2026-02-07T19:54:02Z",
+    "body_snippet":  "As the risk of being hacked increases, passwords should be improved. Especially through the use of special characters. Microsoft even recommends using Alt+0xxx codes. Well, there\u0027s a problem I\u0027ve lost my teeth on. After configuration of access data in the tree (inheritance off), Windows asks for an error message about incorrect access data before each connection is established again for the name and password. The password entered there is accepted. The same password is also stored in the tree un...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5hqwCp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Looks like an Encoding issue with the configuration file that needs to be solved. There might be similar issues here, didn\u0027t have time to look for them. \r\n\r\nRegarding the recommendation to use Alt-Codes I\u0027d like to get this source, it\u0027s hard for me to imagine Microsoft recommends to use characters that cannot be entered on all devices... \r\n\r\n",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-07-17T17:46:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5jFNoL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "At curent stage its will be change soon, the tree will not store any sensitive information (only id and source from where fetch once needed)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-02T14:25:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJBy",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhwD",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:02Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

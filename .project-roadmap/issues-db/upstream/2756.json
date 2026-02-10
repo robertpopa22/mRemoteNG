@@ -1,0 +1,98 @@
+﻿{
+    "number":  2756,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG.appSettings - Consider moving to AppData Roaming",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Needs implementation",
+                   "Improvement required",
+                   "Connections",
+                   "1.78.*",
+                   "Settings",
+                   "Nightly Build"
+               ],
+    "author":  "david-dell",
+    "created_at":  "2025-08-22T16:43:31Z",
+    "github_updated_at":  "2026-02-07T19:54:42Z",
+    "body_snippet":  "**Issue**\n\nUnable to launch mRemoteNG if build is copied to C:\\Program Files\\..... and then running as a user that does not have **write** access to said folder. Issue appears to be due to the applied wanting to write to **mRemoteNG.appSettings** within the same folder as the executable.\n\n**Solution (Possible)?**\n\nConsider moving the **mRemoteNG.appSettings** file so it is loaded from AppData Roaming (similar to connection files), rather than within the same folder as the executable.\n\nhttps://gi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6_oNTq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Found in version v1.78.2-NB-3137-x64",
+                         "author":  "david-dell",
+                         "action_needed":  true,
+                         "date":  "2025-08-22T16:45:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6_1Xjc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Well, curently mR need to save settings in same folder as app, or in windows regestry, potentialy it could generate on first run in user home folder (later that could be pointed to share drive perhaps",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-08-24T23:07:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6_3M9k",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas I think the \"problem\" in this case is that the portable version is put into %programfiles% instead of somewhere else, while the nightly build has no version with proper installer ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-08-25T05:50:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7AGzyZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes, because NB its more like portable so its expecting to be able create files in same folder as it is, i may add installer soon as well, but still thinking what will be better aproatch to store amendable file, as for new version it will be a db but it should have a write access from user it runs on",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-08-26T07:44:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7AIk5C",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey @Kvarkas \n\nScenario I\u0027m looking at (and suspect this is common), is a folder with the mR binaries that would be read only (as users shouldn\u0027t be changing the binaries) for simultaneous access (on the same system - multi-session host) for 20 to 30 people.\n\nAs the folder is read only, the database file, like you said is unable to create/write the db file.\n\nWith that in mind, the question I have is:\n\n1. Is the DB expected to support multiple users accessing the same file at the same time?\n2. Ca...",
+                         "author":  "david-dell",
+                         "action_needed":  true,
+                         "date":  "2025-08-26T09:54:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Bu-Vq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks for you comments David, I was wrote a hudge reply and chrome crashed :( will do a post maybe in discusion. In short - plan to have few dbs - one for mR settings (some general ones like what is admin user, integrations with AD, DB, Azure, CyberArk (you named) what mean on installation it need admin account to be created and saved, later it will be working in read-only mode, second dbs for user profile and personal settings (like windows size, default endpoints to open, color theme etc.) wh...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-09-03T18:30:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh-K",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:42Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:42Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

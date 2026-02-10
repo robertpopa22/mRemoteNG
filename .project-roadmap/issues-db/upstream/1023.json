@@ -1,0 +1,49 @@
+﻿{
+    "number":  1023,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Wrong (understated) resolution in full screen connection",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "HighDPI",
+                   "RDP"
+               ],
+    "author":  "romanad",
+    "created_at":  "2018-07-13T23:26:07Z",
+    "github_updated_at":  "2021-06-28T12:13:01Z",
+    "body_snippet":  "Wrong (understated) resolution in full screen connection\r\n\r\nI connect with full hd laptop to full hd PC with full-screen RDP session and get only 1536x864, but when I connect via regular mstsc in full screen session I get correct 1920x1080 resolution. \r\nI want to get normal full screen 1920x1080 resolution like when I use regular mstsc.\r\n\r\nI\u0027ve tried latest beta and latest stable versions of mRemoteNG and always with same result.\r\n\r\nHere is how to reproduce:\r\nI\u0027m trying to connect from Win 10 Pr...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjUyMDI2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem. I have a laptop with a resolution of 1600x900\r\nWhen I connect through a classic RDP, I get a resolution of 1600x900\r\nHowever, when I connect through mRemoteNG with the Full Screen option I get a resolution of 1280x720. How to get 1600x900 resolution in Full Screen view\r\n\r\nThank you for your help\r\n\r\n(My operation system - Win10 x64, mRemoteNG - 1.76.9.25458",
+                         "author":  "przem0210",
+                         "action_needed":  true,
+                         "date":  "2018-10-24T05:43:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwNzE2NTMxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem ",
+                         "author":  "natereal",
+                         "action_needed":  true,
+                         "date":  "2020-10-12T14:46:30Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T12:13:01Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

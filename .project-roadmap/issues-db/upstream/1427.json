@@ -1,0 +1,119 @@
+﻿{
+    "number":  1427,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP doesn\u0027t respect desktop scaling",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "luisarnauth",
+    "created_at":  "2019-04-30T15:38:03Z",
+    "github_updated_at":  "2023-03-10T02:31:31Z",
+    "body_snippet":  "After upgrading to 1.77.0.41307 the RDP connections don\u0027t respect the desktop scaling , showing the remote desktop in 100% scaling.\r\n\r\nPrior to this upgrade, the remote desktop connections inherit the desktop scaling.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4OTMyMTc3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Got the same problem.\r\nAlso an option to manually scale the size would be nice for hosts that doesn\u0027t support scalling for exampe 125% , 150%  , 200 % .",
+                         "author":  "2ramiro",
+                         "action_needed":  true,
+                         "date":  "2019-05-04T12:15:46Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjIzODkwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same problem. Also like @2ramiro suggested, would like to see manual scaling or zooming options when scaling is not properly detected.",
+                         "author":  "warmdev",
+                         "action_needed":  true,
+                         "date":  "2019-05-14T13:32:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5Mjk3ODM2Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "With 2 monitors with different scale on each - situation is more \"fun\" (#1438)",
+                         "author":  "7OH",
+                         "action_needed":  true,
+                         "date":  "2019-05-16T08:49:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTgxNjE0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same problem here... kind hard if you have a 4k screen.\r\n\r\nhttps://i.postimg.cc/5t3cNp6G/mremoteng.jpg\r\n\r\nBut the worst is that tryed to revert to v1.76.20 and lost all saved credentials :(",
+                         "author":  "mdio33",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T23:55:45Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNTExODc5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "it\u0027s very strange. But this is not working for me even in v1.76.20 :( I connect from Win7 machine with 125% dpi to various Win10 machines and all of them showing in 100% dpi :(\r\nI began use mRemoteNG exactly because this feature, and now it\u0027s suddenly stop working :(( I use portable version, was trying 1.77.1 and clean run - no luck :( Any advise?\r\n\r\n----UPD-----\r\n\r\nGot it. it\u0027s stop working, if _Use Windows Xp style DPI scaling_ is checked:\r\n![image](https://user-images.githubusercontent.com/17...",
+                         "author":  "kirsan31",
+                         "action_needed":  true,
+                         "date":  "2020-05-07T08:46:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2ODAzNjIxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same problem here, a fix would be very helpful.\r\nHad to revert to 1.76.20 because 1.77 is unusable with 4k laptop",
+                         "author":  "luigirosa",
+                         "action_needed":  true,
+                         "date":  "2020-08-03T13:54:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc3NjAwMTkzMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "A workaround for this issue on Windows 10: Find `mRemoteNG.exe` file, open \"Properties\" -\u003e \"Compatibility\" -\u003e \"Change high DPI settings\" -\u003e \"High DPI scaling override\", turn on \"Override high DPI scaling behavior\" option and set \"Scaling performed by:\" to \"System\" or \"System (Enhanced)\", not \"Application\".",
+                         "author":  "tonibony",
+                         "action_needed":  true,
+                         "date":  "2021-02-09T14:58:45Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc3NjIzNTY2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \r\n\u003e \r\n\u003e A workaround for this issue on Windows 10: Find `mRemoteNG.exe` file, open \"Properties\" -\u003e \"Compatibility\" -\u003e \"Change high DPI settings\" -\u003e \"High DPI scaling override\", turn on \"Override high DPI scaling behavior\" option and set \"Scaling performed by:\" to \"System\" or \"System (Enhanced)\", not \"Application\".\r\n\r\nThank you very much Toni, that soved my problem.\r\n\r\n;)",
+                         "author":  "mdio33",
+                         "action_needed":  true,
+                         "date":  "2021-02-09T20:51:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47H7wX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e A workaround for this issue on Windows 10: Find `mRemoteNG.exe` file, open \"Properties\" -\u003e \"Compatibility\" -\u003e \"Change high DPI settings\" -\u003e \"High DPI scaling override\", turn on \"Override high DPI scaling behavior\" option and set \"Scaling performed by:\" to \"System\" or \"System (Enhanced)\", not \"Application\".\r\n\r\nThank you, after trying half a dozen different softwares and options, this fixed it for me on a 4K laptop as well.",
+                         "author":  "Hecatron",
+                         "action_needed":  true,
+                         "date":  "2021-12-12T17:12:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XNbsp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e A workaround for this issue on Windows 10: Find `mRemoteNG.exe` file, open \"Properties\" -\u003e \"Compatibility\" -\u003e \"Change high DPI settings\" -\u003e \"High DPI scaling override\", turn on \"Override high DPI scaling behavior\" option and set \"Scaling performed by:\" to \"System\" or \"System (Enhanced)\", not \"Application\".\r\n\r\nthis did not work for me. Client side is set to 125%, remote connection still does 100%",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2023-03-10T02:31:30Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-03-10T02:31:31Z",
+    "unread_comments":  10,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,30 @@
+﻿{
+    "number":  1438,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "incorrect smartsize",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "7OH",
+    "created_at":  "2019-05-06T07:20:22Z",
+    "github_updated_at":  "2023-06-29T13:27:26Z",
+    "body_snippet":  "## Expected Behavior\r\nsmart size must represent current monitor\\desktop size.\r\nin earlier version it were work fine.\r\n\r\n## Current Behavior\r\nCurrent desktop(second monitor) resolution is 1920x1080\r\nIn rdp session it 2386x1473.\r\nas result all element are very small.\r\nin rdp usually resolution cannot be changed.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. get 2 monitors system. 1st monitor 1920x1080 150%, second (work) monitor 1920x1080 100%.\r\n2. Run mRemoteNG on second monitor.\r\n3. connect to rdp wit...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2023-06-29T13:27:26Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

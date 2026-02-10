@@ -1,0 +1,56 @@
+﻿{
+    "number":  972,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Type password, or Type clipboard text",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "nmg196",
+    "created_at":  "2018-05-04T12:37:31Z",
+    "github_updated_at":  "2018-07-23T14:11:33Z",
+    "body_snippet":  "Some of my customers servers require long and complex 16 character passwords which are impossible to remember and difficult to type.   It would be useful to be able to paste these passwords into the logon dialog, lock screen and change password dialog, none of which support the paste operation (due to the clipboard process being a private user-process not available before login). \r\n\r\nIf mRemoteNG had a \"type clipboard text\" function (like TeamViewer) it would make logging in and changing passwor...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNjA4MzUzMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I get around that by selecting the connection and doing a Reconnect. Though I see your point about the change password dialog. I\u0027m not entirely sure the RDP protocol allows us to do what you are suggesting, but we can look into it.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-07-18T21:42:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNzA3MDY5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You will not be able to paste using RDP as there is no clipboard function on those screens but I think I\u0027ve seen this feature elsewhere as \"Type clipboard text\" which just sends it as raw keystrokes.  In your case, the password is already stored, so a dedicated \"Type stored password\" would be very useful for lock screens (activated every 5 mins on my customer\u0027s servers!) as well as the \u0027change password\u0027 screen - neither of which allow the clipboard. ",
+                         "author":  "nmg196",
+                         "action_needed":  true,
+                         "date":  "2018-07-23T14:08:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNzA3MTE5OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The problem with the \"reconnect\" workaround is that sometimes you can end up on a different session and therefore essentially lose your work. ",
+                         "author":  "nmg196",
+                         "action_needed":  true,
+                         "date":  "2018-07-23T14:09:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-07-23T14:11:33Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

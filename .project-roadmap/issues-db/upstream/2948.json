@@ -1,0 +1,40 @@
+﻿{
+    "number":  2948,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Options panel settings should be auto-saved",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-19T05:26:17Z",
+    "github_updated_at":  "2026-02-07T19:55:54Z",
+    "body_snippet":  "Downloaded mRemoteNG v1.78.2 NB 3224 I have looked at the File | Options design again, because it just feels not the best UI/UX. This is maybe continuation of [issue 2909](https://github.com/mRemoteNG/mRemoteNG/issues/2909) where we discussed what should happen when Option panel is closed down. That issue looked like a bug, but this issue is more about enhancement.\n\nLets step back a little bit. How did File | Options work few NB releases ago? Options were opened as dialog and in dialog it is cus...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiQ3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:54Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

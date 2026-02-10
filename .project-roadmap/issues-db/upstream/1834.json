@@ -1,0 +1,147 @@
+﻿{
+    "number":  1834,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request of new feature",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "1.8 (Fenix)"
+               ],
+    "author":  "aaljaseem",
+    "created_at":  "2020-08-17T12:11:55Z",
+    "github_updated_at":  "2026-02-07T19:54:35Z",
+    "body_snippet":  "Hello everyone,\r\n\r\nI am a Mobaxterm user. But that is a payed tool where i cat save more than limited number of sessions.\r\nNow i am trying out ,mRemoteNG but the pain point that mRemoteNG has is a ftp side bar. This feature is very handy with linux machines where you can drag and drop files from and to the remote machine.\r\n\r\nAlso there is a monitoring bar down of the screen. It would be really handy also to have it.\r\n![mobaxterm](https://user-images.githubusercontent.com/20978632/90394650-5343fb...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NDkwNzk0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "my question is if i enter a path in the right command line, will side bar go to the same path too?\r\n\r\nor if double click side bar to a child folder, will the terminal go in to that folder?",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-08-17T14:16:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NDkzMjc1Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi\n\nIn mobaxterm the is option sothat the ftp side bar should follow the path\nin cli. But the revers doesnt exist in mobaxterm. It would be handy to have\nit in mRemoteNG\n\nThanks for your help\nLooking forward to hear from you\n\nKind regards\nAl-Jassem Anas\n\nOn Mon, 17 Aug 2020, 16:16 VShawn, \u003cnotifications@github.com\u003e wrote:\n\n\u003e my question is if i enter a path in the right command line, will side bar\n\u003e go to the same path too?\n\u003e\n\u003e or if double click side bar to a child folder, will the terminal go ...",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-08-17T14:59:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NTE5Nzk5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@aaljaseem you are right, It it handy to add the feature.\r\n\r\n1. we have to add interface to PuTTY project so that PuTTY can tell mRemoteNG whre the path is. \r\n1. or we can place PuTTY with SSH.NET https://github.com/mRemoteNG/mRemoteNG/issues/181, then we can know the path but need to build a new terminal.\r\n\r\nI am working on 1 but there was no breakthrough since i haven\u0027t work with C for long time.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-08-18T01:30:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NTI5MTM0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@VShawn and are you also working on ftp side bar?",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-08-18T06:52:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NDUwNzYwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @VShawn \r\n\r\nI have noticed that it will be so usefull to have credential objects so i can use the same creds on multiple sessions. And also when i change the password on Active Directory i need just to update it on one place.\r\n\r\nAre there updates on the FTP side bar implementation?\r\n\r\nKind regards\r\nAl-Jassem Anas",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-09-01T07:16:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NTMyNTQxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@aaljaseem not yet. i am making a sftp demo now, and it is hard to handle the file explorer",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-09-02T06:11:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NTMzNDE5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There is another protocol. File over ssh. Maybe this one is faster to\nimplement. And more secure\n\nOn Wed, 2 Sep 2020, 08:11 VShawn, \u003cnotifications@github.com\u003e wrote:\n\n\u003e @aaljaseem \u003chttps://github.com/aaljaseem\u003e not yet. i am making a sftp\n\u003e demo now, and it is hard to handle the file explorer\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you were mentioned.\n\u003e Reply to this email directly, view it on GitHub\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/1834#issuecomment-685325412\u003e,\n\u003e or unsubscribe...",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-09-02T06:28:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NTMzNjc2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "And also i figured out that mobaxterm uses file over ssh.this way no need\nto open new ports.\n\nOn Wed, 2 Sep 2020, 08:28 anas aljaseem, \u003canas.aljaseem@gmail.com\u003e wrote:\n\n\u003e There is another protocol. File over ssh. Maybe this one is faster to\n\u003e implement. And more secure\n\u003e\n\u003e On Wed, 2 Sep 2020, 08:11 VShawn, \u003cnotifications@github.com\u003e wrote:\n\u003e\n\u003e\u003e @aaljaseem \u003chttps://github.com/aaljaseem\u003e not yet. i am making a sftp\n\u003e\u003e demo now, and it is hard to handle the file explorer\n\u003e\u003e\n\u003e\u003e ΓÇö\n\u003e\u003e You are receiv...",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-09-02T06:30:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NTM0MTM0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry. I didnot new that sftp and file over ssh use the same port. So it is\nok.\nJust waiting for the implementation.\n\nThanks in advance\n\nOn Wed, 2 Sep 2020, 08:30 anas aljaseem, \u003canas.aljaseem@gmail.com\u003e wrote:\n\n\u003e And also i figured out that mobaxterm uses file over ssh.this way no need\n\u003e to open new ports.\n\u003e\n\u003e On Wed, 2 Sep 2020, 08:28 anas aljaseem, \u003canas.aljaseem@gmail.com\u003e wrote:\n\u003e\n\u003e\u003e There is another protocol. File over ssh. Maybe this one is faster to\n\u003e\u003e implement. And more secure\n\u003e\u003e\n\u003e\u003e On...",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-09-02T06:33:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMDYyMTY2OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@VShawn any updates?",
+                         "author":  "aaljaseem",
+                         "action_needed":  true,
+                         "date":  "2020-09-29T10:44:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMDc4NzkwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @VShawn any updates?\r\nha sorry bro, i am working on another app recently and make nothing progress on sftp.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-09-29T15:34:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMDc5MzU0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e @VShawn any updates?\r\n\u003e \u003e ha sorry bro, i am working on another app recently and make nothing progress on sftp.\r\n\r\nthe demo had been implementing and it did wokes *(in an uglily implementation)* ,but since I\u0027ve been so busy at work last month and working on an new app now, i donΓÇÿt have much time to integrate sft into syste... which means you have to wait for a while. i am so sorry.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-09-29T15:43:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh8e",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:35Z",
+    "unread_comments":  12,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

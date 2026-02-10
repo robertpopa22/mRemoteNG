@@ -1,0 +1,48 @@
+﻿{
+    "number":  2628,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Key Combinations and Caps Lock not passing through if using mRemoteNG through TeamViewer",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "strajk-",
+    "created_at":  "2024-08-16T06:32:05Z",
+    "github_updated_at":  "2026-02-07T19:54:34Z",
+    "body_snippet":  "## Expected Behavior\r\nCopy and Paste using key combination or any other command such as WIN+E, writing with caps lock or using shift to write in upper case letters should work using TeamViewer -\u003e mRemoteNG\r\nIn both applications the setting is enabled to have them passthrough.\r\n\r\n## Current Behavior\r\nNo key combinations work and even if caps lock is enabled it will still not write in upper case.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Connect to PC which will have mRemoteNG installed with TeamVie...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYRQC",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "P2 refresh: please retest on latest build and share reproducible steps plus logs/screenshots. If not reproducible or no update, maintainers can close as stale.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:13:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh8J",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:34Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

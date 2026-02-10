@@ -1,0 +1,68 @@
+﻿{
+    "number":  498,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Custom Resolution Support",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Enhancement",
+                   "Ready",
+                   "UI/UX"
+               ],
+    "author":  "Xechorizo",
+    "created_at":  "2017-04-10T20:40:04Z",
+    "github_updated_at":  "2020-09-02T17:41:18Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nMay be related to #321.\r\n\r\nPlease add the ability to insert custom resolutions, or add a wider range of resolutions (eg 2560x1080).\r\n\r\nOther solutions allow for this, and it would help make mRemoteNG more competitive. We\u0027re currently using mRemoteNG instead of others because \"Redirect \u003e Key Combinations\" is available, but we trade this for custom resolutions in doing so.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5MzA4NjM2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reference https://mremoteng.atlassian.net/browse/MR-985",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-04-10T21:36:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5MzA5MDEzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Apologies if this has been addressed already; I see MR-985 is closed as a duplicate of MR-938, which adds 1600x900. I\u0027m unable to type a custom resolution in to Appearance \u003e Resolution. Is there another way to set this, or a way to add custom entries to the dropdown menu? I can also pursue the subreddit, if best to do so there.",
+                         "author":  "Xechorizo",
+                         "action_needed":  true,
+                         "date":  "2017-04-10T21:53:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5MzEwNzgwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not a problem. This is not a duplicate. I was just closing out the old jira ticket.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-04-10T23:31:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4NTg5MjkwMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode Is it fixed? Do we have the ability to add custom resolution? We are looking for a 1900*1080 resolution. Please help!!",
+                         "author":  "asok-mirror",
+                         "action_needed":  true,
+                         "date":  "2020-09-02T17:41:18Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-09-02T17:41:18Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

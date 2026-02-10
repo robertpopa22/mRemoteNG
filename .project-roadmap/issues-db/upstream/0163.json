@@ -1,0 +1,65 @@
+﻿{
+    "number":  163,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "URL handlers",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "benwa",
+    "created_at":  "2016-10-12T15:15:09Z",
+    "github_updated_at":  "2022-10-21T10:00:44Z",
+    "body_snippet":  "A few monitoring tools (LibreNMS, Spiceworks, and TotalView to name a couple) add quick links for SSH, Telnet, RDP, VNC, etc.  It would be cool to associate something like `ssh://` to open up an mRemoteNG tab to the shell.\nMaybe even be smart enough to see if it\u0027s already saved in the list and use whatever settings are saved.\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMTA5MzY3MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "When we implement this, we should support handling the following URI schemes as defined by IANA (https://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml):\r\n- http\r\n- https\r\n- ssh\r\n- vnc\r\n\r\nThe following unregistered URI schemes should also be strongly considered, with respect to [RFC7595](https://tools.ietf.org/html/rfc7595):\r\n- rdp\r\n- ica\r\n- tel (for telnet)\r\n- raw\r\n- rlog (for RLogin)",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-05-12T14:34:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUwNzMyMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Proposed for 2.0, this is integrated by O.S uri association types and a better scriptable external interface for creating connetions. ",
+                         "author":  "jotatsu",
+                         "action_needed":  true,
+                         "date":  "2019-02-07T16:51:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Mqrg7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any update on this?\r\nFound it because I want to use SSH (and maybe RDP) from a URL.",
+                         "author":  "Gameniti",
+                         "action_needed":  true,
+                         "date":  "2022-10-20T23:05:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5MsgRW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As you might see itΓÇÖs scheduled for 1.78 and 1.77 is not released yet.",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2022-10-21T10:00:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-10-21T10:00:44Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

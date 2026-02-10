@@ -1,0 +1,65 @@
+﻿{
+    "number":  2062,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Split pane can\u0027t dock on secondary monitor",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "JonathonAnderson",
+    "created_at":  "2021-11-03T20:23:56Z",
+    "github_updated_at":  "2023-09-01T15:54:58Z",
+    "body_snippet":  "When I try to dock a second pane within the mRemoteNG window while using a second monitor, dragging the pane into a docking area does not activate the area, and I can only create a second window. It works as expected on my primary monitor.\r\n\r\n## Expected Behavior\r\nDragging a second pane should highlight various areas of the screen and dock the second pane when dropped\r\n\r\n## Current Behavior\r\nDragging the pane to different areas does not highlight them\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Move...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM45QXwr",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, thanks for reporting that, could you try with NB (1.77.2) is that same? ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-11-04T09:36:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lfsic",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am seeing the same issue in 1.77.3",
+                         "author":  "CaCtus491",
+                         "action_needed":  true,
+                         "date":  "2023-09-01T14:07:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lgKNe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "that due different resolution on screens, as we use no our library to manage this its hardly we could fix that, but we thinkinking to fix that with ui change. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-09-01T15:25:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lgTzx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "OK, just to clarify, in my case it appears to be an issue whenever I move to a monitor other than the primary monitor, regardless if the resolution is the same or not. The snapping still works, it is just that the guides aren\u0027t shown. If you guess the right location, it will highlight the proposed split and work correctly.\r\n\r\nIn my setup I have:\r\n1. 1920x1080 (laptop, 100% scaling)\r\n2. 3840x2160 (dock, 150% scaling, primary monitor)\r\n3. 3840x2160 (dock, 150% scaling)\r\n\r\nThe snap guides are shown...",
+                         "author":  "CaCtus491",
+                         "action_needed":  true,
+                         "date":  "2023-09-01T15:54:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-09-01T15:54:58Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

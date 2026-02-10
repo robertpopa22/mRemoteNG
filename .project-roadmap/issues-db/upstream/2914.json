@@ -1,0 +1,60 @@
+﻿{
+    "number":  2914,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Empty Option panel when Theme is canceled",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.78.*",
+                   "Settings",
+                   ".NET (dotNET)"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-16T15:38:12Z",
+    "github_updated_at":  "2026-02-07T19:55:50Z",
+    "body_snippet":  "On mRemoteNG 1.78.2 NB 3220:\n1. Select some theme (from Options) and click on Cancel button.\n2. File | Options and displayed panel is empty.\n\n\u003cimg width=\"886\" height=\"459\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/ffe47016-0c18-4105-a435-66072c0b0501\" /\u003e",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7LaNhq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "to the same: If Open ssh connection, its should apear in General tab, but its not visible. If then open options its show in Options tab and General become visible. If connection is closed in General tab - tab stays open. If close options tab - then both tabs disapearing. \n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-16T20:02:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Lb_mG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "still an issue",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-16T22:28:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiPz",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:50Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

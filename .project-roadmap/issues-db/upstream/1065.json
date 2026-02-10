@@ -1,0 +1,50 @@
+﻿{
+    "number":  1065,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "UI: Some menu items that open a dialog are missing \"...\" on the menu item",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required"
+               ],
+    "author":  "bluikko",
+    "created_at":  "2018-08-06T08:43:17Z",
+    "github_updated_at":  "2026-02-07T19:54:28Z",
+    "body_snippet":  "Some menu items, such as \"Tools\" -\u003e \"Options\" are missing the \"...\" at the end of the menu item (should be: \"Options...\") to indicate a dialog box will open.\r\n\r\n## Expected Behavior\r\nAll menu items that open a dialog box should have \"...\" at the end of the menu item.\r\n\r\n## Current Behavior\r\n\"Tools\" -\u003e \"Options\" should be \"Options...\"\r\n\"File\" -\u003e \"New Connection File\" should be \"New Connection File...\"\r\nand so on.\r\n\r\n## Possible Solution\r\nEdit the menu items to add \"...\" where appropriate.\r\n\r\n## C...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXI9n",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh6R",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:28Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

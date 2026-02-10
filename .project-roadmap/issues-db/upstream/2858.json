@@ -1,0 +1,50 @@
+﻿{
+    "number":  2858,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Unhandled expection when closing panel",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.78.*",
+                   "Panels"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-07T17:43:39Z",
+    "github_updated_at":  "2026-02-07T19:55:34Z",
+    "body_snippet":  "In Windows 11 using mRemoteNG v1.78.20-NB-3206:\n\n1. First Connection set Display | Panel = General\n2. Second Connection set Display | Panel = test\n3. Double click to open first connection.\n4. Double click to open second connection. It looks like:\n    \u003cimg width=\"233\" height=\"60\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/fb77712d-d342-440e-aca1-996e33c7026d\" /\u003e\n5. Now middle click on \"test\" panel to close down a panel (I expect including all connections) and crash appears:\n   \u003ci...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7JmYz_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I downloaded v.1.78.20-NB-3208 x64 and retried and issue is still reproducible. I get error:\n\u003cimg width=\"583\" height=\"455\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d540d80c-a026-4dbe-9b8a-2abd87c87a58\" /\u003e\n\nIssue should be reopened (I don\u0027t have permission).",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T16:11:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiL2",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:34Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

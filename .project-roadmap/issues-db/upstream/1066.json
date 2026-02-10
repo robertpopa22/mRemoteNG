@@ -1,0 +1,65 @@
+﻿{
+    "number":  1066,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Zoom / Presentation mode",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "ruslanbes",
+    "created_at":  "2018-08-06T11:54:30Z",
+    "github_updated_at":  "2018-08-09T04:03:04Z",
+    "body_snippet":  "Sometimes I use the mRemoteNG to demonstrate things and the problem I\u0027m facing is that the font is too small and nearly impossible to read on TV screens or projectors.\r\n\r\nI tried the Windows Magnifying glass, but it\u0027s not very convenient and the screen sharing app we use (coincidentally called \"Zoom\") doesn\u0027t support that.\r\n\r\nIt would be very useful to have a zoom feature like in IDEs and browsers: Zoom In/Out by Ctrl+ / Ctrl- (or Ctrl + Scroll). It\u0027s implemented simply by changing font size. Or...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMDcwNTM0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Should this be zooming opened connections as well as the mRemoteNG UI? If you have an RDP connection opened, should it be zoomed?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-06T13:20:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMDk2NzMzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Should this be zooming opened connections as well as the mRemoteNG UI?\r\n\r\nOnly opened connections. That\u0027s what I want to show.\r\n\r\n\u003e If you have an RDP connection opened, should it be zoomed?\r\n\r\nGood question, I never used RDP, but I think it shouldn\u0027t be zoomed. If I demo something with RDP and it\u0027s too small to see I\u0027d better use the native tools on the remote desktop to make them bigger. ",
+                         "author":  "ruslanbes",
+                         "action_needed":  true,
+                         "date":  "2018-08-07T07:51:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMTE0NDgzMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ah ok, so in your case you would like this more for console-based connections like SSH?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-07T17:52:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMTYyOTgyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd yes, exactly. That\u0027s why I suggested it as simply increasing font size",
+                         "author":  "ruslanbes",
+                         "action_needed":  true,
+                         "date":  "2018-08-09T04:03:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-08-09T04:03:04Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,106 @@
+﻿{
+    "number":  2998,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Request] Lower / Modify WindowsRegistryTests.cs",
+    "state":  "open",
+    "labels":  [
+                   "Improvement required",
+                   "File system",
+                   "1.78.*",
+                   "dependencies",
+                   ".NET (dotNET)",
+                   "Nightly Build"
+               ],
+    "author":  "judaspriest",
+    "created_at":  "2025-11-07T11:19:40Z",
+    "github_updated_at":  "2026-02-09T15:44:35Z",
+    "body_snippet":  "Hello @Kvarkas ,\n\nThank you for this wonderful piece of software, which I am using since many years.\n\nCurrently, I\u0027m on the newest nightly build mRemoteNG 1.78.2 NB 3228.\n\n\nI am working in an Windows environment on several Windows 11 / Windows Server machines WITHOUT Administrator permissions (normal user permissions), which prevents me from installing additional software packages.\n\nAs mRemoteNG has the \".NET 9 Desktop Runtime x64\" as one of the software requirements, it\u0027s impossible for me to i...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7Qw4-1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, yes I got you, thanks to pointing to this, yes will need to add amendment to check to make it work for user scenario you mentioned, will try to implement over weekend",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-11-07T13:11:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7QxNJZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You\u0027re awesome! :)\n\nBy the way, this modification will help you also: As several users requested that you bundle (ship) mRemoteNG together with .NET Desktop Runtime in one package and you mentioned you don\u0027t like the idea of maintaining .NET software together with mRemoteNG in one build.\nBy shipping mRemoteNG together with .NET Desktop Runtime, it is your responsibility to keep the .NET versions inside mRemoteNG up-to-date... \n\nThis would be an alternative solution which makes bundling .NET \u0026 mR...",
+                         "author":  "judaspriest",
+                         "action_needed":  true,
+                         "date":  "2025-11-07T13:26:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7VvC8u",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello @Kvarkas , do you have any news regarding this topic?\nIs it hard to implement? Do you need further information?\n\nAny feedback is appreciated.",
+                         "author":  "judaspriest",
+                         "action_needed":  true,
+                         "date":  "2025-11-27T13:30:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Vx8iE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hey hey, yes I got a laptop failure so was a bit in \"phone mode only\" now on another laptop wint new environment, so far updated to .net 10 but still looking to proper way to deal with .net lib as its currently autodetecting what its not running and show me extra prompt what i don\u0027t know how to handle (to be able to set it choose a folder) will me more playing this weekend about this. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-11-27T16:16:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiVw",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mrcxs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello @robertpopa22 ,\nI\u0027m not 100% sure, whether your last comment was addressed to me, or to @Kvarkas .\nAs I tested this with the newest nightly build mRemoteNG 1.78.2 NB 3228, there is currently no newer 1.79.* version, which I could use to reproduce this error.\n\nLast status on this issue was, that @Kvarkas will work on an exception / modify the WindowsRegistryTests.cs, so that DOTNET_ROOT variable will be accepted INSTEAD of the registry keys.\n\nI proposed a check like this:\n\nIF registry keys ...",
+                         "author":  "judaspriest",
+                         "action_needed":  true,
+                         "date":  "2026-02-09T08:37:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mr_uS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, sorry a bit extra busy these days, in regards this issue I think its will be more simple solution to make additional release with .net embed",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-09T09:00:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7m0fBe",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "@judaspriest The v1.79.0 community release is available here: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n3 platform builds (x64, x86, ARM64) available for download. This includes the .NET 10 migration and all 26 fixes from the release cycle.\n\nPlease retest with this build and let us know if the issue persists.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T15:44:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T15:44:35Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

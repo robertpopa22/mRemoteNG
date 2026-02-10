@@ -1,0 +1,56 @@
+﻿{
+    "number":  2232,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "In some cases problems with Uppercase",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "paoloholzl",
+    "created_at":  "2022-05-26T09:38:19Z",
+    "github_updated_at":  "2026-02-07T16:45:11Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n## Expected Behavior\r\n\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\nConnected from Windows 2010 Pro 21H2 to other Win 10 Pro 21H2 on a virtual machine Virtualbox, all with italian keyboard, often Shift is not functioning.\r\nIn some situation using shift lock work bud not normal shift.\r\nIn rare case also some characters are not functioning (but the keyboard language is correct)\r\n\r\n\u003c!--- If you\u0027re suggesting ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5D3U5k",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Never experienced anything similar, only got the control key to stick which has nothing to do with mRemoteNG itself. \r\n\r\nBut that aside, what version of mRemoteNG are you using? Did you try the nightly build? ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-05-26T13:26:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5D3tGf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Il 26/05/2022 15:26, Simon Monai ha scritto:\n\u003e\n\u003e Never experienced anything similar, only got the control key to stick \n\u003e which has nothing to do with mRemoteNG itself.\n\u003e\n\u003e But that aside, what version of mRemoteNG are you using? Did you try \n\u003e the nightly build?\n\u003e\n\u003e ΓÇö\n\u003e Reply to this email directly, view it on GitHub \n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/2232#issuecomment-1138576996\u003e, \n\u003e or unsubscribe \n\u003e \u003chttps://github.com/notifications/unsubscribe-auth/AXCNGMBQFRDK4LBTZBGK2KDVL...",
+                         "author":  "paoloholzl",
+                         "action_needed":  true,
+                         "date":  "2022-05-26T15:03:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFSX",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:11Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

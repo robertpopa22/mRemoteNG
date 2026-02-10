@@ -1,0 +1,66 @@
+﻿{
+    "number":  2284,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "WSL in tab",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "WSL"
+               ],
+    "author":  "plegrand1",
+    "created_at":  "2022-09-07T11:44:18Z",
+    "github_updated_at":  "2026-02-07T16:45:01Z",
+    "body_snippet":  "Hello,\r\nwhat would be the way to proceed to make WSL, defined as external application\" open in a tab and not in a separate window?\r\n\r\nThanks for your help\r\nPascal",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5PkOqO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nOnly FYI: I\u0027m using WSL with \"pterm.exe\" (the optional new tool from recent versions of PuTTY) without mRemoteNG...\r\n_https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html_\r\n`Introduced pterm.exe, a PuTTY-like wrapper program for Windows command prompts (or anything else running in a Windows console). Not yet included in the installer, but available as a .exe file from the Download page.`\r\n\r\nSo, I hope the new version of mRemoteNG will include not only the internal fork of the P...",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2022-12-02T08:21:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5PkRyN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi\r\n\r\nDid you try the method described in Issue #639? If I am correct, this should open it in a tab instead of a window that got opened.\r\n\r\nGenerally I am on your side that mRemoteNG should support the WSL connection natively, but I don\u0027t get why one should use a wrapper like pterm when it could be done natively. And when we are talking about Terminals, Microsoft has a great one as well: https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701\r\n\r\nRegards",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-12-02T08:37:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5PkjTW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "MY vision is to avoid using puttyNG as well, to allow use bunch of other terminals as wsl as well, but need a bit more time to find out how properly to do it, dont have enoght knowledge yet but studing, technicaly mremoteng should be independent and user will have choice what terminal for what connection to use and install himself. \r\nIn my first target is to make openSSH support such way and proper powershell and wsl ofcourse :) but need more time for such to implement",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-12-02T09:31:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFPh",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:01Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:01Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,40 @@
+﻿{
+    "number":  2710,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "╨ö╨╛╨▒╨░╨▓╨╕╤é╤î ╨╜╨╡ ╨┤╨╛╤ü╤é╨░╤Ä╤ë╨╕╨╡ ╤ü╤é╤Ç╨░╨╜╨╕╤å╤ï",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.78.*",
+                   "web site"
+               ],
+    "author":  "Kvarkas",
+    "created_at":  "2025-06-24T10:21:37Z",
+    "github_updated_at":  "2026-02-07T19:53:41Z",
+    "body_snippet":  "╨ö╨╛╨▒╨░╨▓╨╕╤é╤î ╤ü╤é╤Ç╨░╨╜╨╕╤å╤ï ╤ü ╤ü╨╛╨┤╨╡╤Ç╨╢╨░╨╜╨╕╨╡╨╝:\n\nAbout \u003e https://mremoteng.org/ (╨▓╨╝╨╡╤ü╤é╨╛ ╨╛╨┤╨╜╨╛╨╣ ╨║╨░╤Ç╤é╨╕╨╜╨║╨╕ ╨┐╤Ç╨╡╨┤╤â╤ü╨╝╨╛╤é╤Ç╨╡╤é╤î ╨║╨░╤Ç╤â╤ü╨╡╨╗╤î ╤ü ╨╖╨░╨│╤Ç╤â╨╖╨║╨╛╨╣ ╨║╨░╤Ç╤é╨╕╨╜╨╛╨║ ╨╕╨╖ ╨┤╨╕╤Ç╨╡╨║╤é╨╛╤Ç╨╕╨╕ static/images/{╨┐╨╛╨┤╨┐╨░╨┐╨║╨░ ╨║╨░╤Ç╤â╤ü╨╡╨╗╨╕} ╨┐╤Ç╨╡╨┤╤â╤ü╨╝╨╛╤é╤Ç╨╡╤é╤î ╤ç╤é╨╛ ╨╕╤à ╤é╨░╨╝ ╨▒╤â╨┤╨╡╤é 5-7 ╤ê╤é╤â╨║\n\nNews \u003e https://mremoteng.org/posts/ (╨┐╨╛╨║╨░ ╤ü╤é╤Ç╨░╨╜╨╕╤å╤â ╨╖╨░╨│╨╗╤â╤ê╨║╤â, ╨╜╨╛ ╨┐╨╛╤ü╨╝╨╛╤é╤Ç╨╕ ╤ü╤é╤Ç╤â╨║╤é╤â╤Ç╤â, ╨┐╨╛╨╖╨╢╨╡ ╨...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhpf",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:41Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:41Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

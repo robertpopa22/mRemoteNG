@@ -1,0 +1,72 @@
+﻿{
+    "number":  2598,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add Copy/Past login and password",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "Request For Comment",
+                   "Security",
+                   "Improvement required",
+                   "Windows",
+                   "Connections",
+                   "Settings",
+                   "1.77.4"
+               ],
+    "author":  "mshalmanov",
+    "created_at":  "2024-05-28T15:46:33Z",
+    "github_updated_at":  "2026-02-07T19:53:22Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nPlease add possibility Copy/Past login and password buttons to ssh and rdp connection. How is it done in RoaylTS.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nWhen user connected to Linux or Windows OS machine. He is can copy and past login or password from the account of the computer to which it is con...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5_S0ZK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You would like mRemoteNG to extract the information from the connection file? \r\n\r\nThis is generally considered leaking data, especially since mRemoteNG does not yet have proper encryption on the connection file. See #2420, and #2189. \r\n\r\nAnyway, if you really would like this feature you can help yourself with the guide of this comment here: https://github.com/mRemoteNG/mRemoteNG/issues/2193#issuecomment-1146343983",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2024-05-28T16:15:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5_Xih_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this could be added with few restrictions, as per new connection profile (not release yet) we don\u0027t store passwords in mR anymore due mentioned potential data leak, and passwords are encoded and encrypted in connection profile what could be on the different location (db, shared drive, cloud, cyberark etc.) so you will be allow (if setting is not enabled - copy protection) clone connection data but in regards copy password to expose it I have doubts ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-05-29T08:46:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5_hONc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As a simple workaround, you can create External tool entry \"password to clipboard\":\r\n\r\n`cmd /Q /C \"MODE 30,5 \u0026\u0026 echo %PASSWORD%| clip \u0026\u0026 TIMEOUT /T 10 /NOBREAK \u0026\u0026 echo off | clip\"`\r\n\r\nIt copies password to clipboard for 5 sec and then erase it. The only problem is special symbols in passwords like redirect (\u003c,\u003e), slashes and etc.",
+                         "author":  "CMAPTu",
+                         "action_needed":  true,
+                         "date":  "2024-05-30T12:08:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhjT",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:22Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:22Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

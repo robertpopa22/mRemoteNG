@@ -1,0 +1,92 @@
+﻿{
+    "number":  1463,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "New connection configuration fields are not inheritted (1.77)",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "app/",
+    "created_at":  "2019-05-24T13:43:08Z",
+    "github_updated_at":  "2026-02-07T16:47:24Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Context\r\nIn 1.77 new configuration fields for connections are introduced. Like Redirect clipboard.\r\nHow to enable inheritance for this on all existing connections at once?\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used: 1.77\r\n* Operating System and version (e.g. Windows 10 1709 x64): Windows 10 1809\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTYzOTExNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "See #870 for a feature request which covers that",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T13:54:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTY2NjM5NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is this to inherit all settings. Or also for single settings like the redirect clipboard?\r\nWhat I mean is that for the current settings I like how the inheritance is set in my configuration.\r\nI just want to enable the inheritance for new settings.\r\nSo my default inheritance is set to inherit all and on subfolders I removed it on specific settings like username/password etc. I don\u0027t want to reset the inheritance there.",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T14:58:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NTY4NDY0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That feature is for pushing inheritance from a top-level folder to its children. Currently, it pushes all inheritance settings from the parent to children (can\u0027t pick just one). Though typically you want all child connections to inherit the same settings from a folder. If the folder has `inherit username/password=false` but `inherit redirect clipboard=true`, then the children will also get those settings.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-24T15:48:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMDM4MjAwMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Having the same issue (bug) in the latest version: 1.77.0.41252.\r\n\r\nFields which have been inherited in the past are no longer actually inherited, despite being shown as inheritance enabled. This is most noticed via the various redirects (key combinations, clipboard, drives). Since inheritance doesn\u0027t actually work, each redirect setting must be set on each object manually.",
+                         "author":  "ppkrmead",
+                         "action_needed":  true,
+                         "date":  "2019-06-10T11:19:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMjEwNjY1Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Clipboard was messed up for me after update. (Actually many settings were lost like inheritance, clipboard and few others). If you don\u0027t want to manually enable clipboard for each and every host, you can use this script to set Clipboard to True for every container and inherit clipboard for every connection.\r\n\r\nPossibly you can choose which settings you may want to update in bulk.\r\n\r\n1. Exit mremoteng\r\n2. Make backup of $env:APPDATA\\mRemoteNG\\confCons.xml\r\n3. Copy/paste into powershell:\r\n```power...",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2019-09-17T07:55:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEAL",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF55",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:24Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

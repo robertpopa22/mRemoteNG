@@ -1,0 +1,92 @@
+﻿{
+    "number":  370,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Saved connections not respecting specified logon credentials",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "hux2000",
+    "created_at":  "2017-01-25T17:39:50Z",
+    "github_updated_at":  "2026-02-07T19:12:13Z",
+    "body_snippet":  "\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 Enterprise, x64, build 10586.164 |\r\n|mRemoteNG version| 1.72.5065.32737  |\r\n\r\nFor saved RDP connections (I haven\u0027t tested with other types), if you connect to the system using the Microsoft RDP client, with a different username than the one stored in the mRemoteNG connection, mRemoteNG will thereafter use that username and not the one in the stored connection.\r\n\r\nTo reproduce:\r\n\r\n1) Create a new stored RDP connection in mRemoteNG, spec...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTgzMzI5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Whatever was going on in v1.72, I can\u0027t seem to replicate this in any v1.75 build. Are you able to replicate on newer versions?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T17:54:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTkyMjg1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I just uninstalled 1.72, installed 1.75 (stable, hotfix 1) and replicated the behavior per the above.\r\n\r\nI erred slightly in the steps I listed above, though: steps 2 and 3 should both say \"; disconnect from the system\" at the end. (I thought that would be implied, but maybe not.)\r\n\r\nBasically, for me mRemoteNG doesn\u0027t really respect the configured user at all. (For RDP connections, at least. I haven\u0027t tested other types.) It doesn\u0027t matter what I put in Connection -\u003e Username, it will always co...",
+                         "author":  "hux2000",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T21:30:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MjIyMDA4OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "FYI, I just installed version 1.75.7010.21198 (portable) and am still experiencing the issue I described above.",
+                         "author":  "hux2000",
+                         "action_needed":  true,
+                         "date":  "2017-11-06T17:18:47Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NDkwNzA0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Issue still present on version 1.75.7012.16846 (portable).",
+                         "author":  "hux2000",
+                         "action_needed":  true,
+                         "date":  "2018-01-02T23:55:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Bi3PA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I had this problem over the weekend, and after updating to the latest version and still having the problem I found this thread.\nSince there was no fix or workaround posted, figured I\u0027d share my workaround: I opened mstsc.exe, make sure show options is expanded, selected each computer in the Computer drop down list and made sure whatever option is under the user name box was set to counter use of saved credentials and clicked Save before moving on to the next computer in the drop down list or clo...",
+                         "author":  "CAT-hs",
+                         "action_needed":  true,
+                         "date":  "2025-09-02T23:35:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGG0",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:48:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYQ-v",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:12:13Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:12:13Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

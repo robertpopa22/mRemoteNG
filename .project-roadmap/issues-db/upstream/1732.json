@@ -1,0 +1,67 @@
+﻿{
+    "number":  1732,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Suggestion: automatic backup to the cloud or get data from the cloud",
+    "state":  "open",
+    "labels":  [
+                   "1.77.2",
+                   "Improvement required",
+                   "File system"
+               ],
+    "author":  "mariowitdoek",
+    "created_at":  "2020-04-12T09:42:52Z",
+    "github_updated_at":  "2026-02-07T19:52:41Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nIt would be interesting if there was a backup possibility to backup the conf files to Google Drive, Onedrive, Nextcloud, ... or maybe a simple FTP server (like a NAS)\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nI just reinstalled my computer ... without a backup :( ... \r\nNor further comments please and yes it is a life lesson ...\r\n\r\n## Current Behavior\r\n\r\n## Possible...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMzI0Njc3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I agree with the idea but it adds complexity to the application. Why not just put the configuration file in a directory that you have backing up to the cloud already?",
+                         "author":  "loftwah",
+                         "action_needed":  true,
+                         "date":  "2020-04-14T06:14:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTY0MjI1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I run the whole application from a Nextcloud synced directory. Just download the .zip file, extract it into whatever cloud service you like, and run it from there.",
+                         "author":  "cpshoemake",
+                         "action_needed":  true,
+                         "date":  "2020-04-30T06:36:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMzY1ODc5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You should also be able to link to the config file with a [hardlink](https://docs.microsoft.com/de-de/windows-server/administration/windows-commands/mklink).",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-25T17:19:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhUX",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:41Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:41Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

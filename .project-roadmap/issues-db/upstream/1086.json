@@ -1,0 +1,41 @@
+﻿{
+    "number":  1086,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Save connection layout",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required",
+                   "Windows"
+               ],
+    "author":  "spisarau",
+    "created_at":  "2018-08-24T16:42:16Z",
+    "github_updated_at":  "2026-02-07T19:54:43Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI place connections windows like tiles. \r\n## Expected Behavior\r\nAfter restarting program previously  created layout should be loaded\r\n\r\n## Current Behavior\r\nEvery time after program restart I need to place connection windows  in a proper position.\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used:ALL\r\n* Operating System and version (e.g. Windows 1...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh-Z",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:43Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

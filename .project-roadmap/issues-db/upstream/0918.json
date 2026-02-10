@@ -1,0 +1,49 @@
+﻿{
+    "number":  918,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Display password",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Feature Request",
+                   "Security"
+               ],
+    "author":  "craph",
+    "created_at":  "2018-03-20T17:40:33Z",
+    "github_updated_at":  "2021-06-28T13:22:11Z",
+    "body_snippet":  "Hi,\r\n\r\nI decided to open this issue to request a new feature :\r\n\r\n**Feature Request**\r\nUser will be able to display clearly the password field when he fill it to be able to check if his password is set correctly  like in windows or google with an eye for example\r\n\r\nThank you very much\r\n\r\nBest regards\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTkxNTI1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hi. this would be nice. Workaround: create an external app with the following command:\r\nfile name: cmd.exe\r\nParameter: echo %username%@%hostname%:%port% ^| password is^: %password%\r\n\r\na sample where i used integrated ConEmu for this:\r\n![grafik](https://user-images.githubusercontent.com/5631071/37867563-e5f324a8-2f9a-11e8-8ca0-a1409e2de5a6.png)\r\n",
+                         "author":  "vmario89",
+                         "action_needed":  true,
+                         "date":  "2018-03-24T18:39:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NjEzOTExMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@vmario89 Thank you for the workaround ^^\r\n\r\nAnd yes it would be a very nice feature ≡ƒÿâ ",
+                         "author":  "craph",
+                         "action_needed":  true,
+                         "date":  "2018-03-26T11:50:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T13:22:11Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

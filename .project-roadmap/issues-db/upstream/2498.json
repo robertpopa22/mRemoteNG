@@ -1,0 +1,112 @@
+﻿{
+    "number":  2498,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Set SQL Server connection for all users by default",
+    "state":  "open",
+    "labels":  [
+                   "DBs",
+                   "1.78.*",
+                   "Profiles"
+               ],
+    "author":  "deanoblock",
+    "created_at":  "2023-10-05T04:18:04Z",
+    "github_updated_at":  "2026-02-07T19:55:28Z",
+    "body_snippet":  "Use case is where I have many users remoting into a Server,  set mRemoteNG to use the SQL Server connection settings by default.  Where I can maintain a list of machines on the shopfloor and support users can login and load the SQL Server connections automatically without having to manually configure the advanced settings.\r\n\r\n## Feature request Behavior\r\n1.New user login to a windows server for the first time\r\n2. Windows User Profile is created\r\n3. User opens mRemoteNG\r\n4. SQL Server connection ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5oYFdi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "How do you deploy the software onto the user\u0027s clients? \r\nIf I remember correctly (need to check), mRemoteNG has two configuration files. One is the user configuration, and the other is the connection config. Both files are stored in the Appdata folder of mRemoteNG. If you create a default user configuration file containing the Database settings, you can just replace the file of the user and he\u0027s ready to go. ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T17:20:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5oYJbj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is on Microsoft Server 2022 with remote desktop services.  Since mRemoteNG is per machine installation, any user new or existing logging in has the application already.   \r\nI think I know where you are going with this, I can create a default configs then create a local logon batch script to copy them into the users %appdata% location.  A little messy but I\u0027ll give it try.  However I still think its a useful FR to have the connection config live in $programdata",
+                         "author":  "deanoblock",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T17:29:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5oYSAm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Got it. In this case the only option (workaround until this feature is added) I see is to alter the default profile, but this obviously only works if the profile was not created before and roaming profile is disabled... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T17:58:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5odtDc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "with profiles added it should be posible, will keep this in mind on feature developing. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-09T09:12:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pEwg-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@deanoblock \r\n\r\nCan you share the database schema and the mremoteng version you use?\r\n\r\nI\u0027m having errors when using the MySQL I use because of the schema.\r\n\r\n#2500 ",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-14T12:09:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM59BkPP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve installed the tool for my support team. The tool is using a SQL Server DB; connection with a global user (SQL Server user) and all is working fine.\r\nI\u0027m trying to connect to the DB with a Windows user but I\u0027m receiving a connection error.\r\nDo you know if that functionality is already implemented?\r\nThanks",
+                         "author":  "fpaulet",
+                         "action_needed":  true,
+                         "date":  "2024-05-07T06:43:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM59Lkhm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I\u0027ve installed the tool for my support team. The tool is using a SQL Server DB; connection with a global user (SQL Server user) and all is working fine. I\u0027m trying to connect to the DB with a Windows user but I\u0027m receiving a connection error. Do you know if that functionality is already implemented? Thanks\r\n\r\nif you try to do connection to same db but from cmd with that user is it successfully? I expect there could be limitation on db side for such, need to check",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-05-08T09:43:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM59kieh",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, the user is working well on the DB. But we are talking about \u0027Windows user\u0027 and not \u0027SQL Server\u0027 user. I do not have any issue using a SQL Server user. But I would like to let the users use their Windows user.\r\nThanks",
+                         "author":  "fpaulet",
+                         "action_needed":  true,
+                         "date":  "2024-05-13T06:12:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiKb",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:28Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

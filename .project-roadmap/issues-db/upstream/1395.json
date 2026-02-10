@@ -1,0 +1,84 @@
+﻿{
+    "number":  1395,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "ConfCons.xml empty  if system crashes when mRemoteNG is open",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check"
+               ],
+    "author":  "ajaynair",
+    "created_at":  "2019-04-07T04:57:01Z",
+    "github_updated_at":  "2026-02-08T18:13:09Z",
+    "body_snippet":  "## Expected Behavior\r\nThe confCons.xml file should not be empty after a crash\r\n\r\n## Current Behavior\r\nconfCons.xml is empty after a system crash\r\n\r\n## Possible Solution\r\nA workaround is to replace confCons.xml (which is empty) with conCons.xml.*.backup file. Choose the  conCons.xml.*.backup such that:\r\n  It is the latest among all the options you have\r\n  It is not empty\r\nFile location in my machine: C:\\Users\\\u003cusername\u003e\\AppData\\Roaming\\mRemoteNG\\\r\n\r\n## Steps to Reproduce (for bugs)\r\n\r\n1. Open mRe...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MTIzMDgxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have had the same behavior after importing connections from an *.rdg file.  As soon as I import the *.rdg file the confCons.xml file is blank.  Saving, Saving As, or Exporting the connections results in a blank file.\r\n\r\nVersion: 1.76.19.35762\r\nOS: Windows 10 (1803) 64-bit",
+                         "author":  "TheCriticalPath",
+                         "action_needed":  true,
+                         "date":  "2019-04-09T12:29:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MTIzMjY2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@TheCriticalPath which version of mRemoteNG?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-04-09T12:35:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MTMyMzc4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd, I updated the original comment with the information.\r\nVersion: 1.76.19.35762\r\nOS: Windows 10 (1803) 64-bit",
+                         "author":  "TheCriticalPath",
+                         "action_needed":  true,
+                         "date":  "2019-04-09T16:25:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MTkyNTcwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd Would you like me to open another issue for this?  It doesn\u0027t appear to follow the same pattern, only the same result? ",
+                         "author":  "TheCriticalPath",
+                         "action_needed":  true,
+                         "date":  "2019-04-11T01:00:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF7O",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7micq3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This ticket can be closed.  I have moved to MacOs and Linux has my primary OS and am unable to test this.",
+                         "author":  "TheCriticalPath",
+                         "action_needed":  true,
+                         "date":  "2026-02-08T18:13:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T18:13:09Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

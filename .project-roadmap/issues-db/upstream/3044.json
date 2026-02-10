@@ -1,0 +1,143 @@
+﻿{
+    "number":  3044,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "With external tool, if password contains a comma, the comma acts as a divider and the variable get split - 1.78.2.3228",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "1.78.*",
+                   "Credentials"
+               ],
+    "author":  "Alessio71",
+    "created_at":  "2025-12-11T22:41:50Z",
+    "github_updated_at":  "2026-02-10T06:04:01Z",
+    "body_snippet":  "1.78.2.3228\n\nWith external tool, if password contains a comma, the comma acts as a divider and the variable get split.\nIf I have a password 123456789, the comma is just omitted, if I have a password 1234,56789 the external tool receives two strings, divided in two, one 1234 and the other 56789\nTo test it, create a .cmd file that echoes the %Password% 1234,56789\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\nand pass %Password% to it, the `echo \"%2%\"` should give a `\"\" ` result if working normally...",
+    "our_status":  "in-progress",
+    "priority":  "P2-bug",
+    "target_release":  "v1.80.0",
+    "our_branch":  null,
+    "our_pr":  3109,
+    "iterations":  [
+                       {
+                           "seq":  1,
+                           "date":  "2026-02-07",
+                           "type":  "fix",
+                           "description":  "PR #3109 - ProcessStart argument hardening and shell escaping for comma/semicolon",
+                           "pr":  3109,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  true
+                       },
+                       {
+                           "seq":  2,
+                           "date":  "2026-02-07",
+                           "type":  "triaged",
+                           "description":  "Triage refresh: tagged with legacy version labels, asked to retest on v1.79.x",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  true
+                       },
+                       {
+                           "seq":  3,
+                           "date":  "2026-02-07",
+                           "type":  "testing",
+                           "description":  "Covered by upstream PR #3109, CI evidence posted",
+                           "pr":  3109,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  true
+                       },
+                       {
+                           "seq":  4,
+                           "date":  "2026-02-09",
+                           "type":  "user-feedback",
+                           "description":  "Alessio71 tested v1.79.0 (build 3387): issue still present. Batch .cmd file splits password on comma. Provided repro steps with test.cmd echoing %1% %2%.",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  false
+                       },
+                       {
+                           "seq":  5,
+                           "date":  "2026-02-10",
+                           "type":  "iteration-reopen",
+                           "description":  "Acknowledged .cmd batch edge case. Comma-splitting in batch arguments not fully addressed by PR #3109 escaping. Fix being reworked.",
+                           "pr":  null,
+                           "branch":  null,
+                           "release":  null,
+                           "comment_posted":  true
+                       }
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7bBbpv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "same if contains \u0026",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2025-12-19T10:50:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7jcyRu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello @Kvarkas,\nis there any update on this issue?\nThank you",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2026-01-29T07:34:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mX-2J",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Update:\n\n- Opened upstream PR that includes external-tools argument escaping fixes for comma/semicolon and added regression tests:\n  - https://github.com/mRemoteNG/mRemoteNG/pull/3109\n\nThis is intended to resolve password splitting behavior reported here.\n\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T18:27:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYijA",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7maCcr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Covered by upstream PR:\u0026echo https://github.com/mRemoteNG/mRemoteNG/pull/3109\r\n\u0026echo Fork CI evidence:\u0026echo https://github.com/robertpopa22/mRemoteNG/actions/runs/21781330218\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T21:58:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7m3-C2",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Installed mRemoteNG 1.79.0.3387 x64\nThe issue is still present\nCreated a test external tool test.cmd\n\n\u003cimg width=\"353\" height=\"175\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e21279b6-6e9c-421a-bf31-ab42ea9a7ffa\" /\u003e\n\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\n\npassed the password 1234,56789 and received this result:\n```\n\"1234\"\n\"56789\"\nPress any key to continue . . .\n```\n\n(Minor issue, still there from previous versions, the focus after the mRemoteNG logo is not on the passwor...",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2026-02-09T19:22:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7m_63a",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "@Alessio71 Thank you for testing v1.79.0 and confirming the issue persists. The comma-splitting behavior in batch files is a known edge case that our PR #3109 escaping didn\u0027t fully address for `.cmd` arguments.\n\nA fix is being worked on - will update here once it\u0027s available.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T06:04:01Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-10T06:04:01Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  "ITERATION EXAMPLE: Fix applied (PR #3109) -\u003e user tested -\u003e still broken for .cmd batch files -\u003e re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
+}

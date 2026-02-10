@@ -1,0 +1,49 @@
+﻿{
+    "number":  1843,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "can\u0027t reconnect / reconnect when ready",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "Windows"
+               ],
+    "author":  "Rom265",
+    "created_at":  "2020-08-25T00:46:01Z",
+    "github_updated_at":  "2026-02-07T16:46:33Z",
+    "body_snippet":  "Sometimes when I try to connect to a server with RDP, it will start to connect, show a black screen and then dump me back out. I can use the context menu \u003e Reconnect option over and over and get the same results with a 4360 error. Then, sometimes, I can click the box that says \u0027reconnect when ready\u0027 and that works. Other times it doesn\u0027t and gives error 3334. \r\n\r\nMy local machine is Windows 10 Enterprise 1909. I\u0027ve only had this computer for a couple weeks. I think it has only happened with this...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc2MDMzNjc3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, I think I came across the same issue this week. It helped me to add a new entry for \"TERMSRV/*\" into\r\nControl Panel\\All Control Panel Items\\Credential Manager -\u003e Windows Credentials -\u003e Add a generic credential.\r\nUse any fake username and password there.\r\n\r\nWith this fix in place and with some of our servers I also encountered issue #540. Fixed it by gpedit.msc / enabling \"Allow Delegating Saved Credentials with NTLM-only Server Authentication\".",
+                         "author":  "jbubik",
+                         "action_needed":  true,
+                         "date":  "2021-01-14T17:15:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFqc",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:33Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

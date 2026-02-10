@@ -1,0 +1,59 @@
+﻿{
+    "number":  1693,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Error setting extended RDP property \u0027DeviceScaleFactor\u0027",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "RDP",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "myesn",
+    "created_at":  "2020-02-14T04:35:26Z",
+    "github_updated_at":  "2026-02-07T19:51:47Z",
+    "body_snippet":  "**My computer operating system**: windows server 2008r2 Datacenter service pack 1\r\n**Remote target computer operating system**: same as above\r\n**Software version used**: \r\nmRemoteNG portable version\r\nVersion 1.77.1.27713\r\n\r\nWhen I connect, the following error occurs:\r\n\r\nWarningMsg\r\n02/14/2020 12:27:59\r\nError setting extended RDP property \u0027DeviceScaleFactor\u0027\r\nCatastrophic failure (Exception from HRESULT: 0x8000FFFF (E_UNEXPECTED))\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5NPb55",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Experiencing same error along with \"Error setting extended RDP property \u0027DesktopScaleFactor\u0027\". Is there any fix?",
+                         "author":  "kot-shrodingera",
+                         "action_needed":  true,
+                         "date":  "2022-10-29T16:28:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFvh",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhDk",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:47Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:47Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

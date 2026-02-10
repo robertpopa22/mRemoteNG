@@ -1,0 +1,58 @@
+﻿{
+    "number":  444,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add support for MS-Logon UltraVNC",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "TechnicalDebt",
+                   "VNC"
+               ],
+    "author":  "tjgng",
+    "created_at":  "2017-03-08T04:22:26Z",
+    "github_updated_at":  "2021-08-15T19:33:07Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nAs per https://mremoteng.atlassian.net/browse/MR-328 it would be nice to be able to save and provide domain username and password to pass onto VNC.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NjA2Mzk1NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "if somebody is still looking for this I\u0027m using a workaround:\r\n\r\n![mremoteng - confcons xml](https://user-images.githubusercontent.com/33110530/53185612-5a3c9b80-35cd-11e9-966a-d6833bcb59bc.jpg)\r\n\r\nlike this I can use one external tool for all PCs that are using the same credentials with username and password (e.g. in domain)\r\n",
+                         "author":  "nagash79",
+                         "action_needed":  true,
+                         "date":  "2019-02-21T16:22:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjkxNzA3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e if somebody is still looking for this I\u0027m using a workaround:\r\n\u003e \r\n\u003e ![mremoteng - confcons xml](https://user-images.githubusercontent.com/33110530/53185612-5a3c9b80-35cd-11e9-966a-d6833bcb59bc.jpg)\r\n\u003e \r\n\u003e like this I can use one external tool for all PCs that are using the same credentials with username and password (e.g. in domain)\r\n\r\nHave you found a way to bring VNC to the foreground when connecting? If I choose to integrate it will bring it to the foreground sometimes, other times it will...",
+                         "author":  "tjgng",
+                         "action_needed":  true,
+                         "date":  "2019-05-16T04:59:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM41lytP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As commented on the linked thread in the first comment VncSharpNG does not support MS-Logon, thats why the username field is not visible.\r\nWe will have to get rid of VNCSharp before being able to implement this, so it depends on #2025 ",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2021-08-15T19:33:00Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-08-15T19:33:07Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

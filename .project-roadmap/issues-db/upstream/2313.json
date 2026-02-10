@@ -1,0 +1,50 @@
+﻿{
+    "number":  2313,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature: Option so select multiple Connections at the Overview menue",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Needs implementation",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "Chrisu02",
+    "created_at":  "2022-12-06T07:38:47Z",
+    "github_updated_at":  "2026-02-07T19:56:45Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nIt would be awsome to have a multiple selection possibility like at windows with \"shift\" for Connection from - to, or Control to select multiple specific Connection\r\nThen you only have to press right click to one of this connection, select the Task / external Program and it will be executed to any of the selected connection.\r\n\r\n## Current Behavior\r\nCurrently you have to enter the Submenu of each Connecti...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5P1H3V",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "kind of same as multityping request, w=potentialy will be posible to group under same name first, then multyply by",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-12-06T13:08:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiiP",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:45Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:45Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,48 @@
+﻿{
+    "number":  238,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Improve UX regarding Default Inheritance",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2016-11-10T16:11:31Z",
+    "github_updated_at":  "2016-12-20T16:50:19Z",
+    "body_snippet":  "**Context:**\r\nThe user would like to set default inheritance settings so that new connections always inherit the username, password, and domain from it\u0027s parent.\r\n\r\n**User Journey:**\r\n1. Left click the **Connections** tree node\r\n1. Click the **Default Inheritance** button at the top of the config window.\r\n1. Set the appropriate inheritance values to `Yes`\r\n\r\n**User Journey in pictures:**\r\n![2016-11-10_0907](https://cloud.githubusercontent.com/assets/6999446/20184256/497d0548-a725-11e6-9747-70073...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTczNTE3NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Somewhat related to #239 \n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T16:22:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2ODA0MTU4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Cannot set default inheritance for username, password, domain.\r\nTried hitting save as well, no luck.\r\n\r\n![image](https://cloud.githubusercontent.com/assets/1661688/21324220/1caa25d0-c621-11e6-9e0d-caf1c067e618.png)\r\n![mremoteng](https://cloud.githubusercontent.com/assets/1661688/21324486/29b24004-c622-11e6-9c1d-5fccb979f225.gif)\r\n\r\nedit:\r\nI see, it was fixed in 1.75 which is currently in beta ≡ƒæì ",
+                         "author":  "jetersen",
+                         "action_needed":  true,
+                         "date":  "2016-12-19T18:35:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2016-12-20T16:50:19Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

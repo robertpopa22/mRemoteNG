@@ -1,0 +1,31 @@
+﻿{
+    "number":  1553,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request: msiexec switch to not create shortcut on all users desktop during install",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Installer"
+               ],
+    "author":  "TokenRing",
+    "created_at":  "2019-08-28T16:33:38Z",
+    "github_updated_at":  "2021-12-15T19:06:30Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nExpected behavior is that programs should not put a shortcut on all users\u0027 desktop, where non-admins are unable to delete it.\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a ch...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2021-12-15T19:06:30Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

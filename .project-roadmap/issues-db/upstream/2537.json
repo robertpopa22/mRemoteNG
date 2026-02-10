@@ -1,0 +1,67 @@
+﻿{
+    "number":  2537,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "log4net.dll old version",
+    "state":  "open",
+    "labels":  [
+                   "Duplicate",
+                   "RTFM",
+                   "Log4Net"
+               ],
+    "author":  "rocketmole",
+    "created_at":  "2023-12-20T09:52:29Z",
+    "github_updated_at":  "2026-02-07T16:39:52Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nlog4net.dll is an old version. Need to upgrade to 2.0.15 \r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behavior --\u003e\r\n\r\n...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5vHZO9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please have a look at https://github.com/mRemoteNG/mRemoteNG/issues/2299#issuecomment-1285060808 to remediate it immediately until there is a stable release 1.77.x; https://github.com/mRemoteNG/mRemoteNG/issues/2019 describes the development status in general regarding this issue.\r\nThe nightly and preview version have it fixed.\r\n\r\nDocumentation of the workaround can be found here: https://mremoteng.readthedocs.io/en/v1.77.3-dev/known_issues.html#log4net-vulnerability-cve-2018-1285-mremoteng-vers...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-20T10:15:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vHb6b",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry. What version are more stable? nightly or preview?",
+                         "author":  "rocketmole",
+                         "action_needed":  true,
+                         "date":  "2023-12-20T10:22:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vHg0W",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It\u0027s stable \u003e preview \u003e nightly (developer build). Right now I personally recommend to use 1.77.2-nb which has it fixed but not the saving limitations of 1.77.3-nb. \r\nHave a look at the releases: https://github.com/mRemoteNG/mRemoteNG/releases",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-12-20T10:35:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXD4V",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:39:52Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:39:52Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

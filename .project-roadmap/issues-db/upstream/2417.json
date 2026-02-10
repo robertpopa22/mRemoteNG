@@ -1,0 +1,94 @@
+﻿{
+    "number":  2417,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RustDesk integration feature",
+    "state":  "open",
+    "labels":  [
+                   "Needs implementation",
+                   "Connections",
+                   "1.77.4"
+               ],
+    "author":  "totpero",
+    "created_at":  "2023-04-01T05:55:39Z",
+    "github_updated_at":  "2026-02-07T19:52:24Z",
+    "body_snippet":  "Hi,\r\nYou are doing great job with mRemoteNG, congrats. ≡ƒæì \r\nIt will be nice feature to integrate [RustDesk](https://github.com/rustdesk/rustdesk)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZIbN7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I see absolutely no reason for such an integration, as Rustdesk provides a solution to a completely different usecase. This shows the Project is out of Control, instead of fixing the existing issues, providing important updates and fixing security issues, every small users issue is accepted as a new feature! This is what kills projects like this! Don\u0027t forget to also add all others like:\r\n\r\nTeamviewer\r\nAnydesk\r\nGetscreen\r\nGotoassist\r\nGotoMeeting\r\nWebex\r\nMaybesomeChatGPTsolutionbecause its fancy\r...",
+                         "author":  "thetuxinator",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T05:45:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZI5R9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas \r\nBecause all that you are mention is not open source solutions.\r\nThe integration with RustDesk is the same like VNC mRemoteNG integration.\r\nI think that  the porpose of the mRemoteNG is to centralize all remote connections options into one single place. and this help sysadmins. If is many other integrations... this is greats.\r\n\r\nWhy RustDesk exists? \r\nBecause AnyDesk, TeamViewer were free and now are not, and this are not open sources.\r\n\r\nCheck this out and see what [Remote Desktop ...",
+                         "author":  "totpero",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T07:46:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZJLIl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will keep it as idea for feature but as @thetuxinator mentioned its not priority at the moment, we have more important fixes to implement. I mark it as 1.77.4 but that only to think about ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T08:40:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZJLrN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e This shows the Project is out of Control\r\n\r\nthis shows you dont undestand how suggestions is working, people are welcome to suggest features they think are usefull, but that not mean that developers will jump imedeatly to implement such, that is for discusion ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T08:42:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZJf4W",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas thanks for your answers,\r\nI totally agree with your answers.\r\nIf you can create plugins/addons/tools system (library to access API parts of codes) in mRemoteNG  any developer can develop  any tool and share it.\r\n\r\nYou can inspire from here:\r\n[Wox](https://github.com/Wox-launcher/Wox)\r\n[Flow.Launcher](https://github.com/Flow-Launcher/Flow.Launcher)\r\n[ILSpy](https://github.com/icsharpcode/ILSpy)\r\nOr something like mRemoteNG project:\r\n[NETworkManager](https://github.com/BornToBeRoot/NET...",
+                         "author":  "totpero",
+                         "action_needed":  true,
+                         "date":  "2023-04-04T09:41:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6gxCF7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Maybe there\u0027s no need to integrate it in the code, because you can solve it like this:\n- allready installed Rustdesk (tested with 1.3.8)\n- Define a new external tool\n- Display Name: Rustdesk\n- Filename: \"C:\\Program Files\\RustDesk\\RustDesk.exe\"\n- Arguments (don\u0027t fail to see the exclamation mark at the !PASSWORD) :   --connect %HOSTNAME% --password %!PASSWORD%\n- Only check at \"Try to integrate\"\n\nThen, in the connections tree\n- define a \"New Connection\"\n- Rename it\n- Set Port to Remote ID of the c...",
+                         "author":  "P7aM5qzEddT66lE",
+                         "action_needed":  true,
+                         "date":  "2025-03-04T11:29:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhO0",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:24Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

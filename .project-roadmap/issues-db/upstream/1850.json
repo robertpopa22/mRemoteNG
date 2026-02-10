@@ -1,0 +1,30 @@
+﻿{
+    "number":  1850,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Reduce size of XML connection file",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "vardars",
+    "created_at":  "2020-08-30T18:39:24Z",
+    "github_updated_at":  "2020-09-15T20:21:09Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nSerializing connection properties takes too much when there is no inheritance applied. I want to propose an approach that if no inheritance is applied, nothing will be serialized to connection xml. That way we can gain some file size and cpu usage IMHO.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nWhen ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2020-09-15T20:21:09Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

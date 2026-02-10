@@ -1,0 +1,69 @@
+﻿{
+    "number":  2687,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SQL Server Connect error in current nighly build",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug",
+                   "DBs",
+                   "1.78.*",
+                   "Nightly Build"
+               ],
+    "author":  "JotunJosh",
+    "created_at":  "2025-04-08T06:30:10Z",
+    "github_updated_at":  "2026-02-07T19:52:39Z",
+    "body_snippet":  "In the current nightly build i cannot connect to my seperate sql server. On the other side my stable client has no problems to connect to the same sql server (other database)\n\n\u003e 2025-04-03 08:32:39,754 [1] ERROR - Retrieving database version failed. System.TypeInitializationException: The type initializer for \u0027Microsoft.Data.SqlClient.TdsParser\u0027 threw an exception.\n ---\u003e System.TypeInitializationException: The type initializer for \u0027Microsoft.Data.SqlClient.SNILoadHandle\u0027 threw an exception.\n ---...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6mN_DW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Here are some information about the sql server in the background if that help:\nMicrosoft SQL Server Express (64-bit)\nVersion: 15.0.2000.5\n\nBoth DB\u0027s working and not working one\n![Image](https://github.com/user-attachments/assets/58bd1016-4278-4556-b941-249325eb8511)\n\nTables in the DB\u0027s\n![Image](https://github.com/user-attachments/assets/116f10c1-ca99-4e3f-99f9-db6839a00330)",
+                         "author":  "JotunJosh",
+                         "action_needed":  true,
+                         "date":  "2025-04-09T07:52:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6mQY3m",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks, i am looking into this issue, something wrong with a lib, its build for x64, but actualy try to use x32 and crashing with: BadImageFormatException: An attempt was made to load a program with an incorrect format. (0x8007000B)\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-04-09T11:07:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6mcAMF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "little update, I manage to fix lib issue, but once I am there - will update UI for DB integration and script works as well",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-04-10T10:56:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhTa",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:39Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,56 @@
+﻿{
+    "number":  1472,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "No way to turn off Clipboard Sharing for VNC",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "app/",
+    "created_at":  "2019-06-03T22:27:01Z",
+    "github_updated_at":  "2019-06-06T13:32:01Z",
+    "body_snippet":  "Related to #416, when remote connected to Xubuntu on the VNC protocol, any time I select anything, it is deselected and copied to my home PC\u0027s clipboard.\r\n\r\nThis can be a useful feature, but the problem is this happens when you don\u0027t want it to, and it seems to break copy/cut and pasting files when using the file manager, which is likely the problem #1196 had.\r\n\r\nThere doesn\u0027t seem to be a way to disable this behavior, and I don\u0027t want to use an external program because the primary reason I chos...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5ODQ1NDc4OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I decided to compile the program without this line and this is indeed the issue.",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2019-06-03T22:50:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5ODQ2MDc3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Okay, I **think** commenting out that line only turns off clipboard sharing one way, which does solve the issues I was having (not being able to cut/paste files, selections getting cleared, etc.). So it\u0027s only Host to Client now, but no Client to Host, which is fine for my purposes, but this should really have some configuration.",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2019-06-03T23:19:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5OTQ5NDk0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for looking into this @Aidolii, we can certainly add this as an option in a future version.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-06-06T13:32:00Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-06-06T13:32:01Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

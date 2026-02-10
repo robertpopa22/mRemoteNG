@@ -1,0 +1,47 @@
+﻿{
+    "number":  2221,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Column \u0027DomainName\u0027 does not belong to table tblCons.",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "Gronkstar",
+    "created_at":  "2022-05-07T10:15:36Z",
+    "github_updated_at":  "2026-02-07T16:45:13Z",
+    "body_snippet":  "```\r\nException Message\r\n\"Column \u0027DomainName\u0027 does not belong to table tblCons.\"\r\n\r\nStack trace\r\n   at System.Data.DataRow.GetDataColumn(String columnName)\r\n   at System.Data.DataRow.get_Item(String columnName)\r\n   at mRemoteNG.Config.Serializers.MsSql.DataTableDeserializer.PopulateConnectionInfoFromDatarow(DataRow dataRow, ConnectionInfo connectionInfo)\r\n   at mRemoteNG.Config.Serializers.MsSql.DataTableDeserializer.DeserializeContainerInfo(DataRow row)\r\n   at mRemoteNG.Config.Serializers.MsSql....",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5CxJ1L",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "aaThe nightly build works flawlessly - other then it does not open VNC connections what so ever",
+                         "author":  "Gronkstar",
+                         "action_needed":  true,
+                         "date":  "2022-05-07T10:16:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFTD",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:13Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:13Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

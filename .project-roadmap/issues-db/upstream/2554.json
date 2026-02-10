@@ -1,0 +1,58 @@
+﻿{
+    "number":  2554,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Shared username/password",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "Connections",
+                   "1.77.4"
+               ],
+    "author":  "flamery",
+    "created_at":  "2024-01-15T23:16:11Z",
+    "github_updated_at":  "2026-02-07T19:51:26Z",
+    "body_snippet":  "This feature could be useful, my company uses radius/tacacs for most access, I have half a dozen or so different accounts per customer with anywhere from 10-100 connections per customer.\r\n\r\nWhen a password expires I then have to go and update all of the connections passwords.\r\n\r\nMy suggestion is, when you create a new connection, the option could be to enter a username or password (as it currently is) or a drop down list to select a shared username/password pair. When the password changes we jus...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5xI_M4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, in new version will be connection profiles, you could just update profile and all users with such profile will be get latest information. We are changing a way how we load connection data, now we are not hold it with our app, (as some security reports shows its could be accessed) hope that helps. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-18T10:12:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJFi",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYg-M",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:26Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:26Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

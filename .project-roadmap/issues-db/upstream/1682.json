@@ -1,0 +1,39 @@
+﻿{
+    "number":  1682,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Panel Functionality",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "TDGalea",
+    "created_at":  "2020-01-31T10:30:12Z",
+    "github_updated_at":  "2021-06-27T22:38:57Z",
+    "body_snippet":  "Using the quickconnent bar, connections open in a panel called \"General\". If I\u0027m in that panel and haven\u0027t renamed it, great. But if I want multiple, connections being opened in a new panel called \"General\" isn\u0027t what I want.\r\n\r\n## Expected Behavior\r\nConnections opened via the quickconnect field should open in the currently active panel.\r\n\r\n## Current Behavior\r\nConnections opened via the quickconnect field forcefully create a new panel called \"General\" and open inside that.\r\nThey cannot be moved...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE4NDU1NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Make sense, however currently we have a setting for each connection in what panel its assigned, so if quick connect find a match it will run in in regards to that setting. Could you check if you set different panel e.g. not a general behaviour still same?   ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-21T16:41:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T22:38:57Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

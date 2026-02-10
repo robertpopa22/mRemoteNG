@@ -1,0 +1,58 @@
+﻿{
+    "number":  376,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Make custom password mandatory",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Enhancement",
+                   "Ready"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2017-01-28T18:30:36Z",
+    "github_updated_at":  "2018-09-17T14:21:16Z",
+    "body_snippet":  "If credentials are saved in a location controlled by mRemoteNG (ie, xml file) then setting a custom password should be mandatory. If a user fully encrypts their connections file, then a custom password will also be required.\r\n\r\nCurrently, the default is to use a hard coded default password unless the user specifies a different one. This makes decryption trivial and is poor practice.\r\n\r\nRelated to #306 \r\nRelated to #208 ",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNDQ1NzM1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This should be bumped to a very high priority!",
+                         "author":  "Clickbaitcake",
+                         "action_needed":  true,
+                         "date":  "2018-08-20T20:46:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyMjAzNTMyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "has this been fixed? Any good practice to avoid offline decryption of password? ",
+                         "author":  "fela15",
+                         "action_needed":  true,
+                         "date":  "2018-09-17T14:18:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyMjAzNjU1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@fela15 No its not fixed by default. You need to make some changes to the configuration of mRemoteNG. Such as enabling a master password and setting the \"Encrypt entire file\" ",
+                         "author":  "Clickbaitcake",
+                         "action_needed":  true,
+                         "date":  "2018-09-17T14:21:16Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-09-17T14:21:16Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

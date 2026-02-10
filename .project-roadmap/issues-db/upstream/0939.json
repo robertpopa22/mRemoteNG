@@ -1,0 +1,67 @@
+﻿{
+    "number":  939,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Dynamic Connection Folder",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "1.8 (Fenix)"
+               ],
+    "author":  "mhudrlik",
+    "created_at":  "2018-04-06T19:32:07Z",
+    "github_updated_at":  "2026-02-07T19:52:36Z",
+    "body_snippet":  "## Expected Behavior\r\nA folder would either automatically or manually  update the list of connections in the folder.  Active Directory and/or REST\r\n\r\n## Current Behavior\r\nYou can manually import via file, AD or Portscan.\r\n\r\n## Possible Solution\r\nA flag on the folder with a setting in minutes/hours/days of how frequently to update the list, possibly by just calling the import function and overwriting the contents of the folder.  It would be nice to be able to right click and update manually as we...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4MDI3MDE0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Have you tried the SQL implementation yet?\r\nI think this should fit your needs and is designed exactly for what you are wanting.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-04-10T22:40:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5Mjk5NDYxMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is a great idea and would work well with service discovery platforms such as consul!",
+                         "author":  "adambonny",
+                         "action_needed":  true,
+                         "date":  "2018-05-30T00:46:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNjAyOTU4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I apologize for the delay in response, I finally got around to testing out SQL for connections.  It will let me modify and keep up to date connections in SQL, or I could periodically update the SQL DB with info from AD.\r\n\r\nIdeally I think it would be beneficial to have an option to just import over the top of the existing folder, kind of like a dynamic folder (updating every x minutes) containing connections to a specific OU.",
+                         "author":  "mhudrlik",
+                         "action_needed":  true,
+                         "date":  "2018-07-18T18:28:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhSF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:36Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:36Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

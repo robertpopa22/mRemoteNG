@@ -1,0 +1,38 @@
+﻿{
+    "number":  205,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Improve search, sorting and display for connection using TAG",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "xufux",
+    "created_at":  "2016-10-27T15:37:02Z",
+    "github_updated_at":  "2019-02-07T17:15:38Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\n\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\n\nWhat about adding a TAG field for connections ?\n\nlet me illustrate this \n- server01 tag= backup\n- server02 tag=DC, DHCP\n- server03 tag=DC, File\n- server04 tag=DEV\n\nThen in the related textbox, if i enter DC, the connection list will be refresh so that only server02 and 03 displayed.\nif filtered with \"DC, File\" then only the server03 is visible\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxNjc5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Candidate for 1.8, minor improvement",
+                         "author":  "jotatsu",
+                         "action_needed":  true,
+                         "date":  "2019-02-07T17:15:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-02-07T17:15:38Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

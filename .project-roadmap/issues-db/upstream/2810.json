@@ -1,0 +1,70 @@
+﻿{
+    "number":  2810,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Weird graphical issues between versions..",
+    "state":  "open",
+    "labels":  [
+                   "Cannot Reproduce",
+                   "TechnicalDebt",
+                   "RDP",
+                   "1.78.*",
+                   ".NET (dotNET)",
+                   "Nightly Build"
+               ],
+    "author":  "Kvarkas",
+    "created_at":  "2025-09-18T15:02:51Z",
+    "github_updated_at":  "2026-02-07T19:55:07Z",
+    "body_snippet":  "\n### Discussed in https://github.com/orgs/mRemoteNG/discussions/2798\n\n\u003cdiv type=\u0027discussions-op-text\u0027\u003e\n\n\u003csup\u003eOriginally posted by **neilpeel13** September 16, 2025\u003c/sup\u003e\nHi there\r\nQuick discussion first, to see if this is in fact a bug..\r\n\r\nBasically, I have a new work laptop and when using the new version 1.78.2 (any of them) also 1.78.1 - when connecting to RDP session, the graphics are a bit blurry and some of the app screens don\u0027t display as expected.\r\n\r\nInstalled 1.77.2 (.net6 version) and ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7JX1ze",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "For the reference within this issue and not only in the discussion: The issue appears to be independent on the selected RDP Version.",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T19:44:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JX2fC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@neilpeel13: What\u0027s your scaling settings within Windows itself? And what Windows Version are you running on?",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T19:45:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7UBUnY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Workaround for the blurriness with mRemoteNG and windows 11: \n\n- Rightclick mRemoteNG.exe and go to properties\n- Compatibility tab\n- Change high DPI settings\n- Check \"Use this setting to fix scaling problems ...\" and select in the \"Use the DPI that\u0027s set for my main display when\" to \"I signed in to Windows\"\n- Check \"override high DPI scaling behaviour\" and set it to system\n\nThis way it won\u0027t rescale the truetype fonts and your menu \u0026 ssh session fonts will no longer be blurry.\nPerhaps the devs c...",
+                         "author":  "TimChaubet-I4U",
+                         "action_needed":  true,
+                         "date":  "2025-11-20T10:24:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiE_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:07Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

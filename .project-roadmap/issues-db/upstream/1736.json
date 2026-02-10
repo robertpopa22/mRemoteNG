@@ -1,0 +1,130 @@
+﻿{
+    "number":  1736,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "files are not sent via ssh",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "SSH",
+                   "Need 2 check"
+               ],
+    "author":  "keizer08",
+    "created_at":  "2020-04-21T10:43:50Z",
+    "github_updated_at":  "2026-02-07T16:46:46Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behavior --\u003e\r\n\r\n## Possible Solution\r\n\u003c!--- Not obligatory, but suggest a...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNzEwMTU4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "version 1.76.20 (2019-04-12)",
+                         "author":  "keizer08",
+                         "action_needed":  true,
+                         "date":  "2020-04-21T10:44:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Ihacp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem. In the server logs I can see that there is a mismatch with the cryptographic settings.\r\nSystem in question is Ubuntu 22.04 with *openssh-server 1:8.9p1-3*.\r\nmRemoteNG is version 1.77.1.27713 portable.\r\n\r\nLogging on with SSH shows this in /var/log/auth.log:\r\n```\r\nsshd[1398]: Accepted password for xxxxxxx from a.b.c.d port 17389 ssh2\r\nsshd[1398]: pam_unix(sshd:session): session opened for user xxxxxxx(uid=1000) by (uid=0)\r\n```\r\nTrying to transfer files shows this in /var/l...",
+                         "author":  "matwei",
+                         "action_needed":  true,
+                         "date":  "2022-08-16T14:30:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5IiJ6_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This might correlate with the used putty version, see #2220 \r\n\r\nCould you try to replace the putty file in the mRemoteNG program folder with a newer version? Eg. With the one bundled with mRemoteNG version 1.77.2",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-08-16T17:05:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Ivhgk",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The old puttyng.exe identified itself as version 0.71 (2019).\r\nI tried with another one that identified itself as version 0.77 (2022), but to no avail.\r\n\r\nThen I had a look at the sources and saw in file *mRemoteNG/Tools/SecureTransfer.cs* the following:\r\n\r\n```\r\nusing Renci.SshNet;\r\nusing Renci.SshNet.Sftp;\r\n```\r\n\r\nI do not know much about .NET programming, but this looks for me like the file transfer doesn\u0027t use putty at all.\r\nIs it possible that mRemoteNG uses [this library](https://github.com...",
+                         "author":  "matwei",
+                         "action_needed":  true,
+                         "date":  "2022-08-19T08:48:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5I2FYL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, dev back from holidays :) need to update puttyng to latest release then will reshare so I believe that will sort that issue.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-08-22T10:07:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5I2Ucp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Are you sure that the problem is with puttyng?\r\n\r\nWe have no problems using the console, only for file transfer using SCP / SFTP.\r\n\r\nWhen SCP / SFTP use the same binary, why would it offer different crypto settings for file transfer  versus console?",
+                         "author":  "matwei",
+                         "action_needed":  true,
+                         "date":  "2022-08-22T11:07:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5I2yUn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "not sure tbh, but we don\u0027t work on this part of code for a long time so if its stop working its may mean they change something in protocol perhaps, will see soon. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-08-22T12:56:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5TkqVY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nI had some time to look into the issue and saw in [mRemoteNG/mRemoteNG.csproj](https://github.com/mRemoteNG/mRemoteNG/blob/v1.77.3-dev/mRemoteNG/mRemoteNG.csproj) the following:\r\n\r\n`...\r\n\u003cPackageReference Include=\"Renci.SshNet.Async\" Version=\"1.4.0\" /\u003e\r\n...\r\n`\r\n\r\nGoing over to https://www.nuget.org/packages/Renci.SshNet.Async/1.4.0 I saw:\r\n\r\n\u003e Extends Renci.SshNet to implement the task-based async pattern\r\n\u003e \r\n\u003e Dependencies:\r\n\u003e \r\n\u003e SSH.NET (\u003e= 2016.1.0)\r\n\r\n[SSH.NET](https://github.com/ss...",
+                         "author":  "matwei",
+                         "action_needed":  true,
+                         "date":  "2023-01-24T15:20:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5VL6x3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, \r\n\r\nI have checked the stable and the nightly. \r\n\r\nThe Nightly version currently uses 2016.1.0\r\nThe stable version currently uses 2016.0.0\r\n\r\nBoth are loaded via version 1.4.0 of SshNet.Async.\r\n\r\nNuGet does not suggest an update, but installing SSH.NET via NuGet in the current version fixes the problem.\r\n\r\nI will probably post a pull request with fix later today.\r\n\r\n",
+                         "author":  "pakass",
+                         "action_needed":  true,
+                         "date":  "2023-02-14T06:22:58Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5VNE1Z",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I tested an experimental portable version of mRemoteNG from @pakass and was able to  transfer files with a SSH server on Ubuntu 22.04 using the experimental version while the standard version could not connect to this server without modification of the server configuration.",
+                         "author":  "matwei",
+                         "action_needed":  true,
+                         "date":  "2023-02-14T10:28:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFt3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:46Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:46Z",
+    "unread_comments":  10,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

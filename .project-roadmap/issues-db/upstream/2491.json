@@ -1,0 +1,114 @@
+﻿{
+    "number":  2491,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  " VNC protocol unstable",
+    "state":  "open",
+    "labels":  [
+                   "Not Planned",
+                   "Needs User Verification",
+                   "VNC",
+                   "Need 2 check",
+                   "1.76.20"
+               ],
+    "author":  "ledel037",
+    "created_at":  "2023-09-20T02:44:54Z",
+    "github_updated_at":  "2026-02-07T19:55:15Z",
+    "body_snippet":  "When using the VNC protocol, it is very unstable and easily disconnects. However, this does not happen when connecting with a normal VNC client.\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used: v1.76.20\r\n* Operating System and version : windows10 pro x64\r\nVNC Server version: tightvnc-2.8.59",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5oddUT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, due its old code base its toght to support it, so no fixes are planed for this version, could you check NB if its have same behavior for you? ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-09T08:28:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5qE7ur",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nsame issue on my side.\r\n - v1.77.1.27654\r\n\r\nmost of the time vnc connection doesn\u0027t establish, and if, it breaks after a few seconds.",
+                         "author":  "darf-L",
+                         "action_needed":  true,
+                         "date":  "2023-10-25T16:50:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5raQUj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "So I was looking for a solution to view multiple VNC sessions at the same time, and stumbled across mRemoteNG.  I got everything set up (I have 22 clients to watch) and come to find out it\u0027s just tabbed.  Minor disappointment, but still better than what I had (the TightVNC client).  Unfortunately, once I set up all 22 clients in a folder and try to connect to the folder, it opens maybe half of the clients, and I then watch as they drop, one-by-one.\r\n\r\nI tried this on the Stable 1.76.20 version, ...",
+                         "author":  "ChicagoJay",
+                         "action_needed":  true,
+                         "date":  "2023-11-08T14:51:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5rbVmz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "check connection settings path it should keep a backup just rename you older one to return, new one using a bit different schema and its a clash with older versions in regards saved connections. Will have a look for vnc its sounds like protocol need to be updated but not sure if they release something new, need to check.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-08T17:19:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5rbXlO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e check connection settings path it should keep a backup just rename you older one to return, new one using a bit different schema and its a clash with older versions in regards saved connections. Will have a look for vnc its sounds like protocol need to be updated but not sure if they release something new, need to check.\r\n\r\nThanks for the reply.  I uninstalled the nightly and installed the preview (1.77.1) and my saved connections were back.  However, the VNC connections were still very unstab...",
+                         "author":  "ChicagoJay",
+                         "action_needed":  true,
+                         "date":  "2023-11-08T17:24:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM53y-c-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can report the same issue from my side, with a different VNC server (RHEL Linux 7.9 installation). Any chance to get this updated in one of the next versions? ",
+                         "author":  "BernhardPenz",
+                         "action_needed":  true,
+                         "date":  "2024-03-20T15:30:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6RB5Aw",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can confirm this is an issue for me as well, connecting to a range of different VNC servers. It disconnects very often.",
+                         "author":  "frogcrush",
+                         "action_needed":  true,
+                         "date":  "2024-10-23T18:59:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE7P",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiG3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.76.20",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:15Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:15Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

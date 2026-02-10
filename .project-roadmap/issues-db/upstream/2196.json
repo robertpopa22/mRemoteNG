@@ -1,0 +1,95 @@
+﻿{
+    "number":  2196,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Keep the field Username visible when selecting External Tool",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "1.78.*",
+                   "Nightly Build"
+               ],
+    "author":  "Alessio71",
+    "created_at":  "2022-04-08T09:38:03Z",
+    "github_updated_at":  "2026-02-07T19:52:38Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nIn previous versions the field Username was always visible, even when changing Protocol to External Tool\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, exp...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7JdrtT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Username appeared even when External tool is selected, issue fixed. thank you.\nWill the password without focus by default be address too?\nThank you very much for your help.\nAlex",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T06:55:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Jd-n-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think We fix autofocus, could you check last NB please?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T07:16:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JeK3t",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "On build 3208 is not working\nThanks,\n*Alessio*\n",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2025-10-08T07:33:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7PrSrQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I think We fix autofocus, could you check last NB please?\n@Kvarkas,\nautofocus Is still not working on opening on 1.78.2.3228, after the splash screen disappears, the unlock password request has no focus.\nWasn\u0027t working on Windows 11 x64 24H2, still not working now on 25H2.\nIs not a big issue anyway, all the rest is working just fine\nThank you for your work,\nAlessio",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2025-11-04T07:24:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Ptnks",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, could you mention please a steps how to reproduce as maybe i am looking to another place? few printscreens also welcome",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-11-04T09:22:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Pt1NW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e hello, could you mention please a steps how to reproduce as maybe i am looking to another place? few printscreens also welcome\n\nI\u0027ll try.\nnotepad opened in background, double click on mRemote icon\n\n\u003cimg width=\"627\" height=\"432\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/aff85924-ad8f-4121-b568-043719e2a63e\" /\u003e\n\nafter the logo disappears the password request appears but the focus is back on notepad\n \n\u003cimg width=\"761\" height=\"523\" alt=\"Image\" src=\"https://github.com/user-attachm...",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2025-11-04T09:36:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhTJ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:38Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

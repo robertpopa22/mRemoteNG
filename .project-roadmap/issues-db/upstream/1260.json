@@ -1,0 +1,30 @@
+﻿{
+    "number":  1260,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Begin automating UI acceptance tests",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2019-01-09T20:03:06Z",
+    "github_updated_at":  "2019-01-09T20:04:53Z",
+    "body_snippet":  "Begin automating the UI acceptance tests in the [Loading the Program](https://github.com/mRemoteNG/mRemoteNG/wiki/Acceptance-Testing#loading-the-program) section.\r\n\r\n- Use FlaUI\r\n- Will need to add automation IDs to controls",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2019-01-09T20:04:53Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,59 @@
+﻿{
+    "number":  2157,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Auto-reconnect with different window size - Nightly 1.77.2",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Needs User Verification",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "pauldurham",
+    "created_at":  "2022-02-03T10:13:22Z",
+    "github_updated_at":  "2026-02-07T19:51:44Z",
+    "body_snippet":  "If the PC is put into Sleep or Hibernation, when resuming and switching to mRemoteNG it attempts to reconnect to the host which it was connected to at the time of Sleep/Hibernate.  Once reconnected, the window size of the remote host is much smaller than it should be.  Signing out of the host \u0026 connecting again sorts out the issue.\r\n\r\n## Expected Behavior\r\nReconnecting should result in a regular window size.\r\n\r\n## Current Behavior\r\nReconnecting results in a much smaller window size.\r\n\r\n## Steps ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM49UuHi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Did you try to then \"not maximing\"/restore down the window and maximizing it again? This usually triggers a resizing. A reconnect without logoff (right click tab name \u003e Reconnect) should also trigger a resize.\r\n\r\nBut yes a wrong window size from the beginning is not ideal and should be looked at, similar to when a monitor is disconnected (see #2142).",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-03T10:29:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Lo8fV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Could you try latest NB and confirm if this is still a case?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-17T17:45:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhC_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:44Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:44Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

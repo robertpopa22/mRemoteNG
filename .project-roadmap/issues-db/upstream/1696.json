@@ -1,0 +1,40 @@
+﻿{
+    "number":  1696,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "TightVNC closes gracefully using mRemoteNG",
+    "state":  "open",
+    "labels":  [
+                   "VNC",
+                   "Need 2 check",
+                   "Third party"
+               ],
+    "author":  "TerriWright",
+    "created_at":  "2020-02-20T14:44:48Z",
+    "github_updated_at":  "2026-02-07T16:46:49Z",
+    "body_snippet":  "TightVNC 2.8.27 closes gracefully using mRemoteNG\r\n\r\nWhen trying to connect with TightVNC using mRemoteNG v1.76.20.24669, connection gracefully closes.\r\n\r\nUsing Linux v 3.10 on 64bit\r\n\r\nTunnel set",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFvB",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:49Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:49Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

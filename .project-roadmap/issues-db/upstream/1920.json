@@ -1,0 +1,57 @@
+﻿{
+    "number":  1920,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: configurable border size",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "1.77.2"
+               ],
+    "author":  "sandrobosio78",
+    "created_at":  "2021-01-08T17:06:41Z",
+    "github_updated_at":  "2026-02-07T19:31:56Z",
+    "body_snippet":  "Version 1.77 has a new panel docking system w.r.t. version 1.76. In the new version there are grey regions between the panels with a darker line in the middle. These regions separate horizontally and vertically the different panels. However, the same regions are also present at the sides and are particularly visible on the left/right/bottom borders of the application. They don\u0027t seem to play any particular function at those positions, and reduce the usable space. This feature request is to ask w...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1OTI3MDMxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "you can try my RDP tools written with reference to mRemoteNG in WPF:\r\n\r\nin chrome mode, you can get a lager space.\r\n\r\nhttps://github.com/VShawn/PRemoteM",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2021-01-13T07:48:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE0NzI0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ll take this request one step further: In a single panel configuration (and perhaps even with multiple panels), it would be beneficial to be able to have the remote desktop extended to the very edge of the window.\r\n\r\nRationale: With the mRemote window maximized or otherwise snapped to the bottom of the screen it would allow for remote sessions and ui targets therein to have \u0027infinite height\u0027 and \u0027infinite width\u0027 in the case of the corners--a major usability enhancement.",
+                         "author":  "jungleboydotca",
+                         "action_needed":  true,
+                         "date":  "2021-06-21T15:51:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYXzM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:31:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:31:56Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

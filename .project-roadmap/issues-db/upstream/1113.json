@@ -1,0 +1,194 @@
+﻿{
+    "number":  1113,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Settings RDP loadbalanceinfo causes An internal error has occured",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Security",
+                   "Improvement required",
+                   "Windows"
+               ],
+    "author":  "xlash",
+    "created_at":  "2018-09-28T15:56:33Z",
+    "github_updated_at":  "2024-05-10T12:13:05Z",
+    "body_snippet":  "## Issue\r\nAs soon as I set anything in the loadbalanceinfo of a RDP session, I get a Message: 4 An internal error has occured.\r\n\r\n## Expected Behavior\r\nTo connect to my RDS server farm and provide the loadbalanceinfo\r\n\r\n## Your Environment\r\n* Windows 10 Pro 1803 x64 17134.319\r\nmRemoteNG version 1.75.7012.16814\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTczMjA5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Do you get the error message when trying to connect to the server or when setting the loadbalanceinfo property in mRemoteNG?\r\n\r\nIs your server hosted in Azure, by any chance? If so, this might be related to #829 or #523.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T16:15:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTc0NDQyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Error is when connecting.\r\n\r\nServer is on our LAN.\r\n\r\n#829 is the pull request to include this functionnality. It could be an error handling this, I don\u0027t know.\r\n\r\n#523 There isn\u0027t enough details about the error. It might be related. I did a network capture, and I saw a TLS1.2 packet before encryption which contains loadbalancinginfo with the RDS pool name. Not the cookie hash mentionned.",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T19:18:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTc1MDIyMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does the value in your loadbalanceinfo section follow the rules mentioned in the \"remarks\" section here? https://docs.microsoft.com/en-us/windows/desktop/TermServ/imsrdpclientadvancedsettings-loadbalanceinfo#remarks",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T20:38:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTkxMDU1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "No, it does not use the Cookie syntax. The configured value is : \r\ntsv://MS Terminal Services Plugin.1.RDS-XXXXX\\r\\n\r\n\r\nWith native Windows Remote Desktop, I see this field provided in the first TLS packet sent (after TCP/IP handshake). \r\n0000   00 1c 7f 85 6e 1a 9c b6 d0 ff e0 bb 08 00 45 00   ....n..┬╢├É├┐├á┬╗..E.\r\n0010   00 6b 3c 42 40 00 80 06 2e e5 c0 a8 8c 0a c0 a8   .k\u003cB@....├Ñ├Ç┬¿..├Ç┬¿\r\n0020   82 0a d4 95 0d 3d ce 34 4e 86 75 bd 13 f4 50 18   ..├ö..=├Ä4N.u┬╜.├┤P.\r\n0030   01 00 cb d4 00 ...",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-10-01T13:37:43Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjYxODU0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hmm that is interesting. The original reason for #829 was that .NET uses UTF-16 encoded strings by default, but Azure was expecting UTF-8 encoded. It seems like that may be what is happening here as well.\r\n\r\nWould you be able to try the most recent v1.76 version (you can grab the portable version if you don\u0027t want to upgrade fully yet)? Turn on the following setting and see if the connection works: `Tools -\u003e Options -\u003e Advanced -\u003e Use UTF8 encoding for RDP \u0027Load Balance Info\u0027 property`",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-03T12:26:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjYzNjU2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Works with 1.76.3 Alpha 5 (2018-03-14). I had another issue. Seems like, after the TLS connection is established, the RD server redirects to another server, which works seemlessly with RDP, but don\u0027t with mRemoteNG. However, going directly to that host works for me.\r\n\r\nThanks,\r\n\r\n![image](https://user-images.githubusercontent.com/50488/46413141-52e42680-c6ee-11e8-8343-b0a279d3b385.png)\r\n",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-10-03T13:26:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjk1OTI0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Maybe same here.. trying to connect to our RDS farm with \"loadbalanceinfo\" many times with different options/mremoteng versions, but was too lazy to create issue :(\r\n\r\nNow it\u0027s 1.76.8, \"tsv://MS Terminal Services Plugin.1.1cdev\" or \"tsv://MS Terminal Services Plugin.1.1cdev\\r\\n\" in loadbalaceinfo.\r\n\r\nWithout \"UTF8\" checked it\u0027s error that says cannot connect ot gateway, with \"UTF8\" checked it\u0027s just closes connection in 1-5 sec after \"Connecting\" without any errors.\r\n\r\nAnd if I use .rdp file wit...",
+                         "author":  "Shooshka",
+                         "action_needed":  true,
+                         "date":  "2018-10-04T10:01:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzAxMDU1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@xlash You can try setting the `Use Console Session` property for that connection to `True` (or right click the session -\u003e Connect with options -\u003e Connect to console session). Beyond that I\u0027m not entirely sure what could be causing that error.\r\n\r\n@Shooshka does the mRemoteNG.log file show why the session was disconnected? https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-04T13:04:46Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzE1OTk3Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd Thanks!",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-10-04T20:35:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzE2MjY2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@xlash Is it working for you now?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-04T20:44:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzI0NDcyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @Shooshka does the mRemoteNG.log file show why the session was disconnected? https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging\r\n\r\n@sparerd \r\n\r\nUTF8 checked, tsv://MS Terminal Services Plugin.1.1cdev\\r\\n in loadbalanceinfo:\r\n\r\nSmth like: \"Your computer cannot connect to the remote desktop, because broker/gw can\u0027t verify parameters of RDP file.\"\r\n\r\nSo I think problem in \"signature:s:\" section that persists in .rdp file but missing in mRemoteNG.",
+                         "author":  "Shooshka",
+                         "action_needed":  true,
+                         "date":  "2018-10-05T04:44:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODU2MjY0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "No, got session denied (visually by RDS host). Investigating the delta.",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-10-10T13:02:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODU2ODM1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I see the TLS negotiation successfull, I\u0027m able to authenticate using Windows  (NTLM?), but then, it silently closes without notification. In the network capture, I see a TCP reset send by mRemoteNG to the host.",
+                         "author":  "xlash",
+                         "action_needed":  true,
+                         "date":  "2018-10-10T13:20:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTExNjA1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd Any updates/news on connections with \"signature\"?",
+                         "author":  "Shooshka",
+                         "action_needed":  true,
+                         "date":  "2018-12-07T04:04:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MDg1MDQ1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello.\r\nCould you confirm if mRemoteNG will be able to manage \"signature\" in next releases ?\r\nThanks.",
+                         "author":  "tiboudchik",
+                         "action_needed":  true,
+                         "date":  "2019-03-08T08:41:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyOTMyNTAzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Got only once connect by mRemoteNG with loadbalanceinfo in version 1.77.\r\nBut it was only once.\r\nCannot reproduce this now and it\u0027s sad.",
+                         "author":  "7OH",
+                         "action_needed":  true,
+                         "date":  "2019-09-09T06:53:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5I7pwS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue here I\u0027m afraid.  Exactly as the others said.  Tried latest nightly build and it errors whether or not the UTF8 option is ticked.",
+                         "author":  "AdamPD",
+                         "action_needed":  true,
+                         "date":  "2022-08-23T06:14:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM59cCm7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, \r\nI have the same issue in the lastest nightly build (1.77.3 build: 1784) \r\nHere\u0027s what the log says :\r\n\"Your computer cannot connect to the remote computer because the Broker service can\u0027t verify the specified settings in the RDP file.\"\r\nIs there any news about it ?",
+                         "author":  "Xyllac",
+                         "action_needed":  true,
+                         "date":  "2024-05-10T12:13:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-05-10T12:13:05Z",
+    "unread_comments":  18,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

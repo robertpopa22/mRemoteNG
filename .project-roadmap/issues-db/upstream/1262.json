@@ -1,0 +1,321 @@
+﻿{
+    "number":  1262,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Use native OpenSSH client on newer Windows 10",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "PowerShell",
+                   "OpenSSH",
+                   "MinTTY",
+                   "1.77.4"
+               ],
+    "author":  "Daniel15",
+    "created_at":  "2019-01-10T01:34:27Z",
+    "github_updated_at":  "2026-02-07T19:31:57Z",
+    "body_snippet":  "## Expected Behavior\r\nNewer versions of Windows 10 include an SSH client. It would be great to use this, rather than using PuTTY. See https://www.howtogeek.com/336775/how-to-enable-and-use-windows-10s-built-in-ssh-commands/\r\n\r\n## Current Behavior\r\nmRemoteNG uses PuTTY\r\n\r\n## Your Environment\r\n* Version used: N/A\r\n* Operating System and version: Windows 10 1809 x64\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMjIyOTUyMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any news about this feature ? Will it be considered ?",
+                         "author":  "keliansb",
+                         "action_needed":  true,
+                         "date":  "2019-07-17T12:17:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NjM0OTE2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Using native SSH or provided-path to an standard OpenSSH client would be great (for supporting .ssh/config file)",
+                         "author":  "ErMaqui",
+                         "action_needed":  true,
+                         "date":  "2020-01-20T16:33:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4NjU1MTM2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It would very nice if mRemoteNG could support Windows 10 built-in SSH client (`C:\\Windows\\System32\\OpenSSH\\ssh.exe`) \r\n",
+                         "author":  "long-nguyenxuan",
+                         "action_needed":  true,
+                         "date":  "2020-02-15T04:05:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1OTcwOTEwNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "So this is quick tip to use opensh with WITHOUT putty.  You just need de cygwin, mintty and openssh\r\n\r\nOnce these prerequisites are installed, you will need to declare an external tool with the following parameters:\r\n- displayname = openssh\r\n- FileName       = [PathTo]\\mintty.exe\r\n- Arguments   =-d -o exec bash -cli \"[PathTo]/mRemoteNG_OpenSSH.sh -h=%HOSTNAME% -u=%USERNAME% -p=%PORT%\"\r\n\r\nFileName    -\u003e like a windows path\r\nArguments -\u003e like a cygwin path\r\nmRemoteNG-OpenSSH -\u003e (see https://github...",
+                         "author":  "SadarSSI",
+                         "action_needed":  true,
+                         "date":  "2021-01-13T20:06:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4OTM1OTg3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Here is another solution for OpenSSH without putty:\r\n1) Create a new external tool with the following \r\n  a) Display Name = openSSH\r\n  b) Filename = c:\\program files\\powershell\\7\\pwsh.exe\r\n  c) Arguments = -c \"ssh -i ./.ssh/%PASSWORD% %USERNAME%@%HOSTNAME%\"\r\n  d) Working directory = $env:USERPROFILE\r\n2) Drop your .pem file(s) in your .ssh folder under your user profile\r\n3) Fill in Hostname, username for the connection\r\n4) For password, enter the filename of your .pem file for this connection.",
+                         "author":  "sethbacon",
+                         "action_needed":  true,
+                         "date":  "2021-03-03T01:42:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4OTU0ODc1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you, I do not know this version of powershell and as I am not an administrator of my workstation, I was able to install it and (finally) have a version 7 instead of 5!\r\nHowever, it does not work in integrated mode\r\nI have tried various settings without success\r\nDo you have a tip for this?",
+                         "author":  "SadarSSI",
+                         "action_needed":  true,
+                         "date":  "2021-03-03T08:52:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDgzNDQ0Njg3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Better approach than putty would be nice, we have sometimes over 400 sessions open, that means over 400 putty\u0027s :)",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2021-05-07T14:21:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg1MzEzNzEwOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Here is another solution for OpenSSH without putty:\r\n\u003e \r\n\u003e 1. Create a new external tool with the following\r\n\u003e    a) Display Name = openSSH\r\n\u003e    b) Filename = c:\\program files\\powershell\\7\\pwsh.exe\r\n\u003e    c) Arguments = -c \"ssh -i ./.ssh/%PASSWORD% %USERNAME%@%HOSTNAME%\"\r\n\u003e    d) Working directory = $env:USERPROFILE\r\n\u003e 2. Drop your .pem file(s) in your .ssh folder under your user profile\r\n\u003e 3. Fill in Hostname, username for the connection\r\n\u003e 4. For password, enter the filename of your .pem fil...",
+                         "author":  "longtth",
+                         "action_needed":  true,
+                         "date":  "2021-06-02T15:43:45Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2MDYwMTgwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\n\nExample with putty\n\nputty -v -ssh -l %USERNAME% %HOSTNAME% -P %PORT% -A -X -2 -proxycmd \n\"wstunnel.exe -vvv -L stdio:%host:%port \n--httpProxy=\\%USERDOMAIN\\%\\\\%USERNAME\\%:MyPasswd@\\%proxy\\% \nwss://myserver.mydomain.com\"\n\n",
+                         "author":  "SadarSSI",
+                         "action_needed":  true,
+                         "date":  "2021-06-14T11:11:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5CuZsW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Everyone, \r\n\r\nif you are using the **stable 2019** build of mRemoteNG, it is a 32-bit program, and hence will launch the 32-bit version of Powershell. That 32-bit verison of PS _won\u0027t have access to the openssh_ exe and hence will error out. \r\n\r\nSharing to save your time.\r\n\r\n",
+                         "author":  "themegabyte",
+                         "action_needed":  true,
+                         "date":  "2022-05-06T10:09:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Cu_7X",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Would be great to support this, also the SSH ProxyJump should definitely be available :)",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2022-05-06T13:21:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5DcUL6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m gonna be a real pain here and.... +1.\r\n\r\nThis would be so handy, and avoid so many (albeit little) issues I\u0027ve been having with puttyng. Having an option for it in settings would be ideal.",
+                         "author":  "transiient",
+                         "action_needed":  true,
+                         "date":  "2022-05-19T10:03:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Gp9tj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m also giving this a +1 ≡ƒæì≡ƒÅ╗ Would be super useful.",
+                         "author":  "lahma0",
+                         "action_needed":  true,
+                         "date":  "2022-07-15T10:25:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5M87TD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Could you please add OpenSSH and Powershell to the title? This request was hard to find ;)\r\n\r\nP.S. +1 ",
+                         "author":  "mgutt",
+                         "action_needed":  true,
+                         "date":  "2022-10-25T19:32:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZDv1Q",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This would also solve the myriad of PuTTY related focus issues, which I\u0027ve just found out is the cause of my Alt+Tab not working!",
+                         "author":  "nroach44",
+                         "action_needed":  true,
+                         "date":  "2023-04-03T11:31:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZFyw8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I just would like to link #181 for completeness",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-04-03T17:12:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZF8Rd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Here is another solution for OpenSSH without putty:\r\n\u003e \r\n\u003e 1. Create a new external tool with the following\r\n\u003e    a) Display Name = openSSH\r\n\u003e    b) Filename = c:\\program files\\powershell\\7\\pwsh.exe\r\n\u003e    c) Arguments = -c \"ssh -i ./.ssh/%PASSWORD% %USERNAME%@%HOSTNAME%\"\r\n\u003e    d) Working directory = $env:USERPROFILE\r\n\u003e 2. Drop your .pem file(s) in your .ssh folder under your user profile\r\n\u003e 3. Fill in Hostname, username for the connection\r\n\u003e 4. For password, enter the filename of your .pem fil...",
+                         "author":  "longtth",
+                         "action_needed":  true,
+                         "date":  "2023-04-03T17:45:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZGe7d",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Could you please add OpenSSH and Powershell to the title?\r\n\r\n@mgutt - This doesn\u0027t really have anything to do with PowerShell.  I changed \"SSH\" to \"OpenSSH\"  in the title though.",
+                         "author":  "Daniel15",
+                         "action_needed":  true,
+                         "date":  "2023-04-03T19:38:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZG5m_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I thought you need an already existing terminal, which is resized into mRemoteNG to use the ssh.exe (which would be PowerShell or cmd)?\r\n\r\nPS in the meantime I faced several issues how ssh.exe behaves in copy \u0026 paste situations. It acts different compared to Putty or a physical terminal, so I\u0027m not a fan of this idea anymore.",
+                         "author":  "mgutt",
+                         "action_needed":  true,
+                         "date":  "2023-04-03T21:07:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5aU-Gx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey all,\r\n\r\nWe too are hoping for native support in mRemoteNG for Windows\u0027 native OpenSSH implementation.\r\n\r\nYou don\u0027t need PowerShell to make this work. The SSH executable stands on its own and will actually launch in a CMD process if ran directly from mRemoteNG or even the Windows \"Run\" dialog.\r\n\r\nWe use Jump Hosts a lot, so for the external tool in mRemoteNG, we\u0027re doing this:\r\n\r\nFilename: C:\\Windows\\System32\\OpenSSH\\ssh.exe _(can actually just be ssh without a path or extension)_\r\nArguments:...",
+                         "author":  "JosephMDavis",
+                         "action_needed":  true,
+                         "date":  "2023-04-19T22:08:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5aVBE0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I thought you need an already existing terminal, which is resized into mRemoteNG to use the ssh.exe\r\n\r\n\u003e  The SSH executable stands on its own and will actually launch in a CMD process\r\n\r\n@mgutt @JosephMDavis \r\n\r\nThis is conflating two separate things:\r\n\r\n1. The console host: This is `conhost.exe` in modern Windows versions, or `csrss.exe` in older versions. This is what renders the UI for command-line apps, like if you run `cmd.exe` or `powershell.exe` or `ssh.exe`. The new Windows Terminal h...",
+                         "author":  "Daniel15",
+                         "action_needed":  true,
+                         "date":  "2023-04-19T22:25:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5aVmaj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Daniel15 I wasn\u0027t really responding to @mgutt \r\n\r\nI was pointing out, as others have, that there is no need to worry about powershell.\r\n\r\nIf we could get ssh to load as an external app, that would suffice but I would like to see SSH be an option for replacing putty in mRemoteNG.",
+                         "author":  "JosephMDavis",
+                         "action_needed":  true,
+                         "date":  "2023-04-20T02:08:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5aW_E0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, curently developers already looking into posibilities to remove dependency on puttyng but as we have other flames we try to down them first, so be patient we will sort this mater in feature for sure :)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-04-20T09:01:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5kxIav",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 for letting Putty go and replacing it with the native \u0026 modern OpenSSH client that comes with Windows 10 and Windows 11 :)",
+                         "author":  "vallamost",
+                         "action_needed":  true,
+                         "date":  "2023-08-23T20:34:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5wvxQH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t like adding to closed tickets as much as the next guy, but I made some progress.\r\n**Integration doesn\u0027t work**, ie it will open a new CMD window, but you can launch it from mRemoteNG\u0027s interface.\r\n```\r\nName: OpenSSH\r\nFile name: C:\\Windows\\Sysnative\\OpenSSH\\ssh.exe\r\nParameters %USERNAME%@%HOSTNAME% -i \\%USERPROFILE\\%\\.ssh\\id_rsa\r\nWorking Directory: C:\\Windows\\Sysnative\\OpenSSH\\ssh.exe\r\n```\r\n\r\nNow, two things. \r\n1: Why C:\\Windows\\Sysnative\\OpenSSH\\ssh.exe? Because as @themegabyte said, cur...",
+                         "author":  "tomsik-radek",
+                         "action_needed":  true,
+                         "date":  "2024-01-15T08:40:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5wwgZs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Except I\u0027m pointing at the Windows built in OpenSSH client, not one bundled\r\nwith mRemoteNG.\r\n\r\nOn Mon, Jan 15, 2024, 10:40 ChristianStadelmann ***@***.***\u003e\r\nwrote:\r\n\r\n\u003e Why C:\\Windows\\Sysnative\\OpenSSH\\ssh.exe? Because as @themegabyte\r\n\u003e \u003chttps://github.com/themegabyte\u003e said, current stable version of mRemote\r\n\u003e is a 5 year old, 32bit application. OpenSSH is a 64bit application.\r\n\u003e\r\n\u003e Since mRemoteNG is has not been updated in ~5 years *and* ships its own\r\n\u003e outdated copy of OpenSSH, it is very...",
+                         "author":  "tomsik-radek",
+                         "action_needed":  true,
+                         "date":  "2024-01-15T09:54:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5wwhiB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Except I\u0027m pointing at the Windows built in OpenSSH client, not one bundled with mRemoteNG.\r\n\u003e [ΓÇª]\r\n\r\nYeah, I was referring to the security issues in mRemoteNG, not to what you are doing. Anyway, I figured that mRemoteNG bundled PuTTY (not OpenSSH) and, more importantly, I figured that my style of communication was very wrong, which is why I deleted my comment.",
+                         "author":  "ChristianStadelmann",
+                         "action_needed":  true,
+                         "date":  "2024-01-15T09:57:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5xI_xc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am working on that but a bit slooooow :) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-18T10:14:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5xJBik",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e mRemoteNG bundled PuTTY (not OpenSSH) \r\n\r\neven if you have old version of mR in production, you need update putty (bundled one) manually as in older version we don\u0027t have mechanism to update it without release. In new release I am trying to remove such dependency but need more time and people requesting for update so maybe will finish such in 1.77.4 \r\n\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-18T10:18:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5xPH_F",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e mRemoteNG bundled PuTTY (not OpenSSH) \n\u003e \n\u003e even if you have old version of mR in production, you need update putty (bundled one) manually as in older version we don\u0027t have mechanism to update it without release. In new release I am trying to remove such dependency but need more time and people requesting for update so maybe will finish such in 1.77.4 \n\u003e \n\u003e \n\nHonestly, if integration of CLI apps worked, I wouldn\u0027t really need PuTTYng.\n",
+                         "author":  "tomsik-radek",
+                         "action_needed":  true,
+                         "date":  "2024-01-19T05:23:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6pB83B",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "the following worked for me (other solution was locking the mRemoteNG screen):\nfilename: `powershell`\nArguments: `-NoLogo -NoProfile -Command  \"\u0026 \u0027%windir%\\Sysnative\\OpenSSH\\ssh.exe\u0027 %USERNAME%@%HOSTNAME%\"`",
+                         "author":  "avs099",
+                         "action_needed":  true,
+                         "date":  "2025-04-28T16:44:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYXzl",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:31:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:31:57Z",
+    "unread_comments":  31,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

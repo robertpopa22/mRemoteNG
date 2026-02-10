@@ -1,0 +1,57 @@
+﻿{
+    "number":  1876,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Kitty sessions not updating console properly.",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Third party"
+               ],
+    "author":  "mgaulton",
+    "created_at":  "2020-10-06T19:28:52Z",
+    "github_updated_at":  "2026-02-07T16:46:21Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nWindows in background update properly, command output shows without enter pressed\r\nWorked fully in previous versions. This is the first time i\u0027ve encountered this.\r\n\r\n## Current Behavior\r\nWindows in background do not update properly, contents of commands don\u0027t show until enter is hit, bottom of session has outdated lines below the prompt. clear resets it for a while.\r\n\r\n## Possible Solution\r\n\u003c!--- Not ob...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNjUyNDM3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem with an addition: if I resize the mRemoteNG window all background kitty sessions become unusable. When I switch to an \"unusable\" kitty session and resize the window it starts responding again, all other sessions becoming unusable. Currently using:\r\nWindows 2004\r\nKitty 0.74.2.6\r\nmRemoteNG 1.77.1.27654",
+                         "author":  "yethie",
+                         "action_needed":  true,
+                         "date":  "2020-10-26T12:49:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5zuLCq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same for me, using Debian 12.\r\n\r\nSometimes when I type `ls`, it **might** be showing nothing until I press any keys.\r\n\r\nMy kitty version:\r\n`kitty 0.32.1 created by Kovid Goyal`",
+                         "author":  "ShelpAm",
+                         "action_needed":  true,
+                         "date":  "2024-02-13T13:10:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFmN",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:21Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:21Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

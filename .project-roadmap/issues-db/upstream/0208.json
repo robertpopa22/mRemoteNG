@@ -1,0 +1,211 @@
+﻿{
+    "number":  208,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "MR-184: Feature request: Credential repository",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Ready",
+                   "1.78.*"
+               ],
+    "author":  "viandham",
+    "created_at":  "2016-10-28T11:45:35Z",
+    "github_updated_at":  "2026-02-07T19:56:00Z",
+    "body_snippet":  "I would like to suggest a credential repository, so we can reference a specific set of credentials for each connection.\nI, for example, have \u003e 100 servers added in a specific windows domain. Password policy kicks in and forces me to update my passwords, now 100 entries are faulty. Instead, with a credential respository, I would update the master credential and this would apply to all linked connections.\n\nOtherwise, thanks for a great application!\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NjkwNDA3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\n\nThis is already possible, with setting up inheritance on the tree.\nI do have six domains, a few hundred servers, and change password only once\nper domain.\n\nRegards\n1. okt. 28. du. 1:45 ezt ├¡rta (\"Andreas Hammargren\" \u003c\n   notifications@github.com\u003e):\n\n\u003e I would like to suggest a credential repository, so we can reference a\n\u003e specific set of credentials for each connection.\n\u003e I, for example, have \u003e 100 servers added in a specific windows domain.\n\u003e Password policy kicks in and forces me to upd...",
+                         "author":  "smalla",
+                         "action_needed":  true,
+                         "date":  "2016-10-28T12:07:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NjkwNTIzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Wow, I had no idea. Just found the \"inheritance\" icon, I had no idea it was there, and I have been using mRemote for so many years.. \n\nWell, then maybe I would suggest this feature to be more intuitive and easy to find then :)\n\nThank you!\n",
+                         "author":  "viandham",
+                         "action_needed":  true,
+                         "date":  "2016-10-28T12:14:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NzE1MTE2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Adding to this, a true credential manager feature is in the works for v1.76 (the release after next).\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-10-30T13:32:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1ODkwMzMwOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "JIRA ticket: https://mremoteng.atlassian.net/browse/MR-184\n",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-11-07T17:30:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTQ4MDE1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Export from JIRA:\n[MR-184.docx](https://github.com/mRemoteNG/mRemoteNG/files/581496/MR-184.docx)\n",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-11-09T17:57:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3NTg2NDg5OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This feature is mostly complete and will be included in the v1.76 alpha (whenever that happens). There are some pretty important features that still need to be included before it can be used for production sysadmin work.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-28T18:21:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxODE2ODA5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m going to try to break apart the final implementation details of the credential manager to smaller pieces that need to be completed for this feature to be rolled out to the public. If anyone would like to help out with the implementation, I highly encourage it. Pull requests are awesome! Just give me a heads up so I don\u0027t duplicate your work.\r\n\r\n**Work that needs to be done**\r\n- [x] #659 \r\n- [ ] #660\r\n- [ ] #667 \r\n- [ ] #672 \r\n- [x] #673\r\n- [x] #680\r\n- [ ] #1289\r\n- [ ] #1364\r\n\r\nWe will also n...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-07-26T20:10:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTkxMjE4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just adding comment and closing my other request as it\u0027s similar:\r\nPasswords right now are saved encrypted into this XML file. It\u0027s nice we can export without the passwords, but it might be safer if we had an option to store the passwords using Windows security method.. or somewhere in the registry.\r\n#721 ",
+                         "author":  "codearoo",
+                         "action_needed":  true,
+                         "date":  "2017-09-15T21:49:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTkxMjYwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "#187   Adding this ref too.",
+                         "author":  "codearoo",
+                         "action_needed":  true,
+                         "date":  "2017-09-15T21:51:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MDUxNzU1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Pushing this back to v1.77. The feature is not ready for production use and we have other features and fixes that need to be released sooner",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-10-30T17:17:45Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MzU5NTc4Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There are a lot of different secret storages out there [thycotic secret server](https://thycotic.com/products/secret-server/), [Hashicorp Vault](https://www.vaultproject.io/), [Ansible Vault](https://docs.ansible.com/ansible/2.4/vault.html). One would prefer store their secrets in a backend they are already using for secret storage.\r\n\r\nThus it would be very nice feature if mRemoteNG Credential Manager could store secrets in this and other popular secret backends.",
+                         "author":  "AndrewSav",
+                         "action_needed":  true,
+                         "date":  "2017-11-10T21:46:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjE4NTM0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Would be ideal for it to also look in Windows Credential Store that is local on all Windows boxes.",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2017-12-16T14:02:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4NzE0MDczOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "What is the status on credential manager? Following the links around MR-184 mentioned above seems to lead to an endless loop of resolved duplicates... \r\n\r\nWe are looking (somewhat desperately) at a solution that will enable source controlled connections file that can be shared around a team. This, obviously, requires creds to be separated from that file... ",
+                         "author":  "sethmgray",
+                         "action_needed":  true,
+                         "date":  "2018-05-07T17:30:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MDIxNzM5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m starting the work of reapplying the credential manager feature to the `develop` branch. It was reverted for the v1.76 release because it was not ready for production.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-27T19:41:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4NzYwNDM4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hashicorp vault is great option. ",
+                         "author":  "mrPsycho",
+                         "action_needed":  true,
+                         "date":  "2019-04-29T14:34:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyOTk2OTE2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think the feature doesn\u0027t go in the right direction. Current ICredentialRepository have to load all credentials in a list, I was expecting:\r\n- a function to get multiple credentials from the server name\r\n- a function to get the credential from a couple of server name/user\r\nIt allows to request an HTTP service for example",
+                         "author":  "35niavlys",
+                         "action_needed":  true,
+                         "date":  "2019-09-10T14:43:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MTkwNDU4Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "What is the status on this feature?\r\n\r\nI personally do not need a connection to a service, of even the encryption of the stored credentials.\r\nCould you maybe split this feature up and release it step by step?\r\n\r\nBut, honestly, the inheritance feature is just good enough.\r\n\r\nNote: The functionality of Terminals credential manager would be sufficient for me, and probably for most people, as a first step.\r\n\r\n",
+                         "author":  "KUGA2",
+                         "action_needed":  true,
+                         "date":  "2020-08-27T12:02:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47pe57",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any news? :)\r\n",
+                         "author":  "Schmandre",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T08:50:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47psgY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "that potentially will be on next version, in this we not plan to add such functionality as focused to fix current issues and migration to .net 6\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T10:50:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiSl",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:00Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:00Z",
+    "unread_comments":  19,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

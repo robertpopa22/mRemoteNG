@@ -1,0 +1,48 @@
+﻿{
+    "number":  1987,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Detachable panels are evil!",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2021-07-06T18:06:09Z",
+    "github_updated_at":  "2026-02-07T16:45:56Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nManual sort panels or tabs, with shift at 1 pixel up or down - panel detached from main window. Attach back not fast and not from first attempt. Time from work lost, to attach panel or tab back. Badly.\r\n\r\n## Expected Behavior\r\nSorting without detach panel or tab.\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the d...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3OTc0MzgwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Now, work with v 1.76.20, by reorder panels, detach one panel.\r\nTry to attach it again, attach as NEW panel-bar, divide screen by half vertically. All opened connection change screen resolution and auto resize all opened windows inside connection to fit to new \"screen resolution\". \r\nLost many time to restore work environment.\r\nIf I need separated windows with connection, I can use MSTSC not mRemoteNG. mRemoteNG aggregate many RDP-connections inside one window, this is main feature on mRemoteNG.\r...",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-14T09:31:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFey",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:56Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

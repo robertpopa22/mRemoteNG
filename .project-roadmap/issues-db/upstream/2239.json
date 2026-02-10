@@ -1,0 +1,30 @@
+﻿{
+    "number":  2239,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Web connections need tooling to paste in username and password",
+    "state":  "open",
+    "labels":  [
+
+               ],
+    "author":  "skewty",
+    "created_at":  "2022-06-03T18:24:19Z",
+    "github_updated_at":  "2022-06-03T18:24:19Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nCreate a web connection with username, domain and password.\r\nStart connection. Web page displays.\r\nEasy way to paste in username, password stored in connection.\r\n\r\n## Current Behavior\r\n- username, password and domain fields seem inert on web connections\r\n\r\n## Possible Solution\r\nRight click menu of tab should contain entries for:\r\n- `Paste username`\r\n- `Paste username@domain`\r\n- `Paste password`\r\n\r\nVersio...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2022-06-03T18:24:19Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

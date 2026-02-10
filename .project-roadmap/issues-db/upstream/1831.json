@@ -1,0 +1,66 @@
+﻿{
+    "number":  1831,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Move window with keyboard shortcuts",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "1.8 (Fenix)"
+               ],
+    "author":  "bveldkamp",
+    "created_at":  "2020-08-12T07:01:00Z",
+    "github_updated_at":  "2026-02-07T19:54:33Z",
+    "body_snippet":  "When I want to move a window to a different monitor, I usually do this with the [Win]+[Shift]+[arrow] keyboard shortcut. This does however not work with mRemoteNG.\r\n\r\nUsing the mouse to move a maximized window causes the mRemoteNG window to resize, which in turn causes any RDP session to reconnect, which takes some time. Using this keyboard shortcut keeps a window maximized.\r\n\r\nI realize that some keyboard shortcuts should be redirected to the RDP connection, but moving a window to a different s...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3MzkxMjQ3Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1\r\n\r\nJust thought about putting in EXACT same request. \r\n\r\nPossible solution to have configurable shortcuts (to release Win+Shft+Arrows?\r\n",
+                         "author":  "michaelkove",
+                         "action_needed":  true,
+                         "date":  "2020-08-14T06:31:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NDQxNDIzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@bveldkamp @michaelkove \r\n\r\nAs far as i know, it is no possible to not redirected \u003ckbd\u003eWin\u003c/kbd\u003e + \u003ckbd\u003eShift\u003c/kbd\u003e +\u003ckbd\u003eArrows\u003c/kbd\u003e while \u0027redirect key combinations\u0027 is set to \u0027Yes\u0027 in a RDP session using **AxMstscLib.dll**. I\u0027ve try these in my project but fail.\r\n\r\n1. So you have to click outside RDP panel to make RDP loss focus then the shortcut would work.\r\n2. Or set \u0027redirect key combinations\u0027 to \u0027No\u0027 can also make the shortcut work.\r\n\r\n---\r\nBy the way, my new remote manage tool can handl...",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-08-15T15:45:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NDQyNzc5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Looks good, I\u0027ll give it a try\n\nOp za 15 aug. 2020 17:46 schreef VShawn \u003cnotifications@github.com\u003e:\n\n\u003e @bveldkamp \u003chttps://github.com/bveldkamp\u003e @michaelkove\n\u003e \u003chttps://github.com/michaelkove\u003e\n\u003e\n\u003e As far as i know, it is no possible to not redirected Win + Shift +Arrows\n\u003e while \u0027redirect key combinations\u0027 is set to \u0027Yes\u0027 in a RDP session using\n\u003e *AxMstscLib.dll*. I\u0027ve try these in my project but fail.\n\u003e\n\u003e    1. So you have to click outside RDP panel to make RDP loss focus then\n\u003e    the shortcut ...",
+                         "author":  "bveldkamp",
+                         "action_needed":  true,
+                         "date":  "2020-08-15T17:38:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh72",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:33Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

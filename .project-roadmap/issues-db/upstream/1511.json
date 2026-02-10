@@ -1,0 +1,67 @@
+﻿{
+    "number":  1511,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Search filter improvement",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "Connections"
+               ],
+    "author":  "MikaHuttunen",
+    "created_at":  "2019-07-10T12:09:07Z",
+    "github_updated_at":  "2022-04-25T08:11:59Z",
+    "body_snippet":  "I have imported computer items from root of our Active Directory and we have many different OU\u0027s where computer objects are located.\r\n\r\nI would like to search and find(filter) all result from the imported connection tree without expanding all of the folders.\r\n\r\nSo this is the wanted behaviour and it would make our life much easier:\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/338#issuecomment-345527562",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NjQxMDY4MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would definitely like to see a search mode like this also. The way it is now is very finicky. ",
+                         "author":  "jerico99",
+                         "action_needed":  true,
+                         "date":  "2020-07-10T00:10:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMzQwNDU1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, yes please.\r\nThe search filed at the bottom left should filter, not expand everything and select the 1st item fitting the search string.\r\nThanks !",
+                         "author":  "remizik",
+                         "action_needed":  true,
+                         "date":  "2020-10-05T05:28:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcyNjgwMDA5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would add my vote for such a useful feature.\r\nThis is one of the things that SecureCRT is making better - they do not support pattern or regex in the search though.\r\nThe capability to see for all your folders in the tree ONLY all matched lines for a search pattern or a regex will be great improvement of that wonderful manager!",
+                         "author":  "Freealx",
+                         "action_needed":  true,
+                         "date":  "2020-11-13T14:37:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5CDRyZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I guess the best behavior is to:\r\n1. Show filter results with folder structure. E.g. if you\u0027ve found _Servers ΓåÆ Windows 2022_ and _Clients ΓåÆ Windows 10_, the result should be\r\n    ```\r\n    Connections\r\n        Servers\r\n            Windows 2022\r\n        Clients\r\n            Windows 10\r\n    ```\r\n    , but not\r\n    ```\r\n        Windows 2022\r\n        Windows 10\r\n    ```\r\n2. Filter through connections in all folders, even if some folders aren\u0027t expanded;\r\n3. Return collapsed/expanded folder state...",
+                         "author":  "PetbkA",
+                         "action_needed":  true,
+                         "date":  "2022-04-25T07:07:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-04-25T08:11:59Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

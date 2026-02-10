@@ -1,0 +1,56 @@
+﻿{
+    "number":  631,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "external tools",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "AdrianPodaru",
+    "created_at":  "2017-07-05T06:27:10Z",
+    "github_updated_at":  "2017-11-02T20:03:22Z",
+    "body_snippet":  "Bug\r\n| Operating system | Windows 10 x64 |\r\n| mRemoteNG version | 1.75.7008.17907  |\r\n\r\nI have created some external tools. When I press lauch button from external tools it opens normally but when i click on the external tool from toolbar i receive the error below:\r\n\r\nSee the end of this message for details on invoking \r\njust-in-time (JIT) debugging instead of this dialog box.\r\n\r\n************** Exception Text **************\r\nSystem.NullReferenceException: Object reference not set to an instance ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzA1MzA5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "is this related to https://github.com/mRemoteNG/mRemoteNG/issues/596?",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2017-07-05T09:35:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzA5ODk2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I saw that thread. For me external tools doesn\u0027t work at all, neither if I select a connection before or not.",
+                         "author":  "AdrianPodaru",
+                         "action_needed":  true,
+                         "date":  "2017-07-05T13:13:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMzQ4OTY0Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If helps you, I found a workaround: if I use external tool by right click on a connection in the connection panel, then I can use extern tools direct from toolbar even if I have a connection open or not.",
+                         "author":  "AdrianPodaru",
+                         "action_needed":  true,
+                         "date":  "2017-07-06T19:04:19Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-11-02T20:03:22Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

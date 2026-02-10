@@ -1,0 +1,140 @@
+﻿{
+    "number":  1631,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Right shift not recognised when using Chrome Remote Desktop",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "RDP",
+                   "Improvement required"
+               ],
+    "author":  "Kellett",
+    "created_at":  "2019-10-25T14:15:04Z",
+    "github_updated_at":  "2024-02-07T01:33:31Z",
+    "body_snippet":  "When using Chrome remote desktop to connect to a windows 10 machine running mRemoteNG the right shift key isn\u0027t recognised (Tested in RDP)\r\n\r\n## Expected Behavior\r\nPressing the right shift key should send the key to the remote connection\r\n\r\n## Current Behavior\r\nNothing happens\r\n\r\n## Possible Solution\r\n\u003c!--- Not obligatory, but suggest a fix/reason for the bug, --\u003e\r\n\u003c!--- or ideas how to implement the addition or change --\u003e\r\n\r\n## Steps to Reproduce (for bugs)\r\n\u003c!--- Provide an unambiguous set of ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0NjM3MjUwOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I guess this is quite a specific scenario so I will try and work out the issue and submit a pull request",
+                         "author":  "Kellett",
+                         "action_needed":  true,
+                         "date":  "2019-10-25T14:16:40Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1NDE0MzkwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I also have the same issue. ",
+                         "author":  "canturan",
+                         "action_needed":  true,
+                         "date":  "2019-11-15T00:05:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYwODM0MDY2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same issue, and it is driving me nuts. This is a mRemoteNG problem, as it works fine in other remote desktop tools, like MSRDP and \"Remote Desktop Manager\", to mention 2.",
+                         "author":  "nicolaivs",
+                         "action_needed":  true,
+                         "date":  "2020-04-03T09:44:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMzE0NTI2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Are other keys being redirected properly?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-23T21:53:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTUzODkwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yeah, as far as I can tell all other keys work correctly. ",
+                         "author":  "Kellett",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T14:42:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTU2NTgwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "does the server you connect to have the same language/locale settings as your machine?\r\nIf not: Can you please make them the same and tell me if the issue then disappears?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T15:29:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTYxMTg2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "All machines involved are set to UK for local",
+                         "author":  "Kellett",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T16:28:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTYyNjUyNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![mRemoteNG](https://user-images.githubusercontent.com/1553850/83902400-38304380-a754-11ea-9366-dcf4c64b1321.png)\r\n\r\nI\u0027ve taken the following screenshots to hopefully help with the issue. To explain what these are showing:\r\n\r\n- Top screenshot is when testing right shift\r\n\r\n- Bottom screenshot is when testing left shift\r\n\r\n- The Red square is [KeyboardStateView](https://www.nirsoft.net/utils/keyboard_state_view.html) running on the machine with mRemoteNG installed\r\n\r\n- The pink square in Keyboard...",
+                         "author":  "Kellett",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T16:51:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MDUyNjc0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "For anyone else getting bothered by this issue I have a workaround that works for me (YMMV)\r\n\r\n[Microsoft PowerTools](https://github.com/microsoft/PowerToys) since v0.18.0 has a keyboard remapper. I\u0027ve used this to remap \"Right Shift\" to \"Left Shift\". This has removed a lot of my frustration.\r\n\r\n![image](https://user-images.githubusercontent.com/1553850/84022211-c9363300-a97d-11ea-84ef-83cc02dadd94.png)\r\n",
+                         "author":  "Kellett",
+                         "action_needed":  true,
+                         "date":  "2020-06-08T10:47:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5GiJlX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Another workaround that does not involve other tools. You can just configure key mappings in Chrome Remote Desktop and map right shift (ShiftRight) to left shift (ShiftLeft):\r\n![image](https://user-images.githubusercontent.com/59448289/178769817-fe9ed291-16d1-4eaa-8739-26c1aa939d0b.png)\r\n",
+                         "author":  "blu3mania",
+                         "action_needed":  true,
+                         "date":  "2022-07-13T15:18:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5s3mxv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Change setting of your host computer not local computer. (In case of, Window 11)\r\nYou should set it on  [Previous Version of Microsoft IME], and it should definitely work fine.\r\nIt is quite difficult to find that options. you can find it in search bar - [IME] - language option - keyboard option of microsoft.\r\n\r\n",
+                         "author":  "GeonungYoun1",
+                         "action_needed":  true,
+                         "date":  "2023-11-26T04:38:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5zGhNz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just encountered the issue myself. Realised I have Chinese input method turned on in the local computer. Toggling back to English solves the problem.",
+                         "author":  "mak-ando",
+                         "action_needed":  true,
+                         "date":  "2024-02-07T01:31:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-02-07T01:33:31Z",
+    "unread_comments":  12,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

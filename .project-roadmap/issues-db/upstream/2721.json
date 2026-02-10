@@ -1,0 +1,112 @@
+﻿{
+    "number":  2721,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Site Download Page Error",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "Downloads",
+                   "web site"
+               ],
+    "author":  "bcolflesh",
+    "created_at":  "2025-07-19T01:26:58Z",
+    "github_updated_at":  "2026-02-07T20:51:21Z",
+    "body_snippet":  "https://mremoteng.org/ -\u003e Download link in top menu -\u003e Console error:\n\ndownloads:1  Failed to load resource: the server responded with a status of 404 \n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6_JWsg",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Several links on the site page do not appear to function correctly or the site seems incomplete. It seems like maybe the site is in development?",
+                         "author":  "sirweazel",
+                         "action_needed":  true,
+                         "date":  "2025-08-20T15:31:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7EElJa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same problem\n",
+                         "author":  "FixRM",
+                         "action_needed":  true,
+                         "date":  "2025-09-14T13:12:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7PkKeV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It\u0027s been down for at least a couple of months. Any way we can get portable downloads in the meantime? I only see installers on the GitHub releases. ",
+                         "author":  "penguinairlines",
+                         "action_needed":  true,
+                         "date":  "2025-11-03T20:07:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7QBlVT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e It\u0027s been down for at least a couple of months. Any way we can get portable downloads in the meantime? I only see installers on the GitHub releases. \n\nThe GitHub Releases of 1.78 are all exclusively portable releases. Just download, unzip and start the application. Just note that changes to the config won\u0027t be saved as of now. ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-11-05T09:13:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Xaopd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e The GitHub Releases of 1.78 are all exclusively portable releases. Just download, unzip and start the application. Just note that changes to the config won\u0027t be saved as of now.\n\nSorry for not replying to this earlier @simonai1254. I suppose you\u0027re right, but the behavior isn\u0027t the same as I expect. It\u0027s true that it doesn\u0027t install, but I don\u0027t see the version-controlled backups being stored with the executable, e.g. confCons.xml.datestamp.backup. I see in the settings configured by defualt t...",
+                         "author":  "penguinairlines",
+                         "action_needed":  true,
+                         "date":  "2025-12-04T19:53:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7XbGlU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e [...] but I don\u0027t see the version-controlled backups being stored with the executable, e.g. confCons.xml.datestamp.backup.\n\nThe reason for this is that currently all saving is disabled in version 1.77.3+ (including all 1.78 as of writing) due to the rewriting of how the connections are stored and handled within mRemoteNG (i.e. separating the credential from the connection configuration). This is what I meant with \"_Just note changes to the config won\u0027t be saved as of now_.\".\n\nHope this is reso...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-12-04T20:29:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7XbJdq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I agree, if there\u0027s an ongoing rewrite about how to manage the config file, I wouldn\u0027t put much effort into an overlapping task - only enough to understand the behavior of the current release.\n\nLet me know if I can clarify anything about my experience in this area.",
+                         "author":  "penguinairlines",
+                         "action_needed":  true,
+                         "date":  "2025-12-04T20:33:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7dOxWO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Considering there are still new releases (but marked as pre-release) on github, maybe it would be prudent to update the downloads page to show relevant package options, mentioning which ones are portable (and/or pre-release), etc, so that this project looks actually trustable, plus giving a way for users to more easily find versions they can trust to download. Maybe?",
+                         "author":  "BloodyIron",
+                         "action_needed":  true,
+                         "date":  "2026-01-05T18:35:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mZT21",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Latest version very old: 1.76.20 (2019-04-12) with a lot of CVEs, etc.\n\nLinked to:\n- https://github.com/mRemoteNG/mRemoteNG/issues/2721\n- https://github.com/mRemoteNG/mRemoteNG/issues/3103\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\n- https://github.com/mRemoteNG/mRemoteNG/issues/2028\n- https://github.com/mRemoteNG/mRemoteNG/issues/2271\n- https://github.com/mRemoteNG/mRemoteNG/issues/2420\n- https://github.com/mRemoteNG/mRemoteNG/issues/2441\n- https://github.com/mRemoteNG/mRemoteNG/issue...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T20:44:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T20:51:21Z",
+    "unread_comments":  9,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

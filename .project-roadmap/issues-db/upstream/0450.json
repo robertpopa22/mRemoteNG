@@ -1,0 +1,40 @@
+﻿{
+    "number":  450,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Usability fix: Make connections editable from the right click context menu",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Medium",
+                   "Enhancement",
+                   "UI/UX"
+               ],
+    "author":  "Brainiarc7",
+    "created_at":  "2017-03-12T08:06:56Z",
+    "github_updated_at":  "2017-03-13T16:30:09Z",
+    "body_snippet":  "\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\nAs stated on the title: Make connection details editable from a right click context menu.\r\nHaving to go through a different panel to do the same thing over and over again is broken design.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjE2MjQ0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tentatively scheduled for 1.77... But I\u0027ve got an idea or two that I might be able to squeeze into 1.76 if the rest of it goes smoothly... ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-03-13T16:30:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-03-13T16:30:09Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

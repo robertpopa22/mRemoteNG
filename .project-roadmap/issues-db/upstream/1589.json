@@ -1,0 +1,67 @@
+﻿{
+    "number":  1589,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SQL deletes all rows and creates new rows for each change to the data",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "1.77.2",
+                   "DBs"
+               ],
+    "author":  "Loizzus",
+    "created_at":  "2019-09-19T23:05:37Z",
+    "github_updated_at":  "2026-02-07T19:55:09Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen using the SQL database I have found that everytime any data is updated and saved the program deletes all existing rows from dbo.tblCons and creates a full set of new rows. \r\n\r\n## Problem Description\r\nThis causes the database to grow to a tremendous size very quickly when working with a small team even though the total number of rows is small. For example in 4 months my database of 40 rows is sitting at ID number 6619 as th...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2OTQyNjcxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I fix the issue in branch [sql_update#1589](https://github.com/Filippo125/mRemoteNG/tree/sql_update%231589). It has already been tested with mysql. As soon as i can i\u0027ll test with mssql.",
+                         "author":  "Filippo125",
+                         "action_needed":  true,
+                         "date":  "2019-12-28T15:39:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2OTUxODE2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I check mssql and fixed some issue on it.",
+                         "author":  "Filippo125",
+                         "action_needed":  true,
+                         "date":  "2019-12-29T16:00:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MDAzNjU1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you so much!",
+                         "author":  "Loizzus",
+                         "action_needed":  true,
+                         "date":  "2020-01-01T09:15:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiFW",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:09Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

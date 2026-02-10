@@ -1,0 +1,103 @@
+﻿{
+    "number":  2577,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Value cannot be null. (Parameter \u0027stream\u0027)",
+    "state":  "open",
+    "labels":  [
+                   "VNC",
+                   "Need 2 check",
+                   "1.77.3"
+               ],
+    "author":  "domleg",
+    "created_at":  "2024-04-03T18:18:17Z",
+    "github_updated_at":  "2026-02-08T22:21:39Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nThat the RemoteDesktop Connect method works without errors.\r\n\r\n\r\n## Current Behavior\r\nWhen using VNCSharp this method was working fine but the performance was very bad. I upgraded my project to .NET Core 8.0 and used VNCSharpCore instead.\r\n\r\n // Create a new RemoteDesktop control\r\n RemoteDesktop newRd = new RemoteDesktop();\r\n vncPanel.Controls.Add(newRd); // Add the new control to the panel\r\n newRd.Dock ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6AE6cU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same error trying to use this in a VB app. I also have upgraded to .NET 8.0 and VNCSharpCore instead of the unmaintained VNCSharp. I just have one RemoteDesktop control on a form.\r\nHere\u0027s the code I use to connect to the server:\r\n```\r\n    Public Sub Connect()\r\n        Dim vncex As VncProtocolException\r\n        Dim oex As Exception\r\n        \u0027 As long as they didn\u0027t click Cancel, try to connect\r\n        If (Not PiHost = Nothing) Then\r\n            Me.Instance.Invoke(Sub()\r\n              ...",
+                         "author":  "imoore937",
+                         "action_needed":  true,
+                         "date":  "2024-06-05T03:08:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6CQcYr",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The .cur file for the \"vnc cursor\" is missing:\r\n\r\nhttps://github.com/mRemoteNG/VncSharpCore/blob/7c640d9699a68efaefa8c2fdfcfa8516aea11e10/VncSharpCore/RemoteDesktop.cs#L529\r\n\r\n```\r\n\r\n private void SetState(RuntimeState newState)\r\n        {\r\n            state = newState;\r\n\r\n            // Set mouse pointer according to new state\r\n            // ReSharper disable once SwitchStatementMissingSomeCases\r\n            switch (state)\r\n            {\r\n                case RuntimeState.Connected:\r\n         ...",
+                         "author":  "mvarie",
+                         "action_needed":  true,
+                         "date":  "2024-06-23T22:54:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6CkN9w",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for fixing that. I tried putting the .cur file in the Resources directories where the Nuget package is (\\.nuget\\packages\\vncsharpcore\\1.2.1\\content\\Resources and .nuget\\packages\\vncsharpcore\\1.2.1\\contentFiles\\any\\net6.0-windows7.0\\Resources but still get the same error when I try running the program, so I guess it\u0027s not that simple!\r\nHopefully the nuget package is updated soon and that sorts it out.",
+                         "author":  "imoore937",
+                         "action_needed":  true,
+                         "date":  "2024-06-26T04:14:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6SUlZz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Thanks for fixing that. I tried putting the .cur file in the Resources directories where the Nuget package is (.nuget\\packages\\vncsharpcore\\1.2.1\\content\\Resources and .nuget\\packages\\vncsharpcore\\1.2.1\\contentFiles\\any\\net6.0-windows7.0\\Resources but still get the same error when I try running the program, so I guess it\u0027s not that simple! Hopefully the nuget package is updated soon and that sorts it out.\r\n\r\nI have exactly the same issue and it doesn\u0027t seem the nuget package is fixed. I\u0027ve tri...",
+                         "author":  "mike-k10",
+                         "action_needed":  true,
+                         "date":  "2024-11-04T14:31:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6SVOHV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "OK, so its also necessary to add the file to the .csproj file (see https://github.com/mRemoteNG/VncSharpCore/pull/8/files#diff-a1a21b1324a2072be9f500c9ed09dd11e40d3af692317baedcb4c8e6dd2e4333) \r\n\r\nThen you can build the project to create a new nuget package and use this instead of the online version. Have done this and its working now :) ",
+                         "author":  "mike-k10",
+                         "action_needed":  true,
+                         "date":  "2024-11-04T15:36:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE22",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhQj",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mk3DI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @robertpopa22 \nWhen I go to the code tab for https://github.com/mRemoteNG/mRemoteNG, the most recent version is 1.78.2-dev, there is no 179.x there. Should I be testing 1.78.2-dev?",
+                         "author":  "imoore937",
+                         "action_needed":  true,
+                         "date":  "2026-02-08T22:21:39Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T22:21:39Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

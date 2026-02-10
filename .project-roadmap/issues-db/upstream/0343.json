@@ -1,0 +1,39 @@
+﻿{
+    "number":  343,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Request] Minimize tabs on connect",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX"
+               ],
+    "author":  "Silent-Joker",
+    "created_at":  "2017-01-12T01:57:16Z",
+    "github_updated_at":  "2017-01-13T14:20:03Z",
+    "body_snippet":  "Can there be an option to minimize tabs on connect.  I have connection tabs on left and popup.  When i connect to a connection it sits on the connections and i must move my mouse away from the tab.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MjQ1MzMyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "To make sure that I understand: Connections tree is set to autohide, but even after opening a connection, the tree is still visible until you move your mouse away from it?\r\n\r\nIf I\u0027m not understanding properly... Could you please clarify, possibly with screen shots?",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-13T14:19:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-01-13T14:20:03Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

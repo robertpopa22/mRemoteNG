@@ -1,0 +1,68 @@
+﻿{
+    "number":  2161,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Tab bar no longer scrolls when dragging tab in the case of tab strip overflow.",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "C4rb0n",
+    "created_at":  "2022-02-04T22:16:53Z",
+    "github_updated_at":  "2026-02-09T06:27:42Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen dragging a tab to reposition it in a panel where that tab strip has overflowed, that tab strip no longer scrolls.  This is a regression  in published nightly v1.77.2-nb.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nExpect pre-nightly v1.77.2-nb behavior whereby the tab strip scrolled when dragging ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYUz2",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:23:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdo2q",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh: this issue looks older and needs retest against current RC candidate builds (many panel/UI persistence fixes landed since 1.77.x). \r\n \r\nIf still reproducible, please provide deterministic steps (exact drag order, panel layout mode, and whether portable or installed mode). \r\nIf not reproducible on latest build, recommend close. \r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T08:35:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mgkPY",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Packaged fix is now available in PR #3127: https://github.com/mRemoteNG/mRemoteNG/pull/3127. This restores edge-triggered autoscroll while dragging tabs in an overflowed document tab strip, with throttling to keep drag behavior stable.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T14:21:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpdVo",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3127 | **Branch:** `codex/pr23-tab-drag-overflow-scroll-2161`\n**Fix:** Tab drag autoscroll works correctly on overflow tab bars.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:27:42Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:27:42Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,110 @@
+﻿{
+    "number":  351,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Dynamic tab name",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "cwi-ezoutas",
+    "created_at":  "2017-01-18T15:01:11Z",
+    "github_updated_at":  "2023-02-04T16:46:33Z",
+    "body_snippet":  "It would be very useful to have dynamic tab naming for ssh connections.\r\nExample:\r\n1) Connect to \"Server A\" as user \"testor\" where hostname is \"servera\"\r\n2) Tab should be named \"testor@servera (Server A)\"\r\n3) SSH from \"Server A\" to another server at IP 192.168.1.2 with user \"test\"\r\n4) Tab should be named \"test@192.168.1.2 (Server A)\"\r\n\r\nThis is extremely useful when you manage hundred of servers.\r\nThis is the same with:\r\nhttps://mremoteng.atlassian.net/browse/MR-571\r\n\r\nCould not find the same ti...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MzQ5OTU0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Step 4 is currently not possible without significantly changing PuTTY.\r\n\r\nWe may be able to look into this once PuTTY is replaced by SSH.Net (#181)",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-18T15:04:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MzUwMDUxNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t know if it helps, but SuperPutty does that with the original Putty in it\u0027s backend.",
+                         "author":  "cwi-ezoutas",
+                         "action_needed":  true,
+                         "date":  "2017-01-18T15:08:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MzUwMDc1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We can take a look and see how they did it - thanks for the tip.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-18T15:08:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MzUxMTE2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ok, I see how they did it now. I forgot that putty changes the window name automatically when the current host changes. We should be able to do this fairly easily",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-18T15:44:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MDIyMTAwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, I have downloaded v1.76.11 and I am still not able to change the title dynamically by changing the PS1 similar to SuperPutty or Putty. Is this feature available in mRemoteNg? I really like to use mRemoteNG.",
+                         "author":  "rk36912",
+                         "action_needed":  true,
+                         "date":  "2018-11-20T10:21:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0MDI3OTQ2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This feature is being developed for v1.77",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-11-20T13:49:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0ODY3MzIzMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It will be great to see all changes in putty winodw name, for example when I use portmaseter on freebsd to upgrade my ports, with putty I can see at which step it is at the moment (5/9 i.e. 5 done, 9 total)",
+                         "author":  "Ishayahu",
+                         "action_needed":  true,
+                         "date":  "2018-12-19T17:13:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDczMzAwOTcxMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, \r\n\r\nAny progress on this? 1.77 is still in prerelease since , Apr 29, 2019\r\nCan you pls backport this feature to 1.76?\r\n\r\nThanks.\r\n\r\n ",
+                         "author":  "zsbolyoczki",
+                         "action_needed":  true,
+                         "date":  "2020-11-24T14:29:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Ucp6k",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, unfortunately we are moving forward and its a lot of changes in 1.77.x version including .Net 6 framework... so please wait for a new stable release of 1.77",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-02-04T16:46:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-02-04T16:46:33Z",
+    "unread_comments":  9,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

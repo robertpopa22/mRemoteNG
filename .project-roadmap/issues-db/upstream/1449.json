@@ -1,0 +1,67 @@
+﻿{
+    "number":  1449,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "File integrity hash",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Project Infrastructure",
+                   "Security"
+               ],
+    "author":  "catalinciubotariu",
+    "created_at":  "2019-05-14T10:14:33Z",
+    "github_updated_at":  "2025-10-03T22:17:55Z",
+    "body_snippet":  "Please add the checksums for file integrity\r\n\r\nI have found a previous post which has the status solved but actually I\u0027m not able to find where I can find the hash/MD5 to check the file integrity. In the archive there is no update.txt file. Is it possible to add a MD5/SHA checksum?\r\n\r\nThanks in advance,\r\nCatalin\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjIxMzk5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, we can start posting the checksums in a more public place.\r\n\r\n@benwa Could the website parse the update files and show checksum/cert thumbprint data on the downloads page?\r\n\r\nFor the moment, checksums are currently available in the following places (depending on update channel and edition):\r\n- https://mremoteng.org/update.txt\r\n- https://mremoteng.org/update-portable.txt\r\n- https://mremoteng.org/beta-update.txt\r\n- https://mremoteng.org/beta-update-portable.txt\r\n- https://mremoteng.org/dev-up...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-14T12:20:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjIyMjQxMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I should be able to get that done, will have to look into parsing the file.\r\nUI wise, are you thinking we add it to the tooltip?\r\nWhat format checksum is it?\r\nWe should also try to add it to the https://github.com/mRemoteNG/mRemoteNG.github.io/blob/master/_data/releases.json file for the future.  I\u0027ll update that spec after this one.",
+                         "author":  "benwa",
+                         "action_needed":  true,
+                         "date":  "2019-05-14T12:47:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MjIyNjU4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Either expand-div or tooltip that can be click-activated. The checksum should be easy to copy/paste.\r\n\r\nThe hash in the upgrade check files is SHA512. MSI files also have a certificate thumbprint that would be nice to include. The thumbprint is more secure than the file hash, so it would be nice to include if possible.\r\n\r\nAll these values are part of the build, so if some build automation would make this easier we could probably figure something out.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-14T12:58:47Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNDAyOTk5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@benwa Any news on this?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-26T13:37:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-10-03T22:17:55Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

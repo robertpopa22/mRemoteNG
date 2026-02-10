@@ -1,0 +1,95 @@
+﻿{
+    "number":  242,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Fix RootNodeInfo object graph",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "Needs implementation",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2016-11-10T18:34:18Z",
+    "github_updated_at":  "2026-02-07T19:56:14Z",
+    "body_snippet":  "The object graph for ConnectionInfo-style objects is hard to work with due to everything inheriting from AbstractConnectionInfoData.\n\nRootNodeInfo objects do not need any of the properties from AbstractConnectionInfoData, only the methods from ContainerInfo (which inherits from ConnectionInfo).\n\nBecause of this oversimplification, differentiating between RootNodeInfos and ConnectionInfos is a bit convoluted.\n\nTo fix this, we will need to break up the object graph around the ContainerInfo by crea...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc3NjQyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Current object diagram (UML):\n\n![2016-11-10_1158](https://cloud.githubusercontent.com/assets/6999446/20190057/1e1c44a0-a73d-11e6-84b6-42fc893e0871.png)\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T18:59:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc4MTI0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Proposed object diagram (UML):\n\n![2016-11-10_1213](https://cloud.githubusercontent.com/assets/6999446/20190531/1a3ede5e-a73f-11e6-8540-02ed11a02632.png)\n\n**Legend:**\n- Light red = new interface/class\n- Orange = class requires explicit changes\n- Purple = there will be implicit changes due to inheritance, though no explicit changes required\n- Blue = no implicit or explicit changes\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T19:18:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc4NjEwNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "**Purpose of proposed changes:**\nRemove `RootNodeInfo` from the `ConnectionInfo` object graph.\n\n**Considerations:**\n- We do not want to re-implement the `ContainerInfo` code, so we want to have a base implementation that both `ContainerInfo` and `RootNodeInfo` can use. Thus, `ContainerInfo` should implement `ITreeNodeContainer` and delegate its implementation to a `TreeNodeContainerBase` through composition.\n- We will want a type to encapsulate the `ConnectionInfo`, `ContainerInfo`, and `RootNod...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T19:36:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc4NjQ1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kmscode I know I\u0027m throwing a bunch of stuff at you, but could you provide your feedback on this proposal when you have time?\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T19:38:17Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc5OTYyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd Will do. Not sure if I\u0027ll get to fully review this until the weekend or early next week... But I will.\n",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T20:33:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTgwOTQxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Awesome, thanks!\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T21:14:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiZP",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:14Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:14Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,78 @@
+﻿{
+    "number":  2358,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Connection closed by remote host popup",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "SSH",
+                   "Need 2 check",
+                   "Improvement required",
+                   "Connections"
+               ],
+    "author":  "Hakun1n",
+    "created_at":  "2023-02-23T11:11:10Z",
+    "github_updated_at":  "2026-02-07T16:44:52Z",
+    "body_snippet":  "Whenever session disconnects there is this \"Connection closed\" popup which originates from PuTTy. That popup steals focus and is annoying when multiple sessions are open which then starts closing after some time.\r\n\r\nI am aware that this originates from PuTTy so not really a mRemote issue but could there be some \"hacky\" way of either suppressing this popup (auto-confirming it silently) or if the \"Close window on exit\" is enabled on PuTTy then somehow retain the connection tab in mRemote with sess...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5V7YGq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The \"Close window on Exit\" setting in putty sounds like a reasonable thing to do for me as well :)\r\n\r\nYou may want to change the putty profile used by mRemoteNG (should be something like Settings, External Tools, Launch Putty, don\u0027t have it in mind completely). \r\n\r\nWhat regards that popup, I\u0027m not sure what mRemoteNG can do, even with the putty fork they are using (PuttyNG). Though there are intentions to move away from putty and using a .NET based SSH client (see #181), which would eliminate th...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-02-23T11:51:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5V75ct",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\"The \"Close window on Exit\" setting in putty sounds like a reasonable thing to do for me as well :)\"\r\n\r\nIt is not because when this is enabled the whole session/tab in mRemote gets closed upon disconnect as well so i have no idea where i ended up and need to dig in logs to see which commands i\u0027ve already Issued for that host and with what output.\r\n\r\nAnyway thanks for mentioning the #181 , i was not aware about that so that might be the ultimate fix for my issue :)",
+                         "author":  "Hakun1n",
+                         "action_needed":  true,
+                         "date":  "2023-02-23T13:16:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5V8VpZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \"The \"Close window on Exit\" setting in putty sounds like a reasonable thing to do for me as well :)\"\r\n\u003e \r\n\u003e It is not because when this is enabled the whole session/tab in mRemote gets closed upon disconnect as well so i have no idea where i ended up and need to dig in logs to see which commands i\u0027ve already Issued for that host and with what output.\r\n\r\nYou are completely right, read it the wrong way round. One more time where the default is better.",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-02-23T14:21:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5WNacL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok I got you, will have a look what is posible to do\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-02-27T13:50:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFNB",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:44:52Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:44:52Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

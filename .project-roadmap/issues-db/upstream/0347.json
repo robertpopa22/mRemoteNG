@@ -1,0 +1,38 @@
+﻿{
+    "number":  347,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Additional info to be displayed about SSH/PuTTY sessions under tab bar",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "rpg-hub",
+    "created_at":  "2017-01-14T02:15:52Z",
+    "github_updated_at":  "2017-06-16T18:08:08Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nfeature request:\r\n\r\nSee #601 for this request:\r\n~~1. changing Tab title should be easy and inbuilt, we should not need to modify our shell prompt code to ge...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwOTA5NTA2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@rpg-hub For item 2, are you aware of any other software that makes this information available? If so, do you know if it requires a 2nd login to collect and display the data?",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-06-16T18:05:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-06-16T18:08:08Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

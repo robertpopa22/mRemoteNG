@@ -1,0 +1,66 @@
+﻿{
+    "number":  1635,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "exclamation mark not working in passwords",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Security"
+               ],
+    "author":  "Matrix651",
+    "created_at":  "2019-11-13T08:51:26Z",
+    "github_updated_at":  "2026-02-07T16:47:09Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nExclamation mark in passwords not working. \r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\nAll saved connections with an exclamation mark in the password will be aborted with a connection error. Wh...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3ODA3MDY0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have same Problem.\r\nWith the externaltool which i can see the password in clear shows the following behavier:\r\n`My_super_secret_password^!`\r\n\r\ni tried with Copy - Paste and tiping out the password. both same behavier of storing the password with the `^`",
+                         "author":  "frauseo",
+                         "action_needed":  true,
+                         "date":  "2020-01-24T10:17:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3ODIwNTM4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Already discussed in #1651 and #1664 \r\nUse an exclamation mark in the variable name (`%!password%` or `%!username%`) to prevent metacharacter escaping and argument splitting.",
+                         "author":  "kees-z",
+                         "action_needed":  true,
+                         "date":  "2020-01-24T16:37:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEHj",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF0_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:09Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,41 @@
+﻿{
+    "number":  2209,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Connections][Filter]: switch between filter results by Up/Down arrow keys",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "Connections",
+                   "1.77.3"
+               ],
+    "author":  "PetbkA",
+    "created_at":  "2022-04-25T07:14:37Z",
+    "github_updated_at":  "2026-02-07T19:52:55Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen using filter in _Connections_ tree (_Options ΓåÆ Connections ΓåÆ Filter search matches in connection tree_), choosing the connection from the result via _Up/Down_ arrow keys is possible only after switching the focus to _Connections_ tree by clicking it or pressing _Tab_.\r\n\r\nMeanwhile Up/Down arrow keys work OK if filter is disabled.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhY5",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:55Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

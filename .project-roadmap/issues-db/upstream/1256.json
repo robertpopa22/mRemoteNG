@@ -1,0 +1,39 @@
+﻿{
+    "number":  1256,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Enhancement] - Multi SSH - paste multiple lines or commands",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Not Planned"
+               ],
+    "author":  "Hyper64",
+    "created_at":  "2019-01-08T15:48:40Z",
+    "github_updated_at":  "2020-06-07T12:17:08Z",
+    "body_snippet":  "## Expected Behavior\r\nCopy multiple lines of text to the clipboard and paste them into Multi SSH to be sent to all selected SSH sessions at once.\r\n\r\n## Current Behavior\r\nCurrently, no matter how many lines of configuration file you copy to the clipboard only one line is executed.  \r\n\r\nMulti SSH command buffer limits input to one line of configuration or command at a time \r\n\r\n## Possible Solution\r\nImplement a feature similar to Tera Term\u0027s Clipboard Confirmation window.  You can copy multiple lin...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MDY5MjE4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I do this in MTPuTTY but would love to switch to mRemoteNG\r\n\r\nHere is an example...\r\n![image](https://user-images.githubusercontent.com/44235289/73534891-32c79300-441a-11ea-8f33-598b9e32c396.png)\r\n\r\nPlease consider adding some of these features but at minimum, multi line support. \r\n\r\n**_(note, MTPuTTY does do script send but the other items described on my screenshot (variables, preview etc) are features that would multiply productivity hugely)_** ",
+                         "author":  "Steve-Mcl",
+                         "action_needed":  true,
+                         "date":  "2020-01-31T11:12:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-06-07T12:17:08Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

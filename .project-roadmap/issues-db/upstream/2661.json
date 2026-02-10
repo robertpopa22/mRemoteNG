@@ -1,0 +1,84 @@
+﻿{
+    "number":  2661,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature request]  WebAuthn redirection",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.78.*"
+               ],
+    "author":  "webabox",
+    "created_at":  "2025-01-17T12:47:10Z",
+    "github_updated_at":  "2026-02-07T19:51:29Z",
+    "body_snippet":  "Description: WebAuthn redirection allows WebAuthn requests to be redirected from a remote session to a local device, enabling secure, in-session passwordless authentication. This feature is crucial for improving security and user experience in remote desktop environments.\n\nBenefits:\n\nEnhanced security through passwordless authentication.\nImproved user experience by leveraging existing authentication methods.\nCompatibility with Windows Hello for Business and FIDO security keys like Yubikey.\n\nRefe...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6xwJHF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is there any timeline on when this will be implemented?",
+                         "author":  "identityentropy",
+                         "action_needed":  true,
+                         "date":  "2025-06-18T00:16:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6x7sAt",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, not forgoten but at the moment not in priority, but fucusing on release soon\nperhaps will need to look at this soon anyway",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-06-18T17:54:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM69LVGQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any update or beta of this available please?",
+                         "author":  "ikhlaske",
+                         "action_needed":  true,
+                         "date":  "2025-08-11T09:07:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6-IhUv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@asherbiny could you have a look is it something you will be able to update?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-08-14T21:20:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7UCRru",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1\n\nas webabox wrote looks like these are key - especially the last one:\nredirectwebauthn:i:1\nenablerdsaadauth:i:1",
+                         "author":  "Fantasillion",
+                         "action_needed":  true,
+                         "date":  "2025-11-20T11:03:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYg_H",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:29Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:29Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

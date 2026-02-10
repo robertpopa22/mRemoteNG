@@ -1,0 +1,220 @@
+﻿{
+    "number":  839,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Import from file RDCMan.rdg error while importing the file ",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Connections",
+                   "Import/Export"
+               ],
+    "author":  "amousa1968",
+    "created_at":  "2017-12-12T01:03:45Z",
+    "github_updated_at":  "2026-02-07T16:47:46Z",
+    "body_snippet":  "Hello,\n\nI am using the latest software version 1.75.7011.349 stable and trying to import RDCMan Remote Desktop Connection Manager failed while importing with an error ΓÇ£An error occurred while importing the file, \nI thought this was fixed before.   \n\n\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDkxMjgxMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is this a RDCMan v2.7 file? If so, support for importing that version will be added in our v1.76 release that is currently in alpha",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T01:15:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDkxNzE5NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi David,\n\nYes it is RDCMan version 2.7.   ThatΓÇÖs correct.  Would you like for me to test your alpha version?  \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 11, 2017, at 5:15 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e Is this a RDCMan v2.7 file? If so, support for importing that version will be added in our v1.76 release that is currently in alpha\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub, or mute the thread.\n\u003e \n",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T01:40:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDkyMzUyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "You certainly can, if you would like. The more testers we have, the better!",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T02:18:43Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDkyNzUwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Point me the alpha build for download \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 11, 2017, at 6:18 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e You certainly can, if you would like. The more testers we have, the better!\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub, or mute the thread.\n\u003e \n",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T02:43:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDkyODE3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "https://mremoteng.org/download\r\n\r\nThanks!!",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T02:47:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDk2NzUyMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi Sam,\n\n \n\nThank you for providing the link. I downloaded alpha build IΓÇÖll test and let you in a few days if it does work and able to import RDCMan 2.7 file to the existing connection I have already setup using confCons.xml. I hope it will work as expected.  \n\n \n\nAyman \n\n \n\nFrom: Sean Kaim [mailto:notifications@github.com] \nSent: Monday, December 11, 2017 6:48 PM\nTo: mRemoteNG/mRemoteNG \u003cmRemoteNG@noreply.github.com\u003e\nCc: Downforce Autosport \u003camousa@cox.net\u003e; Author \u003cauthor@noreply.github.com\u003e...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T07:27:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTE2MzQ1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The Alpha build version number 76.0.25712 failed to open up in Lowell important are these the man files 2.7 let me know if there is a way for me to turn on the log trace log so that I can see exactly whatΓÇÖs going on and what is trying to do.  \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 11, 2017, at 6:47 PM, Sean Kaim \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e https://mremoteng.org/download\n\u003e \n\u003e Thanks!!\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view i...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T19:22:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTE3MDU4Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hold off. ItΓÇÖs fixed. The reason it did not work, created a new folder under connections then I imported the RDCMan file under the folder created which failed to import.  Then I tried importing from under connections and works fine.    \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 12, 2017, at 11:21 AM, Ayman Mousa \u003camousa@cox.net\u003e wrote:\n\u003e \n\u003e The Alpha build version number 76.0.25712 failed to open up in Lowell important are these the man files 2.7 let me know if there is a way for me to turn on the log ...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T19:39:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTE5NjU3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Tried installing mremoteng on another window 7 enterprise addition service pack 1 64 bit failed to install missing KB2574819 but it is installed.  Any help how to bypass the error?   \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 11, 2017, at 6:47 PM, Sean Kaim \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e https://mremoteng.org/download\n\u003e \n\u003e Thanks!!\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub, or mute the thread.\n\u003e \n",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T21:14:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTIwNTE4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please fix the installer msi for the latest alpha build 25712",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-12T21:46:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTI0ODY0MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If you would like to bypass the install prerequisite check, you can run the msi from the command line like so:\r\n`msiexec /i C:\\Path\\To\\mRemoteNG-Installer.msi IGNOREPREREQUISITES=1`\r\n\r\nMore details here: https://github.com/mRemoteNG/mRemoteNG/wiki/Installing",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-12-13T01:12:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTI1MTY0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Already done. \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 12, 2017, at 5:12 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e If you would like to bypass the install prerequisite check, you can run the msi from the command line like so:\n\u003e msiexec /i C:\\Path\\To\\mRemoteNG-Installer.msi IGNOREPREREQUISITES=1\n\u003e \n\u003e More details here: https://github.com/mRemoteNG/mRemoteNG/wiki/Installing\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub, ...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-13T01:28:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTU2Njc4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi David and team,\n\nAfter importing RDPMan 2.7 file that contains userid and password to mRemote alpha build I donΓÇÖt see the user info id or password imported.  Also IΓÇÖm unable to edit the configuration screen by adding the userid and password.   See screenshot under hostname.  \nΓÇÅ\n\n\n\n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 12, 2017, at 5:12 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e If you would like to bypass the install prerequisite check, you can run the msi from the command line ...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-14T00:11:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjA4NzU4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi David,  \nFYI, I have been noticing with the alpha build when opening and launch the program the paging refresh seems to take up lots memories during start and slowly program comes up.  It took approximately minute and a half to start completely.  Is there logging or debugging I can turn off?    \n\nThanks \nAyman Mousa \n\n\n\u003e On Dec 12, 2017, at 5:12 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e If you would like to bypass the install prerequisite check, you can run the msi from the comm...",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2017-12-15T19:11:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjEzMTkxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@amousa1968 We have minimal logging on by default. All our builds are \"release\" builds which don\u0027t include any debug information within the binaries.\r\n\r\nPlease provide the log so we can review further:\r\nhttps://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging\r\n\r\nYou\u0027ll need to attach it directly to github - or CC: support@mremoteng.org in your reply.\r\n\r\nPlease also take some screen shots of your connection list - you can edit out the hostnames/etc - just want to get an idea of you...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-12-15T22:52:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NjM4Mzc5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am having this very issue with the msi install on windows 10 with all prerequisites installed and on the check page all are green but I can\u0027t import rdg files I have tried everything I can think of to get his to work",
+                         "author":  "subzerologic",
+                         "action_needed":  true,
+                         "date":  "2018-01-09T19:11:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NzU5ODY1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @kmscode sorry for the delay getting back to you.  This is not in issue any more. I was window system issue after a new window the installer worked just fine.  \r\n\r\n ",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2018-01-15T07:06:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NzU5OTM1NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @subzerologic drag and drop doesn\u0027t work, you will have to use import rdcman file into mremoteng. Use File/import/import from a file/look for Remote Desktop Connection Manager extension *.rdg this should do it.....    ",
+                         "author":  "amousa1968",
+                         "action_needed":  true,
+                         "date":  "2018-01-15T07:10:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NzczOTUzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i was not draging and dropping the issue was the saved password in the .rdg\nfile deleted that and it imported just fine. Weird part is it imported\nother passwords saved into the file fine fyi\n\nOn Mon, Jan 15, 2018 at 12:10 AM, Downforce Autosport \u003c\nnotifications@github.com\u003e wrote:\n\n\u003e Hi @subzerologic \u003chttps://github.com/subzerologic\u003e drag and drop doesn\u0027t\n\u003e work, you will have to use import rdcman file into mremoteng. Use\n\u003e File/import/import from a file/look for Remote Desktop Connection Manage...",
+                         "author":  "subzerologic",
+                         "action_needed":  true,
+                         "date":  "2018-01-15T17:01:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDEwMDkxMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "#754 ",
+                         "author":  "TiloGit",
+                         "action_needed":  true,
+                         "date":  "2019-04-04T23:41:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGAg",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:45Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:46Z",
+    "unread_comments":  20,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

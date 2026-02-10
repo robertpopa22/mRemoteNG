@@ -1,0 +1,85 @@
+﻿{
+    "number":  1727,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "View Only mode kicks off logged in user.",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "FickoDeLux",
+    "created_at":  "2020-04-02T11:49:18Z",
+    "github_updated_at":  "2026-02-07T19:52:27Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nConnecting to running session (User logged in) should not kick off the user in \"View Only mode\"\r\n\r\nImplementation should use shadowing:\r\n\r\nOn host:\r\n`\r\nHKLM\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services\\Shadow set to 4\r\n`\r\n\r\nClient:\r\n`\r\nmstsc.exe /v:\u003cserver\u003e /shadow:\u003cID\u003e /noConsentPrompt\r\n`\r\n\r\n`\r\nquery session /server:\u003cserver\u003e\r\n`\r\noutput could be used for parsing for ID.\r\n\r\n## Current Behavior...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNDg2ODM3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "are you doing this through external tools\u003e powershell? or how are you trying to achieve this ? \r\nI have been trying to do something similar, \r\nI know that if you are kicking the user off, mstsc.exe is not connecting to the client with the shadow function correctly. \r\n\r\nnote: different shadow settings in host.\r\n1. No remote control allowed: Disallows an administrator to use remote control or view a remote user session.\r\n2. Full Control with user\u0027s permission: Allows the administrator to interact ...",
+                         "author":  "Benchwork",
+                         "action_needed":  true,
+                         "date":  "2020-05-06T20:19:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNTQ4NTU2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I was talking about the current implementation.\r\nSince it kicks off the user it has no real usage.\r\n\r\nI am just proposing a different way of implementation.\r\nShadowing is great, only draw back the window can not be embedded. ",
+                         "author":  "FickoDeLux",
+                         "action_needed":  true,
+                         "date":  "2020-05-07T20:40:19Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Mjk0NDYzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "so when I am looking through the config settings I don\u0027t see a setting for view only mode for RDP connections. \r\n\r\nbut I do see this under the connect (with options)\r\n![image](https://user-images.githubusercontent.com/7304823/84442534-cea8ad00-ac0b-11ea-90da-a89fcfc2c151.png)\r\nis this where your talking about?",
+                         "author":  "Benchwork",
+                         "action_needed":  true,
+                         "date":  "2020-06-11T21:49:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MzYwNTA0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes.On Jun 11, 2020 23:50, Peter Christenson \u003cnotifications@github.com\u003e wrote:\r\nso when I am looking through the config settings I don\u0027t see a setting for view only mode for RDP connections.\r\nbut I do see this under the connect (with options)\r\n\r\nis this where your talking about?\r\n\r\nΓÇöYou are receiving this because you authored the thread.Reply to this email directly, view it on GitHub, or unsubscribe.",
+                         "author":  "FickoDeLux",
+                         "action_needed":  true,
+                         "date":  "2020-06-13T10:38:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFum",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhPd",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:27Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

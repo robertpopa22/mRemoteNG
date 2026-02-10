@@ -1,0 +1,69 @@
+﻿{
+    "number":  2907,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG frequently freezes when opening and closing Options",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "1.78.*",
+                   "Options",
+                   "Panels"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-16T15:04:20Z",
+    "github_updated_at":  "2026-02-07T19:55:45Z",
+    "body_snippet":  "On mRemoteNG 1.78.2 NB 3220:\n\n1. File | Options and just click on OK button at the bottom.\n2. Double click to open SSH session.\n3. Close down connection and Yes button to confirm.\n4. File | Options and problem appears. No options are displayed, only blank sheet.\n5. Closing down empty Options and General panel and mRemoteNG freezes for some time.\n6. Double click to open SSH session and close down the session.\n7. File | Options and nothing happens.\n\nPlenty of bugs... it looks AI is writing a lot o...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7LaQ01",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "AI helpfull but not always right :) I do review what it suggest but sometimes its trigger something new what is not always visible so I am glad you helping me with testing, will try to test it better but code base is complex sometimes its hard to predict what it will trigger... ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-16T20:07:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7LpVCf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I assume this fix is included in mRemoteNG 1.78.2 NB 3221 because NB was released few hours after this commit. I have retested with NB-3221 and  the same issue appears after step 4 and mRemoteNG freeze.\n\u003cimg width=\"456\" height=\"317\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/167097a8-9fda-4a9a-b4c0-00337369770d\" /\u003e\n\nCan you please reopen the issue.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-17T18:18:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7LwTYK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Acept invite in github you will have rights",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-18T13:31:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiOn",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:45Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:45Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

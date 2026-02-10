@@ -1,0 +1,48 @@
+﻿{
+    "number":  2194,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "nightly build crash.....",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "hs6666",
+    "created_at":  "2022-04-05T06:41:11Z",
+    "github_updated_at":  "2026-02-07T19:52:35Z",
+    "body_snippet":  "hi,\r\n\r\ntried to close an ssh connection got following error come up....\r\n\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Action method)\r\n   at mRemoteNG.UI.Window.ConnectionWindow.Prot_Event_Closed(O...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFY6",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhRz",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:35Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

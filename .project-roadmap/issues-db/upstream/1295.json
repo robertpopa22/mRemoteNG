@@ -1,0 +1,56 @@
+﻿{
+    "number":  1295,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Add support for signed RDP connections",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "BrknRobot",
+    "created_at":  "2019-02-01T17:00:32Z",
+    "github_updated_at":  "2022-08-02T12:30:28Z",
+    "body_snippet":  "RDP files can be signed with [rdpsign](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753982(v=ws.10)). mRemoteNG should support signed RDP as well.\r\n\r\n## Expected Behavior\r\nConnections to RDP servers that require signatures should work.\r\n\r\n## Current Behavior\r\nCurrently, connection is closed with the following message:\r\nYour computer can\u0027t connect to the remote computer because the Connection Broker couldn\u0027t validate the settings specified in...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTMyNTgwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "*Dev notes:*\r\nIt looks like the following fields are added to .rdp files when signed:\r\n- `signscope:s:`\r\n- `signature:s:`\r\n\r\nWe would need to add support for the `signatures` line at the very least. Not sure if the `signscopes` ever changes or if it\u0027s more or less the same for every machine.\r\n\r\nExcerpt from a signed .rdp file:\r\n```\r\nsignscope:s:Full Address,Alternate Full Address,Use Redirection Server Name,Negotiate Security Layer,AutoReconnection Enabled,GatewayHostname,GatewayUsageMethod,Gate...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-10T17:24:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HqgZB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\nany news about this feature? ",
+                         "author":  "meoste",
+                         "action_needed":  true,
+                         "date":  "2022-08-02T10:50:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Hq43Y",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I might be a noob regarding this, but if I understand it correctly, a server provides you with a signed .RDP file which may not be altered (at least the fields in the signscope). \r\nAs far as I know mRemoteNG does not work with .RDP files but has it\u0027s own way of storing the connection settings, so how do you think this can be implemented into mRemoteNG? \r\n\r\nEspecially the ComnectionBroker is used for (one-tine) RDP connections that start an app or something similar... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-08-02T12:30:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-08-02T12:30:28Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

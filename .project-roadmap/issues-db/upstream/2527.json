@@ -1,0 +1,93 @@
+﻿{
+    "number":  2527,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP keeps disconnecting from Google VM machine.",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check"
+               ],
+    "author":  "AviBy",
+    "created_at":  "2023-11-25T06:44:55Z",
+    "github_updated_at":  "2026-02-07T16:43:44Z",
+    "body_snippet":  "when connecting to the vm with the rdp client downloaded from gcp all is well.\r\nWhen connecting via MRemoteNG it keeps disconnecting and connecting again after several seconds.\r\nWhat is the issue?\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5s47UB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I would really appreciate any help regarding the above problem.",
+                         "author":  "AviBy",
+                         "action_needed":  true,
+                         "date":  "2023-11-26T18:28:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5s5Ocv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, what version you are using?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-26T23:41:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5s5zcn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, thank you for your attention!\r\nLatest nightly.\r\n\r\n\r\n╫æ╫æ╫¿╫¢╫ö,\r\n\r\n╫É╫æ╫Ö\r\n\r\n*╫É╫æ╫Ö ╫æ╫ƒ ╫Ö╫ù╫û╫º╫É╫£ |  ╫ñ╫í╫Ö╫¢╫ò╫£╫ò╫Æ - ╫₧╫á╫ö╫£  | ╫ñ╫í╫Ö╫ñ╫í ╫Ö**╫Ö**╫⌐╫ò╫₧╫Ö╫¥ ╫ñ╫í╫Ö╫¢╫ò╫£╫ò╫Æ╫Ö╫Ö╫¥ ╫æ╫ó\"╫₧*\r\n\r\n\r\n*╫ÿ╫£\u0027: 03-9199005  | ╫ñ╫º╫í: 03-9199007 |╫á╫Ö╫Ö╫ô:052-2685440╫₧╫⌐╫¿╫ô╫Ö╫¥: ╫₧╫ò╫ÿ╫ö ╫Æ╫ò╫¿ 7 ╫ñ╫¬╫ù\r\n╫¬╫º╫ò╫ò╫ö, ╫ô╫ò╫É╫¿: ╫¬.╫ô. 116 ╫¢╫ò╫¢╫æ** ╫Ö╫É╫Ö╫¿ ***@***.*** ***@***.***\u003e*\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nOn Mon, Nov 27, 2023 at 1:41ΓÇ»AM Dimitrij ***@***.***\u003e wrote:\r\n\r\n\u003e hello, what version yo...",
+                         "author":  "AviBy",
+                         "action_needed":  true,
+                         "date":  "2023-11-27T04:02:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5s6gU5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e when connecting to the vm with the rdp client downloaded from gcp all is well. When connecting via MRemoteNG it keeps disconnecting and connecting again after several seconds. What is the issue?\r\n\r\nHave you tried using the Windows Built-in RDP utility? How does that behave? \r\nIn case it behaves differently, what RDP version is defined in the mRemoteNG settings? ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-11-27T07:38:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5s6hA7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks\r\nwith windows rdp manager it 100% ok\r\nI am using the nightly vetsion\r\nbut the stable one behaves the same.\r\n\r\nkind regards,\r\nAvi\r\n\r\nOn Mon, 27 Nov 2023 at 9:38 Simon Monai ***@***.***\u003e wrote:\r\n\r\n\u003e when connecting to the vm with the rdp client downloaded from gcp all is\r\n\u003e well. When connecting via MRemoteNG it keeps disconnecting and connecting\r\n\u003e again after several seconds. What is the issue?\r\n\u003e\r\n\u003e Have you tried using the Windows Built-in RDP utility? How does that\r\n\u003e behave?\r\n\u003e In cas...",
+                         "author":  "AviBy",
+                         "action_needed":  true,
+                         "date":  "2023-11-27T07:40:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5tK0wT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will check, but so far nobody else are complaining about such maybe something specific to you local situation, not sure",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-11-29T09:45:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE5n",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:44Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:43:44Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

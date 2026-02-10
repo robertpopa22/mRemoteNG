@@ -1,0 +1,184 @@
+﻿{
+    "number":  693,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "linux subsystem ubuntu terminal in windows 10 as external tool",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Need 2 check",
+                   "WSL"
+               ],
+    "author":  "jelez",
+    "created_at":  "2017-09-06T00:22:55Z",
+    "github_updated_at":  "2026-02-07T16:47:55Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nTerminal does not open when I add linux subsystem ubuntu in windows 10.\r\nExecutable is: C:\\Windows\\System32\\bash.exe \r\nPlease, let me know how I can make this work.\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version|...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyODI4OTIwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please attach the [mRemoteNG.log](https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging)",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-09-09T16:48:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyODM0ODczMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This a bit odd.\r\n\r\nThe bash shortcut points to `C:\\Windows\\System32\\bash.exe ~`, but I could not find such file on my system! (and I do have that feature installed)\r\n\r\nAs a workaround you can open a Command Prompt (`C:\\Windows\\System32\\cmd.exe`) and then type `bash`; it opens the bash shell. Actually tested this with [PR#706](https://github.com/mRemoteNG/mRemoteNG/pull/706) and when switching to the bash environment it actually `cd`s to the correct path (`/mnt/c/Windows/`..); until that you\u0027ll g...",
+                         "author":  "pedro2555",
+                         "action_needed":  true,
+                         "date":  "2017-09-10T15:08:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTg0NDc0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@jelez Works perfect\r\n\r\n![image](https://user-images.githubusercontent.com/1645623/30495091-7e29b302-9a42-11e7-8160-d9062ef7225e.png)\r\n",
+                         "author":  "pedro2555",
+                         "action_needed":  true,
+                         "date":  "2017-09-15T17:20:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzNzc5Nzg5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@pedro2555 I tried exatly the same thing and it fails. A window flashes outside of mRemoteNG and disappears.\r\n\r\nhere is the log:\r\n\r\n```\r\n2017-10-18 21:38:58,595 [1] INFO - mRemoteNG 1.75.7008.17907 starting.\r\n2017-10-18 21:38:58,603 [1] INFO - Command Line: System.String[]\r\n2017-10-18 21:38:59,685 [1] INFO - Microsoft Windows 10 Pro  64-bit\r\n2017-10-18 21:38:59,685 [1] INFO - Microsoft .NET CLR 4.0.30319.42000\r\n2017-10-18 21:38:59,685 [1] INFO - System Culture: en-US/English (United States)\r\n201...",
+                         "author":  "jelez",
+                         "action_needed":  true,
+                         "date":  "2017-10-19T04:42:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MTU0MDkyNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "somewhat related to #649 ",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-11-02T20:01:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjU0NzM1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "any updates on this issue? with linux part of windows now it is extremely helpful if we can do this integrated in mremoteng",
+                         "author":  "jelez",
+                         "action_needed":  true,
+                         "date":  "2017-12-18T20:24:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjE5MDEyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+one million\r\n\r\nIntegrating the Bash on Windows shell would be awesome. I have stopped using PuTTY all together.\r\nI would love to see Bash on Windows as an alternative in the Connections pane.\r\n\r\nI\u0027m keeping an eye on this space :) ",
+                         "author":  "Hickory420",
+                         "action_needed":  true,
+                         "date":  "2018-03-12T04:20:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMTEyMjI1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "is there anything that can be done to escalate this? with WSL the windows ecosystem around tooling changes alot. I find myself not using PUTTY anymore. Can we make a stable integration for the WSL terminal?",
+                         "author":  "jelez",
+                         "action_needed":  true,
+                         "date":  "2018-08-07T16:40:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMTE0NjUyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We need more people that can help with issues / develop :(\r\n@pedro2555 You were the last one to take a good look at this issue, do you have the time to take a look again? Anything we need to implement in mRemoteNG?\r\n\r\n(Although it\u0027s fair to say that I\u0027m behind on pull requests anyways).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-07T17:58:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg0NDg4ODc1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\r\n![2021-05-20_12-03-11](https://user-images.githubusercontent.com/84501438/118950982-6148e480-b963-11eb-82be-4d2a24a52b74.png)\r\n\r\nThis working for me, in %userfield% - path to private ssh key, but this duplicate new tab, and i don\u0027t know how to fix that. ",
+                         "author":  "localhost-ykt",
+                         "action_needed":  true,
+                         "date":  "2021-05-20T09:05:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM46w8UG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@localhost-ykt here\u0027s mine using `sshpass`\r\n![image](https://user-images.githubusercontent.com/30897918/144685631-48494efe-6b21-4f18-8241-47c1a0fae896.png)\r\n",
+                         "author":  "annahri",
+                         "action_needed":  true,
+                         "date":  "2021-12-03T23:27:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5JoziX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The secret is to use the **sysnative** directory, then\r\n```\r\nFile name : cmd\r\nArguments : /K c:\\windows\\sysnative\\wsl\r\n```\r\n\r\n```\r\nFile name : cmd\r\nArguments : /K c:\\windows\\sysnative\\bash\r\n```\r\n\r\nPascal",
+                         "author":  "plegrand1",
+                         "action_needed":  true,
+                         "date":  "2022-09-02T12:19:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Jo5YM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks @plegrand1, just to cross reference your issue: #2279",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-09-02T12:42:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Jo5_n",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not sure if this answers the original question.\r\nMy English is not exceptional\r\n;-)",
+                         "author":  "plegrand1",
+                         "action_needed":  true,
+                         "date":  "2022-09-02T12:44:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5JpE9W",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "if we can understand its enough :) issue I my guess its don\u0027t know where this file is located, once you give a full path it able to engage it. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-09-02T13:26:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5JpF_L",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "According to my tests (for WSL), even if you give the full path, it does not works.\r\nIn mremoteng c:\\windows\\system32\\wsl.exe is \"not accessible\", i had to put \"c:\\windows\\sysnative\\wsl.exe\"\r\n",
+                         "author":  "plegrand1",
+                         "action_needed":  true,
+                         "date":  "2022-09-02T13:30:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGDW",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:55Z",
+    "unread_comments":  16,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

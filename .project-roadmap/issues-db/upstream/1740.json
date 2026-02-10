@@ -1,0 +1,40 @@
+﻿{
+    "number":  1740,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Order Port Scan table by column and allow import several protocols",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required"
+               ],
+    "author":  "egpgit",
+    "created_at":  "2020-04-27T12:29:31Z",
+    "github_updated_at":  "2026-02-07T19:52:58Z",
+    "body_snippet":  "Hi, thaks for this awssome program. \r\n\r\nNow the Port Scan Tool result in a table that can\u0027t be ordered, so if you want import several hosts, you need to find it in the table. Order by column helps that action.\r\n\r\nWhen you want import a host wich has two possible connections, you need do it for each one. For example, I have a host with ssh and https services, I\u0027d like to import both services in a one step.\r\n\r\nIt will be great that the Host/IP column doesn\u0027t hide the ip when resolve dns name.\r\n┬┐C...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhaR",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:58Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

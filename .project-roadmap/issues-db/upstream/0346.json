@@ -1,0 +1,76 @@
+﻿{
+    "number":  346,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG Chocolatey Package",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "Enhancement",
+                   "Not Planned"
+               ],
+    "author":  "jcefoli",
+    "created_at":  "2017-01-13T15:28:12Z",
+    "github_updated_at":  "2022-01-12T23:56:17Z",
+    "body_snippet":  "Feature request for a Chocolatey package, so anyone can install this from the Chocolatey package manager. I\u0027ve never created a Chocolatey package before, but wouldn\u0027t mind looking into it or maintaining it, since I follow these releases.\r\n\r\nSince an MSI installer is generated, it shouldn\u0027t be too difficult.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MjQ3NDgxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey, good idea. Haven\u0027t done that either, but shouldn\u0027t be too bad (famous last words).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-13T15:46:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MjUwNDAzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "While convenient, I\u0027m not so sure I want to support Chocolatey:\r\nhttps://www.reddit.com/r/sysadmin/comments/5g5npg/fosshub_message_for_chocolatey_please_stop_with/\r\n\r\nI\u0027m not sure what the future implactions are if we were to create the Chocolatey package and link directly to the GitHub releases. At least currently since we\u0027re using GitHub for hosting our main website as well as source code, GitHub should be getting whatever they need out of our FLOSS project for revenue generation (additional t...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-13T17:59:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MjUxMDU0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Good points, thanks for sharing that Sean. It would be worth discussing further and doing some research on Github\u0027s stance.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-13T18:27:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47xglG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As this thing mentioned above is already some years old I looked up again on how Chocolatey works. There is the discussed \"Chocolatey downloads software directly from source\" and the \"self contained way\", where the installer is located on chocolatey\u0027s servers. As mRemoteNG is licensed with GNU GPL v2 it shouldn\u0027t be an issue to create a \"self contained\" package.\r\n\r\nA self contained package just has the consequence that every time a new version of mRemoteNG is released the packages on chocolatey ...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2021-12-30T01:23:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48SszQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I still vote that this gets investigated and we look into adding it to Chocolatey and maybe even the winget package manager.\r\n\r\nGithub does not care if you link to their binaries. I checked with them a while back, specifically mentioning Chocolatey and ther was no issue. It\u0027s something that could be added to the CI to automatically publish these packages when a new release happens.\r\n\r\n![image](https://user-images.githubusercontent.com/6618013/149237765-47fa575d-9916-4afd-89fb-a559c5d460b7.png)\r\n",
+                         "author":  "jcefoli",
+                         "action_needed":  true,
+                         "date":  "2022-01-12T23:10:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-01-12T23:56:17Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

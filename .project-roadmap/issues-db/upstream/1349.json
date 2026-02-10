@@ -1,0 +1,119 @@
+﻿{
+    "number":  1349,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Option to send Ctrl+Alt+Del or Ctrl+Alt_End for nested RDP sessions",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "yderi",
+    "created_at":  "2019-03-13T16:09:55Z",
+    "github_updated_at":  "2025-03-25T10:37:03Z",
+    "body_snippet":  "Hello everyone.\r\nI have enabled the \"Key combination\" option and it works fine to me. But when you open a secondary RDP session to go further (open RDP connection again on remote side) it cannot pass Ctrl+Alt+End combination for the second or third nested session.\r\nIt works only for the first one. Some time we have even three or four nested RDP session, it such a kind of security using jump-boxes to go thru.\r\nThe trick here is to open on-screen keyboard in the first session and using it, send a ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NTc5MDI2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I do not believe this is something that mRemoteNG can do, nor any RDP client. Have you considered using an RD Gateway to connect through instead of using the nested approach? I would expect a mammoth improvement in performance and responsiveness of the RDP sessions with a gateway.\r\n\r\nAnother option is to set up custom keyboard shortcuts within the descendants that would provide the equivalent of Ctrl+Alt+Del. Perhaps Autohotkey (https://www.autohotkey.com) which makes it trivial to create shortc...",
+                         "author":  "another-git-hub-user",
+                         "action_needed":  true,
+                         "date":  "2019-03-22T21:31:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NjQxMjk1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is hard to fix I think due to how RDP is built up.\r\n\r\nI do not even think that a rdp -\u003e rdp -\u003e rdp would be able to do that to understand which connection is the one that is active to recieve the keyboard shortcuts. ",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2019-03-25T23:14:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NzUxNTM2NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello\r\nRemote Desktop Connection Manager can send a such key combination\r\n(For example: RDCMan v2.7 build 1406.0)\r\n![SendKey_Options](https://user-images.githubusercontent.com/38353406/55144388-69bd8000-5149-11e9-88b7-94e46f533fed.jpg)\r\n\r\nI think you misunderstood this function, we should not send this key combination directly from a keyboard thru all nested RDP connections. Just use it on demand (in appropriate nested level, no matter how it is deep) by clicking on the tab connection or from th...",
+                         "author":  "yderi",
+                         "action_needed":  true,
+                         "date":  "2019-03-28T09:24:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NjI4MDM2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "For implementation: https://docs.microsoft.com/en-us/windows/desktop/TermServ/imsrdpclientnonscriptable-sendkeys",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-27T18:22:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NjI4NzYyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Work Around : launch \"osk.exe\" (virtual keyboard), do CTRL + ALT with the keybord, and \"SUPPR\" with the virtual keyboard",
+                         "author":  "TheDevilDan",
+                         "action_needed":  true,
+                         "date":  "2019-05-27T19:08:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyMjAzMzczNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "as TheDevilDan says you can use this workaround: launch the virtual keyboard with osk.exe or click start \u003ewindows ease of access \u003e Onscreen keyboard. On your physical keyboard do CTRL+ALT . Then on your Virtual keyboard press Delete. This worked for me.",
+                         "author":  "Elddric",
+                         "action_needed":  true,
+                         "date":  "2019-08-16T14:42:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc3MTg4MjI5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \r\n\u003e \r\n\u003e as TheDevilDan says you can use this workaround: launch the virtual keyboard with osk.exe or click start \u003ewindows ease of access \u003e Onscreen keyboard. On your physical keyboard do CTRL+ALT . Then on your Virtual keyboard press Delete. This worked for me.\r\n\r\nThis usually works but not quite as convenient. Another wrinkle is if osk does not start for reasons unknown. I had this recently, and ended up having to copy RDCMan to the jump host in question so I could use the [Send keys] functio...",
+                         "author":  "thecosmictrickster",
+                         "action_needed":  true,
+                         "date":  "2021-02-02T18:45:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4Nzc4OTAwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "cross link https://github.com/mRemoteNG/mRemoteNG/issues/1455 ",
+                         "author":  "HelpITru",
+                         "action_needed":  true,
+                         "date":  "2021-03-01T09:11:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5YAnD7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Hello everyone. I have enabled the \"Key combination\" option and it works fine to me. But when you open a secondary RDP session to go further (open RDP connection again on remote side) it cannot pass Ctrl+Alt+End combination for the second or third nested session. It works only for the first one. Some time we have even three or four nested RDP session, it such a kind of security using jump-boxes to go thru. The trick here is to open on-screen keyboard in the first session and using it, send a C...",
+                         "author":  "asrdias",
+                         "action_needed":  true,
+                         "date":  "2023-03-20T16:25:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6j9ieu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ngRemote will never make this change they are stuck on version v1.77.3.1784-NB for 2 years now and I think the project is finished, too bad.\nAnyway the solution to send Ctrl-Alt-END is the following (OSK does not work)\n- open: PowerShell\n- type: (New-Object -COM Shell.Application).WindowsSecurity()",
+                         "author":  "mpapini64",
+                         "action_needed":  true,
+                         "date":  "2025-03-25T10:37:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-03-25T10:37:03Z",
+    "unread_comments":  10,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

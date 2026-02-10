@@ -1,0 +1,66 @@
+﻿{
+    "number":  624,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Ability to import from mtputty",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Help Wanted"
+               ],
+    "author":  "wfeddern",
+    "created_at":  "2017-06-30T14:18:20Z",
+    "github_updated_at":  "2025-08-08T13:29:10Z",
+    "body_snippet":  "\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nI have a large number of ssh sessions defined in mtputty (including subfolders) that I would like to migrate to mRemoteNG. ( http://ttyplus.com/multi-tabbed-putty/ )\r\n\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzM3MDYwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "would be super handy! any news about it?",
+                         "author":  "sinicis",
+                         "action_needed":  true,
+                         "date":  "2018-06-14T17:12:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNTk2OTIzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any new about that ?",
+                         "author":  "Massacor",
+                         "action_needed":  true,
+                         "date":  "2019-09-27T14:42:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1NjU3MTIwMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2019-11-21T00:13:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM680ntr",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Any new about that ?\n\n\n\n\u003e I have a large number of ssh sessions defined in mtputty (including subfolders) that I would like to migrate to mRemoteNG. ( http://ttyplus.com/multi-tabbed-putty/ )\n\nThe following AI-generated Python script solves this conversion. Tested and working.\n```\nimport xml.etree.ElementTree as ET\nimport uuid\nimport io\nimport os\nimport tkinter as tk\nfrom tkinter import filedialog, messagebox\n\nATTRIBUTES_CONTAINER = {\n    \"Name\": \"\", \"Type\": \"Container\", \"Expanded\": \"true\", \"D...",
+                         "author":  "mrtiagorsouza",
+                         "action_needed":  true,
+                         "date":  "2025-08-08T13:28:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-08-08T13:29:10Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

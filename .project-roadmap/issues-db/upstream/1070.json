@@ -1,0 +1,30 @@
+﻿{
+    "number":  1070,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Suppressing script issue",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "spisarau",
+    "created_at":  "2018-08-11T08:14:21Z",
+    "github_updated_at":  "2018-08-19T16:46:55Z",
+    "body_snippet":  "In our company to access corporate resources SSO method of authentication is used. But when I try to access resources via mRemoteNG for some of them I am not able to get access. I receive authentication issue. \r\nI investigated this issue and  found out that the cause of it is enabled ScriptErrorsSuppressed option for WebBrowser component. After I disabled it, I received some script errors, but I could access corporate recourses without any further errors. \r\nAlso ScriptErrorsSuppressed for some s...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2018-08-19T16:46:55Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

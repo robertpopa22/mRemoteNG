@@ -1,0 +1,61 @@
+﻿{
+    "number":  2608,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Operate multiple remote desktop functions simultaneously and in parallel !",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Question",
+                   "RDP",
+                   "Need 2 check",
+                   "Windows",
+                   "1.78.*"
+               ],
+    "author":  "dakangsiji",
+    "created_at":  "2024-06-26T02:21:13Z",
+    "github_updated_at":  "2026-02-07T19:53:44Z",
+    "body_snippet":  "## Expected Behavior\r\nProvide a tool to operate multiple remote desktops simultaneously and in parallel\r\n\r\n## Context\r\nHello, although various current remote desktop tools can realize the use of remote desktop services, they only realize the serial method to operate each windows server. No any tools real realizes the function of parallel operation of multiple servers at the same time.\r\nthat is a group operation. \r\nIn this scenario, a client needs to do the same thing on multiple remote desktops ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6SRgD-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, I think it is possible, I once saw group control feature based RDP in a closed-source software, I saved a video of it. \r\n\r\nhttps://github.com/user-attachments/assets/684f2e21-2345-40d0-b817-9a51605a9e4b\r\n\r\nI tried add the feature to my app but failed, as itΓÇÖs closed-source, I dont know how they achieved it.\r\n\r\nbad news: I can\u0027t find the closed-source app now.",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2024-11-04T08:15:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE1B",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhqr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:44Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:44Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,47 @@
+﻿{
+    "number":  750,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "\"Reconnect to previously opened sessions on startup\" option doesn\u0027t work",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "crispy9352",
+    "created_at":  "2017-10-23T23:56:52Z",
+    "github_updated_at":  "2017-11-07T22:23:27Z",
+    "body_snippet":  "\"Reconnect to previously opened sessions on startup\" option doesn\u0027t work. Steps to reproduce:\r\n\r\n1. Stop mRemoteNG\r\n2. Uninstall mRemoteNG\r\n3. Delete folder \"%APPDATA%\\mRemoteNG\"\r\n4. Delete folder \"%LOCALAPPDATA%\\mRemoteNG\"\r\n5. Delete folder \"%ProgramFiles(x86)%\\mRemoteNG\"\r\n6. Install mRemoteNG\r\n7. Start mRemoteNG\r\n8. Click \"Use the recommended settings\"\r\n9. Enable option \"Save connections on exit\"\r\n10. Enable option \"Reconnect to previously opened sessions on startup\"\r\n11. Enable option \"For em...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MTY5ODMwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This issue is happening at step 13. Since quick connect entries are not saved anywhere, there is no way to reopen the connection (we have no idea what the hostname was). We would need to change how the \"Reconnect to previously opened sessions on startup\" option is implemented to make this work. \r\n\r\nThis would be new functionality as no previous version ever supported reconnecting to quick connect entries.\r\n\r\n*Dev note:*\r\nCurrently, we save a `PleaseConnect` flag on each connection in the connect...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-11-03T13:08:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MjY0MzY3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks for the info. i really hope this enhancement gets implemented!",
+                         "author":  "crispy9352",
+                         "action_needed":  true,
+                         "date":  "2017-11-07T22:23:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-11-07T22:23:27Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

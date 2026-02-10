@@ -1,0 +1,193 @@
+﻿{
+    "number":  853,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Crashing when many sessions are open",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug",
+                   "Vendor/Upstream Issue"
+               ],
+    "author":  "ryandevries",
+    "created_at":  "2017-12-27T20:36:29Z",
+    "github_updated_at":  "2019-10-03T08:55:25Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 1709 |\r\n|mRemoteNG version| 1.75.7012.16814  |\r\n\r\nGetting occasional crashes.  Usually when I have more than 5 sessions open.  It seems to happen right after I open a new connec...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2Mjk1NjgzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve added some additional safety around the code that if failing for you. This should hopefully be resolved (or at least easier to diagnose) in v1.76",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-05T01:09:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NzQyMDg3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Failure of the module name: Windows.UI.XamlHost.dll,\r\nsame as v1.76\r\nFailed Application Name: mRemoteNG.exe, Version: 1.76.3.32991, Timestamp: 0x5aa9bc20\r\nFailure of the module name: Windows.UI.XamlHost.dll, version: 10.0.16299.15, timestamp: 0x133cf20e\r\nException status code: 0xc0000409\r\nError displacement: 0x00005929\r\nFailed Handler Identification Number: 0x2134\r\nFailed application start time: 0x01d3c4c33d718393\r\nFailed application path: C:\\Data\\Tools\\mRemoteNG\\mRemoteNG.exe\r\nFailed module pat...",
+                         "author":  "IvanYC",
+                         "action_needed":  true,
+                         "date":  "2018-03-30T01:37:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMTA4MzQ0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still seems to be happening on 1.76.3.32942.\r\n\r\nEvent Viewer:\r\nFaulting application name: mRemoteNG.exe, version: 1.76.3.32942, time stamp: 0x5aa9bbbf\r\nFaulting module name: Windows.UI.XamlHost.dll, version: 10.0.17134.1, time stamp: 0xecdec09f\r\nException code: 0xc0000409\r\nFault offset: 0x000058af\r\nFaulting process id: 0x2d5c\r\nFaulting application start time: 0x01d40d5eb6d4e585\r\nFaulting application path: C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exe\r\nFaulting module path: C:\\Windows\\System32\\W...",
+                         "author":  "ryandevries",
+                         "action_needed":  true,
+                         "date":  "2018-06-28T15:53:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNDMyNDg1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "https://github.com/mRemoteNG/mRemoteNG/issues/930 appears to be the same crash.",
+                         "author":  "hohokus",
+                         "action_needed":  true,
+                         "date":  "2018-07-11T22:02:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTcyOTA2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I haven\u0027t been able to replicate the issue myself, but I\u0027m also not opening as many RDP sessions as I used to.\r\n\r\n**What we know:**\r\n1. This only seems to occur on Windows 10, starting with release 1709. There is one report of it occurring in version 1803 (https://github.com/mRemoteNG/mRemoteNG/issues/930#issuecomment-419241169) Has anyone seen this occur on a version prior to 1709?\r\n1. So far there are 2 known ways the crash can occur:\r\n   1. Opening a new RDP connection\r\n   2. During a connect...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-09-30T15:30:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTgyMzM3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd today i\u0027m going to try opening/closing RDP sessions and see if I can (hopefully) reproduce crashes and answer some of your questions / provide more details.",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2018-10-01T08:11:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTk0MzExNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd \r\n\r\n1. I have a folder with 6 connections and saved credentials. Like 10 times i tried to connect to all hosts and disconnect and no crash. Had like 3 other open tabs. Then closed all tabs and tried to reconnect to a RDP session which asks credentials. after 3 tries - crash.\r\n2. Restarted RDC Man. Tried reconnecting to single session non stop when it prompts for credentials. On EXACTLY 27th retry I have a **crash** BEFORE credential popup.\r\n3. Memory doesn\u0027t seem to be an issue. After 2...",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2018-10-01T15:08:47Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzU3Mjc1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@janis-veinbergs Thanks for taking the time to test all of that! This helps quite a bit in narrowing things down. Since it seems this wasn\u0027t introduced in v1.76 we can proceed with that release.\r\n\r\nUnfortunately, we still have the problem of how to prevent these crashes. I went through the RDP code and I think every call has a try/catch block, so we should be capturing these exceptions. It might be time to add exception capturing logic at the root of mRemoteNG to gracefully catch any previously ...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-06T13:13:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzU3MzQ5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Created a ticket to add root-level exception catching to try to prevent this from crashing the app. #1123",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-06T13:22:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzczNTk2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd I suspect this exception won\u0027t be caught. I don\u0027t know, will have to test when #1123 commit lands, but this is a native thread that throws stack buffer overflow.\r\n\r\nhttps://stackoverflow.com/a/13567016/50173\r\n\r\nBy the way, it\u0027s not even necessary to connect to remote session. Just trying to connect, when credential popup shows up, press esc, repeat 26 times and crash. Could you provide me with with a link at where in the source code it spawns this thread to connect to RDP \u0026 Prompt with ...",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2018-10-08T06:53:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzgzMjU1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yea, it doesn\u0027t seem likely that we will be able to catch it.\r\n\r\nWe call the native RDP client here: https://github.com/mRemoteNG/mRemoteNG/blob/d1a7a3790930e9658b7fed30b34c8345c8547c24/mRemoteV1/Connection/Protocol/RDP/RdpProtocol.cs#L187",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-08T13:27:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODExODcyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reported to Microsoft with a minimal solution that reproduces the issue:\r\nhttps://developercommunity.visualstudio.com/content/problem/352484/buffer-overflow-within-windowsuixamlhostdll-when-p.html",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2018-10-09T09:09:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODE2ODQ1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Great work @janis-veinbergs, thanks for putting that together.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-09T12:12:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTk5ODYxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Removed the bug label and milestone. This was confirmed to be a vendor issue and reported to MS accordingly (another HUGE thanks to @janis-veinbergs for testing/reporting/created proof of concept code).\r\n\r\nUsers of other applications (RDCMan and RoyalTS) also have the same problems.\r\n\r\nLeaving this open for now for tracking purposes, but there\u0027s not much else for us to do at this point.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2018-12-10T22:28:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5OTg4MzQ1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is more of a feature request but related to this issue. \r\n\r\nRDC Manager\u0027s \"Connect server as...\" collects credentials before making initial connection while mRemoteNG\u0027s \"Connect without credentials\" loads the credential dialog that crashes the application. would it be possible to add and option to \"Connect As\" or \"Connect with credentials\"\r\n\r\nI realize the easy solution to this for me would be to store passwords in the app but the security angel on my shoulder tells me that I should keep my...",
+                         "author":  "smitty0157",
+                         "action_needed":  true,
+                         "date":  "2019-06-07T13:25:02Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMjEwNjExNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@smitty0157 The credential management feature should solve both of these concerns for you (#208). We are splitting connections/credentials to allow for easy assignment, which will also allowing creds to be imported from different sources (we are getting out of the cred storage business). In addition, there is a \"Connect with credential\" option which allows you to select a specific cred pair to use.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-06-14T13:18:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMzExMDk4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t know where they have this info from, but the folks over at RoyalTS quote this line:\r\n\r\n\u003e Microsoft acknowledged the bug and according to them, the fix has been approved and itΓÇÖs making its way to 19H2 at the moment. Afterwards, it will get ported to 19H1 and RS5.\r\n\r\nSee https://support.royalapps.com/support/solutions/articles/17000084181-royal-ts-crashing-due-to-windows-ui-xamlhost-dll-when-using-remote-desktop\r\n\r\n",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-09-19T12:37:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNzgzNDA2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Guys, @sparerd, @farosch, @kmscode finally this is fixed as of September 26, 2019 update!\r\n\r\n- Win 1903: https://support.microsoft.com/en-us/help/4517211\r\n- Win 1809: https://support.microsoft.com/en-us/help/4516077\r\n\r\nPerhaps this line, but not sure:\r\n- Addresses an issue with MSCTF.dll that causes an application to stop working. \r\n\r\nBecause there is a `CtfHookProcWorker` call in callstack. And it is related to [Microsoft Text Services Framework](https://en.wikipedia.org/wiki/Text_Services_Fram...",
+                         "author":  "janis-veinbergs",
+                         "action_needed":  true,
+                         "date":  "2019-10-03T08:00:40Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-10-03T08:55:25Z",
+    "unread_comments":  18,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

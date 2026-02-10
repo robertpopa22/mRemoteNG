@@ -1,0 +1,30 @@
+﻿{
+    "number":  3020,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Problems with local nettwork print",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "5arn",
+    "created_at":  "2025-11-19T09:50:55Z",
+    "github_updated_at":  "2025-12-05T21:09:04Z",
+    "body_snippet":  "Windows 2016 terminal server\nProblems with local nettwork print\nOnly getting error message on printer\nprinter: Canon 250\nSame and oki 883\n\nNot thinking it the printer but the driver / connetion\nand print is allow /true\n\n\u003cimg width=\"164\" height=\"108\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/63120097-52a8-4555-b959-557fd1ad860d\" /\u003e\n\nit work via regular Windows RDP, does the printer seem to be redirected with a different driver Any tips?\n\n\nmremote: \n\n\u003cimg width=\"284\" height=\"35\" ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2025-12-05T21:09:04Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

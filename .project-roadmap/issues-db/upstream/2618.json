@@ -1,0 +1,50 @@
+﻿{
+    "number":  2618,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Option from menu bar do not operate for connection in separate windows.",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "Windows",
+                   "1.77.3"
+               ],
+    "author":  "Wolvverine",
+    "created_at":  "2024-07-18T08:54:09Z",
+    "github_updated_at":  "2026-02-07T19:54:04Z",
+    "body_snippet":  "When unfastening the tab with RDP connection to the local HV machine as a separate window, the options (reconect,disconect,fullscreen,...) do not work.\r\n\r\n## Expected Behavior\r\nThe mentioned options will operate normally.\r\n\r\n## Current Behavior\r\nNothing is happening\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open the connection in the tab.\r\n2. Move the connection to a separate standalone window (Outside the panel)\r\n3. Select options from under the right button on the bar.\r\n\r\n## Your Environment\r\n* ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE0w",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhwr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:04Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

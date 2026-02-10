@@ -1,0 +1,30 @@
+﻿{
+    "number":  986,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP window not expandable",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "nleboeuf",
+    "created_at":  "2018-05-30T09:55:36Z",
+    "github_updated_at":  "2018-07-02T16:41:00Z",
+    "body_snippet":  "Hi,\r\ni have 2 screens, and i want to drap \u0026 drop my RDP tab from screen 1 to screen 2\r\nI got this on screen 2.\r\n![image](https://user-images.githubusercontent.com/39763048/40713368-0b74a136-6400-11e8-9403-b3d7b4a98a18.png)\r\n\r\n## Expected Behavior\r\nI\u0027d like to new window be a classic Windows window. Not just a window with only the close button\r\n\r\n## Current Behavior\r\nIt creates a non-expandable window, unusable.\r\n\r\n## Possible Solution\r\nCreate a classic window, or find the good parameter in optio...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2018-07-02T16:41:00Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

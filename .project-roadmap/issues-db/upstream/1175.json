@@ -1,0 +1,75 @@
+﻿{
+    "number":  1175,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Select a custom resolution and set it to smart size also for RDP session",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "HighDPI"
+               ],
+    "author":  "phantomftr",
+    "created_at":  "2018-11-02T18:25:00Z",
+    "github_updated_at":  "2023-02-09T19:34:22Z",
+    "body_snippet":  "I have my RDP sessions set to display at 1920x1080 and when I start the session in the main window it is too big so I need to then right click the session tab and select smart size so it fits into the window space properly.  I then sometimes switch these to full screen which is why I need to hard code them at 1920x1080 to fit the full screen.  If I just set the session to smart size it will not take the full screen space when going full screen and if I set the session to full screen it will disc...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyOTAxNDAzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think smart size must be a on/off check box in config panel",
+                         "author":  "MaxSurtaev",
+                         "action_needed":  true,
+                         "date":  "2019-09-06T21:05:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MjI3ODA5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I find  the disconnect and reconnect when switching views (between window and full screen mode) very annoying too. I wanted to add the information that this didn\u0027t happen in version 1.70.4814.21440",
+                         "author":  "yaguith",
+                         "action_needed":  true,
+                         "date":  "2020-02-05T07:33:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1ODcwNDczOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem here... Mremote NG uses the resolution of my main monitor witch is 4k and my mRemoteNG is on the second monitor witch is on 1920x1080. When I connect to a server with AutoResize ON. It opens with 4k resolution on my 1080 monitor. \r\nAny way to make mRemoteNG respect the monitor it is on instead of the main one?\r\n\r\n![image](https://user-images.githubusercontent.com/3281265/104329603-5f6ea080-54ed-11eb-85d2-90c4db2dd419.png)\r\n",
+                         "author":  "heyvoon",
+                         "action_needed":  true,
+                         "date":  "2021-01-12T14:47:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM437vC5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is still an active issue. Just found mRemoteNG and was wondering why this hasn\u0027t been already implented.",
+                         "author":  "Cmdr-Adler",
+                         "action_needed":  true,
+                         "date":  "2021-10-08T07:19:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5U61ck",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any progress on this one. Older posts suggest this should be possible by settings/appearance but this option has disappeared. ",
+                         "author":  "Stempoid",
+                         "action_needed":  true,
+                         "date":  "2023-02-09T19:34:22Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-02-09T19:34:22Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

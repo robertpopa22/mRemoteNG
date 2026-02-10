@@ -1,0 +1,58 @@
+﻿{
+    "number":  2291,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "How to Disable Restricted Admin and Remote Credential Guard in Quick Connect for RDP",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "RDP",
+                   "Improvement required"
+               ],
+    "author":  "Kencow",
+    "created_at":  "2022-09-23T23:35:23Z",
+    "github_updated_at":  "2023-03-10T02:02:24Z",
+    "body_snippet":  "Restricted Admin mode support is added in v1.77.3 for RDP, but most of my win servers don\u0027t enable RestrictedAdmin mode, so mRemoteNG fails to login when \"Use Restricted Admin\" and \"Use Remote Credential Guard\" are set to Yes. These 2 parameters can be changed in Config tab, but cannot be controlled in Quick Connect.\r\n\r\nIs it possible to Disable both of them in Quick Connect and Config for RDP by default ? ",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5K7r8o",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "on next release is planed to add connection profiles (improved) so its will add flexibility to set by default for each connection variety of settings, but its also seems we need add some option to temporary (constantly) disable this but in feature that will be controlled by admin profile not user. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-09-25T10:07:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5LHuCV",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks @Kvarkas! Looking forward to your next release. : -) ",
+                         "author":  "Kencow",
+                         "action_needed":  true,
+                         "date":  "2022-09-28T02:43:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XNRno",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas \r\nI found the \"Default Properties\" in Config panel can solve my problem, when the two items are set to \"No\", it will also take effect in Quick Connect, awesome!",
+                         "author":  "Kencow",
+                         "action_needed":  true,
+                         "date":  "2023-03-10T02:02:24Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-03-10T02:02:24Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

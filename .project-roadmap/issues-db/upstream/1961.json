@@ -1,0 +1,56 @@
+﻿{
+    "number":  1961,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot start mRemoteNG due to an unhandled exception while loading the configuration ",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "zgabi",
+    "created_at":  "2021-05-18T08:03:11Z",
+    "github_updated_at":  "2026-02-07T16:45:58Z",
+    "body_snippet":  "## Expected Behavior\r\nmRemoteNG should start\r\n\r\n## Current Behavior\r\nProcess terminates. Exception written to Windows event log:\r\n\"the process was terminated due to an unhandled exception\"\r\n\r\nOriginal Exception in hungarian:\r\nAlkalmaz├ís: mRemoteNG.exe\r\nKeretrendszer verzi├│sz├íma: v4.0.30319\r\nLe├¡r├ís: A folyamat egy nem kezelt kiv├⌐tel miatt meg lett szak├¡tva.\r\nKiv├⌐tel adatai: System.Xml.XmlException\r\n   a k├╢vetkez┼æ helyen: System.Xml.XmlTextReaderImpl.Throw(System.Exception)\r\n   a k├╢vetk...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg1MDk3NzY0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Try version 1.76.20.24669 ∩╝Ü https://mremoteng.org/download\r\n",
+                         "author":  "bytefish163",
+                         "action_needed":  true,
+                         "date":  "2021-05-30T10:35:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEDv",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFfc",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:58Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

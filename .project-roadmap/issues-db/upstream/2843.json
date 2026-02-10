@@ -1,0 +1,77 @@
+﻿{
+    "number":  2843,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Data lost of changes are performed in two sessions",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "In development",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2025-10-06T13:01:14Z",
+    "github_updated_at":  "2026-02-07T19:55:32Z",
+    "body_snippet":  "This is not a new issue, it is present in v1.76.20, but still persists in v1.78.2 in both cases tested on Windows 11.\n\n1. Open first session and at e.g. SSH session change Hostname/IP\n2. Open second session and change the same setting to some different Hostname or IP.\n3. Close down second session.\n4. Close down first session.\n5. Open mRemoteNG and I get data from step 2, but lost data from step 1.\n\nThis issue can quickly get problematic if in first session data for one host is changed and in sec...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7I9zln",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "need to check, but sessions are open independantly (at least should) but perhaps some delay in update connections details in tree, where is some work ongoin in regards how connection tree will behave, so could change soon",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T13:26:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JCver",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is not SSH specific problem. In my humble opinion SSH tag from issue reported should be removed.\n\nLets demonstrate simpler test scenario:\n1. Open mRemoteNG and clean everything from connections, just like new fresh install.\n2. Just in case close down mRemoteNG.\n3. Now open two mRemoteNG sessions, both have no connections.\n4. In first session right click and New Connection, name connection: _RDP_server_ and set RDP as protocl. You can leave other fields empty.\n5. Switch to second session, im...",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T17:19:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JC7m3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, in options we have what only one instance of app could be run, i think its something related to conncurecy run for sure, once settings move into dbs i beleave thsi could be solved more simple, but thanks for deep research will try to recreate to check if i could debug what cause what. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T17:30:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7JMkG9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just thinking little bit more... Maybe two session issue appears, because in mRemoteNG it is not possible to move tab to new window, just like in Firefox:\n\n![Image](https://github.com/user-attachments/assets/89898c0a-3edb-40e0-bd7a-97aad16c330f)\n\nIf move tab to new window is possible, then there is no reason to allow two mRemoteNG sessions in the first place and avoid whole two session locking complexity.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-07T07:14:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiLR",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:32Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:32Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,58 @@
+﻿{
+    "number":  906,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "The most useful feature",
+    "state":  "open",
+    "labels":  [
+                   "1.8 (Fenix)",
+                   "Needs implementation",
+                   "Connections"
+               ],
+    "author":  "Greenice33",
+    "created_at":  "2018-03-03T05:55:40Z",
+    "github_updated_at":  "2026-02-07T19:51:57Z",
+    "body_snippet":  "Can I import and run multiple connections at once? Example\r\n54.202.139.61 Administrator ?Uuvfy?Pj=K \r\n54.212.215.27 Administrator-aP*LQSa\u0026J \r\n54.2012.11.171 administrator pbox-Ycjh%M \r\nIf not, make this a very useful feature for everyone",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MDEyMjYwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Here is the Converter program http://dropmefiles.com/zRzBP\r\nWith the help of the program I could start, for example, 20 connections at once. But only on the version 1.72. Thus https://prnt.sc/il2j9z. I hope you understand me))\r\nOr you can give me an alternative. It is very difficult to do it manually when you need to make about 100 connections per day..Thank you in advance dear.Immediately am asking forgiveness. This is not my native language)",
+                         "author":  "Greenice33",
+                         "action_needed":  true,
+                         "date":  "2018-03-03T06:07:43Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MDEyNDczOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "And help how to make it so that when you create a new connection his name had been edited immediately . And not later through the context menu",
+                         "author":  "Greenice33",
+                         "action_needed":  true,
+                         "date":  "2018-03-03T06:48:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhGE",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:57Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

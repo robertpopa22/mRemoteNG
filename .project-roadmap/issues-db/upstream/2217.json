@@ -1,0 +1,38 @@
+﻿{
+    "number":  2217,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Remote Desktop Gateway Password",
+    "state":  "open",
+    "labels":  [
+
+               ],
+    "author":  "becatini",
+    "created_at":  "2022-05-03T15:33:56Z",
+    "github_updated_at":  "2022-05-04T06:07:31Z",
+    "body_snippet":  "# Remote Desktop Gateway Password\r\n\r\nI have hundreds of servers configured on my mRemoteNG app, and we use gateway credentials.\r\nWhen I have to change my LDAP user password, it is a big headache since I have to change the gateway password for each server.\r\n\r\nIf I export the configuration to a XML file I cannot see an option to change the gateway password.\r\nIs there a way to change the gateway password for all servers at once?\r\n\r\nThanks.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5Ck3CT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There would be the inheritance feature (see https://mremoteng.readthedocs.io/en/latest/folders_and_inheritance.html, http://forum.mremoteng.org/viewtopic.php?f=3\u0026t=2097) to reduce the amount of times you need to define the credentials. \r\n\r\n(And yes, the documentation might be improved, there are already open issues that refer to that like #1968 )",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-05-04T06:07:31Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-05-04T06:07:31Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

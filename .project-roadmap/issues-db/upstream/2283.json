@@ -1,0 +1,85 @@
+﻿{
+    "number":  2283,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Too many \"music\"",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "Sound"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2022-09-07T08:09:36Z",
+    "github_updated_at":  "2026-02-07T16:45:02Z",
+    "body_snippet":  "Every confirmation show dialog and play sound\r\n\r\n## Expected Behavior\r\nSound must by only for \"Alarm\"\r\n\r\n## Current Behavior\r\nEvery dialog with confirmation play sound. For work environment this is bad practic.\r\n\r\n## Possible Solution\r\nSet option for function \"ShowConfirmationDialog\" with \"NoSound\"\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. set any options, that needed restart program\r\n2. listen to computer :)\r\n3.\r\n4.\r\n\r\n## Context\r\nin work environment must be silence, not many time sounds by every...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5J2xoe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t think we can control such, that comes from windows side, but will have a look. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-09-07T08:47:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5J4Xh8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function\r\nsimilar function with many optional parameters, that control view and possibilities of \"Message to User\".\r\nI think same way exist in C# (C++)",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2022-09-07T15:04:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5J4a4U",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reducing the sound created by an app can be a good idea. Though I don\u0027t really care as I just set the windows sound scheme to \"No Sound\"/mute the system sound channel, which mutes almost all annoying popup-alerts. Upon that I put the speakers on mute (I generally use headphones though), so I don\u0027t really care to be honest.\r\n\r\n",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-09-07T15:16:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5J7uMc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Perhaps we can add new section in settings SilentMode = On/Off :)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-09-08T08:24:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5ZaVyE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The \"Bell\" sound after every use of MultiSSH is annoying. I have the \"PuTTy bell\" already disabled but that does not affect he MultiSSH bar. mRemoteNG is not in Win10 volume mixer so it can\u0027t be explicitly muted. As i can see the bell sound belongs to \"System sound\" (or at least that bar gets bumped up in volume mixes for a second when multiSSH command is sent)\r\n\r\nThe global \"Mute\" option would be more than enough to suppress these annoyances :)\r\n\r\nThanks !",
+                         "author":  "Hakun1n",
+                         "action_needed":  true,
+                         "date":  "2023-04-07T08:41:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFP6",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:02Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

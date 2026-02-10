@@ -1,0 +1,30 @@
+﻿{
+    "number":  1364,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Putty sessions not shown in reapply_credential_manager branch",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2019-03-20T02:11:01Z",
+    "github_updated_at":  "2019-03-20T02:11:01Z",
+    "body_snippet":  "Currently the PuTTY sessions node isn\u0027t being shown in the connection tree in the `reapply_credential_manager` branch. \r\n\r\nIt seems to be due to the following line:\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/reapply_credential_manager/mRemoteV1/Connection/ConnectionsService.cs#L144-L145\r\n\r\nThis will require us to rethink our connection tree management workflow. We need a simple way to load connections and putty sessions separately.\r\n\r\n## Expected Behavior\r\nThe putty connections should be shown...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2019-03-20T02:11:01Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

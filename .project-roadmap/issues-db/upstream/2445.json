@@ -1,0 +1,49 @@
+﻿{
+    "number":  2445,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Import of VNC connection files",
+    "state":  "open",
+    "labels":  [
+                   "Needs implementation",
+                   "Import/Export",
+                   "1.77.4"
+               ],
+    "author":  "mgaugusch",
+    "created_at":  "2023-06-14T17:02:07Z",
+    "github_updated_at":  "2026-02-07T19:53:28Z",
+    "body_snippet":  "I got lots of \".vnc\" files and would like to import them into mRemoteNG.\r\n\r\n## Expected Behavior\r\nWhen I start the import, \"*.vnc\" files shall be offered as valid import source. Possibly, drag \u0026 drop of such files into a folder in mRemoteNG shall add them there as well.\r\n\r\n## Current Behavior\r\nThe \"*.vnc\" files are not recognized at all. \r\n\r\n## Possible Solution\r\nThe *.vnc files are simple text files with information like this:\r\n`ConnMethod=tcp`\r\n`ConnTime=2023-01-01T00:00:00.000Z`\r\n`FriendlyNam...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5hWndW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "RE Decryption https://github.com/frizb/PasswordDecrypts",
+                         "author":  "jafin",
+                         "action_needed":  true,
+                         "date":  "2023-07-12T23:09:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhl2",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:28Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:28Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

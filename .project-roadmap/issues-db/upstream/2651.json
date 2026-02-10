@@ -1,0 +1,79 @@
+﻿{
+    "number":  2651,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature Request] Improved SSH Reconnect Experience",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "SSH",
+                   "Improvement required",
+                   "Connections",
+                   "1.77.4"
+               ],
+    "author":  "uponatime2019",
+    "created_at":  "2024-11-11T03:50:41Z",
+    "github_updated_at":  "2026-02-07T19:56:17Z",
+    "body_snippet":  "I frequently manage a large number of SSH connections (30+ VPS instances) using mRemoteNG and encounter frequent disconnects across various sessions. It would significantly improve usability and efficiency if the following features could be implemented to enhance the reconnection experience:\r\n\r\n1. **Enhanced Disconnect Alert Navigation**  \r\n   When an SSH connection is disconnected, an alert message currently appears. However, upon clicking \"OK,\" it does not navigate to the relevant disconnected...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6TFff4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "in NB its show disconect msg inside of console, noted the rest\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-11T09:48:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6oBscc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I fully support this request, but I wanted to add that it would be great if we could just have SSH integrated into the application. Having a separate instance of PuTTY installed isn\u0027t a great way to handle SSH for a console application that is supposed to be a single app for all consoles. I\u0027ve got many places where they use PuTTY and it causes tons of confusion about which PuTTY they need to add saved sessions or which PuTTY agent they need to run for unlocking their keyfiles.\n\nSeriously, just a...",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2025-04-21T16:57:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6oPvjW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I fully support this request, but I wanted to add that it would be great if we could just have SSH integrated into the application. Having a separate instance of PuTTY installed isn\u0027t a great way to handle SSH for a console application that is supposed to be a single app for all consoles. I\u0027ve got many places where they use PuTTY and it causes tons of confusion about which PuTTY they need to add saved sessions or which PuTTY agent they need to run for unlocking their keyfiles.\n\u003e \n\u003e Seriously, ...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-04-22T23:28:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6oPyUe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I guess this is part of [#181](https://github.com/mRemoteNG/mRemoteNG/issues/181) and it\u0027s related issues (i.e. [#1262](https://github.com/mRemoteNG/mRemoteNG/issues/1262)).\n\nYeah, that would solve the problem too. I think I also saw someplace that they are replacing the connections file with a more secure database that will be able to store the keyfiles and passwords instead of the flat file they are using now.  Guess we just need to wait for all the goodies.",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2025-04-22T23:36:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiaP",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:17Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

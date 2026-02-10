@@ -1,0 +1,110 @@
+﻿{
+    "number":  379,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Scripting support on text terminal (Feature Request)",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "mcarbonneaux",
+    "created_at":  "2017-01-29T10:52:48Z",
+    "github_updated_at":  "2019-11-25T15:01:09Z",
+    "body_snippet":  "While be fun to add support for scripting on text terminal like [SPSL SuperPutty fonctionality](https://github.com/jimradford/superputty/wiki/SPSL-Reference-(SuperPuTTY-Scripting-Language)) but with [expect](https://en.wikipedia.org/wiki/Expect) support.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3NjE5NjQ4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reference #181 \r\n\r\nWe are looking to get away from PuTTY as a default mechanism with mRemoteNG since is causes a number of UI/UX headaches around window focus... \r\n\r\nBut will leave this open as a generic \"Scripting support on text terminal\" request not specifically tied to SuperPuTTY Scripting Language.",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-30T21:28:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMjUxMzAyMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Well, that\u0027s crap. The only reason I use mRemoteNG is for tabbed putty.  Now you\u0027re saying not only are you not going to incorporate Rutty scripting, but you\u0027re getting rid of PuTTY altogether?\r\nDamned shame. ",
+                         "author":  "AeSix",
+                         "action_needed":  true,
+                         "date":  "2017-07-02T19:49:19Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MTIzMTI1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We aren\u0027t planning on removing putty, it just won\u0027t be the default ssh provider. We still intend on supporting putty for the long term",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-11-01T20:25:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1MTAzOTI0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If possible, please don\u0027t create another abstract language but rather implement something like the Lua scripting engine (like [ExtraPutty](http://extraputty.com/features/lua.html) has) or maybe even Python.",
+                         "author":  "mbirth",
+                         "action_needed":  true,
+                         "date":  "2019-11-07T11:25:22Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODE2MjQ4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Spsl are juste request/response language... Very similar to expect... Is why using expect while be more adapted to the need... And not reinventing the wheel.... \r\n\r\nLua/python or other higth level scripting language are to higth for this type of use I think.... ",
+                         "author":  "mcarbonneaux",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T13:46:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODE3MjgzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Lua/python or other higth level scripting language are to higth for this type of use I think....\r\n\r\nBut they can be used for complex workflows, e.g. generating a 2FA token or fetching login data from a file/database. SPSL seems extremely limited in comparison.\r\n\r\nIf you add \"expect\" support, will it also support branching and loops (if/while)?",
+                         "author":  "mbirth",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T14:11:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODE4ODc4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "They exist csharp library like https://github.com/wiwanek/Expect.NET for expect ",
+                         "author":  "mcarbonneaux",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T14:49:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODE4OTI5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027d love to be able to use bash scripting to automate the client, as well as to have the client push data to the server, which can be executed on various triggers, such as on connection, pre-disconnection, and to watch for strings from the remote server.  This could potentially work on Windows as well as Linux (and maybe Mac?) \r\n\r\nMore realistically, on a Windows client, PS could be used for the same tasks, with it being able to push bash snippets to the server as needed.  \r\n\r\nMany server admins...",
+                         "author":  "AeSix",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T14:50:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODE5Mjg4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There no problem to use embedded scripting language but with support of request/response in it... And expect as long experience on this and can be embedded in any scripting language....\r\n\r\nOn windows ps can be embedded very simply :\r\n\r\nhttps://devblogs.microsoft.com/powershell/making-applications-scriptable-via-powershell/\r\n\r\nAnd I think the language embedded must be ligth and not fating the remoteng with to many dependancy.... ",
+                         "author":  "mcarbonneaux",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T14:58:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-11-25T15:01:09Z",
+    "unread_comments":  9,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

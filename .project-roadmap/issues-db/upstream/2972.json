@@ -1,0 +1,92 @@
+﻿{
+    "number":  2972,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "1password integration doesn\u0027t work from credentials inside options",
+    "state":  "open",
+    "labels":  [
+                   "Integrations"
+               ],
+    "author":  "Ahmed-ElHamidy",
+    "created_at":  "2025-10-24T13:21:22Z",
+    "github_updated_at":  "2026-02-09T06:26:23Z",
+    "body_snippet":  "when you set the required 1password uuids (OP://vault/item) on the connection it works normally, but if you set it on the parent folder or on the credentials page in options, and leave the connection credentials contents empty, it acts as if nothing is configured.\n\n===============================\nwindows 10 \nmRemote NG V 1.78.2 (Nightly Build 3228) x64\n===============================",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7NY8wN",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If **Inheritance** is turned on, the fields should not be displayed on connection level. Maybe something is wrong with **Inheritance** setting in your case for specific connection. Can you please send print-screen of Inheritance setting for your non-working connection.",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2025-10-25T05:11:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7NoiSE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "sorry i was moving in from the release version (1.76.20.24615) which doesn\u0027t need any change on those to use credentials from the credentials page in settings.\nwill do more testing on the nightly build and comeback to you with updated findings.\n\nattached my current settings that work on release, and same setup on nightly doesn\u0027t behave the same.\nnote I only filled the api key in as can be seen in the screenshots.\n![Image](https://github.com/user-attachments/assets/cb7cd5e9-9998-4161-90a2-13fab54...",
+                         "author":  "Ahmed-ElHamidy",
+                         "action_needed":  true,
+                         "date":  "2025-10-27T08:00:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7OQLP7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I managed to test a bit more, one thing works and another i couldn\u0027t get it to work\nwill start with what is working for me:\nwhen I set the correct inheritance attributes, the children take the parameters properly from their parents\n\nwhat doesn\u0027t work (as far as my understanding of the inheritance goes)\nthe settings credentials don\u0027t get used regardless what i do in inheritance (issue title updated to reflect latest finding)",
+                         "author":  "Ahmed-ElHamidy",
+                         "action_needed":  true,
+                         "date":  "2025-10-29T08:28:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXIfv",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mX-2O",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Update:\n\n- Fix is proposed in upstream PR:\n  - https://github.com/mRemoteNG/mRemoteNG/pull/3108\n\nScope: default external credential provider handling for `EmptyCredentials=custom` in RDP/PuTTY flows.\n\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T18:27:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7maCoL",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Covered by upstream PR:\u0026echo https://github.com/mRemoteNG/mRemoteNG/pull/3108\r\n\u0026echo Fork CI evidence:\u0026echo https://github.com/robertpopa22/mRemoteNG/actions/runs/21783476996\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T21:58:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpbqN",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3108 | **Branch:** `codex/pr4-default-provider-2972`\n**Fix:** Default external credential provider correctly applied.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:26:23Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:26:23Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

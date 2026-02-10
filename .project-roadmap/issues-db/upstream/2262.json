@@ -1,0 +1,65 @@
+﻿{
+    "number":  2262,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot connect to VNC put using vnc-4_1_3-x86_win32_viewer it work",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "paoloholzl",
+    "created_at":  "2022-07-12T13:16:53Z",
+    "github_updated_at":  "2026-02-07T18:45:20Z",
+    "body_snippet":  "All other connections work perfectly,\r\nBut I try unsuccesflully this connection:\r\n\r\nThis is the log:\r\n2022-07-12 15:12:25,368 [1] INFO  - mRemoteNG 1.77.1.27654 starting.\r\n2022-07-12 15:12:25,383 [1] INFO  - Command Line: C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exe\r\n2022-07-12 15:12:25,552 [1] INFO  - Microsoft Windows 10 Pro  64-bit\r\n2022-07-12 15:12:25,552 [1] INFO  - Microsoft .NET CLR 4.0.30319.42000\r\n2022-07-12 15:12:25,552 [1] INFO  - System Culture: it-IT/italiano (Italia)\r\n2022-07-12 ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5kOH0v",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@paoloholzl: Have you tried with UltraVNC?\r\n- https://github.com/ultravnc",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-08-17T00:13:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5lRgH8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sure.\r\nIf I connect using UltraVNC I obtain that is a logon without credential and trust is required.\r\nThen selecting continue it work perfectly.\r\nI have also try using connectRemoteNG with right click connect with options, connect without credentials (but dosn\u0027t work)",
+                         "author":  "paoloholzl",
+                         "action_needed":  true,
+                         "date":  "2023-08-30T12:34:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFQq",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYFhy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Always good.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T18:45:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T18:45:20Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

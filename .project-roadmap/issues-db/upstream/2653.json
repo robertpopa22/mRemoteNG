@@ -1,0 +1,104 @@
+﻿{
+    "number":  2653,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP clipboard not working with Server 2025",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Windows",
+                   "Clipboard",
+                   "1.77.3"
+               ],
+    "author":  "slowreload",
+    "created_at":  "2024-11-13T23:28:24Z",
+    "github_updated_at":  "2026-02-08T07:39:04Z",
+    "body_snippet":  "When connected to RDP to a server 2025 server RDP clipboard doesnt work, Not able to copy in or out. Works with all other OS Win10/11 Server16-22. Copy paste also works locally on the remote machine from within the rdp session and when using mstsc.exe just not with mremote.\r\n\r\n## Expected Behavior\r\nShould be able to copy in and out normally with RDP clipboard.\r\n\r\n## Current Behavior\r\nClipboard is no longer shared from host or remote machine when using mRemote. Works with MSTSC.exe and can copy n...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6TkHmx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Did you verify, that in the connection settings RDP is enabled (see https://github.com/mRemoteNG/mRemoteNG/issues/1562#issuecomment-528502502)?",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2024-11-14T08:33:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Toby7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes I did. The server was originally 2016 then was in place upgraded to 2025 and it worked when it was 2016. I also tried on a fresh build and it was the same effect. I tried rolling back to the  last stable version 1.76.20 and used the same connection file with zero changes and it works as intended it is a issue with version 1.77.3",
+                         "author":  "slowreload",
+                         "action_needed":  true,
+                         "date":  "2024-11-14T16:20:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Tov0s",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will check",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-14T16:49:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6amT_T",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i just tried this from a win10 machine to a server 2025 machine and had no issues, but i\u0027m using the latest source build, based on .net 8, and RDC12 commented out. not sure if this info helps.",
+                         "author":  "tecxx",
+                         "action_needed":  true,
+                         "date":  "2025-01-15T19:08:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6bGsut",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "https://woshub.com/cant-copy-paste-via-remote-desktop-rdp-clipboard/\n\nclosed and reopened remote clipboard monitor",
+                         "author":  "JaivigneshJv",
+                         "action_needed":  true,
+                         "date":  "2025-01-20T11:54:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6wtikq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e https://woshub.com/cant-copy-paste-via-remote-desktop-rdp-clipboard/\n\u003e \n\u003e closed and reopened remote clipboard monitor\n\nThat fixed the issue on my end, thank you.",
+                         "author":  "russia",
+                         "action_needed":  true,
+                         "date":  "2025-06-12T01:46:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYib_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdO10",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage consolidation: this thread already contains signals that the problem may not reproduce on current code paths. \r\n \r\n- contributor check on latest source build reported no repro \r\n- multiple users reported clipboard reset workaround (`rdpclip.exe` restart) restores expected behavior \r\n \r\nRecommendation: keep `Need 2 check` only if someone can reproduce on latest dev/fork builds with a deterministic step list (host OS/client OS/RDP options, especially clipboard redirection). Otherwise, close...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T07:39:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T07:39:04Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

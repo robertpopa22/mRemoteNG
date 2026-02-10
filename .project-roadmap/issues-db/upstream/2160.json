@@ -1,0 +1,77 @@
+﻿{
+    "number":  2160,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Closing the last tab in a panel does not close the panel",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "C4rb0n",
+    "created_at":  "2022-02-04T22:00:56Z",
+    "github_updated_at":  "2026-02-09T06:27:38Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen the last tab in a panel is closed, the panel should also close, as was behavior prior to published nightly v1.77.2-nb.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nWhen the last tab in a panel is closed, the panel should also close, as was behavior prior to published nightly v1.77.2-nb.\r\n\r\n## Curre...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM49aox5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can support this, the only reason I can see to retain an empty connection panel is if you open not stored connections again... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-04T22:15:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYU0L",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:23:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mdljk",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Likely addressed by panel-close behavior fixes already packaged upstream: PR #3106 and follow-up panel empty-state fix on fork release branch. \r\n \r\nPlease retest on latest RC candidate build; if resolved, recommend close as duplicate/resolved. \r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T08:23:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mgV2S",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Packaged fix is now available in PR #3126: https://github.com/mRemoteNG/mRemoteNG/pull/3126. This adds auto-close for empty panels after last-tab close flow in ConnectionWindow and guards against shutdown/dispose race paths.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T14:02:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpdRM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3126 | **Branch:** `codex/pr22-close-empty-panel-2160`\n**Fix:** Empty panel correctly closes after last tab is removed.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:27:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:27:38Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

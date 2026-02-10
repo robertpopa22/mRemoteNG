@@ -1,0 +1,38 @@
+﻿{
+    "number":  734,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Launch saved RDP sessions using external tools",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "Sqwrly",
+    "created_at":  "2017-10-05T18:03:18Z",
+    "github_updated_at":  "2020-07-27T17:26:43Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\nThis is a feature request to allow saved RDP sessions to be launched with external tools. I\u0027m not a developer so I don\u0027t know the best way to go about it. Maybe command line options or an API etc. As an example of what I would like to accomplish would be WoX launcher starting saved kitty/putty connections. This could possibly be related to this issue: https://github.com/mRemoteNG/mRemoteNG/issues/5...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2NDUzMTY1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It would be a grate function. A simple command line option could help for us.\r\n",
+                         "author":  "Karuczka",
+                         "action_needed":  true,
+                         "date":  "2020-07-27T17:26:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-07-27T17:26:43Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

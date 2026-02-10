@@ -1,0 +1,58 @@
+﻿{
+    "number":  2046,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Trouble using key-based authentication with external tools",
+    "state":  "open",
+    "labels":  [
+                   "Security",
+                   "Improvement required",
+                   "Third party"
+               ],
+    "author":  "penguinairlines",
+    "created_at":  "2021-09-13T18:33:27Z",
+    "github_updated_at":  "2025-04-19T15:39:50Z",
+    "body_snippet":  "## Expected Behavior\r\nI\u0027m trying to configure WinSCP external tool, but a 2nd profile that uses keys instead of passwords. In my searching, looks like this has been brought up once before http://forum.mremoteng.org/viewtopic.php?f=3\u0026t=1701 but they did not find a solution. I did not find many other results for this, surprisingly.\r\n\r\n## Current Behavior\r\nUsing the provided configuration, I get the error `No supported authentication methods available (server sent: publickey,gssapi-keyex,gssapi-wit...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5vnfOJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "PecceG2",
+                         "action_needed":  true,
+                         "date":  "2023-12-30T23:03:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6HKR0w",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1\r\n\r\ndoesnt seem to be undocumented : https://github.com/mRemoteNG/mRemoteNG/blob/472d33ba1272031e24abe2d1c9db77e2315a75f7/mRemoteNG/Tools/ExternalToolArgumentParser.cs#L209 this switch case doesnt have anything related to the putty session",
+                         "author":  "jonnytest1",
+                         "action_needed":  true,
+                         "date":  "2024-08-04T17:49:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6n5EvQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i made a workaround real quick:\n\n\nmremotengwinscp.ps1\n```powershell\n# Print all arguments\nWrite-Host \"Arguments passed to script:\"\nforeach ($arg in $args) {\n    Write-Host $arg\n}\n\nif ($args.Count -lt 1) {\n    Write-Host \"Usage: script.ps1 \u003cSessionName\u003e\"\n    exit 1\n}\n\n$configPath = \"$env:APPDATA\\mRemoteNG\\confCons.xml\"\n\n[xml]$config = Get-Content -Path $configPath\n\n$sessionName = $args[0]\n\n# Recursive search function\nfunction Find-Session {\n    param (\n        [System.Xml.XmlElement]$node,\n      ...",
+                         "author":  "jonnytest1",
+                         "action_needed":  true,
+                         "date":  "2025-04-19T15:39:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-04-19T15:39:50Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,38 @@
+﻿{
+    "number":  1157,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "No Logon information on Tab Names",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "bryan292",
+    "created_at":  "2018-10-26T17:46:11Z",
+    "github_updated_at":  "2018-10-28T15:53:26Z",
+    "body_snippet":  "When leaving blank the credentials on the session and using the ones on options, is not showing the login information on the Tab Name",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMzcxNzQzMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Currently we just take whatever is in the Username field of the connection record. This doesn\u0027t work when using the `Connect (without credentials)` option, as you have found. We can fix this for some protocols, but maybe not all of them.\r\n\r\nFor RDP:\r\nThe `OnUserNameAcquired` event fires when the RDP connection receives a username. It provides the login user information as `domain\\username`. We can use this to update the tab name even when using the `Connect (without credentials)` option.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-28T15:53:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-10-28T15:53:26Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

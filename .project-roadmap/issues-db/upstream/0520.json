@@ -1,0 +1,437 @@
+﻿{
+    "number":  520,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Alt Tab on Windows 10",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "Duplicate",
+                   "Need 2 check"
+               ],
+    "author":  "cusco",
+    "created_at":  "2017-04-20T14:16:42Z",
+    "github_updated_at":  "2026-02-07T19:12:17Z",
+    "body_snippet":  "\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 Pro x64 |\r\n|mRemoteNG version| 1.75 hotfix 1 (2017-03-06)|\r\n\r\nHello all. I\u0027ve searched on the internet and I find many people reporting this issue. On foruns and Jira, but I didn\u0027t find the issue here. \r\nAlso reports I found are old.\r\n\r\nBasically, when i have mRemoteNG opened with at least a putty session, I can\u0027t cycle correctly thorough windows applications with alt tab.\r\n\r\n- Have mRemoteNG focused\r\n- Alt + Tab to another App -\u003e stay...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTc1ODE0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for adding your report here. Yea, there are a number of very annoying focus-related issues in the application. I don\u0027t believe we have these issues scheduled yet, but they are on our mind.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T14:29:02Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NTgzNjE5NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@cusco Please upvote / track this problem via #290 ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-04-20T18:01:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NTQ4NzczOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I found out that check on the option\"Allow only a single instance\" would surprisingly fix this issue!\r\n\r\nTools-\u003eOptions-\u003eStartup/Exit-\u003eAllos only a single instance of application\r\n",
+                         "author":  "wakinowen",
+                         "action_needed":  true,
+                         "date":  "2018-01-05T07:10:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NTg4MzM0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, it indeed works !! Thanks @wakinowen ",
+                         "author":  "charannaik",
+                         "action_needed":  true,
+                         "date":  "2018-01-08T04:39:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MTU1OTE5OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Worked for me too @wakinowen ",
+                         "author":  "Tinostarn",
+                         "action_needed":  true,
+                         "date":  "2018-03-08T17:23:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4NzMyMTEwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@wakinowen, this works for me! :)",
+                         "author":  "fred070",
+                         "action_needed":  true,
+                         "date":  "2018-05-08T08:09:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MjA5NjIxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It works",
+                         "author":  "fpelaezt",
+                         "action_needed":  true,
+                         "date":  "2018-05-25T15:33:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MjU2Njk2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@wakinowen it does not seem to work for me!\r\n\r\nActivate the option, exit remote-ng, open remote-ng and 2 putty sessions. Same issue.\r\nAlt tab will not cycle correctly :(",
+                         "author":  "cusco",
+                         "action_needed":  true,
+                         "date":  "2018-05-28T16:34:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMjYzNzk0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The problem still exist and I agree with @cusco, workaround doesn\u0027t work",
+                         "author":  "romangit",
+                         "action_needed":  true,
+                         "date":  "2018-07-05T07:58:19Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjMwNzEyMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "the workaround by @wakinowen doesn\u0027t resolve the issue in my setup - win10 1.75.7012.16814",
+                         "author":  "Idanatcox",
+                         "action_needed":  true,
+                         "date":  "2018-10-02T14:59:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4OTUzOTQ2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is there any way to disable Alt+Tab so that it no longer cycles through remote windows but only local windows. This is how RoyalTS works: you use Alt+PgUp/Down to cycle through remote windows.",
+                         "author":  "cawoodm",
+                         "action_needed":  true,
+                         "date":  "2019-05-06T08:06:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwOTA4MTA2NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "it works on Win 10 64 bit..  \r\n===UPDATE===\r\nOnly works at first time, after you exit the app and open again the problem happened again, you need to  recheck and check again the \"Allow only a single instance of application\"",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2019-07-08T05:11:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMzQzMTUxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \r\n\u003e \r\n\u003e @wakinowen it does not seem to work for me!\r\n\u003e \r\n\u003e Activate the option, exit remote-ng, open remote-ng and 2 putty sessions. Same issue.\r\n\u003e Alt tab will not cycle correctly :(\r\n\r\nin putty configuration, Window--\u003ebehaviour , check on \"Ensure window is always on top\"\r\nit works for me.",
+                         "author":  "howdoyoudoooo",
+                         "action_needed":  true,
+                         "date":  "2019-07-20T03:26:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyMjI2NzgzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e For quick fix, i just attach the remoteNg app to cmder app\r\n\u003e ![image](https://user-images.githubusercontent.com/1474916/63072189-a8af6f00-bf4c-11e9-942d-c8e4cffcc6ef.png) ..and the alt+tab issue gone\r\n\r\nDidn\u0027t try it yet, nor do I know cmder, but I can imagine it works. I will probably tap into this myself",
+                         "author":  "cusco",
+                         "action_needed":  true,
+                         "date":  "2019-08-17T20:21:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0MDU1NTA2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Unfortunately with cmder it does not work for me.\r\n\r\nWhen Alt-Tabing between writing on Puttyng (inside mremoteng) and notepad the first alt-tab goes back to cmder instead of notepad. Only the second alt-tab switches to notepad.\r\n\r\n",
+                         "author":  "pedroeloy",
+                         "action_needed":  true,
+                         "date":  "2019-10-10T12:42:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0ODc1NDg0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Weird ALT-TAB behavior indeed.\r\n\r\nLooks like the row with apps, which is shown after pressing ALT-TAB, isn\u0027t updated correctly after selecting mRemoteNG. The program is selected okay, the row afterwards isn\u0027t updated: mRemoteNG stays in its previous position (2nd, 3rd, whatever). The focus in the row (white border) is correct on the previous app but it is still in front.\r\n\r\nAfter selecting mRemote for the 2nd time the row get updated correctly and mRemoteNG shows up in front and the previous app...",
+                         "author":  "loxiagit",
+                         "action_needed":  true,
+                         "date":  "2019-11-01T11:22:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0ODkwNzE5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m now in the situation that Alt+Tab works remotely on some servers and Alt+PgUp works on others. This is crazy.",
+                         "author":  "cawoodm",
+                         "action_needed":  true,
+                         "date":  "2019-11-01T18:48:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0OTAyNzAwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@loxiagit  \r\n\r\nI\u0027m guessing this weird behaviour is related to the fact that mremoteng is embedding another window/application? (Putty) into itself so focus gets messes up with that.\r\n\r\nIf you only need to ALT+TAB between a focused Putty Tab and just 1 external application It kind of works but has soon has you change focus to something else it becomes unusable again.\r\n",
+                         "author":  "pedroeloy",
+                         "action_needed":  true,
+                         "date":  "2019-11-02T09:30:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1MjcyNDc1Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This issue has been reported since 6 more years ago and having no actual update fix since, the only work around for me in windows 10 was by putting mRemoteNG application to the first order in bottom taskbar, then when i want to switch to mRemoteNG i just press **Win + 1**\r\nGood luck",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2019-11-12T04:04:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxNTIzMjMwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is this still not fixed in April 2020? It is such an annoying issue that I\u0027m sure other people than me are considering switching to alternatives. Other than this issue mRemoteNG is fantastic.",
+                         "author":  "jogyo",
+                         "action_needed":  true,
+                         "date":  "2020-04-17T13:03:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTUwNzY2MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still happening, and after applying this [workaround](https://github.com/mRemoteNG/mRemoteNG/issues/520#issuecomment-355487738) it happens SOMETIMES.  \r\nAwfully weird and inconsistent",
+                         "author":  "lukecamilo",
+                         "action_needed":  true,
+                         "date":  "2020-04-29T22:46:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1MDQ4OTc3MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is still happening for me.  Version 1.76.20.24615",
+                         "author":  "mbuc",
+                         "action_needed":  true,
+                         "date":  "2020-06-27T04:33:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcxMjE2MjQ4OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "1. Very annoying. Is there any other app, that doesn\u0027t have this issue? I always have to use my mouse just to switch back to mRemoteNG from my PHPstom or ant other window.\r\n2. ALSO if I click on text region of mRemoteNG, the cursor itself sets to cli string, and I even can type something, WHILE WINDOW ITSELF IS NOT FOCUSED. This is sooo strange behaviour...",
+                         "author":  "konstantin83",
+                         "action_needed":  true,
+                         "date":  "2020-10-19T13:38:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47khs-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "How is this still a thing so many years later ? It\u0027s an otherwise excellent application, but this is extremely annoying behaviour.",
+                         "author":  "therightstuff",
+                         "action_needed":  true,
+                         "date":  "2021-12-22T09:40:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47pSLf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have 1.76.20 version with latest till now, but still not working. Please fix this issue, else I had to use windows remote desktop to skip that I am using this app.\r\n\r\nUpdating my old commit: to reply how it is working.\r\nJust you need to go to \"Config\" and under config find the \"Redirect\" under that select \"Key Combination\" as Yes. You are done and working properly. Attaching the image which is also showing the description how to send Alt+TAB to remote.\r\n![image](https://user-images.githubuserc...",
+                         "author":  "royujjal",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T06:23:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47pTqw",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "(Tested) You can try this way:\r\n\r\n* in mRemoteNG, menu Tools-\u003eOptions-\u003eStartup/Exit-\u003e_Allow only a single instance of application..._ -\u003e restart mRemoteNG\r\n* in **cmder** -\u003e menu -\u003e Attach to -\u003e select mRemoteNG\r\n\r\nin attach mode, some menu to mRemoteNG is not display properly, also lagging when resize cmder windows if current tab is mRemoteNG.",
+                         "author":  "NothingCtrl",
+                         "action_needed":  true,
+                         "date":  "2021-12-24T06:46:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47rl6m",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Is this still not fixed in April 2020? It is such an annoying issue that I\u0027m sure other people than me are considering switching to alternatives. Other than this issue mRemoteNG is fantastic.\r\n\r\nThis is a killer for me as well. It hurts my productivity and is annoying on top, which makes me leave this app for now.",
+                         "author":  "Kongolan",
+                         "action_needed":  true,
+                         "date":  "2021-12-27T01:38:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47r4FM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kongolan as I said I have tested with nRemoteNG only and it is working for me with the above settings (commented above) I have made. So, please use this app and pleasure to use it.",
+                         "author":  "royujjal",
+                         "action_needed":  true,
+                         "date":  "2021-12-27T06:14:19Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47v0XK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @Kongolan as I said I have tested with nRemoteNG only and it is working for me with the above settings (commented above) I have made. So, please use this app and pleasure to use it.\r\n\r\nOk Update, the redirect thing is there, changed to yes and then still unable to focus after unfocusing the remoteNG ssh\r\n\r\n![image](https://user-images.githubusercontent.com/1474916/147627209-4382c500-aa1a-4754-85e1-d97aa064e0da.png)\r\n\r\n",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2021-12-29T04:21:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47wn3N",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@aswzen it\u0027s not in the connection global settings - please check my comment. It is in the \u0027Config\u0027 that will be shown only when you select a remote connection. I have selected the remote erased as RED color - see the image.\r\n![image](https://user-images.githubusercontent.com/6007707/147667181-6bfa6019-af9d-4316-8b5c-e7fb7e9e2f0a.png)\r\n\r\nAlso, you can do it globally which will be applied only for new connections. So, you can apply globally I have edited your image check and apply the same on tho...",
+                         "author":  "royujjal",
+                         "action_needed":  true,
+                         "date":  "2021-12-29T13:46:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47xTCF",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@royujjal It worked at least for me. With the key combination passthrough, it does open the ssh connect right away.",
+                         "author":  "Kongolan",
+                         "action_needed":  true,
+                         "date":  "2021-12-29T21:14:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM47xsSa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @aswzen it\u0027s not in the connection global settings - please check my comment. It is in the \u0027Config\u0027 that will be shown only when you select a remote connection. I have selected the remote erased as RED color - see the image. ![image](https://user-images.githubusercontent.com/6007707/147667181-6bfa6019-af9d-4316-8b5c-e7fb7e9e2f0a.png)\r\n\u003e \r\n\u003e Also, you can do it globally which will be applied only for new connections. So, you can apply globally I have edited your image check and apply the same o...",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2021-12-30T05:46:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Gt98L",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still not fixed in 2021, can we look into this please?",
+                         "author":  "nicolasvahidzein",
+                         "action_needed":  true,
+                         "date":  "2022-07-17T09:15:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Gujiy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok, add to my to-do tasks to check",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-07-17T21:21:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Gu9QZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This one https://github.com/mRemoteNG/mRemoteNG/issues/290 also related to this issue, \r\nand also https://github.com/mRemoteNG/mRemoteNG/issues/245, https://github.com/mRemoteNG/mRemoteNG/issues/398, https://github.com/mRemoteNG/mRemoteNG/issues/1721, \r\nand all of them lead to https://github.com/mRemoteNG/mRemoteNG/issues/181, and [This milestone](https://github.com/mRemoteNG/mRemoteNG/projects/3#card-25603551  )",
+                         "author":  "aswzen",
+                         "action_needed":  true,
+                         "date":  "2022-07-18T03:09:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XJINd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "2023 and it still doesn\u0027t work.\r\nThe \"Key Combinations\" thing didnt help. Im using version 1.76.20.24669",
+                         "author":  "rotf00",
+                         "action_needed":  true,
+                         "date":  "2023-03-09T12:52:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XJeRi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ALT+TAB inside Remote PC via mRemote application version 1.76.20.24615 in my Windows-10 working seamlessly.",
+                         "author":  "royujjal",
+                         "action_needed":  true,
+                         "date":  "2023-03-09T13:49:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XNJrI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e ALT+TAB inside Remote PC via mRemote application version 1.76.20.24615 in my Windows-10 working seamlessly.\r\n\r\nWhat do you mean by \"Remote PC\"? ",
+                         "author":  "rotf00",
+                         "action_needed":  true,
+                         "date":  "2023-03-10T01:17:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XN1xf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It does not work @royujjal still.",
+                         "author":  "nicolasvahidzein",
+                         "action_needed":  true,
+                         "date":  "2023-03-10T04:38:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bMwoi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is broken for me too, when Redirect Key Combinations is active, I still expect CTRL+ALT+HOME to let me un-trap the focus and alt+tab to other applications. Also see #1169 and https://superuser.com/a/505533/618270",
+                         "author":  "ukanuk",
+                         "action_needed":  true,
+                         "date":  "2023-05-01T18:54:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5sWYoL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It looks like it happens because of using PuTTy as a backend. My quick research shows that the issue is encountered if before switching from mRemoteNG to another application the focus stays inside a terminal (that actually a PuTTy application). If before the switching make a click by mouse on any part of mRemoteNG outside the terminal screen (obviously, to move the focus from PuTTy backend to mRemoteNG itself) the switching back to mRemoteNG by ALT-TAB works great. \r\nI hope it helps to fix the i...",
+                         "author":  "northbear",
+                         "action_needed":  true,
+                         "date":  "2023-11-19T10:04:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7ICj2a",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If you just had under \u0027Send Special Keys\u0027 \u0027Ctrl\u0027 and \u0027Alt\u0027 that would help immensely.  ",
+                         "author":  "roberticomold",
+                         "action_needed":  true,
+                         "date":  "2025-10-01T12:38:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXD4b",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:39:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGGF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:48:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYQ_u",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:12:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:12:17Z",
+    "unread_comments":  42,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

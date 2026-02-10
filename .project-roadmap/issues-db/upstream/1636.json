@@ -1,0 +1,57 @@
+﻿{
+    "number":  1636,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Index was out of range. Must be non-negative and less than the size of the collection. Parameter name: index",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check"
+               ],
+    "author":  "guillermorgil",
+    "created_at":  "2019-11-14T12:04:58Z",
+    "github_updated_at":  "2026-02-07T16:47:08Z",
+    "body_snippet":  "   at System.Collections.ArrayList.get_Item(Int32 index)\r\n   at System.Collections.ArrayList.IListWrapper.get_Item(Int32 index)\r\n   at BrightIdeasSoftware.TreeListView.Tree.RebuildObjectMap(Int32 startIndex)\r\n   at BrightIdeasSoftware.TreeListView.Tree.RebuildChildren(Object model)\r\n   at BrightIdeasSoftware.TreeListView.RefreshObjects(IList modelObjects)\r\n   at BrightIdeasSoftware.ObjectListView.RefreshObject(Object modelObject)\r\n   at mRemoteNG.UI.Controls.ConnectionTree.HandleCollectionChange...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1NDI2OTcyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "What were you doing when the error occured? @guillermorgil ",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-11-15T08:50:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU5NDI0ODY5NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same error.  This happens after I update an existing record Name field and \u003cTab\u003e out of that field to the last field in the connection, but then forget that the Tab key takes me back instead of forward (maybe that\u0027s a setting that I messed up?) so instead I press \u003cShift\u003e+\u003cTab\u003e to get back into the Name field in the same record, and then the unhandled exception window pops up.  I can close the window and continue working as normal, but I figure it\u0027s at least useful for you to know there\u0027s an issu...",
+                         "author":  "ryankpaul",
+                         "action_needed":  true,
+                         "date":  "2020-03-04T00:53:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF0o",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:08Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

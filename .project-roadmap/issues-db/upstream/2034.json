@@ -1,0 +1,56 @@
+﻿{
+    "number":  2034,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "How to: SSH Tunnel with SSO password --\u003e With SHARE SSH CONNECTION option",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "lars18th",
+    "created_at":  "2021-08-30T08:02:20Z",
+    "github_updated_at":  "2026-02-07T16:45:47Z",
+    "body_snippet":  "Hi,\r\n\r\nI\u0027m testing the last nightly build, and the \"new\" SSH TUNNEL (jump host) functionality is a must have. Thank you for it. However, I have one suggestion to improve it:\r\n\r\n- The idea is to add a new option called \"share tunnel password\". This implements the functionality to store the typed password _the fisrt time it\u0027s used_. And for all new connections using the same tunnel, the password of the jump host will be reused... without typing it again. This will be similar to a SSO (Single Sign-...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM42IfCD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nGood news! You can configure the PuTTY TUNNEL connection to achieve this! ≡ƒÿ£ \r\n\r\nTo do it, configure in PuTTY the connection used for the tunnel with these options:\r\n- Connection / SSH --\u003e\r\n  - [ON] Share SSH connections if possible.\r\n  - [ON] Upstream\r\n  - [ON] Downstream\r\n\r\nThen when you open a new connection with the tunnel only _one time_ the password is requested. Futhermore, I suggest to enable also the option:\r\n- Connection / SSH --\u003e\r\n  - [ON] Don\u0027t start a shell or command at al...",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2021-08-30T09:33:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42If13",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nOne point: Using the SHARE SSH CONNECTION in the jump host connection, one drawback exists: when you close the _first_ connection, all others that share the connection will lost the connection. So, take note of it!\r\n\r\nI suggest to improve this checking if more than one connection is in use, and then don\u0027t close the background tunnel connection.\r\n\r\nRegards.\r\n",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2021-08-30T09:38:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFcm",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:47Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:47Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

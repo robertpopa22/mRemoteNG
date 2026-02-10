@@ -1,0 +1,92 @@
+﻿{
+    "number":  2241,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Rendering Engine \"Edge Chromium\" not working",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "skewty",
+    "created_at":  "2022-06-03T18:33:27Z",
+    "github_updated_at":  "2026-02-07T16:45:09Z",
+    "body_snippet":  "## Expected Behavior\r\nSelect `Edge Chromium` renderer and initiate connection and have the page load.\r\n\r\n## Current Behavior\r\nSelect `Edge Chromium` renderer and initiate connection and page never loads / renders.\r\n\r\n## Possible Solution\r\nFix / finish the feature or provide an error or some sort of display if something went wrong.\r\n\r\n## Steps to Reproduce (for bugs)\r\nCreate an `Edge Chromium` connection and try to get it to work.\r\n\r\n## Your Environment\r\n\r\n* Version used: 1.77.2\r\n* Operating Syst...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5OJDGD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any update on adding the Edge Chromium as a rendering engine for HTTPS natively in mRemoteNG?  We have been using it as an external tool, which works fine, but it\u0027d be nice to have the devices open as tabs natively in the app.  When using Edge as an external tool it always opens tabs in the existing Edge application running outside of mRemoteNG.",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2022-11-10T22:44:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Vxkt8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just another follow up on if this feature can be fixed?",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2023-02-21T20:35:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Vxx9r",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m not sure, but does the workaround mentioned in #2256 work for you? \r\n\r\nNot that this would be the solution, but might help you get up and running again...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-02-21T21:25:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bENb0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I\u0027m not sure, but does the workaround mentioned in #2256 work for you?\r\n\u003e \r\n\u003e Not that this would be the solution, but might help you get up and running again...\r\n\r\nMy computer already had [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) so that post didn\u0027t help for me.",
+                         "author":  "skewty",
+                         "action_needed":  true,
+                         "date":  "2023-04-28T16:54:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bEVZh",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Running the latest nightly builds has a working Chromium engine but you cannot save your settings. Every time you start the app it asks you to configure the global settings, which is more broken than not having Chromium. There hasn\u0027t been an updated beta build since 2019...\n\nI found an existing issue around the nightly builds not saving settings and there is debate on if they should. One person mentioned the settings should be saved in the same directory as the executables, so the app can truly ...",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2023-04-28T17:21:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6EpDl6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "replies to #2428 solved this for me.",
+                         "author":  "TrueOsiris",
+                         "action_needed":  true,
+                         "date":  "2024-07-12T11:15:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFRm",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:09Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

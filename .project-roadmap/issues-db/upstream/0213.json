@@ -1,0 +1,66 @@
+﻿{
+    "number":  213,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Serial option for Putty",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Connections"
+               ],
+    "author":  "sethstenzel",
+    "created_at":  "2016-11-01T13:33:41Z",
+    "github_updated_at":  "2023-02-22T01:21:08Z",
+    "body_snippet":  "Can you add interface options for opening serial connections via Putty. This feature is the only-thing stopping me from exclusively using mRemoteNG for managing all my sessions and I sometimes have multiple serial interfaces up.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1Nzg5MzYyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reference: https://mremoteng.atlassian.net/browse/MR-253\n",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2016-11-02T15:09:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1ODA3MzU4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can already open putty myself and do that now. Having to reconfigure connections that will be sure to change as things are connected and disconnected the request was to add full feature support making the tool all that much more usable especially for folks connecting via console port to different devices and with different settings.\n\nThe application should scan what com ports are active and allow them to be selected. I\u0027ve had up to 4-5 serial connections running before. Second not all the devi...",
+                         "author":  "sethstenzel",
+                         "action_needed":  true,
+                         "date":  "2016-11-03T06:45:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2ODk2OTQxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "My solution for Windows...\r\n\r\nCreate an external app:\r\nFilename = putty.exe\r\nArguments = -serial COM%PORT% -sercfg %HOSTNAME%\r\nTry to integrate = true\r\n\r\nThen in each of connections, set them to External app, set the port to the required comm port number, and the Host/IP to the required speed.\r\n",
+                         "author":  "mcrossley",
+                         "action_needed":  true,
+                         "date":  "2016-12-23T10:25:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzODc5ODU4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Am I able to pick this up? I have a solution ready, not sure how to go about assigning this to myself.",
+                         "author":  "DJSdev",
+                         "action_needed":  true,
+                         "date":  "2019-10-06T23:19:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-02-22T01:21:08Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

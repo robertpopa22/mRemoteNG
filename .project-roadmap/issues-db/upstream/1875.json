@@ -1,0 +1,32 @@
+﻿{
+    "number":  1875,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Reconnect SSH session with floating window fails with warning/error message",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "SSH"
+               ],
+    "author":  "johnjore",
+    "created_at":  "2020-10-06T01:41:45Z",
+    "github_updated_at":  "2021-06-27T18:33:09Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWarning / error message \"Reconnect (UI.Window.ConnectionWindow) failed. Could not find InterfaceControl\" when using \"Reconnect\" on a floating SSH window.\r\n\r\n## Expected Behavior\r\n\"Reconnect\" command should be run and session restarted\r\n\r\n## Current Behavior\r\nWarning / error message \"Reconnect (UI.Window.ConnectionWindow) failed. Could not find InterfaceControl\" when using \"Reconnect\" on a floating SSH window/session.\r\n\r\n## Step...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2021-06-27T18:33:09Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

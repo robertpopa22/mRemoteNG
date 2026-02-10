@@ -1,0 +1,48 @@
+﻿{
+    "number":  1056,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Telnet connexion",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "Third party"
+               ],
+    "author":  "CHAVYZ",
+    "created_at":  "2018-07-31T12:13:29Z",
+    "github_updated_at":  "2026-02-07T16:47:35Z",
+    "body_snippet":  "Failed login telnet on the first time \r\n\r\n## Expected Behavior\r\ntelnet xx.xx.xx.xx 7777 \u003e pass \u003e ok \r\n\r\n## Current Behavior\r\nPuTTYNG.exe xx.xx.xx.xx 7777 \u003e good or false password \u003e \"Mot de pase incorrect !\" ( bad password with spelling mistake \"pase\" = \"passe\" )\r\nre type good password and then I am log in  \r\n\u003ehelp\r\n\r\n## Possible Solution\r\nMaybe a bad parameter in Putty terminal ?\r\nDifference between French and English ?\r\nport 7777  ( and no 23 ) ?\r\nnetping materiel\r\nnetwork?\r\n\r\n## Steps to Repro...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MDA0Mzg5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@CHAVYZ Are you using puttyng or mremote to initiate the connection? Does the problem also occur with the normal putty client?\r\nSince it works fine for your cisco switch I think this could be a problem with the JDC \"Nepting TPE\". Have you tried to telnet from you windows command line?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-12-27T00:06:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF9P",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:35Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,58 @@
+﻿{
+    "number":  1269,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Allow changing behaviour of external tools toolstrip",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required"
+               ],
+    "author":  "farosch",
+    "created_at":  "2019-01-11T11:11:37Z",
+    "github_updated_at":  "2026-02-07T19:31:58Z",
+    "body_snippet":  "## Current Behavior\r\nWhen clicking on a an external tools button in the menu strip it uses the currently selected machine in the connection tree.\r\n\r\n## Possible Solution\r\nImplement a settings option to chose weather to use the currently active connection tab or the selected connection in the connection tree.\r\n\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used: Current develop branch\r\n* Operating System and version:...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MzQ4NTQ1OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd @kmscode If you want me to, I\u0027ll create a PR for this",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-01-11T11:15:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MzU0OTAyMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Assigned to @farosch - would love a PR for this. Thanks!!",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2019-01-11T15:14:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYXz0",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:31:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:31:58Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

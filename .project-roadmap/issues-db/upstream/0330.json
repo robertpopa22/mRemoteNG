@@ -1,0 +1,105 @@
+﻿{
+    "number":  330,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Dismiss Tab Context Menu When Clicking Inside RDP Frame",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Priority - Low",
+                   "Bug",
+                   "Help Wanted",
+                   "UI/UX"
+               ],
+    "author":  "jcefoli",
+    "created_at":  "2017-01-06T21:41:03Z",
+    "github_updated_at":  "2019-03-10T01:21:50Z",
+    "body_snippet":  "\u003c!-- Bug --\u003e\r\nWhen you right click on a connection tab to bring up the context menu, clicking within the RDP frame does not dismiss the menu. Since all input is passed through to the RDP session, mRemoteNG\u0027s GUI doesn\u0027t understand I\u0027ve clicked elsewhere and the menu  is not dismissed. I tend to do this a lot, and the menu gets in my way which forces me to stop what I\u0027m doing in my remote session and click somewhere in the mRemoteNG GUI to dismiss it. \r\n\r\nThis is minor, so if it\u0027s an easy fix, go...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTA0Mzk0Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It\u0027s unlikely that we\u0027ll be able to do anything about this... The click inside the RDP session is sent to the remote host and not processed locally at all... ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-07T00:10:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTA3MDI2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello all,\n\nWhat about handling lost of focus instead?\n\nGreetings,\n\n--\nR. Tabernero\n\n\u003e El 7 ene 2017, a las 1:10, Sean Kaim \u003cnotifications@github.com\u003e escribi├│:\n\u003e \n\u003e It\u0027s unlikely that we\u0027ll be able to do anything about this... The click inside the RDP session is sent to the remote host and not processed locally at all...\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you are subscribed to this thread.\n\u003e Reply to this email directly, view it on GitHub, or mute the thread.\n\u003e \n",
+                         "author":  "rtabernero",
+                         "action_needed":  true,
+                         "date":  "2017-01-07T08:14:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTA5OTIxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We ***may*** be able to get around the click issue by overlaying some kind of click-catcher on top of the RDP session window. That overlay would capture click events and pass them on to the highest Z-order control under the click location (menu, RDP session, popup, etc).\r\n\r\nConcerns with this approach:\r\n- This adds some overhead to RDP sessions.\r\n- Adds a significant amount of complexity. The overlay would need to grow/shrink/move with its RDP session. The hit-testing could get complex pretty qu...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-07T17:59:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTMwMTgxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If it requires any kind of latent, click catching workarounds, don\u0027t even worry about it. Not a fan of dirty hacks. I was just curious if it was easy or not. I can change my usage behavior so I stop doing that!",
+                         "author":  "jcefoli",
+                         "action_needed":  true,
+                         "date":  "2017-01-09T14:45:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTMxMTAxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Unfortunately the RDP activex control doesn\u0027t make this easy. It\u0027s a black hole :(",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-01-09T15:20:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTMxNTIwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m researching and testing a few ideas now... No promises though...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-09T15:35:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTMzNTA0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The \"problem\" is here (\\mRemoteNG\\mRemoteV1\\UI\\Window\\ConnectionWindow.cs):\r\n```\r\n        protected override void WndProc(ref Message m)\r\n        {\r\n            try\r\n            {\r\n                if (m.Msg == NativeMethods.WM_MOUSEACTIVATE)\r\n                {\r\n                    var selectedTab = TabController.SelectedTab;\r\n                    if (selectedTab == null) return;\r\n                    {\r\n                        var tabClientRectangle = selectedTab.RectangleToScreen(selectedTab.Clie...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-01-09T16:39:46Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTIzNzUyOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "FYI - confirmed that this still occurs in the current develop branch with the magiclib removal. Though, that\u0027s to be expected.... ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2019-03-10T01:21:50Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-03-10T01:21:50Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

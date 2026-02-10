@@ -1,0 +1,30 @@
+﻿{
+    "number":  1372,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Default Window Dimensions for Floating Tabs and Panels when Undocked",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX"
+               ],
+    "author":  "another-git-hub-user",
+    "created_at":  "2019-03-22T20:22:37Z",
+    "github_updated_at":  "2025-09-16T20:46:36Z",
+    "body_snippet":  "I wish I could fix this issue myself and contribute to mRemoteNG, because it has been driving me batty for a long time; but unfortunately I am not able to do so.\r\n\r\nFor the love of all that is good, and to save the tattered remnants of my shredded sanity; could someone... anyone... PLEASE PLEASE PLEASE fix the default dimensions/size of the floating tab and panel windows when they are first undocked and have a connected session, so that all open windows within the remote desktops do not shrink t...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2025-09-16T20:46:36Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

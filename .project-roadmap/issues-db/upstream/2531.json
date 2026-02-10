@@ -1,0 +1,41 @@
+﻿{
+    "number":  2531,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Option to make mRemoteNG close itself after being idle for too long",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Improvement required",
+                   "1.77.3",
+                   "Settings"
+               ],
+    "author":  "ductnone",
+    "created_at":  "2023-12-06T06:45:40Z",
+    "github_updated_at":  "2026-02-07T19:56:46Z",
+    "body_snippet":  "## Expected Behavior\r\nHaving an extra option to set an idle timeout timer to have mRemoteNG close itself.\r\n\r\n## Current Behavior\r\nmRemoteNG currently stays open indefinitely until manually closed.\r\nThis poses a security concern as the software lets one save access information (IP, Username, Password) to networking infrastructure etc.\r\n\r\n## Possible Solution\r\nDesign a new option under the security tab that lets you set an idle timeout timer in seconds/minutes.\r\n\r\n## Steps to Reproduce (for bugs)\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiie",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:46Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:46Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

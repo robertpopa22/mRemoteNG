@@ -1,0 +1,38 @@
+﻿{
+    "number":  1154,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Default External Tools",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "peterj04",
+    "created_at":  "2018-10-25T17:28:47Z",
+    "github_updated_at":  "2018-10-28T14:36:34Z",
+    "body_snippet":  "Some of the more modern (paid) RDP Tools tend to have some common tools built in.  I was wondering if it would be possible to include some default common task items as part of the default install? (ping, tracert, computer management, etc.)\r\n\r\nI tried backing up my extApps.xml and then importing it into a new installation, but it didn\u0027t seem like anything saved so I had to rebuild my tools.\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMzcxMTA5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We could add some default external tools.\r\n\r\nSince we don\u0027t include an existing external apps file, I would implement this in code. I think I would have it add these default tools on the first run of mRemoteNG if the external apps file is empty. This should mimic being included in the installer.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-28T14:35:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-10-28T14:36:34Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

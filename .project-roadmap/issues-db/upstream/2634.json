@@ -1,0 +1,59 @@
+﻿{
+    "number":  2634,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "VNC Domain User",
+    "state":  "open",
+    "labels":  [
+                   "VNC",
+                   "Need 2 check",
+                   "Active Directory",
+                   "1.77.3"
+               ],
+    "author":  "D3ENNY",
+    "created_at":  "2024-08-21T06:53:15Z",
+    "github_updated_at":  "2026-02-07T20:48:36Z",
+    "body_snippet":  "\r\nI want to connect via VNC, but i want that the username and the password are of a Domain User ",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6JK9B1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "for examble the MS Logon of UltraVNC Client",
+                         "author":  "D3ENNY",
+                         "action_needed":  true,
+                         "date":  "2024-08-21T07:36:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh98",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mZXbI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@robertpopa22: Always a good ticket.\n\nNo, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T20:48:36Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T20:48:36Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

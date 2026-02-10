@@ -1,0 +1,57 @@
+﻿{
+    "number":  1084,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Inheritance issue",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "spisarau",
+    "created_at":  "2018-08-24T15:46:09Z",
+    "github_updated_at":  "2021-06-28T11:12:26Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI have experience with a lot of software which used tree structure and inheritance, but a current system of inheritance is something I am still not able to understand.\r\n\r\n## Expected Behavior\r\n\r\n1. Folder (container) should contain all options which might be inherited by child.\r\n2. By default child should inherit all options from parent.\r\n\r\n## Current Behavior\r\n1. Child contain some options to inherit which parent doesn\u0027t have ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTgwODA4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "1. That\u0027s a fair point and something we can look into. Currently, you can inherit any value from a folder (even ones that don\u0027t show up.) We just hide properties that aren\u0027t supported for the currently selected protocol. It wouldn\u0027t hurt anything to just show all properties for folders.\r\n1. You can set the default inheritance values for new connections by first clicking the `Connections` root node, then clicking the `Default Inheritance` button in the config panel.\r\n![image](https://user-images....",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-24T16:15:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTgwOTM5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, for response",
+                         "author":  "spisarau",
+                         "action_needed":  true,
+                         "date":  "2018-08-24T16:20:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNTgxMTY4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Also, it is a bit unfair to call it a \u0027mess\u0027, regardless of your feelings toward the current system. It took me a few minutes to get over your wording in order to give your feedback a fair reading and assessment. Titling it \u0027Inheritance hard to understand\u0027 or \u0027Inheritance defaults dont make sense\u0027 or something similar would be fair, but \u0027mess\u0027 comes off as harsh.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-24T16:29:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-28T11:12:26Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

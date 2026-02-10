@@ -1,0 +1,46 @@
+﻿{
+    "system":  "mRemoteNG Issue Intelligence System",
+    "version":  "1.0.0",
+    "repos":  {
+                  "upstream":  "mRemoteNG/mRemoteNG",
+                  "fork":  "robertpopa22/mRemoteNG"
+              },
+    "last_sync":  "2026-02-10T06:43:06Z",
+    "last_sync_stats":  {
+                            "repos_synced":  [
+                                                 "mRemoteNG/mRemoteNG"
+                                             ],
+                            "issues_new":  829,
+                            "issues_updated":  1,
+                            "issues_error":  0,
+                            "comments_new":  3490,
+                            "needs_action":  554,
+                            "waiting_for_us":  276,
+                            "duration_sec":  894.7
+                        },
+    "our_github_user":  "robertpopa22",
+    "lifecycle_states":  [
+                             "new",
+                             "triaged",
+                             "roadmap",
+                             "in-progress",
+                             "testing",
+                             "released",
+                             "wontfix",
+                             "duplicate"
+                         ],
+    "priority_levels":  [
+                            "P0-critical",
+                            "P1-security",
+                            "P2-bug",
+                            "P3-enhancement",
+                            "P4-debt"
+                        ],
+    "comment_templates":  {
+                              "triaged_to_roadmap":  "Thank you for reporting this! We\u0027ve triaged this issue and added it to our roadmap for an upcoming release. Will update here with progress.",
+                              "in_progress":  "Update: A fix is being actively worked on for this issue. Will post the PR link once ready.",
+                              "testing":  "Update: A fix has been merged and is now in testing. PR: {pr_url}\nWill confirm once it passes validation.",
+                              "released":  "This fix is now available in **{release_tag}**.\nDownload: {release_url}\n\nPlease test and let us know if the issue is fully resolved. Thank you!",
+                              "iteration_ack":  "Thank you for the additional feedback! We\u0027ve noted the issue is not fully resolved. Working on an updated fix â€” will post here when ready."
+                          }
+}

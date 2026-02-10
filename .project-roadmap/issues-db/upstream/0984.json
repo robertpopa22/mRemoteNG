@@ -1,0 +1,38 @@
+﻿{
+    "number":  984,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Create link to connection instead of duplicating?",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "changbowen",
+    "created_at":  "2018-05-28T02:58:18Z",
+    "github_updated_at":  "2018-05-28T14:03:29Z",
+    "body_snippet":  "This is only a feature suggestion.\r\nFrom time to time, when I have a lot of connections and folders created, I want to have some kind of shortcut, or something similar to a symbolic link created pointing to another connection. Currently I have a \"_Quick\" folder and a bunch of duplicated connections. It works fine but when I need to update the connection configurations, I have to update both the original one and the duplicated one. It would be nice if I can create a link to a connection.\r\nThanks!",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MjUzNTA2Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Good idea",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-05-28T14:00:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-05-28T14:03:29Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

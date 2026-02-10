@@ -1,0 +1,30 @@
+﻿{
+    "number":  1049,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Provide a dump-debug tool for debugging issues from the field",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2018-07-27T19:32:00Z",
+    "github_updated_at":  "2018-07-27T19:32:00Z",
+    "body_snippet":  "As a developer, I sometimes need extensive debug info to troubleshoot issues that end users are seeing but that I\u0027m not able to replicate. It would be useful to provide a tool within mRemoteNG to gather all debugging information that we may want and allow the user to copy this directly into their bug reports.\r\n\r\n## Expected Behavior\r\nAdd a tool to mRemoteNG under one of the menus that allows the user to view and copy the following information:\r\n- All program settings and their current values\r\n- ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2018-07-27T19:32:00Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

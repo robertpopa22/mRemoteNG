@@ -1,0 +1,113 @@
+﻿{
+    "number":  2588,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Accessing Ubuntu 24 using the \"Remote Login\" feature",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check",
+                   "Linux",
+                   "1.77.3"
+               ],
+    "author":  "raffaeler",
+    "created_at":  "2024-04-27T18:49:42Z",
+    "github_updated_at":  "2026-02-07T19:53:00Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI tested Ubuntu24 new \"Remote Login\" feature successfully using Windows RDP client. Basically, there are two sets of credentials.\r\n- with the first credential set (which can be specified in the \"Remote Login\" dialog, the Windows RDP client accesses Ubuntu remote login screen.\r\n- The second set of credentials matches the Ubuntu user, as if you were trying to access from the main (physical) PC\r\n\r\nI tried to access Ubuntu 24 using...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6UllEH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m seeing the same thing here.\r\n\r\nUsing the built in Windows RDP client, login is fine. Using mRemote, the connection fails and mRemote displays the following error:\r\n\r\n```\r\n----------\r\nWarningMsg\r\n11/21/2024 23:57:15\r\nRDP error!\r\nError Code: 5\r\nError Description: Language.strRdpErrorCode3\r\n----------\r\n```\r\n",
+                         "author":  "EmeraldFlame",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T05:00:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6XQlgm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Getting the same output as EmeraldFlame.. :\\ \r\nI also can confirm that using Microsoft\u0027s Remote Desktop Connection is working fine so it\u0027s not a server error.",
+                         "author":  "TangentFoxy",
+                         "action_needed":  true,
+                         "date":  "2024-12-12T03:07:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6ZdQnb",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same here",
+                         "author":  "Funkenschuhster",
+                         "action_needed":  true,
+                         "date":  "2025-01-07T07:43:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6bfkFf",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just wanted to add myself to the folks encountering this issue. Connecting through desktop sharing works fine, but Remote Login fails exactly as EmeraldFlame reports. Connecting through the Windows 11 RDP client works as expected. ",
+                         "author":  "MellowedMatt",
+                         "action_needed":  true,
+                         "date":  "2025-01-23T02:58:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cw9b5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have done some testing and can confirm that it\u0027s a similar issue on Fedora, latest version (41 Workstation Edition).\n\nIt is possible to make it work if you change the resolution to either fullscreen or a fixed resolution.\nIt\u0027s also possible to start in fullscreen, then minimize it to a tab, right-click the tab, and select SmartSize (though the image will appear blurry).\n\nPersonally, I just set the resolution to be slightly smaller than the actual window, so I get some gray borders. ≡ƒÿè\n\n![Ima...",
+                         "author":  "GlennIgen",
+                         "action_needed":  true,
+                         "date":  "2025-02-03T06:28:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cywAm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e It is possible to make it work if you change the resolution to either fullscreen or a fixed resolution. It\u0027s also possible to start in fullscreen, then minimize it to a tab, right-click the tab, and select SmartSize (though the image will appear blurry).\n\u003e \n\u003e Personally, I just set the resolution to be slightly smaller than the actual window, so I get some gray borders. ≡ƒÿè\n\nWhat known limitation of .net 6 - they cant do better for windforms, its a bit better on .net 8 but still need adjustme...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-02-03T10:30:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6c0ZkZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "after investigation is seems RDP v12 not working properly, need to fix that, however you could still connect using v11:\n\n![Image](https://github.com/user-attachments/assets/c2be2966-d7f4-4431-86f9-ee4b8e78450a)\n\nhint: I am not linux guy, so just simply installed latest ubuntu 24.04 on VMware, and used this manual: https://www.digitalocean.com/community/tutorials/how-to-enable-remote-desktop-protocol-using-xrdp-on-ubuntu-22-04 \n\nif you want me to test other ways - let me know what to do with ubun...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-02-03T13:16:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXE1i",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:43:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYha_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:00Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:53:00Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

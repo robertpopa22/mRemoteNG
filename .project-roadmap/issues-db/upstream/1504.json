@@ -1,0 +1,66 @@
+﻿{
+    "number":  1504,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Enhancement: Export standard RDP file",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Not Planned"
+               ],
+    "author":  "padillah",
+    "created_at":  "2019-06-27T18:50:00Z",
+    "github_updated_at":  "2022-06-07T11:38:06Z",
+    "body_snippet":  "I\u0027d like the ability to export a standard Windows RDP file usable by Remote Desktop Connection.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\nCurrently we can export two proprietary formats - \"mRemoteNG XML\" and \"mRemoteNG CSV\"\r\n\r\n## Possible Solution\r\nAllow for the ability to export to \"standard\" RDP format.\r\n\r\n## Steps to Reproduce (for bugs)\r\n\r\n\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNjUyMDU0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Should the password be included into the rdp file?\r\nBecause if not you could just give them the DNS/IP of the server as they would need to enter the credentials anyway.\r\n\r\nStoring the password in the RDP file would be possible but as it\u0027s stored in plain text this is really insecure. Even then, the person that wants to run this RDP file would still need to type in a password except they change some GPO setting. See https://serverfault.com/questions/867467/rdp-file-with-embedded-password-asks-for...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-06-27T21:35:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNjUyMzU3Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m not completely sure about this, but embedded RDP passwords seem to only work if encrypted; what\u0027s more, the encrypted password can only be decrypted on the same system AND same logon credentials/domain as the one that originally encrypted it, rendering the sharing of RDP files with passwords embedded pretty much useless in that context (mechanism may vary for earlier protocol versions).\r\n\r\nThe only advantage I can see with exporting RDP is having a double-click shortcut (file) with the inten...",
+                         "author":  "ner00",
+                         "action_needed":  true,
+                         "date":  "2019-06-27T21:46:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNjcwMjM3MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e The only advantage I can see with exporting RDP is having a double-click shortcut (file) with the intended logon domain/username and performance settings presets.\r\n\r\nThat\u0027s exactly it. I have a couple dozen connections, some in a domain and some not. If I need help in an environment I have to walk the person through the RDP process, making sure they use the domain where appropriate, and then get them into the Key Vault where we store the passwords (these do not need to be, nor **should** they ...",
+                         "author":  "padillah",
+                         "action_needed":  true,
+                         "date":  "2019-06-28T11:33:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5EdXkG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "it is also good to those users on Mac to reuse the config. thanks",
+                         "author":  "douhaolee",
+                         "action_needed":  true,
+                         "date":  "2022-06-07T11:38:06Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-06-07T11:38:06Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

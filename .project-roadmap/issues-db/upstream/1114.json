@@ -1,0 +1,75 @@
+﻿{
+    "number":  1114,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Feature] Multi select / edit connections",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Enhancement"
+               ],
+    "author":  "sohnaych",
+    "created_at":  "2018-09-28T16:43:53Z",
+    "github_updated_at":  "2022-12-14T21:34:31Z",
+    "body_snippet":  "It would be nice to have the multi select / edit feature specially when modifying more than 10 connections or moving them from one folder to another.. Thanks",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMTg0MjA0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "any timelines when this will be fixed or with which version?",
+                         "author":  "sohnaych",
+                         "action_needed":  true,
+                         "date":  "2018-10-22T13:52:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjYzMDc0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sohnaych No timeline yet",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-24T12:14:03Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjYzMDc2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Related to #945 ",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-24T12:14:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU0NjczMzE0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It\u0027s been a year now LOL",
+                         "author":  "sohnaych",
+                         "action_needed":  true,
+                         "date":  "2019-10-27T20:52:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5QmYAW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e It\u0027s been a year now LOL\r\n\r\nI\u0027m coming from 2025, no one still has not closed this issue.\r\n",
+                         "author":  "kemalmeler",
+                         "action_needed":  true,
+                         "date":  "2022-12-14T21:34:31Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-12-14T21:34:31Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

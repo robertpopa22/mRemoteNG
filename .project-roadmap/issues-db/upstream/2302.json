@@ -1,0 +1,40 @@
+﻿{
+    "number":  2302,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Mulitpane Display within a Panel",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "SSH"
+               ],
+    "author":  "lonerzzz",
+    "created_at":  "2022-11-21T22:21:04Z",
+    "github_updated_at":  "2022-11-22T10:35:54Z",
+    "body_snippet":  "I frequently will have 2-6 SSH putty sessions open at once side by side as a workspace. I see that the panels exist in mRemoteNG, but the sessions are each assigned a tab within the panel. It would be very useful in many development and production settings to have the ability to see all those tabs as individual panes within the panel instead and to have them sized automatically to fit the available space.\r\n\r\nI currently use SuperPutty for this reason, but it forces me to size the panels individu...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5O4lX_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "where is some plans to organise such a bit better, so not only panels but also grouping becomes available and one of feature is to allow multy-input as well to all group, about 1.7.4 perhaps",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-11-22T10:35:17Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-11-22T10:35:54Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

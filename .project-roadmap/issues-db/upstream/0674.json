@@ -1,0 +1,33 @@
+﻿{
+    "number":  674,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Remote Session Performance Statistics",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Needs implementation",
+                   "Reporting",
+                   "Stats"
+               ],
+    "author":  "mikelee-nz",
+    "created_at":  "2017-08-07T01:03:05Z",
+    "github_updated_at":  "2023-01-13T16:06:28Z",
+    "body_snippet":  "\r\n\u003c!-- Feature Request --\u003e\r\nIt would be great to be able to see ping/trace and detailed session stats for remote sessions.  For example if I RDP to a machine I could then see the actual performance stats from the client perspective.  It is very hard when we get queries saying performance is bad to isolate remote clients and their associated networks when we can see actual server performance is reported as fine.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2023-01-13T16:06:28Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

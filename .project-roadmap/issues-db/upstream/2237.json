@@ -1,0 +1,30 @@
+﻿{
+    "number":  2237,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SSH connections dropping if I switch tabs",
+    "state":  "open",
+    "labels":  [
+
+               ],
+    "author":  "anomaly0617",
+    "created_at":  "2022-06-03T12:10:12Z",
+    "github_updated_at":  "2022-06-03T12:11:26Z",
+    "body_snippet":  "I\u0027m running v1.77.2nb on Windows 11 Pro 21H2. After upgrading to 1.77.2nb on 2022-05-06, I noticed that if I have multiple SSH sessions open and I switch from one to another, and then back a minute or two later, the session will often have dropped to the first. \r\n\r\n\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nSSH Sessions to persist unless something (like a network disconnection) occurs.\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2022-06-03T12:11:26Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

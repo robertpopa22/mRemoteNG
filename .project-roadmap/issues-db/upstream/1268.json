@@ -1,0 +1,56 @@
+﻿{
+    "number":  1268,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Window layout broken if DPS deserialization throws exception",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2019-01-10T20:23:06Z",
+    "github_updated_at":  "2020-07-23T06:57:42Z",
+    "body_snippet":  "If the pnlLayout.xml file is corrupted or contains unexpected values, layout deserialization will throw an exception and leave the app ui in an unusable state. Resetting the layout does not fix the issue.\r\n\r\n![image](https://user-images.githubusercontent.com/6999446/50994932-2c9b0780-14e3-11e9-8cc7-f4c17df7e066.png)\r\n\r\n\r\n## Expected Behavior\r\nPanel layout is set to the default layout when an exception occurs.\r\n\r\n## Current Behavior\r\nPanel layout is corrupted and cannot be fixed until the app is ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2Mjg0NDQ4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This does happen on my PC. How do I resolve the same. I tried installation several times but this does not go. Mainly this prevent me to use this app.",
+                         "author":  "xcellenceit",
+                         "action_needed":  true,
+                         "date":  "2020-07-23T06:43:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2Mjg0NDYyMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Note that I am using the latest version",
+                         "author":  "xcellenceit",
+                         "action_needed":  true,
+                         "date":  "2020-07-23T06:43:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2Mjg0ODg5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Steps to resolve this issue:\r\n\r\n1. Uninstall and delete all existing files\r\n2. install latest version again\r\n",
+                         "author":  "xcellenceit",
+                         "action_needed":  true,
+                         "date":  "2020-07-23T06:57:42Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-07-23T06:57:42Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

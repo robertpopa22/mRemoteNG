@@ -1,0 +1,103 @@
+﻿{
+    "number":  2429,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "MySQL database connection needs a table",
+    "state":  "open",
+    "labels":  [
+                   "In development",
+                   "DBs",
+                   "1.77.3"
+               ],
+    "author":  "KeinSupporter",
+    "created_at":  "2023-04-25T09:44:07Z",
+    "github_updated_at":  "2026-02-07T19:52:56Z",
+    "body_snippet":  "As soon as I want to create a new database connection via MySQL, this error message appears after the connection test (see screenshot)\r\n\r\nVersion: v1.77.3.1442-NB\r\n\r\n![Screenshot 2023-04-25 113307](https://user-images.githubusercontent.com/131761636/234238547-3db14379-77a2-4dc7-9145-619275c7d387.png)\r\n\r\n\r\n```\r\nFehlermeldung\r\n\"Table \u0027mRemoteNG.tblRoot\u0027 doesn\u0027t exist\"\r\n\r\nStack trace\r\n   at MySql.Data.MySqlClient.MySqlStream.ReadPacket()\r\n   at MySql.Data.MySqlClient.NativeDriver.GetResult(Int32\u0026 a...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5axFXv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "See here\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/2425\r\n\r\nThey removed the SQL script from the documentation that sets up your DB. But no one seems to care about it...",
+                         "author":  "drdobler",
+                         "action_needed":  true,
+                         "date":  "2023-04-26T05:42:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5bQI8x",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you for your advice!",
+                         "author":  "KeinSupporter",
+                         "action_needed":  true,
+                         "date":  "2023-05-02T06:36:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5blGZX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "we have fix in newest code, it will create required tables ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-05-05T15:50:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5cV65x",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello together,\r\n\r\non my Database the issue already exists.\r\nI created an empty database.\r\nImported my old xml connection file to the mRemoteNG software.\r\nEntered under Options the server information and get the same issue like at the old version.\r\n\r\nIs there any information where I will find the script, where you are talking about and how I can use it?\r\n\r\nhere is the error Message:\r\n```\r\nFehlermeldung\r\n\"Invalid object name \u0027tblRoot\u0027.\"\r\n\r\nStack trace\r\n   at System.Data.SqlClient.SqlConnection.On...",
+                         "author":  "TARLoki",
+                         "action_needed":  true,
+                         "date":  "2023-05-16T08:44:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5cZ4e8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Hello together,\r\n\u003e \r\n\u003e on my Database the issue already exists. I created an empty database. Imported my old xml connection file to the mRemoteNG software. Entered under Options the server information and get the same issue like at the old version.\r\n\u003e \r\n\u003e Is there any information where I will find the script, where you are talking about and how I can use it?\r\n\u003e \r\n\u003e here is the error Message:\r\n\u003e \r\n\u003e ```\r\n\u003e Fehlermeldung\r\n\u003e \"Invalid object name \u0027tblRoot\u0027.\"\r\n\u003e \r\n\u003e Stack trace\r\n\u003e    at System.Data...",
+                         "author":  "KeinSupporter",
+                         "action_needed":  true,
+                         "date":  "2023-05-16T20:05:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6PqUdP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The script worked like a charm - isn\u0027t there any way to add it to the repository? It\u0027s kinda weird we\u0027re forced to copy it from the waybackmachine",
+                         "author":  "mraksus",
+                         "action_needed":  true,
+                         "date":  "2024-10-14T07:15:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJJR",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhZc",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:56Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

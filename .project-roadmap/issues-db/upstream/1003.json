@@ -1,0 +1,38 @@
+﻿{
+    "number":  1003,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[FR][External Tools]: adding hotkeys",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "PetbkA",
+    "created_at":  "2018-06-21T22:28:04Z",
+    "github_updated_at":  "2018-06-22T01:41:41Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nExternal tools are convenient way to, for instance, call registry editor or ping some port of the remote machine. Such tools can be used quite often, and it would be nice to call them by customizable hotkeys.\r\n\r\n## [Expected Behavior](https://user-images.githubusercontent.com/22843816/41748035-cabfb11a-75b8-11e8-9462-ad8046aa9db6.png)\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5OTI5NDM2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Related to #196 in the fact that we need to create a hotkey manager to set, save, load, and detect hotkeys.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-06-22T01:41:38Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-06-22T01:41:41Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

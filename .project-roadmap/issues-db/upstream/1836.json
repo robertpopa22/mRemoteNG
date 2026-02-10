@@ -1,0 +1,31 @@
+﻿{
+    "number":  1836,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "SQL connection - error saving connections",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "DBs"
+               ],
+    "author":  "nocturneop15",
+    "created_at":  "2020-08-18T18:37:04Z",
+    "github_updated_at":  "2021-06-27T12:43:30Z",
+    "body_snippet":  "connection to SQL is successfull, the same for DB scheme population script. When I save connection, no error is given by application, but is logged in mremote.log - after reopening mRemote, connection DB remains empty. \r\n\r\nError log: \r\n2020-08-18 20:33:31,562 [1] INFO  - mRemoteNG 1.77.1.27713 P┼Öenosn├í verze starting.\r\n2020-08-18 20:33:31,579 [1] INFO  - Command Line: D:\\Applications\\mRemote\\mRemoteNG.exe\r\n2020-08-18 20:33:31,871 [1] INFO  - Microsoft Windows 10 Pro N  64-bit\r\n2020-08-18 20:33...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2021-06-27T12:43:30Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

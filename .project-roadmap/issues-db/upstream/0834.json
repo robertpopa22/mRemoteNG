@@ -1,0 +1,67 @@
+﻿{
+    "number":  834,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Disk Drive Redirect Option missing from connections inside a folder",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "Connections"
+               ],
+    "author":  "elgato1761",
+    "created_at":  "2017-12-08T18:18:28Z",
+    "github_updated_at":  "2026-02-07T17:03:27Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nUnsure if this is a bug or to be added as a feature.  Starting with clean conf file, Add a new connection or new folder.  Under redirect option to redirect files is there.  In addtion folder gives options to add hostname/id/password like a...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDMzNTI3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is `Inherit Disk Drives` set to \u0027yes\u0027 on the connection?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2017-12-08T18:22:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDMzNjg1Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi not at my desk at the moment did not see that option in the panel however I did play with the options in the xml under appdata/roaming\n\nIf I change it to True then Disk Drive option disappears on the folder.  Have tried variations of True/False in the RedirectDiskDrives and InheritRedirectDiskDrives setting and no joy.  I would like to do this through the GUI and retain the settings.\n\nSent from my iPhone\n\n\u003e On Dec 8, 2017, at 1:22 PM, David Sparer \u003cnotifications@github.com\u003e wrote:\n\u003e \n\u003e Is Inh...",
+                         "author":  "elgato1761",
+                         "action_needed":  true,
+                         "date":  "2017-12-08T18:29:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGA4",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXOlu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Close the ticket I have retired and issue is moot┬áSent from my iPhoneOn Feb 7, 2026, at 11:48ΓÇ»AM, robertpopa22 ***@***.***\u003e wrote:∩╗┐robertpopa22 left a comment (mRemoteNG/mRemoteNG#834)\r\nTriage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.\r\n\r\nΓÇöReply to this email directly, ...",
+                         "author":  "elgato1761",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T17:03:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T17:03:27Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

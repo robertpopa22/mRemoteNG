@@ -1,0 +1,38 @@
+﻿{
+    "number":  1388,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Custom icons for External Tools",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "kleinerbub",
+    "created_at":  "2019-04-03T08:23:32Z",
+    "github_updated_at":  "2021-09-25T23:18:18Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nI would suggest an extra option to add the path to a custom icon file for external tools.\r\n\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the diff...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM43Q-fZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hey !\r\nIt would be very cool to see this feature coming, with the option to choose between the default icons of mRemoteNG for the connexions or between the icon of the external exe file or between a custom .ico file.\r\nThat would be super cool and the same mechanism could also be implemented for the connexions.",
+                         "author":  "jul-fls",
+                         "action_needed":  true,
+                         "date":  "2021-09-25T23:18:18Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-09-25T23:18:18Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

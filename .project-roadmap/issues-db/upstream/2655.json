@@ -1,0 +1,115 @@
+﻿{
+    "number":  2655,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Server name is not provided in tab ",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "UI/UX",
+                   "Need 2 check",
+                   "1.77.2",
+                   "Needs implementation",
+                   "Connections"
+               ],
+    "author":  "niccoxx",
+    "created_at":  "2024-11-20T08:33:13Z",
+    "github_updated_at":  "2026-02-07T19:56:27Z",
+    "body_snippet":  "Hello everyone,\r\nI\u0027ve been using mremoteng recently, everything seems to be working as it should except for one thing, in the tab i don\u0027t have the name of the server i\u0027m connected to even though everything is set up conrctly in the settings. The only thing I see is that the tab always takes the name of the saved session and not the full name of the server. \r\nOn the putty side, everything is set up correctly and I have also checked the versions but have not been able to get the desired setting.\r\n...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6UUgiU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, thanks for using mR however seems you are on version what is not planed to be updated due soon should be release of 1.77.3 what have some improvements and secuirty patches, I will check if its have same behavior and update. Please note even if 1.77.3 nb is available its a beta version and not supouse to be used in production. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-20T12:02:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6UgJ43",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Bye,\r\nI have tried both the preview version (v1.77.1) and nightly (v1.77.3.1784-NB) (portable release) and in both versions I have the same problem, so it does not seem to be a version problem but a feature that is not being inherited correctly from puttyng.\r\nNicola",
+                         "author":  "niccoxx",
+                         "action_needed":  true,
+                         "date":  "2024-11-21T14:57:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6UnK0B",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "could you explain how you expecting this to be happened? ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T09:21:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Unefz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Let me try to illustrate how I expect it to work, which already happens on putty, by the way.\r\nIf I connect to the server test1.dominio.test I expect user@test1.dominio.test to appear in the tab (as it already does on putty), whereas on mremoteng the name of the saved session appears, and this is wrong in my opinion, because if I connect from that server to test2.dominio.test the tab name will always remain that of the saved session.\r\nI hope I have illustrated my request better.\r\n\r\nRegards\r\nNico...",
+                         "author":  "niccoxx",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T10:01:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6UoIDj",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ciao Nico\r\n\r\nI guess you mean that you\u0027d like to get an updated Tab name, once you jump from one connection to the next (connect to _JumpServer_ and then to _ServerNeedingChange_) and know if you already went ahead to the next server or if your still on the jump server respectively distinguish between multiple sessions to the jump server.\r\n\r\nTo me this would be a useful extension to the solution here and would support its implementation (maybe combined with the proprietary SSH shell? -\u003e #181).\r\n...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T11:34:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6UpAgK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi Simon,\r\nthat is exactly what I would like to have on this tool. If you think that in the enterprise environment many ssh sessions necessarily start from a bastion host which allows you to reach all servers. \r\nWith this mode you realise that all connections would have a tab with the name of the bastion host and not that of the server you are working on, and you would not even have to manage the manual rename of the tabs, which would just be a waste of time in my opinion.\r\nHowever, mine is just...",
+                         "author":  "niccoxx",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T13:32:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Utbs1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok, mke sence what you want, will have a look if we could get update by host name for example in addition to connection name, by design its always show connection name (as it saved in connection file) so if you do hop jumping its will not trace what at the moment. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-11-22T21:59:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYRQ9",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "P2 refresh: please retest on latest build and share reproducible steps plus logs/screenshots. If not reproducible or no update, maintainers can close as stale.\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:13:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYidh",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:27Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

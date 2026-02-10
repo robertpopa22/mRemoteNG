@@ -1,0 +1,76 @@
+﻿{
+    "number":  2471,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Migration DB from Stable (v1.76.20) to Nightly (v1.77.3.1784-NB)",
+    "state":  "open",
+    "labels":  [
+                   "DBs",
+                   "1.77.3",
+                   "Settings"
+               ],
+    "author":  "mlakatamitis",
+    "created_at":  "2023-08-03T09:37:14Z",
+    "github_updated_at":  "2026-02-07T19:54:25Z",
+    "body_snippet":  "Hi all,\r\n\r\nI have installed the Stable version and i want to update to Nightly but i have issue with the DB. \r\nIs there any way to migrate my database from the stable version to the Nightly version?\r\n\r\n\r\n## Your Environment\r\nWindows\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5jmArY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just export config (csv or xml) and import in updated version.\r\n",
+                         "author":  "JustBeta",
+                         "action_needed":  true,
+                         "date":  "2023-08-09T08:38:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6yXKH9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just export... But what to do if winget updated the application automatically and now the data is not available, when rolling back to the old version, there is not a single saved login and password, moreover, even the settings for connections, all inheritances have flown off. Now go and configure each folder and connection from scratch...\n",
+                         "author":  "Inf-Sub",
+                         "action_needed":  true,
+                         "date":  "2025-06-20T18:05:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6ybbQO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, nb version is not for production use, repeating that many times, its not suppouse to use in prod env, only in test so you should have backups at least of all you data :( ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-06-21T11:31:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6ycMeS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e hello, nb version is not for production use, repeating that many times, its not suppouse to use in prod env, only in test so you should have backups at least of all you data :(\n\nWhich version to use in production?\n\nI see many versions in development, for example, from 1.77 to 1.8, how can they be tested under Windows, as I understand, there is no installer?",
+                         "author":  "Inf-Sub",
+                         "action_needed":  true,
+                         "date":  "2025-06-21T19:29:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh4Y",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:25Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:25Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

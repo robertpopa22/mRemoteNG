@@ -1,0 +1,41 @@
+﻿{
+    "number":  2686,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Adding additional fields",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "UI/UX",
+                   "Improvement required",
+                   "1.78.*"
+               ],
+    "author":  "Kvarkas",
+    "created_at":  "2025-04-04T11:29:15Z",
+    "github_updated_at":  "2026-02-07T19:52:34Z",
+    "body_snippet":  "![Image](https://github.com/user-attachments/assets/790a71fa-03a9-4c1a-ad27-741977d6f28b)\n\nadding this on behalf of Michael.L. Wilkerson so dont lost it",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhRc",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:34Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

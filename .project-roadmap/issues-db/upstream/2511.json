@@ -1,0 +1,42 @@
+﻿{
+    "number":  2511,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "user defined connection parameters passed as variables to Ext. tool",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Improvement required",
+                   "DBs",
+                   "Import/Export",
+                   "1.77.4"
+               ],
+    "author":  "Bjelko",
+    "created_at":  "2023-10-19T17:42:34Z",
+    "github_updated_at":  "2026-02-07T19:55:53Z",
+    "body_snippet":  "Hi. I have 200+ MSSQL servers with different  instances, different users, passwords. It would be good to have possibilty to add some user defined parameters for connection not just predefined like %hostname% %password%... and then pass/send it to external tools like %param1% %param2% or so... Thanks in advance\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiQm",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:53Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:53Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

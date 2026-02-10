@@ -1,0 +1,41 @@
+﻿{
+    "number":  2405,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Reconnect has no confirmation dialog which potentially may lead to bad consequences",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "Connections",
+                   "1.77.3"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2023-03-24T13:26:26Z",
+    "github_updated_at":  "2026-02-07T19:52:10Z",
+    "body_snippet":  "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n\r\n1. Open some SSH connection to e.g. Linux computer.\r\n2. Right button click on connection tab and select Reconnect. Problem appears. I have clicked this by mistake wanting to click Duplicate Tab. Clicking Reconnect is potentially very dangerous action and I thing in this case confirmation dialog should appear with question: \"Do you want to reconnect?\" and add \"Reconnect\" butto...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhKM",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:10Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:10Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

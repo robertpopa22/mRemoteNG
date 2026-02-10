@@ -1,0 +1,38 @@
+﻿{
+    "number":  848,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "FR:  Automatic Sort as an inheritable setting on containers",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "IcebergTitanic",
+    "created_at":  "2017-12-18T17:18:44Z",
+    "github_updated_at":  "2017-12-18T19:03:07Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Feature Request --\u003e\r\nI would like for a container to have an automatic sort flag that could be inherited by other containers below it. Perhaps three possible values:  None, A-Z, Z-A\r\n\u003c!-- If you file a feature request, please delete the bug section...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjQ5NDExNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, I understand this is more than a simple flag setting to be added as it would presumably involve some kind of automatic sorting mechanism that would need to be triggered rather than being manually performed by the user as it currently is.",
+                         "author":  "IcebergTitanic",
+                         "action_needed":  true,
+                         "date":  "2017-12-18T17:19:58Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-12-18T19:03:07Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

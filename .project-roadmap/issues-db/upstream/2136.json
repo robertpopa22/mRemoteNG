@@ -1,0 +1,65 @@
+﻿{
+    "number":  2136,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "use the same settings on a new computer",
+    "state":  "open",
+    "labels":  [
+                   "Needs implementation"
+               ],
+    "author":  "theoneandonly-vector",
+    "created_at":  "2022-01-19T12:47:11Z",
+    "github_updated_at":  "2022-01-21T09:48:22Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI would like to use the same settings I have on one computer on another computer\r\n\r\n## Expected Behavior // ## Current Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\ncopying C:\\Users\\%username%\\AppData\\Roaming\\mRemoteNG -\u003e new PC same place\r\n\u0026\r\ncopying C:\\Users\\%username%\\AppData\\Local\\mRemoteNG -\u003e new PC same place\r\n\r\nand then opening mRemoteNG should result in the same config on the new PC I thoug...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM48lnCJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this is related to planed changes https://github.com/mRemoteNG/mRemoteNG/issues/2134\r\nthen you can save user preferences and after transfer or deploy just drop it into same folder with mRemoteNG and it will fetch user names and path to deploy/use it",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-01-19T13:59:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48mGdQ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas yes the user interface settings would make more sense when saved in the Appdata Roaming (as in the mentioned issue), though this does not explain why when copying all files the configuration is not used. \r\n\r\n@theoneandonly-vector The Appdata\\Local\\mRemoteNG folder includes another folder with random string (don\u0027t know where it\u0027s taken from or generated). I guess you might want to open mRemoteNG on the new machine and change a setting to generate the folder, and then put the _user.config...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-01-19T16:07:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48sfFC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nI agree with the idea of this. But please consider a real PORTABLE mode. In this case, if all the configuration it\u0027s inside the same folder as the binaries (and not in the Appdata folder), then it will be used.\r\n\r\nI hope you want to inplement in this way.\r\nThank you.",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2022-01-21T08:39:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48sr5x",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As far as I know currently portable version keeps all its stuff in same folder, or is it not true? ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-01-21T09:48:22Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-01-21T09:48:22Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

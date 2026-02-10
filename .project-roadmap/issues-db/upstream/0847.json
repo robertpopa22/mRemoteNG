@@ -1,0 +1,58 @@
+﻿{
+    "number":  847,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP fullscreen and redirect keys",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "1.77.2",
+                   "Improvement required"
+               ],
+    "author":  "hoerup",
+    "created_at":  "2017-12-15T09:55:45Z",
+    "github_updated_at":  "2026-02-09T06:26:56Z",
+    "body_snippet":  "there\u0027s currently no option for setting redirect \"key combinations = no\" on a fullscreen RDP session.\r\n\r\nboth mstsc and RDCman2.7 has that option\r\n\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYijS",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mbBFZ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Implemented fork-side guardrail package for this issue:\n\n- upstream PR: https://github.com/mRemoteNG/mRemoteNG/pull/3117\n- change summary:\n  - expose `RedirectKeysEnabled` on `RdpProtocol`\n  - lock fullscreen toggle in tab context menu only when redirect-keys mode is active and session is already fullscreen\n  - keep fullscreen toggle available for entering fullscreen (only prevent unstable exit path)\n- fork CI evidence:\n  - https://github.com/robertpopa22/mRemoteNG/actions/runs/21789456797\n\nThis...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-08T00:39:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpcYK",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3117 | **Branch:** `codex/pr13-rdp-redirectkeys-fullscreen-847`\n**Fix:** RDP fullscreen toggle guard prevents redirect keys conflict.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:26:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:26:56Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

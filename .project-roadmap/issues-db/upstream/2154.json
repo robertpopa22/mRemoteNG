@@ -1,0 +1,42 @@
+﻿{
+    "number":  2154,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Duplicate field names - Nightly 1.77.2",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "i10n",
+                   "Improvement required",
+                   "1.77.3",
+                   "Translations"
+               ],
+    "author":  "pauldurham",
+    "created_at":  "2022-02-03T10:04:09Z",
+    "github_updated_at":  "2026-02-07T19:51:43Z",
+    "body_snippet":  "Under \"Inheritance\", there are 2 sets of fields with the same names, even though their functions are different:\r\n1) \"Minutes To Idle\".  The 2nd field with this name should probably be labelled \"Alert on disconnect due to idle\".\r\n2) \"Disable Cursor Shadow\".  Both fields with this name appear to have the same help text.  One should probably be deleted.\r\n\r\n## Expected Behavior\r\nEach field name \u0026 function should be unique.\r\n\r\n## Current Behavior\r\nDuplicate field names.\r\n\r\n## Your Environment\r\nWindow...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhCr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:43Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

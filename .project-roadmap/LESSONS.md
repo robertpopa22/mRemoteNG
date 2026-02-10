@@ -1,6 +1,6 @@
 # Lessons Learned System
 
-Last updated: 2026-02-09
+Last updated: 2026-02-10
 Scope: `D:\github\mRemoteNG` modernization and release work.
 
 ## Goal
@@ -35,6 +35,42 @@ Create a persistent memory of what works, what fails, and the fastest known fix 
 | `gh issue list --label \"Need 2 check\"` breaks in this wrapper | Escaped quotes are passed literally, so spaced labels are split | Use `--json ... --jq` label filtering and encode spaces as `\u0020` in jq strings (for example `Need\u00202\u0020check`) |
 | GitHub REST polling returns rate-limit or inconsistent access | Unauthenticated requests | Use `gh api` / `gh run view` with authenticated session |
 | `MSB4803` / COMReference failures with `dotnet build` | .NET Core MSBuild path cannot handle full Framework COM flow | Use full MSBuild path from VS Build Tools |
+| PS1 script parse error on `}` far from actual issue | Unicode chars (em-dash `---`, smart quotes, etc.) corrupt PS 5.1 parser | Use only ASCII in PS1 string literals; see dedicated section below |
+
+## PowerShell 5.1 Unicode Corruption (2026-02-10, Issue Intelligence System)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| `Unexpected token '}' in expression or statement` at closing brace of a function, far from actual problem | Unicode multi-byte characters (em-dash U+2014, smart quotes U+201C/U+201D, etc.) in PS1 file corrupt the Windows PowerShell 5.1 parser | Replace all non-ASCII characters with ASCII equivalents in PS1 files |
+
+**Why it happens:** `powershell.exe` (v5.1) reads `.ps1` files using the system's default encoding (typically Windows-1252), NOT UTF-8. When a file is saved as UTF-8 without BOM (which is what most modern editors and tools produce), multi-byte UTF-8 sequences for characters like `---` (em-dash, 3 bytes: `E2 80 94`) are interpreted as 3 separate Windows-1252 characters (`a`, `euro`, `ldquo`), which corrupts string parsing.
+
+**The error is misleading:** The parser reports the error at a `}` brace far downstream from the actual corruption point. The UTF-8 bytes break a string literal open, causing all subsequent braces to be mismatched.
+
+**Affected characters (common in generated code):**
+- Em-dash `---` (U+2014) -> appears as `a-euro-ldquo` in Windows-1252
+- En-dash `--` (U+2013)
+- Smart quotes `ldquo` `rdquo` (U+201C, U+201D)
+- Ellipsis `...` (U+2026)
+
+**Prevention rules:**
+1. **NEVER use Unicode punctuation in PS1 files** - use ASCII `-`, `"`, `...`
+2. When AI generates PS1 content, search for non-ASCII: `[regex]::Matches($content, '[^\x00-\x7F]')`
+3. PowerShell 7 (`pwsh.exe`) defaults to UTF-8 and does NOT have this problem
+4. Adding a UTF-8 BOM (`EF BB BF`) to the file ALSO fixes it for PS 5.1, but ASCII-only is safer
+
+**Detection script:**
+```powershell
+# Find non-ASCII characters in PS1 files
+Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+    $content = Get-Content $_.FullName -Raw
+    $matches = [regex]::Matches($content, '[^\x00-\x7F]')
+    if ($matches.Count -gt 0) {
+        Write-Host "$($_.Name): $($matches.Count) non-ASCII chars found"
+        $matches | ForEach-Object { Write-Host "  Pos $($_.Index): '$($_.Value)' (U+$([int][char]$_.Value | ForEach-Object { $_.ToString('X4') }))" }
+    }
+}
+```
 
 ## Test Fix Lessons (2026-02-08, commit 79c5e4cf)
 

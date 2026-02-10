@@ -1,0 +1,84 @@
+﻿{
+    "number":  824,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Still getting error 3334 on 18th 2012 RDP Connection",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check"
+               ],
+    "author":  "akincer",
+    "created_at":  "2017-11-29T19:04:13Z",
+    "github_updated_at":  "2026-02-07T16:47:48Z",
+    "body_snippet":  "Issue:  Receive the below \"WarningMsg\" on the 18th open RDP connection to 2012 servers.\r\n\r\nRDP disconnected!\r\n3334 Because of a protocol error, this session will be disconnected. Please try connecting to the remote computer again.\r\n\r\nOS: Windows 7 64 bit\r\nmRemoteNG version: 1.75.7011.34963\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MzY0NjIxOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same problem that can help? I want to open 30 connections",
+                         "author":  "Greenice33",
+                         "action_needed":  true,
+                         "date":  "2017-12-22T17:53:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NzQzNjMyOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think this might be an issue with the install. I updated to the latest and it resolved this error for me.",
+                         "author":  "shaded0",
+                         "action_needed":  true,
+                         "date":  "2018-02-21T19:10:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cAu-Y",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Problem still occurs in version 1.76.20\nIt occurs when I open about 10connections. This works. But then when I reboot some from this, tab was closed and after reboot I cannot reconnect back by mremoteng, but msrdc works like a charm. Temporary solution is close mremoteng and start again from scratch.",
+                         "author":  "pavkamlc",
+                         "action_needed":  true,
+                         "date":  "2025-01-28T01:31:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cD-bI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As stated in #864 the RDP error 3334 is caused by the lack of memory available to the application connecting to the servers. The reason why you can\u0027t reconnect is, that the other connections allocated more memory during runtime, reducing the remaining memory below the required minimum for a new connection. \n\n(See also https://github.com/mRemoteNG/mRemoteNG/issues/2090#issuecomment-1076084444)\n\nTo work around this you may want try the 64-bit Version (released with 1.77.2-NB and newer)",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-01-28T08:40:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cQXfD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Perfect. I try 1.77.3-NB and seems to be solved. Thanx.",
+                         "author":  "pavkamlc",
+                         "action_needed":  true,
+                         "date":  "2025-01-29T12:42:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGBa",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:48Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:48Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

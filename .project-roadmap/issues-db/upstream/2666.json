@@ -1,0 +1,95 @@
+﻿{
+    "number":  2666,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "NB with SAVING feature",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "Needs implementation",
+                   "In development",
+                   "Nightly Build"
+               ],
+    "author":  "lars18th",
+    "created_at":  "2025-01-28T15:16:37Z",
+    "github_updated_at":  "2025-02-12T11:48:22Z",
+    "body_snippet":  "Hi @Kvarkas ,\n\nPlease, reconsider that point: \"this build is not production ready so _options savings are still disabled_\".\n\nWithout this functionallity it\u0027s **impossible** to test it in several _real_ environments. A lot of options can be _only_ tested loading a _large_ configuration. This limitation is therefore a major constraint.\n\nSo, please rethink it!\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM6cIDYW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I highly support the stance that getting the config save to work should have the highest priority as it\u0027s pretty unusable the way it\u0027s now (that\u0027s also why I\u0027m stuck with 1.77.2-NB). I don\u0027t have an issue running unstable software as long as I can work efficiently with it, but being unable to export config changes and having to redo them with an old version of the application is too much of a burden. \n\nBut a note for completeness: The new Builds 1.77.3+-NB and (expected - not yet tested) 1.78.1-...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-01-28T15:38:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6cWCir",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Agree. I cannot test a build with critical functionality deliberately disabled.",
+                         "author":  "ltctech",
+                         "action_needed":  true,
+                         "date":  "2025-01-29T22:30:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dApd9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "can someone enlighten me, what options are not saving? i can try to help solve it, but for me nothing is disabled and everything works as expected. what am i doing wrong?",
+                         "author":  "tecxx",
+                         "action_needed":  true,
+                         "date":  "2025-02-04T14:44:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dAvUp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "what not about a saving it self but I am changing a way how we store them. Import part not ready so to avoid messing with real settings (as people dont listen what its test only version and keep messing with properly working one in same environment) I comment out saving bit. Perhaps in yours - you uncoment it back.\n If they do change settins in released version, this nb should have no problem to read such",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-02-04T14:52:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dH2lx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas ,\n\nThank you for your efforts in supporting this project. And I agree with the idea of rewriting the configuration module. Also, it\u0027s a good decision to provide forward compatibility with the next release version.\n\nHowerver, please (with all respect) stop to say that users don\u0027t understand what is a NB release. I\u0027m using for years the **portable NB version 1.77.3** (https://github.com/mRemoteNG/mRemoteNG/releases/download/v1.77.3-nb/Portable.-.1.77.3.NB.rar) because it works, it save...",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2025-02-05T08:41:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dLCYx",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi, thanks for you warm words!\n\nLet me shed some light on this dark matter (about version naming) ΓÇö just to make sure weΓÇÖre on the same page. :) So, the versions that are released have a download link on the page, and they are divided into three levels:\n\n\"Prod\" or \"Release\" version ΓÇö I am sure itΓÇÖs safe to use in any environment, including corporate users (as of the release date). Only important bug fixes will be released for this version. Except then fixes are posible or implemented in ...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-02-05T13:53:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dLUCS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @Kvarkas ,\n\n\u003e I hope you undestand me better now\n\n≡ƒÿë Don\u0027t worry! My comment focuses _only_ on this: please provide in the near future a new Beta version (aka with saving enabled). After 6 years since the last Beta it\u0027s about time for an upgrade.\n\nAnd thanks for your good explanations.\n ",
+                         "author":  "lars18th",
+                         "action_needed":  true,
+                         "date":  "2025-02-05T14:22:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-02-12T11:48:22Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

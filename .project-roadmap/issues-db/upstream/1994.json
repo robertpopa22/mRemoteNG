@@ -1,0 +1,130 @@
+﻿{
+    "number":  1994,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Extend menu for HTTP connection",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "Windows"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2021-07-07T07:38:14Z",
+    "github_updated_at":  "2026-02-07T16:45:52Z",
+    "body_snippet":  "\r\n![image](https://user-images.githubusercontent.com/46534073/124718510-d5891880-df0e-11eb-89ae-b2446d34b2b5.png)\r\n\r\nadd to this menu \"Refresh\", because not exist this button anywhere \r\n\r\n## Expected Behavior\r\nnew item in menu \"Refresh\" for reload page from server\r\n\r\n## Current Behavior\r\nno way to reload page, only \"Reconnect\"\r\n\r\n## Possible Solution\r\nMaybe rename \"Reconnect\" to \"Refresh\", or change \"Reconnect\" to \"Refresh\", if this different function\r\n\r\n## Steps to Reproduce (for bugs)\r\n1.\r\n2.\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NTM2OTg1MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\"Reconnect\" drop connection, close tab, create new tab and new connect.\r\n\"Refresh\" must reload page inside same tab.",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-07T07:43:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3Njk5MjkxNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "that is the GUI menu. if you right click inside the page you will have the refresh button there:\r\n\r\n![image](https://user-images.githubusercontent.com/383031/125044051-e024e880-e09b-11eb-9f73-e11155774d7e.png)\r\n",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T07:56:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3Njk5MzI0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thesea are 2 different sources of menus",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T07:56:40Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAwMDEzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Are you sure? All sites show same menu? For example:\r\n![image](https://user-images.githubusercontent.com/46534073/125045583-d30cf700-e0a5-11eb-95b4-04b136d145c9.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:07:34Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAwODgxNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "do you get the same on any other site?\r\n\r\nlike www.google.com for example? or www.mremoteng.org?",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:20:43Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAxMTg1Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please (on Windows Server 2019):\r\n![image](https://user-images.githubusercontent.com/46534073/125048187-562f4c80-e0a8-11eb-8b40-acba036eca32.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:25:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAxMjY0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Config for connection from previous comment\r\n![image](https://user-images.githubusercontent.com/46534073/125048411-91ca1680-e0a8-11eb-887e-556c9f2803f2.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:27:01Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAxODI0MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "seems to be the chromium implementation not handling the right click in the page the same as before then.",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:36:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAyMjA4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "After switch to IE\r\n![image](https://user-images.githubusercontent.com/46534073/125050610-c8089580-e0aa-11eb-9239-7b5a35e9cc0b.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:42:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzAyNDQzMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "After open this page in IE, page can be open in mRemoteNG.\r\nBy default, IE in Windows Server is very restricted\r\n![image](https://user-images.githubusercontent.com/46534073/125051133-52e99000-e0ab-11eb-8830-739727318a58.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T08:46:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFd4",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:52Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:52Z",
+    "unread_comments":  10,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

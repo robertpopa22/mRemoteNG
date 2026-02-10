@@ -1,0 +1,56 @@
+﻿{
+    "number":  1152,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Investigate RDP resize reconnection speed improvements",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2018-10-24T16:39:27Z",
+    "github_updated_at":  "2018-12-28T22:19:33Z",
+    "body_snippet":  "When resizing an RDP connection due to the connection window size changing, it sometimes takes a while to reconnect, even though a manual disconnect / reconnect would complete fairly quickly. Look into replacing the `msRdpClient8.Reconnect()` call with a manual disconnect / reconnect to see if it is more reliable.\r\n\r\n## Expected Behavior\r\nReconnecting to an RDP session for a resize operation should complete in a reasonable amount of time.\r\n\r\n## Current Behavior\r\nSometimes reconnecting to an RDP ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjczNDIxMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Should be a quick test/change to make",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-24T16:41:00Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MDQzMjc0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Quick test... Replaced msRdpClient8.Reconnect() with\r\n_rdpClient.Disconnect();\r\n_rdpClient.Connect();\r\n\r\n\r\nReceived the following errors:\r\n```\r\n2018-12-28 16:41:37,456 [1] WARN  - An error occurred while trying to change the connection resolution to host \u0027HOSTNAME\u0027\r\nError HRESULT E_FAIL has been returned from a call to a COM component.\r\n2018-12-28 16:41:37,472 [1] INFO  - Protocol Event Disconnected. Host: \"HOSTNAME\"; Protocol: \"RDP\" Message: \"An internal error has occurred.\"\r\n```\r\n\r\nSimilar err...",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2018-12-28T21:48:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1MDQzNjM0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It\u0027s probably calling the `Close()` methods to start disposing of controls... I wonder if we can override that in a reasonable way",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-28T22:19:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-12-28T22:19:33Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

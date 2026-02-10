@@ -1,0 +1,74 @@
+﻿{
+    "number":  921,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add support for excluding certain active connections from multi ssh commands",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "kk2526",
+    "created_at":  "2018-03-22T15:20:10Z",
+    "github_updated_at":  "2018-09-30T16:20:23Z",
+    "body_snippet":  "*Original Description:*\r\nRequesting feature to disable/enable accepting commands for \"Multi ssh\"\r\n\r\n------\r\n*Merging request from #1100:*\r\n\r\nSend command using the MultiSSH toolbar only to the SSH connection inside the currently focused Connection Panel. Preferably optional by checkbox. \r\n\r\n## Expected Behavior\r\nIt would be nice if there would be an option to limit the command forwarding only to the SSH connections, which are in the currently focused Connection Panel.\r\n\r\n## Current Behavior\r\nCur...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTQxMzg0MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Can you provide more context around this request? Do you want to disable multi ssh for all connections or just certain ones?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-03-22T18:35:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTY4NTkzMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just on some certain windows. I am not sure if this is still in place. Thanks!",
+                         "author":  "kk2526",
+                         "action_needed":  true,
+                         "date":  "2018-03-23T14:38:17Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTcwOTIzMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That makes sense. You might be connected to 6 servers but only want to send commands to 4 of them. Currently, you would need to log off of the two servers which you didn\u0027t want to send commands to. Ideally, you would just briefly exclude those 2 from receiving the multi-ssh commands. We can look into adding this.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-03-23T15:45:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTczOTY1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks! \r\nAlso if you can add Panel wise enable/disable so we dont have to do on each connection window.\r\nLike I have three panels, each has 6 connections and I want multi ssh commands only on Panel-2. I can disable 1 and 3.",
+                         "author":  "kk2526",
+                         "action_needed":  true,
+                         "date":  "2018-03-23T17:21:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NTc4NTM0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yea that makes sense. We can design the solution to allow that use-case",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-03-23T20:13:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2018-09-30T16:20:23Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

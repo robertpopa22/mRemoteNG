@@ -1,0 +1,49 @@
+﻿{
+    "number":  2191,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Idea: opennig http/https in external OS browser",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "Needs implementation",
+                   "HTTP/HTTPS"
+               ],
+    "author":  "jackmoscow",
+    "created_at":  "2022-03-31T12:19:28Z",
+    "github_updated_at":  "2022-04-04T11:28:19Z",
+    "body_snippet":  "Is it possible to implement the possibility of using an external OS browser? (HTTP/HTTPS protocols) \r\nDefault or which could be selected manually\r\n\r\n## Expected Behavior\r\nMake it possible to select the OS browser (default or another installed in the OS)\r\n\r\n## Current Behavior\r\nAt the moment http/https opens in the built-in program, the connection does not always occur, especially if self-signed certificates are used\r\n\r\n## Possible Solution\r\nWhen setting up an external browser, a redirect to a li...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5ApLvY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Which Version of mRemoteNG are you using? \r\n\r\nStarting with 1.77 (please try out the nightly build) it should use Chromium as base which uses the Builtin Windows Certificate Store, previously it was something Firefox-Based with the option to use IE which caused some trouble (see #1842).",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-03-31T12:51:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5AxmI0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just noted in #1842 that this feature seems to not work as it should right now also with Version 1.77.2-nb (20220107). IE rendering Engine is unable to handle the new crypto standards, and the \"Edge Chromium\" engine just does display nothing which is quite unfortunate...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-04-02T23:44:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-04-04T11:28:19Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

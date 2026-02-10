@@ -294,6 +294,8 @@ build-and-test-baseline.ps1
 test.ps1
 run-tests.ps1
 CLAUDE.md
+GEMINI.md
+.gemini/
 agents.md
 
 # Temp test output

@@ -45,6 +45,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Middle-click on tab closes the connection tab (standard browser UX)
 - Crash dialog "Submit Error" button: auto-submits GitHub issue via API (CI builds with token) or pre-fills browser (dev builds) — zero-click crash reporting in release builds
 
+### Tooling
+- **Issue Intelligence System**: git-tracked JSON database for GitHub issue lifecycle management
+  - Syncs issues + comments from both upstream and fork repos via `gh` CLI
+  - Per-issue JSON files with full iteration tracking (fix → user feedback → re-fix cycle)
+  - Automated lifecycle transitions: `new → triaged → roadmap → in-progress → testing → released`
+  - Templated GitHub comment posting on status transitions
+  - Markdown report generation for triage sessions and releases
+  - Scripts: `Sync-Issues.ps1`, `Analyze-Issues.ps1`, `Update-Status.ps1`, `Generate-Report.ps1`
+
 ### Documentation
 - CONTRIBUTING.md: developer onboarding guide with build instructions and PR workflow
 - ARCHITECTURE.md: system layers diagram with component descriptions and data flow

@@ -1,0 +1,40 @@
+﻿{
+    "number":  1934,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "MySQL latest Dev Branch Concurrency Error",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "1.77.2",
+                   "DBs"
+               ],
+    "author":  "medusaalb",
+    "created_at":  "2021-02-18T07:25:32Z",
+    "github_updated_at":  "2026-02-07T19:38:05Z",
+    "body_snippet":  "I\u0027m working mRemoteNG lastest branch and i\u0027m getting this error :\r\n----------\r\n----------\r\nErrorMsg\r\n02/18/2021 12:55:01\r\nCouldn\u0027t save connections file as \"\"!\r\nConcurrency violation: the batched command affected 0 of the expected 1000 records.\r\n----------\r\n\r\n----------\r\nWe are 10 persons working in that database\r\n\r\nthanks in advanced",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZ1P",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:38:05Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:38:05Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

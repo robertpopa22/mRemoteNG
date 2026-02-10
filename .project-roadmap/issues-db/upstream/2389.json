@@ -1,0 +1,58 @@
+﻿{
+    "number":  2389,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Split the solution in multiple projects",
+    "state":  "open",
+    "labels":  [
+                   "Project Infrastructure",
+                   "Needs implementation",
+                   "1.78.*"
+               ],
+    "author":  "xas",
+    "created_at":  "2023-03-17T21:59:41Z",
+    "github_updated_at":  "2026-02-07T19:52:03Z",
+    "body_snippet":  "Related to #308\r\n\r\nI think the current state of code is a little complex, and difficult to maintain because of its monolith structure\r\n\r\nIt would be interesting to start to isolate some part of the code and extract it to multiple dotnet core library projects and be able to get only a front project, platform dependent.\r\n\r\n## Expected Behavior\r\n\r\nEach library could target `netstandard2.0;net6.0;net7.0;...`\r\n\r\nWith this configuration, any team could develop a frontend more easily in any dotnet fram...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5X6DbI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, yes, you are very welcome, its also idea what we would like to follow. Just a bit of plans, in curent branch we try to sort some nasty errors and bugs to do a release, then we switch branch to 1.77.4-dev and will be glad if you actively participate in such :) welcome to join our [devchat](https://matrix.to/#/#mRemoteNG_DevChat:gitter.im) - communication will be much quicker.\r\nIn regards resources I am ok with that but @BlueBlock suggest add [MAT ](https://marketplace.visualstudio.com/item...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-03-18T12:26:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6oBt80",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This would also support having SSH directly integrated into the application. Having a separate instance of PuTTY installed isn\u0027t a great way to handle SSH for a console application that is supposed to be a single app for all consoles. I\u0027ve got many places where they use PuTTY and it causes tons of confusion about which PuTTY they need to add saved sessions or which PuTTY agent they need to run for unlocking their keyfiles.",
+                         "author":  "sovamind",
+                         "action_needed":  true,
+                         "date":  "2025-04-21T17:00:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhIQ",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:03Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,75 @@
+﻿{
+    "number":  1666,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Session is unlocked by restoring down or maximizing the window",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Improvement required"
+               ],
+    "author":  "YacineLF",
+    "created_at":  "2020-01-07T09:51:44Z",
+    "github_updated_at":  "2023-11-29T07:17:30Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nSession is unlocked by restoring down or maximizing the window\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nThe session should stay locked, requesting the user password\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a cha...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MTU1NjY5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I guess this is by design. mRemoteNG reconnects to the host in order to set the resolution to the changed window size.\r\nBecause the credentials are stored in the XML file, locking a session inside mRemoteNG doesn\u0027t protect you against reconnecting.\r\nRight clicking the tab and choosing Reconnect has the same effect as you describe.\r\n\r\nLocking your local PC before you walk away is the safest way to prevent unwanted connections.",
+                         "author":  "kees-z",
+                         "action_needed":  true,
+                         "date":  "2020-01-07T11:54:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NTk2MjMzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I was able to reproduce this bug without the credential being stored and its bypassing two-factor authentication. Tested on Windows 2019 server and windows 2012 server.\r\n\r\nIt does not happen with 2012 server.",
+                         "author":  "delanojack",
+                         "action_needed":  true,
+                         "date":  "2020-01-19T03:17:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NjE3Mzk2OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can also reproduce this. When connections are not stored in the Connections file, mRemoteNG asks for credentials when using the integrated \"Reconnect\" option, but unlocks the session immediately whenever the resolution changes (resizing, maximizing the mRemoteNG window).\r\nI agree, looks like this is a bug.\r\nAs a workaround, you can set the resolution to \"Smart size\" for your connections. This will keep the initial RDP resolution, even when the mRemote panel\u0027s resolution changes.",
+                         "author":  "kees-z",
+                         "action_needed":  true,
+                         "date":  "2020-01-20T08:59:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5tIr6O",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "So I stumbled on this today and thought I was going crazy. How is this an mRemoteNG issue? Windows shouldn\u0027t unlock the session without credentials. I\u0027d think this is a Windows bug. ",
+                         "author":  "esher72",
+                         "action_needed":  true,
+                         "date":  "2023-11-29T00:24:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5tKA9U",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e So I stumbled on this today and thought I was going crazy. How is this an mRemoteNG issue? Windows shouldn\u0027t unlock the session without credentials. I\u0027d think this is a Windows bug.\r\n\r\nFor this see #1809, it\u0027s default behavior when reconnecting (which is what mRemoteNG does by default when the window size changes)",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-11-29T07:17:29Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-11-29T07:17:30Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,47 @@
+﻿{
+    "number":  1619,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Redirect \u003e Audio Capture Inheritance not being saved in 1.77",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "boomshankerx",
+    "created_at":  "2019-10-12T21:11:32Z",
+    "github_updated_at":  "2026-02-07T16:47:15Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nInheritance of Redirect \u003e Audio Capture is not saved when closing mRemoteNG\r\nv 1.77.1.27654\r\n\r\n## Steps to Reproduce (for bugs)\r\n\u003c!--- Provide an unambiguous set of steps to reproduce --\u003e\r\n\u003c!--- this bug. Include code to reproduce, if relevant --\u003e\r\n1. Change inheritance of Redirect \u003e Audio Capture in a folder or connection\r\n2. Close mRemoteNG\r\n3. Open mRemoteNG\r\n4. Settings not preserved\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MzIxNTQ1NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same for me - edited the XML file, even adding \"inheritredirectaudiorecording=false\" but same thing\r\n",
+                         "author":  "AtariFX",
+                         "action_needed":  true,
+                         "date":  "2021-07-02T19:27:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF26",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:15Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:15Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

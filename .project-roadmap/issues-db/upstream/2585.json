@@ -1,0 +1,97 @@
+﻿{
+    "number":  2585,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "CVE-2020-24307 and CVE-2023-30367",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "In progress",
+                   "Security Vuln",
+                   "1.77.2",
+                   "In development",
+                   "Security"
+               ],
+    "author":  "etug80",
+    "created_at":  "2024-04-22T14:01:25Z",
+    "github_updated_at":  "2026-02-07T19:52:53Z",
+    "body_snippet":  "Hello Folks!\r\n\r\nI\u0027m glad to come across mRemoteNG when I searched for Libre Software alternative to SecureCRT.\r\n\r\nUnfortunately, when I requested my organization to install mRemoteNG (either v1.76.20 or v1.77.3.1784-NB) on my work laptop, the SOC team rejected my request citing the following CVEs.\r\n[1] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-24307\r\n[2] https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-30367\r\n\r\nAny inside information regarding these?\r\n\r\nP.S.\r\nThank you all f...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM57YI7y",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes, issue exist and currently working to eliminate in new 1.77.3 realize, what require a big code chuck to change so a bit slow with release...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-04-22T15:36:11Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6IY-Gr",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nNIST just posted an official statement regarding mRemoteNG a few weeks ago:\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2023-30367\r\nbtw, we have to stop using mRemoteNG at work because of this. It\u0027s sad that there are no new builds.\r\nLinking [this](#2474) thread yet again.\r\n\r\nRegards,\r\nJ.",
+                         "author":  "JeanPluzo",
+                         "action_needed":  true,
+                         "date":  "2024-08-14T09:09:55Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6RA8RH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still hoping for a new build",
+                         "author":  "Avrution",
+                         "action_needed":  true,
+                         "date":  "2024-10-23T17:26:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Tqc2U",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think you meant to link #2474 there @JeanPluzo",
+                         "author":  "CptnFizzbin",
+                         "action_needed":  true,
+                         "date":  "2024-11-14T20:46:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJCe",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJLu",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhYF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:53Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:53Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

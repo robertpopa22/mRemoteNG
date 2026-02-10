@@ -1,0 +1,57 @@
+﻿{
+    "number":  1992,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Non high contrast themes",
+    "state":  "open",
+    "labels":  [
+                   "Improvement required",
+                   "Theming"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2021-07-06T18:42:06Z",
+    "github_updated_at":  "2021-07-09T10:59:35Z",
+    "body_snippet":  "White (or light-gray) background with blue background active panel and active tab.\r\n\r\n## Expected Behavior\r\nIn v 1.76.20 gray/light-gray palette very \"same color\", active panel/tab with bold font. Not better choice.\r\nWhite/blue also not better. \r\n\r\n## Current Behavior\r\nColor themes from different version of Visual Studio.\r\n\r\n## Possible Solution\r\nCopy palette from any program, that can used long-long time without broken eyes.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Only look at program\r\n2.\r\n3.\r\n...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NDk5NjY1OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Some themes not editable.\r\nIf theme can be edited, color sample needed \"refresh\" by move mouse over column, without any click.",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-06T18:43:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NTMzNDAyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Themes stored in 3 folder (!). \r\n{mRemoteNG folder}\\Themes\r\n{mRemoteNG folder}\\Resources\\Themes\r\n{userProfile}\\AppData\\Roaming\\mRemoteNG\\Themes\r\n\r\nMaybe need more folder?",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-07-07T06:47:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzEwMDU1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Maybe need more folder?\r\n\r\n![gy](http://www.kolobok.us/smiles/standart/taunt.gif)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T10:58:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-07-09T10:59:35Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

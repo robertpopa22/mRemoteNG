@@ -1,0 +1,93 @@
+﻿{
+    "number":  1794,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Crash when closing panel containing a connection tab",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug"
+               ],
+    "author":  "oznxzar",
+    "created_at":  "2020-06-16T05:22:53Z",
+    "github_updated_at":  "2020-07-25T17:26:28Z",
+    "body_snippet":  "\r\n\r\n## Expected Behavior\r\nSometimen when I close a tab that contains some open connections inside mremote crash and i need to close it a reset when it shouldn\u0027t.\r\n\r\nAs you can see in the error windows something is pointing to path \"C:\\jenkins\\workspace\\Publish\\Build\" that don\u0027t exists in my setup\r\n\r\nError Message:\r\n\r\n![image](https://user-images.githubusercontent.com/44467849/84734789-1cbe0780-afa2-11ea-9bf9-e67b7c093b4f.png)\r\n\r\nFull infortmation from error message below:\r\n\r\n```\r\nException Messa...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NTIyMjI4Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reproduced with a test tab containing a CEF Browser tab. \r\n\r\nClicking the close button on the \"General\" Tab first causes the crash. Closing the Browser tab first and then general , doesn\u0027t cause a problem. \r\n\r\n![image](https://user-images.githubusercontent.com/64709994/84872312-04bdb500-b082-11ea-9b47-af041a7fe8fe.png)\r\n\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, ...",
+                         "author":  "NyvenZA",
+                         "action_needed":  true,
+                         "date":  "2020-06-17T08:06:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Njg1OTA2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i couldn\u0027t reproduce this but added a check that might fix this issue.\r\ncan anybody confirm this?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-06-19T21:01:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Njg2NTEwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I will check it tomorrow so I will provide feedback about that issue.",
+                         "author":  "oznxzar",
+                         "action_needed":  true,
+                         "date":  "2020-06-19T21:22:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Njk1NjUxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @farosch , How can I apply the fix you mention? I can\u0027t find this file in my mremoteNG Install, if you can provide a new installer or telle how can i check it i will do it.",
+                         "author":  "oznxzar",
+                         "action_needed":  true,
+                         "date":  "2020-06-20T07:18:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Njk3Mjc5MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@oznxzar You can grad the lastest build from Appveyor: https://ci.appveyor.com/project/mremoteng/mremoteng/builds/33630769/job/rcjjfr03bn5u8kkt/artifacts",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-06-20T10:15:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NzE1MzQ3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I grabbed latest build from link above.  Looks like its still happening.\r\n![issue_1794](https://user-images.githubusercontent.com/46064123/85230416-c4717600-b3a4-11ea-9f98-f86a05dad70e.gif)\r\n",
+                         "author":  "CraicX",
+                         "action_needed":  true,
+                         "date":  "2020-06-21T16:53:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Nzk5ODY2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Could simulate as above, with the first tabs opening and closing without a crash, but when I open and close second tab, it crashes. \r\n\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r...",
+                         "author":  "NyvenZA",
+                         "action_needed":  true,
+                         "date":  "2020-06-23T08:39:48Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-07-25T17:26:28Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

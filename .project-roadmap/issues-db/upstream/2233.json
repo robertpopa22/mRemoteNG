@@ -1,0 +1,57 @@
+﻿{
+    "number":  2233,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Freeze using Win 10 on Virtualbox",
+    "state":  "open",
+    "labels":  [
+                   "Cannot Reproduce",
+                   "Need 2 check"
+               ],
+    "author":  "paoloholzl",
+    "created_at":  "2022-05-26T09:42:34Z",
+    "github_updated_at":  "2026-02-07T16:45:10Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nIn some situations during the connection VNC Freeze.\r\nExiting from the Window and connecting again it work perfectly.\r\n\r\nS.O: Local Win10 Pro 21H2, in virtual machine Win10 Home 21H2",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5D3WEz",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Can you elaborate what exactly freezes. Is it mRemoteNG or is it only the connection? \r\nThen I do not understand how you use mRemoteNG in combination with Virtualbox. Is the connection destination running in VB, or are you connecting out of a VM? \r\nDid the issue also happen also when connecting to another machine? \r\n\r\nAnd last but not least, what version of mRemoteNG are you using? ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-05-26T13:30:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5D3sK4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Il 26/05/2022 15:30, Simon Monai ha scritto:\n\u003e\n\u003e Can you elaborate what exactly freezes. Is it mRemoteNG or is it only \n\u003e the connection?\n\u003e\nOnly the connection is closed and if I connect again non problems.\n\u003e\n\u003e Then I do not understand how you use mRemoteNG in combination with \n\u003e Virtualbox. Is the connection destination running in VB, or are you \n\u003e connecting out of a VM?\n\u003e\nVirtualbox is the destination into a Linux Hypervisor.\nDid the issue also happen also when connecting to another machine?\n...",
+                         "author":  "paoloholzl",
+                         "action_needed":  true,
+                         "date":  "2022-05-26T15:00:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFR-",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:10Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:10Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

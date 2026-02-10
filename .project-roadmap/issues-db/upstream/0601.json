@@ -1,0 +1,41 @@
+﻿{
+    "number":  601,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Request: Tab Titles to Follow Current SSH Session",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Enhancement",
+                   "Ready",
+                   "UI/UX"
+               ],
+    "author":  "ejtbrown",
+    "created_at":  "2017-06-16T17:38:42Z",
+    "github_updated_at":  "2017-06-16T18:06:14Z",
+    "body_snippet":  "|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008.17907  |\r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\nI\u0027ve previously used MTPuTTY, but have switched to mRemoteNG. I find mRemoteNG to be better in every way... except one. The titles of tabs in MTPuTTY follow SSH connections.\r\n\r\nExample:\r\n1) Open an SSH connection tab to hostA.example.com; the title of the tab is \u0027hostA.example.com\u0027\r\n2) On the command line of hostA, ssh to hostB.example.com\r\n\r\nIn mRemoteNG, the title of the ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwOTA5NTE4Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Relates to #347 ",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-06-16T18:06:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2017-06-16T18:06:14Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

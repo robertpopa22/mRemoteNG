@@ -1,0 +1,31 @@
+﻿{
+    "number":  1413,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Cannot alt tab to session while in full screen",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "onetoomany",
+    "created_at":  "2019-04-17T21:46:23Z",
+    "github_updated_at":  "2021-06-27T22:56:43Z",
+    "body_snippet":  "When running my session in full screen mode, and I alt-tab to another app, I can no longer find my current session - I can only alt-tab back to the remoteng application that is showing a white box.  Furthermore, there is only one remoteNG icon on my taskbar.\r\n\r\nWorkaround is to go to RemoteNG, right click on my session tab, select full screen to return it to the window and full screen again to go full screen.\r\n\r\nversion 1.76.19.35762\r\nwindows 10",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2021-06-27T22:56:43Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

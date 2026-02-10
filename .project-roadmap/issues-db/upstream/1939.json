@@ -1,0 +1,57 @@
+﻿{
+    "number":  1939,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Allow setting name of connection as value of domain",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "dz-yamh",
+    "created_at":  "2021-03-01T15:29:53Z",
+    "github_updated_at":  "2026-02-07T19:51:56Z",
+    "body_snippet":  "## Expected Behavior\r\nEither create a new setting in the config for a folder or if a period is used for domain, don\u0027t use the current hostname that mRemoteNG is running on as the value of the domain setting.\r\n\r\n## Current Behavior\r\nAFAIK, current configuration doesn\u0027t allow for setting the domain of the connection to be the same as the name of the connection\r\nSetting a period as the value of the domain setting will use the name of the current host that mRemoteNG is running on as the value and no...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEEX",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFhW",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhFy",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:56Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:56Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

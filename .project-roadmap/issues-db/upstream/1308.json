@@ -1,0 +1,74 @@
+﻿{
+    "number":  1308,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Multiple flaws with floating connection windows",
+    "state":  "open",
+    "labels":  [
+                   "Help Wanted"
+               ],
+    "author":  "farosch",
+    "created_at":  "2019-02-13T17:19:07Z",
+    "github_updated_at":  "2024-01-03T11:27:33Z",
+    "body_snippet":  "- [ ] Floating window is always on top of mrng main form\r\n- [ ] Closing a floating window running a RDP session quits the running session but does not close the window itself\r\n- [ ] Resizing a floating window or the main form running a RDP session does not resize the remote desktop\r\n- [ ] Unable to \"dock\" floating window by dragging and dropping to desktop edges\r\n- [ ] Floating window lacks minimize/maximize buttons\r\n- [ ] Floating windows do not appear on the taskbar or when using Alt+Tab\r\n\r\n![...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MzU1MTEwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@jotatsu Could you maybe take a look at these?",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-02-14T09:13:38Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MzYzNzIzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch Yep, i\u0027m looking at this ones , FloatWindowNG is already extended from DPS, just need to add some more customization. ",
+                         "author":  "jotatsu",
+                         "action_needed":  true,
+                         "date":  "2019-02-14T14:00:49Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vxXBK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please assign to me",
+                         "author":  "magriggs",
+                         "action_needed":  true,
+                         "date":  "2024-01-03T11:19:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vxXcl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Status:\r\n\r\nFloating window is always on top of mrng main form: FIXED\r\nClosing a floating window running a RDP session quits the running session but does not close the window itself: FIXED\r\nResizing a floating window or the main form running a RDP session does not resize the remote desktop: TBC\r\nUnable to \"dock\" floating window by dragging and dropping to desktop edges: TBC \r\nFloating window lacks minimize/maximize buttons: FIXED\r\nFloating windows do not appear on the taskbar or when using Alt+Ta...",
+                         "author":  "magriggs",
+                         "action_needed":  true,
+                         "date":  "2024-01-03T11:21:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vxZU_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "PR please and will approve! Thanks",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-03T11:27:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-01-03T11:27:33Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

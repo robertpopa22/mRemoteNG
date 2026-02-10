@@ -1,0 +1,40 @@
+﻿{
+    "number":  2207,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "[Panels][Tabs]: work area doesn\u0027t switch to already activated connection\u0027s tab if it\u0027s on the other panel",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "Improvement required"
+               ],
+    "author":  "PetbkA",
+    "created_at":  "2022-04-22T08:51:30Z",
+    "github_updated_at":  "2026-02-07T16:45:33Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nActivating the already opened connection from the panel that\u0027s not active should activate this panel and connection\u0027s tab. I.e. if the active connection is _XP_ on _Windows_ panel, and I\u0027m opening  _Ubuntu_ on _Unix_ panel that has already been opened, work ar...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFYk",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:33Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,57 @@
+﻿{
+    "number":  1828,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Smartsizing and Pre-defined Resolution",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "Needs implementation"
+               ],
+    "author":  "MerlinDWiz",
+    "created_at":  "2020-08-07T07:43:51Z",
+    "github_updated_at":  "2021-06-27T18:47:42Z",
+    "body_snippet":  "I sometimes work on a laptop with very small screen and RDP to certain computer for operations that require more \"screen space\".\r\n\r\nSo normally I do it with a RDP setting files by setting the resolution to higher than my laptop (1920 x1080) and enable smart sizing - which allow more \"working space\" without having to use the scroll bars to see parts of the screen in the RDP session.\r\n\r\nThe specific parameters are as follows:\r\n\r\ndesktopwidth:i:1920\r\ndesktopheight:i:1080\r\nsmart sizing:i:1\r\n\r\nI know...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NDYxNjQzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "wow good idea, i try the but icon looks too small, do you have a recommend resolution?\r\n\r\n[censored]",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-08-17T01:55:16Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NjgzMjA0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi VShawn,\r\n\r\nMy laptop\u0027s screen is tiny with resolution 1366 x 768 and running a remote session of 1600 x 900 reasonably comfortably.  Sometimes I use 1920 x 1080, that is probably pushing things a bit, but it is workable and the \"extra space\" is very convenient.\r\n\r\nIt really depends on the screen you are physically working on, which is why I suggested separating the field into 2 separate fields.\r\n\r\nAdmittedly, this client has more than 1 connection target to consider so that might be tricky to...",
+                         "author":  "MerlinDWiz",
+                         "action_needed":  true,
+                         "date":  "2020-08-20T00:44:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY5MjM3NzMzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think separating the field into 2 separate fields would be an excellent enhancement. and I would use it heavily, for a very similar reason.",
+                         "author":  "Benchwork",
+                         "action_needed":  true,
+                         "date":  "2020-09-14T23:49:32Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T18:47:42Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

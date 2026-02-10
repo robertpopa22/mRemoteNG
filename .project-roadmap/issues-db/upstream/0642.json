@@ -1,0 +1,192 @@
+﻿{
+    "number":  642,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Custom Icons on Folder/Connection",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX"
+               ],
+    "author":  "stevealexandre",
+    "created_at":  "2017-07-17T14:42:40Z",
+    "github_updated_at":  "2025-04-02T13:02:58Z",
+    "body_snippet":  "|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75.7008.17935  |\r\n\r\nCan you add the feature to add custom icons and the possibility to put icon on Folders too ?\r\nIt will be great to see the difference between environment(production, bench, etc...)\r\n\r\nExample on an another tool :\r\n![image](https://user-images.githubusercontent.com/21204359/28273528-ee648d4e-6b0e-11e7-9693-49dcf5c6b6de.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyMDQzNzU3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 A very missing feature for me also.",
+                         "author":  "Fiiti",
+                         "action_needed":  true,
+                         "date":  "2017-08-05T11:05:44Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMyMjcwMTk3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "bereldhuin",
+                         "action_needed":  true,
+                         "date":  "2017-08-16T08:27:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NjYzOTM2MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "kpolak",
+                         "action_needed":  true,
+                         "date":  "2018-01-10T15:38:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MTEyNzc1NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 Would be especially useful with large connection lists like mine, which is constantly growing. :-)",
+                         "author":  "gdsotirov",
+                         "action_needed":  true,
+                         "date":  "2018-03-07T12:47:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjA0OTkxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yep +1",
+                         "author":  "vmario89",
+                         "action_needed":  true,
+                         "date":  "2018-03-10T17:57:48Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4NjMxNjM5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "haat-reassured",
+                         "action_needed":  true,
+                         "date":  "2018-05-03T14:33:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNzk5NDE2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2018-09-03T03:58:32Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODY5OTcyNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "dboc",
+                         "action_needed":  true,
+                         "date":  "2018-10-10T19:24:19Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODc0NTMyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I don\u0027t know since when, but connection icons can be customized. I can\u0027t see a way to do folder icons, though. \r\nJust drop the custom icons into the `..\\mRemoteNG\\icons` folder. That makes them available in the custom icons list. (running 1.76.8.17214).",
+                         "author":  "",
+                         "action_needed":  true,
+                         "date":  "2018-10-10T21:49:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODkyMzM4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Cool! But i need to change folder icons.",
+                         "author":  "dboc",
+                         "action_needed":  true,
+                         "date":  "2018-10-11T11:40:11Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyOTA0Nzc4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, dropping icons to `mRemoteNG\\icons` works and I use it, but it would be nice to be able to customize folder icons as well especially if one has many connections.",
+                         "author":  "gdsotirov",
+                         "action_needed":  true,
+                         "date":  "2018-10-11T17:33:55Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NzgwMjY4OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Whens this becoming a thing? I was just about to open an Issue ticket and saw this one open. :D",
+                         "author":  "Zewwy",
+                         "action_needed":  true,
+                         "date":  "2019-01-26T05:03:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMzM0MjY1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does adding custom icons create an issue when those icons aren\u0027t present in a new location? Say after export/import",
+                         "author":  "Greycat01",
+                         "action_needed":  true,
+                         "date":  "2019-07-19T19:07:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMTkzNzk5OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Does adding custom icons create an issue when those icons aren\u0027t present in a new location? Say after export/import\r\n\r\nWhat I\u0027ve noticed is that the connection remains intact, but the icon is gone until I add the custom icons back to the icons folder, so I always make a backup of my custom icons just in case I need to reinstall.\r\n",
+                         "author":  "peterj04",
+                         "action_needed":  true,
+                         "date":  "2019-09-16T20:10:23Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDczNTcwMDc5NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1\r\nFolder icons would be really useful",
+                         "author":  "Anders-Ryden",
+                         "action_needed":  true,
+                         "date":  "2020-11-30T10:32:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1MzY1OTQ3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The ability to use custom icons for folders would help me out a ton. +1\r\n\r\nThanks for the great application. Makes my role as a lab admin much easier.",
+                         "author":  "noz482",
+                         "action_needed":  true,
+                         "date":  "2021-01-03T18:43:59Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc2OTkwMTU0Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "absolutely +1",
+                         "author":  "Logico68",
+                         "action_needed":  true,
+                         "date":  "2021-01-29T16:17:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM59mUg4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I also would like to have an easier way of setting custom connection icons! +1\r\n\r\nAlso, I\u0027m missing a way to use custom icons that **doesn\u0027t need administrator access** to write into Program Files. Better to use %LocalAppData% or save icons directly into the connection file (like KeePass does it).",
+                         "author":  "itb-dev-bw",
+                         "action_needed":  true,
+                         "date":  "2024-05-13T10:21:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-04-02T13:02:58Z",
+    "unread_comments":  18,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

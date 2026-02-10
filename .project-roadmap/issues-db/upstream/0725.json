@@ -1,0 +1,103 @@
+﻿{
+    "number":  725,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "General tab always tries to open next to the Connections tab",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "UI/UX",
+                   "Need 2 check"
+               ],
+    "author":  "codearoo",
+    "created_at":  "2017-09-18T12:44:15Z",
+    "github_updated_at":  "2026-02-07T16:47:54Z",
+    "body_snippet":  "Ver 1.75.7008.17907 on Windows 10.\r\n\r\nHi..  I have used mRemoteNG for years.. and just recently updated. Now I have this strange problem. When I open it up, and open an RDP in my connections tab, it always opens the General tab next to it, inside that little area. I always have to then move the General tab onto the larger section of my screen. I\u0027ve tried saving everything (don\u0027t see a \"save panel layout\" option) and next time I close and re-open mRemoteNG it\u0027s the same story.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxMjkwMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Backup and delete `%AppData%\\Roaming\\mRemoteNG\\pnlLayout.xml`, and report if it fixes it.",
+                         "author":  "pedro2555",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:03:42Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxNTQ3MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hmm. That worked. Thank you.\r\na bug fix though?\r\n\r\nI attached my before and after pnlLayout files.\r\n\r\n[pnlLayoutBeforeAndAfter.zip](https://github.com/mRemoteNG/mRemoteNG/files/1310741/pnlLayoutBeforeAndAfter.zip)\r\n",
+                         "author":  "codearoo",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:13:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxNjExMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thank you, I\u0027ve noticed this issue once before.\r\n\r\nI\u0027ll take a look, but low priority really; since this is most likely an issue with the library we use.\r\n\r\nThanks for files.",
+                         "author":  "pedro2555",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:15:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxNjQ2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Also the docking stuff as a lot of work still to do.",
+                         "author":  "pedro2555",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:16:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxNzExMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ya no problem. Work around is acceptable.. so leave this ticket open if you want to track it or close it.\r\nThank you.\r\n",
+                         "author":  "codearoo",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:17:53Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMDIxNzE5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "or maybe I\u0027ll get into the action some day.",
+                         "author":  "codearoo",
+                         "action_needed":  true,
+                         "date":  "2017-09-18T13:18:05Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTIzMjIxOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Backup and delete `%AppData%\\Roaming\\mRemoteNG\\pnlLayout.xml`, and report if it fixes it.\r\n\r\nI tried this and it did not work.\r\nbackup and delete, reopen the manager?",
+                         "author":  "schadwell-sudo",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T03:12:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXGDA",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:54Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,84 @@
+﻿{
+    "number":  1924,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Need keystrokes for changing sessions / tabs",
+    "state":  "open",
+    "labels":  [
+                   "1.77.2",
+                   "In development"
+               ],
+    "author":  "yrebrac",
+    "created_at":  "2021-01-27T03:13:15Z",
+    "github_updated_at":  "2026-02-07T19:51:34Z",
+    "body_snippet":  "Switching between sessions seems to be an entirely mouse-oriented task. \r\n\r\n## Expected Behavior\r\n\r\nBeing an app that is often used for CLI, there should be a keyboard option to switch between open sessions / tabs.\r\nIn my case I switch between session very frequently, and it\u0027s a major way in which mremoteng is worse than just having multiple putty windows open (that and the focus / alt-tab issues).\r\n\r\n## Current Behavior\r\n\r\nHave to take hands off keyboard and click with mouse, which is orders of...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM42tnTc",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Someone have any update for this new feature ?\r\n@Kvarkas . Are you working on this?",
+                         "author":  "jsc-whoami",
+                         "action_needed":  true,
+                         "date":  "2021-09-13T07:43:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42uUG1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "for a moment not on this task, if you want to work on it you are more than welcome, I do assign to me task that I am coding ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-09-13T11:45:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM42uUtT",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e for a moment not on this task, if you want to work on it you are more than welcome, I do assign to me task that I am coding\r\n\r\nSorry , but I am not a developper . I wish it were. \r\nI am working recently with nRemoteNG , and It is the most useful functionality that I cannot find. ",
+                         "author":  "jsc-whoami",
+                         "action_needed":  true,
+                         "date":  "2021-09-13T11:49:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM44eFjG",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is the one thing I am missing in mRemoteNG. Are there any plans to implement this? I\u0027d be happy to lend a hand, however, would need some pointers on where to start. \r\n\r\nI tried my hand a bit at implementing this, but have trouble:\r\n\r\n- Understanding how to force the dock manager to programmatically active a different window in the main/middle dock area\r\n- Getting a list of active windows in the main/middle dock area, including their order\r\n\r\nI fiddled around with the code, but could not fin...",
+                         "author":  "mennowo",
+                         "action_needed":  true,
+                         "date":  "2021-10-20T07:43:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7I7QB1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I need this too and without it, I\u0027m going to find another tool to switch sessions.\nI\u0027m used to using Ctrl+Tab and Ctrl+Shift+Tab to switch back and forward, but any combo is better than none.",
+                         "author":  "oeekker",
+                         "action_needed":  true,
+                         "date":  "2025-10-06T10:39:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhAj",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:34Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

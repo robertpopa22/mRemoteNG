@@ -1,0 +1,57 @@
+﻿{
+    "number":  1346,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Fully encrypted \"confCons.xml\" become decrypted after opening in the upgraded version for the first time",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Request For Comment"
+               ],
+    "author":  "yderi",
+    "created_at":  "2019-03-13T15:03:02Z",
+    "github_updated_at":  "2019-03-14T15:41:07Z",
+    "body_snippet":  "Hi everyone.\r\n\r\nIf you choose to completely encrypt connection file, it stays fully encrypted until you open it in a new version of the application. It makes a backup copy of the current file (where content is still encrypted) and after closing app, it saves connection file in decrypted condition (Yes passwords stay in some form of hash,  but everything else is visible).\r\nThe same behavior for 1.76.15 and 1.76.11 and so on.\r\nIt can be fixed by choosing again to completely encrypt connection file...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3Mjg3OTMxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "App settings are saved in the same folder as the portable exe file. If you do not copy the settings file over to the new directory, the setting for encrypting the entire connection file will not be enabled in your new version of the app. (I believe that is what is happening here, but please correct me if I\u0027m wrong.)\r\n\r\nThat being said, I agree that this is an issue. The solution would be to manage the \"full encryption\" setting within the connection file itself, rather than making it a global app...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-14T14:20:08Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3Mjg5OTQ0Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, you are right.\r\nI\u0027m not moving app settings \"mRemoteNG.exe.config\" file to a new portable directory, that why it happens to me.\r\nSo, I agree, it would be nice to store \"full encryption\" setting within the connection file itself.\r\nSo if program see a FullFileEncryption=\"true\"\r\nparameter and its options in connection file, it must use it instead of app setting file. Or might be better, at all, store and use it in a single place - connection file, to maintain security.\r\n",
+                         "author":  "yderi",
+                         "action_needed":  true,
+                         "date":  "2019-03-14T14:52:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MjkyNTU2NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e store and use it in a single place - connection file\r\n\r\nThat is probably what we would go with. It would be too confusing to have a global app setting *and* a per-connection file setting.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-14T15:41:06Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-03-14T15:41:07Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

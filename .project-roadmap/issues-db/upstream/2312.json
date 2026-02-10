@@ -1,0 +1,67 @@
+﻿{
+    "number":  2312,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Function to see at the Status LED if the Host does have an Authorized DNS Entry",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Feature Request",
+                   "1.78.*"
+               ],
+    "author":  "Chrisu02",
+    "created_at":  "2022-12-06T07:26:43Z",
+    "github_updated_at":  "2026-02-07T19:56:44Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nStatus RED : Host is not Reachable.\r\nStatus Amber: Host is reachable but only with unauthorized adress (nslookup)\r\nSatus Green: Hostname has an Authorized DNS entry\r\n\r\n## Current Behavior\r\nRed: Hostname is not available\r\nGreen: Hostname is available\r\n\r\n## Possible Solution\r\nAdding an Option to add the FQDN domain as Option Field to the settings.\r\nFunction to Query the ping if it does have an \"Authorized ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5P1FVO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Interesting idea, will think aout",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-12-06T13:06:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5P5imZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello, thanks for thinking about it :)\r\n\r\nI noticed that i missunderstood the code, its not the FQDN that is queried for authorized, for me all anwers ar unauthorized.\r\nIts checking the nslookup entry.\r\n\r\nso basicly it does ping the Host by its computername, then it does use the ip adress that has been resolved by the ping and does do a nslookup of this IP.\r\n\r\nThen it does compare the output computername of the ip nslookup with the originally pinged computername,\r\nIf they do match, the Icon is g...",
+                         "author":  "Chrisu02",
+                         "action_needed":  true,
+                         "date":  "2022-12-07T07:00:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5P6vI5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes i am god on networking i am undestood yours idea :) but in many companies you should know ping could be disabled (for securyti reasons they say) so we cant trust it 100% but as option we may try to add such.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-12-07T11:02:14Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYih8",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:44Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

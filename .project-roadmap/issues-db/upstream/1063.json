@@ -1,0 +1,56 @@
+﻿{
+    "number":  1063,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "\"expand all folders\" only applied to visible folders when filtering",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "farosch",
+    "created_at":  "2018-08-05T09:44:53Z",
+    "github_updated_at":  "2019-09-29T22:38:27Z",
+    "body_snippet":  "When filtering is enabled in settings only currently visible folders in the connection tree are being expanded when clicking on the \"expand all folders\" icon.\r\n\r\n## Expected Behavior\r\nAll folders are being expanded, whether they are minimized or not.\r\n\r\n## Current Behavior\r\nOnly currently visible folders get expanded.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Create new config file\r\n2. Create new connection folder\r\n3. Place connection inside the folder\r\n4. Minimize folder\r\n5. Fiter for connection\r...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMjI3MDc4Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m not able to replicate this one, or maybe I\u0027m not understanding the bug.\r\nHere are my steps:\r\n\r\n1. Create new config file\r\n1. Create new folder under root node (named \"New Folder\")\r\n1. Create new connection in folder (named \"New Connection\")\r\n1. Create new folder under root node (named \"asdf\")\r\n1. Create new connection in folder \"asdf\" (named \"gggg\")\r\n1. Minimize/collapse both \"New Folder\" and \"asdf\"\r\n1. Filter for \"conn\"\r\n1. Nothing is shown in tree (except root node)\r\n1. Click \"expand all f...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-08-11T12:01:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQxNzk1NjEwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry for the delayed repsonse, I\u0027ve been quite busy. Maybe this animation will make it a bit clearer:\r\n![2018-09-02_21-58-19](https://user-images.githubusercontent.com/22905106/44960216-ae5aa300-aefb-11e8-97fe-af1417552153.gif)\r\n",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-09-02T20:02:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQzNzg2Nzg4Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can replicate this. When the folders are expanded the search finds the results but not on collapsed folders.\r\n\r\nHowever in some cases its intermittent but it breaks the search filtering anyway.",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2018-11-12T12:49:45Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-09-29T22:38:27Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

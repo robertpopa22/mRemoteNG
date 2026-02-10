@@ -1,0 +1,40 @@
+﻿{
+    "number":  2430,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Putty disconnect visibility / behaviour",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "1.77.4"
+               ],
+    "author":  "bitboy85",
+    "created_at":  "2023-04-26T12:25:59Z",
+    "github_updated_at":  "2026-02-07T19:52:57Z",
+    "body_snippet":  "When putty disconnects you get the notification popup, but no visual feedback which tab is affected if you have multiple conncetions open.\r\n\r\nWish: Change icon when disconnected to something like ≡ƒÜ½ or add **(inactive)** to the tab title like putty does.\r\n\r\nReconnect behaviour\r\nkeep tab on the same place and don\u0027t move it to the end when doing a reconnect.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhZ3",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:57Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:52:57Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

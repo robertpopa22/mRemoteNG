@@ -141,15 +141,17 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 3. Push and create PR targeting `v1.78.2-dev` on upstream `mRemoteNG/mRemoteNG`
 
 ## Release Checklist
-1. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
-2. Run tests (2179 total, verify zero regressions)
-3. Update CHANGELOG.md
-4. Tag and publish GitHub release
-5. **IMPORTANT: Check upstream issues (last 48h) for new comments and respond:**
-   - Acknowledge bug reports with fix status or ETA
-   - Thank users who confirm fixes
-   - Point users to the new release download link
-   - Respond to questions about availability/compatibility
+1. **MANDATORY: Run Issue Intelligence System sync** (see below)
+2. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
+3. Run tests (2179 total, verify zero regressions)
+4. Update CHANGELOG.md
+5. Tag and publish GitHub release
+6. **MANDATORY: Update issue statuses to `released` with `-PostComment`:**
+   ```powershell
+   .\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status released -Release "v1.80.0" -ReleaseUrl "<url>" -PostComment
+   ```
+7. Generate final report: `.\.project-roadmap\scripts\Generate-Report.ps1 -IncludeAll`
+8. Commit all JSON changes in `.project-roadmap/issues-db/`
 
 ## v1.79.0 PR Reference (historical — branches cleaned up 2026-02-09)
 | PR# | Issue | Description |
@@ -183,6 +185,62 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 
 ---
 
+## Issue Intelligence System (MANDATORY)
+
+**IMPORTANT: This system is MANDATORY for all issue tracking, triage, and release communication.**
+Do NOT manage issues manually — always use the scripts for consistency and traceability.
+
+### What it does
+- Syncs GitHub issues + comments from **both** upstream (`mRemoteNG/mRemoteNG`) and fork (`robertpopa22/mRemoteNG`)
+- Stores per-issue JSON files in `.project-roadmap/issues-db/` (git-tracked, diff-friendly)
+- Tracks full lifecycle: `new → triaged → roadmap → in-progress → testing → released`
+- Detects **iteration loops** (user feedback after fix → re-fix cycle, e.g. issue #3044)
+- Posts templated comments to GitHub on status transitions
+- Generates markdown reports for triage sessions and releases
+
+### MANDATORY workflow — every session
+```powershell
+# 1. Sync (ALWAYS run first — stale data = missed comments)
+.\.project-roadmap\scripts\Sync-Issues.ps1
+
+# 2. Analyze (see what needs attention)
+.\.project-roadmap\scripts\Analyze-Issues.ps1
+
+# 3. Transition issues (triage, start work, mark testing/released)
+.\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status <status>
+
+# 4. Report (generate markdown summary)
+.\.project-roadmap\scripts\Generate-Report.ps1
+```
+
+### Scripts
+| Script | Purpose |
+|--------|---------|
+| `Sync-Issues.ps1` | **Run FIRST.** Fetches issues+comments from both repos, updates JSON DB |
+| `Analyze-Issues.ps1` | Shows what needs action: urgent, iteration needed, waiting for response |
+| `Update-Status.ps1` | Transitions lifecycle, records iterations, posts GitHub comments |
+| `Generate-Report.ps1` | Generates markdown reports for triage and releases |
+
+### Key flags
+- `Sync-Issues.ps1 -IssueNumbers 3044,3069` — targeted sync (fast)
+- `Analyze-Issues.ps1 -WaitingOnly` — show only issues waiting for our response
+- `Update-Status.ps1 -PostComment` — actually posts to GitHub (without it, preview only)
+- `Update-Status.ps1 -AddToRoadmap` — adds issue to `_roadmap.json`
+- `Generate-Report.ps1 -IncludeAll` — full inventory for releases
+
+### Rules
+1. **ALWAYS** run `Sync-Issues.ps1` before triage or release
+2. **ALWAYS** use `Update-Status.ps1` for status changes (maintains iteration history)
+3. **ALWAYS** commit JSON changes to git (they're the source of truth)
+4. **NEVER** edit JSON files manually — use the scripts
+5. **ALWAYS** use `-PostComment` when marking issues as `released`
+6. Track iteration loops — if user says "still broken", use `Update-Status.ps1 -Status in-progress`
+
+### Full documentation
+See `.project-roadmap/issues-db/README.md` for complete schema, examples, and workflow details.
+
+---
+
 ## .project-roadmap/ Documentation Index
 
 **READ `.project-roadmap/LESSONS.md` BEFORE starting any build, test, CI, or release task.**
@@ -190,6 +248,7 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 ### Active Files
 | File | Contents |
 |------|----------|
+| `.project-roadmap/issues-db/README.md` | **Issue Intelligence System** — MANDATORY for all issue tracking (schema, workflow, rules) |
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
@@ -198,8 +257,22 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 ### Scripts
 | File | Purpose |
 |------|---------|
+| `.project-roadmap/scripts/Sync-Issues.ps1` | **MANDATORY** — Sync issues+comments from both repos into JSON DB |
+| `.project-roadmap/scripts/Analyze-Issues.ps1` | **MANDATORY** — Analyze what needs action (urgent, iteration, triage) |
+| `.project-roadmap/scripts/Update-Status.ps1` | **MANDATORY** — Transition issue lifecycle + post GitHub comments |
+| `.project-roadmap/scripts/Generate-Report.ps1` | Generate markdown reports for triage and releases |
 | `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
-| `.project-roadmap/scripts/refresh-issues.ps1` | Fetch fresh issue snapshot from upstream |
+| `.project-roadmap/scripts/refresh-issues.ps1` | Legacy: fetch issue snapshot (superseded by Sync-Issues.ps1) |
+
+### Issue Intelligence DB
+| File | Purpose |
+|------|---------|
+| `.project-roadmap/issues-db/README.md` | **Full system documentation** — schema, workflow, rules |
+| `.project-roadmap/issues-db/_meta.json` | Sync metadata: last run, stats, config, comment templates |
+| `.project-roadmap/issues-db/_roadmap.json` | Prioritized items for next release |
+| `.project-roadmap/issues-db/upstream/` | Per-issue JSON files from `mRemoteNG/mRemoteNG` |
+| `.project-roadmap/issues-db/fork/` | Per-issue JSON files from `robertpopa22/mRemoteNG` |
+| `.project-roadmap/issues-db/reports/` | Generated markdown reports |
 
 ### Archives
 | Folder | Contents |

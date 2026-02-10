@@ -1,0 +1,74 @@
+﻿{
+    "number":  1097,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Save and restore custom connection panel layout",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "fwetzler98",
+    "created_at":  "2018-08-30T07:25:03Z",
+    "github_updated_at":  "2023-07-19T12:18:33Z",
+    "body_snippet":  "Hello mRemoteNG-Team,\r\n\r\nHaving last stable Release 1.75 installed.\r\n\r\nOne connection is open in \"General\" Panel\r\nRightclick on connection in connection tree: -\u003e connect with options -\u003e choose panel before connecting. New Panel \"PanelA\", OK, OK. --\u003e New connection is shown in just created \"PanelA\" right to the \"General\" Panel. Moving \"PanelA\" and drop on \"Bottom Icon\"\r\n--\u003e Visible now: two open connections, each in own Panel, \"General\" Panel on top half of window, \"PanelA\" on bottom half of wind...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTg5NzAyNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "We haven\u0027t ever saved that sort of information before, so this would be a new feature. This would be a good enhancement",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-10-01T12:55:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQyOTY3NjYyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This would be a fantastic improvement.  Saved panel profiles would be most ideal, and even better if a \"default panel layout\" could then be added as a variable in connection db files; doing so would extend this feature further across the daily UX. \r\n\r\nReally, even just a partial enhancement that could save the current layout on exit, for use on next launch, would be a huge timesaver. Going back and forth between a large 1440p screen and then to an aging laptop throughout the day makes for much r...",
+                         "author":  "mjmooney",
+                         "action_needed":  true,
+                         "date":  "2018-10-15T00:27:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5h2Sf2",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Totally agree. This would be a huge improvement to mRemoteNG.\r\nEvery day I have to manually open a 2nd panel, and then arrange both panels manually ...\r\nIf this could be done automaticaly would be excellent. \r\nAlso, on the \"Create an empty panel when mRemoteNG starts\" if we could open more the 1 would also be great.",
+                         "author":  "ptmarco",
+                         "action_needed":  true,
+                         "date":  "2023-07-19T08:06:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5h3nWm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This would be a great enhancement if implemented together with #2051",
+                         "author":  "Russssty",
+                         "action_needed":  true,
+                         "date":  "2023-07-19T12:09:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5h3qLo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "in new release panel positions will be saved so on next load that will be restored, or in next release when profiles will be implemented you may chose what profile to load (adding small logic to what user if you wish, to load separate profiles) and base on that such settings will be loaded",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-07-19T12:18:33Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-07-19T12:18:33Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

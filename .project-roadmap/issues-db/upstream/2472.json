@@ -1,0 +1,61 @@
+﻿{
+    "number":  2472,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: Add production color frame for production sessions",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "In development",
+                   "Improvement required",
+                   "Connections",
+                   "1.78.*",
+                   "Nightly Build"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2023-08-07T11:41:06Z",
+    "github_updated_at":  "2026-02-07T19:54:30Z",
+    "body_snippet":  "I have been using mRemoteNG for years. I currently use the latest stable mRemoteNG v1.76.20 on Windows 10.\r\n\r\nFew days ago I created quite a bit mess... I was testing something on my remote SSH test computer, got a phone call from end-user and switched to production SSH computer. Then got somehow distracted and continue testing on production session. Mess...\r\n\r\nThis is how I came to this feature request. In _DBeaver database management tool_ there is very simple and efficient solution. For each ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5jaFi4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this already take into action and i am thinking to release this soon, for a feature it will be posible to tag connectiosn and set coloring any of user choice to show up, hope that helps",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-07T12:39:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7LyoKp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003cimg width=\"613\" height=\"275\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/3d6682e2-206e-4840-9e6a-e7b17675f7f5\" /\u003e\n\nits need a bit more work to make it to work properly, curently its does border of selected color but covers with internal container, need to think to add margins perhaps... ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-10-18T23:06:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh63",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:30Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:30Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

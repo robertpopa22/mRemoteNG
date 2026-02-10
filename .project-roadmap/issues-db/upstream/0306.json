@@ -1,0 +1,39 @@
+﻿{
+    "number":  306,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "CII - resolve no_leaked_credentials",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Project Infrastructure"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2016-12-09T15:51:18Z",
+    "github_updated_at":  "2023-01-03T09:36:43Z",
+    "body_snippet":  "This is to track resolution of CII requirement `no_leaked_credentials`\r\n\u003e The public repositories MUST NOT leak a valid private credential (e.g., a working password or private key) that is intended to limit public access. \r\n\r\nThis requirement is broken because we use a default password for encryption unless a user provides a custom one. To resolve this, we must require a user defined password for encryption.\r\n\r\nPossible related enhancements include:\r\n- #187 \r\n- #255 ",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5RoclE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Using encryption based on the Windows User instead of the generic key would also improve this a little... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-01-03T09:36:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-01-03T09:36:43Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,131 @@
+﻿{
+    "number":  2441,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Why stable releases were discontinued?",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "Question",
+                   "In development",
+                   "1.77.3"
+               ],
+    "author":  "darksidds",
+    "created_at":  "2023-06-08T13:12:14Z",
+    "github_updated_at":  "2026-02-07T20:53:08Z",
+    "body_snippet":  "The latest stable release on https://mremoteng.org/download is dated Apr 19, 2019, but there are lots of commits on github and nightly builds. \r\nWhy there were no stable releases since then? \r\nShould one use nighly builds? Is there any official statement on this topic? \r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5eVFsB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "its not, but we have some significant changes after such release and still working on stabilisation so nb its just to check early for entusiasts but its have still several weak places where I am working at the moment before next nb, what will be candidate to preview and if no much issues and bugs will be anonced as new stable (hope this year) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-06-08T13:31:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5enF6h",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks a lot! I\u0027ll join the testing. ",
+                         "author":  "darksidds",
+                         "action_needed":  true,
+                         "date":  "2023-06-12T13:05:03Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5esdl8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not very useful that new version `v1.77.3.1784-NB` doesn\u0027t try to automatically import confCons.xml from `C:\\Users\\username\\AppData\\Roaming\\mRemoteNG` folder. ",
+                         "author":  "darksidds",
+                         "action_needed":  true,
+                         "date":  "2023-06-13T07:33:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5eshN6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I currently run with 1.77.2-nb to have the config saving and so on enabled... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-06-13T07:43:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5etc-5",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Not very useful that new version `v1.77.3.1784-NB` doesn\u0027t try to automatically import confCons.xml from `C:\\Users\\username\\AppData\\Roaming\\mRemoteNG` folder.\r\n\r\nThats because temporary saving are disabled in that version so its dont remember where it was load from,  last time, should be ok with next nb",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-06-13T10:03:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5kOOXy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Linked to:\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\n- https://github.com/mRemoteNG/mRemoteNG/issues/2028\n- https://github.com/mRemoteNG/mRemoteNG/issues/2271\n- https://github.com/mRemoteNG/mRemoteNG/issues/2420\n- https://github.com/mRemoteNG/mRemoteNG/issues/2441\n- https://github.com/mRemoteNG/mRemoteNG/issues/2452\n- https://github.com/mRemoteNG/mRemoteNG/issues/2458\n- https://github.com/mRemoteNG/mRemoteNG/issues/2474\n- https://github.com/mRemoteNG/mRemoteNG/issues/2516\n- https://gi...",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2023-08-17T00:54:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJBU",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXJCK",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYFjt",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Always good.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T18:45:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhkw",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:53:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mY_SZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@robertpopa22: No, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+                         "author":  "Neustradamus",
+                         "action_needed":  true,
+                         "date":  "2026-02-07T20:30:37Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T20:53:08Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

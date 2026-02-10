@@ -1,0 +1,95 @@
+﻿{
+    "number":  2142,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG does not resize connection screens when disconnecting from HDMI - VERSION 1.76.20.24669",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Need 2 check",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "austin-bridge",
+    "created_at":  "2022-01-28T01:56:45Z",
+    "github_updated_at":  "2026-02-10T06:02:10Z",
+    "body_snippet":  "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM49pJXp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Can anyone help with this issue?",
+                         "author":  "austin-bridge",
+                         "action_needed":  true,
+                         "date":  "2022-02-09T21:11:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM49sVUM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "As a workaround you can right-click the tab and choose \"reconnect\" or Restore Down and up again. This should trigger a resize. \r\n\r\nI believe the issue relies on the fact that having mRemoteNG maximized it does not register when the screen/size is changed and can not trigger the resize/reconnect on demand. But this is just an assumption... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-10T15:08:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4_DG0U",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@austin-bridge \r\ntry https://github.com/VShawn/PRemoteM\r\nit watched the resolution, and auto resize your RDP when your resolution changed.\r\n\r\nAppend:\r\nMy bad, this feature is not achieved yet.  THX for your remind, I going to make it\r\n\r\n",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2022-03-03T08:03:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFa5",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhBo",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mtwCC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have tested the latest 1.78.2 and the issue is still there.\nI have a home laptop with 1900x1200 and a work computer with a 4k screen. When i go between home and work computer, the remotes are \"stuck\" in the previous resolutions. I use \"reconnect\" button and it works, but it would be nicer if this was done automatically.\nWe have a main remote server which acts as gateway and use remoteNG inside it to connect to subservers, in case this somehow affect anything.\n\nThe old remoteNG version handled ...",
+                         "author":  "siggemannen",
+                         "action_needed":  true,
+                         "date":  "2026-02-09T10:14:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7m_5l8",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "@siggemannen Thank you for the detailed report and confirmation. This is now fixed in the v1.80.0 community build:\n\n**Fix:** [`7f12f48f`](https://github.com/robertpopa22/mRemoteNG/commit/7f12f48f) ΓÇö Propagate `SystemEvents.DisplaySettingsChanged` to all active RDP connections, triggering a debounced `UpdateSessionDisplaySettings()` so sessions auto-resize when a monitor is connected or disconnected.\n\n**How it works:**\n- Windows fires `DisplaySettingsChanged` when HDMI/DP is hot-plugged\n- mRemo...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T06:02:10Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-10T06:02:10Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

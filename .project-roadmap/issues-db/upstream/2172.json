@@ -1,0 +1,48 @@
+﻿{
+    "number":  2172,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Quick Connect Toolbar not working anymore (v1.77.2)",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "1.77.3"
+               ],
+    "author":  "fsolfsch",
+    "created_at":  "2022-02-15T08:49:22Z",
+    "github_updated_at":  "2026-02-07T19:38:04Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nQuick Connect Toolbar not working anymore. I can\u0027t add it (just after restart the application), If its added, search history, create connection etc. not working and i can\u0027t move it to the first line next to the options menu\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used:\r\n* Operating System and version (e.g. Windows 10 1709 x64):\r\nv1.77.2 / Win11...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM49_Ydy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "See #2137, should be fixed with next release",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-02-15T09:05:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZ0-",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:38:04Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:38:04Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

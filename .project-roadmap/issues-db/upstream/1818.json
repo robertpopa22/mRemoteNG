@@ -1,0 +1,57 @@
+﻿{
+    "number":  1818,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "RDP Screen Size",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "bradyjay3",
+    "created_at":  "2020-07-15T14:54:09Z",
+    "github_updated_at":  "2021-06-27T22:06:32Z",
+    "body_snippet":  "I\u0027ve noticed that RDP connections don\u0027t size the screen display/resolution correctly in windows 10.  If i have a high resolution but the zoom is set to 150% mRemoteNG doesn\u0027t pass that zoom through to the RDP session like Windows Remote Desktop will.  You can see the difference on how small the text is in mRemoteNG vs Windows RD\r\n\r\n![Windows RD](https://user-images.githubusercontent.com/42389197/87560979-46d61880-c679-11ea-8a88-64780cb68182.PNG)\r\n![mRemoteNG](https://user-images.githubuserconten...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1OTI2MzIxNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "**[censored]**\r\n\r\n\r\nBy the way,i do sure that the latest mRemoteNG supports desk scaling factor, maybe you should update your app and try again?",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-07-16T08:56:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY1OTUyMDE3OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi Vshawn.  Thanks, i\u0027ll check it out.  I did update to the latest version and even tried the beta release of 1.77 and nothing has worked.  I completely uninstalled and reinstalled and that seemed to fix the issue in 1.76 but the text is a bit blurry...",
+                         "author":  "bradyjay3",
+                         "action_needed":  true,
+                         "date":  "2020-07-16T16:20:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2MDA4OTk4OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![Snipaste_](https://user-images.githubusercontent.com/10143738/87788063-47380480-c86f-11ea-9321-8d3cce1afe1f.jpg)\r\n\r\nhere is my test on V1.77.1.27713  from win10 to win2016,  4k monitor + 200% zoom",
+                         "author":  "VShawn",
+                         "action_needed":  true,
+                         "date":  "2020-07-17T12:52:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-06-27T22:06:32Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

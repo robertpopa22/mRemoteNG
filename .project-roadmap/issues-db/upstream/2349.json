@@ -1,0 +1,33 @@
+﻿{
+    "number":  2349,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Move to Folder",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Feature Request",
+                   "Needs implementation",
+                   "Connections"
+               ],
+    "author":  "C4rb0n",
+    "created_at":  "2023-02-13T16:44:23Z",
+    "github_updated_at":  "2023-02-14T09:42:51Z",
+    "body_snippet":  "Could you please add the capability to right-click a connection (or folder), in the Connections list, and choose \"Move to...,\" which would show a list of existing folders, including a bottom (or top of the list) option for \"New Folder....\"\r\n\r\nCurrently, trying to move a connection to a folder, where there is a long list of connections, is a laborious task of drag-scroll-dropping.\r\n\r\nThanks",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2023-02-14T09:42:51Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

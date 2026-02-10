@@ -1,0 +1,241 @@
+﻿{
+    "number":  2500,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Errors with MySQL database - Version Testing",
+    "state":  "open",
+    "labels":  [
+                   "Priority - High",
+                   "Enhancement",
+                   "In progress",
+                   "Improvement required",
+                   "DBs",
+                   "1.77.3"
+               ],
+    "author":  "VQFCOSTA-Infortech",
+    "created_at":  "2023-10-06T13:41:50Z",
+    "github_updated_at":  "2026-02-07T19:55:31Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n-\r\nI communicate with the MySQL database, but I cannot import the xml file that I currently use for the database, when trying to import both csv and xml, the import presents an error.\r\n-\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/eb2f9824-ade6-4662-b399-06d90bd26130)\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/72786e2f-4e5a-4442-b051-9dac5c686610)\r\n\r\nThe other problem I have is w...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5oWbGM",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Another detail presented in this ticket is also a problem I have, every time I open mRemoteNG, I have to access the options and define the sql server so that it can query the database, because every time I open it, it starts in the conf file. default xml\r\n\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/2498\r\n\r\n",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T13:45:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5oYOd3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I think the schema needs to be updated, Im looking for the latest version of the create script too.  I can\u0027t seem to find it.",
+                         "author":  "deanoblock",
+                         "action_needed":  true,
+                         "date":  "2023-10-06T17:46:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pVP8u",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is there an amount I have to donate to be able to run this version with the mysql db schema working?\r\n\r\nIf so, if you define a value with the affirmation that you will put it to work, even if just for my scenario, and it is viable, we can make the donation to pay for the focus time you will give on this task.\r\n\r\nI don\u0027t want you to misunderstand me, but I have a project to use mRemoteNG throughout the company, but I need this synchronization with the database so that everyone shares the same inf...",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-17T21:03:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pZTGy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello its not question of payment actualy, its question of knowledge, I am not expert in mySQL (Oracle yes!) they have similarityes but still looking into (and its a high presure for new release so working on that bit as well) so be patient its definitely something related to schema I already setup db so trying to figurout what its not happy with",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-18T11:20:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pbQF6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Seems there\u0027s a difference between the embedded ones and the one on develop branch.\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNGDocumentation/mysql_db_setup.sql\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNGDocumentation/mssql_db_setup.sql\r\n\r\nI need to dig a little bit after 1.77.1.27654 to get the schema. Brb\r\n",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-18T15:36:24Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pcrvs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@VQFCOSTA-Infortech \r\n\r\nThe 1.77.1 version available for download is 1.77.1.27713. while yours is 1.77.1.27654. \r\nDo you get the same errors with the official 1.77.1.27713 one?\r\n\r\nL.E. I tested the portable 1.77.1.27713 version with MariaDB 10.4.24 (from a XAMPP installation I have) using [this script](https://github.com/mRemoteNG/mRemoteNG/blob/v1.77.1/mRemoteV1/Documentation/mysql_db_setup.sql) to create the DB. I was able to import a RDP connection and create new containers and connections.\r\n",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-18T18:47:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pi2QH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/8bf739cb-816c-4182-9e3a-0b1c462b452f)\r\n\r\nI was using MSI, I\u0027m going to switch to portable and do the tests with the script you gave me.",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-19T11:52:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pmDyg",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Mensagem de Erro::\r\n\r\nErrorMsg\r\n10/19/2023 16:17:11\r\nImpossible to save links file as \"\"!\r\nObject reference not set to an instance of an object.\r\n\r\nMySQLDUMP \u003e mRemoteNG:\r\n-- MySQL dump 10.13  Distrib 5.7.42, for Linux (x86_64)\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/24abea1f-23f8-4b7d-8c7b-e0c3ac00a6e1)\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/71751ae1-370a-4b54-a682-d2556070d1f8)\r\n\r\n",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-19T19:28:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pmH1-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Good news, I restarted the bank and it works!!\r\n\r\nNow I need to import my XML that I cried all these months, but it\u0027s not working, it\u0027s giving me an error when importing.\r\n\r\nSource version\r\n1.76.20.24669\r\n\r\nCurrent version:\r\n1.77.1.27713\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/140181514/8d3f4c68-2610-4a68-8927-d6d361e6340c)\r\n\r\n",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-19T19:41:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pmbQE",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Importing the data via CSV was successful.\r\nProblems resolved, thank you very much to everyone involved, I await updates, I wish only success to everyone involved in the development of mRemoteNG and I want to help in any way I can.\r\nSee you later and thank you.",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-19T20:44:48Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pmnd2",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @VQFCOSTA-Infortech \r\nI\u0027m glad it finally worked for you.\r\n\r\nJust curious - did you export as xml from mRemoteNG v1.76.20 and tried to import it in 1.77.1 and it failed?\r\nThanks,\r\nSimo",
+                         "author":  "savornicesei",
+                         "action_needed":  true,
+                         "date":  "2023-10-19T21:27:57Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pp7h7",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, it failed, as in the screenshot above.\r\nI did it as .CSV and I was successful.",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-20T11:55:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pqKL4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I will reopen this if you dont mind, it still some questions for me for a mater of this issue. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-10-20T12:33:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5pqTn6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2023-10-20T13:00:08Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vt3qr",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas , @savornicesei ;\r\nI have new problems with the database.\r\nIt was working perfectly, but one fine day, all registered hosts disappeared and I could no longer go back to the backup.\r\nI redid the bench, played the same scheme, but it made the same mistakes again.\r\n\r\nError:\r\nErrorMsg\r\n02/01/2024 10:11:05\r\nImpossible to save links file as \"\"!\r\nDataColumn \u0027DisableCursorBlinking\u0027 in DataTable \u0027tblCons\u0027 of SourceColumn \u0027DisableCursorBlinking\u0027 does not exist.\r\n\r\nmysql\u003e REPAIR TABLE tblCons;\r\n+-...",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-01-02T17:03:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vt-tU",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Kvarkas , @savornicesei ;\r\nI have new problems with the database.\r\nIt was working perfectly, but one fine day, all registered hosts disappeared and I could no longer go back to the backup.\r\nI redid the bench, played the same scheme, but it made the same mistakes again.\r\n\r\nError:\r\nErrorMsg\r\n02/01/2024 10:11:05\r\nImpossible to save links file as \"\"!\r\nDataColumn \u0027DisableCursorBlinking\u0027 in DataTable \u0027tblCons\u0027 of SourceColumn \u0027DisableCursorBlinking\u0027 does not exist.\r\n\r\nmysql\u003e REPAIR TABLE tblCons;\r\n+-...",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-01-02T17:26:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vw0Zd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "we have new guy who said he is good on db, let him finish celebrating and let see what we could do about it, on first look seems something got deleted, do you have backup of you db?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2024-01-03T09:28:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vxZym",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, I make a backup daily, but I checked the DB backup and there was no backup of the connections registered in the database, only the tables...\r\n\r\nPart of the script below\r\n\r\n---\r\ndb_user=\"root\"\r\ndb_name=\"mRemoteNG\"\r\nbackup_dir=\"/mremoteng/db\"\r\n\r\nBackup file name with data and current time\r\nbackup_file=\"$backup_dir/backup_mremoteng_$(date +\u0027%Y.%m.%d_%H:%M\u0027).sql.gz\"\r\nmysqldump -u \"$db_user\" \"$db_name\" -x -e | gzip \u003e \"$backup_file\"\r\n\r\n---\r\n\r\n[backups.zip](https://github.com/mRemoteNG/mRemoteNG/f...",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-01-03T11:29:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v-hiK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@kvargas I\u0027m waiting for the new DB technician to check",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-01-05T13:29:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5xfasY",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "News?",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-01-22T13:58:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6Cf_uy",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "News:?",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2024-06-25T16:36:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM69hAvs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "News:?\n\n",
+                         "author":  "VQFCOSTA-Infortech",
+                         "action_needed":  true,
+                         "date":  "2025-08-12T14:17:12Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiLF",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:31Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:31Z",
+    "unread_comments":  22,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

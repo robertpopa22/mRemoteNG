@@ -1,0 +1,156 @@
+﻿{
+    "number":  202,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Mouse button swapping in RDP sessions",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low",
+                   "Enhancement"
+               ],
+    "author":  "TheShanMan",
+    "created_at":  "2016-10-26T18:16:20Z",
+    "github_updated_at":  "2025-09-23T11:53:48Z",
+    "body_snippet":  "\u003c!-- Feature Request --\u003e\n\nPlease add an option to swap mouse buttons in RDP sessions, ideally on a per-connection basis.\n\nIf the host system has swapped mouse buttons and the RDP systems don\u0027t, or vice-versa, you have to click the opposite button while in the RDP session. If mRemoteNG translated a left click into a right click and vice-versa, the problem would be solved. A global option would be better than nothing but an option in the connection settings would be ideal.\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MDMyMjA0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "yes ,i\u0027m left hand user tou with the same Problem",
+                         "author":  "dancker",
+                         "action_needed":  true,
+                         "date":  "2017-01-04T08:50:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMwOTY4MDU2Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "me too",
+                         "author":  "tgondar",
+                         "action_needed":  true,
+                         "date":  "2017-06-20T08:21:36Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MDExOTk1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "me too",
+                         "author":  "bunam",
+                         "action_needed":  true,
+                         "date":  "2018-05-18T07:27:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MDUwMTQzNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "So I have a solution with https://www.highrez.co.uk/downloads/XMouseButtonControl.htm\r\n\r\nhttp://cl.zo0.me/0v0m0l201x2f\r\n\r\nI have switched back to normal in Windows panel.\r\n\r\nUltimate solution ? razer deathadder left hand edition\r\n\r\nI would like to find some hardware one, a sort of USB dongle I can put between the mouse and the computer to invert the left and right mouse button.",
+                         "author":  "bunam",
+                         "action_needed":  true,
+                         "date":  "2018-05-20T18:27:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzOTQ2OTc0NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is this still  not fixed?",
+                         "author":  "ballerburg9005",
+                         "action_needed":  true,
+                         "date":  "2020-06-05T13:09:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4MjE2NzcxOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1 for enabling mouse button swap for RDP, automatic or per-connection.\r\nI remember this being an issue with RoyalTS as well.\r\n\r\n**Update:** _finally_ found a suitable combo ΓÇô elegant enough for my needs :) It involves SMB ├índ XMBC.\r\nI can swap whenever I want using the SMB hotkey; XMBC is just there to \"extend\" the behavior into RDP.\r\nHere\u0027s my (minimal) profile for the latter:\r\n\r\n```\r\n\u003c?xml version=\"1.0\"?\u003e\r\n\u003croot\u003e\r\n\t\u003cversion major=\"2\" minor=\"19\" revision=\"2\" build=\"0\"/\u003e\r\n\t\u003cLayers Number=\"1\"...",
+                         "author":  "mousio",
+                         "action_needed":  true,
+                         "date":  "2021-02-19T16:00:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vPAd0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have the same question",
+                         "author":  "Future23365",
+                         "action_needed":  true,
+                         "date":  "2023-12-21T13:00:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6dfSNs",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any news",
+                         "author":  "GamerClassN7",
+                         "action_needed":  true,
+                         "date":  "2025-02-07T08:18:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6df0Ts",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Just out of interest: How does it behave when using mstsc.exe (the classic RDP) instead of mRemoteNG? ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-02-07T09:12:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6e6GQ8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Just out of interest: How does it behave when using mstsc.exe (the classic RDP) instead of mRemoteNG?\n\nFrom what i tested it is same. Only one RDP client posses this functionality from my testing.",
+                         "author":  "GamerClassN7",
+                         "action_needed":  true,
+                         "date":  "2025-02-18T15:20:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6e-OWB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I guess as mRemoteNG relies on the mstsc library, it\u0027s not as quick of a fix as one would hope ΓÇö ignoring the poor implementation of this \"feature\" in general. With a lot of other stuff that needs fixing/improving (i.e. Security, saving settings) I personally would not put any priority to that. \n\nI\u0027m aware I might be somewhat ignorant and discriminate a minority which definitely would benefit from this option (as it apparently would with a lot of other software, too), though in the end it\u0027s a ...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2025-02-18T22:57:44Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6e_b9d",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Almost all left-handed people use the mouse with their left hand, and I would say the majority of those WITHOUT the buttons swapped. Maybe half or slightly more. This is because like you say, if you use any sort of PC you can just put the mouse in your left hand and use the middle finger for left click without having to mess with the settings in the OS. It is the most apparent thing to do, and most people grow up like this. But if you play games competitively for example, it makes a really huge ...",
+                         "author":  "ballerburg9005",
+                         "action_needed":  true,
+                         "date":  "2025-02-19T03:36:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Cio0Z",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "remmina has this function. unfortunately, remmina has not windows builds, which let me find mRemoteNG. Maybe, an ahk hotkey script can do this, I mean, since maintainers put the requiremet low priority.\n\nI have try some ahk script like `LButton::Send {LButton Down}` and `LButton Up::Send {LButton Up}` to mapping mouse button event locally and specifically for mRemoteNG.exe and mstsc.exe. However, it\u0027s not so fluent, and mouse offen stucked when switching apps by clicking taskbar icon.",
+                         "author":  "gigberg",
+                         "action_needed":  true,
+                         "date":  "2025-09-07T15:42:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7GGxXa",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Guys, I just came up with a brilliant idea: directly use WindowsΓÇÖ WSL GUI feature. In Windows WSL, simply run\n\n`sudo apt install remmina -y`\n\nThen you can launch Remmina from the Windows Start menu using its shortcut. As we all know, Remmina supports customizing mouse left/right buttons in RDP connections.\n\nWith system-level left/right mouse button swap enabled on both local Windows and remote Ubuntu, Remmina in Windows WSL works as expected in RDP sessions without enabling its own mouse swap ...",
+                         "author":  "gigberg",
+                         "action_needed":  true,
+                         "date":  "2025-09-23T11:47:09Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-09-23T11:53:48Z",
+    "unread_comments":  14,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

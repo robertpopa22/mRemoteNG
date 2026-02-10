@@ -1,0 +1,30 @@
+﻿{
+    "number":  1327,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "keyboard vnc issue",
+    "state":  "open",
+    "labels":  [
+                   "VNC"
+               ],
+    "author":  "FrederikSchack",
+    "created_at":  "2019-02-23T22:21:58Z",
+    "github_updated_at":  "2019-10-03T21:36:25Z",
+    "body_snippet":  "## Expected Behavior\r\nPressing SHIFT+key besides RIGHT SHIFT should give a \"/\" with US keyboard mapping at server and local computer.\r\nPressing SHIFT+7 should give a \"/\" with Danish keyboard mapping at server and local computer.\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\nPressing SHIFT+7 with Danish keyboard mapping gives \"_\"\r\nSHIFT+6 gives \"/\" which is neither US or Da...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2019-10-03T21:36:25Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

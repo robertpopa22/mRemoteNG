@@ -1,0 +1,67 @@
+﻿{
+    "number":  3069,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Exeption occurred on closing panel with connections inside",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.78.*"
+               ],
+    "author":  "genepy",
+    "created_at":  "2026-01-02T14:40:41Z",
+    "github_updated_at":  "2026-02-09T06:26:16Z",
+    "body_snippet":  "\n## Expected Behavior\nmRemotNG not crash and just close panel and connections in this panel\n\n## Current Behavior\nmRemotNG crash and need to be closed\n\n\n## Possible Solution\n\n## Steps to Reproduce (for bugs)\n\u003c!--- Provide an unambiguous set of steps to reproduce --\u003e\n\u003c!--- this bug. Include code to reproduce, if relevant --\u003e\n1. open 2 or more panels with one or more connections inside\n2. close one panel with one or more connections still opened\n3. some time mRemotNG don\u0027t crash\n\n## Context\n\n\n## Yo...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mX-2P",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Update:\n\n- Fix is proposed in upstream PR:\n  - https://github.com/mRemoteNG/mRemoteNG/pull/3106\n\nScope: close-panel race/dispose handling hardening in `ConnectionWindow`.\n\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T18:27:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYg76",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7maCuD",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Covered by upstream PR:\u0026echo https://github.com/mRemoteNG/mRemoteNG/pull/3106\r\n\u0026echo Fork CI evidence:\u0026echo https://github.com/robertpopa22/mRemoteNG/actions/runs/21782034958\r\n",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T21:59:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mpbht",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3106 | **Branch:** `codex/pr2-closepanel-stability`\n**Fix:** Close panel race condition resolved ΓÇö prevents crash when closing tabs rapidly.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-09T06:26:16Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-09T06:26:16Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

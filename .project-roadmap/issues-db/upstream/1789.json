@@ -1,0 +1,30 @@
+﻿{
+    "number":  1789,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Add Support to use AD (LAPS feature) to obtain local Administrator login credentials",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request"
+               ],
+    "author":  "ksupan",
+    "created_at":  "2020-06-12T17:05:42Z",
+    "github_updated_at":  "2020-06-19T21:07:13Z",
+    "body_snippet":  "Add the ability to obtain local \u003ccomputername\u003e\\Administrator account login credentials via LAPS (Local Administrator Password Solution).\r\n\r\n\r\n## Expected Behavior\r\nWhen specified by user, mRemoteNG will dynamically obtain and use local administrator credentials to make an RDP connection.\r\n\r\n\r\n## Current Behavior\r\nThis would be a new feature - current connection options are to use global credentials, manually enter credentials, or import credentials from external file (CSV). \r\n\r\n\r\n## Possible Sol...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2020-06-19T21:07:13Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

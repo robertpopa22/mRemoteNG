@@ -1,0 +1,174 @@
+﻿{
+    "number":  2054,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Lost connection due to resizing the window",
+    "state":  "open",
+    "labels":  [
+                   "Documentation",
+                   "RDP"
+               ],
+    "author":  "Phyllo",
+    "created_at":  "2021-09-28T07:38:29Z",
+    "github_updated_at":  "2025-12-10T13:42:07Z",
+    "body_snippet":  "I searched issues to see if I find it reported already but I did not, only something similar and one answer there was:\r\n\"I guess this is by design. mRemoteNG reconnects to the host in order to set the resolution to the changed window size.\"\r\n\r\nI guess this applies to my problem, too but I still find it very annoying, so I open a new issue to hear what other think of it:\r\n\r\nWhen I am connected to another computer and then resize the window, it always loses the connection and it takes a couple of ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM43YB4n",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Not a solution, but you can disable the resizing.\r\n![image](https://user-images.githubusercontent.com/6205123/135066906-dc2d0fd3-2755-44c2-9011-0da9113ebd21.png)\r\nMaybe this helps as a workaround.\r\n",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2021-09-28T10:06:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43ZFsw",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks, I\u0027ll give that a try but a real solution would be better if someone finds the time to implement it.",
+                         "author":  "Phyllo",
+                         "action_needed":  true,
+                         "date":  "2021-09-28T15:11:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM44SWk1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This is a limitation of RDP and not mRemoteNG. The window size correlates to the resolution used for the remote session. RDP enforces that it\u0027s established during the connection. A change to the window size means the connection needs to be reestablished to update the remote resolution. There\u0027s nothing mRemoteNG could do to work around it.",
+                         "author":  "mbursill",
+                         "action_needed":  true,
+                         "date":  "2021-10-15T14:12:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45PPiv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "https://github.com/mRemoteNG/mRemoteNG/issues/2054#issuecomment-944335157\r\n\u003e There\u0027s nothing mRemoteNG could do to work around it.\r\n\r\nMaybe it was a limitation, but not anymore.\r\n\r\n[Microsoft Remote Desktop](https://www.microsoft.com/en-au/p/microsoft-remote-desktop/9wzdncrfj3ps?activetab=pivot:overviewtab) does it properly: resizing the window behaves as if we changed the size of the monitor and we always properly have the notification centre at the bottom right of the window.\r\n\r\nWith [Microsof...",
+                         "author":  "nicovv44",
+                         "action_needed":  true,
+                         "date":  "2021-11-03T23:40:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45fPQH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "seems like the linux community have implemtented this - maybe this helps:\r\n\r\nhttps://github.com/neutrinolabs/xrdp/issues/448\r\nhttps://github.com/neutrinolabs/xrdp/pull/1820/commits/deb66ce7669f703b220622137408e70ad3e1db9e\r\n\r\n",
+                         "author":  "tecxx",
+                         "action_needed":  true,
+                         "date":  "2021-11-09T20:00:31Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HTTps",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Not a solution, but you can disable the resizing. ![image](https://user-images.githubusercontent.com/6205123/135066906-dc2d0fd3-2755-44c2-9011-0da9113ebd21.png) Maybe this helps as a workaround.\r\n\r\nFor me, this did not work but this worked, i.e. so long as resizing was not auto: \r\n\r\n![image](https://user-images.githubusercontent.com/33011744/181159317-9cfc3323-6529-46eb-ad49-cae5592f0ab9.png)\r\n",
+                         "author":  "theitguynumber1",
+                         "action_needed":  true,
+                         "date":  "2022-07-27T04:08:41Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HTZBP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Isn\u0027t this already implemented in https://github.com/mRemoteNG/mRemoteNG/issues/1546 which hasn\u0027t made it into the nightly build?",
+                         "author":  "atlib77",
+                         "action_needed":  true,
+                         "date":  "2022-07-27T04:55:07Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HTbZD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Idk about nightly builds but this issue has been solved for month in the codebase.  More specifically, since March\r\nhttps://github.com/mRemoteNG/mRemoteNG/pull/2188",
+                         "author":  "tecxx",
+                         "action_needed":  true,
+                         "date":  "2022-07-27T05:16:04Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5HTqtH",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Idk about nightly builds but this issue has been solved for month in the codebase. More specifically, since March #2188\r\n\r\nYeah, but always nice to have it prepackaged :)",
+                         "author":  "atlib77",
+                         "action_needed":  true,
+                         "date":  "2022-07-27T06:59:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5SIlWB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e Not a solution, but you can disable the resizing. ![image](https://user-images.githubusercontent.com/6205123/135066906-dc2d0fd3-2755-44c2-9011-0da9113ebd21.png) Maybe this helps as a workaround.\r\n\u003e \r\n\u003e For me, this did not work but this worked, i.e. so long as resizing was not auto:\r\n\u003e \r\n\u003e ![image](https://user-images.githubusercontent.com/33011744/181159317-9cfc3323-6529-46eb-ad49-cae5592f0ab9.png)\r\n\r\nI was just tinkering and found that if I changed the resolution setting to \"Smart Size\" it...",
+                         "author":  "bfriedman-od",
+                         "action_needed":  true,
+                         "date":  "2023-01-10T22:31:53Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5XKU9f",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I was just tinkering and found that if I changed the resolution setting to \"Smart Size\" it would scale correctly and keep the connection when the window changed size. ≡ƒÿÇ\r\n\r\nThank you!!!\r\n\r\nThis has been doing my head in for ages as mRemote always flips back to my primary monitor when the display goes to sleep and thus causes this reconnection every time I use it.",
+                         "author":  "howartp84",
+                         "action_needed":  true,
+                         "date":  "2023-03-09T16:04:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v_XaJ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@bfriedman-od \r\nAlthough this does stop the crashing from happening it should be noted that the resolution will not auto scale when turning this on, it \"smart scales\" which means it will keep the same resolution and just squish and screech the screen. The benefit is, the screen wont crash when resizing. However if you want the new resolution after adjustment of the screen you will need to disconnect and reconnect each time. ",
+                         "author":  "davehouser1",
+                         "action_needed":  true,
+                         "date":  "2024-01-05T15:51:06Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v_a99",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e @bfriedman-od Although this does stop the crashing from happening it should be noted that the resolution will not auto scale when turning this on, it \"smart scales\" which means it will keep the same resolution and just squish and screech the screen. The benefit is, the screen wont crash when resizing. However if you want the new resolution after adjustment of the screen you will need to disconnect and reconnect each time.\r\n\r\nFair, but it\u0027s more than adequate for my and probably the needs of mo...",
+                         "author":  "bfriedman-od",
+                         "action_needed":  true,
+                         "date":  "2024-01-05T16:01:37Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5v_ovo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I just installed the nightly build and by default resize no longer crashes the application. However the resize does not autoscale, unless a disconnect and reconnect is performed still. So one possible solution is to use nightly. \r\nI am surprised the stable and preview builds are ~5 years old. Never tired nightly looks way different. ",
+                         "author":  "davehouser1",
+                         "action_needed":  true,
+                         "date":  "2024-01-05T16:36:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7Yxz_l",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e I just installed the nightly build and by default resize no longer crashes the application. However the resize does not autoscale, unless a disconnect and reconnect is performed still. So one possible solution is to use nightly. I am surprised the stable and preview builds are ~5 years old. Never tired nightly looks way different.\n\nSo what commit fixed it ?\nI\u0027m using 1.76.20 and it\u0027s still an issue.",
+                         "author":  "HarimbolaSantatra",
+                         "action_needed":  true,
+                         "date":  "2025-12-10T12:46:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7YyoNX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Unfortunately 1.76.20 is not supported due old code base, new one what is prepared to become RC is a 1.78.2 but its not recommended for prod yet\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2025-12-10T13:42:07Z"
+                     }
+                 ],
+    "comments_cursor":  "2025-12-10T13:42:07Z",
+    "unread_comments":  16,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

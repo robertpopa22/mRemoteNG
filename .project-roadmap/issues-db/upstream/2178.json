@@ -1,0 +1,40 @@
+﻿{
+    "number":  2178,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "search folder name not the connections",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required",
+                   "1.77.3"
+               ],
+    "author":  "hungrysnake",
+    "created_at":  "2022-02-25T11:30:28Z",
+    "github_updated_at":  "2026-02-07T19:51:51Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\ni have over 100 connections and search option is the only way can i locate the conneciton quickly.\r\nhowever, i must name every single one of them to be searchable (include all the keywords that I can search in the connection name)\r\n\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nI want have a way to searc...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhEV",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:51Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:51Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

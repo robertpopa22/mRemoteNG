@@ -1,0 +1,47 @@
+﻿{
+    "number":  229,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Bug: Inheriting Appearence settings in RDP sessions doesn\u0027t work consistently",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "koumdros",
+    "created_at":  "2016-11-07T21:46:57Z",
+    "github_updated_at":  "2016-11-10T20:12:27Z",
+    "body_snippet":  "\r\n\r\n\u003c!-- Bug --\u003e\r\nWindows RDP connections do not always inherit apperance settings ( Display themes/ Display Desktop / etc), if they are set in folders containing said sessions.\r\n\r\nSometimes if I toggle the inheritance settings on/off/ backup on again, and reconnect it works but NOT in all cases.\r\n|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|\r\ntarget machines are runing RDP 8.0 protocol on the server side, .1 on the client side, with the updates installed in the ri...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTE2MjM0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Can you please provide step by step instructions on how we can reproduce this?\n",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-11-08T15:11:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI1OTc5NDg1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "ok, here goes.\n\nCreate a folder with said metadata defined. Then create an RDP connection and define it to use the inherited settings from the folder.\n\nAt this point it should work, and it usually does.\n\nNow duplicate the connection ( easiest way to create a very similar connection), and give it different hostname /target etc.\n\nat this point for me it is seemingly a toos of the ide whether the new connection will correctly inherit the settings.\n\nto clarify: settings appear to be inherited, but a...",
+                         "author":  "koumdros",
+                         "action_needed":  true,
+                         "date":  "2016-11-10T20:12:26Z"
+                     }
+                 ],
+    "comments_cursor":  "2016-11-10T20:12:27Z",
+    "unread_comments":  2,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

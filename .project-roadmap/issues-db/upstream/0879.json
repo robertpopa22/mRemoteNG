@@ -1,0 +1,65 @@
+﻿{
+    "number":  879,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "ALT+# to move among tabs",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "msmigiel",
+    "created_at":  "2018-02-05T23:05:57Z",
+    "github_updated_at":  "2021-01-27T03:16:03Z",
+    "body_snippet":  "A very handy shortcut I use is to use ALT with a number to move among tabs. For example, ALT+1 would switch to tab 1, ALT+2 would switch to tab 2, and so forth. It would also be nice to have a customizable shortcut for duplicating and closing tabs, for example ALT+X to close and ALT+D to duplicate.\r\n\r\nI use mRemoteNG mainly as an SSH client so I am always using my keyboard and this would make switching tabs a lot easier.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MzYxMzQzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Related to #196. ",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-02-07T00:27:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4NTE0ODY1NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@sparerd I think this issue is significantπÇéCan I ask which version should have this feature∩╝ƒ",
+                         "author":  "dwzhan189",
+                         "action_needed":  true,
+                         "date":  "2018-04-28T07:26:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4NTE4MTMwOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "be sure to use emoji to indicate your delight for this feature :cactus: ",
+                         "author":  "TheNotary",
+                         "action_needed":  true,
+                         "date":  "2018-04-28T14:46:46Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc2Nzk4NzU2Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Please also consider my approach to this problem: \r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1924",
+                         "author":  "yrebrac",
+                         "action_needed":  true,
+                         "date":  "2021-01-27T03:16:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-01-27T03:16:03Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

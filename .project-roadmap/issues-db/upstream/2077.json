@@ -1,0 +1,92 @@
+﻿{
+    "number":  2077,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Merge and auto-export configfile",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Low"
+               ],
+    "author":  "Walmann",
+    "created_at":  "2021-12-08T09:34:09Z",
+    "github_updated_at":  "2022-01-21T09:52:47Z",
+    "body_snippet":  "\r\n\r\n\r\n## Current Behavior\r\nWhen sharing a config file between two computers it needs to be exported from computer A to Computer B.\r\nYou then have to import the config file -\u003e delete the old version -\u003e fix the folder structure (or else you end up with a lot of nested folders).\r\n\r\n\r\n## Solution: \r\nAdd an option to enable auto export to file whenever a setting have been edited. \r\nConfig info could be saved inside the config file.\r\n\r\nAdd an option to merge all changes from config file. Either automa...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM47Ahyq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "where is some plans how to handle configs and its hardly I can say now if that way it will work but we will see.",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-12-09T16:08:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48S1Le",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sidenote: You may open the config file from a shared/cloud synced folder. \r\n\r\nThis is not the most beautiful solution and could cause trouble when changing the config file a lot/at the same time, but if you just want to have the config file on both systems this works to some degree. \r\nThis does not mean mRemoteNG shouldn\u0027t implement a better suitable solution though... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-01-13T00:16:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48Tumi",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Sidenote: You may open the config file from a shared/cloud synced folder. \n\u003e \n\u003e This is not the most beautiful solution and could cause trouble when changing the config file a lot/at the same time, but if you just want to have the config file on both systems this works to some degree. \n\u003e This does not mean mRemoteNG shouldn\u0027t implement a better suitable solution though... \n\nThis is my current solution, but it\u0027s a lot of clicks every time you change something.",
+                         "author":  "Walmann",
+                         "action_needed":  true,
+                         "date":  "2022-01-13T05:17:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48qErC",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "There definitely needs to be some sort of function that will merge existing connections with imported connections.  Manual cleanup of dozens of duplicate folders and hundreds of duplicate connections is extremely time consuming.  I can\u0027t afford to spend an entire day playing janitor when importing a file that was exported from my other workstation... especially when different connections were modified on each workstation at different times... there\u0027s no feasible way to manually reconcile which d...",
+                         "author":  "KSALinville",
+                         "action_needed":  true,
+                         "date":  "2022-01-20T16:05:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48qKmp",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "i think i might have thought out a work around for this, at least in my case. \r\nmRemoteNG have the possibility to save the connection file (File -\u003e Save Connection file). \r\nIf you copy this file to a cloud service (OneDrive in my case), and then open the copied file, mRemote will start using that file so every edit you do is automatically saved into the cloud storage.\r\nSo on the \"other computer\", you open the one in the cloud and it should open the connections from the first computer.\r\n\r\nI haven...",
+                         "author":  "Walmann",
+                         "action_needed":  true,
+                         "date":  "2022-01-20T16:28:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48qOph",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "That exactly as its works now, however need to mentioned that not only single users use it so keep in mind multi user environment then different users may want access same config, and then one user would like to have different configs. Practically its 2 things that I am thinking to implement - user profile - that allow as to set master user and master config in same place as an app, then to control of secondary user/s config file locations, and connection profile\r\nTechnically user run mR app, it...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-01-20T16:45:33Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM48ssod",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e i think i might have thought out a work around for this, at least in my case.\r\nmRemoteNG have the possibility to save the connection file (File -\u003e Save Connection file).\r\nIf you copy this file to a cloud service (OneDrive in my case), and then open the copied file, mRemote will start using that file so every edit you do is automatically saved into the cloud storage.\r\n\r\nThat\u0027s exactly what I wanted to propose in the earlier message...\r\n\r\nAnyway I can only support a proper multi user implementat...",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-01-21T09:52:47Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-01-21T09:52:47Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

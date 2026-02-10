@@ -1,0 +1,75 @@
+﻿{
+    "number":  1603,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Suggestion: Combine the filter field with the connect field",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "1.8 (Fenix)"
+               ],
+    "author":  "Glober777",
+    "created_at":  "2019-09-30T08:42:38Z",
+    "github_updated_at":  "2026-02-07T19:55:25Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nIs it possible to combine the Connect field on the tool bar with the Search field capability, so that when you type something there on the top field, it would filter-out connections in the list accordingly?\r\n\r\n## Expected Behavior\r\nA user types in the name of the server in the filed on the tool bar (Could be renamed to \u0027Search\\Connect\u0027 or something more human-readable). As the user types in the name the list of connections fi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNjUzMjg3OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The \"*connect field on top*\", how you call it, is the quick connect toolbar and it\u0027s only for quick connections. Intertwining the quick connect toolbar with the connections tree search field is not a good idea, since these are two completely separate features.\r\n\r\n***\r\n\r\n\u003e Connect field is on top and always visible\r\n\r\nSimply not true. You can decide if it\u0027s shown or hidden.\r\n\r\n\u003e Search field is on the bottom of the connections list, which makes the user to go through the list prior to getting to ...",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-09-30T12:10:35Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNjkxNDg1OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch, thank you for prompt response. \r\n\r\nI\u0027m not saying this is a technical issue. It\u0027s more like a usability feature, rather than a logical issue. \r\n\r\nThe reason for auto-hide is to be able to use my screen more efficiently within a remote session (especially when I\u0027m working on my laptop display)\r\n\r\n`Place search bar above connection tree` option, would make things a bit better (not yet available for me since I\u0027m on a release version), however it still requires making an extra click. And i...",
+                         "author":  "Glober777",
+                         "action_needed":  true,
+                         "date":  "2019-10-01T07:50:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2NDg5Nzc1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@farosch Still not availible. And I didn\u0027t see the Search in the bottom until I read this topic. The only reason I switched from RDP Connection Manager was just Search/Filter function so I will say this is a quite important function.",
+                         "author":  "JoakimOfficial",
+                         "action_needed":  true,
+                         "date":  "2019-12-12T08:12:51Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE3MjYzNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I got you idea, yes I want this as well :) but implementation will be a bit different. ;) stay tuned! ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-21T16:22:35Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiJl",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:25Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:25Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,30 @@
+﻿{
+    "number":  1095,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "wrong logon information on tab shown when using \"connect without credentials\"",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "kleinerbub",
+    "created_at":  "2018-08-29T14:12:31Z",
+    "github_updated_at":  "2018-09-30T17:35:20Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Context\r\n\u003c!--- How has this issue affected you? What are you trying to accomplish? --\u003e\r\n\u003c!--- Providing context helps us come up with a solution that is most useful in the real world --\u003e\r\nI want to connect with different credentials than saved. So I choose \"Connect (with Options)\" from the context menu and then \"connect without credentials\". So a field appears where I can enter my desired credentials.\r\n\r\n## Expected Behavi...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2018-09-30T17:35:20Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

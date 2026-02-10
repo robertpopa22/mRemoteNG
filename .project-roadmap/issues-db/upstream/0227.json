@@ -1,0 +1,85 @@
+﻿{
+    "number":  227,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Pressing Caps Lock causes lowercase t keypress",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug",
+                   "VNC"
+               ],
+    "author":  "swfreak18",
+    "created_at":  "2016-11-07T14:50:01Z",
+    "github_updated_at":  "2019-09-14T09:43:15Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nPressing the Caps Lock key causes a lowercase t keypress when connected to a Mac via VNC.\r\n\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.74  |",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NDI3MDg5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for the report. We will need to see if this is a bug on the mRemoteNG side or the VncSharp side.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2016-12-01T19:34:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNzcyODgzMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027m unable to reproduce this issue:\r\nEverything working fine on **Windows 10 1803 build 17134.167** with **mRemoteNG 1.76.4.16229** connected to **OS X 10.9.5 (13F1911)**.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2018-07-25T11:56:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMDI0NjYxOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Closing this one as of inactivity.\r\n@swfreak18 Since you never replied, the issue being fairly old and no other user seems to be having this issue, I will close this now. Feel free to create a new issue if this problem still exists for you.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-06-09T21:23:07Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMDUwMjkxMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Still having the issue with Windows 10 1803 and mRemoteNG 1.76.20.24615 connected to a Mac running OS 10.13.6.",
+                         "author":  "swfreak18",
+                         "action_needed":  true,
+                         "date":  "2019-06-10T17:21:50Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMjg5NDQzNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "To clarify, this is when the built-in VNC server is enabled on the Mac in System Preferences. I have not tried using other VNC servers.",
+                         "author":  "swfreak18",
+                         "action_needed":  true,
+                         "date":  "2019-06-18T00:04:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMzA1NDg4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve been able to reproduce it with the latest mRemoteNG Alpha 1.77.0.41252 and OS X 10.13.6.",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2019-06-18T10:58:30Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-09-14T09:43:15Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

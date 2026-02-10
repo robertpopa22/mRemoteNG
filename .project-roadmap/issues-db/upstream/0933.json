@@ -1,0 +1,102 @@
+﻿{
+    "number":  933,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request - Add startup command for command line",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "Needs implementation"
+               ],
+    "author":  "vmario89",
+    "created_at":  "2018-04-04T14:03:52Z",
+    "github_updated_at":  "2024-05-16T17:05:13Z",
+    "body_snippet":  "Hi,\r\n\r\ni\u0027d like to be able to start mRemoteNG by command line with an argument to say \"start the following connection directly at the startup\". \r\n\r\nI am using mRemote with integrated external application Cmder/ConEmu. It would be nice to run this directly when starting mRemote to have a suitable shell in front of the blank panel. Should look like the following:\r\n\r\n![grafik](https://user-images.githubusercontent.com/5631071/38312286-a8a50384-3821-11e8-8b8d-61adf2ae3566.png)\r\n\r\nHow do you think ab...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDM4MjAzNTQ0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Makes sense - I like it. It would be nice to be able to do more with mRemoteNG from the command line.\r\n\r\n_Dev notes:_ \r\nThis might take a bit to implement since we also need to consider the security impact. App must be fully started, connections file unlocked, then start pending connections. Might be similar to how connections from the previous session reconnect, though we will be reading from the cmd line rather than reading from the connections file. Might be a good idea to elevate the reconne...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-04-17T15:29:31Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MTcxMDkwMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If possible, can we add the startup commands as well to the connections, for example if i want to open logs for a group of connections, package them together and once opened its tailing the logs instead of writing it every time in multi SSH every time.",
+                         "author":  "emarshah",
+                         "action_needed":  true,
+                         "date":  "2020-02-04T02:20:37Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1ODU0MzkwNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Is there an update for this feature?",
+                         "author":  "afarazit",
+                         "action_needed":  true,
+                         "date":  "2021-01-12T09:58:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5cdoL8",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027d also be interested in having the possibility to start any existing connection from the CLI, either with started mRemoteNG or from a stopped state.",
+                         "author":  "CDRO",
+                         "action_needed":  true,
+                         "date":  "2023-05-17T12:04:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5cdwuI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "what perhaps will be included into next release - idea to give user more flexibility with settings and atributes. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-05-17T12:29:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5vq9J6",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Any updates? This feature would be awesome...",
+                         "author":  "Pamapama",
+                         "action_needed":  true,
+                         "date":  "2024-01-01T23:55:30Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM50nPms",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I second this",
+                         "author":  "patrickkasie",
+                         "action_needed":  true,
+                         "date":  "2024-02-21T11:26:09Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5-HFPL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This feature would also be great for PAM solutions which automatically start RDP sessions. If we could start those RDP sessions into mremoteng",
+                         "author":  "dpc-SMartin",
+                         "action_needed":  true,
+                         "date":  "2024-05-16T17:05:12Z"
+                     }
+                 ],
+    "comments_cursor":  "2024-05-16T17:05:13Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

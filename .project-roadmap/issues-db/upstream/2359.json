@@ -1,0 +1,51 @@
+﻿{
+    "number":  2359,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Save scrollback after reconnectiong SSH session",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "SSH",
+                   "Improvement required",
+                   "Connections",
+                   "1.77.4"
+               ],
+    "author":  "Isuaven",
+    "created_at":  "2023-02-27T13:33:25Z",
+    "github_updated_at":  "2026-02-07T19:51:54Z",
+    "body_snippet":  "Hi!\r\nIs it possible to reconnect to a SSH session without getting the screen cleared? Can you make an option to enable saving all scrollback after reconnect?\r\nWhen a regular Putty session (not via mRemoteNG) is disconnected, there is an option to \"Restart Session\" and the content of the screen, including all the history is saved.\r\nBut in mRemoteNG, when clicking \"Reconnect\" on a SSH tab, the screen and all the history is cleared.\r\nI\u0027m working with a lot of opened tabs paralelly but in my systems...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5WNZzS",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will have a look hot to help with that",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-02-27T13:48:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhFP",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:51:54Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:51:54Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

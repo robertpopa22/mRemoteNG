@@ -1,0 +1,74 @@
+﻿{
+    "number":  1304,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Config is wiped when importing multiple *.RDG files",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "Fantomovich",
+    "created_at":  "2019-02-10T07:16:40Z",
+    "github_updated_at":  "2019-03-09T17:22:52Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nFile confCons.xml is wiped If I import *.RDG files (from RDCMan v2.7 build 1406.0). Also as many \"confCons.xml.\u003cDATE-TIME\u003e.backup\" files are wiped, as I imported RDG files (some were with saved credentials).\r\nDomain field in some imported connections cotains \"Object reference not set to an instance of an object.\" and cannot be changed.\r\nApplication cannot be started because of zero-sized confCons.xml file.\r\n\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTIzNjY1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have also had the same problem, creating an export before closing also results in a 0 byte export file.\r\n\r\nWatching the settings within %appdata% I can see the first two imported .rdg are ok, but the third results in a 0byte confCons.xml file.\r\n\r\nHave tried with both 1.76.11 and 1.76.14",
+                         "author":  "Gswaffy",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T12:33:54Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTI3NjI0MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Does the mRemoteNG.log file show anything? (https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging)",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T14:41:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTI3Nzc4Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Logfile extract:\r\n`2019-03-04 11:54:33,306 [13] ERROR - SaveToXml failed\r\nValue cannot be null.\r\nParameter name: value\r\n   at System.Xml.Linq.XAttribute..ctor(XName name, Object value)\r\n   at mRemoteNG.Config.Serializers.Xml.XmlConnectionNodeSerializer26.SetElementAttributes(XContainer element, ConnectionInfo connectionInfo) in C:\\jenkins\\workspace\\Publish\\Build mRemoteNG for Release\\mRemoteV1\\Config\\Serializers\\ConnectionSerializers\\Xml\\XmlConnectionNodeSerializer26.cs:line 51\r\n   at mRemoteNG....",
+                         "author":  "Gswaffy",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T14:45:57Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2OTMyMzcxOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for providing that, that does help narrow it down a bit. I will look into which property may be causing the issue.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-04T16:43:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTIwMjgwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am releasing v1.76.15 which has a few changes which will hopefully resolve this issue for you both.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-03-09T17:22:52Z"
+                     }
+                 ],
+    "comments_cursor":  "2019-03-09T17:22:52Z",
+    "unread_comments":  5,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

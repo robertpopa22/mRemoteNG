@@ -1,0 +1,238 @@
+﻿{
+    "number":  1896,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature request: VMWare Horizon Client emulate/replace",
+    "state":  "open",
+    "labels":  [
+                   "Feature Request",
+                   "1.8 (Fenix)",
+                   "Needs implementation"
+               ],
+    "author":  "Apollon-Theos",
+    "created_at":  "2020-11-12T09:26:15Z",
+    "github_updated_at":  "2026-02-07T19:56:20Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nWork with VMWare Horizon Server\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\nReplace VMWare Horizon Client\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behav...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTIwNDk0NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Could you please explain that exactly you would like to have?",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-27T18:16:18Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTM5MTEwNA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Connect to VMWare Horizon virtual computers with mRemoteNG, inside tab. Maybe need add PCoIP protocol support.\r\nhttps://docs.vmware.com/en/VMware-Horizon-7/7.2/com.vmware.horizon-view.planning.doc/GUID-6C7A534B-085C-4C64-94CE-EA3ABDDDF63F.html\r\nIf this possible.",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-06-28T06:14:10Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTQ3ODY0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ok, not in priority list for now, but will have a look that is possible to add in incoming version. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-28T08:21:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTgyMzc5Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I understand. First priority is stability of work.\r\n1.76 many time crashed, many time change resolution with RDP session without any scroll bars, may time drop RDP session and so on.",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-06-28T16:21:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTgyNzg3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "dev branch currently counts as 1.77.2 I am concentrated to make it stable so we can abandon older branch forever, if you wish try to use from nightly build release, its still may have some old bugs but i try to fix as much as i can and its dedicated to this branch - i release only then its stable and pass all test so expecting very limited issues.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-28T16:26:52Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MDA2NDY3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I understand. I download 1.77.2 night build 2021-06-24. \r\nBut check stability not fast process. I use version 1.76 over 1 year every workday, but bugs and error rarely. \r\nI plan use 1.77.2 from next week. I can write about bugs and error, that I find.",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-06-28T21:42:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45tYtP",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@Apollon-Theos Is VMWare Horizon Client a standalone program?\r\n\r\nIn mRemoteNG, SSH works by opening Putty and then making the Tab-Container the parent of the Putty window. This same approach is likely possible with VMWare Horizon Client.\r\n\r\nVMWare Horizon Client is likely freely available. But the client might need to be prompted to install it, if it\u0027s not detected.\r\n\r\nFeasibility Prototype is required\r\n\r\n- Install VMWare Horizon Client on your computer. Are there good command-line arguments so ...",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-14T03:28:45Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45uz1J",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Below is result of \"vmware-view /?\"\r\n\r\n[vmware-view.txt](https://github.com/mRemoteNG/mRemoteNG/files/7536293/vmware-view.txt)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-15T06:15:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45u1i3",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "comics :)\r\n![image](https://user-images.githubusercontent.com/46534073/141733261-5bd24412-cf23-40b7-97ab-13e73a9a725d.png)\r\n![image](https://user-images.githubusercontent.com/46534073/141733301-badc06ba-c400-4b88-b14c-e998d381953c.png)\r\n![image](https://user-images.githubusercontent.com/46534073/141733333-7831d306-d5b8-4099-b0ad-0f4a5012314f.png)\r\n![image](https://user-images.githubusercontent.com/46534073/141733355-bac017ff-4474-4083-b77d-5453e5ac9844.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-15T06:32:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450Bnl",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Assumed useful minimal VMWare-View commands\r\n\r\n  -serverURL \u003cserverURL\u003e                                              URL for the View Connection Server\r\n  -userName \u003cuserName\u003e                                                User name for server login\r\n  -password \u003cpassword\u003e                                                Password for server login\r\n  -domainName \u003cdomainName\u003e                                            Domain for server login\r\n  -desktopName \u003cdesktopName\u003e                             ...",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T07:10:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450p7b",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "The [External Tools](https://mremoteng.readthedocs.io/en/latest/user_interface/external_tools.html) feature is probably sufficient already for this. What do you think @Apollon-Theos ?\r\n\r\n",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T09:54:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM450_hW",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@leaskovski appears mostly successful in using External Tools, because he/she is asking for a Feature - see https://github.com/mRemoteNG/mRemoteNG/issues/1676\r\n\r\nIdeally, @leaskovski  could share how the External Tools command works, and that can be shared.\r\n\r\nThen, such popular External Tools would ideally be built-into mRemoteNg. That way specialisations could be made.",
+                         "author":  "merarischroeder",
+                         "action_needed":  true,
+                         "date":  "2021-11-16T11:47:21Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455Zdd",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "C:\\Program Files (x86)\\VMware\\VMware Horizon View Client\u003evmware-view -serverURL \"FarmAddress\" -desktopName \"PoolName\"\r\nshow dialog for input username (stored from previous login) and password (needed for input)\r\nand connect to my VDI\r\n \r\nfrom command line (aka cmd.exe) without administrator privileges  ",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T08:29:18Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455a9u",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "C:\\Program Files (x86)\\VMware\\VMware Horizon View Client\u003evmware-view -serverURL \"FarmAddress\" -desktopName \"PoolName\" -userName \"MyLoginName\" -password \"MyPassword\" -domainName \"MyDomain\"\r\nconnect to my VDI directly, without any questions\r\n\r\nMy \"MyPassword\" contains special symbols and all password must be closed in quotes.\r\n\r\nfrom command line (aka cmd.exe) without administrator privileges  ",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T08:35:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455bBZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "sorry",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T08:35:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455imR",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@merarischroeder about \"External Tools\" need think and test",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T09:16:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455k2a",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![image](https://user-images.githubusercontent.com/46534073/142195304-d5000ba3-2d2c-4ab7-83df-26bf4ee6b15b.png)\r\nstart Horizon Client as separate windows\r\n![image](https://user-images.githubusercontent.com/46534073/142195426-893f920f-0bf9-403c-8a37-ed1c524b994d.png)\r\ncreate tab\r\n![image](https://user-images.githubusercontent.com/46534073/142173748-0e9668d8-10e0-4906-8a7f-3c2219067b7e.png)\r\nbut Horizon Client start as separate window",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T09:27:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455nWA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "and after close windows \"Horizon Client\" created TAB not close.\r\n![image](https://user-images.githubusercontent.com/46534073/142176022-497c004d-8537-4c66-802f-158c1fd4adc2.png)\r\n",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T09:40:52Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM455noA",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "all tests was be with version \r\n![image](https://user-images.githubusercontent.com/46534073/142176201-ea94accf-1da7-4e3f-92f7-3cc9b168b9b8.png)\r\n\r\nwith Windows 10 Ent, biuld 1909",
+                         "author":  "Apollon-Theos",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T09:42:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4551bO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e and after close windows \"Horizon Client\" created TAB not close.\r\n\r\nCurrently we have a bug about that, that empty tab do not disappear\r\n\r\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-11-17T10:56:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Oh5_W",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi There -- any updates on this? i\u0027m looking into the same issue i.e. using mRemoteNG to open the VMWare Horizon Client within the mRemoteNG frame ..",
+                         "author":  "IronAddictAZ",
+                         "action_needed":  true,
+                         "date":  "2022-11-16T18:50:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5OnXAB",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "hello, at the moment maintainer very busy with stabilasing build 1.77.3 so will have a look into issue once manage to release. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-11-17T17:04:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYibg",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:20Z",
+    "unread_comments":  22,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

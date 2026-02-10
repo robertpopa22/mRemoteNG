@@ -1,0 +1,95 @@
+﻿{
+    "number":  389,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "option to hide the saved putty sessions",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "UI/UX",
+                   "1.77.3",
+                   "Settings"
+               ],
+    "author":  "yogeshdass",
+    "created_at":  "2017-02-03T07:04:40Z",
+    "github_updated_at":  "2026-02-07T19:32:03Z",
+    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n\r\nPlease add option to hide the saved putty sessions as shown in screenshot.\r\n\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please d...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI3NzI5NTIyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Reference: https://mremoteng.atlassian.net/browse/MR-645",
+                         "author":  "kmscode",
+                         "action_needed":  true,
+                         "date":  "2017-02-03T16:33:56Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDI5NzQ3NTgzNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "If I remember correctly, at one point in the past, Riley had made it so that if PuTTY has no saved sessions other than one called \u0027Default Settings\u0027 then mRemoteNG wouldn\u0027t show the \u0027PuTTY Saved Sessions\u0027 node at all. Perhaps at some later point this was changed again for some reason.\r\n\r\nI too would prefer that \u0027PuTTY Saved Sessions\u0027 was not visible in the tree, as all it contains is \u0027Default Settings\u0027 which is obviously not a session that I ever connect to.",
+                         "author":  "ngreyling",
+                         "action_needed":  true,
+                         "date":  "2017-04-26T17:00:14Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMjQzOTE0OA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "status?",
+                         "author":  "ThoHah",
+                         "action_needed":  true,
+                         "date":  "2017-09-27T07:49:29Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc1OTAzOTc2NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "SadarSSI",
+                         "action_needed":  true,
+                         "date":  "2021-01-12T21:39:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5FYg8Y",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Actually nobody needs Putty Saved Sessions  because we install MremoteNG not to use Putty in the first place",
+                         "author":  "plkdn",
+                         "action_needed":  true,
+                         "date":  "2022-06-23T07:29:59Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM6C0lp-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "+1",
+                         "author":  "bitseeker",
+                         "action_needed":  true,
+                         "date":  "2024-06-27T14:16:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYX1C",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:32:03Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:32:03Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

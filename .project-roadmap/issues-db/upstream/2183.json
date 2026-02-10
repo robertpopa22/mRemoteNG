@@ -1,0 +1,66 @@
+﻿{
+    "number":  2183,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "ssh(by puttyng) session window can\u0027t automatically adjust window follow the window size",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Improvement required"
+               ],
+    "author":  "kc-roger",
+    "created_at":  "2022-03-10T10:33:10Z",
+    "github_updated_at":  "2022-03-11T00:45:55Z",
+    "body_snippet":  "![Snipaste_2022-03-10_18-25-33](https://user-images.githubusercontent.com/33201372/157642922-89c9c663-8316-4644-b2f2-e88cfc170d3c.png)\r\nAs shown in the screenshot the window of putty\u0027s window session does not automatically adjust to fill the entire window\r\n![Snipaste_2022-03-10_18-28-35](https://user-images.githubusercontent.com/33201372/157643597-4158a142-5851-4aa6-8c4f-a3b317e3e174.png)\r\nI have upgraded to the latest PuttyNG.\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM4_b-7p",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "What Version of mRemoteNG, PuttyNG and Windows are you running? I don\u0027t have this issue on my machine... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-03-10T17:11:56Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4_cPV-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e What Version of mRemoteNG, PuttyNG and Windows are you running? I don\u0027t have this issue on my machine...\r\n\r\nmRemoteNG 1.76.20, PuttyNG 0.76.0, Windows 10 21H1",
+                         "author":  "kc-roger",
+                         "action_needed":  true,
+                         "date":  "2022-03-10T18:30:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4_cWV1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "its related hi resolution monitor I think, @kc-roger could you confirm resolution and monitor settings (zoom, dpi etc)",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-03-10T19:05:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM4_dWcm",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e its related hi resolution monitor I think, @kc-roger could you confirm resolution and monitor settings (zoom, dpi etc)\r\n\r\nThis problem did not start at the beginning, but became so after changing the putty default setting(connection-seconds between keepalives to 0) and saving it, and then reestablishing the session.\r\n![Snipaste_2022-03-11_08-41-48](https://user-images.githubusercontent.com/33201372/157779761-7cb77125-e201-43e7-bb1d-db86fb4243e9.png)\r\n\r\n",
+                         "author":  "kc-roger",
+                         "action_needed":  true,
+                         "date":  "2022-03-11T00:45:55Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-03-11T00:45:55Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,110 @@
+﻿{
+    "number":  1557,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "FIPS compliance regression",
+    "state":  "open",
+    "labels":  [
+                   "Bug"
+               ],
+    "author":  "PipeItToDevNull",
+    "created_at":  "2019-09-03T11:50:06Z",
+    "github_updated_at":  "2020-06-11T18:59:36Z",
+    "body_snippet":  "Issue #222 is closed with the 1.76.13+ line being compatible but the 1.77 line seems to have regressed, with FIPS again breaking the application.",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ0NDI5Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "By \"breaking the application\", do you mean that a dialog is shown about a \"compatibility problem\" or something like that?\r\n\r\nAfter a quick look, I can\u0027t find anything that has changed in the actual FIPS detection logic. Do you still get the option to proceed anyway?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T12:51:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ0NTM2OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I did receive the \"Continue\" prompt but after the first launch I am unable to open the \"Options\" menu receiving this error:\r\n\r\n```\r\nException Message\r\n\"Decryption failed. {0}\"\r\n\r\nStack trace\r\n   at mRemoteNG.Security.SymmetricEncryption.LegacyRijndaelCryptographyProvider.Decrypt(String ciphertextBase64, SecureString password)\r\n   at mRemoteNG.UI.Forms.OptionsPages.CredentialsPage.LoadSettings()\r\n   at mRemoteNG.UI.Forms.FrmOptions.AddOptionsPagesToListView()\r\n   at mRemoteNG.UI.Forms.FrmOptions....",
+                         "author":  "PipeItToDevNull",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T12:54:15Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ0NzAwMg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ok, I cleaned out the directory I was using and grabbed fresh files to reproduce this. When I use the Credentials tab in Options I am unable to set a global credential. I receive the error:\r\n```\r\n----------\r\nErrorMsg\r\n09/03/2019 08:56:45\r\nEncryption failed. This implementation is not part of the Windows Platform FIPS validated cryptographic algorithms.\r\n----------\r\n```\r\n\r\nAfter this I am no longer able to open the options dialog. ",
+                         "author":  "PipeItToDevNull",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T12:58:39Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ1MTEwMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Ok, I\u0027ll take a look at why that might be happening.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T13:09:24Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ2ODU0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Did you say that v1.76.13+ was working for you when you perform the same actions?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T13:53:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ4Nzc3Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "OK, I assumed the issue would not be present in 1.76.13+ because #222 was closed. I checked on a clean set of 1.76.20 and have the same error. ",
+                         "author":  "PipeItToDevNull",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T14:37:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ5MTY5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Was FIPS only recently enabled on your system, or has it been for a while now?\r\n\r\nThe reason I ask is that in certain parts of our code, we use the `RijndaelManaged` crypto class provided by Microsoft which checks the system FIPS setting. It is being phased out from our code, but is still used in some places, like with the default credentials setting on the credential page. I would expect that this has been an issue for a long time, but only now noticed since we allow users to continue using the...",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T14:46:33Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNzQ5NTE4MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "FIPS has been in use for a long time for me. I do not believe I ever used this feature though because I didnt know that it existed until I installed it on another machine. ",
+                         "author":  "PipeItToDevNull",
+                         "action_needed":  true,
+                         "date":  "2019-09-03T14:54:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Mjg3MDk1Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Good afternoon,\r\n\r\nIs this bug being tracked for any future version?\r\nWe\u0027re unable to use on FIPS enabled servers as well. Clean install of 1.76.20.24615.\r\nIt seems to be caused by the ciphers and algorithms used by FIPS.",
+                         "author":  "jmoneste",
+                         "action_needed":  true,
+                         "date":  "2020-06-11T18:59:35Z"
+                     }
+                 ],
+    "comments_cursor":  "2020-06-11T18:59:36Z",
+    "unread_comments":  9,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,112 @@
+﻿{
+    "number":  1214,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Russian language turning into crap with vnc connection",
+    "state":  "open",
+    "labels":  [
+                   "Verified",
+                   "Bug",
+                   "VNC"
+               ],
+    "author":  "KKostikov",
+    "created_at":  "2018-12-20T09:04:10Z",
+    "github_updated_at":  "2021-07-09T10:50:44Z",
+    "body_snippet":  "Hello.\r\nRussian lletters turning into crap over vnc protocol connection from win10 to win10 (at least).\r\nRDP protocol connection works fine\r\nEnglish language works fine\r\n\r\nRNG ver. 1.76.11.40527\r\nWindows 10 Pro (any build)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTE0MDkwOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for reporting this @KKostikov. Could you provide a screen shot of what you are seeing? This will help us when trying to reproduce the issue.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-20T21:28:02Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTI2MTQ3Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry i forgot to mention, we use TightVNC server for Windows ver. 2.8.11 as the server part. We chose this one because it has an msi package for mass deployment in AD structure.  Heres screenshot\r\n![mremoteng](https://user-images.githubusercontent.com/36406800/50326616-5c667900-04fc-11e9-9f2a-a3f7a3c7f970.png)\r\n",
+                         "author":  "KKostikov",
+                         "action_needed":  true,
+                         "date":  "2018-12-21T05:43:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTQwNTIzOA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks @KKostikov. Does this happen immediately after connecting, or does it work fine for a while and then start showing those odd characters?",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2018-12-21T14:40:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTQyNTkzMw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Immediately when we switch to Russian language.\n\n╨┐╤é, 21 ╨┤╨╡╨║ 2018, 17:40 David Sparer notifications@github.com:\n\n\u003e Thanks @KKostikov \u003chttps://github.com/KKostikov\u003e. Does this happen\n\u003e immediately after connecting, or does it work fine for a while and then\n\u003e start showing those odd characters?\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you were mentioned.\n\u003e Reply to this email directly, view it on GitHub\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/1214#issuecomment-449405238\u003e,\n\u003e or mute th...",
+                         "author":  "KKostikov",
+                         "action_needed":  true,
+                         "date":  "2018-12-21T15:58:20Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODY0NTY4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I approved that bug with TightVNC server (last version).\r\nUse UltraVNC server.",
+                         "author":  "l-luk",
+                         "action_needed":  true,
+                         "date":  "2019-11-26T14:10:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTAyMzU5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue on 1.76.20.24615   and last version of TightVNC.\r\nCan anybody fix it? ",
+                         "author":  "nagorsky",
+                         "action_needed":  true,
+                         "date":  "2020-04-29T06:56:25Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NDUwNTQ4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Yes, on 1.76.20.24615 and TightVNC russian language turning into crap...",
+                         "author":  "Gibrid89",
+                         "action_needed":  true,
+                         "date":  "2021-07-06T06:49:09Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzA1MTQ1MA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "will check possibly issue on TightVNC side by need verification",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T09:30:12Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg3NzA5NjQyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am able to reproduce such, will think how we can fix that - problem is that keypress don\u0027t send valid key code for some reason ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-07-09T10:50:34Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-07-09T10:50:44Z",
+    "unread_comments":  9,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

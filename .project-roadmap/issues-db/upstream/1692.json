@@ -1,0 +1,66 @@
+﻿{
+    "number":  1692,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "mRemoteNG from command line",
+    "state":  "open",
+    "labels":  [
+                   "1.77.2",
+                   "Needs implementation"
+               ],
+    "author":  "Cool34000",
+    "created_at":  "2020-02-12T07:30:38Z",
+    "github_updated_at":  "2026-02-07T19:38:00Z",
+    "body_snippet":  "Is there a way to launch mRemoteNG from the command line and open a reccorded connection directly?\r\nOr launch mRemoteNG with parameters to open a connection not registered in it?\r\n\r\n\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU4NTMzMTA5Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "At the moment there is no way to launch a connection at the same time as opening mRemoteNG in the way you are asking. The only options available at the moment are: https://mremoteng.readthedocs.io/en/latest/command_line_switches.html",
+                         "author":  "nmat",
+                         "action_needed":  true,
+                         "date":  "2020-02-12T17:48:49Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDY2MzEyMDg4NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "This was suggested back in Feb, only 1 extra thumbs up, is this a feature people need?  Is there a demand for it?  If there isn\u0027t, can we close the request?  If there is a demand, then I can work on it.",
+                         "author":  "lukeattard",
+                         "action_needed":  true,
+                         "date":  "2020-07-23T17:01:06Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE3ODA5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Technically don\u0027t sounds complicated to implement, just need wrapper to check on attributes on mRemoteNG start and if such found - run them (additional question for connection what are stored in db or protected with encrypted device) but at least first step can be just run connection by ip address, protocol, and port. If @lukeattard you want to try - go for it. Will be happy to approve.  ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2021-06-21T16:30:54Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZzr",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:38:00Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:38:00Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

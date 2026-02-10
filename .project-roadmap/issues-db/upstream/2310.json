@@ -1,0 +1,95 @@
+﻿{
+    "number":  2310,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: Use \"Name\" as Hostname if no \"Hostname\" is entered",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Needs implementation",
+                   "Connections",
+                   "1.78.*"
+               ],
+    "author":  "Chrisu02",
+    "created_at":  "2022-12-06T07:03:09Z",
+    "github_updated_at":  "2026-02-07T19:56:41Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nHello Team, i would like to request an option if the \"Host Name\" field is empty, then the \"Name\" Field is used instead of it.\r\n\r\n## Current Behavior\r\nCurrently you basicly have to enter the Computername twice, when working with Them also as \"Name\" and as \"Hostname\".\r\n\r\n## Possible Solution\r\nAdd A Logic, (maybe Option switchable) which does use the \"Name\" Field as Hostname if Hostname is empty.\r\n\r\n## Step...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5P1KRL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "this expected to be a chasnge in regards of profiles implementation and a bit sooner perhaps once get into ui changes with migration to wpf",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2022-12-06T13:10:26Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5QwmX1",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Options \u003e Connections \u003e Set hostname like displayname when creating or renaming connections.",
+                         "author":  "TheWiever9",
+                         "action_needed":  true,
+                         "date":  "2022-12-16T14:14:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5QwoD4",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Options \u003e Connections \u003e Set hostname like displayname when creating or renaming connections.\r\n\r\nUh, thanks, i had missed this option, then the Feature Request can be closed :D",
+                         "author":  "Chrisu02",
+                         "action_needed":  true,
+                         "date":  "2022-12-16T14:18:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5QwuM9",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Actually I would keep this feature request open (though with low priority), as removing a redundancy in the config file should be a good thing. \r\n\r\nAnd @TheWiever9: do you have an Idea how this behaves when you have an IP address in the connection name? I eg. need to configure both hostnames or IPs depending on where I would like to connect to - not all systems have the DNS aligned with how I need to use that... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-12-16T14:35:22Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5Ydl4E",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Isn\u0027t this idea something similar that idea https://github.com/mRemoteNG/mRemoteNG/issues/621 I have requested 5 years back adding the hostname variable.\r\n",
+                         "author":  "igor2x",
+                         "action_needed":  true,
+                         "date":  "2023-03-26T16:36:42Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5YdnT-",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Isn\u0027t this idea something similar that idea #621 I have requested 5 years back adding the hostname variable.\r\n\r\nIt is related, but another approach to the problem... ",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2023-03-26T17:00:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYihN",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:56:41Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:56:41Z",
+    "unread_comments":  6,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

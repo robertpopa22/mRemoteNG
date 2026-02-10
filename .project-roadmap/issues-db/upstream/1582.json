@@ -1,0 +1,121 @@
+﻿{
+    "number":  1582,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "High DPI Support",
+    "state":  "open",
+    "labels":  [
+                   "Bug",
+                   "Need 2 check",
+                   "1.77.2"
+               ],
+    "author":  "donebydavid",
+    "created_at":  "2019-09-15T23:06:38Z",
+    "github_updated_at":  "2026-02-07T19:55:02Z",
+    "body_snippet":  "Apparently #1107 was merged to fix issues with High DPI support as mentioned in ticket #321.  On v1.77.1.27654 this issue is still occurring where by the mRemote interface scales fine, but the remote connection does not.\r\n\r\n## Expected Behavior\r\nRemote session to scale correctly\r\n\r\n## Current Behaviour\r\nRemote session does not scale\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNDYwNzI4Mw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue. My laptop is 4K screen. Changed to high resolution and scaled 125%. mRemoteNG interface is fine scaled. But Windows remote desktop inside mRemoteNG is not scaled properly. ",
+                         "author":  "wilber82",
+                         "action_needed":  true,
+                         "date":  "2019-09-24T15:16:58Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNDgyMDcwNg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue.     ",
+                         "author":  "gaoyuoppa",
+                         "action_needed":  true,
+                         "date":  "2019-09-25T02:15:28Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU1ODA2ODgzOQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "![╨æ╨╡╨╖╤ï╨╝╤Å╨╜╨╜╤ï╨╣](https://user-images.githubusercontent.com/20248492/69528543-77006800-0f7f-11ea-8beb-db411f9df361.png)\r\n\r\nSame!! When fix? :(",
+                         "author":  "nightrider77",
+                         "action_needed":  true,
+                         "date":  "2019-11-25T09:31:27Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU2MTUzOTc5MQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  " Same issue.\r\n\r\n",
+                         "author":  "Rwing",
+                         "action_needed":  true,
+                         "date":  "2019-12-04T08:52:21Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NjQxMTE4Nw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue\r\n",
+                         "author":  "TaeKwonBow",
+                         "action_needed":  true,
+                         "date":  "2020-01-20T19:54:41Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDU5NTEzMTY3NA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Same issue. When I use mstsc.exe the remote desktop ist scaled to 125% (like the Host) too. In mRemoteNG the Scalingfactor ist always set to 100%.",
+                         "author":  "znbrain",
+                         "action_needed":  true,
+                         "date":  "2020-03-05T09:47:13Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMDgwOTAyMA==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Would be nice if mRemoteNG can use the same scaling factor as the client environment.",
+                         "author":  "changbowen",
+                         "action_needed":  true,
+                         "date":  "2020-04-08T07:53:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc5OTMyMzUyNw==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Based on the modifications by @tecxx I adapted the changes to the current stable version 1.76 because 1.77 didn\u0027t like my KeePass and auto type just won\u0027t work.\r\nYou can find a portable version release [here](https://github.com/changbowen/mRemoteNG/releases/tag/v1.76.21).",
+                         "author":  "changbowen",
+                         "action_needed":  true,
+                         "date":  "2021-03-15T10:56:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF3S",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYiDa",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:55:02Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:55:02Z",
+    "unread_comments":  8,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

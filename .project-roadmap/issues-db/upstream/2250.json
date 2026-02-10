@@ -1,0 +1,58 @@
+﻿{
+    "number":  2250,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Import Microsoft Remote Desktop Client backups",
+    "state":  "open",
+    "labels":  [
+                   "Needs implementation",
+                   "Connections",
+                   "Import/Export"
+               ],
+    "author":  "MrChriZ",
+    "created_at":  "2022-06-22T11:00:36Z",
+    "github_updated_at":  "2022-08-04T15:49:09Z",
+    "body_snippet":  "## Desired Behavior\r\nAt present it\u0027s possible to import remote desktop connection manager and RDP files.\r\nHowever as far as I can see there\u0027s no support for the Microsoft Remote Desktop app backupfiles:\r\nhttps://apps.microsoft.com/store/detail/microsoft-remote-desktop/9WZDNCRFJ3PS?hl=en-gb\u0026gl=GB\r\nThese have the extension .rdb.\r\n\r\n## Current Behavior\r\nCurrently not supported\r\n\r\n## Context\r\nI\u0027m a poor soul coming from another Microsoft product (I have seen the errors of my ways) and I\u0027m having to ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5FWj-O",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @MrChriZ\r\n\r\nI now it\u0027s a pity to be migrating, unfortunately this is a feature request alredy filed in issues #2219, #2015 and #839. You may want to look into them briefly...\r\n\r\nI hope you can manage the migration in the meantime with not too much beer ≡ƒÿë \r\nRegards",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-06-22T19:56:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5FWlgu",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi @simonai1254 \r\nThanks for your concern ≡ƒÿà.\r\n\r\nI believe RDCMan is a different Microsoft RDP client product.  Those requests mention rdg files rather than rdb files.  So I think this request is different.\r\n\r\nThanks\r\nChris.\r\n\r\n\r\n",
+                         "author":  "MrChriZ",
+                         "action_needed":  true,
+                         "date":  "2022-06-22T20:04:17Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM5FmtNv",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Sorry, seems like I confused the two...\r\n\r\nWhish you a wonderful day and a smooth migration\r\n",
+                         "author":  "simonai1254",
+                         "action_needed":  true,
+                         "date":  "2022-06-27T19:14:14Z"
+                     }
+                 ],
+    "comments_cursor":  "2022-08-04T15:49:09Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

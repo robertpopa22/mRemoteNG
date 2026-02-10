@@ -1,0 +1,57 @@
+﻿{
+    "number":  1952,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Mikrotik WInbox Integration BUG",
+    "state":  "open",
+    "labels":  [
+                   "In progress",
+                   "1.77.2"
+               ],
+    "author":  "Galandrix",
+    "created_at":  "2021-04-17T13:38:54Z",
+    "github_updated_at":  "2026-02-08T03:24:11Z",
+    "body_snippet":  "Hello, could you please fix winbox integration? When i start winbox, gray window is apear.\r\n\r\n![image](https://user-images.githubusercontent.com/27976371/115115173-8977a900-9f9b-11eb-9b82-53cf43e739af.png)\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXI3r",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:55:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYhV1",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:52:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mbx8c",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "OK, will test and answer\r\n\r\n╤ü╨▒, 7 ╤ä╨╡╨▓╤Ç. 2026ΓÇ»╨│., 22:53 robertpopa22 ***@***.***\u003e:\r\n\r\n\u003e *robertpopa22* left a comment (mRemoteNG/mRemoteNG#1952)\r\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/1952#issuecomment-3865187701\u003e\r\n\u003e\r\n\u003e Triage refresh (P4 version-label debt): this issue is tagged with legacy\r\n\u003e version labels. Please retest on the latest build (fork v1.79.x or upstream\r\n\u003e dev), then share reproducible steps and expected vs actual behavior. If\r\n\u003e still valid, keep open and rela...",
+                         "author":  "Galandrix",
+                         "action_needed":  true,
+                         "date":  "2026-02-08T03:24:11Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-08T03:24:11Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

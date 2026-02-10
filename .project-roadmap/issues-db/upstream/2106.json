@@ -1,0 +1,47 @@
+﻿{
+    "number":  2106,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Shortcut conflict with national keyboard mapping",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "mfigatowski",
+    "created_at":  "2021-12-30T16:31:50Z",
+    "github_updated_at":  "2026-02-07T16:45:43Z",
+    "body_snippet":  "Hi,\r\nI\u0027m using mRemoteNG with polish keyboard settings. I can\u0027t type two polish national characters (─ç - Control-Alt-C, ┼¢ - Control-Alt-S) in  web panels (HTTP/HTTPS protocol).\r\n\r\n## Expected Behavior\r\nNational characters correctly passed to HTTP/HTTPS connections\r\n\r\n## Current Behavior\r\nControl-Alt-C switches from web page text box to Connection / Config panel\r\n\r\n## Possible Solution\r\nA way to redefine shortcuts in mRemoteNG. Or to disable it.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Set keybo...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM47yhXe",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Oh, Control-Alt-E doesn\u0027t work too ...",
+                         "author":  "mfigatowski",
+                         "action_needed":  true,
+                         "date":  "2021-12-30T16:32:23Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFbk",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:45:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:45:43Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

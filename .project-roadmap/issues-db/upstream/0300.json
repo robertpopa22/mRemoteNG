@@ -1,0 +1,39 @@
+﻿{
+    "number":  300,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Auto submit new releases to reddit and twitter community",
+    "state":  "open",
+    "labels":  [
+                   "Project Infrastructure",
+                   "update"
+               ],
+    "author":  "sparerd",
+    "created_at":  "2016-12-06T21:22:35Z",
+    "github_updated_at":  "2023-01-13T15:49:59Z",
+    "body_snippet":  "Create a jenkins job to auto post on the reddit community when new releases are made. This can piggyback off the current job for rebuilding the jekyll site on release.\r\n\r\nReddit api:\r\nhttps://www.reddit.com/dev/api/oauth#POST_api_submit",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjM4MTU4NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "FYI: https://github.com/davotronic5000/PoSh_Reddit/blob/master/PoShReddit.psm1",
+                         "author":  "farosch",
+                         "action_needed":  true,
+                         "date":  "2020-05-30T20:31:08Z"
+                     }
+                 ],
+    "comments_cursor":  "2023-01-13T15:49:59Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

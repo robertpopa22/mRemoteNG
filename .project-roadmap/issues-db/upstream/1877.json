@@ -1,0 +1,56 @@
+﻿{
+    "number":  1877,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Screenshots can\u0027t be removed",
+    "state":  "open",
+    "labels":  [
+                   "Need 2 check"
+               ],
+    "author":  "OscF95",
+    "created_at":  "2020-10-06T23:41:42Z",
+    "github_updated_at":  "2026-02-07T16:46:20Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nScreenshot took using term tab can\u0027t be deleted clicking in the **x** icon.\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\nWhen the **x** button that is in the top right of the screenshot is clicked, the image screenshot should be deleted.\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happ...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDcwNDYxMDYwNQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I mean this button \r\n![image](https://user-images.githubusercontent.com/25201164/95271659-0dd6bb80-0804-11eb-9149-2b9ebcc532f3.png)\r\n",
+                         "author":  "OscF95",
+                         "action_needed":  true,
+                         "date":  "2020-10-06T23:45:34Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXEFD",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "\"%MSG%\"",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:40:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXFlz",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:46:20Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:46:20Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

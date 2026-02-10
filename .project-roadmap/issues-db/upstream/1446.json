@@ -1,0 +1,56 @@
+﻿{
+    "number":  1446,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Support variables in UserField",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement"
+               ],
+    "author":  "vgiuseppe77",
+    "created_at":  "2019-05-13T10:47:51Z",
+    "github_updated_at":  "2021-09-29T16:15:43Z",
+    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nVariables in UserField are not working anymore.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nPass variable, provided in UserField, to external tools,\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, ex...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MTgzMjQ3NQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I\u0027ve checked v1.72, v1.75.7012, v1.76.18, and the current dev build and couldn\u0027t find a version where variables within a field would be expanded. I could see how this would be useful though, so I would consider this an enhancement request. If you can find more information on which version may have had this functionality I\u0027d be glad to take another look.",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-05-13T13:55:26Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NDk2NTE5Ng==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi sparerd, thank you for answering.\r\nI\u0027ve checked too, but I can\u0027t find the version. However, it was a Dev/Prerelease, I always installed that kind of releases.\r\nI\u0027ll keep looking for, but meanwhile thank you for considering it as enhancement request.",
+                         "author":  "vgiuseppe77",
+                         "action_needed":  true,
+                         "date":  "2019-05-22T20:44:13Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM43c6lX",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hi,\r\n\r\nthis feature is not planned in the future releases at moment, right ?",
+                         "author":  "jlelu",
+                         "action_needed":  true,
+                         "date":  "2021-09-29T16:15:43Z"
+                     }
+                 ],
+    "comments_cursor":  "2021-09-29T16:15:43Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

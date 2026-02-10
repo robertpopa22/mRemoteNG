@@ -1,0 +1,66 @@
+﻿{
+    "number":  1402,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Switching to full screen leaves black borders",
+    "state":  "open",
+    "labels":  [
+                   "RDP",
+                   "Need 2 check"
+               ],
+    "author":  "SimFre",
+    "created_at":  "2019-04-11T11:13:47Z",
+    "github_updated_at":  "2026-02-07T16:47:27Z",
+    "body_snippet":  "Switching RDP into full screen doesn\u0027t change the connected resolution to match client screen, instead it stays the same as windowed, but with black borders.\r\n\r\n![image](https://user-images.githubusercontent.com/9532326/55952980-3277c480-5c5b-11e9-88ec-6927c6bca537.png)\r\n\r\n\r\n## Expected Behavior\r\nTrue full screen\r\n\r\n## Current Behavior\r\nRDP uses the windowed size, but in full screen leaving black borders.\r\n\r\n## Possible Solution\r\nRe-adjust window size like when resizing the window.\r\n\r\n## Your En...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MjU3NjE0Mg==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "What settings do you have for the `Resolution` and `Automatic Resize` connection properties?\r\n\r\n`Resolution: Fit to Panel` and `Automatic Resize: Yes` should behave as you expect (connection will resize when switching to full screen).",
+                         "author":  "sparerd",
+                         "action_needed":  true,
+                         "date":  "2019-04-12T13:33:30Z"
+                     },
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MTgyNTc0OQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "It is Resolution: Fit to panel and Automatic Resize: Yes. But I think the issue here might be a few different modes of full screen.\r\n\r\n1. Setting the app to full screen (View / Full Screen [F11]) is practically like the window setting -- resizes and hides windows task bar. Sort-of-kind-of-fullscreen-ish. Let\u0027s call this \"fake full screen\".\r\n2. Right click and Connect in full screen works correctly.\r\n3. Hit Ctrl+Alt+Pause on keyboard in a running session goes into the described full screen mode w...",
+                         "author":  "SimFre",
+                         "action_needed":  true,
+                         "date":  "2019-05-13T13:37:50Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM45IUos",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can confirm this weird behavior too. \"Connect in full screen\" works correctly but if I connect and then try to full screen it, I end up with black borders too. Ctrl+Alt+Pause does the same.",
+                         "author":  "dsorm",
+                         "action_needed":  true,
+                         "date":  "2021-11-03T00:08:51Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mXF66",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T16:47:27Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T16:47:27Z",
+    "unread_comments":  3,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

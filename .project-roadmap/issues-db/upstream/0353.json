@@ -1,0 +1,31 @@
+﻿{
+    "number":  353,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "VNC multiple monitors",
+    "state":  "open",
+    "labels":  [
+                   "Enhancement",
+                   "VNC"
+               ],
+    "author":  "LIyoai",
+    "created_at":  "2017-01-19T09:11:18Z",
+    "github_updated_at":  "2019-09-14T09:42:58Z",
+    "body_snippet":  "I run mRemoteNG on one monitor. When I connect to a pc using VNC and the remote pc has two or three monitors it will be shrinked to fit into the mRemoteNG window. And this is too small.\r\n\r\nWe had this also outside mRemoteNG with an older client of TightVNC, after updating TightVNC added a scrollbar.\r\n\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2019-09-14T09:42:58Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

@@ -1,0 +1,50 @@
+﻿{
+    "number":  2473,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Putty errors are indistinguishable from OK messages",
+    "state":  "open",
+    "labels":  [
+                   "UI/UX",
+                   "Question",
+                   "Putty",
+                   "1.78.*"
+               ],
+    "author":  "igor2x",
+    "created_at":  "2023-08-09T08:40:08Z",
+    "github_updated_at":  "2026-02-07T19:54:31Z",
+    "body_snippet":  "## Expected Behavior\r\nIf Putty message is fine, then no changes in mRemoteNG.\r\nIf Putty produces error, then please make it red font color.\r\n\r\n## Current Behavior\r\nIn both cases the same grey font color.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Create a SSH key in PUTTYGEN and copy public key to SSH server on Linux server.\r\n2. Connect to SSH server and if there is incorrect SSH key, Putty produces error. But errors in Putty are displayed in grey.\r\n\r\n## Context\r\nIn our company SSH keys to authenti...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM5lZ4km",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I am not sure but we cant control colors in putty it self, at least in this version we have, but potentialy we could think about that osibility if we switch to windows terminal perhaps... ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2023-08-31T15:41:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYh7K",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:54:31Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:54:31Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}

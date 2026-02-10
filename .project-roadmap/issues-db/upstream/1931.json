@@ -1,0 +1,49 @@
+﻿{
+    "number":  1931,
+    "repo":  "mRemoteNG/mRemoteNG",
+    "title":  "Feature Request: add path parameter for HTTP connections, or allow path in the hostname/IP  parameter e.g. 127.0.0.1:9000/admin",
+    "state":  "open",
+    "labels":  [
+                   "Priority - Medium",
+                   "Enhancement",
+                   "1.77.2"
+               ],
+    "author":  "SimplifyAndAddCoffee",
+    "created_at":  "2021-02-12T17:48:11Z",
+    "github_updated_at":  "2026-02-07T19:38:01Z",
+    "body_snippet":  "I would like to be able to store more web admin panels in my connections, but many of them have paths in the URL that I cannot access. e.g. pi.hole:81/admin etc. Hopefully it should be relatively easy to add support for this?",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+                     {
+                         "id":  "MDEyOklzc3VlQ29tbWVudDc4MzE1MzAzMQ==",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I can add a path to the url\r\n![image](https://user-images.githubusercontent.com/6205123/108675659-6541a380-74e7-11eb-8c55-bf69489d08b6.png)\r\n\r\nUsing 1.77.1",
+                         "author":  "LIyoai",
+                         "action_needed":  true,
+                         "date":  "2021-02-22T07:25:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7mYZ0I",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-07T19:38:01Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-07T19:38:01Z",
+    "unread_comments":  7,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-10T06:43:06Z",
+    "notes":  ""
+}
