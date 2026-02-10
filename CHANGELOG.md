@@ -33,6 +33,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - GDI resource leaks in MrngButton and MrngComboBox (SolidBrush/Pen disposal)
 - UI thread deadlocks in external credential providers (VaultOpenbao, SecretServer, Passwordstate) — async calls now run on thread pool
 - TaskCanceledException crash when closing WPF splash screen from multiple code paths (ProgramRoot, frmMain, CompatibilityChecker, Runtime)
+- RDP connections now auto-resize when monitor is connected/disconnected (HDMI/DisplayPort hot-plug) (#2142)
+- OptionsPage Dispose crash on non-STA finalizer thread (NullReferenceException in Control.ContextMenuStrip) — fixes test host crashes
+- Stopwatch namespace bug in ConnectionInitiator SSH tunnel wait loop (System.Net.Sockets → System.Diagnostics)
 
 ### UI/UX
 - Live theme switching: changing themes no longer requires an application restart
