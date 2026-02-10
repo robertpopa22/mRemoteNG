@@ -261,7 +261,15 @@ namespace mRemoteNG.Themes
                 return;
             }
 
-            ThemeChangedEvent?.Invoke();
+            try
+            {
+                ThemeChangedEvent?.Invoke();
+            }
+            catch (Exception ex)
+            {
+                // Ensure we don't crash the whole app if one listener fails
+                Debug.WriteLine($"Error in ThemeChangedEvent: {ex.Message}");
+            }
         }
 
         #endregion
@@ -273,7 +281,7 @@ namespace mRemoteNG.Themes
             get => _themeActive;
             set
             {
-                if (themes.Count == 0) return;
+                if (themes == null || themes.Count == 0) return;
                 _themeActive = value;
                 Properties.OptionsThemePage.Default.ThemingActive = value;
                 NotifyThemeChanged(this, new PropertyChangedEventArgs(""));
@@ -281,7 +289,7 @@ namespace mRemoteNG.Themes
         }
 
         public ThemeInfo DefaultTheme =>
-            themes != null && ThemesCount > 0
+            themes != null && themes.ContainsKey("vs2015Light")
                 ? (ThemeInfo)themes["vs2015Light"]
                 : new ThemeInfo("vs2015Light", new VS2015LightTheme(), "",
                                 VisualStudioToolStripExtender.VsVersion.Vs2015);
@@ -289,7 +297,11 @@ namespace mRemoteNG.Themes
         public ThemeInfo ActiveTheme
         {
             // default if themes are not enabled
-            get => ThemingActive == false ? DefaultTheme : _activeTheme;
+            get
+            {
+                if (!ThemingActive) return DefaultTheme;
+                return _activeTheme ?? DefaultTheme;
+            }
             set
             {
                 // You can only enable theming if there are themes loaded

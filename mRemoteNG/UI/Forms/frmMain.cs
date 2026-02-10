@@ -246,28 +246,7 @@ namespace mRemoteNG.UI.Forms
             
             // Close splash screen and shut down its WPF Dispatcher to prevent the
             // background WPF message pump from intercepting WinForms mouse events.
-            try
-            {
-                FrmSplashScreenNew splash = FrmSplashScreenNew.GetInstance();
-                if (!splash.Dispatcher.HasShutdownStarted)
-                {
-                    if (splash.Dispatcher.CheckAccess())
-                    {
-                        splash.Close();
-                        splash.Dispatcher.InvokeShutdown();
-                    }
-                    else
-                    {
-                        splash.Dispatcher.Invoke(() =>
-                        {
-                            splash.Close();
-                            splash.Dispatcher.InvokeShutdown();
-                        });
-                    }
-                }
-            }
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
+            ProgramRoot.CloseSplash();
 
             CredsAndConsSetup credsAndConsSetup = new();
             credsAndConsSetup.LoadCredsAndCons();

@@ -255,29 +255,60 @@ namespace mRemoteNG.App
             _wpfSplashThread.Start();
         }
 
-        private static void CloseSplash()
+        public static void CloseSplash()
         {
-            if (_wpfSplash != null)
+            if (_wpfSplash == null)
             {
-                try
+                if (_wpfSplashThread != null)
                 {
-                    if (!_wpfSplash.Dispatcher.HasShutdownStarted)
-                    {
-                        _wpfSplash.Dispatcher.Invoke(() =>
-                        {
-                            _wpfSplash.Close();
-                            _wpfSplash.Dispatcher.InvokeShutdown();
-                        });
-                    }
+                    _wpfSplashThread.Join(TimeSpan.FromMilliseconds(100));
+                    _wpfSplashThread = null;
                 }
-                catch (TaskCanceledException) { }
-                catch (OperationCanceledException) { }
-                _wpfSplash = null;
+                return;
             }
-            if (_wpfSplashThread != null)
+
+            try
             {
-                _wpfSplashThread.Join(TimeSpan.FromSeconds(3));
-                _wpfSplashThread = null;
+                var splash = _wpfSplash;
+                _wpfSplash = null; // Set to null first to avoid multiple calls
+
+                if (splash.Dispatcher.HasShutdownStarted) return;
+
+                if (splash.Dispatcher.CheckAccess())
+                {
+                    splash.Close();
+                    splash.Dispatcher.InvokeShutdown();
+                }
+                else
+                {
+                    splash.Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        try
+                        {
+                            splash.Close();
+                            splash.Dispatcher.InvokeShutdown();
+                        }
+                        catch
+                        {
+                            // Ignore errors during async close
+                        }
+                    }));
+                }
+            }
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
+            catch (Exception) { }
+            finally
+            {
+                if (_wpfSplashThread != null)
+                {
+                    // Don't join if we're already on that thread
+                    if (System.Threading.Thread.CurrentThread != _wpfSplashThread)
+                    {
+                        _wpfSplashThread.Join(TimeSpan.FromMilliseconds(500));
+                    }
+                    _wpfSplashThread = null;
+                }
             }
         }
 
