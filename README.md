@@ -146,6 +146,28 @@ This fork is based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemote
 v1.79.0 fixes have individual PRs on upstream ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)–[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)).
 v1.80.0 consolidated status: [#3133](https://github.com/mRemoteNG/mRemoteNG/issues/3133).
 
+---
+
+## What's New
+
+### v1.80.0 (2026-02-10)
+- **Self-contained builds** — .NET runtime included, zero prerequisites
+- **Security hardening** — PBKDF2 600K iterations, HTTPS-only vaults, SSH key wipe, stronger master passwords
+- **New tokens** — `%PUTTYSESSION%`, `%ENVIRONMENTTAGS%`, `%SSHOPTIONS%` for external tools
+- **Options panel fixes** — Cancel reverts properly, SQL fields work, panel tabs no longer corrupt layout
+- **RDP improvements** — auto-resize on monitor hot-plug, async initialization
+- **New features** — JSON export, protocol/tag filtering, connection audit log, live theme switching
+
+### v1.79.0 (2026-02-09)
+- **26 bug fixes** — RDP, PuTTY, UI, SQL, credential providers
+- **81 pre-existing test failures fixed** — 2179 tests, zero failures
+- **LDAP sanitizer** and process-start hardening
+- **.NET 10** with x64, x86, ARM64 support
+
+Full details: [CHANGELOG.md](CHANGELOG.md) | [All releases](https://github.com/robertpopa22/mRemoteNG/releases)
+
+---
+
 ## License
 
 [GPL-2.0](COPYING.TXT)
