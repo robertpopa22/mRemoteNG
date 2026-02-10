@@ -143,7 +143,9 @@ namespace mRemoteNG.UI.Forms
                 }
                 catch
                 {
-                    // Unable to open URL - silently fail
+                    // Unable to open URL - notify the user
+                    Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg, 
+                        "Unable to open URL in browser. Please open manually: " + url, true);
                 }
             }
         }
