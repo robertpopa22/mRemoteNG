@@ -308,17 +308,18 @@ namespace mRemoteNG.Themes
                 // Default accordingly...
                 if (value == null)
                 {
-                    bool changed = !Properties.OptionsThemePage.Default.ThemeName.Equals(DefaultTheme.Name);
+                    if (_activeTheme != null && _activeTheme.Name.Equals(DefaultTheme.Name)) return;
 
                     Properties.OptionsThemePage.Default.ThemeName = DefaultTheme.Name;
                     _activeTheme = DefaultTheme;
 
-                    if (changed)
-                        NotifyThemeChanged(this, new PropertyChangedEventArgs("theme"));
+                    NotifyThemeChanged(this, new PropertyChangedEventArgs("theme"));
 
                     Properties.OptionsThemePage.Default.Save();
                     return;
                 }
+
+                if (_activeTheme != null && _activeTheme.Name.Equals(value.Name)) return;
 
                 _activeTheme = value;
                 Properties.OptionsThemePage.Default.ThemeName = value.Name;

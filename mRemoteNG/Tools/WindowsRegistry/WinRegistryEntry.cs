@@ -632,7 +632,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="message">The error message to log.</param>
         private static void LogInfo(string message)
         {
-            Console.WriteLine($"Info: {message}");
+            System.Diagnostics.Debug.WriteLine($"Info: {message}");
         }
 
         /// <summary>

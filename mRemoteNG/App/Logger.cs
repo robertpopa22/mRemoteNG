@@ -25,7 +25,7 @@ namespace mRemoteNG.App
 
         private void Initialize()
         {
-            XmlConfigurator.Configure(LogManager.CreateRepository("mRemoteNG"));
+            LogManager.CreateRepository("mRemoteNG");
 
             if (string.IsNullOrEmpty(Properties.OptionsNotificationsPage.Default.LogFilePath))
             {
