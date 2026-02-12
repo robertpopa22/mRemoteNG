@@ -56,7 +56,7 @@ jobs:
       - name: (02) Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: '17.14.12'
+          vs-version: '18.4.0'
           
       - name: (03) Install and run dotnet-t4 to transform T4 templates
         shell: pwsh
@@ -95,18 +95,7 @@ jobs:
         if: matrix.deployment == 'self-contained'
         shell: pwsh
         run: |
-          # Build using Release Self-Contained configuration
-          # This will automatically trigger publish via PublishAfterBuild target
-          msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG\mRemoteNG.csproj" `
-            -t:Build `
-            -p:Configuration="Release Self-Contained" `
-            -p:Platform=${{ matrix.platform }} `
-            -restore
-          
-          # Copy published files from Publish Self-Contained to standard Release directory
-          Copy-Item -Path "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Publish Self-Contained\*" `
-                    -Destination "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release" `
-                    -Recurse -Force
+          msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG.sln" /t:Publish /p:Configuration="Release Self-Contained" -p:Platform=${{ matrix.platform }} /verbosity:minimal /p:SelfContained=true /p:PublishDir="bin\${{ matrix.platform }}\Release"
                 
       - name: (07) Release Information
         id: version
