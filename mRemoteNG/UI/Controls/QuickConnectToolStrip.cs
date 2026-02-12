@@ -75,8 +75,15 @@ namespace mRemoteNG.UI.Controls
             // 
             _cmbQuickConnect.AccessibleName = "Hostname";
             _cmbQuickConnect.AccessibleDescription = "Enter hostname or IP address to connect";
-            _cmbQuickConnect.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            _cmbQuickConnect.AutoCompleteSource = AutoCompleteSource.ListItems;
+            try
+            {
+                _cmbQuickConnect.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                _cmbQuickConnect.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+            catch (InvalidOperationException)
+            {
+                // AutoComplete requires a window handle; silently skip in headless environments
+            }
             _cmbQuickConnect.Margin = new Padding(1, 0, 3, 0);
             _cmbQuickConnect.Name = "cmbQuickConnect";
             _cmbQuickConnect.Size = new Size(_display.ScaleWidth(200), 25);

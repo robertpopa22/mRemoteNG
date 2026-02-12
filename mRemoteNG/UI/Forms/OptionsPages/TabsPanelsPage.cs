@@ -95,7 +95,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             
             // Defer the ShowHidePanelTabs call to avoid corrupting the Options window
             // This ensures the call happens after the Options window is closed
-            FrmMain.Default.BeginInvoke(new System.Windows.Forms.MethodInvoker(() => FrmMain.Default.ShowHidePanelTabs()));
+            if (FrmMain.IsCreated)
+                FrmMain.Default.BeginInvoke(new System.Windows.Forms.MethodInvoker(() => FrmMain.Default.ShowHidePanelTabs()));
 
             /* 
              * Comment added: June 16, 2024

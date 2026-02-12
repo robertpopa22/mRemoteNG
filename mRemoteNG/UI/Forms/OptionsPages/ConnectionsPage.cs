@@ -14,7 +14,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     {
         #region Private Fields
         private OptRegistryConnectionsPage pageRegSettingsInstance;
-        private readonly FrmMain _frmMain = FrmMain.Default;
+        private FrmMain _frmMain;
 
         #endregion
 
@@ -140,14 +140,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.Settings.Default.RdpReconnectionCount = (int)numRdpReconnectionCount.Value;
             Properties.Settings.Default.ConRDPOverallConnectionTimeout = (int)numRDPConTimeout.Value;
             Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes = (int)numAutoSave.Value;
-            if (Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes > 0)
+            if (FrmMain.IsCreated)
             {
-                _frmMain.tmrAutoSave.Interval = Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes * 60000;
-                _frmMain.tmrAutoSave.Enabled = true;
-            }
-            else
-            {
-                _frmMain.tmrAutoSave.Enabled = false;
+                _frmMain ??= FrmMain.Default;
+                if (Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes > 0)
+                {
+                    _frmMain.tmrAutoSave.Interval = Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes * 60000;
+                    _frmMain.tmrAutoSave.Enabled = true;
+                }
+                else
+                {
+                    _frmMain.tmrAutoSave.Enabled = false;
+                }
             }
 
             // Save ConfirmCloseConnection setting

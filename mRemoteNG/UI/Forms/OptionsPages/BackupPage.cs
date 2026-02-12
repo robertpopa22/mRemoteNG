@@ -15,7 +15,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     [SupportedOSPlatform("windows")]
     public sealed partial class BackupPage
     {
-        private readonly FrmMain _frmMain = FrmMain.Default;
+        private FrmMain _frmMain;
         private List<DropdownList> _permissionsListing;
 
         public BackupPage()
