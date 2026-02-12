@@ -95,26 +95,19 @@ jobs:
         if: matrix.deployment == 'self-contained'
         shell: pwsh
         run: |
-          # Define runtime identifier
-          $rid = if ('${{ matrix.arch }}' -eq 'x64') { 'win-x64' } else { 'win-arm64' }
-          
-          # Build and publish self-contained
-          dotnet publish "$Env:GITHUB_WORKSPACE\mRemoteNG\mRemoteNG.csproj" `
-            --configuration Release `
-            --runtime $rid `
-            --self-contained true `
+          # Build using Release Self-Contained configuration
+          # This will automatically trigger publish via PublishAfterBuild target
+          msbuild "$Env:GITHUB_WORKSPACE\mRemoteNG\mRemoteNG.csproj" `
+            -t:Build `
+            -p:Configuration="Release Self-Contained" `
             -p:Platform=${{ matrix.platform }} `
-            -p:PublishSingleFile=false `
-            -p:PublishReadyToRun=true `
-            -p:IncludeNativeLibrariesForSelfExtract=true `
-            -p:DefineConstants="SELF_CONTAINED" `
-            --output "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release\publish"
+            -restore
           
-          # Copy published files to standard Release directory for consistency
-          Copy-Item -Path "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release\publish\*" `
+          # Copy published files from Publish Self-Contained to standard Release directory
+          Copy-Item -Path "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Publish Self-Contained\*" `
                     -Destination "$Env:GITHUB_WORKSPACE\mRemoteNG\bin\${{ matrix.platform }}\Release" `
                     -Recurse -Force
-        
+                
       - name: (07) Release Information
         id: version
         shell: pwsh
