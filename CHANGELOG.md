@@ -3,6 +3,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.80.1] - 2026-02-13 (Security Patch)
+
+### Security
+- AnyDesk command injection prevention — `IsValidAnydeskId()` validates IDs before passing to process (upstream fix)
+- Process.Start hardening across all UI forms — `ProcessStartInfo` with `UseShellExecute` instead of direct shell execution (upstream fix)
+- URL format validation in FrmAbout — rejects non-HTTP(S) URLs (upstream fix)
+- Path validation in NotificationsPage — prevents command injection via log file paths (upstream fix)
+
+### Changed
+- .NET SDK updated from 10.0.2 to 10.0.3 (runtime patch)
+- Removed 27 redundant System.* NuGet packages now included in .NET 10
+- Updated AWS SDK packages (EC2, S3, Secrets Manager, SSO)
+- ObjectListView: removed deprecated `[SecurityPermission]` attribute, fixed tooltip and virtuallist
+- Authenticode: migrated to modern `X509CertificateLoader` API (replaces deprecated constructor)
+- CI workflow: added self-contained build matrix (6 builds: 3 framework-dependent + 3 self-contained)
+- CI workflow: updated to `actions/setup-dotnet@v5`, `actions/upload-artifact@v4`
+
+### Fixed
+- FrmAbout: null checks for version and update channel display
+- CommandButton: null safety in GetLargeText/GetSmallText
+- PuttySessionInfo: nullable EventHandler and Site property
+- SSHTunnelTypeConverter: nullable context parameter
+- frmMain: window focus on startup (BringToFront/Activate)
+
 ## [1.80.0] - 2026-02-10 (Community Edition)
 
 ### Added

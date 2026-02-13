@@ -5,7 +5,7 @@
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development branch (latest code, currently v1.80.0+)
+- **Main branch:** `main` — active development branch (latest code, currently v1.80.1+)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -88,6 +88,14 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
   - See `CODE_SIGNING_POLICY.md` for team roles and verification steps
   - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
+
+## Release Status (v1.80.1 Security Patch, 2026-02-13) ✅ RELEASED
+- **Tag:** `v1.80.1` on `main`
+- **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.1
+- **Assets:** 6 ZIPs (3 framework-dependent + 3 self-contained) — CI-built
+- **Architectures:** x64, x86, ARM64
+- **Key changes:** AnyDesk command injection fix, Process.Start hardening, .NET 10.0.3, 27 package cleanup
+- **Upstream merge:** 25 commits from `upstream/v1.78.2-dev` (security + dependencies + CI)
 
 ## Release Status (v1.80.0 Community Edition, 2026-02-10) ✅ RELEASED
 - **Tag:** `v1.80.0` on `release/1.80`

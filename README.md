@@ -8,10 +8,10 @@
 > Based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
 
 <p align="center">
-  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0">
-    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.80.0-blue?style=for-the-badge">
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.1">
+    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.80.1-blue?style=for-the-badge">
   </a>
-  <a href="https://github.com/robertpopa22/mRemoteNG/tree/release/1.81">
+  <a href="https://github.com/robertpopa22/mRemoteNG/tree/main">
     <img alt="In Development" src="https://img.shields.io/badge/dev-v1.81.0-orange?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
@@ -24,22 +24,45 @@
 
 ---
 
-## Latest Stable Release — v1.80.0
+## Latest Stable Release — v1.80.1
 
-<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0">
-  <img alt="Stable v1.80.0" src="https://img.shields.io/badge/stable-v1.80.0-blue">
+<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.1">
+  <img alt="Stable v1.80.1" src="https://img.shields.io/badge/stable-v1.80.1-blue">
 </a>
 
 | Variant | x64 | x86 | ARM64 |
 |---------|-----|-----|-------|
-| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-arm64.zip) |
-| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.0/mRemoteNG-v1.80.0-arm64-selfcontained.zip) |
+| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-arm64.zip) |
+| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.1/mRemoteNG-v1.80.1-arm64-selfcontained.zip) |
 
 **Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe).
 **Self-contained** includes the .NET runtime — no prerequisites needed.
 
 <details>
-<summary><strong>What's in v1.80.0?</strong></summary>
+<summary><strong>What's in v1.80.1?</strong></summary>
+
+### Security Fixes (upstream merge)
+- **AnyDesk command injection prevention** — `IsValidAnydeskId()` validates IDs before passing to process
+- **Process.Start hardening** — `ProcessStartInfo` with `UseShellExecute` across all UI forms
+- **URL format validation** in FrmAbout — rejects non-HTTP(S) URLs
+- **Path validation** in NotificationsPage — prevents command injection via log file paths
+
+### Dependency Updates
+- .NET SDK 10.0.2 → 10.0.3 (runtime security patch)
+- Removed 27 redundant System.* NuGet packages (now built-in to .NET 10)
+- Updated AWS SDK packages
+
+### Bug Fixes
+- FrmAbout null checks, CommandButton null safety
+- Nullable annotations standardized (PuttySessionInfo, SSHTunnelTypeConverter)
+- Window focus on startup
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
+
+</details>
+
+<details>
+<summary><strong>Previous release: v1.80.0</strong> (self-contained builds, security hardening, new features)</summary>
 
 ### Highlights
 - **Self-contained build variant** — includes .NET runtime, no install needed
@@ -55,19 +78,7 @@
 - Middle-click: open connection from tree, close tab
 - Live theme switching (no restart), crash dialog auto-submit
 
-### Bug Fixes
-- External tool comma-splitting in batch files (#3044)
-- Options panel Cancel now reverts theme changes (#2914)
-- "Always show panel tabs" no longer corrupts Options (#2910)
-- SQL Server options fields properly enable (#2913)
-- RDP auto-resize on monitor connect/disconnect (#2142)
-- 15+ additional stability fixes
-
-### Performance
-- SQL hierarchy O(n^2) → O(n), async RDP init, yield return child lists
-- Dual-build matrix: 6 builds per release, mandatory code signing
-
-See [CHANGELOG.md](CHANGELOG.md) for the full list.
+[v1.80.0 release page](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0)
 
 </details>
 
@@ -149,6 +160,11 @@ v1.80.0 consolidated status: [#3133](https://github.com/mRemoteNG/mRemoteNG/issu
 ---
 
 ## What's New
+
+### v1.80.1 (2026-02-13)
+- **Security patch** — AnyDesk command injection fix, Process.Start hardening, URL/path validation (upstream merge)
+- **.NET 10.0.3** runtime patch + removed 27 redundant packages
+- **CI improvements** — self-contained build matrix, actions/setup-dotnet v5
 
 ### v1.80.0 (2026-02-10)
 - **Self-contained builds** — .NET runtime included, zero prerequisites
