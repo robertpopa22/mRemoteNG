@@ -10,7 +10,7 @@
                ],
     "author":  "domleg",
     "created_at":  "2024-04-03T18:18:17Z",
-    "github_updated_at":  "2026-02-08T22:21:39Z",
+    "github_updated_at":  "2026-02-10T11:55:07Z",
     "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nThat the RemoteDesktop Connect method works without errors.\r\n\r\n\r\n## Current Behavior\r\nWhen using VNCSharp this method was working fine but the performance was very bad. I upgraded my project to .NET Core 8.0 and used VNCSharpCore instead.\r\n\r\n // Create a new RemoteDesktop control\r\n RemoteDesktop newRd = new RemoteDesktop();\r\n vncPanel.Controls.Add(newRd); // Add the new control to the panel\r\n newRd.Dock ...",
     "our_status":  "new",
     "priority":  null,
@@ -92,12 +92,21 @@
                          "author":  "imoore937",
                          "action_needed":  true,
                          "date":  "2026-02-08T22:21:39Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nGIBo",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Hi [@robertpopa22](https://github.com/robertpopa22) When I go to the code tab for https://github.com/mRemoteNG/mRemoteNG, the most recent version is 1.78.2-dev, there is no 179.x there. Should I be testing 1.78.2-dev?\n\nsorry for little chaos @robertpopa22 creating :) our cd/di is setup to work with 1.78-2 version only knows as NB (night builds) there is fundamental changes currently so automatic release is paused. Robert fixing issues on his own branches so that\u0027s make a confusion, I hope we c...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T11:55:07Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-08T22:21:39Z",
-    "unread_comments":  6,
+    "comments_cursor":  "2026-02-10T11:55:07Z",
+    "unread_comments":  7,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

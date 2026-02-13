@@ -10,7 +10,7 @@
                ],
     "author":  "scardella",
     "created_at":  "2020-04-24T18:56:26Z",
-    "github_updated_at":  "2026-02-08T22:29:16Z",
+    "github_updated_at":  "2026-02-10T11:50:48Z",
     "body_snippet":  "I\u0027d love to be able to use mRemoteNG to handle libvirt/QEMU SPICE protocol.  That would allow connections to libvirt/QEMU VMs even if there was some reason that networking was not working within the VM.  OS installs, upgrades, etc.  Oddball OSes that you don\u0027t know whether there\u0027s remote access.  Or, diagnosing networking issues in the VM.\r\n\r\nIt seems like it would slot in well with the mRemoteNG\u0027s ethos.\r\n",
     "our_status":  "new",
     "priority":  null,
@@ -146,12 +146,21 @@
                          "author":  "simonai1254",
                          "action_needed":  true,
                          "date":  "2026-02-08T22:29:16Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nGDmK",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "let me clarify this a bit, so we have 3 streams: prod ready, preview, and night builds\nolder code is already legacy from all meanings, technically all features fixes are coming into 1.78.2 version - what will be a release candidate (moved from 3rd stream into 2nd) web site was modified but developer get lost, and currently over busy to be able to fix all issues we have regarding this but don\u0027t worry nothing is forgotten, and changes will be applied soon ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T11:50:48Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-08T22:29:16Z",
-    "unread_comments":  13,
+    "comments_cursor":  "2026-02-10T11:50:48Z",
+    "unread_comments":  14,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

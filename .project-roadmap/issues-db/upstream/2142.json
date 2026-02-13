@@ -11,7 +11,7 @@
                ],
     "author":  "austin-bridge",
     "created_at":  "2022-01-28T01:56:45Z",
-    "github_updated_at":  "2026-02-10T06:02:10Z",
+    "github_updated_at":  "2026-02-11T12:20:52Z",
     "body_snippet":  "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
     "our_status":  "released",
     "priority":  null,
@@ -50,15 +50,6 @@
                          "date":  "2022-02-10T15:08:40Z"
                      },
                      {
-                         "id":  "IC_kwDOAAcIMM4_DG0U",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@austin-bridge \r\ntry https://github.com/VShawn/PRemoteM\r\nit watched the resolution, and auto resize your RDP when your resolution changed.\r\n\r\nAppend:\r\nMy bad, this feature is not achieved yet.  THX for your remind, I going to make it\r\n\r\n",
-                         "author":  "VShawn",
-                         "action_needed":  true,
-                         "date":  "2022-03-03T08:03:17Z"
-                     },
-                     {
                          "id":  "IC_kwDOAAcIMM7mXFa5",
                          "analyzed":  false,
                          "is_ours":  true,
@@ -93,12 +84,21 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-10T06:02:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7ngmL_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you @robertpopa22 , i tried the latest version 1.80.0 (3388) but it didn\u0027t resize when i came back to work.\n\n\u003cimg width=\"2263\" height=\"368\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a06b3290-faf6-4279-86bf-18b4a603fdc7\" /\u003e\n\nAfter i press reconnect:\n\n\u003cimg width=\"1676\" height=\"311\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c2cd6210-68f2-46c1-8c52-98feacb068d0\" /\u003e\n",
+                         "author":  "siggemannen",
+                         "action_needed":  true,
+                         "date":  "2026-02-11T12:20:52Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-10T06:02:10Z",
+    "comments_cursor":  "2026-02-11T12:20:52Z",
     "unread_comments":  4,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

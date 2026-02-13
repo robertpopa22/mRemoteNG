@@ -16,7 +16,7 @@
                ],
     "author":  "yongwoo1",
     "created_at":  "2025-09-12T00:20:05Z",
-    "github_updated_at":  "2026-02-10T06:02:25Z",
+    "github_updated_at":  "2026-02-11T02:51:38Z",
     "body_snippet":  "- Version: 1.76.11.40527\n\n- Issue:\n\nWhen a saved PuTTY session name contains Korean characters, the session name is not displayed correctly, and the corresponding session cannot be connected.\n\n\n- Suspected Cause:\n\nThere appears to be an issue with decoding session names. This problem is likely not limited to Korean but may affect all CJK characters.",
     "our_status":  "released",
     "priority":  null,
@@ -188,12 +188,21 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-10T06:02:25Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nX9xn",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thanks for looking into this issue ΓÇö I really appreciate your help.\n\nAlso, sorry for the delayed response due to the time zone difference.\n\nTo answer your questions:\n\n1. Yes, the PuTTY sessions are stored in the Windows Registry (HKCU\\Software\\SimonTatham\\PuTTY\\Sessions).\n\n2. In regedit, the session key name is stored in percent-encoded form as \u0027%BC%AD%B9%F6%20%BC%B3%C4%A1\u0027, not as the actual Korean characters.\n\nPlease let me know if you need any more information.",
+                         "author":  "yongwoo1",
+                         "action_needed":  true,
+                         "date":  "2026-02-11T02:48:37Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-10T06:02:25Z",
-    "unread_comments":  8,
+    "comments_cursor":  "2026-02-11T02:51:38Z",
+    "unread_comments":  9,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

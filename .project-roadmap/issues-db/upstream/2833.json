@@ -8,8 +8,8 @@
                ],
     "author":  "app/renovate",
     "created_at":  "2025-09-29T16:46:17Z",
-    "github_updated_at":  "2026-02-10T01:15:21Z",
-    "body_snippet":  "This issue lists Renovate updates and detected dependencies. Read the [Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/) docs to learn more.\u003cbr\u003e[View this repository on the Mend.io Web Portal](https://developer.mend.io/github/mRemoteNG/mRemoteNG).\n\n## Open\n\nThe following updates have all been created. To force a retry/rebase of any, click on a checkbox below.\n\n - [ ] \u003c!-- rebase-branch=renovate/aws-sdk-net-monorepo --\u003e[Update dependency AWSSDK.EC2 to 4.0.72](../pull/313...",
+    "github_updated_at":  "2026-02-13T10:30:46Z",
+    "body_snippet":  "This issue lists Renovate updates and detected dependencies. Read the [Dependency Dashboard](https://docs.renovatebot.com/key-concepts/dashboard/) docs to learn more.\u003cbr\u003e[View this repository on the Mend.io Web Portal](https://developer.mend.io/github/mRemoteNG/mRemoteNG).\n\nThis repository currently has no open or pending branches.\n\n## Detected Dependencies\n\n\u003cdetails\u003e\u003csummary\u003egithub-actions (3)\u003c/summary\u003e\n\u003cblockquote\u003e\n\n\u003cdetails\u003e\u003csummary\u003e.github/workflows/add_PR_2_chlog.yml (1)\u003c/summary\u003e\n\n - `acti...",
     "our_status":  "wontfix",
     "priority":  null,
     "target_release":  null,
@@ -30,10 +30,10 @@
     "comments":  [
 
                  ],
-    "comments_cursor":  "2026-02-10T01:15:21Z",
+    "comments_cursor":  "2026-02-13T10:30:46Z",
     "unread_comments":  0,
     "needs_action":  false,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

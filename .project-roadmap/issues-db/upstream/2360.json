@@ -10,7 +10,7 @@
                ],
     "author":  "AdrianKielbowicz",
     "created_at":  "2023-02-28T16:18:13Z",
-    "github_updated_at":  "2026-02-10T07:29:47Z",
+    "github_updated_at":  "2026-02-10T17:16:05Z",
     "body_snippet":  "Can Yubikeys be used within mRemoteNG and passed through to an RDP session for authentication?",
     "our_status":  "triaged",
     "priority":  "P3-enhancement",
@@ -83,12 +83,21 @@
                          "author":  "Weishaupt",
                          "action_needed":  true,
                          "date":  "2026-02-10T07:29:47Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nPPUU",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Thanks for the detailed reproduction steps! This is a known limitation ΓÇö mRemoteNG currently does not expose the `redirectwebauthn:i:1` RDP option that enables FIDO2/WebAuthn passkey forwarding.\n\nThe community discussion here already identified the technical path: the newer RDP client interfaces would need a WebAuthn redirect property added to the connection settings, similar to how SmartCard and printer redirection work today.\n\nWe\u0027ll track this as a feature request for a future release. In th...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T17:16:05Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-10T07:29:47Z",
-    "unread_comments":  0,
-    "needs_action":  false,
+    "comments_cursor":  "2026-02-10T17:16:05Z",
+    "unread_comments":  6,
+    "needs_action":  true,
     "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

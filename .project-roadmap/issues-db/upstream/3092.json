@@ -12,7 +12,7 @@
                ],
     "author":  "jonashilmersson",
     "created_at":  "2026-01-24T16:44:49Z",
-    "github_updated_at":  "2026-02-09T16:51:46Z",
+    "github_updated_at":  "2026-02-12T18:30:24Z",
     "body_snippet":  "I\u0027m running Windows 11, 1Password for Windows 8.12.0 (81200013) and mRemoteNG 1.78 Nightly build 3228. \n\nI\u0027ve activated 1P CLI and tested it out in the terminal, it works fine. \n\nI\u0027ve created a RDP connection using IP address, set it to use 1Password as the External Credential Provider. In the API User ID field, I\u0027ve written \n\n`op://My Vault/My RDP item`\n\nWhen I try to connect, I get the normal Windows login dialog with the username prefilled, just like if I use the normal Windows RDP client. I\u0027...",
     "our_status":  "released",
     "priority":  null,
@@ -148,12 +148,39 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-09T16:51:46Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7n28eD",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e \u003e I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don\u0027t have permissions to push my branch.\n\u003e \n\u003e Hello, thanks for trying to help, usually its works this way: you clone the repo and 1.78.2-dev branch is right for such (at current stage) so then you add your fixes, test them and then create a PR, what will come to my repo and after review it will be merged if all ok, or will ask for s...",
+                         "author":  "jonashilmersson",
+                         "action_needed":  true,
+                         "date":  "2026-02-12T10:10:36Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7oBW_H",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "nope, if you clone it and after change able to build and its look good for you you could test it (with ai these days) and if still ok, then submit PR, what will be reviewed by me (with AI) and if all good it will be merged and new NB released",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-12T18:27:38Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7oBaFt",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "@robertpopa22 drop me a line on support@mremoteng.org - we could coordinate our activities ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-12T18:30:24Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-09T16:51:46Z",
-    "unread_comments":  9,
+    "comments_cursor":  "2026-02-12T18:30:24Z",
+    "unread_comments":  12,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

@@ -4,34 +4,17 @@
     "title":  "Community Edition v1.80.0 ΓÇö status update \u0026 triage of 830 issues",
     "state":  "open",
     "labels":  [
-
+                   "Third party"
                ],
     "author":  "robertpopa22",
     "created_at":  "2026-02-10T07:40:35Z",
-    "github_updated_at":  "2026-02-10T08:46:06Z",
+    "github_updated_at":  "2026-02-13T10:34:15Z",
     "body_snippet":  "## Summary\n\nFollowing [v1.79.0](https://github.com/orgs/mRemoteNG/discussions/3131) (26 fixes), we\u0027ve completed a full triage of all 830 open issues and are working on **v1.80.0** with self-contained builds and additional fixes.\n\n### v1.80.0 highlights\n- **Self-contained .NET build** ΓÇö no runtime install needed (addresses #2681, #2998)\n- **Monitor connect/disconnect resize** ΓÇö RDP sessions auto-resize (#2142)\n- **#3044 fix iteration** ΓÇö batch file comma-splitting in passwords fully resolve...",
     "our_status":  "triaged",
     "priority":  null,
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7nCjkL",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "## v1.80.0 Released\n\n**Download:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0\n\n6 builds available (x64/x86/ARM64 ├ù framework-dependent + self-contained).\n\nKey additions since v1.79.0:\n- Self-contained build variant (no .NET runtime needed)\n- `%PUTTYSESSION%` external tool token (#2046)\n- Options panel cancel/revert fix (#2914, #2910)\n- SQL Server options field enable fix (#2913)\n- Batch file password comma fix (#3044)\n- RDP auto-resize on monitor change (#2142)\n\nFull changel...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-10T08:46:05Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-10T08:46:06Z",
-    "unread_comments":  0,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T17:21:04Z",
-    "notes":  "",
     "iterations":  [
                        {
                            "seq":  1,
@@ -43,5 +26,22 @@
                            "release":  null,
                            "comment_posted":  false
                        }
-                   ]
+                   ],
+    "comments":  [
+                     {
+                         "id":  "IC_kwDOAAcIMM7nCjkL",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "## v1.80.0 Released\n\n**Download:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0\n\n6 builds available (x64/x86/ARM64 ├ù framework-dependent + self-contained).\n\nKey additions since v1.79.0:\n- Self-contained build variant (no .NET runtime needed)\n- `%PUTTYSESSION%` external tool token (#2046)\n- Options panel cancel/revert fix (#2914, #2910)\n- SQL Server options field enable fix (#2913)\n- Batch file password comma fix (#3044)\n- RDP auto-resize on monitor change (#2142)\n\nFull changel...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T08:46:05Z"
+                     }
+                 ],
+    "comments_cursor":  "2026-02-13T10:34:15Z",
+    "unread_comments":  0,
+    "needs_action":  false,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-13T15:17:58Z",
+    "notes":  ""
 }

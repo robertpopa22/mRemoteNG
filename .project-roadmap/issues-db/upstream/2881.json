@@ -13,7 +13,7 @@
                ],
     "author":  "simonai1254",
     "created_at":  "2025-10-08T20:57:36Z",
-    "github_updated_at":  "2026-02-07T20:49:15Z",
+    "github_updated_at":  "2026-02-10T12:23:13Z",
     "body_snippet":  "As identified in issue #2870 PuttyNG is compiled as x64, which requires mRemoteNG to install the [Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) on x64-Builds of the software.\n\nOn ARM-Builds I would expect PuTTYNG to be unable to start, as it\u0027s not compiled correctly. Funnily the Visual C++ runtime downloaded as x64-Build also contains the ARM-Binary, so this makes it quite easy to install it re...",
     "our_status":  "new",
     "priority":  null,
@@ -41,12 +41,21 @@
                          "author":  "Neustradamus",
                          "action_needed":  true,
                          "date":  "2026-02-07T20:49:15Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nGmUq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Technically - 1.78.2 is the latest with most fixes, but its not a release!\nAs @Neustradamus mentioned - last official release still 1.76.20, but its so legacy already so its not supported, all fixes goes into 1.78.2 to make it Release Candidate. ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T12:22:21Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-07T20:49:15Z",
-    "unread_comments":  7,
+    "comments_cursor":  "2026-02-10T12:23:13Z",
+    "unread_comments":  2,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

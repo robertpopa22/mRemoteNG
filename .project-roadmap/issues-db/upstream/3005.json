@@ -11,7 +11,7 @@
                ],
     "author":  "KaveSys",
     "created_at":  "2025-11-11T10:01:35Z",
-    "github_updated_at":  "2026-02-09T16:42:29Z",
+    "github_updated_at":  "2026-02-10T12:15:01Z",
     "body_snippet":  "Hello,\nI\u0027m opening a new issue after fix the SQL Injection vulnerability in mRemoteNG 1.78.2 NB 3228, an installation is not available and using the portable version, when try to attach a SQL Server Express database to share the connections with other people, mRemoteNG will stuck and is not possible to use it.\n\nFrom the logs:\n\nThe SSL connection could not be established, see inner exception.\nUnable to read data from the transport connection: An existing connection was forcibly closed by the remo...",
     "our_status":  "released",
     "priority":  null,
@@ -102,12 +102,57 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-09T16:42:29Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nF7_O",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e [@Kvarkas](https://github.com/Kvarkas) as you can see, [@robertpopa22](https://github.com/robertpopa22) publish something interesting. There is a way to make it officially released?\n\u003e \n\u003e Thanks!\n\nI am happy to just need to stream line his energy into right branch :) ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T11:43:43Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nF-ez",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e [@KaveSys](https://github.com/KaveSys) The decision to make an official release lies with the upstream maintainers. My work is published on the fork (https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0) and all corresponding PRs ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)ΓÇô[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)) are open against upstream. If the maintainers choose to merge them, these fixes can become part of an official release.\n\nI really aprechet...",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T11:46:10Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nF_1_",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Guys, how may we coordinate this?\r\nI am quite new here!\r\n\r\nOn Tue, Feb 10, 2026 at 1:44ΓÇ»PM Dimitrij ***@***.***\u003e wrote:\r\n\r\n\u003e *Kvarkas* left a comment (mRemoteNG/mRemoteNG#3005)\r\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/3005#issuecomment-3877093326\u003e\r\n\u003e\r\n\u003e @Kvarkas \u003chttps://github.com/Kvarkas\u003e as you can see, @robertpopa22\r\n\u003e \u003chttps://github.com/robertpopa22\u003e publish something interesting. There is\r\n\u003e a way to make it officially released?\r\n\u003e\r\n\u003e Thanks!\r\n\u003e\r\n\u003e I am happy to just need to st...",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T11:47:27Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nGIQI",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e [@KaveSys](https://github.com/KaveSys) The decision to make an official release lies with the upstream maintainers. My work is published on the fork (https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0) and all corresponding PRs ([#3105](https://github.com/mRemoteNG/mRemoteNG/pull/3105)ΓÇô[#3130](https://github.com/mRemoteNG/mRemoteNG/pull/3130)) are open against upstream. If the maintainers choose to merge them, these fixes can become part of an official release.\n\nIt\u0027s clear for me...",
+                         "author":  "KaveSys",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T11:55:20Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nGbm0",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "\u003e Guys, how may we coordinate this?\n\u003e I am quite new here!\n\nHello, we are happy to have you there :)\n\nCould join our dev chat perhaps? https://matrix.to/#/!BvCJHqmjQcEbBGeYDG:gitter.im?via=matrix.org\u0026via=gitter.im\u0026via=c3d2.de\n\nI use element app for this\n",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T12:12:13Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-09T16:42:29Z",
-    "unread_comments":  4,
+    "comments_cursor":  "2026-02-10T12:15:01Z",
+    "unread_comments":  8,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

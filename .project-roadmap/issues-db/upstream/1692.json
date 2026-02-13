@@ -9,7 +9,7 @@
                ],
     "author":  "Cool34000",
     "created_at":  "2020-02-12T07:30:38Z",
-    "github_updated_at":  "2026-02-07T19:38:00Z",
+    "github_updated_at":  "2026-02-11T02:00:48Z",
     "body_snippet":  "Is there a way to launch mRemoteNG from the command line and open a reccorded connection directly?\r\nOr launch mRemoteNG with parameters to open a connection not registered in it?\r\n\r\n\r\n",
     "our_status":  "new",
     "priority":  null,
@@ -55,12 +55,21 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-07T19:38:00Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nXgEq",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "I have checked the code, there is no cmd line args that would allow for a connection to be called from the cmd line, either a quick connect or a saved connection.\n\nI dont believe there is a demand or a high need for this feature, I think dev time would be better spent on the other issues and I suggest we close this feature, or put it as low priority on the road map for later. ",
+                         "author":  "lukeattard",
+                         "action_needed":  true,
+                         "date":  "2026-02-11T02:00:48Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-07T19:38:00Z",
-    "unread_comments":  3,
+    "comments_cursor":  "2026-02-11T02:00:48Z",
+    "unread_comments":  4,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }

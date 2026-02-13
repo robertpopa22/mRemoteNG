@@ -10,7 +10,7 @@
                ],
     "author":  "Alessio71",
     "created_at":  "2025-12-11T22:41:50Z",
-    "github_updated_at":  "2026-02-10T06:04:01Z",
+    "github_updated_at":  "2026-02-12T08:44:15Z",
     "body_snippet":  "1.78.2.3228\n\nWith external tool, if password contains a comma, the comma acts as a divider and the variable get split.\nIf I have a password 123456789, the comma is just omitted, if I have a password 1234,56789 the external tool receives two strings, divided in two, one 1234 and the other 56789\nTo test it, create a .cmd file that echoes the %Password% 1234,56789\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\nand pass %Password% to it, the `echo \"%2%\"` should give a `\"\" ` result if working normally...",
     "our_status":  "in-progress",
     "priority":  "P2-bug",
@@ -132,12 +132,39 @@
                          "author":  "robertpopa22",
                          "action_needed":  false,
                          "date":  "2026-02-10T06:04:01Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nEZ2V",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Thank you @robertpopa22 , looks like the v1.80.0 doesn\u0027t have the issue anymore!\n",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T10:17:40Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nHJhL",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "One (minor) thing, I\u0027ve tried the self-contained version but strangely it asks me to install **.NET 9.0.0** runtime (correctly not 10.0.0)\n\n\u003cimg width=\"562\" height=\"232\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/f910c48b-27e5-477c-9d26-a38c6b8f0b28\" /\u003e\n",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T12:51:28Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nHM9P",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "thanks, yes, will fix that at night time, its because its looking for a 9 .net base not 10 .net - config change require ",
+                         "author":  "Kvarkas",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T12:54:05Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-10T06:04:01Z",
-    "unread_comments":  3,
+    "comments_cursor":  "2026-02-12T08:44:15Z",
+    "unread_comments":  6,
     "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  "ITERATION EXAMPLE: Fix applied (PR #3109) -\u003e user tested -\u003e still broken for .cmd batch files -\u003e re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }

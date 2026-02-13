@@ -9,7 +9,7 @@
                ],
     "author":  "Galandrix",
     "created_at":  "2021-04-17T13:38:54Z",
-    "github_updated_at":  "2026-02-10T06:55:32Z",
+    "github_updated_at":  "2026-02-10T21:42:38Z",
     "body_snippet":  "Hello, could you please fix winbox integration? When i start winbox, gray window is apear.\r\n\r\n![image](https://user-images.githubusercontent.com/27976371/115115173-8977a900-9f9b-11eb-9b82-53cf43e739af.png)\r\n",
     "our_status":  "triaged",
     "priority":  "P3-enhancement",
@@ -55,12 +55,39 @@
                          "author":  "Galandrix",
                          "action_needed":  true,
                          "date":  "2026-02-10T06:55:32Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nPPMj",
+                         "analyzed":  false,
+                         "is_ours":  true,
+                         "snippet":  "Thanks for testing! The fork releases are available here:\n- **v1.80.0** (latest): https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.0\n- **v1.79.0**: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\nv1.80.0 also includes self-contained builds (no .NET runtime needed). Please test with the v1.80.0 build and let us know if the Winbox integration issue persists there as well.",
+                         "author":  "robertpopa22",
+                         "action_needed":  false,
+                         "date":  "2026-02-10T17:16:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nUZDZ",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "No still happen with - Winbox 3.42",
+                         "author":  "Galandrix",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T21:42:02Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7nUZPO",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "64bit, i can send you a video if you want,",
+                         "author":  "Galandrix",
+                         "action_needed":  true,
+                         "date":  "2026-02-10T21:42:11Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-10T06:55:32Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-10T10:15:26Z",
+    "comments_cursor":  "2026-02-10T21:42:38Z",
+    "unread_comments":  4,
+    "needs_action":  true,
+    "waiting_for_us":  true,
+    "last_synced":  "2026-02-13T15:17:58Z",
     "notes":  ""
 }
