@@ -1,0 +1,32 @@
+﻿{
+    "number":  6,
+    "repo":  "robertpopa22/mRemoteNG",
+    "title":  "[Crash] System.TypeInitializationException: The type initializer for \u0027mRemoteNG.App.Logger\u0027 threw an exception.",
+    "state":  "open",
+    "labels":  [
+                   "bug",
+                   "crash-report",
+                   "auto-submitted"
+               ],
+    "author":  "robertpopa22",
+    "created_at":  "2026-02-13T09:03:11Z",
+    "github_updated_at":  "2026-02-13T09:03:11Z",
+    "body_snippet":  "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.TypeInitializationException`\r\n**Message:** The type initializer for \u0027mRemoteNG.App.Logger\u0027 threw an exception.\r\n\r\n### Stack Trace\r\n```\r\n   at mRemoteNG.App.Initialization.MessageCollectorSetup.BuildTextLogMessageWriter() in D:\\a\\mRemoteNG\\mRemoteNG\\mRemoteNG\\App\\Initialization\\MessageCollectorSetup.cs:line 49\r\n   at mRemoteNG.App.Initialization.MessageCollectorSetup.BuildMessageWritersFromSettings(IList`1 messageWriterList) in D:\\a\\mRemoteNG\\mR...",
+    "our_status":  "new",
+    "priority":  null,
+    "target_release":  null,
+    "our_branch":  null,
+    "our_pr":  null,
+    "iterations":  [
+
+                   ],
+    "comments":  [
+
+                 ],
+    "comments_cursor":  "2026-02-13T09:03:11Z",
+    "unread_comments":  0,
+    "needs_action":  true,
+    "waiting_for_us":  false,
+    "last_synced":  "2026-02-13T22:21:05Z",
+    "notes":  ""
+}

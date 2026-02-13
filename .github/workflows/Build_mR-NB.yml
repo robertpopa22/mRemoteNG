@@ -88,7 +88,7 @@ jobs:
       - name: (04) Generate AssemblyInfo.cs from T4 template values
         shell: pwsh
         run: |
-          $major = 1; $minor = 80; $revision = 1; $channel = "Release"
+          $major = 1; $minor = 80; $revision = 2; $channel = "Release"
           $base = [datetime]"2019-09-02"
           $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
           $platform = "${{ matrix.platform }}"
@@ -239,7 +239,7 @@ jobs:
         id: meta
         shell: pwsh
         run: |
-          $major = 1; $minor = 80; $revision = 1
+          $major = 1; $minor = 80; $revision = 2
           $base = [datetime]"2019-09-02"
           $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
           $date = Get-Date -Format "yyyyMMdd"

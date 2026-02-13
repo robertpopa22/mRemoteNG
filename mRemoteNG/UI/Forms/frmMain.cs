@@ -227,6 +227,8 @@ namespace mRemoteNG.UI.Forms
             DockPanelLayoutLoader uiLoader = new(this, messageCollector);
             uiLoader.LoadPanelsFromXml();
 
+            ShowHidePanelTabs();
+
             LockToolbarPositions(Properties.Settings.Default.LockToolbars);
             Properties.Settings.Default.PropertyChanged += OnApplicationSettingChanged;
 

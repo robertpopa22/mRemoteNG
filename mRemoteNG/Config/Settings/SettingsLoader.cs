@@ -69,10 +69,10 @@ namespace mRemoteNG.Config.Settings
             }
         }
 
-        private static void SetAlwaysShowPanelTabs()
+        private void SetAlwaysShowPanelTabs()
         {
             if (Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelTabs)
-                FrmMain.Default.pnlDock.DocumentStyle = DocumentStyle.DockingWindow;
+                MainForm.pnlDock.DocumentStyle = DocumentStyle.DockingWindow;
         }
 
 

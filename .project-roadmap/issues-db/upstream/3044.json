@@ -165,6 +165,6 @@
     "unread_comments":  6,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T15:17:58Z",
+    "last_synced":  "2026-02-13T22:21:05Z",
     "notes":  "ITERATION EXAMPLE: Fix applied (PR #3109) -\u003e user tested -\u003e still broken for .cmd batch files -\u003e re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }
