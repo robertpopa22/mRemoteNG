@@ -1,4 +1,4 @@
-name: Build_and_Release_mR-NB
+name: Build_and_Release_mR-NB_MultiDeploy
 on:
   push:
     branches:
@@ -303,7 +303,23 @@ jobs:
           name: "mRemoteNG ${{ steps.meta.outputs.version }} NB ${{ steps.meta.outputs.build }}"
           files: release-assets/*
           body: |
-            Changes in this Release:
+            ## mRemoteNG ${{ steps.meta.outputs.version }} NB Build ${{ steps.meta.outputs.build }}
+
+            ### Available Downloads
+
+            **Framework-Dependent** - Requires .NET 10 Runtime installed:
+            - Smaller download size (~15-25 MB)
+            - Requires .NET 10 Desktop Runtime on user machine
+
+            **Self-Contained** - Portable, no installation required:
+            - Larger download size (~80-150 MB)
+            - Includes .NET 10 runtime - no installation needed
+
+            Both versions are available for **x64**, **x86**, and **ARM64** architectures.
+
+            ---
+
+            ### Changes in this Release
             ${{ steps.changelog.outputs.log }}
 
             Last Commit Message:

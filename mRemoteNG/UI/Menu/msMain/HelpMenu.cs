@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -50,9 +50,9 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoSep4 = new ToolStripSeparator();
             _mMenInfoAbout = new ToolStripMenuItem();
 
-            // 
+            //
             // mMenInfo
-            // 
+            //
             DropDownItems.AddRange(new ToolStripItem[]
             {
                 _mMenInfoHelp,
@@ -74,9 +74,9 @@ namespace mRemoteNG.UI.Menu
             Size = new System.Drawing.Size(44, 20);
             Text = Language._Help;
             TextDirection = ToolStripTextDirection.Horizontal;
-            // 
+            //
             // mMenInfoHelp
-            // 
+            //
             _mMenInfoHelp.Image = Properties.Resources.F1Help_16x;
             _mMenInfoHelp.Name = "mMenInfoHelp";
             _mMenInfoHelp.ShortcutKeys = Keys.F1;
@@ -92,7 +92,7 @@ namespace mRemoteNG.UI.Menu
             _mMenKeyboardShortcuts.Click += mMenKeyboardShortcuts_Click;
             //
             // mMenToolsUpdate
-            // 
+            //
             _mMenToolsUpdate.Image = Properties.Resources.RunUpdate_16x;
             _mMenToolsUpdate.Name = "mMenToolsUpdate";
             _mMenToolsUpdate.Size = new System.Drawing.Size(190, 22);
@@ -100,71 +100,71 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsUpdate.Click += mMenToolsUpdate_Click;
             _mMenToolsUpdate.Enabled = CommonRegistrySettings.AllowCheckForUpdates
                 && CommonRegistrySettings.AllowCheckForUpdatesManual;
-            // 
+            //
             // mMenInfoSep1
-            // 
+            //
             _mMenInfoSep1.Name = "mMenInfoSep1";
             _mMenInfoSep1.Size = new System.Drawing.Size(187, 6);
-            // 
+            //
             // mMenInfoWebsite
-            // 
+            //
             _mMenInfoWebsite.Name = "mMenInfoWebsite";
             _mMenInfoWebsite.Size = new System.Drawing.Size(190, 22);
             _mMenInfoWebsite.Text = Language.MenuItem_Website;
             _mMenInfoWebsite.Click += mMenInfoWebsite_Click;
-            // 
+            //
             // mMenInfoDonate
-            // 
+            //
             _mMenInfoDonate.Name = "mMenInfoDonate";
             _mMenInfoDonate.Size = new System.Drawing.Size(190, 22);
             _mMenInfoDonate.Text = Language.MenuItem_Donate;
             _mMenInfoDonate.Click += mMenInfoDonate_Click;
-            // 
+            //
             // mMenInfoForum
-            // 
+            //
             _mMenInfoForum.Name = "mMenInfoForum";
             _mMenInfoForum.Size = new System.Drawing.Size(190, 22);
             _mMenInfoForum.Text = Language.MenuItem_SupportForum;
             _mMenInfoForum.Click += mMenInfoForum_Click;
-            // 
+            //
             // mMenInfoChat
-            // 
+            //
             _mMenInfoChat.Name = "mMenInfoChat";
             _mMenInfoChat.Size = new System.Drawing.Size(190, 22);
             _mMenInfoChat.Text = Language.MenuItem_Chat;
             _mMenInfoChat.Click += mMenInfoChat_Click;
-            // 
+            //
             // mMenInfoCommunity
-            // 
+            //
             _mMenInfoCommunity.Name = "mMenInfoCommunity";
             _mMenInfoCommunity.Size = new System.Drawing.Size(190, 22);
             _mMenInfoCommunity.Text = Language.MenuItem_Community;
             _mMenInfoCommunity.Click += mMenInfoCommunity_Click;
-            // 
+            //
             // mMenInfoBug
-            // 
+            //
             _mMenInfoBug.Name = "mMenInfoBug";
             _mMenInfoBug.Size = new System.Drawing.Size(190, 22);
             _mMenInfoBug.Text = Language.MenuItem_ReportIssue;
             _mMenInfoBug.Click += mMenInfoBug_Click;
-            // 
+            //
             // mMenInfoSep2
-            // 
+            //
             _mMenInfoSep2.Name = "mMenInfoSep2";
             _mMenInfoSep2.Size = new System.Drawing.Size(187, 6);
-            // 
+            //
             // mMenInfoSep3
-            // 
+            //
             _mMenInfoSep3.Name = "mMenInfoSep2";
             _mMenInfoSep3.Size = new System.Drawing.Size(187, 6);
-            // 
+            //
             // mMenInfoSep4
-            // 
+            //
             _mMenInfoSep4.Name = "mMenInfoSep2";
             _mMenInfoSep4.Size = new System.Drawing.Size(187, 6);
-            // 
+            //
             // mMenInfoAbout
-            // 
+            //
             _mMenInfoAbout.Image = Properties.Resources.UIAboutBox_16x;
             _mMenInfoAbout.Name = "mMenInfoAbout";
             _mMenInfoAbout.Size = new System.Drawing.Size(190, 22);
@@ -216,7 +216,7 @@ namespace mRemoteNG.UI.Menu
         private void mMenInfoWebsite_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlHome);
 
         private void mMenInfoDonate_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlDonate);
-        
+
         private static void OpenUrl(string url)
         {
             var startInfo = new ProcessStartInfo

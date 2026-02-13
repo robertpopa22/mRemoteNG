@@ -168,6 +168,33 @@ Full details: [CHANGELOG.md](CHANGELOG.md) | [All releases](https://github.com/r
 
 ---
 
+## Issue Intelligence System
+
+This fork includes a custom **Issue Intelligence System** — a git-tracked JSON database that monitors the full upstream issue backlog (830+ issues) and automates triage, lifecycle tracking, and release communication.
+
+**What it does:**
+- Syncs issues and comments from both upstream and fork repositories via `gh` CLI
+- Tracks each issue through a full lifecycle: `new` → `triaged` → `roadmap` → `in-progress` → `testing` → `released`
+- Detects **iteration loops** — when a user reports a fix didn't fully resolve their issue, the system tracks re-fix cycles
+- Posts templated comments to GitHub on status transitions (release notifications, acknowledgements)
+- Generates markdown reports for triage sessions and releases
+- Auto-classifies issues by priority based on labels and comment activity
+
+**Scripts** (in `.project-roadmap/scripts/`):
+
+| Script | Purpose |
+|--------|---------|
+| `Sync-Issues.ps1` | Fetch latest issues + comments from GitHub into local JSON DB |
+| `Analyze-Issues.ps1` | Classify and prioritize — shows what needs immediate attention |
+| `Update-Status.ps1` | Transition issues through lifecycle, post GitHub comments |
+| `Generate-Report.ps1` | Create markdown reports for triage and releases |
+
+**Current stats** (as of 2026-02-13): 831 issues tracked, 25 released, 8 urgent, 24 new comments detected.
+
+See [.project-roadmap/issues-db/README.md](.project-roadmap/issues-db/README.md) for full documentation.
+
+---
+
 ## License
 
 [GPL-2.0](COPYING.TXT)

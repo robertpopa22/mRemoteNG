@@ -6,23 +6,23 @@ using NUnit.Framework;
 
 namespace mRemoteNGTests.Connection.Protocol;
 
-public class ProtocolAnydeskTests
+public class ProtocolAnyDeskTests
 {
-    private ProtocolAnyDesk _protocolAnydesk;
+    private ProtocolAnyDesk _protocolAnyDesk;
     private ConnectionInfo _connectionInfo;
 
     [SetUp]
     public void Setup()
     {
         _connectionInfo = new ConnectionInfo();
-        _protocolAnydesk = new ProtocolAnyDesk(_connectionInfo);
+        _protocolAnyDesk = new ProtocolAnyDesk(_connectionInfo);
     }
 
     [TearDown]
     public void Teardown()
     {
-        _protocolAnydesk?.Close();
-        _protocolAnydesk = null;
+        _protocolAnyDesk?.Close();
+        _protocolAnyDesk = null;
         _connectionInfo = null;
     }
 
@@ -197,7 +197,7 @@ public class ProtocolAnydeskTests
             throw new Exception("IsValidAnydeskId method not found. The method may have been renamed or removed.");
         }
 
-        return (bool)method.Invoke(_protocolAnydesk, new object[] { anydeskId });
+        return (bool)method.Invoke(_protocolAnyDesk, new object[] { anydeskId });
     }
 
     #endregion

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -211,16 +211,16 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                 // Username field is optional and not used in the CLI (reserved for future use)
                 // Password field is piped via stdin when --with-password flag is used
                 string anydeskId = _connectionInfo.Hostname.Trim();
-                
+
                 // Validate AnyDesk ID to prevent command injection
                 // AnyDesk IDs are numeric or alphanumeric with @ and - characters for aliases
                 if (!IsValidAnydeskId(anydeskId))
                 {
                     Runtime.MessageCollector?.AddMessage(MessageClass.ErrorMsg,
-                        "Invalid AnyDesk ID format. Only alphanumeric characters, @, -, and _ are allowed.", true);
+                        "Invalid AnyDesk ID format. Only alphanumeric characters, @, -, _, and . are allowed.", true);
                     return false;
                 }
-                
+
                 string arguments = anydeskId;
 
                 // Add --with-password flag if password is provided
@@ -252,12 +252,12 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                 return false;
             }
         }
-        
+
         private bool IsValidAnydeskId(string anydeskId)
         {
             if (string.IsNullOrWhiteSpace(anydeskId))
                 return false;
-            
+
             // AnyDesk IDs can be:
             // - Pure numeric (e.g., 123456789)
             // - Alphanumeric with @ for aliases (e.g., alias@ad)
@@ -270,7 +270,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                     return false;
                 }
             }
-            
+
             return true;
         }
 

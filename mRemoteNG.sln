@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
@@ -14,9 +14,8 @@ Global
 		Debug|arm64 = Debug|arm64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
-		Release Installer and Portable|arm64 = Release Installer and Portable|arm64
-		Release Installer and Portable|x64 = Release Installer and Portable|x64
-		Release Installer and Portable|x86 = Release Installer and Portable|x86
+		Release Self-Contained|arm64 = Release Self-Contained|arm64
+		Release Self-Contained|x64 = Release Self-Contained|x64
 		Release|arm64 = Release|arm64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
@@ -28,12 +27,10 @@ Global
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Debug|x64.Build.0 = Debug|x64
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Debug|x86.ActiveCfg = Debug|x86
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Debug|x86.Build.0 = Debug|x86
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|arm64.ActiveCfg = Release Portable|arm64
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|arm64.Build.0 = Release Portable|arm64
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x64.ActiveCfg = Release Portable|x64
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x64.Build.0 = Release Portable|x64
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x86.ActiveCfg = Release Portable|x86
-		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Installer and Portable|x86.Build.0 = Release Portable|x86
+		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Self-Contained|arm64.ActiveCfg = Release Self-Contained|arm64
+		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Self-Contained|arm64.Build.0 = Release Self-Contained|arm64
+		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Self-Contained|x64.ActiveCfg = Release Self-Contained|x64
+		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release Self-Contained|x64.Build.0 = Release Self-Contained|x64
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release|arm64.ActiveCfg = Release|arm64
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release|arm64.Build.0 = Release|arm64
 		{4934A491-40BC-4E5B-9166-EA1169A220F6}.Release|x64.ActiveCfg = Release|x64
@@ -46,12 +43,10 @@ Global
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug|x64.Build.0 = Debug|x64
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug|x86.ActiveCfg = Debug|x86
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Debug|x86.Build.0 = Debug|x86
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|arm64.ActiveCfg = Release Portable|arm64
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|arm64.Build.0 = Release Portable|arm64
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x64.ActiveCfg = Release Portable|x64
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x64.Build.0 = Release Portable|x64
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x86.ActiveCfg = Release Portable|x86
-		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Installer and Portable|x86.Build.0 = Release Portable|x86
+		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Self-Contained|arm64.ActiveCfg = Release Self-Contained|arm64
+		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Self-Contained|arm64.Build.0 = Release Self-Contained|arm64
+		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Self-Contained|x64.ActiveCfg = Release Self-Contained|x64
+		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release Self-Contained|x64.Build.0 = Release Self-Contained|x64
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release|arm64.ActiveCfg = Release|arm64
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release|arm64.Build.0 = Release|arm64
 		{A56A2029-79B8-492A-ABE5-D2BFE05801BD}.Release|x64.ActiveCfg = Release|x64
@@ -64,12 +59,10 @@ Global
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Debug|x64.Build.0 = Debug|Any CPU
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Debug|x86.Build.0 = Debug|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|arm64.ActiveCfg = Release|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|arm64.Build.0 = Release|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|x64.ActiveCfg = Release|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|x64.Build.0 = Release|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|x86.ActiveCfg = Release|Any CPU
-		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Installer and Portable|x86.Build.0 = Release|Any CPU
+		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Self-Contained|arm64.ActiveCfg = Release|Any CPU
+		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Self-Contained|arm64.Build.0 = Release|Any CPU
+		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Self-Contained|x64.ActiveCfg = Release|Any CPU
+		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release Self-Contained|x64.Build.0 = Release|Any CPU
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release|arm64.ActiveCfg = Release|Any CPU
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release|arm64.Build.0 = Release|Any CPU
 		{5718734C-03AC-4954-89B1-1723CF03AF10}.Release|x64.ActiveCfg = Release|Any CPU

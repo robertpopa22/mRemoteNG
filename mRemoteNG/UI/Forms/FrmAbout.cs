@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using mRemoteNG.App.Info;
@@ -9,6 +9,8 @@ using mRemoteNG.Properties;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using mRemoteNG.UI.Window;
+using mRemoteNG.App;
+using mRemoteNG.Messages;
 
 namespace mRemoteNG.UI.Forms
 {
@@ -42,7 +44,7 @@ namespace mRemoteNG.UI.Forms
         [Conditional("PORTABLE")]
         private void AddPortableString() => lblTitle.Text += $@" {Language.PortableEdition}";
 
-        private void ApplyTheme()
+        private new void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ThemingActive) return;
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
@@ -53,35 +55,53 @@ namespace mRemoteNG.UI.Forms
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-            
+
             // Don't cancel close when shown in DockPanel
             // This allows the tab to close properly without showing connection close dialog
         }
 
         private void llLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2) + "-" + Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType + "/COPYING.txt");
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
+            if (version != null && updateChannel != null)
+            {
+                var versionString = version.ToString();
+                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/COPYING.txt");
+            }
             Close();
         }
 
         private void llChangelog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2) + "-" + Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType + "/CHANGELOG.md");
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
+            if (version != null && updateChannel != null)
+            {
+                var versionString = version.ToString();
+                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/CHANGELOG.md");
+            }
             Close();
         }
 
         private void llCredits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, Assembly.GetExecutingAssembly().GetName().Version.ToString().Length - 2) + "-" + Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType + "/CREDITS.md");
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
+            if (version != null && updateChannel != null)
+            {
+                var versionString = version.ToString();
+                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/CREDITS.md");
+            }
             Close();
         }
 
-        private void OpenUrl(string url)
+        private static void OpenUrl(string url)
         {
             // Validate URL format to prevent injection
             if (string.IsNullOrWhiteSpace(url))
                 return;
-            
+
             // Basic URL validation - ensure it starts with http:// or https://
             if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
                 !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
@@ -89,7 +109,7 @@ namespace mRemoteNG.UI.Forms
                 // Invalid URL format - don't try to open it
                 return;
             }
-            
+
             try
             {
                 // Use the standard .NET approach for opening URLs securely
@@ -143,7 +163,9 @@ namespace mRemoteNG.UI.Forms
                 }
                 catch
                 {
-                    // Unable to open URL - silently fail
+                    // Unable to open URL - notify the user
+                    Runtime.MessageCollector?.AddMessage(MessageClass.WarningMsg,
+                        "Unable to open URL in browser. Please open manually: " + url, true);
                 }
             }
         }

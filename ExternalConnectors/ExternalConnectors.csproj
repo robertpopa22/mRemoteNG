@@ -1,22 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <OutputType>Library</OutputType>
     <UseWindowsForms>True</UseWindowsForms>
     <Platforms>x86;x64;arm64</Platforms>
-    <Configurations>Debug;Release;Debug Portable;Release Portable;Deploy to github</Configurations>
+    <Configurations>Debug;Release;Debug Portable;Release Portable;Release Self-Contained;Deploy to github</Configurations>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <EnableUnsafeBinaryFormatterSerialization>true</EnableUnsafeBinaryFormatterSerialization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x86'">
     <Optimize>True</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Self-Contained|x64'">
     <Optimize>True</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Portable|arm64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release Self-Contained|arm64'">
     <Optimize>True</Optimize>
   </PropertyGroup>
   <ItemGroup>

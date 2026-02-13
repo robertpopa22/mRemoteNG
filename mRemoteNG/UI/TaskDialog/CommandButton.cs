@@ -40,7 +40,7 @@ namespace mRemoteNG.UI.TaskDialog
 
         //--------------------------------------------------------------------------------
         // Override this to make sure the control is invalidated (repainted) when 'Text' is changed
-        public override string Text
+        public override string? Text
         {
             get => base.Text;
             set
@@ -109,13 +109,16 @@ namespace mRemoteNG.UI.TaskDialog
         //--------------------------------------------------------------------------------
         string GetLargeText()
         {
+            if (string.IsNullOrEmpty(Text))
+                return string.Empty;
+            
             string[] lines = Text.Split('\n');
             return lines[0];
         }
 
         string GetSmallText()
         {
-            if (Text.IndexOf('\n') < 0)
+            if (string.IsNullOrEmpty(Text) || Text.IndexOf('\n') < 0)
                 return "";
 
             string s = Text;
