@@ -172,23 +172,35 @@ if (!textBox.IsHandleCreated) return null;  // first line of GetCueBannerText()
 
 | Step | Command |
 | --- | --- |
-| 1. Create clean release | `gh release create v1.79.0 --title "..." --notes "..." --latest` |
-| 2. Let CI build NB release | Push triggers workflow, creates `YYYYMMDD-vX.Y.Z-NB-(BUILD)` |
-| 3. Download from NB | `gh release download <nb-tag> -D /tmp/zips` |
-| 4. Rename to clean names | `mRemoteNG-v1.79.0-x64.zip`, etc. |
-| 5. Upload to clean release | `gh release upload v1.79.0 *.zip` |
-| 6. Verify | `gh api repos/.../releases/tags/v1.79.0 --jq '.assets[].name'` |
+| 1. Create clean release | `gh release create v1.80.1 --repo robertpopa22/mRemoteNG --title "..." --notes "..." --latest` |
+| 2. Let CI build NB release | Tag push triggers workflow, creates `YYYYMMDD-vX.Y.Z-NB-(BUILD)` |
+| 3. Download from NB | `gh release download <nb-tag> --repo robertpopa22/mRemoteNG -D /tmp/zips` |
+| 4. Rename to clean names | `mRemoteNG-v1.80.1-x64.zip`, etc. |
+| 5. Upload to clean release | `gh release upload v1.80.1 --repo robertpopa22/mRemoteNG *.zip` |
+| 6. Verify | `gh api repos/robertpopa22/mRemoteNG/releases/tags/v1.80.1 --jq '.assets[].name'` |
+
+**Critical lessons (v1.80.1):**
+- **`--repo` is MANDATORY on forks.** `gh release create` defaults to upstream (`mRemoteNG/mRemoteNG`), not the fork. Always use `--repo robertpopa22/mRemoteNG`.
+- **Workflow changes in the same commit don't take effect for that push.** Adding `main` to `on.push.branches` only works on the *next* push — the current push uses the old workflow version. Tag pushes (`refs/tags/v*`) bypass this because they match the existing tag trigger.
+- **CI creates 2 runs on tag push + branch push.** The branch push may be `skipped` (old workflow), but the tag push always triggers correctly.
+- **Version bump requires 5 files** (not 4): `AssemblyInfo.tt`, `AssemblyInfo.cs`, `mRemoteNG.csproj`, `CHANGELOG.md`, `Build_mR-NB.yml` (2 places: step 04 and release metadata step).
+- **Build_mR-NB.yml has 2 version locations:** step `(04) Generate AssemblyInfo.cs` AND step `(02) Compute release metadata` in the `release` job. Miss either and versions mismatch.
+- **NB release naming:** `YYYYMMDD-vX.Y.Z-NB-(BUILD)` — the BUILD number is auto-computed from minutes since 2019-09-02.
+- **Rename pattern:** `sed 's/mRemoteNG-YYYYMMDD-vX.Y.Z-NB-BUILD-/mRemoteNG-vX.Y.Z-/'`
 
 **Note:** `gh release list` may not show API-created releases — use `gh api repos/.../releases` instead.
 
-### Version Bumping — All 4 Files in One Commit
+### Version Bumping — All 5 Files in One Commit
 
 | File | Field | Example |
 | --- | --- | --- |
-| `mRemoteNG/Properties/AssemblyInfo.tt` | `major`, `minor`, `revision`, `channel` | `1, 79, 0, "Release"` |
-| `mRemoteNG/mRemoteNG.csproj` | `<Version>` | `1.79.0` |
-| `CHANGELOG.md` | New `## [x.y.z]` section | `## [1.79.0] - 2026-02-08` |
-| `.github/workflows/Build_mR-NB.yml` | Step 04 inline values | `$major = 1; $minor = 79; ...` |
+| `mRemoteNG/Properties/AssemblyInfo.tt` | `major`, `minor`, `revision`, `channel` | `1, 80, 1, "Release"` |
+| `mRemoteNG/Properties/AssemblyInfo.cs` | `AssemblyVersion`, `AssemblyFileVersion`, `InformationalVersion` | `1.80.1.BUILD` |
+| `mRemoteNG/mRemoteNG.csproj` | `<Version>` | `1.80.1` |
+| `CHANGELOG.md` | New `## [x.y.z]` section | `## [1.80.1] - 2026-02-13` |
+| `.github/workflows/Build_mR-NB.yml` | **2 places:** Step 04 + release metadata | `$major = 1; $minor = 80; $revision = 1` |
+
+**AssemblyInfo.cs is MANDATORY** — T4 template (`.tt`) doesn't auto-regenerate locally. CI regenerates it, but local builds use the stale `.cs`. Always update both `.tt` and `.cs` together.
 
 **Do NOT modify:** `Config.wxi` (auto-binds), update check URLs (user-configurable).
 

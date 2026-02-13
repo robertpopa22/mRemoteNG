@@ -92,8 +92,10 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 ## Release Status (v1.80.1 Security Patch, 2026-02-13) ✅ RELEASED
 - **Tag:** `v1.80.1` on `main`
 - **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.1
-- **Assets:** 6 ZIPs (3 framework-dependent + 3 self-contained) — CI-built
+- **NB Release (CI):** tag `20260213-v1.80.1-NB-(3394)`
+- **Assets:** 6 ZIPs (3 framework-dependent ~22MB + 3 self-contained ~108-118MB)
 - **Architectures:** x64, x86, ARM64
+- **CI Run:** All 7 jobs passed (6 builds + 1 release) — run `22001519361`
 - **Key changes:** AnyDesk command injection fix, Process.Start hardening, .NET 10.0.3, 27 package cleanup
 - **Upstream merge:** 25 commits from `upstream/v1.78.2-dev` (security + dependencies + CI)
 
