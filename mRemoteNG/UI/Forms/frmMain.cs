@@ -234,6 +234,8 @@ namespace mRemoteNG.UI.Forms
             else
                 SetLayout();
 
+            ShowHidePanelTabs();
+
             Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsServiceOnConnectionsLoaded;
             Runtime.ConnectionsService.ConnectionsSaved += ConnectionsServiceOnConnectionsSaved;
             
