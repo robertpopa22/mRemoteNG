@@ -16,14 +16,14 @@ namespace mRemoteNG.Config.Putty
     public class PuttySessionsRegistryProvider : AbstractPuttySessionsProvider
     {
         private const string PuttySessionsKey = "Software\\SimonTatham\\PuTTY\\Sessions";
-        private string CurrentUserSid { get; } = WindowsIdentity.GetCurrent().User?.Value;
-        private static ManagementEventWatcher _eventWatcher;
+        private string? CurrentUserSid { get; } = WindowsIdentity.GetCurrent().User?.Value;
+        private static ManagementEventWatcher? _eventWatcher;
 
         #region Public Methods
 
         public override string[] GetSessionNames(bool raw = false)
         {
-            RegistryKey sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
+            RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
             if (sessionsKey == null) return Array.Empty<string>();
 
             List<string> sessionNames = new();
@@ -40,13 +40,13 @@ namespace mRemoteNG.Config.Putty
             return sessionNames.ToArray();
         }
 
-        public override PuttySessionInfo GetSession(string sessionName)
+        public override PuttySessionInfo? GetSession(string sessionName)
         {
             if (string.IsNullOrEmpty(sessionName))
                 return null;
 
-            RegistryKey sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
-            RegistryKey sessionKey = sessionsKey?.OpenSubKey(sessionName);
+            RegistryKey? sessionsKey = Registry.CurrentUser.OpenSubKey(PuttySessionsKey);
+            RegistryKey? sessionKey = sessionsKey?.OpenSubKey(sessionName);
             if (sessionKey == null) return null;
 
             sessionName = PuttySessionNameDecoder.Decode(sessionName);
@@ -60,9 +60,9 @@ namespace mRemoteNG.Config.Putty
             };
 
 
-            string protocol = string.IsNullOrEmpty(sessionKey.GetValue("Protocol")?.ToString())
-                ? "ssh"
-                : sessionKey.GetValue("Protocol").ToString();
+            string protocol = sessionKey.GetValue("Protocol")?.ToString() is { Length: > 0 } p
+                ? p
+                : "ssh";
 
             switch (protocol.ToLowerInvariant())
             {
@@ -108,7 +108,7 @@ namespace mRemoteNG.Config.Putty
             try
             {
                 string keyName = string.Join("\\", CurrentUserSid, PuttySessionsKey).Replace("\\", "\\\\");
-                RegistryKey sessionsKey = Registry.Users.OpenSubKey(keyName);
+                RegistryKey? sessionsKey = Registry.Users.OpenSubKey(keyName);
                 if (sessionsKey == null)
                 {
                     Registry.Users.CreateSubKey(keyName);

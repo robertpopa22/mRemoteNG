@@ -37,7 +37,7 @@ public class ConnectionsServicePuttySessionsResilienceTests
     {
         public override string[] GetSessionNames(bool raw = false) => new[] { "BrokenSession" };
 
-        public override PuttySessionInfo GetSession(string sessionName) =>
+        public override PuttySessionInfo? GetSession(string sessionName) =>
             throw new FileNotFoundException("Simulated missing private key file.");
     }
 }

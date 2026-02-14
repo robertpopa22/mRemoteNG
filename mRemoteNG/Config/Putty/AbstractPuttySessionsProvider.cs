@@ -19,7 +19,7 @@ namespace mRemoteNG.Config.Putty
         #region Public Methods
 
         public abstract string[] GetSessionNames(bool raw = false);
-        public abstract PuttySessionInfo GetSession(string sessionName);
+        public abstract PuttySessionInfo? GetSession(string sessionName);
 
         public virtual IEnumerable<PuttySessionInfo> GetSessions()
         {
@@ -27,8 +27,9 @@ namespace mRemoteNG.Config.Putty
 
             foreach (string sessionName in GetSessionNamesToAdd(sessionNamesFromProvider))
             {
-                PuttySessionInfo sessionInfo = GetSession(sessionName);
-                AddSession(sessionInfo);
+                PuttySessionInfo? sessionInfo = GetSession(sessionName);
+                if (sessionInfo != null)
+                    AddSession(sessionInfo);
             }
 
             foreach (PuttySessionInfo session in GetSessionToRemove(sessionNamesFromProvider))
