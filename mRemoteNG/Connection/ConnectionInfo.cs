@@ -107,12 +107,13 @@ namespace mRemoteNG.Connection
         /// <param name="sourceConnectionInfo"></param>
         public void CopyFrom(ConnectionInfo sourceConnectionInfo)
         {
-            IEnumerable<PropertyInfo> properties = GetType().BaseType?.GetProperties().Where(prop => prop.CanRead && prop.CanWrite);
-            if (properties == null) return;
+            PropertyInfo[]? baseProperties = GetType().BaseType?.GetProperties();
+            if (baseProperties == null) return;
+            IEnumerable<PropertyInfo> properties = baseProperties.Where(prop => prop.CanRead && prop.CanWrite);
             foreach (PropertyInfo property in properties)
             {
                 if (property.Name == nameof(Parent)) continue;
-                object remotePropertyValue = property.GetValue(sourceConnectionInfo, null);
+                object? remotePropertyValue = property.GetValue(sourceConnectionInfo, null);
                 property.SetValue(this, remotePropertyValue, null);
             }
 
@@ -227,7 +228,7 @@ namespace mRemoteNG.Connection
         private bool IsInheritanceTurnedOnForThisProperty(string propertyName)
         {
             Type inheritType = Inheritance.GetType();
-            PropertyInfo inheritPropertyInfo = inheritType.GetProperty(propertyName);
+            PropertyInfo? inheritPropertyInfo = inheritType.GetProperty(propertyName);
             bool inheritPropertyValue = inheritPropertyInfo != null && Convert.ToBoolean(inheritPropertyInfo.GetValue(Inheritance, null));
             return inheritPropertyValue;
         }
@@ -236,20 +237,21 @@ namespace mRemoteNG.Connection
         {
             try
             {
-                Type connectionInfoType = Parent.GetType();
-                PropertyInfo parentPropertyInfo = connectionInfoType.GetProperty(propertyName);
+                Type connectionInfoType = Parent!.GetType();
+                PropertyInfo? parentPropertyInfo = connectionInfoType.GetProperty(propertyName);
                 if (parentPropertyInfo == null)
                     throw new NullReferenceException(
                         $"Could not retrieve property data for property '{propertyName}' on parent node '{Parent?.Name}'"
                     );
 
-                inheritedValue = (TPropertyType)parentPropertyInfo.GetValue(Parent, null);
+                object? rawValue = parentPropertyInfo.GetValue(Parent, null);
+                inheritedValue = rawValue is TPropertyType typed ? typed : default!;
                 return true;
             }
             catch (Exception e)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace($"Error retrieving inherited property '{propertyName}'", e);
-                inheritedValue = default(TPropertyType);
+                inheritedValue = default!;
                 return false;
             }
         }
