@@ -71,10 +71,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         public override void SaveSettings()
         {
+            var selectedItemStr = Convert.ToString(cboLanguage.SelectedItem) ?? string.Empty;
             if (cboLanguage.SelectedIndex > 0 &&
-                SupportedCultures.IsNativeNameSupported(Convert.ToString(cboLanguage.SelectedItem)))
+                SupportedCultures.IsNativeNameSupported(selectedItemStr))
             {
-                Settings.Default.OverrideUICulture = SupportedCultures.get_CultureName(Convert.ToString(cboLanguage.SelectedItem));
+                Settings.Default.OverrideUICulture = SupportedCultures.get_CultureName(selectedItemStr);
             }
             else
             {
@@ -149,11 +150,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// </summary>
         public bool ShowRegistrySettingsUsedInfo()
         {
-            return pageRegSettingsInstance.ShowDescriptionTooltipsInConTree.IsSet
+            return pageRegSettingsInstance != null
+                && (pageRegSettingsInstance.ShowDescriptionTooltipsInConTree.IsSet
                 || pageRegSettingsInstance.ShowCompleteConFilePathInTitle.IsSet
                 || pageRegSettingsInstance.AlwaysShowSystemTrayIcon.IsSet
                 || pageRegSettingsInstance.MinimizeToTray.IsSet
-                || pageRegSettingsInstance.CloseToTray.IsSet;
+                || pageRegSettingsInstance.CloseToTray.IsSet);
         }
     }
 }
