@@ -12,7 +12,7 @@ namespace mRemoteNG.Connection
     [SupportedOSPlatform("windows")]
     public class ConnectionInfoInheritance
     {
-        private ConnectionInfoInheritance _tempInheritanceStorage;
+        private ConnectionInfoInheritance? _tempInheritanceStorage;
 
         #region Public Properties
 
@@ -564,6 +564,7 @@ namespace mRemoteNG.Connection
 
         private void UnstashInheritanceData()
         {
+            if (_tempInheritanceStorage == null) return;
             SetAllValues(_tempInheritanceStorage);
             _tempInheritanceStorage = null;
         }
@@ -592,7 +593,7 @@ namespace mRemoteNG.Connection
         private bool EverythingIsInherited()
         {
             IEnumerable<PropertyInfo> inheritanceProperties = GetProperties();
-            bool everythingInherited = inheritanceProperties.All((p) => (bool)p.GetValue(this, null));
+            bool everythingInherited = inheritanceProperties.All((p) => p.GetValue(this, null) is true);
             return everythingInherited;
         }
 
@@ -612,7 +613,7 @@ namespace mRemoteNG.Connection
         {
             return InheritanceActive
                 ? GetProperties()
-                    .Where(property => (bool)property.GetValue(this))
+                    .Where(property => property.GetValue(this) is true)
                     .Select(property => property.Name)
                     .ToList()
                 : Enumerable.Empty<string>();
@@ -645,7 +646,7 @@ namespace mRemoteNG.Connection
             IEnumerable<PropertyInfo> properties = GetProperties();
             foreach (PropertyInfo property in properties)
             {
-                object newPropertyValue = property.GetValue(otherInheritanceObject, null);
+                object? newPropertyValue = property.GetValue(otherInheritanceObject, null);
                 property.SetValue(this, newPropertyValue, null);
             }
         }
