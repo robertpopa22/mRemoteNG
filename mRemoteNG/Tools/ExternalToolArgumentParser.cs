@@ -108,9 +108,12 @@ namespace mRemoteNG.Tools
                 }
                 else
                 {
-                    replacementValue = Environment.GetEnvironmentVariable(variableName);
-                    if (replacementValue != null)
+                    string? envValue = Environment.GetEnvironmentVariable(variableName);
+                    if (envValue != null)
+                    {
+                        replacementValue = envValue;
                         haveReplacement = true;
+                    }
                 }
 
                 if (haveReplacement)
