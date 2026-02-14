@@ -25,7 +25,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(content);
 
-            XmlNode sessionsNode = xmlDocument.SelectSingleNode("/VanDyke/key[@name=\"Sessions\"]");
+            XmlNode? sessionsNode = xmlDocument.SelectSingleNode("/VanDyke/key[@name=\"Sessions\"]");
+            if (sessionsNode == null)
+                return connectionTreeModel;
 
             ImportRootOrContainer(sessionsNode, root);
 
@@ -41,7 +43,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             foreach (XmlNode child in rootNode.ChildNodes)
             {
-                string name = child.Attributes["name"].Value;
+                string? name = child.Attributes?["name"]?.Value;
                 if (name == "Default" || name == "Default_LocalShell")
                     continue;
                 SecureCRTNodeType nodeType = GetFolderOrSession(child);
@@ -70,7 +72,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         {
             ContainerInfo containerInfo = new()
             {
-                Name = containerNode.Attributes["name"].InnerText
+                Name = containerNode.Attributes?["name"]?.InnerText ?? string.Empty
             };
             parentContainer.AddChild(containerInfo);
             return containerInfo;
@@ -84,16 +86,16 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             return SecureCRTNodeType.session;
         }
 
-        private ConnectionInfo ConnectionInfoFromXml(XmlNode xmlNode)
+        private ConnectionInfo? ConnectionInfoFromXml(XmlNode xmlNode)
         {
             ConnectionInfo connectionInfo = new();
             try
             {
-                connectionInfo.Name = xmlNode.Attributes["name"].InnerText;
-                connectionInfo.Hostname = GetHostnameFromNode(xmlNode);
+                connectionInfo.Name = xmlNode.Attributes?["name"]?.InnerText ?? string.Empty;
+                connectionInfo.Hostname = GetHostnameFromNode(xmlNode) ?? string.Empty;
                 connectionInfo.Protocol = GetProtocolFromNode(xmlNode);
                 connectionInfo.Port = GetPortFromNode(xmlNode, connectionInfo.Protocol);
-                connectionInfo.Username = GetUsernameFromNode(xmlNode);
+                connectionInfo.Username = GetUsernameFromNode(xmlNode) ?? string.Empty;
                 connectionInfo.Description = GetDescriptionFromNode(xmlNode);
             }
             catch (FileFormatException e)
@@ -105,13 +107,12 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             return connectionInfo;
         }
 
-        private string GetHostnameFromNode(XmlNode xmlNode)
+        private string? GetHostnameFromNode(XmlNode xmlNode)
         {
             return xmlNode.SelectSingleNode("string[@name=\"Hostname\"]")?.InnerText;
-
         }
 
-        private string GetUsernameFromNode(XmlNode xmlNode)
+        private string? GetUsernameFromNode(XmlNode xmlNode)
         {
             return xmlNode.SelectSingleNode("string[@name=\"Username\"]")?.InnerText;
         }
@@ -121,9 +122,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             switch (protocol)
             {
                 case ProtocolType.SSH1:
-                    return Convert.ToInt32(xmlNode.SelectSingleNode("dword[@name=\"[SSH1] Port\"]").InnerText);
+                    return Convert.ToInt32(xmlNode.SelectSingleNode("dword[@name=\"[SSH1] Port\"]")?.InnerText);
                 case ProtocolType.SSH2:
-                    return Convert.ToInt32(xmlNode.SelectSingleNode("dword[@name=\"[SSH2] Port\"]").InnerText);
+                    return Convert.ToInt32(xmlNode.SelectSingleNode("dword[@name=\"[SSH2] Port\"]")?.InnerText);
                 default:
                     return Convert.ToInt32(xmlNode.SelectSingleNode("dword[@name=\"Port\"]")?.InnerText);
             }
@@ -131,7 +132,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private ProtocolType GetProtocolFromNode(XmlNode xmlNode)
         {
-            XmlNode protocolNode = xmlNode.SelectSingleNode("string[@name=\"Protocol Name\"]");
+            XmlNode? protocolNode = xmlNode.SelectSingleNode("string[@name=\"Protocol Name\"]");
             if (protocolNode == null)
                 throw new FileFormatException($"Protocol node not found");
 
@@ -158,7 +159,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         private string GetDescriptionFromNode(XmlNode xmlNode)
         {
             string description = string.Empty;
-            XmlNode descNode = xmlNode.SelectSingleNode("array[@name=\"Description\"]");
+            XmlNode? descNode = xmlNode.SelectSingleNode("array[@name=\"Description\"]");
+            if (descNode == null)
+                return description;
             foreach(XmlNode n in descNode.ChildNodes)
             {
                 description += n.InnerText + " ";
