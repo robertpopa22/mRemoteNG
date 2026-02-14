@@ -56,7 +56,7 @@ namespace mRemoteNG.UI.Window
             set
             {
                 _selectedTreeNode = value;
-                _pGrid.SelectedConnectionInfo = value;
+                _pGrid.SelectedConnectionInfo = value!;
                 UpdateTopRow();
             }
         }
@@ -319,7 +319,7 @@ namespace mRemoteNG.UI.Window
         private new void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            if (_themeManager == null) return;
+            if (_themeManager?.ActiveTheme == null) return;
             _pGrid.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
             _pGrid.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.ViewBackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Background");
@@ -576,8 +576,8 @@ namespace mRemoteNG.UI.Window
 
             foreach (string propertyName in VisibleObjectProperties)
             {
-                PropertyDescriptor descriptor = objectProperties.Find(propertyName, true);
-                string displayName = descriptor?.DisplayName;
+                PropertyDescriptor? descriptor = objectProperties.Find(propertyName, true);
+                string? displayName = descriptor?.DisplayName;
                 if (string.IsNullOrWhiteSpace(displayName))
                     continue;
 
@@ -597,18 +597,18 @@ namespace mRemoteNG.UI.Window
 
             try
             {
-                object gridView = typeof(PropertyGrid).GetField("gridView", NonPublicInstanceBinding)?.GetValue(propertyGrid);
+                object? gridView = typeof(PropertyGrid).GetField("gridView", NonPublicInstanceBinding)?.GetValue(propertyGrid);
                 if (gridView == null)
                     return false;
 
-                PropertyInfo internalLabelWidth = gridView.GetType().GetProperty("InternalLabelWidth", NonPublicInstanceBinding);
+                PropertyInfo? internalLabelWidth = gridView.GetType().GetProperty("InternalLabelWidth", NonPublicInstanceBinding);
                 if (internalLabelWidth?.GetValue(gridView) is int widthFromProperty && widthFromProperty > 0)
                 {
                     labelWidth = widthFromProperty;
                     return true;
                 }
 
-                FieldInfo labelWidthField = gridView.GetType().GetField("labelWidth", NonPublicInstanceBinding);
+                FieldInfo? labelWidthField = gridView.GetType().GetField("labelWidth", NonPublicInstanceBinding);
                 if (labelWidthField?.GetValue(gridView) is int widthFromField && widthFromField > 0)
                 {
                     labelWidth = widthFromField;
@@ -630,18 +630,18 @@ namespace mRemoteNG.UI.Window
 
             try
             {
-                object gridView = typeof(PropertyGrid).GetField("gridView", NonPublicInstanceBinding)?.GetValue(propertyGrid);
+                object? gridView = typeof(PropertyGrid).GetField("gridView", NonPublicInstanceBinding)?.GetValue(propertyGrid);
                 if (gridView == null)
                     return false;
 
-                MethodInfo moveSplitterTo = gridView.GetType().GetMethod("MoveSplitterTo", NonPublicInstanceBinding);
+                MethodInfo? moveSplitterTo = gridView.GetType().GetMethod("MoveSplitterTo", NonPublicInstanceBinding);
                 if (moveSplitterTo != null)
                 {
                     moveSplitterTo.Invoke(gridView, [labelWidth]);
                     return true;
                 }
 
-                PropertyInfo internalLabelWidth = gridView.GetType().GetProperty("InternalLabelWidth", NonPublicInstanceBinding);
+                PropertyInfo? internalLabelWidth = gridView.GetType().GetProperty("InternalLabelWidth", NonPublicInstanceBinding);
                 if (internalLabelWidth is { CanWrite: true })
                 {
                     internalLabelWidth.SetValue(gridView, labelWidth);
@@ -677,13 +677,15 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                if (e.ChangedItem.Label == Language.Icon)
+                if (e.ChangedItem?.Label == Language.Icon)
                 {
-                    Icon conIcon = ConnectionIcon.FromString(_pGrid.SelectedConnectionInfo.Icon);
+                    Icon? conIcon = _pGrid.SelectedConnectionInfo != null
+                        ? ConnectionIcon.FromString(_pGrid.SelectedConnectionInfo.Icon)
+                        : null;
                     if (conIcon != null)
                         _btnIcon.Image = conIcon.ToBitmap();
                 }
-                else if (e.ChangedItem.Label == Language.HostnameIp)
+                else if (e.ChangedItem?.Label == Language.HostnameIp)
                 {
                     SetHostStatus(_pGrid.SelectedConnectionInfo);
                 }
@@ -845,7 +847,7 @@ namespace mRemoteNG.UI.Window
             }
         }
 
-        private void SetHostStatus(object connectionInfo)
+        private void SetHostStatus(object? connectionInfo)
         {
             try
             {
