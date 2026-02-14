@@ -50,11 +50,11 @@ namespace mRemoteNG.App.Update
 
         public bool CheckIfValid()
         {
-            if (string.IsNullOrEmpty(Version.ToString()))
+            if (Version is null || string.IsNullOrEmpty(Version.ToString()))
                 return false;
-            if (string.IsNullOrEmpty(DownloadAddress.AbsoluteUri))
+            if (DownloadAddress is null || string.IsNullOrEmpty(DownloadAddress.AbsoluteUri))
                 return false;
-            if (string.IsNullOrEmpty(ChangeLogAddress.AbsoluteUri))
+            if (ChangeLogAddress is null || string.IsNullOrEmpty(ChangeLogAddress.AbsoluteUri))
                 return false;
 #if false
             if (string.IsNullOrEmpty(ImageAddress.AbsoluteUri))
