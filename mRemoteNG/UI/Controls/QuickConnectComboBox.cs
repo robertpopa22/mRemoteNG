@@ -32,7 +32,7 @@ namespace mRemoteNG.UI.Controls
 
         private void ComboBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter & _comboBox.DroppedDown)
+            if (e.KeyCode == Keys.Enter & (_comboBox?.DroppedDown ?? false))
             {
                 _ignoreEnter = true;
             }
@@ -46,22 +46,22 @@ namespace mRemoteNG.UI.Controls
                 // Only connect if Enter was not pressed while the combo box was dropped down
                 if (!_ignoreEnter)
                 {
-                    OnConnectRequested(new ConnectRequestedEventArgs(_comboBox.Text));
+                    OnConnectRequested(new ConnectRequestedEventArgs(_comboBox?.Text ?? string.Empty));
                 }
 
                 _ignoreEnter = false;
                 e.Handled = true;
             }
-            else if (e.KeyCode == Keys.Delete & _comboBox.DroppedDown)
+            else if (e.KeyCode == Keys.Delete & (_comboBox?.DroppedDown ?? false))
             {
                 if (_comboBox.SelectedIndex != -1)
                 {
                     // Items can't be removed from the ComboBox while it is dropped down without possibly causing
                     // an exception so we must close it, delete the item, and then drop it down again. When we
                     // close it programmatically, the SelectedItem may revert to Nothing, so we must save it first.
-                    object item = _comboBox.SelectedItem;
+                    object? item = _comboBox.SelectedItem;
                     _comboBox.DroppedDown = false;
-                    _comboBox.Items.Remove(item);
+                    if (item != null) _comboBox.Items.Remove(item);
                     _comboBox.SelectedIndex = -1;
                     if (_comboBox.Items.Count != 0)
                     {
@@ -75,7 +75,7 @@ namespace mRemoteNG.UI.Controls
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!(_comboBox.SelectedItem is HistoryItem))
+            if (_comboBox == null || _comboBox.SelectedItem is not HistoryItem)
             {
                 return;
             }
@@ -86,27 +86,26 @@ namespace mRemoteNG.UI.Controls
 
         private static void ComboBox_DrawItem(object sender, DrawItemEventArgs e)
         {
-            ComboBox comboBox = sender as ComboBox;
-            if (comboBox == null)
+            if (sender is not ComboBox comboBox)
             {
                 return;
             }
 
-            object drawItem = comboBox.Items[e.Index];
+            object? drawItem = comboBox.Items[e.Index];
 
             string drawString;
-            if (drawItem is HistoryItem)
+            if (drawItem is HistoryItem historyItem)
             {
-                HistoryItem historyItem = (HistoryItem)drawItem;
                 drawString = historyItem.ToString(true);
             }
             else
             {
-                drawString = drawItem.ToString();
+                drawString = drawItem?.ToString() ?? string.Empty;
             }
 
             e.DrawBackground();
-            e.Graphics.DrawString(drawString, e.Font, new SolidBrush(e.ForeColor),
+            Font drawFont = e.Font ?? SystemFonts.DefaultFont;
+            e.Graphics.DrawString(drawString, drawFont, new SolidBrush(e.ForeColor),
                                   new RectangleF(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height));
             e.DrawFocusRectangle();
         }
@@ -161,6 +160,7 @@ namespace mRemoteNG.UI.Controls
 
         private bool Exists(HistoryItem searchItem)
         {
+            if (_comboBox == null) return false;
             foreach (object item in _comboBox.Items)
             {
                 if (!(item is HistoryItem))
@@ -185,7 +185,7 @@ namespace mRemoteNG.UI.Controls
                 HistoryItem historyItem = new() { ConnectionInfo = connectionInfo};
                 if (!Exists(historyItem))
                 {
-                    _comboBox.Items.Insert(0, historyItem);
+                    _comboBox?.Items.Insert(0, historyItem);
                 }
             }
             catch (Exception ex)
@@ -224,8 +224,8 @@ namespace mRemoteNG.UI.Controls
 
         public event ConnectRequestedEventHandler ConnectRequested
         {
-            add => ConnectRequestedEvent = (ConnectRequestedEventHandler)Delegate.Combine(ConnectRequestedEvent, value);
-            remove => ConnectRequestedEvent = (ConnectRequestedEventHandler)Delegate.Remove(ConnectRequestedEvent, value);
+            add => ConnectRequestedEvent = (ConnectRequestedEventHandler?)Delegate.Combine(ConnectRequestedEvent, value);
+            remove => ConnectRequestedEvent = (ConnectRequestedEventHandler?)Delegate.Remove(ConnectRequestedEvent, value);
         }
 
 
@@ -246,8 +246,8 @@ namespace mRemoteNG.UI.Controls
 
         public event ProtocolChangedEventHandler ProtocolChanged
         {
-            add => ProtocolChangedEvent = (ProtocolChangedEventHandler)Delegate.Combine(ProtocolChangedEvent, value);
-            remove => ProtocolChangedEvent = (ProtocolChangedEventHandler)Delegate.Remove(ProtocolChangedEvent, value);
+            add => ProtocolChangedEvent = (ProtocolChangedEventHandler?)Delegate.Combine(ProtocolChangedEvent, value);
+            remove => ProtocolChangedEvent = (ProtocolChangedEventHandler?)Delegate.Remove(ProtocolChangedEvent, value);
         }
 
 
