@@ -27,7 +27,7 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public partial class ConnectionWindow : BaseWindow
     {
-        private VisualStudioToolStripExtender _vsToolStripExtender;
+        private VisualStudioToolStripExtender? _vsToolStripExtender;
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
 
         #region Public Methods
@@ -99,7 +99,7 @@ namespace mRemoteNG.UI.Window
             TabHelper.Instance.CurrentPanel = this;
         }
 
-        public ConnectionTab AddConnectionTab(ConnectionInfo connectionInfo)
+        public ConnectionTab? AddConnectionTab(ConnectionInfo connectionInfo)
         {
             try
             {
@@ -173,8 +173,9 @@ namespace mRemoteNG.UI.Window
             {
                 foreach (IDockContent dockContent in connDock.DocumentsToArray())
                 {
-                    ConnectionTab tab = (ConnectionTab)dockContent;
-                    controlList.Add((InterfaceControl)tab.Tag);
+                    if (dockContent is not ConnectionTab tab) continue;
+                    if (tab.Tag is InterfaceControl ic)
+                        controlList.Add(ic);
                 }
 
                 foreach (InterfaceControl iControl in controlList)
@@ -188,8 +189,7 @@ namespace mRemoteNG.UI.Window
                 Runtime.MessageCollector.AddExceptionMessage("reconnectAll (UI.Window.ConnectionWindow) failed", ex);
             }
 
-            // ReSharper disable once RedundantAssignment
-            controlList = null;
+            controlList.Clear();
         }
 
         #region Form
@@ -326,14 +326,14 @@ namespace mRemoteNG.UI.Window
             }
         }
 
-        public new event EventHandler ResizeBegin;
+        public new event EventHandler? ResizeBegin;
 
         private void Connection_ResizeBegin(object sender, EventArgs e)
         {
             ResizeBegin?.Invoke(this, e);
         }
 
-        public new event EventHandler ResizeEnd;
+        public new event EventHandler? ResizeEnd;
 
         private void Connection_ResizeEnd(object sender, EventArgs e)
         {
