@@ -159,8 +159,10 @@ namespace mRemoteNG.UI.Controls
                                           _themeManager.ActiveTheme.Theme);
 
             if (!_themeManager.ActiveAndExtended) return;
-            _cmbQuickConnect.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
-            _cmbQuickConnect.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
+            var palette = _themeManager.ActiveTheme.ExtendedPalette;
+            if (palette == null) return;
+            _cmbQuickConnect.BackColor = palette.getColor("TextBox_Background");
+            _cmbQuickConnect.ForeColor = palette.getColor("TextBox_Foreground");
         }
 
         #region Quick Connect
@@ -230,7 +232,7 @@ namespace mRemoteNG.UI.Controls
         private void btnQuickConnect_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if (e.ClickedItem == null) return;
-            SetQuickConnectProtocol(e.ClickedItem.Text);
+            SetQuickConnectProtocol(e.ClickedItem.Text ?? string.Empty);
             if (string.IsNullOrEmpty(_cmbQuickConnect.Text))
                 _cmbQuickConnect.Focus();
             else
@@ -243,7 +245,7 @@ namespace mRemoteNG.UI.Controls
             _btnQuickConnect.Text = protocol;
             foreach (ToolStripMenuItem menuItem in _mnuQuickConnectProtocol.Items)
             {
-                menuItem.Checked = menuItem.Text.Equals(protocol);
+                menuItem.Checked = string.Equals(menuItem.Text, protocol);
             }
         }
 
