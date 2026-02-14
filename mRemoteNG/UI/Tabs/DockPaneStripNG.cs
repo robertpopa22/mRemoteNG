@@ -744,7 +744,7 @@ namespace mRemoteNG.UI.Tabs
             // Draw the tabs
             Rectangle rectTabOnly = TabsRectangle;
             Rectangle rectTab;
-            MremoteNGTab tabActive = null;
+            MremoteNGTab? tabActive = null;
             g.SetClip(DrawHelper.RtlTransform(this, rectTabOnly));
             for (int i = 0; i < count; i++)
             {
@@ -777,7 +777,7 @@ namespace mRemoteNG.UI.Tabs
             }
 
             g.SetClip(DrawHelper.RtlTransform(this, rectTabOnly));
-            if (tabActive == null) return;
+            if (tabActive?.Rectangle == null) return;
             rectTab = tabActive.Rectangle.Value;
             if (!rectTab.IntersectsWith(rectTabOnly)) return;
             rectTab.Intersect(rectTabOnly);
@@ -1005,7 +1005,7 @@ namespace mRemoteNG.UI.Tabs
             Color mouseHoverText = DockPane.DockPanel.Theme.ColorPalette.TabUnselectedHovered.Text;
 
             Color text;
-            Image image = null;
+            Image? image = null;
             Color paint;
             IImageService imageService = DockPane.DockPanel.Theme.ImageService;
             if (DockPane.ActiveContent == tab.Content)
@@ -1072,7 +1072,9 @@ namespace mRemoteNG.UI.Tabs
                         if (!string.IsNullOrEmpty(tabColorStr))
                         {
                             ColorConverter converter = new ColorConverter();
-                            return (Color)converter.ConvertFromString(tabColorStr);
+                            object? converted = converter.ConvertFromString(tabColorStr);
+                            if (converted is Color color)
+                                return color;
                         }
                     }
                 }
@@ -1325,7 +1327,7 @@ namespace mRemoteNG.UI.Tabs
         private void ContextMenuItem_Click(object sender, EventArgs e)
         {
             if (!(sender is ToolStripMenuItem item)) return;
-            IDockContent content = (IDockContent)item.Tag;
+            if (item.Tag is not IDockContent content) return;
             DockPane.ActiveContent = content;
         }
 
@@ -1449,7 +1451,7 @@ namespace mRemoteNG.UI.Tabs
             return true;
         }
 
-        private bool SetMouseOverTab(IDockContent content)
+        private bool SetMouseOverTab(IDockContent? content)
         {
             if (DockPane.MouseOverTab == content)
                 return false;
