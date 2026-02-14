@@ -753,6 +753,16 @@ CRITICAL RULES:
         status.data["warnings"]["total_now"] = new_total
         status.data["warnings"]["fixed_this_session"] += fixed
 
+        # Recalculate per-type counts from new build output
+        new_type_counts = {}
+        for file_w in new_warnings.values():
+            for w in file_w:
+                new_type_counts[w["code"]] = new_type_counts.get(w["code"], 0) + 1
+        for code, d in status.data["warnings"]["by_type"].items():
+            new_cnt = new_type_counts.get(code, 0)
+            d["fixed"] = d["start"] - new_cnt
+            d["now"] = new_cnt
+
         # Commit (no push for warnings — batch push at end)
         msg = f"chore: fix {fixed} nullable warnings in {os.path.basename(rel)}"
         h = git_commit(msg)

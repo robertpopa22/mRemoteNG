@@ -660,11 +660,8 @@ namespace mRemoteNG.UI.Controls
         {
             foreach (ToolStripItem item in items)
             {
-                ToolStripMenuItem menuItem = item as ToolStripMenuItem;
-                if (menuItem == null)
-                {
+                if (item is not ToolStripMenuItem menuItem)
                     continue;
-                }
 
                 menuItem.Enabled = enable;
                 if (menuItem.HasDropDownItems)
@@ -714,7 +711,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnConnectClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer, ConnectionInfo.Force.DoNotJump);
             else
@@ -723,7 +720,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnConnectToConsoleSessionClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer,
                                                            ConnectionInfo.Force.UseConsoleSession |
@@ -737,7 +734,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnDontConnectToConsoleSessionClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer,
                                                            ConnectionInfo.Force.DontUseConsoleSession |
@@ -750,7 +747,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnConnectInFullscreenClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer,
                                                            ConnectionInfo.Force.Fullscreen | ConnectionInfo.Force.DoNotJump);
@@ -761,7 +758,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnConnectWithNoCredentialsClick(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer, ConnectionInfo.Force.NoCredentials);
             else
@@ -770,7 +767,7 @@ namespace mRemoteNG.UI.Controls
 
         private void OnChoosePanelBeforeConnectingClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
             if (selectedNodeAsContainer != null)
                 Runtime.ConnectionInitiator.OpenConnection(selectedNodeAsContainer,
                                                            ConnectionInfo.Force.OverridePanel |
@@ -820,7 +817,7 @@ namespace mRemoteNG.UI.Controls
                     }
                 }
                 
-                ContainerInfo nodeAsContainer = connectionInfo as ContainerInfo;
+                ContainerInfo? nodeAsContainer = connectionInfo as ContainerInfo;
                 if (nodeAsContainer != null)
                 {
                     foreach (ConnectionInfo child in nodeAsContainer.Children)
@@ -893,23 +890,25 @@ namespace mRemoteNG.UI.Controls
 
         private void OnImportFileClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer;
+            ContainerInfo? selectedNodeAsContainer;
             if (_connectionTree.SelectedNode == null)
-                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel.RootNodes.First();
+                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes.First();
             else
                 selectedNodeAsContainer =
                     _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
+            if (selectedNodeAsContainer == null) return;
             Import.ImportFromFile(selectedNodeAsContainer);
         }
 
         private void OnImportPuttyClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer;
+            ContainerInfo? selectedNodeAsContainer;
             if (_connectionTree.SelectedNode == null)
-                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel.RootNodes.First();
+                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes.First();
             else
                 selectedNodeAsContainer =
                     _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
+            if (selectedNodeAsContainer == null) return;
             Import.ImportFromPutty(selectedNodeAsContainer);
         }
 
