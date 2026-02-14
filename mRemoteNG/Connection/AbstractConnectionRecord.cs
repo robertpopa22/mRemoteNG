@@ -204,8 +204,8 @@ namespace mRemoteNG.Connection
          AttributeUsedInAllProtocolsExcept()]
         public virtual string Hostname
         {
-            get => _hostname?.Trim();
-            set => SetField(ref _hostname, value?.Trim(), "Hostname");
+            get => _hostname?.Trim() ?? string.Empty;
+            set => SetField(ref _hostname, value?.Trim() ?? string.Empty, "Hostname");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
@@ -248,7 +248,7 @@ namespace mRemoteNG.Connection
         public virtual string Username
         {
             get => GetPropertyValue("Username", _username);
-            set => SetField(ref _username, Settings.Default.DoNotTrimUsername ? value : value?.Trim(), "Username");
+            set => SetField(ref _username, Settings.Default.DoNotTrimUsername ? value : (value?.Trim() ?? string.Empty), "Username");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
@@ -301,7 +301,7 @@ namespace mRemoteNG.Connection
         public string Domain
         {
             get => GetPropertyValue("Domain", _domain)?.Trim() ?? string.Empty;
-            set => SetField(ref _domain, value?.Trim(), "Domain");
+            set => SetField(ref _domain, value?.Trim() ?? string.Empty, "Domain");
         }
 
 
@@ -324,7 +324,7 @@ namespace mRemoteNG.Connection
         public string EC2InstanceId
         {
             get => GetPropertyValue("EC2InstanceId", _ec2InstanceId)?.Trim() ?? string.Empty;
-            set => SetField(ref _ec2InstanceId, value?.Trim(), "EC2InstanceId");
+            set => SetField(ref _ec2InstanceId, value?.Trim() ?? string.Empty, "EC2InstanceId");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
@@ -334,7 +334,7 @@ namespace mRemoteNG.Connection
         public string EC2Region
         {
             get => GetPropertyValue("EC2Region", _ec2Region)?.Trim() ?? string.Empty;
-            set => SetField(ref _ec2Region, value?.Trim(), "EC2Region");
+            set => SetField(ref _ec2Region, value?.Trim() ?? string.Empty, "EC2Region");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
@@ -344,7 +344,7 @@ namespace mRemoteNG.Connection
         public string VmId
         {
             get => GetPropertyValue("VmId", _vmId)?.Trim() ?? string.Empty;
-            set => SetField(ref _vmId, value?.Trim(), "VmId");
+            set => SetField(ref _vmId, value?.Trim() ?? string.Empty, "VmId");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
@@ -355,7 +355,7 @@ namespace mRemoteNG.Connection
         public string SSHTunnelConnectionName
         {
             get => GetPropertyValue("SSHTunnelConnectionName", _sshTunnelConnectionName)?.Trim() ?? string.Empty;
-            set => SetField(ref _sshTunnelConnectionName, value?.Trim(), "SSHTunnelConnectionName");
+            set => SetField(ref _sshTunnelConnectionName, value?.Trim() ?? string.Empty, "SSHTunnelConnectionName");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
@@ -1128,7 +1128,7 @@ namespace mRemoteNG.Connection
             PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(args.PropertyName));
         }
 
-        protected void SetField<T>(ref T field, T value, string propertyName = null)
+        protected void SetField<T>(ref T field, T value, string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return;
             field = value;
