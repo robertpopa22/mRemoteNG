@@ -481,7 +481,7 @@ namespace mRemoteNG.Connection
         public string LoadBalanceInfo
         {
             get => GetPropertyValue("LoadBalanceInfo", _loadBalanceInfo)?.Trim() ?? string.Empty;
-            set => SetField(ref _loadBalanceInfo, value?.Trim(), "LoadBalanceInfo");
+            set => SetField(ref _loadBalanceInfo, value?.Trim() ?? string.Empty, "LoadBalanceInfo");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
@@ -571,7 +571,7 @@ namespace mRemoteNG.Connection
         public string RDGatewayHostname
         {
             get => GetPropertyValue("RDGatewayHostname", _rdGatewayHostname)?.Trim() ?? string.Empty;
-            set => SetField(ref _rdGatewayHostname, value?.Trim(), "RDGatewayHostname");
+            set => SetField(ref _rdGatewayHostname, value?.Trim() ?? string.Empty, "RDGatewayHostname");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.RDPGateway), 4),
@@ -592,7 +592,7 @@ namespace mRemoteNG.Connection
         public string RDGatewayUsername
         {
             get => GetPropertyValue("RDGatewayUsername", _rdGatewayUsername)?.Trim() ?? string.Empty;
-            set => SetField(ref _rdGatewayUsername, value?.Trim(), "RDGatewayUsername");
+            set => SetField(ref _rdGatewayUsername, value?.Trim() ?? string.Empty, "RDGatewayUsername");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.RDPGateway), 4),
@@ -624,7 +624,7 @@ namespace mRemoteNG.Connection
         public string RDGatewayDomain
         {
             get => GetPropertyValue("RDGatewayDomain", _rdGatewayDomain)?.Trim() ?? string.Empty;
-            set => SetField(ref _rdGatewayDomain, value?.Trim(), "RDGatewayDomain");
+            set => SetField(ref _rdGatewayDomain, value?.Trim() ?? string.Empty, "RDGatewayDomain");
         }
         // external credential provider selector for rd gateway
         [LocalizedAttributes.LocalizedCategory(nameof(Language.RDPGateway), 4),
