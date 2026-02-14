@@ -33,11 +33,13 @@ namespace mRemoteNG.Config.Serializers.CredentialSerializer
         {
             if (string.IsNullOrEmpty(xml)) return xml;
             XDocument xdoc = XDocument.Parse(xml);
-            ICryptographyProvider cryptoProvider = new CryptoProviderFactoryFromXml(xdoc.Root).Build();
-            DecryptAuthHeader(xdoc.Root, cryptoProvider, key);
+            XElement root = xdoc.Root
+                ?? throw new InvalidOperationException("XML document has no root element.");
+            ICryptographyProvider cryptoProvider = new CryptoProviderFactoryFromXml(root).Build();
+            DecryptAuthHeader(root, cryptoProvider, key);
             foreach (XElement credentialElement in xdoc.Descendants())
             {
-                XAttribute passwordAttribute = credentialElement.Attribute("Password");
+                XAttribute? passwordAttribute = credentialElement.Attribute("Password");
                 if (passwordAttribute == null) continue;
                 string decryptedPassword = cryptoProvider.Decrypt(passwordAttribute.Value, key);
                 passwordAttribute.SetValue(decryptedPassword);
@@ -48,7 +50,7 @@ namespace mRemoteNG.Config.Serializers.CredentialSerializer
 
         private void DecryptAuthHeader(XElement rootElement, ICryptographyProvider cryptographyProvider, SecureString key)
         {
-            XAttribute authAttribute = rootElement.Attribute("Auth");
+            XAttribute? authAttribute = rootElement.Attribute("Auth");
             if (authAttribute == null)
                 throw new EncryptionException("Could not find Auth header in the XML repository root element.");
             cryptographyProvider.Decrypt(authAttribute.Value, key);
