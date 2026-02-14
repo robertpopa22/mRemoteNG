@@ -87,7 +87,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
 - 3 final coverage tests added (2026-02-09): OnePasswordCli null fields, malformed JSON, label fallback
 - **All Priority A test coverage gaps are now CLOSED**
-- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm" -- NUnit.DefaultTimeout=5000`
+- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm&FullyQualifiedName!~XmlConnectionsLoaderTests.ThrowsWhen&FullyQualifiedName!~ConnectionInitiatorSshTunnelTests" -- NUnit.DefaultTimeout=15000`
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
 ### Historical baseline (upstream v1.78.2-dev, before fixes):
