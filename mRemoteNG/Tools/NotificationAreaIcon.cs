@@ -15,9 +15,9 @@ namespace mRemoteNG.Tools
     [SupportedOSPlatform("windows")]
     public class NotificationAreaIcon
     {
-        private readonly NotifyIcon _nI;
-        private readonly ContextMenuStrip _cMen;
-        private readonly ToolStripMenuItem _cMenCons;
+        private readonly NotifyIcon? _nI;
+        private readonly ContextMenuStrip? _cMen;
+        private readonly ToolStripMenuItem? _cMenCons;
         private static readonly FrmMain FrmMain = FrmMain.Default;
 
         public bool Disposed { get; private set; }
@@ -67,9 +67,13 @@ namespace mRemoteNG.Tools
         {
             try
             {
-                _nI.Visible = false;
-                _nI.Dispose();
-                _cMen.Dispose();
+                if (_nI != null)
+                {
+                    _nI.Visible = false;
+                    _nI.Dispose();
+                }
+
+                _cMen?.Dispose();
                 Disposed = true;
             }
             catch (Exception ex)
@@ -81,16 +85,20 @@ namespace mRemoteNG.Tools
         private void nI_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Right) return;
+            if (_cMenCons == null) return;
+
             _cMenCons.DropDownItems.Clear();
             ConnectionsTreeToMenuItemsConverter menuItemsConverter = new()
             {
                 MouseUpEventHandler = ConMenItem_MouseUp
             };
 
+            var connectionTreeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+            if (connectionTreeModel == null) return;
+
             // ReSharper disable once CoVariantArrayConversion
             ToolStripItem[] rootMenuItems = menuItemsConverter
-                                            .CreateToolStripDropDownItems(Runtime.ConnectionsService
-                                                                                 .ConnectionTreeModel).ToArray();
+                                            .CreateToolStripDropDownItems(connectionTreeModel).ToArray();
             _cMenCons.DropDownItems.AddRange(rootMenuItems);
         }
 
@@ -117,7 +125,7 @@ namespace mRemoteNG.Tools
             FrmMain.WindowState = FrmMain.PreviousWindowState;
 
             if (Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon) return true;
-            Runtime.NotificationAreaIcon.Dispose();
+            Runtime.NotificationAreaIcon?.Dispose();
             Runtime.NotificationAreaIcon = null;
             return true;
         }
@@ -134,7 +142,8 @@ namespace mRemoteNG.Tools
             if (((ToolStripMenuItem)sender).Tag is ContainerInfo) return;
             if (FrmMain.Visible == false && !ShowForm())
                 return;
-            Runtime.ConnectionInitiator.OpenConnection((ConnectionInfo)((ToolStripMenuItem)sender).Tag);
+            if (((ToolStripMenuItem)sender).Tag is ConnectionInfo connectionInfo)
+                Runtime.ConnectionInitiator.OpenConnection(connectionInfo);
         }
 
         private static void cMenExit_Click(object sender, EventArgs e)
