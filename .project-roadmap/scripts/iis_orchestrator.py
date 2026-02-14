@@ -349,15 +349,18 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT):
             errors="replace",
             env=CLAUDE_ENV,
         )
+        kill_stale_processes()
         if r.returncode != 0:
             log.error("    [CLAUDE] exit %d: %s", r.returncode, (r.stderr or "")[:200])
             return None
         return r.stdout or ""
     except subprocess.TimeoutExpired:
         log.error("    [CLAUDE] TIMEOUT (%ds)", timeout)
+        kill_stale_processes()
         return None
     except Exception as e:
         log.error("    [CLAUDE] ERROR: %s", e)
+        kill_stale_processes()
         return None
 
 
