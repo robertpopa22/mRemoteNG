@@ -10,13 +10,13 @@ namespace mRemoteNG.UI.Menu
     [SupportedOSPlatform("windows")]
     public class ToolsMenu : ToolStripMenuItem
     {
-        private ToolStripMenuItem _mMenToolsSshTransfer;
-        private ToolStripMenuItem _mMenToolsExternalApps;
-        private ToolStripMenuItem _mMenToolsPortScan;
-        private ToolStripMenuItem _mMenToolsUvncsc;
+        private ToolStripMenuItem _mMenToolsSshTransfer = null!;
+        private ToolStripMenuItem _mMenToolsExternalApps = null!;
+        private ToolStripMenuItem _mMenToolsPortScan = null!;
+        private ToolStripMenuItem _mMenToolsUvncsc = null!;
 
-        public Form MainForm { get; set; }
-        public ICredentialRepositoryList CredentialProviderCatalog { get; set; }
+        public Form? MainForm { get; set; }
+        public ICredentialRepositoryList? CredentialProviderCatalog { get; set; }
 
         public ToolsMenu()
         {
