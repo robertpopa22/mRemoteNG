@@ -914,12 +914,13 @@ namespace mRemoteNG.UI.Controls
 
         private void OnImportRemoteDesktopManagerClicked(object sender, EventArgs e)
         {
-            ContainerInfo selectedNodeAsContainer;
+            ContainerInfo? selectedNodeAsContainer;
             if (_connectionTree.SelectedNode == null)
-                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel.RootNodes.First();
+                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes.First();
             else
                 selectedNodeAsContainer =
                     _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
+            if (selectedNodeAsContainer == null) return;
             Import.ImportFromRemoteDesktopManagerCsv(selectedNodeAsContainer);
         }
 
@@ -935,7 +936,9 @@ namespace mRemoteNG.UI.Controls
 
         private void OnExportFileClicked(object sender, EventArgs e)
         {
-            Export.ExportToFile(_connectionTree.SelectedNode, Runtime.ConnectionsService.ConnectionTreeModel);
+            var model = Runtime.ConnectionsService.ConnectionTreeModel;
+            if (model == null) return;
+            Export.ExportToFile(_connectionTree.SelectedNode, model);
         }
 
         private void OnAddConnectionClicked(object sender, EventArgs e)
@@ -960,17 +963,18 @@ namespace mRemoteNG.UI.Controls
 
         private void OnMoveUpClicked(object sender, EventArgs e)
         {
-            _connectionTree.SelectedNode.Parent.PromoteChild(_connectionTree.SelectedNode);
+            _connectionTree.SelectedNode?.Parent?.PromoteChild(_connectionTree.SelectedNode);
         }
 
         private void OnMoveDownClicked(object sender, EventArgs e)
         {
-            _connectionTree.SelectedNode.Parent.DemoteChild(_connectionTree.SelectedNode);
+            _connectionTree.SelectedNode?.Parent?.DemoteChild(_connectionTree.SelectedNode);
         }
 
         private void OnExternalToolClicked(object sender, EventArgs e)
         {
-            StartExternalApp((ExternalTool)((ToolStripMenuItem)sender).Tag);
+            if (((ToolStripMenuItem)sender).Tag is ExternalTool externalTool)
+                StartExternalApp(externalTool);
         }
 
         private void StartExternalApp(ExternalTool externalTool)
