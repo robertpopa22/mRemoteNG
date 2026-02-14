@@ -87,18 +87,20 @@ namespace mRemoteNG.UI.Window
         private new void ApplyTheme()
         {
             if (!_themeManager.ThemingActive) return;
-            vsToolStripExtender.SetStyle(ToolStrip, _themeManager.ActiveTheme.Version, _themeManager.ActiveTheme.Theme);
+            var theme = _themeManager.ActiveTheme.Theme;
+            if (theme == null) return;
+            vsToolStripExtender.SetStyle(ToolStrip, _themeManager.ActiveTheme.Version, theme);
             vsToolStripExtender.SetStyle(ToolsContextMenuStrip, _themeManager.ActiveTheme.Version,
-                                         _themeManager.ActiveTheme.Theme);
+                                         theme);
             //Apply the extended palette
 
             ToolStripContainer.TopToolStripPanel.BackColor =
-                _themeManager.ActiveTheme.Theme.ColorPalette.CommandBarMenuDefault.Background;
+                theme.ColorPalette.CommandBarMenuDefault.Background;
             ToolStripContainer.TopToolStripPanel.ForeColor =
-                _themeManager.ActiveTheme.Theme.ColorPalette.CommandBarMenuDefault.Text;
+                theme.ColorPalette.CommandBarMenuDefault.Text;
             PropertiesGroupBox.BackColor =
-                _themeManager.ActiveTheme.Theme.ColorPalette.CommandBarMenuDefault.Background;
-            PropertiesGroupBox.ForeColor = _themeManager.ActiveTheme.Theme.ColorPalette.CommandBarMenuDefault.Text;
+                theme.ColorPalette.CommandBarMenuDefault.Background;
+            PropertiesGroupBox.ForeColor = theme.ColorPalette.CommandBarMenuDefault.Text;
         }
 
         private void UpdateToolsListObjView()
@@ -133,7 +135,7 @@ namespace mRemoteNG.UI.Window
 
         private void UpdateEditorControls()
         {
-            ExternalTool selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
+            ExternalTool? selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
 
             DisplayNameTextBox.Text = selectedTool?.DisplayName;
             FilenameTextBox.Text = selectedTool?.FileName;
@@ -216,7 +218,7 @@ namespace mRemoteNG.UI.Window
                     Runtime.ExternalToolsService.ExternalTools.Remove(externalTool);
                 }
 
-                ExternalTool firstDeletedNode = _currentlySelectedExternalTools.FirstOrDefault();
+                ExternalTool? firstDeletedNode = _currentlySelectedExternalTools.FirstOrDefault();
                 int oldSelectedIndex = ToolsListObjView.IndexOf(firstDeletedNode);
                 _currentlySelectedExternalTools.Clear();
                 UpdateToolsListObjView();
@@ -263,7 +265,7 @@ namespace mRemoteNG.UI.Window
 
         private void PropertyControl_ChangedOrLostFocus(object sender, EventArgs e)
         {
-            ExternalTool selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
+            ExternalTool? selectedTool = _currentlySelectedExternalTools.FirstOrDefault();
             if (selectedTool == null)
                 return;
 
@@ -298,7 +300,7 @@ namespace mRemoteNG.UI.Window
                                                       Language.FilterAll, "*.*");
                     if (browseDialog.ShowDialog() != DialogResult.OK)
                         return;
-                    ExternalTool selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
+                    ExternalTool? selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
                     if (selectedItem == null)
                         return;
                     selectedItem.FileName = browseDialog.FileName;
@@ -319,7 +321,7 @@ namespace mRemoteNG.UI.Window
                 {
                     if (browseDialog.ShowDialog() != DialogResult.OK)
                         return;
-                    ExternalTool selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
+                    ExternalTool? selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
                     if (selectedItem == null)
                         return;
                     selectedItem.WorkingDir = browseDialog.SelectedPath;
