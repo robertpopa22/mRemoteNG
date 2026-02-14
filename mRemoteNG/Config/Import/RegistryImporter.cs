@@ -24,22 +24,23 @@ namespace mRemoteNG.Config.Import
                     IsContainer = true
                 };
 
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath))
+                using (RegistryKey? key = Registry.CurrentUser.OpenSubKey(regPath))
                 {
                     if (key != null)
                     {
                         foreach (string sub in key.GetSubKeyNames())
                         {
                             if (sub.EndsWith("Default%20Settings")) continue;
-                            using RegistryKey subkey = key.OpenSubKey(sub);
-                            string Hostname = subkey.GetValue("HostName") as string;
+                            using RegistryKey? subkey = key.OpenSubKey(sub);
+                            if (subkey == null) continue;
+                            string Hostname = subkey.GetValue("HostName") as string ?? string.Empty;
                             string connName = subkey.Name[(key.Name.Length + 1)..];
                             if (!string.IsNullOrEmpty(Hostname))
                             {
                                 int Port = 22;
                                 string Username = string.Empty;
 
-                                string ProtocolType = subkey.GetValue("Protocol") as string;
+                                string? ProtocolType = subkey.GetValue("Protocol") as string;
                                 Connection.Protocol.ProtocolType Protocol = Connection.Protocol.ProtocolType.SSH2;
                                 if (ProtocolType == "raw")
                                 {
@@ -48,12 +49,14 @@ namespace mRemoteNG.Config.Import
 
                                 try
                                 {
-                                    Port = int.Parse(subkey.GetValue("PortNumber") as string);
+                                    string? portStr = subkey.GetValue("PortNumber") as string;
+                                    if (portStr != null)
+                                        Port = int.Parse(portStr);
                                 }
                                 catch { }
                                 try
                                 {
-                                    Username = subkey.GetValue("UserName") as string;
+                                    Username = subkey.GetValue("UserName") as string ?? string.Empty;
                                 }
                                 catch { }
 
