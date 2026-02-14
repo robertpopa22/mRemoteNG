@@ -49,7 +49,7 @@ namespace mRemoteNG.App
             catch (TaskCanceledException) { }
             catch (OperationCanceledException) { }
 
-            DialogResult ShouldIStayOrShouldIGo = CTaskDialog.MessageBox(Application.ProductName, Language.CompatibilityProblemDetected, errorText, "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.OkCancel, ESysIcons.Warning, ESysIcons.Warning);
+            DialogResult ShouldIStayOrShouldIGo = CTaskDialog.MessageBox(Application.ProductName ?? string.Empty, Language.CompatibilityProblemDetected, errorText, "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.OkCancel, ESysIcons.Warning, ESysIcons.Warning);
             if (CTaskDialog.VerificationChecked && ShouldIStayOrShouldIGo == DialogResult.OK)
             {
                 messageCollector.AddMessage(MessageClass.ErrorMsg, "User requests that FIPS check be overridden", true);
@@ -64,7 +64,7 @@ namespace mRemoteNG.App
 
         private static bool FipsPolicyEnabledForServer2003()
         {
-            RegistryKey regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa");
+            RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa");
             if (!(regKey?.GetValue("FIPSAlgorithmPolicy") is int fipsPolicy))
                 return false;
             return fipsPolicy != 0;
@@ -72,7 +72,7 @@ namespace mRemoteNG.App
 
         private static bool FipsPolicyEnabledForServer2008AndNewer()
         {
-            RegistryKey regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy");
+            RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy");
             if (!(regKey?.GetValue("Enabled") is int fipsPolicy))
                 return false;
             return fipsPolicy != 0;
@@ -103,7 +103,7 @@ namespace mRemoteNG.App
 
             messageCollector.AddMessage(MessageClass.WarningMsg, "Lenovo AutoScroll Utility found", true);
 
-            CTaskDialog.MessageBox(Application.ProductName, Language.CompatibilityProblemDetected,
+            CTaskDialog.MessageBox(Application.ProductName ?? string.Empty, Language.CompatibilityProblemDetected,
                                    string.Format(Language.CompatibilityLenovoAutoScrollUtilityDetected,
                                                  Application.ProductName), "",
                                    "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.Ok,
