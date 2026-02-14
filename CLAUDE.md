@@ -277,6 +277,7 @@ Do NOT manage issues manually — always use the scripts for consistency and tra
 4. **NEVER** edit JSON files manually — use the scripts
 5. **ALWAYS** use `-PostComment` when marking issues as `released`
 6. Track iteration loops — if user says "still broken", use `Update-Status.ps1 -Status in-progress`
+7. **COMMIT PER ISSUE** — After fixing an issue, run build + tests. If tests pass, commit immediately before moving to the next issue. Format: `fix(#NNNN): short description`. One issue = one atomic commit. Never batch multiple fixes together.
 
 ### Full documentation
 See `.project-roadmap/issues-db/README.md` for complete schema, examples, and workflow details.

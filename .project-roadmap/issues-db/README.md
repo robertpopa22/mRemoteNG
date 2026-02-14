@@ -212,9 +212,11 @@ Creates markdown reports aggregating all tracked issues.
 2. **`Analyze-Issues.ps1`** — See what needs attention
 3. **`Update-Status.ps1`** — Triage new issues, update in-progress items
 4. **Work on code** — Fix bugs, implement features
-5. **`Update-Status.ps1 -Status testing`** — Mark as testing after PR merge
-6. **`Generate-Report.ps1`** — Generate report for the session
-7. **Commit the JSON changes** — `git add .project-roadmap/issues-db/ && git commit`
+5. **Run tests** — Build + `dotnet test` must pass
+6. **Commit per issue** — Each issue fix gets its own commit immediately after tests pass (see Rule 7)
+7. **`Update-Status.ps1 -Status testing`** — Mark as testing after PR merge
+8. **`Generate-Report.ps1`** — Generate report for the session
+9. **Commit the JSON changes** — `git add .project-roadmap/issues-db/ && git commit`
 
 ## Workflow: Release
 
@@ -232,3 +234,4 @@ Creates markdown reports aggregating all tracked issues.
 4. **NEVER edit JSON files manually** — use the scripts for consistency
 5. **ALWAYS use -PostComment for released status** — users must be notified
 6. **Track iterations** — if a user says "still broken", that's an iteration, not a new issue
+7. **COMMIT PER ISSUE after tests pass** — After fixing an issue, run the full build + test suite. If all tests pass, create a commit immediately for that issue before moving to the next one. Commit message format: `fix(#NNNN): short description`. This ensures each fix is atomic, bisectable, and individually revertable. Never batch multiple issue fixes into a single commit.
