@@ -19,8 +19,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
         private const int DELETE = 0;
         private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider.ThrowIfNull(nameof(cryptographyProvider));
         private readonly SecureString _encryptionKey = encryptionKey.ThrowIfNull(nameof(encryptionKey));
-        private DataTable _dataTable;
-        private DataTable _sourceDataTable;
+        private DataTable _dataTable = null!;
+        private DataTable? _sourceDataTable;
         private readonly Dictionary<string, int> _sourcePrimaryKeyDict = [];
         private const string TABLE_NAME = "tblCons";
         private readonly SaveFilter _saveFilter = saveFilter.ThrowIfNull(nameof(saveFilter));
@@ -293,7 +293,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 SerializeConnectionInfo(connectionInfo);
             }
 
-            ContainerInfo containerInfo = connectionInfo as ContainerInfo;
+            ContainerInfo? containerInfo = connectionInfo as ContainerInfo;
             if (containerInfo == null) return;
 
             foreach (ConnectionInfo child in containerInfo.Children)
@@ -548,7 +548,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
         {
             _currentNodeIndex++;
             bool isNewRow = false;
-            DataRow dataRow = _dataTable.Rows.Find(connectionInfo.ConstantID);
+            DataRow? dataRow = _dataTable.Rows.Find(connectionInfo.ConstantID);
             if (dataRow == null)
             {
                 dataRow = _dataTable.NewRow();
