@@ -43,7 +43,7 @@ namespace mRemoteNG.Config.Settings.Providers
         private const string _localSettingsNodeName = "localSettings";
         private const string _globalSettingsNodeName = "globalSettings";
         private const string _className = "PortableSettingsProvider";
-        private XmlDocument _xmlDocument;
+        private XmlDocument? _xmlDocument;
 
         private string _filePath =>
             Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? throw new InvalidOperationException(),
@@ -53,7 +53,8 @@ namespace mRemoteNG.Config.Settings.Providers
 
         private XmlNode _globalSettingsNode => GetSettingsNode(_globalSettingsNodeName);
 
-        private XmlNode _rootNode => _rootDocument.SelectSingleNode(_rootNodeName);
+        private XmlNode _rootNode => _rootDocument.SelectSingleNode(_rootNodeName)
+            ?? throw new InvalidOperationException("Root settings node not found in XML document");
 
         private XmlDocument _rootDocument
         {
@@ -132,10 +133,10 @@ namespace mRemoteNG.Config.Settings.Providers
         {
             XmlNode targetNode = IsGlobal(propertyValue.Property) ? _globalSettingsNode : _localSettingsNode;
 
-            XmlNode settingNode = targetNode.SelectSingleNode($"setting[@name='{propertyValue.Name}']");
+            XmlNode? settingNode = targetNode.SelectSingleNode($"setting[@name='{propertyValue.Name}']");
 
             if (settingNode != null)
-                settingNode.InnerText = propertyValue.SerializedValue.ToString();
+                settingNode.InnerText = propertyValue.SerializedValue?.ToString() ?? string.Empty;
             else
             {
                 settingNode = _rootDocument.CreateElement("setting");
@@ -144,7 +145,7 @@ namespace mRemoteNG.Config.Settings.Providers
                 nameAttribute.Value = propertyValue.Name;
 
                 settingNode.Attributes?.Append(nameAttribute);
-                settingNode.InnerText = propertyValue.SerializedValue.ToString();
+                settingNode.InnerText = propertyValue.SerializedValue?.ToString() ?? string.Empty;
 
                 targetNode.AppendChild(settingNode);
             }
@@ -153,10 +154,10 @@ namespace mRemoteNG.Config.Settings.Providers
         private string GetValue(SettingsProperty property)
         {
             XmlNode targetNode = IsGlobal(property) ? _globalSettingsNode : _localSettingsNode;
-            XmlNode settingNode = targetNode.SelectSingleNode($"setting[@name='{property.Name}']");
+            XmlNode? settingNode = targetNode.SelectSingleNode($"setting[@name='{property.Name}']");
 
             if (settingNode == null)
-                return property.DefaultValue != null ? property.DefaultValue.ToString() : string.Empty;
+                return property.DefaultValue?.ToString() ?? string.Empty;
 
             return settingNode.InnerText;
         }
@@ -165,7 +166,7 @@ namespace mRemoteNG.Config.Settings.Providers
         {
             foreach (DictionaryEntry attribute in property.Attributes)
             {
-                if ((Attribute)attribute.Value is SettingsManageabilityAttribute)
+                if (attribute.Value is SettingsManageabilityAttribute)
                     return true;
             }
 
@@ -174,7 +175,7 @@ namespace mRemoteNG.Config.Settings.Providers
 
         private XmlNode GetSettingsNode(string name)
         {
-            XmlNode settingsNode = _rootNode.SelectSingleNode(name);
+            XmlNode? settingsNode = _rootNode.SelectSingleNode(name);
 
             if (settingsNode != null) return settingsNode;
             settingsNode = _rootDocument.CreateElement(name);
@@ -197,7 +198,7 @@ namespace mRemoteNG.Config.Settings.Providers
             _localSettingsNode.RemoveAll();
             _globalSettingsNode.RemoveAll();
 
-            _xmlDocument.Save(_filePath);
+            _xmlDocument?.Save(_filePath);
         }
 
         public SettingsPropertyValue GetPreviousVersion(SettingsContext context, SettingsProperty property)
