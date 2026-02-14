@@ -226,7 +226,7 @@ namespace mRemoteNG.UI.Window
             _vsToolStripExtender.SetStyle(cmenTab, ThemeManager.getInstance().ActiveTheme.Version, ThemeManager.getInstance().ActiveTheme.Theme);
 
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            connDock.DockBackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Tab_Item_Background");
+            connDock.DockBackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette?.getColor("Tab_Item_Background") ?? connDock.DockBackColor;
         }
 
         private bool _documentHandlersAdded;
@@ -598,7 +598,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                ProtocolVNC vnc = interfaceControl?.Protocol as ProtocolVNC;
+                ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.StartFileTransfer();
             }
             catch (Exception ex)
@@ -629,7 +629,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                ProtocolVNC vnc = interfaceControl?.Protocol as ProtocolVNC;
+                ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.StartChat();
             }
             catch (Exception ex)
@@ -643,7 +643,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                ProtocolVNC vnc = interfaceControl?.Protocol as ProtocolVNC;
+                ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.RefreshScreen();
             }
             catch (Exception ex)
@@ -657,7 +657,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                ProtocolVNC vnc = interfaceControl?.Protocol as ProtocolVNC;
+                ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.SendSpecialKeys(keys);
             }
             catch (Exception ex)
@@ -671,7 +671,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                RdpProtocol rdp = interfaceControl?.Protocol as RdpProtocol;
+                RdpProtocol? rdp = interfaceControl?.Protocol as RdpProtocol;
                 if (rdp?.RedirectKeysEnabled == true && rdp.Fullscreen)
                     return;
                 rdp?.ToggleFullscreen();
@@ -688,7 +688,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                PuttyBase puttyBase = interfaceControl?.Protocol as PuttyBase;
+                PuttyBase? puttyBase = interfaceControl?.Protocol as PuttyBase;
                 puttyBase?.ShowSettingsDialog();
             }
             catch (Exception ex)
@@ -724,7 +724,11 @@ namespace mRemoteNG.UI.Window
                         Image = externalTool.Image ?? Properties.Resources.mRemoteNG_Icon.ToBitmap()
                     };
 
-                    nItem.Click += (sender, args) => StartExternalApp(((ToolStripMenuItem)sender)?.Tag as ExternalTool);
+                    nItem.Click += (sender, args) =>
+                    {
+                        if (sender is ToolStripMenuItem menuItem && menuItem.Tag is ExternalTool tool)
+                            StartExternalApp(tool);
+                    };
                     cmenTabExternalApps.DropDownItems.Add(nItem);
                 }
             }
@@ -739,7 +743,10 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
-                externalTool.Start(interfaceControl?.Info);
+                if (interfaceControl?.Info != null)
+                    externalTool.Start(interfaceControl.Info);
+                else
+                    externalTool.Start();
             }
             catch (Exception ex)
             {
@@ -750,7 +757,7 @@ namespace mRemoteNG.UI.Window
 
         private void CloseTabMenu()
         {
-            ConnectionTab selectedTab = (ConnectionTab)GetInterfaceControl()?.Parent;
+            ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
             if (selectedTab == null) return;
 
             try
@@ -769,7 +776,7 @@ namespace mRemoteNG.UI.Window
 
         private void CloseOtherTabs()
         {
-            ConnectionTab selectedTab = (ConnectionTab)GetInterfaceControl()?.Parent;
+            ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
             if (selectedTab == null) return;
             if (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple)
             {
@@ -805,7 +812,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                ConnectionTab selectedTab = (ConnectionTab)GetInterfaceControl()?.Parent;
+                ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
                 if (selectedTab == null) return;
                 DockPane dockPane = selectedTab.Pane;
 
