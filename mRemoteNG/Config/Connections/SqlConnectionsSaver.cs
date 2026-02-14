@@ -53,9 +53,9 @@ namespace mRemoteNG.Config.Connections
                 dbConnector.Connect();
                 SqlDatabaseVersionVerifier databaseVersionVerifier = new(dbConnector);
                 SqlDatabaseMetaDataRetriever metaDataRetriever = new();
-                SqlConnectionListMetaData metaData = metaDataRetriever.GetDatabaseMetaData(dbConnector);
+                SqlConnectionListMetaData? metaData = metaDataRetriever.GetDatabaseMetaData(dbConnector);
 
-                if (!databaseVersionVerifier.VerifyDatabaseVersion(metaData.ConfVersion))
+                if (metaData == null || !databaseVersionVerifier.VerifyDatabaseVersion(metaData.ConfVersion))
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ErrorConnectionListSaveFailed);
                     return;

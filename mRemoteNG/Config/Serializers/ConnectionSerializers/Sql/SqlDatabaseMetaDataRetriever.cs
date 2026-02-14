@@ -17,10 +17,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
     [SupportedOSPlatform("windows")]
     public class SqlDatabaseMetaDataRetriever
     {
-        public SqlConnectionListMetaData GetDatabaseMetaData(IDatabaseConnector databaseConnector)
+        public SqlConnectionListMetaData? GetDatabaseMetaData(IDatabaseConnector databaseConnector)
         {
             SqlConnectionListMetaData metaData;
-            DbDataReader dbDataReader = null;
+            DbDataReader? dbDataReader = null;
 
             try
             {
@@ -72,7 +72,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             WriteDatabaseMetaData(rootTreeNode, databaseConnector, null);
         }
 
-        public void WriteDatabaseMetaData(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction)
+        public void WriteDatabaseMetaData(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction)
         {
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
 

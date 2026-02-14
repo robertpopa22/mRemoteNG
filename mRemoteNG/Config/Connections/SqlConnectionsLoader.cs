@@ -83,7 +83,7 @@ namespace mRemoteNG.Config.Connections
         private SqlConnectionListMetaData HandleFirstRun(SqlDatabaseMetaDataRetriever metaDataRetriever, IDatabaseConnector connector)
         {
 	        metaDataRetriever.WriteDatabaseMetaData(new RootNodeInfo(RootNodeType.Connection), connector);
-	        return metaDataRetriever.GetDatabaseMetaData(connector);
+	        return metaDataRetriever.GetDatabaseMetaData(connector)!;
 		}
     }
 }
