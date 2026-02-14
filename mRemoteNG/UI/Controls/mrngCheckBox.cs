@@ -75,7 +75,7 @@ namespace mRemoteNG.UI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!_themeManager.ActiveAndExtended)
+            if (_themeManager is null || !_themeManager.ActiveAndExtended)
             {
                 base.OnPaint(e);
                 return;
@@ -112,7 +112,8 @@ namespace mRemoteNG.UI.Controls
                 checkBorder = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border_Disabled");
             }
 
-            e.Graphics.Clear(Parent.BackColor);
+            Color parentBack = Parent?.BackColor ?? BackColor;
+            e.Graphics.Clear(parentBack);
 
             using (Pen p = new(checkBorder))
             {
@@ -128,7 +129,7 @@ namespace mRemoteNG.UI.Controls
             }
 
             Rectangle textRect = new(_textXCoord, 0, Width - 16, Height);
-            TextRenderer.DrawText(e.Graphics, Text, Font, textRect, fore, Parent.BackColor,
+            TextRenderer.DrawText(e.Graphics, Text, Font, textRect, fore, parentBack,
                                   TextFormatFlags.PathEllipsis);
         }
 
