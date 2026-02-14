@@ -83,9 +83,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private void DeserializeConnection(DirectoryEntry directoryEntry, ContainerInfo parentContainer)
         {
-            string displayName = Convert.ToString(directoryEntry.Properties["cn"].Value);
-            string description = Convert.ToString(directoryEntry.Properties["Description"].Value);
-            string hostName = Convert.ToString(directoryEntry.Properties["dNSHostName"].Value);
+            string displayName = Convert.ToString(directoryEntry.Properties["cn"].Value) ?? string.Empty;
+            string description = Convert.ToString(directoryEntry.Properties["Description"].Value) ?? string.Empty;
+            string hostName = Convert.ToString(directoryEntry.Properties["dNSHostName"].Value) ?? string.Empty;
 
             ConnectionInfo newConnectionInfo = new()
             {
