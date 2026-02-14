@@ -9,7 +9,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
     [SupportedOSPlatform("windows")]
     public class RdpProtocol9 : RdpProtocol8
     {
-        private MsRdpClient9NotSafeForScripting RdpClient9 => (MsRdpClient9NotSafeForScripting)((AxHost)Control).GetOcx();
+        private MsRdpClient9NotSafeForScripting? RdpClient9 => (Control as AxHost)?.GetOcx() as MsRdpClient9NotSafeForScripting;
 
         protected override RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc9;
 
