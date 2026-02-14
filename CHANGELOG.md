@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.81.0-beta.1] - 2026-02-14
+
+### Added
+- **Beta-First Release Strategy**: Adopted a high-velocity development model where new features are released as Beta/Pre-releases.
+- Stability Guarantee: Full "Stable" releases will now occur only after a cycle of at least 5 successful Beta iterations.
+
 ## [1.80.2] - 2026-02-14 (Maintenance Release)
 
 ### Fixed

@@ -9,10 +9,10 @@
 
 <p align="center">
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.2">
-    <img alt="Stable" src="https://img.shields.io/badge/stable-v1.80.2-blue?style=for-the-badge">
+    <img alt="Beta" src="https://img.shields.io/badge/beta-v1.80.2-orange?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/tree/main">
-    <img alt="In Development" src="https://img.shields.io/badge/dev-v1.81.0-orange?style=for-the-badge">
+    <img alt="Next" src="https://img.shields.io/badge/next-v1.81.0--beta.1-blue?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
@@ -25,24 +25,37 @@
   </a>
 </p>
 
+## Latest Stable Release
+
+<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20">
+  <img alt="Stable v1.76.20" src="https://img.shields.io/badge/stable-v1.76.20-blue?style=for-the-badge">
+</a>
+
+The latest production-ready version of mRemoteNG. For most users, this is the recommended version.
+
 ---
 
-## Latest Stable Release — v1.80.2
+## Beta Builds (Main Branch)
 
 <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.2">
-  <img alt="Stable v1.80.2" src="https://img.shields.io/badge/stable-v1.80.2-blue">
+  <img alt="Beta v1.80.2" src="https://img.shields.io/badge/beta-v1.80.2-orange?style=for-the-badge">
 </a>
+
+> [!IMPORTANT]
+> These are high-velocity builds from the `main` branch. They include the latest .NET 10 updates, security hardening, and experimental features. Use these if you want to help test new functionality. A version is promoted to **Stable** only after at least 5 beta iterations.
 
 | Variant | x64 | x86 | ARM64 |
 |---------|-----|-----|-------|
 | Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x64.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x86.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-arm64.zip?label=%20&color=blue) |
-| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x64-selfcontained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x86-selfcontained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-arm64-selfcontained.zip?label=%20&color=blue) |
+| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-x64-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-x64-SelfContained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-x86-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-x86-SelfContained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-arm64-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-arm64-SelfContained.zip?label=%20&color=blue) |
 
-**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe).
+**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 **Self-contained** includes the .NET runtime — no prerequisites needed.
 
+---
+
 <details>
-<summary><strong>What's in v1.80.2?</strong></summary>
+<summary><strong>What's in v1.80.2 (Beta)?</strong></summary>
 
 ### Security Fixes (upstream merge)
 - **AnyDesk command injection prevention** — `IsValidAnydeskId()` validates IDs before passing to process
