@@ -879,13 +879,14 @@ namespace mRemoteNG.UI.Window
             {
                 InterfaceControl interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
+                if (interfaceControl.Parent is not ConnectionTab connectionTab) return;
                 using (FrmInputBox frmInputBox = new(Language.NewTitle, Language.NewTitle,
-                                                         ((ConnectionTab)interfaceControl.Parent).TabText))
+                                                         connectionTab.TabText))
                 {
                     DialogResult dr = frmInputBox.ShowDialog();
                     if (dr != DialogResult.OK) return;
                     if (!string.IsNullOrEmpty(frmInputBox.returnValue))
-                        ((ConnectionTab)interfaceControl.Parent).TabText = frmInputBox.returnValue.Replace("&", "&&");
+                        connectionTab.TabText = frmInputBox.returnValue.Replace("&", "&&");
                 }
             }
             catch (Exception ex)
@@ -921,7 +922,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            ProtocolBase protocolBase = sender as ProtocolBase;
+            ProtocolBase? protocolBase = sender as ProtocolBase;
             if (!(protocolBase?.InterfaceControl?.Parent is ConnectionTab tabPage)) return;
             if (tabPage.Disposing || tabPage.IsDisposed) return;
             tabPage.protocolClose = true;
