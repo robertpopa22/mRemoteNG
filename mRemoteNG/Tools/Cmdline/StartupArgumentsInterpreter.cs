@@ -92,23 +92,26 @@ namespace mRemoteNG.Tools.Cmdline
 
             if (string.IsNullOrEmpty(consParam)) return;
             _messageCollector.AddMessage(MessageClass.DebugMsg, "Cmdline arg: loading connections from a custom path");
-            if (File.Exists(args[consParam]) == false)
+            string? consValue = args[consParam];
+            if (consValue == null) return;
+
+            if (File.Exists(consValue) == false)
             {
-                if (File.Exists(Path.Combine(GeneralAppInfo.HomePath, args[consParam])))
+                if (File.Exists(Path.Combine(GeneralAppInfo.HomePath, consValue)))
                 {
                     Properties.OptionsBackupPage.Default.LoadConsFromCustomLocation = true;
-                    Properties.OptionsBackupPage.Default.BackupLocation = Path.Combine(GeneralAppInfo.HomePath, args[consParam]);
+                    Properties.OptionsBackupPage.Default.BackupLocation = Path.Combine(GeneralAppInfo.HomePath, consValue);
                     return;
                 }
 
-                if (!File.Exists(Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam]))) return;
+                if (!File.Exists(Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, consValue))) return;
                 Properties.OptionsBackupPage.Default.LoadConsFromCustomLocation = true;
-                Properties.OptionsBackupPage.Default.BackupLocation = Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, args[consParam]);
+                Properties.OptionsBackupPage.Default.BackupLocation = Path.Combine(ConnectionsFileInfo.DefaultConnectionsPath, consValue);
             }
             else
             {
                 Properties.OptionsBackupPage.Default.LoadConsFromCustomLocation = true;
-                Properties.OptionsBackupPage.Default.BackupLocation = args[consParam];
+                Properties.OptionsBackupPage.Default.BackupLocation = consValue;
             }
         }
     }
