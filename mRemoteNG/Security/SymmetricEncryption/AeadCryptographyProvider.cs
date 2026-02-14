@@ -107,7 +107,7 @@ namespace mRemoteNG.Security.SymmetricEncryption
             return encryptedText;
         }
 
-        private string SimpleEncryptWithPassword(string secretMessage, string password, byte[] nonSecretPayload = null)
+        private string SimpleEncryptWithPassword(string secretMessage, string password, byte[]? nonSecretPayload = null)
         {
             if (string.IsNullOrEmpty(secretMessage))
                 return ""; //throw new ArgumentException(@"Secret Message Required!", nameof(secretMessage));
@@ -117,7 +117,7 @@ namespace mRemoteNG.Security.SymmetricEncryption
             return Convert.ToBase64String(cipherText);
         }
 
-        private byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[] nonSecretPayload = null)
+        private byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[]? nonSecretPayload = null)
         {
             nonSecretPayload ??= ""u8.ToArray();
 
@@ -144,7 +144,7 @@ namespace mRemoteNG.Security.SymmetricEncryption
             return SimpleEncrypt(secretMessage, key, payload);
         }
 
-        private byte[] SimpleEncrypt(byte[] secretMessage, byte[] key, byte[] nonSecretPayload = null)
+        private byte[] SimpleEncrypt(byte[] secretMessage, byte[] key, byte[]? nonSecretPayload = null)
         {
             //User Error Checks
             if (key == null || key.Length != KeyBitSize / 8)
@@ -197,7 +197,7 @@ namespace mRemoteNG.Security.SymmetricEncryption
 
             byte[] cipherText = Convert.FromBase64String(encryptedMessage);
             byte[] plainText = SimpleDecryptWithPassword(cipherText, decryptionKey.ConvertToUnsecureString(), nonSecretPayloadLength);
-            return plainText == null ? null : _encoding.GetString(plainText);
+            return _encoding.GetString(plainText);
         }
 
         private byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
