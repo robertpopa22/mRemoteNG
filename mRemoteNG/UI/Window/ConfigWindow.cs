@@ -27,20 +27,20 @@ namespace mRemoteNG.UI.Window
     {
         private bool _originalPropertyGridToolStripItemCountValid;
         private int _originalPropertyGridToolStripItemCount;
-        private System.ComponentModel.Container _components;
-        private ToolStripButton _btnShowProperties;
-        private ToolStripButton _btnShowDefaultProperties;
-        private ToolStripButton _btnShowInheritance;
-        private ToolStripButton _btnShowDefaultInheritance;
-        private ToolStripButton _btnIcon;
-        private ToolStripButton _btnHostStatus;
-        internal ContextMenuStrip CMenIcons;
-        internal ContextMenuStrip PropertyGridContextMenu;
-        private ToolStripMenuItem _propertyGridContextMenuShowHelpText;
-        private ToolStripMenuItem _propertyGridContextMenuReset;
-        private ToolStripSeparator _toolStripSeparator1;
-        private ConnectionInfoPropertyGrid _pGrid;
-        private ThemeManager _themeManager;
+        private System.ComponentModel.Container _components = null!;
+        private ToolStripButton _btnShowProperties = null!;
+        private ToolStripButton _btnShowDefaultProperties = null!;
+        private ToolStripButton _btnShowInheritance = null!;
+        private ToolStripButton _btnShowDefaultInheritance = null!;
+        private ToolStripButton _btnIcon = null!;
+        private ToolStripButton _btnHostStatus = null!;
+        internal ContextMenuStrip CMenIcons = null!;
+        internal ContextMenuStrip PropertyGridContextMenu = null!;
+        private ToolStripMenuItem _propertyGridContextMenuShowHelpText = null!;
+        private ToolStripMenuItem _propertyGridContextMenuReset = null!;
+        private ToolStripSeparator _toolStripSeparator1 = null!;
+        private ConnectionInfoPropertyGrid _pGrid = null!;
+        private ThemeManager? _themeManager;
         private int _cachedPropertyGridLabelWidth;
         private bool _applySplitterWidthQueued;
         private const int MinPropertyNameColumnWidth = 50;
@@ -48,9 +48,9 @@ namespace mRemoteNG.UI.Window
         private const int PropertyNameTextPadding = 24;
         private static readonly BindingFlags NonPublicInstanceBinding = BindingFlags.Instance | BindingFlags.NonPublic;
 
-        private ConnectionInfo _selectedTreeNode;
+        private ConnectionInfo? _selectedTreeNode;
 
-        public ConnectionInfo SelectedTreeNode
+        public ConnectionInfo? SelectedTreeNode
         {
             get => _selectedTreeNode;
             set
@@ -101,11 +101,11 @@ namespace mRemoteNG.UI.Window
             _pGrid.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom)
                            | AnchorStyles.Left)
                           | AnchorStyles.Right;
-            _pGrid.BrowsableProperties = null;
+            _pGrid.BrowsableProperties = null!;
             _pGrid.ContextMenuStrip = PropertyGridContextMenu;
             _pGrid.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, Convert.ToByte(0));
-            _pGrid.HiddenAttributes = null;
-            _pGrid.HiddenProperties = null;
+            _pGrid.HiddenAttributes = null!;
+            _pGrid.HiddenProperties = null!;
             _pGrid.Location = new Point(0, 0);
             _pGrid.Name = "_pGrid";
             _pGrid.PropertySort = PropertySort.Categorized;
@@ -319,6 +319,7 @@ namespace mRemoteNG.UI.Window
         private new void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
+            if (_themeManager == null) return;
             _pGrid.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
             _pGrid.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.ViewBackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Background");
@@ -409,9 +410,9 @@ namespace mRemoteNG.UI.Window
                 !_pGrid.IsShowingDefaultProperties &&
                 !_pGrid.RootNodeSelected;
 
-            _btnIcon.Image = _btnIcon.Enabled
+            _btnIcon.Image = _btnIcon.Enabled && _pGrid.SelectedConnectionInfo?.Icon != null
                 ? ConnectionIcon
-                    .FromString(_pGrid.SelectedConnectionInfo?.Icon)?
+                    .FromString(_pGrid.SelectedConnectionInfo.Icon)?
                     .ToBitmap()
                 : null;
         }
@@ -431,7 +432,7 @@ namespace mRemoteNG.UI.Window
 
                 ToolStrip propertyGridToolStrip = new();
 
-                ToolStrip toolStrip = null;
+                ToolStrip? toolStrip = null;
                 foreach (Control control in _pGrid.Controls)
                 {
                     toolStrip = control as ToolStrip;
@@ -786,7 +787,7 @@ namespace mRemoteNG.UI.Window
 
         #region Host Status (Ping)
 
-        private Thread _pThread;
+        private Thread? _pThread;
 
         private void CheckHostAlive(object hostName)
         {
