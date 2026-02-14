@@ -181,17 +181,17 @@ namespace mRemoteNG.Themes
                     if (lightNG != null)
                     {
                         ThemeInfo vs2015Light = new("vs2015Light", new VS2015LightTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, lightNG.ExtendedPalette);
-                        themes.Add(vs2015Light.Name, vs2015Light);
+                        themes.Add(vs2015Light.Name!, vs2015Light);
                     }
                     if (darkNG != null)
                     {
                         ThemeInfo vs2015Dark = new("vs2015Dark", new VS2015DarkTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, darkNG.ExtendedPalette);
-                        themes.Add(vs2015Dark.Name, vs2015Dark);
+                        themes.Add(vs2015Dark.Name!, vs2015Dark);
                     }
                     if (blueNG != null)
                     {
                         ThemeInfo vs2015Blue = new("vs2015Blue", new VS2015BlueTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, blueNG.ExtendedPalette);
-                        themes.Add(vs2015Blue.Name, vs2015Blue);
+                        themes.Add(vs2015Blue.Name!, vs2015Blue);
                     }
                 }
             }
@@ -224,7 +224,7 @@ namespace mRemoteNG.Themes
         //Delete a theme from memory and disk
         public void deleteTheme(ThemeInfo themeToDelete)
         {
-            if (!themes.Contains(themeToDelete.Name)) return;
+            if (themeToDelete.Name == null || !themes.Contains(themeToDelete.Name)) return;
             if (ActiveTheme == themeToDelete)
                 ActiveTheme = DefaultTheme;
             themes.Remove(themeToDelete.Name);
@@ -258,12 +258,12 @@ namespace mRemoteNG.Themes
 
         public delegate void ThemeChangedEventHandler();
 
-        private ThemeChangedEventHandler ThemeChangedEvent = null!;
+        private ThemeChangedEventHandler? ThemeChangedEvent;
 
         public event ThemeChangedEventHandler ThemeChanged
         {
-            add => ThemeChangedEvent = (ThemeChangedEventHandler)Delegate.Combine(ThemeChangedEvent, value);
-            remove => ThemeChangedEvent = (ThemeChangedEventHandler)Delegate.Remove(ThemeChangedEvent, value);
+            add => ThemeChangedEvent = (ThemeChangedEventHandler?)Delegate.Combine(ThemeChangedEvent, value);
+            remove => ThemeChangedEvent = (ThemeChangedEventHandler?)Delegate.Remove(ThemeChangedEvent, value);
         }
 
         // ReSharper disable once UnusedParameter.Local
@@ -302,8 +302,8 @@ namespace mRemoteNG.Themes
         }
 
         public ThemeInfo DefaultTheme =>
-            themes != null && themes.ContainsKey("vs2015Light")
-                ? (ThemeInfo)themes["vs2015Light"]
+            themes != null && themes.ContainsKey("vs2015Light") && themes["vs2015Light"] is ThemeInfo cached
+                ? cached
                 : new ThemeInfo("vs2015Light", new VS2015LightTheme(), "",
                                 VisualStudioToolStripExtender.VsVersion.Vs2015);
 
@@ -321,7 +321,7 @@ namespace mRemoteNG.Themes
                 // Default accordingly...
                 if (value == null)
                 {
-                    if (_activeTheme != null && _activeTheme.Name.Equals(DefaultTheme.Name)) return;
+                    if (_activeTheme != null && _activeTheme.Name == DefaultTheme.Name) return;
 
                     Properties.OptionsThemePage.Default.ThemeName = DefaultTheme.Name;
                     _activeTheme = DefaultTheme;
