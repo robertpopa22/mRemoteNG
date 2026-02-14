@@ -10,13 +10,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         public static string EncryptAuthCookieString(string cookieString)
         {
             byte[] cookieBytes = TsCryptEncryptString(cookieString);
-
-            if (cookieBytes != null)
-            {
-                return Convert.ToBase64String(cookieBytes);
-            }
-
-            return null;
+            return Convert.ToBase64String(cookieBytes);
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -53,7 +47,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             DataBlob inputBlob;
             DataBlob outputBlob;
-            byte[] outputData = null;
+            byte[] outputData = [];
 
             byte[] stringBytes = Encoding.Unicode.GetBytes(inputString);
             byte[] inputData = new byte[stringBytes.Length + 2];
