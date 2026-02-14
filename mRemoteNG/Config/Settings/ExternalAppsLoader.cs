@@ -72,30 +72,30 @@ namespace mRemoteNG.Config.Settings
             {
                 ExternalTool extA = new()
                 {
-                    DisplayName = xEl.Attributes["DisplayName"].Value,
-                    FileName = xEl.Attributes["FileName"].Value,
-                    Arguments = xEl.Attributes["Arguments"].Value
+                    DisplayName = xEl.Attributes["DisplayName"]?.Value ?? string.Empty,
+                    FileName = xEl.Attributes["FileName"]?.Value ?? string.Empty,
+                    Arguments = xEl.Attributes["Arguments"]?.Value ?? string.Empty
                 };
 
                 // check before, since old save files won't have this set
                 if (xEl.HasAttribute("WorkingDir"))
-                    extA.WorkingDir = xEl.Attributes["WorkingDir"].Value;
+                    extA.WorkingDir = xEl.Attributes["WorkingDir"]?.Value ?? string.Empty;
                 if (xEl.HasAttribute("RunElevated"))
-                    extA.RunElevated = bool.Parse(xEl.Attributes["RunElevated"].Value);
+                    extA.RunElevated = bool.Parse(xEl.Attributes["RunElevated"]!.Value);
 
                 if (xEl.HasAttribute("WaitForExit"))
                 {
-                    extA.WaitForExit = bool.Parse(xEl.Attributes["WaitForExit"].Value);
+                    extA.WaitForExit = bool.Parse(xEl.Attributes["WaitForExit"]!.Value);
                 }
 
                 if (xEl.HasAttribute("TryToIntegrate"))
                 {
-                    extA.TryIntegrate = bool.Parse(xEl.Attributes["TryToIntegrate"].Value);
+                    extA.TryIntegrate = bool.Parse(xEl.Attributes["TryToIntegrate"]!.Value);
                 }
 
                 if (xEl.HasAttribute("ShowOnToolbar"))
                 {
-                    extA.ShowOnToolbar = bool.Parse(xEl.Attributes["ShowOnToolbar"].Value);
+                    extA.ShowOnToolbar = bool.Parse(xEl.Attributes["ShowOnToolbar"]!.Value);
                 }
 
                 _messageCollector.AddMessage(MessageClass.InformationMsg,
