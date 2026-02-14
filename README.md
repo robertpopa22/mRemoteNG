@@ -4,8 +4,23 @@
 
 # mRemoteNG — Community Edition
 
-> Active fork with bug fixes, security hardening, and a complete test suite.
-> Based on [mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG) `v1.78.2-dev`.
+<blockquote>
+
+<strong>This fork is alive.</strong>
+
+We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, 2100+ automated tests, and builds for x64, x86, and ARM64.
+
+<strong>The plan:</strong> work through the full <strong>830+ issue backlog</strong>, 100 at a time. Security first, then stability, then features. Every fix gets a release. Every release gets tested. Every issue gets a response.
+
+<strong>How we work:</strong> Development runs in parallel across <strong>Claude Code</strong> (Anthropic), <strong>Gemini</strong> (Google), and <strong>Codex</strong> (OpenAI) — each AI agent tackling different issue batches simultaneously, with every change reviewed and merged by a human maintainer. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
+
+<strong>What's next:</strong> Once the backlog is current, ongoing maintenance — bug fixes, dependency updates, security patches — will run autonomously via <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview">Claude Code</a>, continuously monitoring new issues and shipping fixes with minimal human intervention.
+
+Full transparency: this project is built by humans and AI working together. We believe that's the future of open source.
+
+<em>— Robert & contributors (human + AI)</em>
+
+</blockquote>
 
 <p align="center">
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.2">
