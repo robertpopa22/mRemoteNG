@@ -73,15 +73,15 @@ namespace mRemoteNG.UI.Forms
             return new FrmMain();
         }
 
-        private static ClipboardchangeEventHandler _clipboardChangedEvent;
+        private static ClipboardchangeEventHandler? _clipboardChangedEvent;
         private bool _inSizeMove;
         private bool _inMouseActivate;
         private IntPtr _fpChainedWindowHandle;
         private bool _usingSqlServer;
-        private string _connectionsFileName;
+        private string? _connectionsFileName;
         private bool _showFullPathInTitle;
         private readonly AdvancedWindowMenu _advancedWindowMenu;
-        private ConnectionInfo _selectedConnection;
+        private ConnectionInfo? _selectedConnection;
         private readonly IList<IMessageWriter> _messageWriters = [];
         private readonly ThemeManager _themeManager;
         private readonly FileBackupPruner _backupPruner = new();
@@ -89,7 +89,7 @@ namespace mRemoteNG.UI.Forms
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
         private bool _isAutoLocked;
         private bool _unlockPromptInProgress;
-        public static FrmOptions OptionsForm;
+        public static FrmOptions? OptionsForm;
 
         /// <summary>
         /// Recreates the OptionsForm if it has been disposed.
@@ -867,7 +867,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private static ConnectionTab GetActiveConnectionTab(ConnectionWindow connectionWindow)
+        private static ConnectionTab? GetActiveConnectionTab(ConnectionWindow connectionWindow)
         {
             if (connectionWindow == null)
                 return null;
@@ -907,7 +907,7 @@ namespace mRemoteNG.UI.Forms
             InterfaceControl ifc = InterfaceControl.FindInterfaceControl(tab);
             if (ifc == null) return;
 
-            ifc.Protocol.Focus();
+            ifc.Protocol?.Focus();
             Form conFormWindow = ifc.FindForm();
             ((ConnectionTab)conFormWindow)?.RefreshInterfaceController();
         }
@@ -948,7 +948,7 @@ namespace mRemoteNG.UI.Forms
             if (!string.IsNullOrEmpty(SelectedConnection?.Name))
             {
                 titleBuilder.Append(separator);
-                titleBuilder.Append(SelectedConnection.Name);
+                titleBuilder.Append(SelectedConnection!.Name);
 
                 if (Properties.Settings.Default.TrackActiveConnectionInConnectionTree)
                     AppWindows.TreeForm.JumpToNode(SelectedConnection);

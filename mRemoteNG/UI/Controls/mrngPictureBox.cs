@@ -8,7 +8,7 @@ namespace mRemoteNG.UI.Controls
     [SupportedOSPlatform("windows")]
     public partial class MrngPictureBox : PictureBox
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         public MrngPictureBox()
         {

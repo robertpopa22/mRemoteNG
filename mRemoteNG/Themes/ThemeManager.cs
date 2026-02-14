@@ -26,10 +26,10 @@ namespace mRemoteNG.Themes
     {
         #region Private Variables
 
-        private ThemeInfo _activeTheme;
-        private Hashtable themes;
+        private ThemeInfo _activeTheme = null!;
+        private Hashtable themes = null!;
         private bool _themeActive;
-        private static ThemeManager themeInstance;
+        private static ThemeManager? themeInstance;
         private readonly string themePath = App.Info.SettingsFileInfo.ThemeFolder;
 
         #endregion
@@ -245,7 +245,7 @@ namespace mRemoteNG.Themes
 
         public delegate void ThemeChangedEventHandler();
 
-        private ThemeChangedEventHandler ThemeChangedEvent;
+        private ThemeChangedEventHandler ThemeChangedEvent = null!;
 
         public event ThemeChangedEventHandler ThemeChanged
         {

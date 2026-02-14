@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Controls
     [ToolboxBitmap(typeof(Label))]
     public class MrngLabel : Label
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
         private TextFormatFlags _textFormatFlags;
 
         public MrngLabel()

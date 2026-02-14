@@ -33,6 +33,13 @@ dotnet_style_qualification_for_property = false:none
 dotnet_style_qualification_for_method = false:none
 dotnet_style_qualification_for_event = false:none
 
+# Brace preferences
+csharp_preserve_single_line_blocks = true
+csharp_prefer_braces_for_statement_blocks = true
+
+# Member ordering preferences
+dotnet_sort_members_on_access = true
+
 # New line preferences
 csharp_new_line_before_open_brace = all
 csharp_new_line_before_else = true

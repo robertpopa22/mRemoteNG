@@ -11,7 +11,7 @@ namespace mRemoteNG.UI.Controls
     //There are some glitches on the initial draw of some controls
     public class MrngTextBox : TextBox
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         public MrngTextBox()
         {

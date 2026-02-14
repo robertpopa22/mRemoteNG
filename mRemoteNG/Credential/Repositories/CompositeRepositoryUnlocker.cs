@@ -10,7 +10,7 @@ namespace mRemoteNG.Credential.Repositories
         private readonly List<ICredentialRepository> _repositories = [];
 
         public IEnumerable<ICredentialRepository> Repositories => _repositories;
-        public ICredentialRepository SelectedRepository { get; set; }
+        public ICredentialRepository? SelectedRepository { get; set; }
 
         public CompositeRepositoryUnlocker(IEnumerable<ICredentialRepository> repositories)
         {

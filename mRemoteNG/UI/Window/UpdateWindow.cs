@@ -19,7 +19,7 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public partial class UpdateWindow : BaseWindow
     {
-        private AppUpdater _appUpdate;
+        private AppUpdater? _appUpdate;
         //private bool _isUpdateDownloadHandlerDeclared;
 
         #region Public Methods

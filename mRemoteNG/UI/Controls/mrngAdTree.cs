@@ -16,11 +16,11 @@ namespace mRemoteNG.UI.Controls
             InitializeComponent();
         }
 
-        public event AdPathChangedEventHandler AdPathChanged;
+        public event AdPathChangedEventHandler? AdPathChanged;
 
         public delegate void AdPathChangedEventHandler(object sender);
 
-        public string AdPath { get; set; }
+        public string? AdPath { get; set; }
 
         public string Domain
         {
@@ -28,13 +28,13 @@ namespace mRemoteNG.UI.Controls
             set => _domain = value;
         }
 
-        public object SelectedNode { get; internal set; }
+        public object? SelectedNode { get; internal set; }
 
         #endregion Public Methods
 
         #region Private Methods
 
-        private string _domain;
+        private string? _domain;
 
         private void TvActiveDirectory_AfterExpand(object sender, TreeViewEventArgs e)
         {

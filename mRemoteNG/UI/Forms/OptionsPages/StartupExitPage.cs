@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     {
         #region Private Fields
 
-        private OptRegistryStartupExitPage pageRegSettingsInstance;
+        private OptRegistryStartupExitPage? pageRegSettingsInstance;
 
         #endregion
 

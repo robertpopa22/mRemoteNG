@@ -17,14 +17,14 @@ namespace mRemoteNG.App
     [SupportedOSPlatform("windows")]
     public static class Shutdown
     {
-        private static string _updateFilePath;
+        private static string? _updateFilePath;
 
         private static bool UpdatePending
         {
             get { return !string.IsNullOrEmpty(_updateFilePath); }
         }
 
-        public static void Quit(string updateFilePath = null)
+        public static void Quit(string? updateFilePath = null)
         {
             _updateFilePath = updateFilePath;
             FrmMain.Default.Close();

@@ -5,7 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.81.0-beta.1] - 2026-02-14
 
+### Fixed
+- **P0: Issue #3044** - Enhanced argument parsing for batch files (.cmd/.bat) to correctly handle special characters like commas in passwords by enforcing automatic double-quoting.
+- **P1: Issue #1085** - Improved security in CSV exports by masking all passwords (including Gateway and Proxy passwords) with '********'.
+- **P1: Issue #2274** - Verified cryptographic support for special characters (like '§') in passwords through new unit tests.
+
 ### Added
+- **P1: Issue #918** - Added "Reveal Password" functionality in the Connection Properties grid via a new modal editor.
 - **Beta-First Release Strategy**: Adopted a high-velocity development model where new features are released as Beta/Pre-releases.
 - Stability Guarantee: Full "Stable" releases will now occur only after a cycle of at least 5 successful Beta iterations.
 

@@ -19,7 +19,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     public sealed partial class SecurityPage : OptionsPage
     {
         #region Private Fields
-        private OptRegistrySecurityPage pageRegSettingsInstance;
+        private OptRegistrySecurityPage? pageRegSettingsInstance;
 
         private readonly Timer clipboardClearTimer = new() { Interval = 1000 };
         private const int clipboardClearSeconds = 30;

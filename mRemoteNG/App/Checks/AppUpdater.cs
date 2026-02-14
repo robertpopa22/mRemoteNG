@@ -24,14 +24,14 @@ namespace mRemoteNG.App.Update
     public class AppUpdater
     {
         private const int _bufferLength = 8192;
-        private WebProxy _webProxy;
-        private HttpClient _httpClient;
-        private CancellationTokenSource _changeLogCancelToken;
-        private CancellationTokenSource _getUpdateInfoCancelToken;
+        private WebProxy? _webProxy;
+        private HttpClient? _httpClient;
+        private CancellationTokenSource? _changeLogCancelToken;
+        private CancellationTokenSource? _getUpdateInfoCancelToken;
 
         #region Public Properties
 
-        public UpdateInfo CurrentUpdateInfo { get; private set; }
+        public UpdateInfo? CurrentUpdateInfo { get; private set; }
 
         public bool IsGetUpdateInfoRunning
         {

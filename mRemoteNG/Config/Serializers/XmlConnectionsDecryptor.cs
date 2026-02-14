@@ -16,7 +16,7 @@ namespace mRemoteNG.Config.Serializers
         private readonly ICryptographyProvider _cryptographyProvider;
         private readonly RootNodeInfo _rootNodeInfo;
 
-        public Func<Optional<SecureString>> AuthenticationRequestor { get; set; }
+        public Func<Optional<SecureString>>? AuthenticationRequestor { get; set; }
 
         public int KeyDerivationIterations
         {

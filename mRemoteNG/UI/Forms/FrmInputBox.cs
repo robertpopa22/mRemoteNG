@@ -8,7 +8,7 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public sealed partial class FrmInputBox : Form
     {
-        internal string returnValue;
+        internal string? returnValue;
 
         public FrmInputBox(string title, string promptText, string value)
         {

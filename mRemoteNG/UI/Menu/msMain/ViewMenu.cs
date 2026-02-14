@@ -13,27 +13,27 @@ namespace mRemoteNG.UI.Menu
     [SupportedOSPlatform("windows")]
     public class ViewMenu : ToolStripMenuItem
     {
-        private ToolStripMenuItem _mMenViewConnectionPanels;
-        private ToolStripMenuItem _mMenReconnectAll;
-        private ToolStripSeparator _mMenViewSep1;
-        public ToolStripMenuItem _mMenViewErrorsAndInfos;
-        public ToolStripMenuItem _mMenViewFileMenu;
-        private ToolStripMenuItem _mMenViewAddConnectionPanel;
-        private ToolStripSeparator _mMenViewSep2;
-        private ToolStripMenuItem _mMenViewFullscreen;
-        public ToolStripMenuItem _mMenViewExtAppsToolbar;
-        public ToolStripMenuItem _mMenViewQuickConnectToolbar;
-        public ToolStripMenuItem _mMenViewMultiSshToolbar;
-        private ToolStripMenuItem _mMenViewResetLayout;
-        public ToolStripMenuItem _mMenViewLockToolbars;
+        private ToolStripMenuItem _mMenViewConnectionPanels = null!;
+        private ToolStripMenuItem _mMenReconnectAll = null!;
+        private ToolStripSeparator _mMenViewSep1 = null!;
+        public ToolStripMenuItem _mMenViewErrorsAndInfos = null!;
+        public ToolStripMenuItem _mMenViewFileMenu = null!;
+        private ToolStripMenuItem _mMenViewAddConnectionPanel = null!;
+        private ToolStripSeparator _mMenViewSep2 = null!;
+        private ToolStripMenuItem _mMenViewFullscreen = null!;
+        public ToolStripMenuItem _mMenViewExtAppsToolbar = null!;
+        public ToolStripMenuItem _mMenViewQuickConnectToolbar = null!;
+        public ToolStripMenuItem _mMenViewMultiSshToolbar = null!;
+        private ToolStripMenuItem _mMenViewResetLayout = null!;
+        public ToolStripMenuItem _mMenViewLockToolbars = null!;
         private readonly PanelAdder _panelAdder;
 
 
-        public ToolStrip TsExternalTools { get; set; }
-        public ToolStrip TsQuickConnect { get; set; }
-        public ToolStrip TsMultiSsh { get; set; }
-        public FullscreenHandler FullscreenHandler { get; set; }
-        public FrmMain MainForm { get; set; }
+        public ToolStrip? TsExternalTools { get; set; }
+        public ToolStrip? TsQuickConnect { get; set; }
+        public ToolStrip? TsMultiSsh { get; set; }
+        public FullscreenHandler? FullscreenHandler { get; set; }
+        public FrmMain? MainForm { get; set; }
 
 
         public ViewMenu()

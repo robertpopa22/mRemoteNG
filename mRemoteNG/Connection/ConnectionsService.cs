@@ -35,12 +35,12 @@ namespace mRemoteNG.Connection
 
         public bool IsConnectionsFileLoaded { get; set; }
         public bool UsingDatabase { get; private set; }
-        public string ConnectionFileName { get; private set; }
-        public RemoteConnectionsSyncronizer RemoteConnectionsSyncronizer { get; set; }
+        public string? ConnectionFileName { get; private set; }
+        public RemoteConnectionsSyncronizer? RemoteConnectionsSyncronizer { get; set; }
         public DateTime LastSqlUpdate { get; set; }
 		public DateTime LastFileUpdate { get; set; }
 
-        public ConnectionTreeModel ConnectionTreeModel { get; private set; }
+        public ConnectionTreeModel? ConnectionTreeModel { get; private set; }
 
         public void NewConnectionsFile(string filename)
         {
@@ -344,8 +344,8 @@ namespace mRemoteNG.Connection
 
         #region Events
 
-        public event EventHandler<ConnectionsLoadedEventArgs> ConnectionsLoaded;
-        public event EventHandler<ConnectionsSavedEventArgs> ConnectionsSaved;
+        public event EventHandler<ConnectionsLoadedEventArgs>? ConnectionsLoaded;
+        public event EventHandler<ConnectionsSavedEventArgs>? ConnectionsSaved;
 
         private void RaiseConnectionsLoadedEvent(Optional<ConnectionTreeModel> previousTreeModel, ConnectionTreeModel newTreeModel, bool previousSourceWasDatabase, bool newSourceIsDatabase, string newSourcePath)
         {

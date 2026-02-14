@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Controls
     //Extended button class, the button onPaint completely repaint the control
     public class MrngButton : Button
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         /// <summary>
         /// Store the mouse state, required for coloring the component according to the mouse state

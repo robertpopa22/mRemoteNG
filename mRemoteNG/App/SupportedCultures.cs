@@ -12,7 +12,7 @@ namespace mRemoteNG.App
     [SupportedOSPlatform("windows")]
     public sealed class SupportedCultures : Dictionary<string, string>
     {
-        private static SupportedCultures _Instance;
+        private static SupportedCultures? _Instance;
 
         private static SupportedCultures SingletonInstance
         {

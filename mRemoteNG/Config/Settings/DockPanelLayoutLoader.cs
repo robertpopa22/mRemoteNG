@@ -3,6 +3,7 @@ using mRemoteNG.App.Info;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Window;
 using System;
+using System.Collections.Generic; // Added for Dictionary
 using System.IO;
 using mRemoteNG.Messages;
 using WeifenLuo.WinFormsUI.Docking;
@@ -15,6 +16,17 @@ namespace mRemoteNG.Config.Settings
     {
         private readonly FrmMain _mainForm;
         private readonly MessageCollector _messageCollector;
+
+        // Static dictionary for persistent string to content mapping
+        private static readonly Dictionary<string, Func<IDockContent>> _contentMap = new Dictionary<string, Func<IDockContent>>();
+
+        static DockPanelLayoutLoader() // Static constructor to initialize the map
+        {
+            _contentMap.Add(typeof(ConfigWindow).ToString(), () => AppWindows.ConfigForm);
+            _contentMap.Add(typeof(ConnectionTreeWindow).ToString(), () => AppWindows.TreeForm);
+            _contentMap.Add(typeof(ErrorAndInfoWindow).ToString(), () => AppWindows.ErrorsForm);
+            // Add other dockable windows here as they are introduced
+        }
 
         public DockPanelLayoutLoader(FrmMain mainForm, MessageCollector messageCollector)
         {
@@ -46,10 +58,10 @@ namespace mRemoteNG.Config.Settings
                 {
                     _mainForm.pnlDock.LoadFromXml(newPath, GetContentFromPersistString);
 #if !PORTABLE
-				}
-				else if (File.Exists(oldPath))
-				{
-					_mainForm.pnlDock.LoadFromXml(oldPath, GetContentFromPersistString);
+                }
+                else if (File.Exists(oldPath))
+                {
+                    _mainForm.pnlDock.LoadFromXml(oldPath, GetContentFromPersistString);
 #endif
                 }
                 else
@@ -59,7 +71,18 @@ namespace mRemoteNG.Config.Settings
             }
             catch (Exception ex)
             {
-                _messageCollector.AddExceptionMessage("LoadPanelsFromXML failed", ex);
+                _messageCollector.AddExceptionMessage("LoadPanelsFromXML failed. Resetting to default layout.", ex);
+                try
+                {
+                    // Self-healing: Corrupted layout file detected. Reset to defaults to ensure UI is usable.
+                    // This fixes issues #2907, #2910, #2914 where users get stuck with broken panels.
+                    _mainForm.SetDefaultLayout();
+                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "Panel layout file was corrupted and has been reset to defaults.");
+                }
+                catch (Exception resetEx)
+                {
+                    _messageCollector.AddExceptionMessage("Failed to reset layout to defaults after corruption.", resetEx);
+                }
             }
         }
 
@@ -71,18 +94,14 @@ namespace mRemoteNG.Config.Settings
 
             try
             {
-                if (persistString == typeof(ConfigWindow).ToString())
-                    return AppWindows.ConfigForm;
-
-                if (persistString == typeof(ConnectionTreeWindow).ToString())
-                    return AppWindows.TreeForm;
-
-                if (persistString == typeof(ErrorAndInfoWindow).ToString())
-                    return AppWindows.ErrorsForm;
+                if (_contentMap.TryGetValue(persistString, out var contentFactory))
+                {
+                    return contentFactory.Invoke();
+                }
             }
             catch (Exception ex)
             {
-                _messageCollector.AddExceptionMessage("GetContentFromPersistString failed", ex);
+                _messageCollector.AddExceptionMessage($"GetContentFromPersistString failed for '{persistString}'", ex);
             }
 
             return null;

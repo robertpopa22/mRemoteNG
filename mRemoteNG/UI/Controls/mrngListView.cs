@@ -11,7 +11,7 @@ namespace mRemoteNG.UI.Controls
     //This is subclassed to avoid repeating the code in multiple places
     internal class MrngListView : ObjectListView
     {
-        private CellBorderDecoration deco;
+        private CellBorderDecoration? deco;
 
         //Control if the gridlines are styled, must be set before the OnCreateControl is fired
         public bool DecorateLines { get; set; } = true;

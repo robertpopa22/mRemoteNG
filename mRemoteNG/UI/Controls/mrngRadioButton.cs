@@ -11,7 +11,7 @@ namespace mRemoteNG.UI.Controls
     // and glyph color inconsistency
     class MrngRadioButton : RadioButton
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
         private readonly Rectangle _circle;
         private readonly Rectangle _circleSmall;
         private readonly int _textXCoord;

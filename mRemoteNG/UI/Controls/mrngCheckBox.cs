@@ -15,7 +15,7 @@ namespace mRemoteNG.UI.Controls
     //
     public class MrngCheckBox : CheckBox
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
         private readonly Size _checkboxSize;
         private readonly int _checkboxYCoord;
         private readonly int _textXCoord;

@@ -19,9 +19,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         #region Public Properties
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        [Browsable(false)] public virtual string PageName { get; set; }
+        [Browsable(false)] public virtual string PageName { get; set; } = string.Empty;
 
-        public virtual Icon PageIcon { get; protected set; }
+        public virtual Icon? PageIcon { get; protected set; }
         public virtual Image IconImage => PageIcon?.ToBitmap();
 
         /// <summary>

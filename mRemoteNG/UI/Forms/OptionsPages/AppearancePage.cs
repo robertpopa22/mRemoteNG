@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     [SupportedOSPlatform("windows")]
     public sealed partial class AppearancePage
     {
-        private OptRegistryAppearancePage pageRegSettingsInstance;
+        private OptRegistryAppearancePage? pageRegSettingsInstance;
         public AppearancePage()
         {
             InitializeComponent();

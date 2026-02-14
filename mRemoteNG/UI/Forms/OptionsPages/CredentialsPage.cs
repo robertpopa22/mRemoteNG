@@ -11,7 +11,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     [SupportedOSPlatform("windows")]
     public sealed partial class CredentialsPage : OptionsPage
     {
-        private OptRegistryCredentialsPage pageRegSettingsInstance;
+        private OptRegistryCredentialsPage? pageRegSettingsInstance;
         public CredentialsPage()
         {
             InitializeComponent();

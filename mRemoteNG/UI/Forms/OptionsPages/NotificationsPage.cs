@@ -15,7 +15,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     public sealed partial class NotificationsPage
     {
         #region Private Fields
-        private OptRegistryNotificationsPage pageRegSettingsInstance;
+        private OptRegistryNotificationsPage? pageRegSettingsInstance;
         #endregion
 
         public NotificationsPage()

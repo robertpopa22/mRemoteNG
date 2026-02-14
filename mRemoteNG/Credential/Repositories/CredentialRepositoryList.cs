@@ -63,8 +63,8 @@ namespace mRemoteNG.Credential.Repositories
             return GetEnumerator();
         }
 
-        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRepository>> RepositoriesUpdated;
-        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRecord>> CredentialsUpdated;
+        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRepository>>? RepositoriesUpdated;
+        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRecord>>? CredentialsUpdated;
 
         private void RaiseRepositoriesUpdatedEvent(ActionType action, IEnumerable<ICredentialRepository> changedItems)
         {

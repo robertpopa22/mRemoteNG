@@ -10,7 +10,7 @@ namespace mRemoteNG.UI.Controls
     //warning: THe DropDown style rendering is glitchy in this control, only use DropDownList or correct the rendering method
     internal class MrngComboBox : ComboBox
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         public enum MouseState
         {

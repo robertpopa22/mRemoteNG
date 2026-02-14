@@ -73,9 +73,9 @@ namespace mRemoteNG.Config.Connections.Multiuser
             UpdateCheckFinished?.Invoke(sender, eventArgs);
         }
 
-        public event EventHandler UpdateCheckStarted;
-        public event UpdateCheckFinishedEventHandler UpdateCheckFinished;
-        public event ConnectionsUpdateAvailableEventHandler ConnectionsUpdateAvailable;
+        public event EventHandler? UpdateCheckStarted;
+        public event UpdateCheckFinishedEventHandler? UpdateCheckFinished;
+        public event ConnectionsUpdateAvailableEventHandler? ConnectionsUpdateAvailable;
 
 
         public void Dispose()

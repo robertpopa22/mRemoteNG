@@ -42,9 +42,9 @@ namespace mRemoteNG.App
         /// </summary>
         public static bool UseCredentialManager => false;
 
-        public static WindowList WindowList { get; set; }
+        public static WindowList WindowList { get; set; } = null!;
         public static MessageCollector MessageCollector { get; } = new MessageCollector();
-        public static NotificationAreaIcon NotificationAreaIcon { get; set; }
+        public static NotificationAreaIcon NotificationAreaIcon { get; set; } = null!;
         public static ExternalToolsService ExternalToolsService { get; } = new ExternalToolsService();
 
         public static SecureString EncryptionKey { get; set; } = new RootNodeInfo(RootNodeType.Connection).PasswordString.ConvertToSecureString();

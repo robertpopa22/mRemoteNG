@@ -13,7 +13,7 @@ public class LocalDBManager
 {
     private readonly string _dbPath;
     private readonly string _schemaPath;
-    private readonly string _mRIdentifier;
+    private readonly string _mRIdentifier = string.Empty; // Initialize to non-null default
     private readonly bool? _useEncryption;
 
   
@@ -23,7 +23,7 @@ public class LocalDBManager
     /// <param name="dbPath">The path to the database file.</param>
     /// <param name="useEncryption">Indicates whether to use encryption for the database. If null, no change is made to an existing database.</param>
     /// <param name="schemaFilePath">Optional path to a schema file for creating the database structure.</param>
-    public LocalDBManager(string dbPath = null, bool? useEncryption = null, string schemaFilePath = null)
+    public LocalDBManager(string? dbPath = null, bool? useEncryption = null, string? schemaFilePath = null)
     {
         _dbPath = string.IsNullOrWhiteSpace(dbPath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mRemoteNG.appSettings") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dbPath);
         _schemaPath = string.IsNullOrWhiteSpace(schemaFilePath) ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Schemas\\mremoteng_default_settings_v1_0.json") : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, schemaFilePath);
@@ -42,10 +42,12 @@ public class LocalDBManager
         catch (PlatformNotSupportedException ex)
         {
             Console.WriteLine(ex.Message);
+            _mRIdentifier = string.Empty; // Ensure initialization on error
         }
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
+            _mRIdentifier = string.Empty; // Ensure initialization on error
         }
 
 
@@ -124,7 +126,7 @@ public class LocalDBManager
     /// Creates the database using the machine identifier as a password if encryption is enabled.
     /// </summary>
     /// <param name="schemaFilePath">Path to the schema file for creating the database structure.</param>
-    private void CreateDatabase(string schemaFilePath = null)
+    private void CreateDatabase(string? schemaFilePath = null)
     {
         var connectionString = _useEncryption.HasValue && _useEncryption.Value
             ? $"Filename={_dbPath};Password={_mRIdentifier}"
@@ -133,7 +135,7 @@ public class LocalDBManager
         {
             if (!string.IsNullOrWhiteSpace(schemaFilePath) && File.Exists(schemaFilePath))
             {
-                if (schemaFilePath == null || schemaFilePath.Contains("../") || schemaFilePath.Contains(@"..\"))
+                if (string.IsNullOrWhiteSpace(schemaFilePath) || schemaFilePath.Contains("../") || schemaFilePath.Contains(@"..\"))
                 {
                     throw new ArgumentException("Invalid file path");
                 }

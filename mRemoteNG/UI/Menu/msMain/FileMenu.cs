@@ -14,16 +14,16 @@ namespace mRemoteNG.UI.Menu
     [SupportedOSPlatform("windows")]
     public class FileMenu : ToolStripMenuItem
     {
-        private ToolStripMenuItem _mMenToolsOptions;
-        private ToolStripMenuItem _mMenFileNew;
-        private ToolStripMenuItem _mMenFileLoad;
-        private ToolStripMenuItem _mMenFileSave;
-        private ToolStripMenuItem _mMenFileSaveAs;
-        private ToolStripMenuItem _mMenFileExit;
-        private ToolStripSeparator _mMenFileSep2;
-        private ToolStripSeparator _mMenFileSep1;
+        private ToolStripMenuItem _mMenToolsOptions = null!;
+        private ToolStripMenuItem _mMenFileNew = null!;
+        private ToolStripMenuItem _mMenFileLoad = null!;
+        private ToolStripMenuItem _mMenFileSave = null!;
+        private ToolStripMenuItem _mMenFileSaveAs = null!;
+        private ToolStripMenuItem _mMenFileExit = null!;
+        private ToolStripSeparator _mMenFileSep2 = null!;
+        private ToolStripSeparator _mMenFileSep1 = null!;
 
-        public ConnectionTreeWindow TreeWindow { get; set; }
+        public ConnectionTreeWindow? TreeWindow { get; set; }
 
         public FileMenu()
         {

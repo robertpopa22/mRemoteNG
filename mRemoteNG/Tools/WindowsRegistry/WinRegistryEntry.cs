@@ -80,12 +80,12 @@ namespace mRemoteNG.Tools.WindowsRegistry
                     : throw new ArgumentNullException(nameof(Path), "Invalid parameter: Path cannot be null, empty, or consist only of whitespace characters.");
             }
         }
-        private string privatePath;
+        private string? privatePath;
 
         /// <summary>
         /// Represents the name of the registry entry.
         /// </summary>
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Represents the kind of data stored in the registry value.
@@ -103,23 +103,23 @@ namespace mRemoteNG.Tools.WindowsRegistry
                 privateValue = ValueValidationRules(value);
             }
         }
-        private T privateValue;
+        private T? privateValue;
 
         #endregion
 
         #region Aditional Fileds & Properties
 
-        private T[] AllowedValues;
+        private T[]? AllowedValues;
         private int? MinInt32Value;
         private int? MaxInt32Value;
         private long? MinInt64Value;
         private long? MaxInt64Value;
-        private Type EnumType;
+        private Type? EnumType;
 
         /// <summary>
         /// Represents the raw value retrieved directly from the registry.
         /// </summary>
-        private string RawValue;
+        private string? RawValue;
 
         /// <summary>
         /// Represents the type of the generic parameter T.

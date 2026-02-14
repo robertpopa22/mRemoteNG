@@ -2,9 +2,11 @@
 using System.Drawing;
 using Google.Protobuf;
 using mRemoteNG.Resources.Language;
+using System.Runtime.Versioning; // Added for SupportedOSPlatform attribute
 
 namespace mRemoteNG.Tools
 {
+    [SupportedOSPlatform("windows")] // Suppress CA1416 warnings for this Windows-only class
     public partial class ReconnectGroup
     {
         public ReconnectGroup()

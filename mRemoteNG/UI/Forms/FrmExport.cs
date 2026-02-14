@@ -14,7 +14,7 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public partial class FrmExport
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         #region Public Properties
 
@@ -70,7 +70,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private ContainerInfo _selectedFolder;
+        private ContainerInfo? _selectedFolder;
 
         public ContainerInfo SelectedFolder
         {
@@ -83,7 +83,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private ConnectionInfo _selectedConnection;
+        private ConnectionInfo? _selectedConnection;
 
         public ConnectionInfo SelectedConnection
         {

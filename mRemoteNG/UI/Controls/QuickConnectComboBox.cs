@@ -13,7 +13,7 @@ namespace mRemoteNG.UI.Controls
     [SupportedOSPlatform("windows")]
     public class QuickConnectComboBox : ToolStripComboBox
     {
-        private readonly ComboBox _comboBox;
+        private readonly ComboBox? _comboBox;
         private bool _ignoreEnter;
 
         public QuickConnectComboBox()
@@ -220,7 +220,7 @@ namespace mRemoteNG.UI.Controls
 
         public delegate void ConnectRequestedEventHandler(object sender, ConnectRequestedEventArgs e);
 
-        private ConnectRequestedEventHandler ConnectRequestedEvent;
+        private ConnectRequestedEventHandler? ConnectRequestedEvent;
 
         public event ConnectRequestedEventHandler ConnectRequested
         {
@@ -242,7 +242,7 @@ namespace mRemoteNG.UI.Controls
 
         public delegate void ProtocolChangedEventHandler(object sender, ProtocolChangedEventArgs e);
 
-        private ProtocolChangedEventHandler ProtocolChangedEvent;
+        private ProtocolChangedEventHandler? ProtocolChangedEvent;
 
         public event ProtocolChangedEventHandler ProtocolChanged
         {

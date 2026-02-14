@@ -14,7 +14,7 @@ namespace mRemoteNG.App
     {
         public static readonly Logger Instance = new();
 
-        public ILog Log { get; private set; }
+        public ILog? Log { get; private set; }
 
         public static string DefaultLogPath => BuildLogFilePath();
 

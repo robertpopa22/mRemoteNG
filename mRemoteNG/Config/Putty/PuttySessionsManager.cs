@@ -167,14 +167,14 @@ namespace mRemoteNG.Config.Putty
 
         #endregion
 
-        public event NotifyCollectionChangedEventHandler PuttySessionsCollectionChanged;
+        public event NotifyCollectionChangedEventHandler? PuttySessionsCollectionChanged;
 
         protected void RaisePuttySessionCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs args)
         {
             PuttySessionsCollectionChanged?.Invoke(sender, args);
         }
 
-        public event NotifyCollectionChangedEventHandler SessionProvidersCollectionChanged;
+        public event NotifyCollectionChangedEventHandler? SessionProvidersCollectionChanged;
 
         protected void RaiseSessionProvidersCollectionChangedEvent(NotifyCollectionChangedEventArgs args)
         {

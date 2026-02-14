@@ -137,14 +137,14 @@ namespace mRemoteNG.UI.Controls
             SetObjectList();
         }
 
-        public event EventHandler SelectionChanged;
+        public event EventHandler? SelectionChanged;
 
         private void RaiseSelectionChangedEvent()
         {
             SelectionChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public event EventHandler<CellClickEventArgs> CellClick;
+        public event EventHandler<CellClickEventArgs>? CellClick;
 
         private void RaiseCellClickEvent(object sender, CellClickEventArgs args)
         {

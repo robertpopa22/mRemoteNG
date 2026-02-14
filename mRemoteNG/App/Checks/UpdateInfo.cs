@@ -7,18 +7,18 @@ namespace mRemoteNG.App.Update
     public class UpdateInfo
     {
         public bool IsValid { get; private set; }
-        public Version Version { get; private set; }
-        public Uri DownloadAddress { get; private set; }
-        public string UpdateFilePath { get; set; }
-        public Uri ChangeLogAddress { get; private set; }
-        public Uri ImageAddress { get; private set; }
-        public Uri ImageLinkAddress { get; private set; }
+        public Version? Version { get; private set; }
+        public Uri? DownloadAddress { get; private set; }
+        public string? UpdateFilePath { get; set; }
+        public Uri? ChangeLogAddress { get; private set; }
+        public Uri? ImageAddress { get; private set; }
+        public Uri? ImageLinkAddress { get; private set; }
 #if !PORTABLE
-        public string CertificateThumbprint { get; private set; }
+        public string? CertificateThumbprint { get; private set; }
 #endif
         // ReSharper disable once MemberCanBePrivate.Global
-        public string FileName { get; set; }
-        public string Checksum { get; private set; }
+        public string? FileName { get; set; }
+        public string? Checksum { get; private set; }
 
         public static UpdateInfo FromString(string input)
         {

@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     {
         #region Private Fields
 
-        private OptRegistryTabsPanelsPage pageRegSettingsInstance;
+        private OptRegistryTabsPanelsPage? pageRegSettingsInstance;
 
         #endregion
 

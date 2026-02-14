@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.RDP;
@@ -19,104 +20,104 @@ namespace mRemoteNG.Connection
     {
         #region Fields
 
-        private string _name;
-        private string _description;
-        private string _icon;
-        private string _panel;
-        private string _color;
-        private string _tabColor;
-        private ConnectionFrameColor _connectionFrameColor;
+        private string _name = string.Empty;
+        private string _description = string.Empty;
+        private string _icon = string.Empty;
+        private string _panel = string.Empty;
+        private string _color = string.Empty;
+        private string _tabColor = string.Empty;
+        private ConnectionFrameColor _connectionFrameColor = default;
 
-        private string _hostname;
-        private ExternalAddressProvider _externalAddressProvider;
+        private string _hostname = string.Empty;
+        private ExternalAddressProvider _externalAddressProvider = default;
         private string _ec2InstanceId = "";
         private string _ec2Region = "";
-        private ExternalCredentialProvider _externalCredentialProvider;
+        private ExternalCredentialProvider _externalCredentialProvider = default;
         private string _userViaAPI = "";
-        private string _username = "";
+        private string _username = string.Empty;
         //private SecureString _password = null;
-        private string _password = null;
-        private string _vaultRole = null;
-        private string _vaultMount = null;
-        private VaultOpenbaoSecretEngine _vaultSecretEngine = VaultOpenbaoSecretEngine.Kv;
-        private string _domain = "";
-        private string _vmId = "";
-        private bool _useEnhancedMode;
+        private string _password = string.Empty;
+        private string _vaultRole = string.Empty;
+        private string _vaultMount = string.Empty;
+        private VaultOpenbaoSecretEngine _vaultSecretEngine = default;
+        private string _domain = string.Empty;
+        private string _vmId = string.Empty;
+        private bool _useEnhancedMode = default;
         
-        private string _sshTunnelConnectionName = "";
-        private ProtocolType _protocol;
-        private RdpVersion _rdpProtocolVersion = RdpVersion.Rdc10;
-        private string _extApp;
-        private int _port;
-        private string _sshOptions = "";
-        private string _puttySession;
-        private bool _useConsoleSession;
-        private AuthenticationLevel _rdpAuthenticationLevel = AuthenticationLevel.WarnOnFailedAuth;
-        private int _rdpMinutesToIdleTimeout;
-        private bool _rdpAlertIdleTimeout;
-        private string _loadBalanceInfo;
-        private HTTPBase.RenderingEngine _renderingEngine;
-        private bool _useCredSsp;
-        private bool _useRestrictedAdmin;
-        private bool _useRCG;
-        private bool _useVmId;
+        private string _sshTunnelConnectionName = string.Empty;
+        private ProtocolType _protocol = default;
+        private RdpVersion _rdpProtocolVersion = default;
+        private string _extApp = string.Empty;
+        private int _port = default;
+        private string _sshOptions = string.Empty;
+        private string _puttySession = string.Empty;
+        private bool _useConsoleSession = default;
+        private AuthenticationLevel _rdpAuthenticationLevel = default;
+        private int _rdpMinutesToIdleTimeout = default;
+        private bool _rdpAlertIdleTimeout = default;
+        private string _loadBalanceInfo = string.Empty;
+        private HTTPBase.RenderingEngine _renderingEngine = default;
+        private bool _useCredSsp = default;
+        private bool _useRestrictedAdmin = default;
+        private bool _useRCG = default;
+        private bool _useVmId = default;
 
-        private RDGatewayUsageMethod _rdGatewayUsageMethod;
-        private string _rdGatewayHostname;
-        private RDGatewayUseConnectionCredentials _rdGatewayUseConnectionCredentials;
-        private string _rdGatewayUsername;
-        private string _rdGatewayPassword;
-        private string _rdGatewayDomain;
-        private string _rdGatewayAccessToken;
-        private ExternalCredentialProvider _rdGatewayExternalCredentialProvider;
+        private RDGatewayUsageMethod _rdGatewayUsageMethod = default;
+        private string _rdGatewayHostname = string.Empty;
+        private RDGatewayUseConnectionCredentials _rdGatewayUseConnectionCredentials = default;
+        private string _rdGatewayUsername = string.Empty;
+        private string _rdGatewayPassword = string.Empty;
+        private string _rdGatewayDomain = string.Empty;
+        private string _rdGatewayAccessToken = string.Empty;
+        private ExternalCredentialProvider _rdGatewayExternalCredentialProvider = default;
         private string _rdGatewayUserViaAPI = "";
 
 
-        private RDPResolutions _resolution;
-        private bool _automaticResize;
-        private RDPColors _colors;
-        private bool _cacheBitmaps;
-        private bool _displayWallpaper;
-        private bool _displayThemes;
-        private bool _enableFontSmoothing;
-        private bool _enableDesktopComposition;
-        private bool _disableFullWindowDrag;
-        private bool _disableMenuAnimations;
-        private bool _disableCursorShadow;
-        private bool _disableCursorBlinking;
+        private RDPResolutions _resolution = default;
+        private bool _automaticResize = default;
+        private RDPColors _colors = default;
+        private bool _cacheBitmaps = default;
+        private bool _displayWallpaper = default;
+        private bool _displayThemes = default;
+        private bool _enableFontSmoothing = default;
+        private bool _enableDesktopComposition = default;
+        private bool _disableFullWindowDrag = default;
+        private bool _disableMenuAnimations = default;
+        private bool _disableCursorShadow = default;
+        private bool _disableCursorBlinking = default;
 
-        private bool _redirectKeys;
-        private RDPDiskDrives _redirectDiskDrives;
-        private string _redirectDiskDrivesCustom;
-        private bool _redirectPrinters;
-        private bool _redirectClipboard;
-        private bool _redirectPorts;
-        private bool _redirectSmartCards;
-        private RDPSounds _redirectSound;
-        private RDPSoundQuality _soundQuality;
-        private bool _redirectAudioCapture;
+        private bool _redirectKeys = default;
+        private RDPDiskDrives _redirectDiskDrives = default;
+        private string _redirectDiskDrivesCustom = string.Empty;
+        private bool _redirectPrinters = default;
+        private bool _redirectClipboard = default;
+        private bool _redirectPorts = default;
+        private bool _redirectSmartCards = default;
+        private RDPSounds _redirectSound = default;
+        private RDPSoundQuality _soundQuality = default;
+        private bool _redirectAudioCapture = default;
 
-        private string _preExtApp;
-        private string _postExtApp;
-        private string _macAddress;
-        private string _openingCommand;
-        private string _userField;
+        private string _preExtApp = string.Empty;
+        private string _postExtApp = string.Empty;
+        private string _macAddress = string.Empty;
+        private string _openingCommand = string.Empty;
+        private string _userField = string.Empty;
         private string _environmentTags = "";
-        private string _rdpStartProgram;
-        private string _rdpStartProgramWorkDir;
-        private bool _favorite;
+        private string _rdpStartProgram = string.Empty;
+        private string _rdpStartProgramWorkDir = string.Empty;
+        private bool _favorite = default;
 
-        private ProtocolVNC.Compression _vncCompression;
-        private ProtocolVNC.Encoding _vncEncoding;
-        private ProtocolVNC.AuthMode _vncAuthMode;
-        private ProtocolVNC.ProxyType _vncProxyType;
-        private string _vncProxyIp;
-        private int _vncProxyPort;
-        private string _vncProxyUsername;
-        private string _vncProxyPassword;
-        private ProtocolVNC.Colors _vncColors;
-        private ProtocolVNC.SmartSizeMode _vncSmartSizeMode;
-        private bool _vncViewOnly;
+        private ProtocolVNC.Compression _vncCompression = default;
+        private ProtocolVNC.Encoding _vncEncoding = default;
+        private ProtocolVNC.AuthMode _vncAuthMode = default;
+        private ProtocolVNC.ProxyType _vncProxyType = default;
+        private string _vncProxyIp = string.Empty;
+        private int _vncProxyPort = default;
+        private string _vncProxyUsername = string.Empty;
+        private string _vncProxyPassword = string.Empty;
+        private ProtocolVNC.Colors _vncColors = default;
+        private ProtocolVNC.SmartSizeMode _vncSmartSizeMode = default;
+        private bool _vncViewOnly = default;
 
         #endregion
 
@@ -254,6 +255,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Password)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionPassword)),
          PasswordPropertyText(true),
+         Editor(typeof(UI.Controls.ConnectionInfoPropertyGrid.PasswordRevealEditor), typeof(UITypeEditor)),
          AttributeUsedInAllProtocolsExcept(ProtocolType.Telnet, ProtocolType.Rlogin, ProtocolType.RAW)]
         //public virtual SecureString Password
         public virtual string Password

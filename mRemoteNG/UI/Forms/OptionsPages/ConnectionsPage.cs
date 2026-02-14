@@ -13,8 +13,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
     public sealed partial class ConnectionsPage
     {
         #region Private Fields
-        private OptRegistryConnectionsPage pageRegSettingsInstance;
-        private FrmMain _frmMain;
+        private OptRegistryConnectionsPage? pageRegSettingsInstance;
+        private FrmMain? _frmMain;
 
         #endregion
 

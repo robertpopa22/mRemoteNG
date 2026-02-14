@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics; // Added
 using System.Globalization;
 using System.Security;
 using System.Windows.Forms;
@@ -42,6 +43,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         public ConnectionTreeModel Deserialize(string xml, bool import)
         {
             if (string.IsNullOrEmpty(xml)) return null;
+
+            var stopwatch = Stopwatch.StartNew(); // Start stopwatch
+
             try
             {
                 LoadXmlConnectionData(xml);
@@ -78,12 +82,19 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 if (!import)
                     Runtime.ConnectionsService.IsConnectionsFileLoaded = true;
 
+                stopwatch.Stop(); // Stop stopwatch
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Connection deserialization completed in {stopwatch.ElapsedMilliseconds} ms."); // Log performance
+
                 return connectionTreeModel;
             }
             catch (Exception ex)
             {
                 Runtime.ConnectionsService.IsConnectionsFileLoaded = false;
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.LoadFromXmlFailed, ex);
+
+                stopwatch.Stop(); // Stop stopwatch even on error
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, $"Connection deserialization failed after {stopwatch.ElapsedMilliseconds} ms."); // Log performance on error
+
                 throw;
             }
         }

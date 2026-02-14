@@ -16,7 +16,7 @@ namespace mRemoteNG.Themes
 
 
         //warning, defaultpalette should always contain all the values, because when is loaded there is no default palette (parameter is null
-        public MremoteNGPaletteManipulator(byte[] file, ExtendedColorPalette defaultPalette = null)
+        public MremoteNGPaletteManipulator(byte[] file, ExtendedColorPalette? defaultPalette = null)
         {
             _xml = SecureXmlHelper.LoadXmlFromString(new StreamReader(new MemoryStream(file)).ReadToEnd());
             _defaultPalette = defaultPalette ?? new ExtendedColorPalette();

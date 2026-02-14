@@ -14,8 +14,8 @@ namespace mRemoteNG.UI.Controls
     internal class MrngNumericUpDown : NumericUpDown
     {
         private readonly ThemeManager _themeManager;
-        private MrngButton Up;
-        private MrngButton Down;
+        private MrngButton? Up;
+        private MrngButton? Down;
 
         public MrngNumericUpDown()
         {

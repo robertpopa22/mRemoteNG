@@ -37,7 +37,7 @@ namespace mRemoteNG.Connection
     [DefaultProperty("Name")]
     public class ConnectionInfo : AbstractConnectionRecord, IHasParent, IInheritable
     {
-        private ConnectionInfoInheritance _inheritance;
+        private ConnectionInfoInheritance _inheritance = null!;
 
         #region Public Properties
 
@@ -50,13 +50,13 @@ namespace mRemoteNG.Connection
                 : value;
         }
 
-        [Browsable(false)] public ProtocolList OpenConnections { get; protected set; }
+        [Browsable(false)] public ProtocolList OpenConnections { get; protected set; } = null!;
 
         [Browsable(false)] public virtual bool IsContainer { get; set; }
 
         [Browsable(false)] public bool IsDefault { get; set; }
 
-        [Browsable(false)] public ContainerInfo Parent { get; internal set; }
+        [Browsable(false)] public ContainerInfo? Parent { get; internal set; }
 
         [Browsable(false)]
         public bool IsQuickConnect { get; set; }

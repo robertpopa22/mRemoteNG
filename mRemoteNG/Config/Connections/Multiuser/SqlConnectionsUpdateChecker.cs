@@ -93,14 +93,14 @@ namespace mRemoteNG.Config.Connections.Multiuser
         }
 
 
-        public event EventHandler UpdateCheckStarted;
+        public event EventHandler? UpdateCheckStarted;
 
         private void RaiseUpdateCheckStartedEvent()
         {
             UpdateCheckStarted?.Invoke(this, EventArgs.Empty);
         }
 
-        public event UpdateCheckFinishedEventHandler UpdateCheckFinished;
+        public event UpdateCheckFinishedEventHandler? UpdateCheckFinished;
 
         private void RaiseUpdateCheckFinishedEvent(bool updateAvailable)
         {
@@ -108,7 +108,7 @@ namespace mRemoteNG.Config.Connections.Multiuser
             UpdateCheckFinished?.Invoke(this, args);
         }
 
-        public event ConnectionsUpdateAvailableEventHandler ConnectionsUpdateAvailable;
+        public event ConnectionsUpdateAvailableEventHandler? ConnectionsUpdateAvailable;
 
         private void RaiseConnectionsUpdateAvailableEvent()
         {

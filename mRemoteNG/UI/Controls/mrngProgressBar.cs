@@ -9,7 +9,7 @@ namespace mRemoteNG.UI.Controls
     // Repaint of a ProgressBar on a flat style
     internal class MrngProgressBar : ProgressBar
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
 
         public MrngProgressBar()

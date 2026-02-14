@@ -10,7 +10,7 @@ namespace mRemoteNG.UI.Controls
     //This clas completely repaints the control
     public class MrngGroupBox : GroupBox
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
 
         public MrngGroupBox()
         {

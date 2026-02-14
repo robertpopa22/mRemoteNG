@@ -19,16 +19,16 @@ namespace mRemoteNG.UI.Controls
     [SupportedOSPlatform("windows")]
     public class QuickConnectToolStrip : ToolStrip
     {
-        private IContainer components;
-        private ToolStripLabel _lblQuickConnect;
-        private ToolStripDropDownButton _btnConnections;
-        private MrngToolStripSplitButton _btnQuickConnect;
-        private ContextMenuStrip _mnuQuickConnectProtocol;
-        private QuickConnectComboBox _cmbQuickConnect;
+        private IContainer? components;
+        private ToolStripLabel? _lblQuickConnect;
+        private ToolStripDropDownButton? _btnConnections;
+        private MrngToolStripSplitButton? _btnQuickConnect;
+        private ContextMenuStrip? _mnuQuickConnectProtocol;
+        private QuickConnectComboBox? _cmbQuickConnect;
         public QuickConnectComboBox QuickConnectComboBox => _cmbQuickConnect;
-        private ContextMenuStrip _mnuConnections;
+        private ContextMenuStrip? _mnuConnections;
         private readonly ThemeManager _themeManager;
-        private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender vsToolStripExtender;
+        private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender? vsToolStripExtender;
         private readonly DisplayProperties _display;
 
 
