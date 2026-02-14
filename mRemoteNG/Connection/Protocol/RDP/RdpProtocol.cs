@@ -32,10 +32,10 @@ namespace mRemoteNG.Connection.Protocol.RDP
          * Windows 8+ support RDP v8 out of the box.
          */
 
-        private MsRdpClient6NotSafeForScripting _rdpClient; // lowest version supported
+        private MsRdpClient6NotSafeForScripting _rdpClient = null!; // lowest version supported, initialized in Initialize()
         protected virtual RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc6;
-        protected ConnectionInfo connectionInfo;
-        protected Version RdpVersion;
+        protected ConnectionInfo connectionInfo = null!; // initialized in Initialize()
+        protected Version RdpVersion = null!; // initialized in Initialize()
         private readonly DisplayProperties _displayProperties;
         protected readonly FrmMain _frmMain = FrmMain.Default;
         protected bool loginComplete;
@@ -44,7 +44,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         protected uint DesktopScaleFactor => (uint)(_displayProperties.ResolutionScalingFactor.Width * 100);
         protected readonly uint DeviceScaleFactor = 100;
         protected readonly uint Orientation = 0;
-        private AxHost AxHost => (AxHost)Control;
+        private AxHost AxHost => (AxHost)Control!;
 
 
         #region Properties
@@ -229,17 +229,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
                 {
-                    Control.GotFocus += RdpClient_GotFocus;
+                    Control!.GotFocus += RdpClient_GotFocus;
                 }
 
-                Control.CreateControl();
+                Control!.CreateControl();
 
                 // ActiveX controls require the message pump to complete creation.
                 // DoEvents() is unavoidable here but introduces re-entrancy risk:
                 // the user can interact with the UI while the control is half-initialized.
                 // The timeout guard prevents an infinite loop if creation fails silently.
                 var deadline = Environment.TickCount64 + 10_000; // 10 second timeout
-                while (!Control.Created)
+                while (!Control!.Created)
                 {
                     if (Environment.TickCount64 > deadline)
                     {
@@ -267,7 +267,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     Runtime.MessageCollector.AddExceptionMessage(Language.RdpControlCreationFailed, ex);
                 }
-                Control.Dispose();
+                Control?.Dispose();
                 return false;
             }
         }
@@ -278,13 +278,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
                 {
-                    Control.GotFocus += RdpClient_GotFocus;
+                    Control!.GotFocus += RdpClient_GotFocus;
                 }
 
-                Control.CreateControl();
+                Control!.CreateControl();
 
                 var deadline = Environment.TickCount64 + 10_000;
-                while (!Control.Created)
+                while (!Control!.Created)
                 {
                     if (Environment.TickCount64 > deadline)
                     {
@@ -293,7 +293,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         Control.Dispose();
                         return false;
                     }
-                    
+
                     await System.Threading.Tasks.Task.Delay(10);
                 }
                 Control.Anchor = AnchorStyles.None;
@@ -312,7 +312,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     Runtime.MessageCollector.AddExceptionMessage(Language.RdpControlCreationFailed, ex);
                 }
-                Control.Dispose();
+                Control?.Dispose();
                 return false;
             }
         }
@@ -1131,12 +1131,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public delegate void LeaveFullscreenEventHandler(object sender, EventArgs e);
 
-        private LeaveFullscreenEventHandler _leaveFullscreenEvent;
+        private LeaveFullscreenEventHandler? _leaveFullscreenEvent;
 
         public event LeaveFullscreenEventHandler LeaveFullscreen
         {
-            add => _leaveFullscreenEvent = (LeaveFullscreenEventHandler)Delegate.Combine(_leaveFullscreenEvent, value);
-            remove => _leaveFullscreenEvent = (LeaveFullscreenEventHandler)Delegate.Remove(_leaveFullscreenEvent, value);
+            add => _leaveFullscreenEvent = (LeaveFullscreenEventHandler?)Delegate.Combine(_leaveFullscreenEvent, value);
+            remove => _leaveFullscreenEvent = (LeaveFullscreenEventHandler?)Delegate.Remove(_leaveFullscreenEvent, value);
         }
 
         #endregion

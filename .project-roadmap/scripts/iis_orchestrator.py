@@ -39,6 +39,7 @@ LOG_FILE = SCRIPTS_DIR / "orchestrator.log"
 BUILD_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
     "-File", str(REPO_ROOT / "build.ps1"),
+    "-Rebuild",
 ]
 TEST_FILTER = (
     "FullyQualifiedName!~UI"
