@@ -20,15 +20,15 @@ namespace mRemoteNG.UI.Controls
     public class QuickConnectToolStrip : ToolStrip
     {
         private IContainer? components;
-        private ToolStripLabel? _lblQuickConnect;
-        private ToolStripDropDownButton? _btnConnections;
-        private MrngToolStripSplitButton? _btnQuickConnect;
-        private ContextMenuStrip? _mnuQuickConnectProtocol;
-        private QuickConnectComboBox? _cmbQuickConnect;
+        private ToolStripLabel _lblQuickConnect = null!;
+        private ToolStripDropDownButton _btnConnections = null!;
+        private MrngToolStripSplitButton _btnQuickConnect = null!;
+        private ContextMenuStrip _mnuQuickConnectProtocol = null!;
+        private QuickConnectComboBox _cmbQuickConnect = null!;
         public QuickConnectComboBox QuickConnectComboBox => _cmbQuickConnect;
-        private ContextMenuStrip? _mnuConnections;
+        private ContextMenuStrip _mnuConnections = null!;
         private readonly ThemeManager _themeManager;
-        private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender? vsToolStripExtender;
+        private WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender _vsToolStripExtender = null!;
         private readonly DisplayProperties _display;
 
 
@@ -61,7 +61,7 @@ namespace mRemoteNG.UI.Controls
             //
             //Theming support
             //
-            vsToolStripExtender = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(components);
+            _vsToolStripExtender = new WeifenLuo.WinFormsUI.Docking.VisualStudioToolStripExtender(components);
             //
             // lblQuickConnect
             //
@@ -153,10 +153,10 @@ namespace mRemoteNG.UI.Controls
         private void ApplyTheme()
         {
             if (!_themeManager.ThemingActive) return;
-            vsToolStripExtender.SetStyle(_mnuQuickConnectProtocol, _themeManager.ActiveTheme.Version,
-                                         _themeManager.ActiveTheme.Theme);
-            vsToolStripExtender.SetStyle(_mnuConnections, _themeManager.ActiveTheme.Version,
-                                         _themeManager.ActiveTheme.Theme);
+            _vsToolStripExtender.SetStyle(_mnuQuickConnectProtocol, _themeManager.ActiveTheme.Version,
+                                          _themeManager.ActiveTheme.Theme);
+            _vsToolStripExtender.SetStyle(_mnuConnections, _themeManager.ActiveTheme.Version,
+                                          _themeManager.ActiveTheme.Theme);
 
             if (!_themeManager.ActiveAndExtended) return;
             _cmbQuickConnect.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
@@ -229,6 +229,7 @@ namespace mRemoteNG.UI.Controls
 
         private void btnQuickConnect_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            if (e.ClickedItem == null) return;
             SetQuickConnectProtocol(e.ClickedItem.Text);
             if (string.IsNullOrEmpty(_cmbQuickConnect.Text))
                 _cmbQuickConnect.Focus();
@@ -253,6 +254,9 @@ namespace mRemoteNG.UI.Controls
         private void btnConnections_DropDownOpening(object sender, EventArgs e)
         {
             _btnConnections.DropDownItems.Clear();
+            var connectionTreeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+            if (connectionTreeModel == null) return;
+
             ConnectionsTreeToMenuItemsConverter menuItemsConverter = new()
             {
                 MouseUpEventHandler = ConnectionsMenuItem_MouseUp
@@ -260,17 +264,16 @@ namespace mRemoteNG.UI.Controls
 
             // ReSharper disable once CoVariantArrayConversion
             ToolStripItem[] rootMenuItems = menuItemsConverter
-                                            .CreateToolStripDropDownItems(Runtime.ConnectionsService
-                                                                                 .ConnectionTreeModel).ToArray();
+                                            .CreateToolStripDropDownItems(connectionTreeModel).ToArray();
             _btnConnections.DropDownItems.AddRange(rootMenuItems);
 
             ToolStripMenuItem favorites = new(Language.Favorites, Properties.Resources.Favorite_16x);
-            List<ContainerInfo> rootNodes = Runtime.ConnectionsService.ConnectionTreeModel.RootNodes;
+            List<ContainerInfo> rootNodes = connectionTreeModel.RootNodes;
             List<ToolStripMenuItem> favoritesList = [];
 
             foreach (ContainerInfo node in rootNodes)
             {
-                foreach (ConnectionInfo containerInfo in Runtime.ConnectionsService.ConnectionTreeModel.GetRecursiveFavoriteChildList(node))
+                foreach (ConnectionInfo containerInfo in connectionTreeModel.GetRecursiveFavoriteChildList(node))
                 {
                     ToolStripMenuItem favoriteMenuItem = new()
                     {
