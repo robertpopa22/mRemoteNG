@@ -10,15 +10,14 @@ namespace mRemoteNG.Connection.Protocol
     [SupportedOSPlatform("windows")]
     public class ProtocolList : CollectionBase, INotifyCollectionChanged
     {
-        public ProtocolBase this[object index]
+        public ProtocolBase? this[object index]
         {
             get
             {
-                ProtocolBase @base = index as ProtocolBase;
-                if (@base != null)
+                if (index is ProtocolBase @base)
                     return @base;
                 if (index is int)
-                    return (ProtocolBase)List[Convert.ToInt32(index)];
+                    return List[Convert.ToInt32(index)] as ProtocolBase;
                 return null;
             }
         }

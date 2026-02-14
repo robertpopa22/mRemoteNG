@@ -824,7 +824,7 @@ namespace mRemoteNG.UI.Controls
                     {
                         for (int i = 0; i <= child.OpenConnections.Count - 1; i++)
                         {
-                            child.OpenConnections[i].Disconnect();
+                            child.OpenConnections[i]?.Disconnect();
                         }
                     }
                 }
@@ -832,7 +832,7 @@ namespace mRemoteNG.UI.Controls
                 {
                     for (int i = 0; i <= connectionInfo.OpenConnections.Count - 1; i++)
                     {
-                        connectionInfo.OpenConnections[i].Disconnect();
+                        connectionInfo.OpenConnections[i]?.Disconnect();
                     }
                 }
             }
