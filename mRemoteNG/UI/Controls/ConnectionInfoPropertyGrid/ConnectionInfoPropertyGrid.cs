@@ -23,14 +23,14 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
     [SupportedOSPlatform("windows")]
     public partial class ConnectionInfoPropertyGrid : FilteredPropertyGrid.FilteredPropertyGrid {
         private readonly Dictionary<Type, IEnumerable<PropertyInfo>> _propertyCache = [];
-        private ConnectionInfo _selectedConnectionInfo;
+        private ConnectionInfo? _selectedConnectionInfo;
         private PropertyMode _propertyMode;
 
         /// <summary>
         /// The <see cref="ConnectionInfo"/> currently being shown by this
         /// property grid.
         /// </summary>
-        public ConnectionInfo SelectedConnectionInfo {
+        public ConnectionInfo? SelectedConnectionInfo {
             get => _selectedConnectionInfo;
             set {
                 if (_selectedConnectionInfo == value)
@@ -134,6 +134,9 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                 }
 
                 // set all browsable properties valid for this connection's protocol
+                if (SelectedObject == null)
+                    return;
+
                 BrowsableProperties =
                     GetPropertiesForGridObject(SelectedObject)
                     .Where(property =>
@@ -183,7 +186,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
         }
 
         private IEnumerable<PropertyInfo> GetPropertiesForGridObject(object currentGridObject) {
-            if (_propertyCache.TryGetValue(currentGridObject.GetType(), out IEnumerable<PropertyInfo> properties))
+            if (_propertyCache.TryGetValue(currentGridObject.GetType(), out IEnumerable<PropertyInfo>? properties))
                 return properties;
 
             Type type = currentGridObject.GetType();
@@ -203,6 +206,8 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
 
         private List<string> SpecialExternalAddressProviderExclusions() {
             List<string> strHide = new();
+            if (SelectedConnectionInfo == null)
+                return strHide;
 
             // aws
             if (SelectedConnectionInfo.ExternalAddressProvider != ExternalAddressProvider.AmazonWebServices) {
@@ -214,6 +219,8 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
 
         private List<string> SpecialExternalCredentialProviderExclusions() {
             List<string> strHide = new();
+            if (SelectedConnectionInfo == null)
+                return strHide;
 
             if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.None) {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
@@ -247,6 +254,8 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
         /// </summary>
         private List<string> SpecialRdpExclusions() {
             List<string> strHide = new();
+            if (SelectedConnectionInfo == null)
+                return strHide;
 
             if (SelectedConnectionInfo.RDPMinutesToIdleTimeout <= 0) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDPAlertIdleTimeout));
@@ -303,6 +312,8 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
 
         private List<string> SpecialVncExclusions() {
             List<string> strHide = new();
+            if (SelectedConnectionInfo == null)
+                return strHide;
             if (SelectedConnectionInfo.VNCAuthMode == ProtocolVNC.AuthMode.AuthVNC) {
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Domain));
@@ -322,11 +333,11 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
             if (IsShowingInheritance)
                 return;
 
-            if (e.ChangedItem.Label == Language.Protocol) {
-                SelectedConnectionInfo.SetDefaultPort();
-            } else if (e.ChangedItem.Label == Language.Name) {
+            if (e.ChangedItem?.Label == Language.Protocol) {
+                SelectedConnectionInfo?.SetDefaultPort();
+            } else if (e.ChangedItem?.Label == Language.Name) {
                 if (Settings.Default.SetHostnameLikeDisplayName) {
-                    if (!string.IsNullOrEmpty(SelectedConnectionInfo.Name))
+                    if (SelectedConnectionInfo != null && !string.IsNullOrEmpty(SelectedConnectionInfo.Name))
                         SelectedConnectionInfo.Hostname = SelectedConnectionInfo.Name;
                 }
             }
@@ -339,7 +350,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
             if (!(SelectedObject is RootNodeInfo rootInfo))
                 return;
 
-            string changedProperty = e.ChangedItem.PropertyDescriptor?.Name ?? "";
+            string changedProperty = e.ChangedItem?.PropertyDescriptor?.Name ?? "";
             if (changedProperty == nameof(RootNodeInfo.AutoLockOnMinimize) && !rootInfo.Password)
             {
                 rootInfo.AutoLockOnMinimize = false;
