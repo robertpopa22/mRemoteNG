@@ -115,7 +115,8 @@ namespace mRemoteNG.Connection
 
                 string? connectionPanel = SetConnectionPanel(connectionInfo, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
-                ConnectionWindow connectionForm = SetConnectionForm(conForm, connectionPanel);
+                ConnectionWindow? connectionForm = SetConnectionForm(conForm, connectionPanel);
+                if (connectionForm == null) return;
                 Control? connectionContainer = null;
 
                 // Handle connection through SSH tunnel:
@@ -126,7 +127,13 @@ namespace mRemoteNG.Connection
                 if (!string.IsNullOrEmpty(connectionInfoOriginal.SSHTunnelConnectionName))
                 {
                     // Find the connection info specified as SSH tunnel in the connections tree
-                    connectionInfoSshTunnel = getSSHConnectionInfoByName(Runtime.ConnectionsService.ConnectionTreeModel.RootNodes, connectionInfoOriginal.SSHTunnelConnectionName!);
+                    var treeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+                    if (treeModel == null)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, string.Format(Language.SshTunnelConfigProblem, connectionInfoOriginal.Name, connectionInfoOriginal.SSHTunnelConnectionName));
+                        return;
+                    }
+                    connectionInfoSshTunnel = getSSHConnectionInfoByName(treeModel.RootNodes, connectionInfoOriginal.SSHTunnelConnectionName!);
                     if (connectionInfoSshTunnel == null)
                     {
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, string.Format(Language.SshTunnelConfigProblem, connectionInfoOriginal.Name, connectionInfoOriginal.SSHTunnelConnectionName));
@@ -169,6 +176,7 @@ namespace mRemoteNG.Connection
                         SetConnectionFormEventHandlers(protocolSshTunnel, connectionForm);
                         SetConnectionEventHandlers(protocolSshTunnel);
                         connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
+                        if (connectionContainer == null) return;
                         BuildConnectionInterfaceController(currentTunnelInfo, protocolSshTunnel, connectionContainer);
                         protocolSshTunnel.InterfaceControl.OriginalInfo = currentTunnelInfo;
 
@@ -282,7 +290,7 @@ namespace mRemoteNG.Connection
             extA?.Start(connectionInfo);
         }
 
-        private static InterfaceControl FindConnectionContainer(ConnectionInfo connectionInfo)
+        private static InterfaceControl? FindConnectionContainer(ConnectionInfo connectionInfo)
         {
             if (connectionInfo.OpenConnections.Count <= 0) return null;
             for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
@@ -295,7 +303,7 @@ namespace mRemoteNG.Connection
                 foreach (IDockContent dockContent in cwDp.Documents)
                 {
                     ConnectionTab tab = (ConnectionTab)dockContent;
-                    InterfaceControl ic = InterfaceControl.FindInterfaceControl(tab);
+                    InterfaceControl? ic = InterfaceControl.FindInterfaceControl(tab);
                     if (ic == null) continue;
                     if (ic.Info == connectionInfo || ic.OriginalInfo == connectionInfo)
                         return ic;
@@ -305,7 +313,7 @@ namespace mRemoteNG.Connection
             return null;
         }
 
-        private static string SetConnectionPanel(ConnectionInfo connectionInfo, ConnectionInfo.Force force)
+        private static string? SetConnectionPanel(ConnectionInfo connectionInfo, ConnectionInfo.Force force)
         {
             if (connectionInfo.Panel != "" && !force.HasFlag(ConnectionInfo.Force.OverridePanel) && !Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg)
                 return connectionInfo.Panel;
@@ -330,9 +338,9 @@ namespace mRemoteNG.Connection
             return connectionForm;
         }
 
-        private static Control SetConnectionContainer(ConnectionInfo connectionInfo, ConnectionWindow connectionForm)
+        private static Control? SetConnectionContainer(ConnectionInfo connectionInfo, ConnectionWindow connectionForm)
         {
-            Control connectionContainer = connectionForm.AddConnectionTab(connectionInfo);
+            Control? connectionContainer = connectionForm.AddConnectionTab(connectionInfo);
 
             if (connectionInfo.Protocol != ProtocolType.IntApp) return connectionContainer;
 
@@ -340,8 +348,8 @@ namespace mRemoteNG.Connection
 
             if (extT == null) return connectionContainer;
 
-            if (extT.Icon != null)
-                ((ConnectionTab)connectionContainer).Icon = extT.Icon;
+            if (extT.Icon != null && connectionContainer is ConnectionTab connTab)
+                connTab.Icon = extT.Icon;
 
             return connectionContainer;
         }
