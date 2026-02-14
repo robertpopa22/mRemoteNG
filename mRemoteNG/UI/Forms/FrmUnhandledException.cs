@@ -19,7 +19,7 @@ namespace mRemoteNG.UI.Forms
     public partial class FrmUnhandledException : Form
     {
         private readonly bool _isFatal;
-        private readonly Exception _exception;
+        private readonly Exception? _exception;
         private bool _submitted;
 
         public FrmUnhandledException()
@@ -27,7 +27,7 @@ namespace mRemoteNG.UI.Forms
         {
         }
 
-        public FrmUnhandledException(Exception exception, bool isFatal)
+        public FrmUnhandledException(Exception? exception, bool isFatal)
         {
             _isFatal = isFatal;
             _exception = exception;
@@ -102,7 +102,7 @@ namespace mRemoteNG.UI.Forms
             if (_submitted)
                 return;
 
-            string token = GetCrashReportToken();
+            string? token = GetCrashReportToken();
             if (!string.IsNullOrEmpty(token))
             {
                 await SubmitViaApiAsync(token);
@@ -113,7 +113,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        private static string GetCrashReportToken()
+        private static string? GetCrashReportToken()
         {
             return Assembly.GetExecutingAssembly()
                 .GetCustomAttributes<AssemblyMetadataAttribute>()
@@ -153,7 +153,7 @@ namespace mRemoteNG.UI.Forms
                     _submitted = true;
                     string responseBody = await response.Content.ReadAsStringAsync();
                     using var doc = JsonDocument.Parse(responseBody);
-                    string issueUrl = doc.RootElement.GetProperty("html_url").GetString();
+                    string issueUrl = doc.RootElement.GetProperty("html_url").GetString() ?? string.Empty;
                     buttonCreateBug.Text = "Submitted!";
                     MessageBox.Show(this,
                         $"Error report submitted successfully.\n\n{issueUrl}",
