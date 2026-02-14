@@ -201,16 +201,21 @@ namespace mRemoteNG.UI.Menu
             _mMenViewErrorsAndInfos.Checked = !AppWindows.ErrorsForm.IsHidden;
             _mMenViewLockToolbars.Checked = Settings.Default.LockToolbars;
 
-            _mMenViewExtAppsToolbar.Checked = TsExternalTools.Visible;
-            _mMenViewQuickConnectToolbar.Checked = TsQuickConnect.Visible;
-            _mMenViewMultiSshToolbar.Checked = TsMultiSsh.Visible;
+            if (TsExternalTools is not null)
+                _mMenViewExtAppsToolbar.Checked = TsExternalTools.Visible;
+            if (TsQuickConnect is not null)
+                _mMenViewQuickConnectToolbar.Checked = TsQuickConnect.Visible;
+            if (TsMultiSsh is not null)
+                _mMenViewMultiSshToolbar.Checked = TsMultiSsh.Visible;
 
             _mMenViewConnectionPanels.DropDownItems.Clear();
 
             for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
             {
-                ToolStripMenuItem tItem = new(Runtime.WindowList[i].Text, Runtime.WindowList[i].Icon.ToBitmap(), ConnectionPanelMenuItem_Click)
-                { Tag = Runtime.WindowList[i] };
+                var window = Runtime.WindowList[i];
+                if (window is null) continue;
+                ToolStripMenuItem tItem = new(window.Text, window.Icon?.ToBitmap(), ConnectionPanelMenuItem_Click)
+                { Tag = window };
                 _mMenViewConnectionPanels.DropDownItems.Add(tItem);
             }
 
@@ -219,15 +224,18 @@ namespace mRemoteNG.UI.Menu
 
         private void ConnectionPanelMenuItem_Click(object sender, EventArgs e)
         {
-            ((BaseWindow)((ToolStripMenuItem)sender).Tag).Show(MainForm.pnlDock);
-            ((BaseWindow)((ToolStripMenuItem)sender).Tag).Focus();
+            if (sender is not ToolStripMenuItem menuItem || menuItem.Tag is not BaseWindow window || MainForm is null)
+                return;
+            window.Show(MainForm.pnlDock);
+            window.Focus();
         }
 
         private void mMenViewErrorsAndInfos_Click(object sender, EventArgs e)
         {
             if (_mMenViewErrorsAndInfos.Checked == false)
             {
-                AppWindows.ErrorsForm.Show(MainForm.pnlDock);
+                if (MainForm is not null)
+                    AppWindows.ErrorsForm.Show(MainForm.pnlDock);
                 _mMenViewErrorsAndInfos.Checked = true;
             }
             else
@@ -239,6 +247,7 @@ namespace mRemoteNG.UI.Menu
 
         private void mMenViewFileMenu_Click(object sender, EventArgs e)
         {
+            if (MainForm is null) return;
             if (_mMenViewFileMenu.Checked == false)
             {
                 MainForm.ShowFileMenu();
@@ -254,7 +263,7 @@ namespace mRemoteNG.UI.Menu
             DialogResult msgBoxResult = MessageBox.Show(Language.ConfirmResetLayout, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (msgBoxResult == DialogResult.Yes)
             {
-                MainForm.SetDefaultLayout();
+                MainForm?.SetDefaultLayout();
             }
         }
 
@@ -283,13 +292,13 @@ namespace mRemoteNG.UI.Menu
             {
                 Settings.Default.ViewMenuExternalTools = false;
                 _mMenViewExtAppsToolbar.Checked = false;
-                TsExternalTools.Visible = false;
+                if (TsExternalTools is not null) TsExternalTools.Visible = false;
             }
             else
             {
                 Settings.Default.ViewMenuExternalTools = true;
                 _mMenViewExtAppsToolbar.Checked = true;
-                TsExternalTools.Visible = true;
+                if (TsExternalTools is not null) TsExternalTools.Visible = true;
             }
         }
 
@@ -299,13 +308,13 @@ namespace mRemoteNG.UI.Menu
             {
                 Settings.Default.ViewMenuQuickConnect = false;
                 _mMenViewQuickConnectToolbar.Checked = false;
-                TsQuickConnect.Visible = false;
+                if (TsQuickConnect is not null) TsQuickConnect.Visible = false;
             }
             else
             {
                 Settings.Default.ViewMenuQuickConnect = true;
                 _mMenViewQuickConnectToolbar.Checked = true;
-                TsQuickConnect.Visible = true;
+                if (TsQuickConnect is not null) TsQuickConnect.Visible = true;
             }
         }
 
@@ -315,18 +324,19 @@ namespace mRemoteNG.UI.Menu
             {
                 Settings.Default.ViewMenuMultiSSH = false;
                 _mMenViewMultiSshToolbar.Checked = false;
-                TsMultiSsh.Visible = false;
+                if (TsMultiSsh is not null) TsMultiSsh.Visible = false;
             }
             else
             {
                 Settings.Default.ViewMenuMultiSSH = true;
                 _mMenViewMultiSshToolbar.Checked = true;
-                TsMultiSsh.Visible = true;
+                if (TsMultiSsh is not null) TsMultiSsh.Visible = true;
             }
         }
 
         private void mMenViewFullscreen_Click(object sender, EventArgs e)
         {
+            if (FullscreenHandler is null) return;
             FullscreenHandler.Value = !FullscreenHandler.Value;
             _mMenViewFullscreen.Checked = FullscreenHandler.Value;
         }
