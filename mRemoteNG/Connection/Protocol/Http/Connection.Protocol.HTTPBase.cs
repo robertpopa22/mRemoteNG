@@ -19,13 +19,13 @@ namespace mRemoteNG.Connection.Protocol.Http
     {
         #region Private Properties
 
-        private Control _wBrowser;
-        private string _tabTitle;
-        protected string httpOrS;
+        private Control? _wBrowser;
+        private string _tabTitle = string.Empty;
+        protected string httpOrS = string.Empty;
         protected int defaultPort;
-        private string _userDataFolder;
+        private string _userDataFolder = string.Empty;
         private CoreWebView2Environment? _webView2Environment;
-        private Task _webView2InitializationTask;
+        private Task? _webView2InitializationTask;
 
         #endregion
 
@@ -80,15 +80,17 @@ namespace mRemoteNG.Connection.Protocol.Http
 
                 if (InterfaceControl.Info.RenderingEngine == RenderingEngine.EdgeChromium)
                 {
-                    Microsoft.Web.WebView2.WinForms.WebView2 edge = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
-                    edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
-                    
-                    // Initialize WebView2 with unique user data folder asynchronously
-                    _webView2InitializationTask = InitializeWebView2Async(edge);
+                    if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge)
+                    {
+                        edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
+
+                        // Initialize WebView2 with unique user data folder asynchronously
+                        _webView2InitializationTask = InitializeWebView2Async(edge);
+                    }
                 }
                 else
                 {
-                    WebBrowser objWebBrowser = (WebBrowser)_wBrowser;
+                    if (_wBrowser is not WebBrowser objWebBrowser) return false;
                     objWebBrowser.ScrollBarsEnabled = true;
 
                     // http://stackoverflow.com/questions/4655662/how-to-ignore-script-errors-in-webbrowser
@@ -132,10 +134,11 @@ namespace mRemoteNG.Connection.Protocol.Http
             {
                 if (InterfaceControl.Info.RenderingEngine == RenderingEngine.EdgeChromium)
                 {
-                    var webView2 = (Microsoft.Web.WebView2.WinForms.WebView2)_wBrowser;
-                    
+                    if (_wBrowser is not Microsoft.Web.WebView2.WinForms.WebView2 webView2)
+                        return false;
+
                     // Wait for WebView2 initialization to complete before connecting
-                    if (_webView2InitializationTask != null && !_webView2InitializationTask.IsCompleted)
+                    if (_webView2InitializationTask is { IsCompleted: false })
                     {
                         // Schedule navigation after initialization completes
                         _webView2InitializationTask.ContinueWith(t =>
@@ -156,10 +159,10 @@ namespace mRemoteNG.Connection.Protocol.Http
                             {
                                 Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpConnectFailed, t.Exception);
                             }
-                        }, 
+                        },
                         // Use UI thread scheduler if available, otherwise use default
-                        System.Threading.SynchronizationContext.Current != null 
-                            ? TaskScheduler.FromCurrentSynchronizationContext() 
+                        System.Threading.SynchronizationContext.Current != null
+                            ? TaskScheduler.FromCurrentSynchronizationContext()
                             : TaskScheduler.Default);
                     }
                     else if (webView2.CoreWebView2 != null)
@@ -170,8 +173,8 @@ namespace mRemoteNG.Connection.Protocol.Http
                 }
                 else
                 {
-                    ((WebBrowser)_wBrowser).Navigate(GetUrl());
-
+                    if (_wBrowser is WebBrowser webBrowser)
+                        webBrowser.Navigate(GetUrl());
                 }
 
                 base.Connect();
@@ -256,14 +259,15 @@ namespace mRemoteNG.Connection.Protocol.Http
             try
             {
                 if (InterfaceControl.Parent is not ConnectionTab tabP) return;
+                if (_wBrowser is not WebBrowser browser) return;
                 string shortTitle;
-                if (((WebBrowser)_wBrowser).DocumentTitle.Length >= 15)
+                if (browser.DocumentTitle.Length >= 15)
                 {
-                    shortTitle = ((WebBrowser)_wBrowser).DocumentTitle[..10] + "...";
+                    shortTitle = browser.DocumentTitle[..10] + "...";
                 }
                 else
                 {
-                    shortTitle = ((WebBrowser)_wBrowser).DocumentTitle;
+                    shortTitle = browser.DocumentTitle;
                 }
 
                 if (!string.IsNullOrEmpty(_tabTitle))
