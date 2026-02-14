@@ -38,7 +38,7 @@ namespace mRemoteNG.UI.Tabs
 
         public Font TextFont => DockPanel.Theme.Skin.AutoHideStripSkin.TextFont;
 
-        private static StringFormat _stringFormatTabHorizontal;
+        private static StringFormat? _stringFormatTabHorizontal;
 
         private StringFormat StringFormatTabHorizontal
         {
@@ -64,7 +64,7 @@ namespace mRemoteNG.UI.Tabs
             }
         }
 
-        private static StringFormat _stringFormatTabVertical;
+        private static StringFormat? _stringFormatTabVertical;
 
         private StringFormat StringFormatTabVertical
         {
@@ -119,7 +119,7 @@ namespace mRemoteNG.UI.Tabs
 
         private static Matrix MatrixIdentity { get; } = new Matrix();
 
-        private static DockState[] _dockStates;
+        private static DockState[]? _dockStates;
 
         private static DockState[] DockStates
         {
@@ -138,7 +138,7 @@ namespace mRemoteNG.UI.Tabs
             }
         }
 
-        private static GraphicsPath _graphicsPath;
+        private static GraphicsPath? _graphicsPath;
 
         internal static GraphicsPath GraphicsPath
         {
