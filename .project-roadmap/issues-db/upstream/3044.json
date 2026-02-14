@@ -10,7 +10,7 @@
                ],
     "author":  "Alessio71",
     "created_at":  "2025-12-11T22:41:50Z",
-    "github_updated_at":  "2026-02-12T08:44:15Z",
+    "github_updated_at":  "2026-02-14T09:33:52Z",
     "body_snippet":  "1.78.2.3228\n\nWith external tool, if password contains a comma, the comma acts as a divider and the variable get split.\nIf I have a password 123456789, the comma is just omitted, if I have a password 1234,56789 the external tool receives two strings, divided in two, one 1234 and the other 56789\nTo test it, create a .cmd file that echoes the %Password% 1234,56789\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\nand pass %Password% to it, the `echo \"%2%\"` should give a `\"\" ` result if working normally...",
     "our_status":  "in-progress",
     "priority":  "P2-bug",
@@ -159,12 +159,21 @@
                          "author":  "Kvarkas",
                          "action_needed":  true,
                          "date":  "2026-02-10T12:54:05Z"
+                     },
+                     {
+                         "id":  "IC_kwDOAAcIMM7ojUh_",
+                         "analyzed":  false,
+                         "is_ours":  false,
+                         "snippet":  "Hello,\njust a note, 1.80.2 NB 3395 Self Contained still asks to download .net desktop runtime 9.0.0\nand a even smaller issue, when launched, after logo is displayed, the password request doesn\u0027t have focus.\nThank you for the great job you\u0027re doing.\nAlex",
+                         "author":  "Alessio71",
+                         "action_needed":  true,
+                         "date":  "2026-02-14T09:33:52Z"
                      }
                  ],
-    "comments_cursor":  "2026-02-12T08:44:15Z",
-    "unread_comments":  6,
+    "comments_cursor":  "2026-02-14T09:33:52Z",
+    "unread_comments":  7,
     "needs_action":  true,
     "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
+    "last_synced":  "2026-02-14T14:14:59Z",
     "notes":  "ITERATION EXAMPLE: Fix applied (PR #3109) -\u003e user tested -\u003e still broken for .cmd batch files -\u003e re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }
