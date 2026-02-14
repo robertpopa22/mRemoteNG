@@ -17,9 +17,9 @@ namespace mRemoteNG.Connection.Protocol
     {
         #region Private Fields
 
-        private ExternalTool _externalTool;
+        private ExternalTool? _externalTool;
         private IntPtr _handle;
-        private Process _process;
+        private Process? _process;
 
         #endregion
 
@@ -49,6 +49,9 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
+                if (_externalTool == null)
+                    return false;
+
                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
                                                      $"Attempting to start: {_externalTool.DisplayName}", true);
 
@@ -117,7 +120,7 @@ namespace mRemoteNG.Connection.Protocol
                                                      true);
                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
                                                      string.Format(Language.PanelHandle,
-                                                                   InterfaceControl.Parent.Handle), true);
+                                                                   InterfaceControl.Parent?.Handle), true);
 
                 Resize(this, new EventArgs());
                 base.Connect();
