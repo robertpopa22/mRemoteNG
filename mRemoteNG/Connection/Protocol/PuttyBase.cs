@@ -39,9 +39,9 @@ namespace mRemoteNG.Connection.Protocol
 
         public IntPtr PuttyHandle { get; set; }
 
-        private Process PuttyProcess { get; set; }
+        private Process? PuttyProcess { get; set; }
 
-        public static string PuttyPath { get; set; }
+        public static string? PuttyPath { get; set; }
 
         public bool Focused => NativeMethods.GetForegroundWindow() == PuttyHandle;
 
@@ -114,7 +114,7 @@ namespace mRemoteNG.Connection.Protocol
                         string privatekey = "";
 
                         // access secret server api if necessary
-                        if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)
+                        if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)
                         {
                             try
                             {
@@ -135,7 +135,7 @@ namespace mRemoteNG.Connection.Protocol
                                 Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                             }
                         }
-                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState)
+                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState)
                         {
                             try
                             {
@@ -156,7 +156,7 @@ namespace mRemoteNG.Connection.Protocol
                                 Event_ErrorOccured(this, "Passwordstate Interface Error: " + ex.Message, 0);
                             }
                         }
-                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
                             try
                             {
                                 ExternalConnectors.OP.OnePasswordCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
@@ -167,7 +167,7 @@ namespace mRemoteNG.Connection.Protocol
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
-                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                             try {
                                 if (InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP)
                                     ExternalConnectors.VO.VaultOpenbao.ReadOtpSSH($"{InterfaceControl.Info?.VaultOpenbaoMount}", $"{InterfaceControl.Info?.VaultOpenbaoRole}", $"{InterfaceControl.Info?.Username}", $"{InterfaceControl.Info?.Hostname}", out password);
@@ -265,7 +265,7 @@ namespace mRemoteNG.Connection.Protocol
                             }
                         }
 
-                        if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao && InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP) {
+                        if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao && InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP) {
                             if (!_isPuttyNg) {
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, "Cannot connect to VaultOpenbao ssh otp without using puttyng to inject authenticator plugin");
                                 return false;
@@ -299,8 +299,8 @@ namespace mRemoteNG.Connection.Protocol
 
                     }
 
-                    arguments.Add("-P", InterfaceControl.Info.Port.ToString());
-                    arguments.Add(InterfaceControl.Info.Hostname);
+                    arguments.Add("-P", InterfaceControl.Info?.Port.ToString() ?? "22");
+                    arguments.Add(InterfaceControl.Info?.Hostname ?? "");
                 }
 
                 if (_isPuttyNg)
@@ -349,7 +349,7 @@ namespace mRemoteNG.Connection.Protocol
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.PuttyStuff, true);
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyHandle, PuttyHandle), true);
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyTitle, PuttyProcess.MainWindowTitle), true);
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PanelHandle, InterfaceControl.Parent.Handle), true);
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PanelHandle, InterfaceControl.Parent?.Handle), true);
 
                 if (!string.IsNullOrEmpty(InterfaceControl.Info?.OpeningCommand))
                 {

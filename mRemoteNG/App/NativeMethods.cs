@@ -24,8 +24,8 @@ namespace mRemoteNG.App
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr FindWindowEx(IntPtr parentHandle,
                                                    IntPtr childAfter,
-                                                   string lclassName,
-                                                   string windowTitle);
+                                                   string? lclassName,
+                                                   string? windowTitle);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr GetForegroundWindow();
