@@ -19,7 +19,7 @@ namespace mRemoteNG.Config.Connections
         private readonly string _connectionFilePath;
         private readonly MessageCollector _messageCollector;
 
-        public XmlConnectionsLoader(string connectionFilePath, MessageCollector messageCollector = null)
+        public XmlConnectionsLoader(string connectionFilePath, MessageCollector? messageCollector = null)
         {
             if (string.IsNullOrEmpty(connectionFilePath))
                 throw new ArgumentException($"{nameof(connectionFilePath)} cannot be null or empty");
@@ -48,17 +48,17 @@ namespace mRemoteNG.Config.Connections
                     ex,
                     MessageClass.WarningMsg);
 
-                if (TryRecoverFromBackup(deserializer, out ConnectionTreeModel recoveredTreeModel))
-                    return recoveredTreeModel;
+                if (TryRecoverFromBackup(deserializer, out ConnectionTreeModel? recoveredTreeModel))
+                    return recoveredTreeModel!;
 
                 throw;
             }
         }
 
-        private bool TryRecoverFromBackup(XmlConnectionsDeserializer deserializer, out ConnectionTreeModel recoveredTreeModel)
+        private bool TryRecoverFromBackup(XmlConnectionsDeserializer deserializer, out ConnectionTreeModel? recoveredTreeModel)
         {
             recoveredTreeModel = null;
-            string directoryPath = Path.GetDirectoryName(_connectionFilePath);
+            string? directoryPath = Path.GetDirectoryName(_connectionFilePath);
 
             if (string.IsNullOrWhiteSpace(directoryPath) || !Directory.Exists(directoryPath))
                 return false;
