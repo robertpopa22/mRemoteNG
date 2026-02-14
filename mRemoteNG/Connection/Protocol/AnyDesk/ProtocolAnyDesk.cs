@@ -18,7 +18,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
 
         private IntPtr _handle;
         private readonly ConnectionInfo _connectionInfo;
-        private Process _process;
+        private Process? _process;
         private const string DefaultAnydeskPath = @"C:\Program Files (x86)\AnyDesk\AnyDesk.exe";
         private const string AlternateAnydeskPath = @"C:\Program Files\AnyDesk\AnyDesk.exe";
 
@@ -48,7 +48,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
                     "Attempting to start AnyDesk connection.", true);
 
                 // Validate AnyDesk installation
-                string anydeskPath = FindAnydeskExecutable();
+                string? anydeskPath = FindAnydeskExecutable();
                 if (string.IsNullOrEmpty(anydeskPath))
                 {
                     Runtime.MessageCollector?.AddMessage(MessageClass.ErrorMsg,
@@ -170,7 +170,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
 
         #region Private Methods
 
-        private string FindAnydeskExecutable()
+        private string? FindAnydeskExecutable()
         {
             // Check common installation paths
             if (File.Exists(DefaultAnydeskPath))
@@ -184,7 +184,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             }
 
             // Check if it's in PATH
-            string pathVariable = Environment.GetEnvironmentVariable("PATH");
+            string? pathVariable = Environment.GetEnvironmentVariable("PATH");
             if (pathVariable != null)
             {
                 var paths = pathVariable.Split(Path.PathSeparator);
@@ -379,7 +379,7 @@ namespace mRemoteNG.Connection.Protocol.AnyDesk
             {
                 // Find AnyDesk process by name
                 Process[] anydeskProcesses = Process.GetProcessesByName("AnyDesk");
-                Process processToKeep = null;
+                Process? processToKeep = null;
                 try
                 {
                     foreach (Process anydeskProcess in anydeskProcesses)
