@@ -115,7 +115,7 @@ namespace mRemoteNG.Config.Connections
             UpdateRootNodeTable(rootTreeNode, databaseConnector, null);
         }
 
-        private void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction)
+        private void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction)
         {
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             string strProtected;
@@ -195,7 +195,7 @@ namespace mRemoteNG.Config.Connections
             }
         }
 
-        private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction transaction = null)
+        private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction = null)
         {
             SqlDataProvider dataProvider = new(databaseConnector);
             DataTable currentDataTable = dataProvider.Load();
@@ -209,7 +209,7 @@ namespace mRemoteNG.Config.Connections
             dataProvider.Save(dataTable, transaction);
         }
 
-        private void UpdateUpdatesTable(IDatabaseConnector databaseConnector, DbTransaction transaction = null)
+        private void UpdateUpdatesTable(IDatabaseConnector databaseConnector, DbTransaction? transaction = null)
         {
             bool mustDisposeTransaction = false;
             if (transaction == null)

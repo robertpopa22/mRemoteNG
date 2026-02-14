@@ -31,7 +31,7 @@ namespace mRemoteNG.Config.DataProviders
             Save(dataTable, null);
         }
 
-        public void Save(DataTable dataTable, System.Data.Common.DbTransaction transaction)
+        public void Save(DataTable dataTable, System.Data.Common.DbTransaction? transaction)
         {
             if (DbUserIsReadOnly())
             {
@@ -45,7 +45,7 @@ namespace mRemoteNG.Config.DataProviders
             if (DatabaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
             {
                 SqlConnection sqlConnection = (SqlConnection)DatabaseConnector.DbConnection();
-                SqlTransaction sqlTransaction = (SqlTransaction)transaction;
+                SqlTransaction? sqlTransaction = (SqlTransaction?)transaction;
                 bool mustDisposeTransaction = false;
 
                 if (sqlTransaction == null)
@@ -90,7 +90,7 @@ namespace mRemoteNG.Config.DataProviders
             else if (DatabaseConnector.GetType() == typeof(MySqlDatabaseConnector))
             {
                 MySqlConnection dbConnection = (MySqlConnection)DatabaseConnector.DbConnection();
-                MySqlTransaction mySqlTransaction = (MySqlTransaction)transaction;
+                MySqlTransaction? mySqlTransaction = (MySqlTransaction?)transaction;
                 bool mustDisposeTransaction = false;
 
                 if (mySqlTransaction == null)
