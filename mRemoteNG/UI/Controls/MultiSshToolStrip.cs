@@ -15,9 +15,9 @@ namespace mRemoteNG.UI.Controls
     [SupportedOSPlatform("windows")]
     public partial class MultiSshToolStrip : ToolStrip
     {
-        private IContainer components;
-        private ToolStripLabel lblMultiSsh;
-        private ToolStripTextBox txtMultiSsh;
+        private IContainer components = null!;
+        private ToolStripLabel lblMultiSsh = null!;
+        private ToolStripTextBox txtMultiSsh = null!;
         private int previousCommandIndex = 0;
         private readonly ArrayList processHandlers = [];
         private readonly ArrayList quickConnectConnections = [];
@@ -37,8 +37,8 @@ namespace mRemoteNG.UI.Controls
         private void ApplyTheme()
         {
             if (!_themeManager.ActiveAndExtended) return;
-            txtMultiSsh.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
-            txtMultiSsh.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
+            txtMultiSsh.BackColor = _themeManager.ActiveTheme.ExtendedPalette!.getColor("TextBox_Background");
+            txtMultiSsh.ForeColor = _themeManager.ActiveTheme.ExtendedPalette!.getColor("TextBox_Foreground");
         }
 
         private ArrayList ProcessOpenConnections(ConnectionInfo connection)
@@ -76,7 +76,8 @@ namespace mRemoteNG.UI.Controls
                 processHandlers.AddRange(ProcessOpenConnections(connection));
             }
 
-            System.Collections.Generic.IEnumerable<ConnectionInfo> connectionTreeConnections = Runtime.ConnectionsService.ConnectionTreeModel.GetRecursiveChildList().Where(item => item.OpenConnections.Count > 0);
+            System.Collections.Generic.IEnumerable<ConnectionInfo>? connectionTreeConnections = Runtime.ConnectionsService.ConnectionTreeModel?.GetRecursiveChildList().Where(item => item.OpenConnections.Count > 0);
+            if (connectionTreeConnections is null) return;
 
             foreach (ConnectionInfo connection in connectionTreeConnections)
             {
@@ -105,7 +106,7 @@ namespace mRemoteNG.UI.Controls
                 }
                 catch { }
 
-                txtMultiSsh.Text = previousCommands[previousCommandIndex].ToString();
+                txtMultiSsh.Text = previousCommands[previousCommandIndex]?.ToString() ?? string.Empty;
                 txtMultiSsh.SelectAll();
             }
 
