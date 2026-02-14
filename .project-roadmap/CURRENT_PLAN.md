@@ -1,4 +1,4 @@
-# Current Plan: CS8618 & Nullable Reference Type Warnings Resolution
+# Current Plan: Automated Issue Resolution & Warning Cleanup
 
 **Status:** IN PROGRESS
 **Branch:** `main` (v1.81.0-beta.1)
@@ -9,143 +9,350 @@
 
 ## Obiectiv
 
-Eliminarea avertismentelor de tip nullable reference types (CS8xxx) din codebase.
-Acestea au fost activate odata cu migrarea la .NET 10 si `<Nullable>enable</Nullable>`.
+Sistem automat care rezolva issues si warnings, condus de un orchestrator Python
+care apeleaza Claude Code ca sub-agent. Totul automat, pas cu pas, cu monitoring.
+
+## Arhitectura orchestratorului
+
+```
+orchestrate.py (Python — ruleaza continuu)
+│
+├── FLUX 1: Open Issues (upstream GitHub)
+│   ├── Sync issues (Sync-Issues.ps1)
+│   ├── AI Triage (claude -p → analizeaza fiecare issue)
+│   │   └── Decizie: implement / wontfix / needs-info / duplicate
+│   ├── Pentru fiecare "implement":
+│   │   ├── claude -p "fix issue #N" (cu context din issue + cod)
+│   │   ├── build.ps1 → verifica compilare
+│   │   ├── dotnet test → verifica teste
+│   │   ├── git commit -m "fix(#N): description"
+│   │   ├── git push
+│   │   └── gh issue comment #N → "Fixed, test in beta [link]"
+│   └── Update issue status in IIS JSON
+│
+├── FLUX 2: Warning Cleanup (CS8xxx)
+│   ├── build.ps1 → parseaza warnings
+│   ├── Grupeaza pe fisier
+│   ├── Pentru fiecare fisier:
+│   │   ├── claude -p "fix warnings in file X"
+│   │   ├── build.ps1 → verifica
+│   │   ├── dotnet test → verifica
+│   │   └── git commit
+│   └── Actualizeaza metrici in CURRENT_PLAN.md
+│
+└── MONITORING (live)
+    ├── orchestrator-status.json (stare masina)
+    ├── orchestrator.log (log detaliat)
+    └── Console: progress bar + indicatori
+```
+
+## Fisiere orchestrator
+
+| Fisier | Scop |
+|--------|------|
+| `.project-roadmap/scripts/orchestrate.py` | Script principal — ruleaza tot |
+| `.project-roadmap/scripts/orchestrator-status.json` | Stare live (citibil de orice agent/tool) |
+| `.project-roadmap/scripts/orchestrator.log` | Log detaliat cu timestamps |
+
+## Monitoring — orchestrator-status.json
+
+```json
+{
+  "started_at": "2026-02-15T10:00:00",
+  "running": true,
+  "current_phase": "issues",
+  "current_task": {
+    "type": "issue_fix",
+    "issue": 2735,
+    "step": "building",
+    "file": "Connection/Protocol/RDP/RdpProtocol.cs",
+    "started_at": "2026-02-15T10:15:30"
+  },
+  "issues": {
+    "total_synced": 42,
+    "triaged": 35,
+    "to_implement": 12,
+    "implemented": 3,
+    "failed": 1,
+    "skipped_wontfix": 8,
+    "skipped_duplicate": 4,
+    "skipped_needs_info": 5,
+    "commented_on_github": 3
+  },
+  "warnings": {
+    "total_start": 4831,
+    "total_now": 4200,
+    "fixed_this_session": 631,
+    "by_type": {
+      "CS8618": {"start": 386, "now": 120, "fixed": 266},
+      "CS8602": {"start": 846, "now": 700, "fixed": 146}
+    }
+  },
+  "commits": [
+    {"hash": "abc1234", "message": "fix(#2735): RDP focus", "tests_passed": true},
+    {"hash": "def5678", "message": "chore: fix 15 CS8618 in UI/Controls", "tests_passed": true}
+  ],
+  "errors": [
+    {"time": "10:25:00", "task": "issue_3044", "step": "test", "error": "2 tests failed"}
+  ],
+  "last_updated": "2026-02-15T10:20:00"
+}
+```
+
+### Console output (live)
+
+```
+=== mRemoteNG Orchestrator ===
+Phase: ISSUES  [=========>          ] 3/12 implemented
+  Current: Issue #2735 — RDP SmartSize focus loss
+  Step: TESTING (dotnet test... 2174/2179 passed)
+
+Warnings: 4831 → 4200 (-631)  [============>       ] 13% fixed
+  CS8618: 386→120  CS8602: 846→700
+
+Commits: 7 (all green)  |  Errors: 1 (issue #3044 — test fail, skipped)
+Last activity: 2s ago
+```
+
+---
+
+## FLUX 1: Open Issues — detaliat
+
+### Pas 1: Sync
+```python
+# Ruleaza Sync-Issues.ps1 — trage issues noi de pe upstream
+subprocess.run(["powershell.exe", "-NoProfile", "-File", "Sync-Issues.ps1"])
+```
+
+### Pas 2: AI Triage (pentru fiecare issue cu `our_status == "new"`)
+```python
+# Claude analizeaza issue-ul si decide
+prompt = f"""
+Esti un triager pentru proiectul mRemoteNG (.NET 10, WinForms).
+Analizeaza acest issue GitHub si decide ce facem:
+
+Issue #{issue['number']}: {issue['title']}
+Labels: {issue['labels']}
+Body: {issue['body'][:2000]}
+Comments: {last_3_comments}
+
+Raspunde STRICT in JSON:
+{{
+  "decision": "implement|wontfix|duplicate|needs_info",
+  "reason": "explicatie scurta",
+  "priority": "P0|P1|P2|P3|P4",
+  "estimated_files": ["path/to/file1.cs", "path/to/file2.cs"],
+  "approach": "descriere scurta a fix-ului propus"
+}}
+"""
+result = subprocess.run(["claude", "-p", prompt, "--output-format", "json"], capture_output=True)
+```
+
+### Pas 3: Implementare (pentru fiecare `decision == "implement"`)
+```python
+prompt = f"""
+Proiect: mRemoteNG (.NET 10, WinForms, COM references)
+Branch: main
+Build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
+
+Fix issue #{issue['number']}: {issue['title']}
+{issue['body'][:3000]}
+
+Abordare recomandata de triage: {triage['approach']}
+Fisiere probabile: {triage['estimated_files']}
+
+REGULI:
+- Citeste codul INAINTE de a modifica
+- NU schimba comportament existent — doar fix-ul cerut
+- NU crea teste interactive (dialog, MessageBox, notepad.exe)
+- Dupa fix, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
+- Dupa build, ruleaza: dotnet test mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm" -- NUnit.DefaultTimeout=5000
+
+Fa DOAR fix-ul. Nimic altceva.
+"""
+result = subprocess.run(["claude", "-p", prompt], capture_output=True, timeout=600)
+```
+
+### Pas 4: Verificare (build + test, independent de Claude)
+```python
+# Orchestratorul ruleaza build SI test SINGUR — nu se bazeaza pe Claude
+build_ok = run_build()   # powershell build.ps1
+test_ok = run_tests()    # dotnet test ... --filter ...
+
+if build_ok and test_ok:
+    git_commit(f"fix(#{issue_num}): {short_description}")
+    git_push()
+    post_github_comment(issue_num, commit_hash)
+    update_issue_status(issue_num, "testing")
+else:
+    log_error(issue_num, "build" if not build_ok else "test")
+    # NU comite, trece la urmatorul issue
+```
+
+### Pas 5: Comentariu GitHub (dupa succes)
+```python
+comment = f"""
+✅ **Fix available for testing**
+
+**Commit:** [`{commit_hash[:8]}`](https://github.com/robertpopa22/mRemoteNG/commit/{commit_hash})
+**Branch:** `main`
+**What changed:** {short_description}
+
+📥 **Download latest beta:** [v1.81.0-beta.1](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.1)
+
+Please test and report if this resolves your issue.
+
+---
+🤖 _Automated by mRemoteNG Issue Intelligence System_
+"""
+subprocess.run(["gh", "issue", "comment", str(issue_num),
+                "--repo", "mRemoteNG/mRemoteNG", "--body", comment])
+```
+
+---
+
+## FLUX 2: Warning Cleanup — detaliat
+
+### Pas 1: Extrage warnings din build
+```python
+# Ruleaza build, capteaza output, parseaza warnings
+# Grupeaza: {fisier: [{linie, cod_warning, mesaj}]}
+build_output = run_build(capture=True)
+warnings = parse_warnings(build_output)  # regex pe "CS8618", "CS8602" etc.
+files_by_warning_count = group_by_file(warnings)  # sortat descrescator
+```
+
+### Pas 2: Fix pe fisier (grupat)
+```python
+for file_path, file_warnings in files_by_warning_count:
+    prompt = f"""
+    Proiect: mRemoteNG (.NET 10, WinForms)
+    Fisier: {file_path}
+
+    Fixeaza TOATE aceste warnings nullable:
+    {format_warnings(file_warnings)}
+
+    REGULI CRITICE:
+    - Cand adaugi `?` la un field, verifica TOATE utilizarile — adauga `?.` si `?? default`
+    - NU genera CS8602 noi — fixeaza cascada imediat
+    - NU schimba logica/comportament — doar tipuri si null checks
+    - Getter cu .Trim() → ?.Trim() ?? string.Empty
+    - Foloseste `= null!` DOAR pentru fields initializate sigur in constructor/init
+    """
+    subprocess.run(["claude", "-p", prompt], timeout=300)
+
+    # Verificare independenta
+    if run_build() and run_tests():
+        git_commit(f"chore: fix {len(file_warnings)} nullable warnings in {basename(file_path)}")
+    else:
+        git_restore(file_path)  # REVERT — nu lasa cod stricat
+        log_error(file_path, "warning_fix_failed")
+```
+
+---
+
+## Prioritizare executie
+
+| Prioritate | Ce | De ce |
+|------------|-----|-------|
+| **1** | Open issues P0-P1 (critical/security) | Impact direct pe utilizatori |
+| **2** | Open issues P2 (bugs) | Fix-uri concrete, feedback rapid |
+| **3** | CS8618 warnings (386 ramase) | Cel mai mare impact pe code quality |
+| **4** | CS8602 warnings (846) | Multe generate de fix-urile CS8618 |
+| **5** | Open issues P3-P4 (enhancement/debt) | Nice-to-have |
+| **6** | Restul warnings (CS8600, CS8604, etc.) | Cleanup gradual |
+| **7** | CA1416 (1,795) | Cosmetic — suprima cu NoWarn |
+
+---
 
 ## Ce s-a facut deja (2026-02-14)
 
 ### Sesiune Gemini CLI (esuata, dar munca salvata)
-- Gemini CLI a rezolvat **466 din 852 CS8618** warnings (non-nullable field not initialized)
-- Gemini a picat din cauza JSON malformat (backslash-uri Windows in `.auto-claude/` directory listing)
-- **NU a fost overflow de context** — a fost un bug de serializare
-- Munca a fost salvata in commit `d60d2b80`
+- Gemini CLI a rezolvat **466 din 852 CS8618** warnings
+- Picat din cauza JSON malformat (backslash-uri Windows)
+- Munca salvata in commit `d60d2b80`
 
 ### Fixuri post-Gemini (sesiune Claude Code)
-- **GetPropertyValue() crash fix** — Gemini a lasat un cast nesigur `(TPropertyType)reflection_result` care returna null si crasha la `.Trim()`. Fixat cu pattern matching: `result is TPropertyType typed ? typed : value`
-- **10 .Trim() null-safety fixes** in `AbstractConnectionRecord.cs` — toate getter-ele de string aveau `.Trim()` fara null check
-- **Revert CSV password masking** — Gemini a schimbat comportamentul exportului CSV sa mascheze parolele cu `********`, ceea ce a stricat 3 teste si a fost o schimbare de functionalitate neautorizata
-- **Sters ThemeSerializerTests.cs** — test scris gresit de Gemini, folosea color names care nu exista in `ColorMapTheme.ResourceManager`
-- **Regula "No Interactive Tests"** adaugata in CLAUDE.md
-- **Cleanup complet**: sterse 25 branch-uri auto-claude, 25 worktrees, folder .auto-claude/
-- Toate fixurile comise in `a653e86f`
+- GetPropertyValue() crash fix (pattern matching safe)
+- 10 .Trim() null-safety fixes in AbstractConnectionRecord.cs
+- Revert CSV password masking (schimbare neautorizata de comportament)
+- Sters ThemeSerializerTests.cs (test gresit)
+- Cleanup: 25 branch-uri, 25 worktrees, .auto-claude/
+- Comise in `a653e86f`
 
-### Stare curenta build & teste
-- **Build:** COMPILEAZA fara erori
-- **Teste:** Toate testele non-UI trec (0 failures)
-- **Warnings totale:** ~4,831
-
-## Inventar warnings (2026-02-14)
-
-| Warning | Count | Descriere | Prioritate |
-|---------|-------|-----------|------------|
-| CA1416 | 1,795 | Platform compatibility (WinForms pe non-Windows) | LOW — cosmetic, app e Windows-only |
-| CS8602 | 846 | Dereference of possibly null reference | HIGH — risc NullReferenceException |
-| CS8600 | 602 | Converting null to non-nullable type | MEDIUM |
-| CS8622 | 460 | Nullability of delegate parameter mismatch | LOW — cosmetic |
-| CS8618 | 386 | Non-nullable field not initialized in constructor | HIGH — ramas de la Gemini |
-| CS8604 | 222 | Possible null argument for parameter | MEDIUM |
-| CS8603 | 176 | Possible null reference return | MEDIUM |
-| CS8625 | 162 | Cannot convert null literal to non-nullable | MEDIUM |
-| CS8601 | 120 | Possible null reference assignment | MEDIUM |
-| CS8605 | 40 | Unboxing possibly null value | LOW |
-| **TOTAL** | **~4,831** | | |
-
-## Lectii invatate (CRITICE pentru urmatorii agenti)
-
-### 1. Efectul cascada CS8618 → CS8602
-Cand fixezi CS8618 (adaugi `?` la tip sau initializezi cu `= null!`), poti genera CS8602 (null dereference) pe fiecare loc unde acel camp e folosit fara null check. Gemini a fixat 466 CS8618 dar a generat ~610 CS8602 noi.
-
-**Strategie corecta:**
-- Cand adaugi `?` la un field, verifica TOATE utilizarile acelui field
-- Adauga `?.` sau null checks acolo unde e necesar
-- NU lasa CS8602 in urma — fixeaza-le imediat
-
-### 2. NU schimba comportamentul — doar tipurile
-Gemini a schimbat comportamentul CSV export (mascare parole) in loc sa fixeze doar tipurile nullable. Orice schimbare de comportament trebuie discutata si aprobata separat.
-
-**Regula:** Cand fixezi warnings, schimba DOAR declaratii de tip si null checks. NU modifica logica aplicatiei.
-
-### 3. NU crea teste fara sa intelegi API-ul
-ThemeSerializerTests a folosit color names inventate care nu existau in `ColorMapTheme.ResourceManager`. Round-trip era imposibil by design.
-
-**Regula:** Inainte de a crea un test, citeste codul sursa pe care il testezi. Verifica ca datele de test corespund structurii reale.
-
-### 4. GetPropertyValue() — pattern critic
-```csharp
-// GRESIT (crash pe null):
-protected virtual TPropertyType GetPropertyValue<TPropertyType>(string propertyName, TPropertyType value)
-{
-    return (TPropertyType)GetType().GetProperty(propertyName)?.GetValue(this, null);
-}
-
-// CORECT (safe):
-protected virtual TPropertyType GetPropertyValue<TPropertyType>(string propertyName, TPropertyType value)
-{
-    var result = GetType().GetProperty(propertyName)?.GetValue(this, null);
-    return result is TPropertyType typed ? typed : value;
-}
-```
-
-### 5. String properties cu .Trim()
-Orice getter care face `.Trim()` trebuie sa fie `?.Trim() ?? string.Empty` cand tipul field-ului e nullable.
-
-## Plan de executie — urmatoarele sesiuni
-
-### Faza 1: CS8618 restante (386 warnings) — PRIORITATE MAXIMA
-Continua munca Gemini. Fixeaza cele 386 CS8618 ramase, dar:
-- Aplica null checks pe TOATE utilizarile field-urilor modificate
-- Build + test dupa fiecare fisier mare
-- Commit frecvent (la fiecare 5-10 fisiere fixate)
-
-### Faza 2: CS8602 (846 warnings)
-Multe generate de Faza 1. Adauga `?.` si null checks.
-- Grupeaza pe fisier, nu pe warning
-- Prioritizeaza fisierele cu cele mai multe CS8602
-
-### Faza 3: CS8600 + CS8604 + CS8603 + CS8625 + CS8601 (1,282 warnings)
-Toate sunt variante de "null flows where non-null expected".
-- Fix standard: `?` pe tip, `?.` pe acces, `?? default` pe assignment
-- Atentie la CS8603 (return null din metoda non-nullable) — poate necesita schimbarea return type
-
-### Faza 4: CS8622 (460 warnings)
-Delegate nullability mismatch. De obicei necesita:
-- Schimbarea semnaturii event handler-ului
-- Sau `!` suppression unde e sigur ca nu e null
-
-### Faza 5: CS8605 (40 warnings)
-Unboxing null. Fix trivial cu null check inainte de unboxing.
-
-### Faza 6: CA1416 (1,795 warnings) — OPTIONAL
-Platform compatibility. Aplicatia e Windows-only, aceste warnings sunt cosmetice.
-Optiuni:
-- Adauga `[SupportedOSPlatform("windows")]` pe fiecare clasa/metoda afectata
-- Sau suprima cu `<NoWarn>CA1416</NoWarn>` in .csproj (recomandat pentru app Windows-only)
-
-## Reguli de executie pentru agenti
-
-1. **Build dupa fiecare batch** — `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"`
-2. **Test dupa fiecare build** — `dotnet test "D:\github\mRemoteNG\mRemoteNGTests\bin\x64\Release\mRemoteNGTests.dll" --verbosity normal`
-3. **Commit frecvent** — la fiecare 5-10 fisiere fixate, cu mesaj descriptiv
-4. **NU schimba comportament** — doar tipuri si null checks
-5. **NU crea teste noi** in aceasta faza — focusul e pe warnings
-6. **Verifica regresia** — daca un test pica, analizeaza inainte de a continua
-7. **Log progress** — actualizeaza acest document cu numarul de warnings dupa fiecare sesiune
-
-## Metrici de progres
-
-| Data | Agent | CS8618 | CS8602 | Total | Commit |
-|------|-------|--------|--------|-------|--------|
-| 2026-02-14 (pre-Gemini) | — | 852 | ~236 | ~4,200 | baseline |
-| 2026-02-14 (post-Gemini) | Gemini | 386 | 846 | ~4,831 | d60d2b80 |
-| 2026-02-14 (post-fix) | Claude | 386 | 846 | ~4,831 | a653e86f |
-| | | | | | |
+### Stare curenta
+- **Build:** compileaza fara erori
+- **Teste:** 0 failures (non-UI)
+- **Warnings:** ~4,831
 
 ---
 
-## Alte probleme active (nu fac parte din acest plan)
+## Lectii invatate (CRITICE — citeste INAINTE de executie)
+
+### 1. Efectul cascada CS8618 → CS8602
+Cand fixezi CS8618 (adaugi `?`), genereaza CS8602 pe fiecare utilizare a field-ului.
+**FIX:** Adauga `?.` si null checks pe TOATE utilizarile, nu doar pe declaratie.
+
+### 2. NU schimba comportamentul — doar tipurile
+Gemini a mascat parolele in CSV export. Orice schimbare de logica e interzisa.
+**REGULA:** Doar declaratii de tip si null checks. Nimic altceva.
+
+### 3. NU crea teste interactive
+Teste cu dialog, MessageBox, notepad.exe BLOCHEAZA executia.
+**REGULA:** Teste 100% automate, timeout 5s, mock pe orice UI dependency.
+
+### 4. GetPropertyValue() — pattern critic
+```csharp
+// GRESIT: return (TPropertyType)reflection_result;  // crash pe null
+// CORECT: return result is TPropertyType typed ? typed : value;
+```
+
+### 5. Verificare INDEPENDENTA de Claude
+Orchestratorul ruleaza build si test SINGUR dupa fiecare task Claude.
+NU te baza pe Claude ca a rulat build-ul corect — verifica mereu.
+
+### 6. REVERT pe esec
+Daca build sau test pica dupa fix, `git restore` imediat. Nu lasa cod stricat.
+Logheaza eroarea si treci la urmatorul task.
+
+---
+
+## Metrici de progres
+
+| Data | Agent | CS8618 | CS8602 | Total | Issues Fixed | Commit |
+|------|-------|--------|--------|-------|-------------|--------|
+| 2026-02-14 (baseline) | — | 852 | ~236 | ~4,200 | 0 | — |
+| 2026-02-14 (Gemini) | Gemini | 386 | 846 | ~4,831 | 0 | d60d2b80 |
+| 2026-02-14 (fixuri) | Claude | 386 | 846 | ~4,831 | 0 | a653e86f |
+| | | | | | | |
+
+---
+
+## Comentariu GitHub — template
+
+Postat automat pe fiecare issue rezolvat:
+
+```markdown
+✅ **Fix available for testing**
+
+**Commit:** [`{hash}`](https://github.com/robertpopa22/mRemoteNG/commit/{hash})
+**Branch:** `main`
+**What changed:** {description}
+
+📥 **Download latest beta:** [v1.81.0-beta.1](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.1)
+
+Please test and report if this resolves your issue.
+
+---
+🤖 _Automated by mRemoteNG Issue Intelligence System_
+```
+
+---
+
+## Alte probleme active (nu fac parte din orchestrator)
 
 | Problema | Referinta | Status |
 |----------|-----------|--------|
 | CVE-2023-30367 SecureString migration | `.project-roadmap/CVE-2023-30367_ASSESSMENT.md` | Deferred to v1.81.0 |
-| BinaryFormatter .NET 10 crash | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | Fixed (workaround), long-term pending |
+| BinaryFormatter .NET 10 crash | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | Fixed (workaround) |
 | Upstream PR #3134 | GitHub | Awaiting maintainer approval |
