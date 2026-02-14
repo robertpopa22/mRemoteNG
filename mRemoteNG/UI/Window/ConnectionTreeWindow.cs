@@ -26,12 +26,12 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public partial class ConnectionTreeWindow
     {
-        private ThemeManager _themeManager;
+        private ThemeManager? _themeManager;
         private bool _sortedAz = true;
 
         public ConnectionInfo SelectedNode => ConnectionTree.SelectedNode;
 
-        public ConnectionTree ConnectionTree { get; set; }
+        public ConnectionTree ConnectionTree { get; set; } = null!;
 
         public ConnectionTreeWindow() : this(new DockContent())
         {
@@ -99,7 +99,7 @@ namespace mRemoteNG.UI.Window
 
         private new void ApplyTheme()
         {
-            if (!_themeManager.ThemingActive)
+            if (_themeManager == null || !_themeManager.ThemingActive)
                 return;
 
             ThemeInfo activeTheme = _themeManager.ActiveTheme;
@@ -110,13 +110,17 @@ namespace mRemoteNG.UI.Window
             if (!_themeManager.ActiveAndExtended)
                 return;
 
+            var extendedPalette = activeTheme.ExtendedPalette;
+            if (extendedPalette == null)
+                return;
+
             // connection search area
-            searchBoxLayoutPanel.BackColor = activeTheme.ExtendedPalette.getColor("Dialog_Background");
-            searchBoxLayoutPanel.ForeColor = activeTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            txtSearch.BackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
-            txtSearch.ForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
+            searchBoxLayoutPanel.BackColor = extendedPalette.getColor("Dialog_Background");
+            searchBoxLayoutPanel.ForeColor = extendedPalette.getColor("Dialog_Foreground");
+            txtSearch.BackColor = extendedPalette.getColor("TextBox_Background");
+            txtSearch.ForeColor = extendedPalette.getColor("TextBox_Foreground");
             //Picturebox needs to be manually themed
-            pbSearch.BackColor = activeTheme.ExtendedPalette.getColor("TreeView_Background");
+            pbSearch.BackColor = extendedPalette.getColor("TreeView_Background");
         }
 
         #endregion
@@ -127,7 +131,7 @@ namespace mRemoteNG.UI.Window
         {
             ConnectionTree.NodeDeletionConfirmer =
                 new SelectedConnectionDeletionConfirmer(prompt => CTaskDialog.MessageBox(
-                    Application.ProductName, prompt, "", ETaskDialogButtons.YesNo, ESysIcons.Question));
+                    Application.ProductName ?? "", prompt, "", ETaskDialogButtons.YesNo, ESysIcons.Question));
             ConnectionTree.KeyDown += TvConnections_KeyDown;
             ConnectionTree.KeyPress += TvConnections_KeyPress;
             SetTreePostSetupActions();
@@ -218,7 +222,9 @@ namespace mRemoteNG.UI.Window
             mMenFavorites.Click += (sender, args) =>
             {
                 mMenFavorites.DropDownItems.Clear();
-                List<ContainerInfo> rootNodes = Runtime.ConnectionsService.ConnectionTreeModel.RootNodes;
+                var connectionTreeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+                if (connectionTreeModel == null) return;
+                List<ContainerInfo> rootNodes = connectionTreeModel.RootNodes;
                 List<ToolStripMenuItem> favoritesList = new();
 
                 foreach (ContainerInfo node in rootNodes)
@@ -244,7 +250,8 @@ namespace mRemoteNG.UI.Window
         private void FavoriteMenuItem_MouseUp(object sender, MouseEventArgs e)
         {
             if (((ToolStripMenuItem)sender).Tag is ContainerInfo) return;
-            Runtime.ConnectionInitiator.OpenConnection((ConnectionInfo)((ToolStripMenuItem)sender).Tag);
+            if (((ToolStripMenuItem)sender).Tag is ConnectionInfo connectionInfo)
+                Runtime.ConnectionInitiator.OpenConnection(connectionInfo);
         }
 
         #endregion
