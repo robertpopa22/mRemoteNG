@@ -176,6 +176,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 return;
             }
 
+            if (pageRegSettingsInstance is null) return;
+
             // ***
             // Disable controls based on the registry settings.
             //
@@ -209,6 +211,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 DisableControl(groupBoxLogging);
                 return;
             }
+
+            if (pageRegSettingsInstance is null) return;
 
             // ***
             // Disable controls based on the registry settings.
@@ -245,6 +249,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 return;
             }
 
+            if (pageRegSettingsInstance is null) return;
+
             // ***
             // Disable controls based on the registry settings.
             //
@@ -267,6 +273,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                    !CommonRegistrySettings.AllowNotifications
                 || !CommonRegistrySettings.AllowLogging
                 || !CommonRegistrySettings.AllowPopups;
+
+            if (pageRegSettingsInstance is null)
+                return CommonSettings;
 
             bool NotificationPanelSettings =
                    pageRegSettingsInstance.NfpWriteDebugMsgs.IsSet
@@ -297,7 +306,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private void buttonSelectLogPath_Click(object sender, System.EventArgs e)
         {
             string currentFile = textBoxLogPath.Text;
-            string currentDirectory = Path.GetDirectoryName(currentFile);
+            string currentDirectory = Path.GetDirectoryName(currentFile) ?? string.Empty;
             saveFileDialogLogging.Title = Language.ChooseLogPath;
             saveFileDialogLogging.Filter = @"Log file|*.log";
             saveFileDialogLogging.InitialDirectory = currentDirectory;
