@@ -61,7 +61,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                     return;
                 }
 
-                UnregisterModelUpdateHandlers(_connectionTreeModel);
+                if (_connectionTreeModel != null)
+                    UnregisterModelUpdateHandlers(_connectionTreeModel);
                 _connectionTreeModel = value;
                 PopulateTreeView(value);
             }
@@ -133,7 +134,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             CanExpandGetter = item =>
             {
-                ContainerInfo itemAsContainer = item as ContainerInfo;
+                ContainerInfo? itemAsContainer = item as ContainerInfo;
                 return itemAsContainer?.Children.Count > 0;
             };
             ChildrenGetter = item => ((ContainerInfo)item).Children;
@@ -324,8 +325,9 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             ConnectionInfo parentNode = SelectedNode ?? GetRootConnectionNode();
             DefaultConnectionInfo.Instance.SaveTo(newNode);
             DefaultConnectionInheritance.Instance.SaveTo(newNode.Inheritance);
-            ContainerInfo selectedContainer = parentNode as ContainerInfo;
-            ContainerInfo parent = selectedContainer ?? parentNode?.Parent;
+            ContainerInfo? selectedContainer = parentNode as ContainerInfo;
+            ContainerInfo? parent = selectedContainer ?? parentNode.Parent;
+            if (parent == null) return;
             newNode.SetParent(parent);
             Expand(parent);
             SelectObject(newNode, true);
@@ -344,8 +346,9 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 return;
 
             ConnectionInfo newNode = SelectedNode.Clone();
+            if (SelectedNode.Parent == null) return;
             SelectedNode.Parent.AddChildBelow(newNode, SelectedNode);
-            newNode.Parent.SetChildBelow(newNode, SelectedNode);
+            newNode.Parent?.SetChildBelow(newNode, SelectedNode);
         }
 
         public void RenameSelectedNode()
@@ -389,7 +392,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             if (sortTarget is ContainerInfo sortTargetAsContainer)
                 sortTargetAsContainer.SortRecursive(sortDirection);
             else
-                SelectedNode.Parent.SortRecursive(sortDirection);
+                SelectedNode?.Parent?.SortRecursive(sortDirection);
 
             Runtime.ConnectionsService.EndBatchingSaves();
         }
@@ -538,8 +541,9 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             try
             {
                 System.Drawing.ColorConverter converter = new();
-                System.Drawing.Color color = (System.Drawing.Color)converter.ConvertFromString(colorString);
-                e.SubItem.ForeColor = color;
+                object? converted = converter.ConvertFromString(colorString);
+                if (converted is System.Drawing.Color color)
+                    e.SubItem.ForeColor = color;
             }
             catch
             {
@@ -555,7 +559,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             try
             {
                 _contextMenu.EnableShortcutKeys();
-                ConnectionTreeModel.RenameNode(SelectedNode, e.Label);
+                ConnectionTreeModel.RenameNode(SelectedNode, e.Label ?? string.Empty);
                 _nodeInEditMode = false;
                 _allowEdit = false;
                 // ensures that if we are filtering and a new item is added that doesn't match the filter, it will be filtered out
