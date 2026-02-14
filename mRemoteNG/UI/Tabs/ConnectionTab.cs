@@ -65,18 +65,18 @@ namespace mRemoteNG.UI.Tabs
                         }
                         else
                         {
-                            ((InterfaceControl)Tag)?.Protocol.Close();
+                            ((InterfaceControl?)Tag)?.Protocol.Close();
                         }
                     }
                     else
                     {
                         // close without the confirmation prompt...
-                        ((InterfaceControl)Tag)?.Protocol.Close();
+                        ((InterfaceControl?)Tag)?.Protocol.Close();
                     }
                 }
                 else
                 {
-                    ((InterfaceControl)Tag)?.Protocol.Close();
+                    ((InterfaceControl?)Tag)?.Protocol.Close();
                 }
             }
 
@@ -90,7 +90,7 @@ namespace mRemoteNG.UI.Tabs
         {
             try
             {
-                InterfaceControl interfaceControl = Tag as InterfaceControl;
+                InterfaceControl? interfaceControl = Tag as InterfaceControl;
                 if (interfaceControl?.Info.Protocol == ProtocolType.VNC)
                     ((ProtocolVNC)interfaceControl.Protocol).RefreshScreen();
             }
