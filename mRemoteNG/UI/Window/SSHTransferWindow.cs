@@ -405,7 +405,8 @@ namespace mRemoteNG.UI.Window
                 switch (Protocol)
                 {
                     case SecureTransfer.SSHTransferProtocol.SCP:
-                        st.ScpClt.Uploading += ScpClt_Uploading;
+                        if (st.ScpClt is not null)
+                            st.ScpClt.Uploading += ScpClt_Uploading;
                         break;
                     case SecureTransfer.SSHTransferProtocol.SFTP:
                         st.asyncCallback = AsyncCallback;
@@ -455,7 +456,7 @@ namespace mRemoteNG.UI.Window
                 if (st.Protocol == SecureTransfer.SSHTransferProtocol.SFTP)
                 {
                     FileInfo fi = new(st.SrcFile);
-                    while (!st.asyncResult.IsCompleted)
+                    while (st.asyncResult is not null && !st.asyncResult.IsCompleted)
                     {
                         int max = fi.Length > int.MaxValue
                             ? Convert.ToInt32(fi.Length / 1024)

@@ -12,17 +12,17 @@ namespace mRemoteNG.Tools
     [SupportedOSPlatform("windows")]
     internal class SecureTransfer : IDisposable
     {
-        private readonly string Host;
-        private readonly string User;
-        private readonly string Password;
+        private readonly string Host = string.Empty;
+        private readonly string User = string.Empty;
+        private readonly string Password = string.Empty;
         private readonly int Port;
         public readonly SSHTransferProtocol Protocol;
-        public string SrcFile;
-        public string DstFile;
-        public ScpClient ScpClt;
-        public SftpClient SftpClt;
-        public SftpUploadAsyncResult asyncResult;
-        public AsyncCallback asyncCallback;
+        public string SrcFile = string.Empty;
+        public string DstFile = string.Empty;
+        public ScpClient? ScpClt;
+        public SftpClient? SftpClt;
+        public SftpUploadAsyncResult? asyncResult;
+        public AsyncCallback? asyncCallback;
 
 
         public SecureTransfer()
@@ -74,12 +74,12 @@ namespace mRemoteNG.Tools
         {
             if (Protocol == SSHTransferProtocol.SCP)
             {
-                ScpClt.Disconnect();
+                ScpClt?.Disconnect();
             }
 
             if (Protocol == SSHTransferProtocol.SFTP)
             {
-                SftpClt.Disconnect();
+                SftpClt?.Disconnect();
             }
         }
 
@@ -88,7 +88,7 @@ namespace mRemoteNG.Tools
         {
             if (Protocol == SSHTransferProtocol.SCP)
             {
-                if (!ScpClt.IsConnected)
+                if (ScpClt is null || !ScpClt.IsConnected)
                 {
                     Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg,
                         Language.SshTransferFailed + Environment.NewLine +
@@ -101,7 +101,7 @@ namespace mRemoteNG.Tools
 
             if (Protocol == SSHTransferProtocol.SFTP)
             {
-                if (!SftpClt.IsConnected)
+                if (SftpClt is null || !SftpClt.IsConnected)
                 {
                     Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg,
                         Language.SshTransferFailed + Environment.NewLine +
@@ -127,12 +127,12 @@ namespace mRemoteNG.Tools
 
             if (Protocol == SSHTransferProtocol.SCP)
             {
-                ScpClt.Dispose();
+                ScpClt?.Dispose();
             }
 
             if (Protocol == SSHTransferProtocol.SFTP)
             {
-                SftpClt.Dispose();
+                SftpClt?.Dispose();
             }
         }
 
