@@ -23,14 +23,14 @@ namespace mRemoteNG.Connection.Protocol
     {
         #region Private Variables
 
-        private ConnectionTab _connectionTab;
-        private InterfaceControl _interfaceControl;
-        private ConnectingEventHandler ConnectingEvent;
-        private ConnectedEventHandler ConnectedEvent;
-        private DisconnectedEventHandler DisconnectedEvent;
-        private ErrorOccuredEventHandler ErrorOccuredEvent;
-        private ClosingEventHandler ClosingEvent;
-        private ClosedEventHandler ClosedEvent;
+        private ConnectionTab? _connectionTab;
+        private InterfaceControl _interfaceControl = null!;
+        private ConnectingEventHandler? ConnectingEvent;
+        private ConnectedEventHandler? ConnectedEvent;
+        private DisconnectedEventHandler? DisconnectedEvent;
+        private ErrorOccuredEventHandler? ErrorOccuredEvent;
+        private ClosingEventHandler? ClosingEvent;
+        private ClosedEventHandler? ClosedEvent;
 
         #endregion
 
@@ -38,17 +38,20 @@ namespace mRemoteNG.Connection.Protocol
 
         #region Control
 
-        private string Name { get; }
+        private string? Name { get; }
 
-        private ConnectionTab ConnectionTab
+        private ConnectionTab? ConnectionTab
         {
             get => _connectionTab;
             set
             {
                 _connectionTab = value;
-                _connectionTab.ResizeBegin += ResizeBegin;
-                _connectionTab.Resize += Resize;
-                _connectionTab.ResizeEnd += ResizeEnd;
+                if (_connectionTab != null)
+                {
+                    _connectionTab.ResizeBegin += ResizeBegin;
+                    _connectionTab.Resize += Resize;
+                    _connectionTab.ResizeEnd += ResizeEnd;
+                }
             }
         }
 
@@ -64,14 +67,14 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
-        protected Control Control { get; set; }
+        protected Control? Control { get; set; }
 
         #endregion
 
         public ConnectionInfo.Force Force { get; set; }
 
         protected readonly System.Timers.Timer tmrReconnect = new(5000);
-        protected ReconnectGroup ReconnectGroup;
+        protected ReconnectGroup? ReconnectGroup;
 
         protected ProtocolBase(string name)
         {
@@ -92,7 +95,7 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
-                Control.Focus();
+                Control?.Focus();
             }
             catch (Exception ex)
             {
@@ -124,7 +127,8 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
-                _interfaceControl.Parent.Tag = _interfaceControl;
+                if (_interfaceControl.Parent != null)
+                    _interfaceControl.Parent.Tag = _interfaceControl;
                 _interfaceControl.Show();
 
                 if (Control == null)
@@ -242,6 +246,7 @@ namespace mRemoteNG.Connection.Protocol
         private void SetTagToNothing()
         {
             if (!_interfaceControl.IsAccessible || _interfaceControl.IsDisposed ||
+                _interfaceControl.Parent == null ||
                 !_interfaceControl.Parent.IsAccessible || _interfaceControl.Parent.IsDisposed)
             { return; }
 
@@ -282,32 +287,32 @@ namespace mRemoteNG.Connection.Protocol
 
         public event ConnectingEventHandler Connecting
         {
-            add => ConnectingEvent = (ConnectingEventHandler)Delegate.Combine(ConnectingEvent, value);
-            remove => ConnectingEvent = (ConnectingEventHandler)Delegate.Remove(ConnectingEvent, value);
+            add => ConnectingEvent = (ConnectingEventHandler?)Delegate.Combine(ConnectingEvent, value);
+            remove => ConnectingEvent = (ConnectingEventHandler?)Delegate.Remove(ConnectingEvent, value);
         }
 
         public delegate void ConnectedEventHandler(object sender);
 
         public event ConnectedEventHandler Connected
         {
-            add => ConnectedEvent = (ConnectedEventHandler)Delegate.Combine(ConnectedEvent, value);
-            remove => ConnectedEvent = (ConnectedEventHandler)Delegate.Remove(ConnectedEvent, value);
+            add => ConnectedEvent = (ConnectedEventHandler?)Delegate.Combine(ConnectedEvent, value);
+            remove => ConnectedEvent = (ConnectedEventHandler?)Delegate.Remove(ConnectedEvent, value);
         }
 
         public delegate void DisconnectedEventHandler(object sender, string disconnectedMessage, int? reasonCode);
 
         public event DisconnectedEventHandler Disconnected
         {
-            add => DisconnectedEvent = (DisconnectedEventHandler)Delegate.Combine(DisconnectedEvent, value);
-            remove => DisconnectedEvent = (DisconnectedEventHandler)Delegate.Remove(DisconnectedEvent, value);
+            add => DisconnectedEvent = (DisconnectedEventHandler?)Delegate.Combine(DisconnectedEvent, value);
+            remove => DisconnectedEvent = (DisconnectedEventHandler?)Delegate.Remove(DisconnectedEvent, value);
         }
 
         public delegate void ErrorOccuredEventHandler(object sender, string errorMessage, int? errorCode);
 
         public event ErrorOccuredEventHandler ErrorOccured
         {
-            add => ErrorOccuredEvent = (ErrorOccuredEventHandler)Delegate.Combine(ErrorOccuredEvent, value);
-            remove => ErrorOccuredEvent = (ErrorOccuredEventHandler)Delegate.Remove(ErrorOccuredEvent, value);
+            add => ErrorOccuredEvent = (ErrorOccuredEventHandler?)Delegate.Combine(ErrorOccuredEvent, value);
+            remove => ErrorOccuredEvent = (ErrorOccuredEventHandler?)Delegate.Remove(ErrorOccuredEvent, value);
         }
 
         public delegate void ClosingEventHandler(object sender);
