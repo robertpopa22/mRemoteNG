@@ -172,6 +172,14 @@ namespace mRemoteNG.UI.TaskDialog
                 return;
             }
 
+            // ActiveAndExtended guarantees ExtendedPalette is non-null
+            var palette = _themeManager.ActiveTheme.ExtendedPalette;
+            if (palette == null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
@@ -191,27 +199,27 @@ namespace mRemoteNG.UI.TaskDialog
                 switch (m_State)
                 {
                     case eButtonState.MouseOver:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Border");
+                        back = palette.getColor("Button_Hover_Background");
+                        fore = palette.getColor("Button_Hover_Foreground");
+                        border = palette.getColor("Button_Hover_Border");
                         break;
                     case eButtonState.Down:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Border");
+                        back = palette.getColor("Button_Pressed_Background");
+                        fore = palette.getColor("Button_Pressed_Foreground");
+                        border = palette.getColor("Button_Pressed_Border");
                         break;
                     default:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Border");
+                        back = palette.getColor("Button_Background");
+                        fore = palette.getColor("Button_Foreground");
+                        border = palette.getColor("Button_Border");
                         break;
                 }
             }
             else
             {
-                back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Background");
-                fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Foreground");
-                border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Border");
+                back = palette.getColor("Button_Disabled_Background");
+                fore = palette.getColor("Button_Disabled_Foreground");
+                border = palette.getColor("Button_Disabled_Border");
             }
 
             if (Enabled)
