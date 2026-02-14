@@ -399,9 +399,9 @@ namespace mRemoteNG.UI.Forms
                 vsToolStripExtender.SetStyle(_multiSshToolStrip, _themeManager.ActiveTheme.Version, _themeManager.ActiveTheme.Theme);
 
                 if (!_themeManager.ActiveAndExtended) return;
-                tsContainer.TopToolStripPanel.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("CommandBarMenuDefault_Background");
-                BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-                ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+                tsContainer.TopToolStripPanel.BackColor = _themeManager.ActiveTheme.ExtendedPalette?.getColor("CommandBarMenuDefault_Background") ?? BackColor;
+                BackColor = _themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Background") ?? BackColor;
+                ForeColor = _themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Foreground") ?? ForeColor;
             }
             catch (Exception ex)
             {
@@ -487,7 +487,7 @@ namespace mRemoteNG.UI.Forms
                      (Properties.Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
                       openConnections > 1) || Properties.Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Exit))
                 {
-                    DialogResult result = CTaskDialog.MessageBox(this, Application.ProductName, Language.ConfirmExitMainInstruction, "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
+                    DialogResult result = CTaskDialog.MessageBox(this, Application.ProductName ?? string.Empty, Language.ConfirmExitMainInstruction, "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
                     if (CTaskDialog.VerificationChecked)
                     {
                         Properties.Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
@@ -597,11 +597,11 @@ namespace mRemoteNG.UI.Forms
 
         private bool AutoLockEnabled()
         {
-            RootNodeInfo rootNodeInfo = GetConnectionRootNodeInfo();
+            RootNodeInfo? rootNodeInfo = GetConnectionRootNodeInfo();
             return rootNodeInfo is { Password: true, AutoLockOnMinimize: true };
         }
 
-        private RootNodeInfo GetConnectionRootNodeInfo()
+        private RootNodeInfo? GetConnectionRootNodeInfo()
         {
             return Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes
                 ?.OfType<RootNodeInfo>()
@@ -635,7 +635,7 @@ namespace mRemoteNG.UI.Forms
             if (!_isAutoLocked || IsClosing)
                 return true;
 
-            RootNodeInfo rootNodeInfo = GetConnectionRootNodeInfo();
+            RootNodeInfo? rootNodeInfo = GetConnectionRootNodeInfo();
             if (rootNodeInfo?.Password != true)
             {
                 _isAutoLocked = false;
@@ -733,11 +733,11 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_ACTIVATEAPP:
                         bool appActivated = m.WParam != IntPtr.Zero;
-                        Control candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
+                        Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                                ?? GetChildAtPoint(MousePosition);
                         if (candidateTabToFocus is InterfaceControl)
                         {
-                            candidateTabToFocus.Parent.Focus();
+                            candidateTabToFocus.Parent?.Focus();
                         }
 
                         // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
@@ -752,7 +752,7 @@ namespace mRemoteNG.UI.Forms
                         // Only handle this msg if it was triggered by a click
                         if (NativeMethods.LOWORD(m.WParam) == NativeMethods.WA_CLICKACTIVE)
                         {
-                            Control controlThatWasClicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
+                            Control? controlThatWasClicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                                      ?? GetChildAtPoint(MousePosition);
                             if (controlThatWasClicked != null)
                             {
