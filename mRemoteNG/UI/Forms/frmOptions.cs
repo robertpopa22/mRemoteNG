@@ -97,9 +97,10 @@ namespace mRemoteNG.UI.Forms
 
         private void ApplyTheme()
         {
-            if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            var themeManager = ThemeManager.getInstance();
+            if (!themeManager.ActiveAndExtended) return;
+            BackColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
+            ForeColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
         }
 
 #if false
@@ -146,7 +147,7 @@ namespace mRemoteNG.UI.Forms
 
         private void InitOptionsPage(string pageName)
         {
-            OptionsPage page = null;
+            OptionsPage? page = null;
 
             switch (pageName)
             {
@@ -249,11 +250,11 @@ namespace mRemoteNG.UI.Forms
 
         private object ImageGetter(object rowobject)
         {
-            OptionsPage page = rowobject as OptionsPage;
+            OptionsPage? page = rowobject as OptionsPage;
             return page?.PageIcon == null ? _display.ScaleImage(Properties.Resources.F1Help_16x) : _display.ScaleImage(page.PageIcon);
         }
 
-        public void SetActivatedPage(string pageName = default)
+        public void SetActivatedPage(string? pageName = default)
         {
             _pageName = pageName ?? Language.StartupExit;
 
@@ -477,8 +478,8 @@ namespace mRemoteNG.UI.Forms
             if (_isLoading) return;
             
             // Find the parent OptionsPage
-            Control current = control;
-            while (current != null && !(current is OptionsPage))
+            Control? current = control;
+            while (current != null && current is not OptionsPage)
             {
                 current = current.Parent;
             }
@@ -508,7 +509,7 @@ namespace mRemoteNG.UI.Forms
                 return;
             }
 
-            OptionsPage currentPage = lstOptionPages.SelectedObject as OptionsPage;
+            OptionsPage? currentPage = lstOptionPages.SelectedObject as OptionsPage;
             Logger.Instance.Log?.Debug($"[ValidateControlState] Current page: {(currentPage != null ? currentPage.PageName : "NULL")}");
 
             if (currentPage == null)
