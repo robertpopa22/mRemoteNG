@@ -40,6 +40,7 @@ namespace mRemoteNG.UI.Controls
         {
             try
             {
+                if (e.Node is null) return;
                 foreach (TreeNode node in e.Node.Nodes)
                     AddTreeNodes(node);
             }
@@ -51,9 +52,8 @@ namespace mRemoteNG.UI.Controls
 
         private void TvActiveDirectory_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            AdPath = e.Node.Tag.ToString();
-            AdPathChangedEventHandler pathChangedEvent = AdPathChanged;
-            pathChangedEvent?.Invoke(this);
+            AdPath = e.Node?.Tag?.ToString();
+            AdPathChanged?.Invoke(this);
         }
 
         private void AdTree_Load(object sender, EventArgs e)
@@ -68,20 +68,21 @@ namespace mRemoteNG.UI.Controls
         private void AddTreeNodes(TreeNode tNode)
         {
             AdHelper adhelper = new(Domain);
-            adhelper.GetChildEntries(tNode.Tag.ToString());
+            adhelper.GetChildEntries(tNode.Tag?.ToString() ?? "");
             System.Collections.IDictionaryEnumerator enumerator = adhelper.Children.GetEnumerator();
             tvActiveDirectory.BeginUpdate();
             while (enumerator.MoveNext())
             {
                 bool flag1 = false;
                 if (enumerator.Key == null) continue;
-                TreeNode node1 = new(enumerator.Key.ToString().Substring(3))
+                string keyStr = enumerator.Key.ToString() ?? "";
+                TreeNode node1 = new(keyStr.Substring(3))
                 {
                     Tag = RuntimeHelpers.GetObjectValue(enumerator.Value)
                 };
-                if (!enumerator.Key.ToString().Substring(0, 2).Equals("CN") ||
-                    enumerator.Key.ToString().Equals("CN=Computers") ||
-                    enumerator.Key.ToString().Equals("CN=Users"))
+                if (!keyStr.Substring(0, 2).Equals("CN") ||
+                    keyStr.Equals("CN=Computers") ||
+                    keyStr.Equals("CN=Users"))
                     flag1 = true;
 
                 if (flag1)
@@ -105,7 +106,7 @@ namespace mRemoteNG.UI.Controls
                         tNode.Nodes.Add(node1);
                 }
 
-                int imageIndex = GetImageIndex(enumerator.Key.ToString().Substring(0, 2));
+                int imageIndex = GetImageIndex(keyStr.Substring(0, 2));
                 node1.ImageIndex = imageIndex;
                 node1.SelectedImageIndex = imageIndex;
             }
