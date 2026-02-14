@@ -74,7 +74,7 @@ namespace mRemoteNG.Tools
             // http://msdn.microsoft.com/en-us/library/ee330720(v=vs.85).aspx
 
             // FeatureControl settings are per-process
-            string fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+            string fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName ?? string.Empty);
 
             // make sure the control is not running inside Visual Studio Designer
             if (string.Compare(fileName, "devenv.exe", StringComparison.OrdinalIgnoreCase) == 0 ||
@@ -116,7 +116,7 @@ namespace mRemoteNG.Tools
             // http://msdn.microsoft.com/en-us/library/ee330720(v=vs.85).aspx
 
             // FeatureControl settings are per-process
-            var fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule.FileName);
+            var fileName = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName ?? string.Empty);
 
             // make sure the control is not running inside Visual Studio Designer
             if (string.Compare(fileName, "devenv.exe", StringComparison.OrdinalIgnoreCase) == 0 ||
@@ -160,13 +160,13 @@ namespace mRemoteNG.Tools
             int browserVersion = 9;
             // default to IE9.
 
-            using (RegistryKey ieKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Internet Explorer",
+            using (RegistryKey? ieKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Internet Explorer",
                                                                 RegistryKeyPermissionCheck.ReadSubTree,
                                                                 RegistryRights.QueryValues))
             {
                 if (ieKey != null)
                 {
-                    object version = ieKey.GetValue("svcVersion");
+                    object? version = ieKey.GetValue("svcVersion");
                     if (null == version)
                     {
                         version = ieKey.GetValue("Version");
@@ -176,7 +176,7 @@ namespace mRemoteNG.Tools
                         }
                     }
 
-                    int.TryParse(version.ToString().Split('.')[0], out browserVersion);
+                    int.TryParse(version.ToString()?.Split('.')[0], out browserVersion);
                 }
             }
 
