@@ -42,19 +42,13 @@ namespace mRemoteNG.App
                     if (exportForm.ShowDialog(FrmMain.Default) != DialogResult.OK)
                         return;
 
-                    ConnectionInfo exportTarget;
-                    switch (exportForm.Scope)
+                    ConnectionInfo defaultTarget = connectionTreeModel.RootNodes.First(node => node is RootNodeInfo);
+                    ConnectionInfo exportTarget = exportForm.Scope switch
                     {
-                        case FrmExport.ExportScope.SelectedFolder:
-                            exportTarget = exportForm.SelectedFolder;
-                            break;
-                        case FrmExport.ExportScope.SelectedConnection:
-                            exportTarget = exportForm.SelectedConnection;
-                            break;
-                        default:
-                            exportTarget = connectionTreeModel.RootNodes.First(node => node is RootNodeInfo);
-                            break;
-                    }
+                        FrmExport.ExportScope.SelectedFolder => exportForm.SelectedFolder ?? defaultTarget,
+                        FrmExport.ExportScope.SelectedConnection => exportForm.SelectedConnection ?? defaultTarget,
+                        _ => defaultTarget
+                    };
 
                     saveFilter.SaveUsername = exportForm.IncludeUsername;
                     saveFilter.SavePassword = exportForm.IncludePassword;

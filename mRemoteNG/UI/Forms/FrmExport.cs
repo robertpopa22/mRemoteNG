@@ -28,14 +28,14 @@ namespace mRemoteNG.UI.Forms
         {
             get
             {
-                ExportFormat exportFormat = cboFileFormat.SelectedItem as ExportFormat;
+                ExportFormat? exportFormat = cboFileFormat.SelectedItem as ExportFormat;
                 return exportFormat?.Format ?? SaveFormat.mRXML;
             }
             set
             {
                 foreach (object item in cboFileFormat.Items)
                 {
-                    ExportFormat exportFormat = item as ExportFormat;
+                    ExportFormat? exportFormat = item as ExportFormat;
                     if (exportFormat?.Format != value) continue;
                     cboFileFormat.SelectedItem = item;
                     break;
@@ -72,7 +72,7 @@ namespace mRemoteNG.UI.Forms
 
         private ContainerInfo? _selectedFolder;
 
-        public ContainerInfo SelectedFolder
+        public ContainerInfo? SelectedFolder
         {
             get => _selectedFolder;
             set
@@ -85,7 +85,7 @@ namespace mRemoteNG.UI.Forms
 
         private ConnectionInfo? _selectedConnection;
 
-        public ConnectionInfo SelectedConnection
+        public ConnectionInfo? SelectedConnection
         {
             get => _selectedConnection;
             set
@@ -230,10 +230,11 @@ namespace mRemoteNG.UI.Forms
 
         private void ApplyTheme()
         {
-            _themeManager = ThemeManager.getInstance();
-            if (!_themeManager.ActiveAndExtended) return;
-            BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            ThemeManager themeManager = ThemeManager.getInstance();
+            _themeManager = themeManager;
+            if (!themeManager.ActiveAndExtended) return;
+            BackColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
+            ForeColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
         }
 
 
