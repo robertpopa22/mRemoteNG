@@ -230,13 +230,16 @@ namespace mRemoteNG.UI.Panels
 
         private void OnTreeFormDockStateChanged(object? sender, EventArgs e)
         {
+            if (AppWindows.TreeForm == null)
+                return;
+
             // Save auto-hide state if it's an auto-hide state
             if (IsAutoHideState(AppWindows.TreeForm.DockState))
             {
                 _treeFormAutoHideState = AppWindows.TreeForm.DockState;
             }
             // Save docked state if it's a docked state
-            else if (AppWindows.TreeForm.DockState != DockState.Hidden && 
+            else if (AppWindows.TreeForm.DockState != DockState.Hidden &&
                      AppWindows.TreeForm.DockState != DockState.Unknown)
             {
                 _treeFormDockedState = AppWindows.TreeForm.DockState;
@@ -245,13 +248,16 @@ namespace mRemoteNG.UI.Panels
 
         private void OnConfigFormDockStateChanged(object? sender, EventArgs e)
         {
+            if (AppWindows.ConfigForm == null)
+                return;
+
             // Save auto-hide state if it's an auto-hide state
             if (IsAutoHideState(AppWindows.ConfigForm.DockState))
             {
                 _configFormAutoHideState = AppWindows.ConfigForm.DockState;
             }
             // Save docked state if it's a docked state
-            else if (AppWindows.ConfigForm.DockState != DockState.Hidden && 
+            else if (AppWindows.ConfigForm.DockState != DockState.Hidden &&
                      AppWindows.ConfigForm.DockState != DockState.Unknown)
             {
                 _configFormDockedState = AppWindows.ConfigForm.DockState;
@@ -264,9 +270,12 @@ namespace mRemoteNG.UI.Panels
             if (!OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels || _isProcessing)
                 return;
 
+            if (AppWindows.TreeForm == null || AppWindows.ConfigForm == null)
+                return;
+
             // If the panel was just made visible and both are in auto-hide mode
-            if (AppWindows.TreeForm.Visible && 
-                IsPanelAutoHidden(AppWindows.TreeForm) && 
+            if (AppWindows.TreeForm.Visible &&
+                IsPanelAutoHidden(AppWindows.TreeForm) &&
                 IsPanelAutoHidden(AppWindows.ConfigForm))
             {
                 OnPanelEnter(AppWindows.TreeForm, EventArgs.Empty);
@@ -279,9 +288,12 @@ namespace mRemoteNG.UI.Panels
             if (!OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels || _isProcessing)
                 return;
 
+            if (AppWindows.TreeForm == null || AppWindows.ConfigForm == null)
+                return;
+
             // If the panel was just made visible and both are in auto-hide mode
-            if (AppWindows.ConfigForm.Visible && 
-                IsPanelAutoHidden(AppWindows.TreeForm) && 
+            if (AppWindows.ConfigForm.Visible &&
+                IsPanelAutoHidden(AppWindows.TreeForm) &&
                 IsPanelAutoHidden(AppWindows.ConfigForm))
             {
                 OnPanelEnter(AppWindows.ConfigForm, EventArgs.Empty);
@@ -296,6 +308,9 @@ namespace mRemoteNG.UI.Panels
             if (!OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels || _isProcessing)
                 return;
 
+            if (AppWindows.TreeForm == null || AppWindows.ConfigForm == null)
+                return;
+
             // Check if both panels are in auto-hide mode
             if (!IsPanelAutoHidden(AppWindows.TreeForm) || !IsPanelAutoHidden(AppWindows.ConfigForm))
                 return;
@@ -306,7 +321,7 @@ namespace mRemoteNG.UI.Panels
                 // Store current auto-hide states if not already stored
                 if (_treeFormAutoHideState == DockState.Unknown)
                     _treeFormAutoHideState = AppWindows.TreeForm.DockState;
-                
+
                 if (_configFormAutoHideState == DockState.Unknown)
                     _configFormAutoHideState = AppWindows.ConfigForm.DockState;
                 
