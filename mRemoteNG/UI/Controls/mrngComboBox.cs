@@ -30,8 +30,8 @@ namespace mRemoteNG.UI.Controls
         {
             base.OnCreateControl();
             _themeManager = ThemeManager.getInstance();
-            if (!_themeManager.ActiveAndExtended) return;
-            BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Background");
+            if (_themeManager is not { ActiveAndExtended: true }) return;
+            BackColor = _themeManager.ActiveTheme!.ExtendedPalette.getColor("ComboBox_Background");
             ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Foreground");
             DrawMode = DrawMode.OwnerDrawFixed;
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
@@ -65,43 +65,45 @@ namespace mRemoteNG.UI.Controls
 
         private void NG_DrawItem(object sender, DrawItemEventArgs e)
         {
+            if (_themeManager?.ActiveTheme?.ExtendedPalette is not { } palette) return;
+
             int index = e.Index >= 0 ? e.Index : 0;
-            using SolidBrush itemBrush = new(_themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Foreground"));
+            using SolidBrush itemBrush = new(palette.getColor("ComboBox_Foreground"));
             Brush activeBrush = itemBrush;
 
-            SolidBrush selectedBrush = null;
+            SolidBrush? selectedBrush = null;
             try
             {
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                 {
                     selectedBrush = new SolidBrush(
-                        _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Selected_Foreground"));
+                        palette.getColor("List_Item_Selected_Foreground"));
                     activeBrush = selectedBrush;
                     using SolidBrush selectedBack = new(
-                        _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Selected_Background"));
+                        palette.getColor("List_Item_Selected_Background"));
                     e.Graphics.FillRectangle(selectedBack, e.Bounds);
                 }
                 else
                 {
                     using SolidBrush normalBack = new(
-                        _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Background"));
+                        palette.getColor("ComboBox_Background"));
                     e.Graphics.FillRectangle(normalBack, e.Bounds);
                 }
 
                 if (Items.Count > 0)
                 {
+                    Font drawFont = e.Font ?? Font;
                     if (string.IsNullOrEmpty(DisplayMember))
-                        e.Graphics.DrawString(Items[index].ToString(), e.Font, activeBrush, e.Bounds,
+                        e.Graphics.DrawString(Items[index].ToString(), drawFont, activeBrush, e.Bounds,
                                               StringFormat.GenericDefault);
                     else
                     {
-                        if (Items[index].GetType().GetProperty(DisplayMember) != null)
+                        var prop = Items[index].GetType().GetProperty(DisplayMember);
+                        if (prop != null)
                         {
                             e.Graphics.DrawString(
-                                Items[index]
-                                    .GetType().GetProperty(DisplayMember)?.GetValue(Items[index], null)
-                                    .ToString(),
-                                e.Font, activeBrush, e.Bounds, StringFormat.GenericDefault);
+                                prop.GetValue(Items[index], null)?.ToString(),
+                                drawFont, activeBrush, e.Bounds, StringFormat.GenericDefault);
                         }
                     }
                 }
@@ -116,14 +118,14 @@ namespace mRemoteNG.UI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!_themeManager.ActiveAndExtended)
+            if (_themeManager is not { ActiveAndExtended: true })
             {
                 base.OnPaint(e);
                 return;
             }
 
             //Colors
-            Color Border = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Border");
+            Color Border = _themeManager.ActiveTheme!.ExtendedPalette.getColor("ComboBox_Border");
             Color Back = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Background");
             Color Fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Foreground");
             Color ButtBack = _themeManager.ActiveTheme.ExtendedPalette.getColor("ComboBox_Button_Background");
