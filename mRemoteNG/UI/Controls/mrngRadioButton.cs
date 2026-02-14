@@ -78,7 +78,7 @@ namespace mRemoteNG.UI.Controls
         //This class is painted with the checkbox colors, the glyph color is used for the radio inside
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!_themeManager.ActiveAndExtended)
+            if (_themeManager is not { ActiveAndExtended: true })
             {
                 base.OnPaint(e);
                 return;
@@ -94,7 +94,8 @@ namespace mRemoteNG.UI.Controls
             Color center;
 
             // Overlay Graphic
-            e.Graphics.Clear(Parent.BackColor);
+            Color parentBack = Parent?.BackColor ?? BackColor;
+            e.Graphics.Clear(parentBack);
             if (Enabled)
             {
                 if (Checked)
@@ -117,7 +118,7 @@ namespace mRemoteNG.UI.Controls
             }
 
             Rectangle textRect = new(_textXCoord, Padding.Top, Width - 16, Height);
-            TextRenderer.DrawText(e.Graphics, Text, Font, textRect, fore, Parent.BackColor,
+            TextRenderer.DrawText(e.Graphics, Text, Font, textRect, fore, parentBack,
                                   TextFormatFlags.PathEllipsis);
 
             g.FillEllipse(new SolidBrush(centerBack), _circle);
