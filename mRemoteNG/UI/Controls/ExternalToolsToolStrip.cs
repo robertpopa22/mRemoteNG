@@ -13,9 +13,9 @@ namespace mRemoteNG.UI.Controls
     [SupportedOSPlatform("windows")]
     public class ExternalToolsToolStrip : ToolStrip
     {
-        private IContainer components;
-        private ContextMenuStrip _cMenExtAppsToolbar;
-        internal ToolStripMenuItem CMenToolbarShowText;
+        private IContainer components = null!;
+        private ContextMenuStrip _cMenExtAppsToolbar = null!;
+        internal ToolStripMenuItem CMenToolbarShowText = null!;
 
         public ExternalToolsToolStrip()
         {
@@ -98,11 +98,12 @@ namespace mRemoteNG.UI.Controls
 
         private static void TsExtAppEntry_Click(object sender, EventArgs e)
         {
-            ExternalTool extA = (ExternalTool)((ToolStripButton)sender).Tag;
+            if (((ToolStripButton)sender).Tag is not ExternalTool extA)
+                return;
 
-            Connection.ConnectionInfo selectedTreeNode = AppWindows.TreeForm.SelectedNode;
-            if (selectedTreeNode != null && selectedTreeNode.GetTreeNodeType() == TreeNodeType.Connection ||
-                selectedTreeNode.GetTreeNodeType() == TreeNodeType.PuttySession)
+            Connection.ConnectionInfo? selectedTreeNode = AppWindows.TreeForm.SelectedNode;
+            if (selectedTreeNode != null && (selectedTreeNode.GetTreeNodeType() == TreeNodeType.Connection ||
+                selectedTreeNode.GetTreeNodeType() == TreeNodeType.PuttySession))
                 extA.Start(selectedTreeNode);
             else
             {
