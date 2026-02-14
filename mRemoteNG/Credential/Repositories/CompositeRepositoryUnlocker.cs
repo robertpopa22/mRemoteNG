@@ -23,7 +23,7 @@ namespace mRemoteNG.Credential.Repositories
 
         public void Unlock(SecureString key)
         {
-            SelectedRepository.LoadCredentials(key);
+            SelectedRepository?.LoadCredentials(key);
         }
 
         public void SelectNextLockedRepository()
@@ -31,7 +31,7 @@ namespace mRemoteNG.Credential.Repositories
             SelectedRepository = GetNextLockedRepo();
         }
 
-        private ICredentialRepository GetNextLockedRepo()
+        private ICredentialRepository? GetNextLockedRepo()
         {
             IList<ICredentialRepository> newOrder = OrderListForNextLockedRepo();
             return newOrder.Any() ? newOrder.First() : null;
@@ -67,7 +67,9 @@ namespace mRemoteNG.Credential.Repositories
 
         private int GetNewListStartIndex()
         {
-            int currentItemIndex = _repositories.IndexOf(SelectedRepository);
+            int currentItemIndex = SelectedRepository is not null
+                ? _repositories.IndexOf(SelectedRepository)
+                : -1;
             return currentItemIndex + 1;
         }
     }
