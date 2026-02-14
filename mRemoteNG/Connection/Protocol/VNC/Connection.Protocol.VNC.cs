@@ -20,10 +20,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
     {
         #region Private Declarations
 
-        private VncSharpCore.RemoteDesktop _vnc;
-        private ConnectionInfo _info;
+        private VncSharpCore.RemoteDesktop? _vnc;
+        private ConnectionInfo? _info;
         private static volatile bool _isConnectionSuccessful;
-        private static ExceptionDispatchInfo _socketexception;
+        private static ExceptionDispatchInfo? _socketexception;
         private static readonly ManualResetEvent TimeoutObject = new(false);
         private static readonly object _testConnectLock = new();
 
@@ -44,6 +44,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             {
                 _vnc = Control as VncSharpCore.RemoteDesktop;
                 _info = InterfaceControl.Info;
+                if (_vnc == null || _info == null) return false;
                 _vnc.VncPort = _info.Port;
 
                 return true;
@@ -62,6 +63,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             SetEventHandlers();
             try
             {
+                if (_vnc == null || _info == null) return false;
                 if (TestConnect(_info.Hostname, _info.Port, 500))
                     _vnc.Connect(_info.Hostname, _info.VNCViewOnly, _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
             }
@@ -80,7 +82,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
-                _vnc.Disconnect();
+                _vnc?.Disconnect();
             }
             catch (Exception ex)
             {
@@ -94,6 +96,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
+                if (_vnc == null) return;
                 // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (Keys)
                 {
@@ -129,7 +132,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
-                _vnc.FullScreenUpdate();
+                _vnc?.FullScreenUpdate();
             }
             catch (Exception ex)
             {
@@ -147,6 +150,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
+                if (_vnc == null) return;
                 _vnc.ConnectComplete += VNCEvent_Connected;
                 _vnc.ConnectionLost += VNCEvent_Disconnected;
                 FrmMain.ClipboardChanged += VNCEvent_ClipboardChanged;
@@ -194,7 +198,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static void CallBackMethod(IAsyncResult asyncresult)
         {
-            TcpClient tcpclient = null;
+            TcpClient? tcpclient = null;
             try
             {
                 _isConnectionSuccessful = false;
@@ -224,7 +228,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private void VNCEvent_Connected(object sender, EventArgs e)
         {
             Event_Connected(this);
-            _vnc.AutoScroll = _info.VNCSmartSizeMode == SmartSizeMode.SmartSNo;
+            if (_vnc != null && _info != null)
+                _vnc.AutoScroll = _info.VNCSmartSizeMode == SmartSizeMode.SmartSNo;
         }
 
         private void VNCEvent_Disconnected(object sender, EventArgs e)
@@ -236,13 +241,13 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private void VNCEvent_ClipboardChanged()
         {
-            _vnc.FillServerClipboard();
+            _vnc?.FillServerClipboard();
         }
 
         private string VNCEvent_Authenticate()
         {
             //return _info.Password.ConvertToUnsecureString();
-            return _info.Password;
+            return _info?.Password ?? string.Empty;
         }
 
         #endregion
