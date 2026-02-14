@@ -62,7 +62,7 @@ namespace mRemoteNG.UI.Forms
                 // If we're already on a WinForms UI thread with a sync context, marshal to it
                 if (SynchronizationContext.Current is WindowsFormsSynchronizationContext ctx)
                 {
-                    FrmMain created = null;
+                    FrmMain? created = null;
                     ctx.Send(_ => created = new FrmMain(), null);
                     return created!;
                 }
@@ -161,7 +161,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        public string ConnectionsFileName
+        public string? ConnectionsFileName
         {
             get => _connectionsFileName;
             set
@@ -191,7 +191,7 @@ namespace mRemoteNG.UI.Forms
             }
         }
 
-        public ConnectionInfo SelectedConnection
+        public ConnectionInfo? SelectedConnection
         {
             get => _selectedConnection;
             set
@@ -259,7 +259,7 @@ namespace mRemoteNG.UI.Forms
 
             // Respect the active panel restored from persisted dock layout.
             // Fallback to the Connections panel only when no active content was restored.
-            if (pnlDock.ActiveContent == null && AppWindows.TreeForm.Visible)
+            if (pnlDock.ActiveContent == null && AppWindows.TreeForm?.Visible == true)
             {
                 AppWindows.TreeForm.Focus();
             }
