@@ -80,8 +80,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
                 }
                 else
                 {
-                    ContainerInfo container = allChildren.FirstOrDefault(x => x.ConstantID == path);
-                    if (container == default) continue;
+                    ContainerInfo? container = allChildren.FirstOrDefault(x => x.ConstantID == path);
+                    if (container == null) continue;
 
                     container.AddChild(connection);
                 }
@@ -111,8 +111,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
             string connectionTypeString = connectionCsv[headers.IndexOf("ConnectionType")];
             if (string.IsNullOrEmpty(connectionTypeString)) return default;
 
-            RemoteDesktopManagerConnectionInfo connectionType = _connectionTypes.FirstOrDefault(x => x.Name == connectionTypeString);
-            if (connectionType == default) return default;
+            RemoteDesktopManagerConnectionInfo? connectionType = _connectionTypes.FirstOrDefault(x => x.Name == connectionTypeString);
+            if (connectionType == null) return default;
 
             string portString = connectionCsv[headers.IndexOf("Port")] ?? connectionType.Port.ToString();
             if (!int.TryParse(portString, out int port)) port = connectionType.Port;
@@ -145,8 +145,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
                     List<string> groupParts = group.Split('\\').ToList();
                     string parentContainerName = groupParts[0];
 
-                    ContainerInfo parentContainer = Containers.FirstOrDefault(x => x.Name == parentContainerName);
-                    if (parentContainer == default)
+                    ContainerInfo? parentContainer = Containers.FirstOrDefault(x => x.Name == parentContainerName);
+                    if (parentContainer == null)
                     {
                         parentContainer = new ContainerInfo(group) { Name = parentContainerName };
                         Containers.Add(parentContainer);
@@ -186,8 +186,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
 
                 if (groupParts.Count > 1)
                 {
-                    ContainerInfo childContainer = (ContainerInfo)parentContainer.Children.FirstOrDefault(x => x.Name == childName);
-                    if (childContainer == default)
+                    ContainerInfo? childContainer = parentContainer.Children.FirstOrDefault(x => x.Name == childName) as ContainerInfo;
+                    if (childContainer == null)
                     {
                         groupCount = AddChild(parentContainer, newContainer, groupCount);
                         continue;
