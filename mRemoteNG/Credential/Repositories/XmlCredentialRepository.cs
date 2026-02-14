@@ -67,8 +67,8 @@ namespace mRemoteNG.Credential.Repositories
             _credentialRecordSaver.Save(CredentialRecords, key);
         }
 
-        public event EventHandler RepositoryConfigUpdated;
-        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRecord>> CredentialsUpdated;
+        public event EventHandler? RepositoryConfigUpdated;
+        public event EventHandler<CollectionUpdatedEventArgs<ICredentialRecord>>? CredentialsUpdated;
 
         protected virtual void RaiseRepositoryConfigUpdatedEvent(PropertyChangedEventArgs args)
         {
