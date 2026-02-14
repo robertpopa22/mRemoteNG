@@ -300,7 +300,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.IntApp, ProtocolType.PowerShell, ProtocolType.WSL)]
         public string Domain
         {
-            get => GetPropertyValue("Domain", _domain).Trim();
+            get => GetPropertyValue("Domain", _domain)?.Trim() ?? string.Empty;
             set => SetField(ref _domain, value?.Trim(), "Domain");
         }
 
@@ -323,7 +323,7 @@ namespace mRemoteNG.Connection
         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH2)]
         public string EC2InstanceId
         {
-            get => GetPropertyValue("EC2InstanceId", _ec2InstanceId).Trim();
+            get => GetPropertyValue("EC2InstanceId", _ec2InstanceId)?.Trim() ?? string.Empty;
             set => SetField(ref _ec2InstanceId, value?.Trim(), "EC2InstanceId");
         }
 
@@ -333,7 +333,7 @@ namespace mRemoteNG.Connection
         AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.SSH2)]
         public string EC2Region
         {
-            get => GetPropertyValue("EC2Region", _ec2Region).Trim();
+            get => GetPropertyValue("EC2Region", _ec2Region)?.Trim() ?? string.Empty;
             set => SetField(ref _ec2Region, value?.Trim(), "EC2Region");
         }
 
@@ -343,7 +343,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public string VmId
         {
-            get => GetPropertyValue("VmId", _vmId).Trim();
+            get => GetPropertyValue("VmId", _vmId)?.Trim() ?? string.Empty;
             set => SetField(ref _vmId, value?.Trim(), "VmId");
         }
 
@@ -354,7 +354,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInAllProtocolsExcept()]
         public string SSHTunnelConnectionName
         {
-            get => GetPropertyValue("SSHTunnelConnectionName", _sshTunnelConnectionName).Trim();
+            get => GetPropertyValue("SSHTunnelConnectionName", _sshTunnelConnectionName)?.Trim() ?? string.Empty;
             set => SetField(ref _sshTunnelConnectionName, value?.Trim(), "SSHTunnelConnectionName");
         }
 
@@ -480,7 +480,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public string LoadBalanceInfo
         {
-            get => GetPropertyValue("LoadBalanceInfo", _loadBalanceInfo).Trim();
+            get => GetPropertyValue("LoadBalanceInfo", _loadBalanceInfo)?.Trim() ?? string.Empty;
             set => SetField(ref _loadBalanceInfo, value?.Trim(), "LoadBalanceInfo");
         }
 
@@ -570,7 +570,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public string RDGatewayHostname
         {
-            get => GetPropertyValue("RDGatewayHostname", _rdGatewayHostname).Trim();
+            get => GetPropertyValue("RDGatewayHostname", _rdGatewayHostname)?.Trim() ?? string.Empty;
             set => SetField(ref _rdGatewayHostname, value?.Trim(), "RDGatewayHostname");
         }
 
@@ -591,7 +591,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public string RDGatewayUsername
         {
-            get => GetPropertyValue("RDGatewayUsername", _rdGatewayUsername).Trim();
+            get => GetPropertyValue("RDGatewayUsername", _rdGatewayUsername)?.Trim() ?? string.Empty;
             set => SetField(ref _rdGatewayUsername, value?.Trim(), "RDGatewayUsername");
         }
 
@@ -623,7 +623,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public string RDGatewayDomain
         {
-            get => GetPropertyValue("RDGatewayDomain", _rdGatewayDomain).Trim();
+            get => GetPropertyValue("RDGatewayDomain", _rdGatewayDomain)?.Trim() ?? string.Empty;
             set => SetField(ref _rdGatewayDomain, value?.Trim(), "RDGatewayDomain");
         }
         // external credential provider selector for rd gateway
@@ -1117,7 +1117,8 @@ namespace mRemoteNG.Connection
 
         protected virtual TPropertyType GetPropertyValue<TPropertyType>(string propertyName, TPropertyType value)
         {
-            return (TPropertyType)GetType().GetProperty(propertyName)?.GetValue(this, null);
+            var result = GetType().GetProperty(propertyName)?.GetValue(this, null);
+            return result is TPropertyType typed ? typed : value;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

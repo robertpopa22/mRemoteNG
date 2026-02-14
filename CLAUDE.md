@@ -54,6 +54,15 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGTests\bin\x64\Release\mRemoteNGTests.d
 dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.dll" --verbosity normal
 ```
 
+### CRITICAL RULE: No Interactive Tests
+**NEVER create tests that open GUI dialogs, message boxes, or require user input.**
+- Tests MUST be 100% automated — no human interaction
+- If a test hangs for more than 2 seconds waiting for input, it is BROKEN
+- Mock or stub all UI dependencies (MessageBox, dialogs, WinForms popups)
+- Use `NUnit.DefaultTimeout=5000` (5s) to catch hanging tests early
+- Any test that opens `notepad.exe`, shows a password prompt, or displays a save dialog is INVALID
+- Kill stale processes after test runs: `taskkill //F //IM notepad.exe 2>/dev/null`
+
 ### IMPORTANT: `dotnet test` path quirk
 - Build outputs to `bin\x64\Release\` (because Platform=x64)
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)

@@ -114,8 +114,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 sb.Append(FormatForCsv(con.Username));
 
             if (_saveFilter.SavePassword)
-                // Passwords are masked in CSV export to prevent plaintext leakage (Issue #1085)
-                sb.Append("********;");
+                //sb.Append(con.Password?.ConvertToUnsecureString() + ";");
+                sb.Append(con.Password + ";");
 
             if (_saveFilter.SaveDomain)
                 sb.Append(FormatForCsv(con.Domain));
@@ -171,7 +171,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.VNCProxyIP))
               .Append(FormatForCsv(con.VNCProxyPort))
               .Append(FormatForCsv(con.VNCProxyUsername))
-              .Append("********;") // Masked VNCProxyPassword
+              .Append(FormatForCsv(con.VNCProxyPassword))
               .Append(FormatForCsv(con.VNCColors))
               .Append(FormatForCsv(con.VNCSmartSizeMode))
               .Append(FormatForCsv(con.VNCViewOnly))
@@ -179,7 +179,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.RDGatewayHostname))
               .Append(FormatForCsv(con.RDGatewayUseConnectionCredentials))
               .Append(FormatForCsv(con.RDGatewayUsername))
-              .Append("********;") // Masked RDGatewayPassword
+              .Append(FormatForCsv(con.RDGatewayPassword))
               .Append(FormatForCsv(con.RDGatewayDomain))
               .Append(FormatForCsv(con.RDGatewayExternalCredentialProvider))
               .Append(FormatForCsv(con.RDGatewayUserViaAPI))
