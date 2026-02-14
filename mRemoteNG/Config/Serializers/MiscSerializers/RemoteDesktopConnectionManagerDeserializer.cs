@@ -28,11 +28,15 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(rdcmConnectionsXml);
 
-            XmlNode rdcManNode = xmlDocument.SelectSingleNode("/RDCMan");
+            XmlNode? rdcManNode = xmlDocument.SelectSingleNode("/RDCMan");
+            if (rdcManNode == null)
+                throw new FileFormatException("Could not find RDCMan root node.");
             VerifySchemaVersion(rdcManNode);
             VerifyFileVersion(rdcManNode);
 
-            XmlNode fileNode = rdcManNode?.SelectSingleNode("./file");
+            XmlNode? fileNode = rdcManNode.SelectSingleNode("./file");
+            if (fileNode == null)
+                throw new FileFormatException("Could not find file node.");
             ImportFileOrGroup(fileNode, root);
 
             connectionTreeModel.AddRootNode(root);
@@ -54,7 +58,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private static void VerifyFileVersion(XmlNode rdcManNode)
         {
-            string versionAttribute = rdcManNode?.Attributes?["programVersion"]?.Value;
+            string? versionAttribute = rdcManNode.Attributes?["programVersion"]?.Value;
             if (versionAttribute != null)
             {
                 Version version = new(versionAttribute);
@@ -65,7 +69,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
             else
             {
-                string versionNode = rdcManNode?.SelectSingleNode("./version")?.InnerText;
+                string? versionNode = rdcManNode.SelectSingleNode("./version")?.InnerText;
                 if (versionNode != null)
                 {
                     Version version = new(versionNode);
@@ -85,7 +89,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         {
             ContainerInfo newContainer = ImportContainer(xmlNode, parentContainer);
 
-            XmlNodeList childNodes = xmlNode.SelectNodes("./group|./server");
+            XmlNodeList? childNodes = xmlNode.SelectNodes("./group|./server");
             if (childNodes == null) return;
             foreach (XmlNode childNode in childNodes)
             {
@@ -106,8 +110,8 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         {
             if (_schemaVersion == 1)
             {
-                // Program Version 2.2 wraps all setting inside the Properties tags 
-                containerPropertiesNode = containerPropertiesNode.SelectSingleNode("./properties");
+                // Program Version 2.2 wraps all setting inside the Properties tags
+                containerPropertiesNode = containerPropertiesNode.SelectSingleNode("./properties") ?? containerPropertiesNode;
             }
 
             ContainerInfo newContainer = new();
@@ -117,7 +121,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             if (_schemaVersion == 3)
             {
                 // Program Version 2.7 wraps these properties
-                containerPropertiesNode = containerPropertiesNode.SelectSingleNode("./properties");
+                containerPropertiesNode = containerPropertiesNode.SelectSingleNode("./properties") ?? containerPropertiesNode;
             }
             newContainer.Name = containerPropertiesNode?.SelectSingleNode("./name")?.InnerText ?? Language.NewFolder;
             if (bool.TryParse(containerPropertiesNode?.SelectSingleNode("./expanded")?.InnerText, out bool expanded))
@@ -136,7 +140,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         {
             ConnectionInfo connectionInfo = new() { Protocol = ProtocolType.RDP};
 
-            XmlNode propertiesNode = xmlNode.SelectSingleNode("./properties");
+            XmlNode? propertiesNode = xmlNode.SelectSingleNode("./properties");
             if (_schemaVersion == 1)
 	            propertiesNode = xmlNode;  // Version 2.2 defines the container name at the root instead
 
@@ -144,7 +148,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             connectionInfo.Hostname = propertiesNode?.SelectSingleNode("./name")?.InnerText ?? "";
 
-            string connectionDisplayName = propertiesNode?.SelectSingleNode("./displayName")?.InnerText;
+            string? connectionDisplayName = propertiesNode?.SelectSingleNode("./displayName")?.InnerText;
 			connectionInfo.Name = !string.IsNullOrWhiteSpace(connectionDisplayName)
                 ? connectionDisplayName
 	            : string.IsNullOrWhiteSpace(connectionInfo.Hostname)
@@ -153,24 +157,21 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             connectionInfo.Description = propertiesNode?.SelectSingleNode("./comment")?.InnerText ?? string.Empty;
 
-            XmlNode logonCredentialsNode = xmlNode.SelectSingleNode("./logonCredentials");
+            XmlNode? logonCredentialsNode = xmlNode.SelectSingleNode("./logonCredentials");
             if (logonCredentialsNode?.Attributes?["inherit"]?.Value == "None")
             {
                 connectionInfo.Username = logonCredentialsNode.SelectSingleNode("userName")?.InnerText ?? string.Empty;
 
-                XmlNode passwordNode = logonCredentialsNode.SelectSingleNode("./password");
+                XmlNode? passwordNode = logonCredentialsNode.SelectSingleNode("./password");
                 if (_schemaVersion == 1) // Version 2.2 allows clear text passwords
                 {
                     connectionInfo.Password = passwordNode?.Attributes?["storeAsClearText"]?.Value == "True"
-                        //? passwordNode.InnerText.ConvertToSecureString()
-                        //: DecryptRdcManPassword(passwordNode?.InnerText).ConvertToSecureString();
                         ? passwordNode.InnerText
-                        : DecryptRdcManPassword(passwordNode?.InnerText);
+                        : DecryptRdcManPassword(passwordNode?.InnerText ?? string.Empty);
                 }
                 else
                 {
-                    //connectionInfo.Password = DecryptRdcManPassword(passwordNode?.InnerText).ConvertToSecureString();
-                    connectionInfo.Password = DecryptRdcManPassword(passwordNode?.InnerText);
+                    connectionInfo.Password = DecryptRdcManPassword(passwordNode?.InnerText ?? string.Empty);
                 }
 
                 connectionInfo.Domain = logonCredentialsNode.SelectSingleNode("./domain")?.InnerText ?? string.Empty;
@@ -182,7 +183,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.Inheritance.Domain = true;
             }
 
-            XmlNode connectionSettingsNode = xmlNode.SelectSingleNode("./connectionSettings");
+            XmlNode? connectionSettingsNode = xmlNode.SelectSingleNode("./connectionSettings");
             if (connectionSettingsNode?.Attributes?["inherit"]?.Value == "None")
             {
 				if (bool.TryParse(connectionSettingsNode.SelectSingleNode("./connectToConsole")?.InnerText, out bool useConsole))
@@ -198,7 +199,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.Inheritance.Port = true;
             }
 
-            XmlNode gatewaySettingsNode = xmlNode.SelectSingleNode("./gatewaySettings");
+            XmlNode? gatewaySettingsNode = xmlNode.SelectSingleNode("./gatewaySettings");
             if (gatewaySettingsNode?.Attributes?["inherit"]?.Value == "None")
             {
                 connectionInfo.RDGatewayUsageMethod =
@@ -208,10 +209,10 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.RDGatewayHostname = gatewaySettingsNode.SelectSingleNode("./hostName")?.InnerText ?? string.Empty;
                 connectionInfo.RDGatewayUsername = gatewaySettingsNode.SelectSingleNode("./userName")?.InnerText ?? string.Empty;
 
-                XmlNode passwordNode = gatewaySettingsNode.SelectSingleNode("./password");
+                XmlNode? passwordNode = gatewaySettingsNode.SelectSingleNode("./password");
                 connectionInfo.RDGatewayPassword = passwordNode?.Attributes?["storeAsClearText"]?.Value == "True"
                     ? passwordNode.InnerText
-                    : DecryptRdcManPassword(passwordNode?.InnerText);
+                    : DecryptRdcManPassword(passwordNode?.InnerText ?? string.Empty);
 
                 connectionInfo.RDGatewayDomain = gatewaySettingsNode.SelectSingleNode("./domain")?.InnerText ?? string.Empty;
                 // ./logonMethod
@@ -227,7 +228,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.Inheritance.RDGatewayDomain = true;
             }
 
-            XmlNode remoteDesktopNode = xmlNode.SelectSingleNode("./remoteDesktop");
+            XmlNode? remoteDesktopNode = xmlNode.SelectSingleNode("./remoteDesktop");
             if (remoteDesktopNode?.Attributes?["inherit"]?.Value == "None")
             {
                 connectionInfo.Resolution = 
@@ -254,7 +255,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.Inheritance.Colors = true;
             }
 
-            XmlNode localResourcesNode = xmlNode.SelectSingleNode("./localResources");
+            XmlNode? localResourcesNode = xmlNode.SelectSingleNode("./localResources");
             if (localResourcesNode?.Attributes?["inherit"]?.Value == "None")
             {
                 // ReSharper disable once SwitchStatementMissingSomeCases
@@ -321,7 +322,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                 connectionInfo.Inheritance.RedirectClipboard = true;
             }
 
-            XmlNode securitySettingsNode = xmlNode.SelectSingleNode("./securitySettings");
+            XmlNode? securitySettingsNode = xmlNode.SelectSingleNode("./securitySettings");
             if (securitySettingsNode?.Attributes?["inherit"]?.Value == "None")
             {
                 // ReSharper disable once SwitchStatementMissingSomeCases
