@@ -80,7 +80,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
                     : throw new ArgumentNullException(nameof(Path), "Invalid parameter: Path cannot be null, empty, or consist only of whitespace characters.");
             }
         }
-        private string? privatePath;
+        private string privatePath = null!;
 
         /// <summary>
         /// Represents the name of the registry entry.
@@ -103,7 +103,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
                 privateValue = ValueValidationRules(value);
             }
         }
-        private T? privateValue;
+        private T privateValue = default!;
 
         #endregion
 
@@ -312,7 +312,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="allowedValues">The array of allowed integer values.</param>
         public WinRegistryEntry<T> SetValidation(int[] allowedValues)
         {
-            T[] mappedValues = allowedValues?.Select(value => (T)(object)value).ToArray();
+            T[] mappedValues = allowedValues?.Select(value => (T)(object)value).ToArray() ?? [];
             return SetValidation(mappedValues);
         }
 
@@ -322,7 +322,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="allowedValues">The array of allowed integer values.</param>
         public WinRegistryEntry<T> SetValidation(long[] allowedValues)
         {
-            T[] mappedValues = allowedValues?.Select(value => (T)(object)value).ToArray();
+            T[] mappedValues = allowedValues?.Select(value => (T)(object)value).ToArray() ?? [];
             return SetValidation(mappedValues);
         }
 
@@ -451,17 +451,19 @@ namespace mRemoteNG.Tools.WindowsRegistry
             if (!IsReadable())
                 throw new InvalidOperationException("Unable to read registry key. Hive, path, and name are required.");
 
-            string rawValue = null;
-            string name = string.IsNullOrEmpty(Name) ? null : Name;
+            string? rawValue = null;
+            string? name = string.IsNullOrEmpty(Name) ? null : Name;
 
             try
             {
                 using var key = RegistryKey.OpenBaseKey(Hive, RegistryView.Default).OpenSubKey(Path);
                 if (key != null)
+                {
                     RawValue = rawValue = key.GetValue(name)?.ToString();
 
-                if (rawValue != null)
-                    ValueKind = key.GetValueKind(name);
+                    if (rawValue != null)
+                        ValueKind = key.GetValueKind(name);
+                }
             }
             catch (Exception ex)
             {
@@ -500,19 +502,19 @@ namespace mRemoteNG.Tools.WindowsRegistry
             if (!IsWritable())
                 throw new InvalidOperationException("Unable to write registry key. Hive, path, name, value kind, and value are required.");
 
-            string name = string.IsNullOrEmpty(Name) ? null : Name;
+            string? name = string.IsNullOrEmpty(Name) ? null : Name;
             RegistryValueKind valueKind = string.IsNullOrEmpty(Name) ? RegistryValueKind.String : ValueKind;
 
             string value;
             if (typeof(T) == typeof(bool))
             {
-                value = (bool)(object)Value
+                value = (bool)(object)Value!
                     ? ValueKind == RegistryValueKind.DWord ? "1" : "True"
                     : ValueKind == RegistryValueKind.DWord ? "0" : "False";
             }
             else
             {
-                value = Value.ToString();
+                value = Value?.ToString() ?? string.Empty;
             }
 
             try
@@ -520,7 +522,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
                 using RegistryKey baseKey = RegistryKey.OpenBaseKey(Hive, RegistryView.Default);
                 using RegistryKey registryKey = baseKey.CreateSubKey(Path, true);
 
-                registryKey.SetValue(name, value, valueKind);
+                registryKey.SetValue(name, (object)value, valueKind);
             }
             catch (Exception ex)
             {
@@ -552,7 +554,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         public void Clear()
         {
             RawValue = null;
-            Value = default;
+            Value = default!;
             ReadOperationSucceeded = false;
         }
 
