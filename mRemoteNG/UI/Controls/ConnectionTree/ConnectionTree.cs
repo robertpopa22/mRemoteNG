@@ -34,12 +34,12 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         private bool _nodeInEditMode;
         private bool _allowEdit;
-        private ConnectionContextMenu _contextMenu;
-        private ConnectionTreeModel _connectionTreeModel;
+        private ConnectionContextMenu _contextMenu = null!;
+        private ConnectionTreeModel? _connectionTreeModel;
 
         public ConnectionInfo SelectedNode => (ConnectionInfo)SelectedObject;
 
-        public NodeSearcher NodeSearcher { get; private set; }
+        public NodeSearcher? NodeSearcher { get; private set; }
 
         public IConfirm<ConnectionInfo> NodeDeletionConfirmer { get; set; } = new AlwaysConfirmYes();
 
@@ -53,14 +53,14 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public ConnectionTreeModel ConnectionTreeModel
         {
-            get { return _connectionTreeModel; }
+            get { return _connectionTreeModel!; }
             set
             {
                 if (_connectionTreeModel == value)
                 {
                     return;
                 }
-                
+
                 UnregisterModelUpdateHandlers(_connectionTreeModel);
                 _connectionTreeModel = value;
                 PopulateTreeView(value);
@@ -87,7 +87,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             if (!_themeManager.ActiveAndExtended)
                 return;
 
-            ExtendedColorPalette themePalette = _themeManager.ActiveTheme.ExtendedPalette;
+            ExtendedColorPalette? themePalette = _themeManager.ActiveTheme.ExtendedPalette;
+            if (themePalette == null) return;
 
             BackColor = themePalette.getColor("TreeView_Background");
             ForeColor = themePalette.getColor("TreeView_Foreground");
@@ -234,7 +235,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             // for some reason property changed events are getting triggered twice for each changed property. should be just once. cant find source of duplication
             // Removed "TO DO" from above comment. Per #142 it apperas that this no longer occurs with ObjectListView 2.9.1
-            string property = propertyChangedEventArgs.PropertyName;
+            string? property = propertyChangedEventArgs.PropertyName;
             if (property != nameof(ConnectionInfo.Name)
              && property != nameof(ConnectionInfo.OpenConnections)
              && property != nameof(ConnectionInfo.Icon))
