@@ -25,7 +25,7 @@ namespace mRemoteNG.UI.TaskDialog
 
         private readonly List<MrngRadioButton> _radioButtonCtrls = [];
         private readonly DisplayProperties _display = new();
-        private Control _focusControl;
+        private Control? _focusControl;
 
         private bool _isVista = false;
 
@@ -86,7 +86,7 @@ namespace mRemoteNG.UI.TaskDialog
             {
                 foreach (MrngRadioButton rb in _radioButtonCtrls)
                     if (rb.Checked)
-                        return (int)rb.Tag;
+                        return rb.Tag is int index ? index : -1;
                 return -1;
             }
         }
@@ -369,34 +369,29 @@ namespace mRemoteNG.UI.TaskDialog
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
 
-            pnlButtons.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlButtons.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            panel2.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            panel2.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlFooter.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlFooter.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            panel5.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            panel5.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            panel3.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            panel3.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlCommandButtons.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlCommandButtons.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlMainInstruction.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlMainInstruction.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlContent.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlContent.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlExpandedInfo.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlExpandedInfo.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            pnlRadioButtons.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlRadioButtons.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            var palette = ThemeManager.getInstance().ActiveTheme.ExtendedPalette;
+            if (palette is null) return;
+
+            pnlButtons.BackColor = palette.getColor("Dialog_Background");
+            pnlButtons.ForeColor = palette.getColor("Dialog_Foreground");
+            panel2.BackColor = palette.getColor("Dialog_Background");
+            panel2.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlFooter.BackColor = palette.getColor("Dialog_Background");
+            pnlFooter.ForeColor = palette.getColor("Dialog_Foreground");
+            panel5.BackColor = palette.getColor("Dialog_Background");
+            panel5.ForeColor = palette.getColor("Dialog_Foreground");
+            panel3.BackColor = palette.getColor("Dialog_Background");
+            panel3.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlCommandButtons.BackColor = palette.getColor("Dialog_Background");
+            pnlCommandButtons.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlMainInstruction.BackColor = palette.getColor("Dialog_Background");
+            pnlMainInstruction.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlContent.BackColor = palette.getColor("Dialog_Background");
+            pnlContent.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlExpandedInfo.BackColor = palette.getColor("Dialog_Background");
+            pnlExpandedInfo.ForeColor = palette.getColor("Dialog_Foreground");
+            pnlRadioButtons.BackColor = palette.getColor("Dialog_Background");
+            pnlRadioButtons.ForeColor = palette.getColor("Dialog_Foreground");
         }
 
         //--------------------------------------------------------------------------------
@@ -444,7 +439,7 @@ namespace mRemoteNG.UI.TaskDialog
         //--------------------------------------------------------------------------------
         private void CommandButton_Click(object sender, EventArgs e)
         {
-            CommandButtonClickedIndex = (int)((CommandButton)sender).Tag;
+            CommandButtonClickedIndex = ((CommandButton)sender).Tag is int index ? index : -1;
             DialogResult = DialogResult.OK;
         }
 
