@@ -2,10 +2,18 @@
 
 > **Parent:** [../CLAUDE.md](../CLAUDE.md) (Gestime Ecosystem — reguli universale)
 
+## >>> FIRST: Read the Current Plan <<<
+
+**INAINTE de orice altceva, citeste planul curent:**
+`.project-roadmap/CURRENT_PLAN.md`
+
+Contine: obiectivul activ, ce s-a facut, unde am ramas, lectii critice, reguli de executie.
+Daca nu exista acest fisier, intreaba user-ul ce plan urmam.
+
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development branch (latest code, currently v1.80.1+)
+- **Main branch:** `main` — active development branch (latest code, currently v1.81.0-beta.1)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -79,7 +87,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
 - 3 final coverage tests added (2026-02-09): OnePasswordCli null fields, malformed JSON, label fallback
 - **All Priority A test coverage gaps are now CLOSED**
-- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI.Controls&FullyQualifiedName!~UI.Window&FullyQualifiedName!~CueBanner" -- NUnit.DefaultTimeout=15000`
+- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm" -- NUnit.DefaultTimeout=5000`
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
 ### Historical baseline (upstream v1.78.2-dev, before fixes):
@@ -300,12 +308,12 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 ### Active Files
 | File | Contents |
 |------|----------|
+| **`.project-roadmap/CURRENT_PLAN.md`** | **>>> PLANUL CURENT <<<** — citeste PRIMUL la fiecare sesiune! |
 | `.project-roadmap/issues-db/README.md` | **Issue Intelligence System** — MANDATORY for all issue tracking (schema, workflow, rules) |
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
 | `.project-roadmap/CVE-2023-30367_ASSESSMENT.md` | CVE-2023-30367 assessment — SecureString migration deferred to v1.81.0 (132 refs, 54 files) |
-| `.project-roadmap/TRIAGE_PLAN_2026-02-10.md` | 830-issue triage plan — 5 phases, v1.80.0 scope, bulk actions |
 | `CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
 
 ### Scripts
@@ -321,7 +329,7 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 ### Issue Intelligence DB
 | File | Purpose |
 |------|---------|
-| `.project-roadmap/TRIAGE_PLAN_2026-02-10.md` | **Active triage plan** — 830 issues analyzed, 5-phase execution plan, v1.80.0 scope |
+| `.project-roadmap/TRIAGE_PLAN_2026-02-10.md` | Historical — 830-issue triage plan for v1.80.0 (completed) |
 | `.project-roadmap/issues-db/README.md` | **Full system documentation** — schema, workflow, rules |
 | `.project-roadmap/issues-db/_meta.json` | Sync metadata: last run, stats, config, comment templates |
 | `.project-roadmap/issues-db/_roadmap.json` | Prioritized items for next release |

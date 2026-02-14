@@ -2,24 +2,34 @@
 
 Persistent workspace for mRemoteNG fork modernization.
 
-## Current: v1.80.0
+## >>> CURRENT PLAN: [CURRENT_PLAN.md](CURRENT_PLAN.md) <<<
 
-Self-contained builds, security hardening, performance, CI improvements.
-Branch: `release/1.80`
+**Citeste INTOTDEAUNA `CURRENT_PLAN.md` la inceputul fiecarei sesiuni!**
+Contine: ce s-a facut, unde am ramas, lectii critice, plan de executie.
+
+## Current: v1.81.0-beta.1
+
+Nullable reference type warnings resolution (~4,831 warnings).
+Branch: `main`
 
 ## Active Files
 
 | File | Purpose |
 |------|---------|
+| **`CURRENT_PLAN.md`** | **PLANUL CURENT** — citeste PRIMUL! Warning resolution, progres, lectii |
 | `LESSONS.md` | Build, test, CI, and release lessons learned |
 | `ISSUE_BINARYFORMATTER.md` | Open blocker: DockPanelSuite BinaryFormatter on .NET 10 |
+| `CVE-2023-30367_ASSESSMENT.md` | SecureString migration assessment — deferred to v1.81.0 |
 
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
+| `scripts/Sync-Issues.ps1` | **MANDATORY** — Sync issues+comments from both repos |
+| `scripts/Analyze-Issues.ps1` | Analyze what needs action |
+| `scripts/Update-Status.ps1` | Transition issue lifecycle + post GitHub comments |
+| `scripts/Generate-Report.ps1` | Generate markdown reports |
 | `scripts/find-lesson.ps1` | Search lessons by keyword |
-| `scripts/refresh-issues.ps1` | Fetch upstream issue snapshot |
 
 ## Archives
 
@@ -27,9 +37,11 @@ Branch: `release/1.80`
 |--------|----------|
 | `historical/v1.79.0/` | v1.79.0 release cycle (26 PRs, triage, execution logs, scripts) |
 | `historical/v1.80.0/` | v1.80.0 code analysis & error backlog (12 items, all resolved) |
+| `TRIAGE_PLAN_2026-02-10.md` | Historical — 830-issue triage plan for v1.80.0 (completed) |
 
 ## Resume Workflow
 
-1. Read `LESSONS.md` before starting any build, test, CI, or release task.
-2. Run `build.ps1` to verify clean build before making changes.
-3. See `CODE_SIGNING_POLICY.md` at repo root for release signing policy.
+1. **Read `CURRENT_PLAN.md`** — vezi unde am ramas si ce trebuie facut.
+2. Read `LESSONS.md` before starting any build, test, CI, or release task.
+3. Run `build.ps1` to verify clean build before making changes.
+4. See `CODE_SIGNING_POLICY.md` at repo root for release signing policy.
