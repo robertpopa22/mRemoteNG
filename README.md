@@ -20,6 +20,9 @@
   <a href="COPYING.TXT">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0-green?style=for-the-badge">
   </a>
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases">
+    <img alt="Total Downloads" src="https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/total?style=for-the-badge&color=green">
+  </a>
 </p>
 
 ---
@@ -32,8 +35,8 @@
 
 | Variant | x64 | x86 | ARM64 |
 |---------|-----|-----|-------|
-| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64.zip) |
-| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64-selfcontained.zip) |
+| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x64.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x86.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-arm64.zip?label=%20&color=blue) |
+| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x64-selfcontained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x86-selfcontained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64-selfcontained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-arm64-selfcontained.zip?label=%20&color=blue) |
 
 **Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) + [VC++ Redistributable](https://aka.ms/vs/18/release/vc_redist.x64.exe).
 **Self-contained** includes the .NET runtime — no prerequisites needed.
