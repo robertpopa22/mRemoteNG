@@ -85,7 +85,7 @@ namespace mRemoteNG.Connection.Protocol
                 _isPuttyNg = PuttyTypeDetector.GetPuttyType() == PuttyTypeDetector.PuttyType.PuttyNg;
 
                 // Validate PuttyPath to prevent command injection
-                PathValidator.ValidateExecutablePathOrThrow(PuttyPath, nameof(PuttyPath));
+                PathValidator.ValidateExecutablePathOrThrow(PuttyPath ?? string.Empty, nameof(PuttyPath));
 
                 PuttyProcess = new Process
                 {
@@ -310,7 +310,7 @@ namespace mRemoteNG.Connection.Protocol
 
                 PuttyProcess.StartInfo.Arguments = arguments.ToString();
                 // add additional SSH options, f.e. tunnel or noshell parameters that may be specified for the the connnection
-                if (!string.IsNullOrEmpty(InterfaceControl.Info.SSHOptions))
+                if (!string.IsNullOrEmpty(InterfaceControl.Info?.SSHOptions))
                 {
                     PuttyProcess.StartInfo.Arguments += " " + InterfaceControl.Info.SSHOptions;
                 }
@@ -453,7 +453,7 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
-                if (PuttyProcess.HasExited == false)
+                if (PuttyProcess?.HasExited == false)
                 {
                     PuttyProcess.Kill();
                 }
@@ -467,7 +467,7 @@ namespace mRemoteNG.Connection.Protocol
 
             try
             {
-                PuttyProcess.Dispose();
+                PuttyProcess?.Dispose();
             }
             catch (Exception ex)
             {
