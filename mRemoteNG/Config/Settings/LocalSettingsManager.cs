@@ -144,7 +144,7 @@ public class LocalDBManager
                 {
                     foreach (JsonElement table in doc.RootElement.GetProperty("tables").EnumerateArray())
                     {
-                        string tableName = table.GetProperty("name").GetString();
+                        string tableName = table.GetProperty("name").GetString() ?? string.Empty;
                         var collection = db.GetCollection<Setting>(tableName);
                         Console.WriteLine($"Table '{tableName}' created with structure from schema.");
 
@@ -158,7 +158,7 @@ public class LocalDBManager
                                     Id = Guid.NewGuid(),
                                     Timestamp = DateTime.UtcNow,
                                     Group = "default",
-                                    Key = column.GetProperty("name").GetString(),
+                                    Key = column.GetProperty("name").GetString() ?? string.Empty,
                                     Value = column.GetProperty("value").ToString()
                                 };
                                 collection.Insert(settingsData);
@@ -281,6 +281,11 @@ public void EncryptDatabase()
             }
             var json = File.ReadAllText(jsonFilePath);
             var settingsData = JsonSerializer.Deserialize<Dictionary<string, List<Setting>>>(json);
+            if (settingsData == null)
+            {
+                Console.WriteLine("Failed to deserialize settings from JSON file.");
+                return;
+            }
 
             foreach (var table in settingsData.Keys)
             {
@@ -411,8 +416,8 @@ public void EncryptDatabase()
     {
         public Guid Id { get; set; }
         public DateTime Timestamp { get; set; }
-        public string Group { get; set; }
-        public string Key { get; set; }
-        public string Value { get; set; }
+        public string Group { get; set; } = string.Empty;
+        public string Key { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
     }
 }
