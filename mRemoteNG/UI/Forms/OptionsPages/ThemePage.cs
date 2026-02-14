@@ -18,7 +18,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private readonly ThemeManager _themeManager;
         private readonly bool _oriActiveTheming;
-        private ThemeInfo _oriActiveTheme;
+        private ThemeInfo? _oriActiveTheme;
         private readonly List<ThemeInfo> modifiedThemes = [];
 
         #endregion
@@ -109,10 +109,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             base.RevertSettings();
             _themeManager.ThemingActive = _oriActiveTheming;
-            
+
             // Clear the modified themes list without saving
             modifiedThemes.Clear();
-            
+
             // Restore the original theme selection
             if (_oriActiveTheme != null)
             {
@@ -143,7 +143,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             btnThemeNew.Enabled = true;
 
-            ThemeInfo selectedTheme = (ThemeInfo)cboTheme.SelectedItem;
+            ThemeInfo? selectedTheme = cboTheme.SelectedItem as ThemeInfo;
 
             if (selectedTheme != null && selectedTheme.IsExtendable)
             {
@@ -181,7 +181,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             if (colorDlg.ShowDialog() != DialogResult.OK) return;
             modifiedThemes.Add(_themeManager.ActiveTheme);
-            _themeManager.ActiveTheme.ExtendedPalette.replaceColor(colorElem.Key, colorDlg.Color);
+            _themeManager.ActiveTheme.ExtendedPalette?.replaceColor(colorElem.Key, colorDlg.Color);
             colorElem.Value = colorDlg.Color;
             listPalette.RefreshObject(e.Model);
             _themeManager.refreshUI();
@@ -189,17 +189,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void ColorMeList(ThemeInfo ti)
         {
+            if (ti.ExtendedPalette == null) return;
             foreach (KeyValuePair<string, System.Drawing.Color> colorElem in ti.ExtendedPalette.ExtColorPalette)
                 listPalette.AddObject(new PseudoKeyColor(colorElem.Key, colorElem.Value));
         }
 
         private void btnThemeNew_Click(object sender, EventArgs e)
         {
-            using (FrmInputBox frmInputBox = new(Language.OptionsThemeNewThemeCaption, Language.OptionsThemeNewThemeText, _themeManager.ActiveTheme.Name))
+            using (FrmInputBox frmInputBox = new(Language.OptionsThemeNewThemeCaption, Language.OptionsThemeNewThemeText, _themeManager.ActiveTheme.Name ?? string.Empty))
             {
                 DialogResult dr = frmInputBox.ShowDialog();
                 if (dr != DialogResult.OK) return;
-                if (_themeManager.isThemeNameOk(frmInputBox.returnValue))
+                if (frmInputBox.returnValue != null && _themeManager.isThemeNameOk(frmInputBox.returnValue))
                 {
                     ThemeInfo? addedTheme = _themeManager.addTheme(_themeManager.ActiveTheme, frmInputBox.returnValue);
                     if (addedTheme != null)

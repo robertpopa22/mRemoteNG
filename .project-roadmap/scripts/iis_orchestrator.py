@@ -248,6 +248,7 @@ def _extract_json(text):
 def run_build(capture_output=False):
     """Run build.ps1.  Returns (ok: bool, output: str|None)."""
     log.info("    [BUILD] Running build.ps1 ...")
+    kill_stale_processes()
     try:
         r = _run(BUILD_CMD, timeout=BUILD_TIMEOUT)
         full = (r.stdout or "") + "\n" + (r.stderr or "")
@@ -256,12 +257,15 @@ def run_build(capture_output=False):
             log.error("    [BUILD] FAILED (exit %d)", r.returncode)
         else:
             log.info("    [BUILD] OK")
+        kill_stale_processes()
         return (ok, full) if capture_output else (ok, None)
     except subprocess.TimeoutExpired:
         log.error("    [BUILD] TIMEOUT (%ds)", BUILD_TIMEOUT)
+        kill_stale_processes()
         return (False, None)
     except Exception as e:
         log.error("    [BUILD] ERROR: %s", e)
+        kill_stale_processes()
         return (False, None)
 
 
@@ -683,6 +687,7 @@ def flux_warnings(status, dry_run=False, max_files=None):
 
     # Fix file by file
     for i, (fpath, file_warnings) in enumerate(sorted_files, 1):
+        kill_stale_processes()  # Clean up before each file
         rel = os.path.relpath(fpath, REPO_ROOT)
         n = len(file_warnings)
         log.info("[%d/%d] %s (%d warnings)", i, len(sorted_files), rel, n)
