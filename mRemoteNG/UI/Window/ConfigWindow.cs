@@ -319,21 +319,22 @@ namespace mRemoteNG.UI.Window
         private new void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            if (_themeManager?.ActiveTheme == null) return;
-            _pGrid.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
-            _pGrid.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
-            _pGrid.ViewBackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Background");
-            _pGrid.ViewForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Foreground");
-            _pGrid.LineColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Border");
-            _pGrid.HelpBackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
-            _pGrid.HelpForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("TextBox_Foreground");
-            _pGrid.CategoryForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Header_Foreground");
+            var activeTheme = _themeManager?.ActiveTheme;
+            if (activeTheme == null) return;
+            _pGrid.BackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
+            _pGrid.ForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
+            _pGrid.ViewBackColor = activeTheme.ExtendedPalette.getColor("List_Item_Background");
+            _pGrid.ViewForeColor = activeTheme.ExtendedPalette.getColor("List_Item_Foreground");
+            _pGrid.LineColor = activeTheme.ExtendedPalette.getColor("List_Item_Border");
+            _pGrid.HelpBackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
+            _pGrid.HelpForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
+            _pGrid.CategoryForeColor = activeTheme.ExtendedPalette.getColor("List_Header_Foreground");
             _pGrid.CommandsDisabledLinkColor =
-                _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Disabled_Foreground");
+                activeTheme.ExtendedPalette.getColor("List_Item_Disabled_Foreground");
             _pGrid.CommandsBackColor =
-                _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Disabled_Background");
+                activeTheme.ExtendedPalette.getColor("List_Item_Disabled_Background");
             _pGrid.CommandsForeColor =
-                _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Item_Disabled_Foreground");
+                activeTheme.ExtendedPalette.getColor("List_Item_Disabled_Foreground");
         }
 
         private void UpdateTopRow()
@@ -741,7 +742,7 @@ namespace mRemoteNG.UI.Window
                     ToolStripMenuItem tI = new()
                     {
                         Text = iStr,
-                        Image = ConnectionIcon.FromString(iStr).ToBitmap()
+                        Image = ConnectionIcon.FromString(iStr)?.ToBitmap()
                     };
                     tI.Click += IconMenu_Click;
 
@@ -761,15 +762,14 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                ConnectionInfo connectionInfo = (ConnectionInfo)_pGrid.SelectedObject;
-                if (connectionInfo == null) return;
+                if (_pGrid.SelectedObject is not ConnectionInfo connectionInfo) return;
 
-                ToolStripMenuItem selectedMenuItem = (ToolStripMenuItem)sender;
+                if (sender is not ToolStripMenuItem selectedMenuItem) return;
 
-                string iconName = selectedMenuItem?.Text;
+                string? iconName = selectedMenuItem.Text;
                 if (string.IsNullOrEmpty(iconName)) return;
 
-                Icon connectionIcon = ConnectionIcon.FromString(iconName);
+                Icon? connectionIcon = ConnectionIcon.FromString(iconName);
                 if (connectionIcon == null) return;
 
                 _btnIcon.Image = connectionIcon.ToBitmap();
@@ -806,24 +806,24 @@ namespace mRemoteNG.UI.Window
                 PingReply pReply = pingSender.Send((string)hostName);
                 if (pReply?.Status == IPStatus.Success)
                 {
-                    if ((string)_btnHostStatus.Tag == "checking")
+                    if (_btnHostStatus.Tag as string == "checking")
                     {
                         ShowStatusImage(Properties.Resources.HostStatus_On);
                     }
-                        
+
                 }
                 else
                 {
-                    if ((string)_btnHostStatus.Tag == "checking")
+                    if (_btnHostStatus.Tag as string == "checking")
                     {
                         ShowStatusImage(Properties.Resources.HostStatus_Off);
                     }
-                        
+
                 }
             }
             catch (Exception)
             {
-                if ((string)_btnHostStatus.Tag == "checking")
+                if (_btnHostStatus.Tag as string == "checking")
                 {
                     ShowStatusImage(Properties.Resources.HostStatus_Off);
                 }
@@ -879,7 +879,7 @@ namespace mRemoteNG.UI.Window
             try
             {
                 _propertyGridContextMenuShowHelpText.Checked = Settings.Default.ShowConfigHelpText;
-                GridItem gridItem = _pGrid.SelectedGridItem;
+                GridItem? gridItem = _pGrid.SelectedGridItem;
                 _propertyGridContextMenuReset.Enabled = Convert.ToBoolean(_pGrid.SelectedObject != null &&
                                                                           gridItem?.PropertyDescriptor != null &&
                                                                           gridItem.PropertyDescriptor.CanResetValue(_pGrid.SelectedObject));
@@ -894,7 +894,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                GridItem gridItem = _pGrid.SelectedGridItem;
+                GridItem? gridItem = _pGrid.SelectedGridItem;
                 if (_pGrid.SelectedObject != null && gridItem?.PropertyDescriptor != null &&
                     gridItem.PropertyDescriptor.CanResetValue(_pGrid.SelectedObject))
                 {
