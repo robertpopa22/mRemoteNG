@@ -76,7 +76,8 @@ namespace mRemoteNG.UI.Controls
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!_themeManager.ActiveAndExtended)
+            var themeManager = _themeManager;
+            if (themeManager is null || !themeManager.ActiveAndExtended)
             {
                 base.OnPaint(e);
                 return;
@@ -90,27 +91,27 @@ namespace mRemoteNG.UI.Controls
                 switch (_mice)
                 {
                     case MouseState.HOVER:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Border");
+                        back = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Background");
+                        fore = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Foreground");
+                        border = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Hover_Border");
                         break;
                     case MouseState.DOWN:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Border");
+                        back = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Background");
+                        fore = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Foreground");
+                        border = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Pressed_Border");
                         break;
                     default:
-                        back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Background");
-                        fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Foreground");
-                        border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Border");
+                        back = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Background");
+                        fore = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Foreground");
+                        border = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Border");
                         break;
                 }
             }
             else
             {
-                back = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Background");
-                fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Foreground");
-                border = _themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Border");
+                back = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Background");
+                fore = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Foreground");
+                border = themeManager.ActiveTheme.ExtendedPalette.getColor("Button_Disabled_Border");
             }
 
 
