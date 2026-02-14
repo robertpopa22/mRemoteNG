@@ -21,7 +21,7 @@ namespace mRemoteNG.UI.Forms
 
         public string Panel
         {
-            get => cbPanels.SelectedItem.ToString();
+            get => cbPanels.SelectedItem?.ToString() ?? string.Empty;
             set => cbPanels.SelectedItem = value;
         }
 
@@ -43,12 +43,12 @@ namespace mRemoteNG.UI.Forms
         private void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
-            lblDescription.BackColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            lblDescription.ForeColor =
-                ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            var palette = ThemeManager.getInstance().ActiveTheme.ExtendedPalette;
+            if (palette == null) return;
+            BackColor = palette.getColor("Dialog_Background");
+            ForeColor = palette.getColor("Dialog_Foreground");
+            lblDescription.BackColor = palette.getColor("Dialog_Background");
+            lblDescription.ForeColor = palette.getColor("Dialog_Foreground");
         }
 
         private void AddAvailablePanels()
