@@ -66,8 +66,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public override void SaveSettings()
         {
             Properties.OptionsSecurityPage.Default.EncryptCompleteConnectionsFile = chkEncryptCompleteFile.Checked;
-            Properties.OptionsSecurityPage.Default.EncryptionEngine = (BlockCipherEngines)comboBoxEncryptionEngine.SelectedItem;
-            Properties.OptionsSecurityPage.Default.EncryptionBlockCipherMode = (BlockCipherModes)comboBoxBlockCipher.SelectedItem;
+            if (comboBoxEncryptionEngine.SelectedItem is BlockCipherEngines engine)
+                Properties.OptionsSecurityPage.Default.EncryptionEngine = engine;
+            if (comboBoxBlockCipher.SelectedItem is BlockCipherModes mode)
+                Properties.OptionsSecurityPage.Default.EncryptionBlockCipherMode = mode;
             Properties.OptionsSecurityPage.Default.EncryptionKeyDerivationIterations = (int)numberBoxKdfIterations.Value;
         }
 
@@ -107,10 +109,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private bool ShowRegistrySettingsUsedInfo()
         {
-            return pageRegSettingsInstance.EncryptCompleteConnectionsFile.IsSet
+            return pageRegSettingsInstance != null
+                && (pageRegSettingsInstance.EncryptCompleteConnectionsFile.IsSet
                 || pageRegSettingsInstance.EncryptionEngine.IsSet
                 || pageRegSettingsInstance.EncryptionBlockCipherMode.IsSet
-                || pageRegSettingsInstance.EncryptionKeyDerivationIterations.IsSet;
+                || pageRegSettingsInstance.EncryptionKeyDerivationIterations.IsSet);
         }
 
         public override void RevertSettings()
@@ -129,12 +132,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void BtnTestSettings_Click(object sender, EventArgs e)
         {
-            Tree.ConnectionTreeModel connectionTree = Runtime.ConnectionsService.ConnectionTreeModel;
-            if (!connectionTree.RootNodes.Any())
+            Tree.ConnectionTreeModel? connectionTree = Runtime.ConnectionsService.ConnectionTreeModel;
+            if (connectionTree == null || !connectionTree.RootNodes.Any())
                 return;
 
-            BlockCipherEngines engine = (BlockCipherEngines)comboBoxEncryptionEngine.SelectedItem;
-            BlockCipherModes mode = (BlockCipherModes)comboBoxBlockCipher.SelectedItem;
+            if (comboBoxEncryptionEngine.SelectedItem is not BlockCipherEngines engine
+                || comboBoxBlockCipher.SelectedItem is not BlockCipherModes mode)
+                return;
             ICryptographyProvider cryptographyProvider = new CryptoProviderFactory(engine, mode).Build();
             cryptographyProvider.KeyDerivationIterations = (int)numberBoxKdfIterations.Value;
 
