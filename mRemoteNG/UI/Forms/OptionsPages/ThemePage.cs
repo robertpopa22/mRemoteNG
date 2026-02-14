@@ -201,8 +201,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 if (dr != DialogResult.OK) return;
                 if (_themeManager.isThemeNameOk(frmInputBox.returnValue))
                 {
-                    ThemeInfo addedTheme = _themeManager.addTheme(_themeManager.ActiveTheme, frmInputBox.returnValue);
-                    _themeManager.ActiveTheme = addedTheme;
+                    ThemeInfo? addedTheme = _themeManager.addTheme(_themeManager.ActiveTheme, frmInputBox.returnValue);
+                    if (addedTheme != null)
+                        _themeManager.ActiveTheme = addedTheme;
                     LoadSettings();
                 }
                 else
