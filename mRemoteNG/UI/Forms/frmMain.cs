@@ -786,8 +786,9 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_WINDOWPOSCHANGED:
                         // Ignore this message if the window wasn't activated
-                        NativeMethods.WINDOWPOS windowPos =
-                            (NativeMethods.WINDOWPOS)Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.WINDOWPOS));
+                        if (Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.WINDOWPOS))
+                            is not NativeMethods.WINDOWPOS windowPos)
+                            break;
                         if ((windowPos.flags & NativeMethods.SWP_NOACTIVATE) == 0)
                         {
                             if (!_inMouseActivate && !_inSizeMove)
@@ -957,7 +958,7 @@ namespace mRemoteNG.UI.Forms
             Text = titleBuilder.ToString();
         }
 
-        public void ShowHidePanelTabs(DockContent closingDocument = null)
+        public void ShowHidePanelTabs(DockContent? closingDocument = null)
         {
             DocumentStyle newDocumentStyle;
 
