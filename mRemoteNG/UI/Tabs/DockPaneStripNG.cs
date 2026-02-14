@@ -82,14 +82,14 @@ namespace mRemoteNG.UI.Tabs
 
         #region Members
 
-        private InertButton m_buttonOverflow;
-        private InertButton m_buttonWindowList;
+        private InertButton? m_buttonOverflow;
+        private InertButton? m_buttonWindowList;
         private ToolTip m_toolTip;
-        private Font m_font;
-        private Font m_boldFont;
+        private Font? m_font;
+        private Font? m_boldFont;
         private int m_startDisplayingTab;
         private bool m_documentTabsOverflow;
-        private static string m_toolTipSelect;
+        private static string? m_toolTipSelect;
         private bool m_suspendDrag;
 
         #endregion
@@ -188,7 +188,7 @@ namespace mRemoteNG.UI.Tabs
 
         public Font TextFont => DockPane.DockPanel.Theme.Skin.DockPaneStripSkin.TextFont;
 
-        private Font BoldFont
+        private Font? BoldFont
         {
             get
             {
@@ -421,12 +421,12 @@ namespace mRemoteNG.UI.Tabs
 
         public override GraphicsPath GetOutline(int index)
         {
-            return Appearance == DockPane.AppearanceStyle.Document
+            return (Appearance == DockPane.AppearanceStyle.Document
                 ? GetOutline_Document(index)
-                : GetOutline_ToolWindow(index);
+                : GetOutline_ToolWindow(index))!;
         }
 
-        private GraphicsPath GetOutline_Document(int index)
+        private GraphicsPath? GetOutline_Document(int index)
         {
             Rectangle? rectangle = Tabs[index].Rectangle;
             if (rectangle == null) return null;
@@ -460,7 +460,7 @@ namespace mRemoteNG.UI.Tabs
             return path;
         }
 
-        private GraphicsPath GetOutline_ToolWindow(int index)
+        private GraphicsPath? GetOutline_ToolWindow(int index)
         {
             Rectangle? rectangle = Tabs[index].Rectangle;
             if (rectangle == null) return null;
