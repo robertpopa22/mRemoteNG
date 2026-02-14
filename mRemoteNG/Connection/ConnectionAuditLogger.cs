@@ -48,7 +48,7 @@ namespace mRemoteNG.Connection
                 Environment.UserName, null);
         }
 
-        private static void WriteEntry(string eventType, string hostname, string protocol, string user, string detail)
+        private static void WriteEntry(string eventType, string hostname, string protocol, string? user, string? detail)
         {
             if (!Enabled) return;
 
