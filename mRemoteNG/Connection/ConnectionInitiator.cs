@@ -33,7 +33,7 @@ namespace mRemoteNG.Connection
 
         public IEnumerable<string> ActiveConnections => _activeConnections;
 
-        public ConnectionInitiator(IProtocolFactory protocolFactory = null, ITunnelPortValidator tunnelPortValidator = null)
+        public ConnectionInitiator(IProtocolFactory? protocolFactory = null, ITunnelPortValidator? tunnelPortValidator = null)
         {
             _protocolFactory = protocolFactory ?? new ProtocolFactory();
             _tunnelPortValidator = tunnelPortValidator ?? new TunnelPortValidator();
@@ -41,11 +41,11 @@ namespace mRemoteNG.Connection
 
         public bool SwitchToOpenConnection(ConnectionInfo connectionInfo)
         {
-            InterfaceControl interfaceControl = FindConnectionContainer(connectionInfo);
+            InterfaceControl? interfaceControl = FindConnectionContainer(connectionInfo);
             if (interfaceControl == null) return false;
-            ConnectionTab connT = (ConnectionTab)interfaceControl.FindForm();
+            ConnectionTab? connT = interfaceControl.FindForm() as ConnectionTab;
             connT?.Focus();
-            ConnectionTab findForm = (ConnectionTab)interfaceControl.FindForm();
+            ConnectionTab? findForm = interfaceControl.FindForm() as ConnectionTab;
             findForm?.Show(findForm.DockPanel);
             return true;
         }
@@ -53,7 +53,7 @@ namespace mRemoteNG.Connection
         public void OpenConnection(
             ContainerInfo containerInfo,
             ConnectionInfo.Force force = ConnectionInfo.Force.None,
-            ConnectionWindow conForm = null)
+            ConnectionWindow? conForm = null)
         {
             if (containerInfo == null || containerInfo.Children.Count == 0)
                 return;
@@ -71,7 +71,7 @@ namespace mRemoteNG.Connection
         public async void OpenConnection(
             ConnectionInfo connectionInfo,
             ConnectionInfo.Force force = ConnectionInfo.Force.None,
-            ConnectionWindow conForm = null)
+            ConnectionWindow? conForm = null)
         {
             if (connectionInfo == null)
                 return;
@@ -113,20 +113,20 @@ namespace mRemoteNG.Connection
                         return;
                 }
 
-                string connectionPanel = SetConnectionPanel(connectionInfo, force);
+                string? connectionPanel = SetConnectionPanel(connectionInfo, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
                 ConnectionWindow connectionForm = SetConnectionForm(conForm, connectionPanel);
-                Control connectionContainer = null;
+                Control? connectionContainer = null;
 
                 // Handle connection through SSH tunnel:
                 // in case of connection through SSH tunnel, connectionInfo gets cloned, so that modification of its name, hostname and port do not modify the original connection info
                 // connectionInfoOriginal points to the original connection info in either case, for where its needed later on.
                 ConnectionInfo connectionInfoOriginal = connectionInfo;
-                ConnectionInfo connectionInfoSshTunnel = null; // SSH tunnel connection info will be set if SSH tunnel connection is configured, can be found and connected.
+                ConnectionInfo? connectionInfoSshTunnel = null; // SSH tunnel connection info will be set if SSH tunnel connection is configured, can be found and connected.
                 if (!string.IsNullOrEmpty(connectionInfoOriginal.SSHTunnelConnectionName))
                 {
                     // Find the connection info specified as SSH tunnel in the connections tree
-                    connectionInfoSshTunnel = getSSHConnectionInfoByName(Runtime.ConnectionsService.ConnectionTreeModel.RootNodes, connectionInfoOriginal.SSHTunnelConnectionName);
+                    connectionInfoSshTunnel = getSSHConnectionInfoByName(Runtime.ConnectionsService.ConnectionTreeModel.RootNodes, connectionInfoOriginal.SSHTunnelConnectionName!);
                     if (connectionInfoSshTunnel == null)
                     {
                         Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, string.Format(Language.SshTunnelConfigProblem, connectionInfoOriginal.Name, connectionInfoOriginal.SSHTunnelConnectionName));
@@ -256,9 +256,9 @@ namespace mRemoteNG.Connection
         }
 
         // recursively traverse the tree to find ConnectionInfo of a specific name
-        private ConnectionInfo getSSHConnectionInfoByName(IEnumerable<ConnectionInfo> rootnodes, string SSHTunnelConnectionName)
+        private ConnectionInfo? getSSHConnectionInfoByName(IEnumerable<ConnectionInfo> rootnodes, string SSHTunnelConnectionName)
         {
-            ConnectionInfo result = null;
+            ConnectionInfo? result = null;
             foreach (ConnectionInfo node in rootnodes)
             {
                 if (node is ContainerInfo container)
