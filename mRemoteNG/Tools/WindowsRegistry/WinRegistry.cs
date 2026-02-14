@@ -54,7 +54,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="Name">The name of the value. Null or Empty to get default.</param>
         /// <returns>The value data as a string, or null if the value is not found.</returns>
         /// <exception cref = "ArgumentException" > Thrown when the specified registry hive, path or name is invalid</exception>
-        public string GetValue(RegistryHive Hive, string Path, string Name)
+        public string? GetValue(RegistryHive Hive, string Path, string? Name)
         {
             ThrowIfHiveInvalid(Hive);
             ThrowIfPathInvalid(Path);
@@ -76,7 +76,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="Hive">The registry hive.</param>
         /// <param name="Path">The registry key path.</param>
         /// <returns>The value data as a string, or null if the value is not found.</returns>
-        public string GetDefaultValue(RegistryHive Hive, string Path)
+        public string? GetDefaultValue(RegistryHive Hive, string Path)
         {
             return GetValue(Hive, Path, null);
         }
@@ -89,9 +89,9 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="Name">The name of the value. Null or Empty to get default.</param>
         /// <param name="DefaultValue">The default value to return if the property is not found.</param>
         /// <returns>The value data as string, or the specified default value if the value is not found.</returns>
-        public string GetStringValue(RegistryHive Hive, string Path, string Name, string DefaultValue = null)
+        public string? GetStringValue(RegistryHive Hive, string Path, string? Name, string? DefaultValue = null)
         {
-            string value = GetValue(Hive, Path, Name);
+            string? value = GetValue(Hive, Path, Name);
             return value ?? DefaultValue;
         }
 
@@ -105,7 +105,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <returns>The value data as bool, parsed from its REG_SZ or REG_DWORD representation if possible, or the specified default value if the value is not found or cannot be parsed.</returns>
         public bool GetBoolValue(RegistryHive Hive, string Path, string Name, bool DefaultValue = false)
         {
-            string value = GetValue(Hive, Path, Name);
+            string? value = GetValue(Hive, Path, Name);
 
             if (!string.IsNullOrEmpty(value))
             {
@@ -128,7 +128,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <returns>The value data as integer, parsed from its REG_DWORD representation if possible, or the specified default value if the value is not found or cannot be parsed.</returns>
         public int GetIntegerValue(RegistryHive Hive, string Path, string Name, int DefaultValue = 0)
         {
-            string value = GetValue(Hive, Path, Name);
+            string? value = GetValue(Hive, Path, Name);
 
             if (int.TryParse(value, out int intValue))
                 return intValue;
@@ -210,12 +210,12 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <param name="Value">The value to set for the property.</param>
         /// <param name="ValueKind">The data type of the value to set.</param>
         /// <exception cref="InvalidOperationException">Thrown when an error occurs while writing to the Windows Registry key.</exception>
-        public void SetValue(RegistryHive Hive, string Path, string Name, object Value, RegistryValueKind ValueKind)
+        public void SetValue(RegistryHive Hive, string Path, string? Name, object Value, RegistryValueKind ValueKind)
         {
             ThrowIfHiveInvalid(Hive);
             ThrowIfPathInvalid(Path);
 
-            string name = string.IsNullOrEmpty(Name) ? null : Name;
+            string? name = string.IsNullOrEmpty(Name) ? null : Name;
             RegistryValueKind valueKind = string.IsNullOrEmpty(Name) ? RegistryValueKind.String : ValueKind;
 
             ThrowIfValueKindInvalid(valueKind);
@@ -290,7 +290,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
             try
             {
                 using RegistryKey baseKey = RegistryKey.OpenBaseKey(Hive, RegistryView.Default);
-                using RegistryKey key = baseKey.OpenSubKey(Path, true);
+                using RegistryKey? key = baseKey.OpenSubKey(Path, true);
                 key?.DeleteValue(Name, true);
             }
             catch (SecurityException ex)
