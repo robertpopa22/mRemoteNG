@@ -12,7 +12,7 @@ namespace mRemoteNG.UI.Forms
     [SupportedOSPlatform("windows")]
     public partial class FrmPassword : IKeyProvider
     {
-        private readonly string _passwordName;
+        private readonly string? _passwordName;
         private SecureString _password = new();
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace mRemoteNG.UI.Forms
         /// password box is shown which must match the first password
         /// to continue.
         /// </param>
-        public FrmPassword(string passwordName = null, bool newPasswordMode = true)
+        public FrmPassword(string? passwordName = null, bool newPasswordMode = true)
         {
             InitializeComponent();
             _passwordName = passwordName;
@@ -58,7 +58,8 @@ namespace mRemoteNG.UI.Forms
             ApplyLanguage();
             ApplyTheme();
             DisplayProperties display = new();
-            pbLock.Image = display.ScaleImage(pbLock.Image);
+            if (pbLock.Image is { } lockImage)
+                pbLock.Image = display.ScaleImage(lockImage);
             Height = tableLayoutPanel1.Height;
 
             if (NewPasswordMode)
@@ -120,8 +121,11 @@ namespace mRemoteNG.UI.Forms
 
             ThemeInfo activeTheme = ThemeManager.getInstance().ActiveTheme;
 
-            BackColor = activeTheme.ExtendedPalette.getColor("Dialog_Background");
-            ForeColor = activeTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            if (activeTheme.ExtendedPalette is not { } palette)
+                return;
+
+            BackColor = palette.getColor("Dialog_Background");
+            ForeColor = palette.getColor("Dialog_Foreground");
         }
 
         // ReSharper disable once UnusedMethodReturnValue.Local
