@@ -129,9 +129,15 @@ class Status:
 
     def save(self):
         self.data["last_updated"] = _now_iso()
-        STATUS_FILE.write_text(
-            json.dumps(self.data, indent=2, ensure_ascii=False), encoding="utf-8"
-        )
+        content = json.dumps(self.data, indent=2, ensure_ascii=False)
+        for attempt in range(3):
+            try:
+                STATUS_FILE.write_text(content, encoding="utf-8")
+                return
+            except OSError:
+                time.sleep(0.5)
+        # Last resort: silently skip (non-critical file)
+        log.warning("    [STATUS] Could not write status file (locked)")
 
     def set_phase(self, phase):
         self.data["current_phase"] = phase

@@ -309,6 +309,8 @@ nul
 # Auto Claude generated files
 .auto-claude-security.json
 .auto-claude-status
+.project-roadmap/scripts/orchestrator-status.json
+.project-roadmap/scripts/orchestrator.log
 .claude_settings.json
 .worktrees/
 .security-key
