@@ -663,7 +663,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
             // For boolean elements, check if the value is valid and convert it to the appropriate value kind.
             else if (ElementType == typeof(bool))
             {
-                if (!booleanRegistryValueKindMap.TryGetValue(value.ToString().ToLower(), out var valueKind))
+                if (!booleanRegistryValueKindMap.TryGetValue(value?.ToString()?.ToLower() ?? string.Empty, out var valueKind))
                     throw new ArgumentException("Invalid value. Supported values are ci strings 'True'/'False' or numbers '0'/'1'.", nameof(value));
 
                 ValueKind = valueKind;
@@ -697,7 +697,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         {
             if (AllowedValues != null)
             {
-                T matchedValue = AllowedValues.FirstOrDefault(v => v.ToString().Equals(value.ToString(), StringComparison.OrdinalIgnoreCase));
+                T? matchedValue = AllowedValues.FirstOrDefault(v => v?.ToString()?.Equals(value?.ToString(), StringComparison.OrdinalIgnoreCase) == true);
 
                 if (matchedValue != null)
                     // Correct the Value to ensure the correct spelling and avoid user typing mistakes
@@ -707,11 +707,11 @@ namespace mRemoteNG.Tools.WindowsRegistry
             {
                 var matchedEnumValue = Enum.GetValues(EnumType)
                           .Cast<Enum>()
-                          .FirstOrDefault(e => e.ToString().Equals(value.ToString(), StringComparison.OrdinalIgnoreCase));
+                          .FirstOrDefault(e => e.ToString()?.Equals(value?.ToString(), StringComparison.OrdinalIgnoreCase) == true);
 
                 if (matchedEnumValue != null)
                     // Correct the Value to ensure the correct spelling and avoid user typing mistakes
-                    return ConvertValueBasedOnType(matchedEnumValue.ToString());
+                    return ConvertValueBasedOnType(matchedEnumValue.ToString()!);
             }
 
             return value;
@@ -852,7 +852,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
             {
                 return Enum.GetValues(EnumType)
                            .Cast<Enum>()
-                           .Any(e => e.ToString().Equals(Value.ToString(), StringComparison.OrdinalIgnoreCase));
+                           .Any(e => e.ToString()?.Equals(Value?.ToString(), StringComparison.OrdinalIgnoreCase) == true);
             }
 
             return true;
@@ -864,7 +864,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <returns>True if the integer value is valid; otherwise, false.</returns>
         private bool ValidateInt32()
         {
-            int value = (int)(object)Value;
+            int value = (int)(object)Value!;
 
             if (AllowedValues != null)
                 return AllowedValues.Contains(Value);
@@ -893,7 +893,7 @@ namespace mRemoteNG.Tools.WindowsRegistry
         /// <returns>True if the long integer value is valid; otherwise, false.</returns>
         private bool ValidateInt64()
         {
-            long value = (long)(object)Value;
+            long value = (long)(object)Value!;
 
             if (AllowedValues != null)
                 return AllowedValues.Contains(Value);
