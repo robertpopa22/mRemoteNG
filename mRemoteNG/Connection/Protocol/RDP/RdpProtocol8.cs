@@ -20,13 +20,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
 		*/
     public class RdpProtocol8 : RdpProtocol7
     {
-        private MsRdpClient8NotSafeForScripting RdpClient8 => (MsRdpClient8NotSafeForScripting)((AxHost)Control).GetOcx();
+        private MsRdpClient8NotSafeForScripting? RdpClient8 => ((AxHost?)Control)?.GetOcx() as MsRdpClient8NotSafeForScripting;
 
         protected override RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc8;
         protected FormWindowState LastWindowState = FormWindowState.Minimized;
 
         // Debounce timer to reduce flickering during resize
-        private System.Timers.Timer _resizeDebounceTimer;
+        private System.Timers.Timer? _resizeDebounceTimer;
         private Size _pendingResizeSize;
         private bool _hasPendingResize = false;
 
