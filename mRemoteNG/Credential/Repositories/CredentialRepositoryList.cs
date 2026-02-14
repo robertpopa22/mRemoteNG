@@ -47,7 +47,7 @@ namespace mRemoteNG.Credential.Repositories
             return list;
         }
 
-        public ICredentialRecord GetCredentialRecord(Guid id)
+        public ICredentialRecord? GetCredentialRecord(Guid id)
         {
             return CredentialProviders.SelectMany(repo => repo.CredentialRecords)
                                       .FirstOrDefault(record => record.Id.Equals(id));
@@ -79,7 +79,7 @@ namespace mRemoteNG.Credential.Repositories
 
         private void OnRepoConfigChanged(object sender, EventArgs args)
         {
-            ICredentialRepository repo = sender as ICredentialRepository;
+            ICredentialRepository? repo = sender as ICredentialRepository;
             if (repo == null) return;
             RaiseRepositoriesUpdatedEvent(ActionType.Updated, new[] {repo});
         }

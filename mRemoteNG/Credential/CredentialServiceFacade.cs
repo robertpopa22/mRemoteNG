@@ -56,7 +56,7 @@ namespace mRemoteNG.Credential
             return _repositoryList.GetCredentialRecords();
         }
 
-        public ICredentialRecord GetCredentialRecord(Guid id)
+        public ICredentialRecord? GetCredentialRecord(Guid id)
         {
             return _repositoryList.GetCredentialRecord(id);
         }
@@ -80,7 +80,7 @@ namespace mRemoteNG.Credential
                                                    CollectionUpdatedEventArgs<ICredentialRecord>
                                                        collectionUpdatedEventArgs)
         {
-            ICredentialRepository repo = sender as ICredentialRepository;
+            ICredentialRepository? repo = sender as ICredentialRepository;
             repo?.SaveCredentials(repo.Config.Key);
         }
 
