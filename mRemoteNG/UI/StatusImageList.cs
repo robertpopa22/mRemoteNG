@@ -33,7 +33,7 @@ namespace mRemoteNG.UI
             return GetKey(rowObject as ConnectionInfo);
         }
 
-        public Image GetImage(ConnectionInfo connectionInfo)
+        public Image? GetImage(ConnectionInfo connectionInfo)
         {
             string key = GetKey(connectionInfo);
             return ImageList.Images.ContainsKey(key)
@@ -41,7 +41,7 @@ namespace mRemoteNG.UI
                 : null;
         }
 
-        public string GetKey(ConnectionInfo connectionInfo)
+        public string GetKey(ConnectionInfo? connectionInfo)
         {
             if (connectionInfo == null) return "";
             if (connectionInfo is RootPuttySessionsNodeInfo) return "PuttySessions";
@@ -69,7 +69,7 @@ namespace mRemoteNG.UI
             bool connected = connection.OpenConnections.Count > 0;
             string name = BuildConnectionIconName(connection.Icon, connected);
             if (ImageList.Images.ContainsKey(name)) return name;
-            Icon image = ConnectionIcon.FromString(connection.Icon);
+            Icon? image = ConnectionIcon.FromString(connection.Icon);
             if (image == null)
             {
                 return DefaultConnectionIcon;
