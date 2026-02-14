@@ -253,8 +253,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 Control.Anchor = AnchorStyles.None;
 
-                _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx();
-                
+                _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
+
                 return true;
             }
             catch (COMException ex)
@@ -298,7 +298,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 }
                 Control.Anchor = AnchorStyles.None;
 
-                _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx();
+                _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
 
                 return true;
             }
@@ -394,7 +394,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                if (Control.ContainsFocus == false)
+                if (Control is { ContainsFocus: false })
                 {
                     Control.Focus();
                 }
@@ -489,7 +489,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _rdpClient.ConnectingText = Language.Connecting;
         }
 
-        protected object GetExtendedProperty(string property)
+        protected object? GetExtendedProperty(string property)
         {
             try
             {
@@ -679,12 +679,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 }
 
-                string userName = connectionInfo?.Username ?? "";
-                string domain = connectionInfo?.Domain ?? "";
-                string userViaApi = connectionInfo?.UserViaAPI ?? "";
+                string userName = connectionInfo.Username ?? "";
+                string domain = connectionInfo.Domain ?? "";
+                string userViaApi = connectionInfo.UserViaAPI ?? "";
                 string pkey = "";
                 //string password = (connectionInfo?.Password?.ConvertToUnsecureString() ?? "");
-                string password = (connectionInfo?.Password ?? "");
+                string password = connectionInfo.Password ?? "";
 
                 // access secret server api if necessary
                 if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer)
@@ -724,8 +724,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                     try {
                         if(connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
-                            userName = connectionInfo?.Username ?? "";
-                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP((int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo?.VaultOpenbaoMount ?? "", connectionInfo?.VaultOpenbaoRole ?? "", ref userName, out password);
+                            userName = connectionInfo.Username ?? "";
+                        ExternalConnectors.VO.VaultOpenbao.ReadPasswordRDP((int)connectionInfo.VaultOpenbaoSecretEngine, connectionInfo.VaultOpenbaoMount ?? "", connectionInfo.VaultOpenbaoRole ?? "", ref userName, out password);
                     } catch (ExternalConnectors.VO.VaultOpenbaoException ex) {
                         Event_ErrorOccured(this, "Secret Server Interface Error: " + ex.Message, 0);
                     }
