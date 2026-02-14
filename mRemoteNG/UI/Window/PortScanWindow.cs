@@ -29,7 +29,8 @@ namespace mRemoteNG.UI.Window
             DockPnl = new DockContent();
             ApplyTheme();
             DisplayProperties display = new();
-            btnScan.Image = display.ScaleImage(btnScan.Image);
+            if (btnScan.Image is not null)
+                btnScan.Image = display.ScaleImage(btnScan.Image);
         }
 
         #endregion
@@ -93,7 +94,7 @@ namespace mRemoteNG.UI.Window
 
         #region Private Fields
 
-        private PortScanner _portScanner;
+        private PortScanner? _portScanner;
         private bool _scanning;
 
         #endregion
@@ -155,7 +156,7 @@ namespace mRemoteNG.UI.Window
         private void btnImport_Click(object sender, EventArgs e)
         {
             ProtocolType protocol =
-                (ProtocolType)Enum.Parse(typeof(ProtocolType), Convert.ToString(cbProtocol.SelectedItem), true);
+                (ProtocolType)Enum.Parse(typeof(ProtocolType), Convert.ToString(cbProtocol.SelectedItem) ?? string.Empty, true);
             importSelectedHosts(protocol);
         }
 
@@ -219,11 +220,13 @@ namespace mRemoteNG.UI.Window
 
         private void StopScan()
         {
-            _portScanner.BeginHostScan -= PortScanner_BeginHostScan;
-            _portScanner.HostScanned -= PortScanner_HostScanned;
-            _portScanner.ScanComplete -= PortScanner_ScanComplete;
-
-            _portScanner?.StopScan();
+            if (_portScanner is not null)
+            {
+                _portScanner.BeginHostScan -= PortScanner_BeginHostScan;
+                _portScanner.HostScanned -= PortScanner_HostScanned;
+                _portScanner.ScanComplete -= PortScanner_ScanComplete;
+                _portScanner.StopScan();
+            }
             _scanning = false;
             SwitchButtonText();
         }
@@ -292,7 +295,9 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            ContainerInfo destinationContainer = GetDestinationContainerForImportedHosts();
+            ContainerInfo? destinationContainer = GetDestinationContainerForImportedHosts();
+            if (destinationContainer is null)
+                return;
             Import.ImportFromPortScan(hosts, protocol, destinationContainer);
         }
 
@@ -300,17 +305,20 @@ namespace mRemoteNG.UI.Window
         /// Determines where the imported hosts will be placed
         /// in the connection tree.
         /// </summary>
-        private ContainerInfo GetDestinationContainerForImportedHosts()
+        private ContainerInfo? GetDestinationContainerForImportedHosts()
         {
-            ConnectionInfo selectedNode = AppWindows.TreeForm.SelectedNode ?? AppWindows.TreeForm.ConnectionTree.ConnectionTreeModel.RootNodes.OfType<RootNodeInfo>().First();
+            ConnectionInfo? selectedNode = AppWindows.TreeForm?.SelectedNode ?? AppWindows.TreeForm?.ConnectionTree.ConnectionTreeModel.RootNodes.OfType<RootNodeInfo>().First();
+
+            if (selectedNode is null)
+                return null;
 
             // if a putty node is selected, place imported connections in the root connection node
             if (selectedNode is RootPuttySessionsNodeInfo || selectedNode is PuttySessionInfo)
-                selectedNode = AppWindows.TreeForm.ConnectionTree.ConnectionTreeModel.RootNodes.OfType<RootNodeInfo>()
+                selectedNode = AppWindows.TreeForm!.ConnectionTree.ConnectionTreeModel.RootNodes.OfType<RootNodeInfo>()
                                       .First();
 
             // if the selected node is a connection, use its parent container
-            ContainerInfo selectedTreeNodeAsContainer = selectedNode as ContainerInfo ?? selectedNode.Parent;
+            ContainerInfo? selectedTreeNodeAsContainer = selectedNode as ContainerInfo ?? selectedNode.Parent;
 
             return selectedTreeNodeAsContainer;
         }
