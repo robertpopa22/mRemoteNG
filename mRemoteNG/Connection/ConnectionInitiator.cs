@@ -316,9 +316,9 @@ namespace mRemoteNG.Connection
                 : null;
         }
 
-        private ConnectionWindow SetConnectionForm(ConnectionWindow conForm, string connectionPanel)
+        private ConnectionWindow? SetConnectionForm(ConnectionWindow conForm, string connectionPanel)
         {
-            ConnectionWindow connectionForm = conForm ?? Runtime.WindowList.FromString(connectionPanel) as ConnectionWindow;
+            ConnectionWindow? connectionForm = conForm ?? Runtime.WindowList.FromString(connectionPanel) as ConnectionWindow;
 
             if (connectionForm == null)
                 // Don't show the panel immediately - it will be shown when first tab is added
@@ -326,7 +326,7 @@ namespace mRemoteNG.Connection
             else
                 connectionForm.Show(FrmMain.Default.pnlDock);
 
-            connectionForm.Focus();
+            connectionForm?.Focus();
             return connectionForm;
         }
 
