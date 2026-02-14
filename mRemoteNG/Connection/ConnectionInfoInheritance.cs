@@ -528,7 +528,7 @@ namespace mRemoteNG.Connection
         #endregion
 
         [Browsable(false)]
-        public ConnectionInfo Parent { get; private set; }
+        public ConnectionInfo? Parent { get; private set; }
 
         /// <summary>
         /// Indicates whether this inheritance object is enabled.
@@ -541,7 +541,7 @@ namespace mRemoteNG.Connection
         #endregion
 
 
-        public ConnectionInfoInheritance(ConnectionInfo parent, bool ignoreDefaultInheritance = false)
+        public ConnectionInfoInheritance(ConnectionInfo? parent, bool ignoreDefaultInheritance = false)
         {
             Parent = parent;
             if (!ignoreDefaultInheritance)
@@ -576,7 +576,7 @@ namespace mRemoteNG.Connection
 
         private void StashInheritanceData()
         {
-            _tempInheritanceStorage = Clone(Parent);
+            _tempInheritanceStorage = Clone(Parent!);
         }
 
         public void TurnOnInheritanceCompletely()
