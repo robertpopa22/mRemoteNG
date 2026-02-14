@@ -15,7 +15,7 @@ namespace mRemoteNG.Tree
     {
         private readonly Color DropAllowedFeedbackColor = Color.Green;
         private readonly Color DropDeniedFeedbackColor = Color.Red;
-        private string _infoMessage;
+        private string? _infoMessage;
         private Color _currentFeedbackColor;
         private bool _enableFeedback;
 
@@ -57,6 +57,7 @@ namespace mRemoteNG.Tree
 
         private void DropModelAboveTarget(ConnectionInfo dropSource, ConnectionInfo dropTarget)
         {
+            if (dropSource.Parent is null || dropTarget.Parent is null) return;
             if (!dropSource.Parent.Equals(dropTarget.Parent))
                 dropTarget.Parent.AddChildAbove(dropSource, dropTarget);
             else
@@ -65,6 +66,7 @@ namespace mRemoteNG.Tree
 
         private void DropModelBelowTarget(ConnectionInfo dropSource, ConnectionInfo dropTarget)
         {
+            if (dropSource.Parent is null || dropTarget.Parent is null) return;
             if (!dropSource.Parent.Equals(dropTarget.Parent))
                 dropTarget.Parent.AddChildBelow(dropSource, dropTarget);
             else
@@ -78,7 +80,11 @@ namespace mRemoteNG.Tree
             _infoMessage = null;
             foreach (ConnectionInfo dropSource in e.SourceModels.Cast<ConnectionInfo>())
             {
-                ConnectionInfo dropTarget = e.TargetModel as ConnectionInfo;
+                if (e.TargetModel is not ConnectionInfo dropTarget)
+                {
+                    e.Effect = DragDropEffects.None;
+                    continue;
+                }
 
                 e.Effect = CanModelDrop(dropSource, dropTarget, e.DropTargetLocation);
                 e.InfoMessage = _infoMessage;
