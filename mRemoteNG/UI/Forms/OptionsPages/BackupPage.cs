@@ -216,12 +216,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 _frmMain.tmrAutoSave.Enabled = false;
             }
             */
-            Properties.OptionsBackupPage.Default.cbBackupEnableACL = (int)cbBackupEnableACL.SelectedValue;
-            Properties.OptionsBackupPage.Default.cbBackupTypeACL = (int)cbBackupTypeACL.SelectedValue;
-            Properties.OptionsBackupPage.Default.cbBackupFrequencyACL = (int)cbBackupFrequencyACL.SelectedValue;
-            Properties.OptionsBackupPage.Default.cbBackupNumberACL = (int)cbBackupNumberACL.SelectedValue;
-            Properties.OptionsBackupPage.Default.cbBackupNameFormatACL = (int)cbBackupNameFormatACL.SelectedValue;
-            Properties.OptionsBackupPage.Default.cbBackupLocationACL = (int)cbBackupLocationACL.SelectedValue;
+            Properties.OptionsBackupPage.Default.cbBackupEnableACL = cbBackupEnableACL.SelectedValue is int val1 ? val1 : 0;
+            Properties.OptionsBackupPage.Default.cbBackupTypeACL = cbBackupTypeACL.SelectedValue is int val2 ? val2 : 0;
+            Properties.OptionsBackupPage.Default.cbBackupFrequencyACL = cbBackupFrequencyACL.SelectedValue is int val3 ? val3 : 0;
+            Properties.OptionsBackupPage.Default.cbBackupNumberACL = cbBackupNumberACL.SelectedValue is int val4 ? val4 : 0;
+            Properties.OptionsBackupPage.Default.cbBackupNameFormatACL = cbBackupNameFormatACL.SelectedValue is int val5 ? val5 : 0;
+            Properties.OptionsBackupPage.Default.cbBackupLocationACL = cbBackupLocationACL.SelectedValue is int val6 ? val6 : 0;
 
             Properties.OptionsBackupPage.Default.BackupFileNameFormat = (string)txtBackupNameFormat.Text;
 
