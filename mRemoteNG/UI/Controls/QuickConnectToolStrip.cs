@@ -203,7 +203,7 @@ namespace mRemoteNG.UI.Controls
         {
             try
             {
-                ConnectionInfo connectionInfo = Runtime.ConnectionsService.CreateQuickConnect(_cmbQuickConnect.Text.Trim(),
+                ConnectionInfo? connectionInfo = Runtime.ConnectionsService.CreateQuickConnect(_cmbQuickConnect.Text.Trim(),
                                                                                    Converter.StringToProtocol(Settings
                                                                                                               .Default
                                                                                                               .QuickConnectProtocol));

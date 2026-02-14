@@ -58,7 +58,7 @@ namespace mRemoteNG.Connection
             }
         }
 
-        public ConnectionInfo CreateQuickConnect(string connectionString, ProtocolType protocol)
+        public ConnectionInfo? CreateQuickConnect(string connectionString, ProtocolType protocol)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace mRemoteNG.Connection
         /// <param name="connectionFileName"></param>
         public void LoadConnections(bool useDatabase, bool import, string connectionFileName)
         {
-            ConnectionTreeModel oldConnectionTreeModel = ConnectionTreeModel;
+            ConnectionTreeModel? oldConnectionTreeModel = ConnectionTreeModel;
             bool oldIsUsingDatabaseValue = UsingDatabase;
 
             IConnectionsLoader connectionLoader = useDatabase
@@ -157,7 +157,7 @@ namespace mRemoteNG.Connection
 
             ConnectionTreeModel = newConnectionTreeModel;
             UpdateCustomConsPathSetting(connectionFileName);
-            RaiseConnectionsLoadedEvent(oldConnectionTreeModel, newConnectionTreeModel, oldIsUsingDatabaseValue, useDatabase, connectionFileName);
+            RaiseConnectionsLoadedEvent(oldConnectionTreeModel is not null ? new Optional<ConnectionTreeModel>(oldConnectionTreeModel) : new Optional<ConnectionTreeModel>(), newConnectionTreeModel, oldIsUsingDatabaseValue, useDatabase, connectionFileName);
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Connections loaded using {connectionLoader.GetType().Name}");
         }
 
@@ -206,6 +206,8 @@ namespace mRemoteNG.Connection
         /// </summary>
         public void SaveConnections()
         {
+            if (ConnectionTreeModel is null || ConnectionFileName is null)
+                return;
             SaveConnections(ConnectionTreeModel, UsingDatabase, new SaveFilter(), ConnectionFileName);
         }
 
@@ -282,11 +284,16 @@ namespace mRemoteNG.Connection
                 return;
             }
 
+            ConnectionTreeModel? treeModel = ConnectionTreeModel;
+            string? fileName = ConnectionFileName;
+            if (treeModel is null || fileName is null)
+                return;
+
             Thread t = new(() =>
             {
                 lock (SaveLock)
                 {
-                    SaveConnections(ConnectionTreeModel, UsingDatabase, new SaveFilter(), ConnectionFileName, propertyNameTrigger: propertyNameTrigger);
+                    SaveConnections(treeModel, UsingDatabase, new SaveFilter(), fileName, propertyNameTrigger: propertyNameTrigger);
                 }
             });
             t.SetApartmentState(ApartmentState.STA);
@@ -333,7 +340,7 @@ namespace mRemoteNG.Connection
 
         private string GetDefaultStartupConnectionFileNameNormalEdition()
         {
-            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Application.ProductName, ConnectionsFileInfo.DefaultConnectionsFile);
+            string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Application.ProductName ?? "mRemoteNG", ConnectionsFileInfo.DefaultConnectionsFile);
             return File.Exists(appDataPath) ? appDataPath : GetDefaultStartupConnectionFileNamePortableEdition();
         }
 
