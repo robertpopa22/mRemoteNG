@@ -100,7 +100,7 @@ namespace mRemoteNG.App.Update
         {
             if (IsGetUpdateInfoRunning)
             {
-                _getUpdateInfoCancelToken.Cancel();
+                _getUpdateInfoCancelToken!.Cancel();
                 _getUpdateInfoCancelToken.Dispose();
                 _getUpdateInfoCancelToken = null;
 
@@ -132,6 +132,8 @@ namespace mRemoteNG.App.Update
             try
             {
                 _getUpdateInfoCancelToken = new CancellationTokenSource();
+                if (_httpClient == null)
+                    throw new InvalidOperationException("HttpClient has not been initialized.");
                 using HttpResponseMessage response = await _httpClient.GetAsync(CurrentUpdateInfo.DownloadAddress, HttpCompletionOption.ResponseHeadersRead, _getUpdateInfoCancelToken.Token);
                 byte[] buffer = new byte[_bufferLength];
                 long totalBytes = response.Content.Headers.ContentLength ?? 0;
@@ -165,7 +167,7 @@ namespace mRemoteNG.App.Update
                 Authenticode updateAuthenticode = new(CurrentUpdateInfo.UpdateFilePath)
                     {
                         RequireThumbprintMatch = true,
-                        ThumbprintToMatch = CurrentUpdateInfo.CertificateThumbprint
+                        ThumbprintToMatch = CurrentUpdateInfo.CertificateThumbprint ?? string.Empty
                     };
 
                     if (updateAuthenticode.Verify() != Authenticode.StatusValue.Verified)
@@ -216,7 +218,7 @@ namespace mRemoteNG.App.Update
         {
             if (IsGetUpdateInfoRunning)
             {
-                _getUpdateInfoCancelToken.Cancel();
+                _getUpdateInfoCancelToken!.Cancel();
                 _getUpdateInfoCancelToken.Dispose();
                 _getUpdateInfoCancelToken = null;
             }
@@ -224,6 +226,8 @@ namespace mRemoteNG.App.Update
             try
             {
                 _getUpdateInfoCancelToken = new CancellationTokenSource();
+                if (_httpClient == null)
+                    throw new InvalidOperationException("HttpClient has not been initialized.");
                 string updateInfo = await _httpClient.GetStringAsync(UpdateChannelInfo.GetUpdateChannelInfo(), _getUpdateInfoCancelToken.Token);
                 CurrentUpdateInfo = UpdateInfo.FromString(updateInfo);
                 Properties.OptionsUpdatesPage.Default.CheckForUpdatesLastCheck = DateTime.UtcNow;
@@ -244,7 +248,7 @@ namespace mRemoteNG.App.Update
         {
             if (IsGetChangeLogRunning)
             {
-                _changeLogCancelToken.Cancel();
+                _changeLogCancelToken!.Cancel();
                 _changeLogCancelToken.Dispose();
                 _changeLogCancelToken = null;
             }
@@ -252,6 +256,10 @@ namespace mRemoteNG.App.Update
             try
             {
                 _changeLogCancelToken = new CancellationTokenSource();
+                if (_httpClient == null)
+                    throw new InvalidOperationException("HttpClient has not been initialized.");
+                if (CurrentUpdateInfo == null)
+                    throw new InvalidOperationException("CurrentUpdateInfo is not available. GetUpdateInfoAsync() must be called first.");
                 return await _httpClient.GetStringAsync(CurrentUpdateInfo.ChangeLogAddress, _changeLogCancelToken.Token);
             }
             finally
