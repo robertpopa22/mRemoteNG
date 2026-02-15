@@ -50,6 +50,9 @@ namespace mRemoteNG.Connection.Protocol
         [LocalizedAttributes.LocalizedDescription(nameof(Language.AnyDesk))]
         AnyDesk = 14,
 
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.Vmrc))]
+        VMRC = 15,
+
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]
         IntApp = 20
     }

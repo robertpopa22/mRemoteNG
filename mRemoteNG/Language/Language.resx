@@ -2173,6 +2173,15 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="VmId" xml:space="preserve">
     <value>VM ID</value>
   </data>
+  <data name="Vmrc" xml:space="preserve">
+    <value>VMRC (VMware Remote Console)</value>
+  </data>
+  <data name="VmrcVmId" xml:space="preserve">
+    <value>ESXi VM ID</value>
+  </data>
+  <data name="PropertyDescriptionVmrcVmId" xml:space="preserve">
+    <value>The VM ID on the ESXi host (e.g. "1" or "vm-123"). Obtain via vim-cmd vmsvc/getallvms on the ESXi CLI.</value>
+  </data>
   <data name="RdpProtocolVersionNotSupported" xml:space="preserve">
     <value>Could not create RDP client. RDP protocol version {0} is not supported on this machine. Please choose an older protocol version.</value>
   </data>

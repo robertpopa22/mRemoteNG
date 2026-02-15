@@ -10,12 +10,19 @@
   "created_at": "2017-01-19T15:41:56Z",
   "github_updated_at": "2023-03-18T12:50:51Z",
   "body_snippet": "Hello,\r\n\r\nMe as well as many of my co-workers are struggling the same problem.\r\nAfter a while with one or more connection opened with mRemote we loose availabity of writing polish sings on main computer which has mRemote application open. We're unable to write signs such as  : śćźżąćłó. We've checked keybord & langugage option and nothing helps. However restarting mRemote helps but after while problem is returning.\r\n\r\nIf more informations are needed please feel free to ask, I'll try to deliver t...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "triaged",
+      "description": "Issue is from 2018 on Windows 7 with very old mRemoteNG versions (1.72-1.75), unclear if it still reproduces on current v1.81.0 with modern Windows and .NET 10, and the root cause (keyboard hook interference?) is not identified"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI3NDE3NzkzNQ==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue is from 2018 on Windows 7 with very old mRemoteNG versions (1.72-1.75), unclear if it still reproduces on current v1.81.0 with modern Windows and .NET 10, and the root cause (keyboard hook interference?) is not identified\nApproach: Request reproduction on current version with modern OS; if confirmed, investigate potential keyboard hook or input method interference in the RDP/connection hosting code"
 }

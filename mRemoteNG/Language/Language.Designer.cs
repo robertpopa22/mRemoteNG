@@ -7215,7 +7215,34 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("VmId", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to VMRC (VMware Remote Console).
+        /// </summary>
+        internal static string Vmrc {
+            get {
+                return ResourceManager.GetString("Vmrc", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to ESXi VM ID.
+        /// </summary>
+        internal static string VmrcVmId {
+            get {
+                return ResourceManager.GetString("VmrcVmId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The VM ID on the ESXi host....
+        /// </summary>
+        internal static string PropertyDescriptionVmrcVmId {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionVmrcVmId", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to VNC.
         /// </summary>
