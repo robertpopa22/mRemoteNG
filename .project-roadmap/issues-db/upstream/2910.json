@@ -1,60 +1,58 @@
-﻿{
-    "number":  2910,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Always show panel tabs corrupts Options panel display",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "1.78.*",
-                   "Options",
-                   "Nightly Build",
-                   "Panels"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2025-10-16T15:18:54Z",
-    "github_updated_at":  "2026-02-07T19:55:46Z",
-    "body_snippet":  "On mRemoteNG 1.78.2 NB 3220:\n\n1. File | Options | Tabs \u0026 Panels | check \"Always show panel tabs\".\n2. Click on OK button to save and close down Options.\n3. File | Options. Empty Options panel is displayed.\n\n\u003cimg width=\"451\" height=\"457\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/09488c58-f036-467b-82d2-7350f1f6e84f\" /\u003e",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7LzVbd",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This issue still appears in mRemoteNG v1.78.2 NB 3224. Can you please reopen the issue.\n\nBTW, I tried to accept the invitation, but it looks like I postponed it too much and invitation has expired.",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2025-10-19T05:34:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7L6DXR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "yes, thats ok, in curent stage I would not recomend to use NB in PROD - as its unstable a bit, I working on it every evening some time small parts are fixed, some times bigger issues apears due code is very paitfull and I am trying to reorganise it in proper manier but my personal target to make RC available before new year. Once it will be RC I will be sure its safe to use in PRDO but perhaps some bugs may still apears but not such these one what are obliuse.",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-10-20T08:07:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiO4",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:46Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:46Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2910,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Always show panel tabs corrupts Options panel display",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "1.78.*",
+    "Options",
+    "Nightly Build",
+    "Panels"
+  ],
+  "author": "igor2x",
+  "created_at": "2025-10-16T15:18:54Z",
+  "github_updated_at": "2026-02-07T19:55:46Z",
+  "body_snippet": "On mRemoteNG 1.78.2 NB 3220:\n\n1. File | Options | Tabs & Panels | check \"Always show panel tabs\".\n2. Click on OK button to save and close down Options.\n3. File | Options. Empty Options panel is displayed.\n\n<img width=\"451\" height=\"457\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/09488c58-f036-467b-82d2-7350f1f6e84f\" />",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7LzVbd",
+      "author": "igor2x",
+      "date": "2025-10-19T05:34:13Z",
+      "snippet": "This issue still appears in mRemoteNG v1.78.2 NB 3224. Can you please reopen the issue.\n\nBTW, I tried to accept the invitation, but it looks like I postponed it too much and invitation has expired.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7L6DXR",
+      "author": "Kvarkas",
+      "date": "2025-10-20T08:07:37Z",
+      "snippet": "yes, thats ok, in curent stage I would not recomend to use NB in PROD - as its unstable a bit, I working on it every evening some time small parts are fixed, some times bigger issues apears due code is very paitfull and I am trying to reorganise it in proper manier but my personal target to make RC available before new year. Once it will be RC I will be sure its safe to use in PRDO but perhaps some bugs may still apears but not such these one what are obliuse.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiO4",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:46Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:46Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T10:59:31Z",
+  "notes": ""
 }

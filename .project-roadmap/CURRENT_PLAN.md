@@ -167,7 +167,7 @@ REGULI:
 - NU schimba comportament existent — doar fix-ul cerut
 - NU crea teste interactive (dialog, MessageBox, notepad.exe)
 - Dupa fix, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
-- Dupa build, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -Headless -NoBuild
+- Dupa build, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 
 Fa DOAR fix-ul. Nimic altceva.
 """
@@ -281,10 +281,11 @@ for file_path, file_warnings in files_by_warning_count:
 - Cleanup: 25 branch-uri, 25 worktrees, .auto-claude/
 - Comise in `a653e86f`
 
-### Stare curenta (v1.81.0-beta.2, 2026-02-15)
+### Stare curenta (v1.81.0-beta.3, 2026-02-15)
 - **Build:** compileaza fara erori
-- **Teste:** 1947/1947 passed (headless multi-proces), 0 failures
-- **Test time:** 46s paralel (4 procese) vs 95s secvential (2.1x speedup)
+- **Teste:** 2228/2231 passed (full parallel, 5 procese), 0 failures, 3 skipped ([Ignore])
+- **Test time:** ~2 min paralel (5 procese)
+- **UI tests:** toate redesigned cu RunWithMessagePump pattern (fara headless filter)
 - **Nullable warnings:** 0 (2,554 fixed, 100% clean)
 - **Release:** v1.81.0-beta.2 published, 6 assets, all 7 CI jobs passed
 - **Specs:** 3/5 fail pre-existent (BouncyCastle GCM) — nu cauzat de noi

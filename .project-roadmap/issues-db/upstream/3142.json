@@ -1,30 +1,24 @@
-﻿{
-    "number":  3142,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "AlwaysShowPanelTabs Setting Not Respected at Application Launch",
-    "state":  "open",
-    "labels":  [
-
-               ],
-    "author":  "jcefoli",
-    "created_at":  "2026-02-13T18:49:01Z",
-    "github_updated_at":  "2026-02-13T18:49:01Z",
-    "body_snippet":  "### Description\nThe AlwaysShowPanelTabs setting in mRemoteNG is not properly applied when the application starts up. Users must manually re-toggle the setting in the options dialog for it to take effect, even though the setting appears to be saved correctly.\n\n### Steps to Reproduce\n\n1. Open mRemoteNG\n1. Go to Tools ΓåÆ Options ΓåÆ Tabs \u0026 Panels\n1. Check or uncheck \"Always show panel tabs\"\n1. Click OK to save settings\n1. Restart mRemoteNG\n1. Observe that the panel tabs visibility does not match t...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2026-02-13T18:49:01Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 3142,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "AlwaysShowPanelTabs Setting Not Respected at Application Launch",
+  "state": "open",
+  "labels": [],
+  "author": "jcefoli",
+  "created_at": "2026-02-13T18:49:01Z",
+  "github_updated_at": "2026-02-13T18:49:01Z",
+  "body_snippet": "### Description\nThe AlwaysShowPanelTabs setting in mRemoteNG is not properly applied when the application starts up. Users must manually re-toggle the setting in the options dialog for it to take effect, even though the setting appears to be saved correctly.\n\n### Steps to Reproduce\n\n1. Open mRemoteNG\n1. Go to Tools ΓåÆ Options ΓåÆ Tabs & Panels\n1. Check or uncheck \"Always show panel tabs\"\n1. Click OK to save settings\n1. Restart mRemoteNG\n1. Observe that the panel tabs visibility does not match t...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-02-13T18:49:01Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-14T14:14:59Z",
+  "notes": ""
 }

@@ -1,41 +1,39 @@
-﻿{
-    "number":  2913,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "SQL Server options fields can\u0027t be filled in",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "DBs",
-                   "1.78.*",
-                   "Nightly Build"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2025-10-16T15:34:36Z",
-    "github_updated_at":  "2026-02-07T19:55:49Z",
-    "body_snippet":  "On mRemoteNG 1.78.2 NB 3220:\n\n1. SQL options font is just too big comparing with other settings in File | Options.\n2. When option is enabled. Fields are still unable to be filled in.\n\u003cimg width=\"712\" height=\"471\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/762f85b1-8d8b-4542-8ad2-4114631c72ec\" /\u003e",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiPe",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:49Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:49Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2913,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "SQL Server options fields can't be filled in",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "DBs",
+    "1.78.*",
+    "Nightly Build"
+  ],
+  "author": "igor2x",
+  "created_at": "2025-10-16T15:34:36Z",
+  "github_updated_at": "2026-02-07T19:55:49Z",
+  "body_snippet": "On mRemoteNG 1.78.2 NB 3220:\n\n1. SQL options font is just too big comparing with other settings in File | Options.\n2. When option is enabled. Fields are still unable to be filled in.\n<img width=\"712\" height=\"471\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/762f85b1-8d8b-4542-8ad2-4114631c72ec\" />",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mYiPe",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:49Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:49Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T10:59:31Z",
+  "notes": ""
 }
