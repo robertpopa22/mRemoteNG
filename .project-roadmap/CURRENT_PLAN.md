@@ -1,9 +1,10 @@
 # Current Plan: Automated Issue Resolution & Warning Cleanup
 
-**Status:** IN PROGRESS
-**Branch:** `main` (v1.81.0-beta.1)
-**Last updated:** 2026-02-14
-**Last commit:** `a653e86f` — fix: resolve test failures from Gemini CS8618 nullable changes
+**Status:** COMPLETED (nullable warnings phase)
+**Branch:** `main` (v1.81.0-beta.2)
+**Last updated:** 2026-02-15
+**Released:** `v1.81.0-beta.2` — https://github.com/robertpopa22/mRemoteNG/releases/tag/20260215-v1.81.0-beta.2-NB-(3396)
+**Last commit:** `2597fafe` — fix(ci): read version from csproj instead of hardcoded values
 
 ---
 
@@ -198,7 +199,7 @@ comment = f"""
 **Branch:** `main`
 **What changed:** {short_description}
 
-📥 **Download latest beta:** [v1.81.0-beta.1](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.1)
+📥 **Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)
 
 Please test and report if this resolves your issue.
 
@@ -280,10 +281,11 @@ for file_path, file_warnings in files_by_warning_count:
 - Cleanup: 25 branch-uri, 25 worktrees, .auto-claude/
 - Comise in `a653e86f`
 
-### Stare curenta
+### Stare curenta (v1.81.0-beta.2, 2026-02-15)
 - **Build:** compileaza fara erori
-- **Teste:** 0 failures (non-UI)
-- **Warnings:** ~4,831
+- **Teste:** 1926/1926 passed (headless), 0 failures
+- **Nullable warnings:** 0 (2,554 fixed, 100% clean)
+- **Release:** v1.81.0-beta.2 published, 6 assets, all 7 CI jobs passed
 
 ---
 
@@ -324,7 +326,8 @@ Logheaza eroarea si treci la urmatorul task.
 | 2026-02-14 (baseline) | — | 852 | ~236 | ~4,200 | 0 | — |
 | 2026-02-14 (Gemini) | Gemini | 386 | 846 | ~4,831 | 0 | d60d2b80 |
 | 2026-02-14 (fixuri) | Claude | 386 | 846 | ~4,831 | 0 | a653e86f |
-| | | | | | | |
+| 2026-02-14-15 (IIS) | Claude+Gemini | 0 | 0 | 0 | 0 | c935f161 |
+| **FINAL** | **All** | **0** | **0** | **0** | **0** | **v1.81.0-beta.2** |
 
 ---
 
@@ -339,7 +342,7 @@ Postat automat pe fiecare issue rezolvat:
 **Branch:** `main`
 **What changed:** {description}
 
-📥 **Download latest beta:** [v1.81.0-beta.1](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.1)
+📥 **Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)
 
 Please test and report if this resolves your issue.
 

@@ -7,10 +7,11 @@ Persistent workspace for mRemoteNG fork modernization.
 **Citeste INTOTDEAUNA `CURRENT_PLAN.md` la inceputul fiecarei sesiuni!**
 Contine: ce s-a facut, unde am ramas, lectii critice, plan de executie.
 
-## Current: v1.81.0-beta.1
+## Current: v1.81.0-beta.2
 
-Nullable reference type warnings resolution (~4,831 warnings).
+Nullable warnings cleanup COMPLETED (2,338 → 0, 100%).
 Branch: `main`
+Release: https://github.com/robertpopa22/mRemoteNG/releases/tag/20260215-v1.81.0-beta.2-NB-(3396)
 
 ## Active Files
 
@@ -29,6 +30,7 @@ Branch: `main`
 | `scripts/Analyze-Issues.ps1` | Analyze what needs action |
 | `scripts/Update-Status.ps1` | Transition issue lifecycle + post GitHub comments |
 | `scripts/Generate-Report.ps1` | Generate markdown reports |
+| `scripts/orchestrate.py` | **IIS Orchestrator** — automated issue resolution & warning cleanup |
 | `scripts/find-lesson.ps1` | Search lessons by keyword |
 
 ## Archives

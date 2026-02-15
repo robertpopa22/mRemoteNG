@@ -13,7 +13,7 @@ Daca nu exista acest fisier, intreaba user-ul ce plan urmam.
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development branch (latest code, currently v1.81.0-beta.1)
+- **Main branch:** `main` — active development branch (latest code, currently v1.81.0-beta.2)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -76,8 +76,9 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (release/1.80, 2026-02-10):
-- **mRemoteNGTests:** 2179 total, **2174 passed, 2 skipped, 3 ignored** (env-dependent)
+### Current test status (v1.81.0-beta.2, 2026-02-15):
+- **Headless run:** 1926 total, **1926 passed** (with UI/env-dependent filters)
+- **Full run (mRemoteNGTests):** 2179 total, 2174 passed, 2 skipped, 3 ignored (env-dependent)
 - **mRemoteNGSpecs:** 5 total, 5 passed
 - **Zero failures.** Skipped/ignored tests are env-dependent WinForms tests:
   - 2 skipped: CueBanner (`Assume.That` for Win32 EM_SETCUEBANNER)
@@ -105,6 +106,26 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
   - See `CODE_SIGNING_POLICY.md` for team roles and verification steps
   - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
+- **CI reads version from `mRemoteNG.csproj`** (`<Version>` element) — no more hardcoded versions in workflow. Supports prerelease suffixes (e.g. `-beta.2`).
+
+## Release Status (v1.81.0-beta.2, 2026-02-15) ✅ RELEASED
+- **Tag:** `v1.81.0-beta.2` on `main`
+- **GitHub Release:** https://github.com/robertpopa22/mRemoteNG/releases/tag/20260215-v1.81.0-beta.2-NB-(3396)
+- **NB Release (CI):** tag `20260215-v1.81.0-beta.2-NB-(3396)`
+- **Assets:** 6 ZIPs (3 framework-dependent + 3 self-contained)
+- **Architectures:** x64, x86, ARM64
+- **CI Run:** All 7 jobs passed (6 builds + 1 release) — run `22031139133`
+- **Key changes:** Zero nullable warnings (2,554 fixed across 242 files), IIS Orchestrator, System.Drawing.Common security bump, upstream sync
+- **Nullable cleanup:** 2,338 → 0 warnings (100%), 247 commits, 353 files changed, 4 orchestrator sessions
+- **Tests:** 1926/1926 passed (headless filter)
+
+## Release Status (v1.81.0-beta.1, 2026-02-14) ✅ RELEASED
+- **Tag:** `v1.81.0-beta.1` on `main` (no CI release — superseded by beta.2)
+- **Key changes:** Beta-first release strategy, reveal password feature (#918), batch password fix (#3044), CSV export security (#1085)
+
+## Release Status (v1.80.2, 2026-02-14) ✅ RELEASED
+- **Tag:** `v1.80.2` on `main`
+- **Key changes:** AlwaysShowPanelTabs initialization fix (#3142)
 
 ## Release Status (v1.80.1 Security Patch, 2026-02-13) ✅ RELEASED
 - **Tag:** `v1.80.1` on `main`
@@ -179,16 +200,17 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 
 ## Release Checklist
 1. **MANDATORY: Run Issue Intelligence System sync** (see below)
-2. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
-3. Run tests (2179 total, verify zero regressions)
-4. Update CHANGELOG.md
-5. Tag and publish GitHub release
-6. **MANDATORY: Update issue statuses to `released` with `-PostComment`:**
+2. Bump version in `mRemoteNG/mRemoteNG.csproj` (`<Version>` element) — CI reads this automatically
+3. Update `CHANGELOG.md`
+4. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
+5. Run tests (1926+ headless, verify zero regressions)
+6. Commit, tag (`v1.XX.Y`), push — CI auto-builds 6 variants and creates GitHub release
+7. **MANDATORY: Update issue statuses to `released` with `-PostComment`:**
    ```powershell
-   .\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status released -Release "v1.80.0" -ReleaseUrl "<url>" -PostComment
+   .\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status released -Release "vX.Y.Z" -ReleaseUrl "<url>" -PostComment
    ```
-7. Generate final report: `.\.project-roadmap\scripts\Generate-Report.ps1 -IncludeAll`
-8. Commit all JSON changes in `.project-roadmap/issues-db/`
+8. Generate final report: `.\.project-roadmap\scripts\Generate-Report.ps1 -IncludeAll`
+9. Commit all JSON changes in `.project-roadmap/issues-db/`
 
 ## v1.80.0 PR Reference
 | PR# | Issue | Description |
@@ -323,6 +345,7 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 | `.project-roadmap/scripts/Analyze-Issues.ps1` | **MANDATORY** — Analyze what needs action (urgent, iteration, triage) |
 | `.project-roadmap/scripts/Update-Status.ps1` | **MANDATORY** — Transition issue lifecycle + post GitHub comments |
 | `.project-roadmap/scripts/Generate-Report.ps1` | Generate markdown reports for triage and releases |
+| `.project-roadmap/scripts/orchestrate.py` | **IIS Orchestrator** — automated issue resolution & warning cleanup via AI agents |
 | `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
 | `.project-roadmap/scripts/refresh-issues.ps1` | Legacy: fetch issue snapshot (superseded by Sync-Issues.ps1) |
 
