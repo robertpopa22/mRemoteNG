@@ -13,7 +13,7 @@ namespace mRemoteNG.UI.Menu
         private readonly WindowMenu _windowMenu = new WindowMenu(boundControl.Handle);
         private readonly int[] _sysMenSubItems = new int[51];
 
-        public Screen GetScreenById(int id)
+        public Screen? GetScreenById(int id)
         {
             for (int i = 0; i <= _sysMenSubItems.Length - 1; i++)
             {
@@ -55,7 +55,7 @@ namespace mRemoteNG.UI.Menu
             // separator
             _windowMenu.InsertMenuItem(_windowMenu.SystemMenuHandle, 2,
                                        WindowMenu.Flags.MF_BYPOSITION | WindowMenu.Flags.MF_SEPARATOR, IntPtr.Zero,
-                                       null);
+                                       string.Empty);
         }
 
         private void Dispose(bool disposing)

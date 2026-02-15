@@ -798,11 +798,11 @@ namespace mRemoteNG.UI.Forms
                     case NativeMethods.WM_SYSCOMMAND:
                         if (m.WParam == new IntPtr(0))
                             ShowHideMenu();
-                        Screen screen = _advancedWindowMenu.GetScreenById(m.WParam.ToInt32());
+                        Screen? screen = _advancedWindowMenu.GetScreenById(m.WParam.ToInt32());
                         if (screen != null)
                         {
                             Screens.SendFormToScreen(screen);
-                            Console.WriteLine(_advancedWindowMenu.GetScreenById(m.WParam.ToInt32()).ToString());
+                            Console.WriteLine(screen.ToString());
                         }
                         break;
                     case NativeMethods.WM_DRAWCLIPBOARD:
