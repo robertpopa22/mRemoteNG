@@ -1,83 +1,88 @@
-﻿{
-    "number":  153,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Merge connections panel and config panel",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "kmscode",
-    "created_at":  "2016-10-07T15:40:28Z",
-    "github_updated_at":  "2019-02-07T16:48:21Z",
-    "body_snippet":  "Request received via e-mail\n\nCurrently the Connections and the Config views appear on two separate panels/tabs and I find it awkward having to go back and forth between the two tabs. My suggestion is to have these two combined into a single view, similarly to a file manager. On the left side you would have the connections and on the right side you would see the configuration details of the currently selected connection. Please see mock-up belowΓÇª\n\n![image 1](https://cloud.githubusercontent.com/...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1MjM2MDc4Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "≡ƒæì ...I\u0027d also like to have the connections sidebar sticky on all tabs. That\u0027s how it was prior to upgrading to the latest non-stable. As it is now (connections on a tab),each time I want to start a new connection or edit an existing, I have to switch tabs. Not good UX there.\n",
-                         "author":  "klonos",
-                         "action_needed":  true,
-                         "date":  "2016-10-07T21:04:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1MjM3ODM2MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Unless I\u0027m misunderstanding, this is already the default setup. The\nconnections tree and the config panel are shown on the left, untabbed.\nActive connect windows shown on the right. The view can be reset to this\ndefault by going to View -\u003e Reset layout.\n\nOn Oct 7, 2016 3:04 PM, \"Gregory Netsas\" notifications@github.com wrote:\n\n\u003e ≡ƒæì ...I\u0027d also like to have the connections sidebar sticky on all tabs.\n\u003e That\u0027s how it was prior to upgrading to the latest non-stable. As it is now\n\u003e (connections on...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-10-07T22:43:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1MjQwMDk4Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e The view can be reset to this default by going to View -\u003e Reset layout.\n\nThat worked. After upgrading, the sidebar was converted to a tab that only included connections.\n",
-                         "author":  "klonos",
-                         "action_needed":  true,
-                         "date":  "2016-10-08T03:58:27Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NDA2Nzg0Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Nice, I asked for this feature on Jira.\nMR-957 can be closed.\n",
-                         "author":  "rsteph91",
-                         "action_needed":  true,
-                         "date":  "2016-10-16T19:20:31Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTg2ODY5NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "https://mremoteng.atlassian.net/browse/MR-368\n\nIt seems a bit strange that connections and folders can be manipulated from the File menu even when the Connections panel isn\u0027t visible, i.e. you can be working blind.\n\nWould it make sense for those entries to be greyed out while the Connections panel is not visible? Or to automatically show the Connections panel when any of those options are selected from the File menu? \n",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2016-10-24T21:16:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUwNjMyMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Possible small improvement for version 1.8",
-                         "author":  "jotatsu",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T16:48:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2019-02-07T16:48:21Z",
-    "unread_comments":  6,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 153,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Merge connections panel and config panel",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "kmscode",
+  "created_at": "2016-10-07T15:40:28Z",
+  "github_updated_at": "2019-02-07T16:48:21Z",
+  "body_snippet": "Request received via e-mail\n\nCurrently the Connections and the Config views appear on two separate panels/tabs and I find it awkward having to go back and forth between the two tabs. My suggestion is to have these two combined into a single view, similarly to a file manager. On the left side you would have the connections and on the right side you would see the configuration details of the currently selected connection. Please see mock-up belowΓÇª\n\n![image 1](https://cloud.githubusercontent.com/...",
+  "our_status": "wontfix",
+  "priority": "P3-enhancement",
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "Major UI architecture redesign request from 2014 with no clear specification - merging the connections and config panels would require extensive WinForms layout restructuring that is out of scope for the current roadmap"
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1MjM2MDc4Mw==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "≡ƒæì ...I'd also like to have the connections sidebar sticky on all tabs. That's how it was prior to upgrading to the latest non-stable. As it is now (connections on a tab),each time I want to start a new connection or edit an existing, I have to switch tabs. Not good UX there.\n",
+      "author": "klonos",
+      "action_needed": true,
+      "date": "2016-10-07T21:04:38Z"
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1MjM3ODM2MA==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "Unless I'm misunderstanding, this is already the default setup. The\nconnections tree and the config panel are shown on the left, untabbed.\nActive connect windows shown on the right. The view can be reset to this\ndefault by going to View -> Reset layout.\n\nOn Oct 7, 2016 3:04 PM, \"Gregory Netsas\" notifications@github.com wrote:\n\n> ≡ƒæì ...I'd also like to have the connections sidebar sticky on all tabs.\n> That's how it was prior to upgrading to the latest non-stable. As it is now\n> (connections on...",
+      "author": "sparerd",
+      "action_needed": true,
+      "date": "2016-10-07T22:43:50Z"
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1MjQwMDk4Nw==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "> The view can be reset to this default by going to View -> Reset layout.\n\nThat worked. After upgrading, the sidebar was converted to a tab that only included connections.\n",
+      "author": "klonos",
+      "action_needed": true,
+      "date": "2016-10-08T03:58:27Z"
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NDA2Nzg0Ng==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "Nice, I asked for this feature on Jira.\nMR-957 can be closed.\n",
+      "author": "rsteph91",
+      "action_needed": true,
+      "date": "2016-10-16T19:20:31Z"
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTg2ODY5NQ==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "https://mremoteng.atlassian.net/browse/MR-368\n\nIt seems a bit strange that connections and folders can be manipulated from the File menu even when the Connections panel isn't visible, i.e. you can be working blind.\n\nWould it make sense for those entries to be greyed out while the Connections panel is not visible? Or to automatically show the Connections panel when any of those options are selected from the File menu? \n",
+      "author": "kmscode",
+      "action_needed": true,
+      "date": "2016-10-24T21:16:56Z"
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTUwNjMyMA==",
+      "analyzed": false,
+      "is_ours": false,
+      "snippet": "Possible small improvement for version 1.8",
+      "author": "jotatsu",
+      "action_needed": true,
+      "date": "2019-02-07T16:48:21Z"
+    }
+  ],
+  "comments_cursor": "2019-02-07T16:48:21Z",
+  "unread_comments": 6,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-13T22:21:05Z",
+  "notes": "AI triage: Major UI architecture redesign request from 2014 with no clear specification - merging the connections and config panels would require extensive WinForms layout restructuring that is out of scope for the current roadmap\nApproach: Would require merging ConnectionTreeWindow and ConfigWindow into a single unified panel, restructuring DockPanel layout, and redesigning the property grid integration - too large and architectural for current priorities"
 }
