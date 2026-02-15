@@ -48,8 +48,10 @@ namespace mRemoteNG.UI.Forms
         {
             if (!ThemeManager.getInstance().ThemingActive) return;
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            pnlBottom.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            pnlBottom.ForeColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            var palette = ThemeManager.getInstance().ActiveTheme.ExtendedPalette;
+            if (palette == null) return;
+            pnlBottom.BackColor = palette.getColor("Dialog_Background");
+            pnlBottom.ForeColor = palette.getColor("Dialog_Foreground");
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
