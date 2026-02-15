@@ -1603,6 +1603,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="ShowProtocolOnTabs" xml:space="preserve">
     <value>Show protocols on tab names</value>
   </data>
+  <data name="ShowFolderPathOnTabs" xml:space="preserve">
+    <value>Show folder path on tab names</value>
+  </data>
   <data name="SingleClickOnConnectionOpensIt" xml:space="preserve">
     <value>Single click on connection opens it</value>
   </data>

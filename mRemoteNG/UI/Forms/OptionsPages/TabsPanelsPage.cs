@@ -42,6 +42,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkOpenNewTabRightOfSelected.Text = Language.OpenNewTabRight;
             chkShowLogonInfoOnTabs.Text = Language.ShowLogonInfoOnTabs;
             chkShowProtocolOnTabs.Text = Language.ShowProtocolOnTabs;
+            chkShowFolderPathOnTabs.Text = Language.ShowFolderPathOnTabs;
             chkIdentifyQuickConnectTabs.Text = Language.IdentifyQuickConnectTabs;
             chkDoubleClickClosesTab.Text = Language.DoubleClickTabClosesIt;
             chkAlwaysShowPanelSelectionDlg.Text = Language.AlwaysShowPanelSelection;
@@ -73,6 +74,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             chkShowLogonInfoOnTabs.Checked = Properties.OptionsTabsPanelsPage.Default.ShowLogonInfoOnTabs;
             chkShowProtocolOnTabs.Checked = Properties.OptionsTabsPanelsPage.Default.ShowProtocolOnTabs;
+            chkShowFolderPathOnTabs.Checked = Properties.OptionsTabsPanelsPage.Default.ShowFolderPathOnTabs;
             chkIdentifyQuickConnectTabs.Checked = Properties.OptionsTabsPanelsPage.Default.IdentifyQuickConnectTabs;
             chkDoubleClickClosesTab.Checked = Properties.OptionsTabsPanelsPage.Default.DoubleClickOnTabClosesIt;
             chkAlwaysShowPanelSelectionDlg.Checked = Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg;
@@ -106,6 +108,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             Properties.OptionsTabsPanelsPage.Default.ShowLogonInfoOnTabs = chkShowLogonInfoOnTabs.Checked;
             Properties.OptionsTabsPanelsPage.Default.ShowProtocolOnTabs = chkShowProtocolOnTabs.Checked;
+            Properties.OptionsTabsPanelsPage.Default.ShowFolderPathOnTabs = chkShowFolderPathOnTabs.Checked;
             Properties.OptionsTabsPanelsPage.Default.IdentifyQuickConnectTabs = chkIdentifyQuickConnectTabs.Checked;
             Properties.OptionsTabsPanelsPage.Default.DoubleClickOnTabClosesIt = chkDoubleClickClosesTab.Checked;
             Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg = chkAlwaysShowPanelSelectionDlg.Checked;

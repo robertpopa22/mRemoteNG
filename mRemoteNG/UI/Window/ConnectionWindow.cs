@@ -112,6 +112,13 @@ namespace mRemoteNG.UI.Window
 
                 titleText += connectionInfo.Name;
 
+                if (Properties.OptionsTabsPanelsPage.Default.ShowFolderPathOnTabs)
+                {
+                    var folderPath = GetFolderPath(connectionInfo);
+                    if (!string.IsNullOrEmpty(folderPath))
+                        titleText += $" \u2014 {folderPath}";
+                }
+
                 if (Properties.OptionsTabsPanelsPage.Default.ShowLogonInfoOnTabs)
                 {
                     titleText += @" (";
@@ -162,6 +169,19 @@ namespace mRemoteNG.UI.Window
             }
 
             return null;
+        }
+
+        private static string GetFolderPath(ConnectionInfo connectionInfo)
+        {
+            var parts = new List<string>();
+            var current = connectionInfo.Parent;
+            while (current?.Parent != null)
+            {
+                parts.Insert(0, current.Name);
+                current = current.Parent;
+            }
+
+            return string.Join(" / ", parts);
         }
 
         #endregion

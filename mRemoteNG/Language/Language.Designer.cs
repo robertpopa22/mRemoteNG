@@ -6116,7 +6116,16 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("ShowProtocolOnTabs", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show folder path on tab names.
+        /// </summary>
+        internal static string ShowFolderPathOnTabs {
+            get {
+                return ResourceManager.GetString("ShowFolderPathOnTabs", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Show Text.
         /// </summary>
