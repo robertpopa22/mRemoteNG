@@ -8,7 +8,7 @@ namespace mRemoteNG.Config.Putty
     [SupportedOSPlatform("windows")]
     public static class PuttySessionNameDecoder
     {
-        public static string Decode(string encodedSessionName, Encoding fallbackEncoding = null)
+        public static string Decode(string encodedSessionName, Encoding? fallbackEncoding = null)
         {
             if (string.IsNullOrEmpty(encodedSessionName))
                 return encodedSessionName ?? string.Empty;
