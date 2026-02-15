@@ -112,7 +112,9 @@ namespace mRemoteNG.UI.Controls
         private void ApplyTheme()
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
-            panel1.BackColor = ThemeManager.getInstance().ActiveTheme.ExtendedPalette.getColor("TextBox_Background");
+            var palette = ThemeManager.getInstance().ActiveTheme.ExtendedPalette;
+            if (palette != null)
+                panel1.BackColor = palette.getColor("TextBox_Background");
         }
 
         protected override void Dispose(bool disposing)
