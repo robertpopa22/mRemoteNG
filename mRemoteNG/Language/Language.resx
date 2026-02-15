@@ -1167,6 +1167,24 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PropertyDescriptionVNCProxyUsername" xml:space="preserve">
     <value>Enter your username for authenticating against the proxy.</value>
   </data>
+  <data name="RDPProxy" xml:space="preserve">
+    <value>RDP Proxy</value>
+  </data>
+  <data name="PropertyDescriptionRDPProxyType" xml:space="preserve">
+    <value>Select the proxy type used to tunnel RDP connections (HTTP CONNECT or SOCKS5).</value>
+  </data>
+  <data name="PropertyDescriptionRDPProxyAddress" xml:space="preserve">
+    <value>Enter the proxy server address for RDP connections.</value>
+  </data>
+  <data name="PropertyDescriptionRDPProxyPort" xml:space="preserve">
+    <value>Enter the port the proxy server listens on.</value>
+  </data>
+  <data name="PropertyDescriptionRDPProxyUsername" xml:space="preserve">
+    <value>Enter your username for authenticating against the proxy (SOCKS5 or HTTP).</value>
+  </data>
+  <data name="PropertyDescriptionRDPProxyPassword" xml:space="preserve">
+    <value>Enter your password for authenticating against the proxy.</value>
+  </data>
   <data name="HostnameIp" xml:space="preserve">
     <value>Hostname/IP</value>
   </data>

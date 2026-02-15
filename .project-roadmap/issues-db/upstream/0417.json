@@ -10,12 +10,19 @@
   "created_at": "2017-02-25T07:38:05Z",
   "github_updated_at": "2017-04-20T18:08:50Z",
   "body_snippet": "<!-- Feature Request -->\r\n\r\nI would like to ask for it somehow when adding an external tool like Filezilla FTP, Mikrotik Winbox, Telnet, Tracert, Ping, etc. as an external tool, rather than opening a new window, open as a tab inside the own mRemoteNG, Is it possible to implement this in the tool?\r\n\r\n\r\nSincerely, Tácio Andrade.",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "External tool window integration via SetParent is already available as 'Try to integrate' option, and CMD-based tools (ping, tracert) cannot be embedded as tabs due to console window limitations - this is a fundamental Windows API constraint, not a fixable bug."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI4MzM5NTQ3Ng==",
@@ -68,5 +75,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: External tool window integration via SetParent is already available as 'Try to integrate' option, and CMD-based tools (ping, tracert) cannot be embedded as tabs due to console window limitations - this is a fundamental Windows API constraint, not a fixable bug.\nApproach: No action needed - the existing 'Try to integrate' feature covers this request where technically possible, and console-based tools cannot be reliably embedded due to Win32 API limitations with SetParent on console windows."
 }
