@@ -12,7 +12,7 @@
   "created_at": "2017-03-12T08:06:56Z",
   "github_updated_at": "2017-03-13T16:30:09Z",
   "body_snippet": "\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\nAs stated on the title: Make connection details editable from a right click context menu.\r\nHaving to go through a different panel to do the same thing over and over again is broken design.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "Clear UI/UX enhancement request to allow editing connection properties directly from the right-click context menu, improving workflow efficiency"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 04d41065"
     }
   ],
   "comments": [

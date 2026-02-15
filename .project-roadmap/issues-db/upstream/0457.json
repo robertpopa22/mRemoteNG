@@ -10,12 +10,19 @@
   "created_at": "2017-03-16T11:35:44Z",
   "github_updated_at": "2017-06-04T02:29:33Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nWhen I use a new panel and the session dies - when doing RECONNECT- the new session is going back to the main screen. \r\nIt should stay on the panel it is cu...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "triaged",
+      "description": "When reconnecting a connection from a non-default panel, the reconnected session jumps back to the default panel instead of staying in the current panel, which is a usability bug in panel assignment logic."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDMwMDA1NzI3OQ==",
@@ -59,5 +66,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: When reconnecting a connection from a non-default panel, the reconnected session jumps back to the default panel instead of staying in the current panel, which is a usability bug in panel assignment logic.\nApproach: When reconnecting, preserve the current panel name from the existing connection's panel assignment and pass it through to the new connection setup, instead of falling back to the default panel."
 }

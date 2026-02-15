@@ -201,7 +201,7 @@ namespace mRemoteNG.UI.Window
                 foreach (InterfaceControl iControl in controlList)
                 {
                     iControl.Protocol.Close();
-                    initiator.OpenConnection(iControl.Info, ConnectionInfo.Force.DoNotJump);
+                    initiator.OpenConnection(iControl.Info, ConnectionInfo.Force.DoNotJump, this);
                 }
             }
             catch (Exception ex)
@@ -886,7 +886,7 @@ namespace mRemoteNG.UI.Window
                 }
 
                 Prot_Event_Closed(interfaceControl.Protocol);
-                Runtime.ConnectionInitiator.OpenConnection(interfaceControl.Info, ConnectionInfo.Force.DoNotJump);
+                Runtime.ConnectionInitiator.OpenConnection(interfaceControl.Info, ConnectionInfo.Force.DoNotJump, this);
             }
             catch (Exception ex)
             {
