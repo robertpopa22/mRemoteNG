@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Net.Sockets;
 using System.Reflection;
@@ -106,6 +107,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
     {
         #region Private Declarations
 
+        private const int VncConnectTimeoutMs = 10_000;
         private VncSharpCore.RemoteDesktop? _vnc;
         private ConnectionInfo? _info;
         private VncLockKeyFilter? _lockKeyFilter;
@@ -151,8 +153,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
             try
             {
                 if (_vnc == null || _info == null) return false;
-                if (TestConnect(_info.Hostname, _info.Port, 500))
-                    _vnc.Connect(_info.Hostname, _info.VNCViewOnly, _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+                if (TestConnect(_info.Hostname, _info.Port, 5000))
+                    ConnectWithTimeout(_vnc, _info, VncConnectTimeoutMs);
 
                 // Install the lock-key filter after Connect() creates the VncClient.
                 // Fixes Caps Lock sending 't' instead of toggle (issue #227).
@@ -263,6 +265,38 @@ namespace mRemoteNG.Connection.Protocol.VNC
                                                     Language.VncSetEventHandlersFailed + Environment.NewLine +
                                                     ex.Message, true);
             }
+        }
+
+        /// <summary>
+        /// Runs the blocking VncSharpCore Connect() on a background thread with a timeout
+        /// so that unreachable VNC servers fail fast instead of freezing the UI (issue #636).
+        /// </summary>
+        private static void ConnectWithTimeout(VncSharpCore.RemoteDesktop vnc, ConnectionInfo info, int timeoutMs)
+        {
+            Exception? connectException = null;
+            var connectTask = Task.Run(() =>
+            {
+                try
+                {
+                    vnc.Connect(info.Hostname, info.VNCViewOnly,
+                                info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+                }
+                catch (Exception ex)
+                {
+                    connectException = ex;
+                }
+            });
+
+            if (!connectTask.Wait(timeoutMs))
+            {
+                // Timed out — force-disconnect to unblock the background thread
+                try { vnc.Disconnect(); } catch { /* best-effort cleanup */ }
+                throw new TimeoutException(
+                    $"VNC connection to {info.Hostname}:{info.Port} timed out after {timeoutMs / 1000} seconds.");
+            }
+
+            if (connectException != null)
+                ExceptionDispatchInfo.Capture(connectException).Throw();
         }
 
         private static bool TestConnect(string hostName, int port, int timeoutMSec)
