@@ -86,14 +86,14 @@ namespace mRemoteNG.Config.Putty
 
         public delegate void PuttySessionChangedEventHandler(object sender, PuttySessionChangedEventArgs e);
 
-        public event PuttySessionChangedEventHandler PuttySessionChanged;
+        public event PuttySessionChangedEventHandler? PuttySessionChanged;
 
         protected virtual void RaiseSessionChangedEvent(PuttySessionChangedEventArgs args)
         {
             PuttySessionChanged?.Invoke(this, args);
         }
 
-        public event NotifyCollectionChangedEventHandler PuttySessionsCollectionChanged;
+        public event NotifyCollectionChangedEventHandler? PuttySessionsCollectionChanged;
 
         protected void RaisePuttySessionCollectionChangedEvent(NotifyCollectionChangedEventArgs args)
         {
