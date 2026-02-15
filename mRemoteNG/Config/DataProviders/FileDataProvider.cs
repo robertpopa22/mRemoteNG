@@ -83,7 +83,7 @@ namespace mRemoteNG.Config.DataProviders
 
         private void CreateMissingDirectories()
         {
-            string dirname = Path.GetDirectoryName(FilePath);
+            string? dirname = Path.GetDirectoryName(FilePath);
             if (dirname == null) return;
             Directory.CreateDirectory(dirname);
         }
