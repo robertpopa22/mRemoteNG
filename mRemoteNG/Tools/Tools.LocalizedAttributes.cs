@@ -38,7 +38,7 @@ namespace mRemoteNG.Tools
                     if (!Localized)
                     {
                         Localized = true;
-                        DisplayNameValue = Language.ResourceManager.GetString(DisplayNameValue);
+                        DisplayNameValue = Language.ResourceManager.GetString(DisplayNameValue) ?? DisplayNameValue;
                     }
 
                     return base.DisplayName;
@@ -58,7 +58,7 @@ namespace mRemoteNG.Tools
                     if (!Localized)
                     {
                         Localized = true;
-                        DescriptionValue = Language.ResourceManager.GetString(DescriptionValue);
+                        DescriptionValue = Language.ResourceManager.GetString(DescriptionValue) ?? DescriptionValue;
                     }
 
                     return base.Description;
