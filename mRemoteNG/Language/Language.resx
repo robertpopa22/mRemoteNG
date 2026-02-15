@@ -972,6 +972,18 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PasswordStrengthStrong" xml:space="preserve">
     <value>Strong</value>
   </data>
+  <data name="RequireCustomPassword" xml:space="preserve">
+    <value>Require custom master password</value>
+  </data>
+  <data name="RequireCustomPasswordTooltip" xml:space="preserve">
+    <value>When enabled, a custom master password must be set before connections can be saved. This prevents using the default (insecure) encryption key.</value>
+  </data>
+  <data name="CustomPasswordRequired" xml:space="preserve">
+    <value>A custom master password is required before saving connections. Please set a master password now.</value>
+  </data>
+  <data name="CustomPasswordRequiredTitle" xml:space="preserve">
+    <value>Master Password Required</value>
+  </data>
   <data name="PleaseFillAllFields" xml:space="preserve">
     <value>Please fill all fields</value>
   </data>

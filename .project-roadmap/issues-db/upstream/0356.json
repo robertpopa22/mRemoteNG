@@ -10,7 +10,7 @@
   "created_at": "2017-01-23T14:04:50Z",
   "github_updated_at": "2025-09-16T20:13:31Z",
   "body_snippet": "VMWare provides a client called vmrc that enables to view remote VM *console* widows.\r\nSupport in mRemoteNG would be great!",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "VMRC protocol support is a clear feature request with a known command-line integration method already researched by contributors"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in c5b7c0cf"
     }
   ],
   "comments": [
