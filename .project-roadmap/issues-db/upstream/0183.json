@@ -12,12 +12,19 @@
   "created_at": "2016-10-19T15:24:34Z",
   "github_updated_at": "2021-02-28T14:17:59Z",
   "body_snippet": "Multiple requests from JIRA for one or all of the following:\nBuilt in drag and drop SCP/SSH/FTP file transfer\nWinSCP integrated out of the box\nFileZilla integrated out of the box\n\nOld issues:\nhttps://mremoteng.atlassian.net/browse/MR-125\nhttps://mremoteng.atlassian.net/browse/MR-569\nhttps://mremoteng.atlassian.net/browse/MR-371\nhttps://mremoteng.atlassian.net/browse/MR-607\nhttps://mremoteng.atlassian.net/browse/MR-684\nhttps://mremoteng.atlassian.net/browse/MR-281\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "Full-featured file transfer (SCP/SFTP) is a major new feature requiring significant architecture changes, out of scope for current maintenance releases and better suited for a hypothetical 2.0 rewrite"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI4NzczNTg0MA==",
@@ -70,5 +77,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Full-featured file transfer (SCP/SFTP) is a major new feature requiring significant architecture changes, out of scope for current maintenance releases and better suited for a hypothetical 2.0 rewrite\nApproach: No action - this is a large feature request that would require implementing a new protocol handler, UI for file browsing/transfer, and integration with SSH/SCP libraries, which is beyond current project scope"
 }

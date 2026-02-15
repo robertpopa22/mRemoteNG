@@ -1522,6 +1522,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="Rlogin" xml:space="preserve">
     <value>Rlogin</value>
   </data>
+  <data name="Serial" xml:space="preserve">
+    <value>Serial (via PuTTY)</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

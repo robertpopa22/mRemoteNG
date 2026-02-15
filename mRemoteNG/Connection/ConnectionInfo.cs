@@ -13,6 +13,7 @@ using mRemoteNG.Connection.Protocol.WSL;
 using mRemoteNG.Connection.Protocol.RAW;
 using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Connection.Protocol.Rlogin;
+using mRemoteNG.Connection.Protocol.Serial;
 using mRemoteNG.Connection.Protocol.SSH;
 using mRemoteNG.Connection.Protocol.Telnet;
 using mRemoteNG.Connection.Protocol.VNC;
@@ -279,6 +280,8 @@ namespace mRemoteNG.Connection
                         return (int)ProtocolRlogin.Defaults.Port;
                     case ProtocolType.RAW:
                         return (int)RawProtocol.Defaults.Port;
+                    case ProtocolType.Serial:
+                        return (int)ProtocolSerial.Defaults.Port;
                     case ProtocolType.HTTP:
                         return (int)ProtocolHTTP.Defaults.Port;
                     case ProtocolType.HTTPS:

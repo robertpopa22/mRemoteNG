@@ -2,6 +2,7 @@
 using mRemoteNG.Connection.Protocol.RAW;
 using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Connection.Protocol.Rlogin;
+using mRemoteNG.Connection.Protocol.Serial;
 using mRemoteNG.Connection.Protocol.SSH;
 using mRemoteNG.Connection.Protocol.Telnet;
 using mRemoteNG.Connection.Protocol.VNC;
@@ -44,6 +45,8 @@ namespace mRemoteNG.Connection.Protocol
                     return new ProtocolRlogin();
                 case ProtocolType.RAW:
                     return new RawProtocol();
+                case ProtocolType.Serial:
+                    return new ProtocolSerial();
                 case ProtocolType.HTTP:
                     return new ProtocolHTTP(connectionInfo.RenderingEngine);
                 case ProtocolType.HTTPS:

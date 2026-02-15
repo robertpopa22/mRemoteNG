@@ -5,6 +5,7 @@ using System.Drawing.Design;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.Http;
 using mRemoteNG.Connection.Protocol.RDP;
+using mRemoteNG.Connection.Protocol.Serial;
 using mRemoteNG.Connection.Protocol.VNC;
 using mRemoteNG.Properties;
 using mRemoteNG.Tools;
@@ -118,6 +119,11 @@ namespace mRemoteNG.Connection
         private ProtocolVNC.Colors _vncColors = default;
         private ProtocolVNC.SmartSizeMode _vncSmartSizeMode = default;
         private bool _vncViewOnly = default;
+
+        private int _serialDataBits = 8;
+        private ProtocolSerial.Parity _serialParity = ProtocolSerial.Parity.None;
+        private ProtocolSerial.StopBits _serialStopBits = ProtocolSerial.StopBits.One;
+        private ProtocolSerial.FlowControl _serialFlowControl = ProtocolSerial.FlowControl.None;
 
         #endregion
 
