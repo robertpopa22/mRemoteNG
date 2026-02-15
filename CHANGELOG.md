@@ -3,6 +3,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.81.0-beta.2] - 2026-02-15
+
+### Highlight: Zero Nullable Warnings — AI Orchestrator Session
+
+This release eliminates **all 2,338 nullable warnings** (CS8600/CS8602/CS8604/CS8618/CS8625) from the codebase, reaching **100% nullable cleanliness**. The work was performed by the **IIS Orchestrator** — a custom Python-based automation system that coordinates AI agents (Claude Code + Gemini CLI) as sub-agents to fix warnings file-by-file with automated build+test verification after each change.
+
+**By the numbers:**
+- **2,554 warnings fixed** across **242 files** in **247 commits**
+- **353 files changed**, 4,367 insertions, 1,908 deletions
+- **4 orchestrator sessions** over 2 days (Feb 14–15)
+- **Zero test regressions** — every commit verified by build + test gate
+- **Session 1 (Gemini CLI):** 659/852 CS8618 warnings resolved in one pass
+- **Sessions 2–4 (Claude Code via IIS Orchestrator):** remaining warnings driven to zero
+
+The IIS Orchestrator (`orchestrate.py`) runs as a continuous loop: parse build warnings → group by file → delegate fix to AI agent → verify build+test → commit or revert → next file. Full source in `.project-roadmap/scripts/`.
+
+### Security
+- Bumped `System.Drawing.Common` to 10.0.3 in ObjectListView nuspec (addresses potential GDI+ vulnerabilities)
+
+### Changed
+- Synced with upstream `v1.78.2-dev` (#3142 AlwaysShowPanelTabs fix — already included since v1.80.2)
+- Version bumped to 1.81.0-beta.2
+
+### Added
+- **IIS Orchestrator** (`orchestrate.py`): automated issue resolution and warning cleanup system with live status monitoring, parallel AI agent coordination, and git-integrated commit workflow
+
 ## [1.81.0-beta.1] - 2026-02-14
 
 ### Fixed
