@@ -57,7 +57,9 @@ namespace mRemoteNG.Config.Connections
             PasswordAuthenticator authenticator = new(cryptographyProvider, cipherText, AuthenticationRequestor);
             bool authenticated = authenticator.Authenticate(new RootNodeInfo(RootNodeType.Connection).DefaultPassword.ConvertToSecureString());
 
-            return authenticated ? authenticator.LastAuthenticatedPassword : Optional<SecureString>.Empty;
+            return authenticated && authenticator.LastAuthenticatedPassword is { } password
+                ? password
+                : Optional<SecureString>.Empty;
         }
 
         private void ApplyLocalConnectionProperties(ContainerInfo rootNode)
