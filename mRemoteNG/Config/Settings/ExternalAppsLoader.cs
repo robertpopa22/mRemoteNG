@@ -98,6 +98,9 @@ namespace mRemoteNG.Config.Settings
                     extA.ShowOnToolbar = bool.Parse(xEl.Attributes["ShowOnToolbar"]!.Value);
                 }
 
+                if (xEl.HasAttribute("Category"))
+                    extA.Category = xEl.Attributes["Category"]?.Value ?? string.Empty;
+
                 _messageCollector.AddMessage(MessageClass.InformationMsg,
                                              $"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}",
                                              true);

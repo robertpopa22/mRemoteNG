@@ -25,6 +25,7 @@ namespace mRemoteNG.Tools
         private bool _waitForExit;
         private string _arguments = string.Empty; // Initialize to avoid CS8618
         private string _workingDir = string.Empty; // Initialize to avoid CS8618
+        private string _category = string.Empty;
         private bool _tryIntegrate;
         private bool _showOnToolbar = true;
         private bool _runElevated;
@@ -85,6 +86,12 @@ namespace mRemoteNG.Tools
         {
             get => _showOnToolbar;
             set => SetField(ref _showOnToolbar, value, nameof(ShowOnToolbar));
+        }
+
+        public string Category
+        {
+            get => _category;
+            set => SetField(ref _category, value, nameof(Category));
         }
 
         public bool RunElevated

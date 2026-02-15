@@ -16,6 +16,7 @@ namespace mRemoteNG.UI.Window
 	    internal BrightIdeasSoftware.OLVColumn RunElevateHeader;
 		internal Controls.MrngTextBox DisplayNameTextBox;
         internal BrightIdeasSoftware.OLVColumn ShowOnToolbarColumnHeader;
+        internal BrightIdeasSoftware.OLVColumn CategoryColumnHeader;
 		internal Controls.MrngLabel DisplayNameLabel;
 		internal Controls.MrngTextBox ArgumentsCheckBox;
 		internal Controls.MrngTextBox FilenameTextBox;
@@ -36,6 +37,8 @@ namespace mRemoteNG.UI.Window
 	    internal Controls.MrngTextBox WorkingDirTextBox;
 	    internal MrngButton BrowseWorkingDir;
 	    internal MrngCheckBox RunElevatedCheckBox;
+	    internal Controls.MrngLabel CategoryLabel;
+	    internal Controls.MrngTextBox CategoryTextBox;
 
         private void InitializeComponent()
 		{
@@ -50,6 +53,7 @@ namespace mRemoteNG.UI.Window
             this.TryToIntegrateColumnHeader = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.RunElevateHeader = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.ShowOnToolbarColumnHeader = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.CategoryColumnHeader = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.ToolsContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.NewToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();

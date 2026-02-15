@@ -44,6 +44,7 @@ namespace mRemoteNG.Config.Settings
                     xmlTextWriter.WriteAttributeString("TryToIntegrate", "", Convert.ToString(extA.TryIntegrate));
                     xmlTextWriter.WriteAttributeString("RunElevated", "", Convert.ToString(extA.RunElevated));
                     xmlTextWriter.WriteAttributeString("ShowOnToolbar", "", Convert.ToString(extA.ShowOnToolbar));
+                    xmlTextWriter.WriteAttributeString("Category", "", extA.Category);
                     xmlTextWriter.WriteEndElement();
                 }
 
