@@ -111,11 +111,25 @@ namespace mRemoteNG.Connection
             PropertyInfo[]? baseProperties = GetType().BaseType?.GetProperties();
             if (baseProperties == null) return;
             IEnumerable<PropertyInfo> properties = baseProperties.Where(prop => prop.CanRead && prop.CanWrite);
-            foreach (PropertyInfo property in properties)
+
+            // Temporarily suppress inheritance resolution on the source so we copy
+            // the connection's own property values, not values inherited from its parent.
+            // Without this, duplicated connections get the parent's resolved values baked
+            // into their backing fields, causing inheritance to not work correctly (#229).
+            ContainerInfo? savedParent = sourceConnectionInfo.Parent;
+            sourceConnectionInfo.Parent = null;
+            try
             {
-                if (property.Name == nameof(Parent)) continue;
-                object? remotePropertyValue = property.GetValue(sourceConnectionInfo, null);
-                property.SetValue(this, remotePropertyValue, null);
+                foreach (PropertyInfo property in properties)
+                {
+                    if (property.Name == nameof(Parent)) continue;
+                    object? remotePropertyValue = property.GetValue(sourceConnectionInfo, null);
+                    property.SetValue(this, remotePropertyValue, null);
+                }
+            }
+            finally
+            {
+                sourceConnectionInfo.Parent = savedParent;
             }
 
             ConnectionInfoInheritance clonedInheritance = sourceConnectionInfo.Inheritance.Clone(this);
