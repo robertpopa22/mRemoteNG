@@ -1815,7 +1815,16 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("Dynamic", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Dynamic Tab Name.
+        /// </summary>
+        internal static string DynamicTabName {
+            get {
+                return ResourceManager.GetString("DynamicTabName", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to AmazonEC2.
         /// </summary>

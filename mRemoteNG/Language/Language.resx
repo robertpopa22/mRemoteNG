@@ -2122,6 +2122,12 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="PropertyDescriptionFavorite" xml:space="preserve">
     <value>Show this connection in the favorites menu.</value>
   </data>
+  <data name="DynamicTabName" xml:space="preserve">
+    <value>Dynamic Tab Name</value>
+  </data>
+  <data name="PropertyDescriptionDynamicTabName" xml:space="preserve">
+    <value>When enabled, the tab title will automatically update to reflect the remote window title (e.g. PuTTY session title changes).</value>
+  </data>
   <data name="Favorite" xml:space="preserve">
     <value>Favorite</value>
   </data>
