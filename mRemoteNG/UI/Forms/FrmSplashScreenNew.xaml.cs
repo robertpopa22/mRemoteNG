@@ -10,7 +10,7 @@ namespace mRemoteNG.UI.Forms
     /// </summary>
     public partial class FrmSplashScreenNew
     {
-        static FrmSplashScreenNew instance = null;
+        static FrmSplashScreenNew? instance = null;
         public FrmSplashScreenNew()
         {
             InitializeComponent();
