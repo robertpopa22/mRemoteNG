@@ -65,12 +65,12 @@ BUILD_CMD = [
     "-File", str(REPO_ROOT / "build.ps1"),
     "-Rebuild",
 ]
-# Parallel test runner: 4 processes grouped by namespace (2.1x speedup)
-# Uses run-tests.ps1 -Headless -NoBuild (build is done separately by orchestrator)
+# Parallel test runner: 5 processes grouped by namespace (2.1x speedup)
+# Uses run-tests.ps1 -NoBuild (build is done separately by orchestrator)
 TEST_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
     "-File", str(REPO_ROOT / "run-tests.ps1"),
-    "-Headless", "-NoBuild",
+    "-NoBuild",
 ]
 # Legacy single-process filter (used only in Claude prompts for sub-agent builds)
 TEST_FILTER = (
@@ -267,22 +267,31 @@ def _run(cmd, timeout=60, cwd=None, capture=True):
 
 
 def _extract_json(text):
-    """Extract a JSON object from Claude's output (may be wrapped)."""
+    """Extract a JSON object from Claude's output (may be wrapped in envelope)."""
+    if not text:
+        return None
+
+    # Step 1: Try parsing the whole thing as JSON
+    parsed = None
     try:
-        return json.loads(text)
+        parsed = json.loads(text)
     except (json.JSONDecodeError, TypeError):
         pass
 
-    try:
-        outer = json.loads(text)
-        if isinstance(outer, dict) and "result" in outer:
-            inner = outer["result"]
-            if isinstance(inner, str):
-                return _extract_json(inner)
+    # Step 2: If it's a Claude --output-format json envelope, unwrap it
+    if isinstance(parsed, dict) and parsed.get("type") == "result" and "result" in parsed:
+        inner = parsed["result"]
+        if isinstance(inner, dict):
             return inner
-    except (json.JSONDecodeError, TypeError):
-        pass
+        if isinstance(inner, str):
+            return _extract_json(inner)
+        return None
 
+    # Step 3: If it parsed as a dict with our expected keys, return it
+    if isinstance(parsed, dict) and "decision" in parsed:
+        return parsed
+
+    # Step 4: Regex — find a JSON object with "decision" key in text
     m = re.search(r"\{[^{}]*\"decision\"[^{}]*\}", text, re.DOTALL)
     if m:
         try:
@@ -290,6 +299,7 @@ def _extract_json(text):
         except json.JSONDecodeError:
             pass
 
+    # Step 5: Regex — find JSON in markdown code block
     m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
     if m:
         try:
@@ -328,7 +338,7 @@ def run_build(capture_output=False):
 def run_tests():
     """Run non-UI tests via run-tests.ps1 (4 parallel processes).
     Returns True if all pass."""
-    log.info("    [TEST] Running parallel tests (run-tests.ps1 -Headless -NoBuild) ...")
+    log.info("    [TEST] Running parallel tests (run-tests.ps1 -NoBuild) ...")
     kill_stale_processes()
 
     try:
@@ -409,11 +419,12 @@ def git_push():
 
 
 def git_restore():
-    """Revert all uncommitted changes."""
+    """Revert all uncommitted changes (except .project-roadmap/ and run-tests.ps1)."""
     try:
-        _run(["git", "checkout", "--", "."])
-        _run(["git", "clean", "-fd"])
-        log.info("    [GIT] Reverted all changes")
+        # Restore only source code, not orchestrator scripts or issues-db
+        _run(["git", "checkout", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
+        _run(["git", "clean", "-fd", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
+        log.info("    [GIT] Reverted source code changes")
     except Exception as e:
         log.warning("    [GIT] Restore failed: %s", e)
 
@@ -458,8 +469,9 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
             )
             kill_stale_processes()
             if r.returncode != 0:
+                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
                 log.error("    [CLAUDE] attempt %d/%d exit %d: %s",
-                          attempt, retries, r.returncode, (r.stderr or "")[:200])
+                          attempt, retries, r.returncode, err_detail)
                 if attempt < retries:
                     log.info("    [CLAUDE] Retrying in 5s ...")
                     time.sleep(5)
@@ -618,9 +630,11 @@ def ai_triage(issue):
         f"  [{c.get('author', '?')}]: {c.get('snippet', '')[:300]}" for c in comments
     )
 
-    prompt = f"""You are a triage agent for mRemoteNG (.NET 10, WinForms, remote connections manager).
-Analyze this GitHub issue and decide what to do.
+    prompt = f"""You are an issue triage assistant for the mRemoteNG project (.NET 10, WinForms, remote connections manager).
 
+Your task: analyze this GitHub issue and produce a triage decision as a JSON object.
+
+=== ISSUE DATA ===
 Issue #{num}: {title}
 Labels: {labels}
 State: {issue.get('state', 'open')}
@@ -630,18 +644,22 @@ Body:
 
 Recent comments:
 {comments_text}
+=== END ISSUE DATA ===
 
-RESPOND ONLY with a single valid JSON object (no markdown, no text before/after):
-{{"decision":"implement|wontfix|duplicate|needs_info","reason":"one sentence","priority":"P0|P1|P2|P3|P4","estimated_files":["relative/path.cs"],"approach":"brief fix description"}}
+Respond with ONLY a JSON object in this exact format (no other text):
+{{"decision":"implement","reason":"one sentence explaining why","priority":"P2-bug","estimated_files":["relative/path.cs"],"approach":"brief fix description"}}
 
-Rules:
-- implement = clear bug/feature, we can fix it
-- wontfix = by design, obsolete, or out of scope
-- duplicate = already fixed in v1.79/v1.80 or duplicate of another issue
-- needs_info = unclear, need user response
-- Be conservative: if unclear, choose needs_info"""
+Valid decisions:
+- "implement" = clear bug or feature request that we can fix in code
+- "wontfix" = by design, obsolete, out of scope, or cannot reproduce
+- "duplicate" = already fixed in v1.79.0/v1.80.0/v1.80.1 or duplicate of another issue
+- "needs_info" = unclear issue, needs more information from reporter
 
-    out = claude_run(prompt, max_turns=3, json_output=True, timeout=120)
+Valid priorities: "P0-critical", "P1-security", "P2-bug", "P3-enhancement", "P4-debt"
+
+Be conservative: if the issue is unclear, use "needs_info"."""
+
+    out = claude_run(prompt, max_turns=3, json_output=False, timeout=120)
     if not out:
         return None
     return _extract_json(out)
@@ -675,7 +693,7 @@ RULES (CRITICAL):
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
-- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -Headless -NoBuild
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
 - Do ONLY the fix.  Nothing else."""
 
@@ -745,6 +763,7 @@ def flux_issues(status, dry_run=False, max_issues=None):
     if max_issues:
         issues = issues[:max_issues]
 
+    consecutive_failures = 0
     for i, issue in enumerate(issues, 1):
         num = issue["number"]
         title = issue.get("title", "")[:50]
@@ -756,12 +775,22 @@ def flux_issues(status, dry_run=False, max_issues=None):
             log.info("  [DRY RUN] skip triage")
             continue
 
+        # Rate-limit: pause between API calls (2s normal, 30s after failures)
+        if i > 1:
+            delay = 30 if consecutive_failures >= 3 else 2
+            time.sleep(delay)
+
         triage = ai_triage(issue)
         if not triage:
             status.add_error(f"issue_{num}", "triage", "AI returned None")
             status.data["issues"]["failed"] += 1
+            consecutive_failures += 1
+            if consecutive_failures >= 10:
+                log.error("  [CIRCUIT BREAKER] %d consecutive failures — stopping triage", consecutive_failures)
+                break
             continue
 
+        consecutive_failures = 0  # reset on success
         decision = triage.get("decision", "needs_info")
         ai_priority = triage.get("priority")
         ai_reason = triage.get("reason", "")
