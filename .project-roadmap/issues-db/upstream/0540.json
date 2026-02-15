@@ -11,12 +11,19 @@
   "created_at": "2017-05-05T03:16:29Z",
   "github_updated_at": "2026-02-07T19:53:05Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nSeems to mostly happen with 2012 servers. First time I connect, it times out. Works fine the 2nd time.\r\n|--:|---|\r\n|Operating system | Windows 2008 R2 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n\r\n\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "triaged",
+      "description": "Issue has no reproducible steps, no logs, and the reporter's own workaround (use console session) suggests a local configuration problem rather than an mRemoteNG bug; last triage comment already requested retest on latest build with no response."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI5OTYwODk1Mg==",
@@ -150,5 +157,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue has no reproducible steps, no logs, and the reporter's own workaround (use console session) suggests a local configuration problem rather than an mRemoteNG bug; last triage comment already requested retest on latest build with no response.\nApproach: Keep waiting for reporter to retest on v1.80+ and provide reproducible steps; close as stale if no response after reasonable period."
 }

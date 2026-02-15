@@ -2492,6 +2492,9 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="FilterSecureCRT" xml:space="preserve">
     <value>SecureCRT (*.xml)</value>
   </data>
+  <data name="FilterRoyalTS" xml:space="preserve">
+    <value>Royal TS (*.rtsx)</value>
+  </data>
   <data name="OptionsCompanyPolicyMessage" xml:space="preserve">
     <value>*Some settings are determined by your company. For further information, please contact your administrator</value>
   </data>
