@@ -18,7 +18,7 @@ namespace mRemoteNG.Config.Settings
         private readonly MessageCollector _messageCollector;
 
         // Static dictionary for persistent string to content mapping
-        private static readonly Dictionary<string, Func<IDockContent>> _contentMap = new Dictionary<string, Func<IDockContent>>();
+        private static readonly Dictionary<string, Func<IDockContent?>> _contentMap = new Dictionary<string, Func<IDockContent?>>();
 
         static DockPanelLayoutLoader() // Static constructor to initialize the map
         {
