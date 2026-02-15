@@ -12,7 +12,7 @@
   "created_at": "2017-01-28T18:30:36Z",
   "github_updated_at": "2018-09-17T14:21:16Z",
   "body_snippet": "If credentials are saved in a location controlled by mRemoteNG (ie, xml file) then setting a custom password should be mandatory. If a user fully encrypts their connections file, then a custom password will also be required.\r\n\r\nCurrently, the default is to use a hard coded default password unless the user specifies a different one. This makes decryption trivial and is poor practice.\r\n\r\nRelated to #306 \r\nRelated to #208 ",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P1-security",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "Feature request to enforce custom master password as mandatory, improving default security posture for connection file encryption"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 2e92dc6a"
     }
   ],
   "comments": [

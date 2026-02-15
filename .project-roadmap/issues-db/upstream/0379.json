@@ -10,12 +10,19 @@
   "created_at": "2017-01-29T10:52:48Z",
   "github_updated_at": "2019-11-25T15:01:09Z",
   "body_snippet": "While be fun to add support for scripting on text terminal like [SPSL SuperPutty fonctionality](https://github.com/jimradford/superputty/wiki/SPSL-Reference-(SuperPuTTY-Scripting-Language)) but with [expect](https://en.wikipedia.org/wiki/Expect) support.\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "Scripting/expect support for terminal sessions is a major architectural feature far outside the current project scope and would require embedding a scripting engine, terminal session interception, and event hooks — effectively a different product"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI3NjE5NjQ4OQ==",
@@ -104,5 +111,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Scripting/expect support for terminal sessions is a major architectural feature far outside the current project scope and would require embedding a scripting engine, terminal session interception, and event hooks — effectively a different product\nApproach: Out of scope for current roadmap; would require fundamental architecture changes to intercept terminal I/O and embed a scripting runtime"
 }
