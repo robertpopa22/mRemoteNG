@@ -81,7 +81,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
 
         private void SerializeNodesRecursive(ConnectionInfo node, StringBuilder sb)
         {
-            ContainerInfo nodeAsContainer = node as ContainerInfo;
+            ContainerInfo? nodeAsContainer = node as ContainerInfo;
             if (nodeAsContainer != null)
             {
                 foreach (ConnectionInfo child in nodeAsContainer.Children)
@@ -280,7 +280,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
 
         private string FormatForCsv(object value)
         {
-            string cleanedString = value.ToString().Replace(";", "");
+            string cleanedString = (value?.ToString() ?? string.Empty).Replace(";", "");
             return cleanedString + ";";
         }
     }
