@@ -9,7 +9,7 @@ namespace mRemoteNG.Config.DatabaseConnectors
 {
     public class MySqlDatabaseConnector : IDatabaseConnector
     {
-        private DbConnection _dbConnection { get; set; } = default(MySqlConnection);
+        private DbConnection _dbConnection { get; set; } = null!;
         private string _dbConnectionString = "";
         private readonly string _dbHost;
         private readonly string _dbPort;
