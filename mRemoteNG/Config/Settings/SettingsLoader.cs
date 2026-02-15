@@ -75,7 +75,6 @@ namespace mRemoteNG.Config.Settings
                 MainForm.pnlDock.DocumentStyle = DocumentStyle.DockingWindow;
         }
 
-
         private void SetSupportedCulture()
         {
             if (Properties.Settings.Default.OverrideUICulture == "" || !SupportedCultures.IsNameSupported(Properties.Settings.Default.OverrideUICulture)) return;
