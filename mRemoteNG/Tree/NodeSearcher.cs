@@ -35,6 +35,7 @@ namespace mRemoteNG.Tree
 
         public ConnectionInfo? NextMatch()
         {
+            if (CurrentMatch is null) return CurrentMatch;
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             if (!CurrentMatchIsTheLastMatchInTheList())
                 CurrentMatch = Matches[currentMatchIndex + 1];
@@ -43,12 +44,14 @@ namespace mRemoteNG.Tree
 
         private bool CurrentMatchIsTheLastMatchInTheList()
         {
+            if (CurrentMatch is null) return true;
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             return currentMatchIndex >= Matches.Count - 1;
         }
 
         public ConnectionInfo? PreviousMatch()
         {
+            if (CurrentMatch is null) return CurrentMatch;
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             if (!CurrentMatchIsTheFirstMatchInTheList())
                 CurrentMatch = Matches[currentMatchIndex - 1];
@@ -57,6 +60,7 @@ namespace mRemoteNG.Tree
 
         private bool CurrentMatchIsTheFirstMatchInTheList()
         {
+            if (CurrentMatch is null) return true;
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             return currentMatchIndex <= 0;
         }

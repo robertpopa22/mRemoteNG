@@ -1065,7 +1065,7 @@ namespace mRemoteNG.UI.Tabs
             {
                 if (content is ConnectionTab connectionTab)
                 {
-                    InterfaceControl interfaceControl = InterfaceControl.FindInterfaceControl(connectionTab);
+                    InterfaceControl? interfaceControl = InterfaceControl.FindInterfaceControl(connectionTab);
                     if (interfaceControl?.Info != null)
                     {
                         string tabColorStr = interfaceControl.Info.TabColor;
@@ -1478,7 +1478,7 @@ namespace mRemoteNG.UI.Tabs
 
         private void CloseProtocol()
         {
-            InterfaceControl ic = InterfaceControl.FindInterfaceControl(DockPane.DockPanel);
+            InterfaceControl? ic = InterfaceControl.FindInterfaceControl(DockPane.DockPanel);
             ic?.Protocol.Close();
         }
 

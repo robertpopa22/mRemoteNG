@@ -52,7 +52,7 @@ namespace mRemoteNG.UI.Window
             connDock.ActiveContentChanged += ConnDockOnActiveContentChanged;
         }
 
-        private InterfaceControl GetInterfaceControl()
+        private InterfaceControl? GetInterfaceControl()
         {
             return InterfaceControl.FindInterfaceControl(connDock);
         }
@@ -394,7 +394,7 @@ namespace mRemoteNG.UI.Window
 
         private void ConnDockOnActiveContentChanged(object sender, EventArgs e)
         {
-            InterfaceControl ic = GetInterfaceControl();
+            InterfaceControl? ic = GetInterfaceControl();
             if (ic?.Info == null) return;
             FrmMain.Default.SelectedConnection = ic.Info;
         }
@@ -468,7 +468,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
                 if (interfaceControl.Protocol is ISupportsViewOnly viewOnly)
@@ -537,7 +537,8 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
+                if (interfaceControl == null) return;
 
                 switch (interfaceControl.Protocol)
                 {
@@ -556,7 +557,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
                 if (interfaceControl.Info.Protocol == ProtocolType.SSH1 |
@@ -575,7 +576,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
 
                 AppWindows.Show(WindowType.SSHTransfer);
@@ -597,7 +598,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.StartFileTransfer();
             }
@@ -611,7 +612,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (!(interfaceControl?.Protocol is ISupportsViewOnly viewOnly))
                     return;
 
@@ -628,7 +629,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.StartChat();
             }
@@ -642,7 +643,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.RefreshScreen();
             }
@@ -656,7 +657,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 ProtocolVNC? vnc = interfaceControl?.Protocol as ProtocolVNC;
                 vnc?.SendSpecialKeys(keys);
             }
@@ -670,7 +671,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 RdpProtocol? rdp = interfaceControl?.Protocol as RdpProtocol;
                 if (rdp?.RedirectKeysEnabled == true && rdp.Fullscreen)
                     return;
@@ -687,7 +688,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 PuttyBase? puttyBase = interfaceControl?.Protocol as PuttyBase;
                 puttyBase?.ShowSettingsDialog();
             }

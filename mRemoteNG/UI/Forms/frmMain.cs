@@ -549,7 +549,7 @@ namespace mRemoteNG.UI.Forms
                 foreach (IDockContent tab in dp.Contents)
                 {
                     if (tab is not UI.Tabs.ConnectionTab ct) continue;
-                    InterfaceControl ifc = InterfaceControl.FindInterfaceControl(ct);
+                    InterfaceControl? ifc = InterfaceControl.FindInterfaceControl(ct);
                     ifc?.Protocol?.OnDisplaySettingsChanged();
                 }
             }
@@ -906,7 +906,7 @@ namespace mRemoteNG.UI.Forms
             if (cw == null) return;
             ConnectionTab? tab = GetActiveConnectionTab(cw);
             if (tab == null) return;
-            InterfaceControl ifc = InterfaceControl.FindInterfaceControl(tab);
+            InterfaceControl? ifc = InterfaceControl.FindInterfaceControl(tab);
             if (ifc == null) return;
 
             ifc.Protocol?.Focus();
