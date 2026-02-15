@@ -918,6 +918,20 @@ namespace mRemoteNG.UI.Window
 
         #endregion
 
+        protected override void WndProc(ref System.Windows.Forms.Message m)
+        {
+            if (m.Msg == NativeMethods.WM_MOUSEACTIVATE)
+            {
+                // Dismiss the tab context menu when the user clicks inside the RDP frame.
+                // The RDP ActiveX control swallows mouse events, so the context menu never
+                // receives a "click elsewhere" notification and stays open (#330).
+                if (cmenTab.Visible)
+                    cmenTab.Close();
+            }
+
+            base.WndProc(ref m);
+        }
+
         #region Protocols
 
         public void Prot_Event_Closed(object sender)
