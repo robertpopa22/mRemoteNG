@@ -11,8 +11,8 @@ namespace mRemoteNG.Tree
     {
         private readonly ConnectionTreeModel _connectionTreeModel = connectionTreeModel;
 
-        private List<ConnectionInfo> Matches { get; set; }
-        public ConnectionInfo CurrentMatch { get; private set; }
+        private List<ConnectionInfo> Matches { get; set; } = [];
+        public ConnectionInfo? CurrentMatch { get; private set; }
 
         public IEnumerable<ConnectionInfo> SearchByName(string searchText)
         {
@@ -33,7 +33,7 @@ namespace mRemoteNG.Tree
             return Matches;
         }
 
-        public ConnectionInfo NextMatch()
+        public ConnectionInfo? NextMatch()
         {
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             if (!CurrentMatchIsTheLastMatchInTheList())
@@ -47,7 +47,7 @@ namespace mRemoteNG.Tree
             return currentMatchIndex >= Matches.Count - 1;
         }
 
-        public ConnectionInfo PreviousMatch()
+        public ConnectionInfo? PreviousMatch()
         {
             int currentMatchIndex = Matches.IndexOf(CurrentMatch);
             if (!CurrentMatchIsTheFirstMatchInTheList())

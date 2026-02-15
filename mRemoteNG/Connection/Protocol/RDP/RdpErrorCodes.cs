@@ -9,7 +9,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
     [SupportedOSPlatform("windows")]
     public static class RdpErrorCodes
     {
-        private static Hashtable _description;
+        private static Hashtable? _description;
 
         private static void InitDescription()
         {
@@ -34,7 +34,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 if (_description == null)
                     InitDescription();
 
-                return (string)_description?[id];
+                return (string?)_description?[id] ?? string.Format(Language.RdpErrorUnknown, id);
             }
             catch (Exception ex)
             {

@@ -52,7 +52,7 @@ namespace mRemoteNG.UI.Controls
                 _ignoreEnter = false;
                 e.Handled = true;
             }
-            else if (e.KeyCode == Keys.Delete & (_comboBox?.DroppedDown ?? false))
+            else if (e.KeyCode == Keys.Delete && _comboBox != null && _comboBox.DroppedDown)
             {
                 if (_comboBox.SelectedIndex != -1)
                 {

@@ -232,6 +232,7 @@ namespace mRemoteNG.Connection
                 SetConnectionEventHandlers(newProtocol);
                 // in case of connection through SSH tunnel the container is already defined and must be use, else it needs to be created here
                 if (connectionContainer == null) connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
+                if (connectionContainer == null) return;
                 BuildConnectionInterfaceController(connectionInfo, newProtocol, connectionContainer);
                 // in case of connection through SSH tunnel the connectionInfo was modified but connectionInfoOriginal in all cases retains the original info
                 // and is stored in interface control for further use
@@ -324,7 +325,7 @@ namespace mRemoteNG.Connection
                 : null;
         }
 
-        private ConnectionWindow? SetConnectionForm(ConnectionWindow conForm, string connectionPanel)
+        private ConnectionWindow? SetConnectionForm(ConnectionWindow? conForm, string connectionPanel)
         {
             ConnectionWindow? connectionForm = conForm ?? Runtime.WindowList.FromString(connectionPanel) as ConnectionWindow;
 
