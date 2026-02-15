@@ -235,7 +235,7 @@ namespace mRemoteNG.App
 
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            FrmUnhandledException window = new(e.ExceptionObject as Exception, e.IsTerminating);
+            FrmUnhandledException window = new(e.ExceptionObject as Exception ?? new Exception(e.ExceptionObject?.ToString()), e.IsTerminating);
             window.ShowDialog(FrmMain.Default);
         }
 
@@ -365,7 +365,7 @@ namespace mRemoteNG.App
 
             lbl.LinkClicked += (s, e) =>
             {
-                string? linkUrl = e.Link.LinkData as string;
+                string? linkUrl = e.Link?.LinkData as string;
                 if (string.IsNullOrEmpty(linkUrl))
                     return;
                 if (!InternetConnection.IsPosible())
