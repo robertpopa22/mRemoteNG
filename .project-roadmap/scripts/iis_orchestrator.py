@@ -500,7 +500,7 @@ def update_issue_json(issue_num, new_status, description=""):
     if not json_file.exists():
         return
     try:
-        data = json.loads(json_file.read_text(encoding="utf-8"))
+        data = json.loads(json_file.read_text(encoding="utf-8-sig"))
         data["our_status"] = new_status
         if "iterations" not in data:
             data["iterations"] = []
@@ -565,7 +565,7 @@ def load_actionable_issues():
         if f.name.startswith("_"):
             continue
         try:
-            data = json.loads(f.read_text(encoding="utf-8"))
+            data = json.loads(f.read_text(encoding="utf-8-sig"))
             if data.get("our_status", "new") in ("new", "triaged", "roadmap"):
                 issues.append(data)
         except Exception:
