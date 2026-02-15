@@ -587,5 +587,23 @@
     <Setting Name="ConDefaultRDGatewayExternalCredentialProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">None</Value>
     </Setting>
+    <Setting Name="InhDefaultColor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultTabColor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultConnectionFrameColor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultRedirectDiskDrivesCustom" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultRDGatewayExternalCredentialProvider" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultRDGatewayUserViaAPI" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

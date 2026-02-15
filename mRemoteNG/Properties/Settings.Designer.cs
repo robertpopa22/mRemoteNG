@@ -2380,5 +2380,77 @@ namespace mRemoteNG.Properties {
                 this["ConDefaultRDGatewayExternalCredentialProvider"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultColor {
+            get {
+                return ((bool)(this["InhDefaultColor"]));
+            }
+            set {
+                this["InhDefaultColor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultTabColor {
+            get {
+                return ((bool)(this["InhDefaultTabColor"]));
+            }
+            set {
+                this["InhDefaultTabColor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultConnectionFrameColor {
+            get {
+                return ((bool)(this["InhDefaultConnectionFrameColor"]));
+            }
+            set {
+                this["InhDefaultConnectionFrameColor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultRedirectDiskDrivesCustom {
+            get {
+                return ((bool)(this["InhDefaultRedirectDiskDrivesCustom"]));
+            }
+            set {
+                this["InhDefaultRedirectDiskDrivesCustom"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultRDGatewayExternalCredentialProvider {
+            get {
+                return ((bool)(this["InhDefaultRDGatewayExternalCredentialProvider"]));
+            }
+            set {
+                this["InhDefaultRDGatewayExternalCredentialProvider"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultRDGatewayUserViaAPI {
+            get {
+                return ((bool)(this["InhDefaultRDGatewayUserViaAPI"]));
+            }
+            set {
+                this["InhDefaultRDGatewayUserViaAPI"] = value;
+            }
+        }
     }
 }
