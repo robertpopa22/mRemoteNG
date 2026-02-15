@@ -544,6 +544,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 switch (connectionInfo.RDGatewayUseConnectionCredentials)
                 {
                     case RDGatewayUseConnectionCredentials.Yes:
+                        _rdpClient.TransportSettings2.GatewayCredSharing = 0;
                         _rdpClient.TransportSettings2.GatewayUsername = connectionInfo.Username;
                         //_rdpClient.TransportSettings2.GatewayPassword = connectionInfo.Password.ConvertToUnsecureString();
                         _rdpClient.TransportSettings2.GatewayPassword = connectionInfo.Password;

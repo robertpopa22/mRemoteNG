@@ -13,7 +13,7 @@
   "created_at": "2017-03-06T15:48:37Z",
   "github_updated_at": "2026-02-07T19:51:58Z",
   "body_snippet": "<!-- Feature Request -->\r\n## Issue that prompted feature request?\r\nFolders do not allow you to set a Hostname/IP for inheritance.\r\n\r\n### Fix for specified issue:\r\n- Allow folders to configure a Hostname/IP\r\n- Allow for sub-folders/connections underneath the folder to inherit the setting\r\n\r\nI can work on this myself and submit a PR if you would like",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -24,6 +24,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "Clear feature request with multiple community votes to allow folders to define a shared Hostname/IP inherited by child connections, useful for multi-port/multi-user scenarios on the same host"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 89e823cc"
     }
   ],
   "comments": [
