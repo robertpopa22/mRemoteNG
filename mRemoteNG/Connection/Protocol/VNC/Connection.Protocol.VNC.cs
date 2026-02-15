@@ -2,6 +2,8 @@
 using System.Threading;
 using System.ComponentModel;
 using System.Net.Sockets;
+using System.Reflection;
+using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Tools;
 using mRemoteNG.UI.Forms;
@@ -15,6 +17,90 @@ using System.Runtime.ExceptionServices;
 
 namespace mRemoteNG.Connection.Protocol.VNC
 {
+    /// <summary>
+    /// Intercepts lock-key messages (Caps Lock, Num Lock, Scroll Lock) destined for the
+    /// VncSharpCore RemoteDesktop control and sends the correct X11 keysyms instead.
+    /// Without this filter, VncSharpCore's ToAscii fallback mistranslates these keys
+    /// (e.g., Caps Lock → lowercase 't'). See GitHub issue #227.
+    /// </summary>
+    [SupportedOSPlatform("windows")]
+    internal sealed class VncLockKeyFilter : IMessageFilter
+    {
+        private const int WM_KEYDOWN = 0x0100;
+        private const int WM_KEYUP = 0x0101;
+        private const int WM_SYSKEYDOWN = 0x0104;
+        private const int WM_SYSKEYUP = 0x0105;
+
+        private const int VK_CAPITAL = 0x14;   // Caps Lock
+        private const int VK_NUMLOCK = 0x90;   // Num Lock
+        private const int VK_SCROLL = 0x91;    // Scroll Lock
+
+        // X11 keysym values for lock keys
+        private const uint XK_Caps_Lock = 0xFFE5;
+        private const uint XK_Num_Lock = 0xFF7F;
+        private const uint XK_Scroll_Lock = 0xFF14;
+
+        private readonly VncSharpCore.RemoteDesktop _remoteDesktop;
+        private readonly FieldInfo? _vncField;
+        private MethodInfo? _writeKeyboardEvent;
+
+        public VncLockKeyFilter(VncSharpCore.RemoteDesktop remoteDesktop)
+        {
+            _remoteDesktop = remoteDesktop;
+            _vncField = typeof(VncSharpCore.RemoteDesktop)
+                .GetField("vnc", BindingFlags.NonPublic | BindingFlags.Instance);
+        }
+
+        public bool PreFilterMessage(ref Message m)
+        {
+            // Only intercept key messages
+            if (m.Msg != WM_KEYDOWN && m.Msg != WM_KEYUP &&
+                m.Msg != WM_SYSKEYDOWN && m.Msg != WM_SYSKEYUP)
+                return false;
+
+            int vk = m.WParam.ToInt32();
+
+            // Only intercept lock keys
+            uint keysym;
+            switch (vk)
+            {
+                case VK_CAPITAL:    keysym = XK_Caps_Lock;   break;
+                case VK_NUMLOCK:    keysym = XK_Num_Lock;    break;
+                case VK_SCROLL:     keysym = XK_Scroll_Lock; break;
+                default: return false;
+            }
+
+            // Only intercept when targeted at the VNC RemoteDesktop control
+            if (m.HWnd != _remoteDesktop.Handle)
+                return false;
+
+            // Resolve the VncClient on each call (it's created during Connect)
+            var vncClient = _vncField?.GetValue(_remoteDesktop);
+            if (vncClient == null)
+                return false;
+
+            _writeKeyboardEvent ??= vncClient.GetType()
+                .GetMethod("WriteKeyboardEvent", BindingFlags.Public | BindingFlags.Instance);
+            if (_writeKeyboardEvent == null)
+                return false;
+
+            // Send the correct keysym via the VNC protocol
+            bool pressed = m.Msg == WM_KEYDOWN || m.Msg == WM_SYSKEYDOWN;
+            try
+            {
+                _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, pressed });
+            }
+            catch
+            {
+                // If reflection call fails, let the message through (degraded behavior)
+                return false;
+            }
+
+            // Suppress the original message so VncSharpCore doesn't mistranslate it
+            return true;
+        }
+    }
+
     [SupportedOSPlatform("windows")]
     public class ProtocolVNC : ProtocolBase
     {
@@ -22,6 +108,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private VncSharpCore.RemoteDesktop? _vnc;
         private ConnectionInfo? _info;
+        private VncLockKeyFilter? _lockKeyFilter;
         private static volatile bool _isConnectionSuccessful;
         private static ExceptionDispatchInfo? _socketexception;
         private static readonly ManualResetEvent TimeoutObject = new(false);
@@ -66,6 +153,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 if (_vnc == null || _info == null) return false;
                 if (TestConnect(_info.Hostname, _info.Port, 500))
                     _vnc.Connect(_info.Hostname, _info.VNCViewOnly, _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+
+                // Install the lock-key filter after Connect() creates the VncClient.
+                // Fixes Caps Lock sending 't' instead of toggle (issue #227).
+                _lockKeyFilter = new VncLockKeyFilter(_vnc);
+                Application.AddMessageFilter(_lockKeyFilter);
             }
             catch (Exception ex)
             {
@@ -82,6 +174,12 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
+                if (_lockKeyFilter != null)
+                {
+                    Application.RemoveMessageFilter(_lockKeyFilter);
+                    _lockKeyFilter = null;
+                }
+
                 _vnc?.Disconnect();
             }
             catch (Exception ex)
@@ -234,6 +332,12 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private void VNCEvent_Disconnected(object sender, EventArgs e)
         {
+            if (_lockKeyFilter != null)
+            {
+                Application.RemoveMessageFilter(_lockKeyFilter);
+                _lockKeyFilter = null;
+            }
+
             FrmMain.ClipboardChanged -= VNCEvent_ClipboardChanged;
             Event_Disconnected(this, @"VncSharp Disconnected.", null);
             Close();
