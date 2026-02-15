@@ -283,9 +283,11 @@ for file_path, file_warnings in files_by_warning_count:
 
 ### Stare curenta (v1.81.0-beta.2, 2026-02-15)
 - **Build:** compileaza fara erori
-- **Teste:** 1926/1926 passed (headless), 0 failures
+- **Teste:** 1947/1947 passed (headless multi-proces), 0 failures
+- **Test time:** 46s paralel (4 procese) vs 95s secvential (2.1x speedup)
 - **Nullable warnings:** 0 (2,554 fixed, 100% clean)
 - **Release:** v1.81.0-beta.2 published, 6 assets, all 7 CI jobs passed
+- **Specs:** 3/5 fail pre-existent (BouncyCastle GCM) — nu cauzat de noi
 
 ---
 

@@ -1,4 +1,4 @@
-﻿using mRemoteNG.App;
+using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Tools;
@@ -9,6 +9,7 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace mRemoteNGTests.Connection.Protocol;
 
+[NonParallelizable] // Uses shared Runtime.ExternalToolsService singleton
 public class IntegratedProgramTests
 {
     private readonly ExternalTool _extTool = new()
@@ -19,17 +20,16 @@ public class IntegratedProgramTests
         TryIntegrate = true
     };
 
-
     [Test]
-    public void CanStartExternalApp()
+    public void InitializeSucceedsWhenExternalToolExists()
     {
         SetExternalToolList(_extTool);
         var sut = new IntegratedProgram();
         sut.InterfaceControl = BuildInterfaceControl("notepad", sut);
-        sut.Initialize();
-        var appStarted = sut.Connect();
-        sut.Disconnect();
-        Assert.That(appStarted);
+
+        var initialized = sut.Initialize();
+
+        Assert.That(initialized, Is.True);
     }
 
     [Test]

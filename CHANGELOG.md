@@ -19,7 +19,19 @@ This release eliminates **all 2,338 nullable warnings** (CS8600/CS8602/CS8604/CS
 
 The IIS Orchestrator (`orchestrate.py`) runs as a continuous loop: parse build warnings → group by file → delegate fix to AI agent → verify build+test → commit or revert → next file. Full source in `.project-roadmap/scripts/`.
 
+### Testing
+- **Multi-process parallel test runner** (`run-tests.ps1`): 4 isolated `dotnet test` processes run simultaneously, grouped by namespace. Auto-detects CPU cores. Reduces test time from 95s to 46s (2.1x speedup) on 24-core Threadripper.
+- **5-second per-test timeout** via `.runsettings` — catches hanging/interactive tests immediately
+- **Removed interactive test**: `IntegratedProgramTests.CanStartExternalApp` launched real `notepad.exe`; replaced with `InitializeSucceedsWhenExternalToolExists` (non-interactive)
+- **Process cleanup**: `run-tests.ps1` kills stale `testhost.exe` and `notepad.exe` before and after test runs
+
+### Architecture & Testability
+- **Decoupled Connection Loaders**: Refactor of `SqlConnectionsLoader` and `XmlConnectionsLoader` to use Dependency Injection. They are no longer hardcoded to trigger interactive UI (password dialogs) or require a live SQL Server instance.
+- **Interface Extraction**: Introduced `ISqlDatabaseMetaDataRetriever` and `ISqlDatabaseVersionVerifier` interfaces to abstract SQL infrastructure details.
+- **Autonomous Integration Tests**: Implemented comprehensive, fully automated integration tests for encrypted XML and SQL connection loading. These tests run in headless environments (CI) with zero user interaction.
+
 ### Security
+- **AnyDesk command injection prevention**: Added strict validation via `IsValidAnydeskId()` to ensure AnyDesk IDs contain only alphanumeric characters and dashes before process execution.
 - Bumped `System.Drawing.Common` to 10.0.3 in ObjectListView nuspec (addresses potential GDI+ vulnerabilities)
 
 ### Changed

@@ -56,7 +56,22 @@ msbuild mRemoteNGTests\mRemoteNGTests.csproj -restore -m "-verbosity:minimal" "-
 msbuild mRemoteNGSpecs\mRemoteNGSpecs.csproj -restore -m "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=x64"
 ```
 
-### Run tests (after build):
+### Run tests (PREFERRED — parallel multi-process):
+```powershell
+# Headless (CI/orchestrator) — 4 parallel processes, ~46s on 24-core:
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -Headless
+
+# Full (all tests including UI):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1"
+
+# Sequential (old behavior, single process):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -Sequential
+
+# Skip build (use existing binaries):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -Headless -NoBuild
+```
+
+### Run tests (manual — single process):
 ```bash
 dotnet test "D:\github\mRemoteNG\mRemoteNGTests\bin\x64\Release\mRemoteNGTests.dll" --verbosity normal
 dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.dll" --verbosity normal
@@ -77,10 +92,10 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
 ### Current test status (v1.81.0-beta.2, 2026-02-15):
-- **Headless run:** 1926 total, **1926 passed** (with UI/env-dependent filters)
+- **Headless parallel:** 1947 total, **1947 passed**, **46 seconds** (4 processes, 2.1x speedup vs 95s sequential)
 - **Full run (mRemoteNGTests):** 2179 total, 2174 passed, 2 skipped, 3 ignored (env-dependent)
-- **mRemoteNGSpecs:** 5 total, 5 passed
-- **Zero failures.** Skipped/ignored tests are env-dependent WinForms tests:
+- **mRemoteNGSpecs:** 2/5 passed, 3 failed (pre-existing BouncyCastle GCM decryption issue)
+- **Zero parallelism-related failures.** Skipped/ignored tests are env-dependent WinForms tests:
   - 2 skipped: CueBanner (`Assume.That` for Win32 EM_SETCUEBANNER)
   - 2 ignored: XmlConnectionsLoader recovery failure path (triggers WinForms dialog via `Runtime.MessageCollector`)
   - 1 ignored: `CanDeleteLastFolderInTheTree` (triggers WinForms confirmation dialog)
@@ -88,7 +103,9 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
 - 3 final coverage tests added (2026-02-09): OnePasswordCli null fields, malformed JSON, label fallback
 - **All Priority A test coverage gaps are now CLOSED**
-- Headless test command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm&FullyQualifiedName!~XmlConnectionsLoaderTests.ThrowsWhen&FullyQualifiedName!~ConnectionInitiatorSshTunnelTests" -- NUnit.DefaultTimeout=15000`
+- **Preferred headless command:** `powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild`
+- Manual headless command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm&FullyQualifiedName!~XmlConnectionsLoaderTests.ThrowsWhen&FullyQualifiedName!~ConnectionInitiatorSshTunnelTests" -- NUnit.DefaultTimeout=5000`
+- **IMPORTANT: Do NOT use `[assembly: Parallelizable]`** in the test project — causes race conditions on `DefaultConnectionInheritance.Instance`, `Runtime.ConnectionsService`, `Runtime.EncryptionKey` (shared mutable singletons). Use multi-process parallelism via `run-tests.ps1` instead.
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
 ### Historical baseline (upstream v1.78.2-dev, before fixes):

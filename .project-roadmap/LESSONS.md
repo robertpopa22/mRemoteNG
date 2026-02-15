@@ -449,6 +449,57 @@ Open source projects **cannot** get free EV code signing certificates (required 
 | Default 600,000 iterations | OWASP 2024 recommendation for PBKDF2-HMAC-SHA1 |
 | Old files still readable | Missing `KdfIterations` attribute defaults to 1,000 for backward compat |
 
+## Parallel Test Execution (2026-02-15)
+
+### NUnit Fixture-Level Parallelism Does NOT Work (CRITICAL)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| 27+ tests fail with wrong default values, encrypted passwords returned as-is, `KeyNotFoundException` | `DefaultConnectionInheritance.Instance` is a shared mutable static singleton. `Runtime.ConnectionsService`, `Runtime.EncryptionKey` are also static with setters. NUnit fixture parallelism runs fixtures on different threads in the SAME process, sharing all static state. | Use multi-process parallelism instead of NUnit parallelism |
+
+**DO NOT add `[assembly: Parallelizable(ParallelScope.Fixtures)]`** to the test project. It causes race conditions on:
+1. `DefaultConnectionInheritance.Instance` (singleton, mutable via `LoadFrom`/`SaveTo`)
+2. `Runtime.ConnectionsService.IsConnectionsFileLoaded` (set by `DataTableDeserializer.Deserialize()`)
+3. `Runtime.EncryptionKey` (static with setter)
+4. `Runtime.MessageCollector` (shared collection, `ClearMessages()` across fixtures)
+
+**What does NOT work (do not retry):**
+- `[assembly: Parallelizable(ParallelScope.Fixtures)]` -- 27 failures
+- Marking individual fixtures `[NonParallelizable]` -- too many share `DefaultConnectionInheritance.Instance`
+- `NUnit.NumberOfTestWorkers=2` -- still races, just less frequently
+
+**Working solution: Multi-process parallelism (run-tests.ps1)**
+```
+run-tests.ps1
+  Process 1: mRemoteNGTests.Security (164 tests)
+  Process 2: mRemoteNGTests.Tools + Messages + App + misc (354 tests)
+  Process 3: mRemoteNGTests.Config (563 tests)
+  Process 4: mRemoteNGTests.Connection + Credential + Tree + misc (866 tests)
+  All 4 run simultaneously, each with isolated static state.
+```
+
+**Result:** 95s -> 46s (2.1x speedup), 1947/1947 passed, 0 failed.
+
+### IntegratedProgramTests Launches Real notepad.exe
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| `CanStartExternalApp` opens real notepad window, leaves zombie process | Test calls `sut.Connect()` which does `_process.Start()` on `notepad.exe` | Replace with `InitializeSucceedsWhenExternalToolExists` which only calls `Initialize()` (no process launch) |
+
+**Key rule:** NEVER call `Connect()` on `IntegratedProgram` in tests. It launches real processes, does `WaitForInputIdle`, `SetParent` P/Invoke -- all interactive.
+
+### build.ps1 Does NOT Rebuild Test DLL on Incremental Build
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Test DLL timestamp stays old after editing test .cs files and running `build.ps1` | MSBuild incremental build skips test project if main project changes trigger recompile first, and test project's dependency graph isn't invalidated | Build test project explicitly: `msbuild mRemoteNGTests.csproj -t:Rebuild` |
+
+### mRemoteNGSpecs BouncyCastle GCM Failures (Pre-Existing)
+
+| Symptom | Root Cause | Status |
+| --- | --- | --- |
+| 3/5 SpecFlow tests fail with `InvalidCipherTextException: mac check in GCM failed` | BouncyCastle AEAD decryption fails on test fixtures. Pre-existing, not caused by any recent changes. | Known issue, investigate separately |
+
 ## Daily Loop
 
 1. Run command.
