@@ -244,7 +244,7 @@ namespace mRemoteNG.Tools
             else if (e.Reply?.Status != IPStatus.Success)
             {
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                    $"Ping did not complete to {e.UserState} : {e.Reply.Status}", true);
+                                                    $"Ping did not complete to {e.UserState} : {e.Reply?.Status}", true);
                 scanHost.ClosedPorts.AddRange(_ports);
                 scanHost.SetAllProtocols(false);
             }
