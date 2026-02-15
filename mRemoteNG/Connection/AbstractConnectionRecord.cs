@@ -222,7 +222,7 @@ namespace mRemoteNG.Connection
          AttributeUsedInAllProtocolsExcept()]
         public virtual string Hostname
         {
-            get => _hostname?.Trim() ?? string.Empty;
+            get => GetPropertyValue("Hostname", _hostname?.Trim() ?? string.Empty);
             set => SetField(ref _hostname, value?.Trim() ?? string.Empty, "Hostname");
         }
 
