@@ -11,7 +11,7 @@ namespace mRemoteNG.Config.DataProviders
             PathValidator.ValidatePathOrThrow(filePath, nameof(filePath));
 
             string fileName = Path.GetFileName(filePath);
-            string directoryName = Path.GetDirectoryName(filePath);
+            string? directoryName = Path.GetDirectoryName(filePath);
 
             if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(directoryName))
                 return;
