@@ -21,6 +21,8 @@ namespace mRemoteNG.Security.PasswordCreation
                 throw new ArgumentException($"{nameof(minimumCount)} must be a positive value");
 
             _minimumCount = minimumCount;
+            ConstraintHint = string.Format(Language.PasswordConstainsSpecialCharactersConstraintHint, _minimumCount,
+                                           string.Concat(SpecialCharacters));
         }
 
         public PasswordIncludesSpecialCharactersConstraint(IEnumerable<char> specialCharacters, int minimumCount = 1)
