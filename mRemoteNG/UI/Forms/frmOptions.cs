@@ -99,8 +99,8 @@ namespace mRemoteNG.UI.Forms
         {
             var themeManager = ThemeManager.getInstance();
             if (!themeManager.ActiveAndExtended) return;
-            BackColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Background");
-            ForeColor = themeManager.ActiveTheme.ExtendedPalette.getColor("Dialog_Foreground");
+            BackColor = themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Background") ?? BackColor;
+            ForeColor = themeManager.ActiveTheme.ExtendedPalette?.getColor("Dialog_Foreground") ?? ForeColor;
         }
 
 #if false
