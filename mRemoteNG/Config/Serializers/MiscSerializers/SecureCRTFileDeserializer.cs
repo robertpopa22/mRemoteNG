@@ -61,7 +61,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private void ImportConnection(XmlNode childNode, ContainerInfo parentContainer)
         {
-            ConnectionInfo connectionInfo = ConnectionInfoFromXml(childNode);
+            ConnectionInfo? connectionInfo = ConnectionInfoFromXml(childNode);
             if (connectionInfo == null)
                 return;
 
