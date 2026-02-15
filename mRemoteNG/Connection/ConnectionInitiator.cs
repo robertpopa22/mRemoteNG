@@ -286,7 +286,7 @@ namespace mRemoteNG.Connection
         private static void StartPreConnectionExternalApp(ConnectionInfo connectionInfo)
         {
             if (connectionInfo.PreExtApp == "") return;
-            Tools.ExternalTool extA = Runtime.ExternalToolsService.GetExtAppByName(connectionInfo.PreExtApp);
+            Tools.ExternalTool? extA = Runtime.ExternalToolsService.GetExtAppByName(connectionInfo.PreExtApp);
             extA?.Start(connectionInfo);
         }
 
@@ -344,7 +344,7 @@ namespace mRemoteNG.Connection
 
             if (connectionInfo.Protocol != ProtocolType.IntApp) return connectionContainer;
 
-            Tools.ExternalTool extT = Runtime.ExternalToolsService.GetExtAppByName(connectionInfo.ExtApp);
+            Tools.ExternalTool? extT = Runtime.ExternalToolsService.GetExtAppByName(connectionInfo.ExtApp);
 
             if (extT == null) return connectionContainer;
 
@@ -433,7 +433,7 @@ namespace mRemoteNG.Connection
                     _activeConnections.Remove(prot.InterfaceControl.Info.ConstantID);
 
                 if (prot.InterfaceControl.Info.PostExtApp == "") return;
-                Tools.ExternalTool extA = Runtime.ExternalToolsService.GetExtAppByName(prot.InterfaceControl.Info.PostExtApp);
+                Tools.ExternalTool? extA = Runtime.ExternalToolsService.GetExtAppByName(prot.InterfaceControl.Info.PostExtApp);
                 extA?.Start(prot.InterfaceControl.OriginalInfo);
             }
             catch (Exception ex)
