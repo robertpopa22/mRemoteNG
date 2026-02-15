@@ -229,7 +229,7 @@ namespace mRemoteNG.UI.Window
 
                 foreach (ContainerInfo node in rootNodes)
                 {
-                    foreach (ConnectionInfo containerInfo in Runtime.ConnectionsService.ConnectionTreeModel.GetRecursiveFavoriteChildList(node))
+                    foreach (ConnectionInfo containerInfo in connectionTreeModel.GetRecursiveFavoriteChildList(node))
                     {
                         ToolStripMenuItem favoriteMenuItem = new()
                         {
