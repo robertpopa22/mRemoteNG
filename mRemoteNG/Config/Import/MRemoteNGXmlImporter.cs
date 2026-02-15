@@ -32,7 +32,14 @@ namespace mRemoteNG.Config.Import
             FileDataProvider dataProvider = new(fileName);
             string xmlString = dataProvider.Load();
             XmlConnectionsDeserializer xmlConnectionsDeserializer = new();
-            Tree.ConnectionTreeModel connectionTreeModel = xmlConnectionsDeserializer.Deserialize(xmlString, true);
+            Tree.ConnectionTreeModel? connectionTreeModel = xmlConnectionsDeserializer.Deserialize(xmlString, true);
+
+            if (connectionTreeModel == null)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                                                    $"Unable to import file. Deserialization returned null. Path: {fileName}");
+                return;
+            }
 
             ContainerInfo rootImportContainer = new() { Name = Path.GetFileNameWithoutExtension(fileName)};
             rootImportContainer.AddChildRange(connectionTreeModel.RootNodes.First().Children.ToArray());
