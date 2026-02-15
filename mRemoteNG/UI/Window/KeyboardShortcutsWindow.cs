@@ -8,7 +8,7 @@ namespace mRemoteNG.UI.Window
     [SupportedOSPlatform("windows")]
     public class KeyboardShortcutsWindow : BaseWindow
     {
-        private ListView _listView;
+        private ListView _listView = null!;
         private readonly ThemeManager _themeManager;
 
         public KeyboardShortcutsWindow()
@@ -26,8 +26,8 @@ namespace mRemoteNG.UI.Window
         {
             ApplyTheme();
             if (!_themeManager.ActiveAndExtended) return;
-            _listView.BackColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Background");
-            _listView.ForeColor = _themeManager.ActiveTheme.ExtendedPalette.getColor("List_Foreground");
+            _listView.BackColor = _themeManager.ActiveTheme.ExtendedPalette?.getColor("List_Background") ?? SystemColors.Window;
+            _listView.ForeColor = _themeManager.ActiveTheme.ExtendedPalette?.getColor("List_Foreground") ?? SystemColors.WindowText;
         }
 
         private void InitializeComponent()
