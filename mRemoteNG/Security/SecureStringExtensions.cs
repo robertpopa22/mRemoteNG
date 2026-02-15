@@ -23,7 +23,7 @@ namespace mRemoteNG.Security
             try
             {
                 unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
-                return Marshal.PtrToStringUni(unmanagedString);
+                return Marshal.PtrToStringUni(unmanagedString)!;
             }
             finally
             {
@@ -40,7 +40,7 @@ namespace mRemoteNG.Security
             foreach (char character in unsecuredPassword.ToCharArray())
                 secureString.AppendChar(character);
             // ReSharper disable once RedundantAssignment
-            unsecuredPassword = null;
+            unsecuredPassword = null!;
             return secureString;
         }
 
