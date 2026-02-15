@@ -102,9 +102,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// </summary>
         private bool ShowRegistrySettingsUsedInfo()
         {
-            return pageRegSettingsInstance.OpenConnectionsFromLastSession.IsSet
-                || pageRegSettingsInstance.EnforceSingleApplicationInstance.IsSet
-                || pageRegSettingsInstance.StartupBehavior.IsSet;
+            return (pageRegSettingsInstance?.OpenConnectionsFromLastSession.IsSet ?? false)
+                || (pageRegSettingsInstance?.EnforceSingleApplicationInstance.IsSet ?? false)
+                || (pageRegSettingsInstance?.StartupBehavior.IsSet ?? false);
         }
 
         private void StartupExitPage_Load(object sender, EventArgs e)
