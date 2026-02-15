@@ -332,7 +332,7 @@ namespace mRemoteNG.Themes
                     return;
                 }
 
-                if (_activeTheme != null && _activeTheme.Name.Equals(value.Name)) return;
+                if (_activeTheme != null && string.Equals(_activeTheme.Name, value.Name, StringComparison.Ordinal)) return;
 
                 _activeTheme = value;
                 Properties.OptionsThemePage.Default.ThemeName = value.Name;
