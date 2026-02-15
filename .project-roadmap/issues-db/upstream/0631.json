@@ -10,12 +10,19 @@
   "created_at": "2017-07-05T06:27:10Z",
   "github_updated_at": "2017-11-02T20:03:22Z",
   "body_snippet": "Bug\r\n| Operating system | Windows 10 x64 |\r\n| mRemoteNG version | 1.75.7008.17907  |\r\n\r\nI have created some external tools. When I press lauch button from external tools it opens normally but when i click on the external tool from toolbar i receive the error below:\r\n\r\nSee the end of this message for details on invoking \r\njust-in-time (JIT) debugging instead of this dialog box.\r\n\r\n************** Exception Text **************\r\nSystem.NullReferenceException: Object reference not set to an instance ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "duplicate",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "duplicate",
+      "description": "External tools toolbar issue was fixed in v1.79.0 via PR #3123 (issue #1634 - PROTOCOL external tool token) and the existing external tool infrastructure improvements; the workaround described (right-click first) matches the initialization bug that was resolved"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDMxMzA1MzA5Mg==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: External tools toolbar issue was fixed in v1.79.0 via PR #3123 (issue #1634 - PROTOCOL external tool token) and the existing external tool infrastructure improvements; the workaround described (right-click first) matches the initialization bug that was resolved\nApproach: Already fixed in v1.79.0+ releases through external tools initialization and token replacement improvements"
 }
