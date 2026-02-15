@@ -88,7 +88,26 @@ jobs:
       - name: (04) Generate AssemblyInfo.cs from T4 template values
         shell: pwsh
         run: |
-          $major = 1; $minor = 80; $revision = 2; $channel = "Release"
+          # Read version from mRemoteNG.csproj (single source of truth)
+          $csprojPath = "$env:GITHUB_WORKSPACE/mRemoteNG/mRemoteNG.csproj"
+          $csprojContent = Get-Content $csprojPath -Raw
+          if ($csprojContent -match '<Version>([^<]+)</Version>') {
+            $csprojVersion = $matches[1].Trim()
+          } else {
+            throw "Could not find <Version> element in csproj"
+          }
+          Write-Host "Version from csproj: $csprojVersion"
+
+          # Parse version: supports both "1.81.0" and "1.81.0-beta.2" formats
+          if ($csprojVersion -match '^(\d+)\.(\d+)\.(\d+)') {
+            $major = [int]$matches[1]; $minor = [int]$matches[2]; $revision = [int]$matches[3]
+          } else {
+            throw "Could not parse version from csproj: $csprojVersion"
+          }
+          # Preserve prerelease suffix (e.g. "-beta.2") for informational version
+          $prerelease = if ($csprojVersion -match '-(.+)$') { "-$($matches[1])" } else { "" }
+          $channel = if ($prerelease) { "Pre-release" } else { "Release" }
+
           $base = [datetime]"2019-09-02"
           $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
           $platform = "${{ matrix.platform }}"
@@ -109,12 +128,12 @@ jobs:
           [assembly: AssemblyVersion("$major.$minor.$revision.$build")]
           [assembly: AssemblyFileVersion("$major.$minor.$revision.$build")]
           [assembly: NeutralResourcesLanguageAttribute("en-US")]
-          [assembly: AssemblyInformationalVersion("$major.$minor.$revision ($channel $build) $platform")]
+          [assembly: AssemblyInformationalVersion("$major.$minor.$revision$prerelease ($channel $build) $platform")]
           "@
           $outPath = "$env:GITHUB_WORKSPACE\mRemoteNG\Properties\AssemblyInfo.cs"
           Set-Content -Path $outPath -Value $content -Encoding UTF8
-          Write-Host "Generated AssemblyInfo.cs: v$major.$minor.$revision.$build ($channel) $platform"
-          echo "version=$major.$minor.$revision" >> $env:GITHUB_OUTPUT
+          Write-Host "Generated AssemblyInfo.cs: v$major.$minor.$revision$prerelease.$build ($channel) $platform"
+          echo "version=$major.$minor.$revision$prerelease" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
         id: version_info
 
@@ -167,11 +186,13 @@ jobs:
           } else {
             throw "Could not extract version and build number"
           }
+          # Include prerelease suffix from step (04)
+          $fullVersion = "${{ steps.version_info.outputs.version }}"
           $date = Get-Date -Format "yyyyMMdd"
           $suffix = "${{ matrix.suffix }}"
-          $zipName = "mRemoteNG-$date-v$version-NB-$build-${{ matrix.arch }}$suffix.zip"
+          $zipName = "mRemoteNG-$date-v$fullVersion-NB-$build-${{ matrix.arch }}$suffix.zip"
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
-          echo "version=$version" >> $env:GITHUB_OUTPUT
+          echo "version=$fullVersion" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
 
       - name: (09) Create unsigned ZIP
@@ -239,14 +260,30 @@ jobs:
         id: meta
         shell: pwsh
         run: |
-          $major = 1; $minor = 80; $revision = 2
+          # Read version from mRemoteNG.csproj (single source of truth)
+          $csprojPath = "$env:GITHUB_WORKSPACE/mRemoteNG/mRemoteNG.csproj"
+          $csprojContent = Get-Content $csprojPath -Raw
+          if ($csprojContent -match '<Version>([^<]+)</Version>') {
+            $csprojVersion = $matches[1].Trim()
+          } else {
+            throw "Could not find <Version> element in csproj"
+          }
+          Write-Host "Version from csproj: $csprojVersion"
+
+          if ($csprojVersion -match '^(\d+)\.(\d+)\.(\d+)') {
+            $major = [int]$matches[1]; $minor = [int]$matches[2]; $revision = [int]$matches[3]
+          } else {
+            throw "Could not parse version from csproj: $csprojVersion"
+          }
+          $prerelease = if ($csprojVersion -match '-(.+)$') { "-$($matches[1])" } else { "" }
+
           $base = [datetime]"2019-09-02"
           $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
           $date = Get-Date -Format "yyyyMMdd"
-          $tag = "$date-v$major.$minor.$revision-NB-($build)"
+          $tag = "$date-v$major.$minor.$revision$prerelease-NB-($build)"
           $message = git log -1 --pretty=%B
           echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          echo "version=$major.$minor.$revision" >> $env:GITHUB_OUTPUT
+          echo "version=$major.$minor.$revision$prerelease" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
           echo "message=$message" >> $env:GITHUB_OUTPUT
 
