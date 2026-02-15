@@ -3865,14 +3865,68 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password must be at least 3 characters long..
+        ///   Looks up a localized string similar to The password must be at least 8 characters long..
         /// </summary>
         internal static string PasswordStatusTooShort {
             get {
                 return ResourceManager.GetString("PasswordStatusTooShort", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain uppercase, lowercase, and a digit..
+        /// </summary>
+        internal static string PasswordStatusNeedsComplexity {
+            get {
+                return ResourceManager.GetString("PasswordStatusNeedsComplexity", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum 8 characters with uppercase, lowercase, and a digit..
+        /// </summary>
+        internal static string PasswordRequirements {
+            get {
+                return ResourceManager.GetString("PasswordRequirements", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Weak.
+        /// </summary>
+        internal static string PasswordStrengthWeak {
+            get {
+                return ResourceManager.GetString("PasswordStrengthWeak", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Fair.
+        /// </summary>
+        internal static string PasswordStrengthFair {
+            get {
+                return ResourceManager.GetString("PasswordStrengthFair", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Good.
+        /// </summary>
+        internal static string PasswordStrengthGood {
+            get {
+                return ResourceManager.GetString("PasswordStrengthGood", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Strong.
+        /// </summary>
+        internal static string PasswordStrengthStrong {
+            get {
+                return ResourceManager.GetString("PasswordStrengthStrong", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Place search bar above connection tree.
         /// </summary>

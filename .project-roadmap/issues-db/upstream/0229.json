@@ -10,7 +10,7 @@
   "created_at": "2016-11-07T21:46:57Z",
   "github_updated_at": "2016-11-10T20:12:27Z",
   "body_snippet": "\r\n\r\n<!-- Bug -->\r\nWindows RDP connections do not always inherit apperance settings ( Display themes/ Display Desktop / etc), if they are set in folders containing said sessions.\r\n\r\nSometimes if I toggle the inheritance settings on/off/ backup on again, and reconnect it works but NOT in all cases.\r\n|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|\r\ntarget machines are runing RDP 8.0 protocol on the server side, .1 on the client side, with the updates installed in the ri...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "Inheritance of appearance settings breaks when duplicating RDP connections, suggesting the clone/duplicate logic doesn't properly copy or link inheritance references"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 2ef011a3"
     }
   ],
   "comments": [

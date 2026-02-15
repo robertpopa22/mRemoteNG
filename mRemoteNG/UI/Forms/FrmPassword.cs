@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Drawing;
+using System.Linq;
 using System.Security;
 using System.Windows.Forms;
 using mRemoteNG.Security;
@@ -39,7 +41,7 @@ namespace mRemoteNG.UI.Forms
         }
 
         /// <summary>
-        /// Dispaly a dialog box requesting that the user 
+        /// Dispaly a dialog box requesting that the user
         /// enter their password.
         /// </summary>
         /// <returns></returns>
@@ -60,16 +62,25 @@ namespace mRemoteNG.UI.Forms
             DisplayProperties display = new();
             if (pbLock.Image is { } lockImage)
                 pbLock.Image = display.ScaleImage(lockImage);
-            Height = tableLayoutPanel1.Height;
 
             if (NewPasswordMode)
             {
+                pnlStrengthBar.Visible = true;
+                lblStrength.Visible = true;
+                lblRequirements.Visible = true;
                 txtPassword.Focus();
-                return;
             }
-            lblVerify.Visible = false;
-            txtVerify.Visible = false;
-            txtPassword.Focus();
+            else
+            {
+                pnlStrengthBar.Visible = false;
+                lblStrength.Visible = false;
+                lblRequirements.Visible = false;
+                lblVerify.Visible = false;
+                txtVerify.Visible = false;
+                txtPassword.Focus();
+            }
+
+            Height = tableLayoutPanel1.PreferredSize.Height + Padding.Vertical + 8;
         }
 
         private void PasswordForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -96,6 +107,9 @@ namespace mRemoteNG.UI.Forms
         private void TxtPassword_TextChanged(object sender, EventArgs e)
         {
             HideStatus();
+
+            if (NewPasswordMode)
+                UpdateStrengthIndicator(txtPassword.Text);
         }
 
         #endregion
@@ -112,6 +126,7 @@ namespace mRemoteNG.UI.Forms
             lblVerify.Text = Language.Verify;
             btnCancel.Text = Language._Cancel;
             btnOK.Text = Language._Ok;
+            lblRequirements.Text = Language.PasswordRequirements;
         }
 
         private void ApplyTheme()
@@ -137,12 +152,6 @@ namespace mRemoteNG.UI.Forms
                 return false;
             }
 
-            if (txtPassword.Text != txtVerify.Text)
-            {
-                ShowStatus(Language.PasswordStatusMustMatch);
-                return false;
-            }
-
             bool hasUpper = false, hasLower = false, hasDigit = false;
             foreach (char c in txtPassword.Text)
             {
@@ -153,11 +162,81 @@ namespace mRemoteNG.UI.Forms
 
             if (!hasUpper || !hasLower || !hasDigit)
             {
-                ShowStatus(Language.PasswordStatusTooShort);
+                ShowStatus(Language.PasswordStatusNeedsComplexity);
+                return false;
+            }
+
+            if (txtPassword.Text != txtVerify.Text)
+            {
+                ShowStatus(Language.PasswordStatusMustMatch);
                 return false;
             }
 
             return true;
+        }
+
+        private void UpdateStrengthIndicator(string password)
+        {
+            if (string.IsNullOrEmpty(password))
+            {
+                pnlStrengthFill.Width = 0;
+                lblStrength.Text = "";
+                return;
+            }
+
+            int score = CalculateStrengthScore(password);
+
+            int barWidth = pnlStrengthBar.Width;
+            Color barColor;
+            string strengthText;
+
+            if (score <= 1)
+            {
+                pnlStrengthFill.Width = barWidth / 4;
+                barColor = Color.FromArgb(220, 53, 69);
+                strengthText = Language.PasswordStrengthWeak;
+            }
+            else if (score == 2)
+            {
+                pnlStrengthFill.Width = barWidth / 2;
+                barColor = Color.FromArgb(255, 165, 0);
+                strengthText = Language.PasswordStrengthFair;
+            }
+            else if (score == 3)
+            {
+                pnlStrengthFill.Width = barWidth * 3 / 4;
+                barColor = Color.FromArgb(0, 123, 255);
+                strengthText = Language.PasswordStrengthGood;
+            }
+            else
+            {
+                pnlStrengthFill.Width = barWidth;
+                barColor = Color.FromArgb(40, 167, 69);
+                strengthText = Language.PasswordStrengthStrong;
+            }
+
+            pnlStrengthFill.BackColor = barColor;
+            lblStrength.ForeColor = barColor;
+            lblStrength.Text = strengthText;
+        }
+
+        private static int CalculateStrengthScore(string password)
+        {
+            int score = 0;
+
+            if (password.Length >= 8) score++;
+            if (password.Length >= 12) score++;
+
+            bool hasUpper = password.Any(char.IsUpper);
+            bool hasLower = password.Any(char.IsLower);
+            bool hasDigit = password.Any(char.IsDigit);
+            bool hasSpecial = password.Any(c => !char.IsLetterOrDigit(c));
+
+            int charTypes = (hasUpper ? 1 : 0) + (hasLower ? 1 : 0) + (hasDigit ? 1 : 0) + (hasSpecial ? 1 : 0);
+            if (charTypes >= 3) score++;
+            if (charTypes >= 4) score++;
+
+            return score;
         }
 
         private void ShowStatus(string status)
