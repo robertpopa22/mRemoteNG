@@ -10,7 +10,7 @@ namespace mRemoteNG.Tools
     [SupportedOSPlatform("windows")]
     public class AdHelper(string domain)
     {
-        private DirectoryEntry _dEntry;
+        private DirectoryEntry? _dEntry;
 
         public Hashtable Children { get; } = [];
 
