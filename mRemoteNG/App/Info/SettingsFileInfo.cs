@@ -16,7 +16,7 @@ namespace mRemoteNG.App.Info
         public static string SettingsPath =>
             Runtime.IsPortableEdition
                 ? ExePath
-                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.ProductName);
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.ProductName ?? string.Empty);
 
         public static string UserSettingsFilePath =>
             Runtime.IsPortableEdition
