@@ -31,7 +31,7 @@ namespace mRemoteNG.Config.Settings
                 XmlDocument doc = new();
                 doc.Load(filePath);
 
-                XmlNodeList items = doc.SelectNodes("//Item");
+                XmlNodeList? items = doc.SelectNodes("//Item");
                 if (items == null) return;
 
                 foreach (XmlNode item in items)
