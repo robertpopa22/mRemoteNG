@@ -1,5 +1,6 @@
 ﻿using BrightIdeasSoftware;
 using mRemoteNG.Connection;
+using mRemoteNG.Tools;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.UI.Controls.ConnectionTree
@@ -11,7 +12,11 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             AspectName = "Name";
             FillsFreeSpace = false;
-            AspectGetter = item => ((ConnectionInfo)item).Name;
+            AspectGetter = item =>
+            {
+                var ci = (ConnectionInfo)item;
+                return ConnectionNameFormatter.FormatName(ci);
+            };
             ImageGetter = imageGetterDelegate;
             AutoCompleteEditor = false;
         }

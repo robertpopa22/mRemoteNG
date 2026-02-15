@@ -13,12 +13,19 @@
   "created_at": "2017-06-16T17:38:42Z",
   "github_updated_at": "2017-06-16T18:06:14Z",
   "body_snippet": "|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008.17907  |\r\n\r\n\r\n<!-- Feature Request -->\r\nI've previously used MTPuTTY, but have switched to mRemoteNG. I find mRemoteNG to be better in every way... except one. The titles of tabs in MTPuTTY follow SSH connections.\r\n\r\nExample:\r\n1) Open an SSH connection tab to hostA.example.com; the title of the tab is 'hostA.example.com'\r\n2) On the command line of hostA, ssh to hostB.example.com\r\n\r\nIn mRemoteNG, the title of the ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Feature request to dynamically update tab titles based on the active SSH session hostname/directory, improving UX for users with multiple SSH connections"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDMwOTA5NTE4Mw==",
@@ -35,5 +42,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Feature request to dynamically update tab titles based on the active SSH session hostname/directory, improving UX for users with multiple SSH connections\nApproach: Monitor the SSH terminal emulator for shell prompt changes (hostname, pwd) and update the corresponding tab title in real-time, with an option to toggle between static connection name and dynamic session title"
 }

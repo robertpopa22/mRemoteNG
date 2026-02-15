@@ -110,7 +110,7 @@ namespace mRemoteNG.UI.Window
                 else
                     titleText = "";
 
-                titleText += connectionInfo.Name;
+                titleText += ConnectionNameFormatter.FormatName(connectionInfo);
 
                 if (Properties.OptionsTabsPanelsPage.Default.ShowFolderPathOnTabs)
                 {
