@@ -53,8 +53,9 @@ namespace mRemoteNG.Tools.Cmdline
             Properties.App.Default.MainFormKiosk = false;
             int newWidth = 900;
             int newHeight = 600;
-            int newX = Screen.PrimaryScreen.WorkingArea.Width / 2 - newWidth / 2;
-            int newY = Screen.PrimaryScreen.WorkingArea.Height / 2 - newHeight / 2;
+            var workingArea = Screen.PrimaryScreen?.WorkingArea ?? new Rectangle(0, 0, newWidth, newHeight);
+            int newX = workingArea.Width / 2 - newWidth / 2;
+            int newY = workingArea.Height / 2 - newHeight / 2;
             Properties.App.Default.MainFormLocation = new Point(newX, newY);
             Properties.App.Default.MainFormSize = new Size(newWidth, newHeight);
             Properties.App.Default.MainFormState = FormWindowState.Normal;
