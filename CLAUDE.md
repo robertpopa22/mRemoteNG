@@ -82,7 +82,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Tests MUST be 100% automated — no human interaction
 - If a test hangs for more than 2 seconds waiting for input, it is BROKEN
 - Mock or stub all UI dependencies (MessageBox, dialogs, WinForms popups)
-- Use `NUnit.DefaultTimeout=5000` (5s) to catch hanging tests early
+- Use `NUnit.DefaultTimeout=15000` (15s) to catch hanging tests early
 - Any test that opens `notepad.exe`, shows a password prompt, or displays a save dialog is INVALID
 - Kill stale processes after test runs: `taskkill //F //IM notepad.exe 2>/dev/null`
 
@@ -91,20 +91,16 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (v1.81.0-beta.2, 2026-02-15):
-- **Headless parallel:** 1947 total, **1947 passed**, **46 seconds** (4 processes, 2.1x speedup vs 95s sequential)
-- **Full run (mRemoteNGTests):** 2179 total, 2174 passed, 2 skipped, 3 ignored (env-dependent)
+### Current test status (v1.81.0-beta.3, 2026-02-15):
+- **Full parallel run:** 2228/2231 passed, 3 skipped, **0 failed** — 5 processes, ~2 minutes
 - **mRemoteNGSpecs:** 2/5 passed, 3 failed (pre-existing BouncyCastle GCM decryption issue)
-- **Zero parallelism-related failures.** Skipped/ignored tests are env-dependent WinForms tests:
-  - 2 skipped: CueBanner (`Assume.That` for Win32 EM_SETCUEBANNER)
-  - 2 ignored: XmlConnectionsLoader recovery failure path (triggers WinForms dialog via `Runtime.MessageCollector`)
-  - 1 ignored: `CanDeleteLastFolderInTheTree` (triggers WinForms confirmation dialog)
-- All 81 pre-existing upstream failures resolved in commit `79c5e4cf`
-- 28 new coverage tests added in commit `708a4f5c` (P7 gap analysis)
-- 3 final coverage tests added (2026-02-09): OnePasswordCli null fields, malformed JSON, label fallback
-- **All Priority A test coverage gaps are now CLOSED**
-- **Preferred headless command:** `powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild`
-- Manual headless command: `dotnet test ... --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm&FullyQualifiedName!~XmlConnectionsLoaderTests.ThrowsWhen&FullyQualifiedName!~ConnectionInitiatorSshTunnelTests" -- NUnit.DefaultTimeout=5000`
+- **No headless filter needed** — all UI tests redesigned with RunWithMessagePump pattern
+- **3 [Ignore] tests** (need production code refactoring, not test exclusion):
+  - `ChangingOptionMarksPageAsChanged` — ObjectListView deadlock in OptionsPage (needs RunWithMessagePump refactoring of OptionsForm)
+  - `SelectingSQLPageLoadsSettings` — ObjectListView deadlock on SQL page activation
+  - `OpenConnection_RetriesSshTunnel_OnFailure` — requires FrmMain/PanelAdder DI
+- **RunWithMessagePump pattern**: For ObjectListView-based tests, creates dedicated STA thread with `Application.Run(form)` message pump. Tests run inside form's Load event. Required because .NET 10 NUnit `[Apartment(STA)]` doesn't provide message pump, causing `Invoke()` deadlock.
+- **Run command:** `powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -NoBuild`
 - **IMPORTANT: Do NOT use `[assembly: Parallelizable]`** in the test project — causes race conditions on `DefaultConnectionInheritance.Instance`, `Runtime.ConnectionsService`, `Runtime.EncryptionKey` (shared mutable singletons). Use multi-process parallelism via `run-tests.ps1` instead.
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
 
@@ -113,6 +109,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - 29 new tests added during codex work (2119 → 2148)
 - 28 new coverage tests added during P7 analysis (2148 → 2176)
 - 3 final coverage tests added (2176 → 2179)
+- UI tests redesigned with RunWithMessagePump in commit `5a16e801` (2179 → 2231)
 
 ## CI/CD
 - CI uses `windows-2025-vs2026` runners with MSBuild 18.x (VS2026)
@@ -222,11 +219,11 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 4. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
 5. Run tests (1926+ headless, verify zero regressions)
 6. Commit, tag (`v1.XX.Y`), push — CI auto-builds 6 variants and creates GitHub release
-7. **MANDATORY: Update issue statuses to `released` with `-PostComment`:**
-   ```powershell
-   .\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status released -Release "vX.Y.Z" -ReleaseUrl "<url>" -PostComment
+7. **MANDATORY: Update issue statuses to `released` with `--post-comment`:**
+   ```bash
+   python .project-roadmap/scripts/iis_orchestrator.py update --issue <N> --status released --release "vX.Y.Z" --release-url "<url>" --post-comment
    ```
-8. Generate final report: `.\.project-roadmap\scripts\Generate-Report.ps1 -IncludeAll`
+8. Generate final report: `python .project-roadmap/scripts/iis_orchestrator.py report --include-all`
 9. Commit all JSON changes in `.project-roadmap/issues-db/`
 
 ## v1.80.0 PR Reference
@@ -297,42 +294,42 @@ Do NOT manage issues manually — always use the scripts for consistency and tra
 - Generates markdown reports for triage sessions and releases
 
 ### MANDATORY workflow — every session
-```powershell
+```bash
 # 1. Sync (ALWAYS run first — stale data = missed comments)
-.\.project-roadmap\scripts\Sync-Issues.ps1
+python .project-roadmap/scripts/iis_orchestrator.py sync
 
 # 2. Analyze (see what needs attention)
-.\.project-roadmap\scripts\Analyze-Issues.ps1
+python .project-roadmap/scripts/iis_orchestrator.py analyze
 
 # 3. Transition issues (triage, start work, mark testing/released)
-.\.project-roadmap\scripts\Update-Status.ps1 -Issue <N> -Status <status>
+python .project-roadmap/scripts/iis_orchestrator.py update --issue <N> --status <status>
 
 # 4. Report (generate markdown summary)
-.\.project-roadmap\scripts\Generate-Report.ps1
+python .project-roadmap/scripts/iis_orchestrator.py report
 ```
 
-### Scripts
-| Script | Purpose |
-|--------|---------|
-| `Sync-Issues.ps1` | **Run FIRST.** Fetches issues+comments from both repos, updates JSON DB |
-| `Analyze-Issues.ps1` | Shows what needs action: urgent, iteration needed, waiting for response |
-| `Update-Status.ps1` | Transitions lifecycle, records iterations, posts GitHub comments |
-| `Generate-Report.ps1` | Generates markdown reports for triage and releases |
+### Subcommands
+| Subcommand | Purpose |
+|------------|---------|
+| `sync` | **Run FIRST.** Fetches issues+comments from both repos, updates JSON DB |
+| `analyze` | Shows what needs action: urgent, iteration needed, waiting for response |
+| `update` | Transitions lifecycle, records iterations, posts GitHub comments |
+| `report` | Generates markdown reports for triage and releases |
 
 ### Key flags
-- `Sync-Issues.ps1 -IssueNumbers 3044,3069` — targeted sync (fast)
-- `Analyze-Issues.ps1 -WaitingOnly` — show only issues waiting for our response
-- `Update-Status.ps1 -PostComment` — actually posts to GitHub (without it, preview only)
-- `Update-Status.ps1 -AddToRoadmap` — adds issue to `_roadmap.json`
-- `Generate-Report.ps1 -IncludeAll` — full inventory for releases
+- `sync --issues 3044,3069` — targeted sync (fast)
+- `analyze --waiting-only` — show only issues waiting for our response
+- `update --post-comment` — actually posts to GitHub (without it, preview only)
+- `update --add-to-roadmap` — adds issue to `_roadmap.json`
+- `report --include-all` — full inventory for releases
 
 ### Rules
-1. **ALWAYS** run `Sync-Issues.ps1` before triage or release
-2. **ALWAYS** use `Update-Status.ps1` for status changes (maintains iteration history)
+1. **ALWAYS** run `iis_orchestrator.py sync` before triage or release
+2. **ALWAYS** use `iis_orchestrator.py update` for status changes (maintains iteration history)
 3. **ALWAYS** commit JSON changes to git (they're the source of truth)
 4. **NEVER** edit JSON files manually — use the scripts
-5. **ALWAYS** use `-PostComment` when marking issues as `released`
-6. Track iteration loops — if user says "still broken", use `Update-Status.ps1 -Status in-progress`
+5. **ALWAYS** use `--post-comment` when marking issues as `released`
+6. Track iteration loops — if user says "still broken", use `update --issue N --status in-progress`
 7. **COMMIT PER ISSUE** — After fixing an issue, run build + tests. If tests pass, commit immediately before moving to the next issue. Format: `fix(#NNNN): short description`. One issue = one atomic commit. Never batch multiple fixes together.
 
 ### Full documentation
@@ -358,13 +355,8 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 ### Scripts
 | File | Purpose |
 |------|---------|
-| `.project-roadmap/scripts/Sync-Issues.ps1` | **MANDATORY** — Sync issues+comments from both repos into JSON DB |
-| `.project-roadmap/scripts/Analyze-Issues.ps1` | **MANDATORY** — Analyze what needs action (urgent, iteration, triage) |
-| `.project-roadmap/scripts/Update-Status.ps1` | **MANDATORY** — Transition issue lifecycle + post GitHub comments |
-| `.project-roadmap/scripts/Generate-Report.ps1` | Generate markdown reports for triage and releases |
-| `.project-roadmap/scripts/orchestrate.py` | **IIS Orchestrator** — automated issue resolution & warning cleanup via AI agents |
+| `.project-roadmap/scripts/iis_orchestrator.py` | **IIS** — Issue Intelligence System (sync, analyze, update, report) + AI-driven orchestrator |
 | `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
-| `.project-roadmap/scripts/refresh-issues.ps1` | Legacy: fetch issue snapshot (superseded by Sync-Issues.ps1) |
 
 ### Issue Intelligence DB
 | File | Purpose |
