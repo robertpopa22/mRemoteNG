@@ -12,12 +12,19 @@
   "created_at": "2017-03-19T22:19:45Z",
   "github_updated_at": "2026-02-07T19:52:04Z",
   "body_snippet": "Server 2012 R2 Core (no GUI) RDP fails when using mRemoteNG. However it works fine using MS RDP.\r\n\r\n<!-- Bug -->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows Server 2012 R2 x64 Core |\r\n|mRemoteNG version| 1.75 hotfix 1 Stable  |\r\n\r\n\r\nI captured working vs nonworking traces. See screenshots. mRemoteNG is on 192.168.1.220 and the machine we are connecting to is 192.168.4.230. It looks like the mRemoteNG receives an ACK at packet 13 and then never sends any data. mRemoteNG then waits 19.9 seconds a...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "triaged",
+      "description": "Reporter confirmed upgrading fixed the issue, and our triage comment requested retest on latest build — no confirmation it still reproduces on v1.79.x+ so cannot act on it"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY2NTI5OTkxMg==",
@@ -61,5 +68,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Reporter confirmed upgrading fixed the issue, and our triage comment requested retest on latest build — no confirmation it still reproduces on v1.79.x+ so cannot act on it\nApproach: Wait for reporter to confirm if issue persists on current builds; if no response after reasonable time, close as resolved by upgrade"
 }

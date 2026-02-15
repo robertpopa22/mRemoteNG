@@ -10,17 +10,24 @@
   "created_at": "2017-03-30T14:45:11Z",
   "github_updated_at": "2017-03-30T14:45:49Z",
   "body_snippet": "<!-- Feature Request -->\r\nHello,\r\n\r\nWould it be possible to add shortcuts to copy and paste from/to the terminal (ssh mainly)?\r\n\r\nIdeally, the same shortucts as in Gnome shell (Ctrl + Shift +C & Ctrl + Shit + V) would be very usefull\r\n\r\nThank you\r\n<!-- If you file a feature request, please delete the bug section -->\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "triaged",
+      "description": "Issue title mentions shortcuts for copy & paste but the body is empty, so it's unclear what specific behavior is requested or what context (connection tree, config panel, terminal) the shortcuts should apply to"
+    }
+  ],
   "comments": [],
   "comments_cursor": "2017-03-30T14:45:49Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue title mentions shortcuts for copy & paste but the body is empty, so it's unclear what specific behavior is requested or what context (connection tree, config panel, terminal) the shortcuts should apply to\nApproach: Need reporter to clarify: what should be copied/pasted (connections, credentials, hostnames?), in which UI context, and what shortcuts are expected"
 }
