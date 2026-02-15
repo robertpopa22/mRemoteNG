@@ -167,6 +167,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// <param name="e">Event data containing information about the event.</param>
         private void radCredentialsCustom_CheckedChanged(object sender, EventArgs e)
         {
+            if (pageRegSettingsInstance == null)
+                return;
+
             if (!pageRegSettingsInstance.DefaultUsername.IsSet && pageRegSettingsInstance.DefaultUsernameEnabled)
             {
                 lblCredentialsUsername.Enabled = radCredentialsCustom.Checked;
