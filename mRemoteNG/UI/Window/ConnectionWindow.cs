@@ -743,7 +743,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl?.Info != null)
                     externalTool.Start(interfaceControl.Info);
                 else
@@ -844,7 +844,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
                 Runtime.ConnectionInitiator.OpenConnection(interfaceControl.Info, ConnectionInfo.Force.DoNotJump);
             }
@@ -858,7 +858,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null)
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "Reconnect (UI.Window.ConnectionWindow) failed. Could not find InterfaceControl.");
@@ -878,7 +878,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl interfaceControl = GetInterfaceControl();
+                InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null) return;
                 if (interfaceControl.Parent is not ConnectionTab connectionTab) return;
                 using (FrmInputBox frmInputBox = new(Language.NewTitle, Language.NewTitle,
