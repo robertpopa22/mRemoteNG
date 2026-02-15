@@ -28,7 +28,7 @@ namespace mRemoteNG.Config.Connections
         ISqlDatabaseMetaDataRetriever sqlMetaDataRetriever,
         ISqlDatabaseVersionVerifier sqlDatabaseVersionVerifier,
         ICryptographyProvider cryptographyProvider,
-        Func<string, Optional<SecureString>> authenticationRequestor = null) : IConnectionsLoader
+        Func<string, Optional<SecureString>>? authenticationRequestor = null) : IConnectionsLoader
     {
         private readonly IDeserializer<string, IEnumerable<LocalConnectionPropertiesModel>> _localConnectionPropertiesDeserializer = localConnectionPropertiesDeserializer.ThrowIfNull(nameof(localConnectionPropertiesDeserializer));
         private readonly IDataProvider<string> _localPropertiesDataProvider = localPropertiesDataProvider.ThrowIfNull(nameof(localPropertiesDataProvider));
