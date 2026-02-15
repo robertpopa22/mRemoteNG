@@ -355,6 +355,7 @@ namespace mRemoteNG.UI.Forms
         private void ConnectionsServiceOnConnectionsLoaded(object? sender, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)
         {
             UpdateWindowTitle();
+            UI.Taskbar.JumpListManager.Instance.Initialize();
         }
 
         private void ConnectionsServiceOnConnectionsSaved(object sender, ConnectionsSavedEventArgs connectionsSavedEventArgs)

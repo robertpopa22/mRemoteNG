@@ -10,7 +10,7 @@
   "created_at": "2017-04-07T10:52:47Z",
   "github_updated_at": "2017-04-20T18:20:14Z",
   "body_snippet": "For my connections I am mainly use the default username and password settings under Tools>Options>Connections>\"For empty Username, Password or Domain fields use:\".\r\n\r\n![grafik](https://cloud.githubusercontent.com/assets/27007110/24797233/9d319318-1b90-11e7-94e2-c630384078ae.png)\r\n\r\nWhen I call an external tools with %hostname%, %username% and %password%, where the config for this connections has empty fields for username & password, empty fields are passed on, instead of the default settings.\r\n\r...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "External tools should populate %username% and %password% tokens from connection's default credentials, not just during active connection sessions"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 8cbee3fd"
     }
   ],
   "comments": [
