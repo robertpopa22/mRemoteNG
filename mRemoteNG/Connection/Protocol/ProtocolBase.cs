@@ -319,16 +319,16 @@ namespace mRemoteNG.Connection.Protocol
 
         public event ClosingEventHandler Closing
         {
-            add => ClosingEvent = (ClosingEventHandler)Delegate.Combine(ClosingEvent, value);
-            remove => ClosingEvent = (ClosingEventHandler)Delegate.Remove(ClosingEvent, value);
+            add => ClosingEvent = (ClosingEventHandler?)Delegate.Combine(ClosingEvent, value);
+            remove => ClosingEvent = (ClosingEventHandler?)Delegate.Remove(ClosingEvent, value);
         }
 
         public delegate void ClosedEventHandler(object sender);
 
         public event ClosedEventHandler Closed
         {
-            add => ClosedEvent = (ClosedEventHandler)Delegate.Combine(ClosedEvent, value);
-            remove => ClosedEvent = (ClosedEventHandler)Delegate.Remove(ClosedEvent, value);
+            add => ClosedEvent = (ClosedEventHandler?)Delegate.Combine(ClosedEvent, value);
+            remove => ClosedEvent = (ClosedEventHandler?)Delegate.Remove(ClosedEvent, value);
         }
 
 
