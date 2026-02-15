@@ -136,6 +136,22 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 if (_vnc == null || _info == null) return false;
                 _vnc.VncPort = _info.Port;
 
+                // Apply VNC color depth (issue #640).
+                // VncSharpCore uses BitsPerPixel (8/16/32) and Depth (3/6/8/16).
+                // When ColNormal (0), leave defaults so the server's native format is used.
+                var bpp = (int)_info.VNCColors;
+                if (bpp > 0)
+                {
+                    _vnc.BitsPerPixel = bpp;
+                    _vnc.Depth = bpp switch
+                    {
+                        8 => 8,
+                        16 => 16,
+                        32 => 24, // 32 bpp with 24-bit true color depth
+                        _ => 0
+                    };
+                }
+
                 return true;
             }
             catch (Exception ex)
@@ -458,8 +474,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
         public enum Colors
         {
             [LocalizedAttributes.LocalizedDescription(nameof(Language.Normal))]
-            ColNormal,
-            [Description("8-bit")] Col8Bit
+            ColNormal = 0,
+            [Description("8-bit")] Col8Bit = 8,
+            [Description("16-bit")] Col16Bit = 16,
+            [Description("32-bit")] Col32Bit = 32
         }
 
         public enum SmartSizeMode

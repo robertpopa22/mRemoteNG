@@ -1190,8 +1190,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Colors)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionColors)),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
-         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD),
-         Browsable(false)]
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD)]
         public ProtocolVNC.Colors VNCColors
         {
             get => GetPropertyValue("VNCColors", _vncColors);
