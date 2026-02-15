@@ -1,57 +1,55 @@
-﻿{
-    "number":  2493,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "\"Any connections that (panel) contains will be closed\" Y/N question always closes all",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "1.77.3"
-               ],
-    "author":  "TDGalea",
-    "created_at":  "2023-09-25T16:30:55Z",
-    "github_updated_at":  "2026-02-07T19:55:21Z",
-    "body_snippet":  "When you have multiple connections open in a panel, and go to close mRemoteNG, the resulting \"Are you sure?\" message gives you a yes/no selection.\r\nChoosing yes works as expected, and closes mRemoteNG. However, choosing **No** _also_ causes mRemoteNG to close.\r\nIt clearly doesn\u0027t expect this though, as it then asks \"Do you want to close all open connections?\" despite the main mRemoteNG window already being destroyed.\r\n\r\nI have discovered while writing/testing this that the mRemoteNG process itse...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXE68",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:43:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGgB",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Jesus, two years. Yeah I\u0027ve not used mRemoteNG for a long time and have no need to any more.\n\nConsidering nobody else has jumped on this, I\u0027m happy for it to be closed.",
-                         "author":  "TDGalea",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T16:49:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiIg",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:21Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2493,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "\"Any connections that (panel) contains will be closed\" Y/N question always closes all",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "1.77.3"
+  ],
+  "author": "TDGalea",
+  "created_at": "2023-09-25T16:30:55Z",
+  "github_updated_at": "2026-02-07T19:55:21Z",
+  "body_snippet": "When you have multiple connections open in a panel, and go to close mRemoteNG, the resulting \"Are you sure?\" message gives you a yes/no selection.\r\nChoosing yes works as expected, and closes mRemoteNG. However, choosing **No** _also_ causes mRemoteNG to close.\r\nIt clearly doesn't expect this though, as it then asks \"Do you want to close all open connections?\" despite the main mRemoteNG window already being destroyed.\r\n\r\nI have discovered while writing/testing this that the mRemoteNG process itse...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mXE68",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:43:49Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGgB",
+      "author": "TDGalea",
+      "date": "2026-02-07T16:49:32Z",
+      "snippet": "Jesus, two years. Yeah I've not used mRemoteNG for a long time and have no need to any more.\n\nConsidering nobody else has jumped on this, I'm happy for it to be closed.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiIg",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:21Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:21Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

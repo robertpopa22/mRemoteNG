@@ -1,102 +1,100 @@
-﻿{
-    "number":  662,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "scrollbars added to RDP window after minimize/restore of mRemoteNG on v1.75",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "1.77.2"
-               ],
-    "author":  "wkl17",
-    "created_at":  "2017-07-27T11:02:29Z",
-    "github_updated_at":  "2026-02-07T19:54:23Z",
-    "body_snippet":  "\u003c!-- Bug --\u003e\r\nscrollbars added to RDP window after minimize/restore of mRemoteNG v1.75\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7005  |\r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\nBTW: Wish Support with MySQL.\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxODc0Mjk4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Other than Minimize -\u003e Maximize or vice versa, any change in the window size of mRemoteNG will ultimately have resolution impacts on the RDP window. Depending on your connection settings, this could result in scaled appearance (smart size), reconnections (fit to panel) or scroll bars (specific resolutions).\r\n\r\nCould you provide some more details and/or screenshots?",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-07-28T19:33:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxODkwMTc1NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you. I selected the \"Full Screen\". Now, I think maybe because I use two rows TaskBar that result the scroll bar, after sevel minutes later. I will do more test.",
-                         "author":  "wkl17",
-                         "action_needed":  true,
-                         "date":  "2017-07-30T13:24:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxOTAwODM0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "![mremoteng](https://user-images.githubusercontent.com/4208651/28770244-04b86162-7611-11e7-9831-5ca9871293db.png)\r\n",
-                         "author":  "wkl17",
-                         "action_needed":  true,
-                         "date":  "2017-07-31T08:55:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxOTAwODcyMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Even I use one row Taskbar, the issue still exist.",
-                         "author":  "wkl17",
-                         "action_needed":  true,
-                         "date":  "2017-07-31T08:57:10Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NDEwMzMyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have the same behaviour. \r\n-  I open the remote window in fullscreen. This works fine.\r\n- I minimize the window (what should i do else, when i want to work with other applications)\r\n- I maximize the remote window again. =\u003e a scrollbar on the right and bottom is visible. \r\n",
-                         "author":  "DAVIDSystems",
-                         "action_needed":  true,
-                         "date":  "2020-07-06T08:50:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXEGP",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGDw",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh2G",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:22Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:23Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 662,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "scrollbars added to RDP window after minimize/restore of mRemoteNG on v1.75",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "1.77.2"
+  ],
+  "author": "wkl17",
+  "created_at": "2017-07-27T11:02:29Z",
+  "github_updated_at": "2026-02-07T19:54:23Z",
+  "body_snippet": "<!-- Bug -->\r\nscrollbars added to RDP window after minimize/restore of mRemoteNG v1.75\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7005  |\r\n\r\n\r\n<!-- Feature Request -->\r\nBTW: Wish Support with MySQL.\r\n<!-- If you file a feature request, please delete the bug section -->",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxODc0Mjk4MA==",
+      "author": "kmscode",
+      "date": "2017-07-28T19:33:01Z",
+      "snippet": "Other than Minimize -> Maximize or vice versa, any change in the window size of mRemoteNG will ultimately have resolution impacts on the RDP window. Depending on your connection settings, this could result in scaled appearance (smart size), reconnections (fit to panel) or scroll bars (specific resolutions).\r\n\r\nCould you provide some more details and/or screenshots?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxODkwMTc1NQ==",
+      "author": "wkl17",
+      "date": "2017-07-30T13:24:03Z",
+      "snippet": "Thank you. I selected the \"Full Screen\". Now, I think maybe because I use two rows TaskBar that result the scroll bar, after sevel minutes later. I will do more test.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxOTAwODM0MQ==",
+      "author": "wkl17",
+      "date": "2017-07-31T08:55:32Z",
+      "snippet": "![mremoteng](https://user-images.githubusercontent.com/4208651/28770244-04b86162-7611-11e7-9831-5ca9871293db.png)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxOTAwODcyMA==",
+      "author": "wkl17",
+      "date": "2017-07-31T08:57:10Z",
+      "snippet": "Even I use one row Taskbar, the issue still exist.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY1NDEwMzMyNw==",
+      "author": "DAVIDSystems",
+      "date": "2020-07-06T08:50:09Z",
+      "snippet": "I have the same behaviour. \r\n-  I open the remote window in fullscreen. This works fine.\r\n- I minimize the window (what should i do else, when i want to work with other applications)\r\n- I maximize the remote window again. => a scrollbar on the right and bottom is visible. \r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXEGP",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:40Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGDw",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:56Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh2G",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:22Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:23Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

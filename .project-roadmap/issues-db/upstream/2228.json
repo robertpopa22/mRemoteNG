@@ -1,138 +1,136 @@
-﻿{
-    "number":  2228,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "New nightly build",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Low",
-                   "1.77.3"
-               ],
-    "author":  "app/",
-    "created_at":  "2022-05-19T20:57:45Z",
-    "github_updated_at":  "2026-02-07T19:53:16Z",
-    "body_snippet":  "Hi,\r\n\r\nAs a normal user, it\u0027s not easy to compile mRemoteNG ourselves, could you please release a new nightly build? Perhaps even schedule this to happen once a month or similar? :)",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5DqGCz",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I will think that is possible to do about such, but you should know nb is not kind of beta release its may have some changes or preparation for bigger changes so even if functionality stay in place but no warranty what it will work as expected (it may drop weird error or show strange messages etc) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-05-23T20:28:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ds2bH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I agree, but it\u0027s better than 0 updates for really long periods. Current nb has bugs too, we can always revert to another nightly build if there are several available :)",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2022-05-24T12:04:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ds_pW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "ok, will try to prepare kind of auto deploy via appveyer like portable version so should be easy to download and test, but even if I try to don\u0027t make any danger stuff in it, you will use on you own risk ;) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-05-24T12:39:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5DtIgk",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Wow that sounds fantastic, thanks a lot!!\r\n\r\nWe run on the nigthly from here: https://mremoteng.org/download\r\n\r\nAnd we use it with MySQL, so it would be great if the updated compile can be simply replaced. Not sure which version was there.",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2022-05-24T13:10:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5DtJWs",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "its states version on download page ;) yes that suppose too be updated automatically on that page",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-05-24T13:13:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5DvY0L",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "For me nightly build may have bugs (maybe there ~is~ will be a section in the Change Notes about Known Issues) and the preview build should contain a more ore less stable version to test new features and sort out bugs before they are included in the stable build... \r\n\r\nWith this I guess nothing should prevent you to create automated builds. \r\n\r\nOne might just want to use the feature branches even a bit more to prevent broken builds, but I guess this will be sorted out more or less soon :)",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-05-24T22:39:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EiCWA",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Perhaps any update on a nightly build? Or even better some new final release :)",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2022-06-08T11:03:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EkBxy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "~~i would be happy if the settings-save-bug would be fixed. any ETA on that?~~\r\n\r\nfixed it myself. see PR",
-                         "author":  "tecxx",
-                         "action_needed":  true,
-                         "date":  "2022-06-08T19:11:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Emzsi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "There\u0027s no stable prebuilt version of 1.77.2.\r\nYou have to build it yourself.",
-                         "author":  "eebssk1",
-                         "action_needed":  true,
-                         "date":  "2022-06-09T11:50:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EtO8M",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "deleted",
-                         "author":  "tecxx",
-                         "action_needed":  true,
-                         "date":  "2022-06-10T20:20:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5E2hEi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "#2245",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-06-14T12:49:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhhd",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:16Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:16Z",
-    "unread_comments":  11,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2228,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "New nightly build",
+  "state": "open",
+  "labels": [
+    "Priority - Low",
+    "1.77.3"
+  ],
+  "author": "app/",
+  "created_at": "2022-05-19T20:57:45Z",
+  "github_updated_at": "2026-02-07T19:53:16Z",
+  "body_snippet": "Hi,\r\n\r\nAs a normal user, it's not easy to compile mRemoteNG ourselves, could you please release a new nightly build? Perhaps even schedule this to happen once a month or similar? :)",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5DqGCz",
+      "author": "Kvarkas",
+      "date": "2022-05-23T20:28:53Z",
+      "snippet": "I will think that is possible to do about such, but you should know nb is not kind of beta release its may have some changes or preparation for bigger changes so even if functionality stay in place but no warranty what it will work as expected (it may drop weird error or show strange messages etc) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ds2bH",
+      "author": "",
+      "date": "2022-05-24T12:04:44Z",
+      "snippet": "I agree, but it's better than 0 updates for really long periods. Current nb has bugs too, we can always revert to another nightly build if there are several available :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ds_pW",
+      "author": "Kvarkas",
+      "date": "2022-05-24T12:39:15Z",
+      "snippet": "ok, will try to prepare kind of auto deploy via appveyer like portable version so should be easy to download and test, but even if I try to don't make any danger stuff in it, you will use on you own risk ;) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5DtIgk",
+      "author": "",
+      "date": "2022-05-24T13:10:46Z",
+      "snippet": "Wow that sounds fantastic, thanks a lot!!\r\n\r\nWe run on the nigthly from here: https://mremoteng.org/download\r\n\r\nAnd we use it with MySQL, so it would be great if the updated compile can be simply replaced. Not sure which version was there.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5DtJWs",
+      "author": "Kvarkas",
+      "date": "2022-05-24T13:13:20Z",
+      "snippet": "its states version on download page ;) yes that suppose too be updated automatically on that page",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5DvY0L",
+      "author": "simonai1254",
+      "date": "2022-05-24T22:39:05Z",
+      "snippet": "For me nightly build may have bugs (maybe there ~is~ will be a section in the Change Notes about Known Issues) and the preview build should contain a more ore less stable version to test new features and sort out bugs before they are included in the stable build... \r\n\r\nWith this I guess nothing should prevent you to create automated builds. \r\n\r\nOne might just want to use the feature branches even a bit more to prevent broken builds, but I guess this will be sorted out more or less soon :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EiCWA",
+      "author": "",
+      "date": "2022-06-08T11:03:57Z",
+      "snippet": "Perhaps any update on a nightly build? Or even better some new final release :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EkBxy",
+      "author": "tecxx",
+      "date": "2022-06-08T19:11:23Z",
+      "snippet": "~~i would be happy if the settings-save-bug would be fixed. any ETA on that?~~\r\n\r\nfixed it myself. see PR",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Emzsi",
+      "author": "eebssk1",
+      "date": "2022-06-09T11:50:10Z",
+      "snippet": "There's no stable prebuilt version of 1.77.2.\r\nYou have to build it yourself.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EtO8M",
+      "author": "tecxx",
+      "date": "2022-06-10T20:20:24Z",
+      "snippet": "deleted",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5E2hEi",
+      "author": "LIyoai",
+      "date": "2022-06-14T12:49:09Z",
+      "snippet": "#2245",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhhd",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:16Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:16Z",
+  "unread_comments": 11,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

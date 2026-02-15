@@ -1,68 +1,66 @@
-﻿{
-    "number":  2619,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "A professional version of mRemoteNG tailored for enterprise use? ",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request",
-                   "Windows",
-                   "1.77.3",
-                   "1.77.4"
-               ],
-    "author":  "AnkushVats-Ahold-GET",
-    "created_at":  "2024-07-23T08:06:40Z",
-    "github_updated_at":  "2026-02-07T19:54:16Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behavior --\u003e\r\n\r\n## Possible Solution\r\n\u003c!--- Not obligatory, but suggest a...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6FyOMy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Dear NremoteNG Team,\r\nI hope this email finds you well.\r\nWe have been exploring various remote access tools, and NremoteNG has come to our attention as a potential solution for our enterprise needs.\r\nWe are particularly interested in understanding the following:\r\nDo you offer a professional version of NremoteNG tailored for enterprise use?\r\nWhat are the features and benefits of the professional version compared to the standard version?\r\nCould you provide a quote for the professional version, inc...",
-                         "author":  "AnkushVats-Ahold-GET",
-                         "action_needed":  true,
-                         "date":  "2024-07-23T08:06:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6FyOep",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "request for purchase",
-                         "author":  "AnkushVats-Ahold-GET",
-                         "action_needed":  true,
-                         "date":  "2024-07-23T08:07:30Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6F00T8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, current version is free to use at home and enterprise, however as is, no support expected except this github page or email for specific issues, initial plan that mR will stay free and open source (so security checks could be done by independent experts\r\nHowever in new version (after migration to .Net 8) where is a plan to start implementing plugins what will extend basic functionality for business needs and what perhaps will be chargeable. If you have specific needs you already could star...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-07-23T13:12:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh0P",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.77.4",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:16Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:16Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2619,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "A professional version of mRemoteNG tailored for enterprise use? ",
+  "state": "open",
+  "labels": [
+    "Feature Request",
+    "Windows",
+    "1.77.3",
+    "1.77.4"
+  ],
+  "author": "AnkushVats-Ahold-GET",
+  "created_at": "2024-07-23T08:06:40Z",
+  "github_updated_at": "2026-02-07T19:54:16Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the difference from current behavior -->\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6FyOMy",
+      "author": "AnkushVats-Ahold-GET",
+      "date": "2024-07-23T08:06:55Z",
+      "snippet": "Dear NremoteNG Team,\r\nI hope this email finds you well.\r\nWe have been exploring various remote access tools, and NremoteNG has come to our attention as a potential solution for our enterprise needs.\r\nWe are particularly interested in understanding the following:\r\nDo you offer a professional version of NremoteNG tailored for enterprise use?\r\nWhat are the features and benefits of the professional version compared to the standard version?\r\nCould you provide a quote for the professional version, inc...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6FyOep",
+      "author": "AnkushVats-Ahold-GET",
+      "date": "2024-07-23T08:07:30Z",
+      "snippet": "request for purchase",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6F00T8",
+      "author": "Kvarkas",
+      "date": "2024-07-23T13:12:56Z",
+      "snippet": "Hello, current version is free to use at home and enterprise, however as is, no support expected except this github page or email for specific issues, initial plan that mR will stay free and open source (so security checks could be done by independent experts\r\nHowever in new version (after migration to .Net 8) where is a plan to start implementing plugins what will extend basic functionality for business needs and what perhaps will be chargeable. If you have specific needs you already could star...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh0P",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:16Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.77.4",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:16Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

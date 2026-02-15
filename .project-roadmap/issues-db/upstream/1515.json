@@ -1,68 +1,66 @@
-﻿{
-    "number":  1515,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "σ╕îµ£¢µÅÉΣ╛¢%!password%Φ┐¢Φíîurlencodeτ╝ûτáüτÜäΦºúσå│µû╣µíê",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Need 2 check",
-                   "1.77.2",
-                   "Needs implementation"
-               ],
-    "author":  "e345",
-    "created_at":  "2019-07-11T22:55:43Z",
-    "github_updated_at":  "2026-02-07T19:53:58Z",
-    "body_snippet":  "Φ┐Öτ»çµûçτ½áµÅÉσê░τÜäΘù«Θóÿσ╣╢Σ╕ìµÿ»ΘÇÜτö¿Φºúσå│µû╣µíê∩╝Ü\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1411\r\nσà╢Σ╕¡%!password%σ╣╢µ▓íµ£ëΦºúσå│σñìµ¥éσ»åτáüτÖ╗σ╜òwinscpτÜäΘù«Θóÿ∩╝îσ╕îµ£¢Φâ╜σñƒµÅÉΣ╛¢urlencodeτÜäτ╝ûτáüµû╣µ│ò∩╝îΣ╛ïσªéσÅ»Σ╗ÑΦÇâΦÖæΣ╜┐τö¿Σ╕ñΣ╕¬µäƒσÅ╣σÅ╖Φí¿τñ║urlencodeΦ╜¼τáü∩╝Ü%!!password%\r\nΦ«⌐ΘöÖΦ»»τÜäσ»åτáü∩╝Ü scp://root:ΓÇ£J4Lk:;7=0!S\u003e\u003e/ΓÇ¥@172.28.3.151:22\r\nΦ╜¼µìóΣ╕║µ¡úτí«τÜä∩╝Ü scp://root:ΓÇ£J4Lk%3a%3b7%3d0!S%3e%3e%2fΓÇ¥@172.28.3.151:22",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMzA4MDI0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "µ▓íµ£ëΣ║║σà│µ│¿σÉù∩╝ƒ",
-                         "author":  "e345",
-                         "action_needed":  true,
-                         "date":  "2019-07-19T03:51:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyMTI1MzI3NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We can add this as a new feature. The variable system has never supported this before. It shouldn\u0027t be too hard to add, though I don\u0027t know when we will get to it. This might be a good feature for new community members to help with (if anyone is interested).\r\n\r\n∩╝êΦ░╖µ¡îτ┐╗Φ»æ∩╝ë\r\nµêæΣ╗¼σÅ»Σ╗Ñσ░åσà╢µ╖╗σèáΣ╕║µû░σèƒΦâ╜πÇé σÅÿΘçÅτ│╗τ╗ƒΣ╗ÑσëìΣ╗Äµ£¬µö»µîüΦ┐çΦ┐ÖΣ╕¬πÇé σ«âΣ╕ìσ║öΦ»Ñσñ¬ΘÜ╛µ╖╗σèá∩╝îΣ╜åµêæΣ╕ìτƒÑΘüôΣ╗ÇΣ╣êµù╢σÇÖΣ╝ÜΦ╛╛σê░σ«âπÇé σ»╣Σ║Äµû░τñ╛σî║µêÉσæÿµ¥ÑΦ»┤∩╝îΦ┐ÖσÅ»Φâ╜µÿ»Σ╕ÇΣ╕¬σ╛êσÑ╜τÜäσèƒΦâ╜∩╝...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-08-14T13:48:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXF49",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhul",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:58Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:58Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1515,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "希望提供%!password%进行urlencode编码的解决方案",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Need 2 check",
+    "1.77.2",
+    "Needs implementation"
+  ],
+  "author": "e345",
+  "created_at": "2019-07-11T22:55:43Z",
+  "github_updated_at": "2026-02-07T19:53:58Z",
+  "body_snippet": "这篇文章提到的问题并不是通用解决方案：\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1411\r\n其中%!password%并没有解决复杂密码登录winscp的问题，希望能够提供urlencode的编码方法，例如可以考虑使用两个感叹号表示urlencode转码：%!!password%\r\n让错误的密码： scp://root:“J4Lk:;7=0!S>>/”@172.28.3.151:22\r\n转换为正确的： scp://root:“J4Lk%3a%3b7%3d0!S%3e%3e%2f”@172.28.3.151:22",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxMzA4MDI0Mw==",
+      "author": "e345",
+      "date": "2019-07-19T03:51:34Z",
+      "snippet": "没有人关注吗？",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyMTI1MzI3NA==",
+      "author": "sparerd",
+      "date": "2019-08-14T13:48:32Z",
+      "snippet": "We can add this as a new feature. The variable system has never supported this before. It shouldn't be too hard to add, though I don't know when we will get to it. This might be a good feature for new community members to help with (if anyone is interested).\r\n\r\n（谷歌翻译）\r\n我们可以将其添加为新功能。 变量系统以前从未支持过这个。 它不应该太难添加，但我不知道什么时候会达到它。 对于新社区成员来说，这可能是一个很好的功能（如果有人有兴趣的话）。",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXF49",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:21Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhul",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:58Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:58Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

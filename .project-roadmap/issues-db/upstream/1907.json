@@ -1,56 +1,54 @@
-﻿{
-    "number":  1907,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Allow arbitrary tunnel to be established before connection",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request"
-               ],
-    "author":  "andrewheberle",
-    "created_at":  "2020-11-25T11:38:50Z",
-    "github_updated_at":  "2021-11-14T03:32:41Z",
-    "body_snippet":  "This is about implementing something very similar to what was done in #1568 , however the feature would be to allow an arbitrary executable to be used to tunnel/connect to the endpoint.\r\n\r\nThe specific use case I am thinking of is to utilize Cloudflare Access/Argo Tunnel to connect to remote resources, but any application/service that creates a TCP tunnel could be used.\r\n\r\nThe way this works on the client side for Cloudflare at least, is you execute the `cloudflared` executable as follows (in th...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczNTc3ODcyNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "In lieu of any feedback on this, a more minor change would be to make the \"SSH Tunnel\" feature from #1568 more generic to allow selecting a SSH connection or a pre-configured \"External Tool\".\r\n\r\nIn the case of the \"External Tool\", there would need to be the option of referencing a new variable such as `%RANDOM_PORT%` for the local side of the tunnel that would correspond to the automatic \"localhost:%RANDOM_PORT%\" connection made via the tunnel.\r\n\r\nAs part of this, the \"External Tool\" would need ...",
-                         "author":  "andrewheberle",
-                         "action_needed":  true,
-                         "date":  "2020-11-30T13:16:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc0NjEyODg0OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nThis is a _generic_ implementation of the request #420.\r\nI hope that at some point the developers will want to implement TUNNEL or PROXY support. ≡ƒñ₧ ",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-12-16T11:17:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM45tYzX",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "See my comment on https://github.com/mRemoteNG/mRemoteNG/issues/182#issuecomment-968196049. I think a better configuration model will make a lot of things easier.",
-                         "author":  "merarischroeder",
-                         "action_needed":  true,
-                         "date":  "2021-11-14T03:32:40Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-11-14T03:32:41Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1907,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Allow arbitrary tunnel to be established before connection",
+  "state": "open",
+  "labels": [
+    "Feature Request"
+  ],
+  "author": "andrewheberle",
+  "created_at": "2020-11-25T11:38:50Z",
+  "github_updated_at": "2021-11-14T03:32:41Z",
+  "body_snippet": "This is about implementing something very similar to what was done in #1568 , however the feature would be to allow an arbitrary executable to be used to tunnel/connect to the endpoint.\r\n\r\nThe specific use case I am thinking of is to utilize Cloudflare Access/Argo Tunnel to connect to remote resources, but any application/service that creates a TCP tunnel could be used.\r\n\r\nThe way this works on the client side for Cloudflare at least, is you execute the `cloudflared` executable as follows (in th...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNTc3ODcyNg==",
+      "author": "andrewheberle",
+      "date": "2020-11-30T13:16:05Z",
+      "snippet": "In lieu of any feedback on this, a more minor change would be to make the \"SSH Tunnel\" feature from #1568 more generic to allow selecting a SSH connection or a pre-configured \"External Tool\".\r\n\r\nIn the case of the \"External Tool\", there would need to be the option of referencing a new variable such as `%RANDOM_PORT%` for the local side of the tunnel that would correspond to the automatic \"localhost:%RANDOM_PORT%\" connection made via the tunnel.\r\n\r\nAs part of this, the \"External Tool\" would need ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0NjEyODg0OA==",
+      "author": "lars18th",
+      "date": "2020-12-16T11:17:10Z",
+      "snippet": "Hi,\r\n\r\nThis is a _generic_ implementation of the request #420.\r\nI hope that at some point the developers will want to implement TUNNEL or PROXY support. 🤞 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM45tYzX",
+      "author": "merarischroeder",
+      "date": "2021-11-14T03:32:40Z",
+      "snippet": "See my comment on https://github.com/mRemoteNG/mRemoteNG/issues/182#issuecomment-968196049. I think a better configuration model will make a lot of things easier.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-11-14T03:32:41Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

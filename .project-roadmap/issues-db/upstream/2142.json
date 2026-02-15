@@ -1,104 +1,104 @@
-﻿{
-    "number":  2142,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "mRemoteNG does not resize connection screens when disconnecting from HDMI - VERSION 1.76.20.24669",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "Need 2 check",
-                   "Improvement required",
-                   "1.77.3"
-               ],
-    "author":  "austin-bridge",
-    "created_at":  "2022-01-28T01:56:45Z",
-    "github_updated_at":  "2026-02-11T12:20:52Z",
-    "body_snippet":  "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.80.0",
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Resize RDP connections on monitor connect/disconnect",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  "v1.80.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM49pJXp",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Can anyone help with this issue?",
-                         "author":  "austin-bridge",
-                         "action_needed":  true,
-                         "date":  "2022-02-09T21:11:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM49sVUM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As a workaround you can right-click the tab and choose \"reconnect\" or Restore Down and up again. This should trigger a resize. \r\n\r\nI believe the issue relies on the fact that having mRemoteNG maximized it does not register when the screen/size is changed and can not trigger the resize/reconnect on demand. But this is just an assumption... ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-02-10T15:08:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFa5",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:45:41Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhBo",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mtwCC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have tested the latest 1.78.2 and the issue is still there.\nI have a home laptop with 1900x1200 and a work computer with a 4k screen. When i go between home and work computer, the remotes are \"stuck\" in the previous resolutions. I use \"reconnect\" button and it works, but it would be nicer if this was done automatically.\nWe have a main remote server which acts as gateway and use remoteNG inside it to connect to subservers, in case this somehow affect anything.\n\nThe old remoteNG version handled ...",
-                         "author":  "siggemannen",
-                         "action_needed":  true,
-                         "date":  "2026-02-09T10:14:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m_5l8",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@siggemannen Thank you for the detailed report and confirmation. This is now fixed in the v1.80.0 community build:\n\n**Fix:** [`7f12f48f`](https://github.com/robertpopa22/mRemoteNG/commit/7f12f48f) ΓÇö Propagate `SystemEvents.DisplaySettingsChanged` to all active RDP connections, triggering a debounced `UpdateSessionDisplaySettings()` so sessions auto-resize when a monitor is connected or disconnected.\n\n**How it works:**\n- Windows fires `DisplaySettingsChanged` when HDMI/DP is hot-plugged\n- mRemo...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-10T06:02:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7ngmL_",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you @robertpopa22 , i tried the latest version 1.80.0 (3388) but it didn\u0027t resize when i came back to work.\n\n\u003cimg width=\"2263\" height=\"368\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a06b3290-faf6-4279-86bf-18b4a603fdc7\" /\u003e\n\nAfter i press reconnect:\n\n\u003cimg width=\"1676\" height=\"311\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c2cd6210-68f2-46c1-8c52-98feacb068d0\" /\u003e\n",
-                         "author":  "siggemannen",
-                         "action_needed":  true,
-                         "date":  "2026-02-11T12:20:52Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-11T12:20:52Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2142,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "mRemoteNG does not resize connection screens when disconnecting from HDMI - VERSION 1.76.20.24669",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "Need 2 check",
+    "Improvement required",
+    "1.77.3"
+  ],
+  "author": "austin-bridge",
+  "created_at": "2022-01-28T01:56:45Z",
+  "github_updated_at": "2026-02-11T12:20:52Z",
+  "body_snippet": "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.80.0",
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "Resize RDP connections on monitor connect/disconnect",
+      "pr": null,
+      "branch": null,
+      "release": "v1.80.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM49pJXp",
+      "author": "austin-bridge",
+      "date": "2022-02-09T21:11:48Z",
+      "snippet": "Can anyone help with this issue?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM49sVUM",
+      "author": "simonai1254",
+      "date": "2022-02-10T15:08:40Z",
+      "snippet": "As a workaround you can right-click the tab and choose \"reconnect\" or Restore Down and up again. This should trigger a resize. \r\n\r\nI believe the issue relies on the fact that having mRemoteNG maximized it does not register when the screen/size is changed and can not trigger the resize/reconnect on demand. But this is just an assumption... ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFa5",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:45:41Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhBo",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:38Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mtwCC",
+      "author": "siggemannen",
+      "date": "2026-02-09T10:14:00Z",
+      "snippet": "I have tested the latest 1.78.2 and the issue is still there.\nI have a home laptop with 1900x1200 and a work computer with a 4k screen. When i go between home and work computer, the remotes are \"stuck\" in the previous resolutions. I use \"reconnect\" button and it works, but it would be nicer if this was done automatically.\nWe have a main remote server which acts as gateway and use remoteNG inside it to connect to subservers, in case this somehow affect anything.\n\nThe old remoteNG version handled ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m_5l8",
+      "author": "robertpopa22",
+      "date": "2026-02-10T06:02:10Z",
+      "snippet": "@siggemannen Thank you for the detailed report and confirmation. This is now fixed in the v1.80.0 community build:\n\n**Fix:** [`7f12f48f`](https://github.com/robertpopa22/mRemoteNG/commit/7f12f48f) — Propagate `SystemEvents.DisplaySettingsChanged` to all active RDP connections, triggering a debounced `UpdateSessionDisplaySettings()` so sessions auto-resize when a monitor is connected or disconnected.\n\n**How it works:**\n- Windows fires `DisplaySettingsChanged` when HDMI/DP is hot-plugged\n- mRemote...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7ngmL_",
+      "author": "siggemannen",
+      "date": "2026-02-11T12:20:52Z",
+      "snippet": "Thank you @robertpopa22 , i tried the latest version 1.80.0 (3388) but it didn't resize when i came back to work.\n\n<img width=\"2263\" height=\"368\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a06b3290-faf6-4279-86bf-18b4a603fdc7\" />\n\nAfter i press reconnect:\n\n<img width=\"1676\" height=\"311\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c2cd6210-68f2-46c1-8c52-98feacb068d0\" />\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-11T12:20:52Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

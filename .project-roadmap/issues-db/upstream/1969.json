@@ -1,93 +1,93 @@
-﻿{
-    "number":  1969,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "The startup connection file could not be loaded. connectionFilePath cannot be null or empty",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "In progress"
-               ],
-    "author":  "natenho",
-    "created_at":  "2021-06-11T16:21:27Z",
-    "github_updated_at":  "2026-02-09T06:26:42Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nOpening mRemoteNG the following message is shown:\r\n\u003e---------------------------\r\n\u003eCould not load startup file.\r\n\u003e---------------------------\r\n\u003eThe startup connection file could not be loaded.\r\n\u003e\r\n\u003econnectionFilePath cannot be null or empty\r\n\u003e\r\n\u003eIn order to prevent data loss, mRemoteNG will now exit.\r\n\u003e---------------------------\r\n\u003eOK   \r\n\u003e---------------------------\r\n\r\n## Expected Behavior\r\nmRemote should open in any case. A ...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3113,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Startup path fallback",
-                           "pr":  3113,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2ODQ5ODQ0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Steps to Reproduce: open mRemoteNG with new connection file, close it, delete file, try to open again \r\n\r\nSolution: mRemoteNG will check if file exist, if not start without it",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-25T13:25:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM46R9pO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, but how to repair that error? where to fill \"connectionFilePath\"? or what config to change?",
-                         "author":  "poshl9k",
-                         "action_needed":  true,
-                         "date":  "2021-11-24T11:26:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM46SQoj",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "in next build i hope it will be option to run app without connection file, so then as usually you may go via file open connection etc..",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-11-24T13:12:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI_o",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7maATe",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Upstream PR opened for this fix:\u0026echo https://github.com/mRemoteNG/mRemoteNG/pull/3113\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T21:55:26Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpcFL",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3113 | **Branch:** `codex/pr9-startup-path-fallback-1969`\n**Fix:** Startup path fallback prevents crash when configured path is unavailable.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:42Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:26:42Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1969,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "The startup connection file could not be loaded. connectionFilePath cannot be null or empty",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "In progress"
+  ],
+  "author": "natenho",
+  "created_at": "2021-06-11T16:21:27Z",
+  "github_updated_at": "2026-02-09T06:26:42Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nOpening mRemoteNG the following message is shown:\r\n>---------------------------\r\n>Could not load startup file.\r\n>---------------------------\r\n>The startup connection file could not be loaded.\r\n>\r\n>connectionFilePath cannot be null or empty\r\n>\r\n>In order to prevent data loss, mRemoteNG will now exit.\r\n>---------------------------\r\n>OK   \r\n>---------------------------\r\n\r\n## Expected Behavior\r\nmRemote should open in any case. A ...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3113,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "Startup path fallback",
+      "pr": 3113,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2ODQ5ODQ0Mw==",
+      "author": "Kvarkas",
+      "date": "2021-06-25T13:25:28Z",
+      "snippet": "Steps to Reproduce: open mRemoteNG with new connection file, close it, delete file, try to open again \r\n\r\nSolution: mRemoteNG will check if file exist, if not start without it",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM46R9pO",
+      "author": "poshl9k",
+      "date": "2021-11-24T11:26:37Z",
+      "snippet": "Hi, but how to repair that error? where to fill \"connectionFilePath\"? or what config to change?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM46SQoj",
+      "author": "Kvarkas",
+      "date": "2021-11-24T13:12:33Z",
+      "snippet": "in next build i hope it will be option to run app without connection file, so then as usually you may go via file open connection etc..",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI_o",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:38Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7maATe",
+      "author": "robertpopa22",
+      "date": "2026-02-07T21:55:26Z",
+      "snippet": "Upstream PR opened for this fix:&echo https://github.com/mRemoteNG/mRemoteNG/pull/3113\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpcFL",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:42Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3113 | **Branch:** `codex/pr9-startup-path-fallback-1969`\n**Fix:** Startup path fallback prevents crash when configured path is unavailable.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:26:42Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

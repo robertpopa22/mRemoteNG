@@ -1,132 +1,132 @@
-﻿{
-    "number":  2664,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Windows 11 24h2, RDP no longer works on mRemoteNG",
-    "state":  "open",
-    "labels":  [
-                   "RDP",
-                   "Need 2 check",
-                   "Windows",
-                   "1.77.3",
-                   "1.77.4"
-               ],
-    "author":  "aseiras",
-    "created_at":  "2025-01-23T21:54:32Z",
-    "github_updated_at":  "2026-02-07T19:32:01Z",
-    "body_snippet":  "Since windows 11 updated to 24h2, the RDP no longer works unless you Download the app Remote Desktop Connection from the Microsoft store and use that instead.\n\nAny idea how to make mRemoteNG work again?",
-    "our_status":  "wontfix",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "wontfix",
-                           "description":  "Not our bug - Windows Update KB5050094 caused RDP failures, fixed by KB5044285",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  null,
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6b-5w1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027ve used remoteNG on a Windows 11 24H2 fresh install and it worked fine.\nI did not download the new Remote Desktop apps from the store.",
-                         "author":  "Stan-Gobien",
-                         "action_needed":  true,
-                         "date":  "2025-01-27T21:42:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6cHXiB",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I experience the same issues.\nRDP is no longer possible after Windows Update:\n\n![Image](https://github.com/user-attachments/assets/d5adef2d-c222-4e22-be61-9582ef153116)\n\nVersion info:\n\n![Image](https://github.com/user-attachments/assets/e6308c16-e0e5-40cc-bda3-6daeaf5a6279)\n\nMS Info:\n\n![Image](https://github.com/user-attachments/assets/fff392ce-2556-4416-b150-09b22b722d22)\n\n-\u003e mstsc.exe is working fine, so no need to use a different RDP client.",
-                         "author":  "ppeters1990",
-                         "action_needed":  true,
-                         "date":  "2025-01-28T14:34:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6cHmD1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "that older version, we are not working on updates for it anymore, for testing (not production work) you could try 1.77-3-nb (.net6) for older system support (like windows 7 and windows server 2008) or our new one (actively testing at the moment) - 1.78.1-nb (.net8) -\u003e https://github.com/mRemoteNG/mRemoteNG/releases/tag/2025.01.27-v1.78.1-nb\n\nnote: non production versions dont have settings saving enabled to avoid mess with working version, the rest should work",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-01-28T14:54:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6cH75W",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Searching for the error code reported by @ppeters1990 it looks like this is an issue created by Microsoft and not by mRemoteNG. This result should be independent to what version is used 1.76.20+, but it\u0027s almost impossible to reproduce if your machine wasn\u0027t broken by an update... \n\n--- \n\n@ppeters1990 According to my quick research, it might to be an issue with the user creating the connection: \n\n\u003e \"This issue occurs when running Remote Desktop elevated as a different user, and that different us...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-01-28T15:27:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6dYFU2",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you for checking, I went down the rabbit hole too.\nSystem checked, no corruption.\n\nMany administrators are reporting issues with the latest Windows Update (24H2).\nIt is definetly Windows related, as people confirm that it works fine on pre-24H2.\n\nI really appreciate this app and am happy to see continuos development.\nHope to see a new release coming out soon, progress looks promising.\nThank you for the great work @Kvarkas.",
-                         "author":  "ppeters1990",
-                         "action_needed":  true,
-                         "date":  "2025-02-06T16:28:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6eB5VU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We got a similar issue, on some VM the connection drop every 1-2 minutes with stable and nightly rel. ,\nusing the new RDC from Windows Store helps mitigate the problem , but man... it\u0027s so ugly.\n@ppeters1990 can you tell us where othe admins are reporting the issues so we can check for updates ?\nThank you all for your hard work and we hope for an update from Microsoft soon!\n\nIt seems that the update kb5050094 is the culprit. i have removed it and for now no more disconnections.\nhttps://answers.m...",
-                         "author":  "dogoffthetube",
-                         "action_needed":  true,
-                         "date":  "2025-02-11T16:13:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6eTBfZ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e that older version, we are not working on updates for it anymore, for testing (not production work) you could try 1.77-3-nb (.net6) for older system support (like windows 7 and windows server 2008) or our new one (actively testing at the moment) - 1.78.1-nb (.net8) -\u003e https://github.com/mRemoteNG/mRemoteNG/releases/tag/2025.01.27-v1.78.1-nb\n\u003e \n\u003e note: non production versions dont have settings saving enabled to avoid mess with working version, the rest should work\n\nThanks [Kvarkas](https://git...",
-                         "author":  "janborup",
-                         "action_needed":  true,
-                         "date":  "2025-02-13T07:56:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6fgpzJ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "There is an issue with 24H2 W11 cousing this problem.\nOn the remote machine do this chages and all will works:\nChanges in GPO\n\nLocal Computer Policy \n\u003e Computer Configuration\n\u003e Administrative Templates\n\u003e Windows Components \n\u003e Remote Desktop Services \n\u003e Remote Desktop Session Host \n\u003e Connections \n\u003e Select network detection on the server  - set to Enabled, \n\nInside the above change this one; \nTurn off Connect Time Detect and Continuous Network Detect",
-                         "author":  "dtech77pl",
-                         "action_needed":  true,
-                         "date":  "2025-02-22T10:28:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6fgyPa",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Installing KB5044285 finally fixed this issue.",
-                         "author":  "aseiras",
-                         "action_needed":  true,
-                         "date":  "2025-02-22T12:10:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYX0c",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.77.4",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:32:01Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:32:01Z",
-    "unread_comments":  9,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2664,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Windows 11 24h2, RDP no longer works on mRemoteNG",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Need 2 check",
+    "Windows",
+    "1.77.3",
+    "1.77.4"
+  ],
+  "author": "aseiras",
+  "created_at": "2025-01-23T21:54:32Z",
+  "github_updated_at": "2026-02-07T19:32:01Z",
+  "body_snippet": "Since windows 11 updated to 24h2, the RDP no longer works unless you Download the app Remote Desktop Connection from the Microsoft store and use that instead.\n\nAny idea how to make mRemoteNG work again?",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "wontfix",
+      "description": "Not our bug - Windows Update KB5050094 caused RDP failures, fixed by KB5044285",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6b-5w1",
+      "author": "Stan-Gobien",
+      "date": "2025-01-27T21:42:39Z",
+      "snippet": "I've used remoteNG on a Windows 11 24H2 fresh install and it worked fine.\nI did not download the new Remote Desktop apps from the store.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6cHXiB",
+      "author": "ppeters1990",
+      "date": "2025-01-28T14:34:50Z",
+      "snippet": "I experience the same issues.\nRDP is no longer possible after Windows Update:\n\n![Image](https://github.com/user-attachments/assets/d5adef2d-c222-4e22-be61-9582ef153116)\n\nVersion info:\n\n![Image](https://github.com/user-attachments/assets/e6308c16-e0e5-40cc-bda3-6daeaf5a6279)\n\nMS Info:\n\n![Image](https://github.com/user-attachments/assets/fff392ce-2556-4416-b150-09b22b722d22)\n\n-> mstsc.exe is working fine, so no need to use a different RDP client.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6cHmD1",
+      "author": "Kvarkas",
+      "date": "2025-01-28T14:54:45Z",
+      "snippet": "that older version, we are not working on updates for it anymore, for testing (not production work) you could try 1.77-3-nb (.net6) for older system support (like windows 7 and windows server 2008) or our new one (actively testing at the moment) - 1.78.1-nb (.net8) -> https://github.com/mRemoteNG/mRemoteNG/releases/tag/2025.01.27-v1.78.1-nb\n\nnote: non production versions dont have settings saving enabled to avoid mess with working version, the rest should work",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6cH75W",
+      "author": "simonai1254",
+      "date": "2025-01-28T15:27:06Z",
+      "snippet": "Searching for the error code reported by @ppeters1990 it looks like this is an issue created by Microsoft and not by mRemoteNG. This result should be independent to what version is used 1.76.20+, but it's almost impossible to reproduce if your machine wasn't broken by an update... \n\n--- \n\n@ppeters1990 According to my quick research, it might to be an issue with the user creating the connection: \n\n> \"This issue occurs when running Remote Desktop elevated as a different user, and that different us...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6dYFU2",
+      "author": "ppeters1990",
+      "date": "2025-02-06T16:28:23Z",
+      "snippet": "Thank you for checking, I went down the rabbit hole too.\nSystem checked, no corruption.\n\nMany administrators are reporting issues with the latest Windows Update (24H2).\nIt is definetly Windows related, as people confirm that it works fine on pre-24H2.\n\nI really appreciate this app and am happy to see continuos development.\nHope to see a new release coming out soon, progress looks promising.\nThank you for the great work @Kvarkas.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6eB5VU",
+      "author": "dogoffthetube",
+      "date": "2025-02-11T16:13:32Z",
+      "snippet": "We got a similar issue, on some VM the connection drop every 1-2 minutes with stable and nightly rel. ,\nusing the new RDC from Windows Store helps mitigate the problem , but man... it's so ugly.\n@ppeters1990 can you tell us where othe admins are reporting the issues so we can check for updates ?\nThank you all for your hard work and we hope for an update from Microsoft soon!\n\nIt seems that the update kb5050094 is the culprit. i have removed it and for now no more disconnections.\nhttps://answers.m...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6eTBfZ",
+      "author": "janborup",
+      "date": "2025-02-13T07:56:04Z",
+      "snippet": "> that older version, we are not working on updates for it anymore, for testing (not production work) you could try 1.77-3-nb (.net6) for older system support (like windows 7 and windows server 2008) or our new one (actively testing at the moment) - 1.78.1-nb (.net8) -> https://github.com/mRemoteNG/mRemoteNG/releases/tag/2025.01.27-v1.78.1-nb\n> \n> note: non production versions dont have settings saving enabled to avoid mess with working version, the rest should work\n\nThanks [Kvarkas](https://git...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6fgpzJ",
+      "author": "dtech77pl",
+      "date": "2025-02-22T10:28:04Z",
+      "snippet": "There is an issue with 24H2 W11 cousing this problem.\nOn the remote machine do this chages and all will works:\nChanges in GPO\n\nLocal Computer Policy \n> Computer Configuration\n> Administrative Templates\n> Windows Components \n> Remote Desktop Services \n> Remote Desktop Session Host \n> Connections \n> Select network detection on the server  - set to Enabled, \n\nInside the above change this one; \nTurn off Connect Time Detect and Continuous Network Detect",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6fgyPa",
+      "author": "aseiras",
+      "date": "2025-02-22T12:10:32Z",
+      "snippet": "Installing KB5044285 finally fixed this issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYX0c",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:32:01Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.77.4",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:32:01Z",
+  "unread_comments": 9,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

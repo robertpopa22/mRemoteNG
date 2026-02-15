@@ -1,114 +1,112 @@
-﻿{
-    "number":  2404,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Three suggestions how to improve lost SSH connection",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "SSH",
-                   "Improvement required",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2023-03-24T13:21:24Z",
-    "github_updated_at":  "2026-02-07T19:52:09Z",
-    "body_snippet":  "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n\r\n1. Open some SSH connection to e.g. Linux computer.\r\n2. Reboot remote computer: \"sudo reboot\" type in password and press Enter. Problem appears. Dialog is displayed \"Remote side unexpectedly closed network connection\".\r\n![image](https://user-images.githubusercontent.com/10895030/227530307-3bf5acb6-b8e5-4855-adab-1be44cce0e79.png)\r\n\r\n\r\nThis is not the best user experience beca...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5YdXUG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "5. Additional suggestion. When connection is closed down in most cases I want to reestablish connection. Some kind of dialog would be nice to offer connection retry option. But I probably don\u0027t want to have real dialog, because in case I want to close the tab I would need to click on Cancel on dialog, which is additional click I don\u0027t want to.\r\n\r\nMay I suggest every time connection is lost at tab where connection is lost. Notifications tab should auto appear with bellow text.\r\n![image](https://u...",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2023-03-26T13:10:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5YdX1L",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We retry on RDP connections so a retry with SSH seems doable.\r\n\r\nnote: Changing putty dialogs would require making changes to the puttyng project which is written in C.\r\n\r\n",
-                         "author":  "BlueBlock",
-                         "action_needed":  true,
-                         "date":  "2023-03-26T13:19:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5YdnkT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e We retry on RDP connections so a retry with SSH seems doable.\r\n\r\nThe difference is that with RDP the session is retained, while with SSH all output is lost when reconnecting (with putty). Therefore one need to be careful when implementing an auto-reconnect... \r\n\r\n",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-03-26T17:04:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ye4_8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@simonai1254, thanks for update on SSH reconnecting. I am not suggesting to create automatic reconnect when connection is established and working well. My suggestion above is just when SSH connection is lost, to make it possible to automatically reconnect. In most cases this happens when remove machine was rebooted.",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2023-03-27T05:00:43Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ZAl2j",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is the use of putty for ssh really important to everyone? Or can another ssh implementation be added which more easily supports reconnection, among other things?\r\n\r\nDoes WinSSHTerm have any code on github?",
-                         "author":  "BlueBlock",
-                         "action_needed":  true,
-                         "date":  "2023-04-02T13:06:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ZAmpu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "In my personal view I do not care how SSH is implemented in mRemoteNG, as long as it\u0027s user friendly and covers for everyone\u0027s need (tunneling, certificates etc.). There are ideas to use SSH.net (see #181), the only important thing for me is to keep it streamlined and continue to just integrate one solution and that one well. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-04-02T13:20:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ZApnj",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "puttyng exist not just because ;) mR depends on its work, however happy if we manage to have another implementation however keep in mind it should be secure and dont left passwords in memory in plain text. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-04-02T13:57:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6oPvZO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can\u0027t find the other issue, but the Pop-Up (as also stated in #2651) was removed in 1.77.3 and newer. \nIn case I come across the other issue, I\u0027ll link it here",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-04-22T23:27:54Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhJ5",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:09Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:09Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2404,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Three suggestions how to improve lost SSH connection",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "SSH",
+    "Improvement required",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "igor2x",
+  "created_at": "2023-03-24T13:21:24Z",
+  "github_updated_at": "2026-02-07T19:52:09Z",
+  "body_snippet": "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n\r\n1. Open some SSH connection to e.g. Linux computer.\r\n2. Reboot remote computer: \"sudo reboot\" type in password and press Enter. Problem appears. Dialog is displayed \"Remote side unexpectedly closed network connection\".\r\n![image](https://user-images.githubusercontent.com/10895030/227530307-3bf5acb6-b8e5-4855-adab-1be44cce0e79.png)\r\n\r\n\r\nThis is not the best user experience beca...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5YdXUG",
+      "author": "igor2x",
+      "date": "2023-03-26T13:10:16Z",
+      "snippet": "5. Additional suggestion. When connection is closed down in most cases I want to reestablish connection. Some kind of dialog would be nice to offer connection retry option. But I probably don't want to have real dialog, because in case I want to close the tab I would need to click on Cancel on dialog, which is additional click I don't want to.\r\n\r\nMay I suggest every time connection is lost at tab where connection is lost. Notifications tab should auto appear with bellow text.\r\n![image](https://u...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5YdX1L",
+      "author": "BlueBlock",
+      "date": "2023-03-26T13:19:39Z",
+      "snippet": "We retry on RDP connections so a retry with SSH seems doable.\r\n\r\nnote: Changing putty dialogs would require making changes to the puttyng project which is written in C.\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5YdnkT",
+      "author": "simonai1254",
+      "date": "2023-03-26T17:04:22Z",
+      "snippet": "> We retry on RDP connections so a retry with SSH seems doable.\r\n\r\nThe difference is that with RDP the session is retained, while with SSH all output is lost when reconnecting (with putty). Therefore one need to be careful when implementing an auto-reconnect... \r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ye4_8",
+      "author": "igor2x",
+      "date": "2023-03-27T05:00:43Z",
+      "snippet": "@simonai1254, thanks for update on SSH reconnecting. I am not suggesting to create automatic reconnect when connection is established and working well. My suggestion above is just when SSH connection is lost, to make it possible to automatically reconnect. In most cases this happens when remove machine was rebooted.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ZAl2j",
+      "author": "BlueBlock",
+      "date": "2023-04-02T13:06:05Z",
+      "snippet": "Is the use of putty for ssh really important to everyone? Or can another ssh implementation be added which more easily supports reconnection, among other things?\r\n\r\nDoes WinSSHTerm have any code on github?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ZAmpu",
+      "author": "simonai1254",
+      "date": "2023-04-02T13:20:23Z",
+      "snippet": "In my personal view I do not care how SSH is implemented in mRemoteNG, as long as it's user friendly and covers for everyone's need (tunneling, certificates etc.). There are ideas to use SSH.net (see #181), the only important thing for me is to keep it streamlined and continue to just integrate one solution and that one well. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ZApnj",
+      "author": "Kvarkas",
+      "date": "2023-04-02T13:57:53Z",
+      "snippet": "puttyng exist not just because ;) mR depends on its work, however happy if we manage to have another implementation however keep in mind it should be secure and dont left passwords in memory in plain text. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6oPvZO",
+      "author": "simonai1254",
+      "date": "2025-04-22T23:27:54Z",
+      "snippet": "I can't find the other issue, but the Pop-Up (as also stated in #2651) was removed in 1.77.3 and newer. \nIn case I come across the other issue, I'll link it here",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhJ5",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:09Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:09Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

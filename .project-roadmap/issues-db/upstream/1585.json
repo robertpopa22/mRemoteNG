@@ -1,112 +1,110 @@
-﻿{
-    "number":  1585,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Unable to Use MSSQL for connections",
-    "state":  "open",
-    "labels":  [
-                   "Priority - High",
-                   "Bug",
-                   "1.77.2"
-               ],
-    "author":  "techarkit",
-    "created_at":  "2019-09-18T10:21:50Z",
-    "github_updated_at":  "2026-02-07T19:55:06Z",
-    "body_snippet":  "MSSQL Server 10.50.1600\r\n\r\nException Message\r\n\"Value cannot be null or empty\r\nParameter name: cipherText\"\r\n\r\nStack trace\r\n   at mRemoteNG.Tools.Extensions.ThrowIfNullOrEmpty(String value, String argName) in C:\\jenkins\\workspace\\Publish\\Build mRemoteNG for Release\\mRemoteV1\\Tools\\Extensions.cs:line 51\r\n   at mRemoteNG.Security.Authentication.PasswordAuthenticator..ctor(ICryptographyProvider cryptographyProvider, String cipherText, Func`1 authenticationRequestor) in C:\\jenkins\\workspace\\Publish\\Bu...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMzk2NzkzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "After deleting database and re-created with new SQL script, able to connect database however unable to create new connections.\r\n\r\n----------\r\nErrorMsg\r\n09/23/2019 11:18:14\r\nCouldn\u0027t save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n----------",
-                         "author":  "techarkit",
-                         "action_needed":  true,
-                         "date":  "2019-09-23T05:55:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU1OTQ5NTU2OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\nI have the same problem:\r\n\"Couldn\u0027t save connections file as \"\"! The given ColumnMapping does not match up with any column in the source or destination.\"\r\nI\u0027m using mRemoteNG 1.76.18.26260 an MS SQL Server Standard 12.0.6293.0.\r\nAny help would be appreciated.\r\nSolutions on https://github.com/mRemoteNG/mRemoteNG/issues/408 didn\u0027t help.",
-                         "author":  "CarstenFabian",
-                         "action_needed":  true,
-                         "date":  "2019-11-28T13:30:58Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NTMxOTk0Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think the last change on database behaviour in the development branch would fix it.",
-                         "author":  "Filippo125",
-                         "action_needed":  true,
-                         "date":  "2020-01-16T19:58:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY5OTY5Mzc4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I also have this issue. Brand new database the user has db_owner permission to. mRemoteNG 1.77.0.41252. \r\n\r\nI copied the script from the readthedocs using the \u0027latest\u0027 version. However I had to edit the readthedocs to be:\r\n\"        [Favorite] int NOT NULL,\"\r\ninstead of:\r\n\"        [Favorite] tinyint(1) NOT NULL,\"\r\nbefore the script would complete successfully.",
-                         "author":  "jamesaepp",
-                         "action_needed":  true,
-                         "date":  "2020-09-27T22:04:26Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc1OTUxMjY3MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I ran into the same issue that I can\u0027t create the database with the current creation scripts. I tried your fix, but now I\u0027m getting \r\n\r\nCouldn\u0027t save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n",
-                         "author":  "Elsarild",
-                         "action_needed":  true,
-                         "date":  "2021-01-13T15:12:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc2OTA0NTcyOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I ran into the same issue that I can\u0027t create the database with the current creation scripts. I tried your fix, but now I\u0027m getting\r\n\u003e \r\n\u003e Couldn\u0027t save connections file as \"\"!\r\n\u003e The given ColumnMapping does not match up with any column in the source or destination.\r\n\r\nHi! \r\nDid you manage to find a solution?",
-                         "author":  "bite-byte-ru",
-                         "action_needed":  true,
-                         "date":  "2021-01-28T13:16:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc2OTA2MTg4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e \u003e I ran into the same issue that I can\u0027t create the database with the current creation scripts. I tried your fix, but now I\u0027m getting\r\n\u003e \u003e Couldn\u0027t save connections file as \"\"!\r\n\u003e \u003e The given ColumnMapping does not match up with any column in the source or destination.\r\n\u003e \r\n\u003e Hi!\r\n\u003e Did you manage to find a solution?\r\n\r\nNo we decided to invest in Royal TS and use a shared connection file via. OneDrive instead.",
-                         "author":  "Elsarild",
-                         "action_needed":  true,
-                         "date":  "2021-01-28T13:44:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc2OTA2NTQ2OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e \u003e I ran into the same issue that I can\u0027t create the database with the current creation scripts. I tried your fix, but now I\u0027m getting\r\n\u003e \u003e \u003e Couldn\u0027t save connections file as \"\"!\r\n\u003e \u003e \u003e The given ColumnMapping does not match up with any column in the source or destination.\r\n\u003e \u003e \r\n\u003e \u003e \r\n\u003e \u003e Hi!\r\n\u003e \u003e Did you manage to find a solution?\r\n\u003e \r\n\u003e No we decided to invest in Royal TS and use a shared connection file via. OneDrive instead.\r\n\r\n\r\nWe can talk about royalapps? My E-mail: bite-byte@yandex....",
-                         "author":  "bite-byte-ru",
-                         "action_needed":  true,
-                         "date":  "2021-01-28T13:50:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiEs",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:06Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:06Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1585,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Unable to Use MSSQL for connections",
+  "state": "open",
+  "labels": [
+    "Priority - High",
+    "Bug",
+    "1.77.2"
+  ],
+  "author": "techarkit",
+  "created_at": "2019-09-18T10:21:50Z",
+  "github_updated_at": "2026-02-07T19:55:06Z",
+  "body_snippet": "MSSQL Server 10.50.1600\r\n\r\nException Message\r\n\"Value cannot be null or empty\r\nParameter name: cipherText\"\r\n\r\nStack trace\r\n   at mRemoteNG.Tools.Extensions.ThrowIfNullOrEmpty(String value, String argName) in C:\\jenkins\\workspace\\Publish\\Build mRemoteNG for Release\\mRemoteV1\\Tools\\Extensions.cs:line 51\r\n   at mRemoteNG.Security.Authentication.PasswordAuthenticator..ctor(ICryptographyProvider cryptographyProvider, String cipherText, Func`1 authenticationRequestor) in C:\\jenkins\\workspace\\Publish\\Bu...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzMzk2NzkzNw==",
+      "author": "techarkit",
+      "date": "2019-09-23T05:55:12Z",
+      "snippet": "After deleting database and re-created with new SQL script, able to connect database however unable to create new connections.\r\n\r\n----------\r\nErrorMsg\r\n09/23/2019 11:18:14\r\nCouldn't save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n----------",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1OTQ5NTU2OQ==",
+      "author": "CarstenFabian",
+      "date": "2019-11-28T13:30:58Z",
+      "snippet": "Hi,\r\nI have the same problem:\r\n\"Couldn't save connections file as \"\"! The given ColumnMapping does not match up with any column in the source or destination.\"\r\nI'm using mRemoteNG 1.76.18.26260 an MS SQL Server Standard 12.0.6293.0.\r\nAny help would be appreciated.\r\nSolutions on https://github.com/mRemoteNG/mRemoteNG/issues/408 didn't help.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NTMxOTk0Mg==",
+      "author": "Filippo125",
+      "date": "2020-01-16T19:58:38Z",
+      "snippet": "I think the last change on database behaviour in the development branch would fix it.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY5OTY5Mzc4Ng==",
+      "author": "jamesaepp",
+      "date": "2020-09-27T22:04:26Z",
+      "snippet": "I also have this issue. Brand new database the user has db_owner permission to. mRemoteNG 1.77.0.41252. \r\n\r\nI copied the script from the readthedocs using the 'latest' version. However I had to edit the readthedocs to be:\r\n\"        [Favorite] int NOT NULL,\"\r\ninstead of:\r\n\"        [Favorite] tinyint(1) NOT NULL,\"\r\nbefore the script would complete successfully.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1OTUxMjY3MA==",
+      "author": "Elsarild",
+      "date": "2021-01-13T15:12:51Z",
+      "snippet": "I ran into the same issue that I can't create the database with the current creation scripts. I tried your fix, but now I'm getting \r\n\r\nCouldn't save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2OTA0NTcyOQ==",
+      "author": "bite-byte-ru",
+      "date": "2021-01-28T13:16:55Z",
+      "snippet": "> I ran into the same issue that I can't create the database with the current creation scripts. I tried your fix, but now I'm getting\r\n> \r\n> Couldn't save connections file as \"\"!\r\n> The given ColumnMapping does not match up with any column in the source or destination.\r\n\r\nHi! \r\nDid you manage to find a solution?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2OTA2MTg4OQ==",
+      "author": "Elsarild",
+      "date": "2021-01-28T13:44:42Z",
+      "snippet": "> \r\n> \r\n> > I ran into the same issue that I can't create the database with the current creation scripts. I tried your fix, but now I'm getting\r\n> > Couldn't save connections file as \"\"!\r\n> > The given ColumnMapping does not match up with any column in the source or destination.\r\n> \r\n> Hi!\r\n> Did you manage to find a solution?\r\n\r\nNo we decided to invest in Royal TS and use a shared connection file via. OneDrive instead.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2OTA2NTQ2OA==",
+      "author": "bite-byte-ru",
+      "date": "2021-01-28T13:50:07Z",
+      "snippet": "> > > I ran into the same issue that I can't create the database with the current creation scripts. I tried your fix, but now I'm getting\r\n> > > Couldn't save connections file as \"\"!\r\n> > > The given ColumnMapping does not match up with any column in the source or destination.\r\n> > \r\n> > \r\n> > Hi!\r\n> > Did you manage to find a solution?\r\n> \r\n> No we decided to invest in Royal TS and use a shared connection file via. OneDrive instead.\r\n\r\n\r\nWe can talk about royalapps? My E-mail: bite-byte@yandex....",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiEs",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:06Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:06Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

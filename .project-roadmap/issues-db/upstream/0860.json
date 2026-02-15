@@ -1,59 +1,57 @@
-﻿{
-    "number":  860,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "New Connection command not in default menu location",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "UI/UX",
-                   "Need 2 check",
-                   "1.77.2"
-               ],
-    "author":  "Ben-Conrad",
-    "created_at":  "2018-01-08T19:54:02Z",
-    "github_updated_at":  "2026-02-07T19:51:21Z",
-    "body_snippet":  "I upgraded from 1.72.x to 1.75.7012.16814 and now I find it much more difficult to connect to servers due to the \u0027New Connection\u0027 menu item being relocated to the middle of the menu.  \r\n\r\nNormally I\u0027m pasting server names in very easily because the New Connection command is right at the top of the menu.  Is there a way to re-order this back to the original?\r\n\r\n\u003c!-- Bug --\u003e\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 2012 R2 |\r\n|mRemoteNG version| 1.75.7012.16814  |\r\n\r\nThis is how it ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1NzQ2ODkzMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Also, when creating a new connection, the new entry no longer accepts input (it\u0027s no longer highlighted with cursor ready like in v1.72.x - see screenshot) from the clipboard by default.  I have to click on it to highlight it so I can paste in the server name. \r\n\r\n![image](https://user-images.githubusercontent.com/11560403/34910270-5d7d3f48-f87f-11e7-9106-ba44ada0775b.png)\r\n",
-                         "author":  "Ben-Conrad",
-                         "action_needed":  true,
-                         "date":  "2018-01-13T21:33:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXF_V",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYg87",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:21Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 860,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "New Connection command not in default menu location",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "Need 2 check",
+    "1.77.2"
+  ],
+  "author": "Ben-Conrad",
+  "created_at": "2018-01-08T19:54:02Z",
+  "github_updated_at": "2026-02-07T19:51:21Z",
+  "body_snippet": "I upgraded from 1.72.x to 1.75.7012.16814 and now I find it much more difficult to connect to servers due to the 'New Connection' menu item being relocated to the middle of the menu.  \r\n\r\nNormally I'm pasting server names in very easily because the New Connection command is right at the top of the menu.  Is there a way to re-order this back to the original?\r\n\r\n<!-- Bug -->\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 2012 R2 |\r\n|mRemoteNG version| 1.75.7012.16814  |\r\n\r\nThis is how it ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1NzQ2ODkzMQ==",
+      "author": "Ben-Conrad",
+      "date": "2018-01-13T21:33:32Z",
+      "snippet": "Also, when creating a new connection, the new entry no longer accepts input (it's no longer highlighted with cursor ready like in v1.72.x - see screenshot) from the clipboard by default.  I have to click on it to highlight it so I can paste in the server name. \r\n\r\n![image](https://user-images.githubusercontent.com/11560403/34910270-5d7d3f48-f87f-11e7-9106-ba44ada0775b.png)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXF_V",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:42Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYg87",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:21Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:21Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

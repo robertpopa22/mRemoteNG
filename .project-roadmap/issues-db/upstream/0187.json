@@ -1,255 +1,253 @@
-﻿{
-    "number":  187,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Implment KeePass integration",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Help Wanted"
-               ],
-    "author":  "kmscode",
-    "created_at":  "2016-10-20T13:59:58Z",
-    "github_updated_at":  "2023-05-23T20:24:08Z",
-    "body_snippet":  "https://mremoteng.atlassian.net/browse/MR-490\nAdd the possibility to link KeePass entries to mRemoteNG and connect the entries to different servers.\n\nIt eases up the administration when changing passwords in a multi-domain environment and adds some extra security.\n\nRemote Desktop Manager has this feature and it is pretty neat. \n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1ODAwMzg5Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "PAC-Manager for linux also has this feature.  It is a similar remote management system but is based on perl\n",
-                         "author":  "absmith82",
-                         "action_needed":  true,
-                         "date":  "2016-11-02T21:25:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NTkzMTc2NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It is working thisfeatures?\r\nIt will be great to have this feature",
-                         "author":  "trentasis",
-                         "action_needed":  true,
-                         "date":  "2017-03-12T09:07:28Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5OTM3NzM1MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "would be nice",
-                         "author":  "kamahat",
-                         "action_needed":  true,
-                         "date":  "2018-06-22T09:12:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxMzUxNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Long term candidate, support for external password keepers ",
-                         "author":  "jotatsu",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T17:06:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NzM5NzgzNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "[Kee](https://github.com/kee-org/browser-addon) Firefox add-on uses [KeePassRPC](https://github.com/kee-org/keepassrpc/releases/) to communicate with KeePass and generally works quite well.\r\nHow much of an improvement over KeePassHttp this is I\u0027m not sure but both are examples of communication with a running instance of KeePass/xc application.",
-                         "author":  "alensiljak",
-                         "action_needed":  true,
-                         "date":  "2019-02-26T11:10:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3NDY1MjQ0Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This really is the single biggest missing piece for me, as I use a heavily tweaked version of both KeePass and mRemoteNG, and while I can get by with KeeAgent for SSH keys, I simply haven\u0027t been able to find any good go-between for credentials, and resort to saving or using modified auto-typing out of KP.  I can also vouch for KeePassRPC and have had very few issues in general with similar KP plugins.\r\n\r\nMy use case.....  I\u0027ve integrated 90% of my daily admin environment and toolset inside of mR...",
-                         "author":  "mjmooney",
-                         "action_needed":  true,
-                         "date":  "2019-03-20T01:52:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyMjQ1MDg1Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Please ! mRemoteNG + Keepass would be so nice !",
-                         "author":  "RastaChaum",
-                         "action_needed":  true,
-                         "date":  "2019-08-19T07:38:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU1NDI2NTAzMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would be happy to support by money someone who will start the implementation of this feature ",
-                         "author":  "RFlipper",
-                         "action_needed":  true,
-                         "date":  "2019-11-15T08:35:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NDExMjI0Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This Feature would be so nice for our Company Use Case...",
-                         "author":  "locke45",
-                         "action_needed":  true,
-                         "date":  "2020-01-14T10:38:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMjk0ODUyMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am considering to try and implement this feature. I am not promising anything yet, though ;)\r\nMaybe anyone who wants to have this feature can describe (from a users perspective) on how he expects KeePass integration to look and feel and behave?",
-                         "author":  "hummigbird1",
-                         "action_needed":  true,
-                         "date":  "2020-05-02T12:48:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42bgiM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, i would like to have this feature on mremoteng, does anyone now if this had been achieved or not ?",
-                         "author":  "jul-fls",
-                         "action_needed":  true,
-                         "date":  "2021-09-05T15:59:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42b0Ym",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Hello, i would like to have this feature on mremoteng, does anyone now if this had been achieved or not ?\r\n\r\n? At this post you have info on top-right \u003e Projects... that is in TODO at v1.78, check this:\r\nhttps://github.com/mRemoteNG/mRemoteNG/projects/4#card-38823617",
-                         "author":  "4SiB",
-                         "action_needed":  true,
-                         "date":  "2021-09-06T00:50:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42cF4Y",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ah OK sorry for that...\nAnd do you know when the v1. 78 will be out ?\nBest regards.\n\nLe lun. 6 sept. 2021 ├á 02:50, 4SiB ***@***.***\u003e a ├⌐crit :\n\n\u003e Hello, i would like to have this feature on mremoteng, does anyone now if\n\u003e this had been achieved or not ?\n\u003e\n\u003e ? At this post you have info on top-right \u003e Projects... that is in TODO at\n\u003e v1.78, check this:\n\u003e https://github.com/mRemoteNG/mRemoteNG/projects/4#card-38823617\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you commented.\n\u003e Reply to this email ...",
-                         "author":  "jul-fls",
-                         "action_needed":  true,
-                         "date":  "2021-09-06T04:41:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42zfTr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would be interested in building out this feature. But as @hummigbird1 [asked back in 2020](https://github.com/mRemoteNG/mRemoteNG/issues/187#issuecomment-622948522) if someone could provide a brief description (from a users perspective) how they see mRemoteNG integrating with KeePass best.\r\n\r\nWe need to have a clear understanding of what is being requested here.\r\n\r\nI have used mRemoteNG for long periods of time over the last 7 years and various versions of KeePass over the past 5 years( Window...",
-                         "author":  "brad457",
-                         "action_needed":  true,
-                         "date":  "2021-09-14T19:54:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42z6Nx",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@brad457 I can\u0027t speak for anyone else, but point 2 is definitely what I want to see to consider this request \"completed\". Point 1 would be nice to have, but not a requirement. The way I imagine it, this could be implemented in roughly one of two ways:\r\n\r\n1. Opening a \"KeePass integrated connection\" prompts for the user\u0027s KeePass master password, then mRemoteNG unlocks the KeePass database, pulls the credentials for the entry, and then connects with them. This option requires users to trust mRem...",
-                         "author":  "nemec",
-                         "action_needed":  true,
-                         "date":  "2021-09-14T23:17:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42z-_V",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I not want to give mRemoteNG password to unlock database of KeePassXC.\r\nI want register KeePassXC like/similar to a browser plugin, in the same metodology. Then mRemoteNG is like trusted app inside KeePassXC.\r\nNext in login/password fields of mRemoteNG host, best way if this will be searched in KeePassXC database per %HOSTNAME% and grab/pass username/password from it.\r\n\r\nExample Username/Password in KeePassXC of some customer\u0027s servers, each host have differ password from generator:\r\n![image](ht...",
-                         "author":  "4SiB",
-                         "action_needed":  true,
-                         "date":  "2021-09-15T00:09:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM422gWK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I appreciate all the input.  I was writing a reply to each of the proposed integrations on my phone but Chrome refreshed. I am going to install KeePassXC and the most popular ports of KeePass over the next few days and do some digging.\r\n\r\nThen I will then submit a viable way(s) of carrying this functionality out.  ",
-                         "author":  "brad457",
-                         "action_needed":  true,
-                         "date":  "2021-09-15T18:06:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM422wjQ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "From my point the flow may be implemented in such way (I am not familiar with keepass at all, but just follow recommended best practice) but short explanation that I plan for mRemoteNG first.  \r\nIt will allow save connections in 3 ways. (but to make that happened need implement profiles first) \r\na) Connection data will be stored locally and complete (no questions it will be encrypted for sure) that include all settings for instance and user name, password, port, key... etc. all that is need to c...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-09-15T19:43:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5BR5Sr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I see here a lot of comments , but no instruction on how to integrate mRemoteNG with keypass to be able to authenticate using a single security DB.",
-                         "author":  "JoaoPedroAlex",
-                         "action_needed":  true,
-                         "date":  "2022-04-11T15:38:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EF-dG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m not seeing a consensus one which version of KeePass to support. From what I can see, there appear to be 4 main versions of KeePass. The original KeePass and KeePass 2 from Dominik Reichl (both of which appear to be actively maintained.) Then there is the KeePassX fork, which was again forked into KeePassXC. XC is the only one I see explicitly mentioned by name in this topic. \r\n\r\nXC doesn\u0027t have an API or a pluggin infrastructure and according to [their FAQ](https://keepassxc.org/docs/#faq-ge...",
-                         "author":  "theMagicRabbit",
-                         "action_needed":  true,
-                         "date":  "2022-05-31T17:30:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EOsTN",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think, if you implement KeePass2, this will be enough, its the Original, and the kdbx-files are the same as the containers from KeepassXC",
-                         "author":  "support-he",
-                         "action_needed":  true,
-                         "date":  "2022-06-02T10:27:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5PeyuZ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just to add my 2 cents: KeePass 2 is the \"hardcore\" tool for sysadmins. XC is a fork from X that looks good but misses a lot of functionality and it was originally planned for MacOS iirc. KeePass 2 is robust, actively maintained, has tons of options, plugins, etc. If you see people speaking about just KeePass, this means the version from Dominik.\r\nI really hope this will be implemented some day. Thanks to all the developers for the excellent work. ",
-                         "author":  "AN1MATEK",
-                         "action_needed":  true,
-                         "date":  "2022-12-01T09:26:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Pe42I",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Well I come back because I have had a dumb idea that will integrate KeePass with mRemoteNG \"easily\". \r\n\r\nKeePass allows you to run commands from the URL field. So for example my URL is ssh://10.10.10.10, I have configured an URL Override, which will translate this to \"cmd://PuTTY.exe -ssh {USERNAME}@10.10.10.10 -pw {PASSWORD}\" --\u003e Basically KeePass opens a SSH session with PuTTY from the command line. Super simple. I do the same with TeamViewer, but they actually support receiving the password i...",
-                         "author":  "AN1MATEK",
-                         "action_needed":  true,
-                         "date":  "2022-12-01T09:49:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SL5kT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e KeePass allows you to run commands from the URL field.\r\n\r\nActually this may be a good initial starting point and also pretty simple from a coding perspective, as described above, allow mRemoteNG to receive the authentication credentials and start a new session from the command line. If mRemoteNG  is already running then the new instance opens in a new tab of the already running mRemoteNG.\r\n\r\nThis way you don\u0027t need to give mRemoteNG your Keepass master password, since you start a new session f...",
-                         "author":  "d18c7db",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T14:39:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5c_NwL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1",
-                         "author":  "xercesbluebutterfly",
-                         "action_needed":  true,
-                         "date":  "2023-05-23T20:24:08Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-05-23T20:24:08Z",
-    "unread_comments":  25,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 187,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Implment KeePass integration",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Help Wanted"
+  ],
+  "author": "kmscode",
+  "created_at": "2016-10-20T13:59:58Z",
+  "github_updated_at": "2023-05-23T20:24:08Z",
+  "body_snippet": "https://mremoteng.atlassian.net/browse/MR-490\nAdd the possibility to link KeePass entries to mRemoteNG and connect the entries to different servers.\n\nIt eases up the administration when changing passwords in a multi-domain environment and adds some extra security.\n\nRemote Desktop Manager has this feature and it is pretty neat. \n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1ODAwMzg5Ng==",
+      "author": "absmith82",
+      "date": "2016-11-02T21:25:32Z",
+      "snippet": "PAC-Manager for linux also has this feature.  It is a similar remote management system but is based on perl\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NTkzMTc2NA==",
+      "author": "trentasis",
+      "date": "2017-03-12T09:07:28Z",
+      "snippet": "It is working thisfeatures?\r\nIt will be great to have this feature",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5OTM3NzM1MQ==",
+      "author": "kamahat",
+      "date": "2018-06-22T09:12:39Z",
+      "snippet": "would be nice",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTUxMzUxNw==",
+      "author": "jotatsu",
+      "date": "2019-02-07T17:06:52Z",
+      "snippet": "Long term candidate, support for external password keepers ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2NzM5NzgzNA==",
+      "author": "alensiljak",
+      "date": "2019-02-26T11:10:14Z",
+      "snippet": "[Kee](https://github.com/kee-org/browser-addon) Firefox add-on uses [KeePassRPC](https://github.com/kee-org/keepassrpc/releases/) to communicate with KeePass and generally works quite well.\r\nHow much of an improvement over KeePassHttp this is I'm not sure but both are examples of communication with a running instance of KeePass/xc application.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3NDY1MjQ0Ng==",
+      "author": "mjmooney",
+      "date": "2019-03-20T01:52:45Z",
+      "snippet": "This really is the single biggest missing piece for me, as I use a heavily tweaked version of both KeePass and mRemoteNG, and while I can get by with KeeAgent for SSH keys, I simply haven't been able to find any good go-between for credentials, and resort to saving or using modified auto-typing out of KP.  I can also vouch for KeePassRPC and have had very few issues in general with similar KP plugins.\r\n\r\nMy use case.....  I've integrated 90% of my daily admin environment and toolset inside of mR...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyMjQ1MDg1Mw==",
+      "author": "RastaChaum",
+      "date": "2019-08-19T07:38:08Z",
+      "snippet": "Please ! mRemoteNG + Keepass would be so nice !",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU1NDI2NTAzMA==",
+      "author": "RFlipper",
+      "date": "2019-11-15T08:35:37Z",
+      "snippet": "I would be happy to support by money someone who will start the implementation of this feature ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDExMjI0Nw==",
+      "author": "locke45",
+      "date": "2020-01-14T10:38:43Z",
+      "snippet": "This Feature would be so nice for our Company Use Case...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMjk0ODUyMg==",
+      "author": "hummigbird1",
+      "date": "2020-05-02T12:48:08Z",
+      "snippet": "I am considering to try and implement this feature. I am not promising anything yet, though ;)\r\nMaybe anyone who wants to have this feature can describe (from a users perspective) on how he expects KeePass integration to look and feel and behave?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42bgiM",
+      "author": "jul-fls",
+      "date": "2021-09-05T15:59:58Z",
+      "snippet": "Hello, i would like to have this feature on mremoteng, does anyone now if this had been achieved or not ?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42b0Ym",
+      "author": "4SiB",
+      "date": "2021-09-06T00:50:15Z",
+      "snippet": "> Hello, i would like to have this feature on mremoteng, does anyone now if this had been achieved or not ?\r\n\r\n? At this post you have info on top-right > Projects... that is in TODO at v1.78, check this:\r\nhttps://github.com/mRemoteNG/mRemoteNG/projects/4#card-38823617",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42cF4Y",
+      "author": "jul-fls",
+      "date": "2021-09-06T04:41:05Z",
+      "snippet": "Ah OK sorry for that...\nAnd do you know when the v1. 78 will be out ?\nBest regards.\n\nLe lun. 6 sept. 2021 à 02:50, 4SiB ***@***.***> a écrit :\n\n> Hello, i would like to have this feature on mremoteng, does anyone now if\n> this had been achieved or not ?\n>\n> ? At this post you have info on top-right > Projects... that is in TODO at\n> v1.78, check this:\n> https://github.com/mRemoteNG/mRemoteNG/projects/4#card-38823617\n>\n> —\n> You are receiving this because you commented.\n> Reply to this email dire...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42zfTr",
+      "author": "brad457",
+      "date": "2021-09-14T19:54:10Z",
+      "snippet": "I would be interested in building out this feature. But as @hummigbird1 [asked back in 2020](https://github.com/mRemoteNG/mRemoteNG/issues/187#issuecomment-622948522) if someone could provide a brief description (from a users perspective) how they see mRemoteNG integrating with KeePass best.\r\n\r\nWe need to have a clear understanding of what is being requested here.\r\n\r\nI have used mRemoteNG for long periods of time over the last 7 years and various versions of KeePass over the past 5 years( Window...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42z6Nx",
+      "author": "nemec",
+      "date": "2021-09-14T23:17:15Z",
+      "snippet": "@brad457 I can't speak for anyone else, but point 2 is definitely what I want to see to consider this request \"completed\". Point 1 would be nice to have, but not a requirement. The way I imagine it, this could be implemented in roughly one of two ways:\r\n\r\n1. Opening a \"KeePass integrated connection\" prompts for the user's KeePass master password, then mRemoteNG unlocks the KeePass database, pulls the credentials for the entry, and then connects with them. This option requires users to trust mRem...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42z-_V",
+      "author": "4SiB",
+      "date": "2021-09-15T00:09:48Z",
+      "snippet": "I not want to give mRemoteNG password to unlock database of KeePassXC.\r\nI want register KeePassXC like/similar to a browser plugin, in the same metodology. Then mRemoteNG is like trusted app inside KeePassXC.\r\nNext in login/password fields of mRemoteNG host, best way if this will be searched in KeePassXC database per %HOSTNAME% and grab/pass username/password from it.\r\n\r\nExample Username/Password in KeePassXC of some customer's servers, each host have differ password from generator:\r\n![image](ht...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM422gWK",
+      "author": "brad457",
+      "date": "2021-09-15T18:06:31Z",
+      "snippet": "I appreciate all the input.  I was writing a reply to each of the proposed integrations on my phone but Chrome refreshed. I am going to install KeePassXC and the most popular ports of KeePass over the next few days and do some digging.\r\n\r\nThen I will then submit a viable way(s) of carrying this functionality out.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM422wjQ",
+      "author": "Kvarkas",
+      "date": "2021-09-15T19:43:00Z",
+      "snippet": "From my point the flow may be implemented in such way (I am not familiar with keepass at all, but just follow recommended best practice) but short explanation that I plan for mRemoteNG first.  \r\nIt will allow save connections in 3 ways. (but to make that happened need implement profiles first) \r\na) Connection data will be stored locally and complete (no questions it will be encrypted for sure) that include all settings for instance and user name, password, port, key... etc. all that is need to c...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5BR5Sr",
+      "author": "JoaoPedroAlex",
+      "date": "2022-04-11T15:38:20Z",
+      "snippet": "I see here a lot of comments , but no instruction on how to integrate mRemoteNG with keypass to be able to authenticate using a single security DB.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EF-dG",
+      "author": "theMagicRabbit",
+      "date": "2022-05-31T17:30:37Z",
+      "snippet": "I'm not seeing a consensus one which version of KeePass to support. From what I can see, there appear to be 4 main versions of KeePass. The original KeePass and KeePass 2 from Dominik Reichl (both of which appear to be actively maintained.) Then there is the KeePassX fork, which was again forked into KeePassXC. XC is the only one I see explicitly mentioned by name in this topic. \r\n\r\nXC doesn't have an API or a pluggin infrastructure and according to [their FAQ](https://keepassxc.org/docs/#faq-ge...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EOsTN",
+      "author": "support-he",
+      "date": "2022-06-02T10:27:33Z",
+      "snippet": "I think, if you implement KeePass2, this will be enough, its the Original, and the kdbx-files are the same as the containers from KeepassXC",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5PeyuZ",
+      "author": "AN1MATEK",
+      "date": "2022-12-01T09:26:44Z",
+      "snippet": "Just to add my 2 cents: KeePass 2 is the \"hardcore\" tool for sysadmins. XC is a fork from X that looks good but misses a lot of functionality and it was originally planned for MacOS iirc. KeePass 2 is robust, actively maintained, has tons of options, plugins, etc. If you see people speaking about just KeePass, this means the version from Dominik.\r\nI really hope this will be implemented some day. Thanks to all the developers for the excellent work. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Pe42I",
+      "author": "AN1MATEK",
+      "date": "2022-12-01T09:49:04Z",
+      "snippet": "Well I come back because I have had a dumb idea that will integrate KeePass with mRemoteNG \"easily\". \r\n\r\nKeePass allows you to run commands from the URL field. So for example my URL is ssh://10.10.10.10, I have configured an URL Override, which will translate this to \"cmd://PuTTY.exe -ssh {USERNAME}@10.10.10.10 -pw {PASSWORD}\" --> Basically KeePass opens a SSH session with PuTTY from the command line. Super simple. I do the same with TeamViewer, but they actually support receiving the password i...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SL5kT",
+      "author": "d18c7db",
+      "date": "2023-01-11T14:39:42Z",
+      "snippet": "> KeePass allows you to run commands from the URL field.\r\n\r\nActually this may be a good initial starting point and also pretty simple from a coding perspective, as described above, allow mRemoteNG to receive the authentication credentials and start a new session from the command line. If mRemoteNG  is already running then the new instance opens in a new tab of the already running mRemoteNG.\r\n\r\nThis way you don't need to give mRemoteNG your Keepass master password, since you start a new session f...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5c_NwL",
+      "author": "xercesbluebutterfly",
+      "date": "2023-05-23T20:24:08Z",
+      "snippet": "+1",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-05-23T20:24:08Z",
+  "unread_comments": 25,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

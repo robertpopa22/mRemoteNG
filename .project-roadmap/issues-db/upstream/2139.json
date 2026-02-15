@@ -1,48 +1,46 @@
-﻿{
-    "number":  2139,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "external tools - telnet not work from mremoteng although it works well with standard CMD",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Need 2 check"
-               ],
-    "author":  "longtth",
-    "created_at":  "2022-01-21T03:49:42Z",
-    "github_updated_at":  "2026-02-07T16:45:42Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nadd an external tools with \r\n\r\n- Display name: telnet\r\n- Filename: `CMD`\r\n- Arguments: `/k telnet %HOSTNAME% %PORT%`  ΓÇï\r\nΓÇï\r\n## Expected Behavior\r\n\r\nmremoteng shoudld display CMND windows with telnet result \r\n\r\n## Current Behavior\r\n\r\nalthough I could run telnet successfully with standard CMD, when I try with mremoteng it throws error that `\u0027telnet\u0027 is no recognized as an internal or external command operable program or bat...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM482wmX",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Try C:\\Windows\\Sysnative\\telnet.exe instead of just telnet",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-01-25T09:36:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFbM",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:45:42Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:45:42Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2139,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "external tools - telnet not work from mremoteng although it works well with standard CMD",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check"
+  ],
+  "author": "longtth",
+  "created_at": "2022-01-21T03:49:42Z",
+  "github_updated_at": "2026-02-07T16:45:42Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nadd an external tools with \r\n\r\n- Display name: telnet\r\n- Filename: `CMD`\r\n- Arguments: `/k telnet %HOSTNAME% %PORT%`  ​\r\n​\r\n## Expected Behavior\r\n\r\nmremoteng shoudld display CMND windows with telnet result \r\n\r\n## Current Behavior\r\n\r\nalthough I could run telnet successfully with standard CMD, when I try with mremoteng it throws error that `'telnet' is no recognized as an internal or external command operable program or batch f...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM482wmX",
+      "author": "LIyoai",
+      "date": "2022-01-25T09:36:08Z",
+      "snippet": "Try C:\\Windows\\Sysnative\\telnet.exe instead of just telnet",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFbM",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:45:42Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:45:42Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

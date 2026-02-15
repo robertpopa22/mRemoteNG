@@ -1,30 +1,26 @@
-﻿{
-    "number":  965,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Open Connection File Menu Option Does Not Work w/ SQL Server Functionality Enabled",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "dezryth",
-    "created_at":  "2018-04-24T21:30:59Z",
-    "github_updated_at":  "2018-09-30T17:27:32Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen \"Use SQL Server to load \u0026 save connections\" is enabled from options, the \"Open Connection File...\" menu option does not work and does not notify the user of the issue. Functionality is restored after disabling the SQL Server option.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nNotify user they are ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2018-09-30T17:27:32Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 965,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Open Connection File Menu Option Does Not Work w/ SQL Server Functionality Enabled",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "dezryth",
+  "created_at": "2018-04-24T21:30:59Z",
+  "github_updated_at": "2018-09-30T17:27:32Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen \"Use SQL Server to load & save connections\" is enabled from options, the \"Open Connection File...\" menu option does not work and does not notify the user of the issue. Functionality is restored after disabling the SQL Server option.\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nNotify user they are ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2018-09-30T17:27:32Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

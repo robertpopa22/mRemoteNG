@@ -1,65 +1,63 @@
-﻿{
-    "number":  1814,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Credentials Profiles",
-    "state":  "open",
-    "labels":  [
-                   "1.8 (Fenix)"
-               ],
-    "author":  "jerico99",
-    "created_at":  "2020-07-10T00:28:34Z",
-    "github_updated_at":  "2026-02-07T20:09:27Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nI would like to be able to configure some connection profiles for various domains, various devices, etc.. then i\u0027d like to organize all of my connections by location rather than by credentials. \r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what h...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY1OTg5ODAxMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This feature would be verry helpfull. \r\nI have also several credentials for several Offices and currently need to change the Password on 200 Connections after a Password Change. \r\nA kind of Password Manager like a Dropdown for saved credentials  in a connection Profile would be really usefull. \r\nSo that all credentials are Centrally managed and just need to be changed once. ",
-                         "author":  "AE1981",
-                         "action_needed":  true,
-                         "date":  "2020-07-17T06:43:54Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE0MzQxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I was thinking to implement similar to such in next generation, that will include settings for dbs as well so not a small part of planed changes. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-21T15:46:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhuI",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYm9A",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This Issue /feature request is still valid. \nSome kind of Password manager would be nice to centrally save credentials and use them for Groups/Connections per Dropdown. ",
-                         "author":  "AE1981",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T20:09:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T20:09:27Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1814,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Credentials Profiles",
+  "state": "open",
+  "labels": [
+    "1.8 (Fenix)"
+  ],
+  "author": "jerico99",
+  "created_at": "2020-07-10T00:28:34Z",
+  "github_updated_at": "2026-02-07T20:09:27Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI would like to be able to configure some connection profiles for various domains, various devices, etc.. then i'd like to organize all of my connections by location rather than by credentials. \r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what h...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY1OTg5ODAxMg==",
+      "author": "AE1981",
+      "date": "2020-07-17T06:43:54Z",
+      "snippet": "This feature would be verry helpfull. \r\nI have also several credentials for several Offices and currently need to change the Password on 200 Connections after a Password Change. \r\nA kind of Password Manager like a Dropdown for saved credentials  in a connection Profile would be really usefull. \r\nSo that all credentials are Centrally managed and just need to be changed once. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2NTE0MzQxMA==",
+      "author": "Kvarkas",
+      "date": "2021-06-21T15:46:28Z",
+      "snippet": "I was thinking to implement similar to such in next generation, that will include settings for dbs as well so not a small part of planed changes. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhuI",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:57Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYm9A",
+      "author": "AE1981",
+      "date": "2026-02-07T20:09:27Z",
+      "snippet": "This Issue /feature request is still valid. \nSome kind of Password manager would be nice to centrally save credentials and use them for Groups/Connections per Dropdown. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-07T20:09:27Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

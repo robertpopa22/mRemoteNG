@@ -1,166 +1,164 @@
-﻿{
-    "number":  1739,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request: SPICE protocol",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Need 2 check",
-                   "Connections"
-               ],
-    "author":  "scardella",
-    "created_at":  "2020-04-24T18:56:26Z",
-    "github_updated_at":  "2026-02-10T11:50:48Z",
-    "body_snippet":  "I\u0027d love to be able to use mRemoteNG to handle libvirt/QEMU SPICE protocol.  That would allow connections to libvirt/QEMU VMs even if there was some reason that networking was not working within the VM.  OS installs, upgrades, etc.  Oddball OSes that you don\u0027t know whether there\u0027s remote access.  Or, diagnosing networking issues in the VM.\r\n\r\nIt seems like it would slot in well with the mRemoteNG\u0027s ethos.\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNDg3NjgwNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I agree that it would be nice, however at least in windows the standalone SPICE installer is 80Mb thats a lot to add to the total size of mRemoteNG for one protocol.   have your tried to install it and get it to work with external tools?  if so can you share how you have it setup?",
-                         "author":  "Benchwork",
-                         "action_needed":  true,
-                         "date":  "2020-05-06T20:35:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNjIyODI3MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "this wrapper appears to work brilliantly for me, pointing mremoteNG at this wrapper to connect to a VM on my proxmox host using SPICE protocol from a Windows machine:\r\n\r\nhttps://forum.proxmox.com/threads/remote-spice-access-without-using-web-manager.16561/post-262411\r\n\r\nthat is, download executable from https://moxhamconsultants.com/proxmox/ProxmoxSpiceLauncher.zip\r\n\r\ncommand syntax is \r\n\r\nProxmoxSpiceLauncher.exe host=x.x.x.x port=8006 username=root@pam password=xxx node=pve vm=121 viewer=\"C:\\P...",
-                         "author":  "ndroftheline",
-                         "action_needed":  true,
-                         "date":  "2020-05-09T20:02:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNjc0NzY5Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Micah,\r\n\r\nDid it open up in a mRemote tab, or did it pop up in an external window?\r\n\r\nSteve Cardella\r\nSolution Consultant | BlueGranite, Inc.\u003chttps://www.blue-granite.com/\u003e\r\nm: (504) 669-7822 | p: (877) 817-0736 ext. 735\r\nscardella@blue-granite.com\u003cmailto:scardella@blue-granite.com\u003e\r\n\r\nFrom: Micah Roth \u003cnotifications@github.com\u003e\r\nSent: Saturday, May 9, 2020 15:02\r\nTo: mRemoteNG/mRemoteNG \u003cmRemoteNG@noreply.github.com\u003e\r\nCc: Steve Cardella \u003cscardella@blue-granite.com\u003e; Author \u003cauthor@noreply.githu...",
-                         "author":  "scardella",
-                         "action_needed":  true,
-                         "date":  "2020-05-11T14:43:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNjg1MDY0OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Opens in an external window for me; that\u0027s how I prefer it anyway. I\u0027m not\nsure that\u0027s configurable or not.\n\nOn Tue, May 12, 2020 at 2:44 AM scardella \u003cnotifications@github.com\u003e wrote:\n\n\u003e Micah,\n\u003e\n\u003e Did it open up in a mRemote tab, or did it pop up in an external window?\n\u003e\n\u003e Steve Cardella\n\u003e Solution Consultant | BlueGranite, Inc.\u003chttps://www.blue-granite.com/\u003e\n\u003e m: (504) 669-7822 | p: (877) 817-0736 ext. 735\n\u003e scardella@blue-granite.com\u003cmailto:scardella@blue-granite.com\u003e\n\u003e\n\u003e From: Micah Roth \u003cn...",
-                         "author":  "ndroftheline",
-                         "action_needed":  true,
-                         "date":  "2020-05-11T17:43:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5QoWIG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It might be worth looking at the home of SPICE:\r\nhttps://gitlab.freedesktop.org/spice/spice-gtk\r\n\r\nand at the viewer that they recommend:\r\nhttps://gitlab.com/virt-viewer/virt-viewer",
-                         "author":  "pricerc",
-                         "action_needed":  true,
-                         "date":  "2022-12-15T09:06:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ws8tL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 for SPICE support since TrueNAS Scale now also uses this",
-                         "author":  "DoogeJ",
-                         "action_needed":  true,
-                         "date":  "2024-01-14T03:01:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xKEyD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 also",
-                         "author":  "c-amie",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T13:19:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6HAUDL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 (if download size is relevant maybe and opt in plugin)",
-                         "author":  "jonnytest1",
-                         "action_needed":  true,
-                         "date":  "2024-08-02T09:53:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6OM8k0",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 as Proxmox is using Spice as well",
-                         "author":  "lpet",
-                         "action_needed":  true,
-                         "date":  "2024-10-01T13:09:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6dUk96",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 (Proxmox\u0026TrueNas use spice)",
-                         "author":  "jijtech",
-                         "action_needed":  true,
-                         "date":  "2025-02-06T10:25:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6h_Gze",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1",
-                         "author":  "saniyo",
-                         "action_needed":  true,
-                         "date":  "2025-03-12T12:09:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFtn",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mhEOx",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "wait my mremoteng says the current version is 1.76.20 but the most recent one available is 1.76.11 - how can i be more current than the lastest one ≡ƒÿà \n\n(also the website over at https://mremoteng.org/ is NOT really usable \n- cant refresh on subpaths\n- downloads page is empty\n- header is hiding content\n- \"You can\u0027t really contact us, because this is a demo. But if you could, this is where the contact form or details would go!\"\n )",
-                         "author":  "jonnytest1",
-                         "action_needed":  true,
-                         "date":  "2026-02-08T15:44:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mk5Sp",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e wait my mremoteng says the current version is 1.76.20 but the most recent one available is 1.76.11 - how can i be more current than the lastest one ≡ƒÿà \n\u003e \n\u003e (also the website over at https://mremoteng.org/ is NOT really usable \n\nYeah the website needs some love, and the updater check is broken (known issue, but don\u0027t have the reference handy). The latest (preview) releases can be obtained over at https://github.com/mRemoteNG/mRemoteNG/releases",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2026-02-08T22:29:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7nGDmK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "let me clarify this a bit, so we have 3 streams: prod ready, preview, and night builds\nolder code is already legacy from all meanings, technically all features fixes are coming into 1.78.2 version - what will be a release candidate (moved from 3rd stream into 2nd) web site was modified but developer get lost, and currently over busy to be able to fix all issues we have regarding this but don\u0027t worry nothing is forgotten, and changes will be applied soon ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-10T11:50:48Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-10T11:50:48Z",
-    "unread_comments":  14,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1739,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request: SPICE protocol",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Need 2 check",
+    "Connections"
+  ],
+  "author": "scardella",
+  "created_at": "2020-04-24T18:56:26Z",
+  "github_updated_at": "2026-02-10T11:50:48Z",
+  "body_snippet": "I'd love to be able to use mRemoteNG to handle libvirt/QEMU SPICE protocol.  That would allow connections to libvirt/QEMU VMs even if there was some reason that networking was not working within the VM.  OS installs, upgrades, etc.  Oddball OSes that you don't know whether there's remote access.  Or, diagnosing networking issues in the VM.\r\n\r\nIt seems like it would slot in well with the mRemoteNG's ethos.\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNDg3NjgwNA==",
+      "author": "Benchwork",
+      "date": "2020-05-06T20:35:45Z",
+      "snippet": "I agree that it would be nice, however at least in windows the standalone SPICE installer is 80Mb thats a lot to add to the total size of mRemoteNG for one protocol.   have your tried to install it and get it to work with external tools?  if so can you share how you have it setup?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNjIyODI3MQ==",
+      "author": "ndroftheline",
+      "date": "2020-05-09T20:02:14Z",
+      "snippet": "this wrapper appears to work brilliantly for me, pointing mremoteNG at this wrapper to connect to a VM on my proxmox host using SPICE protocol from a Windows machine:\r\n\r\nhttps://forum.proxmox.com/threads/remote-spice-access-without-using-web-manager.16561/post-262411\r\n\r\nthat is, download executable from https://moxhamconsultants.com/proxmox/ProxmoxSpiceLauncher.zip\r\n\r\ncommand syntax is \r\n\r\nProxmoxSpiceLauncher.exe host=x.x.x.x port=8006 username=root@pam password=xxx node=pve vm=121 viewer=\"C:\\P...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNjc0NzY5Ng==",
+      "author": "scardella",
+      "date": "2020-05-11T14:43:50Z",
+      "snippet": "Micah,\r\n\r\nDid it open up in a mRemote tab, or did it pop up in an external window?\r\n\r\nSteve Cardella\r\nSolution Consultant | BlueGranite, Inc.<https://www.blue-granite.com/>\r\nm: (504) 669-7822 | p: (877) 817-0736 ext. 735\r\nscardella@blue-granite.com<mailto:scardella@blue-granite.com>\r\n\r\nFrom: Micah Roth <notifications@github.com>\r\nSent: Saturday, May 9, 2020 15:02\r\nTo: mRemoteNG/mRemoteNG <mRemoteNG@noreply.github.com>\r\nCc: Steve Cardella <scardella@blue-granite.com>; Author <author@noreply.githu...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNjg1MDY0OQ==",
+      "author": "ndroftheline",
+      "date": "2020-05-11T17:43:24Z",
+      "snippet": "Opens in an external window for me; that's how I prefer it anyway. I'm not\nsure that's configurable or not.\n\nOn Tue, May 12, 2020 at 2:44 AM scardella <notifications@github.com> wrote:\n\n> Micah,\n>\n> Did it open up in a mRemote tab, or did it pop up in an external window?\n>\n> Steve Cardella\n> Solution Consultant | BlueGranite, Inc.<https://www.blue-granite.com/>\n> m: (504) 669-7822 | p: (877) 817-0736 ext. 735\n> scardella@blue-granite.com<mailto:scardella@blue-granite.com>\n>\n> From: Micah Roth <n...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5QoWIG",
+      "author": "pricerc",
+      "date": "2022-12-15T09:06:14Z",
+      "snippet": "It might be worth looking at the home of SPICE:\r\nhttps://gitlab.freedesktop.org/spice/spice-gtk\r\n\r\nand at the viewer that they recommend:\r\nhttps://gitlab.com/virt-viewer/virt-viewer",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ws8tL",
+      "author": "DoogeJ",
+      "date": "2024-01-14T03:01:20Z",
+      "snippet": "+1 for SPICE support since TrueNAS Scale now also uses this",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xKEyD",
+      "author": "c-amie",
+      "date": "2024-01-18T13:19:12Z",
+      "snippet": "+1 also",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6HAUDL",
+      "author": "jonnytest1",
+      "date": "2024-08-02T09:53:59Z",
+      "snippet": "+1 (if download size is relevant maybe and opt in plugin)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6OM8k0",
+      "author": "lpet",
+      "date": "2024-10-01T13:09:49Z",
+      "snippet": "+1 as Proxmox is using Spice as well",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6dUk96",
+      "author": "jijtech",
+      "date": "2025-02-06T10:25:28Z",
+      "snippet": "+1 (Proxmox&TrueNas use spice)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6h_Gze",
+      "author": "saniyo",
+      "date": "2025-03-12T12:09:04Z",
+      "snippet": "+1",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFtn",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:45Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mhEOx",
+      "author": "jonnytest1",
+      "date": "2026-02-08T15:44:19Z",
+      "snippet": "wait my mremoteng says the current version is 1.76.20 but the most recent one available is 1.76.11 - how can i be more current than the lastest one 😅 \n\n(also the website over at https://mremoteng.org/ is NOT really usable \n- cant refresh on subpaths\n- downloads page is empty\n- header is hiding content\n- \"You can't really contact us, because this is a demo. But if you could, this is where the contact form or details would go!\"\n )",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mk5Sp",
+      "author": "simonai1254",
+      "date": "2026-02-08T22:29:16Z",
+      "snippet": "> wait my mremoteng says the current version is 1.76.20 but the most recent one available is 1.76.11 - how can i be more current than the lastest one 😅 \n> \n> (also the website over at https://mremoteng.org/ is NOT really usable \n\nYeah the website needs some love, and the updater check is broken (known issue, but don't have the reference handy). The latest (preview) releases can be obtained over at https://github.com/mRemoteNG/mRemoteNG/releases",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7nGDmK",
+      "author": "Kvarkas",
+      "date": "2026-02-10T11:50:48Z",
+      "snippet": "let me clarify this a bit, so we have 3 streams: prod ready, preview, and night builds\nolder code is already legacy from all meanings, technically all features fixes are coming into 1.78.2 version - what will be a release candidate (moved from 3rd stream into 2nd) web site was modified but developer get lost, and currently over busy to be able to fix all issues we have regarding this but don't worry nothing is forgotten, and changes will be applied soon ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-10T11:50:48Z",
+  "unread_comments": 14,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

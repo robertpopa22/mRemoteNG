@@ -1,202 +1,200 @@
-﻿{
-    "number":  2329,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Azure RDP Connection with MFA enabled",
-    "state":  "open",
-    "labels":  [
-                   "RDP",
-                   "Need 2 check",
-                   "Windows"
-               ],
-    "author":  "fchaussee",
-    "created_at":  "2023-01-26T13:10:51Z",
-    "github_updated_at":  "2026-02-07T16:44:54Z",
-    "body_snippet":  "There\u0027s a new rdp client from Microsoft which allow to connect on Azure VM with Azure AD account MFA enabled.\r\n\r\nIn this client, there\u0027s a new option called \"Use a web account to sign in to the remote computer\"\r\n\r\nIs it possible to add this feature in mRemoteNG.\r\n\r\nBest Regards,\r\nFr├⌐d├⌐ric.\r\n![RDP](https://user-images.githubusercontent.com/123642837/214843766-02265844-214a-49df-8b55-908cc4021235.png)\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ztcm7",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi all,\r\n\r\nAny update on this?",
-                         "author":  "fchaussee",
-                         "action_needed":  true,
-                         "date":  "2023-04-12T11:08:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5akzzO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi all,\r\n\r\nIs there anybody out there?\r\n\r\nI can\u0027t figure out that i\u0027m the only one trying to connect to Azure VM integrated with Azure AD and MFA activated. ",
-                         "author":  "fchaussee",
-                         "action_needed":  true,
-                         "date":  "2023-04-24T08:13:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5fZ-PG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, same request here, you\u0027re not alone ;)",
-                         "author":  "0xMati",
-                         "action_needed":  true,
-                         "date":  "2023-06-21T11:12:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5gLxSF",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Bumping this request. I\u0027d like this same feature as well if possible.",
-                         "author":  "NoahL989",
-                         "action_needed":  true,
-                         "date":  "2023-06-29T19:41:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5nAKAI",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Bump, would be very nice to not have to maintain these logins separately",
-                         "author":  "SCLDGit",
-                         "action_needed":  true,
-                         "date":  "2023-09-20T16:41:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5t165R",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nThere must not be that many mRemoteNG users in fact...",
-                         "author":  "fchaussee",
-                         "action_needed":  true,
-                         "date":  "2023-12-06T13:11:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM53N_2D",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Bump also",
-                         "author":  "DaCeige",
-                         "action_needed":  true,
-                         "date":  "2024-03-15T17:50:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM55qwea",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "have the same question",
-                         "author":  "mydim",
-                         "action_needed":  true,
-                         "date":  "2024-04-07T00:27:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5-G9D9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "2024 and same question here, but as fas as I have seen, there is no support...unistalling MremoteNG and using RDP by windows :S",
-                         "author":  "DVMZCS",
-                         "action_needed":  true,
-                         "date":  "2024-05-16T16:49:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6DQ6sz",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same question here too.",
-                         "author":  "charlyDrg",
-                         "action_needed":  true,
-                         "date":  "2024-07-02T08:04:51Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6GiZkf",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here. This would be great.",
-                         "author":  "skartknet",
-                         "action_needed":  true,
-                         "date":  "2024-07-29T23:14:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6Gos1P",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Still waiting at least for some reply hehehe",
-                         "author":  "DVMZCS",
-                         "action_needed":  true,
-                         "date":  "2024-07-30T17:05:52Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6MvwRq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any updates, please?",
-                         "author":  "domy86",
-                         "action_needed":  true,
-                         "date":  "2024-09-19T15:21:54Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6Za_KA",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "add me to that list. \r\nbtw commits are happening to this repo https://github.com/mRemoteNG/mRemoteNG/commits/ , so maybe 2025 is the year ≡ƒÑç ",
-                         "author":  "TiloGit",
-                         "action_needed":  true,
-                         "date":  "2025-01-06T21:49:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7B7W6E",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Add me to the list as well.  ",
-                         "author":  "nebulousprime",
-                         "action_needed":  true,
-                         "date":  "2025-09-04T12:53:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7GYwYt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Perhaps one more \"please add\" will tip this over? :) Arc Enabled servers with EntraID MFA need this option enabled to function. Here is the documentation from MS - \n\nhttps://learn.microsoft.com/en-us/entra/identity/devices/howto-vm-sign-in-azure-ad-windows?pivots=identity-extension-vm \n\nThanks!",
-                         "author":  "eric-kinsley74",
-                         "action_needed":  true,
-                         "date":  "2025-09-24T13:15:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7OGd63",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "this will be a very good feature to add ",
-                         "author":  "liusvel90",
-                         "action_needed":  true,
-                         "date":  "2025-10-28T18:02:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7UCOC_",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1\n\nenablerdsaadauth:i:1",
-                         "author":  "Fantasillion",
-                         "action_needed":  true,
-                         "date":  "2025-11-20T11:01:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFNq",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:44:54Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:44:54Z",
-    "unread_comments":  18,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2329,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Azure RDP Connection with MFA enabled",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Need 2 check",
+    "Windows"
+  ],
+  "author": "fchaussee",
+  "created_at": "2023-01-26T13:10:51Z",
+  "github_updated_at": "2026-02-07T16:44:54Z",
+  "body_snippet": "There's a new rdp client from Microsoft which allow to connect on Azure VM with Azure AD account MFA enabled.\r\n\r\nIn this client, there's a new option called \"Use a web account to sign in to the remote computer\"\r\n\r\nIs it possible to add this feature in mRemoteNG.\r\n\r\nBest Regards,\r\nFrédéric.\r\n![RDP](https://user-images.githubusercontent.com/123642837/214843766-02265844-214a-49df-8b55-908cc4021235.png)\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5Ztcm7",
+      "author": "fchaussee",
+      "date": "2023-04-12T11:08:42Z",
+      "snippet": "Hi all,\r\n\r\nAny update on this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5akzzO",
+      "author": "fchaussee",
+      "date": "2023-04-24T08:13:23Z",
+      "snippet": "Hi all,\r\n\r\nIs there anybody out there?\r\n\r\nI can't figure out that i'm the only one trying to connect to Azure VM integrated with Azure AD and MFA activated. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5fZ-PG",
+      "author": "0xMati",
+      "date": "2023-06-21T11:12:18Z",
+      "snippet": "Hello, same request here, you're not alone ;)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5gLxSF",
+      "author": "NoahL989",
+      "date": "2023-06-29T19:41:16Z",
+      "snippet": "Bumping this request. I'd like this same feature as well if possible.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5nAKAI",
+      "author": "SCLDGit",
+      "date": "2023-09-20T16:41:24Z",
+      "snippet": "Bump, would be very nice to not have to maintain these logins separately",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5t165R",
+      "author": "fchaussee",
+      "date": "2023-12-06T13:11:37Z",
+      "snippet": "Hi,\r\n\r\nThere must not be that many mRemoteNG users in fact...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM53N_2D",
+      "author": "DaCeige",
+      "date": "2024-03-15T17:50:39Z",
+      "snippet": "Bump also",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM55qwea",
+      "author": "mydim",
+      "date": "2024-04-07T00:27:49Z",
+      "snippet": "have the same question",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5-G9D9",
+      "author": "DVMZCS",
+      "date": "2024-05-16T16:49:16Z",
+      "snippet": "2024 and same question here, but as fas as I have seen, there is no support...unistalling MremoteNG and using RDP by windows :S",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6DQ6sz",
+      "author": "charlyDrg",
+      "date": "2024-07-02T08:04:51Z",
+      "snippet": "Same question here too.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6GiZkf",
+      "author": "skartknet",
+      "date": "2024-07-29T23:14:04Z",
+      "snippet": "Same here. This would be great.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6Gos1P",
+      "author": "DVMZCS",
+      "date": "2024-07-30T17:05:52Z",
+      "snippet": "Still waiting at least for some reply hehehe",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6MvwRq",
+      "author": "domy86",
+      "date": "2024-09-19T15:21:54Z",
+      "snippet": "Any updates, please?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6Za_KA",
+      "author": "TiloGit",
+      "date": "2025-01-06T21:49:50Z",
+      "snippet": "add me to that list. \r\nbtw commits are happening to this repo https://github.com/mRemoteNG/mRemoteNG/commits/ , so maybe 2025 is the year 🥇 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7B7W6E",
+      "author": "nebulousprime",
+      "date": "2025-09-04T12:53:10Z",
+      "snippet": "Add me to the list as well.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7GYwYt",
+      "author": "eric-kinsley74",
+      "date": "2025-09-24T13:15:59Z",
+      "snippet": "Perhaps one more \"please add\" will tip this over? :) Arc Enabled servers with EntraID MFA need this option enabled to function. Here is the documentation from MS - \n\nhttps://learn.microsoft.com/en-us/entra/identity/devices/howto-vm-sign-in-azure-ad-windows?pivots=identity-extension-vm \n\nThanks!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7OGd63",
+      "author": "liusvel90",
+      "date": "2025-10-28T18:02:27Z",
+      "snippet": "this will be a very good feature to add ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7UCOC_",
+      "author": "Fantasillion",
+      "date": "2025-11-20T11:01:32Z",
+      "snippet": "+1\n\nenablerdsaadauth:i:1",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFNq",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:44:54Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:44:54Z",
+  "unread_comments": 18,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

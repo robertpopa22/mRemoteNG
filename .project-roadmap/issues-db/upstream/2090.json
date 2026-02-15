@@ -1,102 +1,100 @@
-﻿{
-    "number":  2090,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "RDP Sessions fail after opening like 8 or 10 sessions. have to close MRemoteNG in order to be able to connect again",
-    "state":  "open",
-    "labels":  [
-                   "RDP",
-                   "Improvement required"
-               ],
-    "author":  "ptfxnz",
-    "created_at":  "2021-12-16T21:00:39Z",
-    "github_updated_at":  "2022-03-23T08:34:18Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nI am using the PREVIEW version 1.77.1.27713 and i noticed that after i have opened around 8 to 10 RDP sessions, if i try to open another RDP session, it fails. in order to be able to connect using RDP again i have to close MRemoteNG and then RDP starts to work again.\r\n\r\nThank you.\r\n\r\n\r\n\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, t...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM47Zu6b",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hi, yes known issue, its limitation of rdp protocol for some reasons, we will have a look soon if its possible to fix from our end",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-12-17T10:16:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47Z_XR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Dimitrij\n\nThank you for the update\n\nRegards\nP\n\n17/12/2021 23:16:58 Dimitrij ***@***.***\u003e:\n\n\u003e hi, yes known issue, its limitation of rdp protocol for some reasons, we will have a look soon if its possible to fix from our end\n\u003e \n\u003e ΓÇö\n\u003e Reply to this email directly, view it on GitHub[https://github.com/mRemoteNG/mRemoteNG/issues/2090#issuecomment-996601499], or unsubscribe[https://github.com/notifications/unsubscribe-auth/AW6OH2YT765DFAFBFIGMSIDURMEZVANCNFSM5KHJC7RQ].\n\u003e Triage notifications on the...",
-                         "author":  "ptfxnz",
-                         "action_needed":  true,
-                         "date":  "2021-12-17T12:00:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AGnS4",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I just ran into this with ```1.77.1.27654```.  I\u0027m going to try downgrading to the previous stable release.",
-                         "author":  "darkpixel",
-                         "action_needed":  true,
-                         "date":  "2022-03-22T18:22:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AGtle",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I tested using the stable version and ran into the same issue.  I then upgraded to the nightly build and it seems to work.\r\nI\u0027m not sure why some of our users are suddenly affected by it while others aren\u0027t.  They all run the same desktop hardware and software, and we haven\u0027t made any changes to our server environments.  If I had to guess, it\u0027s a Windows Update lurking somewhere that broke things for some Windows 10 workstations.",
-                         "author":  "darkpixel",
-                         "action_needed":  true,
-                         "date":  "2022-03-22T18:42:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AGuz-",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Are you running into a memory limitation? ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-03-22T18:45:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AGw2Q",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "There is plenty of free memory on the servers, and my test workstation has 128 GB RAM. ;)\r\n\r\nOne of our techs while troubleshooting mentioned a message in mRemote about memory but when checking the workstation there was plenty free.\r\n\r\nThe issue started this morning after a round of Windows Updates were deployed last night, so I\u0027m suspecting Microsoft messed something up....regardless, the mRemote nightly build doesn\u0027t seem to suffer from the issue...but I will admit we haven\u0027t done a lot of tes...",
-                         "author":  "darkpixel",
-                         "action_needed":  true,
-                         "date":  "2022-03-22T18:53:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AHBd1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The nightly build fixed the issue for the user that was having problems.",
-                         "author":  "darkpixel",
-                         "action_needed":  true,
-                         "date":  "2022-03-22T19:59:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5AI77c",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "mRemoteNG versions before 1.77.2 were 32bit (x86), which limits the usable memory to 4 GB. Depending on the screen resolution you used the RDP sessions consumed all memory available and you could not start additional sessions. (Run into a similar issue though with a higher number of connections).\r\n\r\nI assume this is the same thing as with issue #1715, #854, #864 and #910, which all got solved with the x64 Build of this Software (see #915). ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-03-23T08:34:17Z"
-                     }
-                 ],
-    "comments_cursor":  "2022-03-23T08:34:18Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2090,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "RDP Sessions fail after opening like 8 or 10 sessions. have to close MRemoteNG in order to be able to connect again",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Improvement required"
+  ],
+  "author": "ptfxnz",
+  "created_at": "2021-12-16T21:00:39Z",
+  "github_updated_at": "2022-03-23T08:34:18Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nI am using the PREVIEW version 1.77.1.27713 and i noticed that after i have opened around 8 to 10 RDP sessions, if i try to open another RDP session, it fails. in order to be able to connect using RDP again i have to close MRemoteNG and then RDP starts to work again.\r\n\r\nThank you.\r\n\r\n\r\n\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, t...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM47Zu6b",
+      "author": "Kvarkas",
+      "date": "2021-12-17T10:16:47Z",
+      "snippet": "hi, yes known issue, its limitation of rdp protocol for some reasons, we will have a look soon if its possible to fix from our end",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47Z_XR",
+      "author": "ptfxnz",
+      "date": "2021-12-17T12:00:03Z",
+      "snippet": "Dimitrij\n\nThank you for the update\n\nRegards\nP\n\n17/12/2021 23:16:58 Dimitrij ***@***.***>:\n\n> hi, yes known issue, its limitation of rdp protocol for some reasons, we will have a look soon if its possible to fix from our end\n> \n> —\n> Reply to this email directly, view it on GitHub[https://github.com/mRemoteNG/mRemoteNG/issues/2090#issuecomment-996601499], or unsubscribe[https://github.com/notifications/unsubscribe-auth/AW6OH2YT765DFAFBFIGMSIDURMEZVANCNFSM5KHJC7RQ].\n> Triage notifications on the g...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AGnS4",
+      "author": "darkpixel",
+      "date": "2022-03-22T18:22:24Z",
+      "snippet": "I just ran into this with ```1.77.1.27654```.  I'm going to try downgrading to the previous stable release.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AGtle",
+      "author": "darkpixel",
+      "date": "2022-03-22T18:42:49Z",
+      "snippet": "I tested using the stable version and ran into the same issue.  I then upgraded to the nightly build and it seems to work.\r\nI'm not sure why some of our users are suddenly affected by it while others aren't.  They all run the same desktop hardware and software, and we haven't made any changes to our server environments.  If I had to guess, it's a Windows Update lurking somewhere that broke things for some Windows 10 workstations.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AGuz-",
+      "author": "simonai1254",
+      "date": "2022-03-22T18:45:12Z",
+      "snippet": "Are you running into a memory limitation? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AGw2Q",
+      "author": "darkpixel",
+      "date": "2022-03-22T18:53:45Z",
+      "snippet": "There is plenty of free memory on the servers, and my test workstation has 128 GB RAM. ;)\r\n\r\nOne of our techs while troubleshooting mentioned a message in mRemote about memory but when checking the workstation there was plenty free.\r\n\r\nThe issue started this morning after a round of Windows Updates were deployed last night, so I'm suspecting Microsoft messed something up....regardless, the mRemote nightly build doesn't seem to suffer from the issue...but I will admit we haven't done a lot of tes...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AHBd1",
+      "author": "darkpixel",
+      "date": "2022-03-22T19:59:23Z",
+      "snippet": "The nightly build fixed the issue for the user that was having problems.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5AI77c",
+      "author": "simonai1254",
+      "date": "2022-03-23T08:34:17Z",
+      "snippet": "mRemoteNG versions before 1.77.2 were 32bit (x86), which limits the usable memory to 4 GB. Depending on the screen resolution you used the RDP sessions consumed all memory available and you could not start additional sessions. (Run into a similar issue though with a higher number of connections).\r\n\r\nI assume this is the same thing as with issue #1715, #854, #864 and #910, which all got solved with the x64 Build of this Software (see #915). ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2022-03-23T08:34:18Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

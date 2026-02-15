@@ -1,817 +1,815 @@
-﻿{
-    "number":  420,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request: PROXY support for RDP connections",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Help Wanted",
-                   "Feature Request",
-                   "Need 2 check",
-                   "Needs implementation",
-                   "1.77.3"
-               ],
-    "author":  "lars18th",
-    "created_at":  "2017-03-01T08:34:22Z",
-    "github_updated_at":  "2026-02-08T12:11:21Z",
-    "body_snippet":  "Hi,\r\n\r\nI\u0027m using mRemote/mRemoteNG for several years. However, for RDP connections I continue using the 2X/Parallels Client. Why? Because it has a \"must have\" option for RDP connections: support for PROXY.\r\n\r\nLet me to explain:\r\n\r\n- In the configuration of the RDP connection, you have a new tab with these values:\r\n\r\n```\r\n[ ] Use proxy server\r\n  ( ) SOCKS4\r\n  ( ) SOCKS4A\r\n  ( ) SOCKS5\r\n  ( ) HTTP 1.1\r\n  Proxy Host:\r\n  Port:\r\n\r\nProxy Authentication ...\r\n```\r\n\r\nThis is relevant when you use one SSH...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MzM5MjIyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "If I\u0027m understanding correctly, this is already possible using PuTTY to set up a SOCKS4 tunnel. Admittedly, this requires a bit more work to setup and use on a daily basis.\r\n\r\nMaking this a more integrated feature of RDP connections would be possible but a bit more difficult using PuTTY directly. It is suggested that we complete #181 first and build this feature with SSH.Net.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-03-01T16:32:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MzQwODI4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @sparerd ,\r\n\r\nI feel you misunderstood my proposal. Let me to explain more:\r\n\r\n- I\u0027m **not** suggesting to connect with RDP using SSH.\r\n- I\u0027m suggesting that the TCP connection to an RDP server is done **using a PROXY**.\r\n- I\u0027m suggesting that the proxy support includes **SOCKS** and HTTP-CONNECT protocols.\r\n\r\nMy goal (and not the only use of the proxy support) is:\r\n\r\n1) I connect to one SSH server in the same network as the RDP server is running.\r\n2) In this SSH connection I enable one \"Dyna...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-03-01T17:24:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MzQ2OTY1Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ok, on a second pass I see the issue you\u0027re bringing up. The library we use for RDP (mstsclib) doesn\u0027t natively support any proxy type besides RD Gateway.\r\n\r\nWe will need to find a library that provides SOCKS/HTTP proxy support. If you know of a good library let us know and we can look into it.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-03-01T21:05:17Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4MzU4OTMzMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nIn a second pass...\r\n\r\nYou don\u0027t need at all a library for RDP with proxy support (this doesn\u0027t exist!).\r\nYou need to use a library for PROXY connection, or directly implement it in the code. Let me explain how to:\r\n\r\n- If you use regular RDP connection, use the mstsclib as normal.\r\n- If you use proxied RDP connection, do:\r\n  - Open the TCP connection using the proxy with these parameters:\r\n     - IP destination: address of the proxy\r\n     - PORT destination: port of the proxy\r\n     - Rem...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-03-02T08:31:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMzkzNTM3OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I also very often use dynamic tunnel in putty. For example for Firefox to use socks connections. \r\nThe biggest advantage in dynamic tunneling is that i don\u0027t need specify target connection. \r\nAs you mentioned RDP don\u0027t have by default this feature so it is hard to force to use socks especially on windows. I searched software which will put on RDP rule that every connection from mstsc.exe should go throw socks or if software discovery flow to specific network. ProxyCap, Proxyfier, MobaXterm can d...",
-                         "author":  "JarRoDk",
-                         "action_needed":  true,
-                         "date":  "2017-05-25T06:36:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMzk0NjYxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @JarRoDk ,\r\n\r\nI feel I don\u0027t explain well. Let me try another time:\r\n\r\n- The RDP protocol use by default TCP (only in recent versions of the protocol the UDP transport is also optionally accepted).\r\n- With **ANY** service that uses TCP is possible to use TCP tunnels.\r\n- In order to tunnel one RDP connection over a TCP connection you need to use as target the tunnel address:port, instead of the remote address:port.\r\n\r\nSo, for tunneling one RDP connection over a SOCKS proxy, the client only nee...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-05-25T07:46:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMzk1Nzc0OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes, I understand how simple static tunnel works and for one target it is very easy and handy (and this same for 3306 port), for example:\r\ni can create tunnel in putty 2022:target:22 for one target and then ssh to localhost:2022\r\n\r\nBut with dynamic tunnel it is even better because i don\u0027t need to specify targets i can force my putty client to use sock proxy\r\n![image](https://cloud.githubusercontent.com/assets/1716484/26442545/3ccc8b7a-4135-11e7-8a15-d7e448ef59f0.png)\r\n\r\n\r\n![image](https://cloud....",
-                         "author":  "JarRoDk",
-                         "action_needed":  true,
-                         "date":  "2017-05-25T08:47:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMwMzk3MjQ5NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "HI @JarRoDk .\r\n\r\n\u003e If mstc.exe can use socks proxing like other mature software ; ] it would be any problems.\r\n\r\nMy request is because mstc.exe don\u0027t have support for PROXY.\r\n\r\nHowever, it\u0027s very simple to add support for it (and other tools) inside mRemoteNG:\r\n- The UI needs to add the space for specify the proxy server.\r\n- The internal code requires to have the function to stablish the tunnel before run the tool (mstc.exe).\r\n- After stablish the tunnel, just do run the tool (mstc.exe) with the...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-05-25T09:58:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMTUwNjIyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any update on this feature request? I think supporting socks5 is very nice and am looking forward it.",
-                         "author":  "moralrebuild",
-                         "action_needed":  true,
-                         "date":  "2017-09-22T17:13:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMTUwNzcyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "No!\r\nAt time no one has implemented this functionality. So I\u0027m still using the 2X/Parallels Client for my RDP connections.",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-09-22T17:18:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjYzODcwNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I haven\u0027t tried this in mRemoteNG, but I use it elsewhere - find compiled version of connect.c - this small program can listen on a socket and send TCP stream over proxy.\r\nI use it to proxy RDP connections via SSH in another app similar to mRemoteNG - I first establish SSH connection via putty with dynamic port forward which is socks proxy and then use connect.exe to forward local port to destination RDP server.\r\nThis works fine, without much extra work once setup.\r\nBut it would be great if mRem...",
-                         "author":  "dgcom",
-                         "action_needed":  true,
-                         "date":  "2017-12-19T04:46:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MjcwMzUyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I use it to proxy RDP connections via SSH in another app similar to mRemoteNG\r\n\r\nHi dgcom,\r\n\r\nYes, you can do it manually. And you have a lot of options. For example, a simple SSH tunnel is a very simple way. However, with a large list of RDP servers and with one Proxy, it will be more powerfull to have this functionality implemented.\r\n\r\nI hope that soon the developers of the mRemoteNG will agree with the inclusion of the Proxy support. :smile: ",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2017-12-19T10:32:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3ODIyODIwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I agree this would be a great feature to have. However, I am not sure when I will have the time to implement it. We will likely need someone to submit a PR to get it done in any reasonable amount of time.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-04-03T12:12:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5Njc0NjI0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello all,\r\nAny update on this feature request? \r\nSupporting socks5 is a nice request. In fact, I need it.\r\nIn this moment my teammates are using MobaXterm instead of mRemoteNG only for that feature.\r\nThanks for your work.",
-                         "author":  "d3dbit",
-                         "action_needed":  true,
-                         "date":  "2018-06-12T21:50:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzAyOTc4OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e d3dbit commented 20 hours ago\r\n\u003e \r\n\u003e Any update on this feature request?\r\n\u003e Supporting socks5 is a nice request. In fact, I need it.\r\n\u003e In this moment my teammates are using MobaXterm instead of mRemoteNG only for that feature.\r\n\r\nI actually think this would be fun to implement (am a C# developer and fellow mRemoteNG user, but have not yet developed on this project) - but isn\u0027t yet important enough to meet my free-time prioritization.  Perhaps myself and/or others could be further incentivized...",
-                         "author":  "ziesemer",
-                         "action_needed":  true,
-                         "date":  "2018-06-13T17:58:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzE5NjA5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nIn my opinion this function is a must have!\r\nWhy?\r\n\r\n1. Any RDP connection can work over a TCP tunnel. So it doesn\u0027t disturbs the client or the server.\r\n2. A lot of IT professionals use remote SSH connections to accesing to secure _networks_, instead of a complex VPN solutions. In these environments a RDP client with socks proxy client support is a _huge_ advantage.\r\n3. Add support for tunneled conections is quite easy when including some proxy client library. The algoritm is then trivial...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-06-14T07:16:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5OTI5NjAzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "In short, we don\u0027t have enough developer time to do this right now. It would be great to have this, but there are many other significant features that are ahead of this one. (HiDPI, credential manager, hotkeys, just to name a few). And that\u0027s not even taking into consideration that all feature work is on hold until v1.76 is released. Bug fixes are getting priority.\r\n\r\nWe need some more developers :(",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-06-22T01:52:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5OTMzNTczOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @sparerd ,\r\n\r\nGreat to hear that you found this functionality interesting. From my point of view is sufficient to add it to the official TODO list. So, at some point someone will implement it.\r\n\r\nThank you for your efffort!",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-06-22T06:31:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMDQ3ODA0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd I agree with @lars18th . Thank you to listen to us. It is sufficient to add it to the official TODO list. So, at some point, someone will implement it.\r\nThank you for your effort.",
-                         "author":  "d3dbit",
-                         "action_needed":  true,
-                         "date":  "2018-06-26T22:05:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyMTQyODgxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Proxy support for RDP would be awesome!",
-                         "author":  "reillychase",
-                         "action_needed":  true,
-                         "date":  "2018-09-14T17:27:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyMTQ1ODE0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m going to implement this now. Here\u0027s my plan:\r\n\r\nThe user should be able to define one or more SSH gateways. This is implemented as a new \"protocol\", i.e. an SSH gateway can then be configured like a normal connection. The following parameters are defined:\r\n- name\r\n- description\r\n- hostname\r\n- port\r\n- username\r\n- password\r\n\t\r\nEach connection/folder now has a new property which can be used to select one of the previously defined SSH gateways via dropdown box. If the connection is activated, th...",
-                         "author":  "st-schuler",
-                         "action_needed":  true,
-                         "date":  "2018-09-14T19:16:44Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyMTcyOTQ1MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @st-schuler ,\r\n\r\n\u003e I\u0027m going to implement this now.\r\n\r\nGreat to hear it!\r\n\r\nHowever, please **don\u0027t forget the pure PROXY support!** Your idea is about use SSH tunnels, and it\u0027s amazing. But, _PROXY_ support is a different (but complementary) functionality. For example, with an HTTP proxy you use a tunnel over a TCP connection with the HTTP CONNECT command. With a SOCKS proxy you ask to the server for a TCP tunnel.\r\n\r\nSo, I recommend not only to add support for \"SSH gateways\" but too for \"HTT...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-09-16T09:15:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNTA5NDQzMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@st-schuler \r\n\r\njust not to forget - it would be great to have ability to use \"SSH gateway/tunnel\" with not only plain passwords but specifying SSH key as well as it also common way to connect.\r\nI know that it is possible to use pgagent, but want to avoid it...",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2018-09-27T13:34:27Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjIwNzk3MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "SSH keys are also supported.\r\nCurrently I will only implement ssh-tunnel/gateway. Proxy is then another thing, but shouldn\u0027t be that difficult.",
-                         "author":  "st-schuler",
-                         "action_needed":  true,
-                         "date":  "2018-10-02T09:24:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjIyMDk4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @st-schuler ,\r\n\r\n\u003e Currently I will only implement ssh-tunnel/gateway. Proxy is then another thing, but shouldn\u0027t be that difficult\r\n\r\nSorry, but my original request (see the title of _this_ issue) is about the PROXY support. The SSH-TUNNEL/GATEWAY is another different functionality. I agree with it, however it\u0027s more complex to implement. And in the other hand, less usefull... why? You can do the tunnel manually (you only need to configure your SSH client), but what about the PROXY support? ...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-10-02T10:11:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMTA0NDUwOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nIs anyone working on the implementation of this?\r\n\r\nPlease note that at time the VNC client *has* support for HTTP and SOCKS proxies.\r\nSee: https://github.com/mRemoteNG/mRemoteNG/blob/05c96da98f475e6152418632d8259e34d73a51ee/mRemoteV1/Connection/Protocol/VNC/VNCEnum.cs#L52\r\nMy request is only to implement the *same* support for the RDP client!\r\nAnd this seems to be quite easy as the VNC proxy code can be reused. The VNC connection is a TCP socket, so the proxy is transparent. And the RDP ...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-10-18T15:03:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMTA3NDE4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Actually you\u0027ve uncovered something pretty interesting here. VNC actually doesn\u0027t have any proxy support in the app. The proxy settings for VNC connections aren\u0027t hooked up to anything except serializers/deserializers. They don\u0027t actually *do* anything at the moment. I\u0027m not even sure why those properties exist, except maybe the implementation just wasn\u0027t completed.\r\n\r\nThis still means the property serialization/deserialization work is mostly done, but we still need to create the actual proxy im...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-10-18T16:25:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMTA5MzIyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Oh, sorry @sparerd !\r\n\r\nIn any case, I suggest to include (at some time) an abstract base \"proxy\" connection for all procotols that use TCP sockets.\r\n\r\nYou agree?",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2018-10-18T17:23:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMTEwNjk4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Absolutely. Any connection type that supports TCP should also be usable with the TCP proxy (regardless of implementation details).",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-10-18T18:05:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3ODIwMjk0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I too am interested in using SOCKS5 with mRemoteNG. Using MobaXterm atm which is less than ideal and buggy at times. Hope it\u0027s made the ToDo list, and thanks for all the great work.",
-                         "author":  "DaveBetTech",
-                         "action_needed":  true,
-                         "date":  "2019-03-30T03:41:10Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MTE1NTU5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @sparerd ,\r\n\r\nYou will implement _some_ PROXY support for TCP connections soon?",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2019-04-09T08:30:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxMzY4MTA1MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nMore than 2 years after, I continue asking about the same: \"PROXY support for TCP connections, please!\"\r\n\r\nI hope some developer will agree to implement it.\r\nThank you!\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2019-07-22T07:50:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjU1NTM4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1, would love rdp / PROXY and rdp over SSH support.\r\nWould fund a bit too.\r\n@lars18th @moralrebuild @d3dbit @reillychase Would you guys agree to fund a bit too ?",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2019-07-30T19:14:29Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjY2MzM1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Not needed any more. 2 years is too long for an open source project to give its users feedback and I had already switched to free VNC version which already supported socks proxy at that time. Anyway, hopefully this project can survive and someday can convince people like me to try it. Good luck.",
-                         "author":  "moralrebuild",
-                         "action_needed":  true,
-                         "date":  "2019-07-31T02:03:35Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjY3MDE0OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Not needed any more. 2 years is too long for an open source project to give its users feedback and I had already switched to free VNC version which already supported socks proxy at that time. Anyway, hopefully this project can survive and someday can convince people like me to try it. Good luck.\r\n\r\nVNC is just a single connection type. mRemoteNG can connect via RDP, ICA, SSH, etc. I\u0027m not ecstatic with VNC because of the clear text issue (haven\u0027t figured out an easy way to encrypt). I\u0027d be usi...",
-                         "author":  "DaveBetTech",
-                         "action_needed":  true,
-                         "date":  "2019-07-31T02:38:28Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNzkwMTMxMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nI want to comment what I\u0027m doing for the last years:\r\n\r\n- To connect to remote servers, I stablish an SSH connection with one server connected to the Internet. Then inside the SSH connection I open a Socks4 forwarding proxy. And using this socks proxy I connect to any of the servers in that location.\r\n\r\nI feel a lot of users use this technique: simple and secure. I hate to waste my time with VPNs or bastion servers for specific services. But, it requires that the CLIENT supports connectin...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2019-08-03T07:05:35Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU5OTk0MDQ5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nNo one interested on this?",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-03-17T08:25:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU5OTk2NjMxNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "He\u0027ll yes I want that proxy feature too...",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-03-17T09:24:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwMDA3NTg1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for great job with this RDP client, i use it daily on my work, to get ssh tunnel RDP sessions to work maybe have look at Remmina that is available in Linux there this works great",
-                         "author":  "ohlssrog",
-                         "action_needed":  true,
-                         "date":  "2020-03-17T13:37:35Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwMDEwNzUxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Devolutions RDM recently implemented RDP over SSH socks - works very well\nand free.\nSad, that mRemoteNG still doesn\u0027t have this.\n\n\nOn Tue, Mar 17, 2020 at 9:37 AM ohlssrog \u003cnotifications@github.com\u003e wrote:\n\n\u003e Thanks for great job with this RDP client, i use it daily on my work, to\n\u003e get ssh tunnel RDP sessions to work maybe have look at Remmina that is\n\u003e available in Linux there this works great\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you commented.\n\u003e Reply to this email directly, view it on Gi...",
-                         "author":  "dgcom",
-                         "action_needed":  true,
-                         "date":  "2020-03-17T14:39:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwMDEzNzk4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "so maybe the solution is to run Remmina from WSL in windows 10?",
-                         "author":  "ohlssrog",
-                         "action_needed":  true,
-                         "date":  "2020-03-17T15:35:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwNDMyNzg5MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello,\r\n\r\nI think it\u0027s fair easy to make it work without a PR we are waiting for 3 years. Why don\u0027t you just use something like Proxifier or FreeCap. You can even get it work easier just launching tun2socks and add some route to your RDP server to pass through it. 2 command lines and it\u0027s done.",
-                         "author":  "mut4nt",
-                         "action_needed":  true,
-                         "date":  "2020-03-26T09:40:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwNDM0NzQyOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Hello,\r\n\u003e \r\n\u003e I think it\u0027s fair easy to make it work without a PR we are waiting for 3 years. Why don\u0027t you just use something like Proxifier or FreeCap. You can even get it work easier just launching tun2socks and add some route to your RDP server to pass through it. 2 command lines and it\u0027s done.\r\n\r\nBecause in this case it\u0027s a pain to manage it. I use multiple SSH connections to access to remote _networks_, and then I use tunnels to reach the RDP servers. That\u0027s the most simple and secure op...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-03-26T10:23:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwNDM4OTk5OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ok I undesrtand your issue. So it\u0027s just about automating the task of adding an internal tunnel toward the proxy server and from which mstc will connect. Managing automatically the ports pool to use for RDP connections etc.\r\n\r\nSeems like the developer was looking for a library. It\u0027s just about finding a socks5 client library.\r\n\r\nManually this is the most simple way to do it : just open a single SSH connection as you do when opening one with dynamic tunnel for a socks5 proxy. Then you can add tun...",
-                         "author":  "mut4nt",
-                         "action_needed":  true,
-                         "date":  "2020-03-26T12:00:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMTMxMDQyOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is a feature I really need. I\u0027m currently using wFreeRDP as a workaround (as it supports proxy). I\u0027ve added it as an external tool in mRemoteNG but the integration is not great. This request has been open since 2017 and really should be top of the feature request list. Thanks.",
-                         "author":  "david-curnow",
-                         "action_needed":  true,
-                         "date":  "2020-04-09T03:39:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMTM2MjI0OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This request has been open since 2017 and really should be top of the feature request list.\r\n\r\nThat\u0027s my point of view! :sob: \r\n\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-04-09T06:52:23Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMDE3MjI2Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I was able to achieve this, using [proxychains-windows](https://github.com/shunf4/proxychains-windows) (windows port of [proxychains)](https://github.com/haad/proxychains).\r\nYou can control which IP range not to proxy and it\u0027s possible to configure advanced routing rules.\r\n\r\n_Yes_, this is not the perfect solution as this is a wrapper for `mRemoteNG` but it does the trick.\r\n\r\nWrapping this in a small PS script should be enough to get you started.\r\n```\r\n$WorkDir = \"C:\\Users\\autogun\\Downloads\\prox...",
-                         "author":  "drehelis",
-                         "action_needed":  true,
-                         "date":  "2020-04-27T19:00:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMDIwNDY4OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@autogun Sounds great, but toi be fair, not easy to understand. Would you mind posting a quick exemple ? best regards.",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-04-27T20:05:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTMxMzI5NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@deajan [Check this out](https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa).",
-                         "author":  "drehelis",
-                         "action_needed":  true,
-                         "date":  "2020-04-29T16:14:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTMyMzQxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @deajan [Check this out](https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa).\r\n\r\nThat\u0027s a _complex_ workaround. Personally I hate any sockfier using hooks. They are useful in some scenarios. However, for a SIMPLE PROXY TUNNEL is quite unnecessary.\r\n\r\nWe are requesting for NATIVE PROXY SUPPORT. Creating TCP sockets over a proxy is easy. Several examples/libraries/tools exist for years for HTTP and SOCKS in multiple languages. After three years ...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-04-29T16:31:47Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTM1NDczNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@autogun Thanks a lot ;) Makes more sense.",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-04-29T17:29:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyMTM2MjExMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@lars18th I\u0027d expect nothing... 3 years on the wish list, this request must really not be the  top priorities of the devs... In one of the posts on this issue I actually proposed funding, but well... didn\u0027t seem to be interesting for the devs... Maybe they don\u0027t read this issue anymore. Who knows.\r\n",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-04-29T17:44:06Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMjAyMzQ0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @farosch ,\r\n\r\nWhy you closed this issue? It\u0027s this already implemented? ",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-05-21T11:01:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMjA1MTYyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@lars18th the ssh jumphost alternative has been implemented in https://github.com/mRemoteNG/mRemoteNG/commit/39245b93d9e180cdc01107c05c6dc7fa0534f3ec even if it was clearly a proxy support request",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-05-21T12:09:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMjEwNDg5Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @deajan and @farosch ,\r\n\r\nI\u0027m happy to see the new SSH Jumphost support included today. However, this solution from the point of view of an user it\u0027s *far* of the SOCKS PROXY support. I can imagine that with this new code it will be more easy to implement a simple SOCKS4 call to stablish a TCP connection, or even a CONNECT call through an HTTP proxy. But, please RE-OPEN this issue as the the request is for *PROXY SUPPORT* and not for a (mere) SSH Jumphost support (in fact, I feel it\u0027s more co...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-05-21T14:04:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMjI2OTE3MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you @farosch for reopening! :wink: \r\nI hope someone will provide a patch with PROXY support.\r\nRegards.\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-05-21T18:28:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTM0MDM4Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e Thank you @farosch for reopening! wink\r\n\u003e I hope someone will provide a patch with PROXY support.\r\n\u003e Regards.\r\n\r\nhi, do i understand your ask correctly? you want to rdp directly to example.com:3389, but the connection to go thru socks/http proxy, right? so you wont need to establish a new ssh connection to remote host with a new port so you can rdp to localhost:new_port.\r\ni am seeking same kind of functionality, tired to open new sessions/ports to connect to a new RDP.\r\ndid you find an...",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T13:10:40Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQwNTQ4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "well, i installed parallel client, and it is doing whatever i need, i dont need anymore have multiple ssh sessions and rdp to localhost;port",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T15:00:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQ3NjEzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e  did you find any other solutions rather than waiting for mRemoteNG?\r\n\r\nI mention one working solution here before (it is free, but proprietary) - Devolutions RDM.\r\n ",
-                         "author":  "dgcom",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:06:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQ4OTIwMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e \u003e did you find any other solutions rather than waiting for mRemoteNG?\r\n\u003e \r\n\u003e I mention one working solution here before (it is free, but proprietary) - Devolutions RDM.\r\n\r\nthanks for reply, i did not use devolution rdm, decided to go with parallel client. it is doing what i need. however, i am having blurry fonts issue and unable to have it fully fixed. whatever settings i am trying with DPI and other stuff, it is still blurry. i am RDP-ing from win10 to win2012r2, win7 and both having...",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:29:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQ5NzMzNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "i downloaded dev rdm, but cannot find place to configure socks5 proxy/ do you mind to share steps where i can configure socks proxy in connection?",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:44:58Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQ5ODE4MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e do you have similar issues with devolutions rdm?\r\n\r\nIf you have issues with HIDPI, you will have them in almost any client - they all use same RDP control under the covers.\r\nYou can try Remote Desktop from Win 10 app store - it seems to use different implementation, but it won\u0027t support SSH tunnel by itself.",
-                         "author":  "dgcom",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:46:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTQ5OTE3NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "ok, thanks, will try, but if no socks proxy support, then may go back to localhost;port ;(",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:48:24Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTUwMDQ2Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "apparently my company does not allow me to use app store :(  i can download only whatever they allow  ;0",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T17:50:54Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTUwNzQ3MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e where i can configure socks proxy in connection?\r\n\r\nRDM is quite a large product, you may need to learn it, read the docs and forums.\r\nBut here is the link which describes the way to use single SSH connection to remote as Tunnel/VPN - exactly what this issue is about:\r\nhttps://devolutions.atlassian.net/wiki/spaces/DEVO/pages/880181513/How+to+configure+a+Secure+Gateway",
-                         "author":  "dgcom",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T18:04:18Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNTUwOTI2Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "thanks, that become little complicated. now i just ssh into remote server and all my other connections browser/parallel/ssh connections goes via socks. :)",
-                         "author":  "hvspa",
-                         "action_needed":  true,
-                         "date":  "2020-05-28T18:07:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjMwOTI4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nTo be clear:\r\n\r\n1. RDP connections, like _any_ other TCP connection can be _tunneled_. That\u0027s not the question.\r\n2. SSH can provide tunnels. That\u0027s not the question.\r\n3. We can use _any_ RDP client over a SSH connection using tunnels. Tht\u0027s not the question.\r\n4. _ANY_ TCP connection can be done over a SOCKS4 or HTTP proxy (in this case with CONNECT support). And this is the question to support inside mRemoteNG.\r\n\r\nFuthermore, this TCP PROXY support inside mRemoteNG could be used for any t...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-05-30T10:08:59Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMTIwNjg1MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This feature could definitly be implemented...\r\nWhen you work with bastions or firewaling it\u0027s just mandatory.\r\nThis article https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa mention a workaround based on a wrapping of mRemoteNG with proxychanins for windows, so you can \"inject\" proxies at mRemoteNG startup to use them transparently in your connections.\r\nOk it works, but it\u0027s a bit overhead. Like for your web browser, a simple proxy config by r...",
-                         "author":  "gillg",
-                         "action_needed":  true,
-                         "date":  "2020-11-03T15:40:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMTI1NzYxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e So... 3 years later the simple Proxy isn\u0027t implemented yet :/\r\n\r\nIt\u0027s completely devastating! Because this functionality is the most important that this project needs.\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-11-03T17:04:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMTMyNDEzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes, I don\u0027t understand clearly what motivate this situation. Moreover, a ssh tunnelling feature (Wich is not the same approach) has been implemented but not yet present in last release dated from more than 1 year.\r\nHave you found a clean alternative since 3 years ? On windows, RDP complete solutions are not simple to find...",
-                         "author":  "gillg",
-                         "action_needed":  true,
-                         "date":  "2020-11-03T19:15:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMTMzMjI3NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Searching since a while now. The only one fairly complete  on Windowd I found is MobaXterm, but it\u0027s not opensouce.",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2020-11-03T19:32:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMzY1NjI3Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Have you found a clean alternative since 3 years ? On windows, RDP complete solutions are not simple to find...\r\n\r\nNo. I continue using the \"old\" (because new versions removed some functionality) 2X/Parallels Client referenced in the FIRST post of this issue.\r\n\r\nI really can\u0027t undertand why developers don\u0027t want to implement the simple TCP Socks proxy support.\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2020-11-08T19:44:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczODUyOTg4OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes, I need the proxy support for rdp connection too. Please consider this great feature.",
-                         "author":  "dameng324",
-                         "action_needed":  true,
-                         "date":  "2020-12-04T02:56:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM45tZCM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@lars18th Good suggestion. This can easily be accomplished within mRemoteNG and the System.Net.Sockets namespace.\r\n\r\nFor HTTP Proxy of RDP:\r\n\r\n- User configures: RDP details - my-server.example.net (and maybe more)\r\n- User configures: RDP proxy - HTTP-Proxy:10.0.0.5\r\n- When the connection is made, mRemoteNG creates an arbitrary loopback TCP listener. Eg. 127.60.98.4:3389\r\n- mRemoteNG starts up mstsc with 127.60.98.4:3389\r\n- When a client connects to that listener, mRemoteNG connects to the HTTP-...",
-                         "author":  "merarischroeder",
-                         "action_needed":  true,
-                         "date":  "2021-11-14T03:42:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM45t6yt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @merarischroeder ,\r\n\r\n\u003e I am working on a library in Rust that will be available for C#. You will be able to use that in the future to do any combination of what you might need (UDP, TCP, SSH, Relay, Proxy, and more).\r\n\r\nI hope you will complete this library soon, and someone will incorporate it.\r\nThank you!",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2021-11-14T18:08:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM48kdqT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nAnyone working on this?",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2022-01-19T08:22:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM481dUi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This can be done without my library, the System.Net.Sockets namespace has got everything needed. I always build with what\u0027s available - my library isn\u0027t available yet, so if anyone is keen, it will probably take 20-40 hours (possibly shorter) to complete the specification in my [comment above](https://github.com/mRemoteNG/mRemoteNG/issues/420#issuecomment-968200332) using direct normal C#. I don\u0027t have the time at the moment, I\u0027m busy building a library.",
-                         "author":  "merarischroeder",
-                         "action_needed":  true,
-                         "date":  "2022-01-24T23:16:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM482bW-",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you @merarischroeder ,\r\n\r\nI hope someone then will try to implement it.\r\n\r\nRegards.\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2022-01-25T07:52:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_AJiu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This feature should have a high priority.",
-                         "author":  "homberger",
-                         "action_needed":  true,
-                         "date":  "2022-03-02T14:40:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5m1XXf",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Please, add http/socks proxy for RDP sessions. Not everywhere there is a linux server we can tunnel over. Some environments have only windows servers behind http proxy and we are unable to connect to them.",
-                         "author":  "bartowl",
-                         "action_needed":  true,
-                         "date":  "2023-09-19T10:47:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5m-27b",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @bartowl ,\r\n\r\nI want the same. The HTTP/Socks proxy, and not only for RDP, but for _ALL_ connections is a must have. However, this project has been stalled for a long time. Therefore, IMHO unfortunately it will never be implemented. ≡ƒÿó  ",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2023-09-20T13:38:54Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM51Xl1G",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nCheck the date of the original request: `Mar 1, 2017` ... Seven (7) years after no-one has implemented this. ≡ƒÿó \r\n\r\nPlease @Kvarkas this is a MUST-HAVE !!! ≡ƒÖÅ ",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2024-02-28T14:34:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM51Xt2H",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Will prioritize this this weekend, but so far not sure from where to start, will see.",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-02-28T14:50:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGGf",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:48:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYQ_D",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:12:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhFh",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mfuDk",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "There it is, the braindead comment of the day !\n\n\u003e Please retest on the latest build [...] then share reproducible steps and expected vs actual behavior...\n\nSo how do you test a non existent feature please ?\nThis is a feature request, did you at least read the issue before commenting or are you just a bot?",
-                         "author":  "deajan",
-                         "action_needed":  true,
-                         "date":  "2026-02-08T12:11:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-08T12:11:21Z",
-    "unread_comments":  84,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 420,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request: PROXY support for RDP connections",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Help Wanted",
+    "Feature Request",
+    "Need 2 check",
+    "Needs implementation",
+    "1.77.3"
+  ],
+  "author": "lars18th",
+  "created_at": "2017-03-01T08:34:22Z",
+  "github_updated_at": "2026-02-08T12:11:21Z",
+  "body_snippet": "Hi,\r\n\r\nI'm using mRemote/mRemoteNG for several years. However, for RDP connections I continue using the 2X/Parallels Client. Why? Because it has a \"must have\" option for RDP connections: support for PROXY.\r\n\r\nLet me to explain:\r\n\r\n- In the configuration of the RDP connection, you have a new tab with these values:\r\n\r\n```\r\n[ ] Use proxy server\r\n  ( ) SOCKS4\r\n  ( ) SOCKS4A\r\n  ( ) SOCKS5\r\n  ( ) HTTP 1.1\r\n  Proxy Host:\r\n  Port:\r\n\r\nProxy Authentication ...\r\n```\r\n\r\nThis is relevant when you use one SSH...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4MzM5MjIyNw==",
+      "author": "sparerd",
+      "date": "2017-03-01T16:32:36Z",
+      "snippet": "If I'm understanding correctly, this is already possible using PuTTY to set up a SOCKS4 tunnel. Admittedly, this requires a bit more work to setup and use on a daily basis.\r\n\r\nMaking this a more integrated feature of RDP connections would be possible but a bit more difficult using PuTTY directly. It is suggested that we complete #181 first and build this feature with SSH.Net.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4MzQwODI4Ng==",
+      "author": "lars18th",
+      "date": "2017-03-01T17:24:01Z",
+      "snippet": "Hi @sparerd ,\r\n\r\nI feel you misunderstood my proposal. Let me to explain more:\r\n\r\n- I'm **not** suggesting to connect with RDP using SSH.\r\n- I'm suggesting that the TCP connection to an RDP server is done **using a PROXY**.\r\n- I'm suggesting that the proxy support includes **SOCKS** and HTTP-CONNECT protocols.\r\n\r\nMy goal (and not the only use of the proxy support) is:\r\n\r\n1) I connect to one SSH server in the same network as the RDP server is running.\r\n2) In this SSH connection I enable one \"Dyna...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4MzQ2OTY1Nw==",
+      "author": "sparerd",
+      "date": "2017-03-01T21:05:17Z",
+      "snippet": "Ok, on a second pass I see the issue you're bringing up. The library we use for RDP (mstsclib) doesn't natively support any proxy type besides RD Gateway.\r\n\r\nWe will need to find a library that provides SOCKS/HTTP proxy support. If you know of a good library let us know and we can look into it.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4MzU4OTMzMg==",
+      "author": "lars18th",
+      "date": "2017-03-02T08:31:22Z",
+      "snippet": "Hi,\r\n\r\nIn a second pass...\r\n\r\nYou don't need at all a library for RDP with proxy support (this doesn't exist!).\r\nYou need to use a library for PROXY connection, or directly implement it in the code. Let me explain how to:\r\n\r\n- If you use regular RDP connection, use the mstsclib as normal.\r\n- If you use proxied RDP connection, do:\r\n  - Open the TCP connection using the proxy with these parameters:\r\n     - IP destination: address of the proxy\r\n     - PORT destination: port of the proxy\r\n     - Rem...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMwMzkzNTM3OA==",
+      "author": "JarRoDk",
+      "date": "2017-05-25T06:36:49Z",
+      "snippet": "I also very often use dynamic tunnel in putty. For example for Firefox to use socks connections. \r\nThe biggest advantage in dynamic tunneling is that i don't need specify target connection. \r\nAs you mentioned RDP don't have by default this feature so it is hard to force to use socks especially on windows. I searched software which will put on RDP rule that every connection from mstsc.exe should go throw socks or if software discovery flow to specific network. ProxyCap, Proxyfier, MobaXterm can d...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMwMzk0NjYxMA==",
+      "author": "lars18th",
+      "date": "2017-05-25T07:46:57Z",
+      "snippet": "Hi @JarRoDk ,\r\n\r\nI feel I don't explain well. Let me try another time:\r\n\r\n- The RDP protocol use by default TCP (only in recent versions of the protocol the UDP transport is also optionally accepted).\r\n- With **ANY** service that uses TCP is possible to use TCP tunnels.\r\n- In order to tunnel one RDP connection over a TCP connection you need to use as target the tunnel address:port, instead of the remote address:port.\r\n\r\nSo, for tunneling one RDP connection over a SOCKS proxy, the client only nee...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMwMzk1Nzc0OQ==",
+      "author": "JarRoDk",
+      "date": "2017-05-25T08:47:53Z",
+      "snippet": "Yes, I understand how simple static tunnel works and for one target it is very easy and handy (and this same for 3306 port), for example:\r\ni can create tunnel in putty 2022:target:22 for one target and then ssh to localhost:2022\r\n\r\nBut with dynamic tunnel it is even better because i don't need to specify targets i can force my putty client to use sock proxy\r\n![image](https://cloud.githubusercontent.com/assets/1716484/26442545/3ccc8b7a-4135-11e7-8a15-d7e448ef59f0.png)\r\n\r\n\r\n![image](https://cloud....",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMwMzk3MjQ5NA==",
+      "author": "lars18th",
+      "date": "2017-05-25T09:58:50Z",
+      "snippet": "HI @JarRoDk .\r\n\r\n> If mstc.exe can use socks proxing like other mature software ; ] it would be any problems.\r\n\r\nMy request is because mstc.exe don't have support for PROXY.\r\n\r\nHowever, it's very simple to add support for it (and other tools) inside mRemoteNG:\r\n- The UI needs to add the space for specify the proxy server.\r\n- The internal code requires to have the function to stablish the tunnel before run the tool (mstc.exe).\r\n- After stablish the tunnel, just do run the tool (mstc.exe) with the...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMzMTUwNjIyNw==",
+      "author": "moralrebuild",
+      "date": "2017-09-22T17:13:14Z",
+      "snippet": "Any update on this feature request? I think supporting socks5 is very nice and am looking forward it.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMzMTUwNzcyNw==",
+      "author": "lars18th",
+      "date": "2017-09-22T17:18:50Z",
+      "snippet": "No!\r\nAt time no one has implemented this functionality. So I'm still using the 2X/Parallels Client for my RDP connections.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MjYzODcwNA==",
+      "author": "dgcom",
+      "date": "2017-12-19T04:46:57Z",
+      "snippet": "I haven't tried this in mRemoteNG, but I use it elsewhere - find compiled version of connect.c - this small program can listen on a socket and send TCP stream over proxy.\r\nI use it to proxy RDP connections via SSH in another app similar to mRemoteNG - I first establish SSH connection via putty with dynamic port forward which is socks proxy and then use connect.exe to forward local port to destination RDP server.\r\nThis works fine, without much extra work once setup.\r\nBut it would be great if mRem...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MjcwMzUyNA==",
+      "author": "lars18th",
+      "date": "2017-12-19T10:32:11Z",
+      "snippet": "> I use it to proxy RDP connections via SSH in another app similar to mRemoteNG\r\n\r\nHi dgcom,\r\n\r\nYes, you can do it manually. And you have a lot of options. For example, a simple SSH tunnel is a very simple way. However, with a large list of RDP servers and with one Proxy, it will be more powerfull to have this functionality implemented.\r\n\r\nI hope that soon the developers of the mRemoteNG will agree with the inclusion of the Proxy support. :smile: ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3ODIyODIwMg==",
+      "author": "sparerd",
+      "date": "2018-04-03T12:12:11Z",
+      "snippet": "I agree this would be a great feature to have. However, I am not sure when I will have the time to implement it. We will likely need someone to submit a PR to get it done in any reasonable amount of time.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5Njc0NjI0MQ==",
+      "author": "d3dbit",
+      "date": "2018-06-12T21:50:50Z",
+      "snippet": "Hello all,\r\nAny update on this feature request? \r\nSupporting socks5 is a nice request. In fact, I need it.\r\nIn this moment my teammates are using MobaXterm instead of mRemoteNG only for that feature.\r\nThanks for your work.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NzAyOTc4OA==",
+      "author": "ziesemer",
+      "date": "2018-06-13T17:58:51Z",
+      "snippet": "> d3dbit commented 20 hours ago\r\n> \r\n> Any update on this feature request?\r\n> Supporting socks5 is a nice request. In fact, I need it.\r\n> In this moment my teammates are using MobaXterm instead of mRemoteNG only for that feature.\r\n\r\nI actually think this would be fun to implement (am a C# developer and fellow mRemoteNG user, but have not yet developed on this project) - but isn't yet important enough to meet my free-time prioritization.  Perhaps myself and/or others could be further incentivized...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NzE5NjA5MA==",
+      "author": "lars18th",
+      "date": "2018-06-14T07:16:08Z",
+      "snippet": "Hi,\r\n\r\nIn my opinion this function is a must have!\r\nWhy?\r\n\r\n1. Any RDP connection can work over a TCP tunnel. So it doesn't disturbs the client or the server.\r\n2. A lot of IT professionals use remote SSH connections to accesing to secure _networks_, instead of a complex VPN solutions. In these environments a RDP client with socks proxy client support is a _huge_ advantage.\r\n3. Add support for tunneled conections is quite easy when including some proxy client library. The algoritm is then trivial...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5OTI5NjAzOQ==",
+      "author": "sparerd",
+      "date": "2018-06-22T01:52:11Z",
+      "snippet": "In short, we don't have enough developer time to do this right now. It would be great to have this, but there are many other significant features that are ahead of this one. (HiDPI, credential manager, hotkeys, just to name a few). And that's not even taking into consideration that all feature work is on hold until v1.76 is released. Bug fixes are getting priority.\r\n\r\nWe need some more developers :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5OTMzNTczOQ==",
+      "author": "lars18th",
+      "date": "2018-06-22T06:31:13Z",
+      "snippet": "Hi @sparerd ,\r\n\r\nGreat to hear that you found this functionality interesting. From my point of view is sufficient to add it to the official TODO list. So, at some point someone will implement it.\r\n\r\nThank you for your efffort!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQwMDQ3ODA0NA==",
+      "author": "d3dbit",
+      "date": "2018-06-26T22:05:05Z",
+      "snippet": "@sparerd I agree with @lars18th . Thank you to listen to us. It is sufficient to add it to the official TODO list. So, at some point, someone will implement it.\r\nThank you for your effort.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyMTQyODgxMA==",
+      "author": "reillychase",
+      "date": "2018-09-14T17:27:48Z",
+      "snippet": "Proxy support for RDP would be awesome!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyMTQ1ODE0MQ==",
+      "author": "st-schuler",
+      "date": "2018-09-14T19:16:44Z",
+      "snippet": "I'm going to implement this now. Here's my plan:\r\n\r\nThe user should be able to define one or more SSH gateways. This is implemented as a new \"protocol\", i.e. an SSH gateway can then be configured like a normal connection. The following parameters are defined:\r\n- name\r\n- description\r\n- hostname\r\n- port\r\n- username\r\n- password\r\n\t\r\nEach connection/folder now has a new property which can be used to select one of the previously defined SSH gateways via dropdown box. If the connection is activated, th...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyMTcyOTQ1MA==",
+      "author": "lars18th",
+      "date": "2018-09-16T09:15:14Z",
+      "snippet": "Hi @st-schuler ,\r\n\r\n> I'm going to implement this now.\r\n\r\nGreat to hear it!\r\n\r\nHowever, please **don't forget the pure PROXY support!** Your idea is about use SSH tunnels, and it's amazing. But, _PROXY_ support is a different (but complementary) functionality. For example, with an HTTP proxy you use a tunnel over a TCP connection with the HTTP CONNECT command. With a SOCKS proxy you ask to the server for a TCP tunnel.\r\n\r\nSo, I recommend not only to add support for \"SSH gateways\" but too for \"HTT...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNTA5NDQzMw==",
+      "author": "",
+      "date": "2018-09-27T13:34:27Z",
+      "snippet": "@st-schuler \r\n\r\njust not to forget - it would be great to have ability to use \"SSH gateway/tunnel\" with not only plain passwords but specifying SSH key as well as it also common way to connect.\r\nI know that it is possible to use pgagent, but want to avoid it...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNjIwNzk3MQ==",
+      "author": "st-schuler",
+      "date": "2018-10-02T09:24:57Z",
+      "snippet": "SSH keys are also supported.\r\nCurrently I will only implement ssh-tunnel/gateway. Proxy is then another thing, but shouldn't be that difficult.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNjIyMDk4OQ==",
+      "author": "lars18th",
+      "date": "2018-10-02T10:11:51Z",
+      "snippet": "Hi @st-schuler ,\r\n\r\n> Currently I will only implement ssh-tunnel/gateway. Proxy is then another thing, but shouldn't be that difficult\r\n\r\nSorry, but my original request (see the title of _this_ issue) is about the PROXY support. The SSH-TUNNEL/GATEWAY is another different functionality. I agree with it, however it's more complex to implement. And in the other hand, less usefull... why? You can do the tunnel manually (you only need to configure your SSH client), but what about the PROXY support? ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMTA0NDUwOA==",
+      "author": "lars18th",
+      "date": "2018-10-18T15:03:42Z",
+      "snippet": "Hi,\r\n\r\nIs anyone working on the implementation of this?\r\n\r\nPlease note that at time the VNC client *has* support for HTTP and SOCKS proxies.\r\nSee: https://github.com/mRemoteNG/mRemoteNG/blob/05c96da98f475e6152418632d8259e34d73a51ee/mRemoteV1/Connection/Protocol/VNC/VNCEnum.cs#L52\r\nMy request is only to implement the *same* support for the RDP client!\r\nAnd this seems to be quite easy as the VNC proxy code can be reused. The VNC connection is a TCP socket, so the proxy is transparent. And the RDP ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMTA3NDE4OQ==",
+      "author": "sparerd",
+      "date": "2018-10-18T16:25:01Z",
+      "snippet": "Actually you've uncovered something pretty interesting here. VNC actually doesn't have any proxy support in the app. The proxy settings for VNC connections aren't hooked up to anything except serializers/deserializers. They don't actually *do* anything at the moment. I'm not even sure why those properties exist, except maybe the implementation just wasn't completed.\r\n\r\nThis still means the property serialization/deserialization work is mostly done, but we still need to create the actual proxy im...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMTA5MzIyNw==",
+      "author": "lars18th",
+      "date": "2018-10-18T17:23:57Z",
+      "snippet": "Oh, sorry @sparerd !\r\n\r\nIn any case, I suggest to include (at some time) an abstract base \"proxy\" connection for all procotols that use TCP sockets.\r\n\r\nYou agree?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMTEwNjk4MA==",
+      "author": "sparerd",
+      "date": "2018-10-18T18:05:45Z",
+      "snippet": "Absolutely. Any connection type that supports TCP should also be usable with the TCP proxy (regardless of implementation details).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3ODIwMjk0Mw==",
+      "author": "DaveBetTech",
+      "date": "2019-03-30T03:41:10Z",
+      "snippet": "I too am interested in using SOCKS5 with mRemoteNG. Using MobaXterm atm which is less than ideal and buggy at times. Hope it's made the ToDo list, and thanks for all the great work.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MTE1NTU5MA==",
+      "author": "lars18th",
+      "date": "2019-04-09T08:30:53Z",
+      "snippet": "Hi @sparerd ,\r\n\r\nYou will implement _some_ PROXY support for TCP connections soon?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxMzY4MTA1MQ==",
+      "author": "lars18th",
+      "date": "2019-07-22T07:50:01Z",
+      "snippet": "Hi,\r\n\r\nMore than 2 years after, I continue asking about the same: \"PROXY support for TCP connections, please!\"\r\n\r\nI hope some developer will agree to implement it.\r\nThank you!\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNjU1NTM4Ng==",
+      "author": "deajan",
+      "date": "2019-07-30T19:14:29Z",
+      "snippet": "+1, would love rdp / PROXY and rdp over SSH support.\r\nWould fund a bit too.\r\n@lars18th @moralrebuild @d3dbit @reillychase Would you guys agree to fund a bit too ?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNjY2MzM1Mg==",
+      "author": "moralrebuild",
+      "date": "2019-07-31T02:03:35Z",
+      "snippet": "Not needed any more. 2 years is too long for an open source project to give its users feedback and I had already switched to free VNC version which already supported socks proxy at that time. Anyway, hopefully this project can survive and someday can convince people like me to try it. Good luck.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNjY3MDE0OQ==",
+      "author": "DaveBetTech",
+      "date": "2019-07-31T02:38:28Z",
+      "snippet": "> Not needed any more. 2 years is too long for an open source project to give its users feedback and I had already switched to free VNC version which already supported socks proxy at that time. Anyway, hopefully this project can survive and someday can convince people like me to try it. Good luck.\r\n\r\nVNC is just a single connection type. mRemoteNG can connect via RDP, ICA, SSH, etc. I'm not ecstatic with VNC because of the clear text issue (haven't figured out an easy way to encrypt). I'd be usi...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNzkwMTMxMQ==",
+      "author": "lars18th",
+      "date": "2019-08-03T07:05:35Z",
+      "snippet": "Hi,\r\n\r\nI want to comment what I'm doing for the last years:\r\n\r\n- To connect to remote servers, I stablish an SSH connection with one server connected to the Internet. Then inside the SSH connection I open a Socks4 forwarding proxy. And using this socks proxy I connect to any of the servers in that location.\r\n\r\nI feel a lot of users use this technique: simple and secure. I hate to waste my time with VPNs or bastion servers for specific services. But, it requires that the CLIENT supports connectin...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU5OTk0MDQ5MA==",
+      "author": "lars18th",
+      "date": "2020-03-17T08:25:50Z",
+      "snippet": "Hi,\r\n\r\nNo one interested on this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU5OTk2NjMxNA==",
+      "author": "deajan",
+      "date": "2020-03-17T09:24:08Z",
+      "snippet": "He'll yes I want that proxy feature too...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwMDA3NTg1Mg==",
+      "author": "ohlssrog",
+      "date": "2020-03-17T13:37:35Z",
+      "snippet": "Thanks for great job with this RDP client, i use it daily on my work, to get ssh tunnel RDP sessions to work maybe have look at Remmina that is available in Linux there this works great",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwMDEwNzUxNg==",
+      "author": "dgcom",
+      "date": "2020-03-17T14:39:38Z",
+      "snippet": "Devolutions RDM recently implemented RDP over SSH socks - works very well\nand free.\nSad, that mRemoteNG still doesn't have this.\n\n\nOn Tue, Mar 17, 2020 at 9:37 AM ohlssrog <notifications@github.com> wrote:\n\n> Thanks for great job with this RDP client, i use it daily on my work, to\n> get ssh tunnel RDP sessions to work maybe have look at Remmina that is\n> available in Linux there this works great\n>\n> —\n> You are receiving this because you commented.\n> Reply to this email directly, view it on GitH...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwMDEzNzk4Ng==",
+      "author": "ohlssrog",
+      "date": "2020-03-17T15:35:34Z",
+      "snippet": "so maybe the solution is to run Remmina from WSL in windows 10?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwNDMyNzg5MQ==",
+      "author": "mut4nt",
+      "date": "2020-03-26T09:40:56Z",
+      "snippet": "Hello,\r\n\r\nI think it's fair easy to make it work without a PR we are waiting for 3 years. Why don't you just use something like Proxifier or FreeCap. You can even get it work easier just launching tun2socks and add some route to your RDP server to pass through it. 2 command lines and it's done.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwNDM0NzQyOQ==",
+      "author": "lars18th",
+      "date": "2020-03-26T10:23:22Z",
+      "snippet": "> Hello,\r\n> \r\n> I think it's fair easy to make it work without a PR we are waiting for 3 years. Why don't you just use something like Proxifier or FreeCap. You can even get it work easier just launching tun2socks and add some route to your RDP server to pass through it. 2 command lines and it's done.\r\n\r\nBecause in this case it's a pain to manage it. I use multiple SSH connections to access to remote _networks_, and then I use tunnels to reach the RDP servers. That's the most simple and secure op...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwNDM4OTk5OQ==",
+      "author": "mut4nt",
+      "date": "2020-03-26T12:00:08Z",
+      "snippet": "Ok I undesrtand your issue. So it's just about automating the task of adding an internal tunnel toward the proxy server and from which mstc will connect. Managing automatically the ports pool to use for RDP connections etc.\r\n\r\nSeems like the developer was looking for a library. It's just about finding a socks5 client library.\r\n\r\nManually this is the most simple way to do it : just open a single SSH connection as you do when opening one with dynamic tunnel for a socks5 proxy. Then you can add tun...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYxMTMxMDQyOQ==",
+      "author": "david-curnow",
+      "date": "2020-04-09T03:39:13Z",
+      "snippet": "This is a feature I really need. I'm currently using wFreeRDP as a workaround (as it supports proxy). I've added it as an external tool in mRemoteNG but the integration is not great. This request has been open since 2017 and really should be top of the feature request list. Thanks.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYxMTM2MjI0OQ==",
+      "author": "lars18th",
+      "date": "2020-04-09T06:52:23Z",
+      "snippet": "> This request has been open since 2017 and really should be top of the feature request list.\r\n\r\nThat's my point of view! :sob: \r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMDE3MjI2Ng==",
+      "author": "drehelis",
+      "date": "2020-04-27T19:00:49Z",
+      "snippet": "I was able to achieve this, using [proxychains-windows](https://github.com/shunf4/proxychains-windows) (windows port of [proxychains)](https://github.com/haad/proxychains).\r\nYou can control which IP range not to proxy and it's possible to configure advanced routing rules.\r\n\r\n_Yes_, this is not the perfect solution as this is a wrapper for `mRemoteNG` but it does the trick.\r\n\r\nWrapping this in a small PS script should be enough to get you started.\r\n```\r\n$WorkDir = \"C:\\Users\\autogun\\Downloads\\prox...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMDIwNDY4OA==",
+      "author": "deajan",
+      "date": "2020-04-27T20:05:55Z",
+      "snippet": "@autogun Sounds great, but toi be fair, not easy to understand. Would you mind posting a quick exemple ? best regards.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMTMxMzI5NQ==",
+      "author": "drehelis",
+      "date": "2020-04-29T16:14:02Z",
+      "snippet": "@deajan [Check this out](https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMTMyMzQxNg==",
+      "author": "lars18th",
+      "date": "2020-04-29T16:31:47Z",
+      "snippet": "> @deajan [Check this out](https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa).\r\n\r\nThat's a _complex_ workaround. Personally I hate any sockfier using hooks. They are useful in some scenarios. However, for a SIMPLE PROXY TUNNEL is quite unnecessary.\r\n\r\nWe are requesting for NATIVE PROXY SUPPORT. Creating TCP sockets over a proxy is easy. Several examples/libraries/tools exist for years for HTTP and SOCKS in multiple languages. After three years ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMTM1NDczNg==",
+      "author": "deajan",
+      "date": "2020-04-29T17:29:52Z",
+      "snippet": "@autogun Thanks a lot ;) Makes more sense.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyMTM2MjExMQ==",
+      "author": "deajan",
+      "date": "2020-04-29T17:44:06Z",
+      "snippet": "@lars18th I'd expect nothing... 3 years on the wish list, this request must really not be the  top priorities of the devs... In one of the posts on this issue I actually proposed funding, but well... didn't seem to be interesting for the devs... Maybe they don't read this issue anymore. Who knows.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMjAyMzQ0NA==",
+      "author": "lars18th",
+      "date": "2020-05-21T11:01:07Z",
+      "snippet": "Hi @farosch ,\r\n\r\nWhy you closed this issue? It's this already implemented? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMjA1MTYyNA==",
+      "author": "deajan",
+      "date": "2020-05-21T12:09:56Z",
+      "snippet": "@lars18th the ssh jumphost alternative has been implemented in https://github.com/mRemoteNG/mRemoteNG/commit/39245b93d9e180cdc01107c05c6dc7fa0534f3ec even if it was clearly a proxy support request",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMjEwNDg5Ng==",
+      "author": "lars18th",
+      "date": "2020-05-21T14:04:39Z",
+      "snippet": "Hi @deajan and @farosch ,\r\n\r\nI'm happy to see the new SSH Jumphost support included today. However, this solution from the point of view of an user it's *far* of the SOCKS PROXY support. I can imagine that with this new code it will be more easy to implement a simple SOCKS4 call to stablish a TCP connection, or even a CONNECT call through an HTTP proxy. But, please RE-OPEN this issue as the the request is for *PROXY SUPPORT* and not for a (mere) SSH Jumphost support (in fact, I feel it's more co...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMjI2OTE3MA==",
+      "author": "lars18th",
+      "date": "2020-05-21T18:28:53Z",
+      "snippet": "Thank you @farosch for reopening! :wink: \r\nI hope someone will provide a patch with PROXY support.\r\nRegards.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTM0MDM4Mw==",
+      "author": "hvspa",
+      "date": "2020-05-28T13:10:40Z",
+      "snippet": "> \r\n> \r\n> Thank you @farosch for reopening! wink\r\n> I hope someone will provide a patch with PROXY support.\r\n> Regards.\r\n\r\nhi, do i understand your ask correctly? you want to rdp directly to example.com:3389, but the connection to go thru socks/http proxy, right? so you wont need to establish a new ssh connection to remote host with a new port so you can rdp to localhost:new_port.\r\ni am seeking same kind of functionality, tired to open new sessions/ports to connect to a new RDP.\r\ndid you find an...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQwNTQ4Mg==",
+      "author": "hvspa",
+      "date": "2020-05-28T15:00:51Z",
+      "snippet": "well, i installed parallel client, and it is doing whatever i need, i dont need anymore have multiple ssh sessions and rdp to localhost;port",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQ3NjEzOQ==",
+      "author": "dgcom",
+      "date": "2020-05-28T17:06:05Z",
+      "snippet": ">  did you find any other solutions rather than waiting for mRemoteNG?\r\n\r\nI mention one working solution here before (it is free, but proprietary) - Devolutions RDM.\r\n ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQ4OTIwMA==",
+      "author": "hvspa",
+      "date": "2020-05-28T17:29:03Z",
+      "snippet": "> \r\n> \r\n> > did you find any other solutions rather than waiting for mRemoteNG?\r\n> \r\n> I mention one working solution here before (it is free, but proprietary) - Devolutions RDM.\r\n\r\nthanks for reply, i did not use devolution rdm, decided to go with parallel client. it is doing what i need. however, i am having blurry fonts issue and unable to have it fully fixed. whatever settings i am trying with DPI and other stuff, it is still blurry. i am RDP-ing from win10 to win2012r2, win7 and both having...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQ5NzMzNg==",
+      "author": "hvspa",
+      "date": "2020-05-28T17:44:58Z",
+      "snippet": "i downloaded dev rdm, but cannot find place to configure socks5 proxy/ do you mind to share steps where i can configure socks proxy in connection?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQ5ODE4MQ==",
+      "author": "dgcom",
+      "date": "2020-05-28T17:46:37Z",
+      "snippet": "> do you have similar issues with devolutions rdm?\r\n\r\nIf you have issues with HIDPI, you will have them in almost any client - they all use same RDP control under the covers.\r\nYou can try Remote Desktop from Win 10 app store - it seems to use different implementation, but it won't support SSH tunnel by itself.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTQ5OTE3NA==",
+      "author": "hvspa",
+      "date": "2020-05-28T17:48:24Z",
+      "snippet": "ok, thanks, will try, but if no socks proxy support, then may go back to localhost;port ;(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTUwMDQ2Nw==",
+      "author": "hvspa",
+      "date": "2020-05-28T17:50:54Z",
+      "snippet": "apparently my company does not allow me to use app store :(  i can download only whatever they allow  ;0",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTUwNzQ3MA==",
+      "author": "dgcom",
+      "date": "2020-05-28T18:04:18Z",
+      "snippet": "> where i can configure socks proxy in connection?\r\n\r\nRDM is quite a large product, you may need to learn it, read the docs and forums.\r\nBut here is the link which describes the way to use single SSH connection to remote as Tunnel/VPN - exactly what this issue is about:\r\nhttps://devolutions.atlassian.net/wiki/spaces/DEVO/pages/880181513/How+to+configure+a+Secure+Gateway",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNTUwOTI2Ng==",
+      "author": "hvspa",
+      "date": "2020-05-28T18:07:32Z",
+      "snippet": "thanks, that become little complicated. now i just ssh into remote server and all my other connections browser/parallel/ssh connections goes via socks. :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNjMwOTI4Ng==",
+      "author": "lars18th",
+      "date": "2020-05-30T10:08:59Z",
+      "snippet": "Hi,\r\n\r\nTo be clear:\r\n\r\n1. RDP connections, like _any_ other TCP connection can be _tunneled_. That's not the question.\r\n2. SSH can provide tunnels. That's not the question.\r\n3. We can use _any_ RDP client over a SSH connection using tunnels. Tht's not the question.\r\n4. _ANY_ TCP connection can be done over a SOCKS4 or HTTP proxy (in this case with CONNECT support). And this is the question to support inside mRemoteNG.\r\n\r\nFuthermore, this TCP PROXY support inside mRemoteNG could be used for any t...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMTIwNjg1MA==",
+      "author": "gillg",
+      "date": "2020-11-03T15:40:48Z",
+      "snippet": "This feature could definitly be implemented...\r\nWhen you work with bastions or firewaling it's just mandatory.\r\nThis article https://medium.com/@autogun/your-favorite-rdp-connections-manager-now-with-proxy-support-acf7fd9995fa mention a workaround based on a wrapping of mRemoteNG with proxychanins for windows, so you can \"inject\" proxies at mRemoteNG startup to use them transparently in your connections.\r\nOk it works, but it's a bit overhead. Like for your web browser, a simple proxy config by r...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMTI1NzYxNg==",
+      "author": "lars18th",
+      "date": "2020-11-03T17:04:09Z",
+      "snippet": "> So... 3 years later the simple Proxy isn't implemented yet :/\r\n\r\nIt's completely devastating! Because this functionality is the most important that this project needs.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMTMyNDEzOQ==",
+      "author": "gillg",
+      "date": "2020-11-03T19:15:01Z",
+      "snippet": "Yes, I don't understand clearly what motivate this situation. Moreover, a ssh tunnelling feature (Wich is not the same approach) has been implemented but not yet present in last release dated from more than 1 year.\r\nHave you found a clean alternative since 3 years ? On windows, RDP complete solutions are not simple to find...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMTMzMjI3NQ==",
+      "author": "deajan",
+      "date": "2020-11-03T19:32:02Z",
+      "snippet": "Searching since a while now. The only one fairly complete  on Windowd I found is MobaXterm, but it's not opensouce.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMzY1NjI3Mw==",
+      "author": "lars18th",
+      "date": "2020-11-08T19:44:11Z",
+      "snippet": "> Have you found a clean alternative since 3 years ? On windows, RDP complete solutions are not simple to find...\r\n\r\nNo. I continue using the \"old\" (because new versions removed some functionality) 2X/Parallels Client referenced in the FIRST post of this issue.\r\n\r\nI really can't undertand why developers don't want to implement the simple TCP Socks proxy support.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczODUyOTg4OA==",
+      "author": "dameng324",
+      "date": "2020-12-04T02:56:32Z",
+      "snippet": "Yes, I need the proxy support for rdp connection too. Please consider this great feature.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM45tZCM",
+      "author": "merarischroeder",
+      "date": "2021-11-14T03:42:47Z",
+      "snippet": "@lars18th Good suggestion. This can easily be accomplished within mRemoteNG and the System.Net.Sockets namespace.\r\n\r\nFor HTTP Proxy of RDP:\r\n\r\n- User configures: RDP details - my-server.example.net (and maybe more)\r\n- User configures: RDP proxy - HTTP-Proxy:10.0.0.5\r\n- When the connection is made, mRemoteNG creates an arbitrary loopback TCP listener. Eg. 127.60.98.4:3389\r\n- mRemoteNG starts up mstsc with 127.60.98.4:3389\r\n- When a client connects to that listener, mRemoteNG connects to the HTTP-...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM45t6yt",
+      "author": "lars18th",
+      "date": "2021-11-14T18:08:23Z",
+      "snippet": "Hi @merarischroeder ,\r\n\r\n> I am working on a library in Rust that will be available for C#. You will be able to use that in the future to do any combination of what you might need (UDP, TCP, SSH, Relay, Proxy, and more).\r\n\r\nI hope you will complete this library soon, and someone will incorporate it.\r\nThank you!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM48kdqT",
+      "author": "lars18th",
+      "date": "2022-01-19T08:22:06Z",
+      "snippet": "Hi,\r\n\r\nAnyone working on this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM481dUi",
+      "author": "merarischroeder",
+      "date": "2022-01-24T23:16:44Z",
+      "snippet": "This can be done without my library, the System.Net.Sockets namespace has got everything needed. I always build with what's available - my library isn't available yet, so if anyone is keen, it will probably take 20-40 hours (possibly shorter) to complete the specification in my [comment above](https://github.com/mRemoteNG/mRemoteNG/issues/420#issuecomment-968200332) using direct normal C#. I don't have the time at the moment, I'm busy building a library.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM482bW-",
+      "author": "lars18th",
+      "date": "2022-01-25T07:52:56Z",
+      "snippet": "Thank you @merarischroeder ,\r\n\r\nI hope someone then will try to implement it.\r\n\r\nRegards.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_AJiu",
+      "author": "homberger",
+      "date": "2022-03-02T14:40:09Z",
+      "snippet": "This feature should have a high priority.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5m1XXf",
+      "author": "bartowl",
+      "date": "2023-09-19T10:47:24Z",
+      "snippet": "Please, add http/socks proxy for RDP sessions. Not everywhere there is a linux server we can tunnel over. Some environments have only windows servers behind http proxy and we are unable to connect to them.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5m-27b",
+      "author": "lars18th",
+      "date": "2023-09-20T13:38:54Z",
+      "snippet": "Hi @bartowl ,\r\n\r\nI want the same. The HTTP/Socks proxy, and not only for RDP, but for _ALL_ connections is a must have. However, this project has been stalled for a long time. Therefore, IMHO unfortunately it will never be implemented. 😢  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM51Xl1G",
+      "author": "lars18th",
+      "date": "2024-02-28T14:34:22Z",
+      "snippet": "Hi,\r\n\r\nCheck the date of the original request: `Mar 1, 2017` ... Seven (7) years after no-one has implemented this. 😢 \r\n\r\nPlease @Kvarkas this is a MUST-HAVE !!! 🙏 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM51Xt2H",
+      "author": "Kvarkas",
+      "date": "2024-02-28T14:50:53Z",
+      "snippet": "Will prioritize this this weekend, but so far not sure from where to start, will see.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGGf",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:48:06Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYQ_D",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:12:14Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhFh",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:55Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mfuDk",
+      "author": "deajan",
+      "date": "2026-02-08T12:11:21Z",
+      "snippet": "There it is, the braindead comment of the day !\n\n> Please retest on the latest build [...] then share reproducible steps and expected vs actual behavior...\n\nSo how do you test a non existent feature please ?\nThis is a feature request, did you at least read the issue before commenting or are you just a bot?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-08T12:11:21Z",
+  "unread_comments": 84,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

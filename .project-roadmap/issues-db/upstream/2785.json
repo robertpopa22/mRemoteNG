@@ -1,208 +1,208 @@
-﻿{
-    "number":  2785,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "PuTTY saved sessions with CJK characters fail to display and connect",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "UI/UX",
-                   "TechnicalDebt",
-                   "i10n",
-                   "Need 2 check",
-                   "Connections",
-                   "Putty",
-                   "1.78.*",
-                   ".NET (dotNET)"
-               ],
-    "author":  "yongwoo1",
-    "created_at":  "2025-09-12T00:20:05Z",
-    "github_updated_at":  "2026-02-11T02:51:38Z",
-    "body_snippet":  "- Version: 1.76.11.40527\n\n- Issue:\n\nWhen a saved PuTTY session name contains Korean characters, the session name is not displayed correctly, and the corresponding session cannot be connected.\n\n\n- Suspected Cause:\n\nThere appears to be an issue with decoding session names. This problem is likely not limited to Korean but may affect all CJK characters.",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3115,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "PuTTY CJK session name decoding",
-                           "pr":  3115,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7DxVa9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Could you please add few screen shots - will try to address what issue over weekend",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T09:27:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DyOW6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you for your prompt feedback.\nAs requested, I have attached the screenshots.\nThe first one shows the screen right after the initial launch.\n\n![Image](https://github.com/user-attachments/assets/e0a7157a-902a-4695-957e-62dbe2b4332f)\n\n\nThe second screenshot shows the case when attempting to connect using a session name that contains Korean characters.\nWhen selecting the session name to connect, instead of opening the PuTTY terminal window, a new PuTTY session dialog/window is launched, as sho...",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T10:27:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DyP0T",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I accidentally closed the issue and have reopened it. My apologies.",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T10:29:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DyY97",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "could you add it in comment in plain texts same words or something like that so I could just copy paste for test? ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T10:41:54Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DybqK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The first session name is \"∞ä£δ▓ä ∞äñ∞╣ÿ\", and the second session name is \"∞₧¼∞ïñ∞ä£δ▓ä (192.168.10.1)\".\nThank you for your support.",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T10:46:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiC9",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mZYdm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@robertpopa22: Always a good ticket.\n\nNo, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T20:49:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7ma23f",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Fork triage update v1.79.x: candidate fix implemented on branch codex/release-1.79-bootstrap commit 9a797785. Added decoder at mRemoteNG/Config/Putty/PuttySessionNameDecoder.cs, wired provider and normalization paths, and added tests in mRemoteNGTests/Config/Putty/PuttySessionNameDecoderTests.cs. Validation: local targeted tests passed and fork CI is green https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820. I can open a focused upstream PR if maintainers want.\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T00:09:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpcQb",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3115 | **Branch:** `codex/pr11-putty-cjk-decode-2785`\n**Fix:** PuTTY CJK session name decoding corrected for non-ASCII characters.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mwr67",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\u003e \n\u003e **PR:** [#3115](https://github.com/mRemoteNG/mRemoteNG/pull/3115) | **Branch:** `codex/pr11-putty-cjk-decode-2785` **Fix:** PuTTY CJK session name decoding corrected for non-ASCII characters.\n\u003e \n\u003e 3 platform builds (x64, x86, ARM64) available for download.\n\nThe Korean session name \"∞ä£δ▓ä ∞äñ∞╣ÿ\" is currently being displayed as \"%BC%AD%B9%F6%20%BC%B3%C4%A1\".\nIt appears that the session n...",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2026-02-09T12:49:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mwthl",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m not very familiar with GitHub, so I accidentally closed it. Sorry about that.",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2026-02-09T12:51:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1jA9",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@yongwoo1 Thank you for testing and reporting. The issue is confirmed ΓÇö on .NET 10, `CodePagesEncodingProvider` must be registered at startup for non-UTF-8 codepages (e.g., EUC-KR / CP949) to work. Without it, `Encoding.GetEncoding(949)` throws and the decoder fails silently, leaving the raw percent-encoded string visible.\n\nFix applied in v1.80.0 branch:\n- `Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)` added to app startup (`ProgramRoot.cs`)\n- Added try/catch fallback in `Putt...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:32:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1jNI",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@yongwoo1 Thank you for testing and reporting. The issue is confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for non-UTF-8 codepages (EUC-KR / CP949) to work. Without it, Encoding.GetEncoding(949) throws and the decoder fails silently, leaving the raw percent-encoded string.\n\nFix applied in v1.80.0 branch:\n- Encoding.RegisterProvider(CodePagesEncodingProvider.Instance) added to app startup (ProgramRoot.cs)\n- Added try/catch fallback in PuttySessionNameDecoder for ro...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:32:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1jX7",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@yongwoo1 Thank you for testing. The issue is confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for non-UTF-8 codepages (EUC-KR/CP949) to work. Without it, the decoder fails silently.\n\nFix applied:\n- Encoding.RegisterProvider(CodePagesEncodingProvider.Instance) added to app startup\n- Added try/catch fallback in PuttySessionNameDecoder\n\nWill update once a testable build is available.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:32:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1juT",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Confirmed: on .NET 10 without CodePagesEncodingProvider registered, Encoding.GetEncoding(949) fails and CJK session names are not decoded. Fix in v1.80.0: registered the provider at app startup and added fallback in the decoder.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:33:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1j8_",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for CJK codepages (EUC-KR / CP949) to work. Fix applied in v1.80.0 branch: provider registration added to ProgramRoot.cs + try/catch fallback in decoder.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:33:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m_5wI",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@yongwoo1 Thank you for testing v1.79.0. The percent-encoded display (`%BC%AD%B9%F6%20%BC%B3%C4%A1`) means the URL-decoding step is not applying the correct codepage (EUC-KR / codepage 949) to convert the bytes back to Korean characters.\n\nI\u0027m investigating this now in the v1.80.0 branch. The fix needs to:\n1. Detect that the percent-encoded bytes are EUC-KR (not UTF-8)\n2. Decode using `Encoding.GetEncoding(949)` after `CodePagesEncodingProvider` registration\n\nWill post an update once the fix is v...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-10T06:02:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7nX9xn",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for looking into this issue ΓÇö I really appreciate your help.\n\nAlso, sorry for the delayed response due to the time zone difference.\n\nTo answer your questions:\n\n1. Yes, the PuTTY sessions are stored in the Windows Registry (HKCU\\Software\\SimonTatham\\PuTTY\\Sessions).\n\n2. In regedit, the session key name is stored in percent-encoded form as \u0027%BC%AD%B9%F6%20%BC%B3%C4%A1\u0027, not as the actual Korean characters.\n\nPlease let me know if you need any more information.",
-                         "author":  "yongwoo1",
-                         "action_needed":  true,
-                         "date":  "2026-02-11T02:48:37Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-11T02:51:38Z",
-    "unread_comments":  9,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2785,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "PuTTY saved sessions with CJK characters fail to display and connect",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "UI/UX",
+    "TechnicalDebt",
+    "i10n",
+    "Need 2 check",
+    "Connections",
+    "Putty",
+    "1.78.*",
+    ".NET (dotNET)"
+  ],
+  "author": "yongwoo1",
+  "created_at": "2025-09-12T00:20:05Z",
+  "github_updated_at": "2026-02-11T02:51:38Z",
+  "body_snippet": "- Version: 1.76.11.40527\n\n- Issue:\n\nWhen a saved PuTTY session name contains Korean characters, the session name is not displayed correctly, and the corresponding session cannot be connected.\n\n\n- Suspected Cause:\n\nThere appears to be an issue with decoding session names. This problem is likely not limited to Korean but may affect all CJK characters.",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3115,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "PuTTY CJK session name decoding",
+      "pr": 3115,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7DxVa9",
+      "author": "Kvarkas",
+      "date": "2025-09-12T09:27:17Z",
+      "snippet": "Could you please add few screen shots - will try to address what issue over weekend",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DyOW6",
+      "author": "yongwoo1",
+      "date": "2025-09-12T10:27:05Z",
+      "snippet": "Thank you for your prompt feedback.\nAs requested, I have attached the screenshots.\nThe first one shows the screen right after the initial launch.\n\n![Image](https://github.com/user-attachments/assets/e0a7157a-902a-4695-957e-62dbe2b4332f)\n\n\nThe second screenshot shows the case when attempting to connect using a session name that contains Korean characters.\nWhen selecting the session name to connect, instead of opening the PuTTY terminal window, a new PuTTY session dialog/window is launched, as sho...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DyP0T",
+      "author": "yongwoo1",
+      "date": "2025-09-12T10:29:03Z",
+      "snippet": "I accidentally closed the issue and have reopened it. My apologies.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DyY97",
+      "author": "Kvarkas",
+      "date": "2025-09-12T10:41:54Z",
+      "snippet": "could you add it in comment in plain texts same words or something like that so I could just copy paste for test? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DybqK",
+      "author": "yongwoo1",
+      "date": "2025-09-12T10:46:02Z",
+      "snippet": "The first session name is \"서버 설치\", and the second session name is \"재실서버 (192.168.10.1)\".\nThank you for your support.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiC9",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:00Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mZYdm",
+      "author": "Neustradamus",
+      "date": "2026-02-07T20:49:56Z",
+      "snippet": "@robertpopa22: Always a good ticket.\n\nNo, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7ma23f",
+      "author": "robertpopa22",
+      "date": "2026-02-08T00:09:49Z",
+      "snippet": "Fork triage update v1.79.x: candidate fix implemented on branch codex/release-1.79-bootstrap commit 9a797785. Added decoder at mRemoteNG/Config/Putty/PuttySessionNameDecoder.cs, wired provider and normalization paths, and added tests in mRemoteNGTests/Config/Putty/PuttySessionNameDecoderTests.cs. Validation: local targeted tests passed and fork CI is green https://github.com/robertpopa22/mRemoteNG/actions/runs/21789090820. I can open a focused upstream PR if maintainers want.\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpcQb",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:48Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3115 | **Branch:** `codex/pr11-putty-cjk-decode-2785`\n**Fix:** PuTTY CJK session name decoding corrected for non-ASCII characters.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mwr67",
+      "author": "yongwoo1",
+      "date": "2026-02-09T12:49:44Z",
+      "snippet": "> ✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n> \n> **PR:** [#3115](https://github.com/mRemoteNG/mRemoteNG/pull/3115) | **Branch:** `codex/pr11-putty-cjk-decode-2785` **Fix:** PuTTY CJK session name decoding corrected for non-ASCII characters.\n> \n> 3 platform builds (x64, x86, ARM64) available for download.\n\nThe Korean session name \"서버 설치\" is currently being displayed as \"%BC%AD%B9%F6%20%BC%B3%C4%A1\".\nIt appears that the session name is bei...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mwthl",
+      "author": "yongwoo1",
+      "date": "2026-02-09T12:51:16Z",
+      "snippet": "I'm not very familiar with GitHub, so I accidentally closed it. Sorry about that.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1jA9",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:32:39Z",
+      "snippet": "@yongwoo1 Thank you for testing and reporting. The issue is confirmed — on .NET 10, `CodePagesEncodingProvider` must be registered at startup for non-UTF-8 codepages (e.g., EUC-KR / CP949) to work. Without it, `Encoding.GetEncoding(949)` throws and the decoder fails silently, leaving the raw percent-encoded string visible.\n\nFix applied in v1.80.0 branch:\n- `Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)` added to app startup (`ProgramRoot.cs`)\n- Added try/catch fallback in `PuttyS...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1jNI",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:32:48Z",
+      "snippet": "@yongwoo1 Thank you for testing and reporting. The issue is confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for non-UTF-8 codepages (EUC-KR / CP949) to work. Without it, Encoding.GetEncoding(949) throws and the decoder fails silently, leaving the raw percent-encoded string.\n\nFix applied in v1.80.0 branch:\n- Encoding.RegisterProvider(CodePagesEncodingProvider.Instance) added to app startup (ProgramRoot.cs)\n- Added try/catch fallback in PuttySessionNameDecoder for ro...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1jX7",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:32:56Z",
+      "snippet": "@yongwoo1 Thank you for testing. The issue is confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for non-UTF-8 codepages (EUC-KR/CP949) to work. Without it, the decoder fails silently.\n\nFix applied:\n- Encoding.RegisterProvider(CodePagesEncodingProvider.Instance) added to app startup\n- Added try/catch fallback in PuttySessionNameDecoder\n\nWill update once a testable build is available.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1juT",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:33:12Z",
+      "snippet": "Confirmed: on .NET 10 without CodePagesEncodingProvider registered, Encoding.GetEncoding(949) fails and CJK session names are not decoded. Fix in v1.80.0: registered the provider at app startup and added fallback in the decoder.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1j8_",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:33:22Z",
+      "snippet": "Confirmed: on .NET 10, CodePagesEncodingProvider must be registered at startup for CJK codepages (EUC-KR / CP949) to work. Fix applied in v1.80.0 branch: provider registration added to ProgramRoot.cs + try/catch fallback in decoder.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m_5wI",
+      "author": "robertpopa22",
+      "date": "2026-02-10T06:02:25Z",
+      "snippet": "@yongwoo1 Thank you for testing v1.79.0. The percent-encoded display (`%BC%AD%B9%F6%20%BC%B3%C4%A1`) means the URL-decoding step is not applying the correct codepage (EUC-KR / codepage 949) to convert the bytes back to Korean characters.\n\nI'm investigating this now in the v1.80.0 branch. The fix needs to:\n1. Detect that the percent-encoded bytes are EUC-KR (not UTF-8)\n2. Decode using `Encoding.GetEncoding(949)` after `CodePagesEncodingProvider` registration\n\nWill post an update once the fix is v...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7nX9xn",
+      "author": "yongwoo1",
+      "date": "2026-02-11T02:48:37Z",
+      "snippet": "Thanks for looking into this issue — I really appreciate your help.\n\nAlso, sorry for the delayed response due to the time zone difference.\n\nTo answer your questions:\n\n1. Yes, the PuTTY sessions are stored in the Windows Registry (HKCU\\Software\\SimonTatham\\PuTTY\\Sessions).\n\n2. In regedit, the session key name is stored in percent-encoded form as '%BC%AD%B9%F6%20%BC%B3%C4%A1', not as the actual Korean characters.\n\nPlease let me know if you need any more information.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-11T02:51:38Z",
+  "unread_comments": 9,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

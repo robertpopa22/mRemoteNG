@@ -1,349 +1,347 @@
-﻿{
-    "number":  274,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Cannot connect to TightVNC Server When Unauthenticated ",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "VNC",
-                   "Need 2 check",
-                   "In development",
-                   "Third party",
-                   "1.77.3"
-               ],
-    "author":  "TheCuriousGuy",
-    "created_at":  "2016-11-28T21:28:04Z",
-    "github_updated_at":  "2026-02-07T19:56:36Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 8 x64 |\r\n|mRemoteNG version| Stable 1.74 Final  |\r\n\r\nConnot connect to TightVNC using VNC protocol when Vnc Server is running in unauthenticated mode, i.e. no password is supplied to MRemoteNG.\r\n...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NDI3MDY0MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for the report, we will need to dig into this",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-12-01T19:33:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NDI5MzUzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Much appreciated\r\n\r\ni know its not a common use case, \r\n\r\nHowever when working internally with many different users in a secure lab environments,\r\n\r\nour team prefers not to use pwd and thus we encountered the problem\r\n\r\nCheers\r\n\r\n\r\nOn Thu, Dec 1, 2016 at 11:33 AM, David Sparer \u003cnotifications@github.com\u003e\r\nwrote:\r\n\r\n\u003e Thanks for the report, we will need to dig into this\r\n\u003e\r\n\u003e ΓÇö\r\n\u003e You are receiving this because you authored the thread.\r\n\u003e Reply to this email directly, view it on GitHub\r\n\u003e \u003chttps...",
-                         "author":  "TheCuriousGuy",
-                         "action_needed":  true,
-                         "date":  "2016-12-01T21:01:04Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI3ODY3NDM0Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "From user @vargasjj via #396 \r\n\r\nWhenever I tried to VNC to a TightVNC server that does not have a password set, I get:\r\n\r\n\u003e ErrorMsg Opening connection failed! Parameter is not valid.\r\n\r\nThis defect is being around on mRemoteNG for a while and I cannot find a resolution. I can reproduce it.\r\n\r\nHere are the logs:\r\n\r\n\u003e 2017-02-09 09:34:06,649 [1] ERROR- frmMain WndProc failed\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-02-09T15:25:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NTA1NTk2NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, guys.\r\n\r\nJust checking, if you\u0027d tackle this issue on this quarter, or in the near future?\r\n\r\nThank you.\r\n\r\n- JJ",
-                         "author":  "vargasjj",
-                         "action_needed":  true,
-                         "date":  "2017-03-08T14:32:18Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMzMzA0NjM4Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Trying to rez this... I run into this problem when trying to connect to my KVM virtual machines that I run in unRAID. I don\u0027t usually bother with VNC password especially on initial install/config.\r\n\r\nWhen I try to connect I get \"invalid parameter\" error as others here and on previous support forums were getting.",
-                         "author":  "deusxanime",
-                         "action_needed":  true,
-                         "date":  "2017-09-29T06:55:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MTk4NDM4Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I also have issues with this. Specifically with our Timeclocks that allow for a vnc connection, I cannot set a password on them. Can connect no problem with vncviewer. I have no issues connecting to other devices that have a password on them",
-                         "author":  "BasicHumanUnit",
-                         "action_needed":  true,
-                         "date":  "2018-01-31T16:18:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NjMwMzcwNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We met the same problem with some older VM\u0027s (qemu) which are unable to set a password for console view.",
-                         "author":  "tylla",
-                         "action_needed":  true,
-                         "date":  "2018-06-11T16:28:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQwNjY1MDU2MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@tylla \r\n\r\n\u003e We met the same problem with some older VM\u0027s (qemu) which are unable to set a password for console view.\r\n--\r\n\r\n@deusxanime \r\n\r\n\u003e Trying to rez this... I run into this problem when trying to connect to my KVM virtual machines that I run in unRAID. I don\u0027t usually bother with VNC password especially on initial install/config.\r\nWhen I try to connect I get \"invalid parameter\" error as others here and on previous support forums were getting.\r\n\r\n\r\nExactly. That is what I am trying to ach...",
-                         "author":  "vargasjj",
-                         "action_needed":  true,
-                         "date":  "2018-07-20T16:19:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQxMDQ4MzYxNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Issue of getting error \"Parameter is not valid.\" when connecting using VNC without password authentication still present in mRemoteNG 1.75.7012.16814.\r\nJust so you know.",
-                         "author":  "codetuner",
-                         "action_needed":  true,
-                         "date":  "2018-08-04T23:10:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMDYyMDUxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello everyone\r\n\r\nIssue of getting \"Parameter is not valid\" still present on mRemoteNG 1.76.10.42480 Portable.\r\n\r\n\r\n----------\r\nErrorMsg\r\n10/17/2018 08:56:15\r\nOpening connection failed!\r\nParameter is not valid.\r\n----------\r\n\r\nHere are some more logs\r\n\r\n\r\n```\r\n2018-10-17 09:15:18,838 [1] ERROR - Opening connection failed!\r\nParameter is not valid.\r\n2018-10-17 09:15:18,859 [11] INFO  - Connection Event Closed\r\n2018-10-17 09:15:18,859 [11] INFO  - Connection to \u003cipaddr-removed\u003e via VNC closed by use...",
-                         "author":  "vargasjj",
-                         "action_needed":  true,
-                         "date":  "2018-10-17T13:07:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1OTI0NzkyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Have same problem when connecting to VNC without password. mRemoteNG version: 1.76.11.40527",
-                         "author":  "bithost",
-                         "action_needed":  true,
-                         "date":  "2019-01-31T07:45:40Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MjE2NDQzOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same issue as everyone else, I have worked around the issue by making an \"External tool\" which points to TightVNC with the arguments to connect to the host, it works fine\r\n\r\n![image](https://user-images.githubusercontent.com/43852644/52538489-dbc43c00-2d38-11e9-8236-241d189d00d8.png)\r\n\r\n![image](https://user-images.githubusercontent.com/43852644/52538498-00b8af00-2d39-11e9-9088-26cce091e98f.png)\r\n",
-                         "author":  "TopBanana123",
-                         "action_needed":  true,
-                         "date":  "2019-02-10T19:37:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2ODcwMzY1Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "still an issue in 2019. is there any plan to fix this?",
-                         "author":  "NextBlaubeere",
-                         "action_needed":  true,
-                         "date":  "2019-03-01T15:30:17Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MzcxMDY1Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think we have this solved on the most recent build of vncsharp (which mRemoteNG uses). I am going to schedule this for the next release (v1.77) for testing.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-03-17T20:18:54Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NzYwNzE4NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I updated to the current dev-branch (1.77.0.41252) but it seems still there.\r\nWhen attempting to open the vnc-connection there is always the error message: **_\"Opening connection failed! Parameter is not valid.\"_**\r\n\r\nLog file states this:\r\n\u003e 2019-05-31 09:24:19,192 [1] INFO  - mRemoteNG 1.77.0.41252 starting.\r\n2019-05-31 09:24:19,203 [1] INFO  - Command Line: C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exe\r\n2019-05-31 09:24:19,478 [1] INFO  - Microsoft Windows 10 Pro  64-bit\r\n2019-05-31 09:24:19...",
-                         "author":  "NextBlaubeere",
-                         "action_needed":  true,
-                         "date":  "2019-05-31T07:31:18Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMTI5MTYyNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is becoming more and more needed with the changes in Xorg where the VNC sessions and displays are different between the login screen and the actual UI.  For my Ubuntu login screen, the VNC port is 5920 without a password.  When I\u0027m actually logged in, my desktop VNC port is 5900 with a password.   It would be great if mRemoteNG could support this for ease of use.",
-                         "author":  "XXtreem11",
-                         "action_needed":  true,
-                         "date":  "2019-06-12T14:11:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczMDQ2NDc0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "bump\r\n\r\nI\u0027m also experiencing this issue when attempting to connect to a vnc server running on VMs in my Proxmox cluster. It works fine for other software, however, crashes on mRemoteNG and it seems to cause it to crash on the VMs as well, as I\u0027m no longer able to VNC to those VMs after an attempt with mRemoteNG until the node is rebooted. ",
-                         "author":  "damntourists",
-                         "action_needed":  true,
-                         "date":  "2020-11-19T15:49:58Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc0MDgyMDQxMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is is still an issue. Maybe not just TightVNC. Seems like it is trying to send an empty password parameter when I believe I have it set to not do that.   Is this not easy to fix?  My use case, as with others, is on an internal test environment.\r\nLooking to easily VNC with Selenium Docker grid nodes without a password.  Not sure what they are using for a server.  ",
-                         "author":  "ewiegers",
-                         "action_needed":  true,
-                         "date":  "2020-12-08T18:25:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc2MDQ3MjAyMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just to let you all know.\r\n\r\nI build the software solution myself and I found that this issue doesn\u0027t occur in a Debug mode build. In my situation it only occurs when running a Release mode build. I did some research as to what happens, but so far I did not find something conclusive.\r\n\r\nWhat I found so far is that at some point during the initialization phase it receives the frame resolution from the VNC server (`VncSharp.RfbProtocol.ReadServerInit()`). In a Debug mode build it reads the correct...",
-                         "author":  "omegasupreme3",
-                         "action_needed":  true,
-                         "date":  "2021-01-14T20:58:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MzYzNTU1NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "99% of all my VNC connections are without password (to localhost which is a ssh tunnel to qemu instances)\r\nThis being an issue open for so many years means that devs don\u0027t have much time to spend on the project, or is it something else going on?",
-                         "author":  "NiKiZe",
-                         "action_needed":  true,
-                         "date":  "2021-07-04T18:09:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MzY2ODg1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This being an issue open for so many years means that devs don\u0027t have much time to spend on the project, or is it something else going on?\r\n\r\nif that so easy to solve could you raise a PR will be happy to merge, overwise lets wait till somebody else will find a solution for such...  \r\n\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-07-04T21:48:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM45JYFC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same issue, does anyone know of any workaround?",
-                         "author":  "Luk164",
-                         "action_needed":  true,
-                         "date":  "2021-11-03T09:02:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5D9zWT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "          11:25\r\n28/05/2022",
-                         "author":  "fgclue",
-                         "action_needed":  true,
-                         "date":  "2022-05-28T14:25:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5FG0Sx",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e ```\r\n\u003e       11:25\r\n\u003e ```\r\n\u003e \r\n\u003e 28/05/2022\r\n\r\n??? What does that mean?",
-                         "author":  "Luk164",
-                         "action_needed":  true,
-                         "date":  "2022-06-18T09:57:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5FK5vp",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Still an issue.  1.76.20.24615 Windows",
-                         "author":  "mlacomb",
-                         "action_needed":  true,
-                         "date":  "2022-06-20T14:00:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Gs7ig",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I ran into this bug a few years ago that stopped me using it (passwordless vnc is 70-80% of my usecase). I might give @TopBanana123 https://github.com/mRemoteNG/mRemoteNG/issues/274#issuecomment-462164438 workaround a go, even if it is an unwelcome faff ≡ƒÿÇ",
-                         "author":  "techie2000",
-                         "action_needed":  true,
-                         "date":  "2022-07-16T13:19:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5dLb9b",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am encountering this issue on version 1.76.20.24615 (Windows). It works after setting a password, but I would prefer to not have to do this.",
-                         "author":  "YellerFeller",
-                         "action_needed":  true,
-                         "date":  "2023-05-25T17:43:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5gGVDi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e ```\r\n\u003e \u003e       11:25\r\n\u003e \u003e ```\r\n\u003e \u003e \r\n\u003e \u003e \r\n\u003e \u003e     \r\n\u003e \u003e       \r\n\u003e \u003e     \r\n\u003e \u003e \r\n\u003e \u003e       \r\n\u003e \u003e     \r\n\u003e \u003e \r\n\u003e \u003e     \r\n\u003e \u003e   \r\n\u003e \u003e 28/05/2022\r\n\u003e \r\n\u003e ??? What does that mean?\r\n\r\nI have no idea, I posted that like a year ago and now I\u0027m confused too.",
-                         "author":  "fgclue",
-                         "action_needed":  true,
-                         "date":  "2023-06-29T00:29:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5nUEs9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "**TL;DR;**\r\nIt works in the latest nightly, however, there is another bug in VncSharpCore that makes it impossible to establish any VNC connection - created PR for that in VncSharpCore repo.\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/54535207/23ba0ea7-1d63-41cc-8b71-da019f15a7ba)\r\n\r\n**Longer story:**\r\nI wanted to fix it, so I:\r\n - downloaded mRemoteNG repo, switched branch to v1.77.3-dev\r\n - downloaded VncSharpCore repo,\r\n - in mRemoteNG solution removed reference to VncSharpCore ...",
-                         "author":  "jan-oratowski",
-                         "action_needed":  true,
-                         "date":  "2023-09-25T09:40:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5odh-3",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@jan-oratowski Thanks a lot for such, let me update dev branch with such. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-09T08:42:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5puu_s",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\r\n\u003e Same issue as everyone else, I have worked around the issue by making an \"External tool\" which points to TightVNC with the arguments to connect to the host, it works fine\r\n\r\n@TopBanana123 In case you weren\u0027t aware (base off your screenshot), just letting you know that rather than putting a specific hostname in the External Tool config, you can instead put %Hostname% so that the one External Tool entry will work for any connection.",
-                         "author":  "Gabtoof",
-                         "action_needed":  true,
-                         "date":  "2023-10-21T16:52:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGHY",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:48:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXJDq",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYQ-K",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:12:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYif5",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:36Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:56:36Z",
-    "unread_comments":  31,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 274,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Cannot connect to TightVNC Server When Unauthenticated ",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "VNC",
+    "Need 2 check",
+    "In development",
+    "Third party",
+    "1.77.3"
+  ],
+  "author": "TheCuriousGuy",
+  "created_at": "2016-11-28T21:28:04Z",
+  "github_updated_at": "2026-02-07T19:56:36Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 8 x64 |\r\n|mRemoteNG version| Stable 1.74 Final  |\r\n\r\nConnot connect to TightVNC using VNC protocol when Vnc Server is running in unauthenticated mode, i.e. no password is supplied to MRemoteNG.\r\n...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI2NDI3MDY0MA==",
+      "author": "sparerd",
+      "date": "2016-12-01T19:33:52Z",
+      "snippet": "Thanks for the report, we will need to dig into this",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI2NDI5MzUzNw==",
+      "author": "TheCuriousGuy",
+      "date": "2016-12-01T21:01:04Z",
+      "snippet": "Much appreciated\r\n\r\ni know its not a common use case, \r\n\r\nHowever when working internally with many different users in a secure lab environments,\r\n\r\nour team prefers not to use pwd and thus we encountered the problem\r\n\r\nCheers\r\n\r\n\r\nOn Thu, Dec 1, 2016 at 11:33 AM, David Sparer <notifications@github.com>\r\nwrote:\r\n\r\n> Thanks for the report, we will need to dig into this\r\n>\r\n> —\r\n> You are receiving this because you authored the thread.\r\n> Reply to this email directly, view it on GitHub\r\n> <https:/...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI3ODY3NDM0Ng==",
+      "author": "kmscode",
+      "date": "2017-02-09T15:25:22Z",
+      "snippet": "From user @vargasjj via #396 \r\n\r\nWhenever I tried to VNC to a TightVNC server that does not have a password set, I get:\r\n\r\n> ErrorMsg Opening connection failed! Parameter is not valid.\r\n\r\nThis defect is being around on mRemoteNG for a while and I cannot find a resolution. I can reproduce it.\r\n\r\nHere are the logs:\r\n\r\n> 2017-02-09 09:34:06,649 [1] ERROR- frmMain WndProc failed\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NTA1NTk2NA==",
+      "author": "vargasjj",
+      "date": "2017-03-08T14:32:18Z",
+      "snippet": "Hi, guys.\r\n\r\nJust checking, if you'd tackle this issue on this quarter, or in the near future?\r\n\r\nThank you.\r\n\r\n- JJ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMzMzA0NjM4Mw==",
+      "author": "deusxanime",
+      "date": "2017-09-29T06:55:19Z",
+      "snippet": "Trying to rez this... I run into this problem when trying to connect to my KVM virtual machines that I run in unRAID. I don't usually bother with VNC password especially on initial install/config.\r\n\r\nWhen I try to connect I get \"invalid parameter\" error as others here and on previous support forums were getting.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2MTk4NDM4Mw==",
+      "author": "BasicHumanUnit",
+      "date": "2018-01-31T16:18:25Z",
+      "snippet": "I also have issues with this. Specifically with our Timeclocks that allow for a vnc connection, I cannot set a password on them. Can connect no problem with vncviewer. I have no issues connecting to other devices that have a password on them",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NjMwMzcwNg==",
+      "author": "tylla",
+      "date": "2018-06-11T16:28:51Z",
+      "snippet": "We met the same problem with some older VM's (qemu) which are unable to set a password for console view.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQwNjY1MDU2MQ==",
+      "author": "vargasjj",
+      "date": "2018-07-20T16:19:11Z",
+      "snippet": "@tylla \r\n\r\n> We met the same problem with some older VM's (qemu) which are unable to set a password for console view.\r\n--\r\n\r\n@deusxanime \r\n\r\n> Trying to rez this... I run into this problem when trying to connect to my KVM virtual machines that I run in unRAID. I don't usually bother with VNC password especially on initial install/config.\r\nWhen I try to connect I get \"invalid parameter\" error as others here and on previous support forums were getting.\r\n\r\n\r\nExactly. That is what I am trying to ach...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQxMDQ4MzYxNQ==",
+      "author": "codetuner",
+      "date": "2018-08-04T23:10:56Z",
+      "snippet": "Issue of getting error \"Parameter is not valid.\" when connecting using VNC without password authentication still present in mRemoteNG 1.75.7012.16814.\r\nJust so you know.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMDYyMDUxNg==",
+      "author": "vargasjj",
+      "date": "2018-10-17T13:07:08Z",
+      "snippet": "Hello everyone\r\n\r\nIssue of getting \"Parameter is not valid\" still present on mRemoteNG 1.76.10.42480 Portable.\r\n\r\n\r\n----------\r\nErrorMsg\r\n10/17/2018 08:56:15\r\nOpening connection failed!\r\nParameter is not valid.\r\n----------\r\n\r\nHere are some more logs\r\n\r\n\r\n```\r\n2018-10-17 09:15:18,838 [1] ERROR - Opening connection failed!\r\nParameter is not valid.\r\n2018-10-17 09:15:18,859 [11] INFO  - Connection Event Closed\r\n2018-10-17 09:15:18,859 [11] INFO  - Connection to <ipaddr-removed> via VNC closed by use...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ1OTI0NzkyNA==",
+      "author": "bithost",
+      "date": "2019-01-31T07:45:40Z",
+      "snippet": "Have same problem when connecting to VNC without password. mRemoteNG version: 1.76.11.40527",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MjE2NDQzOA==",
+      "author": "TopBanana123",
+      "date": "2019-02-10T19:37:34Z",
+      "snippet": "Same issue as everyone else, I have worked around the issue by making an \"External tool\" which points to TightVNC with the arguments to connect to the host, it works fine\r\n\r\n![image](https://user-images.githubusercontent.com/43852644/52538489-dbc43c00-2d38-11e9-8236-241d189d00d8.png)\r\n\r\n![image](https://user-images.githubusercontent.com/43852644/52538498-00b8af00-2d39-11e9-9088-26cce091e98f.png)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2ODcwMzY1Mw==",
+      "author": "NextBlaubeere",
+      "date": "2019-03-01T15:30:17Z",
+      "snippet": "still an issue in 2019. is there any plan to fix this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3MzcxMDY1Nw==",
+      "author": "sparerd",
+      "date": "2019-03-17T20:18:54Z",
+      "snippet": "I think we have this solved on the most recent build of vncsharp (which mRemoteNG uses). I am going to schedule this for the next release (v1.77) for testing.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ5NzYwNzE4NA==",
+      "author": "NextBlaubeere",
+      "date": "2019-05-31T07:31:18Z",
+      "snippet": "I updated to the current dev-branch (1.77.0.41252) but it seems still there.\r\nWhen attempting to open the vnc-connection there is always the error message: **_\"Opening connection failed! Parameter is not valid.\"_**\r\n\r\nLog file states this:\r\n> 2019-05-31 09:24:19,192 [1] INFO  - mRemoteNG 1.77.0.41252 starting.\r\n2019-05-31 09:24:19,203 [1] INFO  - Command Line: C:\\Program Files (x86)\\mRemoteNG\\mRemoteNG.exe\r\n2019-05-31 09:24:19,478 [1] INFO  - Microsoft Windows 10 Pro  64-bit\r\n2019-05-31 09:24:19...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwMTI5MTYyNQ==",
+      "author": "XXtreem11",
+      "date": "2019-06-12T14:11:22Z",
+      "snippet": "This is becoming more and more needed with the changes in Xorg where the VNC sessions and displays are different between the login screen and the actual UI.  For my Ubuntu login screen, the VNC port is 5920 without a password.  When I'm actually logged in, my desktop VNC port is 5900 with a password.   It would be great if mRemoteNG could support this for ease of use.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczMDQ2NDc0MQ==",
+      "author": "damntourists",
+      "date": "2020-11-19T15:49:58Z",
+      "snippet": "bump\r\n\r\nI'm also experiencing this issue when attempting to connect to a vnc server running on VMs in my Proxmox cluster. It works fine for other software, however, crashes on mRemoteNG and it seems to cause it to crash on the VMs as well, as I'm no longer able to VNC to those VMs after an attempt with mRemoteNG until the node is rebooted. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc0MDgyMDQxMw==",
+      "author": "ewiegers",
+      "date": "2020-12-08T18:25:03Z",
+      "snippet": "This is is still an issue. Maybe not just TightVNC. Seems like it is trying to send an empty password parameter when I believe I have it set to not do that.   Is this not easy to fix?  My use case, as with others, is on an internal test environment.\r\nLooking to easily VNC with Selenium Docker grid nodes without a password.  Not sure what they are using for a server.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2MDQ3MjAyMw==",
+      "author": "omegasupreme3",
+      "date": "2021-01-14T20:58:33Z",
+      "snippet": "Just to let you all know.\r\n\r\nI build the software solution myself and I found that this issue doesn't occur in a Debug mode build. In my situation it only occurs when running a Release mode build. I did some research as to what happens, but so far I did not find something conclusive.\r\n\r\nWhat I found so far is that at some point during the initialization phase it receives the frame resolution from the VNC server (`VncSharp.RfbProtocol.ReadServerInit()`). In a Debug mode build it reads the correct...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MzYzNTU1NQ==",
+      "author": "NiKiZe",
+      "date": "2021-07-04T18:09:50Z",
+      "snippet": "99% of all my VNC connections are without password (to localhost which is a ssh tunnel to qemu instances)\r\nThis being an issue open for so many years means that devs don't have much time to spend on the project, or is it something else going on?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MzY2ODg1Mg==",
+      "author": "Kvarkas",
+      "date": "2021-07-04T21:48:57Z",
+      "snippet": "> This being an issue open for so many years means that devs don't have much time to spend on the project, or is it something else going on?\r\n\r\nif that so easy to solve could you raise a PR will be happy to merge, overwise lets wait till somebody else will find a solution for such...  \r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM45JYFC",
+      "author": "Luk164",
+      "date": "2021-11-03T09:02:28Z",
+      "snippet": "Same issue, does anyone know of any workaround?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5D9zWT",
+      "author": "fgclue",
+      "date": "2022-05-28T14:25:39Z",
+      "snippet": "          11:25\r\n28/05/2022",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5FG0Sx",
+      "author": "Luk164",
+      "date": "2022-06-18T09:57:16Z",
+      "snippet": "> ```\r\n>       11:25\r\n> ```\r\n> \r\n> 28/05/2022\r\n\r\n??? What does that mean?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5FK5vp",
+      "author": "mlacomb",
+      "date": "2022-06-20T14:00:19Z",
+      "snippet": "Still an issue.  1.76.20.24615 Windows",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Gs7ig",
+      "author": "techie2000",
+      "date": "2022-07-16T13:19:17Z",
+      "snippet": "I ran into this bug a few years ago that stopped me using it (passwordless vnc is 70-80% of my usecase). I might give @TopBanana123 https://github.com/mRemoteNG/mRemoteNG/issues/274#issuecomment-462164438 workaround a go, even if it is an unwelcome faff 😀",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5dLb9b",
+      "author": "YellerFeller",
+      "date": "2023-05-25T17:43:05Z",
+      "snippet": "I am encountering this issue on version 1.76.20.24615 (Windows). It works after setting a password, but I would prefer to not have to do this.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5gGVDi",
+      "author": "fgclue",
+      "date": "2023-06-29T00:29:35Z",
+      "snippet": "> > ```\r\n> >       11:25\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > 28/05/2022\r\n> \r\n> ??? What does that mean?\r\n\r\nI have no idea, I posted that like a year ago and now I'm confused too.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5nUEs9",
+      "author": "jan-oratowski",
+      "date": "2023-09-25T09:40:06Z",
+      "snippet": "**TL;DR;**\r\nIt works in the latest nightly, however, there is another bug in VncSharpCore that makes it impossible to establish any VNC connection - created PR for that in VncSharpCore repo.\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/54535207/23ba0ea7-1d63-41cc-8b71-da019f15a7ba)\r\n\r\n**Longer story:**\r\nI wanted to fix it, so I:\r\n - downloaded mRemoteNG repo, switched branch to v1.77.3-dev\r\n - downloaded VncSharpCore repo,\r\n - in mRemoteNG solution removed reference to VncSharpCore ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5odh-3",
+      "author": "Kvarkas",
+      "date": "2023-10-09T08:42:10Z",
+      "snippet": "@jan-oratowski Thanks a lot for such, let me update dev branch with such. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5puu_s",
+      "author": "Gabtoof",
+      "date": "2023-10-21T16:52:03Z",
+      "snippet": "\r\n> Same issue as everyone else, I have worked around the issue by making an \"External tool\" which points to TightVNC with the arguments to connect to the host, it works fine\r\n\r\n@TopBanana123 In case you weren't aware (base off your screenshot), just letting you know that rather than putting a specific hostname in the External Tool config, you can instead put %Hostname% so that the one External Tool entry will work for any connection.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGHY",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:48:09Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXJDq",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:49Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYQ-K",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:12:11Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYif5",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:36Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:56:36Z",
+  "unread_comments": 31,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

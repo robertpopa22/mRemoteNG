@@ -1,93 +1,91 @@
-﻿{
-    "number":  1424,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "SQL multiuser support",
-    "state":  "open",
-    "labels":  [
-                   "1.8 (Fenix)",
-                   "Needs implementation"
-               ],
-    "author":  "bobosch",
-    "created_at":  "2019-04-29T19:53:24Z",
-    "github_updated_at":  "2026-02-07T19:53:02Z",
-    "body_snippet":  "In our team we would like to share our remote connections. The SQL connection is a great feature therefore. But it is not possible to make changes, because there are overwritten on mRemoteNG exit.\r\n\r\n## Current Behavior\r\nAll connections are stored in the database if you quit mRemoteNG\r\n\r\n## Expected Behavior\r\n- Store only changed connection in the database\r\n- Load changes on other connected clients\r\n\r\n## Your Environment\r\n* Version used: 1.76.19\r\n* Operating System and version: Windows 10 1709 x...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4OTQ2MDc1MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Update on save/exit needs to compare and check data being updated with the LastChange field (on initial load) against the database table, username could also be saved.  Using a background worker the table could be polled to look for newly updated rows, then show changed connections in a screen/window with the username that saved the change and giving the user the option to reload connections that have been changed.",
-                         "author":  "ng3727",
-                         "action_needed":  true,
-                         "date":  "2019-05-05T20:29:28Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwMDA2OTk5OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is something we are looking for as well, I want to start storing configuration in SQL so the entire team can use a single source and keep it up to date.",
-                         "author":  "c3rberus",
-                         "action_needed":  true,
-                         "date":  "2019-06-07T23:33:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMDM2NzEyMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nI also vote for this issue.\r\nWe have some problems with multiple users, e.g. the connection tree is suddenly empty or something like that. Workaround is to set the SQL to read only, which is kind of annoying.",
-                         "author":  "auchri",
-                         "action_needed":  true,
-                         "date":  "2019-09-11T12:55:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3MTkyOTk5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Store connection info on shared SQL would be great, but credentials should remain local.\r\nI know you can type a default credential in the application, but when managing multiple domains its a bit of a pain.",
-                         "author":  "HansenRene",
-                         "action_needed":  true,
-                         "date":  "2020-01-08T07:45:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc3Mjg5MzE0NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 for this. I\u0027m on a team with several people managing several connections all with unique credentials. It would be nice to use SQL to store the connections but then save the credentials locally for each person.",
-                         "author":  "jarkle",
-                         "action_needed":  true,
-                         "date":  "2021-02-03T23:16:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTE5MTk0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "planned to change DBs behaviours in next version, stay tuned.  ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-21T16:53:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhbx",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:02Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:02Z",
-    "unread_comments":  6,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1424,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "SQL multiuser support",
+  "state": "open",
+  "labels": [
+    "1.8 (Fenix)",
+    "Needs implementation"
+  ],
+  "author": "bobosch",
+  "created_at": "2019-04-29T19:53:24Z",
+  "github_updated_at": "2026-02-07T19:53:02Z",
+  "body_snippet": "In our team we would like to share our remote connections. The SQL connection is a great feature therefore. But it is not possible to make changes, because there are overwritten on mRemoteNG exit.\r\n\r\n## Current Behavior\r\nAll connections are stored in the database if you quit mRemoteNG\r\n\r\n## Expected Behavior\r\n- Store only changed connection in the database\r\n- Load changes on other connected clients\r\n\r\n## Your Environment\r\n* Version used: 1.76.19\r\n* Operating System and version: Windows 10 1709 x...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4OTQ2MDc1MQ==",
+      "author": "ng3727",
+      "date": "2019-05-05T20:29:28Z",
+      "snippet": "Update on save/exit needs to compare and check data being updated with the LastChange field (on initial load) against the database table, username could also be saved.  Using a background worker the table could be polled to look for newly updated rows, then show changed connections in a screen/window with the username that saved the change and giving the user the option to reload connections that have been changed.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwMDA2OTk5OQ==",
+      "author": "c3rberus",
+      "date": "2019-06-07T23:33:11Z",
+      "snippet": "This is something we are looking for as well, I want to start storing configuration in SQL so the entire team can use a single source and keep it up to date.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzMDM2NzEyMg==",
+      "author": "auchri",
+      "date": "2019-09-11T12:55:13Z",
+      "snippet": "Hi,\r\n\r\nI also vote for this issue.\r\nWe have some problems with multiple users, e.g. the connection tree is suddenly empty or something like that. Workaround is to set the SQL to read only, which is kind of annoying.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3MTkyOTk5Mw==",
+      "author": "HansenRene",
+      "date": "2020-01-08T07:45:50Z",
+      "snippet": "Store connection info on shared SQL would be great, but credentials should remain local.\r\nI know you can type a default credential in the application, but when managing multiple domains its a bit of a pain.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3Mjg5MzE0NQ==",
+      "author": "jarkle",
+      "date": "2021-02-03T23:16:55Z",
+      "snippet": "+1 for this. I'm on a team with several people managing several connections all with unique credentials. It would be nice to use SQL to store the connections but then save the credentials locally for each person.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2NTE5MTk0Mw==",
+      "author": "Kvarkas",
+      "date": "2021-06-21T16:53:24Z",
+      "snippet": "planned to change DBs behaviours in next version, stay tuned.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhbx",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:02Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:02Z",
+  "unread_comments": 6,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

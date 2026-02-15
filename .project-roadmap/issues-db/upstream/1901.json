@@ -1,129 +1,127 @@
-﻿{
-    "number":  1901,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "How to \"Use all my monitors for the remote session\" like mstsc",
-    "state":  "open",
-    "labels":  [
-                   "Needs implementation",
-                   "Improvement required"
-               ],
-    "author":  "XufeiYang",
-    "created_at":  "2020-11-17T10:11:59Z",
-    "github_updated_at":  "2025-09-23T15:55:38Z",
-    "body_snippet":  "\r\n\r\n## Expected Behavior\r\nIn Win10 mSTSC.exe, there is an option to \"use all my monitors for remote session\", and in the RDP10 protocol, multi-monitor and multi-resolution scaling can be done.In Win10 systems, you can set different scales for each monitor, and this feature can be passed to the remote session, so that the remote session and the local display look the same.\r\n\r\n## Current Behavior\r\nI donΓÇÖt know how to set up this feature on mRetoteNG\r\n\r\n## Possible Solution\r\nEnable multi-screen f...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczMzU3NzM3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "unfortunately mRemoteNG is not support multiple monitors for now, you can see a detail here: https://github.com/mRemoteNG/mRemoteNG/issues/192#issuecomment-716537547\r\n\r\nso iΓÇÿd like to recommend you try my project which support multiple monitors. \r\n\r\nmultiple monitors is the main reason i start the project∩╝î you can get latest bin here: \r\n**[censored]**\r\n\r\n\r\n---\r\nI have been trying to add multiple monitors mode for mRemoteNG BUT stuck at window control on winform.",
-                         "author":  "VShawn",
-                         "action_needed":  true,
-                         "date":  "2020-11-25T09:20:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgyMzQ0NzE4MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@VShawn - I don\u0027t know why over the past 6 years mRemoteNG hasn\u0027t figured out how to add support for multiple monitors... but you did and everything else looks pretty good as well!  Thanks!",
-                         "author":  "PerryCodes",
-                         "action_needed":  true,
-                         "date":  "2021-04-20T17:00:40Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgyMzgwNDQ5Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@PerryCodes  you are wellcome.\r\n\r\nI first tried to to add multiple monitors support to mRemoteNG , but I really donΓÇÖt know how to develop a winform program.  And now mRemoteNG  can follow to my approach.",
-                         "author":  "VShawn",
-                         "action_needed":  true,
-                         "date":  "2021-04-21T06:11:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47qp1r",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @VShawn - I don\u0027t know why over the past 6 years mRemoteNG hasn\u0027t figured out how to add support for multiple monitors... but you did and everything else looks pretty good as well! Thanks!\r\n\r\nBecause everyone always asks for new features, but no one is willing to really work for it.\r\nMy question is this: If this is really such a needed feature, why is everyone sitting on their asses waiting for strangers to sacrifice their time to fix your problems? The real world doesn\u0027t work like this either...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2021-12-25T15:30:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47q2hO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Because everyone always asks for new features, but no one is willing to really work for it.\r\n\r\n@farosch  So this fea ture is not implemented yet? I had tried make this feature on mRemoteNG and failed, I am not  good at winform ≡ƒÿ┐ ",
-                         "author":  "VShawn",
-                         "action_needed":  true,
-                         "date":  "2021-12-26T00:51:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47rKNH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@VShawn Unfortunately not. It shouldn\u0027t be such a big thing to implement, though one might have to deal with things like #1911 or #2020 for example.\r\nYou could take a look at #1150 to get an idea on how this could be implemented. If memory serves, I think this PR was fairly close to being done. As of now the develop branch has changed massively, so if you would like to pick that up again just let me know. I can reopen this PR and merge the current changes from develop if you\u0027d like to. Just let ...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2021-12-26T12:25:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM476j5v",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@farosch I wouldn\u0027t mind taking a swing at getting the PR pushed over the hump. Anything I need to wait for on your end to start working on this?",
-                         "author":  "JerrettDavis",
-                         "action_needed":  true,
-                         "date":  "2022-01-04T22:09:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM476ofU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I am not good at winform\r\n\r\nTechnically its not WinForms problem ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-01-04T22:43:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM476okG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Anything I need to wait for on your end to start working on this?\r\n\r\nI dont think anybody working on such at the moment so you are more then welcome ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-01-04T22:43:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5IBbuR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e Because everyone always asks for new features, but no one is willing to really work for it.\r\n\u003e \r\n\u003e @farosch So this fea ture is not implemented yet? I had tried make this feature on mRemoteNG and failed, I am not good at winform crying_cat_face\r\n\r\nhttps://www.hanselman.com/blog/how-to-remote-desktop-fullscreen-rdp-with-just-some-of-your-multiple-monitors\r\n\r\nyou can just generator the config ,and with the mstsc to open",
-                         "author":  "djbone",
-                         "action_needed":  true,
-                         "date":  "2022-08-08T16:21:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7EsyId",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Since development is active again, thought I\u0027d bring this back to the front.  I still have to rely on RDC when I need to use more than 1 monitor.",
-                         "author":  "Avrution",
-                         "action_needed":  true,
-                         "date":  "2025-09-16T19:30:32Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-09-23T15:55:38Z",
-    "unread_comments":  11,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1901,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "How to \"Use all my monitors for the remote session\" like mstsc",
+  "state": "open",
+  "labels": [
+    "Needs implementation",
+    "Improvement required"
+  ],
+  "author": "XufeiYang",
+  "created_at": "2020-11-17T10:11:59Z",
+  "github_updated_at": "2025-09-23T15:55:38Z",
+  "body_snippet": "\r\n\r\n## Expected Behavior\r\nIn Win10 mSTSC.exe, there is an option to \"use all my monitors for remote session\", and in the RDP10 protocol, multi-monitor and multi-resolution scaling can be done.In Win10 systems, you can set different scales for each monitor, and this feature can be passed to the remote session, so that the remote session and the local display look the same.\r\n\r\n## Current Behavior\r\nI don’t know how to set up this feature on mRetoteNG\r\n\r\n## Possible Solution\r\nEnable multi-screen fun...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczMzU3NzM3Ng==",
+      "author": "VShawn",
+      "date": "2020-11-25T09:20:00Z",
+      "snippet": "unfortunately mRemoteNG is not support multiple monitors for now, you can see a detail here: https://github.com/mRemoteNG/mRemoteNG/issues/192#issuecomment-716537547\r\n\r\nso i‘d like to recommend you try my project which support multiple monitors. \r\n\r\nmultiple monitors is the main reason i start the project， you can get latest bin here: \r\n**[censored]**\r\n\r\n\r\n---\r\nI have been trying to add multiple monitors mode for mRemoteNG BUT stuck at window control on winform.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyMzQ0NzE4MQ==",
+      "author": "PerryCodes",
+      "date": "2021-04-20T17:00:40Z",
+      "snippet": "@VShawn - I don't know why over the past 6 years mRemoteNG hasn't figured out how to add support for multiple monitors... but you did and everything else looks pretty good as well!  Thanks!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyMzgwNDQ5Ng==",
+      "author": "VShawn",
+      "date": "2021-04-21T06:11:29Z",
+      "snippet": "@PerryCodes  you are wellcome.\r\n\r\nI first tried to to add multiple monitors support to mRemoteNG , but I really don’t know how to develop a winform program.  And now mRemoteNG  can follow to my approach.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47qp1r",
+      "author": "farosch",
+      "date": "2021-12-25T15:30:56Z",
+      "snippet": "> @VShawn - I don't know why over the past 6 years mRemoteNG hasn't figured out how to add support for multiple monitors... but you did and everything else looks pretty good as well! Thanks!\r\n\r\nBecause everyone always asks for new features, but no one is willing to really work for it.\r\nMy question is this: If this is really such a needed feature, why is everyone sitting on their asses waiting for strangers to sacrifice their time to fix your problems? The real world doesn't work like this either...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47q2hO",
+      "author": "VShawn",
+      "date": "2021-12-26T00:51:53Z",
+      "snippet": "> Because everyone always asks for new features, but no one is willing to really work for it.\r\n\r\n@farosch  So this fea ture is not implemented yet? I had tried make this feature on mRemoteNG and failed, I am not  good at winform 😿 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47rKNH",
+      "author": "farosch",
+      "date": "2021-12-26T12:25:13Z",
+      "snippet": "@VShawn Unfortunately not. It shouldn't be such a big thing to implement, though one might have to deal with things like #1911 or #2020 for example.\r\nYou could take a look at #1150 to get an idea on how this could be implemented. If memory serves, I think this PR was fairly close to being done. As of now the develop branch has changed massively, so if you would like to pick that up again just let me know. I can reopen this PR and merge the current changes from develop if you'd like to. Just let ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM476j5v",
+      "author": "JerrettDavis",
+      "date": "2022-01-04T22:09:03Z",
+      "snippet": "@farosch I wouldn't mind taking a swing at getting the PR pushed over the hump. Anything I need to wait for on your end to start working on this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM476ofU",
+      "author": "Kvarkas",
+      "date": "2022-01-04T22:43:17Z",
+      "snippet": "> I am not good at winform\r\n\r\nTechnically its not WinForms problem ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM476okG",
+      "author": "Kvarkas",
+      "date": "2022-01-04T22:43:53Z",
+      "snippet": "> Anything I need to wait for on your end to start working on this?\r\n\r\nI dont think anybody working on such at the moment so you are more then welcome ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5IBbuR",
+      "author": "djbone",
+      "date": "2022-08-08T16:21:07Z",
+      "snippet": "> > Because everyone always asks for new features, but no one is willing to really work for it.\r\n> \r\n> @farosch So this fea ture is not implemented yet? I had tried make this feature on mRemoteNG and failed, I am not good at winform crying_cat_face\r\n\r\nhttps://www.hanselman.com/blog/how-to-remote-desktop-fullscreen-rdp-with-just-some-of-your-multiple-monitors\r\n\r\nyou can just generator the config ,and with the mstsc to open",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7EsyId",
+      "author": "Avrution",
+      "date": "2025-09-16T19:30:32Z",
+      "snippet": "Since development is active again, thought I'd bring this back to the front.  I still have to rely on RDC when I need to use more than 1 monitor.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-09-23T15:55:38Z",
+  "unread_comments": 11,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

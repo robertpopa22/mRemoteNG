@@ -1,112 +1,110 @@
-﻿{
-    "number":  2425,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Unable to set up SQL",
-    "state":  "open",
-    "labels":  [
-                   "In progress",
-                   "DBs",
-                   "1.78.*"
-               ],
-    "author":  "drdobler",
-    "created_at":  "2023-04-12T11:58:00Z",
-    "github_updated_at":  "2026-02-07T19:52:42Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current behavior --\u003e\r\nI\u0027ve created a MSSQL DB and want to connect to it. Connection test says: OK\r\nAfter applying settings it throws an unhandled exception. Unvalid objectname tblRoot\r\nI tried the latest stable an nb build. Same error.\r\n\r\n## Possible S...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5ZtrQ7",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003cdetails\u003e\u003csummary\u003eStack trace\u003c/summary\u003e\r\n\u003cp\u003e\r\n\r\n   bei System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)\r\n   bei System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)\r\n   bei System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)\r\n   bei System.Data.SqlClient.TdsParse...",
-                         "author":  "drdobler",
-                         "action_needed":  true,
-                         "date":  "2023-04-12T12:00:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Z4fFy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can confirm that SQL is working: V.1.77.2 with SQL 2019. I use that for months now without any problem.",
-                         "author":  "hispeed88",
-                         "action_needed":  true,
-                         "date":  "2023-04-14T06:17:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Z5DX6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is there anything i need to know setting it up?\r\nDocu says i just have to create a blank DB...",
-                         "author":  "drdobler",
-                         "action_needed":  true,
-                         "date":  "2023-04-14T08:24:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Z-lxX",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes you have create a blank DB and then you have to use a script for creating the tables and rows. \r\n\r\nI see this has been **removed** from the docs!\r\n\r\n@Kvarkas \r\nWhy has the script been removed from the docs? I\r\n",
-                         "author":  "hispeed88",
-                         "action_needed":  true,
-                         "date":  "2023-04-15T06:27:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5aEhGj",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I found the script via waybackmachine from a snapshot of the website from july 2022.\r\nI can at least connect now to the DB via mRemote.\r\nBut still can\u0027t add any entries:\r\nCouldn\u0027t save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n\r\nhttps://web.archive.org/web/20220709193121/https://mremoteng.readthedocs.io/en/latest/sql_configuration.html#mssql",
-                         "author":  "drdobler",
-                         "action_needed":  true,
-                         "date":  "2023-04-17T11:02:43Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5blHk4",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Yes you have create a blank DB and then you have to use a script for creating the tables and rows.\r\n\u003e \r\n\u003e I see this has been **removed** from the docs!\r\n\u003e \r\n\u003e @Kvarkas Why has the script been removed from the docs? I\r\n\r\nnot sure, perhaps acsidentialy, will check",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-05-05T15:54:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6m_6nP",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can\u0027t seem to find a resolution to this problem.  I have now used the above link to create tables, so thank you to @drdobler, but it still doesn\u0027t work on MySQL for me.  From the same PC running mRemoteNG I have been able to access the remote database using DataGrip and command line mysql clients.  One test used and existing installation of mysql  Ver 15.1 Distrib 5.5.50-MariaDB, for Linux (x86_64) using readline 5.1.  Another test used mysql  Ver 9.2.0 for Linux on x86_64 (MySQL Community Ser...",
-                         "author":  "eponymic",
-                         "action_needed":  true,
-                         "date":  "2025-04-14T13:46:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6nAAnb",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hi, working on that topic already. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-04-14T13:54:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhUs",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:42Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:42Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2425,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Unable to set up SQL",
+  "state": "open",
+  "labels": [
+    "In progress",
+    "DBs",
+    "1.78.*"
+  ],
+  "author": "drdobler",
+  "created_at": "2023-04-12T11:58:00Z",
+  "github_updated_at": "2026-02-07T19:52:42Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the difference from current behavior -->\r\nI've created a MSSQL DB and want to connect to it. Connection test says: OK\r\nAfter applying settings it throws an unhandled exception. Unvalid objectname tblRoot\r\nI tried the latest stable an nb build. Same error.\r\n\r\n## Possible S...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5ZtrQ7",
+      "author": "drdobler",
+      "date": "2023-04-12T12:00:05Z",
+      "snippet": "<details><summary>Stack trace</summary>\r\n<p>\r\n\r\n   bei System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)\r\n   bei System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)\r\n   bei System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)\r\n   bei System.Data.SqlClient.TdsParse...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Z4fFy",
+      "author": "hispeed88",
+      "date": "2023-04-14T06:17:36Z",
+      "snippet": "I can confirm that SQL is working: V.1.77.2 with SQL 2019. I use that for months now without any problem.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Z5DX6",
+      "author": "drdobler",
+      "date": "2023-04-14T08:24:55Z",
+      "snippet": "Is there anything i need to know setting it up?\r\nDocu says i just have to create a blank DB...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Z-lxX",
+      "author": "hispeed88",
+      "date": "2023-04-15T06:27:17Z",
+      "snippet": "Yes you have create a blank DB and then you have to use a script for creating the tables and rows. \r\n\r\nI see this has been **removed** from the docs!\r\n\r\n@Kvarkas \r\nWhy has the script been removed from the docs? I\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5aEhGj",
+      "author": "drdobler",
+      "date": "2023-04-17T11:02:43Z",
+      "snippet": "I found the script via waybackmachine from a snapshot of the website from july 2022.\r\nI can at least connect now to the DB via mRemote.\r\nBut still can't add any entries:\r\nCouldn't save connections file as \"\"!\r\nThe given ColumnMapping does not match up with any column in the source or destination.\r\n\r\nhttps://web.archive.org/web/20220709193121/https://mremoteng.readthedocs.io/en/latest/sql_configuration.html#mssql",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5blHk4",
+      "author": "Kvarkas",
+      "date": "2023-05-05T15:54:56Z",
+      "snippet": "> Yes you have create a blank DB and then you have to use a script for creating the tables and rows.\r\n> \r\n> I see this has been **removed** from the docs!\r\n> \r\n> @Kvarkas Why has the script been removed from the docs? I\r\n\r\nnot sure, perhaps acsidentialy, will check",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6m_6nP",
+      "author": "eponymic",
+      "date": "2025-04-14T13:46:34Z",
+      "snippet": "I can't seem to find a resolution to this problem.  I have now used the above link to create tables, so thank you to @drdobler, but it still doesn't work on MySQL for me.  From the same PC running mRemoteNG I have been able to access the remote database using DataGrip and command line mysql clients.  One test used and existing installation of mysql  Ver 15.1 Distrib 5.5.50-MariaDB, for Linux (x86_64) using readline 5.1.  Another test used mysql  Ver 9.2.0 for Linux on x86_64 (MySQL Community Ser...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6nAAnb",
+      "author": "Kvarkas",
+      "date": "2025-04-14T13:54:34Z",
+      "snippet": "hi, working on that topic already. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhUs",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:42Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:42Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

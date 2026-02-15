@@ -1,39 +1,37 @@
-﻿{
-    "number":  2025,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Retire VncSHarp/VncSharpNG",
-    "state":  "open",
-    "labels":  [
-                   "Request For Comment",
-                   "TechnicalDebt"
-               ],
-    "author":  "farosch",
-    "created_at":  "2021-08-15T19:32:12Z",
-    "github_updated_at":  "2025-04-02T12:56:01Z",
-    "body_snippet":  "The original VNCSharp has been out of development since about 2018.\r\nThis is the reason for a lot of issues that we cannot fix, mainly these:\r\n- #227 \r\n- #274 \r\n- #444\r\n- #461 \r\n- #494 \r\n- #573 \r\n- #640 \r\n- #1368\r\n- #1494 \r\n- #1905\r\n\r\nWe should consider switching to another VNC implementation, e.g. [VncClient](https://github.com/MarcusWichelmann/MarcusW.VncClient)",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM4111AT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "To follow this ticket",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2021-08-22T17:31:38Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-04-02T12:56:01Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2025,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Retire VncSHarp/VncSharpNG",
+  "state": "open",
+  "labels": [
+    "Request For Comment",
+    "TechnicalDebt"
+  ],
+  "author": "farosch",
+  "created_at": "2021-08-15T19:32:12Z",
+  "github_updated_at": "2025-04-02T12:56:01Z",
+  "body_snippet": "The original VNCSharp has been out of development since about 2018.\r\nThis is the reason for a lot of issues that we cannot fix, mainly these:\r\n- #227 \r\n- #274 \r\n- #444\r\n- #461 \r\n- #494 \r\n- #573 \r\n- #640 \r\n- #1368\r\n- #1494 \r\n- #1905\r\n\r\nWe should consider switching to another VNC implementation, e.g. [VncClient](https://github.com/MarcusWichelmann/MarcusW.VncClient)",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM4111AT",
+      "author": "Neustradamus",
+      "date": "2021-08-22T17:31:38Z",
+      "snippet": "To follow this ticket",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-04-02T12:56:01Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

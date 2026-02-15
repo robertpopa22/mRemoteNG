@@ -1,0 +1,43 @@
+{
+  "number": 8,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "mRemoteNG 1.80.2 NB 3394 requires after start install of .Net 9.0.13 and C++ MSVC runtimes",
+  "state": "open",
+  "labels": [],
+  "author": "NoCoker",
+  "created_at": "2026-02-14T07:05:33Z",
+  "github_updated_at": "2026-02-14T08:38:12Z",
+  "body_snippet": "I just download the version: mRemoteNG-20260214-v1.80.2-NB-3394-x64-selfcontained\n\nBut it ask for more runtimes to be installed :-(\n\n<img width=\"735\" height=\"302\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c60969ff-d6d8-4cb8-b519-2d4e3b8e9de2\" />\n\n<img width=\"726\" height=\"303\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a3c5fa0f-3071-4a29-93a8-770c778e67ba\" />\n\nOS is blank Windows Server 2025 - will be great that could be fixed - happy to see someone take care on...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7oimjh",
+      "author": "NoCoker",
+      "date": "2026-02-14T08:18:09Z",
+      "snippet": "I would like to use it also here that you adopte the new name strategy to the filenames - Just a hint - good work so far\nA lot of bugs fixed\n\n<img width=\"918\" height=\"700\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/cf16f9df-5fe9-4b7f-b280-176ac0dec844\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7oixoC",
+      "author": "NoCoker",
+      "date": "2026-02-14T08:38:12Z",
+      "snippet": "build 3395 contains the same issue ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-14T08:38:12Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
+}

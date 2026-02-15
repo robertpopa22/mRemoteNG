@@ -1,130 +1,130 @@
-﻿{
-    "number":  1916,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "MySQL error Missing the DataColumn \u0027DisableCursorBlinking\u0027",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "1.77.2",
-                   "DBs"
-               ],
-    "author":  "Eeeedison",
-    "created_at":  "2020-12-19T05:54:24Z",
-    "github_updated_at":  "2026-02-09T06:26:30Z",
-    "body_snippet":  "Hi developers, I am trying to configure mRemoteNG  version 1.77.1.27713 with mysql for saving my config file.\r\nBut I got an error msg while trying to create a new connection file\r\n\r\n## Current Behavior\r\nCouldn\u0027t save connections file as \"\"!\r\nMissing the DataColumn \u0027DisableCursorBlinking\u0027 in the DataTable \u0027tblCons\u0027 for the SourceColumn \u0027DisableCursorBlinking\u0027.\r\nI used this script to create database:\r\nDisableCursorBlinking tinyint(1) NOT NULL,\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Create new dat...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3111,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "SQL schema compatibility hardening",
-                           "pr":  3111,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc3MzkzMTk5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Bonjour, \r\n\r\nj\u0027ai le m├¬me soucis, avez-vous avancer sur celui-ci ? \r\n\r\nmerci \r\n",
-                         "author":  "takate59",
-                         "action_needed":  true,
-                         "date":  "2021-02-05T10:05:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc5MDA3OTY2MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We also ran into this problem. Version 1.77.1.27654. The database was created using a script from Github.\r\n`DisableCursorBlinking` tinyint (1) NOT NULL,\r\nHow to solve a problem?",
-                         "author":  "AntonAndreevichMoroz",
-                         "action_needed":  true,
-                         "date":  "2021-03-03T21:40:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgxMjQ4OTMzNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, same for me !\r\nM├¬me probl├¿me...",
-                         "author":  "Tijaques",
-                         "action_needed":  true,
-                         "date":  "2021-04-02T11:23:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgyMjU4OTMwNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here",
-                         "author":  "roxsman",
-                         "action_needed":  true,
-                         "date":  "2021-04-19T16:07:15Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgyNzU3ODg1MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello everyone, i discover \"the problem\". Actually, the script you\u0027re problably copying is form website https://mremoteng.readthedocs.io/en/latest/sql_configuration.html#mysql, but the correct is in F1 on Mremote tool. \r\n\r\n![image](https://user-images.githubusercontent.com/70489669/116243487-5ec8e580-a73d-11eb-9bdf-17738ddaeda7.png)\r\n\r\nI hope I could have helped",
-                         "author":  "Carlos-Pegorini",
-                         "action_needed":  true,
-                         "date":  "2021-04-27T12:46:51Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM41SOZz",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi / Salut,\r\n\r\nFor me its working like a charm as soon i change the tblCons table with that one:\r\nCela fonctionne pour moi du moment o├╣ j\u0027utilise la table de donn├⌐e tblCons comme ceci : \r\n\r\n** EDIT some hours later, i did some mistake in the first place ** ** Modifi├⌐ il y avait quelques coquilles **\r\n\r\nTable tblCons working structure for version **1.77.2-nb** (Last Nightly Release) would be:\r\n\r\nCREATE TABLE `tblCons` (\r\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\r\n  `ConstantID` varchar(128) NOT ...",
-                         "author":  "JP146",
-                         "action_needed":  true,
-                         "date":  "2021-08-06T03:13:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5VrkC0",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have the same issue.\r\nMy setup:\r\nOS: Debian 11.6\r\nmysql-server 8.0.32\r\nmRemoteNG v1.77.3-dev\r\n\r\nCould anyone confirm if this working ? If yes what version of components do you have installed ?",
-                         "author":  "danwrobel",
-                         "action_needed":  true,
-                         "date":  "2023-02-20T19:46:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYikb",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYozC",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Implemented a compatibility hardening pass in my fork for this SQL schema edge case and validated it in CI. \r\n \r\nWhat changed: \r\n- always load SQL reader schema even when `tblCons` has 0 rows \r\n- auto-add missing serializer-required columns when source SQL schema is partial/outdated \r\n- regression test added for missing-column source schema \r\n \r\nFork commit: https://github.com/robertpopa22/mRemoteNG/commit/cd6eee37 \r\nCI run (x86/x64/ARM64 green): https://github.com/robertpopa22/mRemoteNG/actions...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T20:12:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpb04",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3111 | **Branch:** `codex/pr7-sql-schema-compat-1916`\n**Fix:** SQL schema compatibility hardened for older database versions.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:30Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:26:30Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1916,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "MySQL error Missing the DataColumn 'DisableCursorBlinking'",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "1.77.2",
+    "DBs"
+  ],
+  "author": "Eeeedison",
+  "created_at": "2020-12-19T05:54:24Z",
+  "github_updated_at": "2026-02-09T06:26:30Z",
+  "body_snippet": "Hi developers, I am trying to configure mRemoteNG  version 1.77.1.27713 with mysql for saving my config file.\r\nBut I got an error msg while trying to create a new connection file\r\n\r\n## Current Behavior\r\nCouldn't save connections file as \"\"!\r\nMissing the DataColumn 'DisableCursorBlinking' in the DataTable 'tblCons' for the SourceColumn 'DisableCursorBlinking'.\r\nI used this script to create database:\r\nDisableCursorBlinking tinyint(1) NOT NULL,\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Create new dat...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3111,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "SQL schema compatibility hardening",
+      "pr": 3111,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3MzkzMTk5MA==",
+      "author": "takate59",
+      "date": "2021-02-05T10:05:36Z",
+      "snippet": "Bonjour, \r\n\r\nj'ai le même soucis, avez-vous avancer sur celui-ci ? \r\n\r\nmerci \r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc5MDA3OTY2MQ==",
+      "author": "AntonAndreevichMoroz",
+      "date": "2021-03-03T21:40:48Z",
+      "snippet": "We also ran into this problem. Version 1.77.1.27654. The database was created using a script from Github.\r\n`DisableCursorBlinking` tinyint (1) NOT NULL,\r\nHow to solve a problem?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgxMjQ4OTMzNA==",
+      "author": "Tijaques",
+      "date": "2021-04-02T11:23:45Z",
+      "snippet": "Hello, same for me !\r\nMême problème...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyMjU4OTMwNA==",
+      "author": "roxsman",
+      "date": "2021-04-19T16:07:15Z",
+      "snippet": "Same here",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyNzU3ODg1MQ==",
+      "author": "Carlos-Pegorini",
+      "date": "2021-04-27T12:46:51Z",
+      "snippet": "Hello everyone, i discover \"the problem\". Actually, the script you're problably copying is form website https://mremoteng.readthedocs.io/en/latest/sql_configuration.html#mysql, but the correct is in F1 on Mremote tool. \r\n\r\n![image](https://user-images.githubusercontent.com/70489669/116243487-5ec8e580-a73d-11eb-9bdf-17738ddaeda7.png)\r\n\r\nI hope I could have helped",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM41SOZz",
+      "author": "JP146",
+      "date": "2021-08-06T03:13:46Z",
+      "snippet": "Hi / Salut,\r\n\r\nFor me its working like a charm as soon i change the tblCons table with that one:\r\nCela fonctionne pour moi du moment où j'utilise la table de donnée tblCons comme ceci : \r\n\r\n** EDIT some hours later, i did some mistake in the first place ** ** Modifié il y avait quelques coquilles **\r\n\r\nTable tblCons working structure for version **1.77.2-nb** (Last Nightly Release) would be:\r\n\r\nCREATE TABLE `tblCons` (\r\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\r\n  `ConstantID` varchar(128) NOT NUL...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5VrkC0",
+      "author": "danwrobel",
+      "date": "2023-02-20T19:46:59Z",
+      "snippet": "I have the same issue.\r\nMy setup:\r\nOS: Debian 11.6\r\nmysql-server 8.0.32\r\nmRemoteNG v1.77.3-dev\r\n\r\nCould anyone confirm if this working ? If yes what version of components do you have installed ?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYikb",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:53Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYozC",
+      "author": "robertpopa22",
+      "date": "2026-02-07T20:12:16Z",
+      "snippet": "Implemented a compatibility hardening pass in my fork for this SQL schema edge case and validated it in CI. \r\n \r\nWhat changed: \r\n- always load SQL reader schema even when `tblCons` has 0 rows \r\n- auto-add missing serializer-required columns when source SQL schema is partial/outdated \r\n- regression test added for missing-column source schema \r\n \r\nFork commit: https://github.com/robertpopa22/mRemoteNG/commit/cd6eee37 \r\nCI run (x86/x64/ARM64 green): https://github.com/robertpopa22/mRemoteNG/actions...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpb04",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:30Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3111 | **Branch:** `codex/pr7-sql-schema-compat-1916`\n**Fix:** SQL schema compatibility hardened for older database versions.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:26:30Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

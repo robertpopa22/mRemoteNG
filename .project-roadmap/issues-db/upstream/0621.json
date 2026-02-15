@@ -1,38 +1,36 @@
-﻿{
-    "number":  621,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature request: Add variables to Name field",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2017-06-28T05:16:12Z",
-    "github_updated_at":  "2023-08-18T06:11:59Z",
-    "body_snippet":  "1. Look at the help from menu Help | mRemoteNG Help. Check the \"External Tools\" option from left structured tree menu. There is section Variables like %HOSTNAME% that can be used with external tools Argument field.\r\n2. In **Connection** panel create new connection.\r\n3. In **Config** panel for this newly created connection inside **Display** section click on **Name** field. It would be awesome if variables could be used in this **Name** field like for example:\r\n `Mail server %Hostname%`\r\n\r\n   Cur...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5kVrMY",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 for this. I\u0027d prefer this over #2310 as i\u0027d like my Name to be machine name and hostname the fqdn combine from a variable\r\n```  %name%.full.local.fqdn ```",
-                         "author":  "Tuumke",
-                         "action_needed":  true,
-                         "date":  "2023-08-18T06:11:58Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-08-18T06:11:59Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 621,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature request: Add variables to Name field",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "igor2x",
+  "created_at": "2017-06-28T05:16:12Z",
+  "github_updated_at": "2023-08-18T06:11:59Z",
+  "body_snippet": "1. Look at the help from menu Help | mRemoteNG Help. Check the \"External Tools\" option from left structured tree menu. There is section Variables like %HOSTNAME% that can be used with external tools Argument field.\r\n2. In **Connection** panel create new connection.\r\n3. In **Config** panel for this newly created connection inside **Display** section click on **Name** field. It would be awesome if variables could be used in this **Name** field like for example:\r\n `Mail server %Hostname%`\r\n\r\n   Cur...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5kVrMY",
+      "author": "Tuumke",
+      "date": "2023-08-18T06:11:58Z",
+      "snippet": "+1 for this. I'd prefer this over #2310 as i'd like my Name to be machine name and hostname the fqdn combine from a variable\r\n```  %name%.full.local.fqdn ```",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-08-18T06:11:59Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

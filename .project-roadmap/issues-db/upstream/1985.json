@@ -1,113 +1,111 @@
-﻿{
-    "number":  1985,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Change SQL Server support of mRemoteNG",
-    "state":  "open",
-    "labels":  [
-                   "1.8 (Fenix)",
-                   "Needs implementation",
-                   "In development",
-                   "DBs"
-               ],
-    "author":  "ErMaqui",
-    "created_at":  "2021-06-29T18:01:45Z",
-    "github_updated_at":  "2026-02-07T19:53:49Z",
-    "body_snippet":  "Hi,\r\n\r\nThat\u0027s a feature request.\r\n\r\nCurrently, mRemoteNG allows to have connection configurations on a SQL Server.\r\nThat\u0027s a great feature, but it lacks some things:\r\n\r\nFirst, maybe the configuration from SQL Server should be in folder-level and not application level. For example, you can share some folder with your teammates via SQL Server and have all of us the same configurations, but allow too to have a \"local\" connections folder not stored on SQL (not shared connections).\r\n\r\nSecond, allow t...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MTI3OTc0MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "this is planed to implement with a new branch and its belongs to profiles. In my plans is to add local SQLite file as well so we can store \"offline\" data but need to be sure we will do that secure way. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-30T10:21:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM40rNXa",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I will just add another needed SQL feature is that credential replacement would be nice. \r\nWe team-share our RDP connections but for some servers we share logins and for other servers we have unique logins per user. \r\n\r\nAnother approach of looking at his may be split configuration, where the server name \u0026 IP is stored in SQL but the credentials to connect are stored on the local database",
-                         "author":  "agrath",
-                         "action_needed":  true,
-                         "date":  "2021-07-20T22:15:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM40x2IC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am planning to make profiles - in profile settings you will be able select authorisation type (windows, sql, AD, Azure AD, email, etc,) and also select that to include from connections - that can be also selectable - load part from db, another part from profile etc. will be fully configurable so you may select that to use, but fully functional it will be in 1.8 version, for 1.7 I only planning to fix current issues and fix some major bugs we have",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-07-23T08:24:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5n3uK8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, are there any news for the sql support?  I\u0027m trying to impement mremoteng for our team, where we share rdp connections, so i need a centralized db.",
-                         "author":  "saimen-ti",
-                         "action_needed":  true,
-                         "date":  "2023-10-02T09:09:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5odyyV",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, yes in new release config db will be provided so you could set access to SQL and then manage users acls on DB side (if you wish) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-09T09:28:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5oeBBO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, thanks and when will the new version be released?",
-                         "author":  "saimen-ti",
-                         "action_needed":  true,
-                         "date":  "2023-10-09T09:53:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5oeO_a",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "just restored my account for GitHub (as lost my phone and cant overtake 2FA without) so will be working on to commit changes and do release of NB first the earlest",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-09T10:34:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXJC9",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhsG",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:49Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:49Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1985,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Change SQL Server support of mRemoteNG",
+  "state": "open",
+  "labels": [
+    "1.8 (Fenix)",
+    "Needs implementation",
+    "In development",
+    "DBs"
+  ],
+  "author": "ErMaqui",
+  "created_at": "2021-06-29T18:01:45Z",
+  "github_updated_at": "2026-02-07T19:53:49Z",
+  "body_snippet": "Hi,\r\n\r\nThat's a feature request.\r\n\r\nCurrently, mRemoteNG allows to have connection configurations on a SQL Server.\r\nThat's a great feature, but it lacks some things:\r\n\r\nFirst, maybe the configuration from SQL Server should be in folder-level and not application level. For example, you can share some folder with your teammates via SQL Server and have all of us the same configurations, but allow too to have a \"local\" connections folder not stored on SQL (not shared connections).\r\n\r\nSecond, allow t...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTI3OTc0MA==",
+      "author": "Kvarkas",
+      "date": "2021-06-30T10:21:42Z",
+      "snippet": "this is planed to implement with a new branch and its belongs to profiles. In my plans is to add local SQLite file as well so we can store \"offline\" data but need to be sure we will do that secure way. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM40rNXa",
+      "author": "agrath",
+      "date": "2021-07-20T22:15:00Z",
+      "snippet": "I will just add another needed SQL feature is that credential replacement would be nice. \r\nWe team-share our RDP connections but for some servers we share logins and for other servers we have unique logins per user. \r\n\r\nAnother approach of looking at his may be split configuration, where the server name & IP is stored in SQL but the credentials to connect are stored on the local database",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM40x2IC",
+      "author": "Kvarkas",
+      "date": "2021-07-23T08:24:20Z",
+      "snippet": "I am planning to make profiles - in profile settings you will be able select authorisation type (windows, sql, AD, Azure AD, email, etc,) and also select that to include from connections - that can be also selectable - load part from db, another part from profile etc. will be fully configurable so you may select that to use, but fully functional it will be in 1.8 version, for 1.7 I only planning to fix current issues and fix some major bugs we have",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5n3uK8",
+      "author": "saimen-ti",
+      "date": "2023-10-02T09:09:18Z",
+      "snippet": "Hi, are there any news for the sql support?  I'm trying to impement mremoteng for our team, where we share rdp connections, so i need a centralized db.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5odyyV",
+      "author": "Kvarkas",
+      "date": "2023-10-09T09:28:29Z",
+      "snippet": "Hi, yes in new release config db will be provided so you could set access to SQL and then manage users acls on DB side (if you wish) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5oeBBO",
+      "author": "saimen-ti",
+      "date": "2023-10-09T09:53:57Z",
+      "snippet": "Hi, thanks and when will the new version be released?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5oeO_a",
+      "author": "Kvarkas",
+      "date": "2023-10-09T10:34:11Z",
+      "snippet": "just restored my account for GitHub (as lost my phone and cant overtake 2FA without) so will be working on to commit changes and do release of NB first the earlest",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXJC9",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:48Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhsG",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:49Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:49Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

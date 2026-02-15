@@ -1,87 +1,85 @@
-﻿{
-    "number":  2831,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Backup and restore the mremote NG application settings",
-    "state":  "open",
-    "labels":  [
-                   "In progress",
-                   "Needs User Verification",
-                   "In development",
-                   "1.78.*",
-                   "Settings"
-               ],
-    "author":  "wongcc2012",
-    "created_at":  "2025-09-29T07:12:49Z",
-    "github_updated_at":  "2026-02-07T19:55:23Z",
-    "body_snippet":  "I am using the preview build v1.77.x in my environment for testing purpose. However sometimes the program will crash and the window settings are completely gone and I am not able to move nor resize the elements. the simple fix I found is to remove the %appdata% mrenoteNG folder to restore the clean state. However all the program Options are gone (startup / exit, tabs and panels...)\n\nHow can I backup or export the program options? I have tried to copy the %appdata% but seem not working when migra...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7Is6Fq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hello, yes its a pain, new version will allow to control such in better way. Admin user may define what settings are read only and what user may change, or what should enforced for different users. \nTechnicaly NB is close to RC (Release Candidate) but its left some work to sort sequrity concerns) and apply changes in regards how its save and manage settings.",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-10-03T21:06:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Iv1ev",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "what version is recommended at this moment?\n\n\u003cimg width=\"891\" height=\"358\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/85f37429-6ba0-4921-ad20-6ae9bf5c2e1d\" /\u003e\n\nseem those 3 channels are discontinued? and all development is moved to pre-release v1.78 in the releases? ",
-                         "author":  "wongcc2012",
-                         "action_needed":  true,
-                         "date":  "2025-10-04T07:12:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7I5xgF",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hello, not exactly, 1.76x and 1.77.x only due to much difference and a lot of changes what improved security and due they reley on .NET 9 what is in NB version, what a complex to support older version what are out of support due .NET 5 out of service and .NET 6 to, so the only one I am working on is NB channel - what should release soon as RC candidate, I know I promised that sooner but its so much work need to be done so dont want to release half-ready - but it didinitly will be release soon. \n...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-10-06T08:59:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7JYM1D",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @wongcc2012 \n\nPlease note that mRemoteNG also has some user specific settings in `%LOCALAPPDATA%\\mRemoteNG` and not only in `%APPDATA%\\mRemoteNG`.\n\nWith the new settings architecture in development (1.78+) the files etc. will be organized differently, but until then these two folders should be enough.\n\n",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-10-07T20:16:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7JbRKy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have tried the v1.77 and the appdata folder seems changed the name\n\n%localappdata%\\The_mRemoteNG_Team\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.27654",
-                         "author":  "wongcc2012",
-                         "action_needed":  true,
-                         "date":  "2025-10-08T02:46:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiJC",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:23Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:23Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2831,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Backup and restore the mremote NG application settings",
+  "state": "open",
+  "labels": [
+    "In progress",
+    "Needs User Verification",
+    "In development",
+    "1.78.*",
+    "Settings"
+  ],
+  "author": "wongcc2012",
+  "created_at": "2025-09-29T07:12:49Z",
+  "github_updated_at": "2026-02-07T19:55:23Z",
+  "body_snippet": "I am using the preview build v1.77.x in my environment for testing purpose. However sometimes the program will crash and the window settings are completely gone and I am not able to move nor resize the elements. the simple fix I found is to remove the %appdata% mrenoteNG folder to restore the clean state. However all the program Options are gone (startup / exit, tabs and panels...)\n\nHow can I backup or export the program options? I have tried to copy the %appdata% but seem not working when migra...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7Is6Fq",
+      "author": "Kvarkas",
+      "date": "2025-10-03T21:06:00Z",
+      "snippet": "hello, yes its a pain, new version will allow to control such in better way. Admin user may define what settings are read only and what user may change, or what should enforced for different users. \nTechnicaly NB is close to RC (Release Candidate) but its left some work to sort sequrity concerns) and apply changes in regards how its save and manage settings.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Iv1ev",
+      "author": "wongcc2012",
+      "date": "2025-10-04T07:12:25Z",
+      "snippet": "what version is recommended at this moment?\n\n<img width=\"891\" height=\"358\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/85f37429-6ba0-4921-ad20-6ae9bf5c2e1d\" />\n\nseem those 3 channels are discontinued? and all development is moved to pre-release v1.78 in the releases? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7I5xgF",
+      "author": "Kvarkas",
+      "date": "2025-10-06T08:59:16Z",
+      "snippet": "hello, not exactly, 1.76x and 1.77.x only due to much difference and a lot of changes what improved security and due they reley on .NET 9 what is in NB version, what a complex to support older version what are out of support due .NET 5 out of service and .NET 6 to, so the only one I am working on is NB channel - what should release soon as RC candidate, I know I promised that sooner but its so much work need to be done so dont want to release half-ready - but it didinitly will be release soon. \n...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7JYM1D",
+      "author": "simonai1254",
+      "date": "2025-10-07T20:16:31Z",
+      "snippet": "Hi @wongcc2012 \n\nPlease note that mRemoteNG also has some user specific settings in `%LOCALAPPDATA%\\mRemoteNG` and not only in `%APPDATA%\\mRemoteNG`.\n\nWith the new settings architecture in development (1.78+) the files etc. will be organized differently, but until then these two folders should be enough.\n\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7JbRKy",
+      "author": "wongcc2012",
+      "date": "2025-10-08T02:46:09Z",
+      "snippet": "I have tried the v1.77 and the appdata folder seems changed the name\n\n%localappdata%\\The_mRemoteNG_Team\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.27654",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiJC",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:23Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:23Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

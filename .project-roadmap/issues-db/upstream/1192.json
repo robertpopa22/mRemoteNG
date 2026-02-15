@@ -1,56 +1,54 @@
-﻿{
-    "number":  1192,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request: Template connections with no hostnames",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "dachiz",
-    "created_at":  "2018-11-15T22:41:52Z",
-    "github_updated_at":  "2018-12-20T21:34:25Z",
-    "body_snippet":  "My remote hosts frequently change but I have common credentials for all of them.  It would be terrific if I could create a template connection that has my credentials (or inherits them), and when I launch it, I\u0027m prompted for the host to connect to.  If the connection is successful, it would then ask me if I wanted to save the connection. ",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NTk5OTg5OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is pretty much what [Inheritance](https://github.com/mRemoteNG/mRemoteNG/wiki/Folders-and-Inheritance) does - setup a folder with all the details, then create a connection with just the hostname (generally the only thing that will be different).\r\n\r\nGive that a shot and see if that meets your needs. If not, please provide some additional details on how/where things can be improved.\r\n\r\nIt\u0027s possible that the scheduled Credential Manager functionality expected in 1.77 will also help in this re...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2018-12-10T22:33:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0NjIxMTUxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I use the inheritance feature a lot (thanks!).  This request is slightly different.  It\u0027s basically quick-connect with inheritance.\r\n\r\nIf you have a lot of virtual machines that frequently come and go, your saved connections become obsolete just as frequently.  So I find myself using quick-connection about as much as my saved connections.",
-                         "author":  "dachiz",
-                         "action_needed":  true,
-                         "date":  "2018-12-11T13:59:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ0OTE0MjY1MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e It\u0027s possible that the scheduled Credential Manager functionality expected in 1.77 will also help in this regard...\r\n\r\nThat\u0027s a good point. We could add something in the quick connect control to allow you to select a credential for the connection.\r\n\r\n\u003e If the connection is successful, it would then ask me if I wanted to save the connection.\r\n\r\nThis would also be a decent feature by itself - convert a quick connection to a saved one.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-12-20T21:34:25Z"
-                     }
-                 ],
-    "comments_cursor":  "2018-12-20T21:34:25Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1192,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request: Template connections with no hostnames",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "dachiz",
+  "created_at": "2018-11-15T22:41:52Z",
+  "github_updated_at": "2018-12-20T21:34:25Z",
+  "body_snippet": "My remote hosts frequently change but I have common credentials for all of them.  It would be terrific if I could create a template connection that has my credentials (or inherits them), and when I launch it, I'm prompted for the host to connect to.  If the connection is successful, it would then ask me if I wanted to save the connection. ",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0NTk5OTg5OA==",
+      "author": "kmscode",
+      "date": "2018-12-10T22:33:07Z",
+      "snippet": "This is pretty much what [Inheritance](https://github.com/mRemoteNG/mRemoteNG/wiki/Folders-and-Inheritance) does - setup a folder with all the details, then create a connection with just the hostname (generally the only thing that will be different).\r\n\r\nGive that a shot and see if that meets your needs. If not, please provide some additional details on how/where things can be improved.\r\n\r\nIt's possible that the scheduled Credential Manager functionality expected in 1.77 will also help in this re...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0NjIxMTUxMA==",
+      "author": "dachiz",
+      "date": "2018-12-11T13:59:00Z",
+      "snippet": "I use the inheritance feature a lot (thanks!).  This request is slightly different.  It's basically quick-connect with inheritance.\r\n\r\nIf you have a lot of virtual machines that frequently come and go, your saved connections become obsolete just as frequently.  So I find myself using quick-connection about as much as my saved connections.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0OTE0MjY1MQ==",
+      "author": "sparerd",
+      "date": "2018-12-20T21:34:25Z",
+      "snippet": "> It's possible that the scheduled Credential Manager functionality expected in 1.77 will also help in this regard...\r\n\r\nThat's a good point. We could add something in the quick connect control to allow you to select a credential for the connection.\r\n\r\n> If the connection is successful, it would then ask me if I wanted to save the connection.\r\n\r\nThis would also be a decent feature by itself - convert a quick connection to a saved one.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2018-12-20T21:34:25Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

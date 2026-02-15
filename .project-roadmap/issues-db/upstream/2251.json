@@ -1,65 +1,63 @@
-﻿{
-    "number":  2251,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "[Question]How to have mRemoteNG use KiTTY instead of PuTTY ?",
-    "state":  "open",
-    "labels":  [
-                   "SSH"
-               ],
-    "author":  "sebma",
-    "created_at":  "2022-06-22T12:08:34Z",
-    "github_updated_at":  "2022-10-11T14:18:21Z",
-    "body_snippet":  "How to have mRemoteNG use KiTTY instead of PuTTY ?\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n* Version used: 1.76.20.24615\r\n* Operating System and version : Windows 10 Pro v1903\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5FVQLP",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Add support for KiTTY #851",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-06-22T14:45:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5FpDmV",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "we are thinking about such, but at the moment its not implemented",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-06-28T08:16:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L3pai",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Not sure what the intention is to add kitty support, as i can\u0027t see a usecase for it, as mremote already brings \"tab support\" \"scp support\" and more.",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T07:18:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L9nTa",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@thetuxinator Hi,\r\nKiTTY supports font size \"growing/zooming\" with CTRL+PLUS or CTRL+MouseScroll.\r\n\r\nPuTTY does not and it is a pain for each new SSH session to always change the font size manually in the PuTTY parameters-\u003eWindow-\u003eAppearance-\u003eFont settings-\u003eChange.",
-                         "author":  "sebma",
-                         "action_needed":  true,
-                         "date":  "2022-10-11T10:01:22Z"
-                     }
-                 ],
-    "comments_cursor":  "2022-10-11T14:18:21Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2251,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Question]How to have mRemoteNG use KiTTY instead of PuTTY ?",
+  "state": "open",
+  "labels": [
+    "SSH"
+  ],
+  "author": "sebma",
+  "created_at": "2022-06-22T12:08:34Z",
+  "github_updated_at": "2022-10-11T14:18:21Z",
+  "body_snippet": "How to have mRemoteNG use KiTTY instead of PuTTY ?\r\n\r\n## Your Environment\r\n<!--- Include as many relevant details about the environment you experienced the bug in -->\r\n* Version used: 1.76.20.24615\r\n* Operating System and version : Windows 10 Pro v1903\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5FVQLP",
+      "author": "LIyoai",
+      "date": "2022-06-22T14:45:27Z",
+      "snippet": "Add support for KiTTY #851",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5FpDmV",
+      "author": "Kvarkas",
+      "date": "2022-06-28T08:16:16Z",
+      "snippet": "we are thinking about such, but at the moment its not implemented",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L3pai",
+      "author": "thetuxinator",
+      "date": "2022-10-10T07:18:23Z",
+      "snippet": "Not sure what the intention is to add kitty support, as i can't see a usecase for it, as mremote already brings \"tab support\" \"scp support\" and more.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L9nTa",
+      "author": "sebma",
+      "date": "2022-10-11T10:01:22Z",
+      "snippet": "@thetuxinator Hi,\r\nKiTTY supports font size \"growing/zooming\" with CTRL+PLUS or CTRL+MouseScroll.\r\n\r\nPuTTY does not and it is a pain for each new SSH session to always change the font size manually in the PuTTY parameters->Window->Appearance->Font settings->Change.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2022-10-11T14:18:21Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

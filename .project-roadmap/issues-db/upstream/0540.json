@@ -1,156 +1,154 @@
-﻿{
-    "number":  540,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "mRemote always failed the first RDP Connection",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "1.77.2"
-               ],
-    "author":  "seanyh",
-    "created_at":  "2017-05-05T03:16:29Z",
-    "github_updated_at":  "2026-02-07T19:53:05Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nSeems to mostly happen with 2012 servers. First time I connect, it times out. Works fine the 2nd time.\r\n|--:|---|\r\n|Operating system | Windows 2008 R2 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n\r\n\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5OTYwODk1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Sorry I\u0027m mobile and don\u0027t remember exactly off the top of my head, but... Tools \u003e connections \u003e increase the RDP timeout.",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-05-06T02:03:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5OTczNTI3OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This just seems to wait longer until it doesn\u0027t work. Decreasing it seems to work better",
-                         "author":  "seanyh",
-                         "action_needed":  true,
-                         "date":  "2017-05-07T21:11:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTk1NDcwOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I tried to connect (from Win7 and I tried it from my home and my office computer, both are Win7) to two different Win10 machines - both Win10 are relatively new installed and all updates are on them - and I cant connect. Then I made as first a connection with Microsofts MSTSC.EXE to both of the Win10-computers I suddenly can connect with mRemote.\r\n\r\nOne Win10 has F-Secure on it,the other one has no protection - so that cant be the reason, both are in the same network (structure).\r\n\r\nThere seems ...",
-                         "author":  "JMaier1",
-                         "action_needed":  true,
-                         "date":  "2017-09-16T08:29:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2MDE3NDYwNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think I have the same issue ore something similar. I have all my connections defined with FQDN hostname. When I connect the first time with mRemote it fails, second time it works fine. When I define a connection with the IP address it works fine the first time.\r\n\r\nCan someone confirm if this is the same issue as described above?\r\n\r\nClient: Windows 10 Pro 1511\r\nmRemote 1.75.7012.16814",
-                         "author":  "DjCezzy",
-                         "action_needed":  true,
-                         "date":  "2018-01-24T15:39:29Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MzMwMTg5Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can confirm @DjCezzy issue, have the same behavior. What\u0027s more changing to IP have immediate effect as well.\r\nClient: Windows 10 1709\r\nmRemote: 1.75.7012 (2017-12-01)",
-                         "author":  "Baryczka",
-                         "action_needed":  true,
-                         "date":  "2018-03-15T08:44:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyODUwNDU2Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@seanyh @JMaier1 @DjCezzy @Baryczka \r\nCould anyone confirm if this is still the case in v1.76.20?",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-09-05T18:02:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzODQ2Mjc1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I found a workaround that seems to take care of the symptoms in my mRemoteNG client v.1.76.20.24615\r\n\r\nI have Folders under my connections tree, and on the folders I have different username and domain information for the Active Directory domains that servers I am trying to RDP to need for me to authenticate. However, by using some inheritance, is when i see the delay in logging in and the first try timeout problem. RDP would try to connect, fail, then immediately when i tried again the RDP login...",
-                         "author":  "409industries",
-                         "action_needed":  true,
-                         "date":  "2019-10-04T16:11:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzODc0MzA5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@409industries That can be one of the culprit. In my company we fixed this problem setting some DNS for local domain. Problem seems to be some domain dns resolution, where failing. Good catch",
-                         "author":  "Baryczka",
-                         "action_needed":  true,
-                         "date":  "2019-10-06T12:37:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzOTExMzUyNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @409industries That can be one of the culprit. In my company we fixed this problem setting some DNS for local domain. Problem seems to be some domain dns resolution, where failing. Good catch\r\n\r\nUnfortunately, it has turned out this isn\u0027t a sure-fire fix. I am still seeing RDP sessions fail on the first attempt only to go right in on the next. Seems to have helped, but isn\u0027t working consistently 100% :-( ",
-                         "author":  "409industries",
-                         "action_needed":  true,
-                         "date":  "2019-10-07T17:13:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzOTE2Mjc5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@409industries Could you please provide the mrng logfile the next time this happens?\r\nSee https://mremoteng.readthedocs.io/en/latest/troubleshooting.html",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-10-07T19:16:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzOTE2MzUxNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Also, please check these two:\r\n\r\n- https://social.technet.microsoft.com/Forums/Lync/en-US/7c28f7f3-9135-4dd4-8c74-dee2d465ca93/remote-desktop-connection-always-fails-on-first-attempt?forum=w7itpronetworking\r\n- https://superuser.com/questions/1179793/connection-to-servers-only-works-on-second-attempt",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-10-07T19:18:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU0NDU1NzgzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I don\u0027t know why it works ... But I fixed the issue with \"use console session\" = YES.\r\nMaybe my problem was different: I never got a connection with FQN, but always with IP.",
-                         "author":  "limex",
-                         "action_needed":  true,
-                         "date":  "2019-10-21T15:05:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU2MDQ4NzI4MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Also, please check these two:\r\n\u003e \r\n\u003e * https://social.technet.microsoft.com/Forums/Lync/en-US/7c28f7f3-9135-4dd4-8c74-dee2d465ca93/remote-desktop-connection-always-fails-on-first-attempt?forum=w7itpronetworking\r\n\u003e * https://superuser.com/questions/1179793/connection-to-servers-only-works-on-second-attempt\r\n\r\nfarosch-\r\n\r\nThank you for the links. After confirming that other engineers were having the same problems without using mRemoteNG (they had saved RDPManager sessions), i looked towards the ...",
-                         "author":  "409industries",
-                         "action_needed":  true,
-                         "date":  "2019-12-02T17:05:51Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhct",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:04Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:05Z",
-    "unread_comments":  13,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 540,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "mRemote always failed the first RDP Connection",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "1.77.2"
+  ],
+  "author": "seanyh",
+  "created_at": "2017-05-05T03:16:29Z",
+  "github_updated_at": "2026-02-07T19:53:05Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nSeems to mostly happen with 2012 servers. First time I connect, it times out. Works fine the 2nd time.\r\n|--:|---|\r\n|Operating system | Windows 2008 R2 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n\r\n\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5OTYwODk1Mg==",
+      "author": "kmscode",
+      "date": "2017-05-06T02:03:09Z",
+      "snippet": "Sorry I'm mobile and don't remember exactly off the top of my head, but... Tools > connections > increase the RDP timeout.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5OTczNTI3OQ==",
+      "author": "seanyh",
+      "date": "2017-05-07T21:11:53Z",
+      "snippet": "This just seems to wait longer until it doesn't work. Decreasing it seems to work better",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyOTk1NDcwOQ==",
+      "author": "JMaier1",
+      "date": "2017-09-16T08:29:12Z",
+      "snippet": "I tried to connect (from Win7 and I tried it from my home and my office computer, both are Win7) to two different Win10 machines - both Win10 are relatively new installed and all updates are on them - and I cant connect. Then I made as first a connection with Microsofts MSTSC.EXE to both of the Win10-computers I suddenly can connect with mRemote.\r\n\r\nOne Win10 has F-Secure on it,the other one has no protection - so that cant be the reason, both are in the same network (structure).\r\n\r\nThere seems ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2MDE3NDYwNA==",
+      "author": "DjCezzy",
+      "date": "2018-01-24T15:39:29Z",
+      "snippet": "I think I have the same issue ore something similar. I have all my connections defined with FQDN hostname. When I connect the first time with mRemote it fails, second time it works fine. When I define a connection with the IP address it works fine the first time.\r\n\r\nCan someone confirm if this is the same issue as described above?\r\n\r\nClient: Windows 10 Pro 1511\r\nmRemote 1.75.7012.16814",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MzMwMTg5Mg==",
+      "author": "Baryczka",
+      "date": "2018-03-15T08:44:42Z",
+      "snippet": "I can confirm @DjCezzy issue, have the same behavior. What's more changing to IP have immediate effect as well.\r\nClient: Windows 10 1709\r\nmRemote: 1.75.7012 (2017-12-01)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyODUwNDU2Nw==",
+      "author": "farosch",
+      "date": "2019-09-05T18:02:52Z",
+      "snippet": "@seanyh @JMaier1 @DjCezzy @Baryczka \r\nCould anyone confirm if this is still the case in v1.76.20?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzODQ2Mjc1Ng==",
+      "author": "409industries",
+      "date": "2019-10-04T16:11:02Z",
+      "snippet": "I found a workaround that seems to take care of the symptoms in my mRemoteNG client v.1.76.20.24615\r\n\r\nI have Folders under my connections tree, and on the folders I have different username and domain information for the Active Directory domains that servers I am trying to RDP to need for me to authenticate. However, by using some inheritance, is when i see the delay in logging in and the first try timeout problem. RDP would try to connect, fail, then immediately when i tried again the RDP login...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzODc0MzA5MA==",
+      "author": "Baryczka",
+      "date": "2019-10-06T12:37:07Z",
+      "snippet": "@409industries That can be one of the culprit. In my company we fixed this problem setting some DNS for local domain. Problem seems to be some domain dns resolution, where failing. Good catch",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzOTExMzUyNQ==",
+      "author": "409industries",
+      "date": "2019-10-07T17:13:37Z",
+      "snippet": "> @409industries That can be one of the culprit. In my company we fixed this problem setting some DNS for local domain. Problem seems to be some domain dns resolution, where failing. Good catch\r\n\r\nUnfortunately, it has turned out this isn't a sure-fire fix. I am still seeing RDP sessions fail on the first attempt only to go right in on the next. Seems to have helped, but isn't working consistently 100% :-( ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzOTE2Mjc5MA==",
+      "author": "farosch",
+      "date": "2019-10-07T19:16:34Z",
+      "snippet": "@409industries Could you please provide the mrng logfile the next time this happens?\r\nSee https://mremoteng.readthedocs.io/en/latest/troubleshooting.html",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzOTE2MzUxNw==",
+      "author": "farosch",
+      "date": "2019-10-07T19:18:33Z",
+      "snippet": "Also, please check these two:\r\n\r\n- https://social.technet.microsoft.com/Forums/Lync/en-US/7c28f7f3-9135-4dd4-8c74-dee2d465ca93/remote-desktop-connection-always-fails-on-first-attempt?forum=w7itpronetworking\r\n- https://superuser.com/questions/1179793/connection-to-servers-only-works-on-second-attempt",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0NDU1NzgzNw==",
+      "author": "limex",
+      "date": "2019-10-21T15:05:36Z",
+      "snippet": "I don't know why it works ... But I fixed the issue with \"use console session\" = YES.\r\nMaybe my problem was different: I never got a connection with FQN, but always with IP.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MDQ4NzI4MQ==",
+      "author": "409industries",
+      "date": "2019-12-02T17:05:51Z",
+      "snippet": "> Also, please check these two:\r\n> \r\n> * https://social.technet.microsoft.com/Forums/Lync/en-US/7c28f7f3-9135-4dd4-8c74-dee2d465ca93/remote-desktop-connection-always-fails-on-first-attempt?forum=w7itpronetworking\r\n> * https://superuser.com/questions/1179793/connection-to-servers-only-works-on-second-attempt\r\n\r\nfarosch-\r\n\r\nThank you for the links. After confirming that other engineers were having the same problems without using mRemoteNG (they had saved RDPManager sessions), i looked towards the ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhct",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:04Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:05Z",
+  "unread_comments": 13,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

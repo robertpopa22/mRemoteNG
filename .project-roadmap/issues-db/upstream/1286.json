@@ -1,66 +1,64 @@
-﻿{
-    "number":  1286,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Random Errors When Closing Tab",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Bug"
-               ],
-    "author":  "cinquestl",
-    "created_at":  "2019-01-24T22:33:46Z",
-    "github_updated_at":  "2019-10-03T21:35:49Z",
-    "body_snippet":  "Closing panel with single connection throws error\r\n\r\n## Expected Behavior\r\nWhen closing the panel that contains a single connection will periodically toss an error window.\r\n\r\n## Current Behavior\r\nThe tab and connection will close, but the error window will display as follows:\r\nError (1/24/2019 10:40:43 AM)\r\nCouldn\u0027t add panel\r\nObject reference notset to an instance of an object.\r\n\r\nClicking OK closes the dialog. mRemoteNG continues to run normally. No loss of connections in other tabs.\r\n\r\n\r\n## P...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTIwMjAyMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It is likely that #155 solves this issue since we removed the library that did the paneling. This will be testable in v1.77",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-03-09T17:14:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTI5OTgxNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you. I will let you know once 1.77 is available and running on my\nmachine.\n\nOn Sat, Mar 9, 2019 at 11:14 AM David Sparer \u003cnotifications@github.com\u003e\nwrote:\n\n\u003e It is likely that #155 \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/155\u003e\n\u003e solves this issue since we removed the library that did the paneling. This\n\u003e will be testable in v1.77\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteN...",
-                         "author":  "cinquestl",
-                         "action_needed":  true,
-                         "date":  "2019-03-10T13:19:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNTMzOTE4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Using Version v1.77.1\r\nI can still simulate this issue by:\r\nOpen connection that has a Panel\r\nThen closing the Panel while the Connection is still active. \r\nI use SSH connections most of the time.\r\n\r\nWork Around:\r\nCurrently i try to make sure that I close each connection first before closing the Panel. \r\nCurrently I am making sure that i close each ",
-                         "author":  "LeonvanHeerden",
-                         "action_needed":  true,
-                         "date":  "2019-09-26T05:11:51Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzODEzODcyOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have been able to replicate this on the latest `develop` branch with the steps provided by @LeonvanHeerden \r\n\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: \u0027ConnectionWindow\u0027.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at mRemoteNG.UI.Win...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-10-03T21:35:49Z"
-                     }
-                 ],
-    "comments_cursor":  "2019-10-03T21:35:49Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1286,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Random Errors When Closing Tab",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Bug"
+  ],
+  "author": "cinquestl",
+  "created_at": "2019-01-24T22:33:46Z",
+  "github_updated_at": "2019-10-03T21:35:49Z",
+  "body_snippet": "Closing panel with single connection throws error\r\n\r\n## Expected Behavior\r\nWhen closing the panel that contains a single connection will periodically toss an error window.\r\n\r\n## Current Behavior\r\nThe tab and connection will close, but the error window will display as follows:\r\nError (1/24/2019 10:40:43 AM)\r\nCouldn't add panel\r\nObject reference notset to an instance of an object.\r\n\r\nClicking OK closes the dialog. mRemoteNG continues to run normally. No loss of connections in other tabs.\r\n\r\n\r\n## P...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3MTIwMjAyMw==",
+      "author": "sparerd",
+      "date": "2019-03-09T17:14:48Z",
+      "snippet": "It is likely that #155 solves this issue since we removed the library that did the paneling. This will be testable in v1.77",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3MTI5OTgxNw==",
+      "author": "cinquestl",
+      "date": "2019-03-10T13:19:14Z",
+      "snippet": "Thank you. I will let you know once 1.77 is available and running on my\nmachine.\n\nOn Sat, Mar 9, 2019 at 11:14 AM David Sparer <notifications@github.com>\nwrote:\n\n> It is likely that #155 <https://github.com/mRemoteNG/mRemoteNG/issues/155>\n> solves this issue since we removed the library that did the paneling. This\n> will be testable in v1.77\n>\n> —\n> You are receiving this because you authored the thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/mRemoteNG/mRemoteNG/...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNTMzOTE4Mg==",
+      "author": "LeonvanHeerden",
+      "date": "2019-09-26T05:11:51Z",
+      "snippet": "Using Version v1.77.1\r\nI can still simulate this issue by:\r\nOpen connection that has a Panel\r\nThen closing the Panel while the Connection is still active. \r\nI use SSH connections most of the time.\r\n\r\nWork Around:\r\nCurrently i try to make sure that I close each connection first before closing the Panel. \r\nCurrently I am making sure that i close each ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzODEzODcyOA==",
+      "author": "farosch",
+      "date": "2019-10-03T21:35:49Z",
+      "snippet": "I have been able to replicate this on the latest `develop` branch with the steps provided by @LeonvanHeerden \r\n\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: 'ConnectionWindow'.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at mRemoteNG.UI.Win...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2019-10-03T21:35:49Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

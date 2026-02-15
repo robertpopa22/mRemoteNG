@@ -1,138 +1,136 @@
-﻿{
-    "number":  887,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Import RDM Files from  Remote Desktop Manger (Devolutions)",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Help Wanted"
-               ],
-    "author":  "johnsie",
-    "created_at":  "2018-02-16T13:30:58Z",
-    "github_updated_at":  "2023-10-17T08:48:27Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\r\n\r\n\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\nLove your progam. It would be reallly good if it could import rdm files from the latest version of \u0027remote desktop manager\u0027 by devolutions. The file i...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NjIzODAxMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yea should be fairly easy to do. I\u0027ll schedule for v1.77",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-16T13:42:15Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODMyODc1Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,  any update on when V1.77 will be out?\r\nCurrenlty looking to switch to mRemoteNG howver unable to import my sessions.",
-                         "author":  "iaing80",
-                         "action_needed":  true,
-                         "date":  "2018-07-27T06:51:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQwODUxMzg0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@iaing80 No, not yet. v1.76 has been delayed due to lack of development resources, though we are making a hard push to get it to a stable release very soon. I hope to be able to start doing v1.77 development work once v1.76 reaches beta.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-07-27T19:14:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NTg4MDYyMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd Would you be able to add this feature to v1.77? I didn\u0027t see this feature being worked on for v1.77",
-                         "author":  "casao94",
-                         "action_needed":  true,
-                         "date":  "2019-02-21T06:39:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NjAwNzkwMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@casao94 We haven\u0027t gotten to it yet, though it is still scheduled for that version",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-02-21T13:55:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwODAxMTExMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, could you let me know what is the actual status of the implementation?",
-                         "author":  "drsnacek",
-                         "action_needed":  true,
-                         "date":  "2019-07-03T09:12:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyMDQwNTI4NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m also trying to migrate from Devolutions RDM to mRemoteNG, but neither the .xml nor the .csv import works. Is there another way to get my database imported while the devs work on an official solution?",
-                         "author":  "anubis-genix",
-                         "action_needed":  true,
-                         "date":  "2019-08-12T12:31:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3ODQ0MTAzOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I\u0027m also trying to migrate from Devolutions RDM to mRemoteNG, but neither the .xml nor the .csv import works. Is there another way to get my database imported while the devs work on an official solution?\r\n\r\nSame here... is there any update on this feature? I can\u0027t import RDM to mRemoteNG. :(",
-                         "author":  "KaledKelevra",
-                         "action_needed":  true,
-                         "date":  "2020-01-25T20:37:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYxMzYyNTc3Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any suggestions on how to convert a Devolutions RDM export to a format that mRemoteNG understands would be great. \r\n\r\nI just spent an hour fiddling around with Excel to copy-paste values from a .csv export from Devolutions RDM, into an export from mRemoteNG and then importing again, but unfortunately without any luck :(",
-                         "author":  "ThinkPadNL",
-                         "action_needed":  true,
-                         "date":  "2020-04-14T19:04:20Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczNTU0MTk0Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m hoping you\u0027ve gotten this imported already, but here\u0027s what I ended up doing tonight.\r\n\r\nI exported my entries to individual RDP files, them imported them into mRemoteNG. I then exported those entries into a CSV file and manually manipulated column data using a combination of Notepad++ and an application called  [\"Rons Editor\"](https://www.ronsplace.ca/Products/RonsEditor). Took me a couple hours for my 250 entries. After editing, I created a new connection file and imported the updated CSV ...",
-                         "author":  "DaveSchopp",
-                         "action_needed":  true,
-                         "date":  "2020-11-30T04:47:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pNU7y",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas Looks like this issue can be moved to done due to merged PR#2208. Unless it needs to be documented (I\u0027m not finding any mention of this in the v1.77 docs)?",
-                         "author":  "savornicesei",
-                         "action_needed":  true,
-                         "date":  "2023-10-16T18:58:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pQmxu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "thanks to pointing me into that, will try to check",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-17T08:48:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-10-17T08:48:27Z",
-    "unread_comments":  12,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 887,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Import RDM Files from  Remote Desktop Manger (Devolutions)",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Help Wanted"
+  ],
+  "author": "johnsie",
+  "created_at": "2018-02-16T13:30:58Z",
+  "github_updated_at": "2023-10-17T08:48:27Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n\r\n\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\nLove your progam. It would be reallly good if it could import rdm files from the latest version of 'remote desktop manager' by devolutions. The file i...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NjIzODAxMQ==",
+      "author": "sparerd",
+      "date": "2018-02-16T13:42:15Z",
+      "snippet": "Yea should be fairly easy to do. I'll schedule for v1.77",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQwODMyODc1Mw==",
+      "author": "iaing80",
+      "date": "2018-07-27T06:51:19Z",
+      "snippet": "Hi,  any update on when V1.77 will be out?\r\nCurrenlty looking to switch to mRemoteNG howver unable to import my sessions.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQwODUxMzg0MQ==",
+      "author": "sparerd",
+      "date": "2018-07-27T19:14:39Z",
+      "snippet": "@iaing80 No, not yet. v1.76 has been delayed due to lack of development resources, though we are making a hard push to get it to a stable release very soon. I hope to be able to start doing v1.77 development work once v1.76 reaches beta.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2NTg4MDYyMQ==",
+      "author": "casao94",
+      "date": "2019-02-21T06:39:36Z",
+      "snippet": "@sparerd Would you be able to add this feature to v1.77? I didn't see this feature being worked on for v1.77",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2NjAwNzkwMA==",
+      "author": "sparerd",
+      "date": "2019-02-21T13:55:25Z",
+      "snippet": "@casao94 We haven't gotten to it yet, though it is still scheduled for that version",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwODAxMTExMQ==",
+      "author": "drsnacek",
+      "date": "2019-07-03T09:12:13Z",
+      "snippet": "Hello, could you let me know what is the actual status of the implementation?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyMDQwNTI4NA==",
+      "author": "anubis-genix",
+      "date": "2019-08-12T12:31:16Z",
+      "snippet": "I'm also trying to migrate from Devolutions RDM to mRemoteNG, but neither the .xml nor the .csv import works. Is there another way to get my database imported while the devs work on an official solution?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3ODQ0MTAzOA==",
+      "author": "KaledKelevra",
+      "date": "2020-01-25T20:37:55Z",
+      "snippet": "> I'm also trying to migrate from Devolutions RDM to mRemoteNG, but neither the .xml nor the .csv import works. Is there another way to get my database imported while the devs work on an official solution?\r\n\r\nSame here... is there any update on this feature? I can't import RDM to mRemoteNG. :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYxMzYyNTc3Nw==",
+      "author": "ThinkPadNL",
+      "date": "2020-04-14T19:04:20Z",
+      "snippet": "Any suggestions on how to convert a Devolutions RDM export to a format that mRemoteNG understands would be great. \r\n\r\nI just spent an hour fiddling around with Excel to copy-paste values from a .csv export from Devolutions RDM, into an export from mRemoteNG and then importing again, but unfortunately without any luck :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNTU0MTk0Nw==",
+      "author": "DaveSchopp",
+      "date": "2020-11-30T04:47:23Z",
+      "snippet": "I'm hoping you've gotten this imported already, but here's what I ended up doing tonight.\r\n\r\nI exported my entries to individual RDP files, them imported them into mRemoteNG. I then exported those entries into a CSV file and manually manipulated column data using a combination of Notepad++ and an application called  [\"Rons Editor\"](https://www.ronsplace.ca/Products/RonsEditor). Took me a couple hours for my 250 entries. After editing, I created a new connection file and imported the updated CSV ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pNU7y",
+      "author": "savornicesei",
+      "date": "2023-10-16T18:58:37Z",
+      "snippet": "@Kvarkas Looks like this issue can be moved to done due to merged PR#2208. Unless it needs to be documented (I'm not finding any mention of this in the v1.77 docs)?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pQmxu",
+      "author": "Kvarkas",
+      "date": "2023-10-17T08:48:27Z",
+      "snippet": "thanks to pointing me into that, will try to check",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-10-17T08:48:27Z",
+  "unread_comments": 12,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

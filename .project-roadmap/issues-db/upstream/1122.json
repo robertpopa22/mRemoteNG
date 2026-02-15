@@ -1,47 +1,45 @@
-﻿{
-    "number":  1122,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Focus does not move to search bar when painting existing search filter (selecting with left mouse button down)",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "bluikko",
-    "created_at":  "2018-10-03T01:26:29Z",
-    "github_updated_at":  "2018-10-03T16:08:01Z",
-    "body_snippet":  "If a connection is open and focus is in the connection window, then painting in search bar does not move the focus to the search bar. Keystrokes after the painting are sent to the open connection.\r\n\r\n## Expected Behavior\r\n* Have a connection window open with focus in it.\r\n* Paint the existing search filter/part of it in the search bar.\r\n* Type some characters, the characters typed should replace the selected/painted part of the search filter in the search box.\r\n\r\n## Current Behavior\r\nKeystrokes ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjYwNTkwNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is this specifically with SSH/putty connections?",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-10-03T11:42:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNjYzODk0OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Not sure if I cannot now replicate this exactly or gave the wrong report.\r\n\r\nSteps to replicate, only on SSH/putty connections:\r\n- open SSH connection\r\n- type something in the search bar\r\n- switch to another Windows task but keep search bar visible\r\n- paint something in the search bar\r\n- type something and the input goes to the SSH connection and not to search bar - mRemoteNG window is correctly brought to foreground when painting but focus in SSH connection window and not in search bar\r\n\r\nEdite...",
-                         "author":  "bluikko",
-                         "action_needed":  true,
-                         "date":  "2018-10-03T13:33:46Z"
-                     }
-                 ],
-    "comments_cursor":  "2018-10-03T16:08:01Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1122,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Focus does not move to search bar when painting existing search filter (selecting with left mouse button down)",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "bluikko",
+  "created_at": "2018-10-03T01:26:29Z",
+  "github_updated_at": "2018-10-03T16:08:01Z",
+  "body_snippet": "If a connection is open and focus is in the connection window, then painting in search bar does not move the focus to the search bar. Keystrokes after the painting are sent to the open connection.\r\n\r\n## Expected Behavior\r\n* Have a connection window open with focus in it.\r\n* Paint the existing search filter/part of it in the search bar.\r\n* Type some characters, the characters typed should replace the selected/painted part of the search filter in the search box.\r\n\r\n## Current Behavior\r\nKeystrokes ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNjYwNTkwNg==",
+      "author": "sparerd",
+      "date": "2018-10-03T11:42:05Z",
+      "snippet": "Is this specifically with SSH/putty connections?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNjYzODk0OQ==",
+      "author": "bluikko",
+      "date": "2018-10-03T13:33:46Z",
+      "snippet": "Not sure if I cannot now replicate this exactly or gave the wrong report.\r\n\r\nSteps to replicate, only on SSH/putty connections:\r\n- open SSH connection\r\n- type something in the search bar\r\n- switch to another Windows task but keep search bar visible\r\n- paint something in the search bar\r\n- type something and the input goes to the SSH connection and not to search bar - mRemoteNG window is correctly brought to foreground when painting but focus in SSH connection window and not in search bar\r\n\r\nEdite...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2018-10-03T16:08:01Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

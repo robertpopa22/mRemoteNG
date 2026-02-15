@@ -1,41 +1,39 @@
-﻿{
-    "number":  2406,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  " Disconnect has no confirmation dialog which potentially may lead to bad consequences ",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "Improvement required",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2023-03-24T13:33:57Z",
-    "github_updated_at":  "2026-02-07T19:52:16Z",
-    "body_snippet":  "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n    1. Open some SSH connection to e.g. Linux computer. \r\n    2. Right button click on connection tab and select Disconnect. Problem appears. I have clicked this by mistake wanting to click Duplicate Tab (both start with letter D). Clicking Disconnect is potentially very dangerous action and I thing in this case confirmation dialog should appear with question: \"Do you want to d...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhLr",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:16Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:16Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2406,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": " Disconnect has no confirmation dialog which potentially may lead to bad consequences ",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "Improvement required",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "igor2x",
+  "created_at": "2023-03-24T13:33:57Z",
+  "github_updated_at": "2026-02-07T19:52:16Z",
+  "body_snippet": "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n    1. Open some SSH connection to e.g. Linux computer. \r\n    2. Right button click on connection tab and select Disconnect. Problem appears. I have clicked this by mistake wanting to click Duplicate Tab (both start with letter D). Clicking Disconnect is potentially very dangerous action and I thing in this case confirmation dialog should appear with question: \"Do you want to d...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mYhLr",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:16Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:16Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

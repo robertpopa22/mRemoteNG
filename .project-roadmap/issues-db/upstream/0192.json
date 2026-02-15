@@ -1,266 +1,264 @@
-﻿{
-    "number":  192,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "RDP using multiple monitors",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "UI/UX",
-                   "RDP",
-                   "1.78.*"
-               ],
-    "author":  "ninken",
-    "created_at":  "2016-10-21T18:23:35Z",
-    "github_updated_at":  "2026-02-07T19:55:55Z",
-    "body_snippet":  "\u003c!--\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\n\nBefore opening an issue, please search for a duplicate or closed issue.\nPlease provide as much detail as possible for us to fix your issue.\n--\u003e\n\n\u003c!-- Feature Request --\u003e\n\nIs it possible to add a option for Multiple Monitor option for RDP aka \"Use all my monitors..\"  feature? \nI understand the ActiveX parameters changes the normal syntax and functionality radically, possible work around making you have ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTgxNjcwOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "https://mremoteng.atlassian.net/browse/MR-717\n",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2016-10-24T17:59:31Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5MTQ5OTA3Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Multiple monitor support would be fantastic!",
-                         "author":  "btull89",
-                         "action_needed":  true,
-                         "date":  "2017-04-04T13:27:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5OTE4NzkzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any update yet on this?",
-                         "author":  "yada-yoda",
-                         "action_needed":  true,
-                         "date":  "2017-05-04T13:39:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5OTE5MzM1OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@heyfrank No ETA at this time.\r\n\r\nAll releases leading up to the current 1.75.7005 were focused on stability with the occasional feature request where possible. The 1.76 release is getting a security focus.\r\n\r\nWhile this feature may possibly easy to implement, it may take some time to test. So we don\u0027t have it scheduled currently.\r\n\r\nReference API documentation: https://msdn.microsoft.com/en-us/library/ff817569(v=vs.85).aspx\r\n\r\nAdding tags for visibility in case anyone would want to give it a wh...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-05-04T13:59:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5OTIwOTQ1Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would assume that these properties would also be useful:\r\nRemoteMonitorCount: https://msdn.microsoft.com/en-us/library/ff817567(v=vs.85).aspx\r\nRemoteMonitorLayoutMatchesLocal: https://msdn.microsoft.com/en-us/library/ff817568(v=vs.85).aspx\r\n",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-05-04T14:53:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMjY2OTA4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Two months later. Any update in the meanwhile? How would I proceed with implementing the change myself? Do you have some idea which UI controls we need to add? What is the flexibility that the RDP 7 API is giving us? Do we need to have some flexible mapping going on? I.e. 4 physical screens available, while we only want to provide screen 3 and 4 towards the RDP session.",
-                         "author":  "cveld",
-                         "action_needed":  true,
-                         "date":  "2017-07-03T15:03:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMxMjc5ODA1OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Please check out this pull request https://github.com/mRemoteNG/mRemoteNG/pull/629 which implements multi-monitor support",
-                         "author":  "cveld",
-                         "action_needed":  true,
-                         "date":  "2017-07-04T07:07:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NDM2MTk4MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any news about this feature?",
-                         "author":  "ankoafterhours",
-                         "action_needed":  true,
-                         "date":  "2018-06-04T13:51:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU2Nzg5MzUwOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any news here? Dual monitors would be awesome",
-                         "author":  "claudiuconstantin",
-                         "action_needed":  true,
-                         "date":  "2019-12-20T11:27:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU2Nzg5NTA0NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ok, looks like this feature is hard to implement at this point: https://github.com/mRemoteNG/mRemoteNG/pull/1150 ",
-                         "author":  "claudiuconstantin",
-                         "action_needed":  true,
-                         "date":  "2019-12-20T11:33:04Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwNzY2MzkxOA==",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Would be very useful for this COVID crisis to have multiple monitors!",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2020-04-02T07:10:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYwODU1Njc2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is the work around \"sort of\" that you can use today, granted it won\u0027t pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings.  Again this is only good if you only have to connect to that PC with one account name. \r\n\r\nhttps://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n\r\nYou are adding a external tool, with some command line parameters.\r\n\r\n\r\n",
-                         "author":  "ninken",
-                         "action_needed":  true,
-                         "date":  "2020-04-03T17:10:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYxODU3NDkwNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@ninken \r\nAre you able to provide any more details on how to use the external tool once it\u0027s been created?\r\nThank you\r\n\r\nEDIT: Disregard, you were perfectly detailed and I needed to double check my spelling.",
-                         "author":  "ohmyhub",
-                         "action_needed":  true,
-                         "date":  "2020-04-23T18:31:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMTM2NjE2OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any update?",
-                         "author":  "Nomoos",
-                         "action_needed":  true,
-                         "date":  "2020-05-20T09:43:20Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MTkxNTIyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Awesome ninken, thank you!",
-                         "author":  "Rick8026",
-                         "action_needed":  true,
-                         "date":  "2020-06-10T10:36:29Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcxMTg3OTA0MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any plans on adding this feature?",
-                         "author":  "Kraeven",
-                         "action_needed":  true,
-                         "date":  "2020-10-19T08:59:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcxNjUzNzU0Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m eager for this feature as well. Looks like it\u0027s a difficult fix.",
-                         "author":  "SysAdminDoc",
-                         "action_needed":  true,
-                         "date":  "2020-10-26T13:14:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg0OTYzODA1OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "workaround , not perfect, not integration:\r\n\r\nExternal Tools:\r\n```\r\nFilename: %SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\r\nArguments: -ExecutionPolicy Bypass -File C:\\PATHTO\\mremotemulti.ps1 -servername %hostname% -domain %domain% -username %username% -password %!Password%\r\n```\r\nmremotemulti.ps1\r\n```\r\nparam([String[]] $servername, [String] $domain, [String] $username, [String] $password )\r\n\t\r\n cmdkey /generic:$servername /user:$domain\\$username /pass:$password \r\n mstsc /multimon ...",
-                         "author":  "dimxyp",
-                         "action_needed":  true,
-                         "date":  "2021-05-27T13:32:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5A49sP",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This is the work around \"sort of\" that you can use today, granted it won\u0027t pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings. Again this is only good if you only have to connect to that PC with one account name.\r\n\u003e \r\n\u003e https://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n\u003e \r\n\u003e You are adding a external tool, with some command line parameters.\r\n\r\n1) I followed your instructions to add an external tool\r\n2) I switched the \"Pr...",
-                         "author":  "Hardstylerz29",
-                         "action_needed":  true,
-                         "date":  "2022-04-05T13:00:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Sf8Bg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e This is the work around \"sort of\" that you can use today, granted it won\u0027t pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings. Again this is only good if you only have to connect to that PC with one account name.\r\n\u003e \u003e https://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n\u003e \u003e You are adding a external tool, with some command line parameters.\r\n\u003e \r\n\u003e 1. I followed your instructions to add an external tool\r\n\u003e 2. I switched the...",
-                         "author":  "myvarlik",
-                         "action_needed":  true,
-                         "date":  "2023-01-16T14:01:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM50ysOY",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "HI any update on when this will come to MRemoteng ? I have 2 monitors and sometimes I need to have 2 servers open at the same time, will be nice if we can somehow \u0027detach\u0027 a \u0027tab\u0027 from the main mremote window and then drag the detached window to the second monitor",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2024-02-22T13:22:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM50zF5A",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e HI any update on when this will come to MRemoteng ? I have 2 monitors and sometimes I need to have 2 servers open at the same time, will be nice if we can somehow \u0027detach\u0027 a \u0027tab\u0027 from the main mremote window and then drag the detached window to the second monitor\n\nThis issue is requesting to use multiple monitors for a single connection. Your request for 2 connections on 2 different monitors exists in the product already. Just drag the 2nd tab to the desired monitor and it will pop out of the...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2024-02-22T14:20:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM50zJ9s",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This issue is requesting to use multiple monitors for a single connection. Your request for 2 connections on 2 different monitors exists in the product already. Just drag the 2nd tab to the desired monitor and it will pop out of the main app.\r\n\r\nI tried doing this but was not able to get it to snap out to my second monitor . Is there any setting I need to enable first ?\r\n",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2024-02-22T14:28:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM501wN7",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@tanuj-nexi it doesn\u0027t snap, so much as it just places a window (in windowed mode at the current resolution of the remote session) on the second monitor.",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2024-02-22T20:23:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM509fsh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @tanuj-nexi it doesn\u0027t snap, so much as it just places a window (in windowed mode at the current resolution of the remote session) on the second monitor.\r\n\r\nStill was not able to get it to work :( But I find a workaround. I\u0027m just going going to open 2 MremoteNG instances,and switch the 2nd window to the 2nd monitor :)",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2024-02-24T06:46:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiRO",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:55Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:55Z",
-    "unread_comments":  24,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 192,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "RDP using multiple monitors",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "UI/UX",
+    "RDP",
+    "1.78.*"
+  ],
+  "author": "ninken",
+  "created_at": "2016-10-21T18:23:35Z",
+  "github_updated_at": "2026-02-07T19:55:55Z",
+  "body_snippet": "<!--\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\n\nBefore opening an issue, please search for a duplicate or closed issue.\nPlease provide as much detail as possible for us to fix your issue.\n-->\n\n<!-- Feature Request -->\n\nIs it possible to add a option for Multiple Monitor option for RDP aka \"Use all my monitors..\"  feature? \nI understand the ActiveX parameters changes the normal syntax and functionality radically, possible work around making you have ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTgxNjcwOQ==",
+      "author": "kmscode",
+      "date": "2016-10-24T17:59:31Z",
+      "snippet": "https://mremoteng.atlassian.net/browse/MR-717\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5MTQ5OTA3Nw==",
+      "author": "btull89",
+      "date": "2017-04-04T13:27:21Z",
+      "snippet": "Multiple monitor support would be fantastic!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5OTE4NzkzOQ==",
+      "author": "yada-yoda",
+      "date": "2017-05-04T13:39:56Z",
+      "snippet": "Any update yet on this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5OTE5MzM1OA==",
+      "author": "kmscode",
+      "date": "2017-05-04T13:59:56Z",
+      "snippet": "@heyfrank No ETA at this time.\r\n\r\nAll releases leading up to the current 1.75.7005 were focused on stability with the occasional feature request where possible. The 1.76 release is getting a security focus.\r\n\r\nWhile this feature may possibly easy to implement, it may take some time to test. So we don't have it scheduled currently.\r\n\r\nReference API documentation: https://msdn.microsoft.com/en-us/library/ff817569(v=vs.85).aspx\r\n\r\nAdding tags for visibility in case anyone would want to give it a wh...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5OTIwOTQ1Mw==",
+      "author": "kmscode",
+      "date": "2017-05-04T14:53:43Z",
+      "snippet": "I would assume that these properties would also be useful:\r\nRemoteMonitorCount: https://msdn.microsoft.com/en-us/library/ff817567(v=vs.85).aspx\r\nRemoteMonitorLayoutMatchesLocal: https://msdn.microsoft.com/en-us/library/ff817568(v=vs.85).aspx\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxMjY2OTA4Mg==",
+      "author": "cveld",
+      "date": "2017-07-03T15:03:00Z",
+      "snippet": "Two months later. Any update in the meanwhile? How would I proceed with implementing the change myself? Do you have some idea which UI controls we need to add? What is the flexibility that the RDP 7 API is giving us? Do we need to have some flexible mapping going on? I.e. 4 physical screens available, while we only want to provide screen 3 and 4 towards the RDP session.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMxMjc5ODA1OA==",
+      "author": "cveld",
+      "date": "2017-07-04T07:07:39Z",
+      "snippet": "Please check out this pull request https://github.com/mRemoteNG/mRemoteNG/pull/629 which implements multi-monitor support",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NDM2MTk4MQ==",
+      "author": "ankoafterhours",
+      "date": "2018-06-04T13:51:43Z",
+      "snippet": "Any news about this feature?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Nzg5MzUwOQ==",
+      "author": "claudiuconstantin",
+      "date": "2019-12-20T11:27:12Z",
+      "snippet": "Any news here? Dual monitors would be awesome",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2Nzg5NTA0NQ==",
+      "author": "claudiuconstantin",
+      "date": "2019-12-20T11:33:04Z",
+      "snippet": "Ok, looks like this feature is hard to implement at this point: https://github.com/mRemoteNG/mRemoteNG/pull/1150 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwNzY2MzkxOA==",
+      "author": "robertpopa22",
+      "date": "2020-04-02T07:10:21Z",
+      "snippet": "Would be very useful for this COVID crisis to have multiple monitors!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYwODU1Njc2Mg==",
+      "author": "ninken",
+      "date": "2020-04-03T17:10:01Z",
+      "snippet": "This is the work around \"sort of\" that you can use today, granted it won't pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings.  Again this is only good if you only have to connect to that PC with one account name. \r\n\r\nhttps://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n\r\nYou are adding a external tool, with some command line parameters.\r\n\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYxODU3NDkwNA==",
+      "author": "ohmyhub",
+      "date": "2020-04-23T18:31:12Z",
+      "snippet": "@ninken \r\nAre you able to provide any more details on how to use the external tool once it's been created?\r\nThank you\r\n\r\nEDIT: Disregard, you were perfectly detailed and I needed to double check my spelling.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMTM2NjE2OQ==",
+      "author": "Nomoos",
+      "date": "2020-05-20T09:43:20Z",
+      "snippet": "Any update?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0MTkxNTIyNw==",
+      "author": "Rick8026",
+      "date": "2020-06-10T10:36:29Z",
+      "snippet": "Awesome ninken, thank you!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcxMTg3OTA0MA==",
+      "author": "Kraeven",
+      "date": "2020-10-19T08:59:36Z",
+      "snippet": "Any plans on adding this feature?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcxNjUzNzU0Nw==",
+      "author": "SysAdminDoc",
+      "date": "2020-10-26T13:14:12Z",
+      "snippet": "I'm eager for this feature as well. Looks like it's a difficult fix.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0OTYzODA1OQ==",
+      "author": "dimxyp",
+      "date": "2021-05-27T13:32:16Z",
+      "snippet": "workaround , not perfect, not integration:\r\n\r\nExternal Tools:\r\n```\r\nFilename: %SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\r\nArguments: -ExecutionPolicy Bypass -File C:\\PATHTO\\mremotemulti.ps1 -servername %hostname% -domain %domain% -username %username% -password %!Password%\r\n```\r\nmremotemulti.ps1\r\n```\r\nparam([String[]] $servername, [String] $domain, [String] $username, [String] $password )\r\n\t\r\n cmdkey /generic:$servername /user:$domain\\$username /pass:$password \r\n mstsc /multimon ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5A49sP",
+      "author": "Hardstylerz29",
+      "date": "2022-04-05T13:00:38Z",
+      "snippet": "> This is the work around \"sort of\" that you can use today, granted it won't pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings. Again this is only good if you only have to connect to that PC with one account name.\r\n> \r\n> https://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n> \r\n> You are adding a external tool, with some command line parameters.\r\n\r\n1) I followed your instructions to add an external tool\r\n2) I switched the \"Pr...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Sf8Bg",
+      "author": "myvarlik",
+      "date": "2023-01-16T14:01:18Z",
+      "snippet": "> > This is the work around \"sort of\" that you can use today, granted it won't pass in your username or passwords from mRemoteNG, but you have windows remote desktop save those settings. Again this is only good if you only have to connect to that PC with one account name.\r\n> > https://drive.google.com/open?id=1L2zcGTs49P35vPqWXWEtKR6R_msktvoi\r\n> > You are adding a external tool, with some command line parameters.\r\n> \r\n> 1. I followed your instructions to add an external tool\r\n> 2. I switched the...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM50ysOY",
+      "author": "",
+      "date": "2024-02-22T13:22:10Z",
+      "snippet": "HI any update on when this will come to MRemoteng ? I have 2 monitors and sometimes I need to have 2 servers open at the same time, will be nice if we can somehow 'detach' a 'tab' from the main mremote window and then drag the detached window to the second monitor",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM50zF5A",
+      "author": "kmscode",
+      "date": "2024-02-22T14:20:20Z",
+      "snippet": "> HI any update on when this will come to MRemoteng ? I have 2 monitors and sometimes I need to have 2 servers open at the same time, will be nice if we can somehow 'detach' a 'tab' from the main mremote window and then drag the detached window to the second monitor\n\nThis issue is requesting to use multiple monitors for a single connection. Your request for 2 connections on 2 different monitors exists in the product already. Just drag the 2nd tab to the desired monitor and it will pop out of the...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM50zJ9s",
+      "author": "",
+      "date": "2024-02-22T14:28:49Z",
+      "snippet": "> This issue is requesting to use multiple monitors for a single connection. Your request for 2 connections on 2 different monitors exists in the product already. Just drag the 2nd tab to the desired monitor and it will pop out of the main app.\r\n\r\nI tried doing this but was not able to get it to snap out to my second monitor . Is there any setting I need to enable first ?\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM501wN7",
+      "author": "kmscode",
+      "date": "2024-02-22T20:23:58Z",
+      "snippet": "@tanuj-nexi it doesn't snap, so much as it just places a window (in windowed mode at the current resolution of the remote session) on the second monitor.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM509fsh",
+      "author": "",
+      "date": "2024-02-24T06:46:24Z",
+      "snippet": "> @tanuj-nexi it doesn't snap, so much as it just places a window (in windowed mode at the current resolution of the remote session) on the second monitor.\r\n\r\nStill was not able to get it to work :( But I find a workaround. I'm just going going to open 2 MremoteNG instances,and switch the 2nd window to the 2nd monitor :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiRO",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:55Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:55Z",
+  "unread_comments": 24,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

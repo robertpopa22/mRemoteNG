@@ -1,156 +1,154 @@
-﻿{
-    "number":  1299,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Logoff Group",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Feature Request"
-               ],
-    "author":  "fabio-oliveira-efeo",
-    "created_at":  "2019-02-06T10:09:57Z",
-    "github_updated_at":  "2023-05-23T21:12:22Z",
-    "body_snippet":  "Possibility to log off in group",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUzNzkzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This will not be possible for some protocols (e.i. RDP)",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T18:14:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTcxNjQyMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "If it is not possible, why does it work in Remote Desktop Connection Manager?",
-                         "author":  "fabio-oliveira-efeo",
-                         "action_needed":  true,
-                         "date":  "2019-02-08T07:38:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTgyODg1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It is either only disconnecting (not logging the user off) or your local machine is on the same domain as the remote machine. To my knowledge, there is no native way to log a user off of a remote machine that is on a different domain than your local machine.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-02-08T14:56:18Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTg0Mzk5OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "![logoff](https://user-images.githubusercontent.com/47383335/52488496-18f8c480-2ba7-11e9-96ac-72647ec754c3.jpg)\r\n![logoff2](https://user-images.githubusercontent.com/47383335/52488504-1c8c4b80-2ba7-11e9-8a88-0030535f945e.jpg)\r\n",
-                         "author":  "fabio-oliveira-efeo",
-                         "action_needed":  true,
-                         "date":  "2019-02-08T15:40:41Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTg3MTY5OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It doesn\u0027t look like there is a way within the remote desktop library to trigger a logoff directly. However, there may be some other unmanaged code that we can call: https://docs.microsoft.com/en-us/windows/desktop/api/wtsapi32/nf-wtsapi32-wtslogoffsession\r\n\r\nI found some instances of this not being a viable solution since some remote systems don\u0027t return sessions information properly. But It\u0027s work investigating.. ",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-02-08T16:59:58Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMzY3NjE2MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "any progress with this request? I am interested in this one too.",
-                         "author":  "sg7280",
-                         "action_needed":  true,
-                         "date":  "2019-09-20T19:10:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMTUzMjg2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Also very interested in logoff and logoff group features.",
-                         "author":  "unconfused",
-                         "action_needed":  true,
-                         "date":  "2020-05-20T15:04:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc1MTMzNDcxOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "RD Tabs supports this I believe so it should be possible: https://www.avianwaves.com/Software/Tools/RD-Tabs",
-                         "author":  "JustinGrote",
-                         "action_needed":  true,
-                         "date":  "2020-12-26T08:26:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgxOTA3OTU5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Here\u0027s another vote for adding this feature.  Works great in RDCMan 2.7.",
-                         "author":  "chriskoch99",
-                         "action_needed":  true,
-                         "date":  "2021-04-13T21:56:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM43juOR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I believe RDM uses a script or send keys to log off. Carefully watch the left bottom of the screen when signing off in RDM.\r\nIt opens RUN -\u003e then a CMD window and it logs off.",
-                         "author":  "Cyclone47",
-                         "action_needed":  true,
-                         "date":  "2021-10-01T10:28:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM480yMq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Also showing interest in this feature - trying to find something better than RDCM but having the ability to easily logoff is really nice.",
-                         "author":  "ry8s",
-                         "action_needed":  true,
-                         "date":  "2022-01-24T19:35:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GMsag",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This please.\r\nOr allow external tools to be run on all sub-items in a group (then we can write a logoff cmd)",
-                         "author":  "xercesbluebutterfly",
-                         "action_needed":  true,
-                         "date":  "2022-07-07T14:47:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5UrK14",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Vote for feature logoff!!",
-                         "author":  "Henkpuik",
-                         "action_needed":  true,
-                         "date":  "2023-02-07T11:12:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5c_Swj",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This will not be possible for some protocols (e.i. RDP)  (@sparerd) \r\n\r\nI wrote an External Tool to logoff from a server (see below) - it\u0027s not pretty, and I have only tested on Win Server 2012r2 and 2016 while logged in as admin, via RDP, but it DOES seem to work.\r\n\r\nIt looks like v1.77 will have \"Run External Tools on Folder\" (#1336  - though this was completed in 2019 and we are still waiting...) \r\n\r\nWith these 2 things in place we have an effective workaround for this request!\r\n\r\nFilename:...",
-                         "author":  "xercesbluebutterfly",
-                         "action_needed":  true,
-                         "date":  "2023-05-23T20:40:47Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-05-23T21:12:22Z",
-    "unread_comments":  14,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1299,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Logoff Group",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Feature Request"
+  ],
+  "author": "fabio-oliveira-efeo",
+  "created_at": "2019-02-06T10:09:57Z",
+  "github_updated_at": "2023-05-23T21:12:22Z",
+  "body_snippet": "Possibility to log off in group",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTUzNzkzOQ==",
+      "author": "sparerd",
+      "date": "2019-02-07T18:14:48Z",
+      "snippet": "This will not be possible for some protocols (e.i. RDP)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTcxNjQyMQ==",
+      "author": "fabio-oliveira-efeo",
+      "date": "2019-02-08T07:38:00Z",
+      "snippet": "If it is not possible, why does it work in Remote Desktop Connection Manager?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTgyODg1Mg==",
+      "author": "sparerd",
+      "date": "2019-02-08T14:56:18Z",
+      "snippet": "It is either only disconnecting (not logging the user off) or your local machine is on the same domain as the remote machine. To my knowledge, there is no native way to log a user off of a remote machine that is on a different domain than your local machine.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTg0Mzk5OA==",
+      "author": "fabio-oliveira-efeo",
+      "date": "2019-02-08T15:40:41Z",
+      "snippet": "![logoff](https://user-images.githubusercontent.com/47383335/52488496-18f8c480-2ba7-11e9-96ac-72647ec754c3.jpg)\r\n![logoff2](https://user-images.githubusercontent.com/47383335/52488504-1c8c4b80-2ba7-11e9-8a88-0030535f945e.jpg)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTg3MTY5OQ==",
+      "author": "kmscode",
+      "date": "2019-02-08T16:59:58Z",
+      "snippet": "It doesn't look like there is a way within the remote desktop library to trigger a logoff directly. However, there may be some other unmanaged code that we can call: https://docs.microsoft.com/en-us/windows/desktop/api/wtsapi32/nf-wtsapi32-wtslogoffsession\r\n\r\nI found some instances of this not being a viable solution since some remote systems don't return sessions information properly. But It's work investigating.. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzMzY3NjE2MQ==",
+      "author": "sg7280",
+      "date": "2019-09-20T19:10:25Z",
+      "snippet": "any progress with this request? I am interested in this one too.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMTUzMjg2Mg==",
+      "author": "unconfused",
+      "date": "2020-05-20T15:04:34Z",
+      "snippet": "Also very interested in logoff and logoff group features.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1MTMzNDcxOA==",
+      "author": "JustinGrote",
+      "date": "2020-12-26T08:26:48Z",
+      "snippet": "RD Tabs supports this I believe so it should be possible: https://www.avianwaves.com/Software/Tools/RD-Tabs",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgxOTA3OTU5Mw==",
+      "author": "chriskoch99",
+      "date": "2021-04-13T21:56:25Z",
+      "snippet": "Here's another vote for adding this feature.  Works great in RDCMan 2.7.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM43juOR",
+      "author": "Cyclone47",
+      "date": "2021-10-01T10:28:32Z",
+      "snippet": "I believe RDM uses a script or send keys to log off. Carefully watch the left bottom of the screen when signing off in RDM.\r\nIt opens RUN -> then a CMD window and it logs off.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM480yMq",
+      "author": "ry8s",
+      "date": "2022-01-24T19:35:53Z",
+      "snippet": "Also showing interest in this feature - trying to find something better than RDCM but having the ability to easily logoff is really nice.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GMsag",
+      "author": "xercesbluebutterfly",
+      "date": "2022-07-07T14:47:22Z",
+      "snippet": "This please.\r\nOr allow external tools to be run on all sub-items in a group (then we can write a logoff cmd)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5UrK14",
+      "author": "Henkpuik",
+      "date": "2023-02-07T11:12:55Z",
+      "snippet": "Vote for feature logoff!!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5c_Swj",
+      "author": "xercesbluebutterfly",
+      "date": "2023-05-23T20:40:47Z",
+      "snippet": "> This will not be possible for some protocols (e.i. RDP)  (@sparerd) \r\n\r\nI wrote an External Tool to logoff from a server (see below) - it's not pretty, and I have only tested on Win Server 2012r2 and 2016 while logged in as admin, via RDP, but it DOES seem to work.\r\n\r\nIt looks like v1.77 will have \"Run External Tools on Folder\" (#1336  - though this was completed in 2019 and we are still waiting...) \r\n\r\nWith these 2 things in place we have an effective workaround for this request!\r\n\r\nFilename:...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-05-23T21:12:22Z",
+  "unread_comments": 14,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

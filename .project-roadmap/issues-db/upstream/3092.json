@@ -1,186 +1,186 @@
-﻿{
-    "number":  3092,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "1Password integration doesn\u0027t fetch username and password for RDP connection",
-    "state":  "open",
-    "labels":  [
-                   "Help Wanted",
-                   "1.78.*",
-                   "Add-ons",
-                   "Credentials",
-                   "Integrations"
-               ],
-    "author":  "jonashilmersson",
-    "created_at":  "2026-01-24T16:44:49Z",
-    "github_updated_at":  "2026-02-12T18:30:24Z",
-    "body_snippet":  "I\u0027m running Windows 11, 1Password for Windows 8.12.0 (81200013) and mRemoteNG 1.78 Nightly build 3228. \n\nI\u0027ve activated 1P CLI and tested it out in the terminal, it works fine. \n\nI\u0027ve created a RDP connection using IP address, set it to use 1Password as the External Credential Provider. In the API User ID field, I\u0027ve written \n\n`op://My Vault/My RDP item`\n\nWhen I try to connect, I get the normal Windows login dialog with the username prefilled, just like if I use the normal Windows RDP client. I\u0027...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3107,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "1Password parser and fallback fix",
-                           "pr":  3107,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7iSeKW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I now also tried to change the username in 1P, and the change doesn\u0027t get picked up, so I suspect that the \"read\" from 1P doesn\u0027t work at all.\n\nHow do I see the logs for this?",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-01-25T11:44:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7i3WFw",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "After some further investigations, I found out the following:\n\n* My vault name contains a space which breaks the code that parses the input string by converting it to an Uri. As the vault name comes as a \"domain\", it\u0027s not valid.\n* The password is returned as a field without a value for purpose and of type CONCEALED, so it\u0027s not found by the FindField function. ",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-01-27T16:24:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7kWlTg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi again, I\u0027ve created a fix for this but I\u0027m not allow to push a new branch. I\u0027ve looked through your contribute docs but didn\u0027t find anything that helped me to make it work. My branch is based on the `v1.78.2-dev` branch which seems to be the most current, and I named it `bug/1p-integration-not-working`.\n\n\u003cimg width=\"856\" height=\"532\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/90bde441-6ad7-4600-bc75-a8507e636b72\" /\u003e",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-02-01T14:25:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7kpE9g",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Hi again, I\u0027ve created a fix for this but I\u0027m not allow to push a new branch. I\u0027ve looked through your contribute docs but didn\u0027t find anything that helped me to make it work. My branch is based on the `v1.78.2-dev` branch which seems to be the most current, and I named it `bug/1p-integration-not-working`.\n\nHey @jonashilmersson \n\nWhat would be your reason to create a new branch within this project? I would have suggested you just create a pull request directly to the dev branch and then we\u0027ll ...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2026-02-02T15:41:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7kt8uL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi @simonai1254 , as far as I can see, the 1Password integration was added in this [commit](https://github.com/mRemoteNG/mRemoteNG/commit/1b55645b81c2687055c52da32480b0b891682f4e) from Oct 8th 2025, and the develop branch hasn\u0027t had a commit since Aug 15th 2023 so the 1Password integration doesn\u0027t exist there. I can rebase on develop if you update the develop branch. ",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-02-02T19:53:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7lDX_y",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hey Jonas\n\nI\u0027m confused, what would be your preferred target branch? I would have expected it to be pulled back into the 1.78.2-dev branch, but @Kvarkas might now a little better. In the end the pull request can always be redirected, so I would just create it that way for now...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2026-02-03T18:11:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7lPRBr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don\u0027t have permissions to push my branch. ",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-02-04T08:14:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mX-2N",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Update:\n\n- Fix is proposed in upstream PR:\n  - https://github.com/mRemoteNG/mRemoteNG/pull/3107\n\nScope includes robust `op://` parsing for vault/item names with spaces and `CONCEALED` fallback field handling.\n\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T18:27:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7maCi_",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Covered by upstream PR:\u0026echo https://github.com/mRemoteNG/mRemoteNG/pull/3107\r\n\u0026echo Fork CI evidence:\u0026echo https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T21:58:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpblr",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3107 | **Branch:** `codex/pr3-onepassword-3092`\n**Fix:** 1Password credential parser and fallback handling corrected.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7msdoE",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don\u0027t have permissions to push my branch.\n\nHello, thanks for trying to help, usually its works this way: you clone the repo and 1.78.2-dev branch is right for such (at current stage) so then you add your fixes, test them and then create a PR, what will come to my repo and after review it will be merged if all ok, or will ask for some ch...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-09T09:20:54Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mskh1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\u003e \n\u003e **PR:** [#3107](https://github.com/mRemoteNG/mRemoteNG/pull/3107) | **Branch:** `codex/pr3-onepassword-3092` **Fix:** 1Password credential parser and fallback handling corrected.\n\u003e \n\u003e 3 platform builds (x64, x86, ARM64) available for download.\n\nThanks for trying to help, but will be better if you don\u0027t spam messages, I got 1000 new msg from you (I believe because you are using AI so its ...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-09T09:25:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7m1t6R",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "@Kvarkas You\u0027re absolutely right, and I sincerely apologize for the notification flood. The comments were posted in bulk by an automated script and I should have reviewed the approach before running it. That was a misstep on my part.\n\nI genuinely appreciate the work you\u0027ve been doing on mRemoteNG and I\u0027d love to coordinate rather than work in parallel. If you\u0027re open to it, I\u0027d be happy to discuss directly ΓÇö whether here on GitHub, or any other channel you prefer.\n\nAgain, sorry for the noise, ...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T16:51:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7n28eD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don\u0027t have permissions to push my branch.\n\u003e \n\u003e Hello, thanks for trying to help, usually its works this way: you clone the repo and 1.78.2-dev branch is right for such (at current stage) so then you add your fixes, test them and then create a PR, what will come to my repo and after review it will be merged if all ok, or will ask for s...",
-                         "author":  "jonashilmersson",
-                         "action_needed":  true,
-                         "date":  "2026-02-12T10:10:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7oBW_H",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "nope, if you clone it and after change able to build and its look good for you you could test it (with ai these days) and if still ok, then submit PR, what will be reviewed by me (with AI) and if all good it will be merged and new NB released",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-12T18:27:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7oBaFt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@robertpopa22 drop me a line on support@mremoteng.org - we could coordinate our activities ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-12T18:30:24Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-12T18:30:24Z",
-    "unread_comments":  12,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 3092,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "1Password integration doesn't fetch username and password for RDP connection",
+  "state": "open",
+  "labels": [
+    "Help Wanted",
+    "1.78.*",
+    "Add-ons",
+    "Credentials",
+    "Integrations"
+  ],
+  "author": "jonashilmersson",
+  "created_at": "2026-01-24T16:44:49Z",
+  "github_updated_at": "2026-02-12T18:30:24Z",
+  "body_snippet": "I'm running Windows 11, 1Password for Windows 8.12.0 (81200013) and mRemoteNG 1.78 Nightly build 3228. \n\nI've activated 1P CLI and tested it out in the terminal, it works fine. \n\nI've created a RDP connection using IP address, set it to use 1Password as the External Credential Provider. In the API User ID field, I've written \n\n`op://My Vault/My RDP item`\n\nWhen I try to connect, I get the normal Windows login dialog with the username prefilled, just like if I use the normal Windows RDP client. I'...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3107,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "1Password parser and fallback fix",
+      "pr": 3107,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7iSeKW",
+      "author": "jonashilmersson",
+      "date": "2026-01-25T11:44:04Z",
+      "snippet": "I now also tried to change the username in 1P, and the change doesn't get picked up, so I suspect that the \"read\" from 1P doesn't work at all.\n\nHow do I see the logs for this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7i3WFw",
+      "author": "jonashilmersson",
+      "date": "2026-01-27T16:24:57Z",
+      "snippet": "After some further investigations, I found out the following:\n\n* My vault name contains a space which breaks the code that parses the input string by converting it to an Uri. As the vault name comes as a \"domain\", it's not valid.\n* The password is returned as a field without a value for purpose and of type CONCEALED, so it's not found by the FindField function. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7kWlTg",
+      "author": "jonashilmersson",
+      "date": "2026-02-01T14:25:14Z",
+      "snippet": "Hi again, I've created a fix for this but I'm not allow to push a new branch. I've looked through your contribute docs but didn't find anything that helped me to make it work. My branch is based on the `v1.78.2-dev` branch which seems to be the most current, and I named it `bug/1p-integration-not-working`.\n\n<img width=\"856\" height=\"532\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/90bde441-6ad7-4600-bc75-a8507e636b72\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7kpE9g",
+      "author": "simonai1254",
+      "date": "2026-02-02T15:41:03Z",
+      "snippet": "> Hi again, I've created a fix for this but I'm not allow to push a new branch. I've looked through your contribute docs but didn't find anything that helped me to make it work. My branch is based on the `v1.78.2-dev` branch which seems to be the most current, and I named it `bug/1p-integration-not-working`.\n\nHey @jonashilmersson \n\nWhat would be your reason to create a new branch within this project? I would have suggested you just create a pull request directly to the dev branch and then we'll ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7kt8uL",
+      "author": "jonashilmersson",
+      "date": "2026-02-02T19:53:06Z",
+      "snippet": "Hi @simonai1254 , as far as I can see, the 1Password integration was added in this [commit](https://github.com/mRemoteNG/mRemoteNG/commit/1b55645b81c2687055c52da32480b0b891682f4e) from Oct 8th 2025, and the develop branch hasn't had a commit since Aug 15th 2023 so the 1Password integration doesn't exist there. I can rebase on develop if you update the develop branch. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7lDX_y",
+      "author": "simonai1254",
+      "date": "2026-02-03T18:11:18Z",
+      "snippet": "Hey Jonas\n\nI'm confused, what would be your preferred target branch? I would have expected it to be pulled back into the 1.78.2-dev branch, but @Kvarkas might now a little better. In the end the pull request can always be redirected, so I would just create it that way for now...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7lPRBr",
+      "author": "jonashilmersson",
+      "date": "2026-02-04T08:14:17Z",
+      "snippet": "I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don't have permissions to push my branch. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mX-2N",
+      "author": "robertpopa22",
+      "date": "2026-02-07T18:27:59Z",
+      "snippet": "Update:\n\n- Fix is proposed in upstream PR:\n  - https://github.com/mRemoteNG/mRemoteNG/pull/3107\n\nScope includes robust `op://` parsing for vault/item names with spaces and `CONCEALED` fallback field handling.\n\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7maCi_",
+      "author": "robertpopa22",
+      "date": "2026-02-07T21:58:48Z",
+      "snippet": "Covered by upstream PR:&echo https://github.com/mRemoteNG/mRemoteNG/pull/3107\r\n&echo Fork CI evidence:&echo https://github.com/robertpopa22/mRemoteNG/actions/runs/21782320844\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpblr",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:19Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3107 | **Branch:** `codex/pr3-onepassword-3092`\n**Fix:** 1Password credential parser and fallback handling corrected.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7msdoE",
+      "author": "Kvarkas",
+      "date": "2026-02-09T09:20:54Z",
+      "snippet": "> I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don't have permissions to push my branch.\n\nHello, thanks for trying to help, usually its works this way: you clone the repo and 1.78.2-dev branch is right for such (at current stage) so then you add your fixes, test them and then create a PR, what will come to my repo and after review it will be merged if all ok, or will ask for some ch...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mskh1",
+      "author": "Kvarkas",
+      "date": "2026-02-09T09:25:16Z",
+      "snippet": "> ✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n> \n> **PR:** [#3107](https://github.com/mRemoteNG/mRemoteNG/pull/3107) | **Branch:** `codex/pr3-onepassword-3092` **Fix:** 1Password credential parser and fallback handling corrected.\n> \n> 3 platform builds (x64, x86, ARM64) available for download.\n\nThanks for trying to help, but will be better if you don't spam messages, I got 1000 new msg from you (I believe because you are using AI so its do...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7m1t6R",
+      "author": "robertpopa22",
+      "date": "2026-02-09T16:51:46Z",
+      "snippet": "@Kvarkas You're absolutely right, and I sincerely apologize for the notification flood. The comments were posted in bulk by an automated script and I should have reviewed the approach before running it. That was a misstep on my part.\n\nI genuinely appreciate the work you've been doing on mRemoteNG and I'd love to coordinate rather than work in parallel. If you're open to it, I'd be happy to discuss directly — whether here on GitHub, or any other channel you prefer.\n\nAgain, sorry for the noise, an...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7n28eD",
+      "author": "jonashilmersson",
+      "date": "2026-02-12T10:10:36Z",
+      "snippet": "> > I guess it depends on how you work in the project. I just used the 1.78.2-dev branch as target as that was the latest with the 1P integration. But as of now, I don't have permissions to push my branch.\n> \n> Hello, thanks for trying to help, usually its works this way: you clone the repo and 1.78.2-dev branch is right for such (at current stage) so then you add your fixes, test them and then create a PR, what will come to my repo and after review it will be merged if all ok, or will ask for s...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7oBW_H",
+      "author": "Kvarkas",
+      "date": "2026-02-12T18:27:38Z",
+      "snippet": "nope, if you clone it and after change able to build and its look good for you you could test it (with ai these days) and if still ok, then submit PR, what will be reviewed by me (with AI) and if all good it will be merged and new NB released",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7oBaFt",
+      "author": "Kvarkas",
+      "date": "2026-02-12T18:30:24Z",
+      "snippet": "@robertpopa22 drop me a line on support@mremoteng.org - we could coordinate our activities ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-12T18:30:24Z",
+  "unread_comments": 12,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

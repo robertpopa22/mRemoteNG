@@ -1,50 +1,48 @@
-﻿{
-    "number":  336,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Handling Multiple Instances",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "Enhancement",
-                   "Ready",
-                   "Help Wanted"
-               ],
-    "author":  "jebbster88",
-    "created_at":  "2017-01-10T13:54:32Z",
-    "github_updated_at":  "2018-10-23T03:24:19Z",
-    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\nI make heavy use of the new \"virtual desktop\" support in windows 10. I\u0027d like to be able to have an instance of mRemoteNG open in each of these virtual desktops.\r\n\r\nI\u0027ve noticed that if I make a change to my connections in one instance and save the connection file, and a different change in another instance and save again, only the most recently saved version persists.\r\n\r\nIt would be great if mRemoteNG could periodically (or automatically via file watching) refresh the ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI3MTU5Nzc2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would advise against the SQL functionality for a few reasons:\r\n* It\u0027s been in an \"experimental\" state for a very long time\r\n* Assuming that you were to connect to a local SQL server, that\u0027s a lot of unnecessary required resources for a single user\r\n* Ideally, for your use case a SQLite DB would be more efficient\r\n\r\nThese are some things that are planned, but we have no ETA. Reference #182 ",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-01-10T15:01:44Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMjA3NTY2Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Perhaps like KeePass this could be achieved with syncing on save. If the file isn\u0027t the same version from when it was opened then on save, attempt to combine the changes with the new version on disk.",
-                         "author":  "aglasson",
-                         "action_needed":  true,
-                         "date":  "2018-10-23T03:24:19Z"
-                     }
-                 ],
-    "comments_cursor":  "2018-10-23T03:24:19Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 336,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Handling Multiple Instances",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "Enhancement",
+    "Ready",
+    "Help Wanted"
+  ],
+  "author": "jebbster88",
+  "created_at": "2017-01-10T13:54:32Z",
+  "github_updated_at": "2018-10-23T03:24:19Z",
+  "body_snippet": "<!-- Feature Request -->\r\nI make heavy use of the new \"virtual desktop\" support in windows 10. I'd like to be able to have an instance of mRemoteNG open in each of these virtual desktops.\r\n\r\nI've noticed that if I make a change to my connections in one instance and save the connection file, and a different change in another instance and save again, only the most recently saved version persists.\r\n\r\nIt would be great if mRemoteNG could periodically (or automatically via file watching) refresh the ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI3MTU5Nzc2Mg==",
+      "author": "kmscode",
+      "date": "2017-01-10T15:01:44Z",
+      "snippet": "I would advise against the SQL functionality for a few reasons:\r\n* It's been in an \"experimental\" state for a very long time\r\n* Assuming that you were to connect to a local SQL server, that's a lot of unnecessary required resources for a single user\r\n* Ideally, for your use case a SQLite DB would be more efficient\r\n\r\nThese are some things that are planned, but we have no ETA. Reference #182 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMjA3NTY2Nw==",
+      "author": "aglasson",
+      "date": "2018-10-23T03:24:19Z",
+      "snippet": "Perhaps like KeePass this could be achieved with syncing on save. If the file isn't the same version from when it was opened then on save, attempt to combine the changes with the new version on disk.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2018-10-23T03:24:19Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

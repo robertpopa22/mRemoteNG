@@ -1,49 +1,47 @@
-﻿{
-    "number":  1359,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Application Theme gets reseted to default after installing a new update",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Bug",
-                   "Ready"
-               ],
-    "author":  "achitulea",
-    "created_at":  "2019-03-18T13:57:07Z",
-    "github_updated_at":  "2025-10-03T21:54:37Z",
-    "body_snippet":  "The checkbox _Enable Themes_ is checked and the selected theme is _vs2015blue_.\r\nWhen I checked for updates and installed the latest stable update 1.76.16 (2019-03-14) through application Help -\u003e Check for updated -\u003e install update -\u003e restart the application, the selected theme was reseted to default and the checkbox _Enable _Themes_ was unchecked.\r\n\r\n\r\n## Expected Behavior\r\nThe application\u0027s theme should not be changed to default when updating to a newer version, it should be preserved instead ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3Mzk0NzczOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This will be resolved when #690 is implemented. Scheduled for 1.77\r\n\r\nThis impact all user settings, not just themes.",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-03-18T15:02:58Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3Mzk1MjY1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Nice to hear that :)\r\nThank you for your great work! ≡ƒæì ",
-                         "author":  "achitulea",
-                         "action_needed":  true,
-                         "date":  "2019-03-18T15:14:13Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-10-03T21:54:37Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1359,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Application Theme gets reseted to default after installing a new update",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Bug",
+    "Ready"
+  ],
+  "author": "achitulea",
+  "created_at": "2019-03-18T13:57:07Z",
+  "github_updated_at": "2025-10-03T21:54:37Z",
+  "body_snippet": "The checkbox _Enable Themes_ is checked and the selected theme is _vs2015blue_.\r\nWhen I checked for updates and installed the latest stable update 1.76.16 (2019-03-14) through application Help -> Check for updated -> install update -> restart the application, the selected theme was reseted to default and the checkbox _Enable _Themes_ was unchecked.\r\n\r\n\r\n## Expected Behavior\r\nThe application's theme should not be changed to default when updating to a newer version, it should be preserved instead ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3Mzk0NzczOQ==",
+      "author": "kmscode",
+      "date": "2019-03-18T15:02:58Z",
+      "snippet": "This will be resolved when #690 is implemented. Scheduled for 1.77\r\n\r\nThis impact all user settings, not just themes.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3Mzk1MjY1Mg==",
+      "author": "achitulea",
+      "date": "2019-03-18T15:14:13Z",
+      "snippet": "Nice to hear that :)\r\nThank you for your great work! 👍 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-10-03T21:54:37Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

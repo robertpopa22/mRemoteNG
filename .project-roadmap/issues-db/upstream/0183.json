@@ -1,76 +1,74 @@
-﻿{
-    "number":  183,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Better / Full featured File Transfer",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "Enhancement",
-                   "Ready"
-               ],
-    "author":  "kmscode",
-    "created_at":  "2016-10-19T15:24:34Z",
-    "github_updated_at":  "2021-02-28T14:17:59Z",
-    "body_snippet":  "Multiple requests from JIRA for one or all of the following:\nBuilt in drag and drop SCP/SSH/FTP file transfer\nWinSCP integrated out of the box\nFileZilla integrated out of the box\n\nOld issues:\nhttps://mremoteng.atlassian.net/browse/MR-125\nhttps://mremoteng.atlassian.net/browse/MR-569\nhttps://mremoteng.atlassian.net/browse/MR-371\nhttps://mremoteng.atlassian.net/browse/MR-607\nhttps://mremoteng.atlassian.net/browse/MR-684\nhttps://mremoteng.atlassian.net/browse/MR-281\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzczNTg0MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Could this be solved with an internal solution which would/should be well integrated or is relying on (proven) external tools like Filezilla/WinSCP still the way to go?",
-                         "author":  "e-alfred",
-                         "action_needed":  true,
-                         "date":  "2017-03-20T11:37:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4Nzc1NzYxNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@e-alfred at this time the solution is unknown. There are pros and cons to any approach.\r\n\r\nIf we integrate with an existing solution, there\u0027s less code for us to maintain. But this might not be an ideal user experience and there could be some security concerns with sending passwords on the command line that would be visible in taskmgr.\r\n\r\nIf we create a built in solution, this would likely provide the best user experience, at the expense of additional code maintenance and re-inventing the wheel...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-03-20T13:25:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxMjUwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Candidate for 2.0, some new alternatives exist as the native openssh in windows 10 or an scp client. ",
-                         "author":  "jotatsu",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T17:04:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc1MjczNDU3Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It\u0027s good to see this feature is on the list, however it sounds like it could be a while in the making. Can I suggest a simple improvement to the existing solution in the meantime?  Basically, just allow the saving of a connection, similar to how other connections are done.  \r\nThere are two features I would suggest:\r\n1. The local and remote file paths should save a history, making those routine uploads really easy.\r\n2. Allow the save of explicit transfers including specific paths (i.e. a routine...",
-                         "author":  "DarrenSchwartz",
-                         "action_needed":  true,
-                         "date":  "2020-12-30T19:36:46Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc4NzQ1OTcwMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Sounds like looking for the same feature as found in Moba",
-                         "author":  "silversword411",
-                         "action_needed":  true,
-                         "date":  "2021-02-28T14:17:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-02-28T14:17:59Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 183,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Better / Full featured File Transfer",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "Enhancement",
+    "Ready"
+  ],
+  "author": "kmscode",
+  "created_at": "2016-10-19T15:24:34Z",
+  "github_updated_at": "2021-02-28T14:17:59Z",
+  "body_snippet": "Multiple requests from JIRA for one or all of the following:\nBuilt in drag and drop SCP/SSH/FTP file transfer\nWinSCP integrated out of the box\nFileZilla integrated out of the box\n\nOld issues:\nhttps://mremoteng.atlassian.net/browse/MR-125\nhttps://mremoteng.atlassian.net/browse/MR-569\nhttps://mremoteng.atlassian.net/browse/MR-371\nhttps://mremoteng.atlassian.net/browse/MR-607\nhttps://mremoteng.atlassian.net/browse/MR-684\nhttps://mremoteng.atlassian.net/browse/MR-281\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzczNTg0MA==",
+      "author": "e-alfred",
+      "date": "2017-03-20T11:37:21Z",
+      "snippet": "Could this be solved with an internal solution which would/should be well integrated or is relying on (proven) external tools like Filezilla/WinSCP still the way to go?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4Nzc1NzYxNQ==",
+      "author": "kmscode",
+      "date": "2017-03-20T13:25:07Z",
+      "snippet": "@e-alfred at this time the solution is unknown. There are pros and cons to any approach.\r\n\r\nIf we integrate with an existing solution, there's less code for us to maintain. But this might not be an ideal user experience and there could be some security concerns with sending passwords on the command line that would be visible in taskmgr.\r\n\r\nIf we create a built in solution, this would likely provide the best user experience, at the expense of additional code maintenance and re-inventing the wheel...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTUxMjUwMg==",
+      "author": "jotatsu",
+      "date": "2019-02-07T17:04:09Z",
+      "snippet": "Candidate for 2.0, some new alternatives exist as the native openssh in windows 10 or an scp client. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc1MjczNDU3Mw==",
+      "author": "DarrenSchwartz",
+      "date": "2020-12-30T19:36:46Z",
+      "snippet": "It's good to see this feature is on the list, however it sounds like it could be a while in the making. Can I suggest a simple improvement to the existing solution in the meantime?  Basically, just allow the saving of a connection, similar to how other connections are done.  \r\nThere are two features I would suggest:\r\n1. The local and remote file paths should save a history, making those routine uploads really easy.\r\n2. Allow the save of explicit transfers including specific paths (i.e. a routine...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc4NzQ1OTcwMw==",
+      "author": "silversword411",
+      "date": "2021-02-28T14:17:59Z",
+      "snippet": "Sounds like looking for the same feature as found in Moba",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-02-28T14:17:59Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,66 +1,64 @@
-﻿{
-    "number":  2060,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "REQUEST: Quick connection history",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request",
-                   "1.8 (Fenix)"
-               ],
-    "author":  "rgmorato",
-    "created_at":  "2021-11-01T13:57:20Z",
-    "github_updated_at":  "2026-02-07T19:56:05Z",
-    "body_snippet":  "It would be nice if the history created in Quick Connections is not deleted after closing and reopening the app, as I often just type the server name in quick connection instead of registering a new connection.\r\n\r\nAlso, would it be nice if there was some way to add the option to save each of the Quick Connections to the list of Connections, like a right click option on the tab that says \"Add to Connections\"?\r\n\r\nThank you very much!",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM44_2Ab",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Sounds legit, will try to implement in new version 1.8 ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-11-01T14:03:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5EiBFs",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "#2037",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-06-08T10:58:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5IjY8J",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Both are great ideas!  I was just about to request the Add to Connections from a quick connection.  Great minds think alike!  :o)",
-                         "author":  "MrDwight",
-                         "action_needed":  true,
-                         "date":  "2022-08-16T22:32:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiTz",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:05Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:56:05Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2060,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "REQUEST: Quick connection history",
+  "state": "open",
+  "labels": [
+    "Feature Request",
+    "1.8 (Fenix)"
+  ],
+  "author": "rgmorato",
+  "created_at": "2021-11-01T13:57:20Z",
+  "github_updated_at": "2026-02-07T19:56:05Z",
+  "body_snippet": "It would be nice if the history created in Quick Connections is not deleted after closing and reopening the app, as I often just type the server name in quick connection instead of registering a new connection.\r\n\r\nAlso, would it be nice if there was some way to add the option to save each of the Quick Connections to the list of Connections, like a right click option on the tab that says \"Add to Connections\"?\r\n\r\nThank you very much!",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM44_2Ab",
+      "author": "Kvarkas",
+      "date": "2021-11-01T14:03:14Z",
+      "snippet": "Sounds legit, will try to implement in new version 1.8 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5EiBFs",
+      "author": "LIyoai",
+      "date": "2022-06-08T10:58:12Z",
+      "snippet": "#2037",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5IjY8J",
+      "author": "MrDwight",
+      "date": "2022-08-16T22:32:14Z",
+      "snippet": "Both are great ideas!  I was just about to request the Add to Connections from a quick connection.  Great minds think alike!  :o)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiTz",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:05Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:56:05Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

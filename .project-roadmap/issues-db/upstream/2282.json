@@ -1,66 +1,64 @@
-﻿{
-    "number":  2282,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Settings in Russian tranlation not saved",
-    "state":  "open",
-    "labels":  [
-                   "Translations",
-                   "1.77.4"
-               ],
-    "author":  "Apollon-Theos",
-    "created_at":  "2022-09-07T07:42:23Z",
-    "github_updated_at":  "2026-02-07T19:54:58Z",
-    "body_snippet":  "With Russian translations all options not saved. After switch to English translation all options is \"by default\" and must be set again.\r\n\r\n## Expected Behavior\r\nAll option can be set with any translation of interface and save with any translation.\r\nOption of program must be independent from language.\r\n\r\n## Current Behavior\r\nOptions set in Russian translation not saved and in English translation must be set again.\r\n\r\n## Possible Solution\r\nuse English by default translation,  and make independence...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5J2yAu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "current 1.77.3 nb dont save settings, so perhaps because of that",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-09-07T08:49:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5J4Xtm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "sad, but now I wait new build",
-                         "author":  "Apollon-Theos",
-                         "action_needed":  true,
-                         "date":  "2022-09-07T15:05:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ValcF",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We are planing to switch to Microsoft MAT in next release, so we have better control on translations",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-02-16T12:44:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiCU",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:58Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:58Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2282,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Settings in Russian tranlation not saved",
+  "state": "open",
+  "labels": [
+    "Translations",
+    "1.77.4"
+  ],
+  "author": "Apollon-Theos",
+  "created_at": "2022-09-07T07:42:23Z",
+  "github_updated_at": "2026-02-07T19:54:58Z",
+  "body_snippet": "With Russian translations all options not saved. After switch to English translation all options is \"by default\" and must be set again.\r\n\r\n## Expected Behavior\r\nAll option can be set with any translation of interface and save with any translation.\r\nOption of program must be independent from language.\r\n\r\n## Current Behavior\r\nOptions set in Russian translation not saved and in English translation must be set again.\r\n\r\n## Possible Solution\r\nuse English by default translation,  and make independence...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5J2yAu",
+      "author": "Kvarkas",
+      "date": "2022-09-07T08:49:07Z",
+      "snippet": "current 1.77.3 nb dont save settings, so perhaps because of that",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5J4Xtm",
+      "author": "Apollon-Theos",
+      "date": "2022-09-07T15:05:31Z",
+      "snippet": "sad, but now I wait new build",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ValcF",
+      "author": "Kvarkas",
+      "date": "2023-02-16T12:44:14Z",
+      "snippet": "We are planing to switch to Microsoft MAT in next release, so we have better control on translations",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiCU",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:58Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:58Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

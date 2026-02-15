@@ -1,84 +1,82 @@
-﻿{
-    "number":  1408,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Regression in develop branch: Putty not getting input focus when switching tabs",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Bug"
-               ],
-    "author":  "irsl",
-    "created_at":  "2019-04-13T18:27:37Z",
-    "github_updated_at":  "2022-09-06T23:33:04Z",
-    "body_snippet":  "## Expected Behavior\r\nWhen the user clicks on a ConnectionWindow tab that hosts a puttyng.exe window, Putty shall receive the input focus. This is how it is working in the master branch. \r\n\r\n## Current Behavior\r\nThe expected behaviour has changed in the develop branch, probably unintentionally, Putty does not get the focus anymore and the user needs an additional click every time.\r\n\r\n## Possible Solution\r\nThe ConnectionTab looks less fancy in the master branch, so I assume there was some kind of...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4Mjg3MDc0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Further info: at https://github.com/mRemoteNG/mRemoteNG/commit/bacf832158c84e0da84798091f554eee25a065fc the behavior is still correct; at the next commit https://github.com/mRemoteNG/mRemoteNG/commit/854af92f3dc655f5682ff02d976726da3e1b200e it is broken.",
-                         "author":  "irsl",
-                         "action_needed":  true,
-                         "date":  "2019-04-13T19:25:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5MTIxNzAyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I experience the same bug in pre-release 1.77.0 (commit 3e35486). Very annoying issue.",
-                         "author":  "elc00l",
-                         "action_needed":  true,
-                         "date":  "2019-05-10T09:04:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNDY2OTExOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think I have solved this in some recent work I\u0027ve done around putty focus issues. I\u0027ll update this issue once the PR is created. I have to do a bit more cleanup/testing on the fix first",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-08-25T22:22:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNzI5MTgwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd Do you think this will solve #1535 as well?",
-                         "author":  "rubaboo",
-                         "action_needed":  true,
-                         "date":  "2019-10-02T01:03:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47qp55",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@rubaboo yes it will, this is all related to the same issue.",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2021-12-25T15:33:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5J1dGc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any news on this? I still have the focus issue with the latest nightly (20220613).\r\n\r\nWhen you use mRemoteNG with KiTTY and the window is out of focus, every output that gets send is blank when you switch focus back. Only the cursor is a the correct position. There is little that can be done to show the output. If there is a scrollbar you can scroll to show the blank region. Sometimes, after a few minutes, the characters appear.\r\n\r\nThis is very annoying.\r\n",
-                         "author":  "meyergru",
-                         "action_needed":  true,
-                         "date":  "2022-09-06T23:33:04Z"
-                     }
-                 ],
-    "comments_cursor":  "2022-09-06T23:33:04Z",
-    "unread_comments":  6,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1408,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Regression in develop branch: Putty not getting input focus when switching tabs",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Bug"
+  ],
+  "author": "irsl",
+  "created_at": "2019-04-13T18:27:37Z",
+  "github_updated_at": "2022-09-06T23:33:04Z",
+  "body_snippet": "## Expected Behavior\r\nWhen the user clicks on a ConnectionWindow tab that hosts a puttyng.exe window, Putty shall receive the input focus. This is how it is working in the master branch. \r\n\r\n## Current Behavior\r\nThe expected behaviour has changed in the develop branch, probably unintentionally, Putty does not get the focus anymore and the user needs an additional click every time.\r\n\r\n## Possible Solution\r\nThe ConnectionTab looks less fancy in the master branch, so I assume there was some kind of...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4Mjg3MDc0NA==",
+      "author": "irsl",
+      "date": "2019-04-13T19:25:05Z",
+      "snippet": "Further info: at https://github.com/mRemoteNG/mRemoteNG/commit/bacf832158c84e0da84798091f554eee25a065fc the behavior is still correct; at the next commit https://github.com/mRemoteNG/mRemoteNG/commit/854af92f3dc655f5682ff02d976726da3e1b200e it is broken.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ5MTIxNzAyNA==",
+      "author": "elc00l",
+      "date": "2019-05-10T09:04:13Z",
+      "snippet": "I experience the same bug in pre-release 1.77.0 (commit 3e35486). Very annoying issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyNDY2OTExOQ==",
+      "author": "sparerd",
+      "date": "2019-08-25T22:22:11Z",
+      "snippet": "I think I have solved this in some recent work I've done around putty focus issues. I'll update this issue once the PR is created. I have to do a bit more cleanup/testing on the fix first",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNzI5MTgwNw==",
+      "author": "rubaboo",
+      "date": "2019-10-02T01:03:08Z",
+      "snippet": "@sparerd Do you think this will solve #1535 as well?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47qp55",
+      "author": "farosch",
+      "date": "2021-12-25T15:33:06Z",
+      "snippet": "@rubaboo yes it will, this is all related to the same issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5J1dGc",
+      "author": "meyergru",
+      "date": "2022-09-06T23:33:04Z",
+      "snippet": "Any news on this? I still have the focus issue with the latest nightly (20220613).\r\n\r\nWhen you use mRemoteNG with KiTTY and the window is out of focus, every output that gets send is blank when you switch focus back. Only the cursor is a the correct position. There is little that can be done to show the output. If there is a scrollbar you can scroll to show the blank region. Sometimes, after a few minutes, the characters appear.\r\n\r\nThis is very annoying.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2022-09-06T23:33:04Z",
+  "unread_comments": 6,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

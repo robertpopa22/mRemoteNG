@@ -1,202 +1,200 @@
-﻿{
-    "number":  2296,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "ssh not staying connected after sleep mode",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "Third party",
-                   "Putty"
-               ],
-    "author":  "app/",
-    "created_at":  "2022-10-08T22:51:20Z",
-    "github_updated_at":  "2026-02-07T16:44:59Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\n\r\nwhen the machine \"win 11\" goes to sleep mode, when coming back from sleep I find it disconnected\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5L2tBZ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi \r\n\r\nI think this is a limitation of Putty (and the SSH protocol), which is not directly in control of the mRemoteNG project. Eg. I know for sure that putty terminates the sessions when the IP stack changes, so I guess the sleep in Windows 11 also disables the network for power savings and therefore causes the putty sessions to fail. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-10-09T21:27:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L3aBL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is normal and expected, this has also todo with session security and in the end every secure remote protocoll should do this to avoid too long session lifetimes. You may use a tool like screen to \"keepalive\" sessions when connecting back. see https://linux.die.net/man/1/screen",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T05:53:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5E3F",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Frankly speaking its expected behaviour as mentioned above due security, but may have a quick look a bit later today if its possible to add option keep alive or smth like such, logically it may be option reconnect on wakeup as well.  ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T12:39:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5GMs",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas you can\u0027t do anything on the client side actually, because the server has (as of good practice security) some session timeouts and also tcp has them, so it\u0027s not woth to spent time on. if the server kills your tcp or ssh session while you are \"disconnected/ on standby\" -\u003e game over ;-)",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T12:43:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5MZM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ah and i almost forgot, you can\u0027t send keepalive when you are offline/in sleep",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:03:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5M3I",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "a good explanation can be found here: https://www.quora.com/How-do-you-definitively-keep-SSH-sessions-open-while-putting-a-laptop-to-sleep",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:05:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5OmS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @Kvarkas you can\u0027t do anything on the client side actually, because the server has (as of good practice security) some session timeouts and also tcp has them, so it\u0027s not woth to spent time on. if the server kills your tcp or ssh session while you are \"disconnected/ on standby\" -\u003e game over ;-)\r\n\r\nyes, but who say we cant resend session reconnect as far as have all connection detail? Any caprice for user money :)\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:11:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5QDU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Well of course you can add some option like a \"auto reconnect\" in my experience however thats not really present in many tools. the better way is to use some tool like screen where you connect in to the local \"screen tool session\" when ssh is reconnected. however feel free as you are the boss ;-)",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:16:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5SQ8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hey cmon! I am not a boss (captain perhaps, yes) we are making tool (we - not only who code but also who donate!) that is secure,  easy to use and comfortable, if community wants something and requested this will be implemented... one day... :)",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:24:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5L5S5v",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Boss was only meant in a funny manner :D :D :D :D",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-10T13:26:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5MzCuj",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As this behaviour is impossible to change/steer on the client-side only (basic network knowledge) and every product has this problem and there are 725 open issues on this project, in my humble opinion this should be closed.",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-10-24T05:44:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5OAW3k",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "So... project has no stable releases in past 3 years, over 700 issues and lead dev is seriously discussing putty sleep circumventing.\r\nGreat\r\n",
-                         "author":  "journeym",
-                         "action_needed":  true,
-                         "date":  "2022-11-09T13:01:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5OA0g5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e So... project has no stable releases in past 3 years, over 700 issues and lead dev is seriously discussing putty sleep circumventing. Great\r\n\r\nAlways funny how people criticize then don\u0027t even donate to the project :) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-11-09T14:20:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5OA8_E",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yeah yeah, keep up the good work mate lol",
-                         "author":  "journeym",
-                         "action_needed":  true,
-                         "date":  "2022-11-09T14:45:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5OBd3F",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "don\u0027t worry, I prefer as we say: the quieter you go, the further you\u0027ll get",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-11-09T16:18:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5PGY93",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Well i was suggesting to better moderate and prioritize the issues with the help of moderators, however if i see, that there are problems discussed if you can avoid a problem that exists by design (TCP/IP -\u003e you have to \"kill\" a connection after some time -\u003e the same for encrypted protocols, for security reasons) i loose the mind to invest time in this.",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-11-25T06:34:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5PGZuM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Btw, just to see if people think logical here, as a test, who will send your \"keepalive-packet\" when your computer is asleep? :D :D",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-11-25T06:38:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5RfaYG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Frankly speaking its expected behaviour as mentioned above due security, but may have a quick look a bit later today if its possible to add option keep alive or smth like such, logically it may be option reconnect on wakeup as well.\r\n\r\nAs a last try to get this issue rejected, you want to achieve this:\r\n\r\nClient -\u003e Connect to SSH-Server\r\n\r\nOpen Program A on SSH-Server\r\n\r\nClient -\u003e Goto Hibernation/Sleep\r\n\r\nServer -\u003e Client is gone for xxx Seconds Closing connection (for security or other reaso...",
-                         "author":  "thetuxinator",
-                         "action_needed":  true,
-                         "date":  "2022-12-29T09:34:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFPB",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:44:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:44:59Z",
-    "unread_comments":  18,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2296,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "ssh not staying connected after sleep mode",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "Third party",
+    "Putty"
+  ],
+  "author": "app/",
+  "created_at": "2022-10-08T22:51:20Z",
+  "github_updated_at": "2026-02-07T16:44:59Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\nwhen the machine \"win 11\" goes to sleep mode, when coming back from sleep I find it disconnected\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5L2tBZ",
+      "author": "simonai1254",
+      "date": "2022-10-09T21:27:03Z",
+      "snippet": "Hi \r\n\r\nI think this is a limitation of Putty (and the SSH protocol), which is not directly in control of the mRemoteNG project. Eg. I know for sure that putty terminates the sessions when the IP stack changes, so I guess the sleep in Windows 11 also disables the network for power savings and therefore causes the putty sessions to fail. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L3aBL",
+      "author": "thetuxinator",
+      "date": "2022-10-10T05:53:24Z",
+      "snippet": "This is normal and expected, this has also todo with session security and in the end every secure remote protocoll should do this to avoid too long session lifetimes. You may use a tool like screen to \"keepalive\" sessions when connecting back. see https://linux.die.net/man/1/screen",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5E3F",
+      "author": "Kvarkas",
+      "date": "2022-10-10T12:39:05Z",
+      "snippet": "Frankly speaking its expected behaviour as mentioned above due security, but may have a quick look a bit later today if its possible to add option keep alive or smth like such, logically it may be option reconnect on wakeup as well.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5GMs",
+      "author": "thetuxinator",
+      "date": "2022-10-10T12:43:35Z",
+      "snippet": "@Kvarkas you can't do anything on the client side actually, because the server has (as of good practice security) some session timeouts and also tcp has them, so it's not woth to spent time on. if the server kills your tcp or ssh session while you are \"disconnected/ on standby\" -> game over ;-)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5MZM",
+      "author": "thetuxinator",
+      "date": "2022-10-10T13:03:48Z",
+      "snippet": "Ah and i almost forgot, you can't send keepalive when you are offline/in sleep",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5M3I",
+      "author": "thetuxinator",
+      "date": "2022-10-10T13:05:24Z",
+      "snippet": "a good explanation can be found here: https://www.quora.com/How-do-you-definitively-keep-SSH-sessions-open-while-putting-a-laptop-to-sleep",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5OmS",
+      "author": "Kvarkas",
+      "date": "2022-10-10T13:11:23Z",
+      "snippet": "> @Kvarkas you can't do anything on the client side actually, because the server has (as of good practice security) some session timeouts and also tcp has them, so it's not woth to spent time on. if the server kills your tcp or ssh session while you are \"disconnected/ on standby\" -> game over ;-)\r\n\r\nyes, but who say we cant resend session reconnect as far as have all connection detail? Any caprice for user money :)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5QDU",
+      "author": "thetuxinator",
+      "date": "2022-10-10T13:16:33Z",
+      "snippet": "Well of course you can add some option like a \"auto reconnect\" in my experience however thats not really present in many tools. the better way is to use some tool like screen where you connect in to the local \"screen tool session\" when ssh is reconnected. however feel free as you are the boss ;-)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5SQ8",
+      "author": "Kvarkas",
+      "date": "2022-10-10T13:24:02Z",
+      "snippet": "hey cmon! I am not a boss (captain perhaps, yes) we are making tool (we - not only who code but also who donate!) that is secure,  easy to use and comfortable, if community wants something and requested this will be implemented... one day... :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5L5S5v",
+      "author": "thetuxinator",
+      "date": "2022-10-10T13:26:04Z",
+      "snippet": "Boss was only meant in a funny manner :D :D :D :D",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5MzCuj",
+      "author": "thetuxinator",
+      "date": "2022-10-24T05:44:14Z",
+      "snippet": "As this behaviour is impossible to change/steer on the client-side only (basic network knowledge) and every product has this problem and there are 725 open issues on this project, in my humble opinion this should be closed.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5OAW3k",
+      "author": "journeym",
+      "date": "2022-11-09T13:01:34Z",
+      "snippet": "So... project has no stable releases in past 3 years, over 700 issues and lead dev is seriously discussing putty sleep circumventing.\r\nGreat\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5OA0g5",
+      "author": "Kvarkas",
+      "date": "2022-11-09T14:20:57Z",
+      "snippet": "> So... project has no stable releases in past 3 years, over 700 issues and lead dev is seriously discussing putty sleep circumventing. Great\r\n\r\nAlways funny how people criticize then don't even donate to the project :) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5OA8_E",
+      "author": "journeym",
+      "date": "2022-11-09T14:45:31Z",
+      "snippet": "Yeah yeah, keep up the good work mate lol",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5OBd3F",
+      "author": "Kvarkas",
+      "date": "2022-11-09T16:18:58Z",
+      "snippet": "don't worry, I prefer as we say: the quieter you go, the further you'll get",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5PGY93",
+      "author": "thetuxinator",
+      "date": "2022-11-25T06:34:18Z",
+      "snippet": "Well i was suggesting to better moderate and prioritize the issues with the help of moderators, however if i see, that there are problems discussed if you can avoid a problem that exists by design (TCP/IP -> you have to \"kill\" a connection after some time -> the same for encrypted protocols, for security reasons) i loose the mind to invest time in this.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5PGZuM",
+      "author": "thetuxinator",
+      "date": "2022-11-25T06:38:32Z",
+      "snippet": "Btw, just to see if people think logical here, as a test, who will send your \"keepalive-packet\" when your computer is asleep? :D :D",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5RfaYG",
+      "author": "thetuxinator",
+      "date": "2022-12-29T09:34:37Z",
+      "snippet": "> Frankly speaking its expected behaviour as mentioned above due security, but may have a quick look a bit later today if its possible to add option keep alive or smth like such, logically it may be option reconnect on wakeup as well.\r\n\r\nAs a last try to get this issue rejected, you want to achieve this:\r\n\r\nClient -> Connect to SSH-Server\r\n\r\nOpen Program A on SSH-Server\r\n\r\nClient -> Goto Hibernation/Sleep\r\n\r\nServer -> Client is gone for xxx Seconds Closing connection (for security or other reaso...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFPB",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:44:59Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:44:59Z",
+  "unread_comments": 18,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

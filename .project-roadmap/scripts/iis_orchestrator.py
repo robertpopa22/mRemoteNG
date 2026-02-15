@@ -2,8 +2,21 @@
 """
 IIS Orchestrator — Automated Issue Resolution & Warning Cleanup
 Uses Claude Code CLI (-p headless) as sub-agent for AI triage and code fixes.
+Also provides the full Issue Intelligence System (sync, analyze, update, report).
 
-Usage:
+Usage — IIS (Issue Intelligence):
+    python iis_orchestrator.py sync                               # sync both repos
+    python iis_orchestrator.py sync --repos upstream --issues 2735,3044  # targeted sync
+    python iis_orchestrator.py sync --include-closed              # include closed issues
+    python iis_orchestrator.py analyze                            # show actionable items
+    python iis_orchestrator.py analyze --waiting-only             # only waiting for us
+    python iis_orchestrator.py analyze --priority P2-bug --status new
+    python iis_orchestrator.py update --issue 3044 --status triaged --priority P2-bug
+    python iis_orchestrator.py update --issue 3044 --status released --release v1.81.0 --post-comment
+    python iis_orchestrator.py report                             # save markdown report
+    python iis_orchestrator.py report --include-all --no-save     # full inventory to console
+
+Usage — Orchestrator (AI-driven fix automation):
     python iis_orchestrator.py                  # run all (issues + warnings)
     python iis_orchestrator.py issues           # only open issues
     python iis_orchestrator.py warnings         # only CS8xxx warnings
@@ -38,6 +51,12 @@ from pathlib import Path
 REPO_ROOT = Path(r"D:\github\mRemoteNG")
 SCRIPTS_DIR = REPO_ROOT / ".project-roadmap" / "scripts"
 ISSUES_DB_DIR = REPO_ROOT / ".project-roadmap" / "issues-db" / "upstream"
+ISSUES_DB_ROOT = REPO_ROOT / ".project-roadmap" / "issues-db"
+ISSUES_DB_UPSTREAM = ISSUES_DB_ROOT / "upstream"
+ISSUES_DB_FORK = ISSUES_DB_ROOT / "fork"
+META_PATH = ISSUES_DB_ROOT / "_meta.json"
+ROADMAP_PATH = ISSUES_DB_ROOT / "_roadmap.json"
+REPORTS_DIR = ISSUES_DB_ROOT / "reports"
 STATUS_FILE = SCRIPTS_DIR / "orchestrator-status.json"
 LOG_FILE = SCRIPTS_DIR / "orchestrator.log"
 
@@ -494,14 +513,25 @@ def post_github_comment(issue_num, commit_hash, description):
         return False
 
 
-def update_issue_json(issue_num, new_status, description=""):
-    """Update issue status in local IIS JSON DB."""
+def update_issue_json(issue_num, new_status, description="", *,
+                      priority=None, notes=None):
+    """Update issue status in local IIS JSON DB.
+
+    Args:
+        priority: e.g. "P2-bug" — written to data["priority"] if provided.
+        notes:    appended to data["notes"] if provided.
+    """
     json_file = ISSUES_DB_DIR / f"{issue_num:04d}.json"
     if not json_file.exists():
         return
     try:
         data = json.loads(json_file.read_text(encoding="utf-8-sig"))
         data["our_status"] = new_status
+        if priority:
+            data["priority"] = priority
+        if notes:
+            prev = (data.get("notes") or "").rstrip()
+            data["notes"] = f"{prev}\n{notes}".strip() if prev else notes
         if "iterations" not in data:
             data["iterations"] = []
         data["iterations"].append({
@@ -511,7 +541,8 @@ def update_issue_json(issue_num, new_status, description=""):
             "description": description,
         })
         json_file.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
         )
     except Exception as e:
         log.warning("    [IIS] JSON update failed for #%d: %s", issue_num, e)
@@ -700,17 +731,11 @@ def flux_issues(status, dry_run=False, max_issues=None):
     log.info("=" * 60)
 
     status.set_task(type="sync", step="syncing")
-    sync_script = SCRIPTS_DIR / "Sync-Issues.ps1"
-    if sync_script.exists():
-        log.info("  Syncing issues from GitHub ...")
-        try:
-            _run(
-                ["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
-                 "-File", str(sync_script)],
-                timeout=120,
-            )
-        except Exception as e:
-            log.warning("  Sync failed: %s", e)
+    log.info("  Syncing issues from GitHub ...")
+    try:
+        iis_sync(repos="both")
+    except Exception as e:
+        log.warning("  Sync failed: %s", e)
 
     issues = load_actionable_issues()
     status.data["issues"]["total_synced"] = len(issues)
@@ -738,20 +763,32 @@ def flux_issues(status, dry_run=False, max_issues=None):
             continue
 
         decision = triage.get("decision", "needs_info")
+        ai_priority = triage.get("priority")
+        ai_reason = triage.get("reason", "")
+        ai_approach = triage.get("approach", "")
+        ai_notes = f"AI triage: {ai_reason}" + (
+            f"\nApproach: {ai_approach}" if ai_approach else ""
+        )
         status.data["issues"]["triaged"] += 1
-        log.info("  Decision: %s — %s", decision, triage.get("reason", ""))
+        log.info("  Decision: %s — %s", decision, ai_reason)
 
         if decision == "implement":
             status.data["issues"]["to_implement"] += 1
+            update_issue_json(num, "triaged", ai_reason,
+                              priority=ai_priority, notes=ai_notes)
             implement_issue(issue, triage, status)
         elif decision == "wontfix":
             status.data["issues"]["skipped_wontfix"] += 1
-            update_issue_json(num, "wontfix", triage.get("reason", ""))
+            update_issue_json(num, "wontfix", ai_reason,
+                              priority=ai_priority, notes=ai_notes)
         elif decision == "duplicate":
             status.data["issues"]["skipped_duplicate"] += 1
-            update_issue_json(num, "duplicate", triage.get("reason", ""))
+            update_issue_json(num, "duplicate", ai_reason,
+                              priority=ai_priority, notes=ai_notes)
         elif decision == "needs_info":
             status.data["issues"]["skipped_needs_info"] += 1
+            update_issue_json(num, "triaged", ai_reason,
+                              priority=ai_priority, notes=ai_notes)
 
         status.save()
 
@@ -1358,35 +1395,964 @@ def show_status():
     print()
 
 
+# ── IIS: JSON DB HELPERS ───────────────────────────────────────────────────
+def iis_read_json(path):
+    """Read JSON with utf-8-sig fallback (handles PS-generated BOM files)."""
+    return json.loads(Path(path).read_text(encoding="utf-8-sig"))
+
+
+def iis_write_json(path, data):
+    """Write JSON as utf-8 (no BOM). Normalized output."""
+    Path(path).write_text(
+        json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+
+def iis_load_all_issues(repos=("upstream", "fork")):
+    """Load all issue JSONs from specified repo DB directories."""
+    issues = []
+    for repo_key in repos:
+        d = ISSUES_DB_ROOT / repo_key
+        if not d.exists():
+            continue
+        for f in sorted(d.glob("[0-9]*.json")):
+            try:
+                data = iis_read_json(f)
+                data["_repo_key"] = repo_key
+                data["_file_path"] = str(f)
+                issues.append(data)
+            except Exception:
+                pass
+    return issues
+
+
+# ── IIS: GITHUB CLI HELPERS ───────────────────────────────────────────────
+def gh_run_json(args, timeout=60):
+    """Run gh CLI command expecting JSON output. Returns parsed JSON or None."""
+    cmd = ["gh"] + args
+    try:
+        r = subprocess.run(
+            cmd, capture_output=True, text=True,
+            timeout=timeout, encoding="utf-8", errors="replace",
+        )
+        if r.returncode != 0:
+            log.warning("  [GH] %s failed: %s", " ".join(args[:3]), (r.stderr or "")[:200])
+            return None
+        return json.loads(r.stdout)
+    except Exception as e:
+        log.warning("  [GH] %s error: %s", " ".join(args[:3]), e)
+        return None
+
+
+def gh_post_comment(repo, num, body):
+    """Post a comment on a GitHub issue. Returns True on success."""
+    try:
+        r = _run(
+            ["gh", "issue", "comment", str(num), "--repo", repo, "--body", body],
+            timeout=30,
+        )
+        return r.returncode == 0
+    except Exception:
+        return False
+
+
+# ── IIS: SYNC ─────────────────────────────────────────────────────────────
+def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=1000):
+    """Sync issues from GitHub into local JSON DB.
+    Replaces Sync-Issues.ps1."""
+    meta = iis_read_json(META_PATH)
+    upstream_repo = meta["repos"]["upstream"]
+    fork_repo = meta["repos"]["fork"]
+    our_user = meta["our_github_user"]
+    sync_start = datetime.datetime.now(datetime.timezone.utc)
+
+    print("=== Issue Intelligence System - Sync ===")
+    print(f"Time: {sync_start.strftime('%Y-%m-%d %H:%M:%S')} UTC")
+    print(f"Repos: {repos}")
+    if issue_numbers:
+        print(f"Targeted issues: {', '.join(str(n) for n in issue_numbers)}")
+    print()
+
+    repos_to_sync = []
+    if repos in ("both", "upstream"):
+        repos_to_sync.append(("upstream", upstream_repo))
+    if repos in ("both", "fork"):
+        repos_to_sync.append(("fork", fork_repo))
+
+    stats = {
+        "repos_synced": [],
+        "issues_new": 0,
+        "issues_updated": 0,
+        "issues_error": 0,
+        "comments_new": 0,
+        "needs_action": 0,
+        "waiting_for_us": 0,
+    }
+
+    for repo_key, repo_name in repos_to_sync:
+        print(f"--- Syncing: {repo_name} ({repo_key}) ---")
+
+        if issue_numbers:
+            issues_list = [{"number": n} for n in issue_numbers]
+        else:
+            state_arg = "all" if include_closed else "open"
+            print(f"  Fetching issue list (state={state_arg}, limit={max_issues})...")
+            data = gh_run_json([
+                "issue", "list", "--repo", repo_name,
+                "--state", state_arg, "--limit", str(max_issues),
+                "--json", "number,title,updatedAt",
+            ], timeout=120)
+            if data is None:
+                print(f"  Failed to list issues from {repo_name}")
+                continue
+            issues_list = data
+            print(f"  Found {len(issues_list)} issues")
+
+        repo_dir = ISSUES_DB_ROOT / repo_key
+        repo_dir.mkdir(parents=True, exist_ok=True)
+
+        for idx, issue_stub in enumerate(issues_list, 1):
+            num = issue_stub["number"]
+            pct = int(idx * 100 / max(len(issues_list), 1))
+            print(f"  [{pct}%] Processing #{num}...", end="", flush=True)
+
+            # Fetch full issue with comments
+            gh_full = gh_run_json([
+                "issue", "view", str(num), "--repo", repo_name,
+                "--json", "number,title,state,labels,createdAt,updatedAt,body,author,comments",
+            ], timeout=30)
+
+            if gh_full is None:
+                stats["issues_error"] += 1
+                print(" ERROR")
+                continue
+
+            # Build comments array
+            gh_comments = []
+            for c in (gh_full.get("comments") or []):
+                body_text = c.get("body") or ""
+                snippet = body_text[:500] + "..." if len(body_text) > 500 else body_text
+                is_ours = (c.get("author", {}).get("login") == our_user)
+                gh_comments.append({
+                    "id": c.get("id"),
+                    "author": c.get("author", {}).get("login", ""),
+                    "date": c.get("createdAt", ""),
+                    "snippet": snippet,
+                    "is_ours": is_ours,
+                    "analyzed": False,
+                    "action_needed": False,
+                })
+
+            # Load existing JSON if present
+            padded = f"{num:04d}"
+            file_path = repo_dir / f"{padded}.json"
+            existing = None
+            is_new = False
+            new_comment_count = 0
+
+            if file_path.exists():
+                try:
+                    existing = iis_read_json(file_path)
+                except Exception:
+                    existing = None
+
+            if existing:
+                # Detect new comments by comparing IDs
+                existing_ids = {ec.get("id") for ec in (existing.get("comments") or [])}
+                for gc in gh_comments:
+                    if gc["id"] not in existing_ids:
+                        new_comment_count += 1
+                        gc["analyzed"] = False
+                        gc["action_needed"] = not gc["is_ours"]
+                    else:
+                        # Preserve analyzed/action_needed from existing
+                        for ec in (existing.get("comments") or []):
+                            if ec.get("id") == gc["id"]:
+                                gc["analyzed"] = ec.get("analyzed", False)
+                                gc["action_needed"] = ec.get("action_needed", False)
+                                break
+            else:
+                is_new = True
+                new_comment_count = len(gh_comments)
+                for gc in gh_comments:
+                    gc["action_needed"] = not gc["is_ours"]
+
+            # Build labels
+            labels = [lbl.get("name", "") for lbl in (gh_full.get("labels") or [])]
+
+            # Determine needs_action
+            unread_count = sum(
+                1 for gc in gh_comments if not gc["analyzed"] and not gc["is_ours"]
+            )
+            needs_action = unread_count > 0 or is_new
+
+            # Determine waiting_for_us (last comment is from someone else)
+            last_comment = gh_comments[-1] if gh_comments else None
+            waiting_for_us = bool(last_comment and not last_comment["is_ours"])
+
+            # Body snippet
+            body_raw = gh_full.get("body") or ""
+            body_snippet = body_raw[:500] + "..." if len(body_raw) > 500 else body_raw
+
+            # Preserve our fields from existing
+            prev = existing or {}
+
+            issue_obj = {
+                "number": num,
+                "repo": repo_name,
+                "title": gh_full.get("title", ""),
+                "state": (gh_full.get("state") or "open").lower(),
+                "labels": labels,
+                "author": gh_full.get("author", {}).get("login", ""),
+                "created_at": gh_full.get("createdAt", ""),
+                "github_updated_at": gh_full.get("updatedAt", ""),
+                "body_snippet": body_snippet,
+                "our_status": prev.get("our_status", "new"),
+                "priority": prev.get("priority"),
+                "target_release": prev.get("target_release"),
+                "our_branch": prev.get("our_branch"),
+                "our_pr": prev.get("our_pr"),
+                "iterations": prev.get("iterations", []),
+                "comments": gh_comments,
+                "comments_cursor": gh_full.get("updatedAt", ""),
+                "unread_comments": unread_count,
+                "needs_action": needs_action,
+                "waiting_for_us": waiting_for_us,
+                "last_synced": sync_start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "notes": prev.get("notes", ""),
+            }
+
+            iis_write_json(file_path, issue_obj)
+
+            # Print status
+            if is_new:
+                stats["issues_new"] += 1
+                print(" NEW", end="")
+            else:
+                stats["issues_updated"] += 1
+                print(" updated", end="")
+
+            if new_comment_count > 0:
+                stats["comments_new"] += new_comment_count
+                print(f" (+{new_comment_count} comments)", end="")
+
+            if waiting_for_us:
+                stats["waiting_for_us"] += 1
+                print(" [WAITING FOR US]", end="")
+            elif needs_action:
+                stats["needs_action"] += 1
+                print(" [needs action]", end="")
+
+            print()
+
+        stats["repos_synced"].append(repo_name)
+        print()
+
+    # Update _meta.json
+    duration = (datetime.datetime.now(datetime.timezone.utc) - sync_start).total_seconds()
+    meta["last_sync"] = sync_start.strftime("%Y-%m-%dT%H:%M:%SZ")
+    meta["last_sync_stats"] = {
+        "repos_synced": stats["repos_synced"],
+        "issues_new": stats["issues_new"],
+        "issues_updated": stats["issues_updated"],
+        "issues_error": stats["issues_error"],
+        "comments_new": stats["comments_new"],
+        "needs_action": stats["needs_action"],
+        "waiting_for_us": stats["waiting_for_us"],
+        "duration_sec": round(duration, 1),
+    }
+    iis_write_json(META_PATH, meta)
+
+    # Summary
+    print("=== Sync Complete ===")
+    print(f"Duration: {duration:.1f}s")
+    print(f"New issues:      {stats['issues_new']}")
+    print(f"Updated issues:  {stats['issues_updated']}")
+    print(f"New comments:    {stats['comments_new']}")
+    print(f"Errors:          {stats['issues_error']}")
+    print()
+    if stats["waiting_for_us"] > 0:
+        print(f"!! {stats['waiting_for_us']} issues WAITING FOR OUR RESPONSE !!")
+    if stats["needs_action"] > 0:
+        print(f">> {stats['needs_action']} issues need action (run: iis_orchestrator.py analyze)")
+    print()
+
+
+# ── IIS: ANALYZE ──────────────────────────────────────────────────────────
+def _auto_classify(issue):
+    """Auto-classify an issue based on labels and iteration status."""
+    labels = issue.get("labels") or []
+    priority = None
+    action = None
+
+    if "critical" in labels or "Security" in labels:
+        priority = "P0-critical"
+    elif "Bug" in labels:
+        priority = "P2-bug" if "1.78.*" in labels else "P3-enhancement"
+    elif "Enhancement" in labels:
+        priority = "P3-enhancement"
+    elif "Duplicate" in labels:
+        priority = "P4-debt"
+        action = "verify-duplicate"
+    elif "Need 2 check" in labels:
+        priority = "P2-bug"
+        action = "needs-verification"
+    else:
+        priority = "P3-enhancement"
+
+    # Check iteration status — user feedback after our fix?
+    iterations = issue.get("iterations") or []
+    if iterations:
+        last_iter = iterations[-1]
+        if last_iter.get("type") == "user-feedback" or last_iter.get("result") == "partial":
+            action = "iteration-needed"
+
+    if issue.get("waiting_for_us") and not action:
+        action = "respond"
+
+    return {"priority": priority, "action": action}
+
+
+def iis_analyze(show_all=False, waiting_only=False, priority_filter=None,
+                status_filter=None):
+    """Analyze issues and show what needs attention.
+    Replaces Analyze-Issues.ps1."""
+    meta = iis_read_json(META_PATH)
+
+    print("=== Issue Intelligence System - Analysis ===")
+    if meta.get("last_sync"):
+        print(f"Last sync: {meta['last_sync']}")
+    else:
+        print("WARNING: No sync has been run yet. Run: iis_orchestrator.py sync")
+        return
+    print()
+
+    all_issues = iis_load_all_issues()
+    print(f"Total issues in DB: {len(all_issues)}")
+
+    # Filter
+    filtered = all_issues
+    if waiting_only:
+        filtered = [i for i in filtered if i.get("waiting_for_us")]
+    elif not show_all:
+        filtered = [i for i in filtered
+                    if i.get("needs_action") or i.get("our_status") == "new"
+                    or i.get("waiting_for_us")]
+
+    if priority_filter:
+        filtered = [i for i in filtered if i.get("priority") == priority_filter]
+    if status_filter:
+        filtered = [i for i in filtered if i.get("our_status") == status_filter]
+
+    # Categorize
+    urgent, iteration, respond, triage, roadmap, other = [], [], [], [], [], []
+
+    for issue in filtered:
+        cl = _auto_classify(issue)
+        item = {"issue": issue, "classification": cl}
+
+        if issue.get("waiting_for_us") and cl["priority"] in ("P0-critical", "P1-security"):
+            urgent.append(item)
+        elif cl["action"] == "iteration-needed":
+            iteration.append(item)
+        elif issue.get("waiting_for_us"):
+            respond.append(item)
+        elif issue.get("our_status") == "new":
+            triage.append(item)
+        elif issue.get("our_status") == "roadmap":
+            roadmap.append(item)
+        else:
+            other.append(item)
+
+    # Display helper
+    def print_row(item):
+        i = item["issue"]
+        cl = item["classification"]
+        iter_count = len(i.get("iterations") or [])
+        unread = i.get("unread_comments", 0)
+
+        line = (f"  #{i['number']:<5} [{i.get('our_status', 'new'):^8}] "
+                f"[{(cl['priority'] or ''):^14}] {i.get('title', '')}")
+        if len(line) > 120:
+            line = line[:117] + "..."
+        print(line, end="")
+        if iter_count > 0:
+            print(f" (iter:{iter_count})", end="")
+        if unread > 0:
+            print(f" [+{unread} unread]", end="")
+        if cl["action"]:
+            print(f" -> {cl['action']}", end="")
+        print()
+
+    if urgent:
+        print("!! URGENT - Waiting for us (critical/security) !!")
+        for item in urgent:
+            print_row(item)
+        print()
+    if iteration:
+        print(">> ITERATION NEEDED - User feedback after our fix <<")
+        for item in iteration:
+            print_row(item)
+        print()
+    if respond:
+        print(">> RESPOND - Waiting for our response <<")
+        for item in respond:
+            print_row(item)
+        print()
+    if triage:
+        print("-- NEW - Needs triage --")
+        for item in triage:
+            print_row(item)
+        print()
+    if roadmap:
+        print("-- ROADMAP - Tracked for next release --")
+        for item in roadmap:
+            print_row(item)
+        print()
+    if other:
+        print("-- OTHER --")
+        for item in other:
+            print_row(item)
+        print()
+
+    # Summary
+    print("=== Summary ===")
+    print(f"Total in DB:       {len(all_issues)}")
+    print(f"Shown:             {len(filtered)}")
+    print(f"Urgent:            {len(urgent)}")
+    print(f"Iteration needed:  {len(iteration)}")
+    print(f"Awaiting response: {len(respond)}")
+    print(f"New (triage):      {len(triage)}")
+    print(f"In roadmap:        {len(roadmap)}")
+
+    # Status distribution
+    print()
+    print("--- Status Distribution ---")
+    status_counts = {}
+    for i in all_issues:
+        s = i.get("our_status", "new")
+        status_counts[s] = status_counts.get(s, 0) + 1
+    for s, c in sorted(status_counts.items(), key=lambda x: -x[1]):
+        print(f"  {s}: {c}")
+
+    # Suggested next steps
+    print()
+    print("--- Suggested Next Steps ---")
+    if urgent:
+        print(f"  1. RESPOND to {len(urgent)} urgent issues immediately")
+    if iteration:
+        print(f"  2. RE-FIX {len(iteration)} issues with user feedback (iteration loop)")
+    if respond:
+        print(f"  3. Reply to {len(respond)} issues waiting for response")
+    if triage:
+        print(f"  4. Triage {len(triage)} new issues"
+              " (run: iis_orchestrator.py update --issue <N> --status triaged)")
+    print("  Run: iis_orchestrator.py report to create markdown report")
+
+
+# ── IIS: UPDATE ───────────────────────────────────────────────────────────
+VALID_TRANSITIONS = {
+    "new":         ["triaged", "roadmap", "in-progress", "released", "wontfix", "duplicate"],
+    "triaged":     ["roadmap", "in-progress", "wontfix", "duplicate"],
+    "roadmap":     ["in-progress", "wontfix"],
+    "in-progress": ["testing", "roadmap", "wontfix"],
+    "testing":     ["released", "in-progress"],
+    "released":    ["in-progress"],
+    "wontfix":     ["new", "triaged"],
+    "duplicate":   ["new", "triaged"],
+}
+
+
+def iis_update(issue_num, new_status, repo="upstream", description=None,
+               pr=None, branch=None, release=None, release_url=None,
+               post_comment=False, priority=None, notes=None,
+               add_to_roadmap=False):
+    """Update issue lifecycle status with iteration tracking.
+    Replaces Update-Status.ps1."""
+    meta = iis_read_json(META_PATH)
+    repo_full = meta["repos"].get(repo, meta["repos"]["upstream"])
+
+    padded = f"{issue_num:04d}"
+    file_path = ISSUES_DB_ROOT / repo / f"{padded}.json"
+
+    if not file_path.exists():
+        print(f"ERROR: Issue #{issue_num} not found in {repo} DB. Run sync first.")
+        return False
+
+    issue_data = iis_read_json(file_path)
+    old_status = issue_data.get("our_status", "new")
+
+    print(f"=== Issue #{issue_num} Status Update ===")
+    print(f"Title:      {issue_data.get('title', '')}")
+    print(f"Old status: {old_status}")
+    print(f"New status: {new_status}")
+    print()
+
+    # Validate transition
+    valid = VALID_TRANSITIONS.get(old_status, [])
+    if new_status not in valid:
+        print(f"WARNING: Non-standard transition: {old_status} -> {new_status}")
+        print(f"Standard transitions from '{old_status}': {', '.join(valid)}")
+
+    # Detect iteration loop
+    is_iteration = old_status in ("testing", "released") and new_status == "in-progress"
+    if is_iteration:
+        print(">> ITERATION LOOP detected: user feedback after fix, re-opening <<")
+
+    # Update fields
+    issue_data["our_status"] = new_status
+    if priority:
+        issue_data["priority"] = priority
+    if branch:
+        issue_data["our_branch"] = branch
+    if pr:
+        issue_data["our_pr"] = pr
+    if release:
+        issue_data["target_release"] = release
+    if notes:
+        issue_data["notes"] = notes
+
+    # Add iteration entry
+    iterations = issue_data.get("iterations") or []
+    iter_seq = max((it.get("seq", 0) for it in iterations), default=0) + 1
+
+    iter_type = "iteration-reopen" if is_iteration else new_status
+    iter_entry = {
+        "seq": iter_seq,
+        "date": datetime.date.today().isoformat(),
+        "type": iter_type,
+        "description": description or f"Status changed to {new_status}",
+        "pr": pr,
+        "branch": branch,
+        "release": release,
+        "comment_posted": False,
+    }
+    iterations.append(iter_entry)
+    issue_data["iterations"] = iterations
+
+    # Build comment from template
+    templates = meta.get("comment_templates", {})
+    comment_body = None
+
+    if new_status == "roadmap":
+        comment_body = templates.get("triaged_to_roadmap")
+    elif new_status == "in-progress":
+        comment_body = (templates.get("iteration_ack") if is_iteration
+                        else templates.get("in_progress"))
+    elif new_status == "testing":
+        pr_url = f"https://github.com/{repo_full}/pull/{pr}" if pr else "(PR pending)"
+        tpl = templates.get("testing", "")
+        comment_body = tpl.replace("{pr_url}", pr_url) if tpl else None
+    elif new_status == "released":
+        tpl = templates.get("released", "")
+        if tpl:
+            comment_body = tpl.replace("{release_tag}", release or "").replace(
+                "{release_url}", release_url or ""
+            )
+
+    # Post comment
+    if comment_body:
+        if post_comment:
+            print(f"Posting comment to #{issue_num} on {repo_full}...")
+            print("--- Comment preview ---")
+            print(comment_body)
+            print("--- End preview ---")
+
+            ok = gh_post_comment(repo_full, issue_num, comment_body)
+            if ok:
+                print("Comment posted successfully.")
+                iterations[-1]["comment_posted"] = True
+            else:
+                print("WARNING: Failed to post comment.")
+        else:
+            print("--- Suggested comment (not posted, use --post-comment to send) ---")
+            print(comment_body)
+            print("--- End suggestion ---")
+
+    # Update roadmap
+    if add_to_roadmap or new_status == "roadmap":
+        if ROADMAP_PATH.exists():
+            try:
+                roadmap_data = iis_read_json(ROADMAP_PATH)
+                items = roadmap_data.get("items", [])
+                existing_item = next(
+                    (it for it in items
+                     if it.get("number") == issue_num and it.get("repo") == repo_full),
+                    None,
+                )
+                if not existing_item:
+                    items.append({
+                        "number": issue_num,
+                        "repo": repo_full,
+                        "title": issue_data.get("title", ""),
+                        "priority": issue_data.get("priority"),
+                        "our_status": new_status,
+                        "added_date": datetime.date.today().isoformat(),
+                        "target_release": issue_data.get("target_release"),
+                    })
+                    roadmap_data["items"] = items
+                    print("Added to roadmap.")
+                else:
+                    existing_item["our_status"] = new_status
+                    existing_item["priority"] = issue_data.get("priority")
+                    print("Updated roadmap entry.")
+                roadmap_data["last_updated"] = (
+                    datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+                )
+                iis_write_json(ROADMAP_PATH, roadmap_data)
+            except Exception as e:
+                print(f"WARNING: Roadmap update failed: {e}")
+
+    # Save
+    issue_data["last_synced"] = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    iis_write_json(file_path, issue_data)
+
+    print()
+    print(f"Issue #{issue_num} updated: {old_status} -> {new_status}")
+    if is_iteration:
+        print(f"Iteration #{iter_seq} recorded (feedback loop)")
+    print(f"File: {file_path}")
+    return True
+
+
+# ── IIS: REPORT ───────────────────────────────────────────────────────────
+def iis_report(include_all=False, no_save=False):
+    """Generate markdown report from issue DB.
+    Replaces Generate-Report.ps1."""
+    meta = iis_read_json(META_PATH)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    report_date = now.strftime("%Y-%m-%d")
+
+    all_issues = iis_load_all_issues()
+
+    # Load roadmap
+    roadmap_data = None
+    if ROADMAP_PATH.exists():
+        try:
+            roadmap_data = iis_read_json(ROADMAP_PATH)
+        except Exception:
+            pass
+
+    # Categorize
+    urgent = [i for i in all_issues
+              if i.get("waiting_for_us")
+              and i.get("priority") in ("P0-critical", "P1-security")]
+    iteration = [i for i in all_issues
+                 if (i.get("iterations") or [])
+                 and (i["iterations"][-1].get("type") in
+                      ("iteration-reopen", "user-feedback"))]
+    waiting = [i for i in all_issues if i.get("waiting_for_us")]
+    new_issues = [i for i in all_issues if i.get("our_status") == "new"]
+    in_progress = [i for i in all_issues if i.get("our_status") == "in-progress"]
+    testing = [i for i in all_issues if i.get("our_status") == "testing"]
+    released = [i for i in all_issues if i.get("our_status") == "released"]
+    roadmap_items = [i for i in all_issues if i.get("our_status") == "roadmap"]
+
+    lines = []
+    lines.append(f"# Issue Intelligence Report - {report_date}")
+    lines.append("")
+    lines.append(f"Generated: {now.strftime('%Y-%m-%d %H:%M:%S')} UTC")
+    lines.append(f"Last sync: {meta.get('last_sync', 'never')}")
+    lines.append(f"Total issues tracked: {len(all_issues)}")
+    lines.append("")
+
+    # Status summary
+    lines.append("## Status Summary")
+    lines.append("")
+    lines.append("| Status | Count |")
+    lines.append("|--------|-------|")
+    status_counts = {}
+    for i in all_issues:
+        s = i.get("our_status", "new")
+        status_counts[s] = status_counts.get(s, 0) + 1
+    for s, c in sorted(status_counts.items(), key=lambda x: -x[1]):
+        lines.append(f"| {s} | {c} |")
+    lines.append("")
+
+    # Urgent
+    if urgent:
+        lines.append("## !! URGENT - Critical/Security Waiting for Response")
+        lines.append("")
+        for i in urgent:
+            lines.append(f"- **#{i['number']}** [{i.get('priority', '')}]"
+                         f" {i.get('title', '')}")
+            lines.append(f"  - Repo: {i.get('repo', '')} | Status:"
+                         f" {i.get('our_status', '')} | Updated:"
+                         f" {i.get('github_updated_at', '')}")
+        lines.append("")
+
+    # Iteration needed
+    if iteration:
+        lines.append("## Iteration Needed - User Feedback After Fix")
+        lines.append("")
+        lines.append("> These issues had a fix applied but user reported"
+                     " it's incomplete.")
+        lines.append("")
+        for i in iteration:
+            iters = i.get("iterations") or []
+            lines.append(f"- **#{i['number']}** [{i.get('priority', '')}]"
+                         f" {i.get('title', '')} - iteration {len(iters)}")
+            for it in iters:
+                lines.append(f"  - [{it.get('date', '')}] {it.get('type', '')}:"
+                             f" {it.get('description', '')}")
+        lines.append("")
+
+    # Waiting for response
+    if waiting:
+        lines.append("## Waiting for Our Response")
+        lines.append("")
+        for i in sorted(waiting, key=lambda x: x.get("github_updated_at", "")):
+            comments = i.get("comments") or []
+            lines.append(f"- **#{i['number']}** [{i.get('our_status', '')}]"
+                         f" {i.get('title', '')}")
+            if comments:
+                last = comments[-1]
+                snippet = last.get("snippet", "")
+                if len(snippet) > 100:
+                    snippet = snippet[:100] + "..."
+                lines.append(f"  - Last: @{last.get('author', '')}"
+                             f" ({last.get('date', '')}): {snippet}")
+        lines.append("")
+
+    # New issues
+    if new_issues:
+        lines.append("## New Issues - Need Triage")
+        lines.append("")
+        for i in sorted(new_issues,
+                        key=lambda x: x.get("github_updated_at", ""),
+                        reverse=True):
+            labels = ", ".join(i.get("labels") or []) or "none"
+            lines.append(f"- **#{i['number']}** {i.get('title', '')}")
+            lines.append(f"  - Labels: {labels} | Author: @{i.get('author', '')}"
+                         f" | Created: {i.get('created_at', '')}")
+        lines.append("")
+
+    # Roadmap
+    if roadmap_items or (roadmap_data and roadmap_data.get("items")):
+        target = roadmap_data.get("target_release", "") if roadmap_data else ""
+        lines.append(f"## Roadmap - Target: {target}")
+        lines.append("")
+        lines.append("| # | Priority | Title | Status |")
+        lines.append("|---|----------|-------|--------|")
+        if roadmap_data and roadmap_data.get("items"):
+            for item in roadmap_data["items"]:
+                issue = next(
+                    (i for i in all_issues
+                     if i.get("number") == item.get("number")
+                     and i.get("repo") == item.get("repo")),
+                    None,
+                )
+                status = (issue.get("our_status") if issue
+                          else item.get("our_status", ""))
+                lines.append(f"| #{item.get('number', '')} |"
+                             f" {item.get('priority', '')} |"
+                             f" {item.get('title', '')} | {status} |")
+        lines.append("")
+
+    # In progress
+    if in_progress:
+        lines.append("## In Progress")
+        lines.append("")
+        for i in in_progress:
+            br = f"`{i['our_branch']}`" if i.get("our_branch") else "no branch"
+            lines.append(f"- **#{i['number']}** {i.get('title', '')} - {br}")
+        lines.append("")
+
+    # Testing
+    if testing:
+        lines.append("## In Testing")
+        lines.append("")
+        for i in testing:
+            pr_str = f"PR #{i['our_pr']}" if i.get("our_pr") else "no PR"
+            lines.append(f"- **#{i['number']}** {i.get('title', '')} - {pr_str}")
+        lines.append("")
+
+    # Recently released (last 30 days)
+    thirty_days_ago = now.replace(tzinfo=None) - datetime.timedelta(days=30)
+    recent_released = []
+    for i in released:
+        for it in (i.get("iterations") or []):
+            if it.get("type") == "released" and it.get("date"):
+                try:
+                    d = datetime.datetime.strptime(it["date"], "%Y-%m-%d")
+                    if d > thirty_days_ago:
+                        recent_released.append(i)
+                        break
+                except ValueError:
+                    pass
+    if recent_released:
+        lines.append("## Recently Released (last 30 days)")
+        lines.append("")
+        for i in recent_released:
+            rel_iter = next(
+                (it for it in reversed(i.get("iterations") or [])
+                 if it.get("type") == "released"),
+                None,
+            )
+            rel_tag = rel_iter.get("release", "") if rel_iter else ""
+            lines.append(f"- **#{i['number']}** {i.get('title', '')} - {rel_tag}")
+        lines.append("")
+
+    # Full inventory
+    if include_all:
+        lines.append("## Full Issue Inventory")
+        lines.append("")
+        lines.append("| # | Repo | Status | Priority | Title | Iterations |")
+        lines.append("|---|------|--------|----------|-------|------------|")
+        for i in sorted(all_issues, key=lambda x: x.get("number", 0)):
+            iter_count = len(i.get("iterations") or [])
+            title = i.get("title", "")
+            if len(title) > 60:
+                title = title[:57] + "..."
+            repo_key = i.get("_repo_key", "")
+            lines.append(f"| #{i.get('number', '')} | {repo_key} |"
+                         f" {i.get('our_status', '')} | {i.get('priority', '')} |"
+                         f" {title} | {iter_count} |")
+        lines.append("")
+
+    # Footer
+    lines.append("---")
+    lines.append("*Generated by Issue Intelligence System v2.0.0 (Python)*")
+    lines.append("*Next: run `iis_orchestrator.py sync` to refresh,"
+                 " `iis_orchestrator.py analyze` to review,"
+                 " `iis_orchestrator.py update` to transition*")
+
+    report_text = "\n".join(lines)
+
+    if no_save:
+        print(report_text)
+    else:
+        REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        report_path = REPORTS_DIR / f"{report_date}_sync.md"
+        if report_path.exists():
+            report_path = REPORTS_DIR / (
+                f"{report_date}_{now.strftime('%H%M')}_sync.md"
+            )
+        report_path.write_text(report_text, encoding="utf-8")
+        print(f"Report saved to: {report_path}")
+        print()
+        print("Quick stats:")
+        print(f"  Total tracked:    {len(all_issues)}")
+        print(f"  Urgent:           {len(urgent)}")
+        print(f"  Iteration needed: {len(iteration)}")
+        print(f"  Waiting for us:   {len(waiting)}")
+        print(f"  New (triage):     {len(new_issues)}")
+
+
 # ── MAIN ────────────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(
-        description="IIS Orchestrator — mRemoteNG automated issue & warning resolution"
+        description="IIS Orchestrator — mRemoteNG Issue Intelligence System"
+                    " + automated issue & warning resolution",
     )
     parser.add_argument(
         "mode", nargs="?", default="all",
-        choices=["all", "issues", "warnings", "status"],
-        help="all (default), issues, warnings, or status",
+        choices=["all", "issues", "warnings", "status",
+                 "sync", "analyze", "update", "report"],
+        help="sync/analyze/update/report (IIS), or all/issues/warnings/status (orchestrator)",
     )
+    # ── Orchestrator args ──
     parser.add_argument("--dry-run", action="store_true",
                         help="Simulate without making changes")
     parser.add_argument("--max-issues", type=int, default=None,
-                        help="Max issues to process")
+                        help="Max issues to process (orchestrator)")
     parser.add_argument("--max-files", type=int, default=None,
                         help="Max files to fix per pass (warnings mode)")
     parser.add_argument("--squash", action="store_true",
                         help="Squash all warning fixes into one commit per pass")
     parser.add_argument("--max-passes", type=int, default=10,
-                        help="Max multi-pass iterations (default: 10, convergence stops earlier)")
+                        help="Max multi-pass iterations (default: 10)")
     parser.add_argument("--parallel", type=int, default=0,
-                        help="Fix N files in parallel per batch (0=serial, 5=recommended)")
+                        help="Fix N files in parallel per batch (0=serial)")
+    # ── IIS sync args ──
+    parser.add_argument("--repos", default="both",
+                        choices=["both", "upstream", "fork"],
+                        help="Which repos to sync (default: both)")
+    parser.add_argument("--issues", default=None,
+                        help="Comma-separated issue numbers for targeted sync")
+    parser.add_argument("--include-closed", action="store_true",
+                        help="Include closed issues in sync")
+    # ── IIS analyze args ──
+    parser.add_argument("--waiting-only", action="store_true",
+                        help="Show only issues waiting for our response")
+    parser.add_argument("--priority", default=None,
+                        help="Filter by priority (e.g. P2-bug)")
+    parser.add_argument("--status", default=None,
+                        help="Filter status (analyze) or new status (update)")
+    parser.add_argument("--show-all", action="store_true",
+                        help="Show all issues in analyze mode")
+    # ── IIS update args ──
+    parser.add_argument("--issue", type=int, default=None,
+                        help="Issue number for update")
+    parser.add_argument("--repo", default="upstream",
+                        choices=["upstream", "fork"],
+                        help="Target repo for update (default: upstream)")
+    parser.add_argument("--description", default=None,
+                        help="Description for update iteration entry")
+    parser.add_argument("--pr", type=int, default=None,
+                        help="PR number for update")
+    parser.add_argument("--branch", default=None,
+                        help="Branch name for update")
+    parser.add_argument("--release", default=None,
+                        help="Release tag for update (e.g. v1.81.0)")
+    parser.add_argument("--release-url", default=None,
+                        help="Release download URL for update")
+    parser.add_argument("--post-comment", action="store_true",
+                        help="Post templated comment to GitHub")
+    parser.add_argument("--notes", default=None,
+                        help="Notes to add/update on the issue")
+    parser.add_argument("--add-to-roadmap", action="store_true",
+                        help="Add issue to _roadmap.json")
+    # ── IIS report args ──
+    parser.add_argument("--include-all", action="store_true",
+                        help="Include full issue inventory in report")
+    parser.add_argument("--no-save", action="store_true",
+                        help="Print report to console only, do not save file")
 
     args = parser.parse_args()
+
+    # ── IIS subcommands (no Claude/build preflight needed) ──
+    if args.mode == "sync":
+        issue_numbers = None
+        if args.issues:
+            issue_numbers = [int(n.strip()) for n in args.issues.split(",")]
+        iis_sync(repos=args.repos, issue_numbers=issue_numbers,
+                 include_closed=args.include_closed)
+        return
+
+    if args.mode == "analyze":
+        iis_analyze(show_all=args.show_all, waiting_only=args.waiting_only,
+                    priority_filter=args.priority, status_filter=args.status)
+        return
+
+    if args.mode == "update":
+        if not args.issue:
+            print("ERROR: --issue is required for update mode")
+            sys.exit(1)
+        if not args.status:
+            print("ERROR: --status is required for update mode")
+            sys.exit(1)
+        iis_update(
+            issue_num=args.issue, new_status=args.status,
+            repo=args.repo, description=args.description,
+            pr=args.pr, branch=args.branch,
+            release=args.release, release_url=args.release_url,
+            post_comment=args.post_comment,
+            priority=args.priority, notes=args.notes,
+            add_to_roadmap=args.add_to_roadmap,
+        )
+        return
+
+    if args.mode == "report":
+        iis_report(include_all=args.include_all, no_save=args.no_save)
+        return
 
     if args.mode == "status":
         show_status()
         return
 
+    # ── Orchestrator modes (all, issues, warnings) ──
     # Preflight checks
     if not shutil.which("claude"):
         print("ERROR: 'claude' CLI not found in PATH.  Install Claude Code first.")

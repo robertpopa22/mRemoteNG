@@ -1,57 +1,55 @@
-﻿{
-    "number":  1926,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "External tools -\u003e escape colon",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "1.77.2"
-               ],
-    "author":  "JelleKosterBluJay",
-    "created_at":  "2021-01-28T11:19:01Z",
-    "github_updated_at":  "2026-02-07T19:51:37Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\nThe expected behaviour is that with the following configuration, it will open a chrome session with host and path.\r\nhttps://mremoteng.readthedocs.io/en/latest/user_interface/external_tools.html\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\r\nInstead, it opens a blank URL.\r\nIf ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc3MDgyNTUwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I use mremoteng 1.77.1. This is working for me. No escape needed.\r\nExternal Tool\r\nFilename: \"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\"\r\nArguments: https://%hostname%:8443/test",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2021-02-01T12:37:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFh_",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhBR",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:37Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:37Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1926,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "External tools -> escape colon",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "1.77.2"
+  ],
+  "author": "JelleKosterBluJay",
+  "created_at": "2021-01-28T11:19:01Z",
+  "github_updated_at": "2026-02-07T19:51:37Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\nThe expected behaviour is that with the following configuration, it will open a chrome session with host and path.\r\nhttps://mremoteng.readthedocs.io/en/latest/user_interface/external_tools.html\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n\r\nInstead, it opens a blank URL.\r\nIf ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3MDgyNTUwNw==",
+      "author": "LIyoai",
+      "date": "2021-02-01T12:37:17Z",
+      "snippet": "I use mremoteng 1.77.1. This is working for me. No escape needed.\r\nExternal Tool\r\nFilename: \"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\"\r\nArguments: https://%hostname%:8443/test",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFh_",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:07Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhBR",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:37Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:37Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

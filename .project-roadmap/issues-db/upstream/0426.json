@@ -1,56 +1,54 @@
-﻿{
-    "number":  426,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request: Paste Commands",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "1nv1n",
-    "created_at":  "2017-03-02T18:07:51Z",
-    "github_updated_at":  "2023-05-28T20:55:54Z",
-    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\nUse-Case:\r\nI\u0027m looking for a way to have some saved commands to be automatically be pasted (after a set delay) onto an open SSH session. Something similar to the \"Macros\" concept that exists on MobaXterm.\r\n\r\neg: In a session, I would have to type in \"Command A\", followed by \"Command B\" \u0026 so on. If there could be a feature that automate this, it would be greatly appreciated.\r\n\r\nRelated Reddit thread: https://www.reddit.com/r/mRemoteNG/comments/5wxom0/q_paste_commands/\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcxMzQzNjIwMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 for macro support! It is a killer feature, and I always go back to Mobaxterm just because of this feature. Please implement this, so I can finally ditch mobaxterm and its ugly UI.",
-                         "author":  "asmerovski",
-                         "action_needed":  true,
-                         "date":  "2020-10-21T09:25:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5dWcJS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 for this one.\r\nIt\u0027s really handy when I need to type several commands on a regular basis",
-                         "author":  "antoinekh",
-                         "action_needed":  true,
-                         "date":  "2023-05-28T14:52:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5dWzhw",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Not sure, but this might require a different backend than Putty. #181 might be a solution for that, but it looks like it\u0027s a long way to get there... ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-05-28T20:52:16Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-05-28T20:55:54Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 426,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request: Paste Commands",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "1nv1n",
+  "created_at": "2017-03-02T18:07:51Z",
+  "github_updated_at": "2023-05-28T20:55:54Z",
+  "body_snippet": "<!-- Feature Request -->\r\nUse-Case:\r\nI'm looking for a way to have some saved commands to be automatically be pasted (after a set delay) onto an open SSH session. Something similar to the \"Macros\" concept that exists on MobaXterm.\r\n\r\neg: In a session, I would have to type in \"Command A\", followed by \"Command B\" & so on. If there could be a feature that automate this, it would be greatly appreciated.\r\n\r\nRelated Reddit thread: https://www.reddit.com/r/mRemoteNG/comments/5wxom0/q_paste_commands/\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcxMzQzNjIwMQ==",
+      "author": "asmerovski",
+      "date": "2020-10-21T09:25:10Z",
+      "snippet": "+1 for macro support! It is a killer feature, and I always go back to Mobaxterm just because of this feature. Please implement this, so I can finally ditch mobaxterm and its ugly UI.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5dWcJS",
+      "author": "antoinekh",
+      "date": "2023-05-28T14:52:45Z",
+      "snippet": "+1 for this one.\r\nIt's really handy when I need to type several commands on a regular basis",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5dWzhw",
+      "author": "simonai1254",
+      "date": "2023-05-28T20:52:16Z",
+      "snippet": "Not sure, but this might require a different backend than Putty. #181 might be a solution for that, but it looks like it's a long way to get there... ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-05-28T20:55:54Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

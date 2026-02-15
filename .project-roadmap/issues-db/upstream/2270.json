@@ -1,95 +1,95 @@
-﻿{
-    "number":  2270,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Clicking close on the applications X with a panel open presents an are you sure type message - but response is ignored",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Needs implementation",
-                   "In development",
-                   "Improvement required"
-               ],
-    "author":  "MrChriZ",
-    "created_at":  "2022-08-04T14:39:57Z",
-    "github_updated_at":  "2026-02-09T06:27:26Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nClicking close on the applications X with a panel open presents the message\r\n_Are you sure you want to close the panel, \"General\"?..._\r\nClicking no should then prevent the panel, and therefore the application from closing, application remains on the taskbar.\r\n\r\n## Current Behavior\r\nThe application disappears from the task bar  - although it remains running in the system tray.\r\n\r\n## Steps to Reproduce (fo...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3124,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Main close cancel behavior",
-                           "pr":  3124,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5H2UGg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Some work is already happening around that, at the moment UI is trying to rework into wpf instead of windforms and that next task will be to re-work grouping in proper way, frankly speaking it will be as attribute that can be set, and depends on that setting UI will allow to rearrange that so expect fixes once this feature will be realised (planed from 1.77.4)",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-08-04T15:35:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5H93jr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is it possible to disable hardware rendering with wpf? if you remote(using vnc or any other similar, not rdp) into a headless/monitor off system with gpu available, then all accelerated content(inc. wpf) will simply show blank(stop rendering) until a monitor on the gpu is online.",
-                         "author":  "eebssk1",
-                         "action_needed":  true,
-                         "date":  "2022-08-07T12:46:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5IELT5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I will do check that on my headless hp server, thanks to point me onto that. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-08-09T08:09:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI96",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mdojA",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Implemented in PR #3124 from fork branch codex/pr20-main-close-cancel-2270. \r\n \r\nScope: \r\n- main close path now waits for child panel close result before hiding/shutdown \r\n- if panel close is cancelled (No), app close is cancelled and main window remains visible \r\n \r\nValidation: \r\n- local full MSBuild restore/build passed (Release/x64) \r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T08:34:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpc-2",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3124 | **Branch:** `codex/pr20-main-close-cancel-2270`\n**Fix:** Main window close cancel behavior corrected ΓÇö cancel actually cancels.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:27:26Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:27:26Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2270,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Clicking close on the applications X with a panel open presents an are you sure type message - but response is ignored",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Needs implementation",
+    "In development",
+    "Improvement required"
+  ],
+  "author": "MrChriZ",
+  "created_at": "2022-08-04T14:39:57Z",
+  "github_updated_at": "2026-02-09T06:27:26Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nClicking close on the applications X with a panel open presents the message\r\n_Are you sure you want to close the panel, \"General\"?..._\r\nClicking no should then prevent the panel, and therefore the application from closing, application remains on the taskbar.\r\n\r\n## Current Behavior\r\nThe application disappears from the task bar  - although it remains running in the system tray.\r\n\r\n## Steps to Reproduce (fo...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3124,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "Main close cancel behavior",
+      "pr": 3124,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5H2UGg",
+      "author": "Kvarkas",
+      "date": "2022-08-04T15:35:23Z",
+      "snippet": "Some work is already happening around that, at the moment UI is trying to rework into wpf instead of windforms and that next task will be to re-work grouping in proper way, frankly speaking it will be as attribute that can be set, and depends on that setting UI will allow to rearrange that so expect fixes once this feature will be realised (planed from 1.77.4)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5H93jr",
+      "author": "eebssk1",
+      "date": "2022-08-07T12:46:08Z",
+      "snippet": "Is it possible to disable hardware rendering with wpf? if you remote(using vnc or any other similar, not rdp) into a headless/monitor off system with gpu available, then all accelerated content(inc. wpf) will simply show blank(stop rendering) until a monitor on the gpu is online.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5IELT5",
+      "author": "Kvarkas",
+      "date": "2022-08-09T08:09:44Z",
+      "snippet": "I will do check that on my headless hp server, thanks to point me onto that. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI96",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:35Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mdojA",
+      "author": "robertpopa22",
+      "date": "2026-02-08T08:34:03Z",
+      "snippet": "Implemented in PR #3124 from fork branch codex/pr20-main-close-cancel-2270. \r\n \r\nScope: \r\n- main close path now waits for child panel close result before hiding/shutdown \r\n- if panel close is cancelled (No), app close is cancelled and main window remains visible \r\n \r\nValidation: \r\n- local full MSBuild restore/build passed (Release/x64) \r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpc-2",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:27:26Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3124 | **Branch:** `codex/pr20-main-close-cancel-2270`\n**Fix:** Main window close cancel behavior corrected — cancel actually cancels.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:27:26Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,38 +1,36 @@
-﻿{
-    "number":  2558,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Chrome Remote Desktop ",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check"
-               ],
-    "author":  "LucaBianco",
-    "created_at":  "2024-01-19T11:02:43Z",
-    "github_updated_at":  "2026-02-07T16:43:41Z",
-    "body_snippet":  "How do I use **Chrome Remote Desktop** with mRemoteNG?\r\n\r\nThe Idea is to use HTTPS and acces the webpage https://remotedesktop.google.com/access.\r\n\r\nI saw another issue on the matter:\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1167\r\n\r\nAnd a pull request to solve the problem:\r\nhttps://github.com/mRemoteNG/mRemoteNG/pull/1690\r\nWhich I guess has been discarded and never merged.\r\n\r\nIs there another way?\r\n\r\n## Expected Behavior\r\nLoad https://remotedesktop.google.com/access\r\n\r\n## Current Behavior\r...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXE4g",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:43:40Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:43:41Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2558,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Chrome Remote Desktop ",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "LucaBianco",
+  "created_at": "2024-01-19T11:02:43Z",
+  "github_updated_at": "2026-02-07T16:43:41Z",
+  "body_snippet": "How do I use **Chrome Remote Desktop** with mRemoteNG?\r\n\r\nThe Idea is to use HTTPS and acces the webpage https://remotedesktop.google.com/access.\r\n\r\nI saw another issue on the matter:\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1167\r\n\r\nAnd a pull request to solve the problem:\r\nhttps://github.com/mRemoteNG/mRemoteNG/pull/1690\r\nWhich I guess has been discarded and never merged.\r\n\r\nIs there another way?\r\n\r\n## Expected Behavior\r\nLoad https://remotedesktop.google.com/access\r\n\r\n## Current Behavior\r...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mXE4g",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:43:40Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:43:41Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

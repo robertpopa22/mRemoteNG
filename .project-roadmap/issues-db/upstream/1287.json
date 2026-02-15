@@ -1,67 +1,65 @@
-﻿{
-    "number":  1287,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Default inheritance option",
-    "state":  "open",
-    "labels":  [
-                   "In progress",
-                   "1.77.2",
-                   "Improvement required"
-               ],
-    "author":  "Zewwy",
-    "created_at":  "2019-01-26T05:16:52Z",
-    "github_updated_at":  "2026-02-07T19:51:32Z",
-    "body_snippet":  "Inheritance on sub folder and connections within should have inherit all to yes as default\r\n\r\n## Expected Behavior\r\nCreate a Parent folder, set your folder properties. Create a Sub folder within it, it should have all the properties of it\u0027s parent automatically.\r\n\r\n## Current Behavior\r\nI have to select the inheritance Icon, set inherit All: Yes\r\nFor every sub folder, and every sub connection.\r\n\r\n## Possible Solution\r\nSet inheritance to be default to yes. If I had to do this in Windows folder cre...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ1NzgxMzg5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "i did make this work by going to the top root connection object, which highlights the default inheritance icon, and set all to yes. now creating sub folders and connections inherit from their parents on creation, be nice if you could set that at a folder level instead for a bit more flex.",
-                         "author":  "Zewwy",
-                         "action_needed":  true,
-                         "date":  "2019-01-26T08:40:10Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5ODI1Nzg2OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "To set the default values of newly created connections, click the root connection node in the connection tree and then select the two buttons in the \"Config\" window (default inheritance). This will let you inherit any/all settings by default when new connections/folders are created.\r\n![image](https://user-images.githubusercontent.com/6999446/58804952-a8a00400-85d8-11e9-9409-9fc791db92e3.png)\r\n\r\nA feature for applying the inheritance values of a folder to all of its children is currently being te...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-06-03T13:31:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI66",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYg_0",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:32Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:32Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1287,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Default inheritance option",
+  "state": "open",
+  "labels": [
+    "In progress",
+    "1.77.2",
+    "Improvement required"
+  ],
+  "author": "Zewwy",
+  "created_at": "2019-01-26T05:16:52Z",
+  "github_updated_at": "2026-02-07T19:51:32Z",
+  "body_snippet": "Inheritance on sub folder and connections within should have inherit all to yes as default\r\n\r\n## Expected Behavior\r\nCreate a Parent folder, set your folder properties. Create a Sub folder within it, it should have all the properties of it's parent automatically.\r\n\r\n## Current Behavior\r\nI have to select the inheritance Icon, set inherit All: Yes\r\nFor every sub folder, and every sub connection.\r\n\r\n## Possible Solution\r\nSet inheritance to be default to yes. If I had to do this in Windows folder cre...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ1NzgxMzg5Mw==",
+      "author": "Zewwy",
+      "date": "2019-01-26T08:40:10Z",
+      "snippet": "i did make this work by going to the top root connection object, which highlights the default inheritance icon, and set all to yes. now creating sub folders and connections inherit from their parents on creation, be nice if you could set that at a folder level instead for a bit more flex.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ5ODI1Nzg2OQ==",
+      "author": "sparerd",
+      "date": "2019-06-03T13:31:57Z",
+      "snippet": "To set the default values of newly created connections, click the root connection node in the connection tree and then select the two buttons in the \"Config\" window (default inheritance). This will let you inherit any/all settings by default when new connections/folders are created.\r\n![image](https://user-images.githubusercontent.com/6999446/58804952-a8a00400-85d8-11e9-9409-9fc791db92e3.png)\r\n\r\nA feature for applying the inheritance values of a folder to all of its children is currently being te...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI66",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:31Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYg_0",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:32Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:32Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

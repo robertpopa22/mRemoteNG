@@ -1,101 +1,99 @@
-﻿{
-    "number":  516,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Gecko engine doesn\u0027t allow some windows to open",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check"
-               ],
-    "author":  "klui2k1",
-    "created_at":  "2017-04-18T04:44:36Z",
-    "github_updated_at":  "2026-02-07T19:12:16Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n|||I have a few entries in mRemoteNG where they use HTTPS, port 443, with the Gecko (Firefox) rendering engine. I find that some of them have windows that create child windows but they fail to open. One that I use all the time is Zoneminde...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NTQwMDU3OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Could you confirm is it still an issue for you with newer version?",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-21T23:05:30Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NzI2MDIxOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for letting me know. I downloaded the most recent nightly build but my old connection file isn\u0027t recognized. What changed between 1.77.1.27713 and 1.77.2.28860?",
-                         "author":  "klui2k1",
-                         "action_needed":  true,
-                         "date":  "2021-06-24T01:18:40Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2NzQzODk5MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Thanks for letting me know. I downloaded the most recent nightly build but my old connection file isn\u0027t recognized. What changed between 1.77.1.27713 and 1.77.2.28860?\r\n\r\nwhere is no changes in connection file part. Could you navigate and open it manually? \r\nC:\\Users\\{{user name}}\\AppData\\Roaming\\mRemoteNG",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-24T08:17:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2ODE5NTIyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I tried it several times last night and I was finally able to open my settings. I tried it the other day but it didn\u0027t work for some reason. I am using mRemoteNG in portable mode so my settings are kept in the same directory as the application.\r\n\r\nThe app also can\u0027t seem to locate my extApps.xml (also in the same folder as the application). How can tell it to use the file and not in %appdata%?\r\n\r\nI\u0027ve been plagued by https://github.com/mRemoteNG/mRemoteNG/issues/1975 for the nightly build so can...",
-                         "author":  "klui2k1",
-                         "action_needed":  true,
-                         "date":  "2021-06-25T04:29:17Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2ODM4MzU5MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I tried it several times last night and I was finally able to open my settings. I tried it the other day but it didn\u0027t work for some reason. I am using mRemoteNG in portable mode so my settings are kept in the same directory as the application.\r\n\r\nthat seems to be a different issue. \r\n\r\n\u003e The app also can\u0027t seem to locate my extApps.xml (also in the same folder as the application). How can tell it to use the file and not in %appdata%?\r\n\r\nPerhaps need to add option to force check in user desire...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-25T09:56:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXEF7",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGGT",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:48:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYQ_X",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:12:16Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:12:16Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 516,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Gecko engine doesn't allow some windows to open",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "klui2k1",
+  "created_at": "2017-04-18T04:44:36Z",
+  "github_updated_at": "2026-02-07T19:12:16Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||I have a few entries in mRemoteNG where they use HTTPS, port 443, with the Gecko (Firefox) rendering engine. I find that some of them have windows that create child windows but they fail to open. One that I use all the time is Zoneminde...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2NTQwMDU3OA==",
+      "author": "Kvarkas",
+      "date": "2021-06-21T23:05:30Z",
+      "snippet": "Could you confirm is it still an issue for you with newer version?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2NzI2MDIxOA==",
+      "author": "klui2k1",
+      "date": "2021-06-24T01:18:40Z",
+      "snippet": "Thanks for letting me know. I downloaded the most recent nightly build but my old connection file isn't recognized. What changed between 1.77.1.27713 and 1.77.2.28860?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2NzQzODk5MQ==",
+      "author": "Kvarkas",
+      "date": "2021-06-24T08:17:42Z",
+      "snippet": "> Thanks for letting me know. I downloaded the most recent nightly build but my old connection file isn't recognized. What changed between 1.77.1.27713 and 1.77.2.28860?\r\n\r\nwhere is no changes in connection file part. Could you navigate and open it manually? \r\nC:\\Users\\{{user name}}\\AppData\\Roaming\\mRemoteNG",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2ODE5NTIyNA==",
+      "author": "klui2k1",
+      "date": "2021-06-25T04:29:17Z",
+      "snippet": "I tried it several times last night and I was finally able to open my settings. I tried it the other day but it didn't work for some reason. I am using mRemoteNG in portable mode so my settings are kept in the same directory as the application.\r\n\r\nThe app also can't seem to locate my extApps.xml (also in the same folder as the application). How can tell it to use the file and not in %appdata%?\r\n\r\nI've been plagued by https://github.com/mRemoteNG/mRemoteNG/issues/1975 for the nightly build so can...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2ODM4MzU5MQ==",
+      "author": "Kvarkas",
+      "date": "2021-06-25T09:56:21Z",
+      "snippet": "> I tried it several times last night and I was finally able to open my settings. I tried it the other day but it didn't work for some reason. I am using mRemoteNG in portable mode so my settings are kept in the same directory as the application.\r\n\r\nthat seems to be a different issue. \r\n\r\n> The app also can't seem to locate my extApps.xml (also in the same folder as the application). How can tell it to use the file and not in %appdata%?\r\n\r\nPerhaps need to add option to force check in user desire...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXEF7",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:39Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGGT",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:48:05Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYQ_X",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:12:16Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:12:16Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,119 +1,117 @@
-﻿{
-    "number":  356,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Support VMRC",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "damageboy",
-    "created_at":  "2017-01-23T14:04:50Z",
-    "github_updated_at":  "2025-09-16T20:13:31Z",
-    "body_snippet":  "VMWare provides a client called vmrc that enables to view remote VM *console* widows.\r\nSupport in mRemoteNG would be great!",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI3NDU0NjI2NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Reference:\nhttps://knowledge.broadcom.com/external/article/368995/download-vmware-remote-console.html",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-01-23T16:55:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDAyNTU3OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This would complete mRemoteNG for me :)",
-                         "author":  "bignick8t3",
-                         "action_needed":  true,
-                         "date":  "2017-12-07T16:45:46Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDAzMjIzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "*Dev notes*\r\n2 ways we can proceed with this:\r\n\r\n- Try to automate the installed version\r\n   - https://my.vmware.com/group/vmware/details?downloadGroup=VMRC10.0.2\u0026productId=614\r\n   - Does this support cmdline args?\r\n- Create a C# wrapper around the web SDK\r\n   - https://code.vmware.com/web/sdk/2.1.0/html-console\r\n   - https://www.vmware.com/support/developer/html-console/html-console-sdk-210-programmer-guide.pdf\r\n\r\nThe web SDK would be the best in the long run, but would require a significant am...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-12-07T17:08:04Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDIyMDEzNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The web console can sometimes be a bit hit and miss with keyboard mappings so the installed console is what I use.\r\n\r\nLooking at the following it would appear that VMRC can be automated:\r\nhttps://communities.vmware.com/thread/508020\r\n\r\nIn the last post is the following:\r\n\r\nVMware-VMRC-10.0.2-7096020.exe /V /Qn EULAS_AGREED=1 AUTOSOFTWAREUPDATE=0 ATACOLLECTION=0 /L \"%USERPROFILE%\\Desktop\\vmrc.log\"",
-                         "author":  "bignick8t3",
-                         "action_needed":  true,
-                         "date":  "2017-12-08T09:45:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDI2OTY1Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Good to know about the web console.\r\n\r\nThe link you provided seems to be talking about automating the msi installer for VMRC, rather than automating VMRC itself.\r\n\r\nI haven\u0027t used VMRC myself - is it a little bit like vSphere for managing VMs?",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-12-08T13:59:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDI5OTc3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "VMRC is VMware remote console, so you could hit a remote vm console for a variety of cases which rdp doesn\u0027t cover like:\r\n* booting into a rescue env. Inside the VM (no networking)\r\n* Linux console\r\n* remote  installation",
-                         "author":  "damageboy",
-                         "action_needed":  true,
-                         "date":  "2017-12-08T16:01:23Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDQ0NTcwNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As ESXi has primarily gone web based if you launch the console via VMRC from the web GUI it opens a link that VMRC opens so I guess that\u0027s what mRemoteNG would need to know when saving a connection as such?\r\n\r\nI\u0027ll see if I can get en example link that is used when you launch the console. ",
-                         "author":  "bignick8t3",
-                         "action_needed":  true,
-                         "date":  "2017-12-09T10:22:31Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MDQ3MTAwNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Ok, that would be helpful",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-12-09T14:11:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTY2ODc5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "So this appears to be the best method:\r\n\r\n`\"C:\\Program Files (x86)\\VMware\\VMware Remote Console\\vmrc.exeΓÇ¥ -H [esxi ip or hostname] -U [user] -P [password] -M [VM ID]\"`\r\n\r\nThis will launch VMRC and give you access to the console of specified VM.\r\n\r\nVM ID\u0027s can be obtained from the address bar of the ESXi gui when you select a VM or by running the following from the ESXi CLI.\r\n\r\n`vim-cmd vmsvc/getallvms`\r\n\r\nThis method worked for me using ESXi standalone, there are other methods if using vCentre...",
-                         "author":  "bignick8t3",
-                         "action_needed":  true,
-                         "date":  "2017-12-14T10:19:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM1MTcxMTQ3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for the research @bignick8t3! That helps a lot ",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-12-14T13:32:15Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-09-16T20:13:31Z",
-    "unread_comments":  10,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 356,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Support VMRC",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "damageboy",
+  "created_at": "2017-01-23T14:04:50Z",
+  "github_updated_at": "2025-09-16T20:13:31Z",
+  "body_snippet": "VMWare provides a client called vmrc that enables to view remote VM *console* widows.\r\nSupport in mRemoteNG would be great!",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI3NDU0NjI2NA==",
+      "author": "sparerd",
+      "date": "2017-01-23T16:55:42Z",
+      "snippet": "Reference:\nhttps://knowledge.broadcom.com/external/article/368995/download-vmware-remote-console.html",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDAyNTU3OA==",
+      "author": "bignick8t3",
+      "date": "2017-12-07T16:45:46Z",
+      "snippet": "This would complete mRemoteNG for me :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDAzMjIzOQ==",
+      "author": "sparerd",
+      "date": "2017-12-07T17:08:04Z",
+      "snippet": "*Dev notes*\r\n2 ways we can proceed with this:\r\n\r\n- Try to automate the installed version\r\n   - https://my.vmware.com/group/vmware/details?downloadGroup=VMRC10.0.2&productId=614\r\n   - Does this support cmdline args?\r\n- Create a C# wrapper around the web SDK\r\n   - https://code.vmware.com/web/sdk/2.1.0/html-console\r\n   - https://www.vmware.com/support/developer/html-console/html-console-sdk-210-programmer-guide.pdf\r\n\r\nThe web SDK would be the best in the long run, but would require a significant am...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDIyMDEzNA==",
+      "author": "bignick8t3",
+      "date": "2017-12-08T09:45:38Z",
+      "snippet": "The web console can sometimes be a bit hit and miss with keyboard mappings so the installed console is what I use.\r\n\r\nLooking at the following it would appear that VMRC can be automated:\r\nhttps://communities.vmware.com/thread/508020\r\n\r\nIn the last post is the following:\r\n\r\nVMware-VMRC-10.0.2-7096020.exe /V /Qn EULAS_AGREED=1 AUTOSOFTWAREUPDATE=0 ATACOLLECTION=0 /L \"%USERPROFILE%\\Desktop\\vmrc.log\"",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDI2OTY1Nw==",
+      "author": "sparerd",
+      "date": "2017-12-08T13:59:53Z",
+      "snippet": "Good to know about the web console.\r\n\r\nThe link you provided seems to be talking about automating the msi installer for VMRC, rather than automating VMRC itself.\r\n\r\nI haven't used VMRC myself - is it a little bit like vSphere for managing VMs?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDI5OTc3Ng==",
+      "author": "damageboy",
+      "date": "2017-12-08T16:01:23Z",
+      "snippet": "VMRC is VMware remote console, so you could hit a remote vm console for a variety of cases which rdp doesn't cover like:\r\n* booting into a rescue env. Inside the VM (no networking)\r\n* Linux console\r\n* remote  installation",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDQ0NTcwNg==",
+      "author": "bignick8t3",
+      "date": "2017-12-09T10:22:31Z",
+      "snippet": "As ESXi has primarily gone web based if you launch the console via VMRC from the web GUI it opens a link that VMRC opens so I guess that's what mRemoteNG would need to know when saving a connection as such?\r\n\r\nI'll see if I can get en example link that is used when you launch the console. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MDQ3MTAwNg==",
+      "author": "sparerd",
+      "date": "2017-12-09T14:11:36Z",
+      "snippet": "Ok, that would be helpful",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MTY2ODc5MA==",
+      "author": "bignick8t3",
+      "date": "2017-12-14T10:19:00Z",
+      "snippet": "So this appears to be the best method:\r\n\r\n`\"C:\\Program Files (x86)\\VMware\\VMware Remote Console\\vmrc.exe” -H [esxi ip or hostname] -U [user] -P [password] -M [VM ID]\"`\r\n\r\nThis will launch VMRC and give you access to the console of specified VM.\r\n\r\nVM ID's can be obtained from the address bar of the ESXi gui when you select a VM or by running the following from the ESXi CLI.\r\n\r\n`vim-cmd vmsvc/getallvms`\r\n\r\nThis method worked for me using ESXi standalone, there are other methods if using vCentre b...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM1MTcxMTQ3Ng==",
+      "author": "sparerd",
+      "date": "2017-12-14T13:32:15Z",
+      "snippet": "Thanks for the research @bignick8t3! That helps a lot ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-09-16T20:13:31Z",
+  "unread_comments": 10,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

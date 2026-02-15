@@ -1,84 +1,82 @@
-﻿{
-    "number":  2587,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Tab and app focus issues with nightly 1.77.3 1784",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "1.77.3"
-               ],
-    "author":  "Clumpton",
-    "created_at":  "2024-04-27T05:57:10Z",
-    "github_updated_at":  "2026-02-07T19:52:59Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen switching tabs in the app (with mouse) the tab that has the focus needs a mouse click in the window to actually get the focus.\r\nThis has changed since the 2019 release. \r\nAdditionally, when MRng is behind another window, clicking in the visible area does not always bring it to the foreground.\r\n\r\n\r\n## Expected Behavior\r\nClicking on a connection tab should select the connection and give it the focus.\r\nClicking somewhere in t...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6BBtzb",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Most likely related to #520 ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2024-06-13T06:58:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6BFUWI",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Most likely related to #520\r\n\r\nThanks for that, but the problem is swapping between tabs INSIDE mRemoteNG, not between it and other apps in Windows which is the subject of [#520](https://github.com/mRemoteNG/mRemoteNG/issues/520) .",
-                         "author":  "Clumpton",
-                         "action_needed":  true,
-                         "date":  "2024-06-13T13:20:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6vuzU8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "[#520 Option Fix \"Allow only a single instance\"](https://github.com/mRemoteNG/mRemoteNG/issues/520#issuecomment-355487738)\nThanks this helps for it for me.",
-                         "author":  "janborup",
-                         "action_needed":  true,
-                         "date":  "2025-06-06T06:53:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6yQVUq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The same problem.\nWhen you click to tab with ssh session, you should click to terminal area for get focus and start write commands.\nProblem present in v1.78.2.2932\nThis is the reason why I still use it 1.76.20",
-                         "author":  "Mr-Bes",
-                         "action_needed":  true,
-                         "date":  "2025-06-20T09:58:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXE17",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:43:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhan",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:59Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2587,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Tab and app focus issues with nightly 1.77.3 1784",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "1.77.3"
+  ],
+  "author": "Clumpton",
+  "created_at": "2024-04-27T05:57:10Z",
+  "github_updated_at": "2026-02-07T19:52:59Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen switching tabs in the app (with mouse) the tab that has the focus needs a mouse click in the window to actually get the focus.\r\nThis has changed since the 2019 release. \r\nAdditionally, when MRng is behind another window, clicking in the visible area does not always bring it to the foreground.\r\n\r\n\r\n## Expected Behavior\r\nClicking on a connection tab should select the connection and give it the focus.\r\nClicking somewhere in t...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6BBtzb",
+      "author": "simonai1254",
+      "date": "2024-06-13T06:58:06Z",
+      "snippet": "Most likely related to #520 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6BFUWI",
+      "author": "Clumpton",
+      "date": "2024-06-13T13:20:07Z",
+      "snippet": "> Most likely related to #520\r\n\r\nThanks for that, but the problem is swapping between tabs INSIDE mRemoteNG, not between it and other apps in Windows which is the subject of [#520](https://github.com/mRemoteNG/mRemoteNG/issues/520) .",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6vuzU8",
+      "author": "janborup",
+      "date": "2025-06-06T06:53:18Z",
+      "snippet": "[#520 Option Fix \"Allow only a single instance\"](https://github.com/mRemoteNG/mRemoteNG/issues/520#issuecomment-355487738)\nThanks this helps for it for me.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6yQVUq",
+      "author": "Mr-Bes",
+      "date": "2025-06-20T09:58:39Z",
+      "snippet": "The same problem.\nWhen you click to tab with ssh session, you should click to terminal area for get focus and start write commands.\nProblem present in v1.78.2.2932\nThis is the reason why I still use it 1.76.20",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXE17",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:43:32Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhan",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:59Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:59Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

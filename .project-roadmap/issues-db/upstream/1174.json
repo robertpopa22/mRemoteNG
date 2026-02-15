@@ -1,40 +1,38 @@
-﻿{
-    "number":  1174,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "After maximize bad screen",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "UI/UX",
-                   "Windows"
-               ],
-    "author":  "preclix",
-    "created_at":  "2018-11-02T14:28:17Z",
-    "github_updated_at":  "2021-06-28T10:55:11Z",
-    "body_snippet":  "After maximize from start panel, screen is bad. Work correctly after reload connection only. (print screen without icons in attachment)\r\n\r\n![vb](https://user-images.githubusercontent.com/32328261/47920906-92e82600-deb3-11e8-8794-074209775187.jpg)\r\n\r\nWindows 7 64bit SP1",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzODE2NjYzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Closing this for voidness.",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-10-03T23:24:55Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-06-28T10:55:11Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1174,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "After maximize bad screen",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "Windows"
+  ],
+  "author": "preclix",
+  "created_at": "2018-11-02T14:28:17Z",
+  "github_updated_at": "2021-06-28T10:55:11Z",
+  "body_snippet": "After maximize from start panel, screen is bad. Work correctly after reload connection only. (print screen without icons in attachment)\r\n\r\n![vb](https://user-images.githubusercontent.com/32328261/47920906-92e82600-deb3-11e8-8794-074209775187.jpg)\r\n\r\nWindows 7 64bit SP1",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzODE2NjYzNw==",
+      "author": "farosch",
+      "date": "2019-10-03T23:24:55Z",
+      "snippet": "Closing this for voidness.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-06-28T10:55:11Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

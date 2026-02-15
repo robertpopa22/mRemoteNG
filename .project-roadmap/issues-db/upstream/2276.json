@@ -1,86 +1,84 @@
-﻿{
-    "number":  2276,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Multi SSH - Grid",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "Feature Request",
-                   "1.8 (Fenix)",
-                   "Multi SSH"
-               ],
-    "author":  "plegrand1",
-    "created_at":  "2022-08-26T13:13:44Z",
-    "github_updated_at":  "2026-02-07T19:54:45Z",
-    "body_snippet":  "Hello,\r\nI discovered mRemoteNG, and I must say that I am very satisfied with this application.\r\nUnder linux I was using a \"multi ssh\" application which allowed me to launch an ssh session on several servers.\r\nThe display allowed to see all the servers as a grid. And it was possible to launch a command on all the displayed servers simultaneously.\r\nHow is this possible with mRemoteNG?\r\nI would like to be able to create a \"new connection\" with a list of servers. \r\nWhen clicking on this new connecti...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5JSDvh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "mRemoteNG unfortunately does not (yet) have the ability to allow multi-input in SSH. What you can do is arrange the windows by drag and drop so you have multiple connections next to each other. \r\n\r\nIf you would like to use the multi-input feature, you will have to use the windows version of multissh (https://multissh.dev/). \r\nThen if you\u0027d like to use it with mRemoteNG you can add a new website pointing to the multissh service (http://127.0.0.1:12321) and you\u0027re ready to go. \r\n",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-08-28T14:24:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5JY4RW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello,\r\nthanks a lot for your answer.\r\nIt works fine.\r\ndo you know when this feature will be available on mRemote NG?\r\nThanks again\r\nPascal\r\n",
-                         "author":  "plegrand1",
-                         "action_needed":  true,
-                         "date":  "2022-08-30T07:28:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5JZYS4",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "What about the Multi SSH toolbar?\r\n![image](https://user-images.githubusercontent.com/6205123/187398318-449600a1-0e22-414e-b4cc-c1e1c7d784d2.png)\r\n\r\nIt\u0027s by far not perfect. For example it will only work if you connect to stored connections and not through the quick connection.",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-08-30T09:12:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5JZY7q",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Multi SSH toolbar works well, but I want to see all servers together and not in separate tabs\r\nI want to see them as multissh:\r\nhttps://multissh.dev/",
-                         "author":  "plegrand1",
-                         "action_needed":  true,
-                         "date":  "2022-08-30T09:15:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5JZuJ9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "that sounds like new feature request, but seems possible to add (after solve main issues as per now)",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-08-30T10:32:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh-z",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:45Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:45Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2276,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Multi SSH - Grid",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "Feature Request",
+    "1.8 (Fenix)",
+    "Multi SSH"
+  ],
+  "author": "plegrand1",
+  "created_at": "2022-08-26T13:13:44Z",
+  "github_updated_at": "2026-02-07T19:54:45Z",
+  "body_snippet": "Hello,\r\nI discovered mRemoteNG, and I must say that I am very satisfied with this application.\r\nUnder linux I was using a \"multi ssh\" application which allowed me to launch an ssh session on several servers.\r\nThe display allowed to see all the servers as a grid. And it was possible to launch a command on all the displayed servers simultaneously.\r\nHow is this possible with mRemoteNG?\r\nI would like to be able to create a \"new connection\" with a list of servers. \r\nWhen clicking on this new connecti...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5JSDvh",
+      "author": "simonai1254",
+      "date": "2022-08-28T14:24:21Z",
+      "snippet": "mRemoteNG unfortunately does not (yet) have the ability to allow multi-input in SSH. What you can do is arrange the windows by drag and drop so you have multiple connections next to each other. \r\n\r\nIf you would like to use the multi-input feature, you will have to use the windows version of multissh (https://multissh.dev/). \r\nThen if you'd like to use it with mRemoteNG you can add a new website pointing to the multissh service (http://127.0.0.1:12321) and you're ready to go. \r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5JY4RW",
+      "author": "plegrand1",
+      "date": "2022-08-30T07:28:23Z",
+      "snippet": "Hello,\r\nthanks a lot for your answer.\r\nIt works fine.\r\ndo you know when this feature will be available on mRemote NG?\r\nThanks again\r\nPascal\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5JZYS4",
+      "author": "LIyoai",
+      "date": "2022-08-30T09:12:50Z",
+      "snippet": "What about the Multi SSH toolbar?\r\n![image](https://user-images.githubusercontent.com/6205123/187398318-449600a1-0e22-414e-b4cc-c1e1c7d784d2.png)\r\n\r\nIt's by far not perfect. For example it will only work if you connect to stored connections and not through the quick connection.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5JZY7q",
+      "author": "plegrand1",
+      "date": "2022-08-30T09:15:04Z",
+      "snippet": "Multi SSH toolbar works well, but I want to see all servers together and not in separate tabs\r\nI want to see them as multissh:\r\nhttps://multissh.dev/",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5JZuJ9",
+      "author": "Kvarkas",
+      "date": "2022-08-30T10:32:40Z",
+      "snippet": "that sounds like new feature request, but seems possible to add (after solve main issues as per now)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh-z",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:45Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:45Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

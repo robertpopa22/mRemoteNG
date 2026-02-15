@@ -1,56 +1,54 @@
-﻿{
-    "number":  633,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Two-Finger scroll defaults to config panel instead of remote desktop",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check"
-               ],
-    "author":  "rbyrnedugan",
-    "created_at":  "2017-07-06T13:50:01Z",
-    "github_updated_at":  "2026-02-07T16:47:57Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008.17907  |\r\n\r\nWhenever I have the connections and config panels pinned to the side, my two-finger scroll (on the touchpad) will scroll the config panel inste...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMyNzgyODg3NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have the same problem. I was not able to find a way to get around this yet.",
-                         "author":  "penderes",
-                         "action_needed":  true,
-                         "date":  "2017-09-07T15:07:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXEBJ",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXGEL",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:57Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:47:57Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 633,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Two-Finger scroll defaults to config panel instead of remote desktop",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "rbyrnedugan",
+  "created_at": "2017-07-06T13:50:01Z",
+  "github_updated_at": "2026-02-07T16:47:57Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008.17907  |\r\n\r\nWhenever I have the connections and config panels pinned to the side, my two-finger scroll (on the touchpad) will scroll the config panel inste...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyNzgyODg3NQ==",
+      "author": "penderes",
+      "date": "2017-09-07T15:07:37Z",
+      "snippet": "I have the same problem. I was not able to find a way to get around this yet.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXEBJ",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:22Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXGEL",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:57Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:47:57Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

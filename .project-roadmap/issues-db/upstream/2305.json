@@ -1,122 +1,120 @@
-﻿{
-    "number":  2305,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Dynamic windows path variables do not resolve in confCons.xml",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "In development",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "massibronto",
-    "created_at":  "2022-11-24T14:51:11Z",
-    "github_updated_at":  "2026-02-07T19:56:30Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nUsing paths in confCons.xml like:\r\n%USERPROFILE%\r\n%APPDATA%\r\nis not possible.\r\nTag: \u003csetting name=\"CustomConsPath\"\u003e\u003c/setting\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nI would like to be able to configure this:\r\nsetting name=\"CustomConsPath\"\u003e%APPDATA%\\mRemoteNG\\confCons.xml\u003c/setting\r\n\r\nand the result...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5PEcGq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "what will come with new settings in comming build soon",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-11-24T15:02:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5PEeuT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Could you specify what \"soon\" can mean pls? 2 Weeks or 2 Months?",
-                         "author":  "massibronto",
-                         "action_needed":  true,
-                         "date":  "2022-11-24T15:10:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5PEkIg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I will try to push it by end of this month",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-11-24T15:30:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Qf0km",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hey, I don\u0027t want to bother you, but it\u0027s already mid of next month.\r\nIs the new version coming out?",
-                         "author":  "massibronto",
-                         "action_needed":  true,
-                         "date":  "2022-12-14T07:13:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SED7t",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am disappointed, not because you don\u0027t find time to implement it. I can totally understand if it doesn\u0027t fit in the schedule.\r\nBut because of your miscommunication and extremely missed time estimation.\r\n\r\nI am now implementing a workaround on my client side, which I should have done already at the start of December.",
-                         "author":  "massibronto",
-                         "action_needed":  true,
-                         "date":  "2023-01-10T06:34:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SGQOi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I am now implementing a workaround on my client side, which I should have done already at the start of December.\r\n\r\nYou are always welcome submit a PR mate, but its other stuff to do where so working on priority ones once have free minute\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-10T14:33:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Skl-y",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As I said, it\u0027s not that I want you to pressure to do anything. You can relax and work in 3 months the next time. But then you have to communicate it that there will be no changes because I expected something from your time estimation when you say \"I will try to push it by end of this month\". This point in time is since 2 months gone.",
-                         "author":  "massibronto",
-                         "action_needed":  true,
-                         "date":  "2023-01-17T12:04:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ta627",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "you see, i dont have interest to do relizes just to increase number, curent change I am working on a bit fundamental, not because it does something new or way it interface (well a bit perhaps) but to sort that mess I find out need more time to do it right, as it almost in all components and change it a lot, so I do release then its satisfy my internal criteria, sorry to upsed you :)",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-22T18:15:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI_E",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYieb",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:30Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:56:30Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2305,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Dynamic windows path variables do not resolve in confCons.xml",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "In development",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "massibronto",
+  "created_at": "2022-11-24T14:51:11Z",
+  "github_updated_at": "2026-02-07T19:56:30Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nUsing paths in confCons.xml like:\r\n%USERPROFILE%\r\n%APPDATA%\r\nis not possible.\r\nTag: <setting name=\"CustomConsPath\"></setting>\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI would like to be able to configure this:\r\nsetting name=\"CustomConsPath\">%APPDATA%\\mRemoteNG\\confCons.xml</setting\r\n\r\nand the result...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5PEcGq",
+      "author": "Kvarkas",
+      "date": "2022-11-24T15:02:03Z",
+      "snippet": "what will come with new settings in comming build soon",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5PEeuT",
+      "author": "massibronto",
+      "date": "2022-11-24T15:10:31Z",
+      "snippet": "Could you specify what \"soon\" can mean pls? 2 Weeks or 2 Months?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5PEkIg",
+      "author": "Kvarkas",
+      "date": "2022-11-24T15:30:31Z",
+      "snippet": "I will try to push it by end of this month",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Qf0km",
+      "author": "massibronto",
+      "date": "2022-12-14T07:13:00Z",
+      "snippet": "Hey, I don't want to bother you, but it's already mid of next month.\r\nIs the new version coming out?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SED7t",
+      "author": "massibronto",
+      "date": "2023-01-10T06:34:44Z",
+      "snippet": "I am disappointed, not because you don't find time to implement it. I can totally understand if it doesn't fit in the schedule.\r\nBut because of your miscommunication and extremely missed time estimation.\r\n\r\nI am now implementing a workaround on my client side, which I should have done already at the start of December.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SGQOi",
+      "author": "Kvarkas",
+      "date": "2023-01-10T14:33:38Z",
+      "snippet": "> I am now implementing a workaround on my client side, which I should have done already at the start of December.\r\n\r\nYou are always welcome submit a PR mate, but its other stuff to do where so working on priority ones once have free minute\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Skl-y",
+      "author": "massibronto",
+      "date": "2023-01-17T12:04:46Z",
+      "snippet": "As I said, it's not that I want you to pressure to do anything. You can relax and work in 3 months the next time. But then you have to communicate it that there will be no changes because I expected something from your time estimation when you say \"I will try to push it by end of this month\". This point in time is since 2 months gone.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ta627",
+      "author": "Kvarkas",
+      "date": "2023-01-22T18:15:34Z",
+      "snippet": "you see, i dont have interest to do relizes just to increase number, curent change I am working on a bit fundamental, not because it does something new or way it interface (well a bit perhaps) but to sort that mess I find out need more time to do it right, as it almost in all components and change it a lot, so I do release then its satisfy my internal criteria, sorry to upsed you :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI_E",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:37Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYieb",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:30Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:56:30Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

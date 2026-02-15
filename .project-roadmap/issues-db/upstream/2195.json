@@ -1,86 +1,84 @@
-﻿{
-    "number":  2195,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Crafted XML File Code Execution",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Security",
-                   "PowerShell",
-                   "1.77.3"
-               ],
-    "author":  "gL1nt",
-    "created_at":  "2022-04-07T21:56:39Z",
-    "github_updated_at":  "2026-02-07T19:52:37Z",
-    "body_snippet":  "It is possible to craft a connection that executes arbitrary PowerShell commands when it is double-clicked. This is problematic because an attacker could export a code-executing connection and then trick someone into importing and clicking on it, allowing the attacker to execute code on their machine. The root of the issue is this piece of code that is used for making PowerShell connections:\r\n\r\n![image](https://user-images.githubusercontent.com/29503289/162325436-c75e93dc-7ab3-4e49-b30d-4ccf73dc...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5Bk53i",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "thanks for such, will try to think what we can implement to defend ourselves from such potential usages",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-04-15T15:54:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5kT-1Z",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas Any news on implementing a security mitigation for this vulnerability ?\r\nIt seems to have been forgotten, maybe it\u0027s not reproducible anymore ?",
-                         "author":  "AkechiShiro",
-                         "action_needed":  true,
-                         "date":  "2023-08-17T20:49:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5lUkqc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It would affect line 45 of mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs ([jump there](https://github.com/mRemoteNG/mRemoteNG/blob/6698ec0b0654b38b4eaaa044b88c86d3c4cc210b/mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs#L45)).\r\n\r\nThe question here is how one can validate the input (password) so it cannot execute arbitrary code. @Kvarkas I guess the easiest way to do so is to add quotation marks (_\"\"_) in front and after the added variable.",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-08-30T21:46:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5lUsN_",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Tried to fix it with pull request #2482, not sure it that codes addresses it properly (please test).",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-08-30T22:14:26Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5lUuVZ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Trying to assess the severity of the vulnerability - please consider the following:\r\n\r\n- Privilege escalation is only possible when the configuration file has bad permissions and/or is loaded from a share\r\n- Usually requires manual user interaction (might be circumvented when \"reopen last connections\" is enabled)\r\n- Requiring a double click on the connection one might consider this as severe as the possibility to double-click a random .batch file containing the malicious code\r\n\r\nI did not run a ...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-08-30T22:22:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhSj",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:37Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:37Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2195,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Crafted XML File Code Execution",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Security",
+    "PowerShell",
+    "1.77.3"
+  ],
+  "author": "gL1nt",
+  "created_at": "2022-04-07T21:56:39Z",
+  "github_updated_at": "2026-02-07T19:52:37Z",
+  "body_snippet": "It is possible to craft a connection that executes arbitrary PowerShell commands when it is double-clicked. This is problematic because an attacker could export a code-executing connection and then trick someone into importing and clicking on it, allowing the attacker to execute code on their machine. The root of the issue is this piece of code that is used for making PowerShell connections:\r\n\r\n![image](https://user-images.githubusercontent.com/29503289/162325436-c75e93dc-7ab3-4e49-b30d-4ccf73dc...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5Bk53i",
+      "author": "Kvarkas",
+      "date": "2022-04-15T15:54:55Z",
+      "snippet": "thanks for such, will try to think what we can implement to defend ourselves from such potential usages",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5kT-1Z",
+      "author": "AkechiShiro",
+      "date": "2023-08-17T20:49:16Z",
+      "snippet": "@Kvarkas Any news on implementing a security mitigation for this vulnerability ?\r\nIt seems to have been forgotten, maybe it's not reproducible anymore ?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5lUkqc",
+      "author": "simonai1254",
+      "date": "2023-08-30T21:46:13Z",
+      "snippet": "It would affect line 45 of mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs ([jump there](https://github.com/mRemoteNG/mRemoteNG/blob/6698ec0b0654b38b4eaaa044b88c86d3c4cc210b/mRemoteNG/Connection/Protocol/PowerShell/Connection.Protocol.PowerShell.cs#L45)).\r\n\r\nThe question here is how one can validate the input (password) so it cannot execute arbitrary code. @Kvarkas I guess the easiest way to do so is to add quotation marks (_\"\"_) in front and after the added variable.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5lUsN_",
+      "author": "simonai1254",
+      "date": "2023-08-30T22:14:26Z",
+      "snippet": "Tried to fix it with pull request #2482, not sure it that codes addresses it properly (please test).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5lUuVZ",
+      "author": "simonai1254",
+      "date": "2023-08-30T22:22:11Z",
+      "snippet": "Trying to assess the severity of the vulnerability - please consider the following:\r\n\r\n- Privilege escalation is only possible when the configuration file has bad permissions and/or is loaded from a share\r\n- Usually requires manual user interaction (might be circumvented when \"reopen last connections\" is enabled)\r\n- Requiring a double click on the connection one might consider this as severe as the possibility to double-click a random .batch file containing the malicious code\r\n\r\nI did not run a ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhSj",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:37Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:37Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

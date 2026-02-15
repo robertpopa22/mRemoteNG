@@ -1,94 +1,92 @@
-﻿{
-    "number":  914,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "External tool telnet",
-    "state":  "open",
-    "labels":  [
-                   "Third party",
-                   "Connections",
-                   "PowerShell"
-               ],
-    "author":  "LIyoai",
-    "created_at":  "2018-03-12T09:22:54Z",
-    "github_updated_at":  "2021-06-28T13:00:22Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nTelnet as external tool is not working/found.\r\nHow to reproduce:\r\nStart cmd through external tools\r\nGo to c:\\windows\\system32\r\ndir telnet.exe -\u003e file not found.\r\n\r\nStart a cmd out of windows you will find the file.\r\n\r\nI guess this is becau...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjMwNDk1Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m not sure what we can do to help here - this sounds like more of a system issue.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-03-12T13:14:10Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjMwNjg4Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Maybe a 64bit build?\r\nBut I have a workaround I use putty instead. So if you want close the ticket.",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2018-03-12T13:21:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjMxODAzMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We are investigating x64 builds, but that will probably be a little ways off. I thought we had an issue logged for it, but I couldn\u0027t find it. Created one now for tracking: #915",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-03-12T13:56:59Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjMyMTQ3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Looks like there is a way to do this, but it\u0027s a bit hacky:\r\nhttps://stackoverflow.com/questions/2003573/how-to-start-a-64-bit-process-from-a-32-bit-process\r\n\r\nBest to focus on 64 bit builds...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2018-03-12T14:07:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MjU2MzY0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@kmscode the link you provided shows also a good workaround.\r\nWith C:\\Windows\\Sysnative I can launch the 64bit versions. Like C:\\Windows\\Sysnative\\cmd.exe or C:\\Windows\\Sysnative\\telnet.exe.\r\nIt\u0027s a bit hidden so maybe you can add it to the externals tools documentation.",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2018-03-13T06:46:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MjMyOTc1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have the same issue calling powershell to call quser or logoff. I have to call the x86 powershell and a lot of cmdlets are not available with it now.",
-                         "author":  "domoaligato",
-                         "action_needed":  true,
-                         "date":  "2020-06-11T00:08:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0MzE1NzQ5NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\powershell.exe\r\n[Environment]::Is64BitProcess\r\nFalse\r\n\r\n%SystemRoot%\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe\r\n[Environment]::Is64BitProcess\r\nTrue",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2020-06-12T08:53:20Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-06-28T13:00:22Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 914,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "External tool telnet",
+  "state": "open",
+  "labels": [
+    "Third party",
+    "Connections",
+    "PowerShell"
+  ],
+  "author": "LIyoai",
+  "created_at": "2018-03-12T09:22:54Z",
+  "github_updated_at": "2021-06-28T13:00:22Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nTelnet as external tool is not working/found.\r\nHow to reproduce:\r\nStart cmd through external tools\r\nGo to c:\\windows\\system32\r\ndir telnet.exe -> file not found.\r\n\r\nStart a cmd out of windows you will find the file.\r\n\r\nI guess this is becau...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MjMwNDk1Mw==",
+      "author": "sparerd",
+      "date": "2018-03-12T13:14:10Z",
+      "snippet": "I'm not sure what we can do to help here - this sounds like more of a system issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MjMwNjg4Nw==",
+      "author": "LIyoai",
+      "date": "2018-03-12T13:21:09Z",
+      "snippet": "Maybe a 64bit build?\r\nBut I have a workaround I use putty instead. So if you want close the ticket.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MjMxODAzMA==",
+      "author": "sparerd",
+      "date": "2018-03-12T13:56:59Z",
+      "snippet": "We are investigating x64 builds, but that will probably be a little ways off. I thought we had an issue logged for it, but I couldn't find it. Created one now for tracking: #915",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MjMyMTQ3Ng==",
+      "author": "kmscode",
+      "date": "2018-03-12T14:07:21Z",
+      "snippet": "Looks like there is a way to do this, but it's a bit hacky:\r\nhttps://stackoverflow.com/questions/2003573/how-to-start-a-64-bit-process-from-a-32-bit-process\r\n\r\nBest to focus on 64 bit builds...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MjU2MzY0MQ==",
+      "author": "LIyoai",
+      "date": "2018-03-13T06:46:50Z",
+      "snippet": "@kmscode the link you provided shows also a good workaround.\r\nWith C:\\Windows\\Sysnative I can launch the 64bit versions. Like C:\\Windows\\Sysnative\\cmd.exe or C:\\Windows\\Sysnative\\telnet.exe.\r\nIt's a bit hidden so maybe you can add it to the externals tools documentation.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0MjMyOTc1Ng==",
+      "author": "domoaligato",
+      "date": "2020-06-11T00:08:36Z",
+      "snippet": "I have the same issue calling powershell to call quser or logoff. I have to call the x86 powershell and a lot of cmdlets are not available with it now.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0MzE1NzQ5NA==",
+      "author": "LIyoai",
+      "date": "2020-06-12T08:53:20Z",
+      "snippet": "%SystemRoot%\\system32\\WindowsPowerShell\\v1.0\\powershell.exe\r\n[Environment]::Is64BitProcess\r\nFalse\r\n\r\n%SystemRoot%\\sysnative\\WindowsPowerShell\\v1.0\\powershell.exe\r\n[Environment]::Is64BitProcess\r\nTrue",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-06-28T13:00:22Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

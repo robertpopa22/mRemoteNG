@@ -1,101 +1,99 @@
-﻿{
-    "number":  1386,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "mremoteng crashing when opening new connection file",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "majed17",
-    "created_at":  "2019-04-01T07:09:22Z",
-    "github_updated_at":  "2019-10-07T20:08:36Z",
-    "body_snippet":  "it seems to be an alergie with win 10 1809, it doesn\u0027t matter if it\u0027s a virtual machine or a real pc, when trying to open a saved connection file, the program simply disappears when pressing do n ot save current connection file. this was something i noticed months ago and was simply waiting for it to get fixed and now with the march version it still is crashing.\r\n\r\n\r\n\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDEwNDk4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Please try with the latest build: https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.19\r\n\r\nIf the problem still occurs, please provide any logs/crash information associated with the problem:\r\nhttps://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging#crash-information",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T00:03:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDE1OTMyMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "sorry, a no go:\r\n```\r\n2019-04-05 08:54:10,049 [1] ERROR - ╨ñ╨░╨╣╨╗ ╨┐╨╛╨┤╨║╨╗╤Ä╤ç╨╡╨╜╨╕╨╣ \"\" ╨╜╨╡╨▓╨╛╨╖╨╝╨╛╨╢╨╜╨╛ ╨╖╨░╨│╤Ç╤â╨╖╨╕╤é╤î!\r\n╨í╨╛╨╖╨┤╨░╨╜╨╕╨╡ ╤ì╨║╨╖╨╡╨╝╨┐╨╗╤Å╤Ç╨░ COM-╨║╨╛╨╝╨┐╨╛╨╜╨╡╨╜╤é╨░ ╤ü CLSID {DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7} ╨┐╤Ç╨╕ ╨┐╨╛╨╝╨╛╤ë╨╕ ╨╕╨╜╤é╨╡╤Ç╤ä╨╡╨╣╤ü╨░ IClassFactory ╨╖╨░╨▓╨╡╤Ç╤ê╨╕╨╗╨╛╤ü╤î ╤ü╨╛ ╤ü╨▒╨╛╨╡╨╝ ╨╕╨╖-╨╖╨░ ╤ü╨╗╨╡╨┤╤â╤Ä╤ë╨╡╨╣ ╨╛╤ê╨╕╨▒╨║╨╕: 80040111 ╨ó╤Ç╨╡╨▒╤â╨╡╨╝╤ï╨╣ ╨║╨╗╨░╤ü╤ü ╨╛╤é╤ü╤â╤é╤ü╤é╨▓╤â╨╡╤é ╨▓ ClassFactory (╨ÿ╤ü╨║╨╗╤Ä╤ç╨╡╨╜╨╕╨╡ ╨╕╨╖ HRESULT: 0x8...",
-                         "author":  "majed17",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T06:08:06Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDMxODc3NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Looks like there are problems finding a system class...\r\n\r\nWe\u0027re not doing anything special here, just calling a standard OpenFileDialog:\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/v1.76.19/mRemoteV1/UI/DialogFactory.cs#L13\r\n\r\nAre you using a high contrast theme? Looks like there are some known issues on the MS side, that MIGHT be fixable on our end with a manifest update (which I\u0027ll review further). But would be nice to confirm if you\u0027re on a high contrast theme....\r\n\r\nReference: https://answ...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T15:28:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDMyMDEwMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "bingo my friend, you nailed it! never thought the color can cause a thing.",
-                         "author":  "majed17",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T15:32:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDMyMjY0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "app.manifest entry... - https://docs.microsoft.com/en-us/windows/desktop/sbscs/application-manifests#supportedOS\r\n\r\nSome notes regarding high contrast mode and manifest updates: https://docs.microsoft.com/en-us/windows/desktop/w8cookbook/high-contrast-mode#solution",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T15:39:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDMyMzM0Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@majed17 I\u0027ll see about building a test version of 1.76 with some manifest updates... I\u0027m not 100% sure of any other ramifications of this currently, so would like to keep it to a test build for now. Will keep this thread posted.\r\n\r\nAs a workaround, if you don\u0027t require the high contrast theme for a vision problem, setting it to a non-high contrast theme should allow this to work...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-04-05T15:41:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDY5OTA5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Well, don\u0027t you know the saying, once you try black you don\u0027t go back :)? switching for a few minutes to a default them, loading the saved file and then back to high contrast did the trick! it would be nice to have mremoteng on linux though:)",
-                         "author":  "majed17",
-                         "action_needed":  true,
-                         "date":  "2019-04-08T06:21:40Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDgxNDEzMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e it would be nice to have mremoteng on linux though:)\r\n\r\nYou can follow #308 for cross platform support. Don\u0027t get too excited though, it\u0027s going to be a long road before we are able to get on *nix systems.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-04-08T12:38:20Z"
-                     }
-                 ],
-    "comments_cursor":  "2019-10-07T20:08:36Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1386,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "mremoteng crashing when opening new connection file",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "majed17",
+  "created_at": "2019-04-01T07:09:22Z",
+  "github_updated_at": "2019-10-07T20:08:36Z",
+  "body_snippet": "it seems to be an alergie with win 10 1809, it doesn't matter if it's a virtual machine or a real pc, when trying to open a saved connection file, the program simply disappears when pressing do n ot save current connection file. this was something i noticed months ago and was simply waiting for it to get fixed and now with the march version it still is crashing.\r\n\r\n\r\n\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDEwNDk4Ng==",
+      "author": "kmscode",
+      "date": "2019-04-05T00:03:49Z",
+      "snippet": "Please try with the latest build: https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.19\r\n\r\nIf the problem still occurs, please provide any logs/crash information associated with the problem:\r\nhttps://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging#crash-information",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDE1OTMyMw==",
+      "author": "majed17",
+      "date": "2019-04-05T06:08:06Z",
+      "snippet": "sorry, a no go:\r\n```\r\n2019-04-05 08:54:10,049 [1] ERROR - Файл подключений \"\" невозможно загрузить!\r\nСоздание экземпляра COM-компонента с CLSID {DC1C5A9C-E88A-4DDE-A5A1-60F82A20AEF7} при помощи интерфейса IClassFactory завершилось со сбоем из-за следующей ошибки: 80040111 Требуемый класс отсутствует в ClassFactory (Исключение из HRESULT: 0x80040111 (CLASS_E_CLASSNOTAVAILABLE)).\r\n   в System.Windows.Forms.OpenFileDialog.CreateVistaDialog()\r\n   в System.Windows.Forms.FileDialog.RunDialogVista(IntP...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDMxODc3NQ==",
+      "author": "kmscode",
+      "date": "2019-04-05T15:28:36Z",
+      "snippet": "Looks like there are problems finding a system class...\r\n\r\nWe're not doing anything special here, just calling a standard OpenFileDialog:\r\nhttps://github.com/mRemoteNG/mRemoteNG/blob/v1.76.19/mRemoteV1/UI/DialogFactory.cs#L13\r\n\r\nAre you using a high contrast theme? Looks like there are some known issues on the MS side, that MIGHT be fixable on our end with a manifest update (which I'll review further). But would be nice to confirm if you're on a high contrast theme....\r\n\r\nReference: https://answ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDMyMDEwMA==",
+      "author": "majed17",
+      "date": "2019-04-05T15:32:14Z",
+      "snippet": "bingo my friend, you nailed it! never thought the color can cause a thing.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDMyMjY0Mw==",
+      "author": "kmscode",
+      "date": "2019-04-05T15:39:33Z",
+      "snippet": "app.manifest entry... - https://docs.microsoft.com/en-us/windows/desktop/sbscs/application-manifests#supportedOS\r\n\r\nSome notes regarding high contrast mode and manifest updates: https://docs.microsoft.com/en-us/windows/desktop/w8cookbook/high-contrast-mode#solution",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDMyMzM0Nw==",
+      "author": "kmscode",
+      "date": "2019-04-05T15:41:32Z",
+      "snippet": "@majed17 I'll see about building a test version of 1.76 with some manifest updates... I'm not 100% sure of any other ramifications of this currently, so would like to keep it to a test build for now. Will keep this thread posted.\r\n\r\nAs a workaround, if you don't require the high contrast theme for a vision problem, setting it to a non-high contrast theme should allow this to work...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDY5OTA5Mw==",
+      "author": "majed17",
+      "date": "2019-04-08T06:21:40Z",
+      "snippet": "Well, don't you know the saying, once you try black you don't go back :)? switching for a few minutes to a default them, loading the saved file and then back to high contrast did the trick! it would be nice to have mremoteng on linux though:)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDgxNDEzMQ==",
+      "author": "sparerd",
+      "date": "2019-04-08T12:38:20Z",
+      "snippet": "> it would be nice to have mremoteng on linux though:)\r\n\r\nYou can follow #308 for cross platform support. Don't get too excited though, it's going to be a long road before we are able to get on *nix systems.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2019-10-07T20:08:36Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

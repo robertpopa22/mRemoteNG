@@ -1,66 +1,64 @@
-﻿{
-    "number":  2320,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "add default password for each protocol - particularly windows and putty",
-    "state":  "open",
-    "labels":  [
-                   "Connections",
-                   "1.78.*"
-               ],
-    "author":  "ray-brum",
-    "created_at":  "2023-01-04T13:34:10Z",
-    "github_updated_at":  "2026-02-07T19:23:33Z",
-    "body_snippet":  "We have personal accounts on windows and linux that are different and changed monthly.\r\nCurrently I add the windows account as the default addount/password, but have to override the unix servers with the linux account and change the password each month\r\n\r\nI suspect many shops have a similar setup\r\n\r\nwould it be a good idea to be able to set a default account/password for each protocol (RDP/ PUTTY / etc).\r\n\r\n* Version used: 1.76.20\r\n* Operating System: multiple versions of windows on a domain + l...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5Rtwd4",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "apparently a similar request has been made already (targetted at 1.78.*). Would default password for each protocol be easier to implement? However the other suggestion would resolve my problem too",
-                         "author":  "ray-brum",
-                         "action_needed":  true,
-                         "date":  "2023-01-04T13:46:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Rt-tq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would consider this a duplicate of #2304, even though this is not protocol based. The profile solution planned to be implemented by @Kvarkas should remediate this issue and might allow the extension to define a defeault user for each connection type.",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-01-04T14:36:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SKXqH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "yes planed profiles implem,entation to be done, after that you will be able to set a profile of dewfault connection (you may have several) and that profile will \"know\" where to look for default password and for that user profile",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T09:17:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYUwx",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:23:33Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:23:33Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2320,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "add default password for each protocol - particularly windows and putty",
+  "state": "open",
+  "labels": [
+    "Connections",
+    "1.78.*"
+  ],
+  "author": "ray-brum",
+  "created_at": "2023-01-04T13:34:10Z",
+  "github_updated_at": "2026-02-07T19:23:33Z",
+  "body_snippet": "We have personal accounts on windows and linux that are different and changed monthly.\r\nCurrently I add the windows account as the default addount/password, but have to override the unix servers with the linux account and change the password each month\r\n\r\nI suspect many shops have a similar setup\r\n\r\nwould it be a good idea to be able to set a default account/password for each protocol (RDP/ PUTTY / etc).\r\n\r\n* Version used: 1.76.20\r\n* Operating System: multiple versions of windows on a domain + l...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5Rtwd4",
+      "author": "ray-brum",
+      "date": "2023-01-04T13:46:57Z",
+      "snippet": "apparently a similar request has been made already (targetted at 1.78.*). Would default password for each protocol be easier to implement? However the other suggestion would resolve my problem too",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Rt-tq",
+      "author": "simonai1254",
+      "date": "2023-01-04T14:36:12Z",
+      "snippet": "I would consider this a duplicate of #2304, even though this is not protocol based. The profile solution planned to be implemented by @Kvarkas should remediate this issue and might allow the extension to define a defeault user for each connection type.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SKXqH",
+      "author": "Kvarkas",
+      "date": "2023-01-11T09:17:53Z",
+      "snippet": "yes planed profiles implem,entation to be done, after that you will be able to set a profile of dewfault connection (you may have several) and that profile will \"know\" where to look for default password and for that user profile",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYUwx",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:23:33Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:23:33Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

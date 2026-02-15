@@ -1,78 +1,76 @@
-﻿{
-    "number":  461,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Support connections to vino VNC server",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "Enhancement",
-                   "Ready",
-                   "Help Wanted",
-                   "VNC"
-               ],
-    "author":  "adrianabadin",
-    "created_at":  "2017-03-17T13:34:37Z",
-    "github_updated_at":  "2019-09-14T09:42:43Z",
-    "body_snippet":  "\r\n\u003c!-- Cuando intento conectar desde mremoteng en windows 7 64 bits me marca el siguiente error\r\n┬íFallo abriendo conexiones!\r\nUnable to read next byte(s)\r\ndesde otro servidor con ubuntu desde remmina otro software puedo conectar sin probemas--\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzM2MjAxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "al intentar conectarme con un servidor con VINO en ubuntu 14.04 desde un pc con windows 7 64 bits me emite el siguiente error.\r\n┬íFallo abriendo conexiones!\r\nUnable to read next byte(s).\r\nhay alguna solucion?",
-                         "author":  "adrianabadin",
-                         "action_needed":  true,
-                         "date":  "2017-03-17T14:03:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzM2NzUwOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "(Traducido a trav├⌐s de Google)\r\n\r\n┬┐Podr├¡a proporcionar el archivo mRemoteNG.log? Eso nos puede ayudar a averiguar qu├⌐ pas├│.\r\n\r\nDetalles sobre el archivo de registro aqu├¡: https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-03-17T14:23:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzQyNzI5Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "For clarification, it appears that \"vino\" is the VNC server running on Ubuntu:\r\nhttps://help.ubuntu.com/community/VNC/Servers\r\n\r\nProblem reproduced. Nothing special in the log:\r\n```\r\n2017-03-17 13:51:06,808 [1] ERROR- Opening connection failed!\r\nUnable to read next byte(s).\r\n2017-03-17 13:51:06,815 [9] INFO - Connection Event Closed\r\n2017-03-17 13:51:06,816 [9] INFO - Connection to {host} via VNC closed by user {currently logged in user}\".\r\n```\r\n\r\nvino log:\r\n```\r\n7/03/2017 01:50:51 PM Autoprobin...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-03-17T17:57:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzU2MDc1MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Did you try to disable TLS in Vino? The error here indicates it:\r\n\r\n```\r\n17/03/2017 01:51:06 PM Advertising security type 18\r\n17/03/2017 01:51:06 PM Client returned security type 0\r\n```\r\n\r\nThis helped me here with a Windows Client connecting to a Gnome based Desktop as a workaround. And here is more info on it:\r\n\r\nhttp://askubuntu.com/questions/408365/gnome-3-10-sharing-desktop-how-to-configure-the-security-type-for-vnc#408375",
-                         "author":  "e-alfred",
-                         "action_needed":  true,
-                         "date":  "2017-03-18T17:21:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzYzMDE5Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@e-alfred Thanks!\r\n\r\nConfirmed, disabling TLS in vino allowed mRemoteNG/VncSharp to connect.",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-03-19T16:54:49Z"
-                     }
-                 ],
-    "comments_cursor":  "2019-09-14T09:42:43Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 461,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Support connections to vino VNC server",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "Enhancement",
+    "Ready",
+    "Help Wanted",
+    "VNC"
+  ],
+  "author": "adrianabadin",
+  "created_at": "2017-03-17T13:34:37Z",
+  "github_updated_at": "2019-09-14T09:42:43Z",
+  "body_snippet": "\r\n<!-- Cuando intento conectar desde mremoteng en windows 7 64 bits me marca el siguiente error\r\n¡Fallo abriendo conexiones!\r\nUnable to read next byte(s)\r\ndesde otro servidor con ubuntu desde remmina otro software puedo conectar sin probemas-->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzM2MjAxMA==",
+      "author": "adrianabadin",
+      "date": "2017-03-17T14:03:39Z",
+      "snippet": "al intentar conectarme con un servidor con VINO en ubuntu 14.04 desde un pc con windows 7 64 bits me emite el siguiente error.\r\n¡Fallo abriendo conexiones!\r\nUnable to read next byte(s).\r\nhay alguna solucion?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzM2NzUwOA==",
+      "author": "sparerd",
+      "date": "2017-03-17T14:23:53Z",
+      "snippet": "(Traducido a través de Google)\r\n\r\n¿Podría proporcionar el archivo mRemoteNG.log? Eso nos puede ayudar a averiguar qué pasó.\r\n\r\nDetalles sobre el archivo de registro aquí: https://github.com/mRemoteNG/mRemoteNG/wiki/Troubleshooting-and-Logging",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzQyNzI5Nw==",
+      "author": "kmscode",
+      "date": "2017-03-17T17:57:07Z",
+      "snippet": "For clarification, it appears that \"vino\" is the VNC server running on Ubuntu:\r\nhttps://help.ubuntu.com/community/VNC/Servers\r\n\r\nProblem reproduced. Nothing special in the log:\r\n```\r\n2017-03-17 13:51:06,808 [1] ERROR- Opening connection failed!\r\nUnable to read next byte(s).\r\n2017-03-17 13:51:06,815 [9] INFO - Connection Event Closed\r\n2017-03-17 13:51:06,816 [9] INFO - Connection to {host} via VNC closed by user {currently logged in user}\".\r\n```\r\n\r\nvino log:\r\n```\r\n7/03/2017 01:50:51 PM Autoprobin...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzU2MDc1MA==",
+      "author": "e-alfred",
+      "date": "2017-03-18T17:21:19Z",
+      "snippet": "Did you try to disable TLS in Vino? The error here indicates it:\r\n\r\n```\r\n17/03/2017 01:51:06 PM Advertising security type 18\r\n17/03/2017 01:51:06 PM Client returned security type 0\r\n```\r\n\r\nThis helped me here with a Windows Client connecting to a Gnome based Desktop as a workaround. And here is more info on it:\r\n\r\nhttp://askubuntu.com/questions/408365/gnome-3-10-sharing-desktop-how-to-configure-the-security-type-for-vnc#408375",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzYzMDE5Mg==",
+      "author": "kmscode",
+      "date": "2017-03-19T16:54:49Z",
+      "snippet": "@e-alfred Thanks!\r\n\r\nConfirmed, disabling TLS in vino allowed mRemoteNG/VncSharp to connect.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2019-09-14T09:42:43Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,94 +1,94 @@
-﻿{
-    "number":  2155,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Inheritance field names cut off - Nightly 1.77.2",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "Improvement required",
-                   "1.77.3"
-               ],
-    "author":  "pauldurham",
-    "created_at":  "2022-02-03T10:06:00Z",
-    "github_updated_at":  "2026-02-09T06:27:54Z",
-    "body_snippet":  "In the Inheritance window, the field names are often cut off due to length.  There is no means to expand the space allocated to the field names.\r\nExample:  \"Server Authentication\" is cut off at \"Server Authentica\".\r\n\r\n## Expected Behavior\r\nField names should be fully visible.\r\n\r\n## Current Behavior\r\nField names are sometimes cut off.\r\n\r\n## Possible Solution\r\nExpand field column width with text length.\r\n\r\n## Your Environment\r\nWindows 10 Enterprise 64-bit 20H2.",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3130,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Inheritance label width fix",
-                           "pr":  3130,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM49UqcC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is resolvable by enlarging the configuration settings panel, I don\u0027t know if it\u0027s really necessary to change the default view and enable scrolling in such a case. The field name is displayed at the bottom and when hovering with the mouse.",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-02-03T10:11:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM49cbMm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I see that there is an invisible bar between field name \u0026 field value that can be \"grabbed\" with the pointer and expanded or contracted.  Perhaps make this bar visible?",
-                         "author":  "pauldurham",
-                         "action_needed":  true,
-                         "date":  "2022-02-06T16:01:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM497pbi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "need a bit improvements in UI",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-02-14T12:47:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYU0j",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:23:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mhEYv",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Packaged fix for inheritance property-label truncation into parent package branch `codex/pr26-inheritance-label-width-2155`. \r\n \r\nParent compare/create URL: \r\nhttps://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1 \n \r\nLocal validation: \r\n- x64 restore + build with MSBuild (warnings only).\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T15:44:43Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpdmv",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3130 | **Branch:** `codex/pr26-inheritance-label-width-2155`\n**Fix:** Inheritance label width no longer truncates text.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:27:54Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:27:54Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2155,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Inheritance field names cut off - Nightly 1.77.2",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "Improvement required",
+    "1.77.3"
+  ],
+  "author": "pauldurham",
+  "created_at": "2022-02-03T10:06:00Z",
+  "github_updated_at": "2026-02-09T06:27:54Z",
+  "body_snippet": "In the Inheritance window, the field names are often cut off due to length.  There is no means to expand the space allocated to the field names.\r\nExample:  \"Server Authentication\" is cut off at \"Server Authentica\".\r\n\r\n## Expected Behavior\r\nField names should be fully visible.\r\n\r\n## Current Behavior\r\nField names are sometimes cut off.\r\n\r\n## Possible Solution\r\nExpand field column width with text length.\r\n\r\n## Your Environment\r\nWindows 10 Enterprise 64-bit 20H2.",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3130,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "Inheritance label width fix",
+      "pr": 3130,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM49UqcC",
+      "author": "simonai1254",
+      "date": "2022-02-03T10:11:24Z",
+      "snippet": "This is resolvable by enlarging the configuration settings panel, I don't know if it's really necessary to change the default view and enable scrolling in such a case. The field name is displayed at the bottom and when hovering with the mouse.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM49cbMm",
+      "author": "pauldurham",
+      "date": "2022-02-06T16:01:22Z",
+      "snippet": "I see that there is an invisible bar between field name & field value that can be \"grabbed\" with the pointer and expanded or contracted.  Perhaps make this bar visible?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM497pbi",
+      "author": "Kvarkas",
+      "date": "2022-02-14T12:47:47Z",
+      "snippet": "need a bit improvements in UI",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYU0j",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:23:44Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mhEYv",
+      "author": "robertpopa22",
+      "date": "2026-02-08T15:44:43Z",
+      "snippet": "Packaged fix for inheritance property-label truncation into parent package branch `codex/pr26-inheritance-label-width-2155`. \r\n \r\nParent compare/create URL: \r\nhttps://github.com/mRemoteNG/mRemoteNG/compare/v1.78.2-dev...robertpopa22:mRemoteNG:codex/pr26-inheritance-label-width-2155?expand=1 \n \r\nLocal validation: \r\n- x64 restore + build with MSBuild (warnings only).\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpdmv",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:27:54Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3130 | **Branch:** `codex/pr26-inheritance-label-width-2155`\n**Fix:** Inheritance label width no longer truncates text.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:27:54Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,95 +1,93 @@
-﻿{
-    "number":  1796,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Error Creation New Folder (MSSQL Mode)",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Need 2 check",
-                   "1.77.2",
-                   "DBs"
-               ],
-    "author":  "atscripter",
-    "created_at":  "2020-06-16T23:19:57Z",
-    "github_updated_at":  "2026-02-07T19:53:30Z",
-    "body_snippet":  "I was successfully able to connect to an MSSQL database but I get an SQL related [error](https://i.imgur.com/iE1ubOP.png) when attempting to create new a \"connection\" folder.\r\n\r\nRunning v1.77.1 (portable) on Windows 10 Enterprise 10.0.18363 Build 18363.\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NTI1MzM0NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "What version of mRemoteNG are you running?",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-06-17T09:08:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NTQwNjE2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m running v1.77.1 portable.",
-                         "author":  "atscripter",
-                         "action_needed":  true,
-                         "date":  "2020-06-17T14:23:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NjM1NDE4NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I tested with a normal (non-portable) installation of mRemoteNG with the same result.",
-                         "author":  "atscripter",
-                         "action_needed":  true,
-                         "date":  "2020-06-18T23:26:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0NjQ2NzgyMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thank you very much - I\u0027ll take a look at this",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-06-19T06:47:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY3NjUwMDEzMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m also experiencing a similar issue. Fresh install of the latest stable version of mRemoteNG, just connected to SQL, right click connections, New Folder and receive the following:\r\n\r\n----------\r\nErrorMsg\r\n08/19/2020 16:33:50\r\nCouldn\u0027t save connections file as \"\"!\r\nCannot insert the value NULL into column \u0027RedirectAudioCapture\u0027, table \u0027mRemoteNG.dbo.tblCons\u0027; column does not allow nulls. INSERT fails.\r\nThe statement has been terminated.\r\n----------\r\nErrorMsg\r\n08/19/2020 16:33:35\r\nCouldn\u0027t save ...",
-                         "author":  "thornt5748",
-                         "action_needed":  true,
-                         "date":  "2020-08-19T15:34:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFsd",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhmc",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:30Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:30Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1796,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Error Creation New Folder (MSSQL Mode)",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "1.77.2",
+    "DBs"
+  ],
+  "author": "atscripter",
+  "created_at": "2020-06-16T23:19:57Z",
+  "github_updated_at": "2026-02-07T19:53:30Z",
+  "body_snippet": "I was successfully able to connect to an MSSQL database but I get an SQL related [error](https://i.imgur.com/iE1ubOP.png) when attempting to create new a \"connection\" folder.\r\n\r\nRunning v1.77.1 (portable) on Windows 10 Enterprise 10.0.18363 Build 18363.\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0NTI1MzM0NQ==",
+      "author": "farosch",
+      "date": "2020-06-17T09:08:22Z",
+      "snippet": "What version of mRemoteNG are you running?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0NTQwNjE2Mg==",
+      "author": "atscripter",
+      "date": "2020-06-17T14:23:57Z",
+      "snippet": "I'm running v1.77.1 portable.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0NjM1NDE4NQ==",
+      "author": "atscripter",
+      "date": "2020-06-18T23:26:25Z",
+      "snippet": "I tested with a normal (non-portable) installation of mRemoteNG with the same result.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0NjQ2NzgyMw==",
+      "author": "farosch",
+      "date": "2020-06-19T06:47:32Z",
+      "snippet": "Thank you very much - I'll take a look at this",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY3NjUwMDEzMw==",
+      "author": "thornt5748",
+      "date": "2020-08-19T15:34:59Z",
+      "snippet": "I'm also experiencing a similar issue. Fresh install of the latest stable version of mRemoteNG, just connected to SQL, right click connections, New Folder and receive the following:\r\n\r\n----------\r\nErrorMsg\r\n08/19/2020 16:33:50\r\nCouldn't save connections file as \"\"!\r\nCannot insert the value NULL into column 'RedirectAudioCapture', table 'mRemoteNG.dbo.tblCons'; column does not allow nulls. INSERT fails.\r\nThe statement has been terminated.\r\n----------\r\nErrorMsg\r\n08/19/2020 16:33:35\r\nCouldn't save ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFsd",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:40Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhmc",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:30Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:30Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,57 +1,55 @@
-﻿{
-    "number":  1059,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Windows 10 High Contrast (green on black) theme clashes with default mRemoteNG theme, for connection tabs",
-    "state":  "open",
-    "labels":  [
-                   "Connections",
-                   "Theming"
-               ],
-    "author":  "BloodyIron",
-    "created_at":  "2018-08-01T20:23:52Z",
-    "github_updated_at":  "2023-06-21T20:08:11Z",
-    "body_snippet":  "This is regarding v1.75.7012.16814\r\n\r\nI\u0027m running mRemoteNG on Windows 10, and my WIndows 10 is setup to use \"High Contrast #2\", which is green on black, and it tries to apply that on every application possible, and in this case that includes mRemoteNG.\r\n\r\nThe problem, is that all tabs (except the selected one) are black, on black, on black, unless I mouse over a tab, or select it.\r\n\r\nNot only that, I\u0027m not seeing a parameter in the Theme section of mRemoteNG to change the colouring for the tab ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyNzE1OTg4OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "So um, any chance we could get theme control for the tabs please? Black on Black is hard to read.",
-                         "author":  "BloodyIron",
-                         "action_needed":  true,
-                         "date":  "2018-10-04T20:34:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTM0MDg3NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@BloodyIron There are a few themes available out of the box in 1.76 and further enhancements to this in 1.77. Also, you can create a custom theme. Does this resolve your problem?",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-03-10T20:26:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ3MTM2MDg3Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Well I\u0027m not talking about themeing in general, I\u0027m talking about themeing for tabs. Last I checked, it didn\u0027t work well.",
-                         "author":  "BloodyIron",
-                         "action_needed":  true,
-                         "date":  "2019-03-10T22:32:35Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-06-21T20:08:11Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1059,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Windows 10 High Contrast (green on black) theme clashes with default mRemoteNG theme, for connection tabs",
+  "state": "open",
+  "labels": [
+    "Connections",
+    "Theming"
+  ],
+  "author": "BloodyIron",
+  "created_at": "2018-08-01T20:23:52Z",
+  "github_updated_at": "2023-06-21T20:08:11Z",
+  "body_snippet": "This is regarding v1.75.7012.16814\r\n\r\nI'm running mRemoteNG on Windows 10, and my WIndows 10 is setup to use \"High Contrast #2\", which is green on black, and it tries to apply that on every application possible, and in this case that includes mRemoteNG.\r\n\r\nThe problem, is that all tabs (except the selected one) are black, on black, on black, unless I mouse over a tab, or select it.\r\n\r\nNot only that, I'm not seeing a parameter in the Theme section of mRemoteNG to change the colouring for the tab ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyNzE1OTg4OA==",
+      "author": "BloodyIron",
+      "date": "2018-10-04T20:34:43Z",
+      "snippet": "So um, any chance we could get theme control for the tabs please? Black on Black is hard to read.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3MTM0MDg3NQ==",
+      "author": "kmscode",
+      "date": "2019-03-10T20:26:33Z",
+      "snippet": "@BloodyIron There are a few themes available out of the box in 1.76 and further enhancements to this in 1.77. Also, you can create a custom theme. Does this resolve your problem?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ3MTM2MDg3Nw==",
+      "author": "BloodyIron",
+      "date": "2019-03-10T22:32:35Z",
+      "snippet": "Well I'm not talking about themeing in general, I'm talking about themeing for tabs. Last I checked, it didn't work well.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-06-21T20:08:11Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

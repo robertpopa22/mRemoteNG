@@ -1,48 +1,46 @@
-﻿{
-    "number":  2135,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "BUG: SSH duplicate fails when using SSH Jump Mode",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Improvement required"
-               ],
-    "author":  "lars18th",
-    "created_at":  "2022-01-19T08:21:18Z",
-    "github_updated_at":  "2022-01-19T11:39:22Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nWhen starting a SSH session configured with SSH Jump Mode (tunneling over another SSH session), if you execute over the TAB of the session the command \"Duplicate\", then the connection never be stablished. However, if you select the session in the panel and launch it another time, the session will be stablished. So the problem is with the \"Duplicate\" command.\r\n\r\n## Expected Behavior\r\nThe expected behaviour is that the \"Duplicate...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM48kjfO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "When you duplicate the connection using the Jump Mode, could it be that you have a conflict with the used ports? ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-01-19T08:53:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM48lLZU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e When you duplicate the connection using the Jump Mode, could it be that you have a conflict with the used ports?\r\n\r\nWhy? Even if the guest session has ports redirected, it works when you launch it two or more times. And if you ask about the Jump connection, it is completly clean. So if some conflict exists then it will be inside the code, not in the configuration.\r\n",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2022-01-19T11:39:22Z"
-                     }
-                 ],
-    "comments_cursor":  "2022-01-19T11:39:22Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2135,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "BUG: SSH duplicate fails when using SSH Jump Mode",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Improvement required"
+  ],
+  "author": "lars18th",
+  "created_at": "2022-01-19T08:21:18Z",
+  "github_updated_at": "2022-01-19T11:39:22Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen starting a SSH session configured with SSH Jump Mode (tunneling over another SSH session), if you execute over the TAB of the session the command \"Duplicate\", then the connection never be stablished. However, if you select the session in the panel and launch it another time, the session will be stablished. So the problem is with the \"Duplicate\" command.\r\n\r\n## Expected Behavior\r\nThe expected behaviour is that the \"Duplicate...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM48kjfO",
+      "author": "simonai1254",
+      "date": "2022-01-19T08:53:40Z",
+      "snippet": "When you duplicate the connection using the Jump Mode, could it be that you have a conflict with the used ports? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM48lLZU",
+      "author": "lars18th",
+      "date": "2022-01-19T11:39:22Z",
+      "snippet": "> When you duplicate the connection using the Jump Mode, could it be that you have a conflict with the used ports?\r\n\r\nWhy? Even if the guest session has ports redirected, it works when you launch it two or more times. And if you ask about the Jump connection, it is completly clean. So if some conflict exists then it will be inside the code, not in the configuration.\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2022-01-19T11:39:22Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

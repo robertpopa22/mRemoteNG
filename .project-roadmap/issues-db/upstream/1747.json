@@ -1,57 +1,55 @@
-﻿{
-    "number":  1747,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Duplicate all connections after modifying connection list",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "DBs"
-               ],
-    "author":  "shawnshaw",
-    "created_at":  "2020-05-07T12:32:41Z",
-    "github_updated_at":  "2026-02-07T16:46:44Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nHello everyone I am suffering an issue that all connections are duplicated in the list after i use one user to modify the connection information. I am using sql server as connection pool and i have restored the db. Please help me how to change the information without hands on other connections that I  dont want to change. thanks !!!\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- I...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNTI2NDAxMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "what version of mRemoteNG are you using?",
-                         "author":  "Benchwork",
-                         "action_needed":  true,
-                         "date":  "2020-05-07T13:43:18Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYyNTU2MzA3Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi peter\n\nI am using this version\n\n\n\nOn Thu, 7 May 2020 at 21:43, Peter Christenson \u003cnotifications@github.com\u003e\nwrote:\n\n\u003e what version of mRemoteNG are you using?\n\u003e\n\u003e ΓÇö\n\u003e You are receiving this because you authored the thread.\n\u003e Reply to this email directly, view it on GitHub\n\u003e \u003chttps://github.com/mRemoteNG/mRemoteNG/issues/1747#issuecomment-625264012\u003e,\n\u003e or unsubscribe\n\u003e \u003chttps://github.com/notifications/unsubscribe-auth/ADHVVOGAZSUYMDXJ7N7USELRQK3INANCNFSM4M3JCYEQ\u003e\n\u003e .\n\u003e\n",
-                         "author":  "shawnshaw",
-                         "action_needed":  true,
-                         "date":  "2020-05-08T00:24:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFtY",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:44Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:46:44Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1747,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Duplicate all connections after modifying connection list",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "DBs"
+  ],
+  "author": "shawnshaw",
+  "created_at": "2020-05-07T12:32:41Z",
+  "github_updated_at": "2026-02-07T16:46:44Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nHello everyone I am suffering an issue that all connections are duplicated in the list after i use one user to modify the connection information. I am using sql server as connection pool and i have restored the db. Please help me how to change the information without hands on other connections that I  dont want to change. thanks !!!\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- I...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNTI2NDAxMg==",
+      "author": "Benchwork",
+      "date": "2020-05-07T13:43:18Z",
+      "snippet": "what version of mRemoteNG are you using?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYyNTU2MzA3Mg==",
+      "author": "shawnshaw",
+      "date": "2020-05-08T00:24:19Z",
+      "snippet": "Hi peter\n\nI am using this version\n\n\n\nOn Thu, 7 May 2020 at 21:43, Peter Christenson <notifications@github.com>\nwrote:\n\n> what version of mRemoteNG are you using?\n>\n> —\n> You are receiving this because you authored the thread.\n> Reply to this email directly, view it on GitHub\n> <https://github.com/mRemoteNG/mRemoteNG/issues/1747#issuecomment-625264012>,\n> or unsubscribe\n> <https://github.com/notifications/unsubscribe-auth/ADHVVOGAZSUYMDXJ7N7USELRQK3INANCNFSM4M3JCYEQ>\n> .\n>\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFtY",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:44Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:46:44Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

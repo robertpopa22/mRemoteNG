@@ -1,47 +1,45 @@
-﻿{
-    "number":  1813,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "version 1.77.0.41252 Copy/Past issue",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "TwobrainsOne",
-    "created_at":  "2020-07-07T07:55:40Z",
-    "github_updated_at":  "2021-06-21T15:59:03Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\ncopy and past from a RDP session into the local session no longer works. I expect to be able to copy within the RDP session, and past to the local application (e.e. Notepad) \r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of th...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NTkyODc2Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I just noticed that updating to v1.77.0 pre-release caused all my connections to not inherit Clipboard and default to \u0027Clipboard: No\u0027. Sorting that out has the clipboard working as expected. Can you verify the same?",
-                         "author":  "aglasson",
-                         "action_needed":  true,
-                         "date":  "2020-07-09T06:28:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY1NzAwMzQ2Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yep, same hereΓÇª So this needs a fix release when doing upgrades\n\n \n\nFrom: Adzo \u003cnotifications@github.com\u003e \nSent: Thursday, 09 July, 2020 08:29\nTo: mRemoteNG/mRemoteNG \u003cmRemoteNG@noreply.github.com\u003e\nCc: TwobrainsOne \u003ctwobrains@live.nl\u003e; Author \u003cauthor@noreply.github.com\u003e\nSubject: Re: [mRemoteNG/mRemoteNG] version 1.77.0.41252 Copy/Past issue (#1813)\n\n \n\nI just noticed that updating to v1.77.0 pre-release caused all my connections to not inherit Clipboard and default to \u0027Clipboard: No\u0027. Sorting ...",
-                         "author":  "TwobrainsOne",
-                         "action_needed":  true,
-                         "date":  "2020-07-11T06:48:48Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-06-21T15:59:03Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1813,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "version 1.77.0.41252 Copy/Past issue",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "TwobrainsOne",
+  "created_at": "2020-07-07T07:55:40Z",
+  "github_updated_at": "2021-06-21T15:59:03Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\ncopy and past from a RDP session into the local session no longer works. I expect to be able to copy within the RDP session, and past to the local application (e.e. Notepad) \r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of th...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY1NTkyODc2Ng==",
+      "author": "aglasson",
+      "date": "2020-07-09T06:28:36Z",
+      "snippet": "I just noticed that updating to v1.77.0 pre-release caused all my connections to not inherit Clipboard and default to 'Clipboard: No'. Sorting that out has the clipboard working as expected. Can you verify the same?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY1NzAwMzQ2Ng==",
+      "author": "TwobrainsOne",
+      "date": "2020-07-11T06:48:48Z",
+      "snippet": "Yep, same here… So this needs a fix release when doing upgrades\n\n \n\nFrom: Adzo <notifications@github.com> \nSent: Thursday, 09 July, 2020 08:29\nTo: mRemoteNG/mRemoteNG <mRemoteNG@noreply.github.com>\nCc: TwobrainsOne <twobrains@live.nl>; Author <author@noreply.github.com>\nSubject: Re: [mRemoteNG/mRemoteNG] version 1.77.0.41252 Copy/Past issue (#1813)\n\n \n\nI just noticed that updating to v1.77.0 pre-release caused all my connections to not inherit Clipboard and default to 'Clipboard: No'. Sorting th...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-06-21T15:59:03Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

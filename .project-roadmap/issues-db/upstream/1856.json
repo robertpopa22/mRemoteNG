@@ -1,58 +1,56 @@
-﻿{
-    "number":  1856,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Command snippet/library",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "1.77.2",
-                   "In development"
-               ],
-    "author":  "SKJoy",
-    "created_at":  "2020-09-07T14:50:41Z",
-    "github_updated_at":  "2026-02-07T19:54:57Z",
-    "body_snippet":  "Would be great to add/preset commands like code snippets in editors, and click a snippet would paste it in the SSH/Console and execute. Will save a lot of time for repeated server maintenance things we do.\r\n\r\n## Expected Behavior\r\nOption to add command snippet\r\nA command snippet menu or somewhere in the left Tree view, as command snippet list. Clicking an item would paste the command in the active SSH/Console, preferably with a configurable option to add an ENTER to execute it immediately\r\n\r\n## ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc3MjcwOTQyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "A great feature to add and super useful.",
-                         "author":  "sethstenzel",
-                         "action_needed":  true,
-                         "date":  "2021-02-03T18:06:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI3H",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiCD",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:57Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:57Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1856,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Command snippet/library",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "1.77.2",
+    "In development"
+  ],
+  "author": "SKJoy",
+  "created_at": "2020-09-07T14:50:41Z",
+  "github_updated_at": "2026-02-07T19:54:57Z",
+  "body_snippet": "Would be great to add/preset commands like code snippets in editors, and click a snippet would paste it in the SSH/Console and execute. Will save a lot of time for repeated server maintenance things we do.\r\n\r\n## Expected Behavior\r\nOption to add command snippet\r\nA command snippet menu or somewhere in the left Tree view, as command snippet list. Clicking an item would paste the command in the active SSH/Console, preferably with a configurable option to add an ENTER to execute it immediately\r\n\r\n## ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc3MjcwOTQyNA==",
+      "author": "sethstenzel",
+      "date": "2021-02-03T18:06:27Z",
+      "snippet": "A great feature to add and super useful.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI3H",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:28Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiCD",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:57Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:57Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

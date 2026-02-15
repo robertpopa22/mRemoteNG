@@ -1,30 +1,26 @@
-﻿{
-    "number":  1742,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Dead keys (\u0027,\",~,etc) not working for VNC connection to vSphere VM, unless held continuously",
-    "state":  "open",
-    "labels":  [
-                   "VNC"
-               ],
-    "author":  "djpbessems",
-    "created_at":  "2020-04-29T07:06:59Z",
-    "github_updated_at":  "2020-06-19T21:09:30Z",
-    "body_snippet":  "## Expected Behavior\r\nWhen typing, single keypresses on dead keys should produce actual characters after being followed by another key.\r\n\r\n## Current Behavior\r\nContext: a VNC connection to a VM running on vSphere, through vSphere\u0027s builtin VNC server.\r\nDead keys produce no output, unless held for roughly 5 seconds, then the output doesn\u0027t stop anymore.\r\nFor reference, the same VNC connection through Guacamole works as intended.\r\n\r\n## Possible Solution\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Set ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2020-06-19T21:09:30Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1742,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Dead keys (',\",~,etc) not working for VNC connection to vSphere VM, unless held continuously",
+  "state": "open",
+  "labels": [
+    "VNC"
+  ],
+  "author": "djpbessems",
+  "created_at": "2020-04-29T07:06:59Z",
+  "github_updated_at": "2020-06-19T21:09:30Z",
+  "body_snippet": "## Expected Behavior\r\nWhen typing, single keypresses on dead keys should produce actual characters after being followed by another key.\r\n\r\n## Current Behavior\r\nContext: a VNC connection to a VM running on vSphere, through vSphere's builtin VNC server.\r\nDead keys produce no output, unless held for roughly 5 seconds, then the output doesn't stop anymore.\r\nFor reference, the same VNC connection through Guacamole works as intended.\r\n\r\n## Possible Solution\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Set ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2020-06-19T21:09:30Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

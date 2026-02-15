@@ -1,182 +1,180 @@
-﻿{
-    "number":  875,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Allow setting RDP AuthenticationLevel to prevent NLA error 2825",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "JRVcr",
-    "created_at":  "2018-01-31T17:16:14Z",
-    "github_updated_at":  "2018-06-19T15:25:22Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\nWhen connecting to a remote server via RDP that requires Network Level Authentication, I get--\r\n\r\nRDP disconnected!\r\n2825 The remote computer requires Network Level Authentication, which your computer does not support. For assistance, cont...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTY5NTg0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have the same NLA Error 2825.\r\nIt\u0027s a clean install so don\u0027t know if this scenario worked previous to the update.\r\n\r\nmRemoteNG v1.75.7012.16814\r\nWindows 10 1709 OS Build 16299.248\r\n\r\nHappy to test an update/fix.\r\nThanks.",
-                         "author":  "simoncreasey",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T18:12:47Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc0MTQwMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Do you have `Use CredSSP` enabled for that connection (Protocol section in the config window)?",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T20:52:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc0NjAzNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi David\r\n\r\nNo, CredSSP is off.\r\n\r\nCredSSP is enabled on the computers on the domain of todayΓÇÖs client, and I think on the others I manage. (And has been for a long time, predating this problem.) But itΓÇÖs not enabled in mRemoteNG.\r\n\r\nMy computer is not a domain member, so CredSSP wonΓÇÖt work even if enabledΓÇªbut should not cause a problem. It doesnΓÇÖt bother MSTSC.\r\n\r\nThanks!\r\n\r\n--\r\n\r\nJeff Vandervoort\r\nCrescent IT Systems\r\n\r\nFrom: David Sparer [mailto:notifications@github.com]\r\nSent: Wedn...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T21:10:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc2MzE5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would recommend attempting a connection from mRemoteNG with CredSSP turned on. According to the CredSSP protocol specification, the client and sever do not need to be on the same domain for the protocol to work. All it does is provide a TLS connection during authentication and help with selecting an authentication protocol that both hosts support.\r\n\r\nI admit it seems odd that this issue cropped up after updating mremoteng though.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T22:16:30Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc2ODI0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Wow, David, youΓÇÖre absolutely right. It worked.\r\n\r\nFrom an adminΓÇÖs perspective, CredSSPΓÇÖs purpose in life is Single Sign-On, so the user doesnΓÇÖt have to log on to the RD session. For that to work, the RDSH and the client have to be members of the same domain, because the client passes the userΓÇÖs logon credentials to the RDSH, which then has to have its DC authenticate them. So I would not have thought it needed to be turned on.\r\n\r\nIn fact, by default, CredSSP is DISABLED on RDSHΓÇÖs. I...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T22:37:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc2OTY5Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi David, I concur this works. I had tried with CredSSP in both states but this was combined with bad credentials so confused the result.\r\n\r\nThanks for your prompt suggestion.\r\nSimon.",
-                         "author":  "simoncreasey",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T22:43:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTc3ODE0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Glad to hear that worked for both of you. I learned something as well - had to do a bit of digging to figure out what credssp was really doing for us.\r\n\r\nI\u0027ve created issue #885 to look into improving the error message for rdp error 2825.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-14T23:21:15Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NTk0MjU4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "David, itΓÇÖs more than an error message problem. NLA and CredSSP are two different things.\r\n\r\nIΓÇÖm a little rusty now, but RDS was my life a few years ago, and I still support a small RDS infrastructure for one of my clients.\r\n\r\nNLA is the feature that prompts for credentials on the client instead of using the GINA on the server. It functions whether youΓÇÖre passing creds from Windows (CredSSP), using stored creds from mRemoteNG, or typing them. MSTSC requests NLA unless otherwise set in a cu...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-02-15T14:26:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NjA3MzA3NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The only AxMstsc property we set based on the `Use CredSsp` value is `_rdpClient.AdvancedSettings7.EnableCredSspSupport (RdpProtocol.cs:151)`. Related documentation page here: https://msdn.microsoft.com/en-us/library/gg130858(v=vs.85).aspx\r\n\r\nThe only somewhat related value seems to be `_rdpClient.AdvancedSettings5.AuthenticationLevel (RdpProtocol.cs:143)` which we currently hardcode to `0`. Related documentation here: https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).aspx. Though this ...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-15T21:50:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NjI0NzMxNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "OK, thanks for the followup, David. ThatΓÇÖs interesting. Yes the authentication level does sound like the MSTSC feature where it pops up a security warning if it doesnΓÇÖt trust the RDSH.\r\n\r\nThen, I guess all you can do is change the help text. It does mean that mRemoteNG wonΓÇÖt ever behave like MSTSC does, but thatΓÇÖs on MS.\r\n\r\nThanks!\r\n\r\n--\r\n\r\nJeff Vandervoort\r\nCrescent IT Systems\r\n\r\nFrom: David Sparer [mailto:notifications@github.com]\r\nSent: Thursday, February 15, 2018 5:45 PM\r\nTo: mRemote...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-02-16T14:19:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NjMwMjc5Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Np @JRVcr, there may be work-arounds for it or something I\u0027m still missing, so I\u0027ll keep this open for a bit. I am doing a bit of work on our RDP components next release so I may take a look at this again",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-02-16T17:29:32Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM2NjMwODc4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Cool, thanks, David.\r\n\r\nI need to also mention that IΓÇÖm really glad I found mRemoteNG. It provides the functionality of the commercial RD manager I used years ago, canΓÇÖt recall the name of it any more. Especially the External Tools feature I use almost as much as RDS. But mRemoteNG is available at my favorite price!\r\n\r\nI love that it scales the Remote Desktop for my Surface Pro hi-res display automatically. ThatΓÇÖs what initially drew me to it. When I got my Surface Pro, I couldnΓÇÖt see th...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-02-16T17:50:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzA1MTc1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd The afore mentioned Authentication Level property https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).aspx _should_ in fact be the reference to NLA you are looking for. The equivalent is \"authentication level:i:n\" for .RDP files (as referenced to [here](https://support.microsoft.com/en-us/help/941641/remote-desktop-connection-6-0-prompts-you-for-credentials-before-you-e)), where \"n\" can be any of the levels described in https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).a...",
-                         "author":  "guidez",
-                         "action_needed":  true,
-                         "date":  "2018-06-13T19:08:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzA2Njc0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for clarifying @guidez. We can get this added as a configurable option with a default of \u00270\u0027 as you\u0027ve suggested. I\u0027ll tentatively add this to the v1.77 release. That release is getting a bit full, but this change is fairly straight forward.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-06-13T20:01:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NzI3Mjg4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "NLA is on by default in WS2012 and later. It is, in fact, a near-universal need for system administrators in my experience.\n\nThe MSTSC client GUI doesn\u0027t offer a setting for NLA. It used it if the server requests it and falls back to the servers GINA if it does not. That is how mRemoteNG should work, in my opinion.\n\nHaving a flag for this could be a moderately useful diagnostic tool, but something that most users will not want to have to fuss with, any more than they do with MSTSC.\n\n--\n\nJeff Van...",
-                         "author":  "JRVcr",
-                         "action_needed":  true,
-                         "date":  "2018-06-14T12:15:00Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5Nzc4NzMyMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@JRVcr Wouldn\u0027t go so far as to say it\u0027s a \"near-universal need\": Search for \"_windows 2012 nla_\", and you\u0027ll find most of the links are for [requests to turn NLA off](https://social.technet.microsoft.com/Forums/windowsserver/en-US/2fa8cd48-8ad8-4acf-a2c2-ea15e2a27777/network-level-authentication-bs?forum=winserverTS) on remote end-points.\r\n\r\nYou are correct though, MSTSC does **not** provide an option to alter the AuthenticationLevel setting from the GUI itself, but it **is** a simple tweak in ...",
-                         "author":  "guidez",
-                         "action_needed":  true,
-                         "date":  "2018-06-16T05:05:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5ODQ0MDAzNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@guidez You make a good point about the default value. Retaining the \u00270\u0027 default value provides an easy transition for users who are not affected by this issue. We don\u0027t want to \u0027break\u0027 existing functionality unless we have a good reason.\r\n\r\nFor users who will always want NLA, they can set the default connection info property to \u00272\u0027. Newly created connections will have NLA turned on.\r\n\r\nThe largest issue will come for users who need NLA turned on for many connections. Because we do not yet suppo...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-06-19T15:25:22Z"
-                     }
-                 ],
-    "comments_cursor":  "2018-06-19T15:25:22Z",
-    "unread_comments":  17,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 875,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Allow setting RDP AuthenticationLevel to prevent NLA error 2825",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "JRVcr",
+  "created_at": "2018-01-31T17:16:14Z",
+  "github_updated_at": "2018-06-19T15:25:22Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nWhen connecting to a remote server via RDP that requires Network Level Authentication, I get--\r\n\r\nRDP disconnected!\r\n2825 The remote computer requires Network Level Authentication, which your computer does not support. For assistance, cont...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTY5NTg0MQ==",
+      "author": "simoncreasey",
+      "date": "2018-02-14T18:12:47Z",
+      "snippet": "I have the same NLA Error 2825.\r\nIt's a clean install so don't know if this scenario worked previous to the update.\r\n\r\nmRemoteNG v1.75.7012.16814\r\nWindows 10 1709 OS Build 16299.248\r\n\r\nHappy to test an update/fix.\r\nThanks.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc0MTQwMQ==",
+      "author": "sparerd",
+      "date": "2018-02-14T20:52:45Z",
+      "snippet": "Do you have `Use CredSSP` enabled for that connection (Protocol section in the config window)?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc0NjAzNQ==",
+      "author": "JRVcr",
+      "date": "2018-02-14T21:10:02Z",
+      "snippet": "Hi David\r\n\r\nNo, CredSSP is off.\r\n\r\nCredSSP is enabled on the computers on the domain of today’s client, and I think on the others I manage. (And has been for a long time, predating this problem.) But it’s not enabled in mRemoteNG.\r\n\r\nMy computer is not a domain member, so CredSSP won’t work even if enabled…but should not cause a problem. It doesn’t bother MSTSC.\r\n\r\nThanks!\r\n\r\n--\r\n\r\nJeff Vandervoort\r\nCrescent IT Systems\r\n\r\nFrom: David Sparer [mailto:notifications@github.com]\r\nSent: Wednesday, Feb...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc2MzE5Mw==",
+      "author": "sparerd",
+      "date": "2018-02-14T22:16:30Z",
+      "snippet": "I would recommend attempting a connection from mRemoteNG with CredSSP turned on. According to the CredSSP protocol specification, the client and sever do not need to be on the same domain for the protocol to work. All it does is provide a TLS connection during authentication and help with selecting an authentication protocol that both hosts support.\r\n\r\nI admit it seems odd that this issue cropped up after updating mremoteng though.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc2ODI0MQ==",
+      "author": "JRVcr",
+      "date": "2018-02-14T22:37:07Z",
+      "snippet": "Wow, David, you’re absolutely right. It worked.\r\n\r\nFrom an admin’s perspective, CredSSP’s purpose in life is Single Sign-On, so the user doesn’t have to log on to the RD session. For that to work, the RDSH and the client have to be members of the same domain, because the client passes the user’s logon credentials to the RDSH, which then has to have its DC authenticate them. So I would not have thought it needed to be turned on.\r\n\r\nIn fact, by default, CredSSP is DISABLED on RDSH’s. It requires a...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc2OTY5Mg==",
+      "author": "simoncreasey",
+      "date": "2018-02-14T22:43:08Z",
+      "snippet": "Hi David, I concur this works. I had tried with CredSSP in both states but this was combined with bad credentials so confused the result.\r\n\r\nThanks for your prompt suggestion.\r\nSimon.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTc3ODE0NA==",
+      "author": "sparerd",
+      "date": "2018-02-14T23:21:15Z",
+      "snippet": "Glad to hear that worked for both of you. I learned something as well - had to do a bit of digging to figure out what credssp was really doing for us.\r\n\r\nI've created issue #885 to look into improving the error message for rdp error 2825.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NTk0MjU4MA==",
+      "author": "JRVcr",
+      "date": "2018-02-15T14:26:55Z",
+      "snippet": "David, it’s more than an error message problem. NLA and CredSSP are two different things.\r\n\r\nI’m a little rusty now, but RDS was my life a few years ago, and I still support a small RDS infrastructure for one of my clients.\r\n\r\nNLA is the feature that prompts for credentials on the client instead of using the GINA on the server. It functions whether you’re passing creds from Windows (CredSSP), using stored creds from mRemoteNG, or typing them. MSTSC requests NLA unless otherwise set in a custom R...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NjA3MzA3NQ==",
+      "author": "sparerd",
+      "date": "2018-02-15T21:50:09Z",
+      "snippet": "The only AxMstsc property we set based on the `Use CredSsp` value is `_rdpClient.AdvancedSettings7.EnableCredSspSupport (RdpProtocol.cs:151)`. Related documentation page here: https://msdn.microsoft.com/en-us/library/gg130858(v=vs.85).aspx\r\n\r\nThe only somewhat related value seems to be `_rdpClient.AdvancedSettings5.AuthenticationLevel (RdpProtocol.cs:143)` which we currently hardcode to `0`. Related documentation here: https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).aspx. Though this ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NjI0NzMxNA==",
+      "author": "JRVcr",
+      "date": "2018-02-16T14:19:16Z",
+      "snippet": "OK, thanks for the followup, David. That’s interesting. Yes the authentication level does sound like the MSTSC feature where it pops up a security warning if it doesn’t trust the RDSH.\r\n\r\nThen, I guess all you can do is change the help text. It does mean that mRemoteNG won’t ever behave like MSTSC does, but that’s on MS.\r\n\r\nThanks!\r\n\r\n--\r\n\r\nJeff Vandervoort\r\nCrescent IT Systems\r\n\r\nFrom: David Sparer [mailto:notifications@github.com]\r\nSent: Thursday, February 15, 2018 5:45 PM\r\nTo: mRemoteNG/mRemo...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NjMwMjc5Mg==",
+      "author": "sparerd",
+      "date": "2018-02-16T17:29:32Z",
+      "snippet": "Np @JRVcr, there may be work-arounds for it or something I'm still missing, so I'll keep this open for a bit. I am doing a bit of work on our RDP components next release so I may take a look at this again",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM2NjMwODc4MA==",
+      "author": "JRVcr",
+      "date": "2018-02-16T17:50:48Z",
+      "snippet": "Cool, thanks, David.\r\n\r\nI need to also mention that I’m really glad I found mRemoteNG. It provides the functionality of the commercial RD manager I used years ago, can’t recall the name of it any more. Especially the External Tools feature I use almost as much as RDS. But mRemoteNG is available at my favorite price!\r\n\r\nI love that it scales the Remote Desktop for my Surface Pro hi-res display automatically. That’s what initially drew me to it. When I got my Surface Pro, I couldn’t see the server...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NzA1MTc1Ng==",
+      "author": "guidez",
+      "date": "2018-06-13T19:08:42Z",
+      "snippet": "@sparerd The afore mentioned Authentication Level property https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).aspx _should_ in fact be the reference to NLA you are looking for. The equivalent is \"authentication level:i:n\" for .RDP files (as referenced to [here](https://support.microsoft.com/en-us/help/941641/remote-desktop-connection-6-0-prompts-you-for-credentials-before-you-e)), where \"n\" can be any of the levels described in https://msdn.microsoft.com/en-us/library/aa380846(v=vs.85).a...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NzA2Njc0Mw==",
+      "author": "sparerd",
+      "date": "2018-06-13T20:01:21Z",
+      "snippet": "Thanks for clarifying @guidez. We can get this added as a configurable option with a default of '0' as you've suggested. I'll tentatively add this to the v1.77 release. That release is getting a bit full, but this change is fairly straight forward.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NzI3Mjg4MA==",
+      "author": "JRVcr",
+      "date": "2018-06-14T12:15:00Z",
+      "snippet": "NLA is on by default in WS2012 and later. It is, in fact, a near-universal need for system administrators in my experience.\n\nThe MSTSC client GUI doesn't offer a setting for NLA. It used it if the server requests it and falls back to the servers GINA if it does not. That is how mRemoteNG should work, in my opinion.\n\nHaving a flag for this could be a moderately useful diagnostic tool, but something that most users will not want to have to fuss with, any more than they do with MSTSC.\n\n--\n\nJeff Van...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5Nzc4NzMyMQ==",
+      "author": "guidez",
+      "date": "2018-06-16T05:05:33Z",
+      "snippet": "@JRVcr Wouldn't go so far as to say it's a \"near-universal need\": Search for \"_windows 2012 nla_\", and you'll find most of the links are for [requests to turn NLA off](https://social.technet.microsoft.com/Forums/windowsserver/en-US/2fa8cd48-8ad8-4acf-a2c2-ea15e2a27777/network-level-authentication-bs?forum=winserverTS) on remote end-points.\r\n\r\nYou are correct though, MSTSC does **not** provide an option to alter the AuthenticationLevel setting from the GUI itself, but it **is** a simple tweak in ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5ODQ0MDAzNg==",
+      "author": "sparerd",
+      "date": "2018-06-19T15:25:22Z",
+      "snippet": "@guidez You make a good point about the default value. Retaining the '0' default value provides an easy transition for users who are not affected by this issue. We don't want to 'break' existing functionality unless we have a good reason.\r\n\r\nFor users who will always want NLA, they can set the default connection info property to '2'. Newly created connections will have NLA turned on.\r\n\r\nThe largest issue will come for users who need NLA turned on for many connections. Because we do not yet suppo...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2018-06-19T15:25:22Z",
+  "unread_comments": 17,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

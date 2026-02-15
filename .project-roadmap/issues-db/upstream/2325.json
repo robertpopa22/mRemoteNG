@@ -1,112 +1,110 @@
-﻿{
-    "number":  2325,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "FEATURE REQUEST - 2FA to open application",
-    "state":  "open",
-    "labels":  [
-                   "Needs implementation",
-                   "1.78.*",
-                   "Profiles"
-               ],
-    "author":  "pir8radio",
-    "created_at":  "2023-01-16T00:00:26Z",
-    "github_updated_at":  "2026-02-07T19:32:00Z",
-    "body_snippet":  "Encryption of the connections file is great, but I would feel even safer if I could enable 2fa to even open the application,  I don\u0027t think it needs a user/pass to login, just a function to enable something like using google authenticator or Authy,  to 2fa into the app..  I do not save login info within mRemoteNG today because if i loose my laptop, its pretty easy to get into windows.    then they have the key to my servers. ",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5SeuSS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "that is palned for user profiles ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-16T10:01:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5TyaBl",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "the biggest issue tho is this needs to be made in a way that isnt pure snake oil.\r\n\r\nTOTP (as in the algo that Google Authenticator etc generally use) only works because it is used to authenticate at remote systems which can deny giving you any data in the first place.\r\n\r\nHowever with mRem your keys/passwords etc, if stored in there, are local, this means the only way to properly secure them is encryption. an Authentication-only approach would not really work as an attacker could just bypass the...",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2023-01-26T21:57:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Tyw5O",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e the biggest issue tho is this needs to be made in a way that isnt pure snake oil.\r\n\u003e \r\n\u003e TOTP (as in the algo that Google Authenticator etc generally use) only works because it is used to authenticate at remote systems which can deny giving you any data in the first place.\r\n\u003e \r\n\u003e However with mRem your keys/passwords etc, if stored in there, are local, this means the only way to properly secure them is encryption. an Authentication-only approach would not really work as an attacker could just ...",
-                         "author":  "pir8radio",
-                         "action_needed":  true,
-                         "date":  "2023-01-26T23:37:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5T0f5a",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e the store can already be encrypted right? I just want a simple 2FA to decrypt that file. For google authenticator and Authy no internet is needed let alone any encryption keys sent over the net. Its based on time and shared keys.\r\n\r\nIt is correct that the TOTP protocol does not require any Internet. The problem is (like @My1 statet) that you are not connecting to a backend that validates the second factor, but you are on that backend. This means an attacker that has access to your system and t...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-01-27T09:54:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5T0lTY",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "exactly. the encryption of that file can only use your password, or some otherwise static key to actually encrypt that file, as you cannot have that thing change until you go and decrypt it again.\r\n\r\nthings like TOTP I generally call a \"data valve\" you can use it to deny access but that really only works when the attacker is on the other side of that valve.\r\n\r\nin Fact I have written a big thing about this entire thing when a kinda reputable thing like Steganos went and implemented TOTP\r\nhttps://...",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2023-01-27T10:14:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5T9GAc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "My idea is separate such in profiles so we remove responsibility for sensitive data from mremote (even if we try to make it as much secure as posible) one way is db - then users could have they own policy on that, also if it still connection file it may be stored on user premises, and in additional passwords could be stored somewhere esle. So logical link will be looks as that:\r\nApp -\u003e User (local login, or network login) + 2FA -\u003e User profile (where is always default user profile if user not ab...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-30T12:22:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5T9bsa",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "okay if the data is actually brought in from remote rather than stored locally, auth-only 2FA would actually work",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2023-01-30T13:15:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM53ZG-1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hello, didn\u0027t see that open issue and started discussion for feature request:\r\n\r\nhttps://github.com/orgs/mRemoteNG/discussions/2572#discussioncomment-8818392\r\n\r\nwould be nice when this feature will be added :O)",
-                         "author":  "devNull2and1",
-                         "action_needed":  true,
-                         "date":  "2024-03-18T07:10:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYX0K",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:32:00Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:32:00Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2325,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "FEATURE REQUEST - 2FA to open application",
+  "state": "open",
+  "labels": [
+    "Needs implementation",
+    "1.78.*",
+    "Profiles"
+  ],
+  "author": "pir8radio",
+  "created_at": "2023-01-16T00:00:26Z",
+  "github_updated_at": "2026-02-07T19:32:00Z",
+  "body_snippet": "Encryption of the connections file is great, but I would feel even safer if I could enable 2fa to even open the application,  I don't think it needs a user/pass to login, just a function to enable something like using google authenticator or Authy,  to 2fa into the app..  I do not save login info within mRemoteNG today because if i loose my laptop, its pretty easy to get into windows.    then they have the key to my servers. ",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5SeuSS",
+      "author": "Kvarkas",
+      "date": "2023-01-16T10:01:35Z",
+      "snippet": "that is palned for user profiles ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5TyaBl",
+      "author": "My1",
+      "date": "2023-01-26T21:57:31Z",
+      "snippet": "the biggest issue tho is this needs to be made in a way that isnt pure snake oil.\r\n\r\nTOTP (as in the algo that Google Authenticator etc generally use) only works because it is used to authenticate at remote systems which can deny giving you any data in the first place.\r\n\r\nHowever with mRem your keys/passwords etc, if stored in there, are local, this means the only way to properly secure them is encryption. an Authentication-only approach would not really work as an attacker could just bypass the...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Tyw5O",
+      "author": "pir8radio",
+      "date": "2023-01-26T23:37:47Z",
+      "snippet": "> the biggest issue tho is this needs to be made in a way that isnt pure snake oil.\r\n> \r\n> TOTP (as in the algo that Google Authenticator etc generally use) only works because it is used to authenticate at remote systems which can deny giving you any data in the first place.\r\n> \r\n> However with mRem your keys/passwords etc, if stored in there, are local, this means the only way to properly secure them is encryption. an Authentication-only approach would not really work as an attacker could just ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5T0f5a",
+      "author": "simonai1254",
+      "date": "2023-01-27T09:54:29Z",
+      "snippet": "> the store can already be encrypted right? I just want a simple 2FA to decrypt that file. For google authenticator and Authy no internet is needed let alone any encryption keys sent over the net. Its based on time and shared keys.\r\n\r\nIt is correct that the TOTP protocol does not require any Internet. The problem is (like @My1 statet) that you are not connecting to a backend that validates the second factor, but you are on that backend. This means an attacker that has access to your system and t...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5T0lTY",
+      "author": "My1",
+      "date": "2023-01-27T10:14:08Z",
+      "snippet": "exactly. the encryption of that file can only use your password, or some otherwise static key to actually encrypt that file, as you cannot have that thing change until you go and decrypt it again.\r\n\r\nthings like TOTP I generally call a \"data valve\" you can use it to deny access but that really only works when the attacker is on the other side of that valve.\r\n\r\nin Fact I have written a big thing about this entire thing when a kinda reputable thing like Steganos went and implemented TOTP\r\nhttps://...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5T9GAc",
+      "author": "Kvarkas",
+      "date": "2023-01-30T12:22:44Z",
+      "snippet": "My idea is separate such in profiles so we remove responsibility for sensitive data from mremote (even if we try to make it as much secure as posible) one way is db - then users could have they own policy on that, also if it still connection file it may be stored on user premises, and in additional passwords could be stored somewhere esle. So logical link will be looks as that:\r\nApp -> User (local login, or network login) + 2FA -> User profile (where is always default user profile if user not ab...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5T9bsa",
+      "author": "My1",
+      "date": "2023-01-30T13:15:09Z",
+      "snippet": "okay if the data is actually brought in from remote rather than stored locally, auth-only 2FA would actually work",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM53ZG-1",
+      "author": "devNull2and1",
+      "date": "2024-03-18T07:10:34Z",
+      "snippet": "hello, didn't see that open issue and started discussion for feature request:\r\n\r\nhttps://github.com/orgs/mRemoteNG/discussions/2572#discussioncomment-8818392\r\n\r\nwould be nice when this feature will be added :O)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYX0K",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:32:00Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:32:00Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

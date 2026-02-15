@@ -1,61 +1,59 @@
-﻿{
-    "number":  2881,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Does PuttyNG run on ARM64? - mRemoteNG requiring Visual C++ Redistributable x64",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Low",
-                   "Need 2 check",
-                   "Third party",
-                   "Putty",
-                   "ARM",
-                   "1.78.*"
-               ],
-    "author":  "simonai1254",
-    "created_at":  "2025-10-08T20:57:36Z",
-    "github_updated_at":  "2026-02-10T12:23:13Z",
-    "body_snippet":  "As identified in issue #2870 PuttyNG is compiled as x64, which requires mRemoteNG to install the [Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) on x64-Builds of the software.\n\nOn ARM-Builds I would expect PuTTYNG to be unable to start, as it\u0027s not compiled correctly. Funnily the Visual C++ runtime downloaded as x64-Build also contains the ARM-Binary, so this makes it quite easy to install it re...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiMZ",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mZX6q",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@robertpopa22: Always a good ticket.\n\nNo, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T20:49:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7nGmUq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Technically - 1.78.2 is the latest with most fixes, but its not a release!\nAs @Neustradamus mentioned - last official release still 1.76.20, but its so legacy already so its not supported, all fixes goes into 1.78.2 to make it Release Candidate. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-02-10T12:22:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-10T12:23:13Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2881,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Does PuttyNG run on ARM64? - mRemoteNG requiring Visual C++ Redistributable x64",
+  "state": "open",
+  "labels": [
+    "Priority - Low",
+    "Need 2 check",
+    "Third party",
+    "Putty",
+    "ARM",
+    "1.78.*"
+  ],
+  "author": "simonai1254",
+  "created_at": "2025-10-08T20:57:36Z",
+  "github_updated_at": "2026-02-10T12:23:13Z",
+  "body_snippet": "As identified in issue #2870 PuttyNG is compiled as x64, which requires mRemoteNG to install the [Visual C++ runtime](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version) on x64-Builds of the software.\n\nOn ARM-Builds I would expect PuTTYNG to be unable to start, as it's not compiled correctly. Funnily the Visual C++ runtime downloaded as x64-Build also contains the ARM-Binary, so this makes it quite easy to install it re...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mYiMZ",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:36Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mZX6q",
+      "author": "Neustradamus",
+      "date": "2026-02-07T20:49:15Z",
+      "snippet": "@robertpopa22: Always a good ticket.\n\nNo, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7nGmUq",
+      "author": "Kvarkas",
+      "date": "2026-02-10T12:22:21Z",
+      "snippet": "Technically - 1.78.2 is the latest with most fixes, but its not a release!\nAs @Neustradamus mentioned - last official release still 1.76.20, but its so legacy already so its not supported, all fixes goes into 1.78.2 to make it Release Candidate. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-10T12:23:13Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

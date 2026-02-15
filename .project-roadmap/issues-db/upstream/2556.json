@@ -1,111 +1,109 @@
-﻿{
-    "number":  2556,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Can\u0027t access to ESXi host from mRemoteNG",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "1.77.3"
-               ],
-    "author":  "m0hossa",
-    "created_at":  "2024-01-16T20:56:56Z",
-    "github_updated_at":  "2026-02-07T19:51:28Z",
-    "body_snippet":  "Hi\r\n\r\nI am trying to add ESXi host to access in web using HTTPs but it does not do anything. The version I am using is 1.77.3 (Build 1784).\r\n\r\nAny help would be greatly appreciated.\r\n\r\nThanks",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5xI8Bh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "what version of ESXi host?",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T10:05:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xJuyu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e what version of ESXi host?\r\n\r\nI\u0027m not the one reporting this problem but i have the same issue so does my collegues.. \r\nThis is what i have tested:\r\nWorking fine with ESXi 7.0.3c\r\nDoes not work with ESXi 8.0.1 and 8.0.2\r\n\r\nIm running mRemoteNG V 1.76.20.24615\r\n\r\nI think it is not working since the new UI was introduced by Vmware... But not sure.. \r\nWhen loading the loginpage does not show up only a blank screen (with correct color background)",
-                         "author":  "Meph79",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T12:19:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xKBp5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Has anyone tried another (random) webpage to be added into mremoteNG? ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T13:10:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xLDfR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Has anyone tried another (random) webpage to be added into mremoteNG?\r\n\r\nYes. I use for example iLO 5 webpage to manage ProLiant servers, that works fine. \r\n\r\nESXi pages look like this:\r\nESX 7.0.3: \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/75944769/2a1b5afc-b3f7-42af-b116-42cd56f66bdb)\r\n\r\nESX 8.0.2: \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/75944769/76736597-b49b-43f9-9e7b-20348b7ef889)\r\n",
-                         "author":  "Meph79",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T15:41:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xqDT2",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "How can I add another webpage?\r\n\r\n\r\nThanks and Best Regards\r\n\r\nMohammad Sazzad Hossain\r\n\r\n\r\n\r\nFrom: Meph79 ***@***.***\r\nSent: Thursday, January 18, 2024 9:41 AM\r\nTo: mRemoteNG/mRemoteNG ***@***.***\u003e\r\nCc: Mohammad Sazzad Hossain ***@***.***\u003e; Author ***@***.***\u003e\r\nSubject: Re: [mRemoteNG/mRemoteNG] Can\u0027t access to ESXi host from mRemoteNG (Issue #2556)\r\n\r\n\r\nCaution: This email originated outside of the organization. Do not click links or open any attachments unless you recognize the sender and kno...",
-                         "author":  "m0hossa",
-                         "action_needed":  true,
-                         "date":  "2024-01-23T20:14:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5yi9ub",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Why are u ppl trying to integrate browser into console session manager\r\nIs this a new form of masohizm?",
-                         "author":  "journeym",
-                         "action_needed":  true,
-                         "date":  "2024-02-01T16:51:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ykslW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e Has anyone tried another (random) webpage to be added into mremoteNG?\r\n\u003e \r\n\u003e Yes. I use for example iLO 5 webpage to manage ProLiant servers, that works fine.\r\n\u003e \r\n\u003e ESXi pages look like this: ESX 7.0.3: ![image](https://private-user-images.githubusercontent.com/75944769/297798162-2a1b5afc-b3f7-42af-b116-42cd56f66bdb.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDY4MjA3NjAsIm5iZiI6MTcwNjgyMDQ2...",
-                         "author":  "m0hossa",
-                         "action_needed":  true,
-                         "date":  "2024-02-01T20:51:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXE5F",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:43:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYg-0",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:28Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:28Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2556,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Can't access to ESXi host from mRemoteNG",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "1.77.3"
+  ],
+  "author": "m0hossa",
+  "created_at": "2024-01-16T20:56:56Z",
+  "github_updated_at": "2026-02-07T19:51:28Z",
+  "body_snippet": "Hi\r\n\r\nI am trying to add ESXi host to access in web using HTTPs but it does not do anything. The version I am using is 1.77.3 (Build 1784).\r\n\r\nAny help would be greatly appreciated.\r\n\r\nThanks",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5xI8Bh",
+      "author": "Kvarkas",
+      "date": "2024-01-18T10:05:35Z",
+      "snippet": "what version of ESXi host?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xJuyu",
+      "author": "Meph79",
+      "date": "2024-01-18T12:19:57Z",
+      "snippet": "> what version of ESXi host?\r\n\r\nI'm not the one reporting this problem but i have the same issue so does my collegues.. \r\nThis is what i have tested:\r\nWorking fine with ESXi 7.0.3c\r\nDoes not work with ESXi 8.0.1 and 8.0.2\r\n\r\nIm running mRemoteNG V 1.76.20.24615\r\n\r\nI think it is not working since the new UI was introduced by Vmware... But not sure.. \r\nWhen loading the loginpage does not show up only a blank screen (with correct color background)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xKBp5",
+      "author": "simonai1254",
+      "date": "2024-01-18T13:10:45Z",
+      "snippet": "Has anyone tried another (random) webpage to be added into mremoteNG? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xLDfR",
+      "author": "Meph79",
+      "date": "2024-01-18T15:41:05Z",
+      "snippet": "> Has anyone tried another (random) webpage to be added into mremoteNG?\r\n\r\nYes. I use for example iLO 5 webpage to manage ProLiant servers, that works fine. \r\n\r\nESXi pages look like this:\r\nESX 7.0.3: \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/75944769/2a1b5afc-b3f7-42af-b116-42cd56f66bdb)\r\n\r\nESX 8.0.2: \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/75944769/76736597-b49b-43f9-9e7b-20348b7ef889)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xqDT2",
+      "author": "m0hossa",
+      "date": "2024-01-23T20:14:44Z",
+      "snippet": "How can I add another webpage?\r\n\r\n\r\nThanks and Best Regards\r\n\r\nMohammad Sazzad Hossain\r\n\r\n\r\n\r\nFrom: Meph79 ***@***.***\r\nSent: Thursday, January 18, 2024 9:41 AM\r\nTo: mRemoteNG/mRemoteNG ***@***.***>\r\nCc: Mohammad Sazzad Hossain ***@***.***>; Author ***@***.***>\r\nSubject: Re: [mRemoteNG/mRemoteNG] Can't access to ESXi host from mRemoteNG (Issue #2556)\r\n\r\n\r\nCaution: This email originated outside of the organization. Do not click links or open any attachments unless you recognize the sender and kno...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5yi9ub",
+      "author": "journeym",
+      "date": "2024-02-01T16:51:32Z",
+      "snippet": "Why are u ppl trying to integrate browser into console session manager\r\nIs this a new form of masohizm?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ykslW",
+      "author": "m0hossa",
+      "date": "2024-02-01T20:51:34Z",
+      "snippet": "> > Has anyone tried another (random) webpage to be added into mremoteNG?\r\n> \r\n> Yes. I use for example iLO 5 webpage to manage ProLiant servers, that works fine.\r\n> \r\n> ESXi pages look like this: ESX 7.0.3: ![image](https://private-user-images.githubusercontent.com/75944769/297798162-2a1b5afc-b3f7-42af-b116-42cd56f66bdb.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDY4MjA3NjAsIm5iZiI6MTcwNjgyMDQ2...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXE5F",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:43:42Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYg-0",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:28Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:28Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

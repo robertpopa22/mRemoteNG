@@ -1,75 +1,73 @@
-﻿{
-    "number":  1663,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "No option to disable connection bar in RDP",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Need 2 check"
-               ],
-    "author":  "bpsib",
-    "created_at":  "2019-12-31T01:12:46Z",
-    "github_updated_at":  "2026-02-07T16:46:55Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI can\u0027t find an option to disable the RDP connection bar from showing when moving the mouse cursor to the top while it\u0027s full screen. This gets extremelly annoying when using a touch screen because it appears and gets in the way every time I touch the screen. It\u0027s not fit for purpose for me without this option.\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about the environment you experienced the bug in --\u003e\r\n*...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcxMzQ0Mjc4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m having a similar issue. I would also like an option to disable it or hide it properly (CTRL-ALT-HOME). ",
-                         "author":  "dimuththarindu",
-                         "action_needed":  true,
-                         "date":  "2020-10-21T09:36:53Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcyMzQ0MjQ0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I agree and third this setting. I hate that it keeps popping up especially when I have tons of Browser Tabs open on the Host machine. Keep having to drag it around. Wish it could go to the SIDES or BOTTOM or something/ somewhere else or be DISABLED as was the case in RDCMan. ",
-                         "author":  "xbliss",
-                         "action_needed":  true,
-                         "date":  "2020-11-07T12:50:28Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczNjM2MzU2NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@bpsib @dimuththarindu @xbliss \r\nHi guys, welcome you to try my new app to fix this little issue.\r\n\r\nhttps://github.com/VShawn/PRemoteM\r\n\r\n![Snipaste_2020-12-01_17-50-10](https://user-images.githubusercontent.com/10143738/100724448-db110400-33fd-11eb-97b3-a369dca6b6d3.jpg)\r\n",
-                         "author":  "VShawn",
-                         "action_needed":  true,
-                         "date":  "2020-12-01T09:52:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GhdIc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hey All,\r\n\r\nJust bumping this if this is still being considered.\r\n\r\nI believe we are trying to replicate this:\r\n\r\n![image](https://user-images.githubusercontent.com/9980686/178735981-7c35bd3f-c2fc-4fed-8df7-86726d7895f2.png)\r\n\r\n",
-                         "author":  "themegabyte",
-                         "action_needed":  true,
-                         "date":  "2022-07-13T12:42:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFw-",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:55Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:46:55Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1663,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "No option to disable connection bar in RDP",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Need 2 check"
+  ],
+  "author": "bpsib",
+  "created_at": "2019-12-31T01:12:46Z",
+  "github_updated_at": "2026-02-07T16:46:55Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nI can't find an option to disable the RDP connection bar from showing when moving the mouse cursor to the top while it's full screen. This gets extremelly annoying when using a touch screen because it appears and gets in the way every time I touch the screen. It's not fit for purpose for me without this option.\r\n\r\n## Your Environment\r\n<!--- Include as many relevant details about the environment you experienced the bug in -->\r\n*...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcxMzQ0Mjc4Mg==",
+      "author": "dimuththarindu",
+      "date": "2020-10-21T09:36:53Z",
+      "snippet": "I'm having a similar issue. I would also like an option to disable it or hide it properly (CTRL-ALT-HOME). ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcyMzQ0MjQ0MQ==",
+      "author": "xbliss",
+      "date": "2020-11-07T12:50:28Z",
+      "snippet": "I agree and third this setting. I hate that it keeps popping up especially when I have tons of Browser Tabs open on the Host machine. Keep having to drag it around. Wish it could go to the SIDES or BOTTOM or something/ somewhere else or be DISABLED as was the case in RDCMan. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNjM2MzU2NQ==",
+      "author": "VShawn",
+      "date": "2020-12-01T09:52:06Z",
+      "snippet": "@bpsib @dimuththarindu @xbliss \r\nHi guys, welcome you to try my new app to fix this little issue.\r\n\r\nhttps://github.com/VShawn/PRemoteM\r\n\r\n![Snipaste_2020-12-01_17-50-10](https://user-images.githubusercontent.com/10143738/100724448-db110400-33fd-11eb-97b3-a369dca6b6d3.jpg)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GhdIc",
+      "author": "themegabyte",
+      "date": "2022-07-13T12:42:12Z",
+      "snippet": "Hey All,\r\n\r\nJust bumping this if this is still being considered.\r\n\r\nI believe we are trying to replicate this:\r\n\r\n![image](https://user-images.githubusercontent.com/9980686/178735981-7c35bd3f-c2fc-4fed-8df7-86726d7895f2.png)\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFw-",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:55Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:46:55Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

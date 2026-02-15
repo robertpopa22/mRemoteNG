@@ -1,75 +1,73 @@
-﻿{
-    "number":  1804,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Switching between tabbed and fullscreen connections sends titlebar off the screen",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check",
-                   "Needs implementation"
-               ],
-    "author":  "jcefoli",
-    "created_at":  "2020-06-25T22:12:34Z",
-    "github_updated_at":  "2026-02-07T16:46:39Z",
-    "body_snippet":  "When two connections are active - one that is tabbed and windowed, and one that is full screen, switching between the two causes glitchy behavior and you end up losing the top titlebar off the screen, and creates scrollbars in the full screened RDP connection.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open one connection (in a tab)\r\n1. Open a second connection (with the options configured to open it in fullscreen)\r\n1. Minimize the fullscreen RDP window using the native blue RDP control bar\r\n1. Cli...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY2MzA5Mjc5NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Jcefoli,\r\n\r\nI was working on a task that I needed done on the code, and I believe the changes I made, will also fix the issue you are having.  \r\n\r\nIn the file ConnectionWindows.cs locations under UI\\Windows at line 204 I added:\r\n\r\n`             \r\n                DockHandler.FloatPane.FloatWindow.FormBorderStyle = FormBorderStyle.Sizable;\r\n                DockHandler.FloatPane.FloatWindow.ShowInTaskbar = true;\r\n                DockHandler.FloatPane.FloatWindow.DoubleClickTitleBarToDock = false...",
-                         "author":  "lukeattard",
-                         "action_needed":  true,
-                         "date":  "2020-07-23T16:04:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY2MzE1MDI2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks! I am going to test this locally. Normally you can branch off develop and submit a PR, but I haven\u0027t seen the project maintainers active in a bit.",
-                         "author":  "jcefoli",
-                         "action_needed":  true,
-                         "date":  "2020-07-23T18:01:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2ODA4MDM5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Thanks! I am going to test this locally. Normally you can branch off develop and submit a PR, but I haven\u0027t seen the project maintainers active in a bit.\r\n\r\nNow I am on duty ;) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-24T23:59:01Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXEFr",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFsE",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:39Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:46:39Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1804,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Switching between tabbed and fullscreen connections sends titlebar off the screen",
+  "state": "open",
+  "labels": [
+    "Need 2 check",
+    "Needs implementation"
+  ],
+  "author": "jcefoli",
+  "created_at": "2020-06-25T22:12:34Z",
+  "github_updated_at": "2026-02-07T16:46:39Z",
+  "body_snippet": "When two connections are active - one that is tabbed and windowed, and one that is full screen, switching between the two causes glitchy behavior and you end up losing the top titlebar off the screen, and creates scrollbars in the full screened RDP connection.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open one connection (in a tab)\r\n1. Open a second connection (with the options configured to open it in fullscreen)\r\n1. Minimize the fullscreen RDP window using the native blue RDP control bar\r\n1. Cli...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY2MzA5Mjc5NA==",
+      "author": "lukeattard",
+      "date": "2020-07-23T16:04:56Z",
+      "snippet": "Hi Jcefoli,\r\n\r\nI was working on a task that I needed done on the code, and I believe the changes I made, will also fix the issue you are having.  \r\n\r\nIn the file ConnectionWindows.cs locations under UI\\Windows at line 204 I added:\r\n\r\n`             \r\n                DockHandler.FloatPane.FloatWindow.FormBorderStyle = FormBorderStyle.Sizable;\r\n                DockHandler.FloatPane.FloatWindow.ShowInTaskbar = true;\r\n                DockHandler.FloatPane.FloatWindow.DoubleClickTitleBarToDock = false...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY2MzE1MDI2Mg==",
+      "author": "jcefoli",
+      "date": "2020-07-23T18:01:05Z",
+      "snippet": "Thanks! I am going to test this locally. Normally you can branch off develop and submit a PR, but I haven't seen the project maintainers active in a bit.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2ODA4MDM5MA==",
+      "author": "Kvarkas",
+      "date": "2021-06-24T23:59:01Z",
+      "snippet": "> Thanks! I am going to test this locally. Normally you can branch off develop and submit a PR, but I haven't seen the project maintainers active in a bit.\r\n\r\nNow I am on duty ;) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXEFr",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:38Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFsE",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:39Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:46:39Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

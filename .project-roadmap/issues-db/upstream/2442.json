@@ -1,159 +1,157 @@
-﻿{
-    "number":  2442,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Remove Putty connections from connection list",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Connections",
-                   "Putty",
-                   "1.77.4",
-                   "Options"
-               ],
-    "author":  "plkdn",
-    "created_at":  "2023-06-12T08:12:09Z",
-    "github_updated_at":  "2026-02-07T19:53:27Z",
-    "body_snippet":  "",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5em-UJ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Gal galima placiau?",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-06-12T12:47:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5fIwrO",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Gal galima placiau?\n\nJei naudoji mRemoteNG putty connectiobs automati┼íkai nereikalingas nes visus connectionus susikuri mRemoteNG putty  connections tik trukdo.\narba padaryti option ridyti ar ne putty connections",
-                         "author":  "plkdn",
-                         "action_needed":  true,
-                         "date":  "2023-06-18T12:45:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5fI6s_",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "galimai idesiu opcija ne rodyt, bet seip is registro pats nuskanuoja todel ir rodo. Darbui naudoja modifikuota putty versija bet visa kita kaip pas originala. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-06-18T14:46:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6Ktghg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Gal galima placiau?\n\nn─ùra prasm─ùs rodyti putty connections nes mremoteng diegiamas pakeisti putty",
-                         "author":  "plkdn",
-                         "action_needed":  true,
-                         "date":  "2024-09-03T18:43:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6KuFUw",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "matai,putty mes patchinam keliose vietose kad galetume embinti, nekeiciant viso kito funkcionalumo ir kolkas nenumatyta galimybe jugtis su raktais tik be slaptazodziu, tam reikalingas tas paskutinis punktas, bet zadama tai pakeisti artimiausiu laiku",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-09-03T20:04:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6K9DGn",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "tiesgio opcija pasl─ùti b┼½t┼│ AWSOME\r\n\r\ntai u┼╛ima vietos ir niekas nenaudoja",
-                         "author":  "plkdn",
-                         "action_needed":  true,
-                         "date":  "2024-09-05T11:16:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Rl5kh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "tegul dar pabuna",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T11:17:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7RnJIf",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Had to translate it to get what was discussed, but what I understand from it is the following: \n\n\u003e The user would like to hide the \"putty connection\" from the configuration options as it\u0027s deemed unnecessary. \n\n",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T12:37:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7RnOqn",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "sorry we was chating in lt :) this one was requested several times - but this one top one so want to keep it, its should be some option do user want to see putty saved connections, some administrators also ask me to hide this as if they run mR on jump box user could see putty saved connections even if he dont have access to connect\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T12:41:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7RndMG",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can follow the idea of hiding unnecessary switches, though if the connection is done using PuTTY this actually is an option I personally want to see. The reason is the following: \n\nThe PuTTY Saved Connections not only allow you to quickly connect to an endpoint with all the settings as one likes, but also enables someone to save PuTTY presets which are used for multiple connections. \nFor me these presets can be used for specifying different proxy servers, preselecting different baud rate/port ...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T12:49:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Rnpkm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e  its should be some option do user want to see putty saved connections, some administrators also ask me to hide this as if they run mR on jump box user could see putty saved connections even if he dont have access to connect \n\nSo where does mRemoteNG get those saved connections from? Unless mRemoteNG scrapes the registry of all users (which shouldn\u0027t work due to permissions) I would argue if the mentioned user would launch PuTTY on that machine without the \"wrapper\" of mRemoteNG (assuming he c...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T13:01:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Rnu7h",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "not sure tbh as it was there for adges and not do research how its get them, guesing because its still Putty (our mod its only to allow embed it into our app) so its read all same data as normal Putty\n\nin regards options: idea is on first run mR run with Admin mode (even if user dosnt have admin rights in windows) so its show all settings, also allow to switch to dual user mode (Admin and Normal) what will be done by seting password and set from where to load configuration. This is needed then t...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T13:08:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7RsK0P",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e not sure tbh as it was there for adges and not do research how its get them, guesing because its still Putty (our mod its only to allow embed it into our app) so its read all same data as normal Putty\n\nPuttyNG accesses the same information as Putty itself (and vice versa), this information usually is stored within the users profile. The question I have is how mRemoteNG collects the information to show it in the configuration panel ΓÇö does it call PuttyNG to do so or does it look on its own? \n...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-11-11T17:34:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhlf",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:27Z",
-    "unread_comments":  13,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2442,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Remove Putty connections from connection list",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Connections",
+    "Putty",
+    "1.77.4",
+    "Options"
+  ],
+  "author": "plkdn",
+  "created_at": "2023-06-12T08:12:09Z",
+  "github_updated_at": "2026-02-07T19:53:27Z",
+  "body_snippet": "",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5em-UJ",
+      "author": "Kvarkas",
+      "date": "2023-06-12T12:47:58Z",
+      "snippet": "Gal galima placiau?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5fIwrO",
+      "author": "plkdn",
+      "date": "2023-06-18T12:45:24Z",
+      "snippet": "> Gal galima placiau?\n\nJei naudoji mRemoteNG putty connectiobs automatiškai nereikalingas nes visus connectionus susikuri mRemoteNG putty  connections tik trukdo.\narba padaryti option ridyti ar ne putty connections",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5fI6s_",
+      "author": "Kvarkas",
+      "date": "2023-06-18T14:46:13Z",
+      "snippet": "galimai idesiu opcija ne rodyt, bet seip is registro pats nuskanuoja todel ir rodo. Darbui naudoja modifikuota putty versija bet visa kita kaip pas originala. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6Ktghg",
+      "author": "plkdn",
+      "date": "2024-09-03T18:43:08Z",
+      "snippet": "> Gal galima placiau?\n\nnėra prasmės rodyti putty connections nes mremoteng diegiamas pakeisti putty",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6KuFUw",
+      "author": "Kvarkas",
+      "date": "2024-09-03T20:04:11Z",
+      "snippet": "matai,putty mes patchinam keliose vietose kad galetume embinti, nekeiciant viso kito funkcionalumo ir kolkas nenumatyta galimybe jugtis su raktais tik be slaptazodziu, tam reikalingas tas paskutinis punktas, bet zadama tai pakeisti artimiausiu laiku",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6K9DGn",
+      "author": "plkdn",
+      "date": "2024-09-05T11:16:27Z",
+      "snippet": "tiesgio opcija paslėti būtų AWSOME\r\n\r\ntai užima vietos ir niekas nenaudoja",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Rl5kh",
+      "author": "Kvarkas",
+      "date": "2025-11-11T11:17:38Z",
+      "snippet": "tegul dar pabuna",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7RnJIf",
+      "author": "simonai1254",
+      "date": "2025-11-11T12:37:32Z",
+      "snippet": "Had to translate it to get what was discussed, but what I understand from it is the following: \n\n> The user would like to hide the \"putty connection\" from the configuration options as it's deemed unnecessary. \n\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7RnOqn",
+      "author": "Kvarkas",
+      "date": "2025-11-11T12:41:34Z",
+      "snippet": "sorry we was chating in lt :) this one was requested several times - but this one top one so want to keep it, its should be some option do user want to see putty saved connections, some administrators also ask me to hide this as if they run mR on jump box user could see putty saved connections even if he dont have access to connect\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7RndMG",
+      "author": "simonai1254",
+      "date": "2025-11-11T12:49:21Z",
+      "snippet": "I can follow the idea of hiding unnecessary switches, though if the connection is done using PuTTY this actually is an option I personally want to see. The reason is the following: \n\nThe PuTTY Saved Connections not only allow you to quickly connect to an endpoint with all the settings as one likes, but also enables someone to save PuTTY presets which are used for multiple connections. \nFor me these presets can be used for specifying different proxy servers, preselecting different baud rate/port ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Rnpkm",
+      "author": "simonai1254",
+      "date": "2025-11-11T13:01:49Z",
+      "snippet": ">  its should be some option do user want to see putty saved connections, some administrators also ask me to hide this as if they run mR on jump box user could see putty saved connections even if he dont have access to connect \n\nSo where does mRemoteNG get those saved connections from? Unless mRemoteNG scrapes the registry of all users (which shouldn't work due to permissions) I would argue if the mentioned user would launch PuTTY on that machine without the \"wrapper\" of mRemoteNG (assuming he c...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Rnu7h",
+      "author": "Kvarkas",
+      "date": "2025-11-11T13:08:11Z",
+      "snippet": "not sure tbh as it was there for adges and not do research how its get them, guesing because its still Putty (our mod its only to allow embed it into our app) so its read all same data as normal Putty\n\nin regards options: idea is on first run mR run with Admin mode (even if user dosnt have admin rights in windows) so its show all settings, also allow to switch to dual user mode (Admin and Normal) what will be done by seting password and set from where to load configuration. This is needed then t...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7RsK0P",
+      "author": "simonai1254",
+      "date": "2025-11-11T17:34:02Z",
+      "snippet": "> not sure tbh as it was there for adges and not do research how its get them, guesing because its still Putty (our mod its only to allow embed it into our app) so its read all same data as normal Putty\n\nPuttyNG accesses the same information as Putty itself (and vice versa), this information usually is stored within the users profile. The question I have is how mRemoteNG collects the information to show it in the configuration panel — does it call PuttyNG to do so or does it look on its own? \n\n>...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhlf",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:27Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.4",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:27Z",
+  "unread_comments": 13,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,92 +1,90 @@
-﻿{
-    "number":  387,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Ability to import Terminals XML file",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "LoTGoD",
-    "created_at":  "2017-02-02T16:43:23Z",
-    "github_updated_at":  "2024-01-22T17:44:13Z",
-    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\n\r\n**I tried importing a Terminals XML file in to mRemoteNG, but keep getting errors about the format of the file:**\r\n\r\n---\r\n\r\n_InformationMsg 1/18/2017 3:17:17 PM You cannot import a normal connection file. Please use File - Load Connections for normal connection files!_\r\n\r\n---\r\n\r\n_WarningMsg 1/18/2017 3:17:17 PM You are trying to load a connection file that was created using an very early version of...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODY3MDY0OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Some news?",
-                         "author":  "dboc",
-                         "action_needed":  true,
-                         "date":  "2018-10-10T17:59:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMzE0ODYzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Some News?",
-                         "author":  "mettix",
-                         "action_needed":  true,
-                         "date":  "2018-10-25T18:01:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMzE1MzEwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I did it manually, i exported the terminals XML file, opened it in notepad and i created the entry in mRemoteNG one by one :(. ",
-                         "author":  "dboc",
-                         "action_needed":  true,
-                         "date":  "2018-10-25T18:14:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzMzE1NjI1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e I did it manually, i exported the terminals XML file, opened it in notepad and i created the entry in mRemoteNG one by one :(.\r\n\r\nMeh =(. Terminals also supports SQL backend though.. But it takes 5 minutes to start when you\u0027re over VPN ≡ƒæÄ ",
-                         "author":  "mettix",
-                         "action_needed":  true,
-                         "date":  "2018-10-25T18:24:17Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xgF8Y",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is there still no resolution to this issue?\r\n\r\nI too wish to convert from Terminals to mRemoteNG but do not desire to have to recreate the hundreds of RDP sessions. ",
-                         "author":  "miken89",
-                         "action_needed":  true,
-                         "date":  "2024-01-22T15:25:03Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xgriK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Is there still no resolution to this issue?\r\n\u003e \r\n\u003e I too wish to convert from Terminals to mRemoteNG but do not desire to have to recreate the hundreds of RDP sessions.\r\n\r\nI switched to the free version of Remote Desktop Manager.  I didn\u0027t have any trouble importing the XML.",
-                         "author":  "LoTGoD",
-                         "action_needed":  true,
-                         "date":  "2024-01-22T16:42:30Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xhGHD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I switched to the free version of Remote Desktop Manager. I didn\u0027t have any trouble importing the XML.\r\n\r\nThanks for the tip for Remote Desktop Manager, but I\u0027d still like to see mRemoteNG update their import ability..",
-                         "author":  "miken89",
-                         "action_needed":  true,
-                         "date":  "2024-01-22T17:44:12Z"
-                     }
-                 ],
-    "comments_cursor":  "2024-01-22T17:44:13Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 387,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Ability to import Terminals XML file",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "LoTGoD",
+  "created_at": "2017-02-02T16:43:23Z",
+  "github_updated_at": "2024-01-22T17:44:13Z",
+  "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\n**I tried importing a Terminals XML file in to mRemoteNG, but keep getting errors about the format of the file:**\r\n\r\n---\r\n\r\n_InformationMsg 1/18/2017 3:17:17 PM You cannot import a normal connection file. Please use File - Load Connections for normal connection files!_\r\n\r\n---\r\n\r\n_WarningMsg 1/18/2017 3:17:17 PM You are trying to load a connection file that was created using an very early version of...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyODY3MDY0OA==",
+      "author": "dboc",
+      "date": "2018-10-10T17:59:49Z",
+      "snippet": "Some news?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMzE0ODYzNw==",
+      "author": "mettix",
+      "date": "2018-10-25T18:01:02Z",
+      "snippet": "Some News?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMzE1MzEwMg==",
+      "author": "dboc",
+      "date": "2018-10-25T18:14:52Z",
+      "snippet": "I did it manually, i exported the terminals XML file, opened it in notepad and i created the entry in mRemoteNG one by one :(. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzMzE1NjI1Ng==",
+      "author": "mettix",
+      "date": "2018-10-25T18:24:17Z",
+      "snippet": "> \r\n> \r\n> I did it manually, i exported the terminals XML file, opened it in notepad and i created the entry in mRemoteNG one by one :(.\r\n\r\nMeh =(. Terminals also supports SQL backend though.. But it takes 5 minutes to start when you're over VPN 👎 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xgF8Y",
+      "author": "miken89",
+      "date": "2024-01-22T15:25:03Z",
+      "snippet": "Is there still no resolution to this issue?\r\n\r\nI too wish to convert from Terminals to mRemoteNG but do not desire to have to recreate the hundreds of RDP sessions. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xgriK",
+      "author": "LoTGoD",
+      "date": "2024-01-22T16:42:30Z",
+      "snippet": "> Is there still no resolution to this issue?\r\n> \r\n> I too wish to convert from Terminals to mRemoteNG but do not desire to have to recreate the hundreds of RDP sessions.\r\n\r\nI switched to the free version of Remote Desktop Manager.  I didn't have any trouble importing the XML.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xhGHD",
+      "author": "miken89",
+      "date": "2024-01-22T17:44:12Z",
+      "snippet": "> I switched to the free version of Remote Desktop Manager. I didn't have any trouble importing the XML.\r\n\r\nThanks for the tip for Remote Desktop Manager, but I'd still like to see mRemoteNG update their import ability..",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2024-01-22T17:44:13Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

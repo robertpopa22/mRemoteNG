@@ -1,39 +1,37 @@
-﻿{
-    "number":  2274,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Can\u0027t login with encrypted stored password which contains a paragraph ┬º sign",
-    "state":  "open",
-    "labels":  [
-                   "Security",
-                   "Improvement required"
-               ],
-    "author":  "mgutt",
-    "created_at":  "2022-08-24T13:51:00Z",
-    "github_updated_at":  "2023-01-13T09:46:16Z",
-    "body_snippet":  "I set a remote server\u0027s SSH password to `foo┬ºbar` and stored it in mRemoteNG (its password file is encryted). I\u0027m able to login through SSH manually with this password, but not if I store the password in mRemoteNG.\r\n\r\n## Expected Behavior\r\nThe SSH terminal opens without error\r\n\r\n## Current Behavior\r\nAccess denied\r\n\r\n## Your Environment\r\nW10, mRemoteNG 1.76.20.24615\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5SWHoT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1\r\nMore over, if any diacritics are used in password, SSH session fail. \r\nWe need to pass the password manually. \r\n\r\n**session information:**\r\nUsing username \"a***i@g**g\".\r\nPre-authentication banner message from server:\r\nAccess denied\r\na**i@g**g@e**1\u0027s password:\r\n\r\nwhere \r\n- a***i@g**g is login name \r\n- e**1 is redhat hostname",
-                         "author":  "mpriori",
-                         "action_needed":  true,
-                         "date":  "2023-01-13T09:25:36Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-01-13T09:46:16Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2274,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Can't login with encrypted stored password which contains a paragraph § sign",
+  "state": "open",
+  "labels": [
+    "Security",
+    "Improvement required"
+  ],
+  "author": "mgutt",
+  "created_at": "2022-08-24T13:51:00Z",
+  "github_updated_at": "2023-01-13T09:46:16Z",
+  "body_snippet": "I set a remote server's SSH password to `foo§bar` and stored it in mRemoteNG (its password file is encryted). I'm able to login through SSH manually with this password, but not if I store the password in mRemoteNG.\r\n\r\n## Expected Behavior\r\nThe SSH terminal opens without error\r\n\r\n## Current Behavior\r\nAccess denied\r\n\r\n## Your Environment\r\nW10, mRemoteNG 1.76.20.24615\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5SWHoT",
+      "author": "mpriori",
+      "date": "2023-01-13T09:25:36Z",
+      "snippet": "+1\r\nMore over, if any diacritics are used in password, SSH session fail. \r\nWe need to pass the password manually. \r\n\r\n**session information:**\r\nUsing username \"a***i@g**g\".\r\nPre-authentication banner message from server:\r\nAccess denied\r\na**i@g**g@e**1's password:\r\n\r\nwhere \r\n- a***i@g**g is login name \r\n- e**1 is redhat hostname",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-01-13T09:46:16Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

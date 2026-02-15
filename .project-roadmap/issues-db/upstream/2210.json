@@ -1,74 +1,72 @@
-﻿{
-    "number":  2210,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "[Connections][Search bar]: Ctrl + F hotkey doesn\u0027t work if Quick Connect toolbar is active",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check"
-               ],
-    "author":  "PetbkA",
-    "created_at":  "2022-04-25T07:20:28Z",
-    "github_updated_at":  "2026-02-07T16:45:32Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n_Ctrl + F_ hotkey doesn\u0027t work if _Quick Connect_ toolbar is active. I guess there\u0027s no sense in using the hotkey for QC field so it should activate the search bar.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nPressing Ctrl + F when QC toolbar is active should activate the search bar.\r\n\r\n## Current Beha...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5CDjSE",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I think such has been fixed in 1.77.3",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-04-25T08:12:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GN1dW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "For those of us using mRemoteNG in windows7/10 and relying on it to be stable is there some workaround to allow me to search amongst all of the connections I have spent hours adding to mRemoteNG.\r\n\r\nI thought it auto-searched from the connect bar but evidently not.   Now that I have subfoldered my connections I could really use this.\r\n\r\nNot a programmer so not comfortable with code.\r\nWindows admin.\r\nLinux admin.",
-                         "author":  "scottfarwellzt",
-                         "action_needed":  true,
-                         "date":  "2022-07-07T18:17:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GOKcY",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "that a bit different approach but yes I know about such, will be solved ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-07-07T19:24:22Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GO2oM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I did finally notice the search bar on the bottom of the connections window\r\nbut I wish i could move it to the top where most people look for search\r\nboxes or have the connect box be dual-function with auto-search as you type.\r\n\r\nSearching for a string does not allow you to move to the next one or cycle\r\nthrough them as it just locates the first one.\r\n\r\nFor example, all of my VMC systems have VMC appended to their name (since\r\nthey are very few) so I wanted to either search and list them all or ...",
-                         "author":  "scottfarwellzt",
-                         "action_needed":  true,
-                         "date":  "2022-07-07T22:23:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFYP",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:45:32Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:45:32Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2210,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Connections][Search bar]: Ctrl + F hotkey doesn't work if Quick Connect toolbar is active",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "PetbkA",
+  "created_at": "2022-04-25T07:20:28Z",
+  "github_updated_at": "2026-02-07T16:45:32Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n_Ctrl + F_ hotkey doesn't work if _Quick Connect_ toolbar is active. I guess there's no sense in using the hotkey for QC field so it should activate the search bar.\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nPressing Ctrl + F when QC toolbar is active should activate the search bar.\r\n\r\n## Current Beha...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5CDjSE",
+      "author": "Kvarkas",
+      "date": "2022-04-25T08:12:46Z",
+      "snippet": "I think such has been fixed in 1.77.3",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GN1dW",
+      "author": "scottfarwellzt",
+      "date": "2022-07-07T18:17:28Z",
+      "snippet": "For those of us using mRemoteNG in windows7/10 and relying on it to be stable is there some workaround to allow me to search amongst all of the connections I have spent hours adding to mRemoteNG.\r\n\r\nI thought it auto-searched from the connect bar but evidently not.   Now that I have subfoldered my connections I could really use this.\r\n\r\nNot a programmer so not comfortable with code.\r\nWindows admin.\r\nLinux admin.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GOKcY",
+      "author": "Kvarkas",
+      "date": "2022-07-07T19:24:22Z",
+      "snippet": "that a bit different approach but yes I know about such, will be solved ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GO2oM",
+      "author": "scottfarwellzt",
+      "date": "2022-07-07T22:23:18Z",
+      "snippet": "I did finally notice the search bar on the bottom of the connections window\r\nbut I wish i could move it to the top where most people look for search\r\nboxes or have the connect box be dual-function with auto-search as you type.\r\n\r\nSearching for a string does not allow you to move to the next one or cycle\r\nthrough them as it just locates the first one.\r\n\r\nFor example, all of my VMC systems have VMC appended to their name (since\r\nthey are very few) so I wanted to either search and list them all or ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFYP",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:45:32Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:45:32Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,203 +1,201 @@
-﻿{
-    "number":  181,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Replace PuTTY with SSH.NET",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Medium",
-                   "Enhancement",
-                   "Ready",
-                   "Help Wanted"
-               ],
-    "author":  "kmscode",
-    "created_at":  "2016-10-19T02:01:58Z",
-    "github_updated_at":  "2023-08-23T21:39:06Z",
-    "body_snippet":  "Replace PuTTY with SSH.NET\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTMwNjIxMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just curious, what are the major advantages of SSH.NET over PuTTY?\n",
-                         "author":  "klonos",
-                         "action_needed":  true,
-                         "date":  "2016-10-21T06:42:06Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTMyMTg0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "no idea.. but maybe better Linux support? \n",
-                         "author":  "jumoog",
-                         "action_needed":  true,
-                         "date":  "2016-10-21T08:16:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTQwMjE5Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "There are a few reasons we\u0027ve been looking into replacing PuTTY as the default ssh/etc client:\n- Tighter integration. We currently spawn a new PuTTY process off of mRemoteNG. It\u0027s essentially acting like any other external program you can define, just with a little more built-in support.\n- Better security. Because PuTTY is called as an external program, we have to pass host/username/**and password** data to it in clear text over the command line.\n- Better customization. Since SSH.Net is a librar...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-10-21T15:05:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTQzMDA4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Even if we chose to use SSH.NET, would the app still be able to leverage the PuTTY registry path to load those saved connections, or would ssh connections be stored in some other way?\n",
-                         "author":  "jcefoli",
-                         "action_needed":  true,
-                         "date":  "2016-10-21T17:25:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTQ4MDUzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yea, we could still load and use putty session info from the registry. It probably wouldnt be the primary way of saving ssh connection records though\n",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-10-21T22:30:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTQ5NzIyOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd thanx for taking the time to explain. All these seem pretty solid reasons as to why the change. It\u0027s just that with the change, I\u0027m not sure whether certain features that I\u0027m used to from PuTTY would still be available (silly things like the selection auto-copy and the right-click paste). That\u0027s all.\n",
-                         "author":  "klonos",
-                         "action_needed":  true,
-                         "date":  "2016-10-22T01:01:29Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTUxNjMxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "auto-copy and the right-click paste is priceless\n",
-                         "author":  "jumoog",
-                         "action_needed":  true,
-                         "date":  "2016-10-22T08:58:57Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NTc4MDI5NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just my two cents. The following bug on JIRA was pointed to this Github bug:\nhttps://mremoteng.atlassian.net/browse/MR-883\n",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2016-10-24T15:48:54Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI1NjEzNDkwMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is all great feedback. We wont be replacing putty right away, there\nwill be plenty of time to make sure the native ssh client has the right\nfeatures\n\nOn Oct 22, 2016 2:59 AM, \"Kilian von Pflugk\" notifications@github.com\nwrote:\n\n\u003e auto-copy and the right-click paste is priceless\n\u003e \n\u003e ΓÇö\n\u003e You are receiving this because you were mentioned.\n\u003e Reply to this email directly, view it on GitHub\n\u003e https://github.com/mRemoteNG/mRemoteNG/issues/181#issuecomment-255516316,\n\u003e or mute the thread\n\u003e https...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-10-25T18:44:30Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5ODAzNTgwNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "must be compatible with peagent protocol for key forwarding, and then can be used with pageant or alternative like keepass with keeagent....\r\n\r\nbut you need to implement also terminal emulation... ssh.net is only ssh protocol implementation...\r\n\r\nyou need .net library that implemente xterm/vt220/linux terminal emulation...\r\n\r\ni\u0027ve found this one, https://github.com/poderosaproject/poderosa",
-                         "author":  "mcarbonneaux",
-                         "action_needed":  true,
-                         "date":  "2017-04-28T15:53:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5ODA5NjUzMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@mcarbonneaux \r\n\r\nThanks for the additional info. This is largely just a place holder at this time. We don\u0027t have any solid time frame as to when this could be implemented and due to various other factors, its unlikely that PuTTYNG will be removed (it just wouldn\u0027t be the default most likely).",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-04-28T20:17:17Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTgyODEwMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@kmscode Just took a bit to read on SSH.NET, and it doesn\u0027t seem to support SSHv1, which PuTTY does. Any plan on that?",
-                         "author":  "pedro2555",
-                         "action_needed":  true,
-                         "date":  "2017-09-15T16:12:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDMyOTgzMDgzMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@pedro2555 the plan would be to keep PuTTY for things not supported by SSH.NET, but make SSH.NET the default for SSH2.",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-09-15T16:23:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTUxMTYxOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Put in 2.0 for long term usage. This would require multi clients for protocol so mRemoteNG can mix internal and external clients. ",
-                         "author":  "jotatsu",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T17:01:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5A80rT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This sounds like a fun project to take on - I\u0027ve made a fork and I think I\u0027d like to work on implementing SSH.NET. I\u0027ve read over this issue so far, my plans are to get SSH.NET implemented at a basic, usable level then go through and implement additional features/functionality as needed \u0026 discussed so far in this issue. Don\u0027t want to let this become a victim of feature creep.\r\n\r\nI need to do a lot of research on SSH.NET, and familiarize myself with this project. I\u0027ll be writing up a more detaile...",
-                         "author":  "gbakeman",
-                         "action_needed":  true,
-                         "date":  "2022-04-06T02:28:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5A-Ry8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "you are more than welcome to do such! :) But not to replace but to extend for initial run",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-04-06T09:41:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5A_v76",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Absolutely, long term I think SSH.NET would be an additional option to the traditional putty. I don\u0027t know if @jotatsu touched on this in their previous comment, but it almost seems like we need an adjustment to how different protocols are handled in mRemoteNG? I\u0027m looking into this more, but I wonder if #242 would be considered blocking this issue.",
-                         "author":  "gbakeman",
-                         "action_needed":  true,
-                         "date":  "2022-04-06T16:14:24Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5kxHY-",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@gbakeman Were you able to make any progress on your fork to start using the Windows SSH.NET implementation over Putty? Did you get stuck on anything in particular? The modern Windows terminal\u0027s SSH is such a refreshing feeling over Putty, I would love to see it added to mRemoteNG.",
-                         "author":  "vallamost",
-                         "action_needed":  true,
-                         "date":  "2023-08-23T20:31:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5kxb00",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m afraid I haven\u0027t made any progress on this. Besides other projects that\u0027ve taken my time, I\u0027m concerned there might be some larger tasks that need tackling here before we can get serious about implenenting a new connection. Apologies to anyone who might\u0027ve been waiting on me ≡ƒÿƒ",
-                         "author":  "gbakeman",
-                         "action_needed":  true,
-                         "date":  "2023-08-23T21:39:06Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-08-23T21:39:06Z",
-    "unread_comments":  19,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 181,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Replace PuTTY with SSH.NET",
+  "state": "open",
+  "labels": [
+    "Priority - Medium",
+    "Enhancement",
+    "Ready",
+    "Help Wanted"
+  ],
+  "author": "kmscode",
+  "created_at": "2016-10-19T02:01:58Z",
+  "github_updated_at": "2023-08-23T21:39:06Z",
+  "body_snippet": "Replace PuTTY with SSH.NET\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTMwNjIxMA==",
+      "author": "klonos",
+      "date": "2016-10-21T06:42:06Z",
+      "snippet": "Just curious, what are the major advantages of SSH.NET over PuTTY?\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTMyMTg0NA==",
+      "author": "jumoog",
+      "date": "2016-10-21T08:16:05Z",
+      "snippet": "no idea.. but maybe better Linux support? \n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTQwMjE5Mw==",
+      "author": "sparerd",
+      "date": "2016-10-21T15:05:48Z",
+      "snippet": "There are a few reasons we've been looking into replacing PuTTY as the default ssh/etc client:\n- Tighter integration. We currently spawn a new PuTTY process off of mRemoteNG. It's essentially acting like any other external program you can define, just with a little more built-in support.\n- Better security. Because PuTTY is called as an external program, we have to pass host/username/**and password** data to it in clear text over the command line.\n- Better customization. Since SSH.Net is a librar...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTQzMDA4Mg==",
+      "author": "jcefoli",
+      "date": "2016-10-21T17:25:56Z",
+      "snippet": "Even if we chose to use SSH.NET, would the app still be able to leverage the PuTTY registry path to load those saved connections, or would ssh connections be stored in some other way?\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTQ4MDUzOQ==",
+      "author": "sparerd",
+      "date": "2016-10-21T22:30:05Z",
+      "snippet": "Yea, we could still load and use putty session info from the registry. It probably wouldnt be the primary way of saving ssh connection records though\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTQ5NzIyOQ==",
+      "author": "klonos",
+      "date": "2016-10-22T01:01:29Z",
+      "snippet": "@sparerd thanx for taking the time to explain. All these seem pretty solid reasons as to why the change. It's just that with the change, I'm not sure whether certain features that I'm used to from PuTTY would still be available (silly things like the selection auto-copy and the right-click paste). That's all.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTUxNjMxNg==",
+      "author": "jumoog",
+      "date": "2016-10-22T08:58:57Z",
+      "snippet": "auto-copy and the right-click paste is priceless\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NTc4MDI5NA==",
+      "author": "igor2x",
+      "date": "2016-10-24T15:48:54Z",
+      "snippet": "Just my two cents. The following bug on JIRA was pointed to this Github bug:\nhttps://mremoteng.atlassian.net/browse/MR-883\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI1NjEzNDkwMQ==",
+      "author": "sparerd",
+      "date": "2016-10-25T18:44:30Z",
+      "snippet": "This is all great feedback. We wont be replacing putty right away, there\nwill be plenty of time to make sure the native ssh client has the right\nfeatures\n\nOn Oct 22, 2016 2:59 AM, \"Kilian von Pflugk\" notifications@github.com\nwrote:\n\n> auto-copy and the right-click paste is priceless\n> \n> —\n> You are receiving this because you were mentioned.\n> Reply to this email directly, view it on GitHub\n> https://github.com/mRemoteNG/mRemoteNG/issues/181#issuecomment-255516316,\n> or mute the thread\n> https:/...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5ODAzNTgwNQ==",
+      "author": "mcarbonneaux",
+      "date": "2017-04-28T15:53:39Z",
+      "snippet": "must be compatible with peagent protocol for key forwarding, and then can be used with pageant or alternative like keepass with keeagent....\r\n\r\nbut you need to implement also terminal emulation... ssh.net is only ssh protocol implementation...\r\n\r\nyou need .net library that implemente xterm/vt220/linux terminal emulation...\r\n\r\ni've found this one, https://github.com/poderosaproject/poderosa",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5ODA5NjUzMg==",
+      "author": "kmscode",
+      "date": "2017-04-28T20:17:17Z",
+      "snippet": "@mcarbonneaux \r\n\r\nThanks for the additional info. This is largely just a place holder at this time. We don't have any solid time frame as to when this could be implemented and due to various other factors, its unlikely that PuTTYNG will be removed (it just wouldn't be the default most likely).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyOTgyODEwMA==",
+      "author": "pedro2555",
+      "date": "2017-09-15T16:12:01Z",
+      "snippet": "@kmscode Just took a bit to read on SSH.NET, and it doesn't seem to support SSHv1, which PuTTY does. Any plan on that?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyOTgzMDgzMQ==",
+      "author": "kmscode",
+      "date": "2017-09-15T16:23:09Z",
+      "snippet": "@pedro2555 the plan would be to keep PuTTY for things not supported by SSH.NET, but make SSH.NET the default for SSH2.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTUxMTYxOA==",
+      "author": "jotatsu",
+      "date": "2019-02-07T17:01:46Z",
+      "snippet": "Put in 2.0 for long term usage. This would require multi clients for protocol so mRemoteNG can mix internal and external clients. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5A80rT",
+      "author": "gbakeman",
+      "date": "2022-04-06T02:28:53Z",
+      "snippet": "This sounds like a fun project to take on - I've made a fork and I think I'd like to work on implementing SSH.NET. I've read over this issue so far, my plans are to get SSH.NET implemented at a basic, usable level then go through and implement additional features/functionality as needed & discussed so far in this issue. Don't want to let this become a victim of feature creep.\r\n\r\nI need to do a lot of research on SSH.NET, and familiarize myself with this project. I'll be writing up a more detaile...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5A-Ry8",
+      "author": "Kvarkas",
+      "date": "2022-04-06T09:41:00Z",
+      "snippet": "you are more than welcome to do such! :) But not to replace but to extend for initial run",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5A_v76",
+      "author": "gbakeman",
+      "date": "2022-04-06T16:14:24Z",
+      "snippet": "Absolutely, long term I think SSH.NET would be an additional option to the traditional putty. I don't know if @jotatsu touched on this in their previous comment, but it almost seems like we need an adjustment to how different protocols are handled in mRemoteNG? I'm looking into this more, but I wonder if #242 would be considered blocking this issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5kxHY-",
+      "author": "vallamost",
+      "date": "2023-08-23T20:31:45Z",
+      "snippet": "@gbakeman Were you able to make any progress on your fork to start using the Windows SSH.NET implementation over Putty? Did you get stuck on anything in particular? The modern Windows terminal's SSH is such a refreshing feeling over Putty, I would love to see it added to mRemoteNG.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5kxb00",
+      "author": "gbakeman",
+      "date": "2023-08-23T21:39:06Z",
+      "snippet": "I'm afraid I haven't made any progress on this. Besides other projects that've taken my time, I'm concerned there might be some larger tasks that need tackling here before we can get serious about implenenting a new connection. Apologies to anyone who might've been waiting on me 😟",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-08-23T21:39:06Z",
+  "unread_comments": 19,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -7,22 +7,22 @@ Do NOT manage issues manually — always use the scripts below for consistency.
 
 A git-tracked JSON database that syncs GitHub issues from both upstream (`mRemoteNG/mRemoteNG`) and fork (`robertpopa22/mRemoteNG`) repositories. Provides lifecycle tracking, iteration detection, automated GitHub comments, and markdown reports.
 
-**Why JSON instead of SQLite?** JSON files are git-friendly (diffs, merges, code review), human-readable, and natively supported by PowerShell and `gh` CLI. SQLite is binary — no diffs, unresolvable merge conflicts, and invisible in PRs.
+**Why JSON instead of SQLite?** JSON files are git-friendly (diffs, merges, code review), human-readable, and natively supported by Python and `gh` CLI. SQLite is binary — no diffs, unresolvable merge conflicts, and invisible in PRs.
 
 ## Quick Start
 
-```powershell
+```bash
 # 1. Sync issues from both repos (MANDATORY before any triage/release)
-.\.project-roadmap\scripts\Sync-Issues.ps1
+python .project-roadmap/scripts/iis_orchestrator.py sync
 
 # 2. Analyze what needs attention
-.\.project-roadmap\scripts\Analyze-Issues.ps1
+python .project-roadmap/scripts/iis_orchestrator.py analyze
 
 # 3. Update an issue's status (with optional GitHub comment)
-.\.project-roadmap\scripts\Update-Status.ps1 -Issue 3044 -Status in-progress -Description "Working on .cmd batch fix"
+python .project-roadmap/scripts/iis_orchestrator.py update --issue 3044 --status in-progress --description "Working on .cmd batch fix"
 
 # 4. Generate markdown report
-.\.project-roadmap\scripts\Generate-Report.ps1
+python .project-roadmap/scripts/iis_orchestrator.py report
 ```
 
 ## Directory Structure
@@ -78,78 +78,80 @@ Each iteration is tracked with sequence numbers, dates, and descriptions.
 
 ## Scripts Reference
 
-### Sync-Issues.ps1
+All IIS functions are in a single Python script: `iis_orchestrator.py`.
+
+### sync
 Fetches issues and comments from GitHub. **Run this FIRST, every session.**
 
-```powershell
+```bash
 # Full sync (both repos)
-.\Sync-Issues.ps1
+python iis_orchestrator.py sync
 
 # Upstream only
-.\Sync-Issues.ps1 -Repos upstream
+python iis_orchestrator.py sync --repos upstream
 
 # Specific issues (fast)
-.\Sync-Issues.ps1 -IssueNumbers 3044,3069
+python iis_orchestrator.py sync --issues 3044,3069
 
 # Include closed issues
-.\Sync-Issues.ps1 -IncludeClosed
+python iis_orchestrator.py sync --include-closed
 ```
 
-### Analyze-Issues.ps1
+### analyze
 Reviews synced data, identifies what needs attention.
 
-```powershell
+```bash
 # Show actionable items
-.\Analyze-Issues.ps1
+python iis_orchestrator.py analyze
 
 # Show only items waiting for our response
-.\Analyze-Issues.ps1 -WaitingOnly
+python iis_orchestrator.py analyze --waiting-only
 
 # Show everything
-.\Analyze-Issues.ps1 -ShowAll
+python iis_orchestrator.py analyze --show-all
 
 # Filter by priority or status
-.\Analyze-Issues.ps1 -Priority P2-bug
-.\Analyze-Issues.ps1 -Status in-progress
+python iis_orchestrator.py analyze --priority P2-bug
+python iis_orchestrator.py analyze --status in-progress
 ```
 
-### Update-Status.ps1
+### update
 Transitions issues through the lifecycle.
 
-```powershell
+```bash
 # Triage
-.\Update-Status.ps1 -Issue 3044 -Status triaged -Priority P2-bug
+python iis_orchestrator.py update --issue 3044 --status triaged --priority P2-bug
 
 # Start work
-.\Update-Status.ps1 -Issue 3044 -Status in-progress -Branch "fix/3044-comma-split"
+python iis_orchestrator.py update --issue 3044 --status in-progress --branch "fix/3044-comma-split"
 
 # Testing (with PR)
-.\Update-Status.ps1 -Issue 3044 -Status testing -PR 3150
+python iis_orchestrator.py update --issue 3044 --status testing --pr 3150
 
 # Iteration: user says it's not fixed
-.\Update-Status.ps1 -Issue 3044 -Status in-progress -Description "User feedback: .cmd still broken"
+python iis_orchestrator.py update --issue 3044 --status in-progress --description "User feedback: .cmd still broken"
 
 # Release (with GitHub comment)
-.\Update-Status.ps1 -Issue 3044 -Status released -Release "v1.80.0" -ReleaseUrl "https://..." -PostComment
+python iis_orchestrator.py update --issue 3044 --status released --release "v1.80.0" --release-url "https://..." --post-comment
 
 # Add to roadmap
-.\Update-Status.ps1 -Issue 3044 -Status roadmap -AddToRoadmap
+python iis_orchestrator.py update --issue 3044 --status roadmap --add-to-roadmap
 ```
 
-**-PostComment** flag posts the templated message to GitHub. Without it, the script shows a preview only.
+**--post-comment** flag posts the templated message to GitHub. Without it, the script shows a preview only.
 
-### Generate-Report.ps1
+### report
 Creates markdown reports aggregating all tracked issues.
 
-```powershell
+```bash
 # Standard report
-.\Generate-Report.ps1
+python iis_orchestrator.py report
 
 # Full inventory
-.\Generate-Report.ps1 -IncludeAll
+python iis_orchestrator.py report --include-all
 
 # Console only (no file)
-.\Generate-Report.ps1 -NoSave
+python iis_orchestrator.py report --no-save
 ```
 
 ## Per-Issue JSON Schema
@@ -208,30 +210,30 @@ Creates markdown reports aggregating all tracked issues.
 
 ## Workflow: Standard Session
 
-1. **`Sync-Issues.ps1`** — Fetch latest from GitHub
-2. **`Analyze-Issues.ps1`** — See what needs attention
-3. **`Update-Status.ps1`** — Triage new issues, update in-progress items
+1. **`iis_orchestrator.py sync`** — Fetch latest from GitHub
+2. **`iis_orchestrator.py analyze`** — See what needs attention
+3. **`iis_orchestrator.py update`** — Triage new issues, update in-progress items
 4. **Work on code** — Fix bugs, implement features
 5. **Run tests** — Build + `dotnet test` must pass
 6. **Commit per issue** — Each issue fix gets its own commit immediately after tests pass (see Rule 7)
-7. **`Update-Status.ps1 -Status testing`** — Mark as testing after PR merge
-8. **`Generate-Report.ps1`** — Generate report for the session
+7. **`iis_orchestrator.py update --issue N --status testing`** — Mark as testing after PR merge
+8. **`iis_orchestrator.py report`** — Generate report for the session
 9. **Commit the JSON changes** — `git add .project-roadmap/issues-db/ && git commit`
 
 ## Workflow: Release
 
-1. **`Sync-Issues.ps1`** — Final sync before release
-2. **`Update-Status.ps1 -Status released`** for each resolved issue
-3. **Use `-PostComment`** to notify users on GitHub
-4. **`Generate-Report.ps1 -IncludeAll`** — Full inventory for release notes
+1. **`iis_orchestrator.py sync`** — Final sync before release
+2. **`iis_orchestrator.py update --issue N --status released --post-comment`** for each resolved issue
+3. **Use `--post-comment`** to notify users on GitHub
+4. **`iis_orchestrator.py report --include-all`** — Full inventory for release notes
 5. **Commit everything** — JSON updates are part of the release commit
 
 ## Rules
 
-1. **ALWAYS run Sync-Issues.ps1 before triage or release** — stale data = missed comments
-2. **ALWAYS use Update-Status.ps1 for transitions** — maintains iteration history
+1. **ALWAYS run `iis_orchestrator.py sync` before triage or release** — stale data = missed comments
+2. **ALWAYS use `iis_orchestrator.py update` for transitions** — maintains iteration history
 3. **ALWAYS commit JSON changes** — this is git-tracked, not ephemeral
 4. **NEVER edit JSON files manually** — use the scripts for consistency
-5. **ALWAYS use -PostComment for released status** — users must be notified
+5. **ALWAYS use `--post-comment` for released status** — users must be notified
 6. **Track iterations** — if a user says "still broken", that's an iteration, not a new issue
 7. **COMMIT PER ISSUE after tests pass** — After fixing an issue, run the full build + test suite. If all tests pass, create a commit immediately for that issue before moving to the next one. Commit message format: `fix(#NNNN): short description`. This ensures each fix is atomic, bisectable, and individually revertable. Never batch multiple issue fixes into a single commit.

@@ -1,156 +1,154 @@
-﻿{
-    "number":  1938,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature request: Import from a simple text list",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request",
-                   "1.77.2"
-               ],
-    "author":  "yllekz",
-    "created_at":  "2021-02-24T18:39:24Z",
-    "github_updated_at":  "2026-02-07T19:51:50Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nI cannot import from AD (program hangs/crashes) nor a port scan (security reasons), but I can query PowerShell and get a list of servers. The import options don\u0027t seem to support importing from a simple txt file, and trying to build a CSV file in the format that it\u0027s requesting seems to require uniquely generated random IDs, which I\u0027m not sure if I can just randomly generate them myself.\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM41g908",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@yllekz I know this request is months old now, but just in case it could help you, I found this person\u0027s workaround to fit my needs: https://www.reddit.com/r/mRemoteNG/comments/eq6ckj/importing_bulk_connections_for_dummies/\r\n\r\nI totally agree that it would be very beneficial to add a more direct method of importing hostnames. But until it is added the csv method works, it\u0027s just cumbersome and time consuming.",
-                         "author":  "silentnoodle3",
-                         "action_needed":  true,
-                         "date":  "2021-08-12T17:41:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pY5H-",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I was looking at this this morning.  I have a working case based on seeing no headers in a csv file.  However, the main problem is determining if the connection type is SSH or RDP.  There are a few options for how to detect it, in order of most difficult to simplest:\r\n\r\n1. File name specific, e.g. ssh.csv or rdp.csv, or some variant.\r\n2. Each line contains a port, e.g. hostname:22 or hostname:3389\r\n3. First line contains the word ssh or rdp\r\n4. Assuming all ssh or rdp\r\n\r\nThe last one might be an...",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T10:16:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pY-kL",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "from my long developer live may suggest never, NEVER relay on file name :) port usualy is non standart for corp users (they think its more secure) I will prefer 3rd option. You may have a look how is maded another importer (https://github.com/mRemoteNG/mRemoteNG/tree/v1.77.3-dev/Add-ons), perhaps take some ideas (in general I would like to create a separate app, tool what help to map user file data to mR schema and save as .map file so who need it could easy download it and use it. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T10:30:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZOc6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As a corp user, I am well over the idea of using custom ports :)  Anyway, for a simple list of machines, I think we can safely assume the port is standard.  But, are they ssh or rdp?  If the user really wants an accurate import with custom ports. username, etc., they should probably be using a full csv file.\r\n\r\nI just recently added the putty registry import to the dev branch.  This consisted of a separate class to parse the registry keys into a Connection.  But for this one, so far, I was modif...",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:07:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZSjy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "we prefer use xml format :) then you can cleary defind what is what, plain text files are always a hassle, you could predict that data is in right order then do import but you never know...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:19:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZWOD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The ask was for the ability to import a simple list of machine names.  I have often wanted to do this, myself.  This is what it looks like so far:\r\n```\r\n--- a/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\r\n+++ b/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\r\n@@ -23,11 +23,38 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv\r\n             // used to map a connectioninfo to...",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:29:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZXyu",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "you see if you check shema some fields are mandatory some are not, so depending on such mR will acept import or not, but its not check data it self (not yet) so you could load with rubish like 34teergw f 3rt34t dsf sf",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:33:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZY5P",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I suppose if someone wants to import garbage, this would do that.  If there is a standard text cleanser routine, calling that might help to clean it up.",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:36:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZZJn",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "potentialy we need add regexp to verify data...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:37:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pZb0Z",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "From the vast knowledge of stackoverflow :)\r\n```cs\r\n        public static string RemoveSpecialCharacters(string input)\r\n        {\r\n            Regex r = new Regex(\r\n                          \"(?:[^a-zA-Z0-9 ]|(?\u003c=[\u0027\\\"])s)\",\r\n                  RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);\r\n            return r.Replace(input, String.Empty);\r\n        }\r\n```\r\nDoesn\u0027t cover everything of course but should help.",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T11:44:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5paucH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It would be nice to also report the lines (by number? by name? by hostname?) that failed the import. ≡ƒìà ",
-                         "author":  "savornicesei",
-                         "action_needed":  true,
-                         "date":  "2023-10-18T14:40:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ph1Xm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "just fyi, i would like to have schema update so we have uniq uid for each connection (if import was succesfull) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-19T09:59:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5piQIS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Is this not what the Id field is for?",
-                         "author":  "RFC1920",
-                         "action_needed":  true,
-                         "date":  "2023-10-19T11:05:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhEJ",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:50Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:50Z",
-    "unread_comments":  13,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1938,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature request: Import from a simple text list",
+  "state": "open",
+  "labels": [
+    "Feature Request",
+    "1.77.2"
+  ],
+  "author": "yllekz",
+  "created_at": "2021-02-24T18:39:24Z",
+  "github_updated_at": "2026-02-07T19:51:50Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nI cannot import from AD (program hangs/crashes) nor a port scan (security reasons), but I can query PowerShell and get a list of servers. The import options don't seem to support importing from a simple txt file, and trying to build a CSV file in the format that it's requesting seems to require uniquely generated random IDs, which I'm not sure if I can just randomly generate them myself.\r\n\r\n## Expected Behavior\r\n<!--- If you're...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM41g908",
+      "author": "silentnoodle3",
+      "date": "2021-08-12T17:41:59Z",
+      "snippet": "@yllekz I know this request is months old now, but just in case it could help you, I found this person's workaround to fit my needs: https://www.reddit.com/r/mRemoteNG/comments/eq6ckj/importing_bulk_connections_for_dummies/\r\n\r\nI totally agree that it would be very beneficial to add a more direct method of importing hostnames. But until it is added the csv method works, it's just cumbersome and time consuming.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pY5H-",
+      "author": "RFC1920",
+      "date": "2023-10-18T10:16:15Z",
+      "snippet": "I was looking at this this morning.  I have a working case based on seeing no headers in a csv file.  However, the main problem is determining if the connection type is SSH or RDP.  There are a few options for how to detect it, in order of most difficult to simplest:\r\n\r\n1. File name specific, e.g. ssh.csv or rdp.csv, or some variant.\r\n2. Each line contains a port, e.g. hostname:22 or hostname:3389\r\n3. First line contains the word ssh or rdp\r\n4. Assuming all ssh or rdp\r\n\r\nThe last one might be an...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pY-kL",
+      "author": "Kvarkas",
+      "date": "2023-10-18T10:30:14Z",
+      "snippet": "from my long developer live may suggest never, NEVER relay on file name :) port usualy is non standart for corp users (they think its more secure) I will prefer 3rd option. You may have a look how is maded another importer (https://github.com/mRemoteNG/mRemoteNG/tree/v1.77.3-dev/Add-ons), perhaps take some ideas (in general I would like to create a separate app, tool what help to map user file data to mR schema and save as .map file so who need it could easy download it and use it. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZOc6",
+      "author": "RFC1920",
+      "date": "2023-10-18T11:07:29Z",
+      "snippet": "As a corp user, I am well over the idea of using custom ports :)  Anyway, for a simple list of machines, I think we can safely assume the port is standard.  But, are they ssh or rdp?  If the user really wants an accurate import with custom ports. username, etc., they should probably be using a full csv file.\r\n\r\nI just recently added the putty registry import to the dev branch.  This consisted of a separate class to parse the registry keys into a Connection.  But for this one, so far, I was modif...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZSjy",
+      "author": "Kvarkas",
+      "date": "2023-10-18T11:19:12Z",
+      "snippet": "we prefer use xml format :) then you can cleary defind what is what, plain text files are always a hassle, you could predict that data is in right order then do import but you never know...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZWOD",
+      "author": "RFC1920",
+      "date": "2023-10-18T11:29:18Z",
+      "snippet": "The ask was for the ability to import a simple list of machine names.  I have often wanted to do this, myself.  This is what it looks like so far:\r\n```\r\n--- a/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\r\n+++ b/mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\r\n@@ -23,11 +23,38 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv\r\n             // used to map a connectioninfo to...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZXyu",
+      "author": "Kvarkas",
+      "date": "2023-10-18T11:33:18Z",
+      "snippet": "you see if you check shema some fields are mandatory some are not, so depending on such mR will acept import or not, but its not check data it self (not yet) so you could load with rubish like 34teergw f 3rt34t dsf sf",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZY5P",
+      "author": "RFC1920",
+      "date": "2023-10-18T11:36:21Z",
+      "snippet": "I suppose if someone wants to import garbage, this would do that.  If there is a standard text cleanser routine, calling that might help to clean it up.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZZJn",
+      "author": "Kvarkas",
+      "date": "2023-10-18T11:37:06Z",
+      "snippet": "potentialy we need add regexp to verify data...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pZb0Z",
+      "author": "RFC1920",
+      "date": "2023-10-18T11:44:35Z",
+      "snippet": "From the vast knowledge of stackoverflow :)\r\n```cs\r\n        public static string RemoveSpecialCharacters(string input)\r\n        {\r\n            Regex r = new Regex(\r\n                          \"(?:[^a-zA-Z0-9 ]|(?<=['\\\"])s)\",\r\n                  RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);\r\n            return r.Replace(input, String.Empty);\r\n        }\r\n```\r\nDoesn't cover everything of course but should help.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5paucH",
+      "author": "savornicesei",
+      "date": "2023-10-18T14:40:23Z",
+      "snippet": "It would be nice to also report the lines (by number? by name? by hostname?) that failed the import. 🍅 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ph1Xm",
+      "author": "Kvarkas",
+      "date": "2023-10-19T09:59:10Z",
+      "snippet": "just fyi, i would like to have schema update so we have uniq uid for each connection (if import was succesfull) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5piQIS",
+      "author": "RFC1920",
+      "date": "2023-10-19T11:05:39Z",
+      "snippet": "Is this not what the Id field is for?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhEJ",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:50Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:50Z",
+  "unread_comments": 13,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

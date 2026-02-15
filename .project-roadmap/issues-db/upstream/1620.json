@@ -1,47 +1,45 @@
-﻿{
-    "number":  1620,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Value Dispose() cannot be called while doing CreateHandle()",
-    "state":  "open",
-    "labels":  [
-                   "Need 2 check"
-               ],
-    "author":  "tommybuck",
-    "created_at":  "2019-10-14T10:50:54Z",
-    "github_updated_at":  "2026-02-07T16:47:14Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nError message appeared when closing tab.\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\ntab should close without error.\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the expected behavior --\u003e\r\n\u003c!--- If suggesting a change/improvement, explain the difference from current be...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXD-v",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXF2j",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:14Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:47:14Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1620,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Value Dispose() cannot be called while doing CreateHandle()",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "tommybuck",
+  "created_at": "2019-10-14T10:50:54Z",
+  "github_updated_at": "2026-02-07T16:47:14Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nError message appeared when closing tab.\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\ntab should close without error.\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the difference from current be...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mXD-v",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:13Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXF2j",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:14Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:47:14Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

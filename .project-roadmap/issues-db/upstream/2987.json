@@ -1,123 +1,123 @@
-﻿{
-    "number":  2987,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Where is user.config in mR 1.78.2 NB 3228?",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "1.78.*",
-                   "Settings",
-                   "dependencies",
-                   ".NET (dotNET)"
-               ],
-    "author":  "Cool34000",
-    "created_at":  "2025-11-04T14:42:49Z",
-    "github_updated_at":  "2026-02-09T06:27:11Z",
-    "body_snippet":  "Hi,\n\nI\u0027m testing mRemoteNG 1.78.2 NB 3228 x64\nI can\u0027t find the configuration file for the options of mRemoteNG (previously stored in user.config)\nI\u0027ve searched in:\n- Portable version folder\n- %AppData%\\mRemoteNG Connection Manager\n- %LocalAppData%\\mRemoteNG Connection Manager (only have a log file)\n\nI\u0027ve even checked in th registry and found nothing.\n\n\nThanks\n",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3120,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "Settings path logging",
-                           "pr":  3120,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7Pz4z4",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "As of now mRemoteNG 1.77.3+ (including 1.78 NB) does not save any configuration files as the core settings architecture is being rewritten. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2025-11-04T15:12:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7P0y9M",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "OK... But the configuration must be stored somewhere?\nI also check the registry and I can\u0027t found anything!\nSo how can I delete some settings that were accidentally configured?\n\nFor example, I enabled MSSQL and the configuration is not working.\nI have a big warning when mR starts that says that it\u0027s not working and I don\u0027t have access to mRemote anymore.\nI need to reset the settings so MSSQL is disabled.\n\nCan\u0027t do that?",
-                         "author":  "Cool34000",
-                         "action_needed":  true,
-                         "date":  "2025-11-04T15:55:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7P1FP9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "hello, i will add reset option to next NB, technicaly settings are in file but its a db so its not something you could edit and its encrypted :) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-11-04T16:09:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7P_-GI",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "OK!\nCould you please tell me in which DB file it\u0027s stored so I can delete it to get my access back?",
-                         "author":  "Cool34000",
-                         "action_needed":  true,
-                         "date":  "2025-11-05T06:58:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7WKkx9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "i found user.config (unencrypted text file) under %localappdata%\\Profi-KOM_Ltd\\\n(%localappdata%\\Profi-KOM_Ltd\\mRemoteNG_Url_ydainq2wa0i4b413zs0kr5qomzs3rqdy\\1.78.2.9099\\user.config)",
-                         "author":  "SneakyRcon",
-                         "action_needed":  true,
-                         "date":  "2025-11-30T18:51:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7XsBBh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Interesting, they should not be where, thanks for pointing. Profi-Kom ltd is my company name, so its legit but it should act as portable anddo t create such, need to check",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-12-05T21:20:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiUW",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mc4F7",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Fork-side candidate fix is now ready:\n- PR: https://github.com/mRemoteNG/mRemoteNG/pull/3120\n- scope:\n  - log exact effective user settings file path at startup (`User settings file: ...`)\n  - expose resolved path in `SettingsFileInfo`\n  - update troubleshooting docs for installed vs portable settings locations\n\nWhy this helps:\n- issue `#2987` reports users cannot reliably locate/reset settings after configuration failures\n- installed build path can vary by company metadata + hash, so fixed/stat...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T06:48:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpcul",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3120 | **Branch:** `codex/pr16-settings-path-observability-2987`\n**Fix:** Settings path now logged for easier troubleshooting.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:27:11Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:27:11Z",
-    "unread_comments":  6,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2987,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Where is user.config in mR 1.78.2 NB 3228?",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "1.78.*",
+    "Settings",
+    "dependencies",
+    ".NET (dotNET)"
+  ],
+  "author": "Cool34000",
+  "created_at": "2025-11-04T14:42:49Z",
+  "github_updated_at": "2026-02-09T06:27:11Z",
+  "body_snippet": "Hi,\n\nI'm testing mRemoteNG 1.78.2 NB 3228 x64\nI can't find the configuration file for the options of mRemoteNG (previously stored in user.config)\nI've searched in:\n- Portable version folder\n- %AppData%\\mRemoteNG Connection Manager\n- %LocalAppData%\\mRemoteNG Connection Manager (only have a log file)\n\nI've even checked in th registry and found nothing.\n\n\nThanks\n",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3120,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "Settings path logging",
+      "pr": 3120,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7Pz4z4",
+      "author": "simonai1254",
+      "date": "2025-11-04T15:12:08Z",
+      "snippet": "As of now mRemoteNG 1.77.3+ (including 1.78 NB) does not save any configuration files as the core settings architecture is being rewritten. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7P0y9M",
+      "author": "Cool34000",
+      "date": "2025-11-04T15:55:12Z",
+      "snippet": "OK... But the configuration must be stored somewhere?\nI also check the registry and I can't found anything!\nSo how can I delete some settings that were accidentally configured?\n\nFor example, I enabled MSSQL and the configuration is not working.\nI have a big warning when mR starts that says that it's not working and I don't have access to mRemote anymore.\nI need to reset the settings so MSSQL is disabled.\n\nCan't do that?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7P1FP9",
+      "author": "Kvarkas",
+      "date": "2025-11-04T16:09:35Z",
+      "snippet": "hello, i will add reset option to next NB, technicaly settings are in file but its a db so its not something you could edit and its encrypted :) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7P_-GI",
+      "author": "Cool34000",
+      "date": "2025-11-05T06:58:37Z",
+      "snippet": "OK!\nCould you please tell me in which DB file it's stored so I can delete it to get my access back?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7WKkx9",
+      "author": "SneakyRcon",
+      "date": "2025-11-30T18:51:38Z",
+      "snippet": "i found user.config (unencrypted text file) under %localappdata%\\Profi-KOM_Ltd\\\n(%localappdata%\\Profi-KOM_Ltd\\mRemoteNG_Url_ydainq2wa0i4b413zs0kr5qomzs3rqdy\\1.78.2.9099\\user.config)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7XsBBh",
+      "author": "Kvarkas",
+      "date": "2025-12-05T21:20:27Z",
+      "snippet": "Interesting, they should not be where, thanks for pointing. Profi-Kom ltd is my company name, so its legit but it should act as portable anddo t create such, need to check",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiUW",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:06Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mc4F7",
+      "author": "robertpopa22",
+      "date": "2026-02-08T06:48:59Z",
+      "snippet": "Fork-side candidate fix is now ready:\n- PR: https://github.com/mRemoteNG/mRemoteNG/pull/3120\n- scope:\n  - log exact effective user settings file path at startup (`User settings file: ...`)\n  - expose resolved path in `SettingsFileInfo`\n  - update troubleshooting docs for installed vs portable settings locations\n\nWhy this helps:\n- issue `#2987` reports users cannot reliably locate/reset settings after configuration failures\n- installed build path can vary by company metadata + hash, so fixed/stat...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpcul",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:27:11Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3120 | **Branch:** `codex/pr16-settings-path-observability-2987`\n**Fix:** Settings path now logged for easier troubleshooting.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:27:11Z",
+  "unread_comments": 6,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

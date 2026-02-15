@@ -1,74 +1,72 @@
-﻿{
-    "number":  967,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request - Search inside the session output",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "jasb89",
-    "created_at":  "2018-04-26T08:12:26Z",
-    "github_updated_at":  "2023-01-03T19:31:28Z",
-    "body_snippet":  "I would like to be able to search for keywords inside the session window directly.\r\n\r\nExpected Behavior\r\nI would like to have a search button to search inside the session windows output for a certain word which jumps to the keyword. \r\n\r\nCurrent Behavior\r\nCurrently option not available\r\n\r\nPossible Solution\r\nProvide an option to search for keywords\r\n\r\nSteps to Reproduce (for bugs)\r\nN.A.\r\n\r\nYour Environment\r\nVersion used: 1.75.7012.16814\r\nOperating System and version (e.g. Windows 10 1709 (x64)",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5MDQyMDc5MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Which protocol(s) would you like to see this in? It is likely impossible to do with RDP. I would have to look into whether this is possible with PuTTY as an SSH provider. It would definitely be possible if we moved to something like SSH.Net (#181) since we would have full control over the terminal window.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-05-19T17:37:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM5NDI1ODI0OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello,\r\nThanks for reply.\r\nWould like to this feature in SSH / Telnet (text based) protocols.\r\n\r\nDoing network configuration, it would be a great time savior to search for a specific keyword instead of copy pasting to notepad to do it.\r\n\r\nThanks",
-                         "author":  "jasb89",
-                         "action_needed":  true,
-                         "date":  "2018-06-04T07:22:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NTQ4ODIwOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Up Vote !\r\n\r\nThis would be a great feature. \r\nMost of my collegues would switch from SecureCRT if this is implemented.",
-                         "author":  "MinerBigWhale",
-                         "action_needed":  true,
-                         "date":  "2019-02-20T09:08:41Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Rqn1m",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Was this ever implemented? If not, I\u0027d like to add my vote. I often need to search for text in the SSH window",
-                         "author":  "napter",
-                         "action_needed":  true,
-                         "date":  "2023-01-03T19:08:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5RqsyT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Honestly I\u0027m not sure how this should be implemented as PuTTY (mRemoteNG\u0027s embedded SSH client) does not support this natively. Using ssh.net as statet by @sparerd (and requested by others, e.g., #181) might allow someone to add this feature, but generally I still have a hard time to imagine this to work without quite some issues and a lot of effort. \r\n\r\nOne option you might use as workaround meanwhile would be to enable the session log in putty and search in there (e.g., as described here: http...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-01-03T19:31:28Z"
-                     }
-                 ],
-    "comments_cursor":  "2023-01-03T19:31:28Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 967,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request - Search inside the session output",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "jasb89",
+  "created_at": "2018-04-26T08:12:26Z",
+  "github_updated_at": "2023-01-03T19:31:28Z",
+  "body_snippet": "I would like to be able to search for keywords inside the session window directly.\r\n\r\nExpected Behavior\r\nI would like to have a search button to search inside the session windows output for a certain word which jumps to the keyword. \r\n\r\nCurrent Behavior\r\nCurrently option not available\r\n\r\nPossible Solution\r\nProvide an option to search for keywords\r\n\r\nSteps to Reproduce (for bugs)\r\nN.A.\r\n\r\nYour Environment\r\nVersion used: 1.75.7012.16814\r\nOperating System and version (e.g. Windows 10 1709 (x64)",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5MDQyMDc5MA==",
+      "author": "sparerd",
+      "date": "2018-05-19T17:37:34Z",
+      "snippet": "Which protocol(s) would you like to see this in? It is likely impossible to do with RDP. I would have to look into whether this is possible with PuTTY as an SSH provider. It would definitely be possible if we moved to something like SSH.Net (#181) since we would have full control over the terminal window.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM5NDI1ODI0OA==",
+      "author": "jasb89",
+      "date": "2018-06-04T07:22:03Z",
+      "snippet": "Hello,\r\nThanks for reply.\r\nWould like to this feature in SSH / Telnet (text based) protocols.\r\n\r\nDoing network configuration, it would be a great time savior to search for a specific keyword instead of copy pasting to notepad to do it.\r\n\r\nThanks",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2NTQ4ODIwOQ==",
+      "author": "MinerBigWhale",
+      "date": "2019-02-20T09:08:41Z",
+      "snippet": "Up Vote !\r\n\r\nThis would be a great feature. \r\nMost of my collegues would switch from SecureCRT if this is implemented.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Rqn1m",
+      "author": "napter",
+      "date": "2023-01-03T19:08:06Z",
+      "snippet": "Was this ever implemented? If not, I'd like to add my vote. I often need to search for text in the SSH window",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5RqsyT",
+      "author": "simonai1254",
+      "date": "2023-01-03T19:31:28Z",
+      "snippet": "Honestly I'm not sure how this should be implemented as PuTTY (mRemoteNG's embedded SSH client) does not support this natively. Using ssh.net as statet by @sparerd (and requested by others, e.g., #181) might allow someone to add this feature, but generally I still have a hard time to imagine this to work without quite some issues and a lot of effort. \r\n\r\nOne option you might use as workaround meanwhile would be to enable the session log in putty and search in there (e.g., as described here: http...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2023-01-03T19:31:28Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

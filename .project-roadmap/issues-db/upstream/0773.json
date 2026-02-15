@@ -1,47 +1,45 @@
-﻿{
-    "number":  773,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "FR: Make sorting connections reversible",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "rubaboo",
-    "created_at":  "2017-11-05T06:01:15Z",
-    "github_updated_at":  "2017-11-21T18:39:15Z",
-    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\n\u003c!-- If you file a feature request, please delete the bug section --\u003e\r\nIt\u0027s easy to screw up a carefully ordered list of connections by hitting the sort button. Please implement one of these (in order of preference):\r\n1. make the sort button into a switch: down = sorted, up = custom ordered\r\n2. an option to disable the sort connections functionality\r\n3. a confirmation dialog: \"Sort connections? There is no undo.\"",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NjAyNjgwMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "In the version 1.75.7000 it was easy to drag-n-drop sorting, but this feature does not work anymore.",
-                         "author":  "janborup",
-                         "action_needed":  true,
-                         "date":  "2017-11-21T13:30:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NjEyMTEzMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@janborup Thanks for reporting that, i\u0027ve opened #814 for that bug",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-11-21T18:39:15Z"
-                     }
-                 ],
-    "comments_cursor":  "2017-11-21T18:39:15Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 773,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "FR: Make sorting connections reversible",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "rubaboo",
+  "created_at": "2017-11-05T06:01:15Z",
+  "github_updated_at": "2017-11-21T18:39:15Z",
+  "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nIt's easy to screw up a carefully ordered list of connections by hitting the sort button. Please implement one of these (in order of preference):\r\n1. make the sort button into a switch: down = sorted, up = custom ordered\r\n2. an option to disable the sort connections functionality\r\n3. a confirmation dialog: \"Sort connections? There is no undo.\"",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM0NjAyNjgwMw==",
+      "author": "janborup",
+      "date": "2017-11-21T13:30:12Z",
+      "snippet": "In the version 1.75.7000 it was easy to drag-n-drop sorting, but this feature does not work anymore.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM0NjEyMTEzMA==",
+      "author": "sparerd",
+      "date": "2017-11-21T18:39:15Z",
+      "snippet": "@janborup Thanks for reporting that, i've opened #814 for that bug",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2017-11-21T18:39:15Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

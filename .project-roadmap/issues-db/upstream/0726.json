@@ -1,51 +1,49 @@
-﻿{
-    "number":  726,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Implement  SecureString Class to decrypt sensitve data on use",
-    "state":  "open",
-    "labels":  [
-                   "Priority - High",
-                   "Security Vuln",
-                   "Security",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "kmscode",
-    "created_at":  "2017-09-18T13:23:12Z",
-    "github_updated_at":  "2026-02-07T19:55:05Z",
-    "body_snippet":  "Reference #482 \r\n\r\nUse the [SecureString Class](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx) to decrypt on USE (before needing the password for a connection or ext tool for example). This would keep the password encrypted in memory at all times.",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM0NDA0NTg1OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Pushing this back to v1.77",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-11-13T20:22:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiEb",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:05Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:05Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 726,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Implement  SecureString Class to decrypt sensitve data on use",
+  "state": "open",
+  "labels": [
+    "Priority - High",
+    "Security Vuln",
+    "Security",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "kmscode",
+  "created_at": "2017-09-18T13:23:12Z",
+  "github_updated_at": "2026-02-07T19:55:05Z",
+  "body_snippet": "Reference #482 \r\n\r\nUse the [SecureString Class](https://msdn.microsoft.com/en-us/library/system.security.securestring(v=vs.110).aspx) to decrypt on USE (before needing the password for a connection or ext tool for example). This would keep the password encrypted in memory at all times.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM0NDA0NTg1OA==",
+      "author": "sparerd",
+      "date": "2017-11-13T20:22:20Z",
+      "snippet": "Pushing this back to v1.77",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiEb",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:05Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:05Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

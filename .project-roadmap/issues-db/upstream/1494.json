@@ -1,202 +1,200 @@
-﻿{
-    "number":  1494,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "VNC connections drop",
-    "state":  "open",
-    "labels":  [
-                   "VNC",
-                   "Need 2 check",
-                   "1.77.2"
-               ],
-    "author":  "rtuite",
-    "created_at":  "2019-06-19T23:01:33Z",
-    "github_updated_at":  "2026-02-07T19:53:33Z",
-    "body_snippet":  "Connection to VNC clients drops randomly.\r\n\r\n## Expected Behavior\r\nKeep connections alive\r\n\r\n## Current Behavior\r\nThe connection drops randomly every few minutes. No error is presented. The connection may drop after a minute or 2 or sometimes 10 to 15 or not at all. It\u0027s kind of random but improves with subsequent reconnects. After 2 or 3 reconnects, it seems fine. I\u0027ve been able to confirm the issue also happens with another person in another state to the same servers. \r\n\r\n## Steps to Reproduce...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNDE3Mzk2MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Does this happen with all of your VNC connections or just with that one host?",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-06-20T20:37:55Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNDE3NTgzMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Apologies, I should have known to include that... This happens on all 3 of my VNC connections, but not my one RDP connection.",
-                         "author":  "rtuite",
-                         "action_needed":  true,
-                         "date":  "2019-06-20T20:43:42Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNjQ2NTU0Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can confirm and reproduce this. If anyone knows a version I can revert to to actually use this program, I\u0027d be happy. It could also show where the bug was introduced. Issue #678 seems to confirm this has been a problem for a while.",
-                         "author":  "cdusold",
-                         "action_needed":  true,
-                         "date":  "2019-07-30T15:17:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUyNTg4NjcwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Can also confirm and reproduce on:\r\n\r\n- OS: Windows 7 x64\r\n- mRemoteNG Version: 1.76.20.24615\r\n\r\n**mrRemoteNG.log**\r\n2019-08-28 14:21:04,341 [1] INFO  - Protocol Event Disconnected.\r\nMessage:\r\nVncSharp Disconnected.\r\n2019-08-28 14:21:04,365 [5] INFO  - Connection Event Closed\r\n2019-08-28 14:21:04,366 [5] INFO  - Connection to [IP] via VNC closed by user [USER].\r\n2019-08-28 14:21:04,379 [3] INFO  - Saving connections...\r\n2019-08-28 14:21:04,777 [3] INFO  - Successfully saved connections",
-                         "author":  "MarioBolivar",
-                         "action_needed":  true,
-                         "date":  "2019-08-28T19:23:02Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMTM2ODA4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The baked in VNC support has been flaky in mRemoteNG for a long time. I run into this and similar problems a lot for VNC connections. Installing UltraVNC on your client system and creating an External Tool in mRemote like the below might get you a halfway usable setup:\r\n![image](https://user-images.githubusercontent.com/1772523/64890103-b0cdfd80-d623-11e9-9d98-2bf68227369d.png)\r\n\r\nIt\u0027s been an issue for a long time - for example see issues #573, #598 and #444 (the latter two are the inspiration ...",
-                         "author":  "Jaegermeiste",
-                         "action_needed":  true,
-                         "date":  "2019-09-13T19:47:21Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzMTUxNzgwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "That does work with some degree of success... I\u0027d still like to see the integrated VNC support working, though",
-                         "author":  "rtuite",
-                         "action_needed":  true,
-                         "date":  "2019-09-14T22:14:13Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NDAxOTQ0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I also have this problem. started using this program. Using 1.76.20.24615 version. our clients using random version of TightVNC.",
-                         "author":  "pauliusjan",
-                         "action_needed":  true,
-                         "date":  "2020-01-14T06:10:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU3NDE5ODM4Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Frequent disconnects for me too, although we mostly use UltraVNC\u0027s server occasionally in our environment.  The UltraVNC client typically has no issues.",
-                         "author":  "scottcopus",
-                         "action_needed":  true,
-                         "date":  "2020-01-14T14:26:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMzc5NzQxNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here. I\u0027ve noticed it happens more frequently when something is running fullscreen on the host machine (like firefox or virtualbox), although I don\u0027t understand how that would affect the viewer in any way. When it\u0027s not disconnecting, mouse movement is poorly responsive and slow. If I shut down the fullscreen apps the connection stabilizes. The issue isn\u0027t the host, running the apps direct on the machine are snappy and have no issues.",
-                         "author":  "Swizzler121",
-                         "action_needed":  true,
-                         "date":  "2020-05-26T04:11:27Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjg5NTg0Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Using mRemoteNG 1.76.20 (2019-04-12) I connect to these versions of TightVNC:\r\n- Version 2.8.8 (built on Mar 14 2017 at 11:46:46) - works fine\r\n- Version 2.8.27 (built on Oct 15 2019 at 14:13:56) basically doesn\u0027t work - black screen\r\n\r\nSo if you could get old builds and/or source of TightVNC you could perhaps compare the protocol to see what\u0027s changed, or install newer versions until it breaks and then check for source code differences.",
-                         "author":  "sicklittlemonkey",
-                         "action_needed":  true,
-                         "date":  "2020-06-01T14:35:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY3OTE0MjYwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Environment\r\nOS: Microsoft Windows NT 10.0.17134.0\r\nmRemoteNG Version: 1.77.0.41252\r\nEdition: MSI\r\n\r\nStill an issue",
-                         "author":  "Benchwork",
-                         "action_needed":  true,
-                         "date":  "2020-08-24T13:58:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgyOTI3ODc0OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Still an issue on version 1.76.20.24615",
-                         "author":  "murpheedee",
-                         "action_needed":  true,
-                         "date":  "2021-04-29T14:20:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg0ODE3NDMzNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Happening with me too! Connection from windows to macos/vnc.",
-                         "author":  "chhass",
-                         "action_needed":  true,
-                         "date":  "2021-05-25T18:54:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg2OTA2NzYxNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is a recurring issue for me as well. \r\n\r\nIf the remote machine has any of the programs full-screened then the connection will drop at random and show that I closed the connection.\r\n\r\nThis is also true if the machine is on the login screen. \r\n\r\nHowever, if there is a full-screen windowed program it maintains the connection without issue. ",
-                         "author":  "flyingwolf79",
-                         "action_needed":  true,
-                         "date":  "2021-06-26T22:15:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM57YqG0",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027ve seen this regularly on at least 5 different clients and 25+ different servers over the past year or two. Anecdotally the chance of the VNC connection closing appears to be higher if there\u0027s a lot of activity on the session, both fast-moving imagery on screen increasing screen refreshes, and many quick user actions e.g. clicks on the session. It\u0027s a lower chance of the problem happening if the remote machine has a static display, low interaction over the session and low CPU/GPU load. We can ...",
-                         "author":  "Vanderdecken",
-                         "action_needed":  true,
-                         "date":  "2024-04-22T16:09:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6E8q3M",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any update on this issue? I\u0027m able also to reproduce each time I connect a UltraVNC server. \r\nThis issue is reported in this thread since 2019 and I don\u0027t see any solution or atempt to fix it. \r\n\r\nToday, the latest versions to download in the official website is:\r\n- Stable - v1.76.20 from 12 Apr 2019\r\n- Preview - v1.77.1 from 02 Set 2019\r\n- Nightly - v1.77.3.1784-NB from 16 Mac 2023\r\n\r\nAnyone knows if `Preview` or `Nightly` has this issue fixed? ",
-                         "author":  "j42z",
-                         "action_needed":  true,
-                         "date":  "2024-07-16T09:57:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6E81ac",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just tried Preview v1.77.1 and the issue remains but with different simptoms. It just stops the image but doesn\u0027t closes the tab. \r\nAnyway, the connections becomes degraded after a while. \r\nAdditionally, the RDP connection in this version seems to be unstable. \r\n\r\nRegarding Nighly, for some reason I was not able to connect via VNC but RDP looks improved. \r\n\r\nconclusion: back to stable version and back to the VNC bug that closes the tab randomly. ",
-                         "author":  "j42z",
-                         "action_needed":  true,
-                         "date":  "2024-07-16T10:19:44Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXF5o",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhnQ",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:33Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:33Z",
-    "unread_comments":  17,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1494,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "VNC connections drop",
+  "state": "open",
+  "labels": [
+    "VNC",
+    "Need 2 check",
+    "1.77.2"
+  ],
+  "author": "rtuite",
+  "created_at": "2019-06-19T23:01:33Z",
+  "github_updated_at": "2026-02-07T19:53:33Z",
+  "body_snippet": "Connection to VNC clients drops randomly.\r\n\r\n## Expected Behavior\r\nKeep connections alive\r\n\r\n## Current Behavior\r\nThe connection drops randomly every few minutes. No error is presented. The connection may drop after a minute or 2 or sometimes 10 to 15 or not at all. It's kind of random but improves with subsequent reconnects. After 2 or 3 reconnects, it seems fine. I've been able to confirm the issue also happens with another person in another state to the same servers. \r\n\r\n## Steps to Reproduce...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwNDE3Mzk2MQ==",
+      "author": "farosch",
+      "date": "2019-06-20T20:37:55Z",
+      "snippet": "Does this happen with all of your VNC connections or just with that one host?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwNDE3NTgzMQ==",
+      "author": "rtuite",
+      "date": "2019-06-20T20:43:42Z",
+      "snippet": "Apologies, I should have known to include that... This happens on all 3 of my VNC connections, but not my one RDP connection.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNjQ2NTU0Mw==",
+      "author": "cdusold",
+      "date": "2019-07-30T15:17:25Z",
+      "snippet": "I can confirm and reproduce this. If anyone knows a version I can revert to to actually use this program, I'd be happy. It could also show where the bug was introduced. Issue #678 seems to confirm this has been a problem for a while.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyNTg4NjcwNw==",
+      "author": "MarioBolivar",
+      "date": "2019-08-28T19:23:02Z",
+      "snippet": "Can also confirm and reproduce on:\r\n\r\n- OS: Windows 7 x64\r\n- mRemoteNG Version: 1.76.20.24615\r\n\r\n**mrRemoteNG.log**\r\n2019-08-28 14:21:04,341 [1] INFO  - Protocol Event Disconnected.\r\nMessage:\r\nVncSharp Disconnected.\r\n2019-08-28 14:21:04,365 [5] INFO  - Connection Event Closed\r\n2019-08-28 14:21:04,366 [5] INFO  - Connection to [IP] via VNC closed by user [USER].\r\n2019-08-28 14:21:04,379 [3] INFO  - Saving connections...\r\n2019-08-28 14:21:04,777 [3] INFO  - Successfully saved connections",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzMTM2ODA4MA==",
+      "author": "Jaegermeiste",
+      "date": "2019-09-13T19:47:21Z",
+      "snippet": "The baked in VNC support has been flaky in mRemoteNG for a long time. I run into this and similar problems a lot for VNC connections. Installing UltraVNC on your client system and creating an External Tool in mRemote like the below might get you a halfway usable setup:\r\n![image](https://user-images.githubusercontent.com/1772523/64890103-b0cdfd80-d623-11e9-9d98-2bf68227369d.png)\r\n\r\nIt's been an issue for a long time - for example see issues #573, #598 and #444 (the latter two are the inspiration ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzMTUxNzgwNw==",
+      "author": "rtuite",
+      "date": "2019-09-14T22:14:13Z",
+      "snippet": "That does work with some degree of success... I'd still like to see the integrated VNC support working, though",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDAxOTQ0MQ==",
+      "author": "pauliusjan",
+      "date": "2020-01-14T06:10:49Z",
+      "snippet": "I also have this problem. started using this program. Using 1.76.20.24615 version. our clients using random version of TightVNC.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU3NDE5ODM4Mg==",
+      "author": "scottcopus",
+      "date": "2020-01-14T14:26:09Z",
+      "snippet": "Frequent disconnects for me too, although we mostly use UltraVNC's server occasionally in our environment.  The UltraVNC client typically has no issues.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMzc5NzQxNA==",
+      "author": "Swizzler121",
+      "date": "2020-05-26T04:11:27Z",
+      "snippet": "Same here. I've noticed it happens more frequently when something is running fullscreen on the host machine (like firefox or virtualbox), although I don't understand how that would affect the viewer in any way. When it's not disconnecting, mouse movement is poorly responsive and slow. If I shut down the fullscreen apps the connection stabilizes. The issue isn't the host, running the apps direct on the machine are snappy and have no issues.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNjg5NTg0Nw==",
+      "author": "sicklittlemonkey",
+      "date": "2020-06-01T14:35:37Z",
+      "snippet": "Using mRemoteNG 1.76.20 (2019-04-12) I connect to these versions of TightVNC:\r\n- Version 2.8.8 (built on Mar 14 2017 at 11:46:46) - works fine\r\n- Version 2.8.27 (built on Oct 15 2019 at 14:13:56) basically doesn't work - black screen\r\n\r\nSo if you could get old builds and/or source of TightVNC you could perhaps compare the protocol to see what's changed, or install newer versions until it breaks and then check for source code differences.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY3OTE0MjYwMg==",
+      "author": "Benchwork",
+      "date": "2020-08-24T13:58:34Z",
+      "snippet": "Environment\r\nOS: Microsoft Windows NT 10.0.17134.0\r\nmRemoteNG Version: 1.77.0.41252\r\nEdition: MSI\r\n\r\nStill an issue",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgyOTI3ODc0OA==",
+      "author": "murpheedee",
+      "date": "2021-04-29T14:20:34Z",
+      "snippet": "Still an issue on version 1.76.20.24615",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0ODE3NDMzNQ==",
+      "author": "chhass",
+      "date": "2021-05-25T18:54:45Z",
+      "snippet": "Happening with me too! Connection from windows to macos/vnc.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg2OTA2NzYxNg==",
+      "author": "flyingwolf79",
+      "date": "2021-06-26T22:15:10Z",
+      "snippet": "This is a recurring issue for me as well. \r\n\r\nIf the remote machine has any of the programs full-screened then the connection will drop at random and show that I closed the connection.\r\n\r\nThis is also true if the machine is on the login screen. \r\n\r\nHowever, if there is a full-screen windowed program it maintains the connection without issue. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM57YqG0",
+      "author": "Vanderdecken",
+      "date": "2024-04-22T16:09:45Z",
+      "snippet": "I've seen this regularly on at least 5 different clients and 25+ different servers over the past year or two. Anecdotally the chance of the VNC connection closing appears to be higher if there's a lot of activity on the session, both fast-moving imagery on screen increasing screen refreshes, and many quick user actions e.g. clicks on the session. It's a lower chance of the problem happening if the remote machine has a static display, low interaction over the session and low CPU/GPU load. We can ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6E8q3M",
+      "author": "j42z",
+      "date": "2024-07-16T09:57:46Z",
+      "snippet": "Any update on this issue? I'm able also to reproduce each time I connect a UltraVNC server. \r\nThis issue is reported in this thread since 2019 and I don't see any solution or atempt to fix it. \r\n\r\nToday, the latest versions to download in the official website is:\r\n- Stable - v1.76.20 from 12 Apr 2019\r\n- Preview - v1.77.1 from 02 Set 2019\r\n- Nightly - v1.77.3.1784-NB from 16 Mac 2023\r\n\r\nAnyone knows if `Preview` or `Nightly` has this issue fixed? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6E81ac",
+      "author": "j42z",
+      "date": "2024-07-16T10:19:44Z",
+      "snippet": "Just tried Preview v1.77.1 and the issue remains but with different simptoms. It just stops the image but doesn't closes the tab. \r\nAnyway, the connections becomes degraded after a while. \r\nAdditionally, the RDP connection in this version seems to be unstable. \r\n\r\nRegarding Nighly, for some reason I was not able to connect via VNC but RDP looks improved. \r\n\r\nconclusion: back to stable version and back to the VNC bug that closes the tab randomly. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXF5o",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:23Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhnQ",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:33Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:33Z",
+  "unread_comments": 17,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

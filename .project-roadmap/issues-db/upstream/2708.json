@@ -1,40 +1,38 @@
-﻿{
-    "number":  2708,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "╨ö╨╛╨▒╨░╨▓╨╕╤é╤î ╤ä╨╗╨░╨│╨╕ ╨║ ╨┐╨╡╤Ç╨╡╨║╨╗╤Ä╤ç╨░╤é╨╡╨╗╤Ä ╤Å╨╖╤ï╨║╨╛╨▓",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "1.78.*",
-                   "web site"
-               ],
-    "author":  "Kvarkas",
-    "created_at":  "2025-06-24T08:50:16Z",
-    "github_updated_at":  "2026-02-07T19:53:40Z",
-    "body_snippet":  "╨¥╤â╨╢╨╜╨╛ ╨┤╨╛╨▒╨░╨▓╨╕╤é╤î ╤ä╨╗╨░╨│╨╕ ╨║╨╛╤é╨╛╤Ç╤ï╨╡ ╨▒╤â╨┤╤â╤é ╨╛╤é╨╛╨▒╤Ç╨░╨╢╨░╤é╤î╤ü╤Å ╤ü ╨┐╤Ç╨░╨▓╨░ ╨╛╤é ╤Å╨╖╤ï╨║╨░ ╨▓ ╤ü╨╗╤â╤ç╨░╨╡ ╨╡╤ü╨╗╨╕ ╤ì╨║╤Ç╨░╨╜ ╨▒╨╛╨╗╤î╤ê╨╛╨╣ \n╨Ü╨░╤Ç╤é╨╕╨╜╨║╨╕ ╤ä╨╗╨░╨│╨╛╨▓ ╨╜╨░╤à╨╛╨┤╤Å╤é╤ü╤Å ╨▓ src/lib/i18n/flags\n╤ç╤é╨╛╨▒ ╨▒╤ï╨╗╨╛ ╤ç╤é╨╛ ╤é╨╛ ╨┐╨╛╤à╨╛╨╢╨╡╨╡ ╨╜╨░ \n\n![Image](https://github.com/user-attachments/assets/eb16659d-9890-4d45-8212-7e77bfc6fe71)\n\n╤â╤é╨╛╤ç╨╜╨╡╨╜╨╕╨╡:\n╨ƒ╤Ç╨╕ ╨╝╨░╨╗╨╛╨╝ ╤Ç╨░╨╖╨╝╨╡╤Ç╨╡ ╤ì╨║╤Ç╨░╨╜╨░ ╨╛╤é╨╛╨▒╤Ç╨░╨╢╨░╤é╤î ╤é╨╛╨╗╤î╨║╨╛ ╤ä╨╗╨░╨│╨╕, ╨░...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhpG",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:39Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:40Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2708,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Добавить флаги к переключателю языков",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "1.78.*",
+    "web site"
+  ],
+  "author": "Kvarkas",
+  "created_at": "2025-06-24T08:50:16Z",
+  "github_updated_at": "2026-02-07T19:53:40Z",
+  "body_snippet": "Нужно добавить флаги которые будут отображаться с права от языка в случае если экран большой \nКартинки флагов находятся в src/lib/i18n/flags\nчтоб было что то похожее на \n\n![Image](https://github.com/user-attachments/assets/eb16659d-9890-4d45-8212-7e77bfc6fe71)\n\nуточнение:\nПри малом размере экрана отображать только флаги, а название - при наведении курсора (всплывающее подсказки)\n\nПри наведении на выбор языков - курсор должен меняться на пальчик:\n\n![Image](https://github.com/user-attachments/asse...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mYhpG",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:39Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:40Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

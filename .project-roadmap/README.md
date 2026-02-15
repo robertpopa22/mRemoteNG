@@ -26,12 +26,16 @@ Release: https://github.com/robertpopa22/mRemoteNG/releases/tag/20260215-v1.81.0
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/Sync-Issues.ps1` | **MANDATORY** — Sync issues+comments from both repos |
-| `scripts/Analyze-Issues.ps1` | Analyze what needs action |
-| `scripts/Update-Status.ps1` | Transition issue lifecycle + post GitHub comments |
-| `scripts/Generate-Report.ps1` | Generate markdown reports |
-| `scripts/orchestrate.py` | **IIS Orchestrator** — automated issue resolution & warning cleanup |
+| `scripts/iis_orchestrator.py` | **IIS Orchestrator** — Issue Intelligence System (sync, analyze, update, report) + AI-driven issue/warning resolution |
 | `scripts/find-lesson.ps1` | Search lessons by keyword |
+
+### IIS Quick Reference
+```bash
+python .project-roadmap/scripts/iis_orchestrator.py sync                    # sync both repos
+python .project-roadmap/scripts/iis_orchestrator.py analyze                 # show actionable items
+python .project-roadmap/scripts/iis_orchestrator.py update --issue N --status triaged
+python .project-roadmap/scripts/iis_orchestrator.py report                  # save markdown report
+```
 
 ## Archives
 

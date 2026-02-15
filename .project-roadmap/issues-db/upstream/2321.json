@@ -1,286 +1,284 @@
-﻿{
-    "number":  2321,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "VNC connection error",
-    "state":  "open",
-    "labels":  [
-                   "Cannot Reproduce",
-                   "Needs User Verification",
-                   "VNC",
-                   "Need 2 check",
-                   "1.77.3",
-                   "1.76.20"
-               ],
-    "author":  "TimKras",
-    "created_at":  "2023-01-09T13:48:14Z",
-    "github_updated_at":  "2026-02-07T19:51:22Z",
-    "body_snippet":  "See the end of this message for details on invoking \r\njust-in-time (JIT) debugging instead of this dialog box.\r\n\r\n************** Exception Text **************\r\nSystem.NullReferenceException: Object reference not set to an instance of an object.\r\n   at VncSharp.VncClippedDesktopPolicy.RepositionImage(Image desktopImage)\r\n   at VncSharp.RemoteDesktop.OnPaint(PaintEventArgs pe)\r\n   at System.Windows.Forms.Control.PaintWithErrorHandling(PaintEventArgs e, Int16 layer)\r\n   at System.Windows.Forms.Cont...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5SKXDi",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "look like as framework is missing on the system?",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T09:15:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SK0Lo",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Other VNC connections are working fine.",
-                         "author":  "TimKras",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T10:53:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SLcnc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Other VNC connections are working fine.\r\n\r\nDo you get the faulty connection running with an other tool than mRemoteNG? And could you verify the connection settings in mRemoteNG if they are any different for the one that works and the broken one? Or are there other differences between the Hosts that work and the one that doesn\u0027t? \r\n\r\nAlso it would be interesting to know what version of mRemoteNG you are using. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T13:13:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SM3ox",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Other tools (Temrinals and VNC viewer) are working fine.\r\nConnection settings are identical (apart from IP and username) to working connections.\r\nCurrently using this version: \r\n![image](https://user-images.githubusercontent.com/5257192/211862491-3e9c42a5-c1d2-4bfc-af3b-57f162ffad81.png)\r\n",
-                         "author":  "TimKras",
-                         "action_needed":  true,
-                         "date":  "2023-01-11T16:33:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ucpx8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Could you try to use latest 1.77.3 for test? I am unable to reproduce such :(",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-02-04T16:43:31Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Ul0og",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I don\u0027t know if it\u0027s the same problem but I\u0027ve troubles with VNC connections. \r\n\r\nmRemoteNG 1.77.3 Portable Edition\r\n\r\n\r\n`2023-02-06 15:38:20,244 [1] ERROR - Apertura della connessione fallita! Value cannot be null. (Parameter \u0027stream\u0027)` \r\n`2023-02-06 15:38:20,261 [1] ERROR - Protocol Event Disconnected fallito.\r\n{0}\r\nUnable to cast object of type \u0027VncSharpCore.RemoteDesktop\u0027 to type \u0027mRemoteNG.Connection.Protocol.ProtocolBase\u0027.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconne...",
-                         "author":  "ziotibia81",
-                         "action_needed":  true,
-                         "date":  "2023-02-06T14:47:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5XCTB8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Similiar problem\r\n\r\n2023-03-08 14:58:09,840 [1] INFO  - mRemoteNG 1.77.2 Portable Edition starting.\r\n2023-03-08 14:58:09,846 [1] INFO  - Command Line: C:\\Users\\USERNAME\\gdrive\\SW\\mRemoteNG\\mRemoteNG.dll\r\n2023-03-08 14:58:10,006 [1] INFO  - Microsoft Windows 10 Enterprise  64-bit\r\n2023-03-08 14:58:10,007 [1] INFO  - Microsoft .NET CLR 6.0.14\r\n2023-03-08 14:58:10,007 [1] INFO  - System Culture: en/English\r\n2023-03-08 14:58:10,007 [1] INFO  - Checking FIPS policy...\r\n2023-03-08 14:58:10,008 [1] INF...",
-                         "author":  "lipoforall",
-                         "action_needed":  true,
-                         "date":  "2023-03-08T14:14:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5XDSU3",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, @lipoforall could you try latest alfa know as Nightly build for same: https://github.com/mRemoteNG/mRemoteNG/releases/download/2023.03.03-v1.77.3-nb/mRemoteNG-Installer-1.77.3.nb-1784.msi",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-03-08T16:42:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5YnXtJ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello,\r\n\r\nJust install Mremote NG msi 1.77.3.nb-1784 version, and i\u0027ll get the same error message \r\nOpening connection failed!\r\nValue cannot be null. (Parameter \u0027stream\u0027)\r\n\r\nThanks",
-                         "author":  "omarie56",
-                         "action_needed":  true,
-                         "date":  "2023-03-28T11:44:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Yt1L1",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Beta version is working for me.",
-                         "author":  "TimKras",
-                         "action_needed":  true,
-                         "date":  "2023-03-29T11:17:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Z9Luy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Hello,\r\n\u003e \r\n\u003e Just install Mremote NG msi 1.77.3.nb-1784 version, and i\u0027ll get the same error message Opening connection failed! Value cannot be null. (Parameter \u0027stream\u0027)\r\n\u003e \r\n\u003e Thanks\r\n\r\nI\u0027m also using  1.77.3.nb-1784  and got the same error",
-                         "author":  "femarschall",
-                         "action_needed":  true,
-                         "date":  "2023-04-14T20:24:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5eiqKq",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nsome minutes ago I installed MSI version mRemoteNG-Installer-1.77.3.nb-1784.msi and got the same error for my VNC connection :(",
-                         "author":  "nyze88",
-                         "action_needed":  true,
-                         "date":  "2023-06-11T12:22:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5rPx1I",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same. I\u0027m running 1.77.3 NB 1784\r\nI get the \"Opening connection failed! Value cannot be null. (Parameter \u0027stream\u0027)\" when trying to connect to my tightvnc server on my Ubuntu box. The Password Box displays, but then I get the error after entering the PW.",
-                         "author":  "druidgeek",
-                         "action_needed":  true,
-                         "date":  "2023-11-07T17:31:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5tTLgm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same issue here\r\n",
-                         "author":  "nenny-hash",
-                         "action_needed":  true,
-                         "date":  "2023-11-30T13:00:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5wnrfW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "version 1.77.3 NB 1784\r\nSame. Don\u0027t work connect to VNC. \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/94042835/024021a7-eaaf-4477-855d-3bc54bd81939)\r\n",
-                         "author":  "pelya1986",
-                         "action_needed":  true,
-                         "date":  "2024-01-12T15:03:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xFCFm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@pelya1986 and @TimKras \r\n\r\nWorks for me now!\r\n\r\nVNC Protocol seems to work fine in version 1.76 but didn\u0027t in 1.77. After comparing the .exe.config files between the two versions, one line was present in 1.77 that was not in 1.76. The following string was located in Lines 541-543 of the 1.77 config file. I removed those lines and saved config file (made a copy of the file just in case of course), then launched \"MRemoteNG version 1.77\" and the VNC conneciton started working right away for me.\r\n\r...",
-                         "author":  "bcford219",
-                         "action_needed":  true,
-                         "date":  "2024-01-17T22:26:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5xI3jE",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "interesting one! ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-01-18T09:54:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM51Leiv",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same issue here. Not able to use Stable version because of potential vulnerabilities that has been fixed in Nightly\r\n\r\n![2024-02-27 08_29_07-Window](https://github.com/mRemoteNG/mRemoteNG/assets/161429031/3f5289f9-9973-465b-9c1e-15b89f2f7eaa)\r\n![2024-02-27 08_29_25-Window](https://github.com/mRemoteNG/mRemoteNG/assets/161429031/9401bae3-8458-4b85-b4f9-fde941c9bd68)\r\n",
-                         "author":  "Quickerxil",
-                         "action_needed":  true,
-                         "date":  "2024-02-27T07:31:14Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM52F9LC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here.\r\nTried Portable and MSI versions of 1.77.3.1784.\r\nWin10x64.\r\nCan it be fixed somehow?\r\n```\r\n2024-03-06 16:17:24,769 [1] ERROR - Opening connection failed!\r\nValue cannot be null. (Parameter \u0027stream\u0027)\r\n2024-03-06 16:17:24,777 [1] ERROR - Protocol Event Disconnected failed.\r\n{0}\r\nUnable to cast object of type \u0027VncSharpCore.RemoteDesktop\u0027 to type \u0027mRemoteNG.Connection.Protocol.ProtocolBase\u0027.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disc...",
-                         "author":  "pinkmercedes",
-                         "action_needed":  true,
-                         "date":  "2024-03-06T16:30:30Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM55PTqR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here with version\r\nmRemoteNG-Installer-1.77.3.nb-1784.msi\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/108238720/40c0c6f2-c25f-4e4d-860a-047bb16ca37f)\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/108238720/16565c94-478d-410a-9c74-ddfffe53a139)\r\n\r\nCan this be fixed please?\r\nOr is there a known work around to get this VNC working on this version?\r\n\r\nFYI because of this issue #2019 I need to upgrade to fix this vulnerability...",
-                         "author":  "GDB4J",
-                         "action_needed":  true,
-                         "date":  "2024-04-03T09:36:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6HN6ri",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e @pelya1986 and @TimKras\r\n\u003e \r\n\u003e Works for me now!\r\n\u003e \r\n\u003e VNC Protocol seems to work fine in version 1.76 but didn\u0027t in 1.77. After comparing the .exe.config files between the two versions, one line was present in 1.77 that was not in 1.76. The following string was located in Lines 541-543 of the 1.77 config file. I removed those lines and saved config file (made a copy of the file just in case of course), then launched \"MRemoteNG version 1.77\" and the VNC conneciton started working right away f...",
-                         "author":  "simohauml",
-                         "action_needed":  true,
-                         "date":  "2024-08-05T09:15:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6HOLu3",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Traveling now with limited access to internet, but should be looking into a bit later this week\r\n\u003e FYI because of this issue #2019 I need to upgrade to fix this vulnerability...\r\n\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-08-05T09:43:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6HQKRr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Something wrong goes there then its build a pointer, need investigate what exactly is happening, will try to fix before NB new release\r\n\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-08-05T14:03:51Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6KYDg2",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I used the mRemoteNG.exe.config from v1.76 but it still didn\u0027t work",
-                         "author":  "femarschall",
-                         "action_needed":  true,
-                         "date":  "2024-08-30T15:09:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6ZuTEr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027ve been unable to VNC to a SLES 15 using the default VNC service (TigerVNC) with 1.77.1.27654:\r\n\r\n2025-01-08 09:09:37,745 [1] ERROR - Opening connection failed!\r\nParameter is not valid.\r\n2025-01-08 09:09:37,751 [1] ERROR - Protocol Event Disconnected failed.\r\n{0}\r\nUnable to cast object of type \u0027VncSharp.RemoteDesktop\u0027 to type \u0027mRemoteNG.Connection.Protocol.ProtocolBase\u0027.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disconnectedMessage, Nullable`...",
-                         "author":  "stommy989",
-                         "action_needed":  true,
-                         "date":  "2025-01-09T02:26:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6zQC1d",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Running and compiling from git\n\n```\nUnable to cast object of type \u0027VncSharp.RemoteDesktop\u0027 to type \u0027mRemoteNG.Connection.Protocol.ProtocolBase\u0027.\nat mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disconnectedMessage, Nullable`1 reasonCode)\n```\nOriginate from\n```\n                _vnc.ConnectionLost += VNCEvent_Disconnected;\n```\nIn `VNCEvent_Disconnected` change\n```diff\n-Event_Disconnected(sender, @\"VncSharp Disconnected.\", null);\n+Event_Disconnected(this, @\"...",
-                         "author":  "2PintChristianN",
-                         "action_needed":  true,
-                         "date":  "2025-06-26T06:39:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFOa",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:44:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYg9G",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.76.20",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:22Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:22Z",
-    "unread_comments":  26,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2321,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "VNC connection error",
+  "state": "open",
+  "labels": [
+    "Cannot Reproduce",
+    "Needs User Verification",
+    "VNC",
+    "Need 2 check",
+    "1.77.3",
+    "1.76.20"
+  ],
+  "author": "TimKras",
+  "created_at": "2023-01-09T13:48:14Z",
+  "github_updated_at": "2026-02-07T19:51:22Z",
+  "body_snippet": "See the end of this message for details on invoking \r\njust-in-time (JIT) debugging instead of this dialog box.\r\n\r\n************** Exception Text **************\r\nSystem.NullReferenceException: Object reference not set to an instance of an object.\r\n   at VncSharp.VncClippedDesktopPolicy.RepositionImage(Image desktopImage)\r\n   at VncSharp.RemoteDesktop.OnPaint(PaintEventArgs pe)\r\n   at System.Windows.Forms.Control.PaintWithErrorHandling(PaintEventArgs e, Int16 layer)\r\n   at System.Windows.Forms.Cont...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5SKXDi",
+      "author": "Kvarkas",
+      "date": "2023-01-11T09:15:56Z",
+      "snippet": "look like as framework is missing on the system?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SK0Lo",
+      "author": "TimKras",
+      "date": "2023-01-11T10:53:07Z",
+      "snippet": "Other VNC connections are working fine.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SLcnc",
+      "author": "simonai1254",
+      "date": "2023-01-11T13:13:15Z",
+      "snippet": "> Other VNC connections are working fine.\r\n\r\nDo you get the faulty connection running with an other tool than mRemoteNG? And could you verify the connection settings in mRemoteNG if they are any different for the one that works and the broken one? Or are there other differences between the Hosts that work and the one that doesn't? \r\n\r\nAlso it would be interesting to know what version of mRemoteNG you are using. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SM3ox",
+      "author": "TimKras",
+      "date": "2023-01-11T16:33:08Z",
+      "snippet": "Other tools (Temrinals and VNC viewer) are working fine.\r\nConnection settings are identical (apart from IP and username) to working connections.\r\nCurrently using this version: \r\n![image](https://user-images.githubusercontent.com/5257192/211862491-3e9c42a5-c1d2-4bfc-af3b-57f162ffad81.png)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ucpx8",
+      "author": "Kvarkas",
+      "date": "2023-02-04T16:43:31Z",
+      "snippet": "Could you try to use latest 1.77.3 for test? I am unable to reproduce such :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Ul0og",
+      "author": "ziotibia81",
+      "date": "2023-02-06T14:47:05Z",
+      "snippet": "I don't know if it's the same problem but I've troubles with VNC connections. \r\n\r\nmRemoteNG 1.77.3 Portable Edition\r\n\r\n\r\n`2023-02-06 15:38:20,244 [1] ERROR - Apertura della connessione fallita! Value cannot be null. (Parameter 'stream')` \r\n`2023-02-06 15:38:20,261 [1] ERROR - Protocol Event Disconnected fallito.\r\n{0}\r\nUnable to cast object of type 'VncSharpCore.RemoteDesktop' to type 'mRemoteNG.Connection.Protocol.ProtocolBase'.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconne...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5XCTB8",
+      "author": "lipoforall",
+      "date": "2023-03-08T14:14:58Z",
+      "snippet": "Similiar problem\r\n\r\n2023-03-08 14:58:09,840 [1] INFO  - mRemoteNG 1.77.2 Portable Edition starting.\r\n2023-03-08 14:58:09,846 [1] INFO  - Command Line: C:\\Users\\USERNAME\\gdrive\\SW\\mRemoteNG\\mRemoteNG.dll\r\n2023-03-08 14:58:10,006 [1] INFO  - Microsoft Windows 10 Enterprise  64-bit\r\n2023-03-08 14:58:10,007 [1] INFO  - Microsoft .NET CLR 6.0.14\r\n2023-03-08 14:58:10,007 [1] INFO  - System Culture: en/English\r\n2023-03-08 14:58:10,007 [1] INFO  - Checking FIPS policy...\r\n2023-03-08 14:58:10,008 [1] INF...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5XDSU3",
+      "author": "Kvarkas",
+      "date": "2023-03-08T16:42:21Z",
+      "snippet": "Hi, @lipoforall could you try latest alfa know as Nightly build for same: https://github.com/mRemoteNG/mRemoteNG/releases/download/2023.03.03-v1.77.3-nb/mRemoteNG-Installer-1.77.3.nb-1784.msi",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5YnXtJ",
+      "author": "omarie56",
+      "date": "2023-03-28T11:44:25Z",
+      "snippet": "Hello,\r\n\r\nJust install Mremote NG msi 1.77.3.nb-1784 version, and i'll get the same error message \r\nOpening connection failed!\r\nValue cannot be null. (Parameter 'stream')\r\n\r\nThanks",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Yt1L1",
+      "author": "TimKras",
+      "date": "2023-03-29T11:17:55Z",
+      "snippet": "Beta version is working for me.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Z9Luy",
+      "author": "femarschall",
+      "date": "2023-04-14T20:24:07Z",
+      "snippet": "> Hello,\r\n> \r\n> Just install Mremote NG msi 1.77.3.nb-1784 version, and i'll get the same error message Opening connection failed! Value cannot be null. (Parameter 'stream')\r\n> \r\n> Thanks\r\n\r\nI'm also using  1.77.3.nb-1784  and got the same error",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5eiqKq",
+      "author": "nyze88",
+      "date": "2023-06-11T12:22:33Z",
+      "snippet": "Hi,\r\n\r\nsome minutes ago I installed MSI version mRemoteNG-Installer-1.77.3.nb-1784.msi and got the same error for my VNC connection :(",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5rPx1I",
+      "author": "druidgeek",
+      "date": "2023-11-07T17:31:27Z",
+      "snippet": "Same. I'm running 1.77.3 NB 1784\r\nI get the \"Opening connection failed! Value cannot be null. (Parameter 'stream')\" when trying to connect to my tightvnc server on my Ubuntu box. The Password Box displays, but then I get the error after entering the PW.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5tTLgm",
+      "author": "nenny-hash",
+      "date": "2023-11-30T13:00:50Z",
+      "snippet": "Same issue here\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5wnrfW",
+      "author": "pelya1986",
+      "date": "2024-01-12T15:03:14Z",
+      "snippet": "version 1.77.3 NB 1784\r\nSame. Don't work connect to VNC. \r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/94042835/024021a7-eaaf-4477-855d-3bc54bd81939)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xFCFm",
+      "author": "bcford219",
+      "date": "2024-01-17T22:26:16Z",
+      "snippet": "@pelya1986 and @TimKras \r\n\r\nWorks for me now!\r\n\r\nVNC Protocol seems to work fine in version 1.76 but didn't in 1.77. After comparing the .exe.config files between the two versions, one line was present in 1.77 that was not in 1.76. The following string was located in Lines 541-543 of the 1.77 config file. I removed those lines and saved config file (made a copy of the file just in case of course), then launched \"MRemoteNG version 1.77\" and the VNC conneciton started working right away for me.\r\n\r...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5xI3jE",
+      "author": "Kvarkas",
+      "date": "2024-01-18T09:54:45Z",
+      "snippet": "interesting one! ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM51Leiv",
+      "author": "Quickerxil",
+      "date": "2024-02-27T07:31:14Z",
+      "snippet": "Same issue here. Not able to use Stable version because of potential vulnerabilities that has been fixed in Nightly\r\n\r\n![2024-02-27 08_29_07-Window](https://github.com/mRemoteNG/mRemoteNG/assets/161429031/3f5289f9-9973-465b-9c1e-15b89f2f7eaa)\r\n![2024-02-27 08_29_25-Window](https://github.com/mRemoteNG/mRemoteNG/assets/161429031/9401bae3-8458-4b85-b4f9-fde941c9bd68)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM52F9LC",
+      "author": "pinkmercedes",
+      "date": "2024-03-06T16:30:30Z",
+      "snippet": "Same here.\r\nTried Portable and MSI versions of 1.77.3.1784.\r\nWin10x64.\r\nCan it be fixed somehow?\r\n```\r\n2024-03-06 16:17:24,769 [1] ERROR - Opening connection failed!\r\nValue cannot be null. (Parameter 'stream')\r\n2024-03-06 16:17:24,777 [1] ERROR - Protocol Event Disconnected failed.\r\n{0}\r\nUnable to cast object of type 'VncSharpCore.RemoteDesktop' to type 'mRemoteNG.Connection.Protocol.ProtocolBase'.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disc...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM55PTqR",
+      "author": "GDB4J",
+      "date": "2024-04-03T09:36:47Z",
+      "snippet": "Same here with version\r\nmRemoteNG-Installer-1.77.3.nb-1784.msi\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/108238720/40c0c6f2-c25f-4e4d-860a-047bb16ca37f)\r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/108238720/16565c94-478d-410a-9c74-ddfffe53a139)\r\n\r\nCan this be fixed please?\r\nOr is there a known work around to get this VNC working on this version?\r\n\r\nFYI because of this issue #2019 I need to upgrade to fix this vulnerability...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6HN6ri",
+      "author": "simohauml",
+      "date": "2024-08-05T09:15:08Z",
+      "snippet": "> @pelya1986 and @TimKras\r\n> \r\n> Works for me now!\r\n> \r\n> VNC Protocol seems to work fine in version 1.76 but didn't in 1.77. After comparing the .exe.config files between the two versions, one line was present in 1.77 that was not in 1.76. The following string was located in Lines 541-543 of the 1.77 config file. I removed those lines and saved config file (made a copy of the file just in case of course), then launched \"MRemoteNG version 1.77\" and the VNC conneciton started working right away f...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6HOLu3",
+      "author": "Kvarkas",
+      "date": "2024-08-05T09:43:16Z",
+      "snippet": "Traveling now with limited access to internet, but should be looking into a bit later this week\r\n> FYI because of this issue #2019 I need to upgrade to fix this vulnerability...\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6HQKRr",
+      "author": "Kvarkas",
+      "date": "2024-08-05T14:03:51Z",
+      "snippet": "Something wrong goes there then its build a pointer, need investigate what exactly is happening, will try to fix before NB new release\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6KYDg2",
+      "author": "femarschall",
+      "date": "2024-08-30T15:09:53Z",
+      "snippet": "I used the mRemoteNG.exe.config from v1.76 but it still didn't work",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6ZuTEr",
+      "author": "stommy989",
+      "date": "2025-01-09T02:26:33Z",
+      "snippet": "I've been unable to VNC to a SLES 15 using the default VNC service (TigerVNC) with 1.77.1.27654:\r\n\r\n2025-01-08 09:09:37,745 [1] ERROR - Opening connection failed!\r\nParameter is not valid.\r\n2025-01-08 09:09:37,751 [1] ERROR - Protocol Event Disconnected failed.\r\n{0}\r\nUnable to cast object of type 'VncSharp.RemoteDesktop' to type 'mRemoteNG.Connection.Protocol.ProtocolBase'.\r\n   at mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disconnectedMessage, Nullable`...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6zQC1d",
+      "author": "2PintChristianN",
+      "date": "2025-06-26T06:39:55Z",
+      "snippet": "Running and compiling from git\n\n```\nUnable to cast object of type 'VncSharp.RemoteDesktop' to type 'mRemoteNG.Connection.Protocol.ProtocolBase'.\nat mRemoteNG.Connection.ConnectionInitiator.Prot_Event_Disconnected(Object sender, String disconnectedMessage, Nullable`1 reasonCode)\n```\nOriginate from\n```\n                _vnc.ConnectionLost += VNCEvent_Disconnected;\n```\nIn `VNCEvent_Disconnected` change\n```diff\n-Event_Disconnected(sender, @\"VncSharp Disconnected.\", null);\n+Event_Disconnected(this, @\"...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFOa",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:44:56Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYg9G",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:22Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3, 1.76.20",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:22Z",
+  "unread_comments": 26,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

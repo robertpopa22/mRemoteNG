@@ -1,59 +1,57 @@
-﻿{
-    "number":  2468,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature request: Ability to move full screen RDP session between monitors",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "RDP",
-                   "Improvement required",
-                   "1.77.3"
-               ],
-    "author":  "DavidRobinsonDk",
-    "created_at":  "2023-07-26T20:51:50Z",
-    "github_updated_at":  "2026-02-07T19:54:21Z",
-    "body_snippet":  "Ability to move full screen RDP session between monitors, including the ability to have multiple full screen RDP sessions open at the same time.\r\n\r\n## Expected Behavior\r\nWith mstsc.exe I can \"restore\" the full screen session to a window, move the window to another monitor and go back to full screen.\r\n\r\n## Current Behavior\r\nCurrently I can see no way to do this in mRemoteNG.\r\nIf I \"restore\" a full screen RDP session in mRemoteNG, it gets put in in tab.\r\nA tabbed window goes to full screen on the ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5jDDVd",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "thanks, will have a look",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-08-02T08:29:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6Okq2m",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would really like to have this feature. Every day I turn off my monitors and the RDP windows move to my main monitor. I have to disconnect, move mRemoteNG to the second monitor, and reconnect, which is a bit slow. Sometimes there is a lag for 30 seconds or so before it is usable.",
-                         "author":  "ajw625",
-                         "action_needed":  true,
-                         "date":  "2024-10-03T17:42:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh1f",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:21Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:21Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2468,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature request: Ability to move full screen RDP session between monitors",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "RDP",
+    "Improvement required",
+    "1.77.3"
+  ],
+  "author": "DavidRobinsonDk",
+  "created_at": "2023-07-26T20:51:50Z",
+  "github_updated_at": "2026-02-07T19:54:21Z",
+  "body_snippet": "Ability to move full screen RDP session between monitors, including the ability to have multiple full screen RDP sessions open at the same time.\r\n\r\n## Expected Behavior\r\nWith mstsc.exe I can \"restore\" the full screen session to a window, move the window to another monitor and go back to full screen.\r\n\r\n## Current Behavior\r\nCurrently I can see no way to do this in mRemoteNG.\r\nIf I \"restore\" a full screen RDP session in mRemoteNG, it gets put in in tab.\r\nA tabbed window goes to full screen on the ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5jDDVd",
+      "author": "Kvarkas",
+      "date": "2023-08-02T08:29:20Z",
+      "snippet": "thanks, will have a look",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6Okq2m",
+      "author": "ajw625",
+      "date": "2024-10-03T17:42:56Z",
+      "snippet": "I would really like to have this feature. Every day I turn off my monitors and the RDP windows move to my main monitor. I have to disconnect, move mRemoteNG to the second monitor, and reconnect, which is a bit slow. Sometimes there is a lag for 30 seconds or so before it is usable.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh1f",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:21Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:21Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

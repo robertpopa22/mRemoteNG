@@ -1,121 +1,119 @@
-﻿{
-    "number":  1577,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Unable to Copy/Paste to and from RDP sessions launched via Quick Connect toolbar",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Request For Comment",
-                   "Need 2 check"
-               ],
-    "author":  "phatman81",
-    "created_at":  "2019-09-12T20:27:24Z",
-    "github_updated_at":  "2026-02-07T16:47:17Z",
-    "body_snippet":  "mRemoteNG Version 1.77.0.41252\r\n\r\nI was able to resolve my copy/paste issues with VM\u0027s launched from the connection bar, per the information found online [RE: editing the connection files and enabling it]. I can\u0027t however find a way to enable copy/paste for VM\u0027s I launch for RDP from the quick connection bar. \r\n\r\n## Expected Behavior\r\nCopy/Paste always work, regardless of where it is launched from\r\n\r\n## Current Behavior\r\ninability to copy/paste to anything launched from the Quick Connect bar\r\n\r\n...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNDQwMDY4Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "File to modify: mRemoteNG.settings\r\nLine to modify: (near to) 173\r\n\r\nValue to modify; default: \"False\", set it to \"True\"\r\n\u003c setting name=\"ConDefaultRedirectClipboard\"\u003eTrue\u003c/setting \u003e\r\n\r\nTested on Windows 10 Host, Version 1.77.0.41307\r\n",
-                         "author":  "frankenzipfel",
-                         "action_needed":  true,
-                         "date":  "2019-09-24T05:52:36Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNTE2NTg1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Clipboard sharing could potentially introduce security issues.\r\n\r\n\u003e MicrosoftΓÇÖs clipboard sharing channel supports several data formats such as CF_HDROP that is responsible for the ΓÇ£Copy \u0026 PasteΓÇ¥ feature. When used, it allows to simply copy a group of files from one computer to the other. If the client itself fails to prevent malicious files from entering his computer via this feature, he could be vulnerable to a path traversal attack. The server can then drop malicious files in arbitrary ...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-09-25T19:03:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNTE2NjcwMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We could implement a dummy connection under the root connection node where users are able to setup what connection properties should be used, when using the quick connect feature.",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-09-25T19:05:12Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU0MjY2NzgyNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just to chime in - at my place of work this is considered an okay practice and its an important part of my job. It set me back quite a bit when this was surprisingly changed.\r\n\r\nAlso when I updated from my previous version to this version, ALL of my connections was changed. I had to go into my connection file and do a manual find and replace. \r\n\r\nAlthough I do agree it should be decided on by the end user, I do think there should be an option for people like me. But most companies will disable R...",
-                         "author":  "alexander7567",
-                         "action_needed":  true,
-                         "date":  "2019-10-16T12:06:07Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU0MjcyODI1Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Currently, the default connect properties are used when creating a quick connect connection. That is why @frankenzipfel\u0027s suggestion works - it manually modifies the redirect clipboard setting for the default connection.\r\n\r\nYou can change these settings from within the app here:\r\n![image](https://user-images.githubusercontent.com/6999446/66927145-eab06c00-eff4-11e9-92ad-57d0c813e854.png)\r\n\r\nI think this is how it has always worked, though I don\u0027t expect many people know about this. When I was lo...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-10-16T14:26:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU0Mjc5NjkyOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Created documentation for default connection properties (https://mremoteng.readthedocs.io/en/latest/user_interface/default_connection_properties.html) and updated the quick connection documentation to mention how to configure them (https://mremoteng.readthedocs.io/en/latest/user_interface/quick_connect.html).",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-10-16T17:00:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM49ewIW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I guess this is caused by #1968, which relates to #975",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-02-07T13:30:01Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5ppJuK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I added the following lines:\r\n\u003c /setting\u003e\r\n\u003c setting name=\"ConDefaultRedirectClipboard\" serializeAs=\"String\"\u003e\r\n      \u003c value\u003eTrue\u003c /value\u003e\r\n\r\n(Remove the whitespaces after \u003c ) \r\n\r\nin:\r\nC:\\Users\\USERNAME\\AppData\\Local\\mRemoteNG\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.32358\\user.config\r\n\r\nRestart mRemoteNG\r\nAnd copy paste is working when you connect via the Quick Connect tab, tested on Windows Server 2019.",
-                         "author":  "zvechino",
-                         "action_needed":  true,
-                         "date":  "2023-10-20T09:30:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5pqJPc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I added the following lines: \u003c /setting\u003e \u003c setting name=\"ConDefaultRedirectClipboard\" serializeAs=\"String\"\u003e \u003c value\u003eTrue\u003c /value\u003e\r\n\u003e \r\n\u003e (Remove the whitespaces after \u003c )\r\n\u003e \r\n\u003e in: C:\\Users\\USERNAME\\AppData\\Local\\mRemoteNG\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.32358\\user.config\r\n\u003e \r\n\u003e Restart mRemoteNG And copy paste is working when you connect via the Quick Connect tab, tested on Windows Server 2019.\r\n\r\nis that not accessible from normal menu on connection? \r\n![image](htt...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-10-20T12:31:26Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXF3r",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:17Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:47:17Z",
-    "unread_comments":  9,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1577,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Unable to Copy/Paste to and from RDP sessions launched via Quick Connect toolbar",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Request For Comment",
+    "Need 2 check"
+  ],
+  "author": "phatman81",
+  "created_at": "2019-09-12T20:27:24Z",
+  "github_updated_at": "2026-02-07T16:47:17Z",
+  "body_snippet": "mRemoteNG Version 1.77.0.41252\r\n\r\nI was able to resolve my copy/paste issues with VM's launched from the connection bar, per the information found online [RE: editing the connection files and enabling it]. I can't however find a way to enable copy/paste for VM's I launch for RDP from the quick connection bar. \r\n\r\n## Expected Behavior\r\nCopy/Paste always work, regardless of where it is launched from\r\n\r\n## Current Behavior\r\ninability to copy/paste to anything launched from the Quick Connect bar\r\n\r\n...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNDQwMDY4Nw==",
+      "author": "frankenzipfel",
+      "date": "2019-09-24T05:52:36Z",
+      "snippet": "File to modify: mRemoteNG.settings\r\nLine to modify: (near to) 173\r\n\r\nValue to modify; default: \"False\", set it to \"True\"\r\n< setting name=\"ConDefaultRedirectClipboard\">True</setting >\r\n\r\nTested on Windows 10 Host, Version 1.77.0.41307\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNTE2NTg1Ng==",
+      "author": "farosch",
+      "date": "2019-09-25T19:03:01Z",
+      "snippet": "Clipboard sharing could potentially introduce security issues.\r\n\r\n> Microsoft’s clipboard sharing channel supports several data formats such as CF_HDROP that is responsible for the “Copy & Paste” feature. When used, it allows to simply copy a group of files from one computer to the other. If the client itself fails to prevent malicious files from entering his computer via this feature, he could be vulnerable to a path traversal attack. The server can then drop malicious files in arbitrary paths ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNTE2NjcwMw==",
+      "author": "farosch",
+      "date": "2019-09-25T19:05:12Z",
+      "snippet": "We could implement a dummy connection under the root connection node where users are able to setup what connection properties should be used, when using the quick connect feature.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0MjY2NzgyNQ==",
+      "author": "alexander7567",
+      "date": "2019-10-16T12:06:07Z",
+      "snippet": "Just to chime in - at my place of work this is considered an okay practice and its an important part of my job. It set me back quite a bit when this was surprisingly changed.\r\n\r\nAlso when I updated from my previous version to this version, ALL of my connections was changed. I had to go into my connection file and do a manual find and replace. \r\n\r\nAlthough I do agree it should be decided on by the end user, I do think there should be an option for people like me. But most companies will disable R...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0MjcyODI1Mg==",
+      "author": "sparerd",
+      "date": "2019-10-16T14:26:37Z",
+      "snippet": "Currently, the default connect properties are used when creating a quick connect connection. That is why @frankenzipfel's suggestion works - it manually modifies the redirect clipboard setting for the default connection.\r\n\r\nYou can change these settings from within the app here:\r\n![image](https://user-images.githubusercontent.com/6999446/66927145-eab06c00-eff4-11e9-92ad-57d0c813e854.png)\r\n\r\nI think this is how it has always worked, though I don't expect many people know about this. When I was lo...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU0Mjc5NjkyOQ==",
+      "author": "sparerd",
+      "date": "2019-10-16T17:00:09Z",
+      "snippet": "Created documentation for default connection properties (https://mremoteng.readthedocs.io/en/latest/user_interface/default_connection_properties.html) and updated the quick connection documentation to mention how to configure them (https://mremoteng.readthedocs.io/en/latest/user_interface/quick_connect.html).",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM49ewIW",
+      "author": "simonai1254",
+      "date": "2022-02-07T13:30:01Z",
+      "snippet": "I guess this is caused by #1968, which relates to #975",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5ppJuK",
+      "author": "zvechino",
+      "date": "2023-10-20T09:30:36Z",
+      "snippet": "I added the following lines:\r\n< /setting>\r\n< setting name=\"ConDefaultRedirectClipboard\" serializeAs=\"String\">\r\n      < value>True< /value>\r\n\r\n(Remove the whitespaces after < ) \r\n\r\nin:\r\nC:\\Users\\USERNAME\\AppData\\Local\\mRemoteNG\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.32358\\user.config\r\n\r\nRestart mRemoteNG\r\nAnd copy paste is working when you connect via the Quick Connect tab, tested on Windows Server 2019.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5pqJPc",
+      "author": "Kvarkas",
+      "date": "2023-10-20T12:31:26Z",
+      "snippet": "> I added the following lines: < /setting> < setting name=\"ConDefaultRedirectClipboard\" serializeAs=\"String\"> < value>True< /value>\r\n> \r\n> (Remove the whitespaces after < )\r\n> \r\n> in: C:\\Users\\USERNAME\\AppData\\Local\\mRemoteNG\\mRemoteNG.exe_Url_pjpxdehxpaaorqg2thmuhl11a34i3ave\\1.77.1.32358\\user.config\r\n> \r\n> Restart mRemoteNG And copy paste is working when you connect via the Quick Connect tab, tested on Windows Server 2019.\r\n\r\nis that not accessible from normal menu on connection? \r\n![image](htt...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXF3r",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:17Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:47:17Z",
+  "unread_comments": 9,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

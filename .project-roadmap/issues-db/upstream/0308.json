@@ -1,212 +1,210 @@
-﻿{
-    "number":  308,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Spread the Joy of mRemoteNG to Mac and Mobile",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Ready",
-                   "Help Wanted",
-                   "1.8 (Fenix)"
-               ],
-    "author":  "KenKodz",
-    "created_at":  "2016-12-09T21:42:00Z",
-    "github_updated_at":  "2026-02-07T19:23:37Z",
-    "body_snippet":  "\u003c!-- Feature Request --\u003e\r\nWith the decision to use C# and to decouple the code base, it would be awesome to use Xamarin to make the renewed interest in mRemoteNG available to Mac OS and Mobile app platforms. \r\n\r\nI have been looking into using Xamarin for some upcoming cross platform projects but have no personal experience actually using it. However, if no one else is interested/able to do this feature request, I will try to make the time to start working on it (after the code base has stabilize...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NjEzNjAyNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This would be great. One of the greatest weaknesses of the project is that\nit is Windows only.\n\nOn Dec 9, 2016 2:42 PM, \"Ken Lewis\" \u003cnotifications@github.com\u003e wrote:\n\n\u003e With the decision to use C# and to decouple the code base, it would be\n\u003e awesome to use Xamarin to make the renewed interest in mRemoteNG available\n\u003e to Mac OS and Mobile app platforms.\n\u003e\n\u003e I have been looking into using Xamarin for some upcoming cross platform\n\u003e projects but have no personal experience actually using it. However...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2016-12-09T22:05:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NjEzNzc3Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I know of a number of users on Linux that would like this as well... I might finally make the switch to Linux as my main desktop if I could get mRemoteNG built and stable on it...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2016-12-09T22:13:49Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI2NjM4NjI3Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1 about the Linux support. \r\n\r\ncurrently mRemoteNG is one of 2 apps that keeps me from migrating my work laptop to Linux. So sure that would be nice to see that transition. Though I am curious to see how the implementation of e.g. RDP and ssh could be unified across the platforms, or if it should be unified at all.",
-                         "author":  "TheLeftMoose",
-                         "action_needed":  true,
-                         "date":  "2016-12-12T09:54:22Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NjYxMzQ2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I just swapped to Ubuntu 16.10 as my main OS but I have to keep a Win10 VirtualBox running for the few apps that require Windows. With that said, I don\u0027t see why this couldn\u0027t be ported to Linux as well.\r\n\r\nMy main concern would be how we would go about keeping the core code the same and stable for all the platforms while also having an easy to compile wrapper for each platform. (I say \"we\" like I\u0027ve done more than write out a couple of ideas. SMH)\r\n",
-                         "author":  "KenKodz",
-                         "action_needed":  true,
-                         "date":  "2017-03-15T01:28:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4Njg2NjQwNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@KenLewis The good news is with .NET Core, mono and Xamarin Studio, building and running on Linux (and MacOS) is more possible than it was years ago... I did start to test this a while ago, but it was very unstable. In addition, it\u0027s unclear at this time if RDP will even work with the code as is since it requires the MS RDP client. It\u0027s very likely that additional code and/or components will be needed for this. The same goes for putty/ssh - it seems a bit inefficient to use putty when native ssh...",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-03-15T20:20:26Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzI3MDQ3NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  ".NET Core is great, but the problem is it doesn\u0027t have any UI libraries.  With Xamarin I think you can build a single multi-platform UI but you will be limited to UWP (universal win platform / aka Store apps) for Windows. \r\n\r\nI believe with .NET Core you can reference old-school .NET assemblies System.Windows (WPF) or System.Windows.Forms (WinForms) then build that out separately for Windows, and use the Mono GTK implementation (whatever it\u0027s called) for Linux.  In this case, you would obviously...",
-                         "author":  "aplocher",
-                         "action_needed":  true,
-                         "date":  "2017-03-17T05:28:10Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI4NzM2MjQxNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "On the UI side, we are going to be making some design changes over the next few versions to separate the UI code from the core app logic. This will take care of one of the big hurdles we have for including a Linux build. We\u0027ll probably end up going with 2 UI projects, but we haven\u0027t really discussed things that far yet.\r\n\r\nGood discussion points, everyone.",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-03-17T14:05:11Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI5MDI2OTA4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "mRemote is the only software that keeps me from completely moving to MAC for work. I have my personal MAC and a PC for work, really willing to change to mac for work as well.",
-                         "author":  "victorjfuenmayor",
-                         "action_needed":  true,
-                         "date":  "2017-03-30T00:48:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NDUwNzQwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Same here, mRemoteNG is one of the main reasons I have not switched to Linux or MAC! Any news on this?\r\nThanks for mRemote, it is an extremely helpful tool!  ",
-                         "author":  "texanerinbayern",
-                         "action_needed":  true,
-                         "date":  "2018-03-20T08:00:01Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3NDYwODA5Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would love to have this, but it is unfortunately still a long ways off. Here is the high level overview of what needs to happen:\r\n\r\n1. UI and core business logic must be split into separate assemblies. This is something I was planning on starting in the next major release (1.77). This will be a long process. I have been doing some work to remove `static` methods and classes as much as possible and this has uncovered a few very hairy circular dependencies that involve UI classes.\r\n1. The librar...",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-03-20T14:00:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzNDUzOTMyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This cross platform open source ui project might be an interesting option:\n\nhttp://avaloniaui.net\n\n- Win/nix/ios/android\n- Xaml based with some css like qualities\n- open source\n- still in beta, but seems to be actively developed",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-10-31T02:30:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQzNDgyOTUwNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Another option that might be less work to implement than Avalonia: https://github.com/picoe/Eto",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2018-10-31T20:07:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ4MDgyMTE3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "donations will stimulate them to support other than windows!",
-                         "author":  "majed17",
-                         "action_needed":  true,
-                         "date":  "2019-04-08T12:59:23Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ5NDExODUyOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "https://github.com/ElectronNET/Electron.NET - Not sure how it would work with libraries but it kind of brings the crossplatform closer to .NET for certain items",
-                         "author":  "nmat",
-                         "action_needed":  true,
-                         "date":  "2019-05-20T19:24:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjUzOTA3Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "depending on the outcome of MAUI we could maybe transition to there through dotnetcore and xamarin? just a wild guess though, haven\u0027t done much to support that statement",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-05-31T22:22:09Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY5MDAxNzk4MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I feel like kickstart or gofund me for this would 100% go viral for all system and network admins on mac and linux. I\u0027m a sys/net admin and recently bought a macbook for work. I\u0027m learning that any software that is even just SSH, Cross Platform (Windows/Linux/MacOS) and has a built in host manager / database would be SecureCRT/RoyalTS(x)/Termius. They all have high licensing fees or they are very limited as a trial. Termius has a free option but kills any proxy you want to use to connect or any ...",
-                         "author":  "tldale",
-                         "action_needed":  true,
-                         "date":  "2020-09-10T06:26:59Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDgwMTEzMTc0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I feel like kickstart or gofund me for this would 100% go viral for all system and network admins on mac and linux. I\u0027m a sys/net admin and recently bought a macbook for work. I\u0027m learning that any software that is even just SSH, Cross Platform (Windows/Linux/MacOS) and has a built in host manager / database would be SecureCRT/RoyalTS(x)/Termius. They all have high licensing fees or they are very limited as a trial. Termius has a free option but kills any proxy you want to use to connect or an...",
-                         "author":  "macsmister",
-                         "action_needed":  true,
-                         "date":  "2021-03-17T14:31:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5GG4X6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Given that .Net MAUI is generally available for a couple of months now - can i recommend that we investigate the work required to migrate to that (its an evolution of Xamarin.Forms in many senses) considering that the work to migrate the base code to .net core 6\r\n\r\nthis would also help the Linux community potentially :)",
-                         "author":  "anthonysomerset",
-                         "action_needed":  true,
-                         "date":  "2022-07-06T13:15:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5SW_Vt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "MAUI still not work properly on Linux so its a bit of tought and its seems not many updates on windows side so I am thinking its dead end same as winUI, however idea to have separated UI is very attractive, i do some experiments and seems javascript on web page works every where - so perhaps we could devide UI and load it in browser and rest will be core app what will acct as headless unit... still thinking how better to implement such. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-01-13T12:00:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYUyF",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:23:37Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:23:37Z",
-    "unread_comments":  19,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 308,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Spread the Joy of mRemoteNG to Mac and Mobile",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Ready",
+    "Help Wanted",
+    "1.8 (Fenix)"
+  ],
+  "author": "KenKodz",
+  "created_at": "2016-12-09T21:42:00Z",
+  "github_updated_at": "2026-02-07T19:23:37Z",
+  "body_snippet": "<!-- Feature Request -->\r\nWith the decision to use C# and to decouple the code base, it would be awesome to use Xamarin to make the renewed interest in mRemoteNG available to Mac OS and Mobile app platforms. \r\n\r\nI have been looking into using Xamarin for some upcoming cross platform projects but have no personal experience actually using it. However, if no one else is interested/able to do this feature request, I will try to make the time to start working on it (after the code base has stabilize...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI2NjEzNjAyNg==",
+      "author": "sparerd",
+      "date": "2016-12-09T22:05:16Z",
+      "snippet": "This would be great. One of the greatest weaknesses of the project is that\nit is Windows only.\n\nOn Dec 9, 2016 2:42 PM, \"Ken Lewis\" <notifications@github.com> wrote:\n\n> With the decision to use C# and to decouple the code base, it would be\n> awesome to use Xamarin to make the renewed interest in mRemoteNG available\n> to Mac OS and Mobile app platforms.\n>\n> I have been looking into using Xamarin for some upcoming cross platform\n> projects but have no personal experience actually using it. However...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI2NjEzNzc3Mg==",
+      "author": "kmscode",
+      "date": "2016-12-09T22:13:49Z",
+      "snippet": "I know of a number of users on Linux that would like this as well... I might finally make the switch to Linux as my main desktop if I could get mRemoteNG built and stable on it...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI2NjM4NjI3Mg==",
+      "author": "TheLeftMoose",
+      "date": "2016-12-12T09:54:22Z",
+      "snippet": "+1 about the Linux support. \r\n\r\ncurrently mRemoteNG is one of 2 apps that keeps me from migrating my work laptop to Linux. So sure that would be nice to see that transition. Though I am curious to see how the implementation of e.g. RDP and ssh could be unified across the platforms, or if it should be unified at all.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NjYxMzQ2Mg==",
+      "author": "KenKodz",
+      "date": "2017-03-15T01:28:45Z",
+      "snippet": "I just swapped to Ubuntu 16.10 as my main OS but I have to keep a Win10 VirtualBox running for the few apps that require Windows. With that said, I don't see why this couldn't be ported to Linux as well.\r\n\r\nMy main concern would be how we would go about keeping the core code the same and stable for all the platforms while also having an easy to compile wrapper for each platform. (I say \"we\" like I've done more than write out a couple of ideas. SMH)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4Njg2NjQwNQ==",
+      "author": "kmscode",
+      "date": "2017-03-15T20:20:26Z",
+      "snippet": "@KenLewis The good news is with .NET Core, mono and Xamarin Studio, building and running on Linux (and MacOS) is more possible than it was years ago... I did start to test this a while ago, but it was very unstable. In addition, it's unclear at this time if RDP will even work with the code as is since it requires the MS RDP client. It's very likely that additional code and/or components will be needed for this. The same goes for putty/ssh - it seems a bit inefficient to use putty when native ssh...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzI3MDQ3NA==",
+      "author": "aplocher",
+      "date": "2017-03-17T05:28:10Z",
+      "snippet": ".NET Core is great, but the problem is it doesn't have any UI libraries.  With Xamarin I think you can build a single multi-platform UI but you will be limited to UWP (universal win platform / aka Store apps) for Windows. \r\n\r\nI believe with .NET Core you can reference old-school .NET assemblies System.Windows (WPF) or System.Windows.Forms (WinForms) then build that out separately for Windows, and use the Mono GTK implementation (whatever it's called) for Linux.  In this case, you would obviously...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI4NzM2MjQxNA==",
+      "author": "sparerd",
+      "date": "2017-03-17T14:05:11Z",
+      "snippet": "On the UI side, we are going to be making some design changes over the next few versions to separate the UI code from the core app logic. This will take care of one of the big hurdles we have for including a Linux build. We'll probably end up going with 2 UI projects, but we haven't really discussed things that far yet.\r\n\r\nGood discussion points, everyone.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI5MDI2OTA4OQ==",
+      "author": "victorjfuenmayor",
+      "date": "2017-03-30T00:48:14Z",
+      "snippet": "mRemote is the only software that keeps me from completely moving to MAC for work. I have my personal MAC and a PC for work, really willing to change to mac for work as well.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3NDUwNzQwNw==",
+      "author": "texanerinbayern",
+      "date": "2018-03-20T08:00:01Z",
+      "snippet": "Same here, mRemoteNG is one of the main reasons I have not switched to Linux or MAC! Any news on this?\r\nThanks for mRemote, it is an extremely helpful tool!  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3NDYwODA5Ng==",
+      "author": "sparerd",
+      "date": "2018-03-20T14:00:34Z",
+      "snippet": "I would love to have this, but it is unfortunately still a long ways off. Here is the high level overview of what needs to happen:\r\n\r\n1. UI and core business logic must be split into separate assemblies. This is something I was planning on starting in the next major release (1.77). This will be a long process. I have been doing some work to remove `static` methods and classes as much as possible and this has uncovered a few very hairy circular dependencies that involve UI classes.\r\n1. The librar...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzNDUzOTMyNA==",
+      "author": "sparerd",
+      "date": "2018-10-31T02:30:03Z",
+      "snippet": "This cross platform open source ui project might be an interesting option:\n\nhttp://avaloniaui.net\n\n- Win/nix/ios/android\n- Xaml based with some css like qualities\n- open source\n- still in beta, but seems to be actively developed",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQzNDgyOTUwNg==",
+      "author": "sparerd",
+      "date": "2018-10-31T20:07:05Z",
+      "snippet": "Another option that might be less work to implement than Avalonia: https://github.com/picoe/Eto",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ4MDgyMTE3Ng==",
+      "author": "majed17",
+      "date": "2019-04-08T12:59:23Z",
+      "snippet": "donations will stimulate them to support other than windows!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ5NDExODUyOA==",
+      "author": "nmat",
+      "date": "2019-05-20T19:24:48Z",
+      "snippet": "https://github.com/ElectronNET/Electron.NET - Not sure how it would work with libraries but it kind of brings the crossplatform closer to .NET for certain items",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNjUzOTA3Ng==",
+      "author": "farosch",
+      "date": "2020-05-31T22:22:09Z",
+      "snippet": "depending on the outcome of MAUI we could maybe transition to there through dotnetcore and xamarin? just a wild guess though, haven't done much to support that statement",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY5MDAxNzk4MA==",
+      "author": "tldale",
+      "date": "2020-09-10T06:26:59Z",
+      "snippet": "I feel like kickstart or gofund me for this would 100% go viral for all system and network admins on mac and linux. I'm a sys/net admin and recently bought a macbook for work. I'm learning that any software that is even just SSH, Cross Platform (Windows/Linux/MacOS) and has a built in host manager / database would be SecureCRT/RoyalTS(x)/Termius. They all have high licensing fees or they are very limited as a trial. Termius has a free option but kills any proxy you want to use to connect or any ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDgwMTEzMTc0NA==",
+      "author": "macsmister",
+      "date": "2021-03-17T14:31:02Z",
+      "snippet": "> I feel like kickstart or gofund me for this would 100% go viral for all system and network admins on mac and linux. I'm a sys/net admin and recently bought a macbook for work. I'm learning that any software that is even just SSH, Cross Platform (Windows/Linux/MacOS) and has a built in host manager / database would be SecureCRT/RoyalTS(x)/Termius. They all have high licensing fees or they are very limited as a trial. Termius has a free option but kills any proxy you want to use to connect or an...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5GG4X6",
+      "author": "anthonysomerset",
+      "date": "2022-07-06T13:15:02Z",
+      "snippet": "Given that .Net MAUI is generally available for a couple of months now - can i recommend that we investigate the work required to migrate to that (its an evolution of Xamarin.Forms in many senses) considering that the work to migrate the base code to .net core 6\r\n\r\nthis would also help the Linux community potentially :)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5SW_Vt",
+      "author": "Kvarkas",
+      "date": "2023-01-13T12:00:34Z",
+      "snippet": "MAUI still not work properly on Linux so its a bit of tought and its seems not many updates on windows side so I am thinking its dead end same as winUI, however idea to have separated UI is very attractive, i do some experiments and seems javascript on web page works every where - so perhaps we could devide UI and load it in browser and rest will be core app what will acct as headless unit... still thinking how better to implement such. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYUyF",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:23:37Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:23:37Z",
+  "unread_comments": 19,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

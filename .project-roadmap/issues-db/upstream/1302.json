@@ -1,92 +1,90 @@
-﻿{
-    "number":  1302,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Add \"Connect With Credentials\" option",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "declanmarks",
-    "created_at":  "2019-02-07T13:09:41Z",
-    "github_updated_at":  "2021-12-13T21:18:58Z",
-    "body_snippet":  "A new feature that would be very handy is the ability to assign multiple credentials to a single connection. That way when you connect you can select which credential that you want to use. We have multiple server that can be connected using different credentials and the only way that this can be done at the moment is having a separate connection per credentials. This is very annoying, especially for someone who has moved from RDCMan.",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTQyODEwMA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@sparerd Will this be possible with the cred mgr changes?",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T13:55:45Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTQzMzk3NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I don\u0027t know. What is cred mgr changes.",
-                         "author":  "declanmarks",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T14:11:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MTU0MTkyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "We could add a new special `Connect` context menu item that lists the available credentials to use.\r\n\r\n`Connect (with options)` -\u003e `Connect using credentials...` -\u003e (list of loaded credentials)",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-02-07T18:26:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2MjAzMjQ2OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes. This would be an acceptable solution.",
-                         "author":  "",
-                         "action_needed":  true,
-                         "date":  "2019-02-09T10:25:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQ2NjAwNzExMw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This should be relatively easy to add in for v1.77",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2019-02-21T13:53:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU2MjY3Njc0MA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Has this feature been added? ",
-                         "author":  "greedj",
-                         "action_needed":  true,
-                         "date":  "2019-12-06T18:01:48Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM47Lr04",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would use this, as well. My own use case is below, hope this is helpful.\r\n\r\n1. I have many Connections (10+), and\r\n2. Some of those servers that the Connections point to, have several (e.g.: 5) sets of credentials which I may need to choose from depending on the situation. \r\n\r\nSo,\r\n\r\n1. In cases where the logins are domain-based, I could certainly take a top-down approach and save the credentials to a parent folder.\r\n2. In cases where I use a local user, though, I would prefer to save a list (...",
-                         "author":  "pem884",
-                         "action_needed":  true,
-                         "date":  "2021-12-13T21:17:51Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-12-13T21:18:58Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1302,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Add \"Connect With Credentials\" option",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "declanmarks",
+  "created_at": "2019-02-07T13:09:41Z",
+  "github_updated_at": "2021-12-13T21:18:58Z",
+  "body_snippet": "A new feature that would be very handy is the ability to assign multiple credentials to a single connection. That way when you connect you can select which credential that you want to use. We have multiple server that can be connected using different credentials and the only way that this can be done at the moment is having a separate connection per credentials. This is very annoying, especially for someone who has moved from RDCMan.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTQyODEwMA==",
+      "author": "kmscode",
+      "date": "2019-02-07T13:55:45Z",
+      "snippet": "@sparerd Will this be possible with the cred mgr changes?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTQzMzk3NA==",
+      "author": "declanmarks",
+      "date": "2019-02-07T14:11:16Z",
+      "snippet": "I don't know. What is cred mgr changes.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTU0MTkyNw==",
+      "author": "sparerd",
+      "date": "2019-02-07T18:26:14Z",
+      "snippet": "We could add a new special `Connect` context menu item that lists the available credentials to use.\r\n\r\n`Connect (with options)` -> `Connect using credentials...` -> (list of loaded credentials)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MjAzMjQ2OQ==",
+      "author": "",
+      "date": "2019-02-09T10:25:38Z",
+      "snippet": "Yes. This would be an acceptable solution.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2NjAwNzExMw==",
+      "author": "sparerd",
+      "date": "2019-02-21T13:53:05Z",
+      "snippet": "This should be relatively easy to add in for v1.77",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU2MjY3Njc0MA==",
+      "author": "greedj",
+      "date": "2019-12-06T18:01:48Z",
+      "snippet": "Has this feature been added? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM47Lr04",
+      "author": "pem884",
+      "date": "2021-12-13T21:17:51Z",
+      "snippet": "I would use this, as well. My own use case is below, hope this is helpful.\r\n\r\n1. I have many Connections (10+), and\r\n2. Some of those servers that the Connections point to, have several (e.g.: 5) sets of credentials which I may need to choose from depending on the situation. \r\n\r\nSo,\r\n\r\n1. In cases where the logins are domain-based, I could certainly take a top-down approach and save the credentials to a parent folder.\r\n2. In cases where I use a local user, though, I would prefer to save a list (...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-12-13T21:18:58Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

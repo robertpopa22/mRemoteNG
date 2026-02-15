@@ -1,103 +1,101 @@
-﻿{
-    "number":  2201,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Process to make local drives available by default while using mRemoteng utility to remote desktop into Win Servers ",
-    "state":  "open",
-    "labels":  [
-                   "In development",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "ee1242",
-    "created_at":  "2022-04-14T17:27:23Z",
-    "github_updated_at":  "2026-02-07T19:52:43Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\nMy organization uses the mRemoteng utility to remote destkop into Windows servers.\r\n\r\nThe homepage for this utility is https://mremoteng.org/.\r\n\r\nThe drives on the computer that is using the mRemoteng computer can be made available within the Remote Desktop session on the Windows servers or workstations that are being remote desktopped into by navigating to the Config section, selecting Disk Drives, and changing this option t...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5BiI5h",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "that will be available in next release with user/connection profiles",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-04-14T17:52:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5BiJkv",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "What is the expected date for the next release of mRemoteng?\r\n\r\nI wasn\u0027t aware that this program was still being updated.",
-                         "author":  "ee1242",
-                         "action_needed":  true,
-                         "date":  "2022-04-14T17:56:35Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5BiRGg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am new maintainer, but mostly working alone so its depends... current build in development 1.77.3, from the page you may see nb release as well (https://mremoteng.org/download) currently reorganizing settings blocks to be able implement rbac, hoping release nb this weekend but it will be more for test that for work.\r\nHowever may fit your needs, also thinking to implement attributes then with run you may override default settings e.g. mremoteng.exe /RedirectDiskDrives=true but not yet started (...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-04-14T18:23:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5BihhU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Why not just use the default settings + inheritance? This feature is already available in all versions.",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-04-14T19:51:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Bip4f",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "What are the exact steps to do what you have described?",
-                         "author":  "ee1242",
-                         "action_needed":  true,
-                         "date":  "2022-04-14T20:41:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5BjzBz",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "IΓÇÿm not in the office for some days. But you can check the docs\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/user_interface/default_connection_properties.html\r\nand\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/folders_and_inheritance.html\r\n",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-04-15T06:57:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI9W",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhVL",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:43Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:43Z",
-    "unread_comments":  6,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2201,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Process to make local drives available by default while using mRemoteng utility to remote desktop into Win Servers ",
+  "state": "open",
+  "labels": [
+    "In development",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "ee1242",
+  "created_at": "2022-04-14T17:27:23Z",
+  "github_updated_at": "2026-02-07T19:52:43Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nMy organization uses the mRemoteng utility to remote destkop into Windows servers.\r\n\r\nThe homepage for this utility is https://mremoteng.org/.\r\n\r\nThe drives on the computer that is using the mRemoteng computer can be made available within the Remote Desktop session on the Windows servers or workstations that are being remote desktopped into by navigating to the Config section, selecting Disk Drives, and changing this option t...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5BiI5h",
+      "author": "Kvarkas",
+      "date": "2022-04-14T17:52:57Z",
+      "snippet": "that will be available in next release with user/connection profiles",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5BiJkv",
+      "author": "ee1242",
+      "date": "2022-04-14T17:56:35Z",
+      "snippet": "What is the expected date for the next release of mRemoteng?\r\n\r\nI wasn't aware that this program was still being updated.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5BiRGg",
+      "author": "Kvarkas",
+      "date": "2022-04-14T18:23:13Z",
+      "snippet": "I am new maintainer, but mostly working alone so its depends... current build in development 1.77.3, from the page you may see nb release as well (https://mremoteng.org/download) currently reorganizing settings blocks to be able implement rbac, hoping release nb this weekend but it will be more for test that for work.\r\nHowever may fit your needs, also thinking to implement attributes then with run you may override default settings e.g. mremoteng.exe /RedirectDiskDrives=true but not yet started (...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5BihhU",
+      "author": "LIyoai",
+      "date": "2022-04-14T19:51:55Z",
+      "snippet": "Why not just use the default settings + inheritance? This feature is already available in all versions.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Bip4f",
+      "author": "ee1242",
+      "date": "2022-04-14T20:41:50Z",
+      "snippet": "What are the exact steps to do what you have described?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5BjzBz",
+      "author": "LIyoai",
+      "date": "2022-04-15T06:57:32Z",
+      "snippet": "I‘m not in the office for some days. But you can check the docs\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/user_interface/default_connection_properties.html\r\nand\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/folders_and_inheritance.html\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI9W",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:33Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhVL",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:43Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:43Z",
+  "unread_comments": 6,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

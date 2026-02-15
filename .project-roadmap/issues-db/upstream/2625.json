@@ -1,122 +1,120 @@
-﻿{
-    "number":  2625,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Not able to RDP to servers if I disconnect and move to another machine and reconnect to the same session",
-    "state":  "open",
-    "labels":  [
-                   "RDP",
-                   "Need 2 check",
-                   "Citrix",
-                   "1.77.3"
-               ],
-    "author":  "ashlee-newton",
-    "created_at":  "2024-08-05T22:18:25Z",
-    "github_updated_at":  "2026-02-07T19:54:27Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\nRDP to servers, disconnect from one machine, reconnect on another machine, and be able to pick back up with RDPing to servers.  \r\n\r\n\r\n## Current Behavior\r\nSigned into a PC on the Citrix server RDP to a few customer servers, disconnect my session, drive home, reconnect my session on a different PC, try to RDP and it will not allow me to.  It just opens a blank white screen until I close out all RDP sessio...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6HWPXN",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I may guess its citrix who don\u0027t want to share session, could you get log files from citrix what is happening?\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-08-06T08:59:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6HbcGp",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Dimitrij,\r\nI may have worded the issue poorly before.  We are running MRemoteNG inside of a Citrix session and then just RDPΓÇÖing to servers using MRemoteNG.\r\n\r\nWe can see if there are any Citrix logs still if you want but we are not sure that it would show anything about APPS running in that Citrix session, possibly only details about how the Citrix session itself is running.  Let me know if you do still want the Citrix logs.\r\nThanks Ashlee\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Speciali...",
-                         "author":  "ashlee-newton",
-                         "action_needed":  true,
-                         "date":  "2024-08-06T20:44:18Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6Hby0N",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, mR uses standard windows protocol without any modification to it, so technically I don\u0027t see at the moment how this could be an issue from mR side. However question is if you open an rdp by mstsc for example on same citrix box, is it stay alive or have same symptoms? ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-08-06T21:48:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6H_SUc",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Once a RDP session times out (e.g. missing network connectivity due to sleep), mRemoteNG closes the RDP session instead of keeping the tab with the remark \"disconnected\" unlike it does with SSH/Putty. \r\nBut I\u0027m not sure how much this can be improved upon within mRemoteNG as I guess the mstsc process exits instead of keeping running. \r\n\r\nThe issue with Citrix is that I assume once a Citrix Session is disconnected, the machine is put into something sleeplike with disabled network connectivity in o...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2024-08-10T12:37:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6IS_Nt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Simon,\r\nExisting RDP connections in MRemoteNG will continue to function after disconnecting and reconnecting to the Citrix session, even when the session moves between two different devices.\r\n\r\nThe only thing that doesn\u0027t work is initiating a new RDP connection when moving the session between two devices. However, new RDP connections DO work if we disconnect and reconnect the Citrix session while keeping the session on the same device.\r\n\r\nInitiating an RDP connection OUTSIDE of MRemoteNG does...",
-                         "author":  "ashlee-newton",
-                         "action_needed":  true,
-                         "date":  "2024-08-13T16:41:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6IZjMg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Ashlee\r\n\r\nThanks for the clarifications, I think I now at least understand your issue. As I don\u0027t have the infrastructure to replicate the issue, but would like to help narrow it down:\r\n\r\n- Once reconnected with Citrix, does trying to open a new RDP connection in mRemoteNG result in any error messages in the notification panel (by default found at the bottom of the window) or is it empty? Or is there just a blank screen and nothing happens?\r\n- Is it only RDP which stops working after the reco...",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2024-08-14T10:30:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6I7jp3",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Simon,\r\nFor your first bullet point, sometimes it will error pretty quickly, other times it will sit on the Connecting screen for an extended period of time (2+ minutes, never seen how long it will actually go).\r\n***@***.***\r\n\r\nFor the second bullet point, we do not really use any other protocols in it, that would be something we need to test.\r\n\r\nI am attaching the log file from when we know he got the error.\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Specialist\r\nDallas, TX\r\n(972) 262-5200 Dir...",
-                         "author":  "ashlee-newton",
-                         "action_needed":  true,
-                         "date":  "2024-08-19T19:43:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6LK0Sa",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi Simon,\r\nI just wanted to follow up to see if there was anything found I the log file we sent over that can help.\r\nThanks Ashlee\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Specialist\r\nDallas, TX\r\n(972) 262-5200 Direct\r\n\r\n[CyberlinkASP]\u003chttp://www.cyberlinkasp.com\u003e\r\n\r\n24/7 Technical Support\r\n(972) 262-5200\r\n***@***.******@***.***\u003e\r\n\r\nThe legal stuff:\r\n\r\nThis e-mail is intended only for the addressee named above. It contains information that is privileged, confidential or otherwise protected from...",
-                         "author":  "ashlee-newton",
-                         "action_needed":  true,
-                         "date":  "2024-09-06T22:03:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYRQV",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "P2 refresh: please retest on latest build and share reproducible steps plus logs/screenshots. If not reproducible or no update, maintainers can close as stale.\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:13:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh5v",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:27Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2625,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Not able to RDP to servers if I disconnect and move to another machine and reconnect to the same session",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Need 2 check",
+    "Citrix",
+    "1.77.3"
+  ],
+  "author": "ashlee-newton",
+  "created_at": "2024-08-05T22:18:25Z",
+  "github_updated_at": "2026-02-07T19:54:27Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nRDP to servers, disconnect from one machine, reconnect on another machine, and be able to pick back up with RDPing to servers.  \r\n\r\n\r\n## Current Behavior\r\nSigned into a PC on the Citrix server RDP to a few customer servers, disconnect my session, drive home, reconnect my session on a different PC, try to RDP and it will not allow me to.  It just opens a blank white screen until I close out all RDP sessio...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6HWPXN",
+      "author": "Kvarkas",
+      "date": "2024-08-06T08:59:36Z",
+      "snippet": "I may guess its citrix who don't want to share session, could you get log files from citrix what is happening?\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6HbcGp",
+      "author": "ashlee-newton",
+      "date": "2024-08-06T20:44:18Z",
+      "snippet": "Hi Dimitrij,\r\nI may have worded the issue poorly before.  We are running MRemoteNG inside of a Citrix session and then just RDP’ing to servers using MRemoteNG.\r\n\r\nWe can see if there are any Citrix logs still if you want but we are not sure that it would show anything about APPS running in that Citrix session, possibly only details about how the Citrix session itself is running.  Let me know if you do still want the Citrix logs.\r\nThanks Ashlee\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Specialist...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6Hby0N",
+      "author": "Kvarkas",
+      "date": "2024-08-06T21:48:59Z",
+      "snippet": "Hello, mR uses standard windows protocol without any modification to it, so technically I don't see at the moment how this could be an issue from mR side. However question is if you open an rdp by mstsc for example on same citrix box, is it stay alive or have same symptoms? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6H_SUc",
+      "author": "simonai1254",
+      "date": "2024-08-10T12:37:45Z",
+      "snippet": "Once a RDP session times out (e.g. missing network connectivity due to sleep), mRemoteNG closes the RDP session instead of keeping the tab with the remark \"disconnected\" unlike it does with SSH/Putty. \r\nBut I'm not sure how much this can be improved upon within mRemoteNG as I guess the mstsc process exits instead of keeping running. \r\n\r\nThe issue with Citrix is that I assume once a Citrix Session is disconnected, the machine is put into something sleeplike with disabled network connectivity in o...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6IS_Nt",
+      "author": "ashlee-newton",
+      "date": "2024-08-13T16:41:58Z",
+      "snippet": "Hi Simon,\r\nExisting RDP connections in MRemoteNG will continue to function after disconnecting and reconnecting to the Citrix session, even when the session moves between two different devices.\r\n\r\nThe only thing that doesn't work is initiating a new RDP connection when moving the session between two devices. However, new RDP connections DO work if we disconnect and reconnect the Citrix session while keeping the session on the same device.\r\n\r\nInitiating an RDP connection OUTSIDE of MRemoteNG does...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6IZjMg",
+      "author": "simonai1254",
+      "date": "2024-08-14T10:30:32Z",
+      "snippet": "Hi Ashlee\r\n\r\nThanks for the clarifications, I think I now at least understand your issue. As I don't have the infrastructure to replicate the issue, but would like to help narrow it down:\r\n\r\n- Once reconnected with Citrix, does trying to open a new RDP connection in mRemoteNG result in any error messages in the notification panel (by default found at the bottom of the window) or is it empty? Or is there just a blank screen and nothing happens?\r\n- Is it only RDP which stops working after the reco...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6I7jp3",
+      "author": "ashlee-newton",
+      "date": "2024-08-19T19:43:00Z",
+      "snippet": "Hi Simon,\r\nFor your first bullet point, sometimes it will error pretty quickly, other times it will sit on the Connecting screen for an extended period of time (2+ minutes, never seen how long it will actually go).\r\n***@***.***\r\n\r\nFor the second bullet point, we do not really use any other protocols in it, that would be something we need to test.\r\n\r\nI am attaching the log file from when we know he got the error.\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Specialist\r\nDallas, TX\r\n(972) 262-5200 Dir...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6LK0Sa",
+      "author": "ashlee-newton",
+      "date": "2024-09-06T22:03:39Z",
+      "snippet": "Hi Simon,\r\nI just wanted to follow up to see if there was anything found I the log file we sent over that can help.\r\nThanks Ashlee\r\n\r\n\r\n\r\n\r\nAshlee Newton\r\nTechnical Project Specialist\r\nDallas, TX\r\n(972) 262-5200 Direct\r\n\r\n[CyberlinkASP]<http://www.cyberlinkasp.com>\r\n\r\n24/7 Technical Support\r\n(972) 262-5200\r\n***@***.******@***.***>\r\n\r\nThe legal stuff:\r\n\r\nThis e-mail is intended only for the addressee named above. It contains information that is privileged, confidential or otherwise protected from...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYRQV",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:13:12Z",
+      "snippet": "P2 refresh: please retest on latest build and share reproducible steps plus logs/screenshots. If not reproducible or no update, maintainers can close as stale.\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh5v",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:27Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:27Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

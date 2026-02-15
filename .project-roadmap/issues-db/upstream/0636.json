@@ -1,30 +1,26 @@
-﻿{
-    "number":  636,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "in VNC when the client is not avalilable apps freezes for 3 minutes.",
-    "state":  "open",
-    "labels":  [
-                   "VNC"
-               ],
-    "author":  "diegoshock",
-    "created_at":  "2017-07-11T17:53:27Z",
-    "github_updated_at":  "2019-09-14T09:41:54Z",
-    "body_snippet":  "\u003c!-- attached image file with error, its takes several minutes to get mRemoteng to work again\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Bug --\u003e\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n![captura](https://user-images.githubusercontent.com/3008596...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2019-09-14T09:41:54Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 636,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "in VNC when the client is not avalilable apps freezes for 3 minutes.",
+  "state": "open",
+  "labels": [
+    "VNC"
+  ],
+  "author": "diegoshock",
+  "created_at": "2017-07-11T17:53:27Z",
+  "github_updated_at": "2019-09-14T09:41:54Z",
+  "body_snippet": "<!-- attached image file with error, its takes several minutes to get mRemoteng to work again\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n![captura](https://user-images.githubusercontent.com/3008596...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2019-09-14T09:41:54Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

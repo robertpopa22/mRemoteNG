@@ -1,74 +1,72 @@
-﻿{
-    "number":  1904,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature Request : Add LAPS (Local Administrative Password Connection) as a connection method for RDP sessions",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request"
-               ],
-    "author":  "ksupan",
-    "created_at":  "2020-11-19T15:10:26Z",
-    "github_updated_at":  "2021-12-01T21:11:58Z",
-    "body_snippet":  "This request is to integrate LAPS (Microsoft\u0027s Local Administrator Password Solution) as an access method, dynamically providing login credentials for administrative access to Windows hosts. This would be a useful and secure method to support administrative access in shops that utilize LAPS. Usage will require that the operator (admin) has appropriate access via domain policy and since LAPS is constantly changing the password, the risk of decrypting stored passwords is minimized.\r\n\r\n## Expected ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDc2MzU0MjcxMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "For what its worth, you can some what achieve this already by using some Powershell scripts.\r\n\r\nBy using \"External Tool Before\" and \"External Tool After\" parameters of a RDP connection, you can execute a PowerShell script which populates your Windows credential store with the LAPS password before connection. Upon connection, mremoteng can read from this credential store and login automatically. Upon disconnection, the credential is automatically deleted.\r\n\r\nbefore.ps1\r\n```powershell\r\nParam (\r\n  ...",
-                         "author":  "trexx",
-                         "action_needed":  true,
-                         "date":  "2021-01-20T11:34:34Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg0NzU4NDAzNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003eUsername, Password, and Domain will become read-only and Username will be populated with \"Administrator\"  \r\n\r\nThat assumes everyone using LAPS uses the username \"Administrator\". LAPS is designed to also support environments with the \"Administrator\" account disabled and an alternate designated local account used. I believe it is still a recommended best practice to disable the \"Administrator\" account and use a less common name in its place.",
-                         "author":  "aglasson",
-                         "action_needed":  true,
-                         "date":  "2021-05-25T06:35:23Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg0NzgzNjA2Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e For what its worth, you can some what achieve this already by using some Powershell scripts.\r\n\u003e \r\n\u003e By using \"External Tool Before\" and \"External Tool After\" parameters of a RDP connection, you can execute a PowerShell script which populates your Windows credential store with the LAPS password before connection. Upon connection, mremoteng can read from this credential store and login automatically. Upon disconnection, the credential is automatically deleted.\r\n\u003e \r\n\u003e before.ps1\r\n\u003e \r\n\u003e ```powersh...",
-                         "author":  "ksupan",
-                         "action_needed":  true,
-                         "date":  "2021-05-25T12:42:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg0Nzg0OTc5NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e That assumes everyone using LAPS uses the username \"Administrator\"\r\n\r\ngood point aglasson! \r\n\r\nA LAPS credential feature for mRemoteNG should accommodate this - perhaps using a configuration property that associates a specific local admin username with a LAPS connection option.\r\n\r\n\r\nAs an aside, my first attempt to utilize LAPS with mRemoteNG was to generate a CSV import file. This works but with 2 significant drawbacks:\r\n- LAPS password changes frequently, rendering credentials obsolete soon ...",
-                         "author":  "ksupan",
-                         "action_needed":  true,
-                         "date":  "2021-05-25T13:02:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM46p4sr",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  " #1789",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2021-12-01T21:11:58Z"
-                     }
-                 ],
-    "comments_cursor":  "2021-12-01T21:11:58Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1904,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature Request : Add LAPS (Local Administrative Password Connection) as a connection method for RDP sessions",
+  "state": "open",
+  "labels": [
+    "Feature Request"
+  ],
+  "author": "ksupan",
+  "created_at": "2020-11-19T15:10:26Z",
+  "github_updated_at": "2021-12-01T21:11:58Z",
+  "body_snippet": "This request is to integrate LAPS (Microsoft's Local Administrator Password Solution) as an access method, dynamically providing login credentials for administrative access to Windows hosts. This would be a useful and secure method to support administrative access in shops that utilize LAPS. Usage will require that the operator (admin) has appropriate access via domain policy and since LAPS is constantly changing the password, the risk of decrypting stored passwords is minimized.\r\n\r\n## Expected ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDc2MzU0MjcxMQ==",
+      "author": "trexx",
+      "date": "2021-01-20T11:34:34Z",
+      "snippet": "For what its worth, you can some what achieve this already by using some Powershell scripts.\r\n\r\nBy using \"External Tool Before\" and \"External Tool After\" parameters of a RDP connection, you can execute a PowerShell script which populates your Windows credential store with the LAPS password before connection. Upon connection, mremoteng can read from this credential store and login automatically. Upon disconnection, the credential is automatically deleted.\r\n\r\nbefore.ps1\r\n```powershell\r\nParam (\r\n  ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzU4NDAzNw==",
+      "author": "aglasson",
+      "date": "2021-05-25T06:35:23Z",
+      "snippet": ">Username, Password, and Domain will become read-only and Username will be populated with \"Administrator\"  \r\n\r\nThat assumes everyone using LAPS uses the username \"Administrator\". LAPS is designed to also support environments with the \"Administrator\" account disabled and an alternate designated local account used. I believe it is still a recommended best practice to disable the \"Administrator\" account and use a less common name in its place.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0NzgzNjA2Ng==",
+      "author": "ksupan",
+      "date": "2021-05-25T12:42:16Z",
+      "snippet": "> For what its worth, you can some what achieve this already by using some Powershell scripts.\r\n> \r\n> By using \"External Tool Before\" and \"External Tool After\" parameters of a RDP connection, you can execute a PowerShell script which populates your Windows credential store with the LAPS password before connection. Upon connection, mremoteng can read from this credential store and login automatically. Upon disconnection, the credential is automatically deleted.\r\n> \r\n> before.ps1\r\n> \r\n> ```powersh...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg0Nzg0OTc5NA==",
+      "author": "ksupan",
+      "date": "2021-05-25T13:02:13Z",
+      "snippet": "> That assumes everyone using LAPS uses the username \"Administrator\"\r\n\r\ngood point aglasson! \r\n\r\nA LAPS credential feature for mRemoteNG should accommodate this - perhaps using a configuration property that associates a specific local admin username with a LAPS connection option.\r\n\r\n\r\nAs an aside, my first attempt to utilize LAPS with mRemoteNG was to generate a CSV import file. This works but with 2 significant drawbacks:\r\n- LAPS password changes frequently, rendering credentials obsolete soon ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM46p4sr",
+      "author": "LIyoai",
+      "date": "2021-12-01T21:11:58Z",
+      "snippet": " #1789",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2021-12-01T21:11:58Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

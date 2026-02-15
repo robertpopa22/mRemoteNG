@@ -1,95 +1,93 @@
-﻿{
-    "number":  1982,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Connection, by default, must use \"Panel\"(Tab) from it\u0027s Folder",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "1.8 (Fenix)",
-                   "Needs implementation",
-                   "In development"
-               ],
-    "author":  "Apollon-Theos",
-    "created_at":  "2021-06-29T14:58:05Z",
-    "github_updated_at":  "2026-02-07T19:53:48Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nIf I define \"Panel\" in folder, all connections must use this value, but I can edit this\r\n\r\n## Expected Behavior\r\nFolder user for grouping servers by service, all neighboring servers better use in one Panel(Tab)\r\n\r\n\r\n## Current Behavior\r\nAll new connections have \"General\" in Panel, not use \"Panel\" from folder\r\n\r\n## Possible Solution\r\nif connection created inside folder, use settings from Folder.\r\n\r\n## Steps to Reproduce (for bug...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MDk2MDU2OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Do you mean something like: https://mremoteng.readthedocs.io/en/latest/folders_and_inheritance.html\r\n\r\nor are you referring to something different?\r\n\r\nNot sure exactly what you mean.",
-                         "author":  "nmat",
-                         "action_needed":  true,
-                         "date":  "2021-06-29T22:27:47Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MTExNzMwNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "You think right, but now this is option for connection, not folder. \r\nNormal way, when I define inheritance some options for folder and any new connection use it.",
-                         "author":  "Apollon-Theos",
-                         "action_needed":  true,
-                         "date":  "2021-06-30T05:55:25Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MTEyNTc4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "You want a panel to have inheritence?\r\n\r\nI am sorry I do not understand what you mean. Is it possible you can give some more example?",
-                         "author":  "nmat",
-                         "action_needed":  true,
-                         "date":  "2021-06-30T06:14:08Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MTI2NTgyNg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Example:\r\n1. I create folder for connections.\r\n2. Define some properties (Panel, Protocol, Icon, Resolution, Redirections, Proxy and etc). Maybe check checkbox \"Inherit changed properties\"\r\n3. Create new connection inside this folder. This new connection have defined all changed properties, that I define for folder.\r\n\r\nLike folder and files at filesystem. \r\n\r\nBecause better one time define lot of properties on folder, than repeat this definition for every connection.\r\nIf need can change inherite...",
-                         "author":  "Apollon-Theos",
-                         "action_needed":  true,
-                         "date":  "2021-06-30T10:01:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDg3MTI3Nzk4OQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I am planning some changes regarding this so that kind of additional grouping and yes possible will implement such",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-06-30T10:19:01Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXI6b",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:30Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhrx",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:53:48Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:53:48Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1982,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Connection, by default, must use \"Panel\"(Tab) from it's Folder",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "1.8 (Fenix)",
+    "Needs implementation",
+    "In development"
+  ],
+  "author": "Apollon-Theos",
+  "created_at": "2021-06-29T14:58:05Z",
+  "github_updated_at": "2026-02-07T19:53:48Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nIf I define \"Panel\" in folder, all connections must use this value, but I can edit this\r\n\r\n## Expected Behavior\r\nFolder user for grouping servers by service, all neighboring servers better use in one Panel(Tab)\r\n\r\n\r\n## Current Behavior\r\nAll new connections have \"General\" in Panel, not use \"Panel\" from folder\r\n\r\n## Possible Solution\r\nif connection created inside folder, use settings from Folder.\r\n\r\n## Steps to Reproduce (for bug...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MDk2MDU2OA==",
+      "author": "nmat",
+      "date": "2021-06-29T22:27:47Z",
+      "snippet": "Do you mean something like: https://mremoteng.readthedocs.io/en/latest/folders_and_inheritance.html\r\n\r\nor are you referring to something different?\r\n\r\nNot sure exactly what you mean.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTExNzMwNQ==",
+      "author": "Apollon-Theos",
+      "date": "2021-06-30T05:55:25Z",
+      "snippet": "You think right, but now this is option for connection, not folder. \r\nNormal way, when I define inheritance some options for folder and any new connection use it.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTEyNTc4OQ==",
+      "author": "nmat",
+      "date": "2021-06-30T06:14:08Z",
+      "snippet": "You want a panel to have inheritence?\r\n\r\nI am sorry I do not understand what you mean. Is it possible you can give some more example?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTI2NTgyNg==",
+      "author": "Apollon-Theos",
+      "date": "2021-06-30T10:01:43Z",
+      "snippet": "Example:\r\n1. I create folder for connections.\r\n2. Define some properties (Panel, Protocol, Icon, Resolution, Redirections, Proxy and etc). Maybe check checkbox \"Inherit changed properties\"\r\n3. Create new connection inside this folder. This new connection have defined all changed properties, that I define for folder.\r\n\r\nLike folder and files at filesystem. \r\n\r\nBecause better one time define lot of properties on folder, than repeat this definition for every connection.\r\nIf need can change inherite...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDg3MTI3Nzk4OQ==",
+      "author": "Kvarkas",
+      "date": "2021-06-30T10:19:01Z",
+      "snippet": "I am planning some changes regarding this so that kind of additional grouping and yes possible will implement such",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXI6b",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:30Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhrx",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:53:48Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:53:48Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

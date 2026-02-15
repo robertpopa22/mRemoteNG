@@ -1,38 +1,36 @@
-﻿{
-    "number":  755,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Window Selection Behaviour",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "dcotruta",
-    "created_at":  "2017-10-28T16:42:39Z",
-    "github_updated_at":  "2017-11-01T12:07:12Z",
-    "body_snippet":  "With version 1.75.7008.17907 on Windows 10, I\u0027m seeing some very funky window selection behaviour. With mRemoteNG selected and on top (whether maximized or not) selecting another window from the taskbar sometimes results in that window being minimized instead of being brought to the front (as if mRemoteNG was not selected). I\u0027m not a Windows expert but I would guess that it\u0027s something to do with the way that the application is declaring its focus to the OS.\r\n\r\nIt does not happen all the time, a...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM0MTA4ODY0NQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yea there have always been some slightly weird window focus issues in the app. There are a few cases where we have to intercept windows display messages to make putty window focus work a bit more naturally. My guess is that there is an edge case there that we aren\u0027t accounting for and it\u0027s causing this behavior.\r\n\r\nFor reference, this is happening in frmMain.cs in method \r\n`protected override void WndProc(ref System.Windows.Forms.Message m)`",
-                         "author":  "sparerd",
-                         "action_needed":  true,
-                         "date":  "2017-11-01T12:07:07Z"
-                     }
-                 ],
-    "comments_cursor":  "2017-11-01T12:07:12Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 755,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Window Selection Behaviour",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "dcotruta",
+  "created_at": "2017-10-28T16:42:39Z",
+  "github_updated_at": "2017-11-01T12:07:12Z",
+  "body_snippet": "With version 1.75.7008.17907 on Windows 10, I'm seeing some very funky window selection behaviour. With mRemoteNG selected and on top (whether maximized or not) selecting another window from the taskbar sometimes results in that window being minimized instead of being brought to the front (as if mRemoteNG was not selected). I'm not a Windows expert but I would guess that it's something to do with the way that the application is declaring its focus to the OS.\r\n\r\nIt does not happen all the time, a...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM0MTA4ODY0NQ==",
+      "author": "sparerd",
+      "date": "2017-11-01T12:07:07Z",
+      "snippet": "Yea there have always been some slightly weird window focus issues in the app. There are a few cases where we have to intercept windows display messages to make putty window focus work a bit more naturally. My guess is that there is an edge case there that we aren't accounting for and it's causing this behavior.\r\n\r\nFor reference, this is happening in frmMain.cs in method \r\n`protected override void WndProc(ref System.Windows.Forms.Message m)`",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2017-11-01T12:07:12Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

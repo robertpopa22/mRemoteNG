@@ -1,113 +1,111 @@
-﻿{
-    "number":  2181,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "veriable for connection (name, ip, other attributes)",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request",
-                   "Needs implementation",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "hungrysnake",
-    "created_at":  "2022-02-25T12:00:03Z",
-    "github_updated_at":  "2026-02-07T19:51:53Z",
-    "body_snippet":  "I am looking for a solution to manage same connections structure but different locations using variable.\r\n\r\nfor example, i have 5 locations, hk, jp, us, uk, au.\r\ni am thinking if it is possible to add a feature like variable to name and ip/fqdn.\r\nname = {{country}}-gw1, sitecode=10\r\nhost = {{country}}-gw1.example.com\r\nip = 10.{{sitecode}}.0.1\r\ncould also apply to other attribute like port, username, password.\r\nport = 300{{sitecode}}\r\nusername = {{country}}-admin\r\npassword = seacretpw-{{country}}...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM4-pHf5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "In my plans its will be implementation of connection profiles that will allow partially to do such, also planning to add tags so you can group in panels by region, or by env type e.g. PROD, UAT, DEV etc, in regards to scripting like postman its also possible but not an priority right now, how ever if you wish to prioritise such little donation may help : [paypal.me/mremoteng](https://www.paypal.com/paypalme/mremoteng) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-02-25T15:44:30Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4-0fUK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e In my plans its will be implementation of connection profiles that will allow partially to do such, also planning to add tags so you can group in panels by region, or by env type e.g. PROD, UAT, DEV etc, in regards to scripting like postman its also possible but not an priority right now, how ever if you wish to prioritise such little donation may help : [paypal.me/mremoteng](https://www.paypal.com/paypalme/mremoteng)\r\n\r\ntrying to send a cup of coffee but paypal charges 100%. do you accept cry...",
-                         "author":  "hungrysnake",
-                         "action_needed":  true,
-                         "date":  "2022-02-28T06:59:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_b6fW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "for a moment no, but will try to set crypto wallet (btw any advice what is better?) ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-03-10T16:53:32Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_b77d",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e for a moment no, but will try to set crypto wallet (btw any advice what is better?)\r\n\r\nanything but Ethereum, the gas fee is insanely high sometime. 5-50USD just for a transaction with dApp\r\nmy favourite is Solana with Phantom Wallet. Tx fee is low enough to be neglected. \r\n\r\nlike this\r\n![image](https://user-images.githubusercontent.com/42885440/157715274-179a2a7e-bf09-4a5d-b41f-f9c76179c3fc.png)\r\n\r\n",
-                         "author":  "hungrysnake",
-                         "action_needed":  true,
-                         "date":  "2022-03-10T16:59:28Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_dclI",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "updated a bit [https://mremoteng.org/contribute](https://mremoteng.org/contribute)",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-03-11T01:34:15Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_dfEd",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "notice that the link text is showing [16fUnHUM3k7W9Fvpc6dug7TAdfeGEcLbSg] but it is in fact link to wallet address 3GzzNcMnkMpRREhvP6SxgWWzq58Q7zHk7p for btc and 0xdf4151f161ff33d6bfd846ce29032fb325969f9b for eth. it may create confusion if people just copy the text 16fUnHUM3k7W9Fvpc6dug7TAdfeGEcLbSg instead of clicking the link or QR code. not sure what will happen if people sending ETH to BTC legacy address in these case.\r\n\r\nas they are native to the blockchain native, you will likely suffer t...",
-                         "author":  "hungrysnake",
-                         "action_needed":  true,
-                         "date":  "2022-03-11T01:58:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_ehR2",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Thanks for spotting, night editing always goes a bit wrong :D corrected now. Completely noob in all that crypto stuff tbh. For my personal needs I use Revolute and now create Samsung wallet so they provide such ids and qrs. Where is no plans to make mRemoteNG commercial software so its just to allow people donate if they want to do such, so I am looking in to best way to do it cheap and simple so any advice is really welcome! Its not like its really big amounts will flow in my pockets (technical...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-03-11T10:09:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_hsHT",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "sending small amount of btc or eth thought the native blockchain network is painful because the transaction fee doesnt make sense. to make a small donation, the tx fee will endup higher than the donated amount.\r\n\r\npeople either store their crypto in CEX (centralized exhange) or wallet (in your case is Samsung wellet i guess)\r\n\r\nCEX:\r\nhere is the example to withdraw BTC from Binance.com, sending any amount of BTC using native bitcoin blockchain costs 0.0005 BTC(current btc price $39000) = 20 USD ...",
-                         "author":  "hungrysnake",
-                         "action_needed":  true,
-                         "date":  "2022-03-12T02:46:34Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhFB",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:53Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:53Z",
-    "unread_comments":  8,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2181,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "veriable for connection (name, ip, other attributes)",
+  "state": "open",
+  "labels": [
+    "Feature Request",
+    "Needs implementation",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "hungrysnake",
+  "created_at": "2022-02-25T12:00:03Z",
+  "github_updated_at": "2026-02-07T19:51:53Z",
+  "body_snippet": "I am looking for a solution to manage same connections structure but different locations using variable.\r\n\r\nfor example, i have 5 locations, hk, jp, us, uk, au.\r\ni am thinking if it is possible to add a feature like variable to name and ip/fqdn.\r\nname = {{country}}-gw1, sitecode=10\r\nhost = {{country}}-gw1.example.com\r\nip = 10.{{sitecode}}.0.1\r\ncould also apply to other attribute like port, username, password.\r\nport = 300{{sitecode}}\r\nusername = {{country}}-admin\r\npassword = seacretpw-{{country}}...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM4-pHf5",
+      "author": "Kvarkas",
+      "date": "2022-02-25T15:44:30Z",
+      "snippet": "In my plans its will be implementation of connection profiles that will allow partially to do such, also planning to add tags so you can group in panels by region, or by env type e.g. PROD, UAT, DEV etc, in regards to scripting like postman its also possible but not an priority right now, how ever if you wish to prioritise such little donation may help : [paypal.me/mremoteng](https://www.paypal.com/paypalme/mremoteng) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4-0fUK",
+      "author": "hungrysnake",
+      "date": "2022-02-28T06:59:27Z",
+      "snippet": "> In my plans its will be implementation of connection profiles that will allow partially to do such, also planning to add tags so you can group in panels by region, or by env type e.g. PROD, UAT, DEV etc, in regards to scripting like postman its also possible but not an priority right now, how ever if you wish to prioritise such little donation may help : [paypal.me/mremoteng](https://www.paypal.com/paypalme/mremoteng)\r\n\r\ntrying to send a cup of coffee but paypal charges 100%. do you accept cry...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_b6fW",
+      "author": "Kvarkas",
+      "date": "2022-03-10T16:53:32Z",
+      "snippet": "for a moment no, but will try to set crypto wallet (btw any advice what is better?) ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_b77d",
+      "author": "hungrysnake",
+      "date": "2022-03-10T16:59:28Z",
+      "snippet": "> for a moment no, but will try to set crypto wallet (btw any advice what is better?)\r\n\r\nanything but Ethereum, the gas fee is insanely high sometime. 5-50USD just for a transaction with dApp\r\nmy favourite is Solana with Phantom Wallet. Tx fee is low enough to be neglected. \r\n\r\nlike this\r\n![image](https://user-images.githubusercontent.com/42885440/157715274-179a2a7e-bf09-4a5d-b41f-f9c76179c3fc.png)\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_dclI",
+      "author": "Kvarkas",
+      "date": "2022-03-11T01:34:15Z",
+      "snippet": "updated a bit [https://mremoteng.org/contribute](https://mremoteng.org/contribute)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_dfEd",
+      "author": "hungrysnake",
+      "date": "2022-03-11T01:58:08Z",
+      "snippet": "notice that the link text is showing [16fUnHUM3k7W9Fvpc6dug7TAdfeGEcLbSg] but it is in fact link to wallet address 3GzzNcMnkMpRREhvP6SxgWWzq58Q7zHk7p for btc and 0xdf4151f161ff33d6bfd846ce29032fb325969f9b for eth. it may create confusion if people just copy the text 16fUnHUM3k7W9Fvpc6dug7TAdfeGEcLbSg instead of clicking the link or QR code. not sure what will happen if people sending ETH to BTC legacy address in these case.\r\n\r\nas they are native to the blockchain native, you will likely suffer t...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_ehR2",
+      "author": "Kvarkas",
+      "date": "2022-03-11T10:09:36Z",
+      "snippet": "Thanks for spotting, night editing always goes a bit wrong :D corrected now. Completely noob in all that crypto stuff tbh. For my personal needs I use Revolute and now create Samsung wallet so they provide such ids and qrs. Where is no plans to make mRemoteNG commercial software so its just to allow people donate if they want to do such, so I am looking in to best way to do it cheap and simple so any advice is really welcome! Its not like its really big amounts will flow in my pockets (technical...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_hsHT",
+      "author": "hungrysnake",
+      "date": "2022-03-12T02:46:34Z",
+      "snippet": "sending small amount of btc or eth thought the native blockchain network is painful because the transaction fee doesnt make sense. to make a small donation, the tx fee will endup higher than the donated amount.\r\n\r\npeople either store their crypto in CEX (centralized exhange) or wallet (in your case is Samsung wellet i guess)\r\n\r\nCEX:\r\nhere is the example to withdraw BTC from Binance.com, sending any amount of BTC using native bitcoin blockchain costs 0.0005 BTC(current btc price $39000) = 20 USD ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhFB",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:53Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:53Z",
+  "unread_comments": 8,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

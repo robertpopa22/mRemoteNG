@@ -1,57 +1,55 @@
-﻿{
-    "number":  1760,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "error importing CSV file if password contains semicolon (delimeter)",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Bug"
-               ],
-    "author":  "mahsoud",
-    "created_at":  "2020-05-21T19:40:33Z",
-    "github_updated_at":  "2020-06-02T16:23:39Z",
-    "body_snippet":  "## Expected Behavior\r\nIf a value in CSV file contains a semicolon, it should be wrapped in double quotes or have alternative way to escape the delimeter.\r\n\r\n## Current Behavior\r\nThe unescaped delimeter shifts/breaks values when imported.\r\n\r\n## Steps to Reproduce (for bugs)\r\nImport CSV file like:\r\n\r\n```CSV\r\nName;Id;Parent;NodeType;Description;Icon;Panel;Username;Password;Hostname;Protocol;PuttySession;Port;ConnectToConsole;UseCredSsp;RenderingEngine;ICAEncryptionStrength;RDPAuthenticationLevel;Lo...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNjI2MTAyNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "+1\r\nI also tried to workaround this by wrapping the password in quotes in the CSV and it just put parts of the password allover in other fields upon import.",
-                         "author":  "briantist",
-                         "action_needed":  true,
-                         "date":  "2020-05-30T02:12:29Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNzUwODE3MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Dev note:\r\nForbidden Characters are not properly escpaed when exporting to CSV.\r\nSee https://tools.ietf.org/html/rfc4180\r\n\r\n_2.6 and 2.7:_\r\n\u003e   6.  Fields containing line breaks (CRLF), double quotes, and commas\r\n       should be enclosed in double-quotes.  For example:\r\n       \"aaa\",\"b CRLF\r\n       bb\",\"ccc\" CRLF\r\n       zzz,yyy,xxx\r\n\u003e   7.  If double-quotes are used to enclose fields, then a double-quote\r\n       appearing inside a field must be escaped by preceding it with\r\n       another doub...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-06-02T12:26:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzNzY2MjYzMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Looking at the code, the character is just droped.. making export useless imho\n\nGet Outlook for Android\u003chttps://aka.ms/ghei36\u003e\n________________________________\nFrom: Faryan Rezagholi \u003cnotifications@github.com\u003e\nSent: Tuesday, June 2, 2020 3:26:33 PM\nTo: mRemoteNG/mRemoteNG \u003cmRemoteNG@noreply.github.com\u003e\nCc: mahsoud \u003cmahsoud@outlook.com\u003e; Author \u003cauthor@noreply.github.com\u003e\nSubject: Re: [mRemoteNG/mRemoteNG] error importing CSV file if password contains semicolon (delimeter) (#1760)\n\n\nDev note:\nFor...",
-                         "author":  "mahsoud",
-                         "action_needed":  true,
-                         "date":  "2020-06-02T16:23:38Z"
-                     }
-                 ],
-    "comments_cursor":  "2020-06-02T16:23:39Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1760,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "error importing CSV file if password contains semicolon (delimeter)",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Bug"
+  ],
+  "author": "mahsoud",
+  "created_at": "2020-05-21T19:40:33Z",
+  "github_updated_at": "2020-06-02T16:23:39Z",
+  "body_snippet": "## Expected Behavior\r\nIf a value in CSV file contains a semicolon, it should be wrapped in double quotes or have alternative way to escape the delimeter.\r\n\r\n## Current Behavior\r\nThe unescaped delimeter shifts/breaks values when imported.\r\n\r\n## Steps to Reproduce (for bugs)\r\nImport CSV file like:\r\n\r\n```CSV\r\nName;Id;Parent;NodeType;Description;Icon;Panel;Username;Password;Hostname;Protocol;PuttySession;Port;ConnectToConsole;UseCredSsp;RenderingEngine;ICAEncryptionStrength;RDPAuthenticationLevel;Lo...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNjI2MTAyNQ==",
+      "author": "briantist",
+      "date": "2020-05-30T02:12:29Z",
+      "snippet": "+1\r\nI also tried to workaround this by wrapping the password in quotes in the CSV and it just put parts of the password allover in other fields upon import.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNzUwODE3MQ==",
+      "author": "farosch",
+      "date": "2020-06-02T12:26:19Z",
+      "snippet": "Dev note:\r\nForbidden Characters are not properly escpaed when exporting to CSV.\r\nSee https://tools.ietf.org/html/rfc4180\r\n\r\n_2.6 and 2.7:_\r\n>   6.  Fields containing line breaks (CRLF), double quotes, and commas\r\n       should be enclosed in double-quotes.  For example:\r\n       \"aaa\",\"b CRLF\r\n       bb\",\"ccc\" CRLF\r\n       zzz,yyy,xxx\r\n>   7.  If double-quotes are used to enclose fields, then a double-quote\r\n       appearing inside a field must be escaped by preceding it with\r\n       another doub...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzNzY2MjYzMQ==",
+      "author": "mahsoud",
+      "date": "2020-06-02T16:23:38Z",
+      "snippet": "Looking at the code, the character is just droped.. making export useless imho\n\nGet Outlook for Android<https://aka.ms/ghei36>\n________________________________\nFrom: Faryan Rezagholi <notifications@github.com>\nSent: Tuesday, June 2, 2020 3:26:33 PM\nTo: mRemoteNG/mRemoteNG <mRemoteNG@noreply.github.com>\nCc: mahsoud <mahsoud@outlook.com>; Author <author@noreply.github.com>\nSubject: Re: [mRemoteNG/mRemoteNG] error importing CSV file if password contains semicolon (delimeter) (#1760)\n\n\nDev note:\nFor...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2020-06-02T16:23:39Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

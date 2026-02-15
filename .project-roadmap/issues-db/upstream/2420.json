@@ -1,243 +1,241 @@
-﻿{
-    "number":  2420,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Public Disclosure of issue 726",
-    "state":  "open",
-    "labels":  [
-                   "Verified",
-                   "Priority - High",
-                   "In progress",
-                   "Security Vuln",
-                   "Security",
-                   "Windows",
-                   "Connections",
-                   "1.77.3"
-               ],
-    "author":  "Kvarkas",
-    "created_at":  "2023-04-03T17:06:44Z",
-    "github_updated_at":  "2026-02-07T20:30:59Z",
-    "body_snippet":  "The passwords of the connection files are stored as plain text values in the memory of the mRemteNG process, even before a\r\nconnection is established.\r\nThis fulfills the requirement of CWE-316 - Cleartext Storage of Sensitive\r\nInformation in Memory.\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/726\r\n\r\n1) Create a new connection configuration, set hostname, username and\r\npassword.\r\n2) (Optional) Enable encryption of the configuration file.\r\n3) Restart mRemoteNG\r\n4) Use Task Manager / Processhack...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5iEHuf",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "CVE-2023-30367 has been published: \r\n\r\n- https://github.com/S1lkys/CVE-2023-30367-mRemoteNG-password-dumper\r\n- https://www.secuvera.de/advisories/secuvera-SA-2023-01.txt",
-                         "author":  "S1lkys",
-                         "action_needed":  true,
-                         "date":  "2023-07-21T09:00:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5kOM6X",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "To follow this ticket.",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2023-08-17T00:45:10Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM53DIs5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello, as this issue was opened almost one year ago and is marked \"high priority\", I\u0027d like to ask for the current status.",
-                         "author":  "felsgaertner",
-                         "action_needed":  true,
-                         "date":  "2024-03-14T12:16:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6db6dN",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi there, is there an update on this CVE? Is it in the works, or perhaps fixed in the NB with .Net 8 support?\nThanks! ≡ƒÿä",
-                         "author":  "Hillage",
-                         "action_needed":  true,
-                         "date":  "2025-02-06T23:23:52Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6d-oRR",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "It in developing, will be implemented for both versions ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-02-11T10:49:33Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6eFJ7V",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@kvarkas, do you have a time estimation, when this will be ready for release (at least a rough estimation in months)?",
-                         "author":  "felsgaertner",
-                         "action_needed":  true,
-                         "date":  "2025-02-11T21:54:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6eKGG0",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "expecting this spring, still need to do testing, have a bit limiting free time for coding",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-02-12T11:32:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM69-Zm0",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hello @Kvarkas,  is there any news on when this might be ready?",
-                         "author":  "Schwanzskala",
-                         "action_needed":  true,
-                         "date":  "2025-08-14T07:21:45Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6-A3M9",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "working on it, expected end of next week, thanks",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-08-14T10:10:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Cud26",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas Any news or expected timeline of release?  \n",
-                         "author":  "mi3technosouth",
-                         "action_needed":  true,
-                         "date":  "2025-09-08T15:56:41Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7C_mpC",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "still working",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-09T16:29:02Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DCkR3",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas: Badly, already 2 years and 5 months since this ticket.\n\nLatest stable version is 1.76.20 (2019-04-12), no stable version since 6 years, 5 months:\n- https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20\n\nLinked to:\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\n- https://github.com/mRemoteNG/mRemoteNG/issues/2028\n- https://github.com/mRemoteNG/mRemoteNG/issues/2271\n- https://github.com/mRemoteNG/mRemoteNG/issues/2441\n- https://github.com/mRemoteNG/mRemoteNG/issues/2452\n- ht...",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2025-09-09T20:52:56Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DCxps",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "do you want to give money so I could hire someone to fix a code or what? ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-09T21:13:13Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Dmw8J",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e do you want to give money so I could hire someone to fix a code or what?\n@Kvarkas \nSure. How much we talking big screen tv or US hospital bill? ",
-                         "author":  "mi3technosouth",
-                         "action_needed":  true,
-                         "date":  "2025-09-11T16:21:53Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Dp834",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "If you do not arrive to fix it, you can search a guy to solve it.\n\nAll users would like to be in security.",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2025-09-11T20:37:20Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7DxR0U",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e If you do not arrive to fix it, you can search a guy to solve it.\n\u003e \n\u003e All users would like to be in security.\n\nExactly, but to adress security concerns we shouldnt be in hurry to release but fully test it first from any aspects before release and that takes time as I dont have dedicated testers team and working alone on this project ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-12T09:23:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7EPJZD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \u003e do you want to give money so I could hire someone to fix a code or what?\n\u003e \u003e [@Kvarkas](https://github.com/Kvarkas)\n\u003e \u003e Sure. How much we talking big screen tv or US hospital bill?\n\nYour website contribute page is not loading anything. How do you want to proceed with the donation?",
-                         "author":  "mi3technosouth",
-                         "action_needed":  true,
-                         "date":  "2025-09-15T13:55:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7EPep6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.",
-                         "author":  "mi3technosouth",
-                         "action_needed":  true,
-                         "date":  "2025-09-15T14:14:41Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7EUhw5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\n\u003e Your website contribute page is not loading anything. How do you want to proceed with the donation?\n\nworking on what, as temporary solution you welcome to check older page version: https://web.archive.org/web/20250122200623/https://mremoteng.org/contribute",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-15T19:59:16Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7EUkif",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.\n\ntechnicaly it could be control via settings, so you could restrict saving credentials for all connection (later with implementation of connection profiles, you could set individualy per endpoin...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-09-15T20:03:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7KburV",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.\n\n@mi3technosouth Forking an open source project is quite common in the development community - so don\u0027t ask, just do it. Please create a fork and remove that functionality. \n\n(Perhaps you are th...",
-                         "author":  "felsgaertner",
-                         "action_needed":  true,
-                         "date":  "2025-10-13T07:46:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhQP",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mY_72",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@robertpopa22: No, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
-                         "author":  "Neustradamus",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T20:30:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T20:30:59Z",
-    "unread_comments":  22,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2420,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Public Disclosure of issue 726",
+  "state": "open",
+  "labels": [
+    "Verified",
+    "Priority - High",
+    "In progress",
+    "Security Vuln",
+    "Security",
+    "Windows",
+    "Connections",
+    "1.77.3"
+  ],
+  "author": "Kvarkas",
+  "created_at": "2023-04-03T17:06:44Z",
+  "github_updated_at": "2026-02-07T20:30:59Z",
+  "body_snippet": "The passwords of the connection files are stored as plain text values in the memory of the mRemteNG process, even before a\r\nconnection is established.\r\nThis fulfills the requirement of CWE-316 - Cleartext Storage of Sensitive\r\nInformation in Memory.\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/726\r\n\r\n1) Create a new connection configuration, set hostname, username and\r\npassword.\r\n2) (Optional) Enable encryption of the configuration file.\r\n3) Restart mRemoteNG\r\n4) Use Task Manager / Processhack...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5iEHuf",
+      "author": "S1lkys",
+      "date": "2023-07-21T09:00:13Z",
+      "snippet": "CVE-2023-30367 has been published: \r\n\r\n- https://github.com/S1lkys/CVE-2023-30367-mRemoteNG-password-dumper\r\n- https://www.secuvera.de/advisories/secuvera-SA-2023-01.txt",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5kOM6X",
+      "author": "Neustradamus",
+      "date": "2023-08-17T00:45:10Z",
+      "snippet": "To follow this ticket.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM53DIs5",
+      "author": "felsgaertner",
+      "date": "2024-03-14T12:16:04Z",
+      "snippet": "Hello, as this issue was opened almost one year ago and is marked \"high priority\", I'd like to ask for the current status.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6db6dN",
+      "author": "Hillage",
+      "date": "2025-02-06T23:23:52Z",
+      "snippet": "Hi there, is there an update on this CVE? Is it in the works, or perhaps fixed in the NB with .Net 8 support?\nThanks! 😄",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6d-oRR",
+      "author": "Kvarkas",
+      "date": "2025-02-11T10:49:33Z",
+      "snippet": "It in developing, will be implemented for both versions ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6eFJ7V",
+      "author": "felsgaertner",
+      "date": "2025-02-11T21:54:06Z",
+      "snippet": "@kvarkas, do you have a time estimation, when this will be ready for release (at least a rough estimation in months)?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6eKGG0",
+      "author": "Kvarkas",
+      "date": "2025-02-12T11:32:06Z",
+      "snippet": "expecting this spring, still need to do testing, have a bit limiting free time for coding",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM69-Zm0",
+      "author": "Schwanzskala",
+      "date": "2025-08-14T07:21:45Z",
+      "snippet": "Hello @Kvarkas,  is there any news on when this might be ready?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6-A3M9",
+      "author": "Kvarkas",
+      "date": "2025-08-14T10:10:38Z",
+      "snippet": "working on it, expected end of next week, thanks",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Cud26",
+      "author": "mi3technosouth",
+      "date": "2025-09-08T15:56:41Z",
+      "snippet": "@Kvarkas Any news or expected timeline of release?  \n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7C_mpC",
+      "author": "Kvarkas",
+      "date": "2025-09-09T16:29:02Z",
+      "snippet": "still working",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DCkR3",
+      "author": "Neustradamus",
+      "date": "2025-09-09T20:52:56Z",
+      "snippet": "@Kvarkas: Badly, already 2 years and 5 months since this ticket.\n\nLatest stable version is 1.76.20 (2019-04-12), no stable version since 6 years, 5 months:\n- https://github.com/mRemoteNG/mRemoteNG/releases/tag/v1.76.20\n\nLinked to:\n- https://github.com/mRemoteNG/mRemoteNG/issues/1765\n- https://github.com/mRemoteNG/mRemoteNG/issues/2028\n- https://github.com/mRemoteNG/mRemoteNG/issues/2271\n- https://github.com/mRemoteNG/mRemoteNG/issues/2441\n- https://github.com/mRemoteNG/mRemoteNG/issues/2452\n- ht...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DCxps",
+      "author": "Kvarkas",
+      "date": "2025-09-09T21:13:13Z",
+      "snippet": "do you want to give money so I could hire someone to fix a code or what? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Dmw8J",
+      "author": "mi3technosouth",
+      "date": "2025-09-11T16:21:53Z",
+      "snippet": "> do you want to give money so I could hire someone to fix a code or what?\n@Kvarkas \nSure. How much we talking big screen tv or US hospital bill? ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Dp834",
+      "author": "Neustradamus",
+      "date": "2025-09-11T20:37:20Z",
+      "snippet": "If you do not arrive to fix it, you can search a guy to solve it.\n\nAll users would like to be in security.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7DxR0U",
+      "author": "Kvarkas",
+      "date": "2025-09-12T09:23:00Z",
+      "snippet": "> If you do not arrive to fix it, you can search a guy to solve it.\n> \n> All users would like to be in security.\n\nExactly, but to adress security concerns we shouldnt be in hurry to release but fully test it first from any aspects before release and that takes time as I dont have dedicated testers team and working alone on this project ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7EPJZD",
+      "author": "mi3technosouth",
+      "date": "2025-09-15T13:55:36Z",
+      "snippet": "> > do you want to give money so I could hire someone to fix a code or what?\n> > [@Kvarkas](https://github.com/Kvarkas)\n> > Sure. How much we talking big screen tv or US hospital bill?\n\nYour website contribute page is not loading anything. How do you want to proceed with the donation?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7EPep6",
+      "author": "mi3technosouth",
+      "date": "2025-09-15T14:14:41Z",
+      "snippet": "Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7EUhw5",
+      "author": "Kvarkas",
+      "date": "2025-09-15T19:59:16Z",
+      "snippet": "\n> Your website contribute page is not loading anything. How do you want to proceed with the donation?\n\nworking on what, as temporary solution you welcome to check older page version: https://web.archive.org/web/20250122200623/https://mremoteng.org/contribute",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7EUkif",
+      "author": "Kvarkas",
+      "date": "2025-09-15T20:03:36Z",
+      "snippet": "> Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.\n\ntechnicaly it could be control via settings, so you could restrict saving credentials for all connection (later with implementation of connection profiles, you could set individualy per endpoin...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7KburV",
+      "author": "felsgaertner",
+      "date": "2025-10-13T07:46:55Z",
+      "snippet": "> Would make sense to fork the project and have version that strips the ability to save credentials? Not sure about everyone else but in my personal and business use cases the servers refuse saved credentials and force the user to re-enter in the creds. Therefore I never use the save credentials section.\n\n@mi3technosouth Forking an open source project is quite common in the development community - so don't ask, just do it. Please create a fork and remove that functionality. \n\n(Perhaps you are th...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhQP",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:29Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mY_72",
+      "author": "Neustradamus",
+      "date": "2026-02-07T20:30:59Z",
+      "snippet": "@robertpopa22: No, the latest is always 1.76.20 (2019-04-12).\nA lot of CVEs, etc.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-07T20:30:59Z",
+  "unread_comments": 22,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

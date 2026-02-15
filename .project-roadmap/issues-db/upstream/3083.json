@@ -1,49 +1,47 @@
-﻿{
-    "number":  3083,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature-Request: Tabs: show folder/path for connections with duplicate names",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "UI/UX",
-                   "1.78.*"
-               ],
-    "author":  "justin-oestmann",
-    "created_at":  "2026-01-15T11:58:31Z",
-    "github_updated_at":  "2026-02-07T19:51:27Z",
-    "body_snippet":  "Hey\n\nWhen I open two connections that have the same display name but are stored in different folders, the tab titles are identical. This makes it impossible to tell which tab belongs to which folder.\n\nExample:\n\nFolder A ΓåÆ Linux.11\n\nFolder B ΓåÆ Linux.11\n\nOpened at the same time, both tabs show only Linux.11\n\nRequest\nAdd an option in Settings to include the folder (or full folder path) in the tab title. For example:\n\nLinux.11 ΓÇö Folder A\n\nLinux.11 ΓÇö Folder B\n\nor \n\nLinux.11 / Folder A\n\nLinux....",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7fzCjS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "its has colour mapping as well but not fully functional but yes yours point is valid",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2026-01-15T13:05:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYg-d",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:27Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 3083,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature-Request: Tabs: show folder/path for connections with duplicate names",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "UI/UX",
+    "1.78.*"
+  ],
+  "author": "justin-oestmann",
+  "created_at": "2026-01-15T11:58:31Z",
+  "github_updated_at": "2026-02-07T19:51:27Z",
+  "body_snippet": "Hey\n\nWhen I open two connections that have the same display name but are stored in different folders, the tab titles are identical. This makes it impossible to tell which tab belongs to which folder.\n\nExample:\n\nFolder A → Linux.11\n\nFolder B → Linux.11\n\nOpened at the same time, both tabs show only Linux.11\n\nRequest\nAdd an option in Settings to include the folder (or full folder path) in the tab title. For example:\n\nLinux.11 — Folder A\n\nLinux.11 — Folder B\n\nor \n\nLinux.11 / Folder A\n\nLinux.11 / Fol...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7fzCjS",
+      "author": "Kvarkas",
+      "date": "2026-01-15T13:05:25Z",
+      "snippet": "its has colour mapping as well but not fully functional but yes yours point is valid",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYg-d",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:27Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:27Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,30 +1,26 @@
-﻿{
-    "number":  1250,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "[FR] Smart connection groups e.g. connected, recent",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "thd99",
-    "created_at":  "2019-01-04T10:48:34Z",
-    "github_updated_at":  "2019-01-04T13:36:43Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\nIt would be really useful to have a couple of \u0027smart\u0027 connection groups or folders which are separate to the opened connections file. These are most useful when you working with a large number of connections / folders.\r\n\r\n- Connected - shows all connections currently connected to. Makes it easier to switch to the correct tab when many tabs open\r\n- Recent - shows connections recently used (e.g. last 10 or 20). Makes it easier to...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2019-01-04T13:36:43Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1250,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[FR] Smart connection groups e.g. connected, recent",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "thd99",
+  "created_at": "2019-01-04T10:48:34Z",
+  "github_updated_at": "2019-01-04T13:36:43Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nIt would be really useful to have a couple of 'smart' connection groups or folders which are separate to the opened connections file. These are most useful when you working with a large number of connections / folders.\r\n\r\n- Connected - shows all connections currently connected to. Makes it easier to switch to the correct tab when many tabs open\r\n- Recent - shows connections recently used (e.g. last 10 or 20). Makes it easier to...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2019-01-04T13:36:43Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

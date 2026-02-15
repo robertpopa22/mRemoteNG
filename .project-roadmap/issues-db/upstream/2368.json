@@ -1,103 +1,101 @@
-﻿{
-    "number":  2368,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "/cons: switch gets ignored on latest 1.77.3 NB",
-    "state":  "open",
-    "labels":  [
-                   "In progress",
-                   "Need 2 check",
-                   "1.77.3"
-               ],
-    "author":  "brolifen",
-    "created_at":  "2023-03-11T22:21:12Z",
-    "github_updated_at":  "2026-02-07T19:52:01Z",
-    "body_snippet":  "When using the /cons cmd switch to load an existing connection file it gets ignored. Tried with and without quotes, local and file share unc\u0027s but nothing works.\r\n\r\n## Expected Behavior\r\nLoad existing connection file using /cons: or /c: switch.\r\n\r\n## Current Behavior\r\nActs like no connection file exists and asks to create one on first load. On subsequent loads it just uses the default connection file under the users appdata.\r\n\r\n## Your Environment\r\n\u003c!--- Include as many relevant details about th...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM5XhpwM",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m unable to tell from the documentation:\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/command_line_switches.html\r\n\r\nIs the expectation that setting /cons: will load a config file for only that session, and not for the next execution of mRemoteNG even if /cons: is not specified?",
-                         "author":  "BlueBlock",
-                         "action_needed":  true,
-                         "date":  "2023-03-14T16:34:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5XoJ2d",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e I\u0027m unable to tell from the documentation: https://mremoteng.readthedocs.io/en/v1.77.3-dev/command_line_switches.html\r\n\u003e \r\n\u003e Is the expectation that setting /cons: will load a config file for only that session, and not for the next execution of mRemoteNG even if /cons: is not specified?\r\n\r\nI think so. However it fails to load it now at all not sure if I\u0027m the only one having this issue with this build.",
-                         "author":  "brolifen",
-                         "action_needed":  true,
-                         "date":  "2023-03-15T14:47:59Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5Xo6xY",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "You are not the only one... the code for /cons looks to be disabled.\r\n\r\nThe disabled code sets the backup location to the value of /cons is a value is supplied. I\u0027m thinking that would not be desired since it would impact and change the next running of mRemoteNG.\r\n\r\nSo if nobody objects, I\u0027ll make /cons be a completely temporary loading of a config, and with no change to the backup location.",
-                         "author":  "BlueBlock",
-                         "action_needed":  true,
-                         "date":  "2023-03-15T16:20:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5XpJQh",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "oh yes, hold a bit, that for nb only, i do refactoring so its a bit will change internaly how settings are stored, I am plan a next nb to enable such\r\n",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2023-03-15T16:56:04Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5cNVsJ",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Still no fix for this? I\u0027m curious can I downgrade and still make use of remote credential guard feature?",
-                         "author":  "brolifen",
-                         "action_needed":  true,
-                         "date":  "2023-05-14T21:01:12Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFMW",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:44:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXJA5",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhHf",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:52:01Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:52:01Z",
-    "unread_comments":  5,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2368,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "/cons: switch gets ignored on latest 1.77.3 NB",
+  "state": "open",
+  "labels": [
+    "In progress",
+    "Need 2 check",
+    "1.77.3"
+  ],
+  "author": "brolifen",
+  "created_at": "2023-03-11T22:21:12Z",
+  "github_updated_at": "2026-02-07T19:52:01Z",
+  "body_snippet": "When using the /cons cmd switch to load an existing connection file it gets ignored. Tried with and without quotes, local and file share unc's but nothing works.\r\n\r\n## Expected Behavior\r\nLoad existing connection file using /cons: or /c: switch.\r\n\r\n## Current Behavior\r\nActs like no connection file exists and asks to create one on first load. On subsequent loads it just uses the default connection file under the users appdata.\r\n\r\n## Your Environment\r\n<!--- Include as many relevant details about th...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM5XhpwM",
+      "author": "BlueBlock",
+      "date": "2023-03-14T16:34:58Z",
+      "snippet": "I'm unable to tell from the documentation:\r\nhttps://mremoteng.readthedocs.io/en/v1.77.3-dev/command_line_switches.html\r\n\r\nIs the expectation that setting /cons: will load a config file for only that session, and not for the next execution of mRemoteNG even if /cons: is not specified?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5XoJ2d",
+      "author": "brolifen",
+      "date": "2023-03-15T14:47:59Z",
+      "snippet": "> I'm unable to tell from the documentation: https://mremoteng.readthedocs.io/en/v1.77.3-dev/command_line_switches.html\r\n> \r\n> Is the expectation that setting /cons: will load a config file for only that session, and not for the next execution of mRemoteNG even if /cons: is not specified?\r\n\r\nI think so. However it fails to load it now at all not sure if I'm the only one having this issue with this build.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5Xo6xY",
+      "author": "BlueBlock",
+      "date": "2023-03-15T16:20:49Z",
+      "snippet": "You are not the only one... the code for /cons looks to be disabled.\r\n\r\nThe disabled code sets the backup location to the value of /cons is a value is supplied. I'm thinking that would not be desired since it would impact and change the next running of mRemoteNG.\r\n\r\nSo if nobody objects, I'll make /cons be a completely temporary loading of a config, and with no change to the backup location.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5XpJQh",
+      "author": "Kvarkas",
+      "date": "2023-03-15T16:56:04Z",
+      "snippet": "oh yes, hold a bit, that for nb only, i do refactoring so its a bit will change internaly how settings are stored, I am plan a next nb to enable such\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5cNVsJ",
+      "author": "brolifen",
+      "date": "2023-05-14T21:01:12Z",
+      "snippet": "Still no fix for this? I'm curious can I downgrade and still make use of remote credential guard feature?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFMW",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:44:50Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXJA5",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:42Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhHf",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:52:01Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:52:01Z",
+  "unread_comments": 5,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

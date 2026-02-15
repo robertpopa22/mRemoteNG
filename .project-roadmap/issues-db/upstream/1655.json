@@ -1,58 +1,56 @@
-﻿{
-    "number":  1655,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Disabling \"Saving connections on exit\" doesn\u0027t work",
-    "state":  "open",
-    "labels":  [
-                   "Priority - Low",
-                   "Need 2 check",
-                   "1.77.2"
-               ],
-    "author":  "gonepaper",
-    "created_at":  "2019-12-16T11:03:39Z",
-    "github_updated_at":  "2026-02-07T19:56:50Z",
-    "body_snippet":  "Hello,\r\n\r\nVersion : MremoteNG  1.76.11.40527\r\n\r\nImpact: when disabling \"saving connections on exit\", it still save connections.\r\nIs this normal?\r\n\r\nThank you.\r\nGone.\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXEGh",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:40:41Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFyK",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYijm",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:50Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:56:50Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1655,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Disabling \"Saving connections on exit\" doesn't work",
+  "state": "open",
+  "labels": [
+    "Priority - Low",
+    "Need 2 check",
+    "1.77.2"
+  ],
+  "author": "gonepaper",
+  "created_at": "2019-12-16T11:03:39Z",
+  "github_updated_at": "2026-02-07T19:56:50Z",
+  "body_snippet": "Hello,\r\n\r\nVersion : MremoteNG  1.76.11.40527\r\n\r\nImpact: when disabling \"saving connections on exit\", it still save connections.\r\nIs this normal?\r\n\r\nThank you.\r\nGone.\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7mXEGh",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:40:41Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFyK",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:00Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYijm",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:50Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:56:50Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

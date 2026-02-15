@@ -1,68 +1,66 @@
-﻿{
-    "number":  2152,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Confusing \u0026 broken Inheritance - Nightly 1.77.2",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Need 2 check",
-                   "Improvement required",
-                   "1.77.3"
-               ],
-    "author":  "pauldurham",
-    "created_at":  "2022-02-03T09:59:33Z",
-    "github_updated_at":  "2026-02-07T19:51:42Z",
-    "body_snippet":  "The items below are incredibly confusing without proper help text, and don\u0027t seem to work as expected:\r\n- Inheritance\r\n- Default Properties\r\n- Default inheritance\r\n\r\nIt is not obvious how to use the above functions.  Also, the default inheritance doesn\u0027t appear to work.\r\n\r\n## Expected Behavior\r\nThe above items should allow the user to set default properties \u0026 inheritance and then turn on inheritance, but they don\u0027t seems to work properly.  This is assuming I am even configuring the settings corr...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM49UpZU",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I completely agree with this point, we already had a discussion about the inheritance in regards with the Clipboard Settings in Issue #1968. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-02-03T10:07:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM49UyhK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "#975",
-                         "author":  "LIyoai",
-                         "action_needed":  true,
-                         "date":  "2022-02-03T10:51:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFaN",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:45:39Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYhCc",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:51:42Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:51:42Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2152,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Confusing & broken Inheritance - Nightly 1.77.2",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "Improvement required",
+    "1.77.3"
+  ],
+  "author": "pauldurham",
+  "created_at": "2022-02-03T09:59:33Z",
+  "github_updated_at": "2026-02-07T19:51:42Z",
+  "body_snippet": "The items below are incredibly confusing without proper help text, and don't seem to work as expected:\r\n- Inheritance\r\n- Default Properties\r\n- Default inheritance\r\n\r\nIt is not obvious how to use the above functions.  Also, the default inheritance doesn't appear to work.\r\n\r\n## Expected Behavior\r\nThe above items should allow the user to set default properties & inheritance and then turn on inheritance, but they don't seems to work properly.  This is assuming I am even configuring the settings corr...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM49UpZU",
+      "author": "simonai1254",
+      "date": "2022-02-03T10:07:37Z",
+      "snippet": "I completely agree with this point, we already had a discussion about the inheritance in regards with the Clipboard Settings in Issue #1968. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM49UyhK",
+      "author": "LIyoai",
+      "date": "2022-02-03T10:51:19Z",
+      "snippet": "#975",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFaN",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:45:39Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYhCc",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:51:42Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.3",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:51:42Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

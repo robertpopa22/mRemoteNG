@@ -1,56 +1,54 @@
-﻿{
-    "number":  976,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Add plugin support",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "sparerd",
-    "created_at":  "2018-05-08T00:40:42Z",
-    "github_updated_at":  "2020-06-14T09:17:18Z",
-    "body_snippet":  "Add support for users to write plugins the extend the functionality of mRemoteNG. We will need a simple way to discover, load, and manage plugins within the application.\r\n\r\n## Context\r\n\u003c!--- How has this issue affected you? What are you trying to accomplish? --\u003e\r\n\u003c!--- Providing context helps us come up with a solution that is most useful in the real world --\u003e\r\nThere are several areas where plugin support would be perfect - \r\n- implementing new protocols\r\n- adding support for credential provider...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUwNjgzNDczOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "So a year has passed and no progress?",
-                         "author":  "darkguy2008",
-                         "action_needed":  true,
-                         "date":  "2019-06-28T18:30:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMzcxMzg2Mg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I volunteer to look into this! ;) Can\u0027t make any promises but I will keep you posted about my analysis in any case.",
-                         "author":  "hummigbird1",
-                         "action_needed":  true,
-                         "date":  "2020-05-25T20:55:44Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY0Mzc0MDQ0NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "So a little update from me.\r\nI have looked into it and it is not going to be easy.\r\nThe fact that all classes are very tightly coupled and interconnected doesn\u0027t make this a quick and easy thing to implement ;)\r\n\r\nTherefore I am modifying my approach a little and intend on firstly trying to get some loose coupling going by introducing dependency injection to break up those tight dependencies. \r\nOnce that is done, the Plugin System should be much easier to get to ... I hope. ",
-                         "author":  "hummigbird1",
-                         "action_needed":  true,
-                         "date":  "2020-06-14T09:17:18Z"
-                     }
-                 ],
-    "comments_cursor":  "2020-06-14T09:17:18Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 976,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Add plugin support",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "sparerd",
+  "created_at": "2018-05-08T00:40:42Z",
+  "github_updated_at": "2020-06-14T09:17:18Z",
+  "body_snippet": "Add support for users to write plugins the extend the functionality of mRemoteNG. We will need a simple way to discover, load, and manage plugins within the application.\r\n\r\n## Context\r\n<!--- How has this issue affected you? What are you trying to accomplish? -->\r\n<!--- Providing context helps us come up with a solution that is most useful in the real world -->\r\nThere are several areas where plugin support would be perfect - \r\n- implementing new protocols\r\n- adding support for credential provider...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUwNjgzNDczOA==",
+      "author": "darkguy2008",
+      "date": "2019-06-28T18:30:19Z",
+      "snippet": "So a year has passed and no progress?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMzcxMzg2Mg==",
+      "author": "hummigbird1",
+      "date": "2020-05-25T20:55:44Z",
+      "snippet": "I volunteer to look into this! ;) Can't make any promises but I will keep you posted about my analysis in any case.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY0Mzc0MDQ0NA==",
+      "author": "hummigbird1",
+      "date": "2020-06-14T09:17:18Z",
+      "snippet": "So a little update from me.\r\nI have looked into it and it is not going to be easy.\r\nThe fact that all classes are very tightly coupled and interconnected doesn't make this a quick and easy thing to implement ;)\r\n\r\nTherefore I am modifying my approach a little and intend on firstly trying to get some loose coupling going by introducing dependency injection to break up those tight dependencies. \r\nOnce that is done, the Plugin System should be much easier to get to ... I hope. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2020-06-14T09:17:18Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,65 +1,65 @@
-﻿{
-    "number":  1837,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Can\u0027t find Use VM ID property?",
-    "state":  "open",
-    "labels":  [
-                   "Duplicate"
-               ],
-    "author":  "jcandresen",
-    "created_at":  "2020-08-19T14:16:30Z",
-    "github_updated_at":  "2026-02-07T16:39:52Z",
-    "body_snippet":  "## Expected Behavior\r\nBe able to set use VM ID to yes and insert a VM ID\r\n\r\n## Current Behavior\r\nUse VM ID attribute and VM ID attribute are not showing up in mRemoteNG\r\n![image](https://user-images.githubusercontent.com/23084292/90646278-47237f80-e1f4-11ea-813b-d2e55c4cba42.png)\r\n\r\n\r\n## Possible Solution\r\nDid I miss a configuration step?\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Start mRemoteNG\r\n2. Create a new connection\r\n3. Look for \r\n\r\n## Context\r\nIt\u0027s the first time I\u0027ve had a need to add a h...",
-    "our_status":  "duplicate",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "duplicate",
-                           "description":  "Duplicate - Can\u0027t find Use VM ID property",
-                           "pr":  null,
-                           "branch":  null,
-                           "release":  null,
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY3ODYxNjA3Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This is a feature that will come in 1.77.\r\n\r\nSee: https://github.com/mRemoteNG/mRemoteNG/issues/316",
-                         "author":  "nmat",
-                         "action_needed":  true,
-                         "date":  "2020-08-22T09:00:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDczNTM4OTMyOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi there,\r\ncan\u0027t find the feature also in 1.77 \r\n\u003cimg width=\"650\" alt=\"Screenshot 2020-11-29 135246\" src=\"https://user-images.githubusercontent.com/75207799/100542449-339fa000-324a-11eb-81e0-db77e4bb44ec.png\"\u003e\r\n",
-                         "author":  "katsedan",
-                         "action_needed":  true,
-                         "date":  "2020-11-29T12:53:29Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXD4X",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "\"%MSG%\"",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:39:52Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:39:52Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1837,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Can't find Use VM ID property?",
+  "state": "open",
+  "labels": [
+    "Duplicate"
+  ],
+  "author": "jcandresen",
+  "created_at": "2020-08-19T14:16:30Z",
+  "github_updated_at": "2026-02-07T16:39:52Z",
+  "body_snippet": "## Expected Behavior\r\nBe able to set use VM ID to yes and insert a VM ID\r\n\r\n## Current Behavior\r\nUse VM ID attribute and VM ID attribute are not showing up in mRemoteNG\r\n![image](https://user-images.githubusercontent.com/23084292/90646278-47237f80-e1f4-11ea-813b-d2e55c4cba42.png)\r\n\r\n\r\n## Possible Solution\r\nDid I miss a configuration step?\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Start mRemoteNG\r\n2. Create a new connection\r\n3. Look for \r\n\r\n## Context\r\nIt's the first time I've had a need to add a h...",
+  "our_status": "duplicate",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "duplicate",
+      "description": "Duplicate - Can't find Use VM ID property",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY3ODYxNjA3Nw==",
+      "author": "nmat",
+      "date": "2020-08-22T09:00:33Z",
+      "snippet": "This is a feature that will come in 1.77.\r\n\r\nSee: https://github.com/mRemoteNG/mRemoteNG/issues/316",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDczNTM4OTMyOA==",
+      "author": "katsedan",
+      "date": "2020-11-29T12:53:29Z",
+      "snippet": "Hi there,\r\ncan't find the feature also in 1.77 \r\n<img width=\"650\" alt=\"Screenshot 2020-11-29 135246\" src=\"https://user-images.githubusercontent.com/75207799/100542449-339fa000-324a-11eb-81e0-db77e4bb44ec.png\">\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXD4X",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:39:52Z",
+      "snippet": "\"%MSG%\"",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:39:52Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

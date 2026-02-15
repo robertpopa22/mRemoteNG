@@ -1,30 +1,26 @@
-﻿{
-    "number":  2119,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Restoring Sessions after program start \"forgets\" opened connections",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "simonai1254",
-    "created_at":  "2022-01-12T20:10:50Z",
-    "github_updated_at":  "2022-01-12T20:13:12Z",
-    "body_snippet":  "## Expected Behavior\r\nWhen having the option \"File\u003eOptions\u003eStartup/Exit\u003eReconnect to previously opened sessions on startup\" enabled, the opened sessions should be opened again after closing and starting mRemoteNG.\r\n\r\n## Current Behavior\r\nWhen having the option \"File\u003eOptions\u003eStartup/Exit\u003eReconnect to previously opened sessions on startup\" enabled, some opened sessions are forgotten and not opened again after closing and starting mRemoteNG.\r\n\r\nI could observer missing RDP sessions, SSH sessions ar...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-
-                 ],
-    "comments_cursor":  "2022-01-12T20:13:12Z",
-    "unread_comments":  0,
-    "needs_action":  false,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2119,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Restoring Sessions after program start \"forgets\" opened connections",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "simonai1254",
+  "created_at": "2022-01-12T20:10:50Z",
+  "github_updated_at": "2022-01-12T20:13:12Z",
+  "body_snippet": "## Expected Behavior\r\nWhen having the option \"File>Options>Startup/Exit>Reconnect to previously opened sessions on startup\" enabled, the opened sessions should be opened again after closing and starting mRemoteNG.\r\n\r\n## Current Behavior\r\nWhen having the option \"File>Options>Startup/Exit>Reconnect to previously opened sessions on startup\" enabled, some opened sessions are forgotten and not opened again after closing and starting mRemoteNG.\r\n\r\nI could observer missing RDP sessions, SSH sessions ar...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2022-01-12T20:13:12Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

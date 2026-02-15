@@ -1,65 +1,63 @@
-﻿{
-    "number":  2118,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Unhandled Exception when closing mRemoteNG having multiple panels open",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "simonai1254",
-    "created_at":  "2022-01-12T20:10:35Z",
-    "github_updated_at":  "2026-02-08T11:43:55Z",
-    "body_snippet":  "## Expected Behavior\r\nWhen having opened connections in multiple panels and then closing mRemoteNG through the Exit Button in the top right corner a promt is displayed for each panel if should really be closed. After confirming mRemoteNG should close.\r\n\r\n## Current Behavior\r\nWhen having opened connections in multiple panels and then closing mRemoteNG through the Exit Button in the top right corner a promt is displayed for each panel if should really be closed. After confirming the first panel, a...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM48SOo2",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This issue might be connected to issue #2119 ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-01-12T20:11:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM512oe5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This happens when trying to close connection groups with open/active sessions under them. It isn\u0027t easy to reduce the connection group or get to an empty set and start over when a large group of sessions is open. \r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/5774810/815f8a05-779e-480c-894b-1ac5d81718a5)\r\n",
-                         "author":  "djkraven",
-                         "action_needed":  true,
-                         "date":  "2024-03-04T18:58:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mdo0R",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Likely same close-sequence crash cluster already addressed by close-panel hardening and follow-up main-close cancellation fixes: PR #3106 and PR #3124. \r\n \r\nPlease retest on latest RC candidate build from fork. If no longer reproducible, recommend closing as resolved/duplicate of panel-close crash issues. \r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T08:35:09Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mfnNe",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "This appears to match the same ConnectionWindow.Prot_Event_Closed disposed-object close-path as #3069. Candidate upstream fix package is PR #3106: https://github.com/mRemoteNG/mRemoteNG/pull/3106. After merge in parent, please retest on a build that includes that commit; if still reproducible with exact steps/logs, keep this issue open, otherwise close as duplicate of #3069.\r\n",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T11:43:55Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-08T11:43:55Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2118,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Unhandled Exception when closing mRemoteNG having multiple panels open",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "simonai1254",
+  "created_at": "2022-01-12T20:10:35Z",
+  "github_updated_at": "2026-02-08T11:43:55Z",
+  "body_snippet": "## Expected Behavior\r\nWhen having opened connections in multiple panels and then closing mRemoteNG through the Exit Button in the top right corner a promt is displayed for each panel if should really be closed. After confirming mRemoteNG should close.\r\n\r\n## Current Behavior\r\nWhen having opened connections in multiple panels and then closing mRemoteNG through the Exit Button in the top right corner a promt is displayed for each panel if should really be closed. After confirming the first panel, a...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM48SOo2",
+      "author": "simonai1254",
+      "date": "2022-01-12T20:11:27Z",
+      "snippet": "This issue might be connected to issue #2119 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM512oe5",
+      "author": "djkraven",
+      "date": "2024-03-04T18:58:37Z",
+      "snippet": "This happens when trying to close connection groups with open/active sessions under them. It isn't easy to reduce the connection group or get to an empty set and start over when a large group of sessions is open. \r\n\r\n![image](https://github.com/mRemoteNG/mRemoteNG/assets/5774810/815f8a05-779e-480c-894b-1ac5d81718a5)\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mdo0R",
+      "author": "robertpopa22",
+      "date": "2026-02-08T08:35:09Z",
+      "snippet": "Likely same close-sequence crash cluster already addressed by close-panel hardening and follow-up main-close cancellation fixes: PR #3106 and PR #3124. \r\n \r\nPlease retest on latest RC candidate build from fork. If no longer reproducible, recommend closing as resolved/duplicate of panel-close crash issues. \r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mfnNe",
+      "author": "robertpopa22",
+      "date": "2026-02-08T11:43:55Z",
+      "snippet": "This appears to match the same ConnectionWindow.Prot_Event_Closed disposed-object close-path as #3069. Candidate upstream fix package is PR #3106: https://github.com/mRemoteNG/mRemoteNG/pull/3106. After merge in parent, please retest on a build that includes that commit; if still reproducible with exact steps/logs, keep this issue open, otherwise close as duplicate of #3069.\r\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-08T11:43:55Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

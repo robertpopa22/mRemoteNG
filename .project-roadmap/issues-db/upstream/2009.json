@@ -1,57 +1,55 @@
-﻿{
-    "number":  2009,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Add the ability to use Bastion services to be able to RDP to cloud instances easily",
-    "state":  "open",
-    "labels":  [
-                   "Needs User Verification",
-                   "Azure"
-               ],
-    "author":  "JoeBrunsTR",
-    "created_at":  "2021-07-31T17:57:03Z",
-    "github_updated_at":  "2025-03-25T09:38:47Z",
-    "body_snippet":  "Feature add\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instea...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM41FATt",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi, Bastion is working over https, could you try last NB to test that? I currently don\u0027t have setup in azure to test that. But using HTTPs should be no problems. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-08-01T11:44:49Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM41IJrK",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This feature add would be for AWS and GCP as well.",
-                         "author":  "JoeBrunsTR",
-                         "action_needed":  true,
-                         "date":  "2021-08-02T21:01:06Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6j8uc5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas \nI guess Bastion support is not easily provided by just adding a specific http address. \n\nIs there any progress on this feature request? Makes full sense to add support for Bastion. Not only for rdp, but also for ssh. Please include Entra integration as well when you are on it ≡ƒÿè\n\nFrom commandline it looks like this:\n\n`az network bastion ssh --ids /subscriptions/\u003credacted\u003e/resourceGroups/rg-bastion-prd/providers/Microsoft.Network/bastionHosts/bas-prd-001 --target-resource-id /subscrip...",
-                         "author":  "cveld",
-                         "action_needed":  true,
-                         "date":  "2025-03-25T09:18:49Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-03-25T09:38:47Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2009,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Add the ability to use Bastion services to be able to RDP to cloud instances easily",
+  "state": "open",
+  "labels": [
+    "Needs User Verification",
+    "Azure"
+  ],
+  "author": "JoeBrunsTR",
+  "created_at": "2021-07-31T17:57:03Z",
+  "github_updated_at": "2025-03-25T09:38:47Z",
+  "body_snippet": "Feature add\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instea...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM41FATt",
+      "author": "Kvarkas",
+      "date": "2021-08-01T11:44:49Z",
+      "snippet": "Hi, Bastion is working over https, could you try last NB to test that? I currently don't have setup in azure to test that. But using HTTPs should be no problems. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM41IJrK",
+      "author": "JoeBrunsTR",
+      "date": "2021-08-02T21:01:06Z",
+      "snippet": "This feature add would be for AWS and GCP as well.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6j8uc5",
+      "author": "cveld",
+      "date": "2025-03-25T09:18:49Z",
+      "snippet": "@Kvarkas \nI guess Bastion support is not easily provided by just adding a specific http address. \n\nIs there any progress on this feature request? Makes full sense to add support for Bastion. Not only for rdp, but also for ssh. Please include Entra integration as well when you are on it 😊\n\nFrom commandline it looks like this:\n\n`az network bastion ssh --ids /subscriptions/<redacted>/resourceGroups/rg-bastion-prd/providers/Microsoft.Network/bastionHosts/bas-prd-001 --target-resource-id /subscriptio...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-03-25T09:38:47Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,76 +1,74 @@
-﻿{
-    "number":  1602,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Automatically configure public key authentication",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "Help Wanted",
-                   "1.78.*"
-               ],
-    "author":  "scrobbleme",
-    "created_at":  "2019-09-30T05:48:38Z",
-    "github_updated_at":  "2026-02-07T19:55:24Z",
-    "body_snippet":  "## Expected Behavior\r\n\r\nWhen configuring a (ssh) connection it should be possible to let mRemoteNG automatically setup keys and configure the client and server using this.\r\n\r\nThis would enhance security , as \"basic\" users must not handle key generation/setup and may not need to store passwords in mRemoteNG.\r\n\r\n## Context\r\n\r\nThis feature is already available in [SmarTTY](https://sysprogs.com/SmarTTY/) and is very easy to setup there.\r\n\r\nQuote from the website:\r\n\r\n\u003e Out-of-the-box public-key auth\r...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNjUzODEwNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e it should be possible to let mRemoteNG automatically setup keys and configure the client and server using this.\r\n\r\nCan you please elaborate on this?\r\n- How should mremoteng automatically handle key generation? (algorhytms, length, ...)\r\n- How should mremoteng automatically configure the server to use that key if it is unable to connect to said server?\r\n\r\nmrng is a remote connections manager and not designed to automatically setup servers.\r\nYou will always need to setup the user and password on...",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2019-09-30T12:26:59Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUzNjYwOTI4Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@farosch \r\n\r\n\u003e How should mremoteng automatically handle key generation? (algorhytms, length, ...)\r\n\r\n\"_Best practice_\" or \"like every guide says\" (Github, Gitlab...) , so basically:\r\n\r\n1. `ssh-keygen -t rsa -b 4096 -C \"Login@Hostname\"`\r\n\r\n\u003e How should mremoteng automatically configure the server to use that key if it is unable to connect to said server?\r\n\r\nSmarTTY does it like this:\r\n\r\n1. Configure a new SSH connection\r\n1. Insert Host, Login, Password, etc...\r\n1. **Click the checkbox: \"Setup pu...",
-                         "author":  "scrobbleme",
-                         "action_needed":  true,
-                         "date":  "2019-09-30T15:14:46Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6oBrXW",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I fully support this request, but I wanted to add that it would be great if we could just have SSH integrated into the application. Having a separate instance of PuTTY installed isn\u0027t a great way to handle SSH for a console application that is supposed to be a single app for all consoles.  I\u0027ve got many places where they use PuTTY and it causes tons of confusion about which PuTTY they need to add saved sessions or which PuTTY agent they need to run for unlocking their keyfiles. \n\nAt a minimum, t...",
-                         "author":  "sovamind",
-                         "action_needed":  true,
-                         "date":  "2025-04-21T16:54:38Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6oK77v",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "well I will be happy to drop this rudiment :) but curently its core pice\nI am looking in next iteration to add microsoft terminal instead it but at the moment no works happening towards such\n\nin regards storage, its a refactoring ongoin about how mR store settings and connections atributes, including sources from where it will fetch .pkk\n\nif you would like to add some code regarding what (openssh) you are more whan welcome \n\n\u003e Seriously, just add the OpenSSH libraries to the application and let\u0027...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-04-22T14:02:11Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiJT",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:24Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:24Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1602,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Automatically configure public key authentication",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "Help Wanted",
+    "1.78.*"
+  ],
+  "author": "scrobbleme",
+  "created_at": "2019-09-30T05:48:38Z",
+  "github_updated_at": "2026-02-07T19:55:24Z",
+  "body_snippet": "## Expected Behavior\r\n\r\nWhen configuring a (ssh) connection it should be possible to let mRemoteNG automatically setup keys and configure the client and server using this.\r\n\r\nThis would enhance security , as \"basic\" users must not handle key generation/setup and may not need to store passwords in mRemoteNG.\r\n\r\n## Context\r\n\r\nThis feature is already available in [SmarTTY](https://sysprogs.com/SmarTTY/) and is very easy to setup there.\r\n\r\nQuote from the website:\r\n\r\n> Out-of-the-box public-key auth\r...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNjUzODEwNQ==",
+      "author": "farosch",
+      "date": "2019-09-30T12:26:59Z",
+      "snippet": "> it should be possible to let mRemoteNG automatically setup keys and configure the client and server using this.\r\n\r\nCan you please elaborate on this?\r\n- How should mremoteng automatically handle key generation? (algorhytms, length, ...)\r\n- How should mremoteng automatically configure the server to use that key if it is unable to connect to said server?\r\n\r\nmrng is a remote connections manager and not designed to automatically setup servers.\r\nYou will always need to setup the user and password on...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUzNjYwOTI4Mw==",
+      "author": "scrobbleme",
+      "date": "2019-09-30T15:14:46Z",
+      "snippet": "@farosch \r\n\r\n> How should mremoteng automatically handle key generation? (algorhytms, length, ...)\r\n\r\n\"_Best practice_\" or \"like every guide says\" (Github, Gitlab...) , so basically:\r\n\r\n1. `ssh-keygen -t rsa -b 4096 -C \"Login@Hostname\"`\r\n\r\n> How should mremoteng automatically configure the server to use that key if it is unable to connect to said server?\r\n\r\nSmarTTY does it like this:\r\n\r\n1. Configure a new SSH connection\r\n1. Insert Host, Login, Password, etc...\r\n1. **Click the checkbox: \"Setup pu...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6oBrXW",
+      "author": "sovamind",
+      "date": "2025-04-21T16:54:38Z",
+      "snippet": "I fully support this request, but I wanted to add that it would be great if we could just have SSH integrated into the application. Having a separate instance of PuTTY installed isn't a great way to handle SSH for a console application that is supposed to be a single app for all consoles.  I've got many places where they use PuTTY and it causes tons of confusion about which PuTTY they need to add saved sessions or which PuTTY agent they need to run for unlocking their keyfiles. \n\nAt a minimum, t...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6oK77v",
+      "author": "Kvarkas",
+      "date": "2025-04-22T14:02:11Z",
+      "snippet": "well I will be happy to drop this rudiment :) but curently its core pice\nI am looking in next iteration to add microsoft terminal instead it but at the moment no works happening towards such\n\nin regards storage, its a refactoring ongoin about how mR store settings and connections atributes, including sources from where it will fetch .pkk\n\nif you would like to add some code regarding what (openssh) you are more whan welcome \n\n> Seriously, just add the OpenSSH libraries to the application and let'...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiJT",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:24Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:24Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

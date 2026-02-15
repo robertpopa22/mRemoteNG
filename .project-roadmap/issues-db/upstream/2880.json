@@ -1,77 +1,75 @@
-﻿{
-    "number":  2880,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "New color options return error Property value is not valid",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "UI/UX",
-                   "1.78.*",
-                   "Nightly Build"
-               ],
-    "author":  "igor2x",
-    "created_at":  "2025-10-08T17:32:32Z",
-    "github_updated_at":  "2026-02-07T19:55:35Z",
-    "body_snippet":  "I have downloaded mRemoteNG v1.78.2-NB-3208 x64.\n\n1. New color options were added in Display | Color and Tab Color:\n   \u003cimg width=\"357\" height=\"234\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/6a97b72f-51ca-4785-929a-3edebdc83d0b\" /\u003e\n\n2. Select some color and error appears (at both selections): _Property value is not valid._\n   \u003cimg width=\"278\" height=\"201\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/db5dde90-13bf-4d66-b840-f64a4fded212\" /\u003e",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM7JnwcS",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "**Tab color**\n\nI have been playing with his little bit more and it looks like tab colors at least work if English name are typed in like \"blue\" or \"red\":\n\u003cimg width=\"510\" height=\"414\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/55ee8b3a-5ce6-4b4c-90f0-810839ae67bd\" /\u003e\n\nThis is little bit strange. I expected RGB numbers to be displayed in this field and left of it color displayed.\n\n**Color**\nI still don\u0027t know color of what object should be changed. I can\u0027t figure it out or it is ...",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2025-10-08T18:00:57Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7Jp7vm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yours connection grouping folder should change depending on that value, but what have a bit poor implementation, idea what should help color deferiate connections (x2 Qu!) So PROD - Red, DEV - blue, UAT - green, etc",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-10-08T20:57:23Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7J-7mX",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "@Kvarkas, I have tried to set this setting, but just can\u0027t figure it out what really changes. Like described it should change \"folder\", but in my case it is always yellow. Any print screen would be helpful.\n\nAre English names for color names really good idea? In my humble opinion I think the color should be in RGB, so user can set the color quickly. If English names are used for color names, they should then be translated to non-English languages. But then what happens if I for example type in \"...",
-                         "author":  "igor2x",
-                         "action_needed":  true,
-                         "date":  "2025-10-10T07:53:55Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7J_m3z",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "yes its a bit incomplete and a bit messy, but thats not priority so will have a look a bit later (mostly i need that changes to introduce new fields, so they get into new settings file) how to use them will be later :) \nin general - I am thinking to modify connection tree a bit later, idea was shared there: https://www.reddit.com/r/mRemoteNG/comments/s7qlow/v18_plans_new_ui_interface/\nIf you wish you could share you wission as I am welcome new ideas how to visualise it better.\n\nCore items: \n- gr...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-10-10T08:38:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiMI",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:55:35Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:55:35Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2880,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "New color options return error Property value is not valid",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "UI/UX",
+    "1.78.*",
+    "Nightly Build"
+  ],
+  "author": "igor2x",
+  "created_at": "2025-10-08T17:32:32Z",
+  "github_updated_at": "2026-02-07T19:55:35Z",
+  "body_snippet": "I have downloaded mRemoteNG v1.78.2-NB-3208 x64.\n\n1. New color options were added in Display | Color and Tab Color:\n   <img width=\"357\" height=\"234\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/6a97b72f-51ca-4785-929a-3edebdc83d0b\" />\n\n2. Select some color and error appears (at both selections): _Property value is not valid._\n   <img width=\"278\" height=\"201\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/db5dde90-13bf-4d66-b840-f64a4fded212\" />",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM7JnwcS",
+      "author": "igor2x",
+      "date": "2025-10-08T18:00:57Z",
+      "snippet": "**Tab color**\n\nI have been playing with his little bit more and it looks like tab colors at least work if English name are typed in like \"blue\" or \"red\":\n<img width=\"510\" height=\"414\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/55ee8b3a-5ce6-4b4c-90f0-810839ae67bd\" />\n\nThis is little bit strange. I expected RGB numbers to be displayed in this field and left of it color displayed.\n\n**Color**\nI still don't know color of what object should be changed. I can't figure it out or it is ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7Jp7vm",
+      "author": "Kvarkas",
+      "date": "2025-10-08T20:57:23Z",
+      "snippet": "Yours connection grouping folder should change depending on that value, but what have a bit poor implementation, idea what should help color deferiate connections (x2 Qu!) So PROD - Red, DEV - blue, UAT - green, etc",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7J-7mX",
+      "author": "igor2x",
+      "date": "2025-10-10T07:53:55Z",
+      "snippet": "@Kvarkas, I have tried to set this setting, but just can't figure it out what really changes. Like described it should change \"folder\", but in my case it is always yellow. Any print screen would be helpful.\n\nAre English names for color names really good idea? In my humble opinion I think the color should be in RGB, so user can set the color quickly. If English names are used for color names, they should then be translated to non-English languages. But then what happens if I for example type in \"...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7J_m3z",
+      "author": "Kvarkas",
+      "date": "2025-10-10T08:38:19Z",
+      "snippet": "yes its a bit incomplete and a bit messy, but thats not priority so will have a look a bit later (mostly i need that changes to introduce new fields, so they get into new settings file) how to use them will be later :) \nin general - I am thinking to modify connection tree a bit later, idea was shared there: https://www.reddit.com/r/mRemoteNG/comments/s7qlow/v18_plans_new_ui_interface/\nIf you wish you could share you wission as I am welcome new ideas how to visualise it better.\n\nCore items: \n- gr...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiMI",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:55:35Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:55:35Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

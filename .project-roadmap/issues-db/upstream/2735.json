@@ -1,87 +1,87 @@
-﻿{
-    "number":  2735,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Lost focus on RDP\u0027s in SmartSize mode.",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "RDP",
-                   "Improvement required",
-                   "1.78.*",
-                   "Nightly Build"
-               ],
-    "author":  "janborup",
-    "created_at":  "2025-08-19T21:11:20Z",
-    "github_updated_at":  "2026-02-09T06:26:52Z",
-    "body_snippet":  "I\u0027m using \"RDP\u0027s\" in SmartSize mode, and each time i\u0027m hitting [Alt + TAB] or [Win + TAB], and back to mRemote, it has lost fokus on the RDP session, and you had to click with the mouse in the window to get focus\n\nThe current version \"mRemoteNG 1.78.2 NB 3137\" (and many PreRelease versions before), has this focus problem, but is work in the last stable version.\n\nMaybe reference to: https://github.com/mRemoteNG/mRemoteNG/issues/520\n\nCan you help here @Kvarkas ",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3116,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "RDP SmartSize focus loss fix",
-                           "pr":  3116,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6-3nPg",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "yes we know about this issue, will be looking next, once sort main list ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2025-08-19T21:15:19Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYh8r",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mZAK5",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\u003e \n\u003e Current legacy version labels: 1.78.*\n\nHi Robert\nThis issue is still pressent in last tagged (3228) excuteable from October 2025, but this is still labe...",
-                         "author":  "janborup",
-                         "action_needed":  true,
-                         "date":  "2026-02-07T20:31:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7ma-sk",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Implemented fork-side fix package for this bug:\n\n- upstream PR: https://github.com/mRemoteNG/mRemoteNG/pull/3116\n- fix scope:\n  - refocus active connection when app re-activates (`WM_ACTIVATEAPP`) unless `DisableRefocus` is enabled\n  - resilient active-tab lookup fallback in `frmMain.ActivateConnection()` for cases where `ConnectionWindow.ActiveControl` is transient\n- fork CI evidence:\n  - https://github.com/robertpopa22/mRemoteNG/actions/runs/21789349478\n\nIf useful I can split out a focused reg...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T00:31:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpcUD",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3116 | **Branch:** `codex/pr12-rdp-smartsize-focus-2735`\n**Fix:** RDP SmartSize no longer causes focus loss when resizing.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:52Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:26:52Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-14T14:14:59Z",
-    "notes":  ""
+{
+  "number": 2735,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Lost focus on RDP's in SmartSize mode.",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "RDP",
+    "Improvement required",
+    "1.78.*",
+    "Nightly Build"
+  ],
+  "author": "janborup",
+  "created_at": "2025-08-19T21:11:20Z",
+  "github_updated_at": "2026-02-09T06:26:52Z",
+  "body_snippet": "I'm using \"RDP's\" in SmartSize mode, and each time i'm hitting [Alt + TAB] or [Win + TAB], and back to mRemote, it has lost fokus on the RDP session, and you had to click with the mouse in the window to get focus\n\nThe current version \"mRemoteNG 1.78.2 NB 3137\" (and many PreRelease versions before), has this focus problem, but is work in the last stable version.\n\nMaybe reference to: https://github.com/mRemoteNG/mRemoteNG/issues/520\n\nCan you help here @Kvarkas ",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3116,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "RDP SmartSize focus loss fix",
+      "pr": 3116,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6-3nPg",
+      "author": "Kvarkas",
+      "date": "2025-08-19T21:15:19Z",
+      "snippet": "yes we know about this issue, will be looking next, once sort main list ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYh8r",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:36Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mZAK5",
+      "author": "janborup",
+      "date": "2026-02-07T20:31:07Z",
+      "snippet": "> Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n> \n> Current legacy version labels: 1.78.*\n\nHi Robert\nThis issue is still pressent in last tagged (3228) excuteable from October 2025, but this is still labe...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7ma-sk",
+      "author": "robertpopa22",
+      "date": "2026-02-08T00:31:25Z",
+      "snippet": "Implemented fork-side fix package for this bug:\n\n- upstream PR: https://github.com/mRemoteNG/mRemoteNG/pull/3116\n- fix scope:\n  - refocus active connection when app re-activates (`WM_ACTIVATEAPP`) unless `DisableRefocus` is enabled\n  - resilient active-tab lookup fallback in `frmMain.ActivateConnection()` for cases where `ConnectionWindow.ActiveControl` is transient\n- fork CI evidence:\n  - https://github.com/robertpopa22/mRemoteNG/actions/runs/21789349478\n\nIf useful I can split out a focused reg...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpcUD",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:52Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3116 | **Branch:** `codex/pr12-rdp-smartsize-focus-2735`\n**Fix:** RDP SmartSize no longer causes focus loss when resizing.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:26:52Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

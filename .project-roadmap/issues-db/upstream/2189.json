@@ -1,130 +1,128 @@
-﻿{
-    "number":  2189,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Idea: allow Windows Account for encryption (Data Protection API/DPAPI)",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement",
-                   "In development",
-                   "Security"
-               ],
-    "author":  "My1",
-    "created_at":  "2022-03-19T17:55:41Z",
-    "github_updated_at":  "2026-02-07T16:55:51Z",
-    "body_snippet":  "one cool option in my opnion would be that rather than using a password for encryption to use the windows account\u0027s possibilities for securing stuff itself, similar to what keepass can do https://keepass.info/help/base/keys.html at Windows User Account\r\nThis Also at least seems secure as it apparently relies on a windows account being properly unlocked (e.g. resetting your password will grill the keys used and make the data inaccessible, so a warning would be good.)\r\nWhile this make the file les...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM4_9YcD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I like this idea. And if only the credentials are encrypted, the file should be portable to a degree, only the passwords would need to be re-entered (which shouldn\u0027t pose any issues except usability)",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-03-19T18:08:00Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_9cFy",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I dont know how the encryption works if it only crypts creds or everything but if it only crypts creds that would be an absolute masterpiece",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2022-03-19T19:41:37Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4_9pQn",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I just know this kind of encryption from the \"Microsoft Remote Desktop Manager\" which had it implemented like that. And every time something was wrong with the user, I just had to re-enter the password once and everything was fine again. \r\n\r\nThe current implementation of mRemoteNG is just a way to obfuscate the settings, but (as far as I know) does not protect the credentials directly. ",
-                         "author":  "simonai1254",
-                         "action_needed":  true,
-                         "date":  "2022-03-19T22:49:08Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4__xeH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "That should be possible to implement once profiles will go live, currently working towards such",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2022-03-21T09:35:52Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM4__zdm",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "cool, looking forward to it.",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2022-03-21T09:44:58Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM56MbgF",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "2 years later...\r\n\r\nany success with profiles?",
-                         "author":  "My1",
-                         "action_needed":  true,
-                         "date":  "2024-04-11T16:31:40Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM56aIRH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "This would be a great feature to protect credentials...it\u0027s sad to see it is not a priority, what is the current priority of maintainers ?",
-                         "author":  "AkechiShiro",
-                         "action_needed":  true,
-                         "date":  "2024-04-13T14:58:21Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM56s-uf",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e 2 years later...\r\n\u003e \r\n\u003e any success with profiles?\r\n\r\nwhat was planed for next version only, after migration to .NET 8",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-04-16T09:10:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM56s_5e",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e This would be a great feature to protect credentials...it\u0027s sad to see it is not a priority, what is the current priority of maintainers ?\r\n\r\nat this moment i am alone on this project so moving forward a bit slowly :( however solving issues with vulnerability what impacting a lot and technically required to change  a lot in a code to make it secure and safe (but at same time allow normal users to ignore security recommendations if they want but all responsibility will be on they shoulders, mR ...",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2024-04-16T09:12:27Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM5652Q7",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "No problems this feature should either be funded or should be done by someone if they absolutely want this feature into RemoteNG\r\n\r\nMake sure to rest if you\u0027re alone maintaining this project.",
-                         "author":  "AkechiShiro",
-                         "action_needed":  true,
-                         "date":  "2024-04-17T18:47:36Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXJHC",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:55:51Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:55:51Z",
-    "unread_comments":  10,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2189,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Idea: allow Windows Account for encryption (Data Protection API/DPAPI)",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "In development",
+    "Security"
+  ],
+  "author": "My1",
+  "created_at": "2022-03-19T17:55:41Z",
+  "github_updated_at": "2026-02-07T16:55:51Z",
+  "body_snippet": "one cool option in my opnion would be that rather than using a password for encryption to use the windows account's possibilities for securing stuff itself, similar to what keepass can do https://keepass.info/help/base/keys.html at Windows User Account\r\nThis Also at least seems secure as it apparently relies on a windows account being properly unlocked (e.g. resetting your password will grill the keys used and make the data inaccessible, so a warning would be good.)\r\nWhile this make the file les...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM4_9YcD",
+      "author": "simonai1254",
+      "date": "2022-03-19T18:08:00Z",
+      "snippet": "I like this idea. And if only the credentials are encrypted, the file should be portable to a degree, only the passwords would need to be re-entered (which shouldn't pose any issues except usability)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_9cFy",
+      "author": "My1",
+      "date": "2022-03-19T19:41:37Z",
+      "snippet": "I dont know how the encryption works if it only crypts creds or everything but if it only crypts creds that would be an absolute masterpiece",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4_9pQn",
+      "author": "simonai1254",
+      "date": "2022-03-19T22:49:08Z",
+      "snippet": "I just know this kind of encryption from the \"Microsoft Remote Desktop Manager\" which had it implemented like that. And every time something was wrong with the user, I just had to re-enter the password once and everything was fine again. \r\n\r\nThe current implementation of mRemoteNG is just a way to obfuscate the settings, but (as far as I know) does not protect the credentials directly. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4__xeH",
+      "author": "Kvarkas",
+      "date": "2022-03-21T09:35:52Z",
+      "snippet": "That should be possible to implement once profiles will go live, currently working towards such",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM4__zdm",
+      "author": "My1",
+      "date": "2022-03-21T09:44:58Z",
+      "snippet": "cool, looking forward to it.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM56MbgF",
+      "author": "My1",
+      "date": "2024-04-11T16:31:40Z",
+      "snippet": "2 years later...\r\n\r\nany success with profiles?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM56aIRH",
+      "author": "AkechiShiro",
+      "date": "2024-04-13T14:58:21Z",
+      "snippet": "This would be a great feature to protect credentials...it's sad to see it is not a priority, what is the current priority of maintainers ?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM56s-uf",
+      "author": "Kvarkas",
+      "date": "2024-04-16T09:10:05Z",
+      "snippet": "> 2 years later...\r\n> \r\n> any success with profiles?\r\n\r\nwhat was planed for next version only, after migration to .NET 8",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM56s_5e",
+      "author": "Kvarkas",
+      "date": "2024-04-16T09:12:27Z",
+      "snippet": "> This would be a great feature to protect credentials...it's sad to see it is not a priority, what is the current priority of maintainers ?\r\n\r\nat this moment i am alone on this project so moving forward a bit slowly :( however solving issues with vulnerability what impacting a lot and technically required to change  a lot in a code to make it secure and safe (but at same time allow normal users to ignore security recommendations if they want but all responsibility will be on they shoulders, mR ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM5652Q7",
+      "author": "AkechiShiro",
+      "date": "2024-04-17T18:47:36Z",
+      "snippet": "No problems this feature should either be funded or should be done by someone if they absolutely want this feature into RemoteNG\r\n\r\nMake sure to rest if you're alone maintaining this project.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXJHC",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:55:51Z",
+      "snippet": "Triage (P3 stale status): this issue is labeled as actively worked, but activity appears stale. Please confirm whether work is still in progress. If not, please relabel to Need 2 check (or close) to keep status labels accurate.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:55:51Z",
+  "unread_comments": 10,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

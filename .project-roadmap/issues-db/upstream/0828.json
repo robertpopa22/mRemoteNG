@@ -1,38 +1,36 @@
-﻿{
-    "number":  828,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Reset Layout",
-    "state":  "open",
-    "labels":  [
-                   "Bug"
-               ],
-    "author":  "robgnet",
-    "created_at":  "2017-12-05T19:45:32Z",
-    "github_updated_at":  "2018-03-08T01:51:22Z",
-    "body_snippet":  "Each time I open mRemoteNG and open a SSH window, I have to Reset Layout otherwise the screen is boxed in a small square. I have the program open full screen.\r\n\r\nWindows 7, 64bit Service Pack 1\r\nmRemoteNG v1.75.7012.16814\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDM3MTExNjUwNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can confirm this is an issue. Upon opening any SSH connection I need to minimise then maximise the mRemoteNG window in order to make the content fit the right hand panel.\r\n\r\nShow in this screenshot.\r\n\r\n![mremoteng 2018-03-07_115338](https://user-images.githubusercontent.com/37144052/37091113-dff5799c-21fe-11e8-9838-c4b5c760ff55.png)\r\n\r\n(Windows 10, x64, mRemoteNG 1.75.7008.17935)",
-                         "author":  "morganweb",
-                         "action_needed":  true,
-                         "date":  "2018-03-07T11:58:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2018-03-08T01:51:22Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 828,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Reset Layout",
+  "state": "open",
+  "labels": [
+    "Bug"
+  ],
+  "author": "robgnet",
+  "created_at": "2017-12-05T19:45:32Z",
+  "github_updated_at": "2018-03-08T01:51:22Z",
+  "body_snippet": "Each time I open mRemoteNG and open a SSH window, I have to Reset Layout otherwise the screen is boxed in a small square. I have the program open full screen.\r\n\r\nWindows 7, 64bit Service Pack 1\r\nmRemoteNG v1.75.7012.16814\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDM3MTExNjUwNw==",
+      "author": "morganweb",
+      "date": "2018-03-07T11:58:59Z",
+      "snippet": "I can confirm this is an issue. Upon opening any SSH connection I need to minimise then maximise the mRemoteNG window in order to make the content fit the right hand panel.\r\n\r\nShow in this screenshot.\r\n\r\n![mremoteng 2018-03-07_115338](https://user-images.githubusercontent.com/37144052/37091113-dff5799c-21fe-11e8-9838-c4b5c760ff55.png)\r\n\r\n(Windows 10, x64, mRemoteNG 1.75.7008.17935)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2018-03-08T01:51:22Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

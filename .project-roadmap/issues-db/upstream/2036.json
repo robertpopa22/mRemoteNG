@@ -1,58 +1,56 @@
-﻿{
-    "number":  2036,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "REQUEST: Chromium (webView2) rendering with support for self signed certificates",
-    "state":  "open",
-    "labels":  [
-                   "UI/UX",
-                   "1.8 (Fenix)",
-                   "WebView - Chromium"
-               ],
-    "author":  "lars18th",
-    "created_at":  "2021-08-30T16:37:17Z",
-    "github_updated_at":  "2026-02-07T19:54:50Z",
-    "body_snippet":  "Hi,\r\n\r\n_NOTE: Original issue title \"Option \"chrome://settings\" for Chromium rendering\"_\r\n\r\nI need to open some HTTPS content inside MRN. The external tool functionality is not a solution (I need to integrate the interface in a Panel). And I have a lot of problems with this particular server. So I need to access to the Chromium configuration. At time this is impossible (not right button menu available, nor any option to configure it). So my suggestion is to add a simple option to access to the \"c...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM42Lhi7",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\r\n\r\nOne trouble with the current Chromium web rendering (HTTPS protocol) is when you want to connect to internal servers using self signed certificates. Yes, I know this is a bad method to secure your network. However, a lot of environments have at time a huge number of servers/hardware/services using such certificates. And the MRN tool is a tool for _management_. So, we really need to connect to these devices... even using the self signed certificates.\r\n\r\nThe problem is that the current WebV...",
-                         "author":  "lars18th",
-                         "action_needed":  true,
-                         "date":  "2021-08-31T07:54:50Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM42fZs6",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Will have a look in near feature for such ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-09-07T10:50:52Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiAR",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:54:50Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T19:54:50Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2036,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "REQUEST: Chromium (webView2) rendering with support for self signed certificates",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "1.8 (Fenix)",
+    "WebView - Chromium"
+  ],
+  "author": "lars18th",
+  "created_at": "2021-08-30T16:37:17Z",
+  "github_updated_at": "2026-02-07T19:54:50Z",
+  "body_snippet": "Hi,\r\n\r\n_NOTE: Original issue title \"Option \"chrome://settings\" for Chromium rendering\"_\r\n\r\nI need to open some HTTPS content inside MRN. The external tool functionality is not a solution (I need to integrate the interface in a Panel). And I have a lot of problems with this particular server. So I need to access to the Chromium configuration. At time this is impossible (not right button menu available, nor any option to configure it). So my suggestion is to add a simple option to access to the \"c...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM42Lhi7",
+      "author": "lars18th",
+      "date": "2021-08-31T07:54:50Z",
+      "snippet": "Hi,\r\n\r\nOne trouble with the current Chromium web rendering (HTTPS protocol) is when you want to connect to internal servers using self signed certificates. Yes, I know this is a bad method to secure your network. However, a lot of environments have at time a huge number of servers/hardware/services using such certificates. And the MRN tool is a tool for _management_. So, we really need to connect to these devices... even using the self signed certificates.\r\n\r\nThe problem is that the current WebV...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM42fZs6",
+      "author": "Kvarkas",
+      "date": "2021-09-07T10:50:52Z",
+      "snippet": "Will have a look in near feature for such ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiAR",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:54:50Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T19:54:50Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

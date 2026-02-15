@@ -1,56 +1,54 @@
-﻿{
-    "number":  1862,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Will Not Remain Running and Quits Right After Start",
-    "state":  "open",
-    "labels":  [
-                   "Support Request"
-               ],
-    "author":  "itgl72",
-    "created_at":  "2020-09-14T15:11:56Z",
-    "github_updated_at":  "2020-10-01T09:36:21Z",
-    "body_snippet":  "When I click to start mRemoteNG on Windows 10 I can see its process pop up for a moment but then disappear a second later. It does this with MSI and Portable versions. I have uninstalled and re-installed several times. I have attempted to find left over items in the registry and the file system. Since it never starts there is no user.config file to remove, it doesn\u0027t exist. I have searched all of the event logs for mention of \u0027*mremoteng*\u0027 and found nothing reflecting an error or warning. There ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY5Mjk2NTM5Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Check for any .NET errors in your event viewer.\r\nIf so try this: https://support.microsoft.com/en-us/help/2698555/microsoft-net-framework-repair-tool-is-available",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-09-15T20:37:14Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY5NzM0MTIzNQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "The only way I Was able to work around this was to install to a non \"program files\" folder. In my case I installed it to C:\\Tools and the application then allowed me to start and use it again.",
-                         "author":  "itgl72",
-                         "action_needed":  true,
-                         "date":  "2020-09-23T12:46:56Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDcwMjAxNTQzOQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e The only way I Was able to work around this was to install to a non \"program files\" folder\r\n\r\nMay be [UAC](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd835548(v=ws.10)) has something to do with this? It has some protection mechanisms for _Program Files_ and _Program Files (x86)_ folders.\r\n\r\nHave you tried to disable UAC? It can be disabled via Control Panel + by setting _EnableLUA_ parameter (DWORD type) to 0  in _HKEY_LOCAL_MACHINE\\SOFTWA...",
-                         "author":  "PetbkA",
-                         "action_needed":  true,
-                         "date":  "2020-10-01T09:36:03Z"
-                     }
-                 ],
-    "comments_cursor":  "2020-10-01T09:36:21Z",
-    "unread_comments":  3,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1862,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Will Not Remain Running and Quits Right After Start",
+  "state": "open",
+  "labels": [
+    "Support Request"
+  ],
+  "author": "itgl72",
+  "created_at": "2020-09-14T15:11:56Z",
+  "github_updated_at": "2020-10-01T09:36:21Z",
+  "body_snippet": "When I click to start mRemoteNG on Windows 10 I can see its process pop up for a moment but then disappear a second later. It does this with MSI and Portable versions. I have uninstalled and re-installed several times. I have attempted to find left over items in the registry and the file system. Since it never starts there is no user.config file to remove, it doesn't exist. I have searched all of the event logs for mention of '*mremoteng*' and found nothing reflecting an error or warning. There ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY5Mjk2NTM5Nw==",
+      "author": "farosch",
+      "date": "2020-09-15T20:37:14Z",
+      "snippet": "Check for any .NET errors in your event viewer.\r\nIf so try this: https://support.microsoft.com/en-us/help/2698555/microsoft-net-framework-repair-tool-is-available",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY5NzM0MTIzNQ==",
+      "author": "itgl72",
+      "date": "2020-09-23T12:46:56Z",
+      "snippet": "The only way I Was able to work around this was to install to a non \"program files\" folder. In my case I installed it to C:\\Tools and the application then allowed me to start and use it again.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDcwMjAxNTQzOQ==",
+      "author": "PetbkA",
+      "date": "2020-10-01T09:36:03Z",
+      "snippet": "> The only way I Was able to work around this was to install to a non \"program files\" folder\r\n\r\nMay be [UAC](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/dd835548(v=ws.10)) has something to do with this? It has some protection mechanisms for _Program Files_ and _Program Files (x86)_ folders.\r\n\r\nHave you tried to disable UAC? It can be disabled via Control Panel + by setting _EnableLUA_ parameter (DWORD type) to 0  in _HKEY_LOCAL_MACHINE\\SOFTWA...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2020-10-01T09:36:21Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

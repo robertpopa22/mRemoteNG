@@ -1,175 +1,173 @@
-﻿{
-    "number":  1673,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Can\u0027t connect to Linux Hyper-V Machines, RDCman works fine",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Need 2 check",
-                   "Linux"
-               ],
-    "author":  "davi2td",
-    "created_at":  "2020-01-19T15:30:26Z",
-    "github_updated_at":  "2026-02-07T16:46:54Z",
-    "body_snippet":  "VMRDP Connections do not work when connecting to Linux Guest VM\u0027s.\r\nCan\u0027t connect to Debian 10 , Latest Hyper-v supported version per : [Debian-Supported-Hyper-v](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-debian-virtual-machines-on-hyper-v)\r\n\r\n## Expected Behavior\r\nSuccessfully connect to guest Linux OS. \r\n\r\n## Current Behavior\r\nReceive the following generic error when trying to connect to a Linux host:\r\nProtocol Event Disconnected. Host: \"localhost\"; Proto...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDYzMzMwOTQ2NA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "can you connect to windows hyper-v machines?\r\nhave you tried 127.0.0.1 instead of localhost?",
-                         "author":  "farosch",
-                         "action_needed":  true,
-                         "date":  "2020-05-24T22:24:50Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MjA5NDY1Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I get the same internal error when attempting to connect to a Windows Hyper-V host. Tried 127.0.0.1, localhost, hostname, and LAN IP.\r\n\r\nmRemoteNG Version used: 1.77.1.27654\r\nMicrosoft Windows LTSC 17763.1339 x64 (host and client)",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-27T17:43:03Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MjEwNTc4Ng==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Have you looked at [Connect to virtual machine on Hyper-V](https://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNG/Documentation/howtos/vmrdp.rst)",
-                         "author":  "Sascha-69",
-                         "action_needed":  true,
-                         "date":  "2020-08-27T18:04:33Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MjEyNTczNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Just tried:\r\n----------\r\nWarningMsg\r\n08/27/2020 14:45:24\r\nProtocol Event Disconnected. Host: \"127.0.0.1\"; Protocol: \"RDP\" Message: \"An internal error has occurred.\"\r\n----------\r\nTo be helpful, I tried this for you, but frankly this has nothing to do with ip or name, it works fine in RDCMAN, which also means nothing to do with firewalls or anything like that. \r\n",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-27T18:46:38Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MjE5MDI0MQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e Have you looked at [Connect to virtual machine on Hyper-V](https://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNG/Documentation/howtos/vmrdp.rst)\r\n\r\nYes I read through the docs, this feature seemingly doesn\u0027t work.",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-27T21:05:05Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzgzMjYwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Don\u0027t know what changed, but had to reboot for updates and then this worked for the first time today. Made no config changes.",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T14:57:48Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4Mzg5NDgyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\u003e \r\n\u003e \r\n\u003e Don\u0027t know what changed, but had to reboot for updates and then this worked for the first time today. Made no config changes.\r\n\r\nNot for me, i\u0027m running pre-release 1.77.1.27654, what I don\u0027t get is it\u0027s from Sept 2019 and is latest dev release??\r\nAnyway what version are you running?",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T16:42:19Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzkwMTE3OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I\u0027m running the same version that you are.",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T16:53:16Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzkwMjgyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Cool thanks for update, clearly this isn\u0027t stable at all. I just don\u0027t understand the dev/release process, this version is dev/beta and over a year old ...",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T16:56:17Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzkyOTcyNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "OK, Update got it working using the mRemoteNG-removecitrix(1.77.1.23492)., complied and works with localhost or 127.0.0.1. However, even though enhanced mode is enabled in hyper-v it will not work when \"use enhanced mode\" is enabled in mRemoteNG.\r\nExact same settings in 1.77.127654, except for \"use enhanced mode\" which doesn\u0027t exist, so what would that indicate?\r\n\r\nShananiganeer, do you have enhanced mode enabled in Hyper-v ? Hyper-V settings =\u003e Enhanced Session Mode Policy Allow Enhanced Sessio...",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T17:47:52Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzkzNDkyMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I have Enhanced Session Mode enabled in Hyper-V, but have no corresponding setting within mRemoteNG.",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T17:57:41Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4MzkzNjQzNA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "YA, that setting is in the version i mentioned i compiled. \r\nI tried turning enhanced mode off in Hyper-V with no luck still 1.77.1.27654, but at least it appears to be working some day in the future lol, good you got it working who knows why. ",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T18:00:37Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4Mzk0MDA5Nw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Here\u0027s my config, though I doubt you\u0027ve got anything wrong.\r\n\r\n![image](https://user-images.githubusercontent.com/20528114/91751742-4c3ce300-eb93-11ea-8b32-232809d95165.png)\r\n\r\n",
-                         "author":  "Shananiganeer",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T18:07:39Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4Mzk0MTk1OA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yup, thanks mine are the same.",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T18:10:59Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDY4Mzk0NDIxOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Like I said it does work in the latest build i compiled, which has the use enhanced and only works for me when disabled, thats why I was curious if you had it enabled in hyper-v, but I\u0027ve messed with that as well with no luck. \r\nI\u0027ll just create the installer for the one I got working and use it instead ...",
-                         "author":  "davi2td",
-                         "action_needed":  true,
-                         "date":  "2020-08-31T18:15:07Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFwm",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:46:54Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-07T16:46:54Z",
-    "unread_comments":  15,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1673,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Can't connect to Linux Hyper-V Machines, RDCman works fine",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "Linux"
+  ],
+  "author": "davi2td",
+  "created_at": "2020-01-19T15:30:26Z",
+  "github_updated_at": "2026-02-07T16:46:54Z",
+  "body_snippet": "VMRDP Connections do not work when connecting to Linux Guest VM's.\r\nCan't connect to Debian 10 , Latest Hyper-v supported version per : [Debian-Supported-Hyper-v](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-debian-virtual-machines-on-hyper-v)\r\n\r\n## Expected Behavior\r\nSuccessfully connect to guest Linux OS. \r\n\r\n## Current Behavior\r\nReceive the following generic error when trying to connect to a Linux host:\r\nProtocol Event Disconnected. Host: \"localhost\"; Proto...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDYzMzMwOTQ2NA==",
+      "author": "farosch",
+      "date": "2020-05-24T22:24:50Z",
+      "snippet": "can you connect to windows hyper-v machines?\r\nhave you tried 127.0.0.1 instead of localhost?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MjA5NDY1Ng==",
+      "author": "Shananiganeer",
+      "date": "2020-08-27T17:43:03Z",
+      "snippet": "I get the same internal error when attempting to connect to a Windows Hyper-V host. Tried 127.0.0.1, localhost, hostname, and LAN IP.\r\n\r\nmRemoteNG Version used: 1.77.1.27654\r\nMicrosoft Windows LTSC 17763.1339 x64 (host and client)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MjEwNTc4Ng==",
+      "author": "Sascha-69",
+      "date": "2020-08-27T18:04:33Z",
+      "snippet": "Have you looked at [Connect to virtual machine on Hyper-V](https://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNG/Documentation/howtos/vmrdp.rst)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MjEyNTczNw==",
+      "author": "davi2td",
+      "date": "2020-08-27T18:46:38Z",
+      "snippet": "Just tried:\r\n----------\r\nWarningMsg\r\n08/27/2020 14:45:24\r\nProtocol Event Disconnected. Host: \"127.0.0.1\"; Protocol: \"RDP\" Message: \"An internal error has occurred.\"\r\n----------\r\nTo be helpful, I tried this for you, but frankly this has nothing to do with ip or name, it works fine in RDCMAN, which also means nothing to do with firewalls or anything like that. \r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MjE5MDI0MQ==",
+      "author": "Shananiganeer",
+      "date": "2020-08-27T21:05:05Z",
+      "snippet": "> \r\n> \r\n> Have you looked at [Connect to virtual machine on Hyper-V](https://github.com/mRemoteNG/mRemoteNG/blob/develop/mRemoteNG/Documentation/howtos/vmrdp.rst)\r\n\r\nYes I read through the docs, this feature seemingly doesn't work.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzgzMjYwMg==",
+      "author": "Shananiganeer",
+      "date": "2020-08-31T14:57:48Z",
+      "snippet": "Don't know what changed, but had to reboot for updates and then this worked for the first time today. Made no config changes.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4Mzg5NDgyNw==",
+      "author": "davi2td",
+      "date": "2020-08-31T16:42:19Z",
+      "snippet": "> \r\n> \r\n> Don't know what changed, but had to reboot for updates and then this worked for the first time today. Made no config changes.\r\n\r\nNot for me, i'm running pre-release 1.77.1.27654, what I don't get is it's from Sept 2019 and is latest dev release??\r\nAnyway what version are you running?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzkwMTE3OA==",
+      "author": "Shananiganeer",
+      "date": "2020-08-31T16:53:16Z",
+      "snippet": "I'm running the same version that you are.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzkwMjgyNw==",
+      "author": "davi2td",
+      "date": "2020-08-31T16:56:17Z",
+      "snippet": "Cool thanks for update, clearly this isn't stable at all. I just don't understand the dev/release process, this version is dev/beta and over a year old ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzkyOTcyNA==",
+      "author": "davi2td",
+      "date": "2020-08-31T17:47:52Z",
+      "snippet": "OK, Update got it working using the mRemoteNG-removecitrix(1.77.1.23492)., complied and works with localhost or 127.0.0.1. However, even though enhanced mode is enabled in hyper-v it will not work when \"use enhanced mode\" is enabled in mRemoteNG.\r\nExact same settings in 1.77.127654, except for \"use enhanced mode\" which doesn't exist, so what would that indicate?\r\n\r\nShananiganeer, do you have enhanced mode enabled in Hyper-v ? Hyper-V settings => Enhanced Session Mode Policy Allow Enhanced Sessio...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzkzNDkyMg==",
+      "author": "Shananiganeer",
+      "date": "2020-08-31T17:57:41Z",
+      "snippet": "I have Enhanced Session Mode enabled in Hyper-V, but have no corresponding setting within mRemoteNG.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4MzkzNjQzNA==",
+      "author": "davi2td",
+      "date": "2020-08-31T18:00:37Z",
+      "snippet": "YA, that setting is in the version i mentioned i compiled. \r\nI tried turning enhanced mode off in Hyper-V with no luck still 1.77.1.27654, but at least it appears to be working some day in the future lol, good you got it working who knows why. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4Mzk0MDA5Nw==",
+      "author": "Shananiganeer",
+      "date": "2020-08-31T18:07:39Z",
+      "snippet": "Here's my config, though I doubt you've got anything wrong.\r\n\r\n![image](https://user-images.githubusercontent.com/20528114/91751742-4c3ce300-eb93-11ea-8b32-232809d95165.png)\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4Mzk0MTk1OA==",
+      "author": "davi2td",
+      "date": "2020-08-31T18:10:59Z",
+      "snippet": "Yup, thanks mine are the same.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDY4Mzk0NDIxOA==",
+      "author": "davi2td",
+      "date": "2020-08-31T18:15:07Z",
+      "snippet": "Like I said it does work in the latest build i compiled, which has the use enhanced and only works for me when disabled, thats why I was curious if you had it enabled in hyper-v, but I've messed with that as well with no luck. \r\nI'll just create the installer for the one I got working and use it instead ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFwm",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:46:54Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-07T16:46:54Z",
+  "unread_comments": 15,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

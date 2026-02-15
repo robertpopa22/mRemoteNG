@@ -1,65 +1,63 @@
-﻿{
-    "number":  388,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "[Feature Request] Allow for Additional User Fields",
-    "state":  "open",
-    "labels":  [
-                   "Enhancement"
-               ],
-    "author":  "only1alive",
-    "created_at":  "2017-02-02T18:47:50Z",
-    "github_updated_at":  "2019-08-01T19:02:28Z",
-    "body_snippet":  "\u003c!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n--\u003e\r\n\r\n\u003c!-- Feature Request --\u003e\r\nI would like to request the ability to add additional **User Fields** under the Miscellaneous section. I currently use the User Field to pass arguments to each of my connections upon connecting. These fields are unique to each ...",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDI3NzI5NDg3Mw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Reference: https://mremoteng.atlassian.net/browse/MR-933",
-                         "author":  "kmscode",
-                         "action_needed":  true,
-                         "date":  "2017-02-03T16:32:43Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQwMjk5MTcwMg==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "\"I currently use the User Field to pass arguments to each of my connections upon connecting.\"\r\n\r\ncan you please explain how to do that ?I need all my connections to get the hostname from the  user field and i just cant understand how to do that",
-                         "author":  "fotatsos",
-                         "action_needed":  true,
-                         "date":  "2018-07-06T10:11:54Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDQyODYwNzMzOA==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I would like to second this feature request / enhancement for the addition of more **User Fields** under the Miscellaneous section. I also want to be able to add as many User Fields as I would like up to a reasonable number and to be able to label them as I see fit or have them created with a unique label such as **User Fields B**. Also I\u0027d like the extra User Fields I want to be applied to any new Connection I create and ideally I can define and control this behavior via global app settings in ...",
-                         "author":  "dimers",
-                         "action_needed":  true,
-                         "date":  "2018-10-10T15:02:04Z"
-                     },
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDUxNzQxNjcyNw==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Yes, this would be very nice for use with as a parameter to external tools. Please.",
-                         "author":  "simon1tan",
-                         "action_needed":  true,
-                         "date":  "2019-08-01T19:02:27Z"
-                     }
-                 ],
-    "comments_cursor":  "2019-08-01T19:02:28Z",
-    "unread_comments":  4,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 388,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Feature Request] Allow for Additional User Fields",
+  "state": "open",
+  "labels": [
+    "Enhancement"
+  ],
+  "author": "only1alive",
+  "created_at": "2017-02-02T18:47:50Z",
+  "github_updated_at": "2019-08-01T19:02:28Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\nI would like to request the ability to add additional **User Fields** under the Miscellaneous section. I currently use the User Field to pass arguments to each of my connections upon connecting. These fields are unique to each ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDI3NzI5NDg3Mw==",
+      "author": "kmscode",
+      "date": "2017-02-03T16:32:43Z",
+      "snippet": "Reference: https://mremoteng.atlassian.net/browse/MR-933",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQwMjk5MTcwMg==",
+      "author": "fotatsos",
+      "date": "2018-07-06T10:11:54Z",
+      "snippet": "\"I currently use the User Field to pass arguments to each of my connections upon connecting.\"\r\n\r\ncan you please explain how to do that ?I need all my connections to get the hostname from the  user field and i just cant understand how to do that",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQyODYwNzMzOA==",
+      "author": "dimers",
+      "date": "2018-10-10T15:02:04Z",
+      "snippet": "I would like to second this feature request / enhancement for the addition of more **User Fields** under the Miscellaneous section. I also want to be able to add as many User Fields as I would like up to a reasonable number and to be able to label them as I see fit or have them created with a unique label such as **User Fields B**. Also I'd like the extra User Fields I want to be applied to any new Connection I create and ideally I can define and control this behavior via global app settings in ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUxNzQxNjcyNw==",
+      "author": "simon1tan",
+      "date": "2019-08-01T19:02:27Z",
+      "snippet": "Yes, this would be very nice for use with as a parameter to external tools. Please.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2019-08-01T19:02:28Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

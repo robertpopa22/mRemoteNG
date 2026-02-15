@@ -1,49 +1,47 @@
-﻿{
-    "number":  2018,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Feature request to start mRemoteNG with another configuration file sending as parameter",
-    "state":  "open",
-    "labels":  [
-                   "Feature Request",
-                   "Needs implementation",
-                   "Connections"
-               ],
-    "author":  "Kvarkas",
-    "created_at":  "2021-08-06T14:07:06Z",
-    "github_updated_at":  "2025-04-28T08:21:12Z",
-    "body_snippet":  "Q: is it possible, to use mRemote from another config-File?\r\nUsually the config file is under: c:\\users\\USER\\AppData\\Roaming\\mRemoteNG\\confCons.xml\r\n\r\nIs it possible to start the mRemote (with parameter) to use another config-File example in e:\\tool\\mRemoteNG\\myconfig.xml  ??\r\n\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM41TbpD",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "For a now its not implemented, however perhaps can be done in near feature. ",
-                         "author":  "Kvarkas",
-                         "action_needed":  true,
-                         "date":  "2021-08-06T14:07:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM6o8Vx8",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Any good news or plans?",
-                         "author":  "stalker2432",
-                         "action_needed":  true,
-                         "date":  "2025-04-28T08:21:12Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-04-28T08:21:12Z",
-    "unread_comments":  2,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 2018,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Feature request to start mRemoteNG with another configuration file sending as parameter",
+  "state": "open",
+  "labels": [
+    "Feature Request",
+    "Needs implementation",
+    "Connections"
+  ],
+  "author": "Kvarkas",
+  "created_at": "2021-08-06T14:07:06Z",
+  "github_updated_at": "2025-04-28T08:21:12Z",
+  "body_snippet": "Q: is it possible, to use mRemote from another config-File?\r\nUsually the config file is under: c:\\users\\USER\\AppData\\Roaming\\mRemoteNG\\confCons.xml\r\n\r\nIs it possible to start the mRemote (with parameter) to use another config-File example in e:\\tool\\mRemoteNG\\myconfig.xml  ??\r\n\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM41TbpD",
+      "author": "Kvarkas",
+      "date": "2021-08-06T14:07:42Z",
+      "snippet": "For a now its not implemented, however perhaps can be done in near feature. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM6o8Vx8",
+      "author": "stalker2432",
+      "date": "2025-04-28T08:21:12Z",
+      "snippet": "Any good news or plans?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-04-28T08:21:12Z",
+  "unread_comments": 2,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

@@ -1,40 +1,38 @@
-﻿{
-    "number":  1830,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Cannot change expired password error 3847",
-    "state":  "open",
-    "labels":  [
-                   "RDP",
-                   "Improvement required",
-                   "Windows"
-               ],
-    "author":  "Tuteksik",
-    "created_at":  "2020-08-10T06:22:17Z",
-    "github_updated_at":  "2025-06-26T07:16:34Z",
-    "body_snippet":  "Hi,\r\nHow could I in MremoteNG change expired password during connection to server. If password is expired I have an error during connection 3847, so only solution is to use windows remote desktop client to change password first then again I can use MremoteNG.\r\n\r\n* Version used:\r\n* Operating System and version (e.g. Windows 10 1709 x64):\r\n",
-    "our_status":  "new",
-    "priority":  null,
-    "target_release":  null,
-    "our_branch":  null,
-    "our_pr":  null,
-    "iterations":  [
-
-                   ],
-    "comments":  [
-                     {
-                         "id":  "IC_kwDOAAcIMM6zQePH",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "Hi,\nIs it possible to add a parameter (just like the rest, for example like clipboard sharing) to allow expired password change?. Now if the password is expired, you can add these 2 lines to .rdp file:\n```\nauthentication level:i:2\nenablecredsspsupport:i:0\n```\nThen the mstsc.exe will open the connection with a prompt to change the password.",
-                         "author":  "iCelo-git",
-                         "action_needed":  true,
-                         "date":  "2025-06-26T07:16:34Z"
-                     }
-                 ],
-    "comments_cursor":  "2025-06-26T07:16:34Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  true,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1830,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Cannot change expired password error 3847",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Improvement required",
+    "Windows"
+  ],
+  "author": "Tuteksik",
+  "created_at": "2020-08-10T06:22:17Z",
+  "github_updated_at": "2025-06-26T07:16:34Z",
+  "body_snippet": "Hi,\r\nHow could I in MremoteNG change expired password during connection to server. If password is expired I have an error during connection 3847, so only solution is to use windows remote desktop client to change password first then again I can use MremoteNG.\r\n\r\n* Version used:\r\n* Operating System and version (e.g. Windows 10 1709 x64):\r\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM6zQePH",
+      "author": "iCelo-git",
+      "date": "2025-06-26T07:16:34Z",
+      "snippet": "Hi,\nIs it possible to add a parameter (just like the rest, for example like clipboard sharing) to allow expired password change?. Now if the password is expired, you can add these 2 lines to .rdp file:\n```\nauthentication level:i:2\nenablecredsspsupport:i:0\n```\nThen the mstsc.exe will open the connection with a prompt to change the password.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2025-06-26T07:16:34Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }

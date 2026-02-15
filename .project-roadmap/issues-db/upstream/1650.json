@@ -1,85 +1,85 @@
-﻿{
-    "number":  1650,
-    "repo":  "mRemoteNG/mRemoteNG",
-    "title":  "Application automatically goes to background in various scenarios",
-    "state":  "open",
-    "labels":  [
-                   "Bug",
-                   "Need 2 check",
-                   "1.78.*"
-               ],
-    "author":  "techpavan",
-    "created_at":  "2019-12-09T04:11:29Z",
-    "github_updated_at":  "2026-02-09T06:26:59Z",
-    "body_snippet":  "\u003c!--- Provide a general summary of the issue in the Title above --\u003e\r\n\r\n## Expected Behavior\r\n\u003c!--- If you\u0027re describing a bug, tell us what should happen --\u003e\r\n\u003c!--- If you\u0027re suggesting a change/improvement, tell us how it should work --\u003e\r\nWhile using mRemoteNG, it should behave and remain like a foreground application until the user prefers to minimize this and bring any other application to the foreground.\r\n\r\n## Current Behavior\r\n\u003c!--- If describing a bug, tell us what happens instead of the e...",
-    "our_status":  "released",
-    "priority":  null,
-    "target_release":  "v1.79.0",
-    "our_branch":  null,
-    "our_pr":  3118,
-    "iterations":  [
-                       {
-                           "seq":  1,
-                           "date":  "2026-02-10",
-                           "type":  "released",
-                           "description":  "RDP refocus after fullscreen exit",
-                           "pr":  3118,
-                           "branch":  null,
-                           "release":  "v1.79.0",
-                           "comment_posted":  false
-                       }
-                   ],
-    "comments":  [
-                     {
-                         "id":  "MDEyOklzc3VlQ29tbWVudDU4MzM1ODUxMQ==",
-                         "analyzed":  false,
-                         "is_ours":  false,
-                         "snippet":  "I can confirm Scenario 1 and Scenario 2.\r\n\r\nI\u0027d add that if I have another application in the foreground and click on mRemoteNG\u0027s icon in the taskbar *or* by Alt+Tab the application seems to get focus but if you look at the task bar it doesn\u0027t look like it\u0027s the active application (the previous application in the foreground looks like it\u0027s still the active application.\r\n\r\nThis is what I see just after clicking the mRemoteNG icon\r\n\r\n![image](https://user-images.githubusercontent.com/904750/740272...",
-                         "author":  "federicoculloca",
-                         "action_needed":  true,
-                         "date":  "2020-02-07T11:51:25Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mXFzk",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T16:47:05Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mYiiq",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-07T19:56:47Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mbEIk",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Implemented fork-side fix package for this issue:\n\n- upstream PR: https://github.com/mRemoteNG/mRemoteNG/pull/3118\n- change summary:\n  - when RDP raises `OnLeaveFullScreenMode`, mRemoteNG now restores main form (if minimized), activates it, and refocuses the active session control\n  - reduces cases where mRemoteNG falls behind other windows after leaving fullscreen via RDP bar\n- fork CI evidence:\n  - https://github.com/robertpopa22/mRemoteNG/actions/runs/21789549099\n\nIf needed, we can add follow...",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-08T00:46:42Z"
-                     },
-                     {
-                         "id":  "IC_kwDOAAcIMM7mpcc1",
-                         "analyzed":  false,
-                         "is_ours":  true,
-                         "snippet":  "Γ£à Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3118 | **Branch:** `codex/pr14-rdp-fullscreen-exit-refocus-1650`\n**Fix:** RDP correctly refocuses after exiting fullscreen mode.\n\n3 platform builds (x64, x86, ARM64) available for download.",
-                         "author":  "robertpopa22",
-                         "action_needed":  false,
-                         "date":  "2026-02-09T06:26:59Z"
-                     }
-                 ],
-    "comments_cursor":  "2026-02-09T06:26:59Z",
-    "unread_comments":  7,
-    "needs_action":  true,
-    "waiting_for_us":  false,
-    "last_synced":  "2026-02-13T22:21:05Z",
-    "notes":  ""
+{
+  "number": 1650,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Application automatically goes to background in various scenarios",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "1.78.*"
+  ],
+  "author": "techpavan",
+  "created_at": "2019-12-09T04:11:29Z",
+  "github_updated_at": "2026-02-09T06:26:59Z",
+  "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nWhile using mRemoteNG, it should behave and remain like a foreground application until the user prefers to minimize this and bring any other application to the foreground.\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the e...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": "v1.79.0",
+  "our_branch": null,
+  "our_pr": 3118,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-10",
+      "type": "released",
+      "description": "RDP refocus after fullscreen exit",
+      "pr": 3118,
+      "branch": null,
+      "release": "v1.79.0",
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDU4MzM1ODUxMQ==",
+      "author": "federicoculloca",
+      "date": "2020-02-07T11:51:25Z",
+      "snippet": "I can confirm Scenario 1 and Scenario 2.\r\n\r\nI'd add that if I have another application in the foreground and click on mRemoteNG's icon in the taskbar *or* by Alt+Tab the application seems to get focus but if you look at the task bar it doesn't look like it's the active application (the previous application in the foreground looks like it's still the active application.\r\n\r\nThis is what I see just after clicking the mRemoteNG icon\r\n\r\n![image](https://user-images.githubusercontent.com/904750/740272...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mXFzk",
+      "author": "robertpopa22",
+      "date": "2026-02-07T16:47:05Z",
+      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mYiiq",
+      "author": "robertpopa22",
+      "date": "2026-02-07T19:56:47Z",
+      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mbEIk",
+      "author": "robertpopa22",
+      "date": "2026-02-08T00:46:42Z",
+      "snippet": "Implemented fork-side fix package for this issue:\n\n- upstream PR: https://github.com/mRemoteNG/mRemoteNG/pull/3118\n- change summary:\n  - when RDP raises `OnLeaveFullScreenMode`, mRemoteNG now restores main form (if minimized), activates it, and refocuses the active session control\n  - reduces cases where mRemoteNG falls behind other windows after leaving fullscreen via RDP bar\n- fork CI evidence:\n  - https://github.com/robertpopa22/mRemoteNG/actions/runs/21789549099\n\nIf needed, we can add follow...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7mpcc1",
+      "author": "robertpopa22",
+      "date": "2026-02-09T06:26:59Z",
+      "snippet": "✅ Fix available in community release: https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.79.0\n\n**PR:** #3118 | **Branch:** `codex/pr14-rdp-fullscreen-exit-refocus-1650`\n**Fix:** RDP correctly refocuses after exiting fullscreen mode.\n\n3 platform builds (x64, x86, ARM64) available for download.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-02-09T06:26:59Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-02-15T09:52:50Z",
+  "notes": ""
 }
