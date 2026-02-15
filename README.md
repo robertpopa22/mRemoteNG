@@ -23,11 +23,11 @@ Full transparency: this project is built by humans and AI working together. We b
 </blockquote>
 
 <p align="center">
-  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.2">
-    <img alt="Beta" src="https://img.shields.io/badge/beta-v1.80.2-orange?style=for-the-badge">
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2">
+    <img alt="Beta" src="https://img.shields.io/badge/beta-v1.81.0--beta.2-orange?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/tree/main">
-    <img alt="Next" src="https://img.shields.io/badge/next-v1.81.0--beta.1-blue?style=for-the-badge">
+    <img alt="Next" src="https://img.shields.io/badge/next-v1.81.0--beta.3-blue?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
@@ -36,7 +36,7 @@ Full transparency: this project is built by humans and AI working together. We b
     <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0-green?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/releases">
-    <img alt="Total Downloads" src="https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/total?style=for-the-badge&color=green">
+    <img alt="Total Downloads" src="https://img.shields.io/badge/total%20downloads-831-green?style=for-the-badge">
   </a>
 </p>
 
@@ -52,8 +52,8 @@ The latest production-ready version of mRemoteNG. For most users, this is the re
 
 ## Beta Builds (Main Branch)
 
-<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.80.2">
-  <img alt="Beta v1.80.2" src="https://img.shields.io/badge/beta-v1.80.2-orange?style=for-the-badge">
+<a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2">
+  <img alt="Beta v1.81.0-beta.2" src="https://img.shields.io/badge/beta-v1.81.0--beta.2-orange?style=for-the-badge">
 </a>
 
 > [!IMPORTANT]
@@ -61,8 +61,8 @@ The latest production-ready version of mRemoteNG. For most users, this is the re
 
 | Variant | x64 | x86 | ARM64 |
 |---------|-----|-----|-------|
-| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x64.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-x86.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-x86.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-arm64.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-arm64.zip?label=%20&color=blue) |
-| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-x64-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-x64-SelfContained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-x86-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-x86-SelfContained.zip?label=%20&color=blue) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.80.2/mRemoteNG-v1.80.2-win-arm64-SelfContained.zip) <br> ![Count](https://img.shields.io/github/downloads/robertpopa22/mRemoteNG/v1.80.2/mRemoteNG-v1.80.2-win-arm64-SelfContained.zip?label=%20&color=blue) |
+| Framework-dependent (~21MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-arm64.zip) |
+| Self-contained (~108-116MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-win-x64-SelfContained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-win-x86-SelfContained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0-beta.2/mRemoteNG-v1.81.0-beta.2-win-arm64-SelfContained.zip) |
 
 **Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 **Self-contained** includes the .NET runtime — no prerequisites needed.
@@ -70,7 +70,26 @@ The latest production-ready version of mRemoteNG. For most users, this is the re
 ---
 
 <details>
-<summary><strong>What's in v1.80.2 (Beta)?</strong></summary>
+<summary><strong>What's in v1.81.0-beta.2?</strong></summary>
+
+### Highlight: Zero Nullable Warnings
+This release is **100% nullable-clean**, having resolved all **2,554 CS8xxx warnings** across the entire codebase. This massive quality effort was coordinated by the **IIS Orchestrator** using AI agents to ensure strict null safety and type reliability.
+
+### Architecture: Testable Connection Loaders
+- **Decoupled Logic**: `SqlConnectionsLoader` and `XmlConnectionsLoader` now use **Dependency Injection**, removing hardcoded dependencies on interactive UI dialogs and SQL infrastructure.
+- **New SQL Abstractions**: Introduced `ISqlDatabaseMetaDataRetriever` and `ISqlDatabaseVersionVerifier` interfaces.
+- **Autonomous Integration Tests**: Added fully automated test suites for encrypted connection loading that run in CI without a live database or user input.
+
+### Security
+- **AnyDesk command injection prevention**: Validates IDs via `IsValidAnydeskId()` before process execution.
+- Dependency update: `System.Drawing.Common` to 10.0.3 (GDI+ security fix).
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list.
+
+</details>
+
+<details>
+<summary><strong>Previous release: v1.80.2</strong> (security patch, maintenance)</summary>
 
 ### Security Fixes (upstream merge)
 - **AnyDesk command injection prevention** — `IsValidAnydeskId()` validates IDs before passing to process
@@ -82,13 +101,6 @@ The latest production-ready version of mRemoteNG. For most users, this is the re
 - .NET SDK 10.0.2 → 10.0.3 (runtime security patch)
 - Removed 27 redundant System.* NuGet packages (now built-in to .NET 10)
 - Updated AWS SDK packages
-
-### Bug Fixes
-- FrmAbout null checks, CommandButton null safety
-- Nullable annotations standardized (PuttySessionInfo, SSHTunnelTypeConverter)
-- Window focus on startup
-
-See [CHANGELOG.md](CHANGELOG.md) for the full list.
 
 </details>
 
@@ -191,6 +203,12 @@ v1.80.0 consolidated status: [#3133](https://github.com/mRemoteNG/mRemoteNG/issu
 ---
 
 ## What's New
+
+### v1.81.0-beta.2 (2026-02-15)
+- **Zero Nullable Warnings** — 100% clean codebase (2,554 fixed) via IIS Orchestrator
+- **Testable Architecture** — Decoupled `SqlConnectionsLoader` & `XmlConnectionsLoader` via DI
+- **AnyDesk Security** — command injection prevention fix
+- **100% Autonomous Loading Tests** — zero-UI integration tests for encrypted files
 
 ### v1.80.2 (2026-02-13)
 - **Security patch** — AnyDesk command injection fix, Process.Start hardening, URL/path validation (upstream merge)

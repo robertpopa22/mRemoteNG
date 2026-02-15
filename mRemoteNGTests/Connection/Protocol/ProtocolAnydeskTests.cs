@@ -157,6 +157,54 @@ public class ProtocolAnyDeskTests
     }
 
     [Test]
+    public void IsValidAnydeskId_WithPercent_ReturnsFalse()
+    {
+        // Percent character (PowerShell/CMD variable)
+        bool result = InvokeIsValidAnydeskId("123456%USER%");
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsValidAnydeskId_WithAngleBrackets_ReturnsFalse()
+    {
+        // Angle brackets (Redirection)
+        bool result = InvokeIsValidAnydeskId("123456<input");
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsValidAnydeskId_WithAsterisk_ReturnsFalse()
+    {
+        // Asterisk (Wildcard)
+        bool result = InvokeIsValidAnydeskId("123456*");
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsValidAnydeskId_WithQuestionMark_ReturnsFalse()
+    {
+        // Question mark (Wildcard)
+        bool result = InvokeIsValidAnydeskId("123456?");
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsValidAnydeskId_WithExclamation_ReturnsFalse()
+    {
+        // Exclamation (PowerShell escape)
+        bool result = InvokeIsValidAnydeskId("123456!");
+        Assert.That(result, Is.False);
+    }
+
+    [Test]
+    public void IsValidAnydeskId_LongValidId_ReturnsTrue()
+    {
+        // Very long but valid ID
+        bool result = InvokeIsValidAnydeskId("very.long.alias.with-hyphens_and_dots@ad.network");
+        Assert.That(result, Is.True);
+    }
+
+    [Test]
     public void IsValidAnydeskId_EmptyString_ReturnsFalse()
     {
         // Empty string

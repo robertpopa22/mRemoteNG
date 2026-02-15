@@ -18,8 +18,16 @@ namespace mRemoteNG.Config.Connections
     {
         private readonly string _connectionFilePath;
         private readonly MessageCollector _messageCollector;
+        private readonly Func<string, Optional<SecureString>> _passwordRequestor;
 
         public XmlConnectionsLoader(string connectionFilePath, MessageCollector? messageCollector = null)
+            : this(connectionFilePath, messageCollector,
+                   (fileNameToPrompt) => MiscTools.PasswordDialog(Path.GetFileName(connectionFilePath), false))
+        {
+        }
+
+        public XmlConnectionsLoader(string connectionFilePath, MessageCollector? messageCollector,
+                                    Func<string, Optional<SecureString>> passwordRequestor)
         {
             if (string.IsNullOrEmpty(connectionFilePath))
                 throw new ArgumentException($"{nameof(connectionFilePath)} cannot be null or empty");
@@ -29,13 +37,14 @@ namespace mRemoteNG.Config.Connections
 
             _connectionFilePath = connectionFilePath;
             _messageCollector = messageCollector ?? Runtime.MessageCollector;
+            _passwordRequestor = passwordRequestor;
         }
 
         public ConnectionTreeModel Load()
         {
             FileDataProvider dataProvider = new(_connectionFilePath);
             string xmlString = dataProvider.Load();
-            XmlConnectionsDeserializer deserializer = new(PromptForPassword);
+            XmlConnectionsDeserializer deserializer = new(() => PromptForPassword());
 
             try
             {
@@ -99,8 +108,7 @@ namespace mRemoteNG.Config.Connections
 
         private Optional<SecureString> PromptForPassword()
         {
-            Optional<SecureString> password = MiscTools.PasswordDialog(Path.GetFileName(_connectionFilePath), false);
-            return password;
+            return _passwordRequestor(Path.GetFileName(_connectionFilePath));
         }
     }
 }

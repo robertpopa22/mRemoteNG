@@ -55,7 +55,8 @@ Property inheritance: each `ConnectionInfo` has a `ConnectionInfoInheritance` ob
   - `JsonConnectionsSerializer` — JSON export (v1.80+)
   - `DataTableSerializer` / `DataTableDeserializer` — SQL Server backend
 - **Settings** — `SettingsLoader` / `SettingsSaver` manage app settings, toolbar positions, and external apps.
-- **DataProviders** — `FileDataProvider`, `SqlDataProvider` abstract storage access.
+- **DataProviders** — `FileDataProvider`, `SqlDataProvider` abstract storage access. Implement the `IDataProvider<T>` interface.
+- **Loaders** — `XmlConnectionsLoader` and `SqlConnectionsLoader` orchestrate the loading process. These have been refactored to use **Dependency Injection**, allowing them to be tested autonomously by injecting mock providers, meta-data retrievers, and version verifiers.
 
 ### Security (`Security/`)
 
@@ -63,6 +64,15 @@ Property inheritance: each `ConnectionInfo` has a `ConnectionInfoInheritance` ob
 - **`Pbkdf2KeyDerivationFunction`** — PBKDF2-HMAC-SHA1 key derivation. Configurable iteration count (600,000 default in v1.80+).
 - **`ICryptographyProvider`** interface — Abstracts encryption so the system can evolve to new algorithms.
 - Legacy support: `AesCryptographyProvider` (CBC mode) for reading older files.
+
+## Testability and Dependency Injection
+
+Recent architectural improvements have focused on decoupling core logic from external dependencies (UI, Filesystem, SQL Server) to enable autonomous testing:
+
+- **Interface Extraction**: Components like `SqlDatabaseMetaDataRetriever` and `SqlDatabaseVersionVerifier` have been abstracted behind interfaces (`ISqlDatabaseMetaDataRetriever`, `ISqlDatabaseVersionVerifier`).
+- **Loader Decoupling**: Connection loaders no longer trigger interactive UI (e.g., `MiscTools.PasswordDialog`) directly. Instead, they accept a `Func<string, Optional<SecureString>>` delegate for authentication requests, which can be mocked in automated tests.
+- **Storage Abstraction**: By utilizing `IDataProvider<T>` and mocked database connectors, the SQL loading logic can be verified in headless environments without a running SQL Server instance.
+
 
 ### UI Layer (`UI/`)
 
@@ -115,3 +125,4 @@ Credential provider integrations that implement `ICredentialProvider`:
 - **BouncyCastle for crypto**: Chosen for AEAD support unavailable in .NET's built-in libraries at the time
 - **WeifenLuo DockPanel Suite**: Provides VS-style docking, tabbed windows, and theme support
 - **ObjectListView**: Used for the connection tree instead of standard TreeView for virtual mode and custom rendering
+- **Testable Architecture**: Strategic move towards dependency injection and interface extraction for core services, enabling high-coverage automated testing without backend infrastructure.

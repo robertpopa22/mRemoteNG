@@ -104,18 +104,100 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Json
             Assert.That(json, Does.Contain("\"Name\": \"Child Connection\""));
         }
 
-        [Test]
-        public void Serialize_NodeId_IsIncluded()
-        {
-            // Arrange
-            var connection = new ConnectionInfo();
-            string expectedId = connection.ConstantID;
+                [Test]
 
-            // Act
-            string json = _serializer.Serialize(connection);
+                public void Serialize_NodeId_IsIncluded()
 
-            // Assert
-            Assert.That(json, Does.Contain("\"Id\": \"" + expectedId + "\""));
+                {
+
+                    // Arrange
+
+                    var connection = new ConnectionInfo();
+
+                    string expectedId = connection.ConstantID;
+
+        
+
+                    // Act
+
+                    string json = _serializer.Serialize(connection);
+
+        
+
+                    // Assert
+
+                    Assert.That(json, Does.Contain("\"Id\": \"" + expectedId + "\""));
+
+                }
+
+        
+
+                [Test]
+
+                public void Serialize_DeeplyNestedStructure_SerializesCorrectly()
+
+                {
+
+                    // Arrange
+
+                    var root = new ContainerInfo("root") { Name = "Root" };
+
+                    var level1 = new ContainerInfo("l1") { Name = "Level 1" };
+
+                    var level2 = new ContainerInfo("l2") { Name = "Level 2" };
+
+                    var level3 = new ConnectionInfo { Name = "Leaf" };
+
+        
+
+                    root.Children.Add(level1);
+
+                    level1.Children.Add(level2);
+
+                    level2.Children.Add(level3);
+
+        
+
+                    // Act
+
+                    string json = _serializer.Serialize(root);
+
+        
+
+                    // Assert
+
+                    Assert.That(json, Does.Contain("\"Name\": \"Root\""));
+
+                    Assert.That(json, Does.Contain("\"Name\": \"Level 1\""));
+
+                    Assert.That(json, Does.Contain("\"Name\": \"Level 2\""));
+
+                    Assert.That(json, Does.Contain("\"Name\": \"Leaf\""));
+
+                    
+
+                    // Check nesting structure via string index comparison (crude but effective)
+
+                    int rootIdx = json.IndexOf("\"Name\": \"Root\"");
+
+                    int l1Idx = json.IndexOf("\"Name\": \"Level 1\"");
+
+                    int l2Idx = json.IndexOf("\"Name\": \"Level 2\"");
+
+                    int leafIdx = json.IndexOf("\"Name\": \"Leaf\"");
+
+        
+
+                    Assert.That(rootIdx, Is.LessThan(l1Idx));
+
+                    Assert.That(l1Idx, Is.LessThan(l2Idx));
+
+                    Assert.That(l2Idx, Is.LessThan(leafIdx));
+
+                }
+
+            }
+
         }
-    }
-}
+
+        

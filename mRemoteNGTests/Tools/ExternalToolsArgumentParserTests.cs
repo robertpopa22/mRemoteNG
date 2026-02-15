@@ -172,6 +172,8 @@ namespace mRemoteNGTests.Tools
         [TestCase(ProtocolType.Rlogin, "Rlogin")]
         [TestCase(ProtocolType.RAW, "RAW")]
         [TestCase(ProtocolType.IntApp, "IntApp")]
+        [TestCase(ProtocolType.ARD, "ARD")]
+        [TestCase(ProtocolType.AnyDesk, "AnyDesk")]
         public void ProtocolTokenReturnsCorrectValueForEachProtocol(ProtocolType protocol, string expected)
         {
             var connectionInfo = new ConnectionInfo { Protocol = protocol };
