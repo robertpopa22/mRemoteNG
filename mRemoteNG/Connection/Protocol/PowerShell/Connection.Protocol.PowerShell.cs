@@ -15,7 +15,7 @@ namespace mRemoteNG.Connection.Protocol.PowerShell
 
         private IntPtr _handle;
         private readonly ConnectionInfo _connectionInfo = connectionInfo;
-        private ConsoleControl.ConsoleControl _consoleControl;
+        private ConsoleControl.ConsoleControl? _consoleControl;
 
         #endregion
 
