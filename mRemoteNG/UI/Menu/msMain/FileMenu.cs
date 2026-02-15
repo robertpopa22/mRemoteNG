@@ -182,7 +182,11 @@ namespace mRemoteNG.UI.Menu
 
                 string newFileName = saveFileDialog.FileName;
 
-                Runtime.ConnectionsService.SaveConnections(Runtime.ConnectionsService.ConnectionTreeModel, false, new SaveFilter(), newFileName);
+                var connectionTreeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+                if (connectionTreeModel == null)
+                    return;
+
+                Runtime.ConnectionsService.SaveConnections(connectionTreeModel, false, new SaveFilter(), newFileName);
 
                 if (newFileName == Runtime.ConnectionsService.GetDefaultStartupConnectionFileName())
                 {
