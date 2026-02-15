@@ -129,7 +129,7 @@ namespace mRemoteNG.App
                 {
                     MessageCollector.AddExceptionMessage(Language.LoadFromSqlFailed, ex);
                     string commandButtons = string.Join("|", Language._TryAgain, Language.CommandOpenConnectionFile, string.Format(Language.CommandExitProgram, Application.ProductName));
-                    CTaskDialog.ShowCommandBox(Application.ProductName, Language.LoadFromSqlFailed, Language.LoadFromSqlFailedContent, MiscTools.GetExceptionMessageRecursive(ex), "", "", commandButtons, false, ESysIcons.Error, ESysIcons.Error);
+                    CTaskDialog.ShowCommandBox(Application.ProductName ?? GeneralAppInfo.ProductName, Language.LoadFromSqlFailed, Language.LoadFromSqlFailedContent, MiscTools.GetExceptionMessageRecursive(ex), "", "", commandButtons, false, ESysIcons.Error, ESysIcons.Error);
                     switch (CTaskDialog.CommandButtonResult)
                     {
                         case 0:
@@ -179,7 +179,8 @@ namespace mRemoteNG.App
                                     break;
                                 case 2:
                                     ConnectionsService.NewConnectionsFile(connectionFileName);
-                                    Import.ImportFromFile(ConnectionsService.ConnectionTreeModel.RootNodes[0]);
+                                    if (ConnectionsService.ConnectionTreeModel is not null)
+                                        Import.ImportFromFile(ConnectionsService.ConnectionTreeModel.RootNodes[0]);
                                     answered = true;
                                     break;
                                 case 3:
