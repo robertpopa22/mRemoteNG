@@ -56,7 +56,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 }
 
                 // search for parent in the list by GUID
-                ContainerInfo parent = parentMapping
+                ContainerInfo? parent = parentMapping
                              .Keys
                              .OfType<ContainerInfo>()
                              .FirstOrDefault(info => info.ConstantID == node.Value);
