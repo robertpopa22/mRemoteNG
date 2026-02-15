@@ -230,6 +230,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// </summary>
         public bool ShowRegistrySettingsUsedInfo()
         {
+            if (pageRegSettingsInstance == null)
+                return false;
+
             return pageRegSettingsInstance.SingleClickOnConnectionOpensIt.IsSet
                 || pageRegSettingsInstance.SingleClickSwitchesToOpenConnection.IsSet
                 || pageRegSettingsInstance.TrackActiveConnectionInConnectionTree.IsSet
