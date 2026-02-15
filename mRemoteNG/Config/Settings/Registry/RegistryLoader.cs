@@ -54,7 +54,7 @@ namespace mRemoteNG.Config.Settings.Registry
             // Remove the registry setting from the dictionary
             RegistrySettings?.TryRemove(deleteEntries, out _);
 
-            if (RegistrySettings.IsEmpty && instance.IsValueCreated)
+            if (RegistrySettings is { IsEmpty: true } && instance.IsValueCreated)
             {
                 Instance.Dispose();
             }
