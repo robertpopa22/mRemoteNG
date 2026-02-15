@@ -11,12 +11,19 @@
   "created_at": "2016-12-01T10:39:33Z",
   "github_updated_at": "2025-10-03T21:59:15Z",
   "body_snippet": "### Feature Request\r\n\r\nI would like to point you to the [CII Best Practices Badge Program](https://bestpractices.coreinfrastructure.org). Could you go thought the [criteria](https://bestpractices.coreinfrastructure.org/criteria), [add the project](https://bestpractices.coreinfrastructure.org/projects/new) and keep it up-to-date there?\r\n\r\nRefs:\r\n- https://bestpractices.coreinfrastructure.org\r\n- https://twit.tv/shows/floss-weekly/episodes/389",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "CII Best Practices badge is a project governance/process initiative, not a code change - already marked in progress by maintainers and tracked externally via the CII badging platform"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI2NDI1ODg4Nw==",
@@ -42,5 +49,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: CII Best Practices badge is a project governance/process initiative, not a code change - already marked in progress by maintainers and tracked externally via the CII badging platform\nApproach: No code fix needed; this is an ongoing compliance checklist tracked outside the codebase"
 }

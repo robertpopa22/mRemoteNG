@@ -17,6 +17,12 @@ namespace mRemoteNG.Tools.Cmdline
     {
         private readonly MessageCollector _messageCollector;
 
+        /// <summary>
+        /// Connection name or ID specified via --connect command-line argument.
+        /// Used to auto-open a connection on startup (e.g. for desktop shortcuts).
+        /// </summary>
+        public static string? ConnectTo { get; private set; }
+
         public StartupArgumentsInterpreter(MessageCollector messageCollector)
         {
             if (messageCollector == null)
@@ -39,6 +45,7 @@ namespace mRemoteNG.Tools.Cmdline
                 ParseResetToolbarArg(args);
                 ParseNoReconnectArg(args);
                 ParseCustomConnectionPathArg(args);
+                ParseConnectArg(args);
             }
             catch (Exception ex)
             {
@@ -114,6 +121,16 @@ namespace mRemoteNG.Tools.Cmdline
                 Properties.OptionsBackupPage.Default.LoadConsFromCustomLocation = true;
                 Properties.OptionsBackupPage.Default.BackupLocation = consValue;
             }
+        }
+
+        private void ParseConnectArg(CmdArgumentsInterpreter args)
+        {
+            string? connectValue = args["connect"];
+            if (string.IsNullOrEmpty(connectValue))
+                return;
+
+            _messageCollector.AddMessage(MessageClass.DebugMsg, $"Cmdline arg: auto-connect to \"{connectValue}\"");
+            ConnectTo = connectValue;
         }
     }
 }
