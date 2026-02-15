@@ -923,7 +923,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.AdvancedSettings2.RedirectDrives = true;
             else if (RDPDiskDrives.Custom == connectionInfo.RedirectDiskDrives)
             {
-                IMsRdpClientNonScriptable5 rdpNS5 = (IMsRdpClientNonScriptable5)((AxHost)Control).GetOcx();
+                IMsRdpClientNonScriptable5 rdpNS5 = (IMsRdpClientNonScriptable5)((AxHost)Control!).GetOcx()!;
                 for (uint i = 0; i < rdpNS5.DriveCollection.DriveCount; i++)
                 {
                     IMsRdpDrive drive = rdpNS5.DriveCollection.DriveByIndex[i];
@@ -933,7 +933,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             else
             {
                 // Local Drives
-                IMsRdpClientNonScriptable5 rdpNS5 = (IMsRdpClientNonScriptable5)((AxHost)Control).GetOcx();
+                IMsRdpClientNonScriptable5 rdpNS5 = (IMsRdpClientNonScriptable5)((AxHost)Control!).GetOcx()!;
                 for (uint i = 0; i < rdpNS5.DriveCollection.DriveCount; i++)
                 {
                     IMsRdpDrive drive = rdpNS5.DriveCollection.DriveByIndex[i];
@@ -1072,7 +1072,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 ReconnectGroup = new ReconnectGroup();
                 ReconnectGroup.CloseClicked += Event_ReconnectGroupCloseClicked;
-                ReconnectGroup.Left = (int)((double)Control.Width / 2 - (double)ReconnectGroup.Width / 2);
+                ReconnectGroup.Left = (int)((double)Control!.Width / 2 - (double)ReconnectGroup.Width / 2);
                 ReconnectGroup.Top = (int)((double)Control.Height / 2 - (double)ReconnectGroup.Height / 2);
                 ReconnectGroup.Parent = Control;
                 ReconnectGroup.Show();
@@ -1123,7 +1123,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RdpClient_GotFocus(object sender, EventArgs e)
         {
-            ((ConnectionTab)Control.Parent.Parent).Focus();
+            (Control?.Parent?.Parent as ConnectionTab)?.Focus();
         }
         #endregion
 
@@ -1159,6 +1159,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
+                if (ReconnectGroup == null) return;
+
                 bool srvReady = PortScanner.IsPortOpen(connectionInfo.Hostname, Convert.ToString(connectionInfo.Port));
 
                 ReconnectGroup.ServerReady = srvReady;

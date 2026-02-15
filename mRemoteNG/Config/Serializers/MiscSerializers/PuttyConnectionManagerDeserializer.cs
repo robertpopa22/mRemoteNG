@@ -22,9 +22,9 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             XmlDocument xmlDocument = SecureXmlHelper.LoadXmlFromString(puttycmConnectionsXml);
 
-            XmlNode configurationNode = xmlDocument.SelectSingleNode("/configuration");
+            XmlNode? configurationNode = xmlDocument.SelectSingleNode("/configuration");
 
-            XmlNodeList rootNodes = configurationNode?.SelectNodes("./root");
+            XmlNodeList? rootNodes = configurationNode?.SelectNodes("./root");
             if (rootNodes == null) return connectionTreeModel;
             foreach (XmlNode rootNode in rootNodes)
             {
@@ -40,7 +40,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
             ContainerInfo newContainer = ImportContainer(xmlNode, parentContainer);
 
-            XmlNodeList childNodes = xmlNode.SelectNodes("./*");
+            XmlNodeList? childNodes = xmlNode.SelectNodes("./*");
             if (childNodes == null) return;
             foreach (XmlNode childNode in childNodes)
             {
@@ -60,8 +60,8 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private void VerifyNodeType(XmlNode xmlNode)
         {
-            string xmlNodeType = xmlNode?.Attributes?["type"].Value;
-            switch (xmlNode?.Name)
+            string? xmlNodeType = xmlNode.Attributes?["type"]?.Value;
+            switch (xmlNode.Name)
             {
                 case "root":
                     if (string.Compare(xmlNodeType, "database", StringComparison.OrdinalIgnoreCase) != 0)
@@ -88,8 +88,8 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
         {
             ContainerInfo containerInfo = new()
             {
-                Name = containerNode.Attributes?["name"].Value,
-                IsExpanded = bool.Parse(containerNode.Attributes?["expanded"].InnerText ?? "false")
+                Name = containerNode.Attributes?["name"]?.Value ?? string.Empty,
+                IsExpanded = bool.Parse(containerNode.Attributes?["expanded"]?.InnerText ?? "false")
             };
             parentContainer.AddChild(containerInfo);
             return containerInfo;
@@ -97,7 +97,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private void ImportConnection(XmlNode connectionNode, ContainerInfo parentContainer)
         {
-            string connectionNodeType = connectionNode.Attributes?["type"].Value;
+            string? connectionNodeType = connectionNode.Attributes?["type"]?.Value;
             if (string.Compare(connectionNodeType, "PuTTY", StringComparison.OrdinalIgnoreCase) != 0)
                 throw (new FileFormatException($"Unrecognized connection node type ({connectionNodeType})."));
 
@@ -107,12 +107,12 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
 
         private ConnectionInfo ConnectionInfoFromXml(XmlNode xmlNode)
         {
-            XmlNode connectionInfoNode = xmlNode.SelectSingleNode("./connection_info");
+            XmlNode? connectionInfoNode = xmlNode.SelectSingleNode("./connection_info");
 
-            string name = connectionInfoNode?.SelectSingleNode("./name")?.InnerText;
+            string name = connectionInfoNode?.SelectSingleNode("./name")?.InnerText ?? string.Empty;
             ConnectionInfo connectionInfo = new() { Name = name};
 
-            string protocol = connectionInfoNode?.SelectSingleNode("./protocol")?.InnerText;
+            string? protocol = connectionInfoNode?.SelectSingleNode("./protocol")?.InnerText;
             switch (protocol?.ToLowerInvariant())
             {
                 case "telnet":
@@ -125,16 +125,16 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                     throw new FileFormatException($"Unrecognized protocol ({protocol}).");
             }
 
-            connectionInfo.Hostname = connectionInfoNode.SelectSingleNode("./host")?.InnerText;
-            connectionInfo.Port = Convert.ToInt32(connectionInfoNode.SelectSingleNode("./port")?.InnerText);
-            connectionInfo.PuttySession = connectionInfoNode.SelectSingleNode("./session")?.InnerText;
+            connectionInfo.Hostname = connectionInfoNode?.SelectSingleNode("./host")?.InnerText ?? string.Empty;
+            connectionInfo.Port = Convert.ToInt32(connectionInfoNode?.SelectSingleNode("./port")?.InnerText);
+            connectionInfo.PuttySession = connectionInfoNode?.SelectSingleNode("./session")?.InnerText ?? string.Empty;
             // ./commandline
-            connectionInfo.Description = connectionInfoNode.SelectSingleNode("./description")?.InnerText;
+            connectionInfo.Description = connectionInfoNode?.SelectSingleNode("./description")?.InnerText ?? string.Empty;
 
-            XmlNode loginNode = xmlNode.SelectSingleNode("./login");
-            connectionInfo.Username = loginNode?.SelectSingleNode("login")?.InnerText;
+            XmlNode? loginNode = xmlNode.SelectSingleNode("./login");
+            connectionInfo.Username = loginNode?.SelectSingleNode("login")?.InnerText ?? string.Empty;
             //connectionInfo.Password = loginNode?.SelectSingleNode("password")?.InnerText.ConvertToSecureString();
-            connectionInfo.Password = loginNode?.SelectSingleNode("password")?.InnerText;
+            connectionInfo.Password = loginNode?.SelectSingleNode("password")?.InnerText ?? string.Empty;
             // ./prompt
 
             // ./timeout/connectiontimeout

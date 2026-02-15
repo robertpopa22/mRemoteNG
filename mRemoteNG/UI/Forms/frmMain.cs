@@ -902,15 +902,16 @@ namespace mRemoteNG.UI.Forms
 
         private void ActivateConnection()
         {
-            ConnectionWindow cw = pnlDock.ActiveDocument as ConnectionWindow;
-            ConnectionTab tab = GetActiveConnectionTab(cw);
+            ConnectionWindow? cw = pnlDock.ActiveDocument as ConnectionWindow;
+            if (cw == null) return;
+            ConnectionTab? tab = GetActiveConnectionTab(cw);
             if (tab == null) return;
             InterfaceControl ifc = InterfaceControl.FindInterfaceControl(tab);
             if (ifc == null) return;
 
             ifc.Protocol?.Focus();
-            Form conFormWindow = ifc.FindForm();
-            ((ConnectionTab)conFormWindow)?.RefreshInterfaceController();
+            Form? conFormWindow = ifc.FindForm();
+            (conFormWindow as ConnectionTab)?.RefreshInterfaceController();
         }
 
         private void PnlDock_ActiveDocumentChanged(object sender, EventArgs e)
@@ -952,7 +953,7 @@ namespace mRemoteNG.UI.Forms
                 titleBuilder.Append(SelectedConnection!.Name);
 
                 if (Properties.Settings.Default.TrackActiveConnectionInConnectionTree)
-                    AppWindows.TreeForm.JumpToNode(SelectedConnection);
+                    AppWindows.TreeForm?.JumpToNode(SelectedConnection);
             }
 
             Text = titleBuilder.ToString();
@@ -1012,7 +1013,7 @@ namespace mRemoteNG.UI.Forms
         {
             pnlDock.Visible = false;
 
-            AppWindows.TreeForm.Show(pnlDock, DockState.DockLeft);
+            AppWindows.TreeForm?.Show(pnlDock, DockState.DockLeft);
             AppWindows.ConfigForm.Show(pnlDock, DockState.DockLeft);
             AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
             viewMenu._mMenViewErrorsAndInfos.Checked = true;
@@ -1050,34 +1051,34 @@ namespace mRemoteNG.UI.Forms
 
             if (Properties.Settings.Default.ViewMenuExternalTools == true)
             {
-                viewMenu.TsExternalTools.Visible = true;
+                if (viewMenu.TsExternalTools is not null) viewMenu.TsExternalTools.Visible = true;
                 viewMenu._mMenViewExtAppsToolbar.Checked = true;
             }
             else
             {
-                viewMenu.TsExternalTools.Visible = false;
+                if (viewMenu.TsExternalTools is not null) viewMenu.TsExternalTools.Visible = false;
                 viewMenu._mMenViewExtAppsToolbar.Checked = false;
             }
 
             if (Properties.Settings.Default.ViewMenuMultiSSH == true)
             {
-                viewMenu.TsMultiSsh.Visible = true;
+                if (viewMenu.TsMultiSsh is not null) viewMenu.TsMultiSsh.Visible = true;
                 viewMenu._mMenViewMultiSshToolbar.Checked = true;
             }
             else
             {
-                viewMenu.TsMultiSsh.Visible = false;
+                if (viewMenu.TsMultiSsh is not null) viewMenu.TsMultiSsh.Visible = false;
                 viewMenu._mMenViewMultiSshToolbar.Checked = false;
             }
 
             if (Properties.Settings.Default.ViewMenuQuickConnect == true)
             {
-                viewMenu.TsQuickConnect.Visible = true;
+                if (viewMenu.TsQuickConnect is not null) viewMenu.TsQuickConnect.Visible = true;
                 viewMenu._mMenViewQuickConnectToolbar.Checked = true;
             }
             else
             {
-                viewMenu.TsQuickConnect.Visible = false;
+                if (viewMenu.TsQuickConnect is not null) viewMenu.TsQuickConnect.Visible = false;
                 viewMenu._mMenViewQuickConnectToolbar.Checked = false;
             }
 
@@ -1110,7 +1111,7 @@ namespace mRemoteNG.UI.Forms
                     (ClipboardchangeEventHandler)Delegate.Combine(_clipboardChangedEvent, value);
             remove =>
                 _clipboardChangedEvent =
-                    (ClipboardchangeEventHandler)Delegate.Remove(_clipboardChangedEvent, value);
+                    (ClipboardchangeEventHandler?)Delegate.Remove(_clipboardChangedEvent, value);
         }
 
         #endregion

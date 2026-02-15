@@ -11,6 +11,9 @@ Usage:
     python iis_orchestrator.py --dry-run        # simulate without changes
     python iis_orchestrator.py --max-issues 5   # limit issues processed
     python iis_orchestrator.py --max-files 10   # limit files fixed
+    python iis_orchestrator.py --squash         # one commit per session
+    python iis_orchestrator.py --max-passes 3   # limit multi-pass iterations
+    python iis_orchestrator.py --parallel 5     # fix 5 files in parallel per batch
 """
 
 import sys
@@ -19,6 +22,7 @@ if sys.platform == "win32":
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 import argparse
+import concurrent.futures
 import datetime
 import json
 import logging
@@ -26,6 +30,7 @@ import os
 import re
 import shutil
 import subprocess
+import threading
 import time
 from pathlib import Path
 
@@ -73,6 +78,7 @@ WARNING_CODES = [
 BUILD_TIMEOUT = 300   # 5 min
 TEST_TIMEOUT = 300    # 5 min
 CLAUDE_TIMEOUT = 600  # 10 min per task
+CLAUDE_RETRIES = 2    # retry on failure
 
 # Environment for Claude sub-process: strip nesting guard so claude -p works
 CLAUDE_ENV = {k: v for k, v in os.environ.items()
@@ -106,6 +112,7 @@ class Status:
             "running": True,
             "current_phase": None,
             "current_task": None,
+            "current_pass": 1,
             "issues": {
                 "total_synced": 0,
                 "triaged": 0,
@@ -125,8 +132,10 @@ class Status:
             },
             "commits": [],
             "errors": [],
+            "files_processed": [],
             "last_updated": None,
         }
+        self._file_times = []  # track seconds per file for ETA
 
     def save(self):
         self.data["last_updated"] = _now_iso()
@@ -137,7 +146,6 @@ class Status:
                 return
             except OSError:
                 time.sleep(0.5)
-        # Last resort: silently skip (non-critical file)
         log.warning("    [STATUS] Could not write status file (locked)")
 
     def set_phase(self, phase):
@@ -168,6 +176,16 @@ class Status:
             }
         )
         self.save()
+
+    def record_file_time(self, seconds):
+        self._file_times.append(seconds)
+
+    def eta_str(self, remaining_files):
+        if not self._file_times:
+            return "?"
+        avg = sum(self._file_times) / len(self._file_times)
+        eta_s = int(avg * remaining_files)
+        return str(datetime.timedelta(seconds=eta_s))
 
     def finish(self):
         self.data["running"] = False
@@ -208,13 +226,11 @@ def _run(cmd, timeout=60, cwd=None, capture=True):
 
 def _extract_json(text):
     """Extract a JSON object from Claude's output (may be wrapped)."""
-    # Direct parse
     try:
         return json.loads(text)
     except (json.JSONDecodeError, TypeError):
         pass
 
-    # Claude --output-format json wraps in {"result": "..."}
     try:
         outer = json.loads(text)
         if isinstance(outer, dict) and "result" in outer:
@@ -225,7 +241,6 @@ def _extract_json(text):
     except (json.JSONDecodeError, TypeError):
         pass
 
-    # Find JSON with "decision" key
     m = re.search(r"\{[^{}]*\"decision\"[^{}]*\}", text, re.DOTALL)
     if m:
         try:
@@ -233,7 +248,6 @@ def _extract_json(text):
         except json.JSONDecodeError:
             pass
 
-    # Find ```json ... ```
     m = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", text, re.DOTALL)
     if m:
         try:
@@ -336,37 +350,70 @@ def git_restore():
         log.warning("    [GIT] Restore failed: %s", e)
 
 
+def git_squash_last(n, message):
+    """Squash last N commits into one with given message."""
+    if n <= 1:
+        return
+    try:
+        full_msg = f"{message}\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
+        _run(["git", "reset", "--soft", f"HEAD~{n}"])
+        _run(["git", "commit", "-m", full_msg])
+        r = _run(["git", "rev-parse", "HEAD"])
+        h = (r.stdout or "").strip()
+        log.info("    [GIT] Squashed %d commits into %s", n, h[:8])
+        return h
+    except Exception as e:
+        log.error("    [GIT] Squash failed: %s", e)
+        return None
+
+
 # ── CORE: CLAUDE SUB-AGENT ─────────────────────────────────────────────────
-def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT):
-    """Call claude -p (headless).  Returns stdout string.
+def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
+               retries=CLAUDE_RETRIES):
+    """Call claude -p (headless) with retry.  Returns stdout string.
     Uses CLAUDE_ENV to strip CLAUDECODE nesting guard."""
     cmd = ["claude", "-p", prompt, "--max-turns", str(max_turns)]
     if json_output:
         cmd += ["--output-format", "json"]
-    try:
-        r = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            cwd=str(REPO_ROOT),
-            encoding="utf-8",
-            errors="replace",
-            env=CLAUDE_ENV,
-        )
-        kill_stale_processes()
-        if r.returncode != 0:
-            log.error("    [CLAUDE] exit %d: %s", r.returncode, (r.stderr or "")[:200])
+
+    for attempt in range(1, retries + 1):
+        try:
+            r = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                cwd=str(REPO_ROOT),
+                encoding="utf-8",
+                errors="replace",
+                env=CLAUDE_ENV,
+            )
+            kill_stale_processes()
+            if r.returncode != 0:
+                log.error("    [CLAUDE] attempt %d/%d exit %d: %s",
+                          attempt, retries, r.returncode, (r.stderr or "")[:200])
+                if attempt < retries:
+                    log.info("    [CLAUDE] Retrying in 5s ...")
+                    time.sleep(5)
+                    continue
+                return None
+            return r.stdout or ""
+        except subprocess.TimeoutExpired:
+            log.error("    [CLAUDE] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
+            kill_stale_processes()
+            if attempt < retries:
+                log.info("    [CLAUDE] Retrying in 5s ...")
+                time.sleep(5)
+                continue
             return None
-        return r.stdout or ""
-    except subprocess.TimeoutExpired:
-        log.error("    [CLAUDE] TIMEOUT (%ds)", timeout)
-        kill_stale_processes()
-        return None
-    except Exception as e:
-        log.error("    [CLAUDE] ERROR: %s", e)
-        kill_stale_processes()
-        return None
+        except Exception as e:
+            log.error("    [CLAUDE] attempt %d/%d ERROR: %s", attempt, retries, e)
+            kill_stale_processes()
+            if attempt < retries:
+                time.sleep(5)
+                continue
+            return None
+    return None
 
 
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
@@ -439,6 +486,23 @@ def parse_warnings(build_output):
     return result
 
 
+def find_dependents(fpath, all_warnings):
+    """Find files that might have cascade warnings from changes to fpath.
+    Returns list of (file, warning_count) for files importing types from fpath."""
+    basename = os.path.basename(fpath).replace(".cs", "")
+    # Extract class/type names from the basename (e.g. ConnectionInfo -> ConnectionInfo)
+    dependents = []
+    for other_fpath, other_warnings in all_warnings.items():
+        if other_fpath == fpath:
+            continue
+        # Check if any warning message references types from our file
+        for w in other_warnings:
+            if basename in w["message"]:
+                dependents.append(os.path.basename(other_fpath))
+                break
+    return dependents[:5]  # limit to 5 most relevant
+
+
 # ── FLUX 1: OPEN ISSUES ────────────────────────────────────────────────────
 def load_actionable_issues():
     """Load issues from JSON DB that need triage or implementation."""
@@ -456,7 +520,6 @@ def load_actionable_issues():
         except Exception:
             pass
 
-    # Sort: P0 first
     prio = {"P0-critical": 0, "P1-security": 1, "P2-bug": 2, "P3-enhancement": 3, "P4-debt": 4}
     issues.sort(key=lambda x: prio.get(x.get("priority", "P4-debt"), 5))
     return issues
@@ -536,11 +599,10 @@ RULES (CRITICAL):
 
     out = claude_run(prompt, max_turns=25, timeout=CLAUDE_TIMEOUT)
     if out is None:
-        status.add_error(f"issue_{num}", "claude", "returned None")
+        status.add_error(f"issue_{num}", "claude", "returned None after retries")
         git_restore()
         return False
 
-    # ── Independent verification ──
     status.set_task(type="issue_fix", issue=num, step="building")
     build_ok, _ = run_build()
     if not build_ok:
@@ -556,7 +618,6 @@ RULES (CRITICAL):
         git_restore()
         return False
 
-    # ── Commit + push + comment ──
     status.set_task(type="issue_fix", issue=num, step="committing")
     short = (approach or title)[:60]
     msg = f"fix(#{num}): {short}"
@@ -587,7 +648,6 @@ def flux_issues(status, dry_run=False, max_issues=None):
     log.info("  FLUX 1: Open Issues")
     log.info("=" * 60)
 
-    # Sync
     status.set_task(type="sync", step="syncing")
     sync_script = SCRIPTS_DIR / "Sync-Issues.ps1"
     if sync_script.exists():
@@ -601,7 +661,6 @@ def flux_issues(status, dry_run=False, max_issues=None):
         except Exception as e:
             log.warning("  Sync failed: %s", e)
 
-    # Load
     issues = load_actionable_issues()
     status.data["issues"]["total_synced"] = len(issues)
     status.save()
@@ -610,14 +669,12 @@ def flux_issues(status, dry_run=False, max_issues=None):
     if max_issues:
         issues = issues[:max_issues]
 
-    # Triage + implement
     for i, issue in enumerate(issues, 1):
         num = issue["number"]
         title = issue.get("title", "")[:50]
         log.info("[%d/%d] Issue #%d: %s", i, len(issues), num, title)
         print_progress("ISSUES", i, len(issues), f"#{num} {title}", status)
 
-        # Triage
         status.set_task(type="triage", issue=num, step="analyzing")
         if dry_run:
             log.info("  [DRY RUN] skip triage")
@@ -649,63 +706,31 @@ def flux_issues(status, dry_run=False, max_issues=None):
 
 
 # ── FLUX 2: WARNING CLEANUP ────────────────────────────────────────────────
-def flux_warnings(status, dry_run=False, max_files=None):
-    """FLUX 2: Extract warnings, fix file-by-file, verify, commit."""
-    log.info("=" * 60)
-    log.info("  FLUX 2: Warning Cleanup")
-    log.info("=" * 60)
+def _fix_single_file(fpath, file_warnings, all_warnings, status, squash_mode):
+    """Fix warnings in a single file. Returns (success: bool, fixed_count: int)."""
+    rel = os.path.relpath(fpath, REPO_ROOT)
+    n = len(file_warnings)
 
-    # Build + extract warnings
-    status.set_task(type="warnings", step="extracting")
-    build_ok, output = run_build(capture_output=True)
-    if not build_ok or not output:
-        log.error("  Build failed — cannot extract warnings")
-        return
+    status.set_task(type="warning_fix", file=rel, step="fixing", count=n)
 
-    warnings = parse_warnings(output)
-    total = sum(len(v) for v in warnings.values())
-    status.data["warnings"]["total_start"] = total
-    status.data["warnings"]["total_now"] = total
+    # Format warnings for Claude
+    w_text = "\n".join(
+        f"  Line {w['line']}: {w['code']} -- {w['message']}"
+        for w in file_warnings[:50]
+    )
 
-    # Count by type
-    type_counts = {}
-    for file_w in warnings.values():
-        for w in file_w:
-            type_counts[w["code"]] = type_counts.get(w["code"], 0) + 1
-    for code in WARNING_CODES:
-        cnt = type_counts.get(code, 0)
-        if cnt:
-            status.data["warnings"]["by_type"][code] = {"start": cnt, "now": cnt, "fixed": 0}
-            log.info("  %s: %d", code, cnt)
-    status.save()
-    log.info("  Total: %d warnings across %d files", total, len(warnings))
-
-    # Sort: most warnings first
-    sorted_files = sorted(warnings.items(), key=lambda x: -len(x[1]))
-    if max_files:
-        sorted_files = sorted_files[:max_files]
-
-    # Fix file by file
-    for i, (fpath, file_warnings) in enumerate(sorted_files, 1):
-        kill_stale_processes()  # Clean up before each file
-        rel = os.path.relpath(fpath, REPO_ROOT)
-        n = len(file_warnings)
-        log.info("[%d/%d] %s (%d warnings)", i, len(sorted_files), rel, n)
-        print_progress("WARNINGS", i, len(sorted_files), f"{rel} ({n}w)", status)
-
-        status.set_task(type="warning_fix", file=rel, step="fixing", count=n)
-
-        if dry_run:
-            log.info("  [DRY RUN] skip")
-            continue
-
-        # Format warnings for Claude
-        w_text = "\n".join(
-            f"  Line {w['line']}: {w['code']} -- {w['message']}"
-            for w in file_warnings[:50]
+    # Find dependent files for cascade awareness
+    dependents = find_dependents(fpath, all_warnings)
+    cascade_hint = ""
+    if dependents:
+        cascade_hint = (
+            f"\n\nCASCADE AWARENESS: Files that use types from this file: "
+            f"{', '.join(dependents)}. "
+            f"When you add `?` to a field or property, other files that reference it "
+            f"will get CS8602 warnings. Make sure your changes are safe for all callers."
         )
 
-        prompt = f"""Project: mRemoteNG (.NET 10, WinForms)
+    prompt = f"""Project: mRemoteNG (.NET 10, WinForms)
 Working directory: D:\\github\\mRemoteNG
 File: {rel}
 
@@ -713,74 +738,447 @@ Fix ALL these nullable reference type warnings:
 {w_text}
 
 CRITICAL RULES:
-- When adding `?` to a field type, check ALL usages — add `?.` and `?? default`
+- When adding `?` to a field type, check ALL usages in THIS file — add `?.` and `?? default`
 - Do NOT generate new CS8602 warnings — fix the cascade immediately
 - Do NOT change logic/behavior — only types and null checks
 - Getter with .Trim() -> ?.Trim() ?? string.Empty
 - Use `= null!` ONLY for fields guaranteed initialized in constructor
 - GetPropertyValue pattern: result is TPropertyType typed ? typed : value
 - Read the file FIRST, understand context, then fix
-- Do NOT create new files or tests"""
+- Do NOT create new files or tests{cascade_hint}"""
 
-        out = claude_run(prompt, max_turns=15, timeout=300)
-        if out is None:
-            status.add_error(rel, "claude", "returned None")
-            git_restore()
-            continue
+    out = claude_run(prompt, max_turns=15, timeout=300)
+    if out is None:
+        status.add_error(rel, "claude", "returned None after retries")
+        git_restore()
+        return False, 0
 
-        # Verify
-        status.set_task(type="warning_fix", file=rel, step="building")
-        build_ok, new_output = run_build(capture_output=True)
-        if not build_ok:
-            log.error("  Build FAILED for %s — reverting", rel)
-            status.add_error(rel, "build", "failed")
-            git_restore()
-            continue
+    # Verify: build
+    status.set_task(type="warning_fix", file=rel, step="building")
+    build_ok, new_output = run_build(capture_output=True)
+    if not build_ok:
+        log.error("  Build FAILED for %s — reverting", rel)
+        status.add_error(rel, "build", "failed")
+        git_restore()
+        return False, 0
 
-        status.set_task(type="warning_fix", file=rel, step="testing")
-        if not run_tests():
-            log.error("  Tests FAILED for %s — reverting", rel)
-            status.add_error(rel, "test", "failed")
-            git_restore()
-            continue
+    # Verify: tests
+    status.set_task(type="warning_fix", file=rel, step="testing")
+    if not run_tests():
+        log.error("  Tests FAILED for %s — reverting", rel)
+        status.add_error(rel, "test", "failed")
+        git_restore()
+        return False, 0
 
-        # Count improvement
-        new_warnings = parse_warnings(new_output) if new_output else {}
-        new_total = sum(len(v) for v in new_warnings.values())
-        fixed = status.data["warnings"]["total_now"] - new_total
+    # Count improvement
+    new_warnings = parse_warnings(new_output) if new_output else {}
+    new_total = sum(len(v) for v in new_warnings.values())
+    fixed = status.data["warnings"]["total_now"] - new_total
 
-        if fixed <= 0:
-            log.warning("  No improvement for %s (%d -> %d) — reverting", rel,
-                        status.data["warnings"]["total_now"], new_total)
-            git_restore()
-            continue
+    if fixed <= 0:
+        log.warning("  No improvement for %s (%d -> %d) — reverting", rel,
+                    status.data["warnings"]["total_now"], new_total)
+        git_restore()
+        return False, 0
 
-        status.data["warnings"]["total_now"] = new_total
-        status.data["warnings"]["fixed_this_session"] += fixed
+    status.data["warnings"]["total_now"] = new_total
+    status.data["warnings"]["fixed_this_session"] += fixed
 
-        # Recalculate per-type counts from new build output
-        new_type_counts = {}
-        for file_w in new_warnings.values():
-            for w in file_w:
-                new_type_counts[w["code"]] = new_type_counts.get(w["code"], 0) + 1
-        for code, d in status.data["warnings"]["by_type"].items():
-            new_cnt = new_type_counts.get(code, 0)
-            d["fixed"] = d["start"] - new_cnt
-            d["now"] = new_cnt
+    # Recalculate per-type counts
+    new_type_counts = {}
+    for file_w in new_warnings.values():
+        for w in file_w:
+            new_type_counts[w["code"]] = new_type_counts.get(w["code"], 0) + 1
+    for code, d in status.data["warnings"]["by_type"].items():
+        new_cnt = new_type_counts.get(code, 0)
+        d["fixed"] = d["start"] - new_cnt
+        d["now"] = new_cnt
 
-        # Commit (no push for warnings — batch push at end)
+    # Commit (unless squash mode — then we accumulate)
+    if not squash_mode:
         msg = f"chore: fix {fixed} nullable warnings in {os.path.basename(rel)}"
         h = git_commit(msg)
         if h:
             status.add_commit(h, msg, True)
             log.info("  Committed %s — fixed %d warnings (%d remaining)",
                      h[:8], fixed, new_total)
+
+    status.data["files_processed"].append(rel)
+    status.save()
+    return True, fixed
+
+
+def _claude_fix_file_only(fpath, file_warnings, all_warnings):
+    """Run Claude to fix warnings in one file. No build/test — just code edits.
+    Returns (fpath, success: bool, claude_output: str|None).
+    Thread-safe: only calls Claude + git read, no shared state mutation."""
+    rel = os.path.relpath(fpath, REPO_ROOT)
+    n = len(file_warnings)
+
+    w_text = "\n".join(
+        f"  Line {w['line']}: {w['code']} -- {w['message']}"
+        for w in file_warnings[:50]
+    )
+
+    dependents = find_dependents(fpath, all_warnings)
+    cascade_hint = ""
+    if dependents:
+        cascade_hint = (
+            f"\n\nCASCADE AWARENESS: Files that use types from this file: "
+            f"{', '.join(dependents)}. "
+            f"When you add `?` to a field or property, other files that reference it "
+            f"will get CS8602 warnings. Make sure your changes are safe for all callers."
+        )
+
+    prompt = f"""Project: mRemoteNG (.NET 10, WinForms)
+Working directory: D:\\github\\mRemoteNG
+File: {rel}
+
+Fix ALL these nullable reference type warnings:
+{w_text}
+
+CRITICAL RULES:
+- When adding `?` to a field type, check ALL usages in THIS file — add `?.` and `?? default`
+- Do NOT generate new CS8602 warnings — fix the cascade immediately
+- Do NOT change logic/behavior — only types and null checks
+- Getter with .Trim() -> ?.Trim() ?? string.Empty
+- Use `= null!` ONLY for fields guaranteed initialized in constructor
+- GetPropertyValue pattern: result is TPropertyType typed ? typed : value
+- Read the file FIRST, understand context, then fix
+- Do NOT create new files or tests
+- Do NOT run build or tests — only edit the file{cascade_hint}"""
+
+    out = claude_run(prompt, max_turns=15, timeout=300)
+    return (fpath, out is not None, out)
+
+
+def _group_independent_files(sorted_files, all_warnings, batch_size):
+    """Group files into batches of independent files (no cross-references).
+    Files that reference each other's types should NOT be in the same batch."""
+    batches = []
+    remaining = list(sorted_files)
+
+    while remaining:
+        batch = []
+        batch_basenames = set()
+
+        for item in remaining[:]:
+            fpath = item[0]
+            basename = os.path.basename(fpath).replace(".cs", "")
+
+            # Check if this file conflicts with any already in the batch
+            conflict = False
+            if batch:
+                # Check if this file's warnings reference types from batch files
+                for w in item[1]:
+                    for bname in batch_basenames:
+                        if bname in w["message"]:
+                            conflict = True
+                            break
+                    if conflict:
+                        break
+
+                # Check if batch files' warnings reference this file's types
+                if not conflict:
+                    for bfpath, bwarnings in batch:
+                        for w in bwarnings:
+                            if basename in w["message"]:
+                                conflict = True
+                                break
+                        if conflict:
+                            break
+
+            if not conflict:
+                batch.append(item)
+                batch_basenames.add(basename)
+                remaining.remove(item)
+
+            if len(batch) >= batch_size:
+                break
+
+        if batch:
+            batches.append(batch)
+        else:
+            # All remaining files conflict with each other — take them one by one
+            batches.append([remaining.pop(0)])
+
+    return batches
+
+
+def _fix_batch_parallel(batch, all_warnings, status, squash_mode):
+    """Fix a batch of files in parallel with Claude, then one build + test.
+    Returns (total_fixed: int, files_fixed: list[str])."""
+    batch_files = [os.path.relpath(f, REPO_ROOT) for f, _ in batch]
+    log.info("  [PARALLEL] Batch of %d files: %s",
+             len(batch), ", ".join(os.path.basename(f) for f, _ in batch))
+
+    # Phase 1: Launch parallel Claude instances
+    results = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(batch)) as executor:
+        futures = {
+            executor.submit(_claude_fix_file_only, fpath, fwarnings, all_warnings): fpath
+            for fpath, fwarnings in batch
+        }
+        for future in concurrent.futures.as_completed(futures):
+            fpath = futures[future]
+            try:
+                _, success, _ = future.result()
+                results[fpath] = success
+            except Exception as e:
+                log.error("  [PARALLEL] Claude exception for %s: %s",
+                          os.path.relpath(fpath, REPO_ROOT), e)
+                results[fpath] = False
+
+    # Check how many Claude runs succeeded
+    succeeded = [f for f, ok in results.items() if ok]
+    failed_claude = [f for f, ok in results.items() if not ok]
+
+    if failed_claude:
+        log.warning("  [PARALLEL] %d/%d Claude runs failed: %s",
+                    len(failed_claude), len(batch),
+                    ", ".join(os.path.basename(f) for f in failed_claude))
+
+    if not succeeded:
+        log.error("  [PARALLEL] All Claude runs failed — skipping batch")
+        git_restore()
+        return 0, []
+
+    # Phase 2: One build for the entire batch
+    status.set_task(type="warning_fix_batch", step="building",
+                    files=", ".join(os.path.basename(f) for f in succeeded))
+    build_ok, new_output = run_build(capture_output=True)
+
+    if not build_ok:
+        log.warning("  [PARALLEL] Build FAILED for batch — falling back to serial")
+        git_restore()
+        # Serial fallback: fix files one by one
+        total_fixed = 0
+        files_fixed = []
+        for fpath, fwarnings in batch:
+            success, fixed = _fix_single_file(fpath, fwarnings, all_warnings, status, squash_mode)
+            if success:
+                total_fixed += fixed
+                files_fixed.append(os.path.relpath(fpath, REPO_ROOT))
+        return total_fixed, files_fixed
+
+    # Phase 3: One test for the entire batch
+    status.set_task(type="warning_fix_batch", step="testing",
+                    files=", ".join(os.path.basename(f) for f in succeeded))
+    if not run_tests():
+        log.warning("  [PARALLEL] Tests FAILED for batch — falling back to serial")
+        git_restore()
+        total_fixed = 0
+        files_fixed = []
+        for fpath, fwarnings in batch:
+            success, fixed = _fix_single_file(fpath, fwarnings, all_warnings, status, squash_mode)
+            if success:
+                total_fixed += fixed
+                files_fixed.append(os.path.relpath(fpath, REPO_ROOT))
+        return total_fixed, files_fixed
+
+    # Phase 4: Count improvement
+    new_warnings = parse_warnings(new_output) if new_output else {}
+    new_total = sum(len(v) for v in new_warnings.values())
+    fixed = status.data["warnings"]["total_now"] - new_total
+
+    if fixed <= 0:
+        log.warning("  [PARALLEL] No improvement for batch (%d -> %d) — reverting",
+                    status.data["warnings"]["total_now"], new_total)
+        git_restore()
+        return 0, []
+
+    status.data["warnings"]["total_now"] = new_total
+    status.data["warnings"]["fixed_this_session"] += fixed
+
+    # Recalculate per-type counts
+    new_type_counts = {}
+    for file_w in new_warnings.values():
+        for w in file_w:
+            new_type_counts[w["code"]] = new_type_counts.get(w["code"], 0) + 1
+    for code, d in status.data["warnings"]["by_type"].items():
+        new_cnt = new_type_counts.get(code, 0)
+        d["fixed"] = d["start"] - new_cnt
+        d["now"] = new_cnt
+
+    # Phase 5: Commit
+    if not squash_mode:
+        batch_names = ", ".join(os.path.basename(f) for f, _ in batch)
+        msg = f"chore: fix {fixed} nullable warnings in {len(succeeded)} files ({batch_names})"
+        if len(msg) > 120:
+            msg = f"chore: fix {fixed} nullable warnings in {len(succeeded)} files (batch)"
+        h = git_commit(msg)
+        if h:
+            status.add_commit(h, msg, True)
+            log.info("  [PARALLEL] Committed %s — fixed %d warnings (%d remaining)",
+                     h[:8], fixed, new_total)
+
+    files_fixed = [os.path.relpath(f, REPO_ROOT) for f in succeeded]
+    for rel in files_fixed:
+        if rel not in status.data["files_processed"]:
+            status.data["files_processed"].append(rel)
+    status.save()
+
+    return fixed, files_fixed
+
+
+def flux_warnings(status, dry_run=False, max_files=None, squash=False, max_passes=10,
+                  parallel=0):
+    """FLUX 2: Extract warnings, fix file-by-file, verify, commit.
+    Multi-pass: repeats until convergence (no improvement between passes).
+    When parallel > 0, fixes files in batches of `parallel` using concurrent Claude agents."""
+
+    use_parallel = parallel > 1
+
+    for pass_num in range(1, max_passes + 1):
+        status.data["current_pass"] = pass_num
+        log.info("=" * 60)
+        log.info("  FLUX 2: Warning Cleanup — Pass %d%s", pass_num,
+                 f" (parallel={parallel})" if use_parallel else "")
+        log.info("=" * 60)
+
+        # Build + extract warnings
+        status.set_task(type="warnings", step="extracting")
+        build_ok, output = run_build(capture_output=True)
+        if not build_ok or not output:
+            log.error("  Build failed — cannot extract warnings")
+            return
+
+        warnings = parse_warnings(output)
+        total = sum(len(v) for v in warnings.values())
+
+        if pass_num == 1:
+            status.data["warnings"]["total_start"] = total
+        status.data["warnings"]["total_now"] = total
+
+        # Count by type
+        type_counts = {}
+        for file_w in warnings.values():
+            for w in file_w:
+                type_counts[w["code"]] = type_counts.get(w["code"], 0) + 1
+        for code in WARNING_CODES:
+            cnt = type_counts.get(code, 0)
+            if cnt or code in status.data["warnings"]["by_type"]:
+                if code not in status.data["warnings"]["by_type"]:
+                    status.data["warnings"]["by_type"][code] = {"start": cnt, "now": cnt, "fixed": 0}
+                else:
+                    status.data["warnings"]["by_type"][code]["now"] = cnt
+                    if pass_num == 1:
+                        status.data["warnings"]["by_type"][code]["start"] = cnt
+                log.info("  %s: %d", code, cnt)
         status.save()
 
-    # Batch push at end
-    if not dry_run and status.data["commits"]:
-        log.info("  Pushing all warning-fix commits ...")
-        git_push()
+        if total == 0:
+            log.info("  No warnings remaining!")
+            break
+
+        log.info("  Total: %d warnings across %d files (pass %d)", total, len(warnings), pass_num)
+
+        # Sort: most warnings first
+        sorted_files = sorted(warnings.items(), key=lambda x: -len(x[1]))
+        if max_files:
+            sorted_files = sorted_files[:max_files]
+
+        pass_fixed_total = 0
+        pass_start_total = total
+
+        if use_parallel:
+            # ── PARALLEL MODE: batch files, fix in parallel, one build+test per batch ──
+            batches = _group_independent_files(sorted_files, warnings, parallel)
+            log.info("  Grouped %d files into %d batches (batch_size=%d)",
+                     len(sorted_files), len(batches), parallel)
+
+            for bi, batch in enumerate(batches, 1):
+                kill_stale_processes()
+                batch_names = ", ".join(
+                    f"{os.path.basename(f)}({len(w)}w)" for f, w in batch
+                )
+                batch_total_w = sum(len(w) for _, w in batch)
+                remaining_batches = len(batches) - bi
+                remaining_files = sum(len(b) for b in batches[bi:])
+                eta = status.eta_str(remaining_files)
+                log.info("[P%d B%d/%d] %d files (%d warnings): %s  ETA: %s",
+                         pass_num, bi, len(batches), len(batch), batch_total_w,
+                         batch_names, eta)
+                print_progress(f"WARNINGS P{pass_num}", bi, len(batches),
+                               f"batch {bi} ({len(batch)} files, {batch_total_w}w) ETA:{eta}",
+                               status)
+
+                if dry_run:
+                    log.info("  [DRY RUN] skip batch")
+                    continue
+
+                batch_start = time.time()
+                fixed, files_fixed = _fix_batch_parallel(
+                    batch, warnings, status, squash
+                )
+                batch_elapsed = time.time() - batch_start
+                # Record average time per file in this batch
+                if files_fixed:
+                    per_file = batch_elapsed / len(files_fixed)
+                    for _ in files_fixed:
+                        status.record_file_time(per_file)
+
+                if fixed > 0:
+                    pass_fixed_total += fixed
+                    log.info("  [BATCH %.0fs] Fixed %d in %d files (total session: %d)",
+                             batch_elapsed, fixed, len(files_fixed),
+                             status.data["warnings"]["fixed_this_session"])
+        else:
+            # ── SERIAL MODE: fix file by file (original behavior) ──
+            for i, (fpath, file_warnings) in enumerate(sorted_files, 1):
+                kill_stale_processes()
+                rel = os.path.relpath(fpath, REPO_ROOT)
+                n = len(file_warnings)
+                remaining = len(sorted_files) - i
+                eta = status.eta_str(remaining)
+                log.info("[P%d %d/%d] %s (%d warnings) ETA: %s",
+                         pass_num, i, len(sorted_files), rel, n, eta)
+                print_progress(f"WARNINGS P{pass_num}", i, len(sorted_files),
+                               f"{rel} ({n}w) ETA:{eta}", status)
+
+                if dry_run:
+                    log.info("  [DRY RUN] skip")
+                    continue
+
+                file_start = time.time()
+                success, fixed = _fix_single_file(fpath, file_warnings, warnings, status, squash)
+                file_elapsed = time.time() - file_start
+                status.record_file_time(file_elapsed)
+
+                if success:
+                    pass_fixed_total += fixed
+                    log.info("  [%.0fs] Fixed %d (total session: %d)",
+                             file_elapsed, fixed, status.data["warnings"]["fixed_this_session"])
+
+        # End of pass: push (or squash)
+        if not dry_run:
+            if squash and pass_fixed_total > 0:
+                # Squash all uncommitted changes into one commit
+                if git_has_changes():
+                    msg = (f"chore: fix {status.data['warnings']['fixed_this_session']} "
+                           f"nullable warnings across {len(status.data['files_processed'])} files "
+                           f"(pass {pass_num})")
+                    h = git_commit(msg)
+                    if h:
+                        status.add_commit(h, msg, True)
+                        log.info("  Squash committed %s", h[:8])
+
+            if status.data["commits"]:
+                log.info("  Pushing commits (pass %d) ...", pass_num)
+                git_push()
+
+        # Check convergence: if this pass fixed nothing, stop
+        if pass_fixed_total == 0:
+            log.info("  Pass %d: no improvement — convergence reached", pass_num)
+            break
+        else:
+            improvement_pct = pass_fixed_total * 100 // max(pass_start_total, 1)
+            log.info("  Pass %d: fixed %d warnings (%d%% of %d)",
+                     pass_num, pass_fixed_total, improvement_pct, pass_start_total)
+            # If improvement is tiny (<2%), stop to avoid diminishing returns
+            if improvement_pct < 2 and pass_num > 1:
+                log.info("  Marginal improvement (<2%%) — stopping")
+                break
 
     status.clear_task()
 
@@ -824,10 +1222,15 @@ def print_summary(status):
 
     w = s["warnings"]
     if w["total_start"]:
+        pct = w["fixed_this_session"] * 100 // max(w["total_start"], 1)
         print(f"\n  Warnings:  {w['total_start']} -> {w['total_now']}  "
-              f"(-{w['fixed_this_session']} fixed)")
+              f"(-{w['fixed_this_session']} fixed, {pct}%)")
         for code, d in sorted(w.get("by_type", {}).items()):
             print(f"             {code}: {d['start']} -> {d['now']}  (-{d['fixed']})")
+
+    passes = s.get("current_pass", 1)
+    if passes > 1:
+        print(f"\n  Passes:    {passes}")
 
     if s["commits"]:
         print(f"\n  Commits:   {len(s['commits'])}")
@@ -847,6 +1250,11 @@ def print_summary(status):
     except Exception:
         pass
     print(f"\n  Duration:  {dur}")
+
+    if status._file_times:
+        avg = sum(status._file_times) / len(status._file_times)
+        print(f"  Avg/file:  {avg:.0f}s ({len(status._file_times)} files)")
+
     print("=" * 65)
 
 
@@ -865,6 +1273,7 @@ def show_status():
     print("=== IIS Orchestrator Status ===")
     print(f"  Running: {'YES' if running else 'no'}")
     print(f"  Phase:   {phase}")
+    print(f"  Pass:    {s.get('current_pass', '?')}")
     print(f"  Started: {s.get('started_at', '?')}")
     print(f"  Updated: {s.get('last_updated', '?')}")
 
@@ -881,8 +1290,11 @@ def show_status():
 
     w = s.get("warnings", {})
     if w.get("total_start"):
+        pct = w.get("fixed_this_session", 0) * 100 // max(w["total_start"], 1)
         print(f"\n  Warnings: {w['total_start']} -> {w['total_now']} "
-              f"(-{w.get('fixed_this_session', 0)})")
+              f"(-{w.get('fixed_this_session', 0)}, {pct}%)")
+        for code, d in sorted(w.get("by_type", {}).items()):
+            print(f"    {code}: {d['start']} -> {d['now']}  (-{d['fixed']})")
 
     commits = s.get("commits", [])
     errors = s.get("errors", [])
@@ -910,7 +1322,13 @@ def main():
     parser.add_argument("--max-issues", type=int, default=None,
                         help="Max issues to process")
     parser.add_argument("--max-files", type=int, default=None,
-                        help="Max files to fix (warnings mode)")
+                        help="Max files to fix per pass (warnings mode)")
+    parser.add_argument("--squash", action="store_true",
+                        help="Squash all warning fixes into one commit per pass")
+    parser.add_argument("--max-passes", type=int, default=10,
+                        help="Max multi-pass iterations (default: 10, convergence stops earlier)")
+    parser.add_argument("--parallel", type=int, default=0,
+                        help="Fix N files in parallel per batch (0=serial, 5=recommended)")
 
     args = parser.parse_args()
 
@@ -938,7 +1356,9 @@ def main():
 
         if args.mode in ("all", "warnings"):
             status.set_phase("warnings")
-            flux_warnings(status, dry_run=args.dry_run, max_files=args.max_files)
+            flux_warnings(status, dry_run=args.dry_run, max_files=args.max_files,
+                          squash=args.squash, max_passes=args.max_passes,
+                          parallel=args.parallel)
 
         status.finish()
         log.info("=== Orchestrator finished ===")
