@@ -10,7 +10,7 @@
   "created_at": "2017-02-02T18:47:50Z",
   "github_updated_at": "2019-08-01T19:02:28Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\nI would like to request the ability to add additional **User Fields** under the Miscellaneous section. I currently use the User Field to pass arguments to each of my connections upon connecting. These fields are unique to each ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "Multiple users requesting additional customizable user fields for passing arguments to external tools, which is a clear and actionable enhancement"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 1cbdf5e4"
     }
   ],
   "comments": [

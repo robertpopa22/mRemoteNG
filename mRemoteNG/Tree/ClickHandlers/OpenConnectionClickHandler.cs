@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Versioning;
+using System.Windows.Forms;
 using mRemoteNG.Connection;
 
 namespace mRemoteNG.Tree.ClickHandlers
@@ -22,7 +23,12 @@ namespace mRemoteNG.Tree.ClickHandlers
                 throw new ArgumentNullException(nameof(clickedNode));
             if (clickedNode.GetTreeNodeType() != TreeNodeType.Connection &&
                 clickedNode.GetTreeNodeType() != TreeNodeType.PuttySession) return;
-            _connectionInitiator.OpenConnection(clickedNode);
+
+            // Ctrl+DoubleClick opens a new connection tab even if one is already open (#397)
+            var force = Control.ModifierKeys.HasFlag(Keys.Control)
+                ? ConnectionInfo.Force.DoNotJump
+                : ConnectionInfo.Force.None;
+            _connectionInitiator.OpenConnection(clickedNode, force);
         }
     }
 }
