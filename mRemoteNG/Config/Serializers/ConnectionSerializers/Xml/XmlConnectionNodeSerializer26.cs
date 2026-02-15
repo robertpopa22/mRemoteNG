@@ -42,7 +42,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
         private void SetElementAttributes(XContainer element, ConnectionInfo connectionInfo)
         {
-            ContainerInfo nodeAsContainer = connectionInfo as ContainerInfo;
+            ContainerInfo? nodeAsContainer = connectionInfo as ContainerInfo;
             element.Add(new XAttribute("Name", connectionInfo.Name));
             element.Add(new XAttribute("Type", connectionInfo.GetTreeNodeType().ToString()));
             if (nodeAsContainer != null)
