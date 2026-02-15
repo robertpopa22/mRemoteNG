@@ -15,7 +15,7 @@ using mRemoteNG.Tree.Root;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 {
     [SupportedOSPlatform("windows")]
-    public class SqlDatabaseMetaDataRetriever
+    public class SqlDatabaseMetaDataRetriever : ISqlDatabaseMetaDataRetriever
     {
         public SqlConnectionListMetaData? GetDatabaseMetaData(IDatabaseConnector databaseConnector)
         {

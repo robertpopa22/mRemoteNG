@@ -9,7 +9,7 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.Serializers.Versioning
 {
     [SupportedOSPlatform("windows")]
-    public class SqlDatabaseVersionVerifier(IDatabaseConnector databaseConnector)
+    public class SqlDatabaseVersionVerifier(IDatabaseConnector databaseConnector) : ISqlDatabaseVersionVerifier
     {
         private readonly Version _currentSupportedVersion = new(3, 0);
 

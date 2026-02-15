@@ -18,7 +18,10 @@ using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
+using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
+using mRemoteNG.Config.Serializers.Versioning;
+using mRemoteNG.Security.SymmetricEncryption;
 
 namespace mRemoteNG.Connection
 {
@@ -128,9 +131,26 @@ namespace mRemoteNG.Connection
             ConnectionTreeModel? oldConnectionTreeModel = ConnectionTreeModel;
             bool oldIsUsingDatabaseValue = UsingDatabase;
 
-            IConnectionsLoader connectionLoader = useDatabase
-                ? (IConnectionsLoader)new SqlConnectionsLoader(_localConnectionPropertiesSerializer, _localConnectionPropertiesDataProvider)
-                : new XmlConnectionsLoader(connectionFileName);
+            IConnectionsLoader connectionLoader;
+            if (useDatabase)
+            {
+                IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnectorFromSettings();
+                SqlDataProvider sqlDataProvider = new(dbConnector);
+                SqlDatabaseMetaDataRetriever metaDataRetriever = new();
+                SqlDatabaseVersionVerifier versionVerifier = new(dbConnector);
+                connectionLoader = new SqlConnectionsLoader(
+                    _localConnectionPropertiesSerializer,
+                    _localConnectionPropertiesDataProvider,
+                    dbConnector,
+                    sqlDataProvider,
+                    metaDataRetriever,
+                    versionVerifier,
+                    new LegacyRijndaelCryptographyProvider());
+            }
+            else
+            {
+                connectionLoader = new XmlConnectionsLoader(connectionFileName);
+            }
 
             ConnectionTreeModel newConnectionTreeModel = connectionLoader.Load();
 
