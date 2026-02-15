@@ -1512,9 +1512,25 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
         repo_dir = ISSUES_DB_ROOT / repo_key
         repo_dir.mkdir(parents=True, exist_ok=True)
 
+        skipped_unchanged = 0
         for idx, issue_stub in enumerate(issues_list, 1):
             num = issue_stub["number"]
             pct = int(idx * 100 / max(len(issues_list), 1))
+
+            # Skip if local JSON is up-to-date (same updatedAt timestamp)
+            padded = f"{num:04d}"
+            file_path = repo_dir / f"{padded}.json"
+            gh_updated_at = issue_stub.get("updatedAt", "")
+            if file_path.exists() and gh_updated_at:
+                try:
+                    local = iis_read_json(file_path)
+                    if local.get("github_updated_at") == gh_updated_at:
+                        skipped_unchanged += 1
+                        stats["issues_updated"] += 1
+                        continue
+                except Exception:
+                    pass  # corrupted JSON — re-fetch
+
             print(f"  [{pct}%] Processing #{num}...", end="", flush=True)
 
             # Fetch full issue with comments
@@ -1544,9 +1560,7 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
                     "action_needed": False,
                 })
 
-            # Load existing JSON if present
-            padded = f"{num:04d}"
-            file_path = repo_dir / f"{padded}.json"
+            # Load existing JSON if present (padded/file_path already set above)
             existing = None
             is_new = False
             new_comment_count = 0
@@ -1646,6 +1660,8 @@ def iis_sync(repos="both", issue_numbers=None, include_closed=False, max_issues=
 
             print()
 
+        if skipped_unchanged > 0:
+            print(f"  Skipped {skipped_unchanged} unchanged issues (same updatedAt)")
         stats["repos_synced"].append(repo_name)
         print()
 
