@@ -106,6 +106,8 @@ namespace mRemoteNG.Connection
         private string _environmentTags = "";
         private string _rdpStartProgram = string.Empty;
         private string _rdpStartProgramWorkDir = string.Empty;
+        private string _rdpRemoteAppProgram = string.Empty;
+        private string _rdpRemoteAppCmdLine = string.Empty;
         private bool _favorite = default;
 
         private ProtocolVNC.Compression _vncCompression = default;
