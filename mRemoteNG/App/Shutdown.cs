@@ -120,11 +120,12 @@ namespace mRemoteNG.App
 
         private static void RunUpdateFile()
         {
-            if (UpdatePending)
+            var updatePath = _updateFilePath;
+            if (!string.IsNullOrEmpty(updatePath))
             {
                 // Validate the update file path to prevent command injection
-                Tools.PathValidator.ValidateExecutablePathOrThrow(_updateFilePath, nameof(_updateFilePath));
-                Process.Start(new ProcessStartInfo(_updateFilePath) { UseShellExecute = true });
+                Tools.PathValidator.ValidateExecutablePathOrThrow(updatePath, nameof(_updateFilePath));
+                Process.Start(new ProcessStartInfo(updatePath) { UseShellExecute = true });
             }
         }
     }
