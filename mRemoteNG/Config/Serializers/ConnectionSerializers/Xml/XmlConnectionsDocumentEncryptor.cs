@@ -10,7 +10,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
         public XDocument EncryptDocument(XDocument documentToEncrypt, SecureString encryptionKey)
         {
-            string contentToEncrypt = GetContentToEncrypt(documentToEncrypt.Root);
+            XElement root = documentToEncrypt.Root
+                ?? throw new System.InvalidOperationException("Cannot encrypt a document without a root element.");
+            string contentToEncrypt = GetContentToEncrypt(root);
             string encryptedContent = _cryptographyProvider.Encrypt(contentToEncrypt, encryptionKey);
             XDocument encryptedDocument = ReplaceInnerXml(documentToEncrypt, encryptedContent);
             return encryptedDocument;
@@ -25,7 +27,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
         private XDocument ReplaceInnerXml(XDocument originalDocument, string newContent)
         {
-            XElement newRootElement = ShallowCloneRootNode(originalDocument.Root);
+            XElement newRootElement = ShallowCloneRootNode(originalDocument.Root
+                ?? throw new System.InvalidOperationException("Cannot replace inner XML of a document without a root element."));
             newRootElement.SetValue(newContent);
             return new XDocument(newRootElement);
         }
