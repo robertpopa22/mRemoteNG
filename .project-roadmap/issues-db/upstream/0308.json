@@ -13,12 +13,19 @@
   "created_at": "2016-12-09T21:42:00Z",
   "github_updated_at": "2026-02-07T19:23:37Z",
   "body_snippet": "<!-- Feature Request -->\r\nWith the decision to use C# and to decouple the code base, it would be awesome to use Xamarin to make the renewed interest in mRemoteNG available to Mac OS and Mobile app platforms. \r\n\r\nI have been looking into using Xamarin for some upcoming cross platform projects but have no personal experience actually using it. However, if no one else is interested/able to do this feature request, I will try to make the time to start working on it (after the code base has stabilize...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-15",
+      "type": "wontfix",
+      "description": "Cross-platform (Mac/Mobile) support requires a complete UI framework rewrite far beyond the scope of this WinForms/.NET 10 fork, and MAUI/web alternatives remain immature for this use case"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDI2NjEzNjAyNg==",
@@ -206,5 +213,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Cross-platform (Mac/Mobile) support requires a complete UI framework rewrite far beyond the scope of this WinForms/.NET 10 fork, and MAUI/web alternatives remain immature for this use case\nApproach: Close as out of scope — mRemoteNG is architecturally tied to Windows COM controls (RDP ActiveX, PuTTY) that have no cross-platform equivalents; a Mac/Mobile port would be a separate project, not a migration"
 }
