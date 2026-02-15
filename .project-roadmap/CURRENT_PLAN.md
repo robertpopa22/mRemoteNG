@@ -167,7 +167,7 @@ REGULI:
 - NU schimba comportament existent — doar fix-ul cerut
 - NU crea teste interactive (dialog, MessageBox, notepad.exe)
 - Dupa fix, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
-- Dupa build, ruleaza: dotnet test mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll --filter "FullyQualifiedName!~UI&FullyQualifiedName!~CueBanner&FullyQualifiedName!~Tree.ConnectionTreeTests&FullyQualifiedName!~PasswordForm" -- NUnit.DefaultTimeout=5000
+- Dupa build, ruleaza: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -Headless -NoBuild
 
 Fa DOAR fix-ul. Nimic altceva.
 """

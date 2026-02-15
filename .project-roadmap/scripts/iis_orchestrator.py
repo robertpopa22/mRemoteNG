@@ -46,6 +46,14 @@ BUILD_CMD = [
     "-File", str(REPO_ROOT / "build.ps1"),
     "-Rebuild",
 ]
+# Parallel test runner: 4 processes grouped by namespace (2.1x speedup)
+# Uses run-tests.ps1 -Headless -NoBuild (build is done separately by orchestrator)
+TEST_CMD = [
+    "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
+    "-File", str(REPO_ROOT / "run-tests.ps1"),
+    "-Headless", "-NoBuild",
+]
+# Legacy single-process filter (used only in Claude prompts for sub-agent builds)
 TEST_FILTER = (
     "FullyQualifiedName!~UI"
     "&FullyQualifiedName!~CueBanner"
@@ -57,17 +65,32 @@ TEST_FILTER = (
 TEST_DLL = str(
     REPO_ROOT / "mRemoteNGTests" / "bin" / "x64" / "Release" / "mRemoteNGTests.dll"
 )
-TEST_CMD = [
-    "dotnet", "test", TEST_DLL,
-    "--verbosity", "normal",
-    "--filter", TEST_FILTER,
-    "--", "NUnit.DefaultTimeout=15000",
-]
 
 UPSTREAM_REPO = "mRemoteNG/mRemoteNG"
 FORK_REPO = "robertpopa22/mRemoteNG"
-BETA_TAG = "v1.81.0-beta.1"
-BETA_URL = f"https://github.com/{FORK_REPO}/releases/tag/{BETA_TAG}"
+CSPROJ_PATH = REPO_ROOT / "mRemoteNG" / "mRemoteNG.csproj"
+
+
+def _read_version_from_csproj():
+    """Read <Version> from mRemoteNG.csproj (single source of truth)."""
+    try:
+        content = CSPROJ_PATH.read_text(encoding="utf-8")
+        m = re.search(r"<Version>([^<]+)</Version>", content)
+        if m:
+            return m.group(1).strip()
+    except Exception:
+        pass
+    return "0.0.0"
+
+
+def get_beta_tag():
+    """Return the current version tag (e.g. 'v1.81.0-beta.2') from csproj."""
+    return f"v{_read_version_from_csproj()}"
+
+
+def get_beta_url():
+    """Return the GitHub release URL for the current version."""
+    return f"https://github.com/{FORK_REPO}/releases/tag/{get_beta_tag()}"
 
 # Warning codes to fix, in priority order
 WARNING_CODES = [
@@ -284,13 +307,27 @@ def run_build(capture_output=False):
 
 
 def run_tests():
-    """Run non-UI tests.  Returns True if all pass."""
-    log.info("    [TEST] Running tests ...")
+    """Run non-UI tests via run-tests.ps1 (4 parallel processes).
+    Returns True if all pass."""
+    log.info("    [TEST] Running parallel tests (run-tests.ps1 -Headless -NoBuild) ...")
     kill_stale_processes()
 
     try:
         r = _run(TEST_CMD, timeout=TEST_TIMEOUT)
-        out = r.stdout or ""
+        out = (r.stdout or "") + "\n" + (r.stderr or "")
+
+        # Parse run-tests.ps1 output: "Total: 1926/1926 passed, 0 failed"
+        total_m = re.search(r"Total:\s+(\d+)/(\d+)\s+passed,\s+(\d+)\s+failed", out)
+        if total_m:
+            passed, total, failed = int(total_m.group(1)), int(total_m.group(2)), int(total_m.group(3))
+            if failed > 0:
+                log.error("    [TEST] FAILED: %d/%d passed, %d failed", passed, total, failed)
+                return False
+            log.info("    [TEST] OK (%d/%d passed, parallel)", passed, total)
+            kill_stale_processes()
+            return True
+
+        # Fallback: parse single-process dotnet test output
         if "Failed!" in out or r.returncode != 0:
             m = re.search(r"Failed:\s+(\d+)", out)
             if m and int(m.group(1)) > 0:
@@ -299,6 +336,18 @@ def run_tests():
         m = re.search(r"Passed:\s+(\d+)", out)
         if m:
             log.info("    [TEST] OK (%s passed)", m.group(1))
+
+        # Also check for "ALL TESTS PASSED" from run-tests.ps1
+        if "ALL TESTS PASSED" in out:
+            log.info("    [TEST] OK (all tests passed)")
+            kill_stale_processes()
+            return True
+        # Check for "TESTS FAILED" from run-tests.ps1
+        if "TESTS FAILED" in out:
+            log.error("    [TEST] FAILED (run-tests.ps1 reported failure)")
+            kill_stale_processes()
+            return False
+
         kill_stale_processes()
         return r.returncode == 0
     except subprocess.TimeoutExpired:
@@ -419,13 +468,15 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
 def post_github_comment(issue_num, commit_hash, description):
     """Post a fix-available comment on upstream issue."""
+    beta_tag = get_beta_tag()
+    beta_url = get_beta_url()
     comment = (
         f"**Fix available for testing**\n\n"
         f"**Commit:** [`{commit_hash[:8]}`]"
         f"(https://github.com/{FORK_REPO}/commit/{commit_hash})\n"
         f"**Branch:** `main`\n"
         f"**What changed:** {description}\n\n"
-        f"**Download latest beta:** [{BETA_TAG}]({BETA_URL})\n\n"
+        f"**Download latest beta:** [{beta_tag}]({beta_url})\n\n"
         f"Please test and report if this resolves your issue.\n\n"
         f"---\n"
         f"_Automated by mRemoteNG Issue Intelligence System_"
@@ -593,7 +644,7 @@ RULES (CRITICAL):
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
-- After build passes, run tests: dotnet test "D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll" --filter "{TEST_FILTER}" -- NUnit.DefaultTimeout=5000
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -Headless -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
 - Do ONLY the fix.  Nothing else."""
 
