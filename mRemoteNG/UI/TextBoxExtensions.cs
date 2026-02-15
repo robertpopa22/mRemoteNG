@@ -17,7 +17,7 @@ namespace mRemoteNG.UI
             return result.ToInt64() == NativeMethods.TRUE;
         }
 
-        public static string GetCueBannerText(this TextBox textBox)
+        public static string? GetCueBannerText(this TextBox textBox)
         {
             if (!textBox.IsHandleCreated) return null;
             StringBuilder cueBannerText = new(256);
