@@ -7,7 +7,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
     {
         public static Rectangle GetResolutionRectangle(this RDPResolutions resolution)
         {
-            string[] resolutionParts = null;
+            string[]? resolutionParts = null;
             if (resolution != RDPResolutions.FitToWindow & resolution != RDPResolutions.Fullscreen &
                 resolution != RDPResolutions.SmartSize)
             {
