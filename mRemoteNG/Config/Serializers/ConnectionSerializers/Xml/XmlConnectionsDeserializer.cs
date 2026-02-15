@@ -565,6 +565,26 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                         connectionInfo.Inheritance.RedirectDiskDrivesCustom = xmlnode.GetAttributeAsBool("InheritRedirectDiskDrivesCustom");
                         connectionInfo.EnvironmentTags = xmlnode.GetAttributeAsString("EnvironmentTags");
                         connectionInfo.Inheritance.EnvironmentTags = xmlnode.GetAttributeAsBool("InheritEnvironmentTags");
+                        connectionInfo.UserField1 = xmlnode.GetAttributeAsString("UserField1");
+                        connectionInfo.UserField2 = xmlnode.GetAttributeAsString("UserField2");
+                        connectionInfo.UserField3 = xmlnode.GetAttributeAsString("UserField3");
+                        connectionInfo.UserField4 = xmlnode.GetAttributeAsString("UserField4");
+                        connectionInfo.UserField5 = xmlnode.GetAttributeAsString("UserField5");
+                        connectionInfo.UserField6 = xmlnode.GetAttributeAsString("UserField6");
+                        connectionInfo.UserField7 = xmlnode.GetAttributeAsString("UserField7");
+                        connectionInfo.UserField8 = xmlnode.GetAttributeAsString("UserField8");
+                        connectionInfo.UserField9 = xmlnode.GetAttributeAsString("UserField9");
+                        connectionInfo.UserField10 = xmlnode.GetAttributeAsString("UserField10");
+                        connectionInfo.Inheritance.UserField1 = xmlnode.GetAttributeAsBool("InheritUserField1");
+                        connectionInfo.Inheritance.UserField2 = xmlnode.GetAttributeAsBool("InheritUserField2");
+                        connectionInfo.Inheritance.UserField3 = xmlnode.GetAttributeAsBool("InheritUserField3");
+                        connectionInfo.Inheritance.UserField4 = xmlnode.GetAttributeAsBool("InheritUserField4");
+                        connectionInfo.Inheritance.UserField5 = xmlnode.GetAttributeAsBool("InheritUserField5");
+                        connectionInfo.Inheritance.UserField6 = xmlnode.GetAttributeAsBool("InheritUserField6");
+                        connectionInfo.Inheritance.UserField7 = xmlnode.GetAttributeAsBool("InheritUserField7");
+                        connectionInfo.Inheritance.UserField8 = xmlnode.GetAttributeAsBool("InheritUserField8");
+                        connectionInfo.Inheritance.UserField9 = xmlnode.GetAttributeAsBool("InheritUserField9");
+                        connectionInfo.Inheritance.UserField10 = xmlnode.GetAttributeAsBool("InheritUserField10");
                         break;
 
                     case >= 0.5:

@@ -412,6 +412,16 @@ namespace mRemoteNG.Connection
             PostExtApp = Settings.Default.ConDefaultPostExtApp;
             MacAddress = Settings.Default.ConDefaultMacAddress;
             UserField = Settings.Default.ConDefaultUserField;
+            UserField1 = string.Empty;
+            UserField2 = string.Empty;
+            UserField3 = string.Empty;
+            UserField4 = string.Empty;
+            UserField5 = string.Empty;
+            UserField6 = string.Empty;
+            UserField7 = string.Empty;
+            UserField8 = string.Empty;
+            UserField9 = string.Empty;
+            UserField10 = string.Empty;
             EnvironmentTags = Settings.Default.ConDefaultEnvironmentTags;
             Favorite = Settings.Default.ConDefaultFavorite;
             RDPStartProgram = Settings.Default.ConDefaultRDPStartProgram;

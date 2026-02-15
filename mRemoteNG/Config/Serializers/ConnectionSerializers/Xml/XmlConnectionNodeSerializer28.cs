@@ -106,6 +106,16 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("PostExtApp", connectionInfo.PostExtApp));
             element.Add(new XAttribute("MacAddress", connectionInfo.MacAddress));
             element.Add(new XAttribute("UserField", connectionInfo.UserField));
+            element.Add(new XAttribute("UserField1", connectionInfo.UserField1));
+            element.Add(new XAttribute("UserField2", connectionInfo.UserField2));
+            element.Add(new XAttribute("UserField3", connectionInfo.UserField3));
+            element.Add(new XAttribute("UserField4", connectionInfo.UserField4));
+            element.Add(new XAttribute("UserField5", connectionInfo.UserField5));
+            element.Add(new XAttribute("UserField6", connectionInfo.UserField6));
+            element.Add(new XAttribute("UserField7", connectionInfo.UserField7));
+            element.Add(new XAttribute("UserField8", connectionInfo.UserField8));
+            element.Add(new XAttribute("UserField9", connectionInfo.UserField9));
+            element.Add(new XAttribute("UserField10", connectionInfo.UserField10));
             element.Add(new XAttribute("EnvironmentTags", connectionInfo.EnvironmentTags));
             element.Add(new XAttribute("Favorite", connectionInfo.Favorite));
             element.Add(new XAttribute("ExtApp", connectionInfo.ExtApp));
@@ -267,6 +277,26 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritMacAddress", inheritance.MacAddress.ToString().ToLowerInvariant()));
             if (inheritance.UserField)
                 element.Add(new XAttribute("InheritUserField", inheritance.UserField.ToString().ToLowerInvariant()));
+            if (inheritance.UserField1)
+                element.Add(new XAttribute("InheritUserField1", inheritance.UserField1.ToString().ToLowerInvariant()));
+            if (inheritance.UserField2)
+                element.Add(new XAttribute("InheritUserField2", inheritance.UserField2.ToString().ToLowerInvariant()));
+            if (inheritance.UserField3)
+                element.Add(new XAttribute("InheritUserField3", inheritance.UserField3.ToString().ToLowerInvariant()));
+            if (inheritance.UserField4)
+                element.Add(new XAttribute("InheritUserField4", inheritance.UserField4.ToString().ToLowerInvariant()));
+            if (inheritance.UserField5)
+                element.Add(new XAttribute("InheritUserField5", inheritance.UserField5.ToString().ToLowerInvariant()));
+            if (inheritance.UserField6)
+                element.Add(new XAttribute("InheritUserField6", inheritance.UserField6.ToString().ToLowerInvariant()));
+            if (inheritance.UserField7)
+                element.Add(new XAttribute("InheritUserField7", inheritance.UserField7.ToString().ToLowerInvariant()));
+            if (inheritance.UserField8)
+                element.Add(new XAttribute("InheritUserField8", inheritance.UserField8.ToString().ToLowerInvariant()));
+            if (inheritance.UserField9)
+                element.Add(new XAttribute("InheritUserField9", inheritance.UserField9.ToString().ToLowerInvariant()));
+            if (inheritance.UserField10)
+                element.Add(new XAttribute("InheritUserField10", inheritance.UserField10.ToString().ToLowerInvariant()));
             if (inheritance.EnvironmentTags)
                 element.Add(new XAttribute("InheritEnvironmentTags", inheritance.EnvironmentTags.ToString().ToLowerInvariant()));
             if (inheritance.Favorite)

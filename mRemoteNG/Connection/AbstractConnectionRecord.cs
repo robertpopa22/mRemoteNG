@@ -103,6 +103,16 @@ namespace mRemoteNG.Connection
         private string _macAddress = string.Empty;
         private string _openingCommand = string.Empty;
         private string _userField = string.Empty;
+        private string _userField1 = string.Empty;
+        private string _userField2 = string.Empty;
+        private string _userField3 = string.Empty;
+        private string _userField4 = string.Empty;
+        private string _userField5 = string.Empty;
+        private string _userField6 = string.Empty;
+        private string _userField7 = string.Empty;
+        private string _userField8 = string.Empty;
+        private string _userField9 = string.Empty;
+        private string _userField10 = string.Empty;
         private string _environmentTags = "";
         private string _rdpStartProgram = string.Empty;
         private string _rdpStartProgramWorkDir = string.Empty;
@@ -947,6 +957,96 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("UserField", _userField);
             set => SetField(ref _userField, value, "UserField");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 1"),
+         Description("Additional user-defined field 1 for custom data. Available as %USERFIELD1% token in external tools.")]
+        public virtual string UserField1
+        {
+            get => GetPropertyValue("UserField1", _userField1);
+            set => SetField(ref _userField1, value, "UserField1");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 2"),
+         Description("Additional user-defined field 2 for custom data. Available as %USERFIELD2% token in external tools.")]
+        public virtual string UserField2
+        {
+            get => GetPropertyValue("UserField2", _userField2);
+            set => SetField(ref _userField2, value, "UserField2");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 3"),
+         Description("Additional user-defined field 3 for custom data. Available as %USERFIELD3% token in external tools.")]
+        public virtual string UserField3
+        {
+            get => GetPropertyValue("UserField3", _userField3);
+            set => SetField(ref _userField3, value, "UserField3");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 4"),
+         Description("Additional user-defined field 4 for custom data. Available as %USERFIELD4% token in external tools.")]
+        public virtual string UserField4
+        {
+            get => GetPropertyValue("UserField4", _userField4);
+            set => SetField(ref _userField4, value, "UserField4");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 5"),
+         Description("Additional user-defined field 5 for custom data. Available as %USERFIELD5% token in external tools.")]
+        public virtual string UserField5
+        {
+            get => GetPropertyValue("UserField5", _userField5);
+            set => SetField(ref _userField5, value, "UserField5");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 6"),
+         Description("Additional user-defined field 6 for custom data. Available as %USERFIELD6% token in external tools.")]
+        public virtual string UserField6
+        {
+            get => GetPropertyValue("UserField6", _userField6);
+            set => SetField(ref _userField6, value, "UserField6");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 7"),
+         Description("Additional user-defined field 7 for custom data. Available as %USERFIELD7% token in external tools.")]
+        public virtual string UserField7
+        {
+            get => GetPropertyValue("UserField7", _userField7);
+            set => SetField(ref _userField7, value, "UserField7");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 8"),
+         Description("Additional user-defined field 8 for custom data. Available as %USERFIELD8% token in external tools.")]
+        public virtual string UserField8
+        {
+            get => GetPropertyValue("UserField8", _userField8);
+            set => SetField(ref _userField8, value, "UserField8");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 9"),
+         Description("Additional user-defined field 9 for custom data. Available as %USERFIELD9% token in external tools.")]
+        public virtual string UserField9
+        {
+            get => GetPropertyValue("UserField9", _userField9);
+            set => SetField(ref _userField9, value, "UserField9");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("User Field 10"),
+         Description("Additional user-defined field 10 for custom data. Available as %USERFIELD10% token in external tools.")]
+        public virtual string UserField10
+        {
+            get => GetPropertyValue("UserField10", _userField10);
+            set => SetField(ref _userField10, value, "UserField10");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
