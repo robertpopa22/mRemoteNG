@@ -29,7 +29,7 @@ namespace mRemoteNG.UI.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (!_themeManager.ActiveAndExtended)
+            if (_themeManager is null || !_themeManager.ActiveAndExtended)
             {
                 base.OnPaint(e);
                 return;
