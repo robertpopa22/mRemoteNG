@@ -36,7 +36,7 @@ namespace mRemoteNG.Config.Connections
 
         private void ConnectionTreeModelOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            SaveConnectionOnEdit(propertyChangedEventArgs.PropertyName);
+            SaveConnectionOnEdit(propertyChangedEventArgs.PropertyName ?? "");
         }
 
         private void ConnectionTreeModelOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs notifyCollectionChangedEventArgs)
