@@ -120,7 +120,7 @@ namespace mRemoteNG.UI.Controls.FilteredPropertyGrid
                 // Set the new object to the wrapper and create one if necessary.
                 if (_mWrapper == null)
                 {
-                    _mWrapper = new ObjectWrapper(value);
+                    _mWrapper = new ObjectWrapper(value ?? new object());
                     RefreshProperties();
                 }
                 else if (_mWrapper.SelectedObject != value)
