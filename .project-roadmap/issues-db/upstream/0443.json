@@ -10,7 +10,7 @@
   "created_at": "2017-03-07T20:04:52Z",
   "github_updated_at": "2017-04-20T18:15:00Z",
   "body_snippet": "I have configured a few servers to use RDP gateways in order to connect. I setup the configuration to use the same credentials that are configured in mRemoteNG (Gateway Credentials: Use the same username and password). However, whenever I try to connect to a server, I am still being prompted for a username and password. Per http://forum.mremoteng.org/viewtopic.php?f=3&t=3209 (and subsequent JIRAs) it sounded like this was supposed to be resolved in 1.75. However, since upgrading to the latest ve...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-15",
       "type": "triaged",
       "description": "RDP Gateway credentials not being passed through is a concrete bug in the RDP connection protocol handler where gateway credential properties are likely not being set on the RDP ActiveX control"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-15",
+      "type": "testing",
+      "description": "Fix in 6b577e33"
     }
   ],
   "comments": [],

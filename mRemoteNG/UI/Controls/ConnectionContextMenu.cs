@@ -50,6 +50,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeMoveDown = null!;
         private ToolStripMenuItem _cMenTreeToolsExternalApps = null!;
         private ToolStripMenuItem _cMenTreeDuplicate = null!;
+        private ToolStripMenuItem _cMenTreeProperties = null!;
         private ToolStripMenuItem _cMenInheritanceSubMenu = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsDontConnectToConsoleSession = null!;
@@ -101,6 +102,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsTransferFile = new ToolStripMenuItem();
             _cMenTreeSep2 = new ToolStripSeparator();
             _cMenTreeDuplicate = new ToolStripMenuItem();
+            _cMenTreeProperties = new ToolStripMenuItem();
             _cMenTreeRename = new ToolStripMenuItem();
             _cMenTreeDelete = new ToolStripMenuItem();
             _cMenTreeCopyHostname = new ToolStripMenuItem();
@@ -144,6 +146,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeRename,
                 _cMenTreeDelete,
                 _cMenTreeCopyHostname,
+                _cMenTreeProperties,
                 _cMenInheritanceSubMenu,
                 _cMenTreeSep3,
                 _cMenTreeImport,
@@ -297,6 +300,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeCopyHostname.Size = new System.Drawing.Size(199, 22);
             _cMenTreeCopyHostname.Text = "Copy Hostname";
             _cMenTreeCopyHostname.Click += OnCopyHostnameClicked;
+            //
+            // cMenTreeProperties
+            //
+            _cMenTreeProperties.Image = Properties.Resources.Property_16x;
+            _cMenTreeProperties.Name = "_cMenTreeProperties";
+            _cMenTreeProperties.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeProperties.Text = "Properties";
+            _cMenTreeProperties.Click += OnPropertiesClicked;
             //
             // cMenTreeSep3
             //
@@ -473,6 +484,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeRename.Text = Language.Rename;
             _cMenTreeDelete.Text = Language.Delete;
             _cMenTreeCopyHostname.Text = Language.CopyHostname;
+            _cMenTreeProperties.Text = Language.Properties;
 
             _cMenTreeImport.Text = Language._Import;
             _cMenTreeImportFile.Text = Language.ImportFromFile;
@@ -554,6 +566,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeCopyHostname.Enabled = false;
+            _cMenTreeProperties.Enabled = false;
         }
 
         internal void ShowHideMenuItemsForRootConnectionNode()
@@ -611,6 +624,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
+            _cMenTreeProperties.Enabled = false;
         }
 
         internal void ShowHideMenuItemsForConnectionNode(ConnectionInfo connectionInfo)
@@ -886,6 +900,15 @@ namespace mRemoteNG.UI.Controls
         private void OnCopyHostnameClicked(object sender, EventArgs e)
         {
             _connectionTree.CopyHostnameSelectedNode(new WindowsClipboard());
+        }
+
+        private void OnPropertiesClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode == null) return;
+            AppWindows.ConfigForm.SelectedTreeNode = _connectionTree.SelectedNode;
+            AppWindows.ConfigForm.ShowConnectionProperties();
+            AppWindows.ConfigForm.Show();
+            AppWindows.ConfigForm.Activate();
         }
 
         private void OnImportFileClicked(object sender, EventArgs e)
