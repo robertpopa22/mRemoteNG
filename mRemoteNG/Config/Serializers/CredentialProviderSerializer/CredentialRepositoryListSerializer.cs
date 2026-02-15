@@ -22,7 +22,7 @@ namespace mRemoteNG.Config.Serializers.CredentialProviderSerializer
                                                               )
                                           );
             xmlDocument.Add(rootElement);
-            string declaration = xmlDocument.Declaration.ToString();
+            string declaration = xmlDocument.Declaration?.ToString() ?? string.Empty;
             string documentBody = xmlDocument.ToString();
             return string.Concat(declaration, Environment.NewLine, documentBody);
         }
