@@ -11,7 +11,7 @@
   "created_at": "2017-07-14T16:11:41Z",
   "github_updated_at": "2019-09-14T09:41:49Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||\r\nThere is no option in configuration to change the color depth for VNC connections. This becomes a larger issue when connecting to my X11VNC server (version 0.9.13) which is unhappy with the default 15bpp depth:\r\n\r\n```\r\n14/07/2017 12:0...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "VNC connections fail because mRemoteNG hardcodes/sends invalid color depth (bpp) values that servers reject, causing immediate disconnects"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in bb5bec6a"
     }
   ],
   "comments": [
