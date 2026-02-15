@@ -98,10 +98,13 @@ namespace mRemoteNG.Config.Serializers
 
         private bool Authenticate(string cipherText, SecureString password)
         {
+            if (AuthenticationRequestor is null)
+                return false;
+
             PasswordAuthenticator authenticator = new(_cryptographyProvider, cipherText, AuthenticationRequestor);
             bool authenticated = authenticator.Authenticate(password);
 
-            if (!authenticated)
+            if (!authenticated || authenticator.LastAuthenticatedPassword is null)
                 return false;
 
             _rootNodeInfo.PasswordString = authenticator.LastAuthenticatedPassword.ConvertToUnsecureString();
