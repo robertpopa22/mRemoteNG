@@ -88,9 +88,16 @@ namespace mRemoteNG.UI.Controls
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            Color fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Text");
-            Color outline = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border");
-            Color centerBack = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Background");
+            var palette = _themeManager.ActiveTheme.ExtendedPalette;
+            if (palette == null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
+            Color fore = palette.getColor("CheckBox_Text");
+            Color outline = palette.getColor("CheckBox_Border");
+            Color centerBack = palette.getColor("CheckBox_Background");
             Color center;
 
             // Overlay Graphic
@@ -100,21 +107,21 @@ namespace mRemoteNG.UI.Controls
             {
                 if (Checked)
                 {
-                    center = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Glyph");
+                    center = palette.getColor("CheckBox_Glyph");
                 }
                 else
                 {
                     center = Color.Transparent;
                     if (_mice == MouseState.HOVER)
                     {
-                        outline = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border_Hover");
+                        outline = palette.getColor("CheckBox_Border_Hover");
                     }
                 }
             }
             else
             {
                 center = Color.Transparent;
-                fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Text_Disabled");
+                fore = palette.getColor("CheckBox_Text_Disabled");
             }
 
             Rectangle textRect = new(_textXCoord, Padding.Top, Width - 16, Height);

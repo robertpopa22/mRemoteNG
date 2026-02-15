@@ -81,35 +81,42 @@ namespace mRemoteNG.UI.Controls
                 return;
             }
 
+            var palette = _themeManager.ActiveTheme.ExtendedPalette;
+            if (palette is null)
+            {
+                base.OnPaint(e);
+                return;
+            }
+
             //Get the colors
             Color fore;
             Color glyph;
             Color checkBorder;
 
-            Color back = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Background");
+            Color back = palette.getColor("CheckBox_Background");
             if (Enabled)
             {
-                glyph = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Glyph");
-                fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Text");
+                glyph = palette.getColor("CheckBox_Glyph");
+                fore = palette.getColor("CheckBox_Text");
                 // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (_mice)
                 {
                     case MouseState.HOVER:
-                        checkBorder = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border_Hover");
+                        checkBorder = palette.getColor("CheckBox_Border_Hover");
                         break;
                     case MouseState.DOWN:
-                        checkBorder = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border_Pressed");
+                        checkBorder = palette.getColor("CheckBox_Border_Pressed");
                         break;
                     default:
-                        checkBorder = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border");
+                        checkBorder = palette.getColor("CheckBox_Border");
                         break;
                 }
             }
             else
             {
-                fore = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Text_Disabled");
-                glyph = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Glyph_Disabled");
-                checkBorder = _themeManager.ActiveTheme.ExtendedPalette.getColor("CheckBox_Border_Disabled");
+                fore = palette.getColor("CheckBox_Text_Disabled");
+                glyph = palette.getColor("CheckBox_Glyph_Disabled");
+                checkBorder = palette.getColor("CheckBox_Border_Disabled");
             }
 
             Color parentBack = Parent?.BackColor ?? BackColor;

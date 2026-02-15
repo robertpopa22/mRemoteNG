@@ -320,7 +320,7 @@ namespace mRemoteNG.UI.Window
         {
             if (!ThemeManager.getInstance().ActiveAndExtended) return;
             var activeTheme = _themeManager?.ActiveTheme;
-            if (activeTheme == null) return;
+            if (activeTheme?.ExtendedPalette == null) return;
             _pGrid.BackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
             _pGrid.ForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.ViewBackColor = activeTheme.ExtendedPalette.getColor("List_Item_Background");
