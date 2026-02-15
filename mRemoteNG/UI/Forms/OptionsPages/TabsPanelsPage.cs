@@ -168,6 +168,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// </summary>
         private bool ShowRegistrySettingsUsedInfo()
         {
+            if (pageRegSettingsInstance == null)
+                return false;
+
             return pageRegSettingsInstance.AlwaysShowPanelTabs.IsSet
                 || pageRegSettingsInstance.ShowLogonInfoOnTabs.IsSet
                 || pageRegSettingsInstance.ShowProtocolOnTabs.IsSet
@@ -181,7 +184,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private void UpdatePanelNameTextBox()
         {
-            if (! pageRegSettingsInstance.StartUpPanelName.IsSet)
+            if (pageRegSettingsInstance == null || !pageRegSettingsInstance.StartUpPanelName.IsSet)
                 txtBoxPanelName.Enabled = chkCreateEmptyPanelOnStart.Checked;
         }
 
