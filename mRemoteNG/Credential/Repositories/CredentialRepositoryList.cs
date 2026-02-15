@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using mRemoteNG.Tools.CustomCollections;
 
@@ -16,6 +17,9 @@ namespace mRemoteNG.Credential.Repositories
         public void AddProvider(ICredentialRepository credentialProvider)
         {
             if (Contains(credentialProvider.Config.Id)) return;
+            if (ContainsSource(credentialProvider.Config.Source))
+                throw new ArgumentException(
+                    $"A credential repository already exists that points to \"{credentialProvider.Config.Source}\".");
             _credentialProviders.Add(credentialProvider);
             credentialProvider.CredentialsUpdated += RaiseCredentialsUpdatedEvent;
             credentialProvider.RepositoryConfigUpdated += OnRepoConfigChanged;
@@ -34,6 +38,15 @@ namespace mRemoteNG.Credential.Repositories
         public bool Contains(Guid repositoryId)
         {
             return _credentialProviders.Any(repo => repo.Config.Id == repositoryId);
+        }
+
+        private bool ContainsSource(string source)
+        {
+            if (string.IsNullOrEmpty(source)) return false;
+            string resolvedNew = Path.GetFullPath(source);
+            return _credentialProviders.Any(repo =>
+                !string.IsNullOrEmpty(repo.Config.Source) &&
+                string.Equals(Path.GetFullPath(repo.Config.Source), resolvedNew, StringComparison.OrdinalIgnoreCase));
         }
 
         public IEnumerable<ICredentialRecord> GetCredentialRecords()

@@ -11,12 +11,19 @@
   "created_at": "2017-07-27T11:02:29Z",
   "github_updated_at": "2026-02-07T19:54:23Z",
   "body_snippet": "<!-- Bug -->\r\nscrollbars added to RDP window after minimize/restore of mRemoteNG v1.75\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7005  |\r\n\r\n\r\n<!-- Feature Request -->\r\nBTW: Wish Support with MySQL.\r\n<!-- If you file a feature request, please delete the bug section -->",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Issue has no description, no reproducible steps, and multiple triage refresh comments with no response from the original reporter — cannot determine if the scrollbar issue still exists on current builds"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDMxODc0Mjk4MA==",
@@ -96,5 +103,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue has no description, no reproducible steps, and multiple triage refresh comments with no response from the original reporter — cannot determine if the scrollbar issue still exists on current builds\nApproach: If confirmed reproducible, investigate RDP control resize handling after minimize/restore cycle to ensure scrollbars are not incorrectly added"
 }
