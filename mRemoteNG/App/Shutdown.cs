@@ -38,6 +38,7 @@ namespace mRemoteNG.App
         {
             try
             {
+                StopAutoStartedExternalTools();
                 StopPuttySessionWatcher();
                 DisposeNotificationAreaIcon();
                 SaveConnections();
@@ -47,6 +48,15 @@ namespace mRemoteNG.App
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.SettingsCouldNotBeSavedOrTrayDispose, ex);
+            }
+        }
+
+        private static void StopAutoStartedExternalTools()
+        {
+            foreach (var tool in Runtime.ExternalToolsService.ExternalTools)
+            {
+                if (tool.StopOnShutdown)
+                    tool.StopTrackedProcess();
             }
         }
 

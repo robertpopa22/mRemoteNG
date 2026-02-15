@@ -293,6 +293,13 @@ namespace mRemoteNG.UI.Forms
 
             OptionsForm = new FrmOptions();
 
+            // Auto-start external tools flagged with RunOnStartup (#318)
+            foreach (var tool in Runtime.ExternalToolsService.ExternalTools)
+            {
+                if (tool.RunOnStartup)
+                    tool.StartForAutoRun();
+            }
+
             if (!Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp)
             {
                 return;

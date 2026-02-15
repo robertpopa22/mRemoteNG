@@ -28,6 +28,8 @@ namespace mRemoteNG.Tools
         private bool _tryIntegrate;
         private bool _showOnToolbar = true;
         private bool _runElevated;
+        private bool _runOnStartup;
+        private bool _stopOnShutdown;
 
         #region Public Properties
 
@@ -91,6 +93,25 @@ namespace mRemoteNG.Tools
             set => SetField(ref _runElevated, value, nameof(RunElevated));
         }
 
+        public bool RunOnStartup
+        {
+            get => _runOnStartup;
+            set => SetField(ref _runOnStartup, value, nameof(RunOnStartup));
+        }
+
+        public bool StopOnShutdown
+        {
+            get => _stopOnShutdown;
+            set => SetField(ref _stopOnShutdown, value, nameof(StopOnShutdown));
+        }
+
+        /// <summary>
+        /// Tracks the process started by <see cref="StartForAutoRun"/> so it can be
+        /// terminated on shutdown when <see cref="StopOnShutdown"/> is enabled.
+        /// </summary>
+        [Browsable(false)]
+        public Process? TrackedProcess { get; private set; }
+
         public ConnectionInfo ConnectionInfo { get; set; } = new ConnectionInfo(); // Initialize to avoid CS8618
 
         public Icon Icon => File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) ?? Properties.Resources.mRemoteNG_Icon : Properties.Resources.mRemoteNG_Icon;
@@ -149,6 +170,60 @@ namespace mRemoteNG.Tools
             if (WaitForExit)
             {
                 process.WaitForExit();
+            }
+        }
+
+        /// <summary>
+        /// Launches this tool for auto-run on startup and tracks the process for shutdown.
+        /// </summary>
+        public void StartForAutoRun()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(FileName))
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg,
+                        $"ExternalApp.StartForAutoRun() skipped: FileName is blank for '{DisplayName}'.");
+                    return;
+                }
+
+                Process process = new();
+                SetProcessProperties(process, new ConnectionInfo());
+                process.Start();
+                TrackedProcess = process;
+
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Auto-started external tool '{DisplayName}' (PID {process.Id}).", true);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(
+                    $"ExternalApp.StartForAutoRun() failed for '{DisplayName}'.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Stops the tracked process if it is still running.
+        /// </summary>
+        public void StopTrackedProcess()
+        {
+            try
+            {
+                if (TrackedProcess == null || TrackedProcess.HasExited)
+                    return;
+
+                TrackedProcess.Kill();
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Auto-stopped external tool '{DisplayName}' (PID {TrackedProcess.Id}).", true);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(
+                    $"ExternalApp.StopTrackedProcess() failed for '{DisplayName}'.", ex);
+            }
+            finally
+            {
+                TrackedProcess = null;
             }
         }
 
