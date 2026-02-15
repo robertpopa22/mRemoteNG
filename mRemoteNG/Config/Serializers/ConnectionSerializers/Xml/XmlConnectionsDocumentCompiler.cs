@@ -15,7 +15,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
     public class XmlConnectionsDocumentCompiler(ICryptographyProvider cryptographyProvider, ISerializer<ConnectionInfo, XElement> connectionNodeSerializer)
     {
         private readonly ICryptographyProvider _cryptographyProvider = cryptographyProvider ?? throw new ArgumentNullException(nameof(cryptographyProvider));
-        private SecureString _encryptionKey;
+        private SecureString? _encryptionKey;
         private readonly ISerializer<ConnectionInfo, XElement> _connectionNodeSerializer = connectionNodeSerializer ?? throw new ArgumentNullException(nameof(connectionNodeSerializer));
 
         public XDocument CompileDocument(ConnectionTreeModel connectionTreeModel, bool fullFileEncryption)
@@ -33,7 +33,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             CompileRecursive(serializationTarget, rootElement);
             XDeclaration xmlDeclaration = new("1.0", "utf-8", null);
             XDocument xmlDocument = new(xmlDeclaration, rootElement);
-            if (fullFileEncryption)
+            if (fullFileEncryption && _encryptionKey is not null)
                 xmlDocument = new XmlConnectionsDocumentEncryptor(_cryptographyProvider).EncryptDocument(xmlDocument, _encryptionKey);
             return xmlDocument;
         }
