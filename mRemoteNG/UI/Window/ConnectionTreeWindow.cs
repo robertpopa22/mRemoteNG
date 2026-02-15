@@ -150,6 +150,8 @@ namespace mRemoteNG.UI.Window
             if (Properties.OptionsStartupExitPage.Default.OpenConsFromLastSession && !Properties.OptionsAdvancedPage.Default.NoReconnect)
                 actions.Add(new PreviousSessionOpener(Runtime.ConnectionInitiator));
 
+            actions.Add(new CommandLineConnectionOpener(Runtime.ConnectionInitiator));
+
             ConnectionTree.PostSetupActions = actions;
         }
 

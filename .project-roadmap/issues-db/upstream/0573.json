@@ -14,7 +14,7 @@
   "created_at": "2017-05-30T12:52:24Z",
   "github_updated_at": "2025-06-26T13:06:16Z",
   "body_snippet": "Hello,\r\n\r\nI have a lot of machines that I manage using UltraVNC, that require both a username and password.\r\n\r\nWould it be at all possible to add this in, as I'd find it extremely useful and would mean I am using mRemoteNG for everything!\r\n\r\nThanks,\r\nBilly\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -25,6 +25,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Feature request to replace VncSharp with bundled UltraVNC client using the same external-process-embedding approach as PuTTY/SSH, which is a proven pattern in the codebase"
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 4a78fd00"
     }
   ],
   "comments": [
