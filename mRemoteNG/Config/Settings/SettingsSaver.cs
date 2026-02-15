@@ -125,7 +125,7 @@ namespace mRemoteNG.Config.Settings
             externalAppsSaver.Save(Runtime.ExternalToolsService.ExternalTools);
         }
 
-        private static void SaveQuickConnectHistory(QuickConnectToolStrip quickConnectToolStrip)
+        private static void SaveQuickConnectHistory(QuickConnectToolStrip? quickConnectToolStrip)
         {
             if (quickConnectToolStrip?.QuickConnectComboBox == null) return;
             QuickConnectHistorySaver saver = new();
