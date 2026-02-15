@@ -101,7 +101,7 @@ namespace mRemoteNG.UI.Controls
             if (((ToolStripButton)sender).Tag is not ExternalTool extA)
                 return;
 
-            Connection.ConnectionInfo? selectedTreeNode = AppWindows.TreeForm.SelectedNode;
+            Connection.ConnectionInfo? selectedTreeNode = AppWindows.TreeForm?.SelectedNode;
             if (selectedTreeNode != null && (selectedTreeNode.GetTreeNodeType() == TreeNodeType.Connection ||
                 selectedTreeNode.GetTreeNodeType() == TreeNodeType.PuttySession))
                 extA.Start(selectedTreeNode);
