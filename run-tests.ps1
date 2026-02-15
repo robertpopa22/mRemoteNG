@@ -1,0 +1,190 @@
+# run-tests.ps1 - Multi-process parallel test runner for mRemoteNG
+#
+# WHY MULTI-PROCESS: The production code uses shared mutable singletons
+# (DefaultConnectionInheritance.Instance, Runtime.ConnectionsService, Runtime.EncryptionKey)
+# that are not thread-safe. NUnit fixture-level parallelism causes race conditions.
+# Instead, we run 5 separate dotnet test processes (each with isolated static state)
+# in parallel, grouped by namespace.
+#
+# Usage:
+#   powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1
+#   powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Sequential
+#   powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -NoBuild
+
+param(
+    [switch]$Sequential,     # Force single-process sequential execution
+    [int]$Timeout = 15000,   # Per-test timeout in ms (default 15s, matches .runsettings)
+    [switch]$NoBuild         # Skip build step (use existing binaries)
+)
+
+$ErrorActionPreference = 'Stop'
+$repoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+
+# --- Step 1: Detect CPU cores ---
+$cpuCores = [Environment]::ProcessorCount
+
+Write-Host "=== mRemoteNG Test Runner ===" -ForegroundColor Cyan
+Write-Host "CPU: $cpuCores logical processors"
+Write-Host "Timeout: ${Timeout}ms per test"
+Write-Host "Mode: $(if ($Sequential) { 'Sequential (1 process)' } else { 'Full parallel (5 processes)' })"
+Write-Host ""
+
+# --- Step 2: Kill stale processes ---
+Write-Host "Cleaning stale processes..." -ForegroundColor Yellow
+foreach ($proc in @('testhost', 'notepad')) {
+    Get-Process -Name $proc -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+}
+
+# --- Step 3: Build (unless -NoBuild) ---
+if (-not $NoBuild) {
+    Write-Host "Building..." -ForegroundColor Yellow
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$repoRoot\build.ps1"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "BUILD FAILED (exit code $LASTEXITCODE)" -ForegroundColor Red
+        exit 1
+    }
+    Write-Host ""
+}
+
+# --- Step 4: Paths ---
+$testDll = "$repoRoot\mRemoteNGTests\bin\x64\Release\mRemoteNGTests.dll"
+$specsDll = "$repoRoot\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.dll"
+$runSettings = "$repoRoot\mRemoteNGTests\mRemoteNGTests.runsettings"
+
+if (-not (Test-Path $testDll)) {
+    Write-Host "ERROR: Test DLL not found at $testDll" -ForegroundColor Red
+    exit 1
+}
+
+# --- Step 5: Define test groups (each runs in a separate process) ---
+# Group by namespace to ensure each process has isolated static state.
+# UI tests use RunWithMessagePump pattern and need their own process.
+$groups = @(
+    @{
+        Name = "Security"
+        Filter = "FullyQualifiedName~mRemoteNGTests.Security"
+    },
+    @{
+        Name = "Tools+Misc"
+        Filter = "(FullyQualifiedName~mRemoteNGTests.Tools|FullyQualifiedName~mRemoteNGTests.Messages|FullyQualifiedName~mRemoteNGTests.App|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.ExternalConnectors|FullyQualifiedName~mRemoteNGTests.Installer|FullyQualifiedName~mRemoteNGTests.BinaryFileTests)"
+    },
+    @{
+        Name = "Config"
+        Filter = "FullyQualifiedName~mRemoteNGTests.Config"
+    },
+    @{
+        Name = "Connection+Rest"
+        Filter = "(FullyQualifiedName~mRemoteNGTests.Connection|FullyQualifiedName~mRemoteNGTests.Credential|FullyQualifiedName~mRemoteNGTests.IntegrationTests|FullyQualifiedName~mRemoteNGTests.nUnitForms|FullyQualifiedName~mRemoteNGTests.Tree|FullyQualifiedName~mRemoteNGTests.BinaryFile)"
+    },
+    @{
+        Name = "UI"
+        Filter = "FullyQualifiedName~mRemoteNGTests.UI"
+    }
+)
+
+# --- Step 6: Run tests ---
+$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+if ($Sequential) {
+    # Single process, all tests
+    Write-Host "Running all tests sequentially..." -ForegroundColor Green
+    $seqArgs = @('test', $testDll, '--verbosity', 'normal', '-s', $runSettings)
+    $seqArgs += '--'
+    $seqArgs += "NUnit.DefaultTimeout=$Timeout"
+    & dotnet @seqArgs
+    $testExitCode = $LASTEXITCODE
+} else {
+    # Multi-process parallel
+    Write-Host "Launching $($groups.Count) parallel test processes..." -ForegroundColor Green
+    Write-Host ""
+
+    $jobs = @()
+    $logDir = "$repoRoot\TestResults"
+    if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+
+    foreach ($group in $groups) {
+        $logFile = "$logDir\$($group.Name).log"
+        Write-Host "  [$($group.Name)] starting..." -ForegroundColor DarkGray
+
+        $job = Start-Job -ScriptBlock {
+            param($dll, $settings, $filter, $timeout, $log)
+            $args = @('test', $dll, '--verbosity', 'normal', '-s', $settings, '--filter', $filter, '--', "NUnit.DefaultTimeout=$timeout")
+            & dotnet @args 2>&1 | Tee-Object -FilePath $log
+            $LASTEXITCODE
+        } -ArgumentList $testDll, $runSettings, $group.Filter, $Timeout, $logFile
+
+        $jobs += @{ Job = $job; Name = $group.Name; Log = $logFile }
+    }
+
+    # Wait for all jobs
+    $testExitCode = 0
+    $totalPassed = 0
+    $totalFailed = 0
+    $totalTests = 0
+
+    foreach ($entry in $jobs) {
+        $result = Receive-Job -Job $entry.Job -Wait
+        $jobExitCode = $result | Where-Object { $_ -is [int] } | Select-Object -Last 1
+        if ($null -eq $jobExitCode) { $jobExitCode = 0 }
+
+        # Parse results from output
+        $output = $result | Where-Object { $_ -is [string] } | Out-String
+        $passMatch = [regex]::Match($output, 'Passed:\s+(\d+)')
+        $failMatch = [regex]::Match($output, 'Failed:\s+(\d+)')
+        $totalMatch = [regex]::Match($output, 'Total tests:\s+(\d+)')
+
+        $passed = if ($passMatch.Success) { [int]$passMatch.Groups[1].Value } else { 0 }
+        $failed = if ($failMatch.Success) { [int]$failMatch.Groups[1].Value } else { 0 }
+        $total = if ($totalMatch.Success) { [int]$totalMatch.Groups[1].Value } else { 0 }
+
+        $totalPassed += $passed
+        $totalFailed += $failed
+        $totalTests += $total
+
+        $color = if ($failed -gt 0) { "Red" } else { "Green" }
+        Write-Host "  [$($entry.Name)] $passed/$total passed $(if ($failed -gt 0) { "($failed FAILED)" })" -ForegroundColor $color
+
+        if ($jobExitCode -ne 0 -and $testExitCode -eq 0) { $testExitCode = 1 }
+        Remove-Job -Job $entry.Job
+    }
+}
+
+$stopwatch.Stop()
+$elapsed = $stopwatch.Elapsed
+
+Write-Host ""
+Write-Host "mRemoteNGTests completed in $($elapsed.Minutes)m $($elapsed.Seconds).$($elapsed.Milliseconds.ToString('000'))s" -ForegroundColor Cyan
+if (-not $Sequential) {
+    Write-Host "Total: $totalPassed/$totalTests passed, $totalFailed failed" -ForegroundColor $(if ($totalFailed -gt 0) { "Red" } else { "Green" })
+}
+
+# --- Step 7: Run specs ---
+if (Test-Path $specsDll) {
+    Write-Host ""
+    Write-Host "Running mRemoteNGSpecs..." -ForegroundColor Green
+    & dotnet test $specsDll --verbosity normal -- NUnit.DefaultTimeout=$Timeout
+    if ($LASTEXITCODE -ne 0 -and $testExitCode -eq 0) {
+        $testExitCode = $LASTEXITCODE
+    }
+}
+
+# --- Step 8: Kill leftover processes ---
+Write-Host ""
+Write-Host "Cleaning leftover processes..." -ForegroundColor Yellow
+foreach ($proc in @('testhost', 'notepad')) {
+    $killed = Get-Process -Name $proc -ErrorAction SilentlyContinue
+    if ($killed) {
+        $killed | Stop-Process -Force -ErrorAction SilentlyContinue
+        Write-Host "  Killed $($killed.Count) $proc process(es)"
+    }
+}
+
+# --- Step 9: Summary ---
+Write-Host ""
+if ($testExitCode -eq 0) {
+    Write-Host "ALL TESTS PASSED ($($elapsed.Minutes)m $($elapsed.Seconds)s)" -ForegroundColor Green
+} else {
+    Write-Host "TESTS FAILED (exit code $testExitCode)" -ForegroundColor Red
+}
+
+exit $testExitCode

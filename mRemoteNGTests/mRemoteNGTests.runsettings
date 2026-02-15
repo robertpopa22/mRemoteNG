@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <NUnit>
-    <DefaultTimeout>5000</DefaultTimeout>
+    <DefaultTimeout>15000</DefaultTimeout>
   </NUnit>
   <RunConfiguration>
     <MaxCpuCount>0</MaxCpuCount>

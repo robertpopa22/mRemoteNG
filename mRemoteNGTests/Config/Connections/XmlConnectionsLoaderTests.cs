@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using mRemoteNG.Config.Connections;
 using mRemoteNG.Messages;
+using mRemoteNG.Tools;
 using mRemoteNGTests.TestHelpers;
 using NUnit.Framework;
 
@@ -10,6 +11,9 @@ namespace mRemoteNGTests.Config.Connections;
 
 internal class XmlConnectionsLoaderTests
 {
+    private static readonly Func<string, Optional<System.Security.SecureString>> NoPasswordRequestor =
+        _ => Optional<System.Security.SecureString>.Empty;
+
     private const string ValidConnectionsXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <Connections Name=""Connections"" ConfVersion=""1.2""></Connections>";
 
@@ -73,7 +77,7 @@ internal class XmlConnectionsLoaderTests
         {
             File.WriteAllText(filePath, "this is not xml at all");
 
-            XmlConnectionsLoader loader = new(filePath, new MessageCollector());
+            XmlConnectionsLoader loader = new(filePath, new MessageCollector(), NoPasswordRequestor);
 
             Assert.Throws<XmlException>(() => loader.Load());
         }
@@ -92,7 +96,7 @@ internal class XmlConnectionsLoaderTests
             string backup2 = $"{filePath}.20250207-1200000000.backup";
             File.WriteAllText(backup2, "corrupt backup 2");
 
-            XmlConnectionsLoader loader = new(filePath, new MessageCollector());
+            XmlConnectionsLoader loader = new(filePath, new MessageCollector(), NoPasswordRequestor);
 
             Assert.Throws<XmlException>(() => loader.Load());
         }

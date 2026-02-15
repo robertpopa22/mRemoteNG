@@ -18,7 +18,7 @@ namespace mRemoteNGTests.UI.Controls
             _textBoxExtensionsTestForm.Show();
             _ = _textBoxExtensionsTestForm.Handle;
             _ = _textBoxExtensionsTestForm.textBox1.Handle;
-            Application.DoEvents();
+            System.Windows.Forms.Application.DoEvents();
         }
 
         [TearDown]

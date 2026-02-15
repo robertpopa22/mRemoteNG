@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace mRemoteNGTests.UI.Controls
 {
+	[NUnit.Framework.Apartment(System.Threading.ApartmentState.STA)]
 	public class FilteredPropertyGridTests
 	{
 		[Test]
