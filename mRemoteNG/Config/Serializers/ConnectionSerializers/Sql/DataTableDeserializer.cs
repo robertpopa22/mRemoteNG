@@ -272,10 +272,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             foreach (DataRow row in dataTable.Rows)
             {
                 string id = (string)row["ConstantID"];
-                if (!nodeById.TryGetValue(id, out ConnectionInfo connectionInfo))
+                if (!nodeById.TryGetValue(id, out ConnectionInfo? connectionInfo))
                     continue;
                 string parentId = (string)row["ParentID"];
-                if (parentId == "0" || !nodeById.TryGetValue(parentId, out ConnectionInfo parentNode))
+                if (parentId == "0" || !nodeById.TryGetValue(parentId, out ConnectionInfo? parentNode))
                     rootNode.AddChild(connectionInfo);
                 else
                     (parentNode as ContainerInfo)?.AddChild(connectionInfo);
