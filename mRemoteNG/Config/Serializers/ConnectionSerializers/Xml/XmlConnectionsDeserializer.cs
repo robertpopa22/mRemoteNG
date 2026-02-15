@@ -174,14 +174,19 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     switch (nodeType)
                     {
                         case TreeNodeType.Connection:
-                            ConnectionInfo connectionInfo = GetConnectionInfoFromXml(xmlNode);
-                            parentContainer.AddChild(connectionInfo);
+                            ConnectionInfo? connectionInfo = GetConnectionInfoFromXml(xmlNode);
+                            if (connectionInfo != null)
+                                parentContainer.AddChild(connectionInfo);
                             break;
                         case TreeNodeType.Container:
                             ContainerInfo containerInfo = new();
 
                             if (_confVersion >= 0.9)
-                                containerInfo.CopyFrom(GetConnectionInfoFromXml(xmlNode));
+                            {
+                                ConnectionInfo? containerProps = GetConnectionInfoFromXml(xmlNode);
+                                if (containerProps != null)
+                                    containerInfo.CopyFrom(containerProps);
+                            }
                             if (_confVersion >= 0.8)
                             {
                                 containerInfo.IsExpanded = xmlNode.GetAttributeAsBool("Expanded");
@@ -200,7 +205,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
         }
 
-        private ConnectionInfo GetConnectionInfoFromXml(XmlNode xmlnode)
+        private ConnectionInfo? GetConnectionInfoFromXml(XmlNode xmlnode)
         {
             if (xmlnode?.Attributes == null)
                 return null;
