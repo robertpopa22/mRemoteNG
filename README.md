@@ -292,32 +292,68 @@ Full details: [CHANGELOG.md](CHANGELOG.md) | [All releases](https://github.com/r
 
 ## Multi-Agent Orchestrator
 
-Development is driven by a Python orchestrator (`iis_orchestrator.py`) that coordinates three AI agents, each with a specific role:
+Development is driven by a Python orchestrator (`iis_orchestrator.py`) that coordinates three AI agents, with independent verification at every step.
+
+### Architecture
 
 ```
-iis_orchestrator.py (Python controller)
-│
-├── Codex (OpenAI) ─── fast triage + simple single-file fixes
-│                      830 issues classified in priority batches
-│
-├── Gemini CLI (Google) ─── bulk code transformations
-│                           466/852 nullable warnings fixed in one session
-│
-├── Claude Code (Anthropic) ─── complex multi-file fixes + final review
-│                               UI/WinForms, COM interop, corrects other agents
-│
-└── Verification (no AI) ─── build.ps1 + run-tests.ps1 (2,349 tests)
-                              git commit on green / git restore on failure
+                           ┌─────────────────────────────┐
+                           │   iis_orchestrator.py        │
+                           │   (Python — control loop)    │
+                           └──────────┬──────────────────┘
+                                      │
+              ┌───────────────────────┼───────────────────────┐
+              │                       │                       │
+   ┌──────────▼──────────┐ ┌─────────▼──────────┐ ┌─────────▼──────────┐
+   │  Codex (OpenAI)     │ │ Gemini CLI (Google) │ │ Claude Code        │
+   │                     │ │                     │ │ (Anthropic)        │
+   │  • Fast triage      │ │ • Bulk transforms   │ │ • Complex fixes    │
+   │  • Simple fixes     │ │ • Nullable cleanup  │ │ • Multi-file edits │
+   │  • ~15-30s/issue    │ │ • 466 warnings/run  │ │ • Final review     │
+   │  • Priority P0-P4   │ │ • Cascading types   │ │ • Corrects others  │
+   └──────────┬──────────┘ └─────────┬──────────┘ └─────────┬──────────┘
+              │                       │                       │
+              └───────────────────────┼───────────────────────┘
+                                      │ code changes
+                           ┌──────────▼──────────────────┐
+                           │  Independent Verification    │
+                           │  (no AI — deterministic)     │
+                           │                              │
+                           │  1. build.ps1 (MSBuild)      │
+                           │  2. run-tests.ps1 (2,349)    │
+                           │  3. git commit OR git restore │
+                           │  4. gh issue comment          │
+                           └──────────────────────────────┘
 ```
 
-**Workflow per issue:** Sync → Triage (Codex) → Implement (Codex → Gemini → Claude fallback) → Build + Test (independent) → Atomic commit → GitHub comment on upstream.
+### Agent selection (fallback chain)
 
-**Key principle:** The orchestrator **never trusts agent output** — it always verifies independently with a full build and test run before committing.
+Each issue flows through agents as a fallback chain — if the first agent fails to produce a passing build+test, the next one takes over:
 
-**Results (v1.81.0-beta.2):**
-- 2,554 nullable warnings eliminated (100% clean) across 4 orchestrator sessions
-- 830 upstream issues triaged and classified by priority
-- 25 issues fixed and released with automated upstream notifications
+1. **Codex** attempts first (fastest, cheapest)
+2. If Codex fails → **Gemini CLI** retries (better at bulk/pattern changes)
+3. If Gemini fails → **Claude Code** takes over (best at complex reasoning)
+4. If all fail → issue is logged, skipped, and flagged for human review
+
+### Verification layer
+
+The orchestrator **never trusts agent output**. After every code change:
+- `build.ps1` must compile cleanly (MSBuild, all 3 projects)
+- `run-tests.ps1` must pass all 2,349 tests (5 parallel processes)
+- On success: atomic commit (`fix(#NNNN): description`) + push
+- On failure: `git restore` immediately, log error, move to next issue
+- On release: templated comment posted to upstream issue via `gh`
+
+### Results (v1.81.0-beta.2)
+
+| Metric | Value |
+|--------|-------|
+| Nullable warnings fixed | 2,554 (100% clean) |
+| Orchestrator sessions | 4 |
+| Issues triaged | 830 |
+| Issues fixed and released | 25 |
+| Upstream notifications sent | 25 |
+| Test regressions introduced | 0 |
 
 ## Issue Intelligence System
 
@@ -350,6 +386,50 @@ python .project-roadmap/scripts/iis_orchestrator.py report --include-all
 **Current stats** (as of 2026-02-16): 830 issues tracked, 25 released, 8 duplicate, 9 wontfix.
 
 See [.project-roadmap/issues-db/README.md](.project-roadmap/issues-db/README.md) for full documentation.
+
+---
+
+## Continuous Improvement
+
+Every success and failure is captured in a structured lessons system that feeds back into the next session. Nothing is repeated twice.
+
+### How it works
+
+```
+  Agent runs command ──► Success? ──► Lessons updated with proven pattern
+         │                               (fast fix map, timing, evidence)
+         │
+         └──────────► Failure? ──► Root cause analyzed immediately
+                                    │
+                                    ├── Exact error pattern logged
+                                    ├── What was attempted (don't retry)
+                                    ├── Proven fix documented
+                                    └── Added to LESSONS.md
+```
+
+### What gets tracked
+
+- **Fast Fix Map** — symptom → root cause → immediate fix (table format, searchable)
+- **Build pitfalls** — MSBuild quirks, COM references, CI runner differences
+- **Test flakiness** — WinForms P/Invoke tests, CueBanner race conditions, message pump deadlocks
+- **Release workflow** — version bumping, CI triggers, GitHub release creation
+- **Time wasters** — ranked by frequency and lost time, fixed in priority order
+
+### Key files
+
+| File | Purpose |
+|------|---------|
+| `.project-roadmap/LESSONS.md` | Master lessons — every known pitfall and proven fix |
+| `.project-roadmap/CURRENT_PLAN.md` | Active plan with rules, priorities, and metrics |
+| `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword before attempting a fix |
+
+### Examples of lessons that saved hours
+
+- **CueBanner test flakiness** (30+ min lost once, never again) — `Assume.That` on Win32 operation result, not preconditions
+- **PowerShell 5.1 Unicode corruption** — em-dashes in .ps1 files break parser at random `}` far from actual issue
+- **NUnit fixture parallelism** — shared mutable singletons cause 27 failures; multi-process is the only safe approach
+- **Self-contained build** — `msbuild -p:SelfContained` does NOT embed runtime; must use `-t:Publish`
+- **CI workflow triggers** — changes in the same commit don't take effect for that push
 
 ---
 
