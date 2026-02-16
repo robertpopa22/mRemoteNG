@@ -10,7 +10,7 @@
   "created_at": "2018-04-10T18:26:18Z",
   "github_updated_at": "2018-05-19T02:56:18Z",
   "body_snippet": "Hi, \r\n\r\nI made some changes but I'm not allowed to push them, so here are the details.\r\nat the moment for hostAlive mRemoteNG does a ping,\r\nin my own fork back then I changed this to connect to the used port because most servers do not allow ping anymore.\r\nand I'm planning to backport some of the changes I made to mRemoteNG starting with this one.\r\nin mRemoteV1\\UI\\Window\\ConfigWindow.cs\r\nmethod CheckHostAlive\r\nshould be changed like this\r\n`\r\n        private string _hostName;\r\n        private int...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Host status currently ignores the connection-specific port and depends on ICMP ping, so checking the configured port will make status detection more accurate in common blocked-ping environments."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 766931bc"
     }
   ],
   "comments": [

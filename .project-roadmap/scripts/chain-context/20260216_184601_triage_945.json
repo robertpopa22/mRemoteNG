@@ -1,0 +1,36 @@
+{
+  "task_type": "triage",
+  "task_id": "945",
+  "started_at": "2026-02-16T18:44:51",
+  "finished_at": "2026-02-16T18:46:01",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Maintainer comments confirm mass-edit/multi-select organization is wanted and the request is actionable without extra information.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs",
+          "mRemoteNG/UI/Controls/ConnectionContextMenu.cs",
+          "mRemoteNG/Tree/ConnectionTreeDragAndDropHandler.cs",
+          "mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs"
+        ],
+        "approach": "Update connection-tree organize actions to operate on all selected nodes (`SelectedObjects`) for drag/drop and context-menu commands, then add multi-selection regression tests."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Maintainer comments confirm mass-edit/multi-select organization is wanted and the request is actionable without extra information.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\",\"mRemoteNG/UI/Controls/ConnectionContextMenu.cs\",\"mRemoteNG/Tree/ConnectionTreeDragAndDropHandler.cs\",\"mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs\"],\"approach\":\"Update connection-tree organize actions to operate on all selected nodes (`SelectedObjects`) for drag/drop and context-menu commands, then add multi-selection regression tests.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:46:01"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
