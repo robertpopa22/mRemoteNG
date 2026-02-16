@@ -61,7 +61,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             sb.Append("Hostname;Port;VmId;Protocol;SSHTunnelConnectionName;OpeningCommand;SSHOptions;PuttySession;ConnectToConsole;UseCredSsp;UseRestrictedAdmin;UseRCG;UseVmId;UseEnhancedMode;RenderingEngine;RDPAuthenticationLevel;" +
                       "LoadBalanceInfo;Colors;Resolution;AutomaticResize;DisplayWallpaper;DisplayThemes;EnableFontSmoothing;EnableDesktopComposition;DisableFullWindowDrag;DisableMenuAnimations;DisableCursorShadow;DisableCursorBlinking;" +
                       "CacheBitmaps;RedirectDiskDrives;RedirectDiskDrivesCustom;RedirectPorts;RedirectPrinters;RedirectClipboard;RedirectSmartCards;RedirectSound;RedirectKeys;" +
-                      "PreExtApp;PostExtApp;MacAddress;UserField;UserField1;UserField2;UserField3;UserField4;UserField5;UserField6;UserField7;UserField8;UserField9;UserField10;EnvironmentTags;ExtApp;Favorite;VNCCompression;VNCEncoding;VNCAuthMode;VNCProxyType;VNCProxyIP;" +
+                      "PreExtApp;PostExtApp;MacAddress;UserField;UserField1;UserField2;UserField3;UserField4;UserField5;UserField6;UserField7;UserField8;UserField9;UserField10;EnvironmentTags;ExtApp;Favorite;AutoSort;VNCCompression;VNCEncoding;VNCAuthMode;VNCProxyType;VNCProxyIP;" +
                       "VNCProxyPort;VNCProxyUsername;VNCProxyPassword;VNCColors;VNCSmartSizeMode;VNCViewOnly;RDGatewayUsageMethod;RDGatewayHostname;" +
                       "RDGatewayUseConnectionCredentials;RDGatewayUsername;RDGatewayPassword;RDGatewayDomain;RDGatewayExternalCredentialProvider;RDGatewayUserViaAPI;RedirectAudioCapture;RdpVersion;RDPStartProgram;RDPStartProgramWorkDir;UserViaAPI;EC2InstanceId;EC2Region;ExternalCredentialProvider;ExternalAddressProvider;");
 
@@ -73,7 +73,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                           "InheritUseConsoleSession;InheritUseCredSsp;InheritUseRestrictedAdmin;InheritUseRCG;InheritUseVmId;InheritUseEnhancedMode;InheritVmId;InheritRenderingEngine;InheritUsername;" +
                           "InheritRDPAuthenticationLevel;InheritLoadBalanceInfo;InheritPreExtApp;InheritPostExtApp;InheritMacAddress;InheritUserField;" +
                           "InheritUserField1;InheritUserField2;InheritUserField3;InheritUserField4;InheritUserField5;InheritUserField6;InheritUserField7;InheritUserField8;InheritUserField9;InheritUserField10;InheritHostname;" +
-                          "InheritEnvironmentTags;InheritFavorite;InheritExtApp;InheritVNCCompression;InheritVNCEncoding;InheritVNCAuthMode;InheritVNCProxyType;InheritVNCProxyIP;" +
+                          "InheritEnvironmentTags;InheritFavorite;InheritAutoSort;InheritExtApp;InheritVNCCompression;InheritVNCEncoding;InheritVNCAuthMode;InheritVNCProxyType;InheritVNCProxyIP;" +
                           "InheritVNCProxyPort;InheritVNCProxyUsername;InheritVNCProxyPassword;InheritVNCColors;InheritVNCSmartSizeMode;InheritVNCViewOnly;" +
                           "InheritRDGatewayUsageMethod;InheritRDGatewayHostname;InheritRDGatewayUseConnectionCredentials;InheritRDGatewayUsername;" +
                           "InheritRDGatewayPassword;InheritRDGatewayDomain;InheritRDGatewayExternalCredentialProvider;InheritRDGatewayUserViaAPI;InheritRDPAlertIdleTimeout;InheritRDPMinutesToIdleTimeout;InheritSoundQuality;InheritUserViaAPI;" +
@@ -175,6 +175,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.EnvironmentTags))
               .Append(FormatForCsv(con.ExtApp))
               .Append(FormatForCsv(con.Favorite))
+              .Append(FormatForCsv(con is ContainerInfo containerInfo ? containerInfo.AutoSort : false))
               .Append(FormatForCsv(con.VNCCompression))
               .Append(FormatForCsv(con.VNCEncoding))
               .Append(FormatForCsv(con.VNCAuthMode))
@@ -271,6 +272,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.Inheritance.Hostname))
               .Append(FormatForCsv(con.Inheritance.EnvironmentTags))
               .Append(FormatForCsv(con.Inheritance.Favorite))
+              .Append(FormatForCsv(con.Inheritance.AutoSort))
               .Append(FormatForCsv(con.Inheritance.ExtApp))
               .Append(FormatForCsv(con.Inheritance.VNCCompression))
               .Append(FormatForCsv(con.Inheritance.VNCEncoding))

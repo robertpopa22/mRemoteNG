@@ -192,6 +192,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                                 containerInfo.IsExpanded = xmlNode.GetAttributeAsBool("Expanded");
                             }
 
+                            if (_confVersion >= 2.8)
+                            {
+                                containerInfo.AutoSort = xmlNode.GetAttributeAsBool("AutoSort");
+                            }
+
                             parentContainer.AddChild(containerInfo);
                             AddNodesFromXmlRecursive(xmlNode, containerInfo);
                             break;
@@ -566,6 +571,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                         connectionInfo.Inheritance.RedirectDiskDrivesCustom = xmlnode.GetAttributeAsBool("InheritRedirectDiskDrivesCustom");
                         connectionInfo.EnvironmentTags = xmlnode.GetAttributeAsString("EnvironmentTags");
                         connectionInfo.Inheritance.EnvironmentTags = xmlnode.GetAttributeAsBool("InheritEnvironmentTags");
+                        connectionInfo.Inheritance.AutoSort = xmlnode.GetAttributeAsBool("InheritAutoSort");
                         connectionInfo.UserField1 = xmlnode.GetAttributeAsString("UserField1");
                         connectionInfo.UserField2 = xmlnode.GetAttributeAsString("UserField2");
                         connectionInfo.UserField3 = xmlnode.GetAttributeAsString("UserField3");

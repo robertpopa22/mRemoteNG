@@ -37,6 +37,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             }
 
             RootNodeInfo root = CreateTreeStructure(parentMapping);
+            ApplyAutoSortRecursive(root);
             ConnectionTreeModel connectionTreeModel = new();
             connectionTreeModel.AddRootNode(root);
             return connectionTreeModel;
@@ -72,6 +73,15 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             }
 
             return root;
+        }
+
+        private void ApplyAutoSortRecursive(ContainerInfo parent)
+        {
+            foreach (ContainerInfo childContainer in parent.Children.OfType<ContainerInfo>())
+                ApplyAutoSortRecursive(childContainer);
+
+            if (parent.AutoSort)
+                parent.Sort();
         }
 
         private ConnectionInfo ParseConnectionInfo(IList<string> headers, string[] connectionCsv)
@@ -496,6 +506,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.Favorite = value;
             }
 
+            if (connectionRecord is ContainerInfo containerRecord && headers.Contains("AutoSort"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("AutoSort")], out bool value))
+                    containerRecord.AutoSort = value;
+            }
+
             if (headers.Contains("RdpVersion"))
             {
                 if (Enum.TryParse(connectionCsv[headers.IndexOf("RdpVersion")], true, out RdpVersion version))
@@ -854,6 +870,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritFavorite")], out bool value))
                     connectionRecord.Inheritance.Favorite = value;
+            }
+
+            if (headers.Contains("InheritAutoSort"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritAutoSort")], out bool value))
+                    connectionRecord.Inheritance.AutoSort = value;
             }
 
             if (headers.Contains("InheritExtApp"))

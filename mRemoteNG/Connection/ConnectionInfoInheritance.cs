@@ -39,6 +39,12 @@ namespace mRemoteNG.Connection
             }
         }
 
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.General)),
+         DisplayName("Inherit Automatic Sort"),
+         Description("Inherit the Automatic Sort setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool AutoSort { get; set; }
+
         #endregion
 
         #region Display

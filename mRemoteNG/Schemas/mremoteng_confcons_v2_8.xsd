@@ -34,6 +34,7 @@
     <xs:attribute name="Id" type="xs:string" use="required" />
     <xs:attribute name="Type" type="xs:string" use="required" />
     <xs:attribute name="Expanded" type="xs:boolean" use="optional" />
+    <xs:attribute name="AutoSort" type="xs:boolean" use="optional" />
     <xs:attribute name="Descr" type="xs:string" use="required" />
     <xs:attribute name="Icon" type="xs:string" use="required" />
     <xs:attribute name="Panel" type="xs:string" use="required" />
@@ -184,6 +185,7 @@
     <xs:attribute name="InheritHostname" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritExtApp" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritFavorite" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritAutoSort" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritVNCCompression" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritVNCEncoding" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritVNCAuthMode" type="xs:boolean" use="optional" />

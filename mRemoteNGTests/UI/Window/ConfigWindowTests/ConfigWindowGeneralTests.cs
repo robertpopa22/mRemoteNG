@@ -237,6 +237,10 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                     nameof(ConnectionInfo.AlternativeAddress),
                 });
             }
+            else
+            {
+                expectedProperties.Add(nameof(ContainerInfo.AutoSort));
+            }
 
             switch (protocol)
             {

@@ -1,0 +1,37 @@
+{
+  "task_type": "triage",
+  "task_id": "848",
+  "started_at": "2026-02-16T16:08:03",
+  "finished_at": "2026-02-16T16:08:55",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "This is a clear usability enhancement that extends existing manual tree sorting with per-container inherited behavior.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/ConnectionInfo.cs",
+          "mRemoteNG/Connection/ConnectionInfoInheritance.cs",
+          "mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs",
+          "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+          "mRemoteNGTests/Tree/ConnectionTreeTests.cs"
+        ],
+        "approach": "Add an inheritable AutoSort flag on container nodes and invoke existing sort routines on child add/rename/move events, with regression tests for inheritance and automatic reordering."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"This is a clear usability enhancement that extends existing manual tree sorting with per-container inherited behavior.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/ConnectionInfo.cs\",\"mRemoteNG/Connection/ConnectionInfoInheritance.cs\",\"mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\",\"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\",\"mRemoteNGTests/Tree/ConnectionTreeTests.cs\"],\"approach\":\"Add an inheritable AutoSort flag on container nodes and invoke existing sort routines on child add/rename/move events, with regression tests for inheritance and automatic reordering.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T16:08:55"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

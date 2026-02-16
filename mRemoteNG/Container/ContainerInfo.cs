@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.Versioning;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Resources.Language;
+using mRemoteNG.Tools;
 using mRemoteNG.Tree;
 
 namespace mRemoteNG.Container
@@ -23,6 +25,7 @@ namespace mRemoteNG.Container
     public class ContainerInfo : ConnectionInfo, INotifyCollectionChanged
     {
         private bool _isExpanded;
+        private bool _autoSort;
 
         [Browsable(false)] public List<ConnectionInfo> Children { get; } = [];
 
@@ -31,6 +34,22 @@ namespace mRemoteNG.Container
         {
             get => _isExpanded;
             set => SetField(ref _isExpanded, value, "IsExpanded");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.General)),
+         DisplayName("Automatic Sort"),
+         Description("Automatically sort child nodes by name when items are added, moved, or renamed."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool AutoSort
+        {
+            get => GetPropertyValue(nameof(AutoSort), _autoSort);
+            set
+            {
+                bool wasAutoSortEnabled = AutoSort;
+                SetField(ref _autoSort, value, nameof(AutoSort));
+                if (!wasAutoSortEnabled && AutoSort)
+                    Sort();
+            }
         }
 
         [Browsable(false)]
@@ -89,6 +108,13 @@ namespace mRemoteNG.Container
             newChildItem.Parent = this;
             Children.Insert(index, newChildItem);
             SubscribeToChildEvents(newChildItem);
+
+            if (AutoSort)
+            {
+                Sort();
+                return;
+            }
+
             RaiseCollectionChangedEvent(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newChildItem));
         }
 
@@ -124,6 +150,13 @@ namespace mRemoteNG.Container
             Children.Remove(child);
             if (newIndex > Children.Count) newIndex = Children.Count;
             Children.Insert(newIndex, child);
+
+            if (AutoSort)
+            {
+                Sort();
+                return;
+            }
+
             RaiseCollectionChangedEvent(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, child, newIndex, originalIndex));
         }
 
@@ -203,6 +236,7 @@ namespace mRemoteNG.Container
         {
             ContainerInfo newContainer = new();
             newContainer.CopyFrom(this);
+            newContainer._autoSort = _autoSort;
             newContainer.OpenConnections = [];
             newContainer.Inheritance = Inheritance.Clone(newContainer);
             foreach (ConnectionInfo child in Children.ToArray())
@@ -278,7 +312,7 @@ namespace mRemoteNG.Container
 
         protected virtual void SubscribeToChildEvents(ConnectionInfo child)
         {
-            child.PropertyChanged += RaisePropertyChangedEvent;
+            child.PropertyChanged += OnChildPropertyChanged;
             ContainerInfo? childAsContainer = child as ContainerInfo;
             if (childAsContainer == null) return;
             childAsContainer.CollectionChanged += RaiseCollectionChangedEvent;
@@ -286,13 +320,27 @@ namespace mRemoteNG.Container
 
         protected virtual void UnsubscribeToChildEvents(ConnectionInfo child)
         {
-            child.PropertyChanged -= RaisePropertyChangedEvent;
+            child.PropertyChanged -= OnChildPropertyChanged;
             ContainerInfo? childAsContainer = child as ContainerInfo;
             if (childAsContainer == null) return;
             childAsContainer.CollectionChanged -= RaiseCollectionChangedEvent;
         }
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;
+
+        private void OnChildPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            RaisePropertyChangedEvent(sender, args);
+
+            if (args.PropertyName != nameof(ConnectionInfo.Name))
+                return;
+            if (sender is not ConnectionInfo child || !Children.Contains(child))
+                return;
+            if (!AutoSort)
+                return;
+
+            Sort();
+        }
 
         private void RaiseCollectionChangedEvent(object sender, NotifyCollectionChangedEventArgs args)
         {
