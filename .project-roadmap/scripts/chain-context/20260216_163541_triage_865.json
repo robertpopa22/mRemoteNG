@@ -1,0 +1,58 @@
+{
+  "task_type": "triage",
+  "task_id": "865",
+  "started_at": "2026-02-16T16:31:22",
+  "finished_at": "2026-02-16T16:35:41",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 120s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0848.json",
+        ".project-roadmap/issues-db/upstream/0851.json",
+        ".project-roadmap/issues-db/upstream/0853.json",
+        ".project-roadmap/issues-db/upstream/0857.json",
+        ".project-roadmap/issues-db/upstream/0859.json",
+        ".project-roadmap/issues-db/upstream/0860.json",
+        ".project-roadmap/issues-db/upstream/0864.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T16:33:33"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Putty window embedded in mRemoteNG loses its maximized/filled state after system resume because there is no handler for PowerModeChanged events to trigger a resize.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/ProtocolBase.cs",
+          "mRemoteNG/UI/Forms/frmMain.cs",
+          "mRemoteNG/Connection/Protocol/PuttyBase.cs"
+        ],
+        "approach": "1. Add `OnPowerModeChanged` virtual method to `ProtocolBase`. 2. Listen to `SystemEvents.PowerModeChanged` in `FrmMain` and invoke the method on active connections. 3. Override `OnPowerModeChanged` in `PuttyBase` to call `Resize`, forcing the window to fill the container."
+      },
+      "raw_output": "```json\n{\n\"decision\": \"implement\",\n\"reason\": \"Putty window embedded in mRemoteNG loses its maximized/filled state after system resume because there is no handler for PowerModeChanged events to trigger a resize.\",\n\"priority\": \"P2-bug\",\n\"estimated_files\": [\n\"mRemoteNG/Connection/Protocol/ProtocolBase.cs\",\n\"mRemoteNG/UI/Forms/frmMain.cs\",\n\"mRemoteNG/Connection/Protocol/PuttyBase.cs\"\n],\n\"approach\": \"1. Add `OnPowerModeChanged` virtual method to `ProtocolBase`. 2. Listen to `SystemEvents.PowerModeChanged` in `FrmMain` and invoke the method on active connections. 3. Override `OnPowerModeChanged` in `PuttyBase` to call `Resize`, forcing the window to fill the container.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T16:35:41"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -1,4 +1,5 @@
 ﻿using mRemoteNG.App;
+using Microsoft.Win32;
 using mRemoteNG.Messages;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.Security;
@@ -725,6 +726,14 @@ namespace mRemoteNG.Connection.Protocol
                                                     Language.PuttyResizeFailed + Environment.NewLine + ex.Message,
                                                     true);
             }
+        }
+
+        public override void OnPowerModeChanged(PowerModes powerMode)
+        {
+            if (powerMode != PowerModes.Resume)
+                return;
+
+            Resize(this, EventArgs.Empty);
         }
 
         public override void Close()

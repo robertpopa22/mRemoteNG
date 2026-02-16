@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "853",
+  "started_at": "2026-02-16T16:30:10",
+  "finished_at": "2026-02-16T16:30:21",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "The crash is a Microsoft upstream RDP/MSCTF issue that was fixed in Windows updates, so there is no actionable mRemoteNG code change to implement.",
+        "priority": "P2-bug",
+        "estimated_files": [],
+        "approach": "Close as vendor/upstream and direct users to install the applicable Windows cumulative updates."
+      },
+      "raw_output": "{\"decision\":\"wontfix\",\"reason\":\"The crash is a Microsoft upstream RDP/MSCTF issue that was fixed in Windows updates, so there is no actionable mRemoteNG code change to implement.\",\"priority\":\"P2-bug\",\"estimated_files\":[],\"approach\":\"Close as vendor/upstream and direct users to install the applicable Windows cumulative updates.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T16:30:21"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

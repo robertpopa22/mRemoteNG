@@ -1,5 +1,6 @@
 ﻿using mRemoteNG.App;
 using mRemoteNG.Tools;
+using Microsoft.Win32;
 using System;
 using System.Threading;
 using System.Windows.Forms;
@@ -120,6 +121,14 @@ namespace mRemoteNG.Connection.Protocol
         /// Override in protocol implementations that need to adapt to new screen dimensions.
         /// </summary>
         public virtual void OnDisplaySettingsChanged()
+        {
+        }
+
+        /// <summary>
+        /// Called when system power mode changes (e.g., suspend/resume).
+        /// Override in protocol implementations that need to restore layout after resume.
+        /// </summary>
+        public virtual void OnPowerModeChanged(PowerModes powerMode)
         {
         }
 

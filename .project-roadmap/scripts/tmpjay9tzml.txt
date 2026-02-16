@@ -1,0 +1,26 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #865: Putty window not maximized after waking from hibernate
+Labels: Bug
+State: open
+
+Body:
+
+
+Recent comments:
+  [majed17]: i have to restart the program so it works again
+  [sparerd]: Thanks for the bug report, we will look into this
+
+Edited title to be more descriptive
+  [majed17]: correction I have to restart the computer to get full functionality.
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

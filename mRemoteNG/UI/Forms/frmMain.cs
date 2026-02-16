@@ -276,6 +276,7 @@ namespace mRemoteNG.UI.Forms
             _advancedWindowMenu.BuildAdditionalMenuItems();
             SystemEvents.DisplaySettingsChanged += _advancedWindowMenu.OnDisplayChanged;
             SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
+            SystemEvents.PowerModeChanged += OnPowerModeChanged;
             ApplyLanguage();
 
             Opacity = 1;
@@ -566,6 +567,26 @@ namespace mRemoteNG.UI.Forms
                     if (tab is not UI.Tabs.ConnectionTab ct) continue;
                     InterfaceControl? ifc = InterfaceControl.FindInterfaceControl(ct);
                     ifc?.Protocol?.OnDisplaySettingsChanged();
+                }
+            }
+        }
+
+        private void OnPowerModeChanged(object sender, PowerModeChangedEventArgs e)
+        {
+            if (e.Mode != PowerModes.Resume) return;
+            if (pnlDock.Contents.Count == 0) return;
+
+            foreach (IDockContent dc in pnlDock.Contents)
+            {
+                if (dc is not ConnectionWindow cw) continue;
+                if (cw.Controls.Count < 1) continue;
+                if (cw.Controls[0] is not DockPanel dp) continue;
+
+                foreach (IDockContent tab in dp.Contents)
+                {
+                    if (tab is not UI.Tabs.ConnectionTab ct) continue;
+                    InterfaceControl? ifc = InterfaceControl.FindInterfaceControl(ct);
+                    ifc?.Protocol?.OnPowerModeChanged(e.Mode);
                 }
             }
         }
