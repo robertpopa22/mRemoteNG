@@ -10,9 +10,9 @@
 
 We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, <strong>2,349 automated tests</strong>, and builds for x64, x86, and ARM64.
 
-<strong>The plan:</strong> work through the full <strong>830+ issue backlog</strong>, 100 at a time. Security first, then stability, then features. Every fix gets a release. Every release gets tested. Every issue gets a response.
+<strong>The plan:</strong> work through the full <strong>830 issue backlog</strong>, 100 at a time. Security first, then stability, then features. Every fix gets a release. Every release gets tested. Every issue gets a response.
 
-<strong>How we work:</strong> A Python <strong>orchestrator</strong> drives three AI agents in parallel — <strong>Claude Code</strong> (Anthropic) for complex multi-file fixes, <strong>Gemini CLI</strong> (Google) for bulk code transformations, and <strong>Codex</strong> (OpenAI) for fast triage and simple fixes. Every change is independently verified (build + 2,349 tests) before commit. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
+<strong>How we work:</strong> A Python <strong>orchestrator</strong> coordinates three AI agents — <strong>Codex</strong> (OpenAI) for fast triage, <strong>Gemini CLI</strong> (Google) for bulk code transformations, and <strong>Claude Code</strong> (Anthropic) for complex multi-file fixes and final review. Per issue, agents run as a fallback chain (Codex first, then Gemini, then Claude). Every change is independently verified (build + 2,349 tests) before commit. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
 
 <strong>What's next:</strong> Once the backlog is current, ongoing maintenance — bug fixes, dependency updates, security patches — will run autonomously via <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview">Claude Code</a>, continuously monitoring new issues and shipping fixes with minimal human intervention.
 
@@ -89,7 +89,14 @@ See [CHANGELOG.md](CHANGELOG.md) for the full list.
 </details>
 
 <details>
-<summary><strong>Previous release: v1.80.2</strong> (security patch, maintenance)</summary>
+<summary><strong>Previous release: v1.80.2</strong> (2026-02-14, maintenance)</summary>
+
+- **AlwaysShowPanelTabs initialization fix** ([#3142](https://github.com/mRemoteNG/mRemoteNG/issues/3142)) — panel tabs setting no longer corrupts Options on startup
+
+</details>
+
+<details>
+<summary><strong>Previous release: v1.80.1</strong> (2026-02-13, security patch)</summary>
 
 ### Security Fixes (upstream merge)
 - **AnyDesk command injection prevention** — `IsValidAnydeskId()` validates IDs before passing to process
@@ -247,12 +254,17 @@ v1.80.0 consolidated status: [#3133](https://github.com/mRemoteNG/mRemoteNG/issu
 ## What's New
 
 ### v1.81.0-beta.2 (2026-02-15)
-- **Zero Nullable Warnings** — 100% clean codebase (2,554 fixed) via IIS Orchestrator
+- **Zero Nullable Warnings** — 100% clean codebase (2,554 fixed across 242 files) via multi-agent orchestrator
+- **2,349 tests** — 5 parallel processes, 0 failures (up from 2,179 at v1.79.0)
 - **Testable Architecture** — Decoupled `SqlConnectionsLoader` & `XmlConnectionsLoader` via DI
 - **AnyDesk Security** — command injection prevention fix
 - **100% Autonomous Loading Tests** — zero-UI integration tests for encrypted files
+- **Build optimization** — `Directory.Build.props` (CA1416 suppression, shared Roslyn), ~15s full / ~9s incremental
 
-### v1.80.2 (2026-02-13)
+### v1.80.2 (2026-02-14)
+- **AlwaysShowPanelTabs initialization fix** ([#3142](https://github.com/mRemoteNG/mRemoteNG/issues/3142))
+
+### v1.80.1 (2026-02-13)
 - **Security patch** — AnyDesk command injection fix, Process.Start hardening, URL/path validation (upstream merge)
 - **.NET 10.0.3** runtime patch + removed 27 redundant packages
 - **CI improvements** — self-contained build matrix, actions/setup-dotnet v5
