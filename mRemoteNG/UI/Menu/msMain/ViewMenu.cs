@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.Config.Settings;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.UI.Forms;
@@ -25,6 +26,8 @@ namespace mRemoteNG.UI.Menu
         public ToolStripMenuItem _mMenViewQuickConnectToolbar = null!;
         public ToolStripMenuItem _mMenViewMultiSshToolbar = null!;
         private ToolStripMenuItem _mMenViewResetLayout = null!;
+        private ToolStripMenuItem _mMenViewLoadLayout = null!;
+        private ToolStripMenuItem _mMenViewSaveLayout = null!;
         public ToolStripMenuItem _mMenViewLockToolbars = null!;
         private readonly PanelAdder _panelAdder;
 
@@ -50,6 +53,8 @@ namespace mRemoteNG.UI.Menu
             _mMenViewFileMenu = new ToolStripMenuItem();
             _mMenViewErrorsAndInfos = new ToolStripMenuItem();
             _mMenViewResetLayout = new ToolStripMenuItem();
+            _mMenViewLoadLayout = new ToolStripMenuItem();
+            _mMenViewSaveLayout = new ToolStripMenuItem();
             _mMenViewLockToolbars = new ToolStripMenuItem();
             _mMenViewSep2 = new ToolStripSeparator();
             _mMenViewQuickConnectToolbar = new ToolStripMenuItem();
@@ -73,6 +78,8 @@ namespace mRemoteNG.UI.Menu
                 _mMenViewAddConnectionPanel,
                 _mMenViewConnectionPanels,
                 _mMenViewResetLayout,
+                _mMenViewLoadLayout,
+                _mMenViewSaveLayout,
                 _mMenViewLockToolbars,
                 _mMenViewSep2,
                 _mMenViewFullscreen
@@ -135,6 +142,20 @@ namespace mRemoteNG.UI.Menu
             _mMenViewResetLayout.Text = Language.ResetLayout;
             _mMenViewResetLayout.Click += mMenViewResetLayout_Click;
             // 
+            // mMenViewLoadLayout
+            // 
+            _mMenViewLoadLayout.Name = "mMenViewLoadLayout";
+            _mMenViewLoadLayout.Size = new System.Drawing.Size(228, 22);
+            _mMenViewLoadLayout.Text = "Load Layout...";
+            _mMenViewLoadLayout.Click += mMenViewLoadLayout_Click;
+            // 
+            // mMenViewSaveLayout
+            // 
+            _mMenViewSaveLayout.Name = "mMenViewSaveLayout";
+            _mMenViewSaveLayout.Size = new System.Drawing.Size(228, 22);
+            _mMenViewSaveLayout.Text = "Save Layout...";
+            _mMenViewSaveLayout.Click += mMenViewSaveLayout_Click;
+            // 
             // mMenViewLockToolbars
             // 
             _mMenViewLockToolbars.Name = "mMenViewLockToolbars";
@@ -187,6 +208,8 @@ namespace mRemoteNG.UI.Menu
             _mMenViewConnectionPanels.Text = Language.ConnectionPanels;
             _mMenViewErrorsAndInfos.Text = Language.Notifications;
             _mMenViewResetLayout.Text = Language.ResetLayout;
+            _mMenViewLoadLayout.Text = "Load Layout...";
+            _mMenViewSaveLayout.Text = "Save Layout...";
             _mMenViewLockToolbars.Text = Language.LockToolbars;
             _mMenViewQuickConnectToolbar.Text = Language.QuickConnectToolbar;
             _mMenViewExtAppsToolbar.Text = Language.ExternalToolsToolbar;
@@ -264,6 +287,32 @@ namespace mRemoteNG.UI.Menu
             if (msgBoxResult == DialogResult.Yes)
             {
                 MainForm?.SetDefaultLayout();
+            }
+        }
+
+        private void mMenViewLoadLayout_Click(object sender, EventArgs e)
+        {
+            if (MainForm == null) return;
+            using var openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Layout Files (*.xml)|*.xml|All Files (*.*)|*.*";
+            openFileDialog.Title = "Load Layout";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var loader = new DockPanelLayoutLoader(MainForm, Runtime.MessageCollector);
+                loader.LoadLayout(openFileDialog.FileName);
+            }
+        }
+
+        private void mMenViewSaveLayout_Click(object sender, EventArgs e)
+        {
+            if (MainForm == null) return;
+            using var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Layout Files (*.xml)|*.xml|All Files (*.*)|*.*";
+            saveFileDialog.Title = "Save Layout";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var loader = new DockPanelLayoutLoader(MainForm, Runtime.MessageCollector);
+                loader.SaveLayout(saveFileDialog.FileName);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using mRemoteNG.App;
+using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Window;
@@ -43,12 +43,6 @@ namespace mRemoteNG.Config.Settings
         {
             try
             {
-                while (_mainForm.pnlDock.Contents.Count > 0)
-                {
-                    DockContent dc = (DockContent)_mainForm.pnlDock.Contents[0];
-                    dc.Close();
-                }
-
 #if !PORTABLE
                 string oldPath =
  Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + GeneralAppInfo.ProductName + "\\" + SettingsFileInfo.LayoutFileName;
@@ -56,12 +50,12 @@ namespace mRemoteNG.Config.Settings
                 string newPath = SettingsFileInfo.SettingsPath + "\\" + SettingsFileInfo.LayoutFileName;
                 if (File.Exists(newPath))
                 {
-                    _mainForm.pnlDock.LoadFromXml(newPath, GetContentFromPersistString);
+                    LoadLayout(newPath);
 #if !PORTABLE
                 }
                 else if (File.Exists(oldPath))
                 {
-                    _mainForm.pnlDock.LoadFromXml(oldPath, GetContentFromPersistString);
+                    LoadLayout(oldPath);
 #endif
                 }
                 else
@@ -84,6 +78,22 @@ namespace mRemoteNG.Config.Settings
                     _messageCollector.AddExceptionMessage("Failed to reset layout to defaults after corruption.", resetEx);
                 }
             }
+        }
+
+        public void LoadLayout(string filePath)
+        {
+            while (_mainForm.pnlDock.Contents.Count > 0)
+            {
+                DockContent dc = (DockContent)_mainForm.pnlDock.Contents[0];
+                dc.Close();
+            }
+
+            _mainForm.pnlDock.LoadFromXml(filePath, GetContentFromPersistString);
+        }
+
+        public void SaveLayout(string filePath)
+        {
+            _mainForm.pnlDock.SaveAsXml(filePath);
         }
 
         private IDockContent? GetContentFromPersistString(string persistString)
