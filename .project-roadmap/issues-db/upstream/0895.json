@@ -10,17 +10,24 @@
   "created_at": "2018-02-22T10:31:39Z",
   "github_updated_at": "2018-07-30T01:04:33Z",
   "body_snippet": "Hello,\r\n\r\nCan this tool integrate the winbox.exe client, which is used to manage the use of the MikroTik Routers router.\r\n\r\nI add external expansion tools to mRemoteNG, configure corresponding parameters and add route devices to double-click the device to connect successfully, but is the form of new window pop-up, can the window be embedded in mRemoteNG software? It will be more convenient to manage a lot of route devices if they can. Can external extensions implement integration?\r\n\r\n![1](https:...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue only contains a high-level enhancement title without requirements, expected behavior, or integration details needed to scope implementation."
+    }
+  ],
   "comments": [],
   "comments_cursor": "2018-07-30T01:04:33Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (codex): The issue only contains a high-level enhancement title without requirements, expected behavior, or integration details needed to scope implementation.\nApproach: Request concrete use cases, UX expectations, supported winbox.exe versions, and how ROS sessions should be stored and launched before defining code changes."
 }

@@ -199,12 +199,9 @@ namespace mRemoteNG.UI.Forms
             get => _selectedConnection;
             set
             {
-                if (_selectedConnection == value)
-                {
-                    return;
-                }
+                if (_selectedConnection != value)
+                    _selectedConnection = value;
 
-                _selectedConnection = value;
                 UpdateWindowTitle();
             }
         }
@@ -955,6 +952,31 @@ namespace mRemoteNG.UI.Forms
             return null;
         }
 
+        private static ConnectionInfo? GetConnectionInfoForTab(ConnectionTab? connectionTab)
+        {
+            if (connectionTab == null)
+                return null;
+
+            if (connectionTab.Tag is InterfaceControl interfaceControl)
+                return interfaceControl.Info;
+
+            if (connectionTab.Tag is ConnectionInfo connectionInfo)
+                return connectionInfo;
+
+            return connectionTab.TrackedConnectionInfo;
+        }
+
+        private void UpdateSelectedConnectionFromActiveDocument()
+        {
+            if (pnlDock.ActiveDocument is not ConnectionWindow connectionWindow)
+                return;
+
+            ConnectionTab? activeConnectionTab = GetActiveConnectionTab(connectionWindow);
+            ConnectionInfo? activeConnectionInfo = GetConnectionInfoForTab(activeConnectionTab);
+            if (activeConnectionInfo != null)
+                SelectedConnection = activeConnectionInfo;
+        }
+
         private void ActivateConnection()
         {
             ConnectionWindow? cw = pnlDock.ActiveDocument as ConnectionWindow;
@@ -974,6 +996,7 @@ namespace mRemoteNG.UI.Forms
 
         private void PnlDock_ActiveDocumentChanged(object sender, EventArgs e)
         {
+            UpdateSelectedConnectionFromActiveDocument();
             ActivateConnection();
         }
 
