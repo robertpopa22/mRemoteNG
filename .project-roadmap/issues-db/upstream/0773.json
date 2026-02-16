@@ -10,7 +10,7 @@
   "created_at": "2017-11-05T06:01:15Z",
   "github_updated_at": "2017-11-21T18:39:15Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nIt's easy to screw up a carefully ordered list of connections by hitting the sort button. Please implement one of these (in order of preference):\r\n1. make the sort button into a switch: down = sorted, up = custom ordered\r\n2. an option to disable the sort connections functionality\r\n3. a confirmation dialog: \"Sort connections? There is no undo.\"",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Users currently lose manual connection ordering when sorting; an undo or toggle is needed to restore the previous state."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in d4dced60"
     }
   ],
   "comments": [

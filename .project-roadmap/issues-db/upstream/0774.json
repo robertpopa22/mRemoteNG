@@ -10,12 +10,19 @@
   "created_at": "2017-11-05T06:40:05Z",
   "github_updated_at": "2017-11-05T12:21:32Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nAs detailed in [MR-571](https://mremoteng.atlassian.net/browse/MR-571):\r\n\r\n> It would be great to have support for dynamic tab names, similar to the application SuperPutty. Escape codes in a terminal window set the tab name. This is useful in Cygwin terminals to change the tab name to the target of an ssh command, etc.\r\n> \r\n> For example this function in bash sets the tab title:\r\n> \r\n> title ()\r\n> {\r...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The request is a clear, user-facing enhancement and the existing tab infrastructure can be extended to update tab text from terminal title changes with low regression risk."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDM0MTk2OTA5OQ==",
@@ -32,5 +39,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (codex): The request is a clear, user-facing enhancement and the existing tab infrastructure can be extended to update tab text from terminal title changes with low regression risk.\nApproach: Listen for embedded terminal title changes (PuTTY/terminal), apply them to `ConnectionTab.TabText` with fallback to current naming rules, and add protocol tests for update and teardown behavior."
 }

@@ -8,6 +8,7 @@ using mRemoteNG.Tools.Cmdline;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Tabs;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -20,6 +21,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Threading.Timer;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
@@ -29,8 +31,16 @@ namespace mRemoteNG.Connection.Protocol
     public class PuttyBase : ProtocolBase
     {
         private const int IDM_RECONF = 0x50; // PuTTY Settings Menu ID
+        private const int TerminalTitlePollIntervalMs = 500;
+        private const int WindowTextBufferLength = 512;
         private bool _isPuttyNg;
         private readonly DisplayProperties _display = new();
+        private readonly object _terminalTitleSync = new();
+        private Timer? _terminalTitleTimer;
+        private string _fallbackTabText = string.Empty;
+        private string _initialTerminalTitle = string.Empty;
+        private string _lastTerminalTitle = string.Empty;
+        private bool _terminalTitleTrackingEnabled;
 
         #region Public Properties
 
@@ -52,6 +62,7 @@ namespace mRemoteNG.Connection.Protocol
 
         private void ProcessExited(object sender, EventArgs e)
         {
+            StopTerminalTitleTracking();
             Event_Closed(this);
         }
 
@@ -77,12 +88,147 @@ namespace mRemoteNG.Connection.Protocol
             server.Dispose();
         }
 
+        protected virtual bool UseTerminalTitlePollingTimer => true;
+
+        protected virtual string ReadTerminalWindowTitle()
+        {
+            try
+            {
+                if (PuttyHandle == IntPtr.Zero)
+                    return string.Empty;
+
+                StringBuilder textBuffer = new(WindowTextBufferLength);
+                NativeMethods.SendMessage(PuttyHandle, NativeMethods.WM_GETTEXT, (IntPtr)textBuffer.Capacity, textBuffer);
+                return textBuffer.ToString();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        protected void StartTerminalTitleTracking()
+        {
+            StopTerminalTitleTracking();
+
+            if (InterfaceControl.Parent is not ConnectionTab connectionTab)
+                return;
+
+            lock (_terminalTitleSync)
+            {
+                _fallbackTabText = connectionTab.TabText;
+                _initialTerminalTitle = ReadTerminalWindowTitle();
+                _lastTerminalTitle = _initialTerminalTitle;
+                _terminalTitleTrackingEnabled = true;
+
+                if (UseTerminalTitlePollingTimer)
+                {
+                    _terminalTitleTimer = new Timer(_ => UpdateTabTitleFromTerminalTitle(),
+                                                    null,
+                                                    TerminalTitlePollIntervalMs,
+                                                    TerminalTitlePollIntervalMs);
+                }
+            }
+        }
+
+        protected void StopTerminalTitleTracking()
+        {
+            Timer? timerToDispose;
+            string fallbackTabText;
+            bool restoreFallback;
+
+            lock (_terminalTitleSync)
+            {
+                restoreFallback = _terminalTitleTrackingEnabled;
+                _terminalTitleTrackingEnabled = false;
+                timerToDispose = _terminalTitleTimer;
+                _terminalTitleTimer = null;
+                fallbackTabText = _fallbackTabText;
+            }
+
+            timerToDispose?.Dispose();
+
+            if (restoreFallback)
+                ApplyTabText(fallbackTabText);
+        }
+
+        protected virtual void UpdateTabTitleFromTerminalTitle()
+        {
+            string terminalTitle = ReadTerminalWindowTitle();
+
+            lock (_terminalTitleSync)
+            {
+                if (!_terminalTitleTrackingEnabled)
+                    return;
+
+                if (string.Equals(_lastTerminalTitle, terminalTitle, StringComparison.Ordinal))
+                    return;
+
+                _lastTerminalTitle = terminalTitle;
+            }
+
+            string tabText = ResolveTabText(terminalTitle);
+            ApplyTabText(tabText);
+        }
+
+        private string ResolveTabText(string terminalTitle)
+        {
+            lock (_terminalTitleSync)
+            {
+                if (string.IsNullOrWhiteSpace(terminalTitle) ||
+                    string.Equals(terminalTitle, _initialTerminalTitle, StringComparison.Ordinal))
+                {
+                    return _fallbackTabText;
+                }
+            }
+
+            return terminalTitle.Replace("&", "&&");
+        }
+
+        private void ApplyTabText(string tabText)
+        {
+            if (InterfaceControl.Parent is not ConnectionTab connectionTab)
+                return;
+
+            if (connectionTab.IsDisposed || connectionTab.Disposing)
+                return;
+
+            void Update()
+            {
+                if (connectionTab.IsDisposed || connectionTab.Disposing)
+                    return;
+
+                connectionTab.TabText = tabText;
+            }
+
+            if (connectionTab.InvokeRequired)
+            {
+                try
+                {
+                    connectionTab.BeginInvoke((Action)Update);
+                }
+                catch (ObjectDisposedException)
+                {
+                    // The tab was disposed while marshaling the title update.
+                }
+                catch (InvalidOperationException)
+                {
+                    // The tab handle is no longer available.
+                }
+            }
+            else
+            {
+                Update();
+            }
+        }
+
         public override bool Connect()
         {
             string optionalTemporaryPrivateKeyPath = ""; // path to ppk file instead of password. only temporary (extracted from credential vault).
 
             try
             {
+                StopTerminalTitleTracking();
                 _isPuttyNg = PuttyTypeDetector.GetPuttyType() == PuttyTypeDetector.PuttyType.PuttyNg;
 
                 // Validate PuttyPath to prevent command injection
@@ -360,11 +506,13 @@ namespace mRemoteNG.Connection.Protocol
                 }
 
                 Resize(this, new EventArgs());
+                StartTerminalTitleTracking();
                 base.Connect();
                 return true;
             }
             catch (Exception ex)
             {
+                StopTerminalTitleTracking();
                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ConnectionFailed + Environment.NewLine + ex.Message);
                 return false;
             }
@@ -467,6 +615,8 @@ namespace mRemoteNG.Connection.Protocol
 
         public override void Close()
         {
+            StopTerminalTitleTracking();
+
             try
             {
                 if (PuttyProcess?.HasExited == false)
