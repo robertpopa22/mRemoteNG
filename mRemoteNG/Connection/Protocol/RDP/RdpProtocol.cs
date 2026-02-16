@@ -1063,9 +1063,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnDisconnected(int discReason)
         {
             const int UI_ERR_NORMAL_DISCONNECT = 0xB08;
+            const int UI_ERR_NLA_NOT_ENABLED = 0xB09;
             if (discReason != UI_ERR_NORMAL_DISCONNECT)
             {
-                string reason = _rdpClient.GetErrorDescription((uint)discReason, (uint)_rdpClient.ExtendedDisconnectReason);
+                uint extendedDisconnectReason = (uint)_rdpClient.ExtendedDisconnectReason;
+                string reason = _rdpClient.GetErrorDescription((uint)discReason, extendedDisconnectReason);
+                if (discReason == UI_ERR_NLA_NOT_ENABLED || extendedDisconnectReason == (uint)UI_ERR_NLA_NOT_ENABLED)
+                {
+                    reason = "The remote computer requires Network Level Authentication (NLA). Enable \"Use CredSSP\" for this RDP connection and try again.";
+                }
                 Event_Disconnected(this, reason, discReason);
             }
 
