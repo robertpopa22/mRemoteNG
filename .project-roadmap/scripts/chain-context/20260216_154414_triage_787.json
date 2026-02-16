@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "787",
+  "started_at": "2026-02-16T15:43:56",
+  "finished_at": "2026-02-16T15:44:14",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "This is a long-inactive enhancement request with no current reproducible details or clearly defined scope, and maintainers have explicitly asked for retest data on latest builds.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Request confirmation on v1.79.x/upstream dev with concrete expected behavior, reproducible steps, and logs/screenshots, then re-triage for a scoped implementation."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"This is a long-inactive enhancement request with no current reproducible details or clearly defined scope, and maintainers have explicitly asked for retest data on latest builds.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Request confirmation on v1.79.x/upstream dev with concrete expected behavior, reproducible steps, and logs/screenshots, then re-triage for a scoped implementation.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T15:44:14"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

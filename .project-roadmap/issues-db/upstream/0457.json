@@ -8,7 +8,7 @@
   ],
   "author": "kaplandani",
   "created_at": "2017-03-16T11:35:44Z",
-  "github_updated_at": "2026-02-16T07:27:48Z",
+  "github_updated_at": "2026-02-16T13:35:52Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nWhen I use a new panel and the session dies - when doing RECONNECT- the new session is going back to the main screen. \r\nIt should stay on the panel it is cu...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -65,30 +65,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7oxEYM",
-      "author": "robertpopa22",
-      "date": "2026-02-15T20:59:08Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`3977b8fe`](https://github.com/robertpopa22/mRemoteNG/commit/3977b8fedb7ad49f736b63e08c6267dbd6439ccc)\n**Branch:** `main`\n**What changed:** When reconnecting, preserve the current panel name from the \n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gxF",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:48Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:48Z",
+  "comments_cursor": "2026-02-16T13:35:52Z",
   "unread_comments": 4,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-16T13:41:51Z",
   "notes": "AI triage: When reconnecting a connection from a non-default panel, the reconnected session jumps back to the default panel instead of staying in the current panel, which is a usability bug in panel assignment logic.\nApproach: When reconnecting, preserve the current panel name from the existing connection's panel assignment and pass it through to the new connection setup, instead of falling back to the default panel."
 }

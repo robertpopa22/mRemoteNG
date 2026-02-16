@@ -9,7 +9,7 @@
   ],
   "author": "NetVicious",
   "created_at": "2017-02-09T14:58:06Z",
-  "github_updated_at": "2026-02-16T07:27:36Z",
+  "github_updated_at": "2026-02-16T13:37:23Z",
   "body_snippet": "<!-- Feature Request -->\r\nHi!\r\nIf we want to have two different connections to the same server on mRemote at the moment we need to do:\r\n1. Right click on the same connection\r\n2. Click on \"Connect (with options)\"\r\n3. Click on \"Select Panel before connecting\"\r\n4. Select panel and press ok\r\n\r\nIMHO it will be a good trick to use something like ctrl+doubleclick, or alt+doubleclick to do the same but with less steps ;-)\r\n\r\nThx for take the old mRemote and maintaining it alive. Regards,",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -39,21 +39,12 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gmg",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:36Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:36Z",
+  "comments_cursor": "2026-02-16T13:37:23Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "last_synced": "2026-02-16T13:41:51Z",
   "notes": "AI triage: Clear feature request to open a duplicate connection tab via Ctrl+DoubleClick, a common workflow for users managing multiple sessions to the same server\nApproach: Add a keyboard modifier check (Ctrl held) on the tree's DoubleClick/NodeMouseDoubleClick handler so that instead of switching to an existing open connection, it forces opening a new connection tab to the same host"
 }
