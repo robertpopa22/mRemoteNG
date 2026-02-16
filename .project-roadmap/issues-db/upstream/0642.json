@@ -9,7 +9,7 @@
   ],
   "author": "stevealexandre",
   "created_at": "2017-07-17T14:42:40Z",
-  "github_updated_at": "2026-02-15T23:14:24Z",
+  "github_updated_at": "2026-02-16T07:28:04Z",
   "body_snippet": "|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75.7008.17935  |\r\n\r\nCan you add the feature to add custom icons and the possibility to put icon on Folders too ?\r\nIt will be great to see the difference between environment(production, bench, etc...)\r\n\r\nExample on an another tool :\r\n![image](https://user-images.githubusercontent.com/21204359/28273528-ee648d4e-6b0e-11e7-9693-49dcf5c6b6de.png)\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -201,12 +201,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3g9w",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:04Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T23:14:24Z",
+  "comments_cursor": "2026-02-16T07:28:04Z",
   "unread_comments": 18,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:19Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Popular feature request with multiple +1s for custom icons on folders/connections, with a good suggestion to store icons in the connection file or %LocalAppData% instead of requiring admin access to Program Files\nApproach: Add a CustomIconPath property to ConnectionInfo, allow embedding base64-encoded icons in the connection XML file (similar to KeePass), and provide a UI to browse/select custom icons from %LocalAppData%\\mRemoteNG\\Icons without requiring admin privileges"
 }

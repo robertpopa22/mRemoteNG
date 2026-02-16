@@ -32,6 +32,27 @@ public class IntegratedProgramTests
         Assert.That(initialized, Is.True);
     }
 
+    [TestCase("cmd")]
+    [TestCase("cmd.exe")]
+    [TestCase(@"C:\Windows\System32\cmd.exe")]
+    [TestCase("pwsh")]
+    [TestCase("pwsh.exe")]
+    [TestCase("powershell")]
+    [TestCase("powershell.exe")]
+    [TestCase("wsl")]
+    [TestCase("wsl.exe")]
+    [TestCase(@"C:\Windows\System32\wsl.exe")]
+    public void InitializeSucceedsForBuiltInShellPresetWhenExternalToolIsNotConfigured(string extAppName)
+    {
+        SetExternalToolList();
+        var sut = new IntegratedProgram();
+        sut.InterfaceControl = BuildInterfaceControl(extAppName, sut);
+
+        var initialized = sut.Initialize();
+
+        Assert.That(initialized, Is.True);
+    }
+
     [Test]
     public void ConnectingToExternalAppThatDoesntExistDoesNothing()
     {
@@ -42,9 +63,9 @@ public class IntegratedProgramTests
         Assert.That(appInitialized, Is.False);
     }
 
-    private void SetExternalToolList(ExternalTool externalTool)
+    private static void SetExternalToolList(params ExternalTool[] externalTools)
     {
-        Runtime.ExternalToolsService.ExternalTools = new FullyObservableCollection<ExternalTool> { externalTool };
+        Runtime.ExternalToolsService.ExternalTools = new FullyObservableCollection<ExternalTool>(externalTools);
     }
 
     private InterfaceControl BuildInterfaceControl(string extAppName, ProtocolBase sut)

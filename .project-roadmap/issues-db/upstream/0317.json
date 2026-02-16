@@ -10,7 +10,7 @@
   ],
   "author": "EdoaLive",
   "created_at": "2016-12-21T09:26:08Z",
-  "github_updated_at": "2026-02-15T18:31:59Z",
+  "github_updated_at": "2026-02-16T07:27:17Z",
   "body_snippet": "Hello,\r\nFirst of all, my compliments for your software. It's quite difficult to find on google, but it's very complete and works nicely.\r\n\r\nThis feature request is very old, as I found it in a 2010 post in your old forum: http://forum.mremoteng.org/viewtopic.php?f=4&t=95 so maybe it has already been implemented but I couldn't find it.\r\nThe function should be quite simple: in addition to select 'Yes' or 'No' to 'Disk Drives' in 'Redirect' connection config menu, it would be nice to select which d...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -103,12 +103,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gWC",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:17Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T18:31:59Z",
+  "comments_cursor": "2026-02-16T07:27:17Z",
   "unread_comments": 7,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Clear enhancement request to allow selecting specific drives for RDP redirection instead of all-or-nothing, was already scheduled by maintainer for v1.77\nApproach: Add a property to ConnectionInfo for specifying individual drive letters to redirect via RDP, expose it in the connection properties UI, and pass the selected drives to the RDP ActiveX control's AdvancedSettings DriveRedirection properties instead of the current boolean toggle"
 }

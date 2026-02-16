@@ -8,7 +8,7 @@
   ],
   "author": "lineardraft",
   "created_at": "2017-01-31T13:50:46Z",
-  "github_updated_at": "2026-02-15T19:11:11Z",
+  "github_updated_at": "2026-02-16T07:27:30Z",
   "body_snippet": "Hi,\r\nIs it possible to request a  \"Remote Audio Capture\" under \"Redirect\" options in the \"Config\" section, as already existing in Windows default \"Remote Desktop Connection\" client (see pic below). Thank you.\r\n\r\n![image](https://cloud.githubusercontent.com/assets/25457572/22467208/fe95bb4e-e7c3-11e6-8738-43adc68f4ed1.png)\r\n\r\nBest regards\r\nVladimir",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -146,12 +146,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3ghk",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:30Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T19:11:11Z",
+  "comments_cursor": "2026-02-16T07:27:30Z",
   "unread_comments": 12,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Feature request to add RDP Remote Audio Capture option, which was partially implemented in PR #1414 but users report it is available in UI yet not functioning correctly\nApproach: Verify and fix the RDP audio capture setting so that when enabled it correctly configures the RDP ActiveX control's AudioCaptureRedirectionMode property to redirect microphone input from the remote session"
 }

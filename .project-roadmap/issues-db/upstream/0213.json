@@ -9,7 +9,7 @@
   ],
   "author": "sethstenzel",
   "created_at": "2016-11-01T13:33:41Z",
-  "github_updated_at": "2026-02-15T17:19:28Z",
+  "github_updated_at": "2026-02-16T07:27:02Z",
   "body_snippet": "Can you add interface options for opening serial connections via Putty. This feature is the only-thing stopping me from exclusively using mRemoteNG for managing all my sessions and I sometimes have multiple serial interfaces up.",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -75,12 +75,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gJu",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:02Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T17:19:28Z",
+  "comments_cursor": "2026-02-16T07:27:02Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Feature request to add serial/COM port connection support for PuTTY, which would enhance the tool for network administrators managing console connections\nApproach: Add a Serial protocol type that leverages PuTTY's -serial flag, allowing users to configure COM port and baud rate settings natively within connection properties instead of using the external app workaround"
 }

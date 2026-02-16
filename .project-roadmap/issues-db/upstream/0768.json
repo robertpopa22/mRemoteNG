@@ -10,12 +10,25 @@
   "created_at": "2017-11-02T20:14:25Z",
   "github_updated_at": "2023-03-18T12:52:19Z",
   "body_snippet": "Some external apps do not correctly integrate into mRemoteNG using our normal code, but it is still possible for them to be integrated. In most cases, the app spawns a separate process that we need to look for.\r\n\r\nAdd special handlers for several well-known apps:\r\n- [ ] cmd.exe\r\n- [ ] mintty\r\n- [ ] Git Bash\r\n- [ ] Windows Linux Subsystem Bash\r\n\r\nThis is related to several issues:\r\n- #649 \r\n- #693 \r\n- #710 ",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Native support for PowerShell, WSL, and cmd is a high-demand feature that simplifies configuration compared to current manual CLI flags."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue describes a specific, user-requested integration gap for common shell launchers (cmd, mintty, Git Bash, WSL) that is not fully covered by current behavior."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDM0MTU0NjI2Nw==",
@@ -113,5 +126,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Native support for PowerShell, WSL, and cmd is a high-demand feature that simplifies configuration compared to current manual CLI flags.\nApproach: Implement presets and launch handlers for common shell tools (pwsh, cmd, WSL) within the protocol integration layer and add corresponding tests.\nAI triage (codex): The issue describes a specific, user-requested integration gap for common shell launchers (cmd, mintty, Git Bash, WSL) that is not fully covered by current behavior.\nApproach: Add launcher-aware integration handling and child-process window detection for these tools, then validate with integration tests and document recommended configurations."
 }

@@ -77,6 +77,7 @@ namespace mRemoteNG.UI.Forms
         private bool _inSizeMove;
         private bool _inMouseActivate;
         private bool _isApplicationActivated = true;
+        private bool _pendingActivateConnectionOnAppReactivation;
         private IntPtr _fpChainedWindowHandle;
         private bool _usingSqlServer;
         private string? _connectionsFileName;
@@ -746,9 +747,16 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_ACTIVATEAPP:
                         bool appActivated = m.WParam != IntPtr.Zero;
+                        bool appReactivated = appActivated && !_isApplicationActivated;
                         _isApplicationActivated = appActivated;
-                        if (appActivated)
+
+                        if (!appActivated)
                         {
+                            _pendingActivateConnectionOnAppReactivation = false;
+                        }
+                        else if (appReactivated)
+                        {
+                            _pendingActivateConnectionOnAppReactivation = true;
                             Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                                    ?? GetChildAtPoint(MousePosition);
                             if (candidateTabToFocus is InterfaceControl)
@@ -757,7 +765,8 @@ namespace mRemoteNG.UI.Forms
                             }
 
                             // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
-                            if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
+                            if (!Properties.OptionsStartupExitPage.Default.DisableRefocus &&
+                                WindowState != FormWindowState.Minimized)
                             {
                                 QueueActivateConnection();
                             }
@@ -802,7 +811,10 @@ namespace mRemoteNG.UI.Forms
                         }
                         break;
                     case NativeMethods.WM_WINDOWPOSCHANGED:
-                        if (!_isApplicationActivated)
+                        if (!_isApplicationActivated || !_pendingActivateConnectionOnAppReactivation)
+                            break;
+
+                        if (WindowState == FormWindowState.Minimized)
                             break;
 
                         // Ignore this message if the window wasn't activated
@@ -811,6 +823,7 @@ namespace mRemoteNG.UI.Forms
                             break;
                         if ((windowPos.flags & NativeMethods.SWP_NOACTIVATE) == 0)
                         {
+                            _pendingActivateConnectionOnAppReactivation = false;
                             if (!_inMouseActivate && !_inSizeMove)
                                 ActivateConnection();
                         }

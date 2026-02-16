@@ -41,7 +41,7 @@ namespace mRemoteNG.Config.Settings
  Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), GeneralAppInfo.ProductName, SettingsFileInfo.ExtAppsFilesName);
 #endif
             string newPath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.ExtAppsFilesName);
-            XmlDocument xDom;
+            XmlDocument? xDom = null;
             if (File.Exists(newPath))
             {
                 _messageCollector.AddMessage(MessageClass.InformationMsg, $"Loading External Apps from: {newPath}",
@@ -58,53 +58,56 @@ namespace mRemoteNG.Config.Settings
 #endif
             else
             {
-                _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not FIND file!");
-                return;
+                _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not FIND file! Falling back to built-in shell presets.");
             }
 
-            if (xDom.DocumentElement == null)
+            if (xDom?.DocumentElement != null)
             {
-                _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not LOAD file!");
-                return;
+                foreach (XmlElement xEl in xDom.DocumentElement.ChildNodes)
+                {
+                    ExternalTool extA = new()
+                    {
+                        DisplayName = xEl.Attributes["DisplayName"]?.Value ?? string.Empty,
+                        FileName = xEl.Attributes["FileName"]?.Value ?? string.Empty,
+                        Arguments = xEl.Attributes["Arguments"]?.Value ?? string.Empty
+                    };
+
+                    // check before, since old save files won't have this set
+                    if (xEl.HasAttribute("WorkingDir"))
+                        extA.WorkingDir = xEl.Attributes["WorkingDir"]?.Value ?? string.Empty;
+                    if (xEl.HasAttribute("RunElevated"))
+                        extA.RunElevated = bool.Parse(xEl.Attributes["RunElevated"]!.Value);
+
+                    if (xEl.HasAttribute("WaitForExit"))
+                    {
+                        extA.WaitForExit = bool.Parse(xEl.Attributes["WaitForExit"]!.Value);
+                    }
+
+                    if (xEl.HasAttribute("TryToIntegrate"))
+                    {
+                        extA.TryIntegrate = bool.Parse(xEl.Attributes["TryToIntegrate"]!.Value);
+                    }
+
+                    if (xEl.HasAttribute("ShowOnToolbar"))
+                    {
+                        extA.ShowOnToolbar = bool.Parse(xEl.Attributes["ShowOnToolbar"]!.Value);
+                    }
+
+                    if (xEl.HasAttribute("Category"))
+                        extA.Category = xEl.Attributes["Category"]?.Value ?? string.Empty;
+
+                    _messageCollector.AddMessage(MessageClass.InformationMsg,
+                                                 $"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}",
+                                                 true);
+                    Runtime.ExternalToolsService.ExternalTools.Add(extA);
+                }
             }
-
-            foreach (XmlElement xEl in xDom.DocumentElement.ChildNodes)
+            else
             {
-                ExternalTool extA = new()
-                {
-                    DisplayName = xEl.Attributes["DisplayName"]?.Value ?? string.Empty,
-                    FileName = xEl.Attributes["FileName"]?.Value ?? string.Empty,
-                    Arguments = xEl.Attributes["Arguments"]?.Value ?? string.Empty
-                };
-
-                // check before, since old save files won't have this set
-                if (xEl.HasAttribute("WorkingDir"))
-                    extA.WorkingDir = xEl.Attributes["WorkingDir"]?.Value ?? string.Empty;
-                if (xEl.HasAttribute("RunElevated"))
-                    extA.RunElevated = bool.Parse(xEl.Attributes["RunElevated"]!.Value);
-
-                if (xEl.HasAttribute("WaitForExit"))
-                {
-                    extA.WaitForExit = bool.Parse(xEl.Attributes["WaitForExit"]!.Value);
-                }
-
-                if (xEl.HasAttribute("TryToIntegrate"))
-                {
-                    extA.TryIntegrate = bool.Parse(xEl.Attributes["TryToIntegrate"]!.Value);
-                }
-
-                if (xEl.HasAttribute("ShowOnToolbar"))
-                {
-                    extA.ShowOnToolbar = bool.Parse(xEl.Attributes["ShowOnToolbar"]!.Value);
-                }
-
-                if (xEl.HasAttribute("Category"))
-                    extA.Category = xEl.Attributes["Category"]?.Value ?? string.Empty;
-
-                _messageCollector.AddMessage(MessageClass.InformationMsg,
-                                             $"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}",
-                                             true);
-                Runtime.ExternalToolsService.ExternalTools.Add(extA);
+                _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not LOAD file! Falling back to built-in shell presets.");
+                AddBuiltInShellPresetIfMissing("cmd.exe", "%ComSpec%");
+                AddBuiltInShellPresetIfMissing("pwsh.exe", "pwsh.exe");
+                AddBuiltInShellPresetIfMissing("wsl.exe", @"%windir%\system32\wsl.exe");
             }
 
             _externalToolsToolStrip.SwitchToolBarText(Properties.Settings.Default.ExtAppsTBShowText);

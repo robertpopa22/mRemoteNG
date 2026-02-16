@@ -8,7 +8,7 @@
   ],
   "author": "NateWerner",
   "created_at": "2016-12-22T18:03:30Z",
-  "github_updated_at": "2026-02-15T18:38:24Z",
+  "github_updated_at": "2026-02-16T07:27:19Z",
   "body_snippet": "<!-- Feature Request -->\r\nAdd ability to auto start/stop external tools from the external config page.  Applied this mod to support starting ssh tools like XMing and Putty Agent while using mRemoteNG.  Useful and more secure to ensure they are shutdown when done using ssh.\r\n\r\nSample:\r\n![image](https://cloud.githubusercontent.com/assets/675525/21435247/5de1ac98-c83e-11e6-90bd-68db830ec103.png)\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -65,12 +65,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gXy",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:19Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T18:38:24Z",
+  "comments_cursor": "2026-02-16T07:27:19Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Clear feature request to auto-launch and auto-stop external tools on mRemoteNG startup/shutdown, with maintainer confirmation it is doable\nApproach: Add 'RunOnStartup' and 'StopOnShutdown' boolean properties to ExternalTool, spawn flagged tools during app initialization tracking their process IDs, and terminate tracked processes during app shutdown"
 }

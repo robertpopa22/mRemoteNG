@@ -10,7 +10,7 @@
   ],
   "author": "bluikko",
   "created_at": "2017-10-11T04:45:32Z",
-  "github_updated_at": "2026-02-16T04:55:52Z",
+  "github_updated_at": "2026-02-16T07:28:13Z",
   "body_snippet": "mRemoteNG could have an option in registry for disabling saving passwords. This way in an enterprise setting a GPO could be deployed to disable the users from saving passwords.\r\n\r\nI can volunteer to do the GPO-side work if this would be possible.",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -157,12 +157,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3hFY",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:13Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T04:55:52Z",
+  "comments_cursor": "2026-02-16T07:28:13Z",
   "unread_comments": 12,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-16T06:20:00Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage (gemini): Enabling GPO/Registry-based policy to disable password saving is a standard enterprise requirement for security compliance.\nApproach: Implement a check for a 'DisablePasswordSaving' registry key in Settings.cs; if present and true, override the save password functionality and disable the corresponding UI option."
 }

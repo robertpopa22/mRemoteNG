@@ -8,7 +8,7 @@
   ],
   "author": "mihmig",
   "created_at": "2017-10-24T07:09:20Z",
-  "github_updated_at": "2026-02-16T07:18:40Z",
+  "github_updated_at": "2026-02-16T07:28:20Z",
   "body_snippet": "Is it possible to add ODBC support to handle connection list (not only MSSQL)?",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -71,12 +71,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3hKt",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:20Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:18:40Z",
+  "comments_cursor": "2026-02-16T07:28:20Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:24:58Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage (codex): The request does not specify whether ODBC is for connection storage, import/export, or a new protocol, so scope and acceptance criteria are missing.\nApproach: Ask for the exact ODBC use case (provider/DSN/auth/read-write expectations), then add an ODBC connector path, wire it into options UI, and cover it with integration tests.\nAI triage (codex): ODBC support is a clear, in-scope extension of the existing database-backed connection list feature that currently uses provider-specific connectors.\nApproach: Add an ODBC connector and wire it into provider selection, registry validation, and connection testing, then extend SQL connection integration coverage for the new provider path.\nAI triage (codex): ODBC support for SQL-backed connection list storage is an in-scope extension of the existing MSSQL/MySQL database connector architecture.\nApproach: Implement an ODBC connector type and selection path, update SQL options and registry validation plus connection testing to handle it, and add integration coverage for ODBC-backed connection load/save.\nAI triage (gemini): ODBC-backed connection-list storage is a valid extension of the existing MSSQL/MySQL database connector architecture and can be added without changing remote protocol handling.\nApproach: Add an ODBC connector type and selection flow in settings/UI, update connection testing and registry wiring for the provider, and add integration tests for ODBC-backed connection load/save."
 }

@@ -8,7 +8,7 @@
   ],
   "author": "igor2x",
   "created_at": "2017-06-28T05:16:12Z",
-  "github_updated_at": "2026-02-15T22:40:07Z",
+  "github_updated_at": "2026-02-16T07:28:00Z",
   "body_snippet": "1. Look at the help from menu Help | mRemoteNG Help. Check the \"External Tools\" option from left structured tree menu. There is section Variables like %HOSTNAME% that can be used with external tools Argument field.\r\n2. In **Connection** panel create new connection.\r\n3. In **Config** panel for this newly created connection inside **Display** section click on **Name** field. It would be awesome if variables could be used in this **Name** field like for example:\r\n `Mail server %Hostname%`\r\n\r\n   Cur...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -47,12 +47,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3g6O",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:00Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T22:40:07Z",
+  "comments_cursor": "2026-02-16T07:28:00Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:19Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Feature request to support variable/token substitution in the connection Name field, allowing dynamic names like %name%.full.local.fqdn, which aligns with existing token support in External Tools\nApproach: Extend the existing token replacement system (already used for External Tools and protocol fields) to also process the Name/DisplayName field when rendering connections in the tree and panels, supporting tokens like %hostname%, %port%, etc."
 }

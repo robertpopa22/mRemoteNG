@@ -11,7 +11,7 @@
   ],
   "author": "countchappy",
   "created_at": "2017-03-06T15:48:37Z",
-  "github_updated_at": "2026-02-15T20:15:42Z",
+  "github_updated_at": "2026-02-16T07:27:44Z",
   "body_snippet": "<!-- Feature Request -->\r\n## Issue that prompted feature request?\r\nFolders do not allow you to set a Hostname/IP for inheritance.\r\n\r\n### Fix for specified issue:\r\n- Allow folders to configure a Hostname/IP\r\n- Allow for sub-folders/connections underneath the folder to inherit the setting\r\n\r\nI can work on this myself and submit a PR if you would like",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -86,12 +86,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gtF",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:44Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T20:15:42Z",
+  "comments_cursor": "2026-02-16T07:27:44Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:19Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Clear feature request with multiple community votes to allow folders to define a shared Hostname/IP inherited by child connections, useful for multi-port/multi-user scenarios on the same host\nApproach: Enable the Hostname property on folder/container nodes so child connections can inherit it, adding UI support in the config panel to set Hostname on folders and ensuring the inheritance resolver propagates it to children that don't override it"
 }

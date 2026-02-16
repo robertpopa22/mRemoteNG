@@ -8,7 +8,7 @@
   ],
   "author": "jelez",
   "created_at": "2017-10-10T23:29:52Z",
-  "github_updated_at": "2026-02-16T03:25:13Z",
+  "github_updated_at": "2026-02-16T07:28:11Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nI am trying to integrate [WSLTTY](https://github.com/mintty/wsltty) however it pops up in a new window. It would be great if you can help fix this (its an opensource project)\r\n\r\nI opened an issue with them as well but I doubt that they wil...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -44,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3hDg",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:11Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T03:25:13Z",
+  "comments_cursor": "2026-02-16T07:28:11Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T03:25:48Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage (gemini): Current WSL support uses standard wsl.exe; unclear if user requires wsltty (mintty) embedding which is historically difficult and handled differently in IntegratedProgram.cs.\nApproach: Ask user for configuration details and if they need tabbed embedding; investigate mintty support in IntegratedProgram.cs.\nAI triage (gemini): IntegratedProgram closes the connection when the launcher process (wsltty) exits, even if the actual terminal window (mintty) is still running.\nApproach: Update IntegratedProgram to track the process owning the captured window. If it differs from the launched process, monitor the window-owning process for exit."
 }

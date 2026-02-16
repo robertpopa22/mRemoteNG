@@ -11,12 +11,25 @@
   "created_at": "2017-11-01T09:57:29Z",
   "github_updated_at": "2026-02-07T16:47:52Z",
   "body_snippet": "![2017-10-31 14_51_53-sdkesx siedle local vmware esxi](https://user-images.githubusercontent.com/22905106/32269470-c511ef80-bef2-11e7-8b0b-e4bbd5366ced.png)\r\nWhen searching through connections the first item that contains the search string gets selected, even if there is an exact match to the search string.\r\nThe search algorithm should at first always try to find an exact match. Only if this fails should it search for a connection just containing the search string.",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue is stale and does not include current reproducible steps on the latest build, so the behavior cannot be validated yet."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue lacks reproducible steps and current-version validation, and prior comments suggest search behavior changed in v1.76.x."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDM0Mjg0MjA2Nw==",
@@ -69,5 +82,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (codex): The issue is stale and does not include current reproducible steps on the latest build, so the behavior cannot be validated yet.\nApproach: Request a retest on the latest build with exact reproduction steps, expected vs actual behavior, and screenshots/logs, then implement once reproduced.\nAI triage (codex): The issue lacks reproducible steps and current-version validation, and prior comments suggest search behavior changed in v1.76.x.\nApproach: Request a retest on the latest build with precise steps, expected vs actual behavior, and screenshots/logs before implementation or closure."
 }

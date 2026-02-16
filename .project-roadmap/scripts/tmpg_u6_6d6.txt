@@ -2,13 +2,13 @@ Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\github\mRemoteNG
 Branch: main
 
-Fix GitHub issue #755: Window Selection Behaviour
+Fix GitHub issue #768: Add integration support for some common external apps
 
 Description:
 
 
-Recommended approach: Tighten WndProc refocus gating so ActivateConnection runs only on true app reactivation and not during taskbar-driven window switches/minimize flows.
-Likely files: mRemoteNG/UI/Forms/frmMain.cs
+Recommended approach: Implement presets and launch handlers for common shell tools (pwsh, cmd, WSL) within the protocol integration layer and add corresponding tests.
+Likely files: mRemoteNG/Connection/Protocol/IntegratedProgram.cs, mRemoteNG/Config/Settings/ExternalAppsLoader.cs, mRemoteNG/UI/Window/ExternalToolsWindow.cs, mRemoteNGTests/Connection/Protocol/IntegratedProgramTests.cs
 
 RULES (CRITICAL):
 - Read code BEFORE modifying

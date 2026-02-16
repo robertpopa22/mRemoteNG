@@ -8,7 +8,7 @@
   ],
   "author": "only1alive",
   "created_at": "2017-02-02T18:47:50Z",
-  "github_updated_at": "2026-02-15T19:24:30Z",
+  "github_updated_at": "2026-02-16T07:27:34Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\nI would like to request the ability to add additional **User Fields** under the Miscellaneous section. I currently use the User Field to pass arguments to each of my connections upon connecting. These fields are unique to each ...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -74,12 +74,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gk1",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:34Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T19:24:30Z",
+  "comments_cursor": "2026-02-16T07:27:34Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:19Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Multiple users requesting additional customizable user fields for passing arguments to external tools, which is a clear and actionable enhancement\nApproach: Add multiple user-defined fields (e.g., UserField1 through UserField10) to ConnectionInfo with customizable labels, expose them in the connection properties UI under Miscellaneous, serialize/deserialize them in XML and SQL config formats, and make them available as external tool tokens"
 }

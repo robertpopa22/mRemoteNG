@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Management;
 using System.Threading;
 using System.Windows.Forms;
@@ -33,6 +34,7 @@ namespace mRemoteNG.Connection.Protocol
                 return base.Initialize();
 
             _externalTool = Runtime.ExternalToolsService.GetExtAppByName(InterfaceControl.Info.ExtApp);
+            _externalTool ??= CreateBuiltInShellPresetForIntegration(InterfaceControl.Info.ExtApp);
 
             if (_externalTool == null)
             {
@@ -125,6 +127,13 @@ namespace mRemoteNG.Connection.Protocol
                 if (_handle == IntPtr.Zero)
                 {
                     _handle = FindWindowInChildProcesses(processId, timeoutMs);
+                }
+
+                // Strategy 4: Known shell launchers can spawn deeper process trees
+                // (for example wsl.exe -> wslhost.exe -> conhost.exe).
+                if (_handle == IntPtr.Zero && IsCommonShellTool(_externalTool, parsedFileName))
+                {
+                    _handle = FindWindowInDescendantProcesses(processId, timeoutMs, maxDepth: 4);
                 }
 
                 if (_handle == IntPtr.Zero)
@@ -352,6 +361,40 @@ namespace mRemoteNG.Connection.Protocol
         }
 
         /// <summary>
+        /// Searches for visible windows belonging to descendants of the given root PID.
+        /// Useful for launchers that create a multi-level process chain.
+        /// </summary>
+        private static IntPtr FindWindowInDescendantProcesses(int rootProcessId, int timeoutMs, int maxDepth)
+        {
+            IntPtr found = IntPtr.Zero;
+            int startTicks = Environment.TickCount;
+            while (found == IntPtr.Zero &&
+                   Environment.TickCount < startTicks + timeoutMs)
+            {
+                List<int> descendantPids = GetDescendantProcessIds(rootProcessId, maxDepth);
+                foreach (int descendantPid in descendantPids)
+                {
+                    NativeMethods.EnumWindows((hWnd, _) =>
+                    {
+                        NativeMethods.GetWindowThreadProcessId(hWnd, out uint windowPid);
+                        if (windowPid == (uint)descendantPid && NativeMethods.IsWindowVisible(hWnd))
+                        {
+                            found = hWnd;
+                            return false;
+                        }
+                        return true;
+                    }, IntPtr.Zero);
+
+                    if (found != IntPtr.Zero) break;
+                }
+
+                if (found == IntPtr.Zero)
+                    Thread.Sleep(100);
+            }
+            return found;
+        }
+
+        /// <summary>
         /// Gets child process IDs for a given parent process ID via WMI.
         /// </summary>
         private static List<int> GetChildProcessIds(int parentPid)
@@ -371,6 +414,103 @@ namespace mRemoteNG.Connection.Protocol
                 // WMI query can fail if access is denied or service unavailable — not critical
             }
             return children;
+        }
+
+        private static List<int> GetDescendantProcessIds(int rootProcessId, int maxDepth)
+        {
+            if (maxDepth <= 0)
+                return [];
+
+            List<int> descendants = [];
+            HashSet<int> visited = [rootProcessId];
+            List<int> currentLevel = [rootProcessId];
+
+            for (int depth = 0; depth < maxDepth && currentLevel.Count > 0; depth++)
+            {
+                List<int> nextLevel = [];
+                foreach (int pid in currentLevel)
+                {
+                    List<int> children = GetChildProcessIds(pid);
+                    foreach (int childPid in children)
+                    {
+                        if (visited.Add(childPid))
+                        {
+                            descendants.Add(childPid);
+                            nextLevel.Add(childPid);
+                        }
+                    }
+                }
+
+                currentLevel = nextLevel;
+            }
+
+            return descendants;
+        }
+
+        private static ExternalTool? CreateBuiltInShellPresetForIntegration(string extAppName)
+        {
+            switch (NormalizeShellToolName(extAppName))
+            {
+                case "cmd":
+                case "command prompt":
+                    return CreateBuiltInShellTool("cmd.exe", "%ComSpec%");
+                case "pwsh":
+                    return CreateBuiltInShellTool("pwsh.exe", "pwsh.exe");
+                case "powershell":
+                case "windows powershell":
+                    return CreateBuiltInShellTool("powershell.exe", "powershell.exe");
+                case "wsl":
+                case "bash":
+                    return CreateBuiltInShellTool("wsl.exe", @"%windir%\system32\wsl.exe");
+                default:
+                    return null;
+            }
+        }
+
+        private static ExternalTool CreateBuiltInShellTool(string displayName, string fileName)
+        {
+            return new ExternalTool(displayName, fileName)
+            {
+                TryIntegrate = true,
+                ShowOnToolbar = false
+            };
+        }
+
+        private static bool IsCommonShellTool(ExternalTool externalTool, string parsedFileName)
+        {
+            return IsShellToolIdentifier(NormalizeShellToolName(externalTool.DisplayName))
+                || IsShellToolIdentifier(NormalizeShellToolName(externalTool.FileName))
+                || IsShellToolIdentifier(NormalizeShellToolName(parsedFileName));
+        }
+
+        private static bool IsShellToolIdentifier(string identifier)
+        {
+            return identifier == "cmd"
+                || identifier == "pwsh"
+                || identifier == "powershell"
+                || identifier == "windows powershell"
+                || identifier == "wsl"
+                || identifier == "bash";
+        }
+
+        private static string NormalizeShellToolName(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return string.Empty;
+
+            string normalized = value.Trim().Trim('"');
+            if (normalized.Contains('\\') || normalized.Contains('/'))
+            {
+                normalized = Path.GetFileName(normalized);
+            }
+
+            normalized = normalized.ToLowerInvariant();
+            if (normalized.EndsWith(".exe", StringComparison.Ordinal))
+            {
+                normalized = normalized.Substring(0, normalized.Length - 4);
+            }
+
+            return normalized;
         }
 
         #endregion

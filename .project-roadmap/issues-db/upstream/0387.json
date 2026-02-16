@@ -8,7 +8,7 @@
   ],
   "author": "LoTGoD",
   "created_at": "2017-02-02T16:43:23Z",
-  "github_updated_at": "2026-02-15T19:18:11Z",
+  "github_updated_at": "2026-02-16T07:27:32Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\n**I tried importing a Terminals XML file in to mRemoteNG, but keep getting errors about the format of the file:**\r\n\r\n---\r\n\r\n_InformationMsg 1/18/2017 3:17:17 PM You cannot import a normal connection file. Please use File - Load Connections for normal connection files!_\r\n\r\n---\r\n\r\n_WarningMsg 1/18/2017 3:17:17 PM You are trying to load a connection file that was created using an very early version of...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -101,12 +101,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gjG",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:32Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T19:18:11Z",
+  "comments_cursor": "2026-02-16T07:27:32Z",
   "unread_comments": 7,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Legitimate enhancement request to import Terminals XML connection files, with multiple users requesting it over time\nApproach: Create a new TerminalsImporter class that parses the Terminals XML format (groups, RDP sessions with host/port/credentials) and maps them to mRemoteNG ConnectionInfo objects, then register it in the import dialog alongside existing importers (PuTTY, RDCMan, etc.)"
 }

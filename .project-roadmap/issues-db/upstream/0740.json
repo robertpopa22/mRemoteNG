@@ -8,7 +8,7 @@
   ],
   "author": "lehase",
   "created_at": "2017-10-13T09:34:48Z",
-  "github_updated_at": "2026-02-16T06:34:40Z",
+  "github_updated_at": "2026-02-16T07:28:16Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nWhen I try to save my connections in MSSQL DB, non latin characters are transformed into '?'. Please change latin encoding to UTF-8. Thanks!\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008  |...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -44,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3hHR",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:28:15Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T06:34:40Z",
+  "comments_cursor": "2026-02-16T07:28:16Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T06:57:34Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage (codex): The issue has no description or comments, so the exact SQL encoding problem, affected fields, and reproduction steps are unknown.\nApproach: Request database type/version, collation/charset, sample failing item values, and expected vs actual behavior before scoping a fix.\nAI triage (codex): This is a reproducible data-loss bug where MSSQL varchar columns convert non-Latin characters to '?', so Unicode storage needs a schema fix.\nApproach: Add an MSSQL migration that converts text-bearing columns from varchar to nvarchar, bump the SQL schema version, and add a regression test validating non-Latin round-trip persistence."
 }

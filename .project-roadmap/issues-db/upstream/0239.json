@@ -9,7 +9,7 @@
   ],
   "author": "sparerd",
   "created_at": "2016-11-10T16:22:18Z",
-  "github_updated_at": "2026-02-15T18:14:16Z",
+  "github_updated_at": "2026-02-16T07:27:12Z",
   "body_snippet": "**Context:**\r\nThe user would like to change the default protocol for all new connections to be SSHv2 rather than RDP.\r\n\r\n**User Journey:**\r\n1. Left click the Connections tree node\r\n1. Click the **Default Properties** button at the top of the config window.\r\n1. Set the appropriate property to `SSH version 2`\r\n\r\n**User Journey in pictures:**\r\n![2016-11-10_0918](https://cloud.githubusercontent.com/assets/6999446/20184712/db4966a0-a726-11e6-88c8-9631c8b5d67a.png)\r\n\r\n![2016-11-10_0919](https://cloud....",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -66,12 +66,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3gSk",
+      "author": "robertpopa22",
+      "date": "2026-02-16T07:27:12Z",
+      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-15T18:14:16Z",
+  "comments_cursor": "2026-02-16T07:27:12Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:49Z",
+  "last_synced": "2026-02-16T07:34:38Z",
   "notes": "AI triage: Enhancement request to allow per-protocol and per-folder default connection values, improving UX for users managing diverse connection types\nApproach: Extend the default connection settings system to support per-protocol default profiles and per-folder inheritance overrides, adding UI in Options/Connections to configure protocol-specific defaults and folder-level default inheritance settings"
 }
