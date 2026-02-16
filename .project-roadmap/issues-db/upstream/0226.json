@@ -8,7 +8,7 @@
   ],
   "author": "boopzz",
   "created_at": "2016-11-07T11:59:15Z",
-  "github_updated_at": "2023-03-16T20:39:24Z",
+  "github_updated_at": "2026-02-15T17:27:47Z",
   "body_snippet": "<!-- Feature Request -->\r\n\r\nWhen using a Terminal Services Server Farm with RemoteApps a **remoteapplicationcmdline:s:** attribute exists to point to a specific RDP file on the terminal server.\r\n\r\nThe request is to add an option the **remoteapplicationname:s:** and also **remoteapplicationcmdline:s:** attributes to be able to use RemoteApps easily.\r\n\r\nThis has been requested on JIRA at [https://mremoteng.atlassian.net/browse/MR-457](url)\r\n\r\nAlso referenced is the mRemote support forum page [http...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -56,12 +56,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7ov6Tf",
+      "author": "robertpopa22",
+      "date": "2026-02-15T17:27:47Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`5ddd5956`](https://github.com/robertpopa22/mRemoteNG/commit/5ddd5956be2cc0a24a683c6db06c0ae06ec7ae3b)\n**Branch:** `main`\n**What changed:** Add Alternative Shell and Shell Working Directory properties\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2023-03-16T20:39:24Z",
+  "comments_cursor": "2026-02-15T17:27:47Z",
   "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T00:02:49Z",
   "notes": "AI triage: RemoteApp support via RDP Alternative Shell properties is a legitimate feature request with an existing PR (#1848) demonstrating feasibility, and it extends mRemoteNG's core RDP protocol handling.\nApproach: Add Alternative Shell and Shell Working Directory properties to the RDP connection info, expose them in the connection config UI, and pass them to the RDP ActiveX control when initiating connections to enable RemoteApp functionality."
 }

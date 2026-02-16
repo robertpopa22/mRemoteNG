@@ -11,12 +11,19 @@
   "created_at": "2017-09-27T08:08:16Z",
   "github_updated_at": "2026-02-07T16:47:53Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nConfiguration:\r\nALPHA- Win8.1x64 Enterprise - working computer\r\nBETA- W2008 Datacenter - intermediate computer with mRemoteNG 1.75.7008.17907 installed\r\nOMEGA- Win7sp1x64 Enterprise - target computer\r\nall three connected to the same networ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Issue has no description, no reproducible steps, and the triage comment requesting details has received no response, making it impossible to determine what the actual problem is."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXGCw",
@@ -33,5 +40,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue has no description, no reproducible steps, and the triage comment requesting details has received no response, making it impossible to determine what the actual problem is.\nApproach: Wait for reporter to provide details about what 'remote printing' means in context (RDP printer redirection settings, specific protocol, error encountered). If no response, close as stale."
 }

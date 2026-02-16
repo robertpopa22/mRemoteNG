@@ -8,7 +8,7 @@
   ],
   "author": "nasarmahmood",
   "created_at": "2017-06-08T08:56:26Z",
-  "github_updated_at": "2018-12-03T16:57:20Z",
+  "github_updated_at": "2026-02-15T22:22:52Z",
   "body_snippet": "<!-- Feature Request -->\r\n\r\nI run a script which shows me the disk usage on all servers in our estate, This allows me to apply action where required, all of this is done through powershell, would be good if i could start mremotng rdp to that server from there also. \r\n\r\nI do already have these servers in mremoteng saved in the config file. \r\n\r\n\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -137,12 +137,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7oxgJF",
+      "author": "robertpopa22",
+      "date": "2026-02-15T22:22:52Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`ce8e9862`](https://github.com/robertpopa22/mRemoteNG/commit/ce8e98625772193631177222a6589e1d3e0bd60b)\n**Branch:** `main`\n**What changed:** Add a /connection or /favs command-line parameter that accep\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2018-12-03T16:57:20Z",
+  "comments_cursor": "2026-02-15T22:22:52Z",
   "unread_comments": 12,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T00:02:19Z",
   "notes": "AI triage: Command-line argument to open specific connections by name is a useful feature request with clear user demand and precedent in competing tools like Terminals\nApproach: Add a /connection or /favs command-line parameter that accepts a connection name, then after startup and connection tree load, locate the matching ConnectionInfo and initiate the connection automatically"
 }

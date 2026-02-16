@@ -126,6 +126,18 @@ CLAUDE_RETRIES = 2    # retry on failure
 CLAUDE_ENV = {k: v for k, v in os.environ.items()
               if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
 
+# ── AGENT CONFIG ──────────────────────────────────────────────────────────
+# Which AI agent to use for each task type: "claude" or "gemini"
+AGENT_CONFIG = {
+    "triage":               "gemini",   # ai_triage() — JSON analysis
+    "implement":            "gemini",   # implement_issue() — full code fix
+    "warning_fix":          "gemini",   # _fix_single_file()
+    "warning_fix_parallel": "gemini",   # _claude_fix_file_only()
+}
+GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
+AGENT_FALLBACK_ENABLED = True           # if primary fails, try the other agent
+_session_agents_used = set()            # tracks which agents contributed (for co-author)
+
 
 # ── LOGGING ─────────────────────────────────────────────────────────────────
 def setup_logging():
@@ -267,7 +279,7 @@ def _run(cmd, timeout=60, cwd=None, capture=True):
 
 
 def _extract_json(text):
-    """Extract a JSON object from Claude's output (may be wrapped in envelope)."""
+    """Extract a JSON object from Claude/Gemini output (may be wrapped in envelope)."""
     if not text:
         return None
 
@@ -278,9 +290,18 @@ def _extract_json(text):
     except (json.JSONDecodeError, TypeError):
         pass
 
-    # Step 2: If it's a Claude --output-format json envelope, unwrap it
+    # Step 2a: If it's a Claude --output-format json envelope, unwrap it
     if isinstance(parsed, dict) and parsed.get("type") == "result" and "result" in parsed:
         inner = parsed["result"]
+        if isinstance(inner, dict):
+            return inner
+        if isinstance(inner, str):
+            return _extract_json(inner)
+        return None
+
+    # Step 2b: If it's a Gemini -o json envelope, unwrap it
+    if isinstance(parsed, dict) and "response" in parsed and "session_id" in parsed:
+        inner = parsed["response"]
         if isinstance(inner, dict):
             return inner
         if isinstance(inner, str):
@@ -401,7 +422,13 @@ def git_commit(message):
         return None
     try:
         _run(["git", "add", "-A"])
-        full_msg = f"{message}\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
+        co_authors = []
+        if "claude" in _session_agents_used:
+            co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
+        if "gemini" in _session_agents_used:
+            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL}) <noreply@google.com>")
+        co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
+        full_msg = f"{message}\n\n{co_author_str}"
         _run(["git", "commit", "-m", full_msg])
         r = _run(["git", "rev-parse", "HEAD"])
         return (r.stdout or "").strip()
@@ -434,7 +461,13 @@ def git_squash_last(n, message):
     if n <= 1:
         return
     try:
-        full_msg = f"{message}\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
+        co_authors = []
+        if "claude" in _session_agents_used:
+            co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
+        if "gemini" in _session_agents_used:
+            co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL}) <noreply@google.com>")
+        co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
+        full_msg = f"{message}\n\n{co_author_str}"
         _run(["git", "reset", "--soft", f"HEAD~{n}"])
         _run(["git", "commit", "-m", full_msg])
         r = _run(["git", "rev-parse", "HEAD"])
@@ -494,6 +527,82 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                 continue
             return None
     return None
+
+
+# ── CORE: GEMINI SUB-AGENT ────────────────────────────────────────────────
+def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
+               retries=CLAUDE_RETRIES):
+    """Call gemini -p (headless) with retry.  Returns stdout string.
+    Uses -y for auto-approve, -m for model selection."""
+    cmd = ["gemini", "-p", prompt, "-y", "-m", GEMINI_MODEL]
+    if json_output:
+        cmd += ["-o", "json"]
+
+    for attempt in range(1, retries + 1):
+        try:
+            r = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                cwd=str(REPO_ROOT),
+                encoding="utf-8",
+                errors="replace",
+            )
+            kill_stale_processes()
+            if r.returncode != 0:
+                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
+                log.error("    [GEMINI] attempt %d/%d exit %d: %s",
+                          attempt, retries, r.returncode, err_detail)
+                if attempt < retries:
+                    log.info("    [GEMINI] Retrying in 5s ...")
+                    time.sleep(5)
+                    continue
+                return None
+            return r.stdout or ""
+        except subprocess.TimeoutExpired:
+            log.error("    [GEMINI] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
+            kill_stale_processes()
+            if attempt < retries:
+                log.info("    [GEMINI] Retrying in 5s ...")
+                time.sleep(5)
+                continue
+            return None
+        except Exception as e:
+            log.error("    [GEMINI] attempt %d/%d ERROR: %s", attempt, retries, e)
+            kill_stale_processes()
+            if attempt < retries:
+                time.sleep(5)
+                continue
+            return None
+    return None
+
+
+# ── CORE: AGENT DISPATCHER ────────────────────────────────────────────────
+def agent_run(task_type, prompt, max_turns=15, json_output=False,
+              timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
+    """Dispatch to the configured agent for this task type.
+    Falls back to the other agent if AGENT_FALLBACK_ENABLED and primary fails."""
+    agent = AGENT_CONFIG.get(task_type, "claude")
+    _session_agents_used.add(agent)
+
+    if agent == "gemini":
+        primary_fn, fallback_fn, fallback_name = gemini_run, claude_run, "claude"
+    else:
+        primary_fn, fallback_fn, fallback_name = claude_run, gemini_run, "gemini"
+
+    log.info("    [AGENT] Using %s for %s", agent, task_type)
+    result = primary_fn(prompt, max_turns=max_turns, json_output=json_output,
+                        timeout=timeout, retries=retries)
+
+    if result is None and AGENT_FALLBACK_ENABLED:
+        log.warning("    [AGENT] %s failed for %s — falling back to %s",
+                     agent, task_type, fallback_name)
+        _session_agents_used.add(fallback_name)
+        result = fallback_fn(prompt, max_turns=max_turns, json_output=json_output,
+                             timeout=timeout, retries=retries)
+
+    return result
 
 
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
@@ -599,7 +708,11 @@ def find_dependents(fpath, all_warnings):
 
 # ── FLUX 1: OPEN ISSUES ────────────────────────────────────────────────────
 def load_actionable_issues():
-    """Load issues from JSON DB that need triage or implementation."""
+    """Load issues from JSON DB that need triage or implementation.
+
+    Skips issues already triaged by AI (have 'AI triage:' in notes)
+    to avoid re-processing on orchestrator restart.
+    """
     issues = []
     if not ISSUES_DB_DIR.exists():
         log.warning("Issues DB not found: %s", ISSUES_DB_DIR)
@@ -609,8 +722,14 @@ def load_actionable_issues():
             continue
         try:
             data = json.loads(f.read_text(encoding="utf-8-sig"))
-            if data.get("our_status", "new") in ("new", "triaged", "roadmap"):
-                issues.append(data)
+            status = data.get("our_status", "new")
+            if status not in ("new", "triaged", "roadmap"):
+                continue
+            # Skip issues already processed by AI orchestrator
+            notes = data.get("notes") or ""
+            if status == "triaged" and "AI triage:" in notes:
+                continue
+            issues.append(data)
         except Exception:
             pass
 
@@ -659,7 +778,7 @@ Valid priorities: "P0-critical", "P1-security", "P2-bug", "P3-enhancement", "P4-
 
 Be conservative: if the issue is unclear, use "needs_info"."""
 
-    out = claude_run(prompt, max_turns=3, json_output=False, timeout=120)
+    out = agent_run("triage", prompt, max_turns=3, json_output=False, timeout=120)
     if not out:
         return None
     return _extract_json(out)
@@ -674,7 +793,7 @@ def implement_issue(issue, triage, status):
     files = triage.get("estimated_files", [])
 
     status.set_task(type="issue_fix", issue=num, step="claude_fixing")
-    log.info("  [FIX] Claude working on #%d ...", num)
+    log.info("  [FIX] %s working on #%d ...", AGENT_CONFIG.get("implement", "claude").capitalize(), num)
 
     prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\\github\\mRemoteNG
@@ -697,9 +816,10 @@ RULES (CRITICAL):
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
 - Do ONLY the fix.  Nothing else."""
 
-    out = claude_run(prompt, max_turns=25, timeout=CLAUDE_TIMEOUT)
+    out = agent_run("implement", prompt, max_turns=25, timeout=CLAUDE_TIMEOUT)
     if out is None:
-        status.add_error(f"issue_{num}", "claude", "returned None after retries")
+        status.add_error(f"issue_{num}", AGENT_CONFIG.get("implement", "claude"),
+                         "returned None after retries")
         git_restore()
         return False
 
@@ -864,9 +984,10 @@ CRITICAL RULES:
 - Read the file FIRST, understand context, then fix
 - Do NOT create new files or tests{cascade_hint}"""
 
-    out = claude_run(prompt, max_turns=15, timeout=300)
+    out = agent_run("warning_fix", prompt, max_turns=15, timeout=300)
     if out is None:
-        status.add_error(rel, "claude", "returned None after retries")
+        status.add_error(rel, AGENT_CONFIG.get("warning_fix", "claude"),
+                         "returned None after retries")
         git_restore()
         return False, 0
 
@@ -965,7 +1086,7 @@ CRITICAL RULES:
 - Do NOT create new files or tests
 - Do NOT run build or tests — only edit the file{cascade_hint}"""
 
-    out = claude_run(prompt, max_turns=15, timeout=300)
+    out = agent_run("warning_fix_parallel", prompt, max_turns=15, timeout=300)
     return (fpath, out is not None, out)
 
 
@@ -2310,6 +2431,12 @@ def main():
                         help="Max multi-pass iterations (default: 10)")
     parser.add_argument("--parallel", type=int, default=0,
                         help="Fix N files in parallel per batch (0=serial)")
+    # ── Agent args ──
+    parser.add_argument("--agent", default=None,
+                        choices=["claude", "gemini"],
+                        help="Override agent for ALL tasks (ignores AGENT_CONFIG)")
+    parser.add_argument("--gemini-model", default=None,
+                        help="Override Gemini model (default: gemini-3-pro-preview)")
     # ── IIS sync args ──
     parser.add_argument("--repos", default="both",
                         choices=["both", "upstream", "fork"],
@@ -2398,10 +2525,29 @@ def main():
         return
 
     # ── Orchestrator modes (all, issues, warnings) ──
+    # Apply agent CLI overrides
+    global GEMINI_MODEL
+    if args.agent:
+        for key in AGENT_CONFIG:
+            AGENT_CONFIG[key] = args.agent
+        log.info("Agent override: ALL tasks using %s", args.agent)
+    if args.gemini_model:
+        GEMINI_MODEL = args.gemini_model
+        log.info("Gemini model override: %s", GEMINI_MODEL)
+
     # Preflight checks
-    if not shutil.which("claude"):
+    agents_needed = set(AGENT_CONFIG.values())
+    if "claude" in agents_needed and not shutil.which("claude"):
         print("ERROR: 'claude' CLI not found in PATH.  Install Claude Code first.")
         sys.exit(1)
+    if "gemini" in agents_needed and not shutil.which("gemini"):
+        print("ERROR: 'gemini' CLI not found in PATH.  Install Gemini CLI first.")
+        sys.exit(1)
+    if AGENT_FALLBACK_ENABLED:
+        if not shutil.which("claude"):
+            log.warning("Claude CLI not found — fallback to Claude disabled")
+        if not shutil.which("gemini"):
+            log.warning("Gemini CLI not found — fallback to Gemini disabled")
     if not shutil.which("gh"):
         print("ERROR: 'gh' CLI not found in PATH.  Install GitHub CLI first.")
         sys.exit(1)

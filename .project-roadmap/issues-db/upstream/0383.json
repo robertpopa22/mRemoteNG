@@ -8,7 +8,7 @@
   ],
   "author": "lineardraft",
   "created_at": "2017-01-31T13:50:46Z",
-  "github_updated_at": "2022-07-27T17:19:38Z",
+  "github_updated_at": "2026-02-15T19:11:11Z",
   "body_snippet": "Hi,\r\nIs it possible to request a  \"Remote Audio Capture\" under \"Redirect\" options in the \"Config\" section, as already existing in Windows default \"Remote Desktop Connection\" client (see pic below). Thank you.\r\n\r\n![image](https://cloud.githubusercontent.com/assets/25457572/22467208/fe95bb4e-e7c3-11e6-8738-43adc68f4ed1.png)\r\n\r\nBest regards\r\nVladimir",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -137,12 +137,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7owfib",
+      "author": "robertpopa22",
+      "date": "2026-02-15T19:11:11Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`b1fbb157`](https://github.com/robertpopa22/mRemoteNG/commit/b1fbb1573cce0df5e521b8fc34a080bf1f1248df)\n**Branch:** `main`\n**What changed:** Verify and fix the RDP audio capture setting so that when en\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2022-07-27T17:19:38Z",
+  "comments_cursor": "2026-02-15T19:11:11Z",
   "unread_comments": 12,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T00:02:49Z",
   "notes": "AI triage: Feature request to add RDP Remote Audio Capture option, which was partially implemented in PR #1414 but users report it is available in UI yet not functioning correctly\nApproach: Verify and fix the RDP audio capture setting so that when enabled it correctly configures the RDP ActiveX control's AudioCaptureRedirectionMode property to redirect microphone input from the remote session"
 }

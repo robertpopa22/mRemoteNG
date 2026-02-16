@@ -12,7 +12,7 @@
   ],
   "author": "jcefoli",
   "created_at": "2017-01-06T21:41:03Z",
-  "github_updated_at": "2019-03-10T01:21:50Z",
+  "github_updated_at": "2026-02-15T18:44:01Z",
   "body_snippet": "<!-- Bug -->\r\nWhen you right click on a connection tab to bring up the context menu, clicking within the RDP frame does not dismiss the menu. Since all input is passed through to the RDP session, mRemoteNG's GUI doesn't understand I've clicked elsewhere and the menu  is not dismissed. I tend to do this a lot, and the menu gets in my way which forces me to stop what I'm doing in my remote session and click somewhere in the mRemoteNG GUI to dismiss it. \r\n\r\nThis is minor, so if it's an easy fix, go...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -105,12 +105,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7owUkG",
+      "author": "robertpopa22",
+      "date": "2026-02-15T18:44:01Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`9a9669cf`](https://github.com/robertpopa22/mRemoteNG/commit/9a9669cf1e461111b4223884ae7ddd813c1ad54d)\n**Branch:** `main`\n**What changed:** In the WM_MOUSEACTIVATE handler in ConnectionWindow.WndProc,\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2019-03-10T01:21:50Z",
+  "comments_cursor": "2026-02-15T18:44:01Z",
   "unread_comments": 8,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T00:02:49Z",
   "notes": "AI triage: Confirmed UI bug where the tab context menu stays visible after clicking inside an RDP session frame, with root cause already identified in ConnectionWindow.cs WndProc handling of WM_MOUSEACTIVATE.\nApproach: In the WM_MOUSEACTIVATE handler in ConnectionWindow.WndProc, dismiss any open context menu (via ContextMenuStrip.Close() or similar) before processing the mouse activation message, so clicking into the RDP frame closes the stale context menu."
 }

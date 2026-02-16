@@ -424,6 +424,21 @@ CREATE TABLE [dbo].[tblRoot] (
 CREATE TABLE [dbo].[tblUpdate] (
         [LastUpdate] [datetime] NULL
 ) ON [PRIMARY]
+
+CREATE TABLE [dbo].[tblExternalTools] (
+        [ID] int NOT NULL IDENTITY(1,1),
+        [DisplayName] [varchar] (256) NOT NULL,
+        [FileName] [varchar] (1024) NOT NULL,
+        [Arguments] [varchar] (2048) NOT NULL DEFAULT '',
+        [WorkingDir] [varchar] (1024) NOT NULL DEFAULT '',
+        [WaitForExit] [bit] NOT NULL DEFAULT 0,
+        [TryIntegrate] [bit] NOT NULL DEFAULT 0,
+        [RunElevated] [bit] NOT NULL DEFAULT 0,
+        [ShowOnToolbar] [bit] NOT NULL DEFAULT 1,
+        [Category] [varchar] (256) NOT NULL DEFAULT '',
+        [RunOnStartup] [bit] NOT NULL DEFAULT 0,
+        [StopOnShutdown] [bit] NOT NULL DEFAULT 0
+) ON [PRIMARY]
 ";
             }
             else if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
@@ -645,6 +660,30 @@ DROP TABLE IF EXISTS `tblUpdate`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tblUpdate` (
     `LastUpdate` datetime(3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `tblExternalTools`
+--
+
+DROP TABLE IF EXISTS `tblExternalTools`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tblExternalTools` (
+    `ID` int NOT NULL AUTO_INCREMENT,
+    `DisplayName` varchar(256) NOT NULL,
+    `FileName` varchar(1024) NOT NULL,
+    `Arguments` varchar(2048) NOT NULL DEFAULT '',
+    `WorkingDir` varchar(1024) NOT NULL DEFAULT '',
+    `WaitForExit` tinyint NOT NULL DEFAULT 0,
+    `TryIntegrate` tinyint NOT NULL DEFAULT 0,
+    `RunElevated` tinyint NOT NULL DEFAULT 0,
+    `ShowOnToolbar` tinyint NOT NULL DEFAULT 1,
+    `Category` varchar(256) NOT NULL DEFAULT '',
+    `RunOnStartup` tinyint NOT NULL DEFAULT 0,
+    `StopOnShutdown` tinyint NOT NULL DEFAULT 0,
+    PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

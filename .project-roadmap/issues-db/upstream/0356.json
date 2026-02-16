@@ -8,7 +8,7 @@
   ],
   "author": "damageboy",
   "created_at": "2017-01-23T14:04:50Z",
-  "github_updated_at": "2025-09-16T20:13:31Z",
+  "github_updated_at": "2026-02-15T18:57:16Z",
   "body_snippet": "VMWare provides a client called vmrc that enables to view remote VM *console* widows.\r\nSupport in mRemoteNG would be great!",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -119,12 +119,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7owZx9",
+      "author": "robertpopa22",
+      "date": "2026-02-15T18:57:16Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`c5b7c0cf`](https://github.com/robertpopa22/mRemoteNG/commit/c5b7c0cf830bcc6b313e6dda17c5d9849c5536bc)\n**Branch:** `main`\n**What changed:** Add VMRC as a new external protocol type using vmrc.exe CLI \n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2025-09-16T20:13:31Z",
+  "comments_cursor": "2026-02-15T18:57:16Z",
   "unread_comments": 10,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T00:02:49Z",
   "notes": "AI triage: VMRC protocol support is a clear feature request with a known command-line integration method already researched by contributors\nApproach: Add VMRC as a new external protocol type using vmrc.exe CLI with -H, -U, -P, -M parameters, similar to how PuTTY or other external tools are integrated as protocol handlers"
 }

@@ -1,11 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Xml;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
+using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Messages;
 using mRemoteNG.Tools;
 
 namespace mRemoteNG.Config.Settings
@@ -14,6 +17,18 @@ namespace mRemoteNG.Config.Settings
     public class ExternalAppsSaver
     {
         public void Save(IEnumerable<ExternalTool> externalTools)
+        {
+            if (Properties.OptionsDBsPage.Default.UseSQLServer)
+            {
+                SaveToSql(externalTools);
+            }
+            else
+            {
+                SaveToXml(externalTools);
+            }
+        }
+
+        private void SaveToXml(IEnumerable<ExternalTool> externalTools)
         {
             try
             {
@@ -57,6 +72,71 @@ namespace mRemoteNG.Config.Settings
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("SaveExternalAppsToXML failed", ex);
             }
+        }
+
+        private void SaveToSql(IEnumerable<ExternalTool> externalTools)
+        {
+            try
+            {
+                if (Properties.OptionsDBsPage.Default.SQLReadOnly)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        "Skipping external tools save: SQL is read-only.");
+                    return;
+                }
+
+                using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnectorFromSettings();
+                dbConnector.Connect();
+
+                using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
+                try
+                {
+                    DbCommand cmd = dbConnector.DbCommand("DELETE FROM tblExternalTools");
+                    cmd.Transaction = transaction;
+                    cmd.ExecuteNonQuery();
+
+                    foreach (ExternalTool extA in externalTools)
+                    {
+                        cmd = dbConnector.DbCommand(
+                            "INSERT INTO tblExternalTools (DisplayName, FileName, Arguments, WorkingDir, WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown) " +
+                            "VALUES (@DisplayName, @FileName, @Arguments, @WorkingDir, @WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown)");
+                        cmd.Transaction = transaction;
+
+                        AddParameter(cmd, "@DisplayName", extA.DisplayName);
+                        AddParameter(cmd, "@FileName", extA.FileName);
+                        AddParameter(cmd, "@Arguments", extA.Arguments);
+                        AddParameter(cmd, "@WorkingDir", extA.WorkingDir);
+                        AddParameter(cmd, "@WaitForExit", extA.WaitForExit);
+                        AddParameter(cmd, "@TryIntegrate", extA.TryIntegrate);
+                        AddParameter(cmd, "@RunElevated", extA.RunElevated);
+                        AddParameter(cmd, "@ShowOnToolbar", extA.ShowOnToolbar);
+                        AddParameter(cmd, "@Category", extA.Category);
+                        AddParameter(cmd, "@RunOnStartup", extA.RunOnStartup);
+                        AddParameter(cmd, "@StopOnShutdown", extA.StopOnShutdown);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("SaveExternalAppsToSQL failed", ex);
+            }
+        }
+
+        private static void AddParameter(DbCommand cmd, string name, object value)
+        {
+            DbParameter param = cmd.CreateParameter();
+            param.ParameterName = name;
+            param.Value = value;
+            cmd.Parameters.Add(param);
         }
     }
 }
