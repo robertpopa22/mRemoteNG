@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "794",
+  "started_at": "2026-02-16T10:19:33",
+  "finished_at": "2026-02-16T10:20:34",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The behavior is verified, user-visible tab-order breakage, and reports confirm it still occurs on current DockPanelSuite tags, so reconnect logic should be fixed in mRemoteNG.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNGTests/UI/Window/ConnectionWindowReconnectTests.cs"
+        ],
+        "approach": "Update reconnect to reuse the existing tab in place instead of closing and recreating it at the end, then add a regression test asserting tab index is preserved."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"The behavior is verified, user-visible tab-order breakage, and reports confirm it still occurs on current DockPanelSuite tags, so reconnect logic should be fixed in mRemoteNG.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNGTests/UI/Window/ConnectionWindowReconnectTests.cs\"],\"approach\":\"Update reconnect to reuse the existing tab in place instead of closing and recreating it at the end, then add a regression test asserting tab index is preserved.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T10:20:34"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

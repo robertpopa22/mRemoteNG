@@ -953,7 +953,7 @@ namespace mRemoteNG.UI.Window
 
                 InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl != null)
-                    HandleProtocolClosed(interfaceControl.Protocol, keepTabOpen: false);
+                    HandleProtocolClosed(interfaceControl.Protocol, keepTabOpen: true);
 
                 Runtime.ConnectionInitiator.OpenConnection(connectionInfo, ConnectionInfo.Force.DoNotJump, this);
             }
