@@ -10,7 +10,7 @@
   "created_at": "2018-04-18T13:08:25Z",
   "github_updated_at": "2018-04-18T17:00:29Z",
   "body_snippet": "<!--- Currently no option to increase the connection attempt limit beyond 20-->\r\n\r\n## Expected Behavior\r\nHave the option to increase connection attempts beyond 20 to keep RDP sessions online when losing network connection for a few minutes.\r\n\r\n## Current Behavior\r\nIf you lose network access for a while, for example when putting the laptop into standby, resume it at home and login with VPN 20 connection attempts are usually not sufficient - so you lose connection to all RDP sessions and have to r...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The request is a clear, low-risk enhancement with defined behavior and an obvious implementation point where the reconnection count cap is currently hard-limited to 20."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 3a9eb6a0"
     }
   ],
   "comments": [],

@@ -64,5 +64,15 @@ namespace mRemoteNGTests.UI.Window
             Assert.That(connectionTreeWindow.IsHandleCreated, Is.True);
             connectionTreeWindow.Close();
         });
+
+        [Test]
+        public void ConnectionTreeEnablesMultiSelection() => RunWithMessagePump(() =>
+        {
+            var connectionTreeWindow = new ConnectionTreeWindow(new DockContent());
+            connectionTreeWindow.Show();
+            Application.DoEvents();
+            Assert.That(connectionTreeWindow.ConnectionTree.MultiSelect, Is.True);
+            connectionTreeWindow.Close();
+        });
     }
 }

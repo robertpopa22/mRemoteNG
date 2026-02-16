@@ -362,17 +362,20 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public void DuplicateSelectedNode()
         {
-            foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+            ExecuteInBatchedSaveContext(() =>
             {
-                TreeNodeType selectedNodeType = selectedNode.GetTreeNodeType();
-                if (selectedNodeType != TreeNodeType.Connection && selectedNodeType != TreeNodeType.Container)
-                    continue;
+                foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+                {
+                    TreeNodeType selectedNodeType = selectedNode.GetTreeNodeType();
+                    if (selectedNodeType != TreeNodeType.Connection && selectedNodeType != TreeNodeType.Container)
+                        continue;
 
-                ConnectionInfo newNode = selectedNode.Clone();
-                if (selectedNode.Parent == null) continue;
-                selectedNode.Parent.AddChildBelow(newNode, selectedNode);
-                newNode.Parent?.SetChildBelow(newNode, selectedNode);
-            }
+                    ConnectionInfo newNode = selectedNode.Clone();
+                    if (selectedNode.Parent == null) continue;
+                    selectedNode.Parent.AddChildBelow(newNode, selectedNode);
+                    newNode.Parent?.SetChildBelow(newNode, selectedNode);
+                }
+            });
         }
 
         public void RenameSelectedNode()
@@ -384,13 +387,16 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public void DeleteSelectedNode()
         {
-            foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+            ExecuteInBatchedSaveContext(() =>
             {
-                if (selectedNode is RootNodeInfo || selectedNode is PuttySessionInfo) continue;
-                if (selectedNode.Parent == null) continue;
-                if (!NodeDeletionConfirmer.Confirm(selectedNode)) return;
-                ConnectionTreeModel.DeleteNode(selectedNode);
-            }
+                foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+                {
+                    if (selectedNode is RootNodeInfo || selectedNode is PuttySessionInfo) continue;
+                    if (selectedNode.Parent == null) continue;
+                    if (!NodeDeletionConfirmer.Confirm(selectedNode)) return;
+                    ConnectionTreeModel.DeleteNode(selectedNode);
+                }
+            });
         }
 
         /// <summary>
@@ -440,42 +446,47 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 return;
             }
 
-            Runtime.ConnectionsService.BeginBatchingSaves();
-
-            foreach (ContainerInfo sortTarget in sortTargets)
+            ExecuteInBatchedSaveContext(() =>
             {
-                sortTarget.SortRecursive(sortDirection);
-            }
-
-            Runtime.ConnectionsService.EndBatchingSaves();
+                foreach (ContainerInfo sortTarget in sortTargets)
+                {
+                    sortTarget.SortRecursive(sortDirection);
+                }
+            });
         }
 
         public void MoveSelectedNodesUp()
         {
-            foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
-                     GetSelectedNodes()
-                         .Where(selectedNode => selectedNode.Parent != null)
-                         .GroupBy(selectedNode => selectedNode.Parent!))
+            ExecuteInBatchedSaveContext(() =>
             {
-                foreach (ConnectionInfo selectedNode in parentGroup.OrderBy(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
+                         GetSelectedNodes()
+                             .Where(selectedNode => selectedNode.Parent != null)
+                             .GroupBy(selectedNode => selectedNode.Parent!))
                 {
-                    parentGroup.Key.PromoteChild(selectedNode);
+                    foreach (ConnectionInfo selectedNode in parentGroup.OrderBy(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                    {
+                        parentGroup.Key.PromoteChild(selectedNode);
+                    }
                 }
-            }
+            });
         }
 
         public void MoveSelectedNodesDown()
         {
-            foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
-                     GetSelectedNodes()
-                         .Where(selectedNode => selectedNode.Parent != null)
-                         .GroupBy(selectedNode => selectedNode.Parent!))
+            ExecuteInBatchedSaveContext(() =>
             {
-                foreach (ConnectionInfo selectedNode in parentGroup.OrderByDescending(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
+                         GetSelectedNodes()
+                             .Where(selectedNode => selectedNode.Parent != null)
+                             .GroupBy(selectedNode => selectedNode.Parent!))
                 {
-                    parentGroup.Key.DemoteChild(selectedNode);
+                    foreach (ConnectionInfo selectedNode in parentGroup.OrderByDescending(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                    {
+                        parentGroup.Key.DemoteChild(selectedNode);
+                    }
                 }
-            }
+            });
         }
 
         /// <summary>
