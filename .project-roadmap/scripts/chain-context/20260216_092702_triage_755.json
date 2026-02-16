@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "755",
+  "started_at": "2026-02-16T09:25:27",
+  "finished_at": "2026-02-16T09:27:02",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The issue has a concrete repro and matches known focus/refocus edge cases in main-window message interception, so it is actionable as a bug fix.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmMain.cs"
+        ],
+        "approach": "Tighten WndProc refocus gating so ActivateConnection runs only on true app reactivation and not during taskbar-driven window switches/minimize flows."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"The issue has a concrete repro and matches known focus/refocus edge cases in main-window message interception, so it is actionable as a bug fix.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmMain.cs\"],\"approach\":\"Tighten WndProc refocus gating so ActivateConnection runs only on true app reactivation and not during taskbar-driven window switches/minimize flows.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T09:27:02"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

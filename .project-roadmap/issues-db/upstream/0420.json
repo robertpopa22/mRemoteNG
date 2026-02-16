@@ -13,7 +13,7 @@
   ],
   "author": "lars18th",
   "created_at": "2017-03-01T08:34:22Z",
-  "github_updated_at": "2026-02-15T19:55:56Z",
+  "github_updated_at": "2026-02-16T07:16:15Z",
   "body_snippet": "Hi,\r\n\r\nI'm using mRemote/mRemoteNG for several years. However, for RDP connections I continue using the 2X/Parallels Client. Why? Because it has a \"must have\" option for RDP connections: support for PROXY.\r\n\r\nLet me to explain:\r\n\r\n- In the configuration of the RDP connection, you have a new tab with these values:\r\n\r\n```\r\n[ ] Use proxy server\r\n  ( ) SOCKS4\r\n  ( ) SOCKS4A\r\n  ( ) SOCKS5\r\n  ( ) HTTP 1.1\r\n  Proxy Host:\r\n  Port:\r\n\r\nProxy Authentication ...\r\n```\r\n\r\nThis is relevant when you use one SSH...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -826,12 +826,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o3XqD",
+      "author": "lars18th",
+      "date": "2026-02-16T07:16:15Z",
+      "snippet": "Hi,\n\nThank you for this fix.\n\n> **Fix available for testing**\n> \n> **Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nHowever, without a BUILD (binary) we can't test it. Please, release testing binaries.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-15T19:55:56Z",
-  "unread_comments": 84,
+  "comments_cursor": "2026-02-16T07:16:15Z",
+  "unread_comments": 85,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T00:02:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-16T07:24:58Z",
   "notes": "AI triage: Legitimate feature request for RDP proxy support - a common enterprise need that mRemoteNG currently lacks, and the reporter correctly pointed out this cannot be 'retested' since the feature does not exist yet\nApproach: Add proxy configuration fields (proxy type, host, port, credentials) to ConnectionInfo and expose them in the RDP connection settings UI, then pass proxy settings to the RDP ActiveX control via IMsRdpClientAdvancedSettings properties (ProxyType, ProxyHost, ProxyPort) when establishing connections"
 }

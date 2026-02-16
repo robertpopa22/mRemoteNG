@@ -7,6 +7,7 @@ using mRemoteNG.Tools;
 using mRemoteNG.Tools.Cmdline;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
+using mRemoteNG.UI.Forms;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -403,6 +404,21 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
+                if (PuttyHandle == IntPtr.Zero)
+                    return;
+
+                IntPtr foregroundWindow = NativeMethods.GetForegroundWindow();
+                IntPtr connectionWindowHandle = InterfaceControl.FindForm()?.Handle ?? IntPtr.Zero;
+                IntPtr mainWindowHandle = FrmMain.IsCreated ? FrmMain.Default.Handle : IntPtr.Zero;
+
+                // Avoid stealing focus from unrelated windows during taskbar/app switching.
+                if (foregroundWindow != PuttyHandle &&
+                    foregroundWindow != connectionWindowHandle &&
+                    foregroundWindow != mainWindowHandle)
+                {
+                    return;
+                }
+
                 NativeMethods.SetForegroundWindow(PuttyHandle);
             }
             catch (Exception ex)

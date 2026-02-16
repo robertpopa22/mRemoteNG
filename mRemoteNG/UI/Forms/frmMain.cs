@@ -76,6 +76,7 @@ namespace mRemoteNG.UI.Forms
         private static ClipboardchangeEventHandler? _clipboardChangedEvent;
         private bool _inSizeMove;
         private bool _inMouseActivate;
+        private bool _isApplicationActivated = true;
         private IntPtr _fpChainedWindowHandle;
         private bool _usingSqlServer;
         private string? _connectionsFileName;
@@ -745,17 +746,21 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_ACTIVATEAPP:
                         bool appActivated = m.WParam != IntPtr.Zero;
-                        Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
-                                               ?? GetChildAtPoint(MousePosition);
-                        if (candidateTabToFocus is InterfaceControl)
+                        _isApplicationActivated = appActivated;
+                        if (appActivated)
                         {
-                            candidateTabToFocus.Parent?.Focus();
-                        }
+                            Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
+                                                   ?? GetChildAtPoint(MousePosition);
+                            if (candidateTabToFocus is InterfaceControl)
+                            {
+                                candidateTabToFocus.Parent?.Focus();
+                            }
 
-                        // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
-                        if (appActivated && !Properties.OptionsStartupExitPage.Default.DisableRefocus)
-                        {
-                            QueueActivateConnection();
+                            // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
+                            if (!Properties.OptionsStartupExitPage.Default.DisableRefocus)
+                            {
+                                QueueActivateConnection();
+                            }
                         }
 
                         _inMouseActivate = false;
@@ -797,6 +802,9 @@ namespace mRemoteNG.UI.Forms
                         }
                         break;
                     case NativeMethods.WM_WINDOWPOSCHANGED:
+                        if (!_isApplicationActivated)
+                            break;
+
                         // Ignore this message if the window wasn't activated
                         if (Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.WINDOWPOS))
                             is not NativeMethods.WINDOWPOS windowPos)
