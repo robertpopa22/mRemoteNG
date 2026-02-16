@@ -229,7 +229,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
         {
             string sql;
             
-            if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+            if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector)
+                || databaseConnector.GetType() == typeof(OdbcDatabaseConnector))
             {
                 // *********************************
                 // ********* MICROSOFT SQL *********

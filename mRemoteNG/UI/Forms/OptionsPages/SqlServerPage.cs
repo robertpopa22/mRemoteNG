@@ -20,11 +20,19 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         #region Private Fields
         private OptRegistrySqlServerPage pageRegSettingsInstance;
         private readonly DatabaseConnectionTester _databaseConnectionTester;
+
+        private static readonly (string TypeKey, string DisplayName)[] SqlTypeOptions =
+        {
+            (DatabaseConnectorFactory.MsSqlType, "MSSQL - developed by Microsoft"),
+            (DatabaseConnectorFactory.MySqlType, "MySQL - developed by Oracle"),
+            (DatabaseConnectorFactory.OdbcType, "ODBC - Open Database Connectivity")
+        };
         #endregion
 
         public SqlServerPage()
         {
             InitializeComponent();
+            InitializeSqlTypeSelector();
             ApplyTheme();
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.SQLDatabase_16x);
             _databaseConnectionTester = new DatabaseConnectionTester();
@@ -57,7 +65,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public override void LoadSettings()
         {
             chkUseSQLServer.Checked = Properties.OptionsDBsPage.Default.UseSQLServer;
-            txtSQLType.Text = Properties.OptionsDBsPage.Default.SQLServerType;
+            txtSQLType.Text = GetSqlTypeDisplayName(Properties.OptionsDBsPage.Default.SQLServerType);
             txtSQLServer.Text = Properties.OptionsDBsPage.Default.SQLHost;
             txtSQLDatabaseName.Text = Properties.OptionsDBsPage.Default.SQLDatabaseName;
             txtSQLUsername.Text = Properties.OptionsDBsPage.Default.SQLUser;
@@ -73,7 +81,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             bool sqlServerWasPreviouslyEnabled = Properties.OptionsDBsPage.Default.UseSQLServer;
 
             Properties.OptionsDBsPage.Default.UseSQLServer = chkUseSQLServer.Checked;
-            Properties.OptionsDBsPage.Default.SQLServerType = txtSQLType.Text;
+            Properties.OptionsDBsPage.Default.SQLServerType = DatabaseConnectorFactory.NormalizeType(txtSQLType.Text);
             Properties.OptionsDBsPage.Default.SQLHost = txtSQLServer.Text;
             Properties.OptionsDBsPage.Default.SQLDatabaseName = txtSQLDatabaseName.Text;
             Properties.OptionsDBsPage.Default.SQLUser = txtSQLUsername.Text;
@@ -153,6 +161,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Runtime.LoadConnections(true);
         }
 
+        private void InitializeSqlTypeSelector()
+        {
+            txtSQLType.Items.Clear();
+            txtSQLType.Items.AddRange(SqlTypeOptions.Select(option => option.DisplayName).Cast<object>().ToArray());
+        }
+
+        private static string GetSqlTypeDisplayName(string sqlType)
+        {
+            string normalizedType = DatabaseConnectorFactory.NormalizeType(sqlType);
+            foreach ((string typeKey, string displayName) in SqlTypeOptions)
+            {
+                if (string.Equals(typeKey, normalizedType, StringComparison.OrdinalIgnoreCase))
+                    return displayName;
+            }
+
+            return SqlTypeOptions[0].DisplayName;
+        }
+
         private void chkUseSQLServer_CheckedChanged(object sender, EventArgs e)
         {
             toggleSQLPageControls(chkUseSQLServer.Checked);
@@ -187,7 +213,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         private async void btnTestConnection_Click(object sender, EventArgs e)
         {
-            string type = txtSQLType.Text;
+            string type = DatabaseConnectorFactory.NormalizeType(txtSQLType.Text);
             string server = txtSQLServer.Text;
             string database = txtSQLDatabaseName.Text;
             string username = txtSQLUsername.Text;
@@ -197,8 +223,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             imgConnectionStatus.Image = Properties.Resources.Loading_Spinner;
             btnTestConnection.Enabled = false;
 
-            // Replace the hardcoded connection string with the actual parameters
-            string connectionString = $"Data Source={server};Initial Catalog={database};User ID={username};Password={password}";
             ConnectionTestResult connectionTestResult = await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
 
             btnTestConnection.Enabled = true;

@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
+using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Security.SymmetricEncryption;
 using mRemoteNG.Tools.WindowsRegistry;
 
@@ -69,8 +70,9 @@ namespace mRemoteNG.Config.Settings.Registry
         {
             SQLServerType.SetValidation(
                 new string[] {
-                    "mssql",
-                    "mysql"
+                    DatabaseConnectorFactory.MsSqlType,
+                    DatabaseConnectorFactory.MySqlType,
+                    DatabaseConnectorFactory.OdbcType
                 });
         }
 
@@ -100,9 +102,8 @@ namespace mRemoteNG.Config.Settings.Registry
 
         private void ApplySQLServerType()
         {
-            if (SQLServerType.IsValid)
-                Properties.OptionsDBsPage.Default.SQLServerType = SQLServerType.Value;
-            
+            if (SQLServerType.IsSet)
+                Properties.OptionsDBsPage.Default.SQLServerType = DatabaseConnectorFactory.NormalizeType(SQLServerType.Value);
         }
 
         private void ApplySQLHost()

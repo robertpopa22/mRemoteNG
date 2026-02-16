@@ -1,149 +1,96 @@
-﻿using System;
-using Microsoft.Data.SqlClient;
-using System.Runtime.Versioning;
+using System;
+using System.Data.Odbc;
 using System.Threading.Tasks;
-using System.Runtime.InteropServices;
-using LiteDB;
-using mRemoteNG.Resources.Language;
+using Microsoft.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace mRemoteNG.Config.DatabaseConnectors
 {
-    //[SupportedOSPlatform("windows")]
     /// <summary>
-    /// A helper class for testing database connectivity
+    /// A helper class for testing database connectivity.
     /// </summary>
-    ///
-    using System;
-    using System.Data.SqlClient;
-
     public class DatabaseConnectionTester
     {
         public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password)
         {
             try
             {
-                // Build the connection string based on the provided parameters
-                string connectionString = $"Data Source={server};Initial Catalog={database};User ID={username};Password={password}";
-
-                // Attempt to open a connection to the database
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    await connection.OpenAsync();
-                }
-
+                using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password);
+                await dbConnector.ConnectAsync();
                 return ConnectionTestResult.ConnectionSucceded;
             }
             catch (SqlException ex)
             {
-                // Handle specific SQL exceptions
-                switch (ex.Number)
-                {
-                    case 4060: // Invalid Database
-                        return ConnectionTestResult.UnknownDatabase;
-                    case 18456: // Login Failed
-                        return ConnectionTestResult.CredentialsRejected;
-                    case -1: // Server not accessible
-                        return ConnectionTestResult.ServerNotAccessible;
-                    default:
-                        return ConnectionTestResult.UnknownError;
-                }
+                return HandleSqlException(ex);
+            }
+            catch (MySqlException ex)
+            {
+                return HandleMySqlException(ex);
+            }
+            catch (OdbcException ex)
+            {
+                return HandleOdbcException(ex);
             }
             catch
             {
-                // Handle any other exceptions
                 return ConnectionTestResult.UnknownError;
             }
         }
+
+        private static ConnectionTestResult HandleSqlException(SqlException sqlException)
+        {
+            return sqlException.Number switch
+            {
+                4060 => ConnectionTestResult.UnknownDatabase,
+                18456 => ConnectionTestResult.CredentialsRejected,
+                -1 => ConnectionTestResult.ServerNotAccessible,
+                _ => ConnectionTestResult.UnknownError
+            };
+        }
+
+        private static ConnectionTestResult HandleMySqlException(MySqlException mySqlException)
+        {
+            return mySqlException.Number switch
+            {
+                1049 => ConnectionTestResult.UnknownDatabase,
+                1045 => ConnectionTestResult.CredentialsRejected,
+                2002 => ConnectionTestResult.ServerNotAccessible,
+                2003 => ConnectionTestResult.ServerNotAccessible,
+                2005 => ConnectionTestResult.ServerNotAccessible,
+                _ => ConnectionTestResult.UnknownError
+            };
+        }
+
+        private static ConnectionTestResult HandleOdbcException(OdbcException odbcException)
+        {
+            foreach (OdbcError error in odbcException.Errors)
+            {
+                switch (error.SQLState)
+                {
+                    case "28000":
+                        return ConnectionTestResult.CredentialsRejected;
+                    case "3D000":
+                        return ConnectionTestResult.UnknownDatabase;
+                    case "08001":
+                    case "08004":
+                    case "HYT00":
+                    case "HYT01":
+                        return ConnectionTestResult.ServerNotAccessible;
+                }
+            }
+
+            string message = odbcException.Message;
+
+            if (message.Contains("login failed", StringComparison.OrdinalIgnoreCase))
+                return ConnectionTestResult.CredentialsRejected;
+            if (message.Contains("cannot open database", StringComparison.OrdinalIgnoreCase))
+                return ConnectionTestResult.UnknownDatabase;
+            if (message.Contains("server was not found", StringComparison.OrdinalIgnoreCase)
+                || message.Contains("data source name not found", StringComparison.OrdinalIgnoreCase)
+                || message.Contains("network-related", StringComparison.OrdinalIgnoreCase))
+                return ConnectionTestResult.ServerNotAccessible;
+
+            return ConnectionTestResult.UnknownError;
+        }
     }
-    //public class DatabaseConnectionTester
-    //{
-        //public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password)
-        //{
-            //using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password);
-            //try
-            //{
-                // Validate architecture compatibility
-                //if (!Environment.Is64BitProcess)
-                //{
-                //    throw new PlatformNotSupportedException("The application must run in a 64-bit process to use this database connector.");
-               // }
-
-                // Attempt to connect
-
-                //using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
-                //{
-                //    connection.Open();
-                //    Console.WriteLine("Connection successful!");
-                //}
-                //Console.WriteLine($"{RuntimeInformation.OSArchitecture}");
-                //Console.WriteLine($"{RuntimeInformation.ProcessArchitecture}");
-                //try
-                //{
-                 //   using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
-                 //   {
-                 //       connection.Open();
-                 //       Console.WriteLine("Connection successful!");
-                 //   }
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine($"Connection failed: {ex.Message}");
-                //}
-    //}
-/*
-
-
-                try
-                {
-                    using (SqlConnection connection = new SqlConnection("Data Source=172.22.155.100,1433;Initial Catalog=Demo;Integrated Security=False;User ID=sa;Password=London123;Multiple Active Result Sets=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Name=mRemoteNG;Application Intent=ReadOnly"))
-                    {
-                        connection.Open();
-                    }
-                }
-                catch (TypeInitializationException ex)
-                {
-                    Console.WriteLine($"Type initialization error: {ex.InnerException?.Message}");
-                }
-
-
-                //await dbConnector.ConnectAsync();
-                return ConnectionTestResult.ConnectionSucceded;
-            }
-            catch (PlatformNotSupportedException ex)
-            {
-                // Log or handle architecture mismatch
-                Console.WriteLine(string.Format(Language.ErrorPlatformNotSupported, ex.Message));
-                return ConnectionTestResult.UnknownError;
-            }
-            catch (DllNotFoundException ex)
-            {
-                // Handle missing native dependencies
-                Console.WriteLine(string.Format(Language.ErrorMissingDependency, ex.Message));
-                return ConnectionTestResult.UnknownError;
-            }
-            catch (BadImageFormatException ex)
-            {
-                // Handle architecture mismatch in native libraries
-                Console.WriteLine(string.Format(Language.ErrorArchitectureMismatch, ex.Message));
-                return ConnectionTestResult.UnknownError;
-            }
-            catch (SqlException sqlException)
-            {
-                if (sqlException.Message.Contains("The server was not found"))
-                    return ConnectionTestResult.ServerNotAccessible;
-                if (sqlException.Message.Contains("Cannot open database"))
-                    return ConnectionTestResult.UnknownDatabase;
-                if (sqlException.Message.Contains("Login failed for user"))
-                    return ConnectionTestResult.CredentialsRejected;
-                return ConnectionTestResult.UnknownError;
-            }
-            catch (Exception ex)
-            {
-                // Log unexpected errors
-                Console.WriteLine($"Unexpected error: {ex.Message}");
-                return ConnectionTestResult.UnknownError;
-            }
-*/
-       // }
-   // }
 }

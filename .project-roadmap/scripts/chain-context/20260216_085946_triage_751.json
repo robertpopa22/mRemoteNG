@@ -1,0 +1,38 @@
+{
+  "task_type": "triage",
+  "task_id": "751",
+  "started_at": "2026-02-16T08:57:54",
+  "finished_at": "2026-02-16T08:59:46",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "ODBC support for SQL-backed connection list storage is an in-scope extension of the existing MSSQL/MySQL database connector architecture.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs",
+          "mRemoteNG/Config/DatabaseConnectors/OdbcDatabaseConnector.cs",
+          "mRemoteNG/Config/DatabaseConnectors/DatabaseConnectionTester.cs",
+          "mRemoteNG/Config/Settings/Registry/OptRegistrySqlServerPage.cs",
+          "mRemoteNG/UI/Forms/OptionsPages/SqlServerPage.cs",
+          "mRemoteNGTests/Config/Connections/SqlConnectionsLoaderIntegrationTests.cs"
+        ],
+        "approach": "Implement an ODBC connector type and selection path, update SQL options and registry validation plus connection testing to handle it, and add integration coverage for ODBC-backed connection load/save."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"ODBC support for SQL-backed connection list storage is an in-scope extension of the existing MSSQL/MySQL database connector architecture.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs\",\"mRemoteNG/Config/DatabaseConnectors/OdbcDatabaseConnector.cs\",\"mRemoteNG/Config/DatabaseConnectors/DatabaseConnectionTester.cs\",\"mRemoteNG/Config/Settings/Registry/OptRegistrySqlServerPage.cs\",\"mRemoteNG/UI/Forms/OptionsPages/SqlServerPage.cs\",\"mRemoteNGTests/Config/Connections/SqlConnectionsLoaderIntegrationTests.cs\"],\"approach\":\"Implement an ODBC connector type and selection path, update SQL options and registry validation plus connection testing to handle it, and add integration coverage for ODBC-backed connection load/save.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T08:59:46"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

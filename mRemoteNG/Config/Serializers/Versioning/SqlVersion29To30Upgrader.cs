@@ -155,7 +155,8 @@ ALTER TABLE tblCons ADD `UserViaAPI` varchar(512) NOT NULL;
             using (DbTransaction sqlTran = _databaseConnector.DbConnection().BeginTransaction(System.Data.IsolationLevel.Serializable))
             {
                 DbCommand dbCommand;
-                if (_databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+                if (_databaseConnector.GetType() == typeof(MSSqlDatabaseConnector)
+                    || _databaseConnector.GetType() == typeof(OdbcDatabaseConnector))
                 {
                     dbCommand = _databaseConnector.DbCommand(msSqlAlter);
                     dbCommand.Transaction = sqlTran;

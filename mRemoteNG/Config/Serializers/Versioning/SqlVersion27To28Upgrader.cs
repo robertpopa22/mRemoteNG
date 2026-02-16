@@ -42,7 +42,8 @@ UPDATE tblRoot SET ConfVersion='2.8';";
 
                 DbCommand dbCommand;
 
-                if (_databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+                if (_databaseConnector.GetType() == typeof(MSSqlDatabaseConnector)
+                    || _databaseConnector.GetType() == typeof(OdbcDatabaseConnector))
                 {
                     dbCommand = _databaseConnector.DbCommand(msSqlText1);
                     dbCommand.ExecuteNonQuery();

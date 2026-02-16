@@ -72,17 +72,32 @@ public class SqlConnectionsLoaderIntegrationTests
         return serializer.Serialize(connectionTreeModel);
     }
 
-    private SqlConnectionsLoader CreateLoader(Func<string, Optional<SecureString>> authRequestor = null)
+    private SqlConnectionsLoader CreateLoader(IDatabaseConnector? databaseConnector = null, Func<string, Optional<SecureString>>? authRequestor = null)
     {
         return new SqlConnectionsLoader(
             _localConnectionPropertiesDeserializerMock,
             _localPropertiesDataProviderMock,
-            _databaseConnectorMock,
+            databaseConnector ?? _databaseConnectorMock,
             _sqlDataProviderMock,
             _metaDataRetrieverMock,
             _versionVerifierMock,
             _cryptographyProvider,
             authRequestor);
+    }
+
+    [Test]
+    [TestCase(DatabaseConnectorFactory.OdbcType)]
+    [TestCase("ODBC - Open Database Connectivity")]
+    public void DatabaseConnectorFactory_WithOdbcSelection_ReturnsOdbcConnector(string selectedType)
+    {
+        using IDatabaseConnector connector = DatabaseConnectorFactory.DatabaseConnector(
+            selectedType,
+            "DSN=SqlConnectionsLoaderIntegrationTests",
+            "mremoteng",
+            "user",
+            "password");
+
+        Assert.That(connector, Is.TypeOf<OdbcDatabaseConnector>());
     }
 
     [Test]
@@ -119,6 +134,48 @@ public class SqlConnectionsLoaderIntegrationTests
         Assert.That(loadedTree.RootNodes[0].Children[0].Hostname, Is.EqualTo("sqlhost"));
         Assert.That(loadedTree.RootNodes[0].Children[0].Password, Is.EqualTo("somepassword"));
         Assert.That(loadedTree.RootNodes[0].Children[0].Name, Is.EqualTo("TestConnection"));
+    }
+
+    [Test]
+    public void LoadsSqlConnections_WithOdbcConnector_Successfully()
+    {
+        // Arrange
+        var masterPassword = new SecureString();
+        "sqlpass".ToCharArray().ToList().ForEach(masterPassword.AppendChar);
+        masterPassword.MakeReadOnly();
+
+        using var odbcConnector = new OdbcDatabaseConnector(
+            "DSN=SqlConnectionsLoaderIntegrationTests",
+            "mremoteng",
+            "user",
+            "password");
+
+        var connectionInfo = new ConnectionInfoAlias
+        {
+            Hostname = "sqlhost",
+            Password = "somepassword",
+            Name = "OdbcConnection",
+            Protocol = mRemoteNG.Connection.Protocol.ProtocolType.RDP
+        };
+
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(CreateMetaData(masterPassword));
+
+        _sqlDataProviderMock.Load()
+            .Returns(CreateEncryptedConnectionsDataTable(masterPassword, connectionInfo));
+
+        var loader = CreateLoader(odbcConnector, (filename) => new Optional<SecureString>(masterPassword));
+
+        // Act
+        var loadedTree = loader.Load();
+
+        // Assert
+        Assert.That(loadedTree, Is.Not.Null);
+        Assert.That(loadedTree.RootNodes.Count, Is.EqualTo(1));
+        Assert.That(loadedTree.RootNodes[0].Children.Count, Is.EqualTo(1));
+        Assert.That(loadedTree.RootNodes[0].Children[0].Name, Is.EqualTo("OdbcConnection"));
+        _metaDataRetrieverMock.Received(1)
+            .GetDatabaseMetaData(Arg.Is<IDatabaseConnector>(connector => ReferenceEquals(connector, odbcConnector)));
     }
 
     [Test]
@@ -225,5 +282,38 @@ public class SqlConnectionsLoaderIntegrationTests
 
         // Assert
         _metaDataRetrieverMock.Received(1).WriteDatabaseMetaData(Arg.Any<RootNodeInfo>(), Arg.Any<IDatabaseConnector>());
+    }
+
+    [Test]
+    public void Load_WhenMetaDataIsNull_WithOdbcConnector_CallsWriteDatabaseMetaData()
+    {
+        // Arrange
+        var masterPassword = new SecureString();
+        "sqlpass".ToCharArray().ToList().ForEach(masterPassword.AppendChar);
+        masterPassword.MakeReadOnly();
+
+        using var odbcConnector = new OdbcDatabaseConnector(
+            "DSN=SqlConnectionsLoaderIntegrationTests",
+            "mremoteng",
+            "user",
+            "password");
+
+        _metaDataRetrieverMock.GetDatabaseMetaData(Arg.Any<IDatabaseConnector>())
+            .Returns(null, CreateMetaData(masterPassword));
+
+        var connectionInfo = new ConnectionInfoAlias { Name = "Test", Protocol = mRemoteNG.Connection.Protocol.ProtocolType.RDP };
+        _sqlDataProviderMock.Load()
+            .Returns(CreateEncryptedConnectionsDataTable(masterPassword, connectionInfo));
+
+        var loader = CreateLoader(odbcConnector, (filename) => new Optional<SecureString>(masterPassword));
+
+        // Act
+        loader.Load();
+
+        // Assert
+        _metaDataRetrieverMock.Received(1)
+            .WriteDatabaseMetaData(
+                Arg.Any<RootNodeInfo>(),
+                Arg.Is<IDatabaseConnector>(connector => ReferenceEquals(connector, odbcConnector)));
     }
 }

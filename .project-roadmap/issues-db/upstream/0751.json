@@ -27,6 +27,18 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "ODBC support is a clear, in-scope extension of the existing database-backed connection list feature that currently uses provider-specific connectors."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "ODBC support for SQL-backed connection list storage is an in-scope extension of the existing MSSQL/MySQL database connector architecture."
+    },
+    {
+      "seq": 4,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "ODBC-backed connection-list storage is a valid extension of the existing MSSQL/MySQL database connector architecture and can be added without changing remote protocol handling."
     }
   ],
   "comments": [],
@@ -35,5 +47,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (codex): The request does not specify whether ODBC is for connection storage, import/export, or a new protocol, so scope and acceptance criteria are missing.\nApproach: Ask for the exact ODBC use case (provider/DSN/auth/read-write expectations), then add an ODBC connector path, wire it into options UI, and cover it with integration tests.\nAI triage (codex): ODBC support is a clear, in-scope extension of the existing database-backed connection list feature that currently uses provider-specific connectors.\nApproach: Add an ODBC connector and wire it into provider selection, registry validation, and connection testing, then extend SQL connection integration coverage for the new provider path."
+  "notes": "AI triage (codex): The request does not specify whether ODBC is for connection storage, import/export, or a new protocol, so scope and acceptance criteria are missing.\nApproach: Ask for the exact ODBC use case (provider/DSN/auth/read-write expectations), then add an ODBC connector path, wire it into options UI, and cover it with integration tests.\nAI triage (codex): ODBC support is a clear, in-scope extension of the existing database-backed connection list feature that currently uses provider-specific connectors.\nApproach: Add an ODBC connector and wire it into provider selection, registry validation, and connection testing, then extend SQL connection integration coverage for the new provider path.\nAI triage (codex): ODBC support for SQL-backed connection list storage is an in-scope extension of the existing MSSQL/MySQL database connector architecture.\nApproach: Implement an ODBC connector type and selection path, update SQL options and registry validation plus connection testing to handle it, and add integration coverage for ODBC-backed connection load/save.\nAI triage (gemini): ODBC-backed connection-list storage is a valid extension of the existing MSSQL/MySQL database connector architecture and can be added without changing remote protocol handling.\nApproach: Add an ODBC connector type and selection flow in settings/UI, update connection testing and registry wiring for the provider, and add integration tests for ODBC-backed connection load/save."
 }

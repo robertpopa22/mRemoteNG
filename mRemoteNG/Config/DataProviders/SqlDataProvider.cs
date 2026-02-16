@@ -4,6 +4,7 @@ using mRemoteNG.Messages;
 using mRemoteNG.App;
 using MySql.Data.MySqlClient;
 using Microsoft.Data.SqlClient;
+using System.Data.Odbc;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Config.DataProviders
@@ -120,6 +121,50 @@ namespace mRemoteNG.Config.DataProviders
                     if (mustDisposeTransaction)
                     {
                         mySqlTransaction.Dispose();
+                    }
+                }
+            }
+            else if (DatabaseConnector.GetType() == typeof(OdbcDatabaseConnector))
+            {
+                OdbcConnection dbConnection = (OdbcConnection)DatabaseConnector.DbConnection();
+                OdbcTransaction? odbcTransaction = (OdbcTransaction?)transaction;
+                bool mustDisposeTransaction = false;
+
+                if (odbcTransaction == null)
+                {
+                    odbcTransaction = dbConnection.BeginTransaction(System.Data.IsolationLevel.Serializable);
+                    mustDisposeTransaction = true;
+                }
+
+                try
+                {
+                    using OdbcCommand sqlCommand = new();
+                    sqlCommand.Connection = dbConnection;
+                    sqlCommand.Transaction = odbcTransaction;
+                    sqlCommand.CommandText = "SELECT * FROM tblCons";
+                    using OdbcDataAdapter dataAdapter = new(sqlCommand);
+
+                    OdbcCommandBuilder builder = new(dataAdapter)
+                    {
+                        // Avoid optimistic concurrency, check if it is necessary.
+                        ConflictOption = ConflictOption.OverwriteChanges
+                    };
+
+                    dataAdapter.UpdateCommand = builder.GetUpdateCommand();
+                    dataAdapter.DeleteCommand = builder.GetDeleteCommand();
+                    dataAdapter.InsertCommand = builder.GetInsertCommand();
+                    dataAdapter.Update(dataTable);
+
+                    if (mustDisposeTransaction)
+                    {
+                        odbcTransaction.Commit();
+                    }
+                }
+                finally
+                {
+                    if (mustDisposeTransaction)
+                    {
+                        odbcTransaction.Dispose();
                     }
                 }
             }

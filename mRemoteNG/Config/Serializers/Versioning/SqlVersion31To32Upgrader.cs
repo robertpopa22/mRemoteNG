@@ -100,7 +100,7 @@ ALTER TABLE tblExternalTools ALTER COLUMN [Category] nvarchar(256) NOT NULL;
             using (DbTransaction sqlTran = _databaseConnector.DbConnection().BeginTransaction(System.Data.IsolationLevel.Serializable))
             {
                 DbCommand dbCommand;
-                if (_databaseConnector is MSSqlDatabaseConnector)
+                if (_databaseConnector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
                 {
                     dbCommand = _databaseConnector.DbCommand(msSqlAlter);
                     dbCommand.Transaction = sqlTran;
