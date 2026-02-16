@@ -12,7 +12,7 @@
   "created_at": "2017-10-11T04:45:32Z",
   "github_updated_at": "2026-02-07T19:55:40Z",
   "body_snippet": "mRemoteNG could have an option in registry for disabling saving passwords. This way in an enterprise setting a GPO could be deployed to disable the users from saving passwords.\r\n\r\nI can volunteer to do the GPO-side work if this would be possible.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Enabling GPO/Registry-based policy to disable password saving is a standard enterprise requirement for security compliance."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 9a057eb0"
     }
   ],
   "comments": [
