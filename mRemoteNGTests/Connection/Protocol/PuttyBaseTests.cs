@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows.Forms;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.UI.Tabs;
@@ -95,12 +97,36 @@ namespace mRemoteNGTests.Connection.Protocol
             Assert.That(_connectionTab.TabText, Is.EqualTo(FallbackTabText));
         }
 
+        [Test]
+        public void SchedulePostOpenLayoutResizePass_WaitsForHandleCreationThenResizes()
+        {
+            Assert.That(_interfaceControl.IsHandleCreated, Is.False);
+
+            _puttyProtocol.SchedulePostOpenLayoutResizePassForTest();
+            Assert.That(_puttyProtocol.DeferredResizeCallCount, Is.EqualTo(0));
+
+            _ = _interfaceControl.Handle;
+            Assert.That(_puttyProtocol.DeferredResizeCallCount, Is.EqualTo(1));
+        }
+
         private sealed class TestablePuttyBase : PuttyBase
         {
             private readonly Queue<string> _queuedTitles = new();
             private string _currentTitle = string.Empty;
 
+            public int DeferredResizeCallCount { get; private set; }
+
             protected override bool UseTerminalTitlePollingTimer => false;
+
+            protected override void QueuePostOpenLayoutResizePass(MethodInvoker resizeAction)
+            {
+                resizeAction();
+            }
+
+            protected override void Resize(object sender, EventArgs e)
+            {
+                DeferredResizeCallCount++;
+            }
 
             protected override string ReadTerminalWindowTitle()
             {
@@ -113,6 +139,11 @@ namespace mRemoteNGTests.Connection.Protocol
             public void QueueTerminalTitle(string title)
             {
                 _queuedTitles.Enqueue(title);
+            }
+
+            public void SchedulePostOpenLayoutResizePassForTest()
+            {
+                SchedulePostOpenLayoutResizePass();
             }
 
             public void StartTrackingForTest()

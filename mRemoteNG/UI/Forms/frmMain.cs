@@ -9,6 +9,7 @@ using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Config.Settings;
 using mRemoteNG.Connection;
+using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Messages;
 using mRemoteNG.Messages.MessageWriters;
 using mRemoteNG.Themes;
@@ -941,6 +942,9 @@ namespace mRemoteNG.UI.Forms
             if (tab == null) return;
             InterfaceControl? ifc = InterfaceControl.FindInterfaceControl(tab);
             if (ifc == null) return;
+
+            if (ifc.Protocol is PuttyBase puttyProtocol)
+                puttyProtocol.RequestPostOpenLayoutResizePass();
 
             ifc.Protocol?.Focus();
             Form? conFormWindow = ifc.FindForm();

@@ -11,7 +11,7 @@
   ],
   "author": "austin-bridge",
   "created_at": "2022-01-28T01:56:45Z",
-  "github_updated_at": "2026-02-11T12:20:52Z",
+  "github_updated_at": "2026-02-16T12:15:23Z",
   "body_snippet": "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
   "our_status": "released",
   "priority": null,
@@ -80,7 +80,7 @@
       "id": "IC_kwDOAAcIMM7m_5l8",
       "author": "robertpopa22",
       "date": "2026-02-10T06:02:10Z",
-      "snippet": "@siggemannen Thank you for the detailed report and confirmation. This is now fixed in the v1.80.0 community build:\n\n**Fix:** [`7f12f48f`](https://github.com/robertpopa22/mRemoteNG/commit/7f12f48f) — Propagate `SystemEvents.DisplaySettingsChanged` to all active RDP connections, triggering a debounced `UpdateSessionDisplaySettings()` so sessions auto-resize when a monitor is connected or disconnected.\n\n**How it works:**\n- Windows fires `DisplaySettingsChanged` when HDMI/DP is hot-plugged\n- mRemote...",
+      "snippet": "@siggemannen Thank you for the detailed report and confirmation. This is now fixed in the v1.80.0 community build:\n\n`SystemEvents.DisplaySettingsChanged` to all active RDP connections, triggering a debounced `UpdateSessionDisplaySettings()` so sessions auto-resize when a monitor is connected or disconnected.\n\n**How it works:**\n- Windows fires `DisplaySettingsChanged` when HDMI/DP is hot-plugged\n- mRemoteNG now iterates all active ConnectionWindows and calls `OnDisplaySettingsChanged()` on each p...",
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
@@ -95,10 +95,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-11T12:20:52Z",
+  "comments_cursor": "2026-02-16T12:15:23Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-16T13:13:42Z",
   "notes": ""
 }

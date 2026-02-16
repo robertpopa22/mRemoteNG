@@ -41,6 +41,8 @@ namespace mRemoteNG.Connection.Protocol
         private string _initialTerminalTitle = string.Empty;
         private string _lastTerminalTitle = string.Empty;
         private bool _terminalTitleTrackingEnabled;
+        private bool _postOpenLayoutResizePending;
+        private bool _postOpenLayoutResizeHooked;
 
         #region Public Properties
 
@@ -222,6 +224,101 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
+        private void ResetPostOpenLayoutResizeState()
+        {
+            _postOpenLayoutResizePending = false;
+            UnhookPostOpenLayoutResize();
+        }
+
+        private void HookPostOpenLayoutResize()
+        {
+            if (_postOpenLayoutResizeHooked)
+                return;
+
+            if (InterfaceControl.IsDisposed)
+                return;
+
+            InterfaceControl.HandleCreated += InterfaceControl_HandleCreated;
+            _postOpenLayoutResizeHooked = true;
+        }
+
+        private void UnhookPostOpenLayoutResize()
+        {
+            if (!_postOpenLayoutResizeHooked)
+                return;
+
+            try
+            {
+                if (!InterfaceControl.IsDisposed)
+                    InterfaceControl.HandleCreated -= InterfaceControl_HandleCreated;
+            }
+            catch (ObjectDisposedException)
+            {
+                // Interface control already disposed.
+            }
+            catch (InvalidOperationException)
+            {
+                // Interface handle is no longer available.
+            }
+            finally
+            {
+                _postOpenLayoutResizeHooked = false;
+            }
+        }
+
+        private void InterfaceControl_HandleCreated(object? sender, EventArgs e)
+        {
+            RequestPostOpenLayoutResizePass();
+        }
+
+        protected virtual void QueuePostOpenLayoutResizePass(MethodInvoker resizeAction)
+        {
+            InterfaceControl.BeginInvoke(resizeAction);
+        }
+
+        protected void SchedulePostOpenLayoutResizePass()
+        {
+            _postOpenLayoutResizePending = true;
+            HookPostOpenLayoutResize();
+            RequestPostOpenLayoutResizePass();
+        }
+
+        internal void RequestPostOpenLayoutResizePass()
+        {
+            if (!_postOpenLayoutResizePending)
+                return;
+
+            if (InterfaceControl.IsDisposed)
+            {
+                ResetPostOpenLayoutResizeState();
+                return;
+            }
+
+            if (!InterfaceControl.IsHandleCreated)
+                return;
+
+            try
+            {
+                QueuePostOpenLayoutResizePass((MethodInvoker)(() =>
+                {
+                    if (!_postOpenLayoutResizePending || InterfaceControl.IsDisposed)
+                        return;
+
+                    _postOpenLayoutResizePending = false;
+                    UnhookPostOpenLayoutResize();
+                    Resize(this, EventArgs.Empty);
+                }));
+            }
+            catch (ObjectDisposedException)
+            {
+                ResetPostOpenLayoutResizeState();
+            }
+            catch (InvalidOperationException)
+            {
+                // Handle may have been recreated between checks; keep pending and retry later.
+            }
+        }
+
         public override bool Initialize()
         {
             if (!base.Initialize())
@@ -242,6 +339,7 @@ namespace mRemoteNG.Connection.Protocol
             try
             {
                 StopTerminalTitleTracking();
+                ResetPostOpenLayoutResizeState();
                 _isPuttyNg = PuttyTypeDetector.GetPuttyType() == PuttyTypeDetector.PuttyType.PuttyNg;
 
                 // Validate PuttyPath to prevent command injection
@@ -519,27 +617,7 @@ namespace mRemoteNG.Connection.Protocol
                 }
 
                 Resize(this, EventArgs.Empty);
-                try
-                {
-                    if (InterfaceControl.IsHandleCreated && !InterfaceControl.IsDisposed)
-                    {
-                        // Run one more resize after the current layout pass so PuTTY fills the tab
-                        // when docking/layout initialization completes asynchronously.
-                        InterfaceControl.BeginInvoke((MethodInvoker)(() =>
-                        {
-                            if (!InterfaceControl.IsDisposed)
-                                Resize(this, EventArgs.Empty);
-                        }));
-                    }
-                }
-                catch (ObjectDisposedException)
-                {
-                    // Interface control was disposed before deferred resize was queued.
-                }
-                catch (InvalidOperationException)
-                {
-                    // Interface handle is no longer available; skip deferred resize.
-                }
+                SchedulePostOpenLayoutResizePass();
 
                 StartTerminalTitleTracking();
                 base.Connect();
@@ -548,6 +626,7 @@ namespace mRemoteNG.Connection.Protocol
             catch (Exception ex)
             {
                 StopTerminalTitleTracking();
+                ResetPostOpenLayoutResizeState();
                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ConnectionFailed + Environment.NewLine + ex.Message);
                 return false;
             }
@@ -656,6 +735,7 @@ namespace mRemoteNG.Connection.Protocol
             }
 
             StopTerminalTitleTracking();
+            ResetPostOpenLayoutResizeState();
 
             try
             {

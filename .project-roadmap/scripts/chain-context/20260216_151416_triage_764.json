@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "764",
+  "started_at": "2026-02-16T15:13:51",
+  "finished_at": "2026-02-16T15:14:16",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue lacks reproducible steps and current-version confirmation, and prior requests to retest and provide evidence were not followed up.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmMain.cs"
+        ],
+        "approach": "Request a retest on the latest build with exact steps, expected vs actual behavior, and screenshots/logs before deciding on code changes."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The issue lacks reproducible steps and current-version confirmation, and prior requests to retest and provide evidence were not followed up.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmMain.cs\"],\"approach\":\"Request a retest on the latest build with exact steps, expected vs actual behavior, and screenshots/logs before deciding on code changes.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T15:14:16"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
