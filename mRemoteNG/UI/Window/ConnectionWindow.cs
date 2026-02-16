@@ -214,25 +214,46 @@ namespace mRemoteNG.UI.Window
 
         private void ConnectionTabDragEnter(object? sender, DragEventArgs e)
         {
-            e.Effect = CanDropConnectionTab(e.Data, out _) ? DragDropEffects.Move : DragDropEffects.None;
+            if (CanDropConnectionTab(e.Data, out _))
+                e.Effect = DragDropEffects.Move;
+            else if (CanDropConnectionInfo(e.Data, out _))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
         }
 
         private void ConnectionTabDragOver(object? sender, DragEventArgs e)
         {
-            e.Effect = CanDropConnectionTab(e.Data, out _) ? DragDropEffects.Move : DragDropEffects.None;
+            if (CanDropConnectionTab(e.Data, out _))
+                e.Effect = DragDropEffects.Move;
+            else if (CanDropConnectionInfo(e.Data, out _))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
         }
 
         private void ConnectionTabDragDrop(object? sender, DragEventArgs e)
         {
-            if (!CanDropConnectionTab(e.Data, out ConnectionTab? draggedTab) || draggedTab == null)
+            if (CanDropConnectionTab(e.Data, out ConnectionTab? draggedTab) && draggedTab != null)
             {
-                e.Effect = DragDropEffects.None;
+                e.Effect = MoveConnectionTabToPanel(draggedTab, this)
+                    ? DragDropEffects.Move
+                    : DragDropEffects.None;
                 return;
             }
 
-            e.Effect = MoveConnectionTabToPanel(draggedTab, this)
-                ? DragDropEffects.Move
-                : DragDropEffects.None;
+            if (CanDropConnectionInfo(e.Data, out List<ConnectionInfo> connectionInfos))
+            {
+                e.Effect = DragDropEffects.Copy;
+                foreach (var info in connectionInfos)
+                {
+                    Runtime.ConnectionInitiator.OpenConnection(info, ConnectionInfo.Force.None, this);
+                }
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
         }
 
         private bool CanDropConnectionTab(IDataObject? dataObject, out ConnectionTab? draggedTab)
@@ -243,6 +264,41 @@ namespace mRemoteNG.UI.Window
 
             ConnectionWindow? sourcePanel = GetOwningConnectionWindow(draggedTab);
             return sourcePanel != null && !ReferenceEquals(sourcePanel, this);
+        }
+
+        private bool CanDropConnectionInfo(IDataObject? dataObject, out List<ConnectionInfo> connectionInfos)
+        {
+            return TryGetDraggedConnectionInfos(dataObject, out connectionInfos);
+        }
+
+        private static bool TryGetDraggedConnectionInfos(IDataObject? dataObject, out List<ConnectionInfo> connectionInfos)
+        {
+            connectionInfos = new List<ConnectionInfo>();
+            if (dataObject == null) return false;
+
+            if (dataObject.GetDataPresent("System.Collections.ArrayList"))
+            {
+                if (dataObject.GetData("System.Collections.ArrayList") is System.Collections.ArrayList list)
+                {
+                    foreach (var item in list)
+                    {
+                        if (item is ConnectionInfo ci)
+                        {
+                            connectionInfos.Add(ci);
+                        }
+                    }
+                }
+            }
+
+            if (connectionInfos.Count == 0 && dataObject.GetDataPresent(typeof(ConnectionInfo)))
+            {
+                if (dataObject.GetData(typeof(ConnectionInfo)) is ConnectionInfo ci)
+                {
+                    connectionInfos.Add(ci);
+                }
+            }
+
+            return connectionInfos.Any();
         }
 
         private static bool TryGetDraggedConnectionTab(IDataObject? dataObject, out ConnectionTab? draggedTab)

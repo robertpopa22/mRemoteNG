@@ -1,0 +1,38 @@
+Implemented the issue fix for moving open tabs between connection panels.
+
+### What changed
+
+- Added a **tab context-menu action** (`Send To`) that lists existing connection panels and moves the selected tab to the chosen panel:
+  - `mRemoteNG/UI/Window/ConnectionWindow.cs:147`
+  - `mRemoteNG/UI/Window/ConnectionWindow.cs:258`
+  - `mRemoteNG/UI/Window/ConnectionWindow.cs:309`
+
+- Added **cross-panel drag/drop handling** on connection panel docks and tab strips:
+  - Registers drag/drop targets on `connDock` and `DockPaneStripNG` controls:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:180`
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:194`
+  - Accepts dragged `ConnectionTab` only from a different connection panel and moves it:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:225`
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:237`
+
+- Added **drag initiation from tab strip** when dragging a connection tab out of its strip (without changing normal in-strip reorder behavior):
+  - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs:94`
+  - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs:1116`
+  - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs:1139`
+  - `mRemoteNG/UI/Tabs/DockPaneStripNG.cs:1193`
+
+- Preserved expected behavior on move:
+  - Updates panel assignment on `Info`, `OriginalInfo`, and tracked connection metadata:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:378`
+  - Rebinds tab context menu to the target panel, activates/focuses moved tab, and closes source panel if empty:
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:319`
+    - `mRemoteNG/UI/Window/ConnectionWindow.cs:343`
+
+### Verification status
+
+I attempted to run the required commands exactly as requested, but script execution is blocked by this environment policy:
+
+1. `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"` → blocked by policy  
+2. `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild` → blocked by policy
+
+No other behavioral areas were intentionally changed.
