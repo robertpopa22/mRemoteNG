@@ -42,6 +42,8 @@ namespace mRemoteNG.Config.Settings
 #endif
             string newPath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.ExtAppsFilesName);
             XmlDocument? xDom = null;
+            bool fallbackToBuiltInShellPresets = false;
+
             if (File.Exists(newPath))
             {
                 _messageCollector.AddMessage(MessageClass.InformationMsg, $"Loading External Apps from: {newPath}",
@@ -59,6 +61,7 @@ namespace mRemoteNG.Config.Settings
             else
             {
                 _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not FIND file! Falling back to built-in shell presets.");
+                fallbackToBuiltInShellPresets = true;
             }
 
             if (xDom?.DocumentElement != null)
@@ -104,7 +107,10 @@ namespace mRemoteNG.Config.Settings
             }
             else
             {
-                _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not LOAD file! Falling back to built-in shell presets.");
+                if (!fallbackToBuiltInShellPresets)
+                {
+                    _messageCollector.AddMessage(MessageClass.WarningMsg, "Loading External Apps failed: Could not LOAD file! Falling back to built-in shell presets.");
+                }
                 AddBuiltInShellPresetIfMissing("cmd.exe", "%ComSpec%");
                 AddBuiltInShellPresetIfMissing("pwsh.exe", "pwsh.exe");
                 AddBuiltInShellPresetIfMissing("wsl.exe", @"%windir%\system32\wsl.exe");
@@ -112,6 +118,29 @@ namespace mRemoteNG.Config.Settings
 
             _externalToolsToolStrip.SwitchToolBarText(Properties.Settings.Default.ExtAppsTBShowText);
             _externalToolsToolStrip.AddExternalToolsToToolBar();
+        }
+
+        private void AddBuiltInShellPresetIfMissing(string displayName, string fileName)
+        {
+            foreach (ExternalTool existingTool in Runtime.ExternalToolsService.ExternalTools)
+            {
+                if (string.Equals(existingTool.DisplayName, displayName, StringComparison.OrdinalIgnoreCase))
+                    return;
+            }
+
+            ExternalTool shellPreset = new()
+            {
+                DisplayName = displayName,
+                FileName = fileName,
+                Arguments = string.Empty,
+                TryIntegrate = true,
+                ShowOnToolbar = false
+            };
+
+            Runtime.ExternalToolsService.ExternalTools.Add(shellPreset);
+            _messageCollector.AddMessage(MessageClass.InformationMsg,
+                                         $"Adding built-in shell preset: {shellPreset.DisplayName} {shellPreset.FileName}",
+                                         true);
         }
     }
 }

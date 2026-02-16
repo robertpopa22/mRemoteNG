@@ -10,7 +10,7 @@
   "created_at": "2017-11-02T20:14:25Z",
   "github_updated_at": "2023-03-18T12:52:19Z",
   "body_snippet": "Some external apps do not correctly integrate into mRemoteNG using our normal code, but it is still possible for them to be integrated. In most cases, the app spawns a separate process that we need to look for.\r\n\r\nAdd special handlers for several well-known apps:\r\n- [ ] cmd.exe\r\n- [ ] mintty\r\n- [ ] Git Bash\r\n- [ ] Windows Linux Subsystem Bash\r\n\r\nThis is related to several issues:\r\n- #649 \r\n- #693 \r\n- #710 ",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -27,6 +27,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The issue describes a specific, user-requested integration gap for common shell launchers (cmd, mintty, Git Bash, WSL) that is not fully covered by current behavior."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 6282882c"
     }
   ],
   "comments": [

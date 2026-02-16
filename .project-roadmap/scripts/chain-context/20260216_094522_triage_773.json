@@ -1,0 +1,52 @@
+{
+  "task_type": "triage",
+  "task_id": "773",
+  "started_at": "2026-02-16T09:42:45",
+  "finished_at": "2026-02-16T09:45:22",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"This enhancement is still unresolved and separate from #814 (closed), because sorting can still overwrite custom manual order without a direct restore or undo path.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\",\"mRemoteNG/UI/Controls/ConnectionContextMenu.cs\",\"mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\",\"mRemoteNGTests/UI/Window/ConnectionTreeWindowTests.cs\"],\"approach\":\"Add a reversible sort toggle that snapshots and restores custom child order, plus a confirmation or disable guard before destructive sort actions.\"}",
+      "errors": "TIMEOUT after 123s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0768.json",
+        "mRemoteNG/Config/Settings/ExternalAppsLoader.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T09:44:50"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Users currently lose manual connection ordering when sorting; an undo or toggle is needed to restore the previous state.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+          "mRemoteNG/UI/Controls/ConnectionContextMenu.cs",
+          "mRemoteNG/Tree/Node.cs"
+        ],
+        "approach": "Implement an 'Undo Sort' feature by caching the child node order of a folder before applying a sort operation, allowing restoration of the manual order."
+      },
+      "raw_output": "```json\n{\n\"decision\": \"implement\",\n\"reason\": \"Users currently lose manual connection ordering when sorting; an undo or toggle is needed to restore the previous state.\",\n\"priority\": \"P3-enhancement\",\n\"estimated_files\": [\n\"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\",\n\"mRemoteNG/UI/Controls/ConnectionContextMenu.cs\",\n\"mRemoteNG/Tree/Node.cs\"\n],\n\"approach\": \"Implement an 'Undo Sort' feature by caching the child node order of a folder before applying a sort operation, allowing restoration of the manual order.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T09:45:22"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": true
+}

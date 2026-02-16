@@ -1,7 +1,86 @@
 # Lessons Learned System
 
-Last updated: 2026-02-15
+Last updated: 2026-02-16
 Scope: `D:\github\mRemoteNG` modernization and release work.
+
+## IIS Orchestrator — Execution Lessons (CRITICAL)
+
+### Monitoring — Use the INTERNAL log, not stdout
+
+**Problem:** Python stdout is fully buffered when redirected to file on Windows. `PYTHONUNBUFFERED=1` and `-u` flag do NOT fix file redirect buffering. The Claude task system marks background commands as "completed" when the shell wrapper exits, even though the Python process continues running.
+
+**Solution:** The orchestrator writes its own log via Python `logging.FileHandler`:
+```
+.project-roadmap/scripts/orchestrator.log    ← ALWAYS read THIS file
+```
+This FileHandler flushes automatically after each log line. Do NOT rely on stdout redirect.
+
+**Monitoring commands:**
+```bash
+# Check if orchestrator is alive
+ps -W | grep -iE "python" | grep -v "AnthropicClaude\|\.local"
+
+# Read the REAL log (FileHandler, auto-flushed)
+tail -20 D:/github/mRemoteNG/.project-roadmap/scripts/orchestrator.log
+
+# Check chain-context for proof of work
+ls -lt D:/github/mRemoteNG/.project-roadmap/scripts/chain-context/ | head -10
+
+# Check which agent is running
+ps -W | grep -iE "codex\.exe|gemini" | grep -v "AnthropicClaude"
+
+# Check new commits
+git log --oneline -5
+```
+
+### Starting the orchestrator
+
+**NEVER launch with `&` in a Claude background task** — the shell exits, task reports "completed", confusing monitoring. Instead:
+```bash
+# Option 1: Direct run (blocks Claude, but output is visible)
+cd D:/github/mRemoteNG && python .project-roadmap/scripts/iis_orchestrator.py issues 2>&1
+
+# Option 2: Nohup (detached, survives shell exit)
+cd D:/github/mRemoteNG && nohup python -u .project-roadmap/scripts/iis_orchestrator.py issues > /dev/null 2>&1 &
+
+# Option 3: Monitor via internal log (PREFERRED)
+# Start in background, then tail the INTERNAL log file:
+cd D:/github/mRemoteNG && python .project-roadmap/scripts/iis_orchestrator.py issues &
+# Monitor:
+tail -f D:/github/mRemoteNG/.project-roadmap/scripts/orchestrator.log
+```
+
+### Multiple orchestrator processes = DISASTER
+
+**ALWAYS check for existing Python processes before starting:**
+```bash
+ps -W | grep -iE "python" | grep -v "AnthropicClaude\|\.local"
+```
+Kill ALL old orchestrator processes before starting a new one. Two orchestrators running simultaneously cause git conflicts, double commits, and race conditions.
+
+### Test DLL rebuild trap
+
+**Problem:** `build.ps1` only builds the main `mRemoteNG.dll`. Test projects (`mRemoteNGTests`, `mRemoteNGSpecs`) reference the main DLL but don't auto-rebuild. `run-tests.ps1` calls `build.ps1` internally but may not detect that the test project's copy of mRemoteNG.dll is stale.
+
+**Solution:** After modifying serializers or any main project code, ALWAYS force-rebuild test projects before running tests:
+```powershell
+# Force rebuild test project (picks up new mRemoteNG.dll)
+powershell.exe -NoProfile -Command '& {
+  . "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\Launch-VsDevShell.ps1" -Arch amd64 2>$null
+  msbuild D:\github\mRemoteNG\mRemoteNGTests\mRemoteNGTests.csproj -t:Rebuild -restore -m "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=x64"
+}'
+# Then run tests with -NoBuild
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
+```
+
+### Orchestrator speed estimates
+
+- **Triage** (Codex): ~15-30s per issue, ~120s timeout
+- **Implement** (Codex): 3-10 min per issue (code + build + test)
+- **Fallback** (Gemini/Claude): adds 1-2 min per failed agent
+- **645 issues total**: ~6-8 hours estimated (triage all + ~50-80 implementations)
+- **Issues triaged as needs_info/wontfix**: ~90% (fast, triage-only)
+- **Issues triaged as implement**: ~10% (slow, full build+test cycle)
 
 ## Goal
 
