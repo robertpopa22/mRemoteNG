@@ -222,6 +222,19 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
+        public override bool Initialize()
+        {
+            if (!base.Initialize())
+                return false;
+
+            if (InterfaceControl != null)
+            {
+                InterfaceControl.Resize += Resize;
+            }
+
+            return true;
+        }
+
         public override bool Connect()
         {
             string optionalTemporaryPrivateKeyPath = ""; // path to ppk file instead of password. only temporary (extracted from credential vault).
@@ -505,7 +518,29 @@ namespace mRemoteNG.Connection.Protocol
                     SendKeys.SendWait(finalCommand);
                 }
 
-                Resize(this, new EventArgs());
+                Resize(this, EventArgs.Empty);
+                try
+                {
+                    if (InterfaceControl.IsHandleCreated && !InterfaceControl.IsDisposed)
+                    {
+                        // Run one more resize after the current layout pass so PuTTY fills the tab
+                        // when docking/layout initialization completes asynchronously.
+                        InterfaceControl.BeginInvoke((MethodInvoker)(() =>
+                        {
+                            if (!InterfaceControl.IsDisposed)
+                                Resize(this, EventArgs.Empty);
+                        }));
+                    }
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Interface control was disposed before deferred resize was queued.
+                }
+                catch (InvalidOperationException)
+                {
+                    // Interface handle is no longer available; skip deferred resize.
+                }
+
                 StartTerminalTitleTracking();
                 base.Connect();
                 return true;
@@ -579,7 +614,7 @@ namespace mRemoteNG.Connection.Protocol
         {
             try
             {
-                if (InterfaceControl.Size == Size.Empty)
+                if (InterfaceControl.Size == Size.Empty || PuttyHandle == IntPtr.Zero)
                     return;
 
                 if (_isPuttyNg)
@@ -615,6 +650,11 @@ namespace mRemoteNG.Connection.Protocol
 
         public override void Close()
         {
+            if (InterfaceControl != null)
+            {
+                InterfaceControl.Resize -= Resize;
+            }
+
             StopTerminalTitleTracking();
 
             try
