@@ -44,6 +44,7 @@
     <xs:attribute name="Domain" type="xs:string" use="required" />
     <xs:attribute name="Password" type="xs:string" use="required" />
     <xs:attribute name="Hostname" type="xs:string" use="required" />
+    <xs:attribute name="AlternativeAddress" type="xs:string" use="optional" />
     <xs:attribute name="Protocol" type="xs:string" use="required" />
     <xs:attribute name="RdpVersion" type="xs:string" use="required" />
     <xs:attribute name="VmId" type="xs:string" use="required" />

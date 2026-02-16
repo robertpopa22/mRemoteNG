@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "764",
+  "started_at": "2026-02-16T11:19:35",
+  "finished_at": "2026-02-16T11:20:48",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue lacks reproducible steps and latest-version confirmation, and search behavior differs between filter mode and legacy next-match mode, so a fresh repro is required before implementing a fix.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Tree/NodeSearcher.cs",
+          "mRemoteNGTests/Tree/NodeSearcherTests.cs",
+          "mRemoteNG/UI/Window/ConnectionTreeWindow.cs"
+        ],
+        "approach": "Ask for retest on latest build with `UseFilterSearch` on and off plus exact steps; if confirmed, rank exact-name matches before substring matches in `NodeSearcher` and add regression tests."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The issue lacks reproducible steps and latest-version confirmation, and search behavior differs between filter mode and legacy next-match mode, so a fresh repro is required before implementing a fix.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Tree/NodeSearcher.cs\",\"mRemoteNGTests/Tree/NodeSearcherTests.cs\",\"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\"],\"approach\":\"Ask for retest on latest build with `UseFilterSearch` on and off plus exact steps; if confirmed, rank exact-name matches before substring matches in `NodeSearcher` and add regression tests.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T11:20:48"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

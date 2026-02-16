@@ -34,6 +34,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectToConsoleSession = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsNoCredentials = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectInFullscreen = null!;
+        private ToolStripMenuItem _cMenTreeConnectWithOptionsAlternativeAddress = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly = null!;
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
         private ToolStripSeparator _cMenTreeSep2 = null!;
@@ -95,6 +96,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsConnectInFullscreen = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsNoCredentials = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = new ToolStripMenuItem();
+            _cMenTreeConnectWithOptionsAlternativeAddress = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsViewOnly = new ToolStripMenuItem();
             _cMenTreeDisconnect = new ToolStripMenuItem();
             _cMenTreeSep1 = new ToolStripSeparator();
@@ -180,6 +182,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptionsConnectInFullscreen,
                 _cMenTreeConnectWithOptionsNoCredentials,
                 _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting,
+                _cMenTreeConnectWithOptionsAlternativeAddress,
                 _cMenTreeConnectWithOptionsViewOnly
             });
             _cMenTreeConnectWithOptions.Name = "_cMenTreeConnectWithOptions";
@@ -227,6 +230,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Size = new System.Drawing.Size(245, 22);
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Text = "Choose panel before connecting";
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Click += OnChoosePanelBeforeConnectingClicked;
+            //
+            // cMenTreeConnectWithOptionsAlternativeAddress
+            //
+            _cMenTreeConnectWithOptionsAlternativeAddress.Name =
+                "_cMenTreeConnectWithOptionsAlternativeAddress";
+            _cMenTreeConnectWithOptionsAlternativeAddress.Size = new System.Drawing.Size(245, 22);
+            _cMenTreeConnectWithOptionsAlternativeAddress.Text = "Connect using alternative hostname/IP";
+            _cMenTreeConnectWithOptionsAlternativeAddress.Click += OnConnectUsingAlternativeAddressClick;
             //
             // cMenTreeConnectWithOptionsViewOnly
             //
@@ -474,6 +485,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsConnectInFullscreen.Text = Language.ConnectInFullscreen;
             _cMenTreeConnectWithOptionsNoCredentials.Text = Language.ConnectNoCredentials;
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Text = Language.ChoosePanelBeforeConnecting;
+            _cMenTreeConnectWithOptionsAlternativeAddress.Text = "Connect using alternative hostname/IP";
             _cMenTreeConnectWithOptionsViewOnly.Text = Language.ConnectInViewOnlyMode;
             _cMenTreeDisconnect.Text = Language.Disconnect;
 
@@ -562,6 +574,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDelete.Enabled = false;
             _cMenTreeMoveUp.Enabled = false;
             _cMenTreeMoveDown.Enabled = false;
+            _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
@@ -576,6 +589,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Enabled = false;
+            _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
@@ -597,6 +611,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDisconnect.Enabled = hasOpenConnections;
 
             _cMenTreeToolsTransferFile.Enabled = false;
+            _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
         }
 
@@ -621,6 +636,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeMoveDown.Enabled = false;
             _cMenTreeImport.Enabled = false;
             _cMenTreeExportFile.Enabled = false;
+            _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
@@ -647,6 +663,7 @@ namespace mRemoteNG.UI.Controls
             if (connectionInfo.Protocol != ProtocolType.RDP && connectionInfo.Protocol != ProtocolType.VNC)
                 _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
 
+            _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = !string.IsNullOrWhiteSpace(connectionInfo.AlternativeAddress);
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
         }
 
@@ -790,6 +807,19 @@ namespace mRemoteNG.UI.Controls
                 Runtime.ConnectionInitiator.OpenConnection(_connectionTree.SelectedNode,
                                                            ConnectionInfo.Force.OverridePanel |
                                                            ConnectionInfo.Force.DoNotJump);
+        }
+
+        private void OnConnectUsingAlternativeAddressClick(object sender, EventArgs e)
+        {
+            ContainerInfo? selectedNodeAsContainer = _connectionTree.SelectedNode as ContainerInfo;
+            if (selectedNodeAsContainer != null)
+                Runtime.ConnectionInitiator.OpenConnection(
+                    selectedNodeAsContainer,
+                    ConnectionInfo.Force.UseAlternativeAddress | ConnectionInfo.Force.DoNotJump);
+            else
+                Runtime.ConnectionInitiator.OpenConnection(
+                    _connectionTree.SelectedNode,
+                    ConnectionInfo.Force.UseAlternativeAddress | ConnectionInfo.Force.DoNotJump);
         }
 
         private void ConnectWithOptionsViewOnlyOnClick(object sender, EventArgs e)

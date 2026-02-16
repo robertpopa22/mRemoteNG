@@ -65,6 +65,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
 
             element.Add(new XAttribute("Hostname", connectionInfo.Hostname));
+            element.Add(new XAttribute("AlternativeAddress", connectionInfo.AlternativeAddress));
             element.Add(new XAttribute("Protocol", connectionInfo.Protocol));
             element.Add(new XAttribute("RdpVersion", connectionInfo.RdpVersion.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("SSHTunnelConnectionName", connectionInfo.SSHTunnelConnectionName));
@@ -277,6 +278,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritMacAddress", inheritance.MacAddress.ToString().ToLowerInvariant()));
             if (inheritance.Hostname)
                 element.Add(new XAttribute("InheritHostname", inheritance.Hostname.ToString().ToLowerInvariant()));
+            if (inheritance.AlternativeAddress)
+                element.Add(new XAttribute("InheritAlternativeAddress", inheritance.AlternativeAddress.ToString().ToLowerInvariant()));
             if (inheritance.UserField)
                 element.Add(new XAttribute("InheritUserField", inheritance.UserField.ToString().ToLowerInvariant()));
             if (inheritance.UserField1)

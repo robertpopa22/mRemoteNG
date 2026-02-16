@@ -234,6 +234,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                 expectedProperties.AddRange(new []
                 {
                     nameof(ConnectionInfo.Hostname),
+                    nameof(ConnectionInfo.AlternativeAddress),
                 });
             }
 

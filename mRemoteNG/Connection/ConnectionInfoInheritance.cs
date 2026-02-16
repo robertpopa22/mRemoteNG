@@ -121,6 +121,12 @@ namespace mRemoteNG.Connection
         public bool Hostname { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 3),
+         DisplayName("Inherit Alternative Hostname/IP"),
+         Description("Inherit the Alternative Hostname/IP property from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool AlternativeAddress { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 3),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.Port)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionPort)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

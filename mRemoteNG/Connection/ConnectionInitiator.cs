@@ -82,7 +82,17 @@ namespace mRemoteNG.Connection
 
             try
             {
-                if (!string.IsNullOrEmpty(connectionInfo.EC2InstanceId))
+                ConnectionInfo connectionInfoOriginal = connectionInfo;
+                bool useAlternativeAddress = force.HasFlag(ConnectionInfo.Force.UseAlternativeAddress) &&
+                                             !string.IsNullOrWhiteSpace(connectionInfoOriginal.AlternativeAddress);
+
+                if (useAlternativeAddress)
+                {
+                    connectionInfo = connectionInfoOriginal.Clone();
+                    connectionInfo.Hostname = connectionInfoOriginal.AlternativeAddress;
+                }
+
+                if (!useAlternativeAddress && !string.IsNullOrEmpty(connectionInfo.EC2InstanceId))
                 {
                     try
                     {
@@ -113,11 +123,11 @@ namespace mRemoteNG.Connection
 
                 if (!force.HasFlag(ConnectionInfo.Force.DoNotJump))
                 {
-                    if (SwitchToOpenConnection(connectionInfo))
+                    if (SwitchToOpenConnection(connectionInfoOriginal))
                         return;
                 }
 
-                string? connectionPanel = SetConnectionPanel(connectionInfo, force);
+                string? connectionPanel = SetConnectionPanel(connectionInfoOriginal, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
                 ConnectionWindow? connectionForm = SetConnectionForm(conForm, connectionPanel);
                 if (connectionForm == null) return;
@@ -126,7 +136,6 @@ namespace mRemoteNG.Connection
                 // Handle connection through SSH tunnel:
                 // in case of connection through SSH tunnel, connectionInfo gets cloned, so that modification of its name, hostname and port do not modify the original connection info
                 // connectionInfoOriginal points to the original connection info in either case, for where its needed later on.
-                ConnectionInfo connectionInfoOriginal = connectionInfo;
                 ConnectionInfo? connectionInfoSshTunnel = null; // SSH tunnel connection info will be set if SSH tunnel connection is configured, can be found and connected.
                 if (!string.IsNullOrEmpty(connectionInfoOriginal.SSHTunnelConnectionName))
                 {
@@ -166,7 +175,7 @@ namespace mRemoteNG.Connection
 
                         // clone SSH tunnel connection as tunnel options will be added to it, and those changes shall not be saved to the configuration
                         var currentTunnelInfo = connectionInfoSshTunnel.Clone();
-                        currentTunnelInfo.SSHOptions += " -L " + localSshTunnelPort + ":" + connectionInfoOriginal.Hostname + ":" + connectionInfoOriginal.Port;
+                        currentTunnelInfo.SSHOptions += " -L " + localSshTunnelPort + ":" + connectionInfo.Hostname + ":" + connectionInfo.Port;
 
                         // connect the SSH connection to setup the tunnel
                         ProtocolBase protocolSshTunnel = _protocolFactory.CreateProtocol(currentTunnelInfo);
@@ -259,8 +268,8 @@ namespace mRemoteNG.Connection
                 }
 
                 connectionInfoOriginal.OpenConnections.Add(newProtocol);
-                _activeConnections.Add(connectionInfo.ConstantID);
-                FrmMain.Default.SelectedConnection = connectionInfo;
+                _activeConnections.Add(useAlternativeAddress ? connectionInfoOriginal.ConstantID : connectionInfo.ConstantID);
+                FrmMain.Default.SelectedConnection = useAlternativeAddress ? connectionInfoOriginal : connectionInfo;
             }
             catch (Exception ex)
             {
@@ -464,6 +473,8 @@ namespace mRemoteNG.Connection
                 prot.InterfaceControl.OriginalInfo.OpenConnections.Remove(prot);
                 if (_activeConnections.Contains(prot.InterfaceControl.Info.ConstantID))
                     _activeConnections.Remove(prot.InterfaceControl.Info.ConstantID);
+                if (_activeConnections.Contains(prot.InterfaceControl.OriginalInfo.ConstantID))
+                    _activeConnections.Remove(prot.InterfaceControl.OriginalInfo.ConstantID);
 
                 if (prot.InterfaceControl.Info.PostExtApp == "") return;
                 Tools.ExternalTool? extA = Runtime.ExternalToolsService.GetExtAppByName(prot.InterfaceControl.Info.PostExtApp);

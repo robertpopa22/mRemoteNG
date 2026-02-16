@@ -30,6 +30,7 @@ namespace mRemoteNG.Connection
         private ConnectionFrameColor _connectionFrameColor = default;
 
         private string _hostname = string.Empty;
+        private string _alternativeAddress = string.Empty;
         private ExternalAddressProvider _externalAddressProvider = default;
         private string _ec2InstanceId = "";
         private string _ec2Region = "";
@@ -224,6 +225,16 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Hostname", _hostname?.Trim() ?? string.Empty);
             set => SetField(ref _hostname, value?.Trim() ?? string.Empty, "Hostname");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         DisplayName("Alternative Hostname/IP"),
+         Description("Optional alternate hostname or IP address used when connecting with options."),
+         AttributeUsedInAllProtocolsExcept()]
+        public virtual string AlternativeAddress
+        {
+            get => GetPropertyValue("AlternativeAddress", _alternativeAddress?.Trim() ?? string.Empty);
+            set => SetField(ref _alternativeAddress, value?.Trim() ?? string.Empty, "AlternativeAddress");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),

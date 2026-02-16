@@ -15,6 +15,7 @@
 		public TType Username { get; set; }
 		public TType Password { get; set; }
 		public TType Domain { get; set; }
+		public TType AlternativeAddress { get; set; }
 		public TType Protocol { get; set; }
 		public TType ExtApp { get; set; }
 		public TType PuttySession { get; set; }

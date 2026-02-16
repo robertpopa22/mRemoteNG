@@ -8,7 +8,7 @@
   ],
   "author": "WiSchOnline",
   "created_at": "2017-11-17T07:29:21Z",
-  "github_updated_at": "2018-01-03T15:10:54Z",
+  "github_updated_at": "2026-02-16T08:46:20Z",
   "body_snippet": "<!-- Bug -->\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008  |\r\n\r\nHow can I keep/save the column-witdh I set in the panel for external programs?\r\n\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -74,12 +74,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o4pf-",
+      "author": "robertpopa22",
+      "date": "2026-02-16T08:46:20Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`73318fb3`](https://github.com/robertpopa22/mRemoteNG/commit/73318fb306e068c985dd3af4e1b96924b9286f8c)\n**Branch:** `main`\n**What changed:** Add a `ExtAppsLayout` user setting. In `ExternalToolsWindow`\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2018-01-03T15:10:54Z",
+  "comments_cursor": "2026-02-16T08:46:20Z",
   "unread_comments": 5,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-16T09:19:21Z",
   "notes": "AI triage (gemini): The issue is a valid enhancement request to persist user UI preferences (column widths) for the External Tools panel, improving usability.\nApproach: Add a `ExtAppsLayout` user setting. In `ExternalToolsWindow`, save the `ObjectListView` state to this setting on close/resize, and restore it on load. Remove or conditionalize the `AutoResizeColumns` call."
 }

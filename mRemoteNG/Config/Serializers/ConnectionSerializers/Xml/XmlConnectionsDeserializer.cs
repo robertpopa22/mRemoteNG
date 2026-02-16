@@ -222,6 +222,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Name = xmlnode.GetAttributeAsString("Name");
                     connectionInfo.Description = xmlnode.GetAttributeAsString("Descr");
                     connectionInfo.Hostname = xmlnode.GetAttributeAsString("Hostname");
+                    connectionInfo.AlternativeAddress = xmlnode.GetAttributeAsString("AlternativeAddress");
                     connectionInfo.DisplayWallpaper = xmlnode.GetAttributeAsBool("DisplayWallpaper");
                     connectionInfo.DisplayThemes = xmlnode.GetAttributeAsBool("DisplayThemes");
                     connectionInfo.CacheBitmaps = xmlnode.GetAttributeAsBool("CacheBitmaps");
@@ -586,6 +587,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                         connectionInfo.Inheritance.UserField9 = xmlnode.GetAttributeAsBool("InheritUserField9");
                         connectionInfo.Inheritance.UserField10 = xmlnode.GetAttributeAsBool("InheritUserField10");
                         connectionInfo.Inheritance.Hostname = xmlnode.GetAttributeAsBool("InheritHostname");
+                        connectionInfo.Inheritance.AlternativeAddress = xmlnode.GetAttributeAsBool("InheritAlternativeAddress");
                         break;
 
                     case >= 0.5:

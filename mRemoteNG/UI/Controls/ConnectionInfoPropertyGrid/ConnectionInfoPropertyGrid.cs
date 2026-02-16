@@ -167,12 +167,16 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     }
 
                     if (SelectedConnectionInfo.IsContainer)
+                    {
                         strHide.Add(nameof(AbstractConnectionRecord.Hostname));
+                        strHide.Add(nameof(AbstractConnectionRecord.AlternativeAddress));
+                    }
 
                     if (SelectedConnectionInfo is PuttySessionInfo)
                         strHide.Add(nameof(AbstractConnectionRecord.Favorite));
                 } else if (PropertyMode == PropertyMode.DefaultConnection) {
                     strHide.Add(nameof(AbstractConnectionRecord.Hostname));
+                    strHide.Add(nameof(AbstractConnectionRecord.AlternativeAddress));
                     strHide.Add(nameof(AbstractConnectionRecord.Name));
                 }
 
