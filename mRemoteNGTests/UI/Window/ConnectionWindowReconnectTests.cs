@@ -7,7 +7,6 @@ using mRemoteNG.App;
 using mRemoteNG.Config;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
-using mRemoteNG.Properties;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.Window;
@@ -69,13 +68,22 @@ namespace mRemoteNGTests.UI.Window
         public void Reconnect_ReusesExistingTabAndPreservesTabIndex() => RunWithMessagePump(() =>
         {
             var previousInitiator = Runtime.ConnectionInitiator;
-            bool previousAlwaysShowPanelSelectionDlg = OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg;
-            int previousConfirmCloseConnection = Settings.Default.ConfirmCloseConnection;
+
+            // Access internal settings classes via reflection (they are internal sealed)
+            var optionsType = typeof(FrmMain).Assembly.GetType("mRemoteNG.Properties.OptionsTabsPanelsPage");
+            var optionsDefault = optionsType?.GetProperty("Default", BindingFlags.Static | BindingFlags.Public)?.GetValue(null);
+            var alwaysShowProp = optionsType?.GetProperty("AlwaysShowPanelSelectionDlg");
+            bool previousAlwaysShowPanelSelectionDlg = (bool)(alwaysShowProp?.GetValue(optionsDefault) ?? false);
+
+            var settingsType = typeof(FrmMain).Assembly.GetType("mRemoteNG.Properties.Settings");
+            var settingsDefault = settingsType?.GetProperty("Default", BindingFlags.Static | BindingFlags.Public)?.GetValue(null);
+            var confirmCloseProp = settingsType?.GetProperty("ConfirmCloseConnection");
+            int previousConfirmCloseConnection = (int)(confirmCloseProp?.GetValue(settingsDefault) ?? 0);
 
             try
             {
-                OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg = false;
-                Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                alwaysShowProp?.SetValue(optionsDefault, false);
+                confirmCloseProp?.SetValue(settingsDefault, (int)ConfirmCloseEnum.Never);
 
                 IProtocolFactory protocolFactory = Substitute.For<IProtocolFactory>();
                 protocolFactory.CreateProtocol(Arg.Any<ConnectionInfo>()).Returns(_ => new TestProtocol());
@@ -140,8 +148,8 @@ namespace mRemoteNGTests.UI.Window
             finally
             {
                 Runtime.ConnectionInitiator = previousInitiator;
-                OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg = previousAlwaysShowPanelSelectionDlg;
-                Settings.Default.ConfirmCloseConnection = previousConfirmCloseConnection;
+                alwaysShowProp?.SetValue(optionsDefault, previousAlwaysShowPanelSelectionDlg);
+                confirmCloseProp?.SetValue(settingsDefault, previousConfirmCloseConnection);
             }
         });
 

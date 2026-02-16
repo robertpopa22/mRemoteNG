@@ -122,7 +122,7 @@ public class SqlConnectionsLoaderIntegrationTests
         _sqlDataProviderMock.Load()
             .Returns(CreateEncryptedConnectionsDataTable(masterPassword, connectionInfo));
 
-        var loader = CreateLoader((filename) => new Optional<SecureString>(masterPassword));
+        var loader = CreateLoader(authRequestor: (filename) => new Optional<SecureString>(masterPassword));
 
         // Act
         var loadedTree = loader.Load();
@@ -201,7 +201,7 @@ public class SqlConnectionsLoaderIntegrationTests
                      new Optional<SecureString>(incorrectMasterPassword),
                      new Optional<SecureString>(incorrectMasterPassword));
 
-        var loader = CreateLoader(mockPasswordRequestor);
+        var loader = CreateLoader(authRequestor: mockPasswordRequestor);
 
         // Act & Assert
         var ex = Assert.Throws<Exception>(() => loader.Load());
@@ -226,7 +226,7 @@ public class SqlConnectionsLoaderIntegrationTests
             .Invoke(Arg.Any<string>())
             .Returns(Optional<SecureString>.Empty);
 
-        var loader = CreateLoader(mockPasswordRequestor);
+        var loader = CreateLoader(authRequestor: mockPasswordRequestor);
 
         // Act & Assert
         var ex = Assert.Throws<Exception>(() => loader.Load());
@@ -250,7 +250,7 @@ public class SqlConnectionsLoaderIntegrationTests
         _sqlDataProviderMock.Load()
             .Returns(CreateEncryptedConnectionsDataTable(masterPassword, connectionInfo));
 
-        var loader = CreateLoader((filename) => new Optional<SecureString>(masterPassword));
+        var loader = CreateLoader(authRequestor: (filename) => new Optional<SecureString>(masterPassword));
 
         // Act
         loader.Load();
@@ -275,7 +275,7 @@ public class SqlConnectionsLoaderIntegrationTests
         _sqlDataProviderMock.Load()
             .Returns(CreateEncryptedConnectionsDataTable(masterPassword, connectionInfo));
 
-        var loader = CreateLoader((filename) => new Optional<SecureString>(masterPassword));
+        var loader = CreateLoader(authRequestor: (filename) => new Optional<SecureString>(masterPassword));
 
         // Act
         loader.Load();
