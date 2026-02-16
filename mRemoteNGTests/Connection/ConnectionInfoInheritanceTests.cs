@@ -1,8 +1,11 @@
-﻿using System.Collections;
+using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
+using mRemoteNG.Tools;
 using mRemoteNG.Tree.Root;
 using NUnit.Framework;
 
@@ -107,6 +110,89 @@ public class ConnectionInfoInheritanceTests
         Assert.That(con1.AutomaticResize, Is.EqualTo(expectedSetting));
     }
 
+    [Test]
+    public void ApplyAutomaticInheritanceFromParentSetsOnlyMatchingProperties()
+    {
+        var root = new RootNodeInfo(RootNodeType.Connection);
+        var parentContainer = new ContainerInfo
+        {
+            Username = "parentUser",
+            Domain = "parentDomain",
+            Port = 3389
+        };
+        var childConnection = new ConnectionInfo
+        {
+            Username = "parentUser",
+            Domain = "childDomain",
+            Port = 3389
+        };
+
+        root.AddChild(parentContainer);
+        parentContainer.AddChild(childConnection);
+
+        childConnection.Inheritance.TurnOffInheritanceCompletely();
+        childConnection.Inheritance.ApplyAutomaticInheritanceFromParent();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(childConnection.Inheritance.Username, Is.True);
+            Assert.That(childConnection.Inheritance.Port, Is.True);
+            Assert.That(childConnection.Inheritance.Domain, Is.False);
+        });
+    }
+
+    [Test]
+    public void ApplyAutomaticInheritanceFromParentComparesStoredParentValues()
+    {
+        var root = new RootNodeInfo(RootNodeType.Connection);
+        var grandParent = new ContainerInfo { Username = "grandParentUser" };
+        var parent = new ContainerInfo { Username = "parentRawUser" };
+        var child = new ConnectionInfo { Username = "grandParentUser" };
+
+        root.AddChild(grandParent);
+        grandParent.AddChild(parent);
+        parent.AddChild(child);
+
+        parent.Inheritance.Username = true;
+        child.Inheritance.TurnOffInheritanceCompletely();
+
+        child.Inheritance.ApplyAutomaticInheritanceFromParent();
+
+        Assert.That(child.Inheritance.Username, Is.False);
+    }
+
+    [Test]
+    public void EverythingInheritedAutoOptionTriggersAutomaticComparison()
+    {
+        var root = new RootNodeInfo(RootNodeType.Connection);
+        var parentContainer = new ContainerInfo
+        {
+            Username = "parentUser",
+            Domain = "parentDomain"
+        };
+        var childConnection = new ConnectionInfo
+        {
+            Username = "parentUser",
+            Domain = "childDomain"
+        };
+
+        root.AddChild(parentContainer);
+        parentContainer.AddChild(childConnection);
+
+        childConnection.Inheritance.TurnOffInheritanceCompletely();
+
+        var converter = new MiscTools.YesNoAutoTypeConverter();
+        var context = new InheritanceTypeDescriptorContext(childConnection.Inheritance);
+        var convertedValue = converter.ConvertFrom(context, culture: null, value: "Auto");
+        childConnection.Inheritance.EverythingInherited = (bool)convertedValue!;
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(childConnection.Inheritance.Username, Is.True);
+            Assert.That(childConnection.Inheritance.Domain, Is.False);
+        });
+    }
+
     private bool AllInheritancePropertiesAreTrue(ConnectionInfoInheritance inheritance)
     {
         var allPropertiesTrue = true;
@@ -146,5 +232,31 @@ public class ConnectionInfoInheritanceTests
     private bool BooleanPropertyIsSetToTrue(PropertyInfo property, ConnectionInfoInheritance inheritance)
     {
         return (bool)property.GetValue(inheritance);
+    }
+
+    private sealed class InheritanceTypeDescriptorContext : ITypeDescriptorContext
+    {
+        public InheritanceTypeDescriptorContext(ConnectionInfoInheritance inheritance)
+        {
+            Instance = inheritance;
+        }
+
+        public IContainer? Container => null;
+        public object Instance { get; }
+        public PropertyDescriptor? PropertyDescriptor => null;
+
+        public void OnComponentChanged()
+        {
+        }
+
+        public bool OnComponentChanging()
+        {
+            return true;
+        }
+
+        public object? GetService(Type serviceType)
+        {
+            return null;
+        }
     }
 }

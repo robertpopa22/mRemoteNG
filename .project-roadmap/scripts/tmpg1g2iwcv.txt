@@ -1,0 +1,45 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #835: Automatically propagate inheritance
+Description: 
+Approach: Add an `Auto` option to the Inherit All UI and wire it to existing inheritance comparison logic so changed parent properties propagate automatically to children.
+Likely files: mRemoteV1/Connection/ConnectionInfoInheritance.cs, mRemoteV1/UI/Forms/frmConnection.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [TIMEOUT] ---
+Task: implement #835
+NOTE: This agent TIMED OUT. It may have done partial work.
+Check the working tree — some files may already be modified.
+Errors: TIMEOUT after 885s
+Files modified: .project-roadmap/issues-db/_meta.json, .project-roadmap/issues-db/upstream/0739.json, .project-roadmap/issues-db/upstream/0764.json, .project-roadmap/issues-db/upstream/0787.json, .project-roadmap/issues-db/upstream/0816.json, .project-roadmap/issues-db/upstream/0824.json, .project-roadmap/issues-db/upstream/0825.json, .project-roadmap/issues-db/upstream/0828.json, .project-roadmap/issues-db/upstream/0834.json, .project-roadmap/issues-db/upstream/0835.json, .project-roadmap/issues-db/upstream/2833.json, .project-roadmap/scripts/chain-context/_timeout_history.json, .project-roadmap/scripts/tmp5xkwjtqu.jsonl, .project-roadmap/scripts/tmp_fygq__y.jsonl, .project-roadmap/scripts/tmpa_lwjzkn.txt, .project-roadmap/scripts/tmpf66lpwlz.jsonl, .project-roadmap/scripts/tmpg_u6_6d6.txt, .project-roadmap/scripts/tmpmbyi7ni9.txt, .project-roadmap/scripts/tmpp_fqzrw0.txt, .project-roadmap/scripts/tmpvn_nwht5.txt, mRemoteNG/Connection/ConnectionInfoInheritance.cs, mRemoteNG/Tools/MiscTools.cs, mRemoteNGTests/Connection/ConnectionInfoInheritanceTests.cs
+Diff summary:
+.project-roadmap/issues-db/_meta.json              |  12 +--
+ .project-roadmap/issues-db/upstream/0739.json      |   8 +-
+ .project-roadmap/issues-db/upstream/0764.json      |  10 +-
+ .project-roadmap/issues-db/upstream/0787.json      |   8 +-
+ .project-roadmap/issues-db/upstream/0816.json      |   8 +-
+ .project-roadmap/issues-db/upstream/0824.json      |  15 ++-
+ .project-roadmap/issues-db/upstream/0825.json      |  15 ++-
+ .project-roadmap/issues-db/upstream/0828.json      |  15 ++-
+ .project-roadmap/issues-db/upstream/0834.json      |  15 ++-
+ .project-roadmap/issues-db/upstream/0835.json      |  15 ++-
+ .project-roadmap/issues-db/upstream/2833.json      |   8 +-
+ .../scripts/chain-context/_timeout_history.json    |  22 +++-
+ .project-roadmap/scripts/tmp5xkwjtqu.jsonl         |   0
+ .project-roadmap/scripts/tmp_fygq__y.jsonl         |   0
+ .project-roadmap/scripts/tmpa_lwjzkn.txt           |  18 ----
+ .project-roadmap/scripts/tmpf66lpwlz.jsonl         |   0
+ .project-roadmap/script
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

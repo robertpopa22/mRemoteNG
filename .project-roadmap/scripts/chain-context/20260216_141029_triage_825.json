@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "825",
+  "started_at": "2026-02-16T14:10:06",
+  "finished_at": "2026-02-16T14:10:29",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue has no body, reproduction steps, or expected outcome, so the focus-loss behavior cannot be scoped reliably yet.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmMain.cs"
+        ],
+        "approach": "Request exact steps, protocol(s), and expected focus behavior, then adjust new-connection window activation/focus handling accordingly."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The issue has no body, reproduction steps, or expected outcome, so the focus-loss behavior cannot be scoped reliably yet.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmMain.cs\"],\"approach\":\"Request exact steps, protocol(s), and expected focus behavior, then adjust new-connection window activation/focus handling accordingly.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T14:10:29"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

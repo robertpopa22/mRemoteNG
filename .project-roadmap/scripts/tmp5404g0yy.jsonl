@@ -1,0 +1,19 @@
+Implemented the `#835` fix by adding an `Auto` mode to the existing **Inherit All** flow and wiring it to parent/child value comparison.
+
+### Changes made
+- `EverythingInherited` now uses a dedicated `Yes/No/Auto` converter in `mRemoteNG/Connection/ConnectionInfoInheritance.cs:25`.
+- Added auto execution path in `EverythingInherited` setter and a method to apply per-property inheritance based on child-vs-parent equality in `mRemoteNG/Connection/ConnectionInfoInheritance.cs:681`.
+- Auto comparison reads **stored** values (not inherited-resolved values) via temporary per-property inherit-flag suppression in `mRemoteNG/Connection/ConnectionInfoInheritance.cs:705` and `mRemoteNG/Connection/ConnectionInfoInheritance.cs:717`.
+- Added `YesNoAutoTypeConverter` for this UI behavior in `mRemoteNG/Tools/MiscTools.cs:273`.
+- Added focused tests:
+  - `ApplyAutomaticInheritanceFromParentSetsOnlyMatchingProperties` in `mRemoteNGTests/Connection/ConnectionInfoInheritanceTests.cs:114`
+  - `ApplyAutomaticInheritanceFromParentComparesStoredParentValues` in `mRemoteNGTests/Connection/ConnectionInfoInheritanceTests.cs:145`
+  - `EverythingInheritedAutoOptionTriggersAutomaticComparison` in `mRemoteNGTests/Connection/ConnectionInfoInheritanceTests.cs:165`
+
+### Required build/test execution status
+I attempted the required commands, but this session blocks them by policy:
+- `taskkill /F /IM testhost.exe` -> blocked
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"` -> blocked
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild` -> blocked
+
+So code changes are in place, but build/test verification could not be executed in this environment.

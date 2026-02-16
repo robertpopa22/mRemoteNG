@@ -13,6 +13,7 @@ namespace mRemoteNG.Connection
     public class ConnectionInfoInheritance
     {
         private ConnectionInfoInheritance? _tempInheritanceStorage;
+        private bool _autoEverythingInheritedRequested;
 
         #region Public Properties
 
@@ -21,11 +22,21 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.General)),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.All)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionAll)),
-         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+         TypeConverter(typeof(MiscTools.YesNoAutoTypeConverter))]
         public bool EverythingInherited
         {
             get => EverythingIsInherited();
-            set => SetAllValues(value);
+            set
+            {
+                if (_autoEverythingInheritedRequested)
+                {
+                    _autoEverythingInheritedRequested = false;
+                    ApplyAutomaticInheritanceFromParent();
+                    return;
+                }
+
+                SetAllValues(value);
+            }
         }
 
         #endregion
@@ -662,11 +673,65 @@ namespace mRemoteNG.Connection
             SetAllValues(false);
         }
 
+        internal void RequestAutomaticEverythingInheritanceEvaluation()
+        {
+            _autoEverythingInheritedRequested = true;
+        }
+
+        public void ApplyAutomaticInheritanceFromParent()
+        {
+            ConnectionInfo? childConnection = Parent;
+            ConnectionInfo? parentConnection = childConnection?.Parent;
+            if (childConnection == null || parentConnection == null)
+                return;
+
+            IEnumerable<PropertyInfo> inheritanceProperties = GetProperties()
+                .Where(property => property.PropertyType == typeof(bool));
+
+            foreach (PropertyInfo inheritanceProperty in inheritanceProperties)
+            {
+                bool shouldInherit = PropertyValuesMatch(childConnection, parentConnection, inheritanceProperty.Name);
+                inheritanceProperty.SetValue(this, shouldInherit);
+            }
+        }
+
         private bool EverythingIsInherited()
         {
             IEnumerable<PropertyInfo> inheritanceProperties = GetProperties();
             bool everythingInherited = inheritanceProperties.All((p) => p.GetValue(this, null) is true);
             return everythingInherited;
+        }
+
+        private static bool PropertyValuesMatch(ConnectionInfo childConnection, ConnectionInfo parentConnection, string propertyName)
+        {
+            PropertyInfo? childProperty = childConnection.GetType().GetProperty(propertyName);
+            PropertyInfo? parentProperty = parentConnection.GetType().GetProperty(propertyName);
+            if (childProperty == null || parentProperty == null)
+                return false;
+
+            object? childValue = GetConnectionPropertyValueWithoutInheritance(childConnection, childProperty);
+            object? parentValue = GetConnectionPropertyValueWithoutInheritance(parentConnection, parentProperty);
+            return Equals(childValue, parentValue);
+        }
+
+        private static object? GetConnectionPropertyValueWithoutInheritance(ConnectionInfo connection, PropertyInfo connectionProperty)
+        {
+            PropertyInfo? inheritanceProperty = typeof(ConnectionInfoInheritance).GetProperty(connectionProperty.Name);
+            bool inheritanceWasEnabled = inheritanceProperty?.PropertyType == typeof(bool) &&
+                                         inheritanceProperty.GetValue(connection.Inheritance) is true;
+
+            if (inheritanceWasEnabled)
+                inheritanceProperty!.SetValue(connection.Inheritance, false);
+
+            try
+            {
+                return connectionProperty.GetValue(connection);
+            }
+            finally
+            {
+                if (inheritanceWasEnabled)
+                    inheritanceProperty!.SetValue(connection.Inheritance, true);
+            }
         }
 
         public IEnumerable<PropertyInfo> GetProperties()

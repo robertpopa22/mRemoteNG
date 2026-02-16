@@ -2,13 +2,13 @@ Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\github\mRemoteNG
 Branch: main
 
-Fix GitHub issue #751: Add ODBC support
+Fix GitHub issue #835: Automatically propagate inheritance
 
 Description:
 
 
-Recommended approach: Add an ODBC connector and wire it into provider selection, registry validation, and connection testing, then extend SQL connection integration coverage for the new provider path.
-Likely files: mRemoteNG/Config/DatabaseConnectors/DatabaseConnectorFactory.cs, mRemoteNG/Config/DatabaseConnectors/OdbcDatabaseConnector.cs, mRemoteNG/Config/Settings/Registry/OptRegistrySqlServerPage.cs, mRemoteNG/UI/Forms/OptionsPages/SqlServerPage.cs, mRemoteNGTests/Config/Connections/SqlConnectionsLoaderIntegrationTests.cs
+Recommended approach: Add an `Auto` option to the Inherit All UI and wire it to existing inheritance comparison logic so changed parent properties propagate automatically to children.
+Likely files: mRemoteV1/Connection/ConnectionInfoInheritance.cs, mRemoteV1/UI/Forms/frmConnection.cs
 
 RULES (CRITICAL):
 - Read code BEFORE modifying

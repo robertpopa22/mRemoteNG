@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Security;
 using mRemoteNG.App;
+using mRemoteNG.Connection;
 using mRemoteNG.Messages;
 using mRemoteNG.UI.Forms;
 using MySql.Data.Types;
@@ -266,6 +267,85 @@ namespace mRemoteNG.Tools
                 StandardValuesCollection svc = new(bools);
 
                 return svc;
+            }
+        }
+
+        public class YesNoAutoTypeConverter : YesNoTypeConverter
+        {
+            private const string AutoText = "Auto";
+
+            public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object? value)
+            {
+                if (value is AutoSelection autoSelection)
+                {
+                    if (autoSelection == AutoSelection.Yes)
+                        return true;
+                    if (autoSelection == AutoSelection.No)
+                        return false;
+                    return ConvertFromAutoSelection(context);
+                }
+
+                if (value is string stringValue &&
+                    string.Equals(stringValue, AutoText, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    return ConvertFromAutoSelection(context);
+                }
+
+                return base.ConvertFrom(context, culture, value);
+            }
+
+            public override object ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+            {
+                if (destinationType == typeof(string) && value is AutoSelection autoSelection)
+                {
+                    if (autoSelection == AutoSelection.Yes)
+                        return Language.Yes;
+                    if (autoSelection == AutoSelection.No)
+                        return Language.No;
+                    return AutoText;
+                }
+
+                return base.ConvertTo(context, culture, value, destinationType);
+            }
+
+            public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext? context)
+            {
+                AutoSelection[] values = { AutoSelection.Yes, AutoSelection.No, AutoSelection.Auto };
+                return new StandardValuesCollection(values);
+            }
+
+            private static bool ConvertFromAutoSelection(ITypeDescriptorContext? context)
+            {
+                ConnectionInfoInheritance? inheritance = GetInheritanceFromContext(context);
+                if (inheritance == null)
+                    return false;
+
+                inheritance.RequestAutomaticEverythingInheritanceEvaluation();
+                return !inheritance.EverythingInherited;
+            }
+
+            private static ConnectionInfoInheritance? GetInheritanceFromContext(ITypeDescriptorContext? context)
+            {
+                if (context?.Instance is ConnectionInfoInheritance inheritance)
+                    return inheritance;
+
+                if (context?.Instance is object[] instances)
+                {
+                    foreach (object instance in instances)
+                    {
+                        if (instance is ConnectionInfoInheritance inheritanceInstance)
+                            return inheritanceInstance;
+                    }
+                }
+
+                return null;
+            }
+
+            private enum AutoSelection
+            {
+                Yes,
+                No,
+                Auto
             }
         }
 
