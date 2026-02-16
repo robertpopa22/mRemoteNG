@@ -579,6 +579,56 @@ run-tests.ps1
 | --- | --- | --- |
 | 3/5 SpecFlow tests fail with `InvalidCipherTextException: mac check in GCM failed` | BouncyCastle AEAD decryption fails on test fixtures. Pre-existing, not caused by any recent changes. | Known issue, investigate separately |
 
+## Build Performance Optimization (2026-02-16)
+
+### MSBuild `-m` Does NOT Scale to 48 Cores
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Build time ~24s despite 48 logical processors (Threadripper 3960X) | MSBuild `-m` parallelizes at **project** level, not file level. Solution has only 3 projects with dependencies (ObjectListView + ExternalConnectors -> mRemoteNG). Max 2 projects build simultaneously, then 587-file main project compiles alone. | No fix — architectural limitation. Roslyn (csc.exe) already parallelizes file compilation internally. Splitting into more projects would help but is major refactoring. |
+
+**Key insight:** Adding more CPU cores beyond ~4 has **zero effect** on MSBuild for this solution. The bottleneck is the single-project dependency chain, not CPU count.
+
+### CA1416 Platform Compatibility Warnings — Pure Overhead (1,795 warnings eliminated)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| 1,795 `CA1416` warnings on every build, adding ~9s of analysis time | Roslyn analyzer checks platform compatibility for every WinForms/WPF API call. App targets `net10.0-windows10.0.26100.0` with `SupportedOSPlatformVersion=10.0.17763.0` — it's 100% Windows-only. | Add `<NoWarn>$(NoWarn);CA1416</NoWarn>` in `Directory.Build.props` |
+
+**Result:** Build from ~24s to ~15s (full) / ~9s (no-op with warm Roslyn server).
+
+### Directory.Build.props — Solution-Wide Build Properties
+
+Created `Directory.Build.props` at solution root (applies to all 3 projects):
+```xml
+<Project>
+  <PropertyGroup>
+    <UseSharedCompilation>true</UseSharedCompilation>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+</Project>
+```
+
+**`UseSharedCompilation=true`**: Keeps the Roslyn compiler server process (`VBCSCompiler.exe`) alive between builds. Second build onward skips compiler startup (~2-3s savings on incremental).
+
+### build.ps1 `-NoRestore` Flag
+
+| Usage | When | Time |
+| --- | --- | --- |
+| `build.ps1` | First build / after package changes | ~15s |
+| `build.ps1 -NoRestore` | Incremental (code-only changes) | ~14s |
+| `build.ps1 -NoRestore` (no-op, Roslyn warm) | Nothing changed | ~9s |
+
+`dotnet restore` is a no-op when packages are cached (~1s), so `-NoRestore` savings are marginal. The real wins come from CA1416 suppression and warm Roslyn server.
+
+### Build Time Summary (Threadripper 3960X, 48 threads)
+
+| Scenario | Before | After | Saving |
+| --- | --- | --- | --- |
+| Full build (restore + compile) | ~24s | ~15s | -37% |
+| Incremental (no restore) | ~24s | ~14s | -42% |
+| No-op (Roslyn warm) | ~24s | ~9s | -63% |
+
 ## Daily Loop
 
 1. Run command.

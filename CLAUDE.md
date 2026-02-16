@@ -27,6 +27,11 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\bui
 
 `build.ps1` auto-detects the newest VS installation (VS2026 > VS2022 > etc.). No hardcoded paths.
 
+### Fast incremental build (skip restore):
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1" -NoRestore
+```
+
 ### Self-contained build (embeds .NET runtime):
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1" -SelfContained
@@ -46,6 +51,19 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\bui
 | `D:\BuildTools` | Incomplete | N/A | DO NOT USE (missing SDK resolver) |
 
 > **TODO:** Install VS2026 BuildTools locally for CI/local parity.
+
+### Build performance (Threadripper 3960X, 48 threads)
+| Scenario | Time | Command |
+|----------|------|---------|
+| Full (restore + compile) | ~15s | `build.ps1` |
+| Incremental (no restore) | ~14s | `build.ps1 -NoRestore` |
+| No-op (Roslyn warm) | ~9s | `build.ps1 -NoRestore` |
+
+**Why 48 cores don't help more:** MSBuild `-m` parallelizes at **project** level (only 3 projects in solution). Roslyn already parallelizes file compilation internally. The bottleneck is the single 587-file main project, not CPU count.
+
+**Optimizations applied (`Directory.Build.props`):**
+- `NoWarn=CA1416` — suppresses 1,795 platform compatibility warnings (app is 100% Windows-only)
+- `UseSharedCompilation=true` — keeps Roslyn server warm between builds
 
 ## Testing
 
@@ -334,6 +352,66 @@ python .project-roadmap/scripts/iis_orchestrator.py report
 
 ### Full documentation
 See `.project-roadmap/issues-db/README.md` for complete schema, examples, and workflow details.
+
+---
+
+## Multi-Agent Orchestrator (3 Agents)
+
+The project uses a Python orchestrator (`iis_orchestrator.py`) that drives 3 AI agents to automate issue resolution and code cleanup. Each agent has a specific role; the orchestrator verifies independently (build + test) after every change.
+
+### Architecture
+```
+iis_orchestrator.py (Python — controller)
+│
+├── Agent 1: CODEX (OpenAI) — fast triage + simple fixes
+│   ├── Triages issues: implement / wontfix / needs-info / duplicate
+│   ├── Implements simple bug fixes (single-file, clear scope)
+│   └── ~15-30s per triage, 3-10 min per fix
+│
+├── Agent 2: GEMINI CLI (Google) — bulk code transformations
+│   ├── Nullable warning cleanup (CS8618, CS8602) across many files
+│   ├── Handles cascading type changes (field → all usages)
+│   └── Processed 466/852 CS8618 in one session
+│
+├── Agent 3: CLAUDE CODE (Anthropic) — complex fixes + review
+│   ├── Multi-file fixes requiring architectural understanding
+│   ├── UI/WinForms fixes (RunWithMessagePump, COM interop)
+│   ├── Final review and correction of other agents' work
+│   └── Handles edge cases other agents miss
+│
+└── VERIFICATION (independent, no AI)
+    ├── build.ps1 → compile check
+    ├── run-tests.ps1 → 2349 tests
+    ├── git commit (only on green) / git restore (on failure)
+    └── gh issue comment (post to upstream)
+```
+
+### Workflow
+1. **Sync** — pull issues from upstream GitHub
+2. **Triage** (Codex) — classify each issue, estimate files to change
+3. **Implement** (Codex → Gemini fallback → Claude fallback) — fix the issue
+4. **Verify** (orchestrator) — build + test independently of the agent
+5. **Commit** — atomic commit per issue (`fix(#NNNN): description`)
+6. **Notify** — post comment on upstream issue with beta download link
+
+### Key rules
+- Orchestrator NEVER trusts agent output — always verifies with build + test
+- On failure: `git restore`, log error, skip to next issue
+- One agent at a time per issue (no parallel agents on same files)
+- All state tracked in `.project-roadmap/issues-db/` JSON files
+
+### Results (v1.81.0-beta.2)
+- **2,554 nullable warnings** fixed (100% clean) across 4 orchestrator sessions
+- **830 issues** triaged from upstream backlog
+- **3 agents** used: Codex (triage), Gemini (bulk nullable), Claude (complex fixes + review)
+
+### Files
+| File | Purpose |
+|------|---------|
+| `.project-roadmap/scripts/iis_orchestrator.py` | Main orchestrator script |
+| `.project-roadmap/scripts/orchestrator.log` | Internal log (auto-flushed, always read THIS) |
+| `.project-roadmap/scripts/orchestrator-status.json` | Machine-readable state |
+| `.project-roadmap/scripts/chain-context/` | Per-session context files |
 
 ---
 
