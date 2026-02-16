@@ -1252,6 +1252,38 @@ namespace mRemoteNG.UI.Window
             }
         }
 
+        public void FindInSession()
+        {
+            try
+            {
+                InterfaceControl? interfaceControl = GetInterfaceControl();
+                if (interfaceControl?.Protocol is PuttyBase putty)
+                {
+                    putty.CopyAllToClipboard();
+
+                    Timer timer = new Timer();
+                    timer.Interval = 200; // 200ms
+                    timer.Tick += (s, args) =>
+                    {
+                        timer.Stop();
+                        timer.Dispose();
+                        if (Clipboard.ContainsText())
+                        {
+                            string text = Clipboard.GetText();
+                            FrmFind frm = new FrmFind();
+                            frm.SetContent(text);
+                            frm.Show(this);
+                        }
+                    };
+                    timer.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("FindInSession (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
+
         private void AddExternalApps()
         {
             try

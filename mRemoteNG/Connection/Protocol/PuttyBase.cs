@@ -789,6 +789,21 @@ namespace mRemoteNG.Connection.Protocol
             }
         }
 
+        public void CopyAllToClipboard()
+        {
+            try
+            {
+                if (PuttyHandle != IntPtr.Zero)
+                {
+                    NativeMethods.PostMessage(PuttyHandle, NativeMethods.WM_SYSCOMMAND, (IntPtr)0x0170, IntPtr.Zero);
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, "Failed to copy session output to clipboard: " + ex.Message, true);
+            }
+        }
+
         #endregion
 
         #region Enums

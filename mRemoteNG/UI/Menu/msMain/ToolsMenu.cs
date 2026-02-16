@@ -2,8 +2,11 @@
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Credential;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Window;
 
 namespace mRemoteNG.UI.Menu
 {
@@ -14,6 +17,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenToolsExternalApps = null!;
         private ToolStripMenuItem _mMenToolsPortScan = null!;
         private ToolStripMenuItem _mMenToolsUvncsc = null!;
+        private ToolStripMenuItem _mMenToolsFindInSession = null!;
 
         public Form? MainForm { get; set; }
         public ICredentialRepositoryList? CredentialProviderCatalog { get; set; }
@@ -29,6 +33,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsUvncsc = new ToolStripMenuItem();
             _mMenToolsExternalApps = new ToolStripMenuItem();
             _mMenToolsPortScan = new ToolStripMenuItem();
+            _mMenToolsFindInSession = new ToolStripMenuItem();
             // 
             // mMenTools
             // 
@@ -37,7 +42,8 @@ namespace mRemoteNG.UI.Menu
                 _mMenToolsSshTransfer,
                 _mMenToolsUvncsc,
                 _mMenToolsExternalApps,
-                _mMenToolsPortScan
+                _mMenToolsPortScan,
+                _mMenToolsFindInSession
             });
             Name = "mMenTools";
             Size = new System.Drawing.Size(48, 20);
@@ -74,6 +80,13 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsPortScan.Size = new System.Drawing.Size(184, 22);
             _mMenToolsPortScan.Text = Language.PortScan;
             _mMenToolsPortScan.Click += mMenToolsPortScan_Click;
+            // 
+            // mMenToolsFindInSession
+            // 
+            _mMenToolsFindInSession.Name = "mMenToolsFindInSession";
+            _mMenToolsFindInSession.Size = new System.Drawing.Size(184, 22);
+            _mMenToolsFindInSession.Text = "Find in Session";
+            _mMenToolsFindInSession.Click += mMenToolsFindInSession_Click;
         }
 
         public void ApplyLanguage()
@@ -82,6 +95,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsSshTransfer.Text = Language.SshFileTransfer;
             _mMenToolsExternalApps.Text = Language.ExternalTool;
             _mMenToolsPortScan.Text = Language.PortScan;
+            _mMenToolsFindInSession.Text = "Find in Session";
         }
 
         #region Tools
@@ -109,6 +123,14 @@ namespace mRemoteNG.UI.Menu
         private void mMenToolsOptions_Click(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.Options);
+        }
+
+        private void mMenToolsFindInSession_Click(object sender, EventArgs e)
+        {
+            if (MainForm is FrmMain frmMain && frmMain.pnlDock.ActiveDocument is ConnectionWindow connectionWindow)
+            {
+                connectionWindow.FindInSession();
+            }
         }
 
         #endregion
