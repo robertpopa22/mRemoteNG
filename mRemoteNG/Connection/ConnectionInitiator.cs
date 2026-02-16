@@ -92,6 +92,22 @@ namespace mRemoteNG.Connection
                     connectionInfo.Hostname = connectionInfoOriginal.AlternativeAddress;
                 }
 
+                if (force.HasFlag(ConnectionInfo.Force.NoCredentials))
+                {
+                    if (ReferenceEquals(connectionInfo, connectionInfoOriginal))
+                    {
+                        connectionInfo = connectionInfoOriginal.Clone();
+                    }
+
+                    connectionInfo.Parent = connectionInfoOriginal.Parent;
+                    connectionInfo.Inheritance.Username = false;
+                    connectionInfo.Inheritance.Password = false;
+                    connectionInfo.Inheritance.Domain = false;
+                    connectionInfo.Username = string.Empty;
+                    connectionInfo.Password = string.Empty;
+                    connectionInfo.Domain = string.Empty;
+                }
+
                 if (!useAlternativeAddress && !string.IsNullOrEmpty(connectionInfo.EC2InstanceId))
                 {
                     try
