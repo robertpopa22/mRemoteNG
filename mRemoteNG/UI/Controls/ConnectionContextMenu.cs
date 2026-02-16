@@ -370,7 +370,7 @@ namespace mRemoteNG.UI.Controls
             // cMenTreeImportFromRemoteDesktopManager
             _cMenTreeImportFromRemoteDesktopManager.Name = "_cMenTreeImportFromRemoteDesktopManager";
             _cMenTreeImportFromRemoteDesktopManager.Size = new System.Drawing.Size(226, 22);
-            _cMenTreeImportFromRemoteDesktopManager.Text = "Import from &Remote Desktop Manager";
+            _cMenTreeImportFromRemoteDesktopManager.Text = "Import from &Remote Desktop Manager...";
             _cMenTreeImportFromRemoteDesktopManager.Click += OnImportRemoteDesktopManagerClicked;
             //
             // cMenTreeImportActiveDirectory

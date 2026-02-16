@@ -109,7 +109,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsOptions.Image = Properties.Resources.Settings_16x;
             _mMenToolsOptions.Name = "mMenToolsOptions";
             _mMenToolsOptions.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsOptions.Text = Language.Options;
+            _mMenToolsOptions.Text = Language.OptionsMenuItem;
             _mMenToolsOptions.Click += mMenToolsOptions_Click;
             // 
             // mMenFileExit
@@ -129,7 +129,7 @@ namespace mRemoteNG.UI.Menu
             _mMenFileLoad.Text = Language.OpenConnectionFile;
             _mMenFileSave.Text = Language.SaveConnectionFile;
             _mMenFileSaveAs.Text = Language.SaveConnectionFileAs;
-            _mMenToolsOptions.Text = Language.Options;
+            _mMenToolsOptions.Text = Language.OptionsMenuItem;
             _mMenFileExit.Text = Language.Exit;
         }
 

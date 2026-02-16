@@ -13,12 +13,19 @@
   "created_at": "2018-08-06T08:43:17Z",
   "github_updated_at": "2026-02-07T19:54:28Z",
   "body_snippet": "Some menu items, such as \"Tools\" -> \"Options\" are missing the \"...\" at the end of the menu item (should be: \"Options...\") to indicate a dialog box will open.\r\n\r\n## Expected Behavior\r\nAll menu items that open a dialog box should have \"...\" at the end of the menu item.\r\n\r\n## Current Behavior\r\n\"Tools\" -> \"Options\" should be \"Options...\"\r\n\"File\" -> \"New Connection File\" should be \"New Connection File...\"\r\nand so on.\r\n\r\n## Possible Solution\r\nEdit the menu items to add \"...\" where appropriate.\r\n\r\n## C...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "\"New Connection File\" and \"Import from Remote Desktop Manager\" menu items open dialogs but are missing the ellipsis \"...\", which is inconsistent with Windows UX guidelines and other menu items like \"Open Connection File...\"."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXI9n",
@@ -44,5 +51,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): \"New Connection File\", \"Import from Remote Desktop Manager\", \"Tools -> Options\", \"Import from Active Directory\", \"Import from Port Scan\", \"Check for Updates\", \"External Tools\", \"Port Scan\", \"SSH File Transfer\", and \"UltraVNC SingleClick\" menu items open dialogs but are missing the ellipsis \"...\", which is inconsistent with Windows UX guidelines.\nApproach: Update Language.resx to append '...' to NewConnectionFile, ImportAD, ImportPortScan, MenuItem_CheckForUpdates. Create new *MenuItem resources for Options, ExternalTools, PortScan, SshFileTransfer, UltraVNCSingleClick. Update ConnectionContextMenu.cs and ToolsMenu.cs to use these new resources or updated strings."
 }

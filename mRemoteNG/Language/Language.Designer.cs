@@ -2289,6 +2289,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External Tools....
+        /// </summary>
+        internal static string ExternalToolsMenuItem {
+            get {
+                return ResourceManager.GetString("ExternalToolsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to External Tool After.
         /// </summary>
         internal static string ExternalToolAfter {
@@ -3685,6 +3694,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options....
+        /// </summary>
+        internal static string OptionsMenuItem {
+            get {
+                return ResourceManager.GetString("OptionsMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *Some settings are determined by your company. For further information, please contact your administrator.
         /// </summary>
         internal static string OptionsCompanyPolicyMessage {
@@ -3996,6 +4014,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string PortScan {
             get {
                 return ResourceManager.GetString("PortScan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port Scan....
+        /// </summary>
+        internal static string PortScanMenuItem {
+            get {
+                return ResourceManager.GetString("PortScanMenuItem", resourceCulture);
             }
         }
         
@@ -6352,6 +6379,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSH File Transfer....
+        /// </summary>
+        internal static string SshFileTransferMenuItem {
+            get {
+                return ResourceManager.GetString("SshFileTransferMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SSH Options.
         /// </summary>
         internal static string SshOptions {
@@ -6807,6 +6843,15 @@ namespace mRemoteNG.Resources.Language {
         internal static string UltraVNCSingleClick {
             get {
                 return ResourceManager.GetString("UltraVNCSingleClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UltraVNC SingleClick....
+        /// </summary>
+        internal static string UltraVNCSingleClickMenuItem {
+            get {
+                return ResourceManager.GetString("UltraVNCSingleClickMenuItem", resourceCulture);
             }
         }
         

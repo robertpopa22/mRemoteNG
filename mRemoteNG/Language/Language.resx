@@ -630,7 +630,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
     <value>Identify quick connect tabs by adding the prefix "Quick:"</value>
   </data>
   <data name="ImportAD" xml:space="preserve">
-    <value>Import from Active Directory</value>
+    <value>Import from Active Directory...</value>
   </data>
   <data name="ImportFileFailedContent" xml:space="preserve">
     <value>An error occurred while importing the file "{0}".</value>
@@ -639,7 +639,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
     <value>Import from &amp;File...</value>
   </data>
   <data name="ImportPortScan" xml:space="preserve">
-    <value>Import from Port Scan</value>
+    <value>Import from Port Scan...</value>
   </data>
   <data name="Informations" xml:space="preserve">
     <value>Informations</value>
@@ -735,7 +735,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
     <value>Add Connection Panel</value>
   </data>
   <data name="MenuItem_CheckForUpdates" xml:space="preserve">
-    <value>Check for Updates</value>
+    <value>Check for Updates...</value>
   </data>
   <data name="Config" xml:space="preserve">
     <value>Config</value>
@@ -780,7 +780,7 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
     <value>Launch External Tool</value>
   </data>
   <data name="NewConnectionFile" xml:space="preserve">
-    <value>New Connection File</value>
+    <value>New Connection File...</value>
   </data>
   <data name="NewExternalTool" xml:space="preserve">
     <value>New External Tool</value>
@@ -800,8 +800,14 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="OptionsMenuItem" xml:space="preserve">
+    <value>Options...</value>
+  </data>
   <data name="PortScan" xml:space="preserve">
     <value>Port Scan</value>
+  </data>
+  <data name="PortScanMenuItem" xml:space="preserve">
+    <value>Port Scan...</value>
   </data>
   <data name="QuickConnectToolbar" xml:space="preserve">
     <value>Quick Connect Toolbar</value>
@@ -844,6 +850,9 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   </data>
   <data name="SshFileTransfer" xml:space="preserve">
     <value>SSH File Transfer</value>
+  </data>
+  <data name="SshFileTransferMenuItem" xml:space="preserve">
+    <value>SSH File Transfer...</value>
   </data>
   <data name="StartChat" xml:space="preserve">
     <value>Start Chat (VNC)</value>
@@ -1232,6 +1241,9 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="ExternalTool" xml:space="preserve">
     <value>External Tool</value>
+  </data>
+  <data name="ExternalToolsMenuItem" xml:space="preserve">
+    <value>External Tools...</value>
   </data>
   <data name="ExternalToolAfter" xml:space="preserve">
     <value>External Tool After</value>
@@ -2086,6 +2098,9 @@ mRemoteNG will now quit and begin with the installation.</value>
   </data>
   <data name="UltraVNCSingleClick" xml:space="preserve">
     <value>UltraVNC SingleClick</value>
+  </data>
+  <data name="UltraVNCSingleClickMenuItem" xml:space="preserve">
+    <value>UltraVNC SingleClick...</value>
   </data>
   <data name="DisconnectOthersRight" xml:space="preserve">
     <value>Disconnect Tabs To The Right</value>

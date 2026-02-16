@@ -54,14 +54,14 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsSshTransfer.Image = Properties.Resources.SyncArrow_16x;
             _mMenToolsSshTransfer.Name = "mMenToolsSSHTransfer";
             _mMenToolsSshTransfer.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsSshTransfer.Text = Language.SshFileTransfer;
+            _mMenToolsSshTransfer.Text = Language.SshFileTransferMenuItem;
             _mMenToolsSshTransfer.Click += mMenToolsSSHTransfer_Click;
             // 
             // mMenToolsUVNCSC
             // 
             _mMenToolsUvncsc.Name = "mMenToolsUVNCSC";
             _mMenToolsUvncsc.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsUvncsc.Text = Language.UltraVNCSingleClick;
+            _mMenToolsUvncsc.Text = Language.UltraVNCSingleClickMenuItem;
             _mMenToolsUvncsc.Visible = false;
             _mMenToolsUvncsc.Click += mMenToolsUVNCSC_Click;
             // 
@@ -70,7 +70,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsExternalApps.Image = Properties.Resources.Console_16x;
             _mMenToolsExternalApps.Name = "mMenToolsExternalApps";
             _mMenToolsExternalApps.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsExternalApps.Text = Language.ExternalTool;
+            _mMenToolsExternalApps.Text = Language.ExternalToolsMenuItem;
             _mMenToolsExternalApps.Click += mMenToolsExternalApps_Click;
             // 
             // mMenToolsPortScan
@@ -78,7 +78,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsPortScan.Image = Properties.Resources.SearchAndApps_16x;
             _mMenToolsPortScan.Name = "mMenToolsPortScan";
             _mMenToolsPortScan.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsPortScan.Text = Language.PortScan;
+            _mMenToolsPortScan.Text = Language.PortScanMenuItem;
             _mMenToolsPortScan.Click += mMenToolsPortScan_Click;
             // 
             // mMenToolsFindInSession
@@ -92,9 +92,9 @@ namespace mRemoteNG.UI.Menu
         public void ApplyLanguage()
         {
             Text = Language._Tools;
-            _mMenToolsSshTransfer.Text = Language.SshFileTransfer;
-            _mMenToolsExternalApps.Text = Language.ExternalTool;
-            _mMenToolsPortScan.Text = Language.PortScan;
+            _mMenToolsSshTransfer.Text = Language.SshFileTransferMenuItem;
+            _mMenToolsExternalApps.Text = Language.ExternalToolsMenuItem;
+            _mMenToolsPortScan.Text = Language.PortScanMenuItem;
             _mMenToolsFindInSession.Text = "Find in Session";
         }
 
