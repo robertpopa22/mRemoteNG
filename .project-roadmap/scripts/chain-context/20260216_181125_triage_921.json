@@ -1,0 +1,36 @@
+{
+  "task_type": "triage",
+  "task_id": "921",
+  "started_at": "2026-02-16T18:11:11",
+  "finished_at": "2026-02-16T18:11:25",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The request is a well-scoped usability enhancement with maintainer agreement that improves multi-SSH targeting by allowing temporary per-connection and panel-level exclusion.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/ConnectionWindow.cs",
+          "mRemoteNG/UI/Forms/Tabs/ConnectionTabControl.cs",
+          "mRemoteNG/Connection/MultiSSH/MultiSshCommandDispatcher.cs",
+          "mRemoteNG/Resources/Language.resx"
+        ],
+        "approach": "Add per-connection and panel-level include/exclude state for active SSH sessions, filter recipients using that state before broadcasting multi-SSH commands, and expose simple UI toggles to control it."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"The request is a well-scoped usability enhancement with maintainer agreement that improves multi-SSH targeting by allowing temporary per-connection and panel-level exclusion.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Forms/ConnectionWindow.cs\",\"mRemoteNG/UI/Forms/Tabs/ConnectionTabControl.cs\",\"mRemoteNG/Connection/MultiSSH/MultiSshCommandDispatcher.cs\",\"mRemoteNG/Resources/Language.resx\"],\"approach\":\"Add per-connection and panel-level include/exclude state for active SSH sessions, filter recipients using that state before broadcasting multi-SSH commands, and expose simple UI toggles to control it.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:11:25"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

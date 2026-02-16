@@ -7,10 +7,11 @@ I'm Robert Popa, the maintainer of the robertpopa22/mRemoteNG fork (Community Ed
 
 What happened: I'm using an AI-assisted orchestrator to triage and fix issues from the upstream backlog. Unfortunately, a bug in my script's rate-limiting caused it to post ~36 comments within 76 seconds this morning (07:27-07:28 UTC), plus dozens more over the past two days — all with the same "Fix available for testing" template. I understand this looked exactly like bot spam, and I sincerely apologize for the disruption.
 
-What I've done:
-- Identified and fixed the rate-limiting bug in my orchestrator script
-- I will no longer batch-post comments on upstream issues without manual review
-- Future upstream communication will be consolidated (one PR + one discussion, not per-issue comments)
+What I've done (with proof below):
+- Fixed the rate-limiting: max 10 comments/day, minimum 10 seconds between posts
+- Rate state is now persisted to disk (survives across separate process calls — the root cause)
+- Added explicit rules in our development guide: no batch-posting, finish work locally first
+- Future upstream communication: one consolidated PR + one discussion, not per-issue comments
 
 My contributions are genuine. The fork has real fixes for long-standing issues (self-contained builds, security hardening, 830-issue triage). PR #3134 consolidates everything into a single clean PR for your review.
 
@@ -21,3 +22,75 @@ Thank you for maintaining mRemoteNG, and again, sorry for the noise.
 Best regards,
 Robert Popa
 https://github.com/robertpopa22/mRemoteNG
+
+---
+
+Appendix: Rate-limiting fix applied to our orchestrator script
+(iis_orchestrator.py — gh_post_comment function)
+
+BEFORE (no rate limiting):
+
+    def gh_post_comment(repo, num, body):
+        """Post a comment on a GitHub issue. Returns True on success."""
+        try:
+            r = _run(
+                ["gh", "issue", "comment", str(num), "--repo", repo, "--body", body],
+                timeout=30,
+            )
+            return r.returncode == 0
+        except Exception:
+            return False
+
+AFTER (rate-limited, persisted to disk):
+
+    # ── GitHub comment rate-limiting (persisted to disk) ──
+    _COMMENT_RATE_MIN_INTERVAL = 10   # seconds between comments
+    _COMMENT_RATE_DAILY_LIMIT = 10    # max comments per day
+    _COMMENT_RATE_FILE = SCRIPTS_DIR / "_comment_rate.json"
+
+    def _load_comment_rate():
+        """Load rate-limit state from disk (survives across process invocations)."""
+        today = datetime.date.today().isoformat()
+        default = {"last_post_ts": 0.0, "daily_count": 0, "daily_date": today, "log": []}
+        if not _COMMENT_RATE_FILE.exists():
+            return default
+        try:
+            with open(_COMMENT_RATE_FILE, "r", encoding="utf-8") as f:
+                state = json.load(f)
+            if state.get("daily_date") != today:
+                state["daily_date"] = today
+                state["daily_count"] = 0
+                state["log"] = []
+            return state
+        except Exception:
+            return default
+
+    def gh_post_comment(repo, num, body):
+        """Post a comment on a GitHub issue. Returns True on success.
+        Rate-limited: min 10s between posts, max 10/day (persisted to disk)."""
+        state = _load_comment_rate()
+
+        # Check daily limit
+        if state["daily_count"] >= _COMMENT_RATE_DAILY_LIMIT:
+            log.warning("Daily comment limit reached (%d/%d). Skipping #%d.",
+                         state["daily_count"], _COMMENT_RATE_DAILY_LIMIT, num)
+            return False
+
+        # Enforce minimum interval (wall-clock, cross-process)
+        elapsed = time.time() - state.get("last_post_ts", 0)
+        if elapsed < _COMMENT_RATE_MIN_INTERVAL and state.get("last_post_ts", 0) > 0:
+            time.sleep(_COMMENT_RATE_MIN_INTERVAL - elapsed)
+
+        # ... post comment, then persist state to disk ...
+        state["last_post_ts"] = time.time()
+        state["daily_count"] += 1
+        _save_comment_rate(state)
+
+Development rules added (CLAUDE.md):
+
+    8. NO UPSTREAM SPAM — Do NOT batch-post comments on upstream issues.
+       Rate limit: max 10 comments/day, min 10s between posts.
+       Finish ALL work locally first, then present a single consolidated PR.
+
+    9. UPSTREAM COMMUNICATION — Prefer one consolidated PR + one discussion
+       thread over per-issue comments. Only use --post-comment on release.
