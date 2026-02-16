@@ -49,4 +49,38 @@ public class ConnectionsServiceQuickConnectTests
         Assert.That(quickConnect, Is.Not.Null);
         Assert.That(quickConnect!.Username, Is.EqualTo("root"));
     }
+
+    [Test]
+    public void CreateQuickConnectUsesExplicitUsernameAndPortWhenProvided()
+    {
+        DefaultConnectionInfo.Instance.Username = "root";
+        var connectionsService = new ConnectionsService(PuttySessionsManager.Instance);
+
+        ConnectionInfo? quickConnect = connectionsService.CreateQuickConnect("myUser@example-host:2200", ProtocolType.SSH2);
+
+        Assert.That(quickConnect, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(quickConnect!.Hostname, Is.EqualTo("example-host"));
+            Assert.That(quickConnect.Port, Is.EqualTo(2200));
+            Assert.That(quickConnect.Username, Is.EqualTo("myUser"));
+        });
+    }
+
+    [Test]
+    public void CreateQuickConnectKeepsLegacyHostAndPortFormat()
+    {
+        DefaultConnectionInfo.Instance.Username = "root";
+        var connectionsService = new ConnectionsService(PuttySessionsManager.Instance);
+
+        ConnectionInfo? quickConnect = connectionsService.CreateQuickConnect("example-host:2200", ProtocolType.SSH2);
+
+        Assert.That(quickConnect, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(quickConnect!.Hostname, Is.EqualTo("example-host"));
+            Assert.That(quickConnect.Port, Is.EqualTo(2200));
+            Assert.That(quickConnect.Username, Is.EqualTo("root"));
+        });
+    }
 }

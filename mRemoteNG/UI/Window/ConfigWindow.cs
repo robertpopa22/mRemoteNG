@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -787,47 +787,47 @@ namespace mRemoteNG.UI.Window
 
         #endregion
 
-        #region Host Status (Ping)
+        #region Host Status
 
         private Thread? _pThread;
+        private const int HostStatusCheckTimeoutMilliseconds = 1000;
 
-        private void CheckHostAlive(object hostName)
+        private static bool IsHostReachable(string hostName, int port, int timeoutMilliseconds)
         {
-            if (string.IsNullOrEmpty(hostName as string))
+            if (string.IsNullOrWhiteSpace(hostName) || port <= 0)
+                return false;
+
+            try
+            {
+                using TcpClient tcpClient = new();
+                var connectTask = tcpClient.ConnectAsync(hostName, port);
+                return connectTask.Wait(timeoutMilliseconds) && tcpClient.Connected;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private void CheckHostAlive(object connectionInfo)
+        {
+            if (connectionInfo is not ConnectionInfo info)
             {
                 ShowStatusImage(Properties.Resources.HostStatus_Off);
                 return;
             }
 
-            Ping pingSender = new();
+            bool isHostReachable = IsHostReachable(
+                info.Hostname,
+                info.Port,
+                HostStatusCheckTimeoutMilliseconds);
 
-            try
+            if (_btnHostStatus.Tag as string == "checking")
             {
-                PingReply pReply = pingSender.Send((string)hostName);
-                if (pReply?.Status == IPStatus.Success)
-                {
-                    if (_btnHostStatus.Tag as string == "checking")
-                    {
-                        ShowStatusImage(Properties.Resources.HostStatus_On);
-                    }
-
-                }
-                else
-                {
-                    if (_btnHostStatus.Tag as string == "checking")
-                    {
-                        ShowStatusImage(Properties.Resources.HostStatus_Off);
-                    }
-
-                }
-            }
-            catch (Exception)
-            {
-                if (_btnHostStatus.Tag as string == "checking")
-                {
-                    ShowStatusImage(Properties.Resources.HostStatus_Off);
-                }
-                   
+                ShowStatusImage(
+                    isHostReachable
+                        ? Properties.Resources.HostStatus_On
+                        : Properties.Resources.HostStatus_Off);
             }
         }
 
@@ -860,7 +860,7 @@ namespace mRemoteNG.UI.Window
                 _pThread = new Thread(CheckHostAlive);
                 _pThread.SetApartmentState(ApartmentState.STA);
                 _pThread.IsBackground = true;
-                _pThread.Start(((ConnectionInfo)connectionInfo).Hostname);
+                _pThread.Start(info);
             }
             catch (Exception ex)
             {

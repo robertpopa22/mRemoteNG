@@ -11,7 +11,7 @@
   "created_at": "2018-04-04T14:03:52Z",
   "github_updated_at": "2024-05-16T17:05:13Z",
   "body_snippet": "Hi,\r\n\r\ni'd like to be able to start mRemoteNG by command line with an argument to say \"start the following connection directly at the startup\". \r\n\r\nI am using mRemote with integrated external application Cmder/ConEmu. It would be nice to run this directly when starting mRemote to have a suitable shell in front of the blank panel. Should look like the following:\r\n\r\n![grafik](https://user-images.githubusercontent.com/5631071/38312286-a8a50384-3821-11e8-8b8d-61adf2ae3566.png)\r\n\r\nHow do you think ab...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Multiple users have confirmed a practical automation use case, and this is a scoped, valid enhancement for startup behavior."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in d7cf1276"
     }
   ],
   "comments": [
