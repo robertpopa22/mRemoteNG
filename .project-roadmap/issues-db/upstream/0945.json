@@ -10,7 +10,7 @@
   "created_at": "2018-04-12T08:43:40Z",
   "github_updated_at": "2018-08-08T12:37:20Z",
   "body_snippet": "I imported a bunch of servers from AD. Now as far as I can tell the only way to move the connections to the correct folders is by dragging them one by one which is slow when there's a lot of them.\r\n\r\nBeing able to select multiple connections by shift-clicking or ctrl-clicking and then dragging them all to the correct folder would make this kind of operation much faster. \r\n\r\nIn addition to move by dragging it would also be nice if you could use cut & paste to move connections between the folders ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Maintainer comments confirm mass-edit/multi-select organization is wanted and the request is actionable without extra information."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 9d32a31c"
     }
   ],
   "comments": [
