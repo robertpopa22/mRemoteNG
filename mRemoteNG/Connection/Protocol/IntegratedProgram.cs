@@ -133,6 +133,29 @@ namespace mRemoteNG.Connection.Protocol
                         $"IntegratedProgram: Could not find a window handle for '{_externalTool.DisplayName}' (PID {processId}). " +
                         "The application may have opened in a separate window.");
                 }
+                else
+                {
+                    NativeMethods.GetWindowThreadProcessId(_handle, out uint windowPid);
+                    if (windowPid != (uint)_process.Id)
+                    {
+                        try
+                        {
+                            Process windowProcess = Process.GetProcessById((int)windowPid);
+
+                            _process.Exited -= ProcessExited;
+                            _process = windowProcess;
+                            _process.EnableRaisingEvents = true;
+                            _process.Exited += ProcessExited;
+
+                            Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                                $"IntegratedProgram: Tracking process changed from PID {processId} to PID {windowPid}", true);
+                        }
+                        catch (Exception ex)
+                        {
+                            Runtime.MessageCollector?.AddExceptionMessage("IntegratedProgram: Failed to attach to window owner process.", ex);
+                        }
+                    }
+                }
 
                 NativeMethods.SetParent(_handle, InterfaceControl.Handle);
                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, Language.IntAppStuff, true);

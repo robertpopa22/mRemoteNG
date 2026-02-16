@@ -59,6 +59,7 @@ ROADMAP_PATH = ISSUES_DB_ROOT / "_roadmap.json"
 REPORTS_DIR = ISSUES_DB_ROOT / "reports"
 STATUS_FILE = SCRIPTS_DIR / "orchestrator-status.json"
 LOG_FILE = SCRIPTS_DIR / "orchestrator.log"
+CHAIN_CONTEXT_DIR = SCRIPTS_DIR / "chain-context"
 
 BUILD_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -121,25 +122,31 @@ BUILD_TIMEOUT = 300   # 5 min
 TEST_TIMEOUT = 300    # 5 min
 CLAUDE_TIMEOUT = 600  # 10 min per task
 CLAUDE_RETRIES = 2    # retry on failure
+CODEX_TIMEOUT = 900   # 15 min — codex cu xtrathink e lent
+CODEX_RETRIES = 1     # codex e scump; 1 retry
 
 # Environment for Claude sub-process: strip nesting guard so claude -p works
 CLAUDE_ENV = {k: v for k, v in os.environ.items()
               if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
 
 # ── AGENT CONFIG ──────────────────────────────────────────────────────────
-# Which AI agent to use for each task type: "claude" or "gemini"
+# Which AI agent to use for each task type: "codex", "claude", or "gemini"
 AGENT_CONFIG = {
-    "triage":               "gemini",   # ai_triage() — JSON analysis
-    "implement":            "gemini",   # implement_issue() — full code fix
-    "warning_fix":          "gemini",   # _fix_single_file()
-    "warning_fix_parallel": "gemini",   # _claude_fix_file_only()
+    "triage":               "codex",    # ai_triage() — JSON analysis
+    "implement":            "codex",    # implement_issue() — full code fix
+    "warning_fix":          "codex",    # _fix_single_file()
+    "warning_fix_parallel": "codex",    # _claude_fix_file_only()
 }
+AGENT_CHAIN = ["codex", "gemini", "claude"]  # fallback order: primary → secondary → tertiary
 GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
-AGENT_FALLBACK_ENABLED = True           # if primary fails, try the other agent
+CODEX_MODEL = "gpt-5.3-codex"          # overridable via --codex-model
+CODEX_REASONING = "xtrathink"           # model_reasoning_effort for codex
+AGENT_FALLBACK_ENABLED = True           # if primary fails, try the next agent in chain
 _session_agents_used = set()            # tracks which agents contributed (for co-author)
 
-# Resolve full path to gemini CLI (Windows needs .CMD extension for subprocess)
+# Resolve full paths to CLI tools (Windows needs .CMD extension for subprocess)
 GEMINI_CMD = shutil.which("gemini") or "gemini"
+CODEX_CMD = shutil.which("codex") or "codex"
 
 
 # ── LOGGING ─────────────────────────────────────────────────────────────────
@@ -268,6 +275,76 @@ def _now_iso():
     return datetime.datetime.now().isoformat(timespec="seconds")
 
 
+class ChainContext:
+    """Accumulates attempts from each agent in a chain run for JSON handoff."""
+
+    def __init__(self, task_type, task_id):
+        self.task_type = task_type
+        self.task_id = task_id
+        self.attempts = []
+        self.started_at = _now_iso()
+
+    def add_attempt(self, agent, task, success, result=None, raw_output=None,
+                    errors=None, files_modified=None, build_result=None,
+                    test_result=None):
+        self.attempts.append({
+            "agent": agent,
+            "task": task,
+            "success": success,
+            "result": result,
+            "raw_output": (raw_output or "")[:2000],
+            "errors": errors,
+            "files_modified": files_modified or [],
+            "build_result": build_result,
+            "test_result": test_result,
+            "timestamp": _now_iso(),
+        })
+
+    def to_dict(self):
+        return {
+            "task_type": self.task_type,
+            "task_id": self.task_id,
+            "started_at": self.started_at,
+            "finished_at": _now_iso(),
+            "attempts": self.attempts,
+            "final_success": any(a["success"] for a in self.attempts),
+        }
+
+    def save(self):
+        CHAIN_CONTEXT_DIR.mkdir(parents=True, exist_ok=True)
+        ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        fname = f"{ts}_{self.task_type}_{self.task_id}.json"
+        path = CHAIN_CONTEXT_DIR / fname
+        path.write_text(
+            json.dumps(self.to_dict(), indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        log.info("    [CHAIN] Context saved to %s", fname)
+        return path
+
+    def format_for_prompt(self):
+        """Format accumulated attempts as context for the next agent in the chain."""
+        if not self.attempts:
+            return ""
+        lines = ["=== PREVIOUS AGENT ATTEMPTS ==="]
+        for i, a in enumerate(self.attempts, 1):
+            status = "SUCCESS" if a["success"] else "FAILED"
+            lines.append(f"\n--- Attempt {i}: {a['agent'].upper()} [{status}] ---")
+            lines.append(f"Task: {a['task']}")
+            if a.get("errors"):
+                lines.append(f"Errors: {a['errors']}")
+            if a.get("build_result"):
+                lines.append(f"Build: {a['build_result']}")
+            if a.get("test_result"):
+                lines.append(f"Tests: {a['test_result']}")
+            if a.get("files_modified"):
+                lines.append(f"Files modified: {', '.join(a['files_modified'])}")
+            if a.get("raw_output"):
+                lines.append(f"Output (truncated):\n{a['raw_output'][:1000]}")
+        lines.append("\n=== END PREVIOUS ATTEMPTS ===")
+        return "\n".join(lines)
+
+
 def _run(cmd, timeout=60, cwd=None, capture=True):
     """Run a command and return CompletedProcess."""
     return subprocess.run(
@@ -305,6 +382,15 @@ def _extract_json(text):
     # Step 2b: If it's a Gemini -o json envelope, unwrap it
     if isinstance(parsed, dict) and "response" in parsed and "session_id" in parsed:
         inner = parsed["response"]
+        if isinstance(inner, dict):
+            return inner
+        if isinstance(inner, str):
+            return _extract_json(inner)
+        return None
+
+    # Step 2c: If it's a Codex structured output envelope, unwrap it
+    if isinstance(parsed, dict) and "output" in parsed and "model" in parsed:
+        inner = parsed["output"]
         if isinstance(inner, dict):
             return inner
         if isinstance(inner, str):
@@ -426,6 +512,8 @@ def git_commit(message):
     try:
         _run(["git", "add", "-A"])
         co_authors = []
+        if "codex" in _session_agents_used:
+            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
         if "gemini" in _session_agents_used:
@@ -465,6 +553,8 @@ def git_squash_last(n, message):
         return
     try:
         co_authors = []
+        if "codex" in _session_agents_used:
+            co_authors.append(f"Co-Authored-By: Codex ({CODEX_MODEL}) <noreply@openai.com>")
         if "claude" in _session_agents_used:
             co_authors.append("Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>")
         if "gemini" in _session_agents_used:
@@ -581,53 +671,221 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
     return None
 
 
-# ── CORE: AGENT SIMPLE DISPATCH (for warnings) ───────────────────────────
-def agent_run(task_type, prompt, max_turns=15, json_output=False,
-              timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
-    """Simple dispatch: try configured agent, fallback to other on failure.
-    Used for warning fixes where chain pattern is overkill."""
-    agent = AGENT_CONFIG.get(task_type, "claude")
+# ── CORE: CODEX SUB-AGENT ─────────────────────────────────────────────────
+def _extract_codex_last_message(jsonl_output):
+    """Parse JSONL events from codex stdout, extract last assistant message."""
+    last_msg = None
+    for line in jsonl_output.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            event = json.loads(line)
+            # Codex structured output: look for assistant messages
+            if isinstance(event, dict):
+                if event.get("role") == "assistant" and event.get("content"):
+                    last_msg = event["content"]
+                elif event.get("type") == "message" and event.get("content"):
+                    last_msg = event["content"]
+                # Also handle text content blocks
+                if isinstance(event.get("content"), list):
+                    for block in event["content"]:
+                        if isinstance(block, dict) and block.get("text"):
+                            last_msg = block["text"]
+        except (json.JSONDecodeError, TypeError):
+            continue
+    return last_msg
+
+
+def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
+    """Call codex exec (headless) with retry. Returns stdout string or None.
+    Uses temp file for prompt via stdin, -o for output capture."""
+    import tempfile
+
+    for attempt in range(1, retries + 1):
+        prompt_file = None
+        output_file = None
+        try:
+            # Write prompt to temp file
+            pf = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
+                                             encoding="utf-8",
+                                             dir=str(SCRIPTS_DIR))
+            pf.write(prompt)
+            pf.close()
+            prompt_file = pf.name
+
+            # Create output temp file
+            of = tempfile.NamedTemporaryFile(mode="w", suffix=".jsonl", delete=False,
+                                             encoding="utf-8",
+                                             dir=str(SCRIPTS_DIR))
+            of.close()
+            output_file = of.name
+
+            cmd = [
+                CODEX_CMD, "exec", "-",
+                "--full-auto",
+                "--color", "never",
+                "--ephemeral",
+                "-m", CODEX_MODEL,
+                "--reasoning-effort", CODEX_REASONING,
+                "-C", str(REPO_ROOT),
+                "-o", output_file,
+            ]
+
+            with open(prompt_file, "r", encoding="utf-8") as f:
+                r = subprocess.run(
+                    cmd,
+                    stdin=f,
+                    capture_output=True,
+                    text=True,
+                    timeout=timeout,
+                    cwd=str(REPO_ROOT),
+                    encoding="utf-8",
+                    errors="replace",
+                )
+
+            kill_stale_processes()
+
+            if r.returncode != 0:
+                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
+                log.error("    [CODEX] attempt %d/%d exit %d: %s",
+                          attempt, retries, r.returncode, err_detail)
+                if attempt < retries:
+                    log.info("    [CODEX] Retrying in 10s ...")
+                    time.sleep(10)
+                    continue
+                return None
+
+            # Primary: read from -o output file
+            result = None
+            try:
+                out_content = Path(output_file).read_text(encoding="utf-8", errors="replace")
+                if out_content.strip():
+                    # Try to extract last assistant message from JSONL
+                    msg = _extract_codex_last_message(out_content)
+                    if msg:
+                        result = msg
+                    else:
+                        result = out_content
+            except Exception:
+                pass
+
+            # Fallback: parse stdout JSONL
+            if not result and r.stdout:
+                msg = _extract_codex_last_message(r.stdout)
+                if msg:
+                    result = msg
+                else:
+                    result = r.stdout
+
+            return result or ""
+
+        except subprocess.TimeoutExpired:
+            log.error("    [CODEX] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
+            kill_stale_processes()
+            if attempt < retries:
+                log.info("    [CODEX] Retrying in 10s ...")
+                time.sleep(10)
+                continue
+            return None
+        except Exception as e:
+            log.error("    [CODEX] attempt %d/%d ERROR: %s", attempt, retries, e)
+            kill_stale_processes()
+            if attempt < retries:
+                time.sleep(10)
+                continue
+            return None
+        finally:
+            for fpath in (prompt_file, output_file):
+                if fpath:
+                    try:
+                        os.unlink(fpath)
+                    except OSError:
+                        pass
+    return None
+
+
+# ── CORE: AGENT DISPATCH HELPER ──────────────────────────────────────────
+def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
+                    timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
+    """Dispatch a prompt to a specific agent. Returns stdout string or None."""
     _session_agents_used.add(agent)
 
+    if agent == "codex":
+        return codex_run(prompt, timeout=timeout, retries=min(retries, CODEX_RETRIES))
+
     if agent == "gemini":
-        # Write prompt to file for Gemini (handles long prompts better)
-        prompt_file = None
+        prompt_file = _write_prompt_file(prompt)
         try:
-            import tempfile
-            f = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
-                                            encoding="utf-8",
-                                            dir=str(REPO_ROOT / ".project-roadmap" / "scripts"))
-            f.write(prompt)
-            f.close()
-            prompt_file = f.name
-            with open(prompt_file, "r", encoding="utf-8") as pf:
+            with open(prompt_file, "r", encoding="utf-8") as f:
                 r = subprocess.run(
                     [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
-                    stdin=pf, capture_output=True, text=True, timeout=timeout,
+                    stdin=f, capture_output=True, text=True, timeout=timeout,
                     cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
                 )
             kill_stale_processes()
             if r.returncode == 0 and r.stdout:
                 return r.stdout
+            err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty)"
+            log.error("    [GEMINI] dispatch exit %d: %s", r.returncode, err_detail)
+            return None
+        except subprocess.TimeoutExpired:
+            log.error("    [GEMINI] dispatch TIMEOUT (%ds)", timeout)
+            kill_stale_processes()
+            return None
         except Exception as e:
-            log.error("    [GEMINI] agent_run error: %s", e)
+            log.error("    [GEMINI] dispatch ERROR: %s", e)
+            kill_stale_processes()
+            return None
         finally:
-            if prompt_file:
-                try:
-                    os.unlink(prompt_file)
-                except OSError:
-                    pass
+            try:
+                os.unlink(prompt_file)
+            except OSError:
+                pass
 
-        # Fallback to Claude
-        if AGENT_FALLBACK_ENABLED:
-            log.warning("    [AGENT] gemini failed for %s — fallback to claude", task_type)
-            _session_agents_used.add("claude")
-            return claude_run(prompt, max_turns=max_turns, json_output=json_output,
-                              timeout=timeout, retries=retries)
-        return None
-    else:
-        return claude_run(prompt, max_turns=max_turns, json_output=json_output,
-                          timeout=timeout, retries=retries)
+    # Default: claude
+    return claude_run(prompt, max_turns=max_turns, json_output=json_output,
+                      timeout=timeout, retries=retries)
+
+
+# ── CORE: AGENT SIMPLE DISPATCH (for warnings) ───────────────────────────
+def agent_run(task_type, prompt, max_turns=15, json_output=False,
+              timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
+    """3-tier dispatch: try configured agent, then fallback through AGENT_CHAIN.
+    Used for warning fixes and simple tasks."""
+    primary = AGENT_CONFIG.get(task_type, "codex")
+
+    # Build chain: primary first, then remaining agents from AGENT_CHAIN
+    chain = [primary] + [a for a in AGENT_CHAIN if a != primary]
+
+    for i, agent in enumerate(chain):
+        is_primary = (i == 0)
+
+        # Only primary gets full retries; fallback agents get 1
+        agent_retries = retries if is_primary else 1
+        agent_timeout = timeout
+        if agent == "codex":
+            agent_timeout = max(timeout, CODEX_TIMEOUT)
+            agent_retries = min(agent_retries, CODEX_RETRIES)
+
+        log.info("    [AGENT] Trying %s for %s (attempt %d/%d in chain)",
+                 agent, task_type, i + 1, len(chain))
+
+        result = _agent_dispatch(agent, prompt, max_turns=max_turns,
+                                 json_output=json_output, timeout=agent_timeout,
+                                 retries=agent_retries)
+        if result:
+            return result
+
+        # Don't fallback if disabled
+        if not AGENT_FALLBACK_ENABLED:
+            log.warning("    [AGENT] %s failed for %s — fallback disabled", agent, task_type)
+            return None
+
+        log.warning("    [AGENT] %s failed for %s — trying next in chain", agent, task_type)
+
+    log.error("    [AGENT] All agents failed for %s", task_type)
+    return None
 
 
 # ── CORE: AGENT CHAIN ─────────────────────────────────────────────────────
@@ -642,7 +900,8 @@ def _write_prompt_file(prompt):
 
 
 def chain_triage(issue):
-    """Chain-of-agents triage: Gemini drafts → Claude refines if needed.
+    """Chain-of-agents triage: loops through AGENT_CHAIN until valid JSON.
+    Each subsequent agent gets context from previous attempts.
     Returns (triage_dict, agent_used) or (None, None)."""
     num = issue["number"]
     title = issue.get("title", "")
@@ -672,74 +931,64 @@ Decisions: implement, wontfix, duplicate, needs_info
 Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
 If unclear, use needs_info."""
 
-    # ── Step 1: Gemini drafts ──
-    _session_agents_used.add("gemini")
-    log.info("    [CHAIN] Step 1: Gemini triage for #%d", num)
+    ctx = ChainContext("triage", str(num))
 
-    prompt_file = _write_prompt_file(triage_prompt)
-    try:
-        with open(prompt_file, "r", encoding="utf-8") as f:
-            r = subprocess.run(
-                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
-                stdin=f, capture_output=True, text=True, timeout=120,
-                cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
-            )
-        gemini_raw = r.stdout or ""
-        gemini_ok = r.returncode == 0
-    except Exception as e:
-        log.error("    [CHAIN] Gemini error: %s", e)
-        gemini_raw = f"ERROR: {e}"
-        gemini_ok = False
-    finally:
-        try:
-            os.unlink(prompt_file)
-        except OSError:
-            pass
+    for i, agent in enumerate(AGENT_CHAIN):
+        _session_agents_used.add(agent)
 
-    kill_stale_processes()
-    log.info("    [CHAIN] Gemini raw (%d chars): %s",
-             len(gemini_raw), gemini_raw[:150].replace("\n", " "))
-
-    # Try to extract JSON from Gemini's response
-    if gemini_ok and gemini_raw:
-        result = _extract_json(gemini_raw)
-        if result and "decision" in result:
-            log.info("    [CHAIN] Gemini triage OK — no Claude needed")
-            return result, "gemini"
-
-    # ── Step 2: Claude refines ──
-    _session_agents_used.add("claude")
-    log.info("    [CHAIN] Step 2: Claude refines (Gemini said: %s)", gemini_raw[:100])
-
-    refine_prompt = f"""You are refining a triage result for mRemoteNG issue #{num}: {title}
+        if i == 0:
+            # First agent gets the base prompt
+            prompt = triage_prompt
+        else:
+            # Subsequent agents get base prompt + context from previous attempts
+            prompt = f"""You are refining a triage result for mRemoteNG issue #{num}: {title}
 
 Issue body:
 {body[:1000]}
 
-A previous agent (Gemini) attempted to triage this issue and responded:
----
-{gemini_raw[:500]}
----
+{ctx.format_for_prompt()}
 
-Extract or produce the correct triage JSON from the above, or if the response is unusable,
+Extract or produce the correct triage JSON from the above attempts, or if they are unusable,
 analyze the issue yourself and produce the triage.
 
 Reply with ONLY a JSON object:
 {{"decision":"implement|wontfix|duplicate|needs_info","reason":"one sentence","priority":"P0-critical|P1-security|P2-bug|P3-enhancement|P4-debt","estimated_files":["path.cs"],"approach":"brief fix"}}"""
 
-    claude_out = claude_run(refine_prompt, max_turns=3, json_output=False, timeout=120)
-    if claude_out:
-        result = _extract_json(claude_out)
-        if result and "decision" in result:
-            log.info("    [CHAIN] Claude refined triage OK")
-            return result, "claude"
+        timeout = CODEX_TIMEOUT if agent == "codex" else 120
+        log.info("    [CHAIN] Step %d: %s triage for #%d", i + 1, agent.capitalize(), num)
 
-    log.error("    [CHAIN] Both agents failed triage for #%d", num)
+        raw_output = _agent_dispatch(agent, prompt, max_turns=3, timeout=timeout, retries=1)
+        kill_stale_processes()
+
+        if raw_output:
+            log.info("    [CHAIN] %s raw (%d chars): %s",
+                     agent, len(raw_output), raw_output[:150].replace("\n", " "))
+            result = _extract_json(raw_output)
+            if result and "decision" in result:
+                ctx.add_attempt(agent, "triage", True, result=result, raw_output=raw_output)
+                ctx.save()
+                log.info("    [CHAIN] %s triage OK for #%d", agent.capitalize(), num)
+                return result, agent
+            else:
+                ctx.add_attempt(agent, "triage", False, raw_output=raw_output,
+                                errors="Could not extract valid JSON")
+        else:
+            ctx.add_attempt(agent, "triage", False, errors="Agent returned None")
+
+        if not AGENT_FALLBACK_ENABLED:
+            break
+
+        log.warning("    [CHAIN] %s failed triage for #%d — trying next agent", agent, num)
+
+    ctx.save()
+    log.error("    [CHAIN] All agents failed triage for #%d", num)
     return None, None
 
 
 def chain_implement(issue, triage, status):
-    """Chain-of-agents implementation: Gemini implements → if fails, Claude corrects.
+    """Chain-of-agents implementation: loops through AGENT_CHAIN.
+    Each agent gets context from previous attempts. If build/test fail,
+    leaves modifications in working tree for next agent.
     Returns True if fix was committed."""
     num = issue["number"]
     title = issue.get("title", "")
@@ -768,169 +1017,122 @@ RULES (CRITICAL):
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
 - Do ONLY the fix.  Nothing else."""
 
-    # ── Step 1: Gemini implements ──
-    _session_agents_used.add("gemini")
-    log.info("  [CHAIN] Step 1: Gemini implementing #%d ...", num)
-    status.set_task(type="issue_fix", issue=num, step="gemini_fixing")
+    ctx = ChainContext("implement", str(num))
 
-    prompt_file = _write_prompt_file(impl_prompt)
-    try:
-        with open(prompt_file, "r", encoding="utf-8") as f:
-            r = subprocess.run(
-                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
-                stdin=f, capture_output=True, text=True, timeout=CLAUDE_TIMEOUT,
-                cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
-            )
-        gemini_out = r.stdout or ""
-        gemini_ok = r.returncode == 0
-    except Exception as e:
-        log.error("  [CHAIN] Gemini impl error: %s", e)
-        gemini_out = f"ERROR: {e}"
-        gemini_ok = False
-    finally:
-        try:
-            os.unlink(prompt_file)
-        except OSError:
-            pass
+    for i, agent in enumerate(AGENT_CHAIN):
+        is_last = (i == len(AGENT_CHAIN) - 1)
+        _session_agents_used.add(agent)
 
-    kill_stale_processes()
-
-    if not gemini_ok or not gemini_out:
-        log.warning("  [CHAIN] Gemini returned nothing — passing to Claude from scratch")
-        git_restore()
-        return _chain_claude_implement(issue, triage, status, gemini_context=None)
-
-    # Check if Gemini's changes build
-    status.set_task(type="issue_fix", issue=num, step="building_gemini")
-    build_ok, build_output = run_build(capture_output=True)
-
-    if build_ok:
-        # Gemini's changes build — run tests
-        status.set_task(type="issue_fix", issue=num, step="testing_gemini")
-        if run_tests():
-            # Full success!
-            status.set_task(type="issue_fix", issue=num, step="committing")
-            short = (approach or title)[:60]
-            msg = f"fix(#{num}): {short}"
-            h = git_commit(msg)
-            if not h:
-                log.warning("  [CHAIN] No changes to commit for #%d", num)
-                return False
-            status.add_commit(h, msg, True)
-            status.data["issues"]["implemented"] += 1
-            log.info("  [CHAIN] Gemini fix committed %s (no Claude needed)", h[:8])
-
-            status.set_task(type="issue_fix", issue=num, step="pushing")
-            git_push()
-            if post_github_comment(num, h, short):
-                status.data["issues"]["commented_on_github"] += 1
-            update_issue_json(num, "testing", f"Fix in {h[:8]}")
-            status.clear_task()
-            return True
+        # Build prompt: first agent gets base, others get base + chain context
+        if i == 0:
+            prompt = impl_prompt
         else:
-            log.warning("  [CHAIN] Gemini fix builds but tests FAIL — Claude corrects")
-            return _chain_claude_implement(issue, triage, status,
-                                           gemini_context="Gemini's changes build but tests fail. "
-                                                          "Do NOT revert everything — review and fix the test failures.")
-    else:
-        log.warning("  [CHAIN] Gemini fix has build errors — Claude corrects")
-        err_snippet = (build_output or "")[-500:]
-        return _chain_claude_implement(issue, triage, status,
-                                       gemini_context=f"Gemini edited files but build failed. "
-                                                      f"Build errors:\n{err_snippet}\n"
-                                                      f"Review Gemini's changes, fix the build errors.")
-
-
-def _chain_claude_implement(issue, triage, status, gemini_context=None):
-    """Step 2 of chain: Claude implements or corrects Gemini's attempt."""
-    num = issue["number"]
-    title = issue.get("title", "")
-    body = (issue.get("body") or "")[:2000]
-    approach = triage.get("approach", "")
-    files = triage.get("estimated_files", [])
-
-    _session_agents_used.add("claude")
-    log.info("  [CHAIN] Step 2: Claude implementing #%d ...", num)
-    status.set_task(type="issue_fix", issue=num, step="claude_fixing")
-
-    if gemini_context:
-        prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
+            prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\\github\\mRemoteNG
 Branch: main
 
 Fix GitHub issue #{num}: {title}
-Description: {body}
+Description: {body[:2000]}
 Approach: {approach}
 Likely files: {', '.join(files) if files else 'search the codebase'}
 
-IMPORTANT — A previous agent (Gemini) already attempted this fix:
-{gemini_context}
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
 
-Review the current state of the code (Gemini's changes are still in the working tree).
-Correct the issues and make the fix work.
+{ctx.format_for_prompt()}
+
+Review the current state of the code, correct any issues, and make the fix work.
 
 RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
 Do ONLY the fix. Nothing else."""
-    else:
-        # Fresh attempt (Gemini returned nothing)
-        prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
-Working directory: D:\\github\\mRemoteNG
-Branch: main
 
-Fix GitHub issue #{num}: {title}
-Description: {body}
-Approach: {approach}
-Likely files: {', '.join(files) if files else 'search the codebase'}
+        timeout = CODEX_TIMEOUT if agent == "codex" else CLAUDE_TIMEOUT
+        log.info("  [CHAIN] Step %d: %s implementing #%d ...", i + 1, agent.capitalize(), num)
+        status.set_task(type="issue_fix", issue=num, step=f"{agent}_fixing")
 
-RULES (CRITICAL):
-- Read code BEFORE modifying
-- Do NOT change existing behavior — only fix the reported issue
-- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
-- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
-- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
-- If YOUR change breaks tests, fix it. If tests fail for unrelated reasons, ignore.
-- Do ONLY the fix. Nothing else."""
+        agent_out = _agent_dispatch(agent, prompt, max_turns=25, timeout=timeout, retries=1)
+        kill_stale_processes()
 
-    out = claude_run(prompt, max_turns=25, timeout=CLAUDE_TIMEOUT)
-    if out is None:
-        status.add_error(f"issue_{num}", "claude", "returned None after retries")
-        git_restore()
-        return False
+        if agent_out is None:
+            ctx.add_attempt(agent, f"implement #{num}", False,
+                            errors="Agent returned None after retries")
+            if is_last:
+                status.add_error(f"issue_{num}", agent, "returned None")
+                git_restore()
+                ctx.save()
+                return False
+            # Agent returned nothing — restore and let next agent try fresh
+            git_restore()
+            if not AGENT_FALLBACK_ENABLED:
+                ctx.save()
+                return False
+            log.warning("  [CHAIN] %s returned nothing for #%d — next agent", agent, num)
+            continue
 
-    status.set_task(type="issue_fix", issue=num, step="building")
-    build_ok, _ = run_build()
-    if not build_ok:
-        log.error("  [CHAIN] Claude build FAILED for #%d — reverting", num)
-        status.add_error(f"issue_{num}", "build", "failed")
-        git_restore()
-        return False
+        # Check build
+        status.set_task(type="issue_fix", issue=num, step=f"building_{agent}")
+        build_ok, build_output = run_build(capture_output=True)
 
-    status.set_task(type="issue_fix", issue=num, step="testing")
-    if not run_tests():
-        log.error("  [CHAIN] Claude tests FAILED for #%d — reverting", num)
-        status.add_error(f"issue_{num}", "test", "failed")
-        git_restore()
-        return False
+        if build_ok:
+            # Build OK — run tests
+            status.set_task(type="issue_fix", issue=num, step=f"testing_{agent}")
+            test_ok = run_tests()
 
-    status.set_task(type="issue_fix", issue=num, step="committing")
-    short = (approach or title)[:60]
-    msg = f"fix(#{num}): {short}"
-    h = git_commit(msg)
-    if not h:
-        log.warning("  [CHAIN] No changes to commit for #%d", num)
-        return False
+            if test_ok:
+                # Full success — commit, push, comment
+                ctx.add_attempt(agent, f"implement #{num}", True,
+                                build_result="OK", test_result="OK")
+                ctx.save()
 
-    status.add_commit(h, msg, True)
-    status.data["issues"]["implemented"] += 1
-    log.info("  [CHAIN] Claude fix committed %s", h[:8])
+                status.set_task(type="issue_fix", issue=num, step="committing")
+                short = (approach or title)[:60]
+                msg = f"fix(#{num}): {short}"
+                h = git_commit(msg)
+                if not h:
+                    log.warning("  [CHAIN] No changes to commit for #%d", num)
+                    return False
+                status.add_commit(h, msg, True)
+                status.data["issues"]["implemented"] += 1
+                log.info("  [CHAIN] %s fix committed %s", agent.capitalize(), h[:8])
 
-    status.set_task(type="issue_fix", issue=num, step="pushing")
-    git_push()
-    if post_github_comment(num, h, short):
-        status.data["issues"]["commented_on_github"] += 1
-    update_issue_json(num, "testing", f"Fix in {h[:8]}")
-    status.clear_task()
-    return True
+                status.set_task(type="issue_fix", issue=num, step="pushing")
+                git_push()
+                if post_github_comment(num, h, short):
+                    status.data["issues"]["commented_on_github"] += 1
+                update_issue_json(num, "testing", f"Fix in {h[:8]}")
+                status.clear_task()
+                return True
+            else:
+                # Tests fail — leave changes for next agent to fix
+                ctx.add_attempt(agent, f"implement #{num}", False,
+                                build_result="OK", test_result="FAIL",
+                                errors="Build OK but tests failed. Changes left in working tree.")
+                log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d", agent, num)
+        else:
+            # Build fail — leave changes for next agent to fix
+            err_snippet = (build_output or "")[-500:]
+            ctx.add_attempt(agent, f"implement #{num}", False,
+                            build_result="FAIL", test_result="N/A",
+                            errors=f"Build failed:\n{err_snippet}")
+            log.warning("  [CHAIN] %s fix has build errors for #%d", agent, num)
+
+        # Last agent failed — revert
+        if is_last:
+            log.error("  [CHAIN] All agents failed implementation for #%d — reverting", num)
+            status.add_error(f"issue_{num}", "chain", "all agents failed")
+            git_restore()
+            ctx.save()
+            return False
+
+        if not AGENT_FALLBACK_ENABLED:
+            git_restore()
+            ctx.save()
+            return False
+
+        log.warning("  [CHAIN] %s failed for #%d — passing to next agent", agent, num)
+
+    ctx.save()
+    return False
 
 
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
@@ -2761,10 +2963,12 @@ def main():
                         help="Fix N files in parallel per batch (0=serial)")
     # ── Agent args ──
     parser.add_argument("--agent", default=None,
-                        choices=["claude", "gemini"],
+                        choices=["codex", "claude", "gemini"],
                         help="Override agent for ALL tasks (ignores AGENT_CONFIG)")
     parser.add_argument("--gemini-model", default=None,
                         help="Override Gemini model (default: gemini-3-pro-preview)")
+    parser.add_argument("--codex-model", default=None,
+                        help="Override Codex model (default: gpt-5.3-codex)")
     # ── IIS sync args ──
     parser.add_argument("--repos", default="both",
                         choices=["both", "upstream", "fork"],
@@ -2854,7 +3058,7 @@ def main():
 
     # ── Orchestrator modes (all, issues, warnings) ──
     # Apply agent CLI overrides
-    global GEMINI_MODEL
+    global GEMINI_MODEL, CODEX_MODEL
     if args.agent:
         for key in AGENT_CONFIG:
             AGENT_CONFIG[key] = args.agent
@@ -2862,9 +3066,15 @@ def main():
     if args.gemini_model:
         GEMINI_MODEL = args.gemini_model
         log.info("Gemini model override: %s", GEMINI_MODEL)
+    if args.codex_model:
+        CODEX_MODEL = args.codex_model
+        log.info("Codex model override: %s", CODEX_MODEL)
 
     # Preflight checks
     agents_needed = set(AGENT_CONFIG.values())
+    if "codex" in agents_needed and not shutil.which("codex"):
+        print("ERROR: 'codex' CLI not found in PATH.  Install: npm i -g @openai/codex")
+        sys.exit(1)
     if "claude" in agents_needed and not shutil.which("claude"):
         print("ERROR: 'claude' CLI not found in PATH.  Install Claude Code first.")
         sys.exit(1)
@@ -2872,10 +3082,9 @@ def main():
         print("ERROR: 'gemini' CLI not found in PATH.  Install Gemini CLI first.")
         sys.exit(1)
     if AGENT_FALLBACK_ENABLED:
-        if not shutil.which("claude"):
-            log.warning("Claude CLI not found — fallback to Claude disabled")
-        if not shutil.which("gemini"):
-            log.warning("Gemini CLI not found — fallback to Gemini disabled")
+        for cli_name in ("codex", "claude", "gemini"):
+            if not shutil.which(cli_name):
+                log.warning("%s CLI not found — fallback to %s disabled", cli_name, cli_name)
     if not shutil.which("gh"):
         print("ERROR: 'gh' CLI not found in PATH.  Install GitHub CLI first.")
         sys.exit(1)

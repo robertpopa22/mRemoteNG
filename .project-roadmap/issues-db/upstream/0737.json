@@ -21,6 +21,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Current WSL support uses standard wsl.exe; unclear if user requires wsltty (mintty) embedding which is historically difficult and handled differently in IntegratedProgram.cs."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "IntegratedProgram closes the connection when the launcher process (wsltty) exits, even if the actual terminal window (mintty) is still running."
     }
   ],
   "comments": [],
@@ -29,5 +35,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (gemini): Current WSL support uses standard wsl.exe; unclear if user requires wsltty (mintty) embedding which is historically difficult and handled differently in IntegratedProgram.cs.\nApproach: Ask user for configuration details and if they need tabbed embedding; investigate mintty support in IntegratedProgram.cs."
+  "notes": "AI triage (gemini): Current WSL support uses standard wsl.exe; unclear if user requires wsltty (mintty) embedding which is historically difficult and handled differently in IntegratedProgram.cs.\nApproach: Ask user for configuration details and if they need tabbed embedding; investigate mintty support in IntegratedProgram.cs.\nAI triage (gemini): IntegratedProgram closes the connection when the launcher process (wsltty) exits, even if the actual terminal window (mintty) is still running.\nApproach: Update IntegratedProgram to track the process owning the captured window. If it differs from the launched process, monitor the window-owning process for exit."
 }

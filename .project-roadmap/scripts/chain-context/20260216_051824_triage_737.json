@@ -1,0 +1,41 @@
+{
+  "task_type": "triage",
+  "task_id": "737",
+  "started_at": "2026-02-16T05:16:38",
+  "finished_at": "2026-02-16T05:18:24",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timestamp": "2026-02-16T05:16:39"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "IntegratedProgram closes the connection when the launcher process (wsltty) exits, even if the actual terminal window (mintty) is still running.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/IntegratedProgram.cs"
+        ],
+        "approach": "Update IntegratedProgram to track the process owning the captured window. If it differs from the launched process, monitor the window-owning process for exit."
+      },
+      "raw_output": "{\n\"decision\": \"implement\",\n\"reason\": \"IntegratedProgram closes the connection when the launcher process (wsltty) exits, even if the actual terminal window (mintty) is still running.\",\n\"priority\": \"P3-enhancement\",\n\"estimated_files\": [\"mRemoteNG/Connection/Protocol/IntegratedProgram.cs\"],\n\"approach\": \"Update IntegratedProgram to track the process owning the captured window. If it differs from the launched process, monitor the window-owning process for exit.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timestamp": "2026-02-16T05:18:24"
+    }
+  ],
+  "final_success": true
+}
