@@ -10,7 +10,7 @@
 
 We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, <strong>2,349 automated tests</strong>, and builds for x64, x86, and ARM64.
 
-<strong>The plan:</strong> work through the full <strong>830 issue backlog</strong>, 100 at a time. Security first, then stability, then features. Every fix gets a release. Every release gets tested. Every issue gets a response.
+<strong>The plan:</strong> tackle the entire <strong>830 issue backlog</strong> in one push — organize, automate, attend to every detail. Nothing gets left behind. Every issue gets triaged, every fix gets tested, every reporter gets a response. Security first, then stability, then features.
 
 <strong>How we work:</strong> A Python <strong>orchestrator</strong> coordinates three AI agents — <strong>Codex</strong> (OpenAI) for fast triage, <strong>Gemini CLI</strong> (Google) for bulk code transformations, and <strong>Claude Code</strong> (Anthropic) for complex multi-file fixes and final review. Per issue, agents run as a fallback chain (Codex first, then Gemini, then Claude). Every change is independently verified (build + 2,349 tests) before commit. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
 
