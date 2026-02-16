@@ -32,6 +32,7 @@
     </xs:sequence>
     <xs:attribute name="Name" type="xs:string" use="required" />
     <xs:attribute name="Id" type="xs:string" use="required" />
+    <xs:attribute name="LinkedConnectionId" type="xs:string" use="optional" />
     <xs:attribute name="Type" type="xs:string" use="required" />
     <xs:attribute name="Expanded" type="xs:boolean" use="optional" />
     <xs:attribute name="AutoSort" type="xs:boolean" use="optional" />

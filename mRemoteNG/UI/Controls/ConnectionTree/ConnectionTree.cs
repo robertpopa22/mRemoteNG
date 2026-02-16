@@ -378,6 +378,28 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             });
         }
 
+        public void CreateLinkToSelectedNode()
+        {
+            ExecuteInBatchedSaveContext(() =>
+            {
+                foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+                {
+                    if (selectedNode.GetTreeNodeType() != TreeNodeType.Connection)
+                        continue;
+
+                    if (selectedNode.Parent == null)
+                        continue;
+
+                    ConnectionInfo newNode = selectedNode.Clone();
+                    ConnectionInfo sourceNode = ConnectionTreeModel.ResolveLinkedConnection(selectedNode) ?? selectedNode;
+                    newNode.LinkedConnectionId = sourceNode.ConstantID;
+
+                    selectedNode.Parent.AddChildBelow(newNode, selectedNode);
+                    newNode.Parent?.SetChildBelow(newNode, selectedNode);
+                }
+            });
+        }
+
         public void RenameSelectedNode()
         {
             if (SelectedItem == null) return;

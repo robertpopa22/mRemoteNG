@@ -52,6 +52,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeMoveDown = null!;
         private ToolStripMenuItem _cMenTreeToolsExternalApps = null!;
         private ToolStripMenuItem _cMenTreeDuplicate = null!;
+        private ToolStripMenuItem _cMenTreeCreateLink = null!;
         private ToolStripMenuItem _cMenTreeProperties = null!;
         private ToolStripMenuItem _cMenInheritanceSubMenu = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = null!;
@@ -106,6 +107,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsWakeOnLan = new ToolStripMenuItem();
             _cMenTreeSep2 = new ToolStripSeparator();
             _cMenTreeDuplicate = new ToolStripMenuItem();
+            _cMenTreeCreateLink = new ToolStripMenuItem();
             _cMenTreeProperties = new ToolStripMenuItem();
             _cMenTreeRename = new ToolStripMenuItem();
             _cMenTreeDelete = new ToolStripMenuItem();
@@ -148,6 +150,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeToolsWakeOnLan,
                 _cMenTreeSep2,
                 _cMenTreeDuplicate,
+                _cMenTreeCreateLink,
                 _cMenTreeRename,
                 _cMenTreeDelete,
                 _cMenTreeCopyHostname,
@@ -166,7 +169,7 @@ namespace mRemoteNG.UI.Controls
             });
             Name = "cMenTree";
             RenderMode = ToolStripRenderMode.Professional;
-            Size = new System.Drawing.Size(200, 364);
+            Size = new System.Drawing.Size(200, 386);
             //
             // cMenTreeConnect
             //
@@ -298,6 +301,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDuplicate.Size = new System.Drawing.Size(199, 22);
             _cMenTreeDuplicate.Text = "Duplicate";
             _cMenTreeDuplicate.Click += OnDuplicateClicked;
+            //
+            // cMenTreeCreateLink
+            //
+            _cMenTreeCreateLink.Image = Properties.Resources.Copy_16x;
+            _cMenTreeCreateLink.Name = "_cMenTreeCreateLink";
+            _cMenTreeCreateLink.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeCreateLink.Text = "Create Link";
+            _cMenTreeCreateLink.Click += OnCreateLinkClicked;
             //
             // cMenTreeRename
             //
@@ -504,6 +515,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsWakeOnLan.Text = Language.ResourceManager.GetString("WakeOnLan", Language.Culture) ?? "Wake On LAN";
 
             _cMenTreeDuplicate.Text = Language.Duplicate;
+            _cMenTreeCreateLink.Text = "Create Link";
             _cMenTreeRename.Text = Language.Rename;
             _cMenTreeDelete.Text = Language.Delete;
             _cMenTreeCopyHostname.Text = Language.CopyHostname;
@@ -580,6 +592,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsSort.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
+            _cMenTreeCreateLink.Enabled = false;
             _cMenTreeImport.Enabled = false;
             _cMenTreeExportFile.Enabled = false;
             _cMenTreeRename.Enabled = false;
@@ -607,6 +620,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
+            _cMenTreeCreateLink.Enabled = false;
             _cMenTreeDelete.Enabled = false;
             _cMenTreeMoveUp.Enabled = false;
             _cMenTreeMoveDown.Enabled = false;
@@ -625,6 +639,7 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(containerInfo.MacAddress);
+            _cMenTreeCreateLink.Enabled = false;
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
         }
@@ -646,6 +661,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
             _cMenTreeToolsSort.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
+            _cMenTreeCreateLink.Enabled = false;
             _cMenTreeRename.Enabled = false;
             _cMenTreeDelete.Enabled = false;
             _cMenTreeMoveUp.Enabled = false;
@@ -941,6 +957,11 @@ namespace mRemoteNG.UI.Controls
         private void OnDuplicateClicked(object sender, EventArgs e)
         {
             _connectionTree.DuplicateSelectedNode();
+        }
+
+        private void OnCreateLinkClicked(object sender, EventArgs e)
+        {
+            _connectionTree.CreateLinkToSelectedNode();
         }
 
         private void OnRenameClicked(object sender, EventArgs e)

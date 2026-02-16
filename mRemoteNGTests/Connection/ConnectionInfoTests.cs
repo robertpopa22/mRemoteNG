@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.SSH;
 using mRemoteNG.Container;
+using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using NUnit.Framework;
 
@@ -48,6 +51,24 @@ namespace mRemoteNGTests.Connection
         {
             var clonedConnection = _connectionInfo.Clone();
             Assert.That(clonedConnection.Inheritance, Is.Not.EqualTo(_connectionInfo.Inheritance));
+        }
+
+        [Test]
+        public void CloneDoesNotCopyLinkedConnectionId()
+        {
+            _connectionInfo.LinkedConnectionId = "source-id";
+
+            var clonedConnection = _connectionInfo.Clone();
+
+            Assert.That(clonedConnection.LinkedConnectionId, Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void SerializablePropertiesDoNotIncludeLinkedConnectionId()
+        {
+            var serializablePropertyNames = _connectionInfo.GetSerializableProperties().Select(prop => prop.Name).ToArray();
+
+            Assert.That(serializablePropertyNames, Does.Not.Contain(nameof(ConnectionInfo.LinkedConnectionId)));
         }
 
         [Test]
@@ -105,6 +126,36 @@ namespace mRemoteNGTests.Connection
 		    Assert.That(propertyValue, Is.True);
 	    }
 
+        [Test]
+        public void LinkedConnectionResolvesSourcePropertiesAtRuntime()
+        {
+            var sourceConnection = new ConnectionInfo { Hostname = "first-host" };
+            var linkedConnection = new ConnectionInfo
+            {
+                LinkedConnectionId = sourceConnection.ConstantID,
+                Hostname = "stale-host"
+            };
+
+            var rootNode = new RootNodeInfo(RootNodeType.Connection);
+            rootNode.AddChild(sourceConnection);
+            rootNode.AddChild(linkedConnection);
+            var connectionTreeModel = new ConnectionTreeModel();
+            connectionTreeModel.AddRootNode(rootNode);
+
+            var originalModel = Runtime.ConnectionsService.ConnectionTreeModel;
+            SetRuntimeConnectionTreeModel(connectionTreeModel);
+            try
+            {
+                Assert.That(linkedConnection.Hostname, Is.EqualTo("first-host"));
+                sourceConnection.Hostname = "second-host";
+                Assert.That(linkedConnection.Hostname, Is.EqualTo("second-host"));
+            }
+            finally
+            {
+                SetRuntimeConnectionTreeModel(originalModel);
+            }
+        }
+
 		[TestCase(ProtocolType.HTTP, ExpectedResult = 80)]
         [TestCase(ProtocolType.HTTPS, ExpectedResult = 443)]
         [TestCase(ProtocolType.IntApp, ExpectedResult = 0)]
@@ -120,6 +171,22 @@ namespace mRemoteNGTests.Connection
         {
             _connectionInfo.Protocol = protocolType;
             return _connectionInfo.GetDefaultPort();
+        }
+
+        private static void SetRuntimeConnectionTreeModel(ConnectionTreeModel? connectionTreeModel)
+        {
+            var backingField = typeof(ConnectionsService)
+                .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+                .FirstOrDefault(f => f.Name.Contains("<ConnectionTreeModel>k__BackingField"));
+
+            if (backingField != null)
+            {
+                backingField.SetValue(Runtime.ConnectionsService, connectionTreeModel);
+                return;
+            }
+
+            var propertyInfo = typeof(ConnectionsService).GetProperty(nameof(ConnectionsService.ConnectionTreeModel));
+            propertyInfo?.GetSetMethod(true)?.Invoke(Runtime.ConnectionsService, new object[] { connectionTreeModel });
         }
 
 	    private class InheritancePropertyProvider

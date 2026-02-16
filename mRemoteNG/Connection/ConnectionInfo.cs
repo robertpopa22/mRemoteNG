@@ -60,6 +60,12 @@ namespace mRemoteNG.Connection
         [Browsable(false)] public ContainerInfo? Parent { get; internal set; }
 
         [Browsable(false)]
+        public string LinkedConnectionId { get; set; } = string.Empty;
+
+        [Browsable(false)]
+        public bool IsLinkedConnection => !string.IsNullOrWhiteSpace(LinkedConnectionId);
+
+        [Browsable(false)]
         public bool IsQuickConnect { get; set; }
 
         [Browsable(false)]
@@ -178,7 +184,7 @@ namespace mRemoteNG.Connection
             {
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
-                "IncludeInMultiSsh", "ExcludeFromMultiSsh"
+                "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId"
             };
 
             return GetProperties(excludedProperties);
@@ -224,6 +230,9 @@ namespace mRemoteNG.Connection
 
         protected override TPropertyType GetPropertyValue<TPropertyType>(string propertyName, TPropertyType value)
         {
+            if (TryGetLinkedPropertyValue(propertyName, out TPropertyType linkedValue))
+                return linkedValue;
+
             if (!ShouldThisPropertyBeInherited(propertyName))
                 return value;
 
@@ -241,6 +250,30 @@ namespace mRemoteNG.Connection
                 Inheritance.InheritanceActive &&
                 ParentIsValidInheritanceTarget() &&
                 IsInheritanceTurnedOnForThisProperty(propertyName);
+        }
+
+        private bool TryGetLinkedPropertyValue<TPropertyType>(string propertyName, out TPropertyType linkedValue)
+        {
+            linkedValue = default!;
+
+            if (!IsLinkedConnection)
+                return false;
+
+            ConnectionTreeModel? connectionTreeModel = Runtime.ConnectionsService.ConnectionTreeModel;
+            ConnectionInfo? linkedSource = connectionTreeModel?.ResolveLinkedConnection(this);
+            if (linkedSource == null || ReferenceEquals(linkedSource, this))
+                return false;
+
+            PropertyInfo? sourceProperty = linkedSource.GetType().GetProperty(propertyName);
+            if (sourceProperty == null)
+                return false;
+
+            object? sourceValue = sourceProperty.GetValue(linkedSource, null);
+            if (sourceValue is not TPropertyType typedSourceValue)
+                return false;
+
+            linkedValue = typedSourceValue;
+            return true;
         }
 
         private bool ParentIsValidInheritanceTarget()

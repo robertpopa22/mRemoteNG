@@ -1,0 +1,34 @@
+Implemented issue `#984` with a new linked-connection flow, while keeping existing duplicate behavior unchanged.
+
+**What changed**
+- Added linked metadata and runtime resolution:
+  - `mRemoteNG/Connection/ConnectionInfo.cs`
+  - `mRemoteNG/Tree/ConnectionTreeModel.cs`
+- Added a new tree action to create links:
+  - `mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs`
+- Added context-menu entry `Create Link` (connection nodes only):
+  - `mRemoteNG/UI/Controls/ConnectionContextMenu.cs`
+- Persisted link reference in XML:
+  - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs`
+  - `mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs`
+  - `mRemoteNG/Schemas/mremoteng_confcons_v2_8.xsd`
+
+**Behavior**
+- `Duplicate` still duplicates as before.
+- New `Create Link` creates a new node that stores `LinkedConnectionId` and resolves shared settings from the source connection at runtime.
+
+**Tests added/updated**
+- `mRemoteNGTests/Tree/ConnectionTreeModelTests.cs`
+- `mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs`
+- `mRemoteNGTests/Connection/ConnectionInfoTests.cs`
+- `mRemoteNGTests/IntegrationTests/XmlSerializationLifeCycleTests.cs`
+
+**Build/Test execution**
+I attempted the exact required commands, but command execution is blocked by policy in this environment:
+
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"`
+- `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild"`
+
+Both returned: `rejected: blocked by policy`.
+
+1. Run those two commands in your normal local shell (without this policy restriction) to validate compile/tests.

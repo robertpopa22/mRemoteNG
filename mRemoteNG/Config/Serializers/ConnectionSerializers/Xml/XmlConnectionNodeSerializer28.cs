@@ -49,6 +49,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("TabColor", connectionInfo.TabColor));
             element.Add(new XAttribute("ConnectionFrameColor", connectionInfo.ConnectionFrameColor));
             element.Add(new XAttribute("Id", connectionInfo.ConstantID));
+            if (!string.IsNullOrWhiteSpace(connectionInfo.LinkedConnectionId))
+                element.Add(new XAttribute("LinkedConnectionId", connectionInfo.LinkedConnectionId));
 
             if (!Runtime.UseCredentialManager)
             {

@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "984",
+  "started_at": "2026-02-16T20:52:45",
+  "finished_at": "2026-02-16T20:53:00",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "This is a clear quality-of-life feature request that can reduce duplicate entries and ongoing config maintenance.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Tree/ConnectionTreeModel.cs",
+          "mRemoteNG/UI/Forms/frmMain.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializer.cs"
+        ],
+        "approach": "Introduce a linked-connection entry that stores a reference to a source connection and resolves shared settings at runtime instead of copying values."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"This is a clear quality-of-life feature request that can reduce duplicate entries and ongoing config maintenance.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Tree/ConnectionTreeModel.cs\",\"mRemoteNG/UI/Forms/frmMain.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializer.cs\"],\"approach\":\"Introduce a linked-connection entry that stores a reference to a source connection and resolves shared settings at runtime instead of copying values.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T20:53:00"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

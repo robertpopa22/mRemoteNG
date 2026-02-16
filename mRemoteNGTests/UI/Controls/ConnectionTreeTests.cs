@@ -176,6 +176,27 @@ namespace mRemoteNGTests.UI.Controls
 		});
 
 		[Test]
+		public void CanCreateLinkedConnectionNode() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var sourceNode = new ConnectionInfo { Hostname = "source-host" };
+			root.AddChild(sourceNode);
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.SelectedObject = sourceNode;
+			tree.CreateLinkToSelectedNode();
+
+			Assert.That(root.Children, Has.Exactly(2).Items);
+			var linkedNode = root.Children[1];
+			Assert.That(linkedNode.LinkedConnectionId, Is.EqualTo(sourceNode.ConstantID));
+		});
+
+		[Test]
 		public void CannotDuplicateRootPuttyNode() => RunWithMessagePump(tree =>
 		{
 			var connectionTreeModel = new ConnectionTreeModel();

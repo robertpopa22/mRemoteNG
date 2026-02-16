@@ -102,6 +102,27 @@ namespace mRemoteNGTests.IntegrationTests
         }
 
         [Test]
+        public void LinkedConnectionIdRoundTripsThroughSerialization()
+        {
+            var sourceConnectionInfo = new ConnectionInfo { Name = "source", Hostname = "source-host" };
+            var linkedConnectionInfo = sourceConnectionInfo.Clone();
+            linkedConnectionInfo.Name = "source-link";
+            linkedConnectionInfo.LinkedConnectionId = sourceConnectionInfo.ConstantID;
+
+            var rootNode = new RootNodeInfo(RootNodeType.Connection);
+            rootNode.AddChild(sourceConnectionInfo);
+            rootNode.AddChild(linkedConnectionInfo);
+            var connectionTreeModel = new ConnectionTreeModel();
+            connectionTreeModel.AddRootNode(rootNode);
+
+            var serializedContent = _serializer.Serialize(connectionTreeModel);
+            var deserializedModel = _deserializer.Deserialize(serializedContent);
+            var deserializedLinkedConnectionInfo = deserializedModel.GetRecursiveChildList().First(node => node.Name == "source-link");
+
+            Assert.That(deserializedLinkedConnectionInfo.LinkedConnectionId, Is.EqualTo(sourceConnectionInfo.ConstantID));
+        }
+
+        [Test]
         public void AllPropertiesCorrectWhenSerializingThenDeserializing()
         {
             var originalConnectionInfo = new ConnectionInfo().RandomizeValues();

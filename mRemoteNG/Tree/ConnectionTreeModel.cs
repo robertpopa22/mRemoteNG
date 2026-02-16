@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Versioning;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
@@ -78,6 +80,57 @@ namespace mRemoteNG.Tree
                 return;
 
             connectionInfo?.RemoveParent();
+        }
+
+        public ConnectionInfo? FindConnectionById(string connectionId)
+        {
+            if (string.IsNullOrWhiteSpace(connectionId))
+                return null;
+
+            foreach (ContainerInfo rootNode in RootNodes)
+            {
+                if (string.Equals(rootNode.ConstantID, connectionId, StringComparison.OrdinalIgnoreCase))
+                    return rootNode;
+
+                ConnectionInfo? childNode = rootNode.GetRecursiveChildList()
+                    .FirstOrDefault(node => string.Equals(node.ConstantID, connectionId, StringComparison.OrdinalIgnoreCase));
+                if (childNode != null)
+                    return childNode;
+            }
+
+            return null;
+        }
+
+        public ConnectionInfo? ResolveLinkedConnection(ConnectionInfo connectionInfo)
+        {
+            if (connectionInfo == null)
+                return null;
+
+            if (string.IsNullOrWhiteSpace(connectionInfo.LinkedConnectionId))
+                return connectionInfo;
+
+            HashSet<string> visitedConnectionIds = new(StringComparer.OrdinalIgnoreCase)
+            {
+                connectionInfo.ConstantID
+            };
+
+            string currentLinkedId = connectionInfo.LinkedConnectionId;
+            while (!string.IsNullOrWhiteSpace(currentLinkedId))
+            {
+                if (!visitedConnectionIds.Add(currentLinkedId))
+                    return null;
+
+                ConnectionInfo? candidate = FindConnectionById(currentLinkedId);
+                if (candidate == null)
+                    return null;
+
+                if (string.IsNullOrWhiteSpace(candidate.LinkedConnectionId))
+                    return candidate;
+
+                currentLinkedId = candidate.LinkedConnectionId;
+            }
+
+            return null;
         }
 
         public event NotifyCollectionChangedEventHandler? CollectionChanged;

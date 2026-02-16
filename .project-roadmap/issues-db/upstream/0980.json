@@ -13,12 +13,19 @@
   "created_at": "2018-05-23T22:36:11Z",
   "github_updated_at": "2026-02-07T19:53:19Z",
   "body_snippet": "Selection of multiple connections is not possible. Managing the connections one by one is extremely time consuming.\r\nInheritance is not very usable if it is a posteriori and if it cannot be set for multiple connections at once (again not possible to select multiple connections) and without the ability to change values of multiple inheritance values.\r\n\r\n## Expected Behavior\r\nIf I want to change icon or any property for multiple connections I would expect selecting multiple connections and setting...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue is stale and does not include current reproducible steps on v1.79.x, so the multi-select delete/inheritance bug cannot be confirmed yet."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM42Ia_G",
@@ -44,5 +51,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (codex): The issue is stale and does not include current reproducible steps on v1.79.x, so the multi-select delete/inheritance bug cannot be confirmed yet.\nApproach: Request a retest on the latest build with exact steps, expected vs actual behavior, and whether Delete via keyboard and context menu differ."
 }

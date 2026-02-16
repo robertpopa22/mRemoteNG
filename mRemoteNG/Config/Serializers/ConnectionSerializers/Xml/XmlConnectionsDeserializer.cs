@@ -218,7 +218,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             string connectionId = xmlnode.GetAttributeAsString("Id");
             if (string.IsNullOrWhiteSpace(connectionId))
                 connectionId = Guid.NewGuid().ToString();
-            ConnectionInfo connectionInfo = new(connectionId);
+            ConnectionInfo connectionInfo = new(connectionId)
+            {
+                LinkedConnectionId = xmlnode.GetAttributeAsString("LinkedConnectionId")
+            };
 
             try
             {

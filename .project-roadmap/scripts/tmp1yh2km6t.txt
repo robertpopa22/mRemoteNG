@@ -1,0 +1,97 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #984: Create link to connection instead of duplicating?
+Description: 
+Approach: Add a new 'Create Link' action that stores a reference to an existing connection and reuses the target settings at runtime instead of deep-cloning properties.
+Likely files: mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs, mRemoteNG/UI/Controls/ConnectionContextMenu.cs, mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #984
+Errors: Build OK but tests failed. Changes left in working tree.
+Build: OK
+Tests: FAIL
+Files modified: .project-roadmap/issues-db/upstream/0980.json, .project-roadmap/issues-db/upstream/0984.json, .project-roadmap/scripts/chain-context/_timeout_history.json, mRemoteNG.sln, mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs, mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs, mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Schemas/mremoteng_confcons_v2_8.xsd, mRemoteNG/Tree/ConnectionTreeModel.cs, mRemoteNG/UI/Controls/ConnectionContextMenu.cs, mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs, mRemoteNGTests/Connection/ConnectionInfoTests.cs, mRemoteNGTests/IntegrationTests/XmlSerializationLifeCycleTests.cs, mRemoteNGTests/Tree/ConnectionTreeModelTests.cs, mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs
+Diff summary:
+.project-roadmap/issues-db/upstream/0980.json      | 15 +++--
+ .project-roadmap/issues-db/upstream/0984.json      | 21 +++++--
+ .../scripts/chain-context/_timeout_history.json    | 51 ++++++++++++++---
+ mRemoteNG.sln                                      | 18 ++++++
+ .../Xml/XmlConnectionNodeSerializer28.cs           |  2 +
+ .../Xml/XmlConnectionsDeserializer.cs              |  5 +-
+ mRemoteNG/Connection/ConnectionInfo.cs             | 36 +++++++++++-
+ mRemoteNG/Schemas/mremoteng_confcons_v2_8.xsd      |  1 +
+ mRemoteNG/Tree/ConnectionTreeModel.cs              | 55 +++++++++++++++++-
+ mRemoteNG/UI/Controls/ConnectionContextMenu.cs     | 23 +++++++-
+ .../UI/Controls/ConnectionTree/ConnectionTree.cs   | 22 ++++++++
+ mRemoteNGTests/Connection/ConnectionInfoTests.cs   | 66 ++++++++++++++++++++++
+ .../XmlSerializationLifeCycleTests.cs              | 21 +++++++
+ mRemoteNGTests/Tree/ConnectionTreeModelTests.cs    | 46 +++++++++++++++
+ mRemoteNGTests/UI/Controls/ConnectionTreeTests.cs  | 21 +++
+Code changes (truncated):
+diff --git a/.project-roadmap/issues-db/upstream/0980.json b/.project-roadmap/issues-db/upstream/0980.json
+index fa164b5cd..47d317d7e 100644
+--- a/.project-roadmap/issues-db/upstream/0980.json
++++ b/.project-roadmap/issues-db/upstream/0980.json
+@@ -13,12 +13,19 @@
+   "created_at": "2018-05-23T22:36:11Z",
+   "github_updated_at": "2026-02-07T19:53:19Z",
+   "body_snippet": "Selection of multiple connections is not possible. Managing the connections one by one is extremely time consuming.\r\nInheritance is not very usable if it is a posteriori and if it cannot be set for multiple connections at once (again not possible to select multiple connections) and without the ability to change values of multiple inheritance values.\r\n\r\n## Expected Behavior\r\nIf I want to change icon or any property for multiple connections I would expect selecting multiple connections and setting...",
+-  "our_status": "new",
+-  "priority": null,
++  "our_status": "triaged",
++  "priority": "P4-debt",
+   "target_release": null,
+   "our_branch": null,
+   "our_pr": null,
+-  "iterations": [],
++  "iterations": [
++    {
++      "seq": 1,
++      "date": "2026-02-16",
++      "type": "triaged",
++      "description": "The issue is stale and does not include current reproducible steps on v1.79.x, so the multi-select delete/inheritance bug cannot be confirmed yet."
++    }
++  ],
+   "comments": [
+     {
+       "id": "IC_kwDOAAcIMM42Ia_G",
+@@ -44,5 +51,5 @@
+   "needs_action": true,
+   "waiting_for_us": false,
+   "last_synced": "2026-02-15T09:52:50Z",
+-  "notes": ""
++  "notes": "AI triage (codex): The issue is stale and does not include current reproducible steps on v1.79.x, so the multi-select delete/inheritance bug cannot be confirmed yet.\nApproach: Request a retest on the latest build with exact steps, expected vs actual behavior, and whether Delete via keyboard and context menu differ."
+ }
+diff --git a/.project-roadmap/issues-db/upstream/0984.json b/.project-roadmap/issues-db/upstream/0984.json
+index 6473b9968..b7af62564 100644
+--- a/.project-roadmap/issues-db/upstream/0984.json
++++ b/.project-roadmap/issues-db/upstream/0984.json
+@@ -10,12 +10,25 @@
+   "created_at": "2018-05-28T02:58:18Z",
+   "github_updated_at": "2018-05-28T14:03:29Z",
+   "body_snippet": "This is only a feature suggestion.\r\nFrom time to time, when I have a lot of connections and folders created, I want to have some kind of shortcut, or something similar to a symbolic link created pointing to another connection. Currently I have a \"_Quick\" folder and a bunch of duplicated connections. It works fine but when I need to update the connection configurations, I have to update both the original one and the duplicated one. It would be nice if I can create a link to a connection.\r\nThanks!",
+-  "our_status": "new",
+-  "priority": null,
++  "our_status": "triaged",
++  "priority": "P3-enhancement",
+   "target_release": null,
+   "our_branch": null,
+   "our_pr": null,
+-  "iterations": [],
++  "iterations": [
++    {
++      "seq":
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
