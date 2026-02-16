@@ -8,11 +8,11 @@
 
 <strong>This fork is alive.</strong>
 
-We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, 2100+ automated tests, and builds for x64, x86, and ARM64.
+We love mRemoteNG and we're committed to keeping it moving forward. This Community Edition ships regular releases with security patches, bug fixes, and long-requested features — backed by proper CI, <strong>2,349 automated tests</strong>, and builds for x64, x86, and ARM64.
 
 <strong>The plan:</strong> work through the full <strong>830+ issue backlog</strong>, 100 at a time. Security first, then stability, then features. Every fix gets a release. Every release gets tested. Every issue gets a response.
 
-<strong>How we work:</strong> Development runs in parallel across <strong>Claude Code</strong> (Anthropic), <strong>Gemini</strong> (Google), and <strong>Codex</strong> (OpenAI) — each AI agent tackling different issue batches simultaneously, with every change reviewed and merged by a human maintainer. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
+<strong>How we work:</strong> A Python <strong>orchestrator</strong> drives three AI agents in parallel — <strong>Claude Code</strong> (Anthropic) for complex multi-file fixes, <strong>Gemini CLI</strong> (Google) for bulk code transformations, and <strong>Codex</strong> (OpenAI) for fast triage and simple fixes. Every change is independently verified (build + 2,349 tests) before commit. A custom <strong>Issue Intelligence System</strong> — a git-tracked JSON database — follows every issue through its full lifecycle: triage → fix → test → release. Automated priority classification and templated GitHub comments ensure nothing falls through the cracks.
 
 <strong>What's next:</strong> Once the backlog is current, ongoing maintenance — bug fixes, dependency updates, security patches — will run autonomously via <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview">Claude Code</a>, continuously monitoring new issues and shipping fixes with minimal human intervention.
 
@@ -187,10 +187,52 @@ For a detailed feature list and general usage support, refer to the [Documentati
 
 ```powershell
 # Requires Visual Studio BuildTools (VS2026 or VS2022) with .NET SDK
+# Full build (~15s on 48-thread Threadripper):
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1
+
+# Fast incremental (~9s, skips restore):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1 -NoRestore
+
+# Self-contained (embeds .NET runtime, ~108-116MB output):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 ```
 
-`build.ps1` auto-detects the newest VS installation. For manual builds, see `CLAUDE.md`.
+> **Note:** `dotnet build` does **not** work — the project has COM references (MSTSCLib for RDP). `build.ps1` uses full MSBuild via VS BuildTools and auto-detects the newest VS installation.
+
+### Build optimization
+
+A `Directory.Build.props` at the solution root configures:
+- **`UseSharedCompilation=true`** — keeps the Roslyn compiler server warm between builds
+- **`NoWarn=CA1416`** — suppresses 1,795 platform compatibility warnings (app is 100% Windows-only)
+
+MSBuild `-m` parallelizes at project level (3 projects), while Roslyn parallelizes file compilation internally. On a 48-thread CPU, the bottleneck is the single 587-file main project — adding more cores beyond ~4 has no effect.
+
+---
+
+## Testing
+
+```powershell
+# Parallel (5 processes, ~2 min) — recommended:
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1
+
+# Skip build (use existing binaries):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -NoBuild
+
+# Sequential (single process):
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Sequential
+```
+
+**Current status:** 2,349 tests across 5 parallel processes, 0 failures, 3 skipped.
+
+Multi-process parallelism is required because the production code uses shared mutable singletons (`DefaultConnectionInheritance.Instance`, `Runtime.ConnectionsService`, `Runtime.EncryptionKey`) — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
+
+| Process | Namespace | Tests |
+|---------|-----------|-------|
+| 1 | Security | 164 |
+| 2 | Tools + Messages + App + misc | 354 |
+| 3 | Config | 588 |
+| 4 | Connection + Credential + Tree + misc | 945 |
+| 5 | UI (RunWithMessagePump pattern) | 298 |
 
 ---
 
@@ -233,9 +275,38 @@ Full details: [CHANGELOG.md](CHANGELOG.md) | [All releases](https://github.com/r
 
 ---
 
+## Multi-Agent Orchestrator
+
+Development is driven by a Python orchestrator (`iis_orchestrator.py`) that coordinates three AI agents, each with a specific role:
+
+```
+iis_orchestrator.py (Python controller)
+│
+├── Codex (OpenAI) ─── fast triage + simple single-file fixes
+│                      830 issues classified in priority batches
+│
+├── Gemini CLI (Google) ─── bulk code transformations
+│                           466/852 nullable warnings fixed in one session
+│
+├── Claude Code (Anthropic) ─── complex multi-file fixes + final review
+│                               UI/WinForms, COM interop, corrects other agents
+│
+└── Verification (no AI) ─── build.ps1 + run-tests.ps1 (2,349 tests)
+                              git commit on green / git restore on failure
+```
+
+**Workflow per issue:** Sync → Triage (Codex) → Implement (Codex → Gemini → Claude fallback) → Build + Test (independent) → Atomic commit → GitHub comment on upstream.
+
+**Key principle:** The orchestrator **never trusts agent output** — it always verifies independently with a full build and test run before committing.
+
+**Results (v1.81.0-beta.2):**
+- 2,554 nullable warnings eliminated (100% clean) across 4 orchestrator sessions
+- 830 upstream issues triaged and classified by priority
+- 25 issues fixed and released with automated upstream notifications
+
 ## Issue Intelligence System
 
-This fork includes a custom **Issue Intelligence System** — a git-tracked JSON database that monitors the full upstream issue backlog (830+ issues) and automates triage, lifecycle tracking, and release communication.
+The orchestrator includes a git-tracked JSON database that monitors the full upstream issue backlog and automates triage, lifecycle tracking, and release communication.
 
 **What it does:**
 - Syncs issues and comments from both upstream and fork repositories via `gh` CLI
@@ -245,16 +316,23 @@ This fork includes a custom **Issue Intelligence System** — a git-tracked JSON
 - Generates markdown reports for triage sessions and releases
 - Auto-classifies issues by priority based on labels and comment activity
 
-**Scripts** (in `.project-roadmap/scripts/`):
+**Commands:**
 
-| Script | Purpose |
-|--------|---------|
-| `Sync-Issues.ps1` | Fetch latest issues + comments from GitHub into local JSON DB |
-| `Analyze-Issues.ps1` | Classify and prioritize — shows what needs immediate attention |
-| `Update-Status.ps1` | Transition issues through lifecycle, post GitHub comments |
-| `Generate-Report.ps1` | Create markdown reports for triage and releases |
+```bash
+# Sync issues from GitHub (always run first)
+python .project-roadmap/scripts/iis_orchestrator.py sync
 
-**Current stats** (as of 2026-02-13): 831 issues tracked, 25 released, 8 urgent, 24 new comments detected.
+# Analyze what needs attention
+python .project-roadmap/scripts/iis_orchestrator.py analyze
+
+# Transition issue status + post GitHub comment
+python .project-roadmap/scripts/iis_orchestrator.py update --issue <N> --status released --post-comment
+
+# Generate markdown report
+python .project-roadmap/scripts/iis_orchestrator.py report --include-all
+```
+
+**Current stats** (as of 2026-02-16): 830 issues tracked, 25 released, 8 duplicate, 9 wontfix.
 
 See [.project-roadmap/issues-db/README.md](.project-roadmap/issues-db/README.md) for full documentation.
 
