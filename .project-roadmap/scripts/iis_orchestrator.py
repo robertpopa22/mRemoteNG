@@ -138,6 +138,9 @@ GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
 AGENT_FALLBACK_ENABLED = True           # if primary fails, try the other agent
 _session_agents_used = set()            # tracks which agents contributed (for co-author)
 
+# Resolve full path to gemini CLI (Windows needs .CMD extension for subprocess)
+GEMINI_CMD = shutil.which("gemini") or "gemini"
+
 
 # ── LOGGING ─────────────────────────────────────────────────────────────────
 def setup_logging():
@@ -534,7 +537,7 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                retries=CLAUDE_RETRIES):
     """Call gemini -p (headless) with retry.  Returns stdout string.
     Uses -y for auto-approve, -m for model selection."""
-    cmd = ["gemini", "-p", prompt, "-y", "-m", GEMINI_MODEL]
+    cmd = [GEMINI_CMD, "-p", prompt, "-y", "-m", GEMINI_MODEL]
     if json_output:
         cmd += ["-o", "json"]
 

@@ -11,17 +11,24 @@
   "created_at": "2017-10-09T12:04:29Z",
   "github_updated_at": "2018-07-30T00:52:04Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\nSecurity option.\r\nIf the connections are stored in SQL.\r\nRemove the Save As menu item.\r\n\r\n\r\n<!-- Security option.\r\nIf the connections are stored in SQL.\r\nRemove the Save As menu item.-->\r\n<!-- If you file a feature request, please delete the bug section -...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Issue title says 'Save Connection' but body is completely empty with no description of what feature is requested or what security vulnerability exists despite the Security Vuln label"
+    }
+  ],
   "comments": [],
   "comments_cursor": "2018-07-30T00:52:04Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage: Issue title says 'Save Connection' but body is completely empty with no description of what feature is requested or what security vulnerability exists despite the Security Vuln label\nApproach: Request clarification from reporter on what 'Save Connection' means - is it about saving credentials, saving connection state, auto-save, or something else, and why it has a Security Vuln label"
 }
