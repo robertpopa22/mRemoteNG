@@ -581,31 +581,356 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
     return None
 
 
-# ── CORE: AGENT DISPATCHER ────────────────────────────────────────────────
+# ── CORE: AGENT SIMPLE DISPATCH (for warnings) ───────────────────────────
 def agent_run(task_type, prompt, max_turns=15, json_output=False,
               timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
-    """Dispatch to the configured agent for this task type.
-    Falls back to the other agent if AGENT_FALLBACK_ENABLED and primary fails."""
+    """Simple dispatch: try configured agent, fallback to other on failure.
+    Used for warning fixes where chain pattern is overkill."""
     agent = AGENT_CONFIG.get(task_type, "claude")
     _session_agents_used.add(agent)
 
     if agent == "gemini":
-        primary_fn, fallback_fn, fallback_name = gemini_run, claude_run, "claude"
+        # Write prompt to file for Gemini (handles long prompts better)
+        prompt_file = None
+        try:
+            import tempfile
+            f = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
+                                            encoding="utf-8",
+                                            dir=str(REPO_ROOT / ".project-roadmap" / "scripts"))
+            f.write(prompt)
+            f.close()
+            prompt_file = f.name
+            with open(prompt_file, "r", encoding="utf-8") as pf:
+                r = subprocess.run(
+                    [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
+                    stdin=pf, capture_output=True, text=True, timeout=timeout,
+                    cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+                )
+            kill_stale_processes()
+            if r.returncode == 0 and r.stdout:
+                return r.stdout
+        except Exception as e:
+            log.error("    [GEMINI] agent_run error: %s", e)
+        finally:
+            if prompt_file:
+                try:
+                    os.unlink(prompt_file)
+                except OSError:
+                    pass
+
+        # Fallback to Claude
+        if AGENT_FALLBACK_ENABLED:
+            log.warning("    [AGENT] gemini failed for %s — fallback to claude", task_type)
+            _session_agents_used.add("claude")
+            return claude_run(prompt, max_turns=max_turns, json_output=json_output,
+                              timeout=timeout, retries=retries)
+        return None
     else:
-        primary_fn, fallback_fn, fallback_name = claude_run, gemini_run, "gemini"
+        return claude_run(prompt, max_turns=max_turns, json_output=json_output,
+                          timeout=timeout, retries=retries)
 
-    log.info("    [AGENT] Using %s for %s", agent, task_type)
-    result = primary_fn(prompt, max_turns=max_turns, json_output=json_output,
-                        timeout=timeout, retries=retries)
 
-    if result is None and AGENT_FALLBACK_ENABLED:
-        log.warning("    [AGENT] %s failed for %s — falling back to %s",
-                     agent, task_type, fallback_name)
-        _session_agents_used.add(fallback_name)
-        result = fallback_fn(prompt, max_turns=max_turns, json_output=json_output,
-                             timeout=timeout, retries=retries)
+# ── CORE: AGENT CHAIN ─────────────────────────────────────────────────────
+def _write_prompt_file(prompt):
+    """Write prompt to a temp file (Gemini handles long prompts better via stdin)."""
+    import tempfile
+    f = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False,
+                                    encoding="utf-8", dir=str(REPO_ROOT / ".project-roadmap" / "scripts"))
+    f.write(prompt)
+    f.close()
+    return f.name
 
-    return result
+
+def chain_triage(issue):
+    """Chain-of-agents triage: Gemini drafts → Claude refines if needed.
+    Returns (triage_dict, agent_used) or (None, None)."""
+    num = issue["number"]
+    title = issue.get("title", "")
+    body = (issue.get("body") or "")[:2000]
+    labels = ", ".join(issue.get("labels", []))
+    comments = issue.get("comments", [])[-3:]
+    comments_text = "\n".join(
+        f"  [{c.get('author', '?')}]: {c.get('snippet', '')[:300]}" for c in comments
+    )
+
+    triage_prompt = f"""Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #{num}: {title}
+Labels: {labels}
+State: {issue.get('state', 'open')}
+
+Body:
+{body}
+
+Recent comments:
+{comments_text}
+
+Reply with ONLY a JSON object (no other text):
+{{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info."""
+
+    # ── Step 1: Gemini drafts ──
+    _session_agents_used.add("gemini")
+    log.info("    [CHAIN] Step 1: Gemini triage for #%d", num)
+
+    prompt_file = _write_prompt_file(triage_prompt)
+    try:
+        with open(prompt_file, "r", encoding="utf-8") as f:
+            r = subprocess.run(
+                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
+                stdin=f, capture_output=True, text=True, timeout=120,
+                cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+            )
+        gemini_raw = r.stdout or ""
+        gemini_ok = r.returncode == 0
+    except Exception as e:
+        log.error("    [CHAIN] Gemini error: %s", e)
+        gemini_raw = f"ERROR: {e}"
+        gemini_ok = False
+    finally:
+        try:
+            os.unlink(prompt_file)
+        except OSError:
+            pass
+
+    kill_stale_processes()
+    log.info("    [CHAIN] Gemini raw (%d chars): %s",
+             len(gemini_raw), gemini_raw[:150].replace("\n", " "))
+
+    # Try to extract JSON from Gemini's response
+    if gemini_ok and gemini_raw:
+        result = _extract_json(gemini_raw)
+        if result and "decision" in result:
+            log.info("    [CHAIN] Gemini triage OK — no Claude needed")
+            return result, "gemini"
+
+    # ── Step 2: Claude refines ──
+    _session_agents_used.add("claude")
+    log.info("    [CHAIN] Step 2: Claude refines (Gemini said: %s)", gemini_raw[:100])
+
+    refine_prompt = f"""You are refining a triage result for mRemoteNG issue #{num}: {title}
+
+Issue body:
+{body[:1000]}
+
+A previous agent (Gemini) attempted to triage this issue and responded:
+---
+{gemini_raw[:500]}
+---
+
+Extract or produce the correct triage JSON from the above, or if the response is unusable,
+analyze the issue yourself and produce the triage.
+
+Reply with ONLY a JSON object:
+{{"decision":"implement|wontfix|duplicate|needs_info","reason":"one sentence","priority":"P0-critical|P1-security|P2-bug|P3-enhancement|P4-debt","estimated_files":["path.cs"],"approach":"brief fix"}}"""
+
+    claude_out = claude_run(refine_prompt, max_turns=3, json_output=False, timeout=120)
+    if claude_out:
+        result = _extract_json(claude_out)
+        if result and "decision" in result:
+            log.info("    [CHAIN] Claude refined triage OK")
+            return result, "claude"
+
+    log.error("    [CHAIN] Both agents failed triage for #%d", num)
+    return None, None
+
+
+def chain_implement(issue, triage, status):
+    """Chain-of-agents implementation: Gemini implements → if fails, Claude corrects.
+    Returns True if fix was committed."""
+    num = issue["number"]
+    title = issue.get("title", "")
+    body = (issue.get("body") or "")[:3000]
+    approach = triage.get("approach", "")
+    files = triage.get("estimated_files", [])
+
+    impl_prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\\github\\mRemoteNG
+Branch: main
+
+Fix GitHub issue #{num}: {title}
+
+Description:
+{body}
+
+Recommended approach: {approach}
+Likely files: {', '.join(files) if files else 'search the codebase'}
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else."""
+
+    # ── Step 1: Gemini implements ──
+    _session_agents_used.add("gemini")
+    log.info("  [CHAIN] Step 1: Gemini implementing #%d ...", num)
+    status.set_task(type="issue_fix", issue=num, step="gemini_fixing")
+
+    prompt_file = _write_prompt_file(impl_prompt)
+    try:
+        with open(prompt_file, "r", encoding="utf-8") as f:
+            r = subprocess.run(
+                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
+                stdin=f, capture_output=True, text=True, timeout=CLAUDE_TIMEOUT,
+                cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+            )
+        gemini_out = r.stdout or ""
+        gemini_ok = r.returncode == 0
+    except Exception as e:
+        log.error("  [CHAIN] Gemini impl error: %s", e)
+        gemini_out = f"ERROR: {e}"
+        gemini_ok = False
+    finally:
+        try:
+            os.unlink(prompt_file)
+        except OSError:
+            pass
+
+    kill_stale_processes()
+
+    if not gemini_ok or not gemini_out:
+        log.warning("  [CHAIN] Gemini returned nothing — passing to Claude from scratch")
+        git_restore()
+        return _chain_claude_implement(issue, triage, status, gemini_context=None)
+
+    # Check if Gemini's changes build
+    status.set_task(type="issue_fix", issue=num, step="building_gemini")
+    build_ok, build_output = run_build(capture_output=True)
+
+    if build_ok:
+        # Gemini's changes build — run tests
+        status.set_task(type="issue_fix", issue=num, step="testing_gemini")
+        if run_tests():
+            # Full success!
+            status.set_task(type="issue_fix", issue=num, step="committing")
+            short = (approach or title)[:60]
+            msg = f"fix(#{num}): {short}"
+            h = git_commit(msg)
+            if not h:
+                log.warning("  [CHAIN] No changes to commit for #%d", num)
+                return False
+            status.add_commit(h, msg, True)
+            status.data["issues"]["implemented"] += 1
+            log.info("  [CHAIN] Gemini fix committed %s (no Claude needed)", h[:8])
+
+            status.set_task(type="issue_fix", issue=num, step="pushing")
+            git_push()
+            if post_github_comment(num, h, short):
+                status.data["issues"]["commented_on_github"] += 1
+            update_issue_json(num, "testing", f"Fix in {h[:8]}")
+            status.clear_task()
+            return True
+        else:
+            log.warning("  [CHAIN] Gemini fix builds but tests FAIL — Claude corrects")
+            return _chain_claude_implement(issue, triage, status,
+                                           gemini_context="Gemini's changes build but tests fail. "
+                                                          "Do NOT revert everything — review and fix the test failures.")
+    else:
+        log.warning("  [CHAIN] Gemini fix has build errors — Claude corrects")
+        err_snippet = (build_output or "")[-500:]
+        return _chain_claude_implement(issue, triage, status,
+                                       gemini_context=f"Gemini edited files but build failed. "
+                                                      f"Build errors:\n{err_snippet}\n"
+                                                      f"Review Gemini's changes, fix the build errors.")
+
+
+def _chain_claude_implement(issue, triage, status, gemini_context=None):
+    """Step 2 of chain: Claude implements or corrects Gemini's attempt."""
+    num = issue["number"]
+    title = issue.get("title", "")
+    body = (issue.get("body") or "")[:2000]
+    approach = triage.get("approach", "")
+    files = triage.get("estimated_files", [])
+
+    _session_agents_used.add("claude")
+    log.info("  [CHAIN] Step 2: Claude implementing #%d ...", num)
+    status.set_task(type="issue_fix", issue=num, step="claude_fixing")
+
+    if gemini_context:
+        prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\\github\\mRemoteNG
+Branch: main
+
+Fix GitHub issue #{num}: {title}
+Description: {body}
+Approach: {approach}
+Likely files: {', '.join(files) if files else 'search the codebase'}
+
+IMPORTANT — A previous agent (Gemini) already attempted this fix:
+{gemini_context}
+
+Review the current state of the code (Gemini's changes are still in the working tree).
+Correct the issues and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else."""
+    else:
+        # Fresh attempt (Gemini returned nothing)
+        prompt = f"""Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\\github\\mRemoteNG
+Branch: main
+
+Fix GitHub issue #{num}: {title}
+Description: {body}
+Approach: {approach}
+Likely files: {', '.join(files) if files else 'search the codebase'}
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it. If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix. Nothing else."""
+
+    out = claude_run(prompt, max_turns=25, timeout=CLAUDE_TIMEOUT)
+    if out is None:
+        status.add_error(f"issue_{num}", "claude", "returned None after retries")
+        git_restore()
+        return False
+
+    status.set_task(type="issue_fix", issue=num, step="building")
+    build_ok, _ = run_build()
+    if not build_ok:
+        log.error("  [CHAIN] Claude build FAILED for #%d — reverting", num)
+        status.add_error(f"issue_{num}", "build", "failed")
+        git_restore()
+        return False
+
+    status.set_task(type="issue_fix", issue=num, step="testing")
+    if not run_tests():
+        log.error("  [CHAIN] Claude tests FAILED for #%d — reverting", num)
+        status.add_error(f"issue_{num}", "test", "failed")
+        git_restore()
+        return False
+
+    status.set_task(type="issue_fix", issue=num, step="committing")
+    short = (approach or title)[:60]
+    msg = f"fix(#{num}): {short}"
+    h = git_commit(msg)
+    if not h:
+        log.warning("  [CHAIN] No changes to commit for #%d", num)
+        return False
+
+    status.add_commit(h, msg, True)
+    status.data["issues"]["implemented"] += 1
+    log.info("  [CHAIN] Claude fix committed %s", h[:8])
+
+    status.set_task(type="issue_fix", issue=num, step="pushing")
+    git_push()
+    if post_github_comment(num, h, short):
+        status.data["issues"]["commented_on_github"] += 1
+    update_issue_json(num, "testing", f"Fix in {h[:8]}")
+    status.clear_task()
+    return True
 
 
 # ── CORE: GITHUB COMMENTS ──────────────────────────────────────────────────
@@ -903,9 +1228,9 @@ def flux_issues(status, dry_run=False, max_issues=None):
             delay = 30 if consecutive_failures >= 3 else 2
             time.sleep(delay)
 
-        triage = ai_triage(issue)
+        triage, triage_agent = chain_triage(issue)
         if not triage:
-            status.add_error(f"issue_{num}", "triage", "AI returned None")
+            status.add_error(f"issue_{num}", "triage", "chain failed (both agents)")
             status.data["issues"]["failed"] += 1
             consecutive_failures += 1
             if consecutive_failures >= 10:
@@ -918,17 +1243,17 @@ def flux_issues(status, dry_run=False, max_issues=None):
         ai_priority = triage.get("priority")
         ai_reason = triage.get("reason", "")
         ai_approach = triage.get("approach", "")
-        ai_notes = f"AI triage: {ai_reason}" + (
+        ai_notes = f"AI triage ({triage_agent}): {ai_reason}" + (
             f"\nApproach: {ai_approach}" if ai_approach else ""
         )
         status.data["issues"]["triaged"] += 1
-        log.info("  Decision: %s — %s", decision, ai_reason)
+        log.info("  Decision: %s [%s] — %s", decision, triage_agent, ai_reason)
 
         if decision == "implement":
             status.data["issues"]["to_implement"] += 1
             update_issue_json(num, "triaged", ai_reason,
                               priority=ai_priority, notes=ai_notes)
-            implement_issue(issue, triage, status)
+            chain_implement(issue, triage, status)
         elif decision == "wontfix":
             status.data["issues"]["skipped_wontfix"] += 1
             update_issue_json(num, "wontfix", ai_reason,

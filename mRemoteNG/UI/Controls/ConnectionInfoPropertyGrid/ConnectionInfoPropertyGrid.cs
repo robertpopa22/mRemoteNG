@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.Config.Settings.Registry;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.RDP;
@@ -174,6 +175,13 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     strHide.Add(nameof(AbstractConnectionRecord.Hostname));
                     strHide.Add(nameof(AbstractConnectionRecord.Name));
                 }
+
+                // Hide credential fields when registry policy denies saving
+                if (!CommonRegistrySettings.AllowSavePasswords)
+                    strHide.Add(nameof(AbstractConnectionRecord.Password));
+
+                if (!CommonRegistrySettings.AllowSaveUsernames)
+                    strHide.Add(nameof(AbstractConnectionRecord.Username));
 
                 HiddenProperties = strHide.ToArray();
                 Refresh();
