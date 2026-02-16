@@ -511,6 +511,8 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
+            QuickConnectHistorySaver.CaptureOpenQuickConnectSessionsForShutdown();
+
             if (Runtime.WindowList != null)
             {
                 BaseWindow[] windowsToClose = Runtime.WindowList.Cast<BaseWindow>().ToArray();

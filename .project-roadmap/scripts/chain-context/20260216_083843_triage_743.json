@@ -1,0 +1,50 @@
+{
+  "task_type": "triage",
+  "task_id": "743",
+  "started_at": "2026-02-16T08:34:41",
+  "finished_at": "2026-02-16T08:38:43",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "{\"decision\":\"duplicate\",\"reason\":\"This request is already addressed by the tab-retention/session-switching changes in commit 47df025b and overlaps with issue #1793 for any remaining tree-tab sync behavior.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNG/UI/Tabs/ConnectionTab.cs\",\"mRemoteNG/Connection/ConnectionInitiator.cs\"],\"approach\":\"Close as duplicate of #1793 and reference commit 47df025b to document that disconnected tabs are retained and reusable.\"}",
+      "errors": "TIMEOUT after 120s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0740.json"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T08:38:15"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "duplicate",
+        "reason": "This request is addressed by tab-retention changes (commit 47df025b) allowing disconnected tabs to remain open, and overlaps with issue #1793 regarding tree-tab sync.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNG/UI/Tabs/ConnectionTab.cs"
+        ],
+        "approach": "Close as duplicate of #1793; current behavior allows keeping disconnected tabs for easier switching/reconnection."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"duplicate\",\n  \"reason\": \"This request is addressed by tab-retention changes (commit 47df025b) allowing disconnected tabs to remain open, and overlaps with issue #1793 regarding tree-tab sync.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/UI/Window/ConnectionWindow.cs\",\n    \"mRemoteNG/UI/Tabs/ConnectionTab.cs\"\n  ],\n  \"approach\": \"Close as duplicate of #1793; current behavior allows keeping disconnected tabs for easier switching/reconnection.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T08:38:43"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": true
+}
