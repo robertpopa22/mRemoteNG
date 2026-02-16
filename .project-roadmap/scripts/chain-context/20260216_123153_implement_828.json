@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "828",
+  "started_at": "2026-02-16T12:11:52",
+  "finished_at": "2026-02-16T12:31:53",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #828",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T12:17:43"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #828",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T12:26:42"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #828",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 300s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0824.json",
+        ".project-roadmap/issues-db/upstream/0825.json",
+        ".project-roadmap/issues-db/upstream/0828.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/0824.json             | 15 +++++++++++----\n .project-roadmap/issues-db/upstream/0825.json             | 15 +++++++++++----\n .project-roadmap/issues-db/upstream/0828.json             | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json           | 14 ++++++++++----\n 4 files changed, 43 insertions(+), 16 deletions(-)",
+      "timestamp": "2026-02-16T12:31:53"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

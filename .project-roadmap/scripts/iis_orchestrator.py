@@ -420,6 +420,27 @@ def kill_stale_processes():
             pass
 
 
+def _restore_triage_contamination(modified):
+    """After triage timeout, revert any files the agent modified.
+    Triage is read-only — it should only return JSON, never touch files."""
+    if not modified:
+        return
+    # Keep chain-context files (they are ours), restore everything else
+    restore = [f for f in modified
+               if not f.startswith(".project-roadmap/scripts/chain-context/")]
+    if restore:
+        try:
+            subprocess.run(
+                ["git", "checkout", "--"] + restore,
+                capture_output=True, timeout=10,
+                cwd=str(REPO_ROOT),
+            )
+            log.info("    [CHAIN] Restored %d contaminated files after triage timeout",
+                     len(restore))
+        except Exception as e:
+            log.warning("    [CHAIN] Could not restore contaminated files: %s", e)
+
+
 def _kill_process_tree(pid):
     """Kill a process and all its children on Windows using taskkill /T."""
     try:
@@ -1184,7 +1205,11 @@ def chain_triage(issue):
         f"  [{c.get('author', '?')}]: {c.get('snippet', '')[:300]}" for c in comments
     )
 
-    triage_prompt = f"""Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+    triage_prompt = f"""IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
 
 Issue #{num}: {title}
 Labels: {labels}
@@ -1245,6 +1270,8 @@ Reply with ONLY a JSON object:
             if modified:
                 log.info("    [CHAIN] %s timed out but modified %d files: %s",
                          agent, len(modified), ", ".join(modified[:5]))
+                # CRITICAL: Clean up contaminated files so next agent starts clean
+                _restore_triage_contamination(modified)
             chain_esc *= TIMEOUT_ESCALATION_FACTOR
         elif raw_output:
             # Record successful duration for future estimates
@@ -1263,6 +1290,10 @@ Reply with ONLY a JSON object:
                                 errors="Could not extract valid JSON")
         else:
             ctx.add_attempt(agent, "triage", False, errors="Agent returned None")
+            # Clean up any files modified even without timeout
+            modified_check, _ = _capture_post_timeout_state()
+            if modified_check:
+                _restore_triage_contamination(modified_check)
 
         if not AGENT_FALLBACK_ENABLED:
             break
