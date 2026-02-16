@@ -1,0 +1,30 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #876: Add Wake-On-Lan
+Labels: Enhancement
+State: open
+
+Body:
+
+
+Recent comments:
+  [vmario89]: Hey, i just added WOL function using this (on Windows):
+
+- https://github.com/AlexGhiondea/wol
+- ConEmu
+
+config looks like the following:
+![grafik](https://user-images.githubusercontent.com/5631071/37867884-3377bda2-2f9f-11e8-8c43-6180636380ef.png)
+
+can be called from a connection and produc
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

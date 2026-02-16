@@ -39,6 +39,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
         private ToolStripSeparator _cMenTreeSep2 = null!;
         private ToolStripMenuItem _cMenTreeToolsTransferFile = null!;
+        private ToolStripMenuItem _cMenTreeToolsWakeOnLan = null!;
         private ToolStripMenuItem _cMenTreeToolsSort = null!;
         private ToolStripMenuItem _cMenTreeToolsSortAscending = null!;
         private ToolStripMenuItem _cMenTreeToolsSortDescending = null!;
@@ -102,6 +103,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeSep1 = new ToolStripSeparator();
             _cMenTreeToolsExternalApps = new ToolStripMenuItem();
             _cMenTreeToolsTransferFile = new ToolStripMenuItem();
+            _cMenTreeToolsWakeOnLan = new ToolStripMenuItem();
             _cMenTreeSep2 = new ToolStripSeparator();
             _cMenTreeDuplicate = new ToolStripMenuItem();
             _cMenTreeProperties = new ToolStripMenuItem();
@@ -143,6 +145,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeSep1,
                 _cMenTreeToolsExternalApps,
                 _cMenTreeToolsTransferFile,
+                _cMenTreeToolsWakeOnLan,
                 _cMenTreeSep2,
                 _cMenTreeDuplicate,
                 _cMenTreeRename,
@@ -275,6 +278,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsTransferFile.Size = new System.Drawing.Size(199, 22);
             _cMenTreeToolsTransferFile.Text = "Transfer File (SSH)";
             _cMenTreeToolsTransferFile.Click += OnTransferFileClicked;
+            //
+            // cMenTreeToolsWakeOnLan
+            //
+            _cMenTreeToolsWakeOnLan.Name = "_cMenTreeToolsWakeOnLan";
+            _cMenTreeToolsWakeOnLan.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeToolsWakeOnLan.Text = "Wake On LAN";
+            _cMenTreeToolsWakeOnLan.Click += OnWakeOnLanClicked;
             //
             // cMenTreeSep2
             //
@@ -491,6 +501,7 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeToolsExternalApps.Text = Language._Tools;
             _cMenTreeToolsTransferFile.Text = Language.TransferFile;
+            _cMenTreeToolsWakeOnLan.Text = Language.ResourceManager.GetString("WakeOnLan", Language.Culture) ?? "Wake On LAN";
 
             _cMenTreeDuplicate.Text = Language.Duplicate;
             _cMenTreeRename.Text = Language.Rename;
@@ -564,6 +575,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptions.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
+            _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeConnectWithOptions.Enabled = false;
             _cMenTreeToolsSort.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
@@ -592,6 +604,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
+            _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
             _cMenTreeDelete.Enabled = false;
@@ -611,6 +624,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDisconnect.Enabled = hasOpenConnections;
 
             _cMenTreeToolsTransferFile.Enabled = false;
+            _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(containerInfo.MacAddress);
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
         }
@@ -625,6 +639,8 @@ namespace mRemoteNG.UI.Controls
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
                 _cMenTreeToolsTransferFile.Enabled = false;
+
+            _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(connectionInfo.MacAddress);
 
             _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
@@ -650,6 +666,8 @@ namespace mRemoteNG.UI.Controls
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
                 _cMenTreeToolsTransferFile.Enabled = false;
+
+            _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(connectionInfo.MacAddress);
 
             if (!(connectionInfo.Protocol == ProtocolType.RDP))
             {
@@ -891,6 +909,14 @@ namespace mRemoteNG.UI.Controls
         private void OnTransferFileClicked(object sender, EventArgs e)
         {
             SshTransferFile();
+        }
+
+        private void OnWakeOnLanClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode == null)
+                return;
+
+            WakeOnLan.TrySendMagicPacket(_connectionTree.SelectedNode.MacAddress);
         }
 
         public void SshTransferFile()

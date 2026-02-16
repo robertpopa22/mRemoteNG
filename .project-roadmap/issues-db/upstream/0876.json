@@ -10,12 +10,19 @@
   "created_at": "2018-01-31T17:18:35Z",
   "github_updated_at": "2018-03-24T19:11:42Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nPlease add a Wake-On-LAN option so I can wake up remote workstations that are asleep to allow RDP-ing into them. In Windows computers sleep after an idle pe...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "Feature request to add Wake-On-Lan functionality; ConnectionInfo already has MacAddress property but logic and UI command are missing."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDM3NTkxNzQ0Nw==",
@@ -32,5 +39,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Feature request to add Wake-On-Lan functionality; ConnectionInfo already has MacAddress property but logic and UI command are missing.\nApproach: Create WakeOnLan helper class to send magic packets. Add 'Wake On LAN' menu item to ConnectionContextMenu. Wire up menu click to send packet using ConnectionInfo.MacAddress."
 }
