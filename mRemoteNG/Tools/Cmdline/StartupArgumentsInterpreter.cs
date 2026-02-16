@@ -23,6 +23,12 @@ namespace mRemoteNG.Tools.Cmdline
         /// </summary>
         public static string? ConnectTo { get; private set; }
 
+        /// <summary>
+        /// Connection name or ID specified via --startup command-line argument.
+        /// Opened after the main form has finished startup initialization.
+        /// </summary>
+        public static string? StartupConnectTo { get; private set; }
+
         public StartupArgumentsInterpreter(MessageCollector messageCollector)
         {
             if (messageCollector == null)
@@ -46,6 +52,7 @@ namespace mRemoteNG.Tools.Cmdline
                 ParseNoReconnectArg(args);
                 ParseCustomConnectionPathArg(args);
                 ParseConnectArg(args);
+                ParseStartupConnectArg(args);
             }
             catch (Exception ex)
             {
@@ -131,6 +138,16 @@ namespace mRemoteNG.Tools.Cmdline
 
             _messageCollector.AddMessage(MessageClass.DebugMsg, $"Cmdline arg: auto-connect to \"{connectValue}\"");
             ConnectTo = connectValue;
+        }
+
+        private void ParseStartupConnectArg(CmdArgumentsInterpreter args)
+        {
+            string? startupConnectValue = args["startup"];
+            if (string.IsNullOrEmpty(startupConnectValue))
+                return;
+
+            _messageCollector.AddMessage(MessageClass.DebugMsg, $"Cmdline arg: startup auto-connect to \"{startupConnectValue}\"");
+            StartupConnectTo = startupConnectValue;
         }
     }
 }

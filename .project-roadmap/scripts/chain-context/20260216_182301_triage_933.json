@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "933",
+  "started_at": "2026-02-16T18:22:45",
+  "finished_at": "2026-02-16T18:23:01",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Multiple users have confirmed a practical automation use case, and this is a scoped, valid enhancement for startup behavior.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Program.cs",
+          "mRemoteNG/UI/Forms/frmMain.cs",
+          "mRemoteNG/Connection/ConnectionInitiator.cs"
+        ],
+        "approach": "Add a new command-line startup option, parse it during app launch, and invoke connection startup after the main window finishes initialization."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Multiple users have confirmed a practical automation use case, and this is a scoped, valid enhancement for startup behavior.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Program.cs\",\"mRemoteNG/UI/Forms/frmMain.cs\",\"mRemoteNG/Connection/ConnectionInitiator.cs\"],\"approach\":\"Add a new command-line startup option, parse it during app launch, and invoke connection startup after the main window finishes initialization.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:23:01"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

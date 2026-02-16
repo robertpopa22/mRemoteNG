@@ -2,17 +2,17 @@ Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\github\mRemoteNG
 Branch: main
 
-Fix GitHub issue #875: Allow setting RDP AuthenticationLevel to prevent NLA error 2825
+Fix GitHub issue #933: Feature Request - Add startup command for command line
 
 Description:
 
 
-Recommended approach: Add an optional per-connection/default AuthenticationLevel setting, persist it, and apply it to the RDP control before connect with legacy-safe default behavior.
-Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Protocols/RDP/RdpProtocol.cs, mRemoteNG/UI/Forms/ConnectionForm.cs
+Recommended approach: Add a new command-line startup option, parse it during app launch, and invoke connection startup after the main window finishes initialization.
+Likely files: mRemoteNG/Program.cs, mRemoteNG/UI/Forms/frmMain.cs, mRemoteNG/Connection/ConnectionInitiator.cs
 
 RULES (CRITICAL):
 - Read code BEFORE modifying
-- Do NOT change existing behavior â€” only fix the reported issue
+- Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild

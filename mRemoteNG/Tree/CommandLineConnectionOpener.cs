@@ -15,16 +15,24 @@ namespace mRemoteNG.Tree
     public class CommandLineConnectionOpener : IConnectionTreeDelegate
     {
         private readonly IConnectionInitiator _connectionInitiator;
+        private readonly string? _connectTo;
+        private readonly string _argumentName;
 
         public CommandLineConnectionOpener(IConnectionInitiator connectionInitiator)
+            : this(connectionInitiator, StartupArgumentsInterpreter.ConnectTo, "--connect")
+        {
+        }
+
+        public CommandLineConnectionOpener(IConnectionInitiator connectionInitiator, string? connectTo, string argumentName)
         {
             _connectionInitiator = connectionInitiator ?? throw new ArgumentNullException(nameof(connectionInitiator));
+            _connectTo = connectTo;
+            _argumentName = argumentName;
         }
 
         public void Execute(IConnectionTree connectionTree)
         {
-            string? connectTo = StartupArgumentsInterpreter.ConnectTo;
-            if (string.IsNullOrEmpty(connectTo))
+            if (string.IsNullOrEmpty(_connectTo))
                 return;
 
             var allConnections = connectionTree.GetRootConnectionNode()
