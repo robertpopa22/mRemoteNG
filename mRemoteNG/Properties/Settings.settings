@@ -71,6 +71,9 @@
     <Setting Name="ExtAppsTBParentDock" Type="System.String" Scope="User">
       <Value Profile="(Default)">Bottom</Value>
     </Setting>
+    <Setting Name="ExtAppsLayout" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
     <Setting Name="QuickyTBVisible" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>

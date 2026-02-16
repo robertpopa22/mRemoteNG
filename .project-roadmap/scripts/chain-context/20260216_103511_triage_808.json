@@ -1,0 +1,52 @@
+{
+  "task_type": "triage",
+  "task_id": "808",
+  "started_at": "2026-02-16T10:31:46",
+  "finished_at": "2026-02-16T10:35:11",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"The issue is reproducible and was already acknowledged as missing behavior, and persisting list column widths is a low-risk, self-contained UI state improvement.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Window/ExternalToolsWindow.cs\",\"mRemoteNG/Properties/Settings.settings\",\"mRemoteNG/Properties/Settings.Designer.cs\"],\"approach\":\"Add a user setting for External Tools column widths, restore widths on window load, and save widths when the panel closes (or on column resize) with fallback to designer defaults.\"}",
+      "errors": "TIMEOUT after 123s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0794.json",
+        "README.md"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T10:34:05"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The issue is a valid enhancement request to persist user UI preferences (column widths) for the External Tools panel, improving usability.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ExternalToolsWindow.cs",
+          "mRemoteNG/Properties/Settings.settings",
+          "mRemoteNG/Properties/Settings.Designer.cs"
+        ],
+        "approach": "Add a `ExtAppsLayout` user setting. In `ExternalToolsWindow`, save the `ObjectListView` state to this setting on close/resize, and restore it on load. Remove or conditionalize the `AutoResizeColumns` call."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"The issue is a valid enhancement request to persist user UI preferences (column widths) for the External Tools panel, improving usability.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/UI/Window/ExternalToolsWindow.cs\",\n    \"mRemoteNG/Properties/Settings.settings\",\n    \"mRemoteNG/Properties/Settings.Designer.cs\"\n  ],\n  \"approach\": \"Add a `ExtAppsLayout` user setting. In `ExternalToolsWindow`, save the `ObjectListView` state to this setting on close/resize, and restore it on load. Remove or conditionalize the `AutoResizeColumns` call.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T10:35:11"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -14,7 +14,7 @@
   "created_at": "2017-11-10T11:53:36Z",
   "github_updated_at": "2025-11-21T16:27:28Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7011.34996  |\r\n\r\n1. Open 2 tab connections\r\n2. Do a Reconnect on the first tab.\r\n3. The reconnected tab loses its position and reopens at the end of ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -25,6 +25,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The behavior is verified, user-visible tab-order breakage, and reports confirm it still occurs on current DockPanelSuite tags, so reconnect logic should be fixed in mRemoteNG."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 4bd8681e"
     }
   ],
   "comments": [

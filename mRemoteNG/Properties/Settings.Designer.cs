@@ -313,6 +313,18 @@ namespace mRemoteNG.Properties {
                 this["ExtAppsTBParentDock"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExtAppsLayout {
+            get {
+                return ((string)(this["ExtAppsLayout"]));
+            }
+            set {
+                this["ExtAppsLayout"] = value;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

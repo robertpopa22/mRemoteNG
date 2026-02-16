@@ -34,6 +34,7 @@ namespace mRemoteNG.UI.Window
             _currentlySelectedExternalTools.CollectionUpdated += CurrentlySelectedExternalToolsOnCollectionUpdated;
             BrowseButton.Height = FilenameTextBox.Height;
             BrowseWorkingDir.Height = WorkingDirTextBox.Height;
+            ResizeEnd += ExternalTools_ResizeEnd;
         }
 
 
@@ -44,6 +45,11 @@ namespace mRemoteNG.UI.Window
             ApplyLanguage();
             ApplyTheme();
             UpdateToolsListObjView();
+
+            if (!TryRestoreToolsListLayout())
+            {
+                ToolsListObjView.AutoResizeColumns();
+            }
         }
 
         private void ApplyLanguage()
@@ -109,7 +115,6 @@ namespace mRemoteNG.UI.Window
             {
                 ToolsListObjView.BeginUpdate();
                 ToolsListObjView.SetObjects(Runtime.ExternalToolsService.ExternalTools, true);
-                ToolsListObjView.AutoResizeColumns();
                 ToolsListObjView.EndUpdate();
             }
             catch (Exception ex)
@@ -161,6 +166,35 @@ namespace mRemoteNG.UI.Window
             LaunchToolToolstripButton.Enabled = atleastOneToolSelected;
         }
 
+        private void SaveToolsListLayout()
+        {
+            try
+            {
+                Properties.Settings.Default.ExtAppsLayout = Convert.ToBase64String(ToolsListObjView.SaveState());
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("UI.Window.ExternalTools.SaveToolsListLayout() failed.", ex);
+            }
+        }
+
+        private bool TryRestoreToolsListLayout()
+        {
+            string layout = Properties.Settings.Default.ExtAppsLayout;
+            if (string.IsNullOrWhiteSpace(layout))
+                return false;
+
+            try
+            {
+                return ToolsListObjView.RestoreState(Convert.FromBase64String(layout));
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("UI.Window.ExternalTools.TryRestoreToolsListLayout() failed.", ex);
+                return false;
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -174,9 +208,11 @@ namespace mRemoteNG.UI.Window
 
         private void ExternalTools_FormClosed(object sender, FormClosedEventArgs e)
         {
+            SaveToolsListLayout();
             _externalAppsSaver.Save(Runtime.ExternalToolsService.ExternalTools);
             _themeManager.ThemeChanged -= ApplyTheme;
             _currentlySelectedExternalTools.CollectionUpdated -= CurrentlySelectedExternalToolsOnCollectionUpdated;
+            ResizeEnd -= ExternalTools_ResizeEnd;
         }
 
         private void NewTool_Click(object sender, EventArgs e)
@@ -239,6 +275,11 @@ namespace mRemoteNG.UI.Window
         private void LaunchTool_Click(object sender, EventArgs e)
         {
             LaunchTool();
+        }
+
+        private void ExternalTools_ResizeEnd(object sender, EventArgs e)
+        {
+            SaveToolsListLayout();
         }
 
         private void ToolsListObjView_SelectedIndexChanged(object sender, EventArgs e)
