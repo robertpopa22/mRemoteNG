@@ -29,6 +29,7 @@ namespace mRemoteNG.UI.Window
     {
         private VisualStudioToolStripExtender? _vsToolStripExtender;
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
+        private readonly ToolStripMenuItem _cmenTabMoveToPanel = new();
         private readonly ToolStripMenuItem _cmenTabIncludeInMultiSsh = new();
         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
         private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();
@@ -53,6 +54,7 @@ namespace mRemoteNG.UI.Window
             connDock.ShowDocumentIcon = true;
 
             connDock.ActiveContentChanged += ConnDockOnActiveContentChanged;
+            InitializeConnectionTabDragDropTargets();
         }
 
         private InterfaceControl? GetInterfaceControl()
@@ -115,6 +117,7 @@ namespace mRemoteNG.UI.Window
 
         private void SetContextMenuEventHandlers()
         {
+            InitializeMoveToPanelContextMenuItems();
             InitializeMultiSshContextMenuItems();
 
             // event handler to adjust the items within the context menu
@@ -141,6 +144,20 @@ namespace mRemoteNG.UI.Window
             GotFocus += ConnectionWindow_GotFocus;
         }
 
+        private void InitializeMoveToPanelContextMenuItems()
+        {
+            _cmenTabMoveToPanel.Name = "cmenTabMoveToPanel";
+            _cmenTabMoveToPanel.Image = Properties.Resources.Panel_16x;
+            _cmenTabMoveToPanel.DropDownOpening += MoveToPanelMenu_DropDownOpening;
+
+            int insertIndex = cmenTab.Items.IndexOf(cmenTabSep1);
+            if (insertIndex < 0)
+                insertIndex = cmenTab.Items.Count;
+
+            cmenTab.Items.Insert(insertIndex, _cmenTabMoveToPanel);
+            _cmenTabMoveToPanel.Visible = false;
+        }
+
         private void InitializeMultiSshContextMenuItems()
         {
             _cmenTabIncludeInMultiSsh.Name = "cmenTabIncludeInMultiSsh";
@@ -158,6 +175,220 @@ namespace mRemoteNG.UI.Window
             _cmenTabMultiSshSeparator.Visible = false;
             _cmenTabIncludeInMultiSsh.Visible = false;
             _cmenTabExcludeFromMultiSsh.Visible = false;
+        }
+
+        private void InitializeConnectionTabDragDropTargets()
+        {
+            connDock.AllowDrop = true;
+            connDock.DragEnter += ConnectionTabDragEnter;
+            connDock.DragOver += ConnectionTabDragOver;
+            connDock.DragDrop += ConnectionTabDragDrop;
+            connDock.ControlAdded += ConnDock_ControlAdded;
+
+            AttachConnectionTabDropTarget(connDock);
+        }
+
+        private void ConnDock_ControlAdded(object? sender, ControlEventArgs e)
+        {
+            AttachConnectionTabDropTarget(e.Control);
+        }
+
+        private void AttachConnectionTabDropTarget(Control control)
+        {
+            if (control is DockPaneStripNG dockPaneStrip)
+            {
+                dockPaneStrip.AllowDrop = true;
+                dockPaneStrip.DragEnter -= ConnectionTabDragEnter;
+                dockPaneStrip.DragOver -= ConnectionTabDragOver;
+                dockPaneStrip.DragDrop -= ConnectionTabDragDrop;
+                dockPaneStrip.DragEnter += ConnectionTabDragEnter;
+                dockPaneStrip.DragOver += ConnectionTabDragOver;
+                dockPaneStrip.DragDrop += ConnectionTabDragDrop;
+            }
+
+            foreach (Control child in control.Controls)
+            {
+                AttachConnectionTabDropTarget(child);
+            }
+        }
+
+        private void ConnectionTabDragEnter(object? sender, DragEventArgs e)
+        {
+            e.Effect = CanDropConnectionTab(e.Data, out _) ? DragDropEffects.Move : DragDropEffects.None;
+        }
+
+        private void ConnectionTabDragOver(object? sender, DragEventArgs e)
+        {
+            e.Effect = CanDropConnectionTab(e.Data, out _) ? DragDropEffects.Move : DragDropEffects.None;
+        }
+
+        private void ConnectionTabDragDrop(object? sender, DragEventArgs e)
+        {
+            if (!CanDropConnectionTab(e.Data, out ConnectionTab? draggedTab) || draggedTab == null)
+            {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+
+            e.Effect = MoveConnectionTabToPanel(draggedTab, this)
+                ? DragDropEffects.Move
+                : DragDropEffects.None;
+        }
+
+        private bool CanDropConnectionTab(IDataObject? dataObject, out ConnectionTab? draggedTab)
+        {
+            draggedTab = null;
+            if (!TryGetDraggedConnectionTab(dataObject, out draggedTab) || draggedTab == null)
+                return false;
+
+            ConnectionWindow? sourcePanel = GetOwningConnectionWindow(draggedTab);
+            return sourcePanel != null && !ReferenceEquals(sourcePanel, this);
+        }
+
+        private static bool TryGetDraggedConnectionTab(IDataObject? dataObject, out ConnectionTab? draggedTab)
+        {
+            draggedTab = null;
+            if (dataObject == null || !dataObject.GetDataPresent(typeof(ConnectionTab)))
+                return false;
+
+            draggedTab = dataObject.GetData(typeof(ConnectionTab)) as ConnectionTab;
+            return draggedTab is { IsDisposed: false };
+        }
+
+        private void MoveToPanelMenu_DropDownOpening(object? sender, EventArgs e)
+        {
+            for (int i = _cmenTabMoveToPanel.DropDownItems.Count - 1; i >= 0; i--)
+                _cmenTabMoveToPanel.DropDownItems[i].Dispose();
+
+            _cmenTabMoveToPanel.DropDownItems.Clear();
+
+            ConnectionTab? selectedTab = GetSelectedTab();
+            if (selectedTab == null)
+            {
+                _cmenTabMoveToPanel.Enabled = false;
+                return;
+            }
+
+            ConnectionWindow[] targetPanels = GetOtherConnectionPanels().ToArray();
+            if (targetPanels.Length == 0)
+            {
+                _cmenTabMoveToPanel.Enabled = false;
+                return;
+            }
+
+            _cmenTabMoveToPanel.Enabled = true;
+            foreach (ConnectionWindow panel in targetPanels)
+            {
+                ToolStripMenuItem panelItem = new(GetPanelName(panel))
+                {
+                    Tag = panel
+                };
+
+                panelItem.Click += MoveToPanelMenuItem_Click;
+                _cmenTabMoveToPanel.DropDownItems.Add(panelItem);
+            }
+        }
+
+        private void MoveToPanelMenuItem_Click(object? sender, EventArgs e)
+        {
+            if (sender is not ToolStripMenuItem { Tag: ConnectionWindow targetPanel })
+                return;
+
+            MoveSelectedTabToPanel(targetPanel);
+        }
+
+        private void MoveSelectedTabToPanel(ConnectionWindow targetPanel)
+        {
+            ConnectionTab? selectedTab = GetSelectedTab();
+            if (selectedTab == null)
+                return;
+
+            MoveConnectionTabToPanel(selectedTab, targetPanel);
+        }
+
+        private bool MoveConnectionTabToPanel(ConnectionTab connectionTab, ConnectionWindow targetPanel)
+        {
+            if (targetPanel.IsDisposed)
+                return false;
+
+            ConnectionWindow? sourcePanel = GetOwningConnectionWindow(connectionTab);
+            if (sourcePanel == null || ReferenceEquals(sourcePanel, targetPanel))
+                return false;
+
+            string targetPanelName = GetPanelName(targetPanel);
+            UpdateConnectionPanelAssignment(connectionTab, targetPanelName);
+            connectionTab.TabPageContextMenuStrip = targetPanel.cmenTab;
+
+            try
+            {
+                if (targetPanel.DockState == DockState.Unknown || targetPanel.DockState == DockState.Hidden || !targetPanel.Visible)
+                    targetPanel.Show(FrmMain.Default.pnlDock, DockState.Document);
+                else
+                    targetPanel.Show(FrmMain.Default.pnlDock);
+
+                connectionTab.Show(targetPanel.connDock, DockState.Document);
+                connectionTab.DockHandler.Activate();
+                connectionTab.Focus();
+                TabHelper.Instance.CurrentPanel = targetPanel;
+
+                ConnectionInfo? movedConnectionInfo = GetConnectionInfoForTab(connectionTab);
+                if (movedConnectionInfo != null)
+                    FrmMain.Default.SelectedConnection = movedConnectionInfo;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("MoveConnectionTabToPanel (UI.Window.ConnectionWindow) failed", ex);
+                return false;
+            }
+
+            sourcePanel.ClosePanelIfEmpty();
+            return true;
+        }
+
+        private IEnumerable<ConnectionWindow> GetOtherConnectionPanels()
+        {
+            if (Runtime.WindowList == null)
+                return Enumerable.Empty<ConnectionWindow>();
+
+            return Runtime.WindowList
+                .OfType<ConnectionWindow>()
+                .Where(window => !window.IsDisposed && !ReferenceEquals(window, this))
+                .OrderBy(window => window.Text, StringComparer.CurrentCultureIgnoreCase);
+        }
+
+        private static string GetPanelName(ConnectionWindow panel)
+        {
+            return panel.Text.Replace("&&", "&");
+        }
+
+        private static ConnectionWindow? GetOwningConnectionWindow(ConnectionTab connectionTab)
+        {
+            if (connectionTab.DockPanel?.FindForm() is ConnectionWindow dockPanelOwner)
+                return dockPanelOwner;
+
+            Control? current = connectionTab.Parent;
+            while (current != null && current is not ConnectionWindow)
+            {
+                current = current.Parent;
+            }
+
+            return current as ConnectionWindow;
+        }
+
+        private static void UpdateConnectionPanelAssignment(ConnectionTab connectionTab, string panelName)
+        {
+            if (connectionTab.Tag is InterfaceControl interfaceControl)
+            {
+                interfaceControl.Info.Panel = panelName;
+                if (interfaceControl.OriginalInfo != null)
+                    interfaceControl.OriginalInfo.Panel = panelName;
+            }
+
+            if (connectionTab.Tag is ConnectionInfo taggedConnectionInfo)
+                taggedConnectionInfo.Panel = panelName;
+
+            if (connectionTab.TrackedConnectionInfo != null)
+                connectionTab.TrackedConnectionInfo.Panel = panelName;
         }
 
         private void ConnectionWindow_GotFocus(object sender, EventArgs e)
@@ -458,6 +689,7 @@ namespace mRemoteNG.UI.Window
 
         private void ApplyLanguage()
         {
+            _cmenTabMoveToPanel.Text = Language.SendTo;
             cmenTabFullscreen.Text = Language.Fullscreen;
             cmenTabSmartSize.Text = Language.SmartSize;
             cmenTabViewOnly.Text = Language.ViewOnly;
@@ -659,6 +891,11 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
+                ConnectionTab? selectedTab = GetSelectedTab();
+                bool canMoveToAnotherPanel = selectedTab != null && GetOtherConnectionPanels().Any();
+                _cmenTabMoveToPanel.Visible = canMoveToAnotherPanel;
+                _cmenTabMoveToPanel.Enabled = canMoveToAnotherPanel;
+
                 InterfaceControl? interfaceControl = GetInterfaceControl();
                 if (interfaceControl == null)
                 {

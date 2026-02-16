@@ -91,6 +91,9 @@ namespace mRemoteNG.UI.Tabs
         private bool m_documentTabsOverflow;
         private static string? m_toolTipSelect;
         private bool m_suspendDrag;
+        private ConnectionTab? m_dragSourceTab;
+        private Point m_dragStartPoint;
+        private bool m_externalTabDragInProgress;
 
         #endregion
 
@@ -1106,6 +1109,8 @@ namespace mRemoteNG.UI.Tabs
             base.OnMouseUp(e);
             if (IsMouseDown)
                 IsMouseDown = false;
+
+            m_dragSourceTab = null;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -1113,6 +1118,20 @@ namespace mRemoteNG.UI.Tabs
             base.OnMouseDown(e);
             // suspend drag if mouse is down on active close button.
             m_suspendDrag = ActiveCloseHitTest(e.Location);
+
+            if (e.Button == MouseButtons.Left)
+            {
+                m_dragStartPoint = e.Location;
+                int tabIndex = HitTest(e.Location);
+                m_dragSourceTab = tabIndex >= 0
+                    ? Tabs[tabIndex].Content as ConnectionTab
+                    : null;
+            }
+            else
+            {
+                m_dragSourceTab = null;
+            }
+
             if (!IsMouseDown)
                 IsMouseDown = true;
         }
@@ -1121,6 +1140,8 @@ namespace mRemoteNG.UI.Tabs
         {
             if (!m_suspendDrag)
                 base.OnMouseMove(e);
+
+            TryStartExternalConnectionTabDrag(e);
 
             int index = HitTest(PointToClient(MousePosition));
             string toolTip = string.Empty;
@@ -1167,6 +1188,42 @@ namespace mRemoteNG.UI.Tabs
             m_toolTip.Active = false;
             m_toolTip.SetToolTip(this, toolTip);
             m_toolTip.Active = true;
+        }
+
+        private void TryStartExternalConnectionTabDrag(MouseEventArgs e)
+        {
+            if (m_suspendDrag || m_externalTabDragInProgress)
+                return;
+
+            if (Appearance != DockPane.AppearanceStyle.Document || e.Button != MouseButtons.Left)
+                return;
+
+            if (m_dragSourceTab == null || m_dragSourceTab.IsDisposed)
+                return;
+
+            Rectangle dragThreshold = new(
+                m_dragStartPoint.X - (SystemInformation.DragSize.Width / 2),
+                m_dragStartPoint.Y - (SystemInformation.DragSize.Height / 2),
+                SystemInformation.DragSize.Width,
+                SystemInformation.DragSize.Height);
+
+            if (dragThreshold.Contains(e.Location))
+                return;
+
+            // Keep native in-panel tab reordering while pointer remains on this tab strip.
+            if (ClientRectangle.Contains(e.Location))
+                return;
+
+            try
+            {
+                m_externalTabDragInProgress = true;
+                DoDragDrop(m_dragSourceTab, DragDropEffects.Move);
+            }
+            finally
+            {
+                m_externalTabDragInProgress = false;
+                m_dragSourceTab = null;
+            }
         }
 
         protected override void OnMouseClick(MouseEventArgs e)

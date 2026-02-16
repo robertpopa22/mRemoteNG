@@ -1,0 +1,91 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #958: I cannot drag my connections to other connection panels
+Description: 
+Approach: Add drag/drop and context-menu actions to move an active connection tab between existing connection panels while preserving focus and panel assignment.
+Likely files: mRemoteNG/UI/Forms/frmMain.cs, mRemoteNG/UI/Tabs/ConnectionTabControl.cs, mRemoteNG/UI/ContextMenus/ConnectionMenu.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [TIMEOUT] ---
+Task: implement #958
+NOTE: This agent TIMED OUT. It may have done partial work.
+Check the working tree — some files may already be modified.
+Errors: TIMEOUT after 885s
+Files modified: .project-roadmap/issues-db/upstream/0945.json, .project-roadmap/issues-db/upstream/0954.json, .project-roadmap/issues-db/upstream/0955.json, .project-roadmap/scripts/chain-context/_timeout_history.json, .project-roadmap/scripts/tmpt2db3sf2.jsonl, mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs, mRemoteNG/UI/Window/ConnectionWindow.cs
+Diff summary:
+.project-roadmap/issues-db/upstream/0945.json      |   8 +-
+ .project-roadmap/issues-db/upstream/0954.json      |  10 +-
+ .project-roadmap/issues-db/upstream/0955.json      |  10 +-
+ .../scripts/chain-context/_timeout_history.json    |   6 +-
+ .project-roadmap/scripts/tmpt2db3sf2.jsonl         |   0
+ mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs   |  10 +-
+ mRemoteNG/UI/Window/ConnectionWindow.cs            | 153 +++++++++++++++++++++
+ 7 files changed, 188 insertions(+), 9 deletions(-)
+Code changes (truncated):
+diff --git a/.project-roadmap/issues-db/upstream/0945.json b/.project-roadmap/issues-db/upstream/0945.json
+index 4a15a8b1c..7754de1e2 100644
+--- a/.project-roadmap/issues-db/upstream/0945.json
++++ b/.project-roadmap/issues-db/upstream/0945.json
+@@ -10,7 +10,7 @@
+   "created_at": "2018-04-12T08:43:40Z",
+   "github_updated_at": "2018-08-08T12:37:20Z",
+   "body_snippet": "I imported a bunch of servers from AD. Now as far as I can tell the only way to move the connections to the correct folders is by dragging them one by one which is slow when there's a lot of them.\r\n\r\nBeing able to select multiple connections by shift-clicking or ctrl-clicking and then dragging them all to the correct folder would make this kind of operation much faster. \r\n\r\nIn addition to move by dragging it would also be nice if you could use cut & paste to move connections between the folders ...",
+-  "our_status": "triaged",
++  "our_status": "testing",
+   "priority": "P3-enhancement",
+   "target_release": null,
+   "our_branch": null,
+@@ -33,6 +33,12 @@
+       "date": "2026-02-16",
+       "type": "triaged",
+       "description": "A maintainer explicitly confirmed mass-edit capability is desired, so this should be tracked for implementation as a non-urgent feature."
++    },
++    {
++      "seq": 4,
++      "date": "2026-02-16",
++      "type": "testing",
++      "description": "Fix in efb23e71"
+     }
+   ],
+   "comments": [
+diff --git a/.project-roadmap/issues-db/upstream/0954.json b/.project-roadmap/issues-db/upstream/0954.json
+index 5812b4d35..3a00289bc 100644
+--- a/.project-roadmap/issues-db/upstream/0954.json
++++ b/.project-roadmap/issues-db/upstream/0954.json
+@@ -13,7 +13,7 @@
+   "github_updated_at": "2026-02-07T19:52:48Z",
+   "body_snippet": "## Expected Behavior\r\nThe \"connection with options\"/\"connect without credentials\" sub-menu should open a new session window, even if a window is already open for this machine with another session...\r\n\r\n## Current Behavior\r\nIf no window session opened, the \"connect without credentials\" open a new window it's ok, \r\nbut if a window is already opened for this machine, the menu do not open a new window !\r\n\r\n## Possible Solution\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. open a ssh session window on a li...",
+   "our_status": "triaged",
+-  "priority": "P2-bug",
++  "priority": "P4-debt",
+   "target_release": null,
+   "our_branch": null,
+   "our_pr": null,
+@@ -23,6 +23,12 @@
+       "date": "2026-02-16",
+       "type": "triaged",
+       "description": "The issue lacks reproducible steps and expected-versus-actual behavior, and maintainers have already requested a retest on current builds with evidence."
++    },
++    {
++      "seq": 2,
++      "date": "2026-02-16",
++      "type": "triaged",
++      "description": "The issue currently lacks reproducible steps and evidence, and maintainers already requested retesting on the latest build with expected-vs-actual details."
+     }
+   ],
+   "comments": [
+@@ -50,5 +56,5 @@
+   "ne
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

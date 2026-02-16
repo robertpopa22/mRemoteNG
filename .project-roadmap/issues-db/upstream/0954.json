@@ -13,7 +13,7 @@
   "github_updated_at": "2026-02-07T19:52:48Z",
   "body_snippet": "## Expected Behavior\r\nThe \"connection with options\"/\"connect without credentials\" sub-menu should open a new session window, even if a window is already open for this machine with another session...\r\n\r\n## Current Behavior\r\nIf no window session opened, the \"connect without credentials\" open a new window it's ok, \r\nbut if a window is already opened for this machine, the menu do not open a new window !\r\n\r\n## Possible Solution\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. open a ssh session window on a li...",
   "our_status": "triaged",
-  "priority": "P2-bug",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The issue lacks reproducible steps and expected-versus-actual behavior, and maintainers have already requested a retest on current builds with evidence."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue currently lacks reproducible steps and evidence, and maintainers already requested retesting on the latest build with expected-vs-actual details."
     }
   ],
   "comments": [
@@ -50,5 +56,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (codex): The issue lacks reproducible steps and expected-versus-actual behavior, and maintainers have already requested a retest on current builds with evidence.\nApproach: Request a retest on v1.79.x/upstream dev with exact connection-option settings, credential state, step-by-step reproduction, and logs/screenshots before any fix work."
+  "notes": "AI triage (codex): The issue lacks reproducible steps and expected-versus-actual behavior, and maintainers have already requested a retest on current builds with evidence.\nApproach: Request a retest on v1.79.x/upstream dev with exact connection-option settings, credential state, step-by-step reproduction, and logs/screenshots before any fix work.\nAI triage (codex): The issue currently lacks reproducible steps and evidence, and maintainers already requested retesting on the latest build with expected-vs-actual details.\nApproach: Request a fresh repro on v1.79.x/upstream dev including exact steps, credential option state, and logs/screenshots; close as stale/not reproducible if no update is provided."
 }

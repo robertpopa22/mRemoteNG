@@ -459,7 +459,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
             //not user changeable
             _rdpClient.AdvancedSettings2.GrabFocusOnConnect = true;
             _rdpClient.AdvancedSettings3.EnableAutoReconnect = true;
-            _rdpClient.AdvancedSettings3.MaxReconnectAttempts = Settings.Default.RdpReconnectionCount;
+            try
+            {
+                _rdpClient.AdvancedSettings3.MaxReconnectAttempts = Settings.Default.RdpReconnectionCount;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage($"Failed to set RDP MaxReconnectAttempts to {Settings.Default.RdpReconnectionCount}. Reverting to default maximum (20).", ex, MessageClass.WarningMsg, false);
+                _rdpClient.AdvancedSettings3.MaxReconnectAttempts = 20;
+            }
             _rdpClient.AdvancedSettings2.keepAliveInterval = 60000; //in milliseconds (10,000 = 10 seconds)
             _rdpClient.AdvancedSettings5.AuthenticationLevel = 0;
             _rdpClient.AdvancedSettings2.EncryptionEnabled = 1;
