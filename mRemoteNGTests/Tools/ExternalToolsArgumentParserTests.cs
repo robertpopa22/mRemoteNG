@@ -38,6 +38,16 @@ namespace mRemoteNGTests.Tools
                 Description = TestString,
                 MacAddress = TestString,
                 UserField = TestString,
+                UserField1 = TestString + "1",
+                UserField2 = TestString + "2",
+                UserField3 = TestString + "3",
+                UserField4 = TestString + "4",
+                UserField5 = TestString + "5",
+                UserField6 = TestString + "6",
+                UserField7 = TestString + "7",
+                UserField8 = TestString + "8",
+                UserField9 = TestString + "9",
+                UserField10 = TestString + "10",
                 EnvironmentTags = TestString,
                 SSHOptions = TestString,
                 PuttySession = TestString
@@ -100,6 +110,13 @@ namespace mRemoteNGTests.Tools
                     yield return new TestCaseData("%USERFIELD%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-USERFIELD%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!USERFIELD%").Returns(StringAfterNoEscaping);
+                    for (int userFieldNumber = 1; userFieldNumber <= 10; userFieldNumber++)
+                    {
+                        string suffix = userFieldNumber.ToString();
+                        yield return new TestCaseData($"%USERFIELD{suffix}%").Returns(StringAfterAllEscaping + suffix);
+                        yield return new TestCaseData($"%-USERFIELD{suffix}%").Returns(StringAfterMetacharacterEscaping + suffix);
+                        yield return new TestCaseData($"%!USERFIELD{suffix}%").Returns(StringAfterNoEscaping + suffix);
+                    }
                     yield return new TestCaseData("%PROTOCOL%").Returns(ProtocolAsString);
                     yield return new TestCaseData("%-PROTOCOL%").Returns(ProtocolAsString);
                     yield return new TestCaseData("%!PROTOCOL%").Returns(ProtocolAsString);

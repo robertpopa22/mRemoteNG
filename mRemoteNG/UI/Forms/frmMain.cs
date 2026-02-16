@@ -14,6 +14,8 @@ using mRemoteNG.Messages;
 using mRemoteNG.Messages.MessageWriters;
 using mRemoteNG.Themes;
 using mRemoteNG.Tools;
+using mRemoteNG.Tools.Cmdline;
+using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.UI.Menu;
 using mRemoteNG.UI.Tabs;
@@ -301,6 +303,8 @@ namespace mRemoteNG.UI.Forms
                     tool.StartForAutoRun();
             }
 
+            StartConnectionsRequestedOnStartupFromCommandLine();
+
             if (!Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp)
             {
                 return;
@@ -310,6 +314,21 @@ namespace mRemoteNG.UI.Forms
             PanelAdder panelAdder = new();
             if (!panelAdder.DoesPanelExist(panelName))
                 panelAdder.AddPanel(panelName);
+        }
+
+        private void StartConnectionsRequestedOnStartupFromCommandLine()
+        {
+            string? startupConnectTo = StartupArgumentsInterpreter.StartupConnectTo;
+            if (string.IsNullOrWhiteSpace(startupConnectTo))
+                return;
+
+            RootNodeInfo? rootConnectionNode = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes
+                .OfType<RootNodeInfo>()
+                .FirstOrDefault();
+            if (rootConnectionNode == null)
+                return;
+
+            new CommandLineConnectionOpener(Runtime.ConnectionInitiator, startupConnectTo, "--startup").Execute(rootConnectionNode);
         }
 
         private void ApplyLanguage()

@@ -111,6 +111,16 @@ This is the list of variables supported by mRemoteNG:
 - %DESCRIPTION%
 - %MACADDRESS%
 - %USERFIELD%
+- %USERFIELD1%
+- %USERFIELD2%
+- %USERFIELD3%
+- %USERFIELD4%
+- %USERFIELD5%
+- %USERFIELD6%
+- %USERFIELD7%
+- %USERFIELD8%
+- %USERFIELD9%
+- %USERFIELD10%
 
 mRemoteNG will also expand environment variables such as %PATH% and %USERPROFILE%. If you need to use an environment
 variable with the same name as an mRemoteNG variable, use \\% instead of %. The most common use of this is for the

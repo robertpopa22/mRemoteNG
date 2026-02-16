@@ -210,6 +210,36 @@ namespace mRemoteNG.Tools
                 case "userfield":
                     replacement = _connectionInfo.UserField;
                     break;
+                case "userfield1":
+                    replacement = _connectionInfo.UserField1;
+                    break;
+                case "userfield2":
+                    replacement = _connectionInfo.UserField2;
+                    break;
+                case "userfield3":
+                    replacement = _connectionInfo.UserField3;
+                    break;
+                case "userfield4":
+                    replacement = _connectionInfo.UserField4;
+                    break;
+                case "userfield5":
+                    replacement = _connectionInfo.UserField5;
+                    break;
+                case "userfield6":
+                    replacement = _connectionInfo.UserField6;
+                    break;
+                case "userfield7":
+                    replacement = _connectionInfo.UserField7;
+                    break;
+                case "userfield8":
+                    replacement = _connectionInfo.UserField8;
+                    break;
+                case "userfield9":
+                    replacement = _connectionInfo.UserField9;
+                    break;
+                case "userfield10":
+                    replacement = _connectionInfo.UserField10;
+                    break;
                 case "protocol":
                     replacement = _connectionInfo.Protocol.ToString();
                     break;

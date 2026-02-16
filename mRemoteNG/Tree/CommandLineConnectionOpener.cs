@@ -7,6 +7,7 @@ using mRemoteNG.Connection;
 using mRemoteNG.Container;
 using mRemoteNG.Messages;
 using mRemoteNG.Tools.Cmdline;
+using mRemoteNG.Tree.Root;
 using mRemoteNG.UI.Controls.ConnectionTree;
 
 namespace mRemoteNG.Tree
@@ -32,10 +33,22 @@ namespace mRemoteNG.Tree
 
         public void Execute(IConnectionTree connectionTree)
         {
-            if (string.IsNullOrEmpty(_connectTo))
+            if (connectionTree == null)
+                throw new ArgumentNullException(nameof(connectionTree));
+
+            Execute(connectionTree.GetRootConnectionNode());
+        }
+
+        public void Execute(RootNodeInfo rootConnectionNode)
+        {
+            if (rootConnectionNode == null)
+                throw new ArgumentNullException(nameof(rootConnectionNode));
+
+            string? connectTo = _connectTo;
+            if (string.IsNullOrEmpty(connectTo))
                 return;
 
-            var allConnections = connectionTree.GetRootConnectionNode()
+            var allConnections = rootConnectionNode
                 .GetRecursiveChildList()
                 .Where(node => node is not ContainerInfo)
                 .ToList();
@@ -50,13 +63,13 @@ namespace mRemoteNG.Tree
                 if (match != null)
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                        $"Auto-connecting to \"{match.Name}\" (--connect argument)");
+                        $"Auto-connecting to \"{match.Name}\" ({_argumentName} argument)");
                     _connectionInitiator.OpenConnection(match);
                 }
                 else
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
-                        $"--connect: connection \"{target}\" not found");
+                        $"{_argumentName}: connection \"{target}\" not found");
                 }
             }
         }
