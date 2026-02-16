@@ -214,6 +214,16 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                 nameof(ConnectionInfo.PostExtApp),
                 nameof(ConnectionInfo.MacAddress),
                 nameof(ConnectionInfo.UserField),
+                nameof(ConnectionInfo.UserField1),
+                nameof(ConnectionInfo.UserField2),
+                nameof(ConnectionInfo.UserField3),
+                nameof(ConnectionInfo.UserField4),
+                nameof(ConnectionInfo.UserField5),
+                nameof(ConnectionInfo.UserField6),
+                nameof(ConnectionInfo.UserField7),
+                nameof(ConnectionInfo.UserField8),
+                nameof(ConnectionInfo.UserField9),
+                nameof(ConnectionInfo.UserField10),
                 nameof(ConnectionInfo.EnvironmentTags),
                 nameof(ConnectionInfo.Favorite),
                 nameof(ConnectionInfo.SSHTunnelConnectionName)
@@ -279,6 +289,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                     {
                         nameof(ConnectionInfo.Password),
                         nameof(ConnectionInfo.Port),
+                        nameof(ConnectionInfo.VNCColors),
                         nameof(ConnectionInfo.VNCSmartSizeMode),
                         nameof(ConnectionInfo.VNCViewOnly)
                     });
@@ -355,6 +366,8 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                     break;
                 case ProtocolType.Terminal:
                 case ProtocolType.AnyDesk:
+                case ProtocolType.Serial:
+                case ProtocolType.VMRC:
                     expectedProperties.AddRange(new[]
                     {
                         nameof(ConnectionInfo.Password),

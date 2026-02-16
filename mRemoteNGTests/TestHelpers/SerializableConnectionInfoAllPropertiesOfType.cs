@@ -63,6 +63,16 @@
 		public TType PostExtApp { get; set; }
 		public TType MacAddress { get; set; }
         public TType UserField { get; set; }
+        public TType UserField1 { get; set; }
+        public TType UserField2 { get; set; }
+        public TType UserField3 { get; set; }
+        public TType UserField4 { get; set; }
+        public TType UserField5 { get; set; }
+        public TType UserField6 { get; set; }
+        public TType UserField7 { get; set; }
+        public TType UserField8 { get; set; }
+        public TType UserField9 { get; set; }
+        public TType UserField10 { get; set; }
         public TType EnvironmentTags { get; set; }
         public TType Favorite { get; set; }
         public TType VmId { get; set; }

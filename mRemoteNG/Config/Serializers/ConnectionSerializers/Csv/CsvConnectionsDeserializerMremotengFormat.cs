@@ -168,6 +168,15 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 ? connectionCsv[headers.IndexOf("UserField")]
                 : "";
 
+            for (int i = 1; i <= 10; i++)
+            {
+                string key = $"UserField{i}";
+                if (headers.Contains(key))
+                {
+                    typeof(ConnectionInfo).GetProperty(key)?.SetValue(connectionRecord, connectionCsv[headers.IndexOf(key)]);
+                }
+            }
+
             connectionRecord.EnvironmentTags =
                 headers.Contains("EnvironmentTags")
                 ? connectionCsv[headers.IndexOf("EnvironmentTags")]
@@ -815,6 +824,24 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritUserField")], out bool value))
                     connectionRecord.Inheritance.UserField = value;
+            }
+
+            for (int i = 1; i <= 10; i++)
+            {
+                string key = $"InheritUserField{i}";
+                if (headers.Contains(key))
+                {
+                    if (bool.TryParse(connectionCsv[headers.IndexOf(key)], out bool value))
+                    {
+                        typeof(ConnectionInfoInheritance).GetProperty($"UserField{i}")?.SetValue(connectionRecord.Inheritance, value);
+                    }
+                }
+            }
+
+            if (headers.Contains("InheritHostname"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritHostname")], out bool value))
+                    connectionRecord.Inheritance.Hostname = value;
             }
 
             if (headers.Contains("InheritEnvironmentTags"))

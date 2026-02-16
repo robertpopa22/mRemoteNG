@@ -275,6 +275,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritPostExtApp", inheritance.PostExtApp.ToString().ToLowerInvariant()));
             if (inheritance.MacAddress)
                 element.Add(new XAttribute("InheritMacAddress", inheritance.MacAddress.ToString().ToLowerInvariant()));
+            if (inheritance.Hostname)
+                element.Add(new XAttribute("InheritHostname", inheritance.Hostname.ToString().ToLowerInvariant()));
             if (inheritance.UserField)
                 element.Add(new XAttribute("InheritUserField", inheritance.UserField.ToString().ToLowerInvariant()));
             if (inheritance.UserField1)

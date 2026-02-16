@@ -87,6 +87,16 @@
     <xs:attribute name="PostExtApp" type="xs:string" use="required" />
     <xs:attribute name="MacAddress" type="xs:string" use="required" />
     <xs:attribute name="UserField" type="xs:string" use="required" />
+    <xs:attribute name="UserField1" type="xs:string" use="optional" />
+    <xs:attribute name="UserField2" type="xs:string" use="optional" />
+    <xs:attribute name="UserField3" type="xs:string" use="optional" />
+    <xs:attribute name="UserField4" type="xs:string" use="optional" />
+    <xs:attribute name="UserField5" type="xs:string" use="optional" />
+    <xs:attribute name="UserField6" type="xs:string" use="optional" />
+    <xs:attribute name="UserField7" type="xs:string" use="optional" />
+    <xs:attribute name="UserField8" type="xs:string" use="optional" />
+    <xs:attribute name="UserField9" type="xs:string" use="optional" />
+    <xs:attribute name="UserField10" type="xs:string" use="optional" />
     <xs:attribute name="EnvironmentTags" type="xs:string" use="optional" />
     <xs:attribute name="ExtApp" type="xs:string" use="required" />
     <xs:attribute name="Favorite" type="xs:string" use="required" />
@@ -160,6 +170,17 @@
     <xs:attribute name="InheritUseVmId" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseEnhancedMode" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUserField" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField1" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField2" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField3" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField4" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField5" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField6" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField7" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField8" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField9" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUserField10" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritHostname" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritExtApp" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritFavorite" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritVNCCompression" type="xs:boolean" use="optional" />

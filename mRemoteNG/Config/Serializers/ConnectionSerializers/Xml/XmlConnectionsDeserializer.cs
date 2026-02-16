@@ -585,6 +585,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                         connectionInfo.Inheritance.UserField8 = xmlnode.GetAttributeAsBool("InheritUserField8");
                         connectionInfo.Inheritance.UserField9 = xmlnode.GetAttributeAsBool("InheritUserField9");
                         connectionInfo.Inheritance.UserField10 = xmlnode.GetAttributeAsBool("InheritUserField10");
+                        connectionInfo.Inheritance.Hostname = xmlnode.GetAttributeAsBool("InheritHostname");
                         break;
 
                     case >= 0.5:
