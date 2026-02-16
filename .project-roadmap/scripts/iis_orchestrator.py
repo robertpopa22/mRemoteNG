@@ -115,8 +115,12 @@ def get_beta_tag():
 
 
 def get_beta_url():
-    """Return the GitHub release URL for the current version."""
-    return f"https://github.com/{FORK_REPO}/releases/tag/{get_beta_tag()}"
+    """Return a stable URL to the fork's releases page.
+
+    Uses the generic releases URL instead of a specific tag — this never
+    breaks regardless of CI tag naming conventions (NB tags, date prefixes, etc.).
+    """
+    return f"https://github.com/{FORK_REPO}/releases"
 
 # Warning codes to fix, in priority order
 WARNING_CODES = [
