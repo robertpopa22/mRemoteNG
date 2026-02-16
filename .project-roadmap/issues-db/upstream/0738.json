@@ -10,7 +10,7 @@
   ],
   "author": "bluikko",
   "created_at": "2017-10-11T04:45:32Z",
-  "github_updated_at": "2026-02-16T00:55:02Z",
+  "github_updated_at": "2026-02-16T04:55:52Z",
   "body_snippet": "mRemoteNG could have an option in registry for disabling saving passwords. This way in an enterprise setting a GPO could be deployed to disable the users from saving passwords.\r\n\r\nI can volunteer to do the GPO-side work if this would be possible.",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -148,12 +148,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o13Du",
+      "author": "bluikko",
+      "date": "2026-02-16T04:55:52Z",
+      "snippet": "Nice. Reviewing the code this looks gtg so far. The HKLM hive is used which is the right way. Will test.\n\nWould you like to host `.admx`/`.adml` Policy Definition files somewhere? These could be loaded to the AD DS Central Store and then the normal GPO editing GUI tool (GPMC) workflow could be used to change these settings -- instead of adding a registry key GPP.  \nI'll probably look at making them at some point soon and will host in my own repo at least.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-16T00:55:02Z",
-  "unread_comments": 11,
+  "comments_cursor": "2026-02-16T04:55:52Z",
+  "unread_comments": 12,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T03:15:34Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-16T06:20:00Z",
   "notes": "AI triage (gemini): Enabling GPO/Registry-based policy to disable password saving is a standard enterprise requirement for security compliance.\nApproach: Implement a check for a 'DisablePasswordSaving' registry key in Settings.cs; if present and true, override the save password functionality and disable the corresponding UI option."
 }

@@ -1,0 +1,18 @@
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #755: Window Selection Behaviour
+Labels: Bug
+State: open
+
+Body:
+
+
+Recent comments:
+  [sparerd]: Yea there have always been some slightly weird window focus issues in the app. There are a few cases where we have to intercept windows display messages to make putty window focus work a bit more naturally. My guess is that there is an edge case there that we aren't accounting for and it's causing t
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

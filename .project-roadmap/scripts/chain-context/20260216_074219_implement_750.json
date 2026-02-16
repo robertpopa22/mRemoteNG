@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "750",
+  "started_at": "2026-02-16T07:01:46",
+  "finished_at": "2026-02-16T07:42:19",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #750",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T07:13:51"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #750",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T07:27:19"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #750",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 900s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0750.json",
+        "mRemoteNG/App/Info/SettingsFileInfo.cs",
+        "mRemoteNG/Tree/PreviousSessionOpener.cs",
+        "mRemoteNG/UI/Forms/frmMain.cs",
+        "mRemoteNGTests/Tree/PreviousSessionOpenerTests.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/0750.json     | 15 +++--\n mRemoteNG/App/Info/SettingsFileInfo.cs            |  1 +\n mRemoteNG/Tree/PreviousSessionOpener.cs           | 65 ++++++++++++++++--\n mRemoteNG/UI/Forms/frmMain.cs                     | 51 ++++++++++++++\n mRemoteNGTests/Tree/PreviousSessionOpenerTests.cs | 81 +++++++++++++++++++++--\n 5 files changed, 198 insertions(+), 15 deletions(-)",
+      "timestamp": "2026-02-16T07:42:19"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

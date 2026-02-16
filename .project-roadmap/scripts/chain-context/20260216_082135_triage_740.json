@@ -1,0 +1,36 @@
+{
+  "task_type": "triage",
+  "task_id": "740",
+  "started_at": "2026-02-16T08:20:41",
+  "finished_at": "2026-02-16T08:21:35",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "This is a reproducible data-loss bug where MSSQL varchar columns convert non-Latin characters to '?', so Unicode storage needs a schema fix.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlDatabaseMetaDataRetriever.cs",
+          "mRemoteNG/Config/Serializers/Versioning/SqlDatabaseVersionVerifier.cs",
+          "mRemoteNG/Config/Serializers/Versioning/SqlVersion31To32Upgrader.cs",
+          "mRemoteNGTests/Config/Serializers/Versioning/SqlVersion31To32UpgraderTests.cs"
+        ],
+        "approach": "Add an MSSQL migration that converts text-bearing columns from varchar to nvarchar, bump the SQL schema version, and add a regression test validating non-Latin round-trip persistence."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"This is a reproducible data-loss bug where MSSQL varchar columns convert non-Latin characters to '?', so Unicode storage needs a schema fix.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlDatabaseMetaDataRetriever.cs\",\"mRemoteNG/Config/Serializers/Versioning/SqlDatabaseVersionVerifier.cs\",\"mRemoteNG/Config/Serializers/Versioning/SqlVersion31To32Upgrader.cs\",\"mRemoteNGTests/Config/Serializers/Versioning/SqlVersion31To32UpgraderTests.cs\"],\"approach\":\"Add an MSSQL migration that converts text-bearing columns from varchar to nvarchar, bump the SQL schema version, and add a regression test validating non-Latin round-trip persistence.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T08:21:35"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
