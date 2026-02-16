@@ -10,7 +10,7 @@
   "created_at": "2017-12-05T19:45:32Z",
   "github_updated_at": "2018-03-08T01:51:22Z",
   "body_snippet": "Each time I open mRemoteNG and open a SSH window, I have to Reset Layout otherwise the screen is boxed in a small square. I have the program open full screen.\r\n\r\nWindows 7, 64bit Service Pack 1\r\nmRemoteNG v1.75.7012.16814\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -27,6 +27,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The report is specific and corroborated, describing a clear SSH panel sizing regression that only corrects after a manual window resize cycle."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-16",
+      "type": "testing",
+      "description": "Fix in 00f87e57"
     }
   ],
   "comments": [

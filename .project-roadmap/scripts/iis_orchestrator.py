@@ -537,6 +537,41 @@ def _capture_post_timeout_state():
     return modified, diff_summary
 
 
+def _capture_full_diff():
+    """Capture full git diff output (code changes). Truncated to 50KB."""
+    try:
+        r = subprocess.run(
+            ["git", "diff"],
+            capture_output=True, text=True, timeout=30,
+            cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+        )
+        return (r.stdout or "").strip()[:50000]
+    except Exception:
+        return ""
+
+
+def _parse_failed_tests(test_output):
+    """Extract failed test names and error snippets from test runner output.
+    Returns list of dicts: [{name, error}, ...]"""
+    failed = []
+    if not test_output:
+        return failed
+    # Pattern 1: NUnit "Failed <TestName>" lines
+    for m in re.finditer(r"Failed\s+([\w.]+)\s*$", test_output, re.MULTILINE):
+        failed.append({"name": m.group(1), "error": ""})
+    # Pattern 2: "  X <TestName> [<time>]" with error on next line(s)
+    for m in re.finditer(
+        r"^\s*X\s+([\w.]+)\s*\[.*?\]\s*\n((?:\s+.*\n)*?)\s*(?=\s*[X✓]|\Z)",
+        test_output, re.MULTILINE
+    ):
+        failed.append({"name": m.group(1), "error": m.group(2).strip()[:500]})
+    # Pattern 3: run-tests.ps1 "FAILED:" summary lines
+    for m in re.finditer(r"FAILED:\s+([\w.]+)", test_output):
+        if not any(f["name"] == m.group(1) for f in failed):
+            failed.append({"name": m.group(1), "error": ""})
+    return failed
+
+
 class ChainContext:
     """Accumulates attempts from each agent in a chain run for JSON handoff."""
 
@@ -550,8 +585,9 @@ class ChainContext:
 
     def add_attempt(self, agent, task, success, result=None, raw_output=None,
                     errors=None, files_modified=None, build_result=None,
-                    test_result=None, timed_out=False, diff_summary=None):
-        self.attempts.append({
+                    test_result=None, timed_out=False, diff_summary=None,
+                    diff_output=None, test_output=None, failed_tests=None):
+        attempt = {
             "agent": agent,
             "task": task,
             "success": success,
@@ -564,7 +600,16 @@ class ChainContext:
             "timed_out": timed_out,
             "diff_summary": diff_summary,
             "timestamp": _now_iso(),
-        })
+        }
+        # On failure: save full context for next agent / future review
+        if not success:
+            if diff_output:
+                attempt["diff_output"] = diff_output[:50000]
+            if test_output:
+                attempt["test_output"] = test_output[:10000]
+            if failed_tests:
+                attempt["failed_tests"] = failed_tests
+        self.attempts.append(attempt)
         if timed_out:
             self.timeout_count += 1
 
@@ -615,10 +660,19 @@ class ChainContext:
                 lines.append(f"Build: {a['build_result']}")
             if a.get("test_result"):
                 lines.append(f"Tests: {a['test_result']}")
+            if a.get("failed_tests"):
+                lines.append("Failed tests:")
+                for ft in a["failed_tests"][:10]:
+                    lines.append(f"  - {ft['name']}")
+                    if ft.get("error"):
+                        lines.append(f"    Error: {ft['error'][:200]}")
             if a.get("files_modified"):
                 lines.append(f"Files modified: {', '.join(a['files_modified'])}")
             if a.get("diff_summary"):
                 lines.append(f"Diff summary:\n{a['diff_summary']}")
+            if a.get("diff_output"):
+                # Include first 3000 chars of actual diff for next agent
+                lines.append(f"Code changes (truncated):\n{a['diff_output'][:3000]}")
             if a.get("raw_output"):
                 lines.append(f"Output (truncated):\n{a['raw_output'][:1000]}")
         lines.append("\n=== END PREVIOUS ATTEMPTS ===")
@@ -725,11 +779,17 @@ def run_build(capture_output=False):
         return (False, None)
 
 
-def run_tests():
+def run_tests(return_details=False):
     """Run non-UI tests via run-tests.ps1 (4 parallel processes).
-    Returns True if pass rate >= TEST_PASS_THRESHOLD (99%)."""
+    Returns True/False if return_details=False.
+    Returns (True/False, test_output, failed_tests) if return_details=True."""
     log.info("    [TEST] Running parallel tests (run-tests.ps1 -NoBuild) ...")
     kill_stale_processes()
+
+    def _result(ok, out="", failed_list=None):
+        if return_details:
+            return ok, out, failed_list or []
+        return ok
 
     try:
         r = _run(TEST_CMD, timeout=TEST_TIMEOUT)
@@ -743,21 +803,21 @@ def run_tests():
             if failed > 0 and pass_rate < TEST_PASS_THRESHOLD:
                 log.error("    [TEST] FAILED: %d/%d passed, %d failed (%.1f%% < %.0f%% threshold)",
                           passed, total, failed, pass_rate * 100, TEST_PASS_THRESHOLD * 100)
-                return False
+                return _result(False, out, _parse_failed_tests(out))
             if failed > 0:
                 log.warning("    [TEST] OK (%.1f%%): %d/%d passed, %d failed — within threshold",
                             pass_rate * 100, passed, total, failed)
             else:
                 log.info("    [TEST] OK (%d/%d passed, parallel)", passed, total)
             kill_stale_processes()
-            return True
+            return _result(True, out, _parse_failed_tests(out) if failed > 0 else [])
 
         # Fallback: parse single-process dotnet test output
         if "Failed!" in out or r.returncode != 0:
             m = re.search(r"Failed:\s+(\d+)", out)
             if m and int(m.group(1)) > 0:
                 log.error("    [TEST] FAILED: %s", m.group(0))
-                return False
+                return _result(False, out, _parse_failed_tests(out))
         m = re.search(r"Passed:\s+(\d+)", out)
         if m:
             log.info("    [TEST] OK (%s passed)", m.group(1))
@@ -766,24 +826,24 @@ def run_tests():
         if "ALL TESTS PASSED" in out:
             log.info("    [TEST] OK (all tests passed)")
             kill_stale_processes()
-            return True
+            return _result(True, out)
         # Check for "TESTS FAILED" from run-tests.ps1
         if "TESTS FAILED" in out:
-            # Still check threshold from parsed numbers above
             log.error("    [TEST] FAILED (run-tests.ps1 reported failure)")
             kill_stale_processes()
-            return False
+            return _result(False, out, _parse_failed_tests(out))
 
         kill_stale_processes()
-        return r.returncode == 0
+        ok = r.returncode == 0
+        return _result(ok, out, [] if ok else _parse_failed_tests(out))
     except subprocess.TimeoutExpired:
         log.error("    [TEST] TIMEOUT (%ds)", TEST_TIMEOUT)
         kill_stale_processes()
-        return False
+        return _result(False, "TIMEOUT")
     except Exception as e:
         log.error("    [TEST] ERROR: %s", e)
         kill_stale_processes()
-        return False
+        return _result(False, str(e))
 
 
 # ── CORE: GIT ───────────────────────────────────────────────────────────────
@@ -1394,13 +1454,15 @@ Do ONLY the fix. Nothing else."""
 
         if agent_out is None:
             if _last_dispatch_timed_out:
-                # Timeout — capture partial work (files modified, partial output)
+                # Timeout — capture FULL partial work (diff, files, output)
                 modified, diff_summary = _capture_post_timeout_state()
+                diff_out = _capture_full_diff()
                 ctx.add_attempt(agent, f"implement #{num}", False,
                                 raw_output=_last_dispatch_partial_output,
                                 errors=f"TIMEOUT after {timeout}s",
                                 files_modified=modified, timed_out=True,
-                                diff_summary=diff_summary)
+                                diff_summary=diff_summary,
+                                diff_output=diff_out)
                 if modified:
                     log.info("  [CHAIN] %s timed out but modified %d files: %s",
                              agent, len(modified), ", ".join(modified[:5]))
@@ -1437,12 +1499,13 @@ Do ONLY the fix. Nothing else."""
         build_ok, build_output = run_build(capture_output=True)
 
         if build_ok:
-            # Build OK — run tests
+            # Build OK — run tests (with details for failure capture)
             status.set_task(type="issue_fix", issue=num, step=f"testing_{agent}")
-            test_ok = run_tests()
+            test_result = run_tests(return_details=True)
+            test_ok, test_output, failed_tests = test_result
 
             if test_ok:
-                # Full success — commit, push, comment
+                # Full success — commit, push, comment (minimal context)
                 ctx.add_attempt(agent, f"implement #{num}", True,
                                 build_result="OK", test_result="OK")
                 ctx.save()
@@ -1466,17 +1529,32 @@ Do ONLY the fix. Nothing else."""
                 status.clear_task()
                 return True
             else:
-                # Tests fail — leave changes for next agent to fix
+                # Tests fail — capture FULL context before passing to next agent
+                diff_out = _capture_full_diff()
+                modified, diff_stat = _capture_post_timeout_state()
                 ctx.add_attempt(agent, f"implement #{num}", False,
                                 build_result="OK", test_result="FAIL",
-                                errors="Build OK but tests failed. Changes left in working tree.")
-                log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d", agent, num)
+                                errors="Build OK but tests failed. Changes left in working tree.",
+                                diff_output=diff_out, diff_summary=diff_stat,
+                                files_modified=modified,
+                                test_output=test_output[:10000] if test_output else "",
+                                failed_tests=failed_tests)
+                if failed_tests:
+                    names = [ft["name"] for ft in failed_tests[:5]]
+                    log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d — failed: %s",
+                                agent, num, ", ".join(names))
+                else:
+                    log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d", agent, num)
         else:
-            # Build fail — leave changes for next agent to fix
-            err_snippet = (build_output or "")[-500:]
+            # Build fail — capture FULL context (diff + build errors)
+            diff_out = _capture_full_diff()
+            modified, diff_stat = _capture_post_timeout_state()
+            err_snippet = (build_output or "")[-2000:]
             ctx.add_attempt(agent, f"implement #{num}", False,
                             build_result="FAIL", test_result="N/A",
-                            errors=f"Build failed:\n{err_snippet}")
+                            errors=f"Build failed:\n{err_snippet}",
+                            diff_output=diff_out, diff_summary=diff_stat,
+                            files_modified=modified)
             log.warning("  [CHAIN] %s fix has build errors for #%d", agent, num)
 
         # Last agent failed — revert

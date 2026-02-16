@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "816",
+  "started_at": "2026-02-16T15:27:40",
+  "finished_at": "2026-02-16T15:28:19",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Multiple users want a quick hostname-versus-IP choice and this is a clear, low-risk usability enhancement.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteV1/Connection/ConnectionInfo.cs",
+          "mRemoteV1/Connection/ConnectionTree/ConnectionNode.cs",
+          "mRemoteV1/Protocols/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Add an optional alternate endpoint in connection/profile settings and select hostname or IP at connect time based on user choice."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Multiple users want a quick hostname-versus-IP choice and this is a clear, low-risk usability enhancement.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteV1/Connection/ConnectionInfo.cs\",\"mRemoteV1/Connection/ConnectionTree/ConnectionNode.cs\",\"mRemoteV1/Protocols/RDP/RdpProtocol.cs\"],\"approach\":\"Add an optional alternate endpoint in connection/profile settings and select hostname or IP at connect time based on user choice.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T15:28:19"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
