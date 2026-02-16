@@ -131,10 +131,81 @@ namespace mRemoteNG.UI.Window
             TabHelper.Instance.CurrentPanel = this;
         }
 
-        public ConnectionTab? AddConnectionTab(ConnectionInfo connectionInfo)
+        private sealed class FocusSnapshot
+        {
+            public IDockContent? ActiveMainDocument { get; init; }
+            public IDockContent? ActiveConnectionDocument { get; init; }
+            public Control? FocusedControl { get; init; }
+        }
+
+        private FocusSnapshot CaptureFocusSnapshot()
+        {
+            return new FocusSnapshot
+            {
+                ActiveMainDocument = FrmMain.Default.pnlDock.ActiveDocument,
+                ActiveConnectionDocument = connDock.ActiveContent,
+                FocusedControl = GetFocusedControl(Form.ActiveForm as ContainerControl)
+            };
+        }
+
+        private static Control? GetFocusedControl(ContainerControl? containerControl)
+        {
+            Control? activeControl = containerControl?.ActiveControl;
+            while (activeControl is ContainerControl nestedContainer && nestedContainer.ActiveControl != null)
+            {
+                activeControl = nestedContainer.ActiveControl;
+            }
+
+            return activeControl;
+        }
+
+        private void RestoreFocusSnapshot(FocusSnapshot? snapshot, ConnectionTab openedTab)
+        {
+            if (snapshot == null) return;
+
+            try
+            {
+                if (ReferenceEquals(snapshot.ActiveMainDocument, this))
+                {
+                    if (snapshot.ActiveConnectionDocument != null &&
+                        !ReferenceEquals(snapshot.ActiveConnectionDocument, openedTab))
+                    {
+                        snapshot.ActiveConnectionDocument.DockHandler.Activate();
+                    }
+                }
+                else if (snapshot.ActiveMainDocument != null)
+                {
+                    snapshot.ActiveMainDocument.DockHandler.Activate();
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+            try
+            {
+                if (snapshot.FocusedControl is { IsDisposed: false } && snapshot.FocusedControl.CanFocus)
+                {
+                    snapshot.FocusedControl.Focus();
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+
+        public ConnectionTab? AddConnectionTab(ConnectionInfo connectionInfo, bool switchToConnection = true)
         {
             try
             {
+                FocusSnapshot? focusSnapshot = switchToConnection ? null : CaptureFocusSnapshot();
+
                 //Set the connection text based on name and preferences
                 string titleText;
                 if (Properties.OptionsTabsPanelsPage.Default.ShowProtocolOnTabs)
@@ -195,7 +266,15 @@ namespace mRemoteNG.UI.Window
 
                 //Show the tab
                 conTab.Show(connDock, DockState.Document);
-                conTab.Focus();
+                if (switchToConnection)
+                {
+                    conTab.Focus();
+                }
+                else
+                {
+                    RestoreFocusSnapshot(focusSnapshot, conTab);
+                }
+
                 return conTab;
             }
             catch (Exception ex)
@@ -206,19 +285,24 @@ namespace mRemoteNG.UI.Window
             return null;
         }
 
-        public ConnectionTab? GetOrAddConnectionTab(ConnectionInfo connectionInfo)
+        public ConnectionTab? GetOrAddConnectionTab(ConnectionInfo connectionInfo, bool switchToConnection = true)
         {
             ConnectionTab? reusableTab = FindReusableClosedTab(connectionInfo);
             if (reusableTab != null)
             {
                 reusableTab.TrackConnection(connectionInfo);
                 reusableTab.HideClosedState();
-                reusableTab.DockHandler.Activate();
-                reusableTab.Focus();
+
+                if (switchToConnection)
+                {
+                    reusableTab.DockHandler.Activate();
+                    reusableTab.Focus();
+                }
+
                 return reusableTab;
             }
 
-            return AddConnectionTab(connectionInfo);
+            return AddConnectionTab(connectionInfo, switchToConnection);
         }
 
         private static string GetFolderPath(ConnectionInfo connectionInfo)

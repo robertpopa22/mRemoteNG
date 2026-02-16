@@ -121,7 +121,8 @@ namespace mRemoteNG.Connection
 
                 StartPreConnectionExternalApp(connectionInfo);
 
-                if (!force.HasFlag(ConnectionInfo.Force.DoNotJump))
+                bool switchToConnection = !force.HasFlag(ConnectionInfo.Force.DoNotJump);
+                if (switchToConnection)
                 {
                     if (SwitchToOpenConnection(connectionInfoOriginal))
                         return;
@@ -129,7 +130,7 @@ namespace mRemoteNG.Connection
 
                 string? connectionPanel = SetConnectionPanel(connectionInfoOriginal, force);
                 if (string.IsNullOrEmpty(connectionPanel)) return;
-                ConnectionWindow? connectionForm = SetConnectionForm(conForm, connectionPanel);
+                ConnectionWindow? connectionForm = SetConnectionForm(conForm, connectionPanel, switchToConnection);
                 if (connectionForm == null) return;
                 Control? connectionContainer = null;
 
@@ -188,7 +189,7 @@ namespace mRemoteNG.Connection
 
                         SetConnectionFormEventHandlers(protocolSshTunnel, connectionForm);
                         SetConnectionEventHandlers(protocolSshTunnel);
-                        connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
+                        connectionContainer = SetConnectionContainer(connectionInfo, connectionForm, switchToConnection);
                         if (connectionContainer == null) return;
                         BuildConnectionInterfaceController(currentTunnelInfo, protocolSshTunnel, connectionContainer);
                         protocolSshTunnel.InterfaceControl.OriginalInfo = currentTunnelInfo;
@@ -244,7 +245,7 @@ namespace mRemoteNG.Connection
                 SetConnectionFormEventHandlers(newProtocol, connectionForm);
                 SetConnectionEventHandlers(newProtocol);
                 // in case of connection through SSH tunnel the container is already defined and must be use, else it needs to be created here
-                if (connectionContainer == null) connectionContainer = SetConnectionContainer(connectionInfo, connectionForm);
+                if (connectionContainer == null) connectionContainer = SetConnectionContainer(connectionInfo, connectionForm, switchToConnection);
                 if (connectionContainer == null) return;
                 BuildConnectionInterfaceController(connectionInfo, newProtocol, connectionContainer);
                 // in case of connection through SSH tunnel the connectionInfo was modified but connectionInfoOriginal in all cases retains the original info
@@ -366,23 +367,24 @@ namespace mRemoteNG.Connection
                 : null;
         }
 
-        private ConnectionWindow? SetConnectionForm(ConnectionWindow? conForm, string connectionPanel)
+        private ConnectionWindow? SetConnectionForm(ConnectionWindow? conForm, string connectionPanel, bool switchToConnection)
         {
             ConnectionWindow? connectionForm = conForm ?? Runtime.WindowList.FromString(connectionPanel) as ConnectionWindow;
 
             if (connectionForm == null)
                 // Don't show the panel immediately - it will be shown when first tab is added
                 connectionForm = _panelAdder.AddPanel(connectionPanel, showImmediately: false);
-            else
+            else if (switchToConnection)
                 connectionForm.Show(FrmMain.Default.pnlDock);
 
-            connectionForm?.Focus();
+            if (switchToConnection)
+                connectionForm?.Focus();
             return connectionForm;
         }
 
-        private static Control? SetConnectionContainer(ConnectionInfo connectionInfo, ConnectionWindow connectionForm)
+        private static Control? SetConnectionContainer(ConnectionInfo connectionInfo, ConnectionWindow connectionForm, bool switchToConnection)
         {
-            Control? connectionContainer = connectionForm.GetOrAddConnectionTab(connectionInfo);
+            Control? connectionContainer = connectionForm.GetOrAddConnectionTab(connectionInfo, switchToConnection);
 
             if (connectionInfo.Protocol != ProtocolType.IntApp) return connectionContainer;
 
