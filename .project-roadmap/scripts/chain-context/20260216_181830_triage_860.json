@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "860",
+  "started_at": "2026-02-16T18:18:08",
+  "finished_at": "2026-02-16T18:18:30",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The report is stale and unverified on current builds, and fresh reproducible steps/evidence are required before implementation.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/MainForm.cs",
+          "mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs"
+        ],
+        "approach": "Retest on v1.79.x with exact steps plus expected/actual behavior and screenshots/logs, then implement menu-placement and new-connection focus fixes if reproduced."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The report is stale and unverified on current builds, and fresh reproducible steps/evidence are required before implementation.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/UI/Forms/MainForm.cs\",\"mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\"],\"approach\":\"Retest on v1.79.x with exact steps plus expected/actual behavior and screenshots/logs, then implement menu-placement and new-connection focus fixes if reproduced.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:18:30"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

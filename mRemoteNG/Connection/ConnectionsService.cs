@@ -69,11 +69,12 @@ namespace mRemoteNG.Connection
                 {
                     Scheme = "dummyscheme"
                 };
+                string explicitUsername = string.Empty;
 
                 if (connectionString.Contains("@"))
                 {
                     string[] x = connectionString.Split('@');
-                    uriBuilder.UserName = x[0];
+                    explicitUsername = x[0];
                     connectionString = x[1];
                 }
                 if (connectionString.Contains(":"))
@@ -94,7 +95,10 @@ namespace mRemoteNG.Connection
 
                 newConnectionInfo.Protocol = protocol;
                 newConnectionInfo.Hostname = uriBuilder.Host;
-                newConnectionInfo.Username = uriBuilder.UserName;
+                if (!string.IsNullOrWhiteSpace(explicitUsername))
+                {
+                    newConnectionInfo.Username = explicitUsername;
+                }
 
                 if (uriBuilder.Port == -1)
                 {

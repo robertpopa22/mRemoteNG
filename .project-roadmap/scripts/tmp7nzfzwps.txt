@@ -2,17 +2,17 @@ Project: mRemoteNG (.NET 10, WinForms, COM references)
 Working directory: D:\github\mRemoteNG
 Branch: main
 
-Fix GitHub issue #932: Unable to specify user in the Quick Connect field
+Fix GitHub issue #875: Allow setting RDP AuthenticationLevel to prevent NLA error 2825
 
 Description:
 
 
-Recommended approach: Allow Quick Connect input to include an explicit username override and prefer it over default connection credentials while preserving current fallback behavior.
-Likely files: mRemoteNG/UI/Forms/frmMain.cs, mRemoteNG/Connection/ConnectionInfo.cs
+Recommended approach: Add an optional per-connection/default AuthenticationLevel setting, persist it, and apply it to the RDP control before connect with legacy-safe default behavior.
+Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Protocols/RDP/RdpProtocol.cs, mRemoteNG/UI/Forms/ConnectionForm.cs
 
 RULES (CRITICAL):
 - Read code BEFORE modifying
-- Do NOT change existing behavior — only fix the reported issue
+- Do NOT change existing behavior â€” only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild

@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "851",
+  "started_at": "2026-02-16T18:17:00",
+  "finished_at": "2026-02-16T18:17:23",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue lacks concrete acceptance criteria and up-to-date validation, and recent triage explicitly requests retesting on v1.79.x with reproducible expected-versus-actual behavior.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Request a fresh test on the latest fork/upstream build plus specific KiTTY integration requirements (supported executable options, session mapping, and UI behavior), then re-scope for implementation."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The issue lacks concrete acceptance criteria and up-to-date validation, and recent triage explicitly requests retesting on v1.79.x with reproducible expected-versus-actual behavior.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Request a fresh test on the latest fork/upstream build plus specific KiTTY integration requirements (supported executable options, session mapping, and UI behavior), then re-scope for implementation.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:17:23"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
