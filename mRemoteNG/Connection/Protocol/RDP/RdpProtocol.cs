@@ -528,11 +528,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.RdpGatewayIsSupported, true);
 
-                if (connectionInfo.RDGatewayUsageMethod == RDGatewayUsageMethod.Never) return;
+                string gatewayHostname = connectionInfo.RDGatewayHostname ?? string.Empty;
+                if (!ShouldApplyExplicitGatewaySettings(connectionInfo.RDGatewayUsageMethod, gatewayHostname)) return;
 
                 // USE GATEWAY
                 _rdpClient.TransportSettings.GatewayUsageMethod = (uint)connectionInfo.RDGatewayUsageMethod;
-                _rdpClient.TransportSettings.GatewayHostname = connectionInfo.RDGatewayHostname;
+                _rdpClient.TransportSettings.GatewayHostname = gatewayHostname;
                 _rdpClient.TransportSettings.GatewayProfileUsageMethod = 1; // TSC_PROXY_PROFILE_MODE_EXPLICIT
                 if (connectionInfo.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.SmartCard)
                 {
@@ -631,6 +632,26 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetGatewayFailed, ex);
             }
+        }
+
+        private static bool ShouldApplyExplicitGatewaySettings(RDGatewayUsageMethod usageMethod, string gatewayHostname)
+        {
+            if (usageMethod == RDGatewayUsageMethod.Never)
+            {
+                return false;
+            }
+
+            if (usageMethod != RDGatewayUsageMethod.Detect)
+            {
+                return true;
+            }
+
+            if (string.IsNullOrWhiteSpace(gatewayHostname))
+            {
+                return false;
+            }
+
+            return Uri.CheckHostName(gatewayHostname.Trim()) != UriHostNameType.Unknown;
         }
 
         private void SetUseConsoleSession()
