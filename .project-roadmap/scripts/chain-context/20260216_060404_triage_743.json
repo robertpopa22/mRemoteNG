@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "743",
+  "started_at": "2026-02-16T06:02:42",
+  "finished_at": "2026-02-16T06:04:04",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Current behavior destroys a session tab immediately on disconnect, which removes context and makes quick switching/reconnect workflows harder as described by commenters.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNG/Connection/ConnectionInitiator.cs",
+          "mRemoteNG/UI/Tabs/ConnectionTab.cs"
+        ],
+        "approach": "Decouple tab lifetime from live connection state by keeping the tab after disconnect, showing a lightweight 'connection closed' state in that tab, and preserving selected-connection tracking so users can switch or reconnect from the same context."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Current behavior destroys a session tab immediately on disconnect, which removes context and makes quick switching/reconnect workflows harder as described by commenters.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNG/Connection/ConnectionInitiator.cs\",\"mRemoteNG/UI/Tabs/ConnectionTab.cs\"],\"approach\":\"Decouple tab lifetime from live connection state by keeping the tab after disconnect, showing a lightweight 'connection closed' state in that tab, and preserving selected-connection tracking so users can switch or reconnect from the same context.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T06:04:04"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

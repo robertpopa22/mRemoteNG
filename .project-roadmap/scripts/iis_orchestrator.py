@@ -60,6 +60,12 @@ REPORTS_DIR = ISSUES_DB_ROOT / "reports"
 STATUS_FILE = SCRIPTS_DIR / "orchestrator-status.json"
 LOG_FILE = SCRIPTS_DIR / "orchestrator.log"
 CHAIN_CONTEXT_DIR = SCRIPTS_DIR / "chain-context"
+TIMEOUT_HISTORY_FILE = CHAIN_CONTEXT_DIR / "_timeout_history.json"
+TIMEOUT_ESCALATION_FACTOR = 1.5   # multiply timeout after each timeout failure
+TIMEOUT_MAX_MULTIPLIER = 4.0      # cap — don't let timeouts grow past 4x estimated
+TIMEOUT_MIN = 60                  # absolute minimum (seconds)
+TIMEOUT_MAX = 3600                # absolute cap (1 hour)
+TIMEOUT_HISTORY_MAX_SAMPLES = 50  # keep last N durations per agent/task for p80
 
 BUILD_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -140,13 +146,152 @@ AGENT_CONFIG = {
 AGENT_CHAIN = ["codex", "gemini", "claude"]  # fallback order: primary → secondary → tertiary
 GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
 CODEX_MODEL = "gpt-5.3-codex"          # overridable via --codex-model
-CODEX_REASONING = "xtrathink"           # model_reasoning_effort for codex
+CODEX_REASONING = "xhigh"               # model_reasoning_effort for codex
 AGENT_FALLBACK_ENABLED = True           # if primary fails, try the next agent in chain
 _session_agents_used = set()            # tracks which agents contributed (for co-author)
+_last_dispatch_timed_out = False        # set True by sub-agents on TimeoutExpired
+_last_dispatch_partial_output = ""      # partial stdout captured before timeout
 
 # Resolve full paths to CLI tools (Windows needs .CMD extension for subprocess)
 GEMINI_CMD = shutil.which("gemini") or "gemini"
 CODEX_CMD = shutil.which("codex") or "codex"
+
+
+# ── TIMEOUT ESTIMATION (complexity + history + escalation) ───────────────
+def _load_timeout_history():
+    """Load timeout history from disk.
+    Schema: {
+        "durations": {"codex": {"triage": [12,15], "implement": [300,450]}, ...},
+        "escalations": {"triage_739": 1.5, "impl_739": 2.25, ...}
+    }"""
+    if TIMEOUT_HISTORY_FILE.exists():
+        try:
+            data = json.loads(TIMEOUT_HISTORY_FILE.read_text(encoding="utf-8"))
+            # Migration: old format was flat {issue_key: multiplier}
+            if "durations" not in data:
+                data = {"durations": {}, "escalations": data}
+            return data
+        except Exception:
+            pass
+    return {"durations": {}, "escalations": {}}
+
+
+def _save_timeout_history(history):
+    """Save timeout history to disk."""
+    CHAIN_CONTEXT_DIR.mkdir(parents=True, exist_ok=True)
+    TIMEOUT_HISTORY_FILE.write_text(
+        json.dumps(history, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+
+def _record_duration(agent, task_type, seconds):
+    """Record an actual completion time for an agent/task_type pair."""
+    h = _load_timeout_history()
+    durations = h.setdefault("durations", {})
+    agent_d = durations.setdefault(agent, {})
+    task_list = agent_d.setdefault(task_type, [])
+    task_list.append(round(seconds, 1))
+    # Keep only last N samples
+    if len(task_list) > TIMEOUT_HISTORY_MAX_SAMPLES:
+        agent_d[task_type] = task_list[-TIMEOUT_HISTORY_MAX_SAMPLES:]
+    _save_timeout_history(h)
+
+
+def _get_history_p80(agent, task_type):
+    """Get p80 of historical durations for agent/task_type. Returns None if no data."""
+    h = _load_timeout_history()
+    samples = h.get("durations", {}).get(agent, {}).get(task_type, [])
+    if len(samples) < 3:
+        return None  # not enough data
+    sorted_s = sorted(samples)
+    idx = int(len(sorted_s) * 0.8)
+    return sorted_s[min(idx, len(sorted_s) - 1)]
+
+
+def _get_escalation(issue_key):
+    """Get the per-issue escalation multiplier (grows on repeated failures)."""
+    h = _load_timeout_history()
+    return h.get("escalations", {}).get(str(issue_key), 1.0)
+
+
+def _bump_escalation(issue_key):
+    """Increase per-issue escalation after failure/timeout. Returns new value."""
+    h = _load_timeout_history()
+    esc = h.setdefault("escalations", {})
+    key = str(issue_key)
+    current = esc.get(key, 1.0)
+    new_val = min(current * TIMEOUT_ESCALATION_FACTOR, TIMEOUT_MAX_MULTIPLIER)
+    esc[key] = round(new_val, 2)
+    _save_timeout_history(h)
+    return new_val
+
+
+def _complexity_base_timeout(agent, task_type, triage=None):
+    """Estimate base timeout from task complexity.
+    triage dict may contain: estimated_files, priority, decision."""
+    # Triage tasks are always fast — agents just analyze text
+    if task_type == "triage":
+        return 120 if agent == "codex" else 90
+
+    # Implementation: scale with estimated file count and priority
+    n_files = 0
+    priority = "P3-enhancement"
+    if triage:
+        n_files = len(triage.get("estimated_files") or [])
+        priority = triage.get("priority", "P3-enhancement")
+
+    # Base by file count
+    if n_files <= 1:
+        base = 300
+    elif n_files <= 3:
+        base = 600
+    else:
+        base = 900
+
+    # Priority multiplier (critical/security issues need more careful analysis)
+    if priority in ("P0-critical", "P1-security"):
+        base = int(base * 1.5)
+    elif priority == "P2-bug":
+        base = int(base * 1.2)
+
+    # Agent speed factor: codex with xhigh is slower than gemini/claude
+    if agent == "codex":
+        base = int(base * 1.3)
+
+    return base
+
+
+def _estimate_timeout(agent, task_type, issue_key=None, triage=None,
+                      chain_escalation=1.0):
+    """Compute final timeout combining:
+    1. Complexity-based estimate
+    2. Historical p80 (if enough data)
+    3. Per-issue escalation (from previous failures)
+    4. Within-chain escalation (from current run failures)
+
+    Returns int seconds, clamped to [TIMEOUT_MIN, TIMEOUT_MAX]."""
+    # Step 1: complexity estimate
+    complexity = _complexity_base_timeout(agent, task_type, triage)
+
+    # Step 2: history — use p80 if available and higher than complexity
+    p80 = _get_history_p80(agent, task_type)
+    if p80 is not None:
+        # Use p80 * 1.3 as headroom (we want to be above p80, not at it)
+        history_based = int(p80 * 1.3)
+        base = max(complexity, history_based)
+    else:
+        base = complexity
+
+    # Step 3: per-issue escalation (from past failures on this specific issue)
+    issue_esc = _get_escalation(issue_key) if issue_key else 1.0
+
+    # Step 4: chain escalation (from timeouts earlier in THIS run)
+    final = int(base * issue_esc * chain_escalation)
+
+    # Clamp
+    final = max(TIMEOUT_MIN, min(final, TIMEOUT_MAX))
+    return final
 
 
 # ── LOGGING ─────────────────────────────────────────────────────────────────
@@ -275,6 +420,34 @@ def _now_iso():
     return datetime.datetime.now().isoformat(timespec="seconds")
 
 
+def _capture_post_timeout_state():
+    """After a timeout, capture what the agent modified in the working tree.
+    Returns (modified_files: list[str], diff_summary: str)."""
+    modified = []
+    diff_summary = ""
+    try:
+        r = subprocess.run(
+            ["git", "diff", "--name-only"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+        )
+        if r.stdout:
+            modified = [f.strip() for f in r.stdout.strip().splitlines() if f.strip()]
+    except Exception:
+        pass
+    try:
+        r = subprocess.run(
+            ["git", "diff", "--stat"],
+            capture_output=True, text=True, timeout=10,
+            cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
+        )
+        if r.stdout:
+            diff_summary = r.stdout.strip()[:1000]
+    except Exception:
+        pass
+    return modified, diff_summary
+
+
 class ChainContext:
     """Accumulates attempts from each agent in a chain run for JSON handoff."""
 
@@ -282,11 +455,13 @@ class ChainContext:
         self.task_type = task_type
         self.task_id = task_id
         self.attempts = []
+        self.timeout_count = 0      # how many agents timed out in this run
+        self.all_timed_out = False   # True if every agent timed out
         self.started_at = _now_iso()
 
     def add_attempt(self, agent, task, success, result=None, raw_output=None,
                     errors=None, files_modified=None, build_result=None,
-                    test_result=None):
+                    test_result=None, timed_out=False, diff_summary=None):
         self.attempts.append({
             "agent": agent,
             "task": task,
@@ -297,16 +472,27 @@ class ChainContext:
             "files_modified": files_modified or [],
             "build_result": build_result,
             "test_result": test_result,
+            "timed_out": timed_out,
+            "diff_summary": diff_summary,
             "timestamp": _now_iso(),
         })
+        if timed_out:
+            self.timeout_count += 1
 
     def to_dict(self):
+        self.all_timed_out = (
+            self.timeout_count > 0
+            and self.timeout_count == len(self.attempts)
+            and not any(a["success"] for a in self.attempts)
+        )
         return {
             "task_type": self.task_type,
             "task_id": self.task_id,
             "started_at": self.started_at,
             "finished_at": _now_iso(),
             "attempts": self.attempts,
+            "timeout_count": self.timeout_count,
+            "all_timed_out": self.all_timed_out,
             "final_success": any(a["success"] for a in self.attempts),
         }
 
@@ -328,9 +514,12 @@ class ChainContext:
             return ""
         lines = ["=== PREVIOUS AGENT ATTEMPTS ==="]
         for i, a in enumerate(self.attempts, 1):
-            status = "SUCCESS" if a["success"] else "FAILED"
+            status = "TIMEOUT" if a.get("timed_out") else ("SUCCESS" if a["success"] else "FAILED")
             lines.append(f"\n--- Attempt {i}: {a['agent'].upper()} [{status}] ---")
             lines.append(f"Task: {a['task']}")
+            if a.get("timed_out"):
+                lines.append("NOTE: This agent TIMED OUT. It may have done partial work.")
+                lines.append("Check the working tree — some files may already be modified.")
             if a.get("errors"):
                 lines.append(f"Errors: {a['errors']}")
             if a.get("build_result"):
@@ -339,6 +528,8 @@ class ChainContext:
                 lines.append(f"Tests: {a['test_result']}")
             if a.get("files_modified"):
                 lines.append(f"Files modified: {', '.join(a['files_modified'])}")
+            if a.get("diff_summary"):
+                lines.append(f"Diff summary:\n{a['diff_summary']}")
             if a.get("raw_output"):
                 lines.append(f"Output (truncated):\n{a['raw_output'][:1000]}")
         lines.append("\n=== END PREVIOUS ATTEMPTS ===")
@@ -604,9 +795,17 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                     continue
                 return None
             return r.stdout or ""
-        except subprocess.TimeoutExpired:
+        except subprocess.TimeoutExpired as exc:
+            global _last_dispatch_timed_out, _last_dispatch_partial_output
+            _last_dispatch_timed_out = True
             log.error("    [CLAUDE] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
             kill_stale_processes()
+            partial = ""
+            if hasattr(exc, "stdout") and exc.stdout:
+                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            _last_dispatch_partial_output = (partial or "")[:3000]
+            if partial:
+                log.info("    [CLAUDE] Captured %d chars of partial output before timeout", len(partial))
             if attempt < retries:
                 log.info("    [CLAUDE] Retrying in 5s ...")
                 time.sleep(5)
@@ -653,9 +852,17 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                     continue
                 return None
             return r.stdout or ""
-        except subprocess.TimeoutExpired:
+        except subprocess.TimeoutExpired as exc:
+            global _last_dispatch_timed_out, _last_dispatch_partial_output
+            _last_dispatch_timed_out = True
             log.error("    [GEMINI] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
             kill_stale_processes()
+            partial = ""
+            if hasattr(exc, "stdout") and exc.stdout:
+                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            _last_dispatch_partial_output = (partial or "")[:3000]
+            if partial:
+                log.info("    [GEMINI] Captured %d chars of partial output before timeout", len(partial))
             if attempt < retries:
                 log.info("    [GEMINI] Retrying in 5s ...")
                 time.sleep(5)
@@ -727,7 +934,7 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
                 "--color", "never",
                 "--ephemeral",
                 "-m", CODEX_MODEL,
-                "--reasoning-effort", CODEX_REASONING,
+                "-c", f'model_reasoning_effort="{CODEX_REASONING}"',
                 "-C", str(REPO_ROOT),
                 "-o", output_file,
             ]
@@ -780,9 +987,24 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 
             return result or ""
 
-        except subprocess.TimeoutExpired:
+        except subprocess.TimeoutExpired as exc:
+            global _last_dispatch_timed_out, _last_dispatch_partial_output
+            _last_dispatch_timed_out = True
             log.error("    [CODEX] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
             kill_stale_processes()
+            # Capture partial output from -o file (agent may have written progress)
+            partial = ""
+            if output_file:
+                try:
+                    partial = Path(output_file).read_text(encoding="utf-8", errors="replace")
+                except Exception:
+                    pass
+            # Also grab partial stdout from the exception
+            if not partial and hasattr(exc, "stdout") and exc.stdout:
+                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            _last_dispatch_partial_output = (partial or "")[:3000]
+            if partial:
+                log.info("    [CODEX] Captured %d chars of partial output before timeout", len(partial))
             if attempt < retries:
                 log.info("    [CODEX] Retrying in 10s ...")
                 time.sleep(10)
@@ -808,7 +1030,11 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 # ── CORE: AGENT DISPATCH HELPER ──────────────────────────────────────────
 def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
                     timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
-    """Dispatch a prompt to a specific agent. Returns stdout string or None."""
+    """Dispatch a prompt to a specific agent. Returns stdout string or None.
+    Sets _last_dispatch_timed_out if the agent timed out."""
+    global _last_dispatch_timed_out, _last_dispatch_partial_output
+    _last_dispatch_timed_out = False
+    _last_dispatch_partial_output = ""
     _session_agents_used.add(agent)
 
     if agent == "codex":
@@ -932,15 +1158,15 @@ Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
 If unclear, use needs_info."""
 
     ctx = ChainContext("triage", str(num))
+    issue_key = f"triage_{num}"
+    chain_esc = 1.0  # grows within this run on each timeout
 
     for i, agent in enumerate(AGENT_CHAIN):
         _session_agents_used.add(agent)
 
         if i == 0:
-            # First agent gets the base prompt
             prompt = triage_prompt
         else:
-            # Subsequent agents get base prompt + context from previous attempts
             prompt = f"""You are refining a triage result for mRemoteNG issue #{num}: {title}
 
 Issue body:
@@ -954,15 +1180,32 @@ analyze the issue yourself and produce the triage.
 Reply with ONLY a JSON object:
 {{"decision":"implement|wontfix|duplicate|needs_info","reason":"one sentence","priority":"P0-critical|P1-security|P2-bug|P3-enhancement|P4-debt","estimated_files":["path.cs"],"approach":"brief fix"}}"""
 
-        timeout = CODEX_TIMEOUT if agent == "codex" else 120
-        log.info("    [CHAIN] Step %d: %s triage for #%d", i + 1, agent.capitalize(), num)
+        timeout = _estimate_timeout(agent, "triage", issue_key=issue_key,
+                                    chain_escalation=chain_esc)
+        log.info("    [CHAIN] Step %d: %s triage for #%d (timeout=%ds)",
+                 i + 1, agent.capitalize(), num, timeout)
 
+        t0 = time.time()
         raw_output = _agent_dispatch(agent, prompt, max_turns=3, timeout=timeout, retries=1)
+        elapsed = time.time() - t0
         kill_stale_processes()
 
-        if raw_output:
-            log.info("    [CHAIN] %s raw (%d chars): %s",
-                     agent, len(raw_output), raw_output[:150].replace("\n", " "))
+        if _last_dispatch_timed_out:
+            modified, diff_summary = _capture_post_timeout_state()
+            ctx.add_attempt(agent, "triage", False,
+                            raw_output=_last_dispatch_partial_output,
+                            errors=f"TIMEOUT after {timeout}s",
+                            files_modified=modified, timed_out=True)
+            if modified:
+                log.info("    [CHAIN] %s timed out but modified %d files: %s",
+                         agent, len(modified), ", ".join(modified[:5]))
+            chain_esc *= TIMEOUT_ESCALATION_FACTOR
+        elif raw_output:
+            # Record successful duration for future estimates
+            _record_duration(agent, "triage", elapsed)
+            log.info("    [CHAIN] %s raw (%d chars, %.0fs): %s",
+                     agent, len(raw_output), elapsed,
+                     raw_output[:150].replace("\n", " "))
             result = _extract_json(raw_output)
             if result and "decision" in result:
                 ctx.add_attempt(agent, "triage", True, result=result, raw_output=raw_output)
@@ -981,6 +1224,11 @@ Reply with ONLY a JSON object:
         log.warning("    [CHAIN] %s failed triage for #%d — trying next agent", agent, num)
 
     ctx.save()
+    # Bump per-issue escalation if agents timed out (for next session)
+    if ctx.timeout_count > 0:
+        new_mult = _bump_escalation(issue_key)
+        log.warning("    [CHAIN] %d timeouts for #%d — next run escalation: %.1fx",
+                     ctx.timeout_count, num, new_mult)
     log.error("    [CHAIN] All agents failed triage for #%d", num)
     return None, None
 
@@ -1018,6 +1266,8 @@ RULES (CRITICAL):
 - Do ONLY the fix.  Nothing else."""
 
     ctx = ChainContext("implement", str(num))
+    issue_key = f"impl_{num}"
+    chain_esc = 1.0  # grows within this run on each timeout
 
     for i, agent in enumerate(AGENT_CHAIN):
         is_last = (i == len(AGENT_CHAIN) - 1)
@@ -1046,28 +1296,56 @@ Review the current state of the code, correct any issues, and make the fix work.
 RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
 Do ONLY the fix. Nothing else."""
 
-        timeout = CODEX_TIMEOUT if agent == "codex" else CLAUDE_TIMEOUT
-        log.info("  [CHAIN] Step %d: %s implementing #%d ...", i + 1, agent.capitalize(), num)
+        timeout = _estimate_timeout(agent, "implement", issue_key=issue_key,
+                                    triage=triage, chain_escalation=chain_esc)
+        log.info("  [CHAIN] Step %d: %s implementing #%d (timeout=%ds) ...",
+                 i + 1, agent.capitalize(), num, timeout)
         status.set_task(type="issue_fix", issue=num, step=f"{agent}_fixing")
 
+        t0 = time.time()
         agent_out = _agent_dispatch(agent, prompt, max_turns=25, timeout=timeout, retries=1)
+        elapsed = time.time() - t0
         kill_stale_processes()
 
         if agent_out is None:
-            ctx.add_attempt(agent, f"implement #{num}", False,
-                            errors="Agent returned None after retries")
+            if _last_dispatch_timed_out:
+                # Timeout — capture partial work (files modified, partial output)
+                modified, diff_summary = _capture_post_timeout_state()
+                ctx.add_attempt(agent, f"implement #{num}", False,
+                                raw_output=_last_dispatch_partial_output,
+                                errors=f"TIMEOUT after {timeout}s",
+                                files_modified=modified, timed_out=True,
+                                diff_summary=diff_summary)
+                if modified:
+                    log.info("  [CHAIN] %s timed out but modified %d files: %s",
+                             agent, len(modified), ", ".join(modified[:5]))
+                    # Don't restore — leave partial work for next agent
+                else:
+                    git_restore()
+                chain_esc *= TIMEOUT_ESCALATION_FACTOR
+            else:
+                ctx.add_attempt(agent, f"implement #{num}", False,
+                                errors="Agent returned None after retries")
+                git_restore()
+
             if is_last:
                 status.add_error(f"issue_{num}", agent, "returned None")
                 git_restore()
                 ctx.save()
+                if ctx.timeout_count > 0:
+                    new_mult = _bump_escalation(issue_key)
+                    log.warning("  [CHAIN] %d timeouts for #%d — next run escalation: %.1fx",
+                                ctx.timeout_count, num, new_mult)
                 return False
-            # Agent returned nothing — restore and let next agent try fresh
-            git_restore()
             if not AGENT_FALLBACK_ENABLED:
+                git_restore()
                 ctx.save()
                 return False
             log.warning("  [CHAIN] %s returned nothing for #%d — next agent", agent, num)
             continue
+
+        # Record successful agent duration for future estimates
+        _record_duration(agent, "implement", elapsed)
 
         # Check build
         status.set_task(type="issue_fix", issue=num, step=f"building_{agent}")
