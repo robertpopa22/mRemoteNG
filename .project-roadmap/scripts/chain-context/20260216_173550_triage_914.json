@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "914",
+  "started_at": "2026-02-16T17:35:12",
+  "finished_at": "2026-02-16T17:35:50",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Launching external tools via `%SystemRoot%\\System32` from a 32-bit mRemoteNG process is WoW64-redirected to 32-bit binaries, which breaks expected telnet/PowerShell behavior on 64-bit Windows.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/App/ExternalTools/ExternalToolLauncher.cs",
+          "mRemoteNGTests/App/ExternalTools/ExternalToolLauncherTests.cs"
+        ],
+        "approach": "Add path normalization for external tools so `System32` can resolve to `Sysnative` when needed on 64-bit OS, with fallback and a small regression test."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Launching external tools via `%SystemRoot%\\\\System32` from a 32-bit mRemoteNG process is WoW64-redirected to 32-bit binaries, which breaks expected telnet/PowerShell behavior on 64-bit Windows.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/App/ExternalTools/ExternalToolLauncher.cs\",\"mRemoteNGTests/App/ExternalTools/ExternalToolLauncherTests.cs\"],\"approach\":\"Add path normalization for external tools so `System32` can resolve to `Sysnative` when needed on 64-bit OS, with fallback and a small regression test.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T17:35:50"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

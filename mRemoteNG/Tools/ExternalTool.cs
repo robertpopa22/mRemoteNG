@@ -238,6 +238,7 @@ namespace mRemoteNG.Tools
         {
             ExternalToolArgumentParser argParser = new(startConnectionInfo);
             string parsedFileName = argParser.ParseArguments(FileName);
+            parsedFileName = NormalizeSystem32PathForWow64(parsedFileName);
 
             // Validate the executable path to prevent command injection
             PathValidator.ValidateExecutablePathOrThrow(parsedFileName, nameof(FileName));
@@ -313,6 +314,47 @@ namespace mRemoteNG.Tools
             string ext = Path.GetExtension(fileName);
             return ext.Equals(".cmd", StringComparison.OrdinalIgnoreCase)
                 || ext.Equals(".bat", StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Maps %windir%\System32\... to %windir%\Sysnative\... when running under WoW64,
+        /// but falls back to the original path if the Sysnative target does not exist.
+        /// </summary>
+        private static string NormalizeSystem32PathForWow64(string fileName)
+        {
+            return NormalizeSystem32PathForWow64(
+                fileName,
+                Environment.Is64BitOperatingSystem,
+                Environment.Is64BitProcess,
+                File.Exists);
+        }
+
+        private static string NormalizeSystem32PathForWow64(
+            string fileName,
+            bool is64BitOperatingSystem,
+            bool is64BitProcess,
+            Func<string, bool> fileExists)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+                return fileName;
+
+            if (!is64BitOperatingSystem || is64BitProcess)
+                return fileName;
+
+            string windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            if (string.IsNullOrWhiteSpace(windowsDir))
+                windowsDir = Environment.GetEnvironmentVariable("SystemRoot") ?? @"C:\Windows";
+
+            string system32Prefix = Path.Combine(windowsDir, "System32") + Path.DirectorySeparatorChar;
+            if (!fileName.StartsWith(system32Prefix, StringComparison.OrdinalIgnoreCase))
+                return fileName;
+
+            string relativePath = fileName.Substring(system32Prefix.Length);
+            if (string.IsNullOrWhiteSpace(relativePath))
+                return fileName;
+
+            string sysnativePath = Path.Combine(windowsDir, "Sysnative", relativePath);
+            return fileExists(sysnativePath) ? sysnativePath : fileName;
         }
 
         /// <summary>

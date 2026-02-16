@@ -22,6 +22,26 @@ namespace mRemoteNGTests.Tools
             return string.Join(" ", psi.ArgumentList);
         }
 
+        private static string NormalizeSystem32PathForWow64(
+            string fileName,
+            bool is64BitOperatingSystem,
+            bool is64BitProcess,
+            Func<string, bool> fileExists)
+        {
+            var normalizeMethod = typeof(ExternalTool).GetMethod(
+                "NormalizeSystem32PathForWow64",
+                BindingFlags.NonPublic | BindingFlags.Static,
+                null,
+                new[] { typeof(string), typeof(bool), typeof(bool), typeof(Func<string, bool>) },
+                null);
+
+            Assert.That(normalizeMethod, Is.Not.Null);
+
+            return (string)normalizeMethod!.Invoke(
+                null,
+                new object[] { fileName, is64BitOperatingSystem, is64BitProcess, fileExists })!;
+        }
+
         [Test]
         public void PasswordWithEqualsSignIsPassedCorrectly()
         {
@@ -252,6 +272,29 @@ namespace mRemoteNGTests.Tools
 
             // Assert
             Assert.That(process.StartInfo.UseShellExecute, Is.False);
+        }
+
+        [Test]
+        public void System32Path_NormalizesToSysnativeInWow64_WithFallback()
+        {
+            const string system32Path = @"C:\Windows\System32\telnet.exe";
+            const string sysnativePath = @"C:\Windows\Sysnative\telnet.exe";
+
+            string normalized = NormalizeSystem32PathForWow64(
+                system32Path,
+                is64BitOperatingSystem: true,
+                is64BitProcess: false,
+                path => path.Equals(sysnativePath, StringComparison.OrdinalIgnoreCase));
+
+            Assert.That(normalized, Is.EqualTo(sysnativePath));
+
+            string fallback = NormalizeSystem32PathForWow64(
+                system32Path,
+                is64BitOperatingSystem: true,
+                is64BitProcess: false,
+                _ => false);
+
+            Assert.That(fallback, Is.EqualTo(system32Path));
         }
 
         [Test]
