@@ -132,7 +132,7 @@ BUILD_TIMEOUT = 300   # 5 min
 TEST_TIMEOUT = 300    # 5 min
 CLAUDE_TIMEOUT = 600  # 10 min per task
 CLAUDE_RETRIES = 2    # retry on failure
-CODEX_TIMEOUT = 900   # 15 min — codex cu xtrathink e lent
+CODEX_TIMEOUT = 1800  # 30 min — codex needs more time for complex implementations
 CODEX_RETRIES = 1     # codex e scump; 1 retry
 
 # Environment for Claude sub-process: strip nesting guard so claude -p works
@@ -418,6 +418,69 @@ def kill_stale_processes():
                            capture_output=True, timeout=10)
         except Exception:
             pass
+
+
+def _kill_process_tree(pid):
+    """Kill a process and all its children on Windows using taskkill /T."""
+    try:
+        subprocess.run(
+            ["taskkill", "//F", "//T", "//PID", str(pid)],
+            capture_output=True, timeout=15,
+        )
+    except Exception:
+        pass
+
+
+def _run_with_timeout(cmd, timeout, cwd=None, env=None, stdin_path=None):
+    """Run a subprocess with reliable timeout on Windows.
+
+    Uses Popen + CREATE_NEW_PROCESS_GROUP so we can kill the entire process
+    tree on timeout (fixes the pipe-inheritance hang with subprocess.run).
+
+    Returns (returncode, stdout, stderr) on success.
+    Raises subprocess.TimeoutExpired on timeout.
+    Raises Exception on other errors.
+    """
+    creationflags = 0
+    if sys.platform == "win32":
+        creationflags = subprocess.CREATE_NEW_PROCESS_GROUP
+
+    stdin_file = None
+    try:
+        if stdin_path:
+            stdin_file = open(stdin_path, "r", encoding="utf-8")
+
+        proc = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=stdin_file,
+            text=True,
+            cwd=cwd,
+            env=env,
+            encoding="utf-8",
+            errors="replace",
+            creationflags=creationflags,
+        )
+
+        try:
+            stdout, stderr = proc.communicate(timeout=timeout)
+            return (proc.returncode, stdout or "", stderr or "")
+        except subprocess.TimeoutExpired:
+            # Kill the ENTIRE process tree, not just the root
+            _kill_process_tree(proc.pid)
+            # Give children a moment to die, then collect any partial output
+            try:
+                stdout, stderr = proc.communicate(timeout=10)
+            except (subprocess.TimeoutExpired, Exception):
+                proc.kill()
+                stdout, stderr = "", ""
+            raise subprocess.TimeoutExpired(
+                cmd, timeout, output=stdout, stderr=stderr
+            )
+    finally:
+        if stdin_file:
+            stdin_file.close()
 
 
 def _now_iso():
@@ -778,35 +841,28 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
 
     for attempt in range(1, retries + 1):
         try:
-            r = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                cwd=str(REPO_ROOT),
-                encoding="utf-8",
-                errors="replace",
-                env=CLAUDE_ENV,
+            rc, stdout, stderr = _run_with_timeout(
+                cmd, timeout=timeout, cwd=str(REPO_ROOT), env=CLAUDE_ENV,
             )
             kill_stale_processes()
-            if r.returncode != 0:
-                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
+            if rc != 0:
+                err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty output)"
                 log.error("    [CLAUDE] attempt %d/%d exit %d: %s",
-                          attempt, retries, r.returncode, err_detail)
+                          attempt, retries, rc, err_detail)
                 if attempt < retries:
                     log.info("    [CLAUDE] Retrying in 5s ...")
                     time.sleep(5)
                     continue
                 return None
-            return r.stdout or ""
+            return stdout or ""
         except subprocess.TimeoutExpired as exc:
             global _last_dispatch_timed_out, _last_dispatch_partial_output
             _last_dispatch_timed_out = True
             log.error("    [CLAUDE] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
             kill_stale_processes()
             partial = ""
-            if hasattr(exc, "stdout") and exc.stdout:
-                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            if hasattr(exc, "output") and exc.output:
+                partial = exc.output if isinstance(exc.output, str) else exc.output.decode("utf-8", errors="replace")
             _last_dispatch_partial_output = (partial or "")[:3000]
             if partial:
                 log.info("    [CLAUDE] Captured %d chars of partial output before timeout", len(partial))
@@ -836,34 +892,28 @@ def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
 
     for attempt in range(1, retries + 1):
         try:
-            r = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                cwd=str(REPO_ROOT),
-                encoding="utf-8",
-                errors="replace",
+            rc, stdout, stderr = _run_with_timeout(
+                cmd, timeout=timeout, cwd=str(REPO_ROOT),
             )
             kill_stale_processes()
-            if r.returncode != 0:
-                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
+            if rc != 0:
+                err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty output)"
                 log.error("    [GEMINI] attempt %d/%d exit %d: %s",
-                          attempt, retries, r.returncode, err_detail)
+                          attempt, retries, rc, err_detail)
                 if attempt < retries:
                     log.info("    [GEMINI] Retrying in 5s ...")
                     time.sleep(5)
                     continue
                 return None
-            return r.stdout or ""
+            return stdout or ""
         except subprocess.TimeoutExpired as exc:
             global _last_dispatch_timed_out, _last_dispatch_partial_output
             _last_dispatch_timed_out = True
             log.error("    [GEMINI] attempt %d/%d TIMEOUT (%ds)", attempt, retries, timeout)
             kill_stale_processes()
             partial = ""
-            if hasattr(exc, "stdout") and exc.stdout:
-                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            if hasattr(exc, "output") and exc.output:
+                partial = exc.output if isinstance(exc.output, str) else exc.output.decode("utf-8", errors="replace")
             _last_dispatch_partial_output = (partial or "")[:3000]
             if partial:
                 log.info("    [GEMINI] Captured %d chars of partial output before timeout", len(partial))
@@ -943,24 +993,17 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
                 "-o", output_file,
             ]
 
-            with open(prompt_file, "r", encoding="utf-8") as f:
-                r = subprocess.run(
-                    cmd,
-                    stdin=f,
-                    capture_output=True,
-                    text=True,
-                    timeout=timeout,
-                    cwd=str(REPO_ROOT),
-                    encoding="utf-8",
-                    errors="replace",
-                )
+            rc, stdout, stderr = _run_with_timeout(
+                cmd, timeout=timeout, cwd=str(REPO_ROOT),
+                stdin_path=prompt_file,
+            )
 
             kill_stale_processes()
 
-            if r.returncode != 0:
-                err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty output)"
+            if rc != 0:
+                err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty output)"
                 log.error("    [CODEX] attempt %d/%d exit %d: %s",
-                          attempt, retries, r.returncode, err_detail)
+                          attempt, retries, rc, err_detail)
                 if attempt < retries:
                     log.info("    [CODEX] Retrying in 10s ...")
                     time.sleep(10)
@@ -982,12 +1025,12 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
                 pass
 
             # Fallback: parse stdout JSONL
-            if not result and r.stdout:
-                msg = _extract_codex_last_message(r.stdout)
+            if not result and stdout:
+                msg = _extract_codex_last_message(stdout)
                 if msg:
                     result = msg
                 else:
-                    result = r.stdout
+                    result = stdout
 
             return result or ""
 
@@ -1004,8 +1047,8 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
                 except Exception:
                     pass
             # Also grab partial stdout from the exception
-            if not partial and hasattr(exc, "stdout") and exc.stdout:
-                partial = exc.stdout if isinstance(exc.stdout, str) else exc.stdout.decode("utf-8", errors="replace")
+            if not partial and hasattr(exc, "output") and exc.output:
+                partial = exc.output if isinstance(exc.output, str) else exc.output.decode("utf-8", errors="replace")
             _last_dispatch_partial_output = (partial or "")[:3000]
             if partial:
                 log.info("    [CODEX] Captured %d chars of partial output before timeout", len(partial))
@@ -1047,17 +1090,16 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
     if agent == "gemini":
         prompt_file = _write_prompt_file(prompt)
         try:
-            with open(prompt_file, "r", encoding="utf-8") as f:
-                r = subprocess.run(
-                    [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
-                    stdin=f, capture_output=True, text=True, timeout=timeout,
-                    cwd=str(REPO_ROOT), encoding="utf-8", errors="replace",
-                )
+            rc, stdout, stderr = _run_with_timeout(
+                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
+                timeout=timeout, cwd=str(REPO_ROOT),
+                stdin_path=prompt_file,
+            )
             kill_stale_processes()
-            if r.returncode == 0 and r.stdout:
-                return r.stdout
-            err_detail = (r.stderr or "")[:200] or (r.stdout or "")[:200] or "(empty)"
-            log.error("    [GEMINI] dispatch exit %d: %s", r.returncode, err_detail)
+            if rc == 0 and stdout:
+                return stdout
+            err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty)"
+            log.error("    [GEMINI] dispatch exit %d: %s", rc, err_detail)
             return None
         except subprocess.TimeoutExpired:
             log.error("    [GEMINI] dispatch TIMEOUT (%ds)", timeout)

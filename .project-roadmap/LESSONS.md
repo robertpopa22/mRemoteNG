@@ -82,6 +82,32 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless 
 - **Issues triaged as needs_info/wontfix**: ~90% (fast, triage-only)
 - **Issues triaged as implement**: ~10% (slow, full build+test cycle)
 
+### Multiple Claude sessions + orchestrator = interleaved commits
+
+**Problem:** When running the orchestrator AND a separate Claude session on the same repo, their commits interleave. Commits from the second Claude session (docs, CI, README) appear between orchestrator fix commits.
+
+**How to distinguish:**
+- Orchestrator commits: `fix(#NNN): ...` pattern, created by `git_commit()` in orchestrator
+- Other Claude session: `Co-Authored-By: Claude Opus 4.6` trailer, usually docs/CI/README changes
+
+**Impact:** Git history looks messy but no functional conflict. The orchestrator's `git_squash_last()` only squashes its own agent commits, not external ones.
+
+**Mitigation:** When running orchestrator, avoid committing to the same branch from other sessions. Or use a separate branch for orchestrator work.
+
+### Windows subprocess timeout hangs on pipe inheritance (FIXED)
+
+**Problem:** `subprocess.run(capture_output=True, timeout=T)` hangs on Windows when the child process (Codex/Claude/Gemini) spawns grandchildren (MSBuild, node). At timeout, Python kills the direct child but grandchildren inherit the pipe handles. `communicate()` blocks waiting for pipes to close — indefinitely if grandchildren keep running.
+
+**Observed:** Codex implementing #816 ran for 25+ min despite 1170s (19.5 min) timeout. Orchestrator completely stuck.
+
+**Fix (applied 2026-02-16):** Replaced `subprocess.run()` with `_run_with_timeout()` helper:
+1. Uses `subprocess.Popen(creationflags=CREATE_NEW_PROCESS_GROUP)` on Windows
+2. On timeout: `_kill_process_tree(pid)` uses `taskkill /F /T /PID` to kill entire tree
+3. Short `communicate(timeout=10)` to collect partial output, then hard kill
+4. Applied to ALL agent functions: `codex_run`, `claude_run`, `gemini_run`, `_agent_dispatch`
+
+**Key lesson:** NEVER use `subprocess.run(capture_output=True, timeout=T)` for long-running processes on Windows that spawn children. Always use `Popen` + process group + tree kill.
+
 ## Goal
 
 Create a persistent memory of what works, what fails, and the fastest known fix so we do not repeat the same errors.

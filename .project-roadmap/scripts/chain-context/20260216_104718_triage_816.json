@@ -1,0 +1,37 @@
+{
+  "task_type": "triage",
+  "task_id": "816",
+  "started_at": "2026-02-16T10:46:22",
+  "finished_at": "2026-02-16T10:47:18",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "At least two users requested per-connection hostname/IP switching and a maintainer already indicated a profile-based implementation path.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+          "mRemoteNG/Connection/ConnectionInitiator.cs",
+          "mRemoteNG/UI/Window/ConfigWindow.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs"
+        ],
+        "approach": "Add an optional alternate address with a profile-based connect override, resolve the selected address at connect-time, and persist it in existing serializers with backward compatibility."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"At least two users requested per-connection hostname/IP switching and a maintainer already indicated a profile-based implementation path.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/AbstractConnectionRecord.cs\",\"mRemoteNG/Connection/ConnectionInitiator.cs\",\"mRemoteNG/UI/Window/ConfigWindow.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs\"],\"approach\":\"Add an optional alternate address with a profile-based connect override, resolve the selected address at connect-time, and persist it in existing serializers with backward compatibility.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T10:47:18"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
