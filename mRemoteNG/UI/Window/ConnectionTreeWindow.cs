@@ -129,6 +129,7 @@ namespace mRemoteNG.UI.Window
 
         private void SetConnectionTreeEventHandlers()
         {
+            ConnectionTree.MultiSelect = true;
             ConnectionTree.NodeDeletionConfirmer =
                 new SelectedConnectionDeletionConfirmer(prompt => CTaskDialog.MessageBox(
                     Application.ProductName ?? "", prompt, "", ETaskDialogButtons.YesNo, ESysIcons.Question));

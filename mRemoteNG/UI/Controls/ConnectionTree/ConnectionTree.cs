@@ -346,6 +346,20 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             return selectedNodes;
         }
 
+        private void ExecuteInBatchedSaveContext(Action action)
+        {
+            Runtime.ConnectionsService.BeginBatchingSaves();
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Runtime.ConnectionsService.EndBatchingSaves();
+            }
+        }
+
         public void DuplicateSelectedNode()
         {
             foreach (ConnectionInfo selectedNode in GetSelectedNodes())

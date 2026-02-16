@@ -100,7 +100,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             numRdpReconnectionCount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             numRdpReconnectionCount.Location = new System.Drawing.Point(277, 3);
-            numRdpReconnectionCount.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            numRdpReconnectionCount.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numRdpReconnectionCount.Name = "numRdpReconnectionCount";
             numRdpReconnectionCount.Size = new System.Drawing.Size(53, 22);
             numRdpReconnectionCount.TabIndex = 1;
