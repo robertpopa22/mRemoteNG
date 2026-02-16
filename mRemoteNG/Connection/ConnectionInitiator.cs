@@ -42,11 +42,15 @@ namespace mRemoteNG.Connection
         public bool SwitchToOpenConnection(ConnectionInfo connectionInfo)
         {
             InterfaceControl? interfaceControl = FindConnectionContainer(connectionInfo);
-            if (interfaceControl == null) return false;
-            ConnectionTab? connT = interfaceControl.FindForm() as ConnectionTab;
-            connT?.Focus();
-            ConnectionTab? findForm = interfaceControl.FindForm() as ConnectionTab;
-            findForm?.Show(findForm.DockPanel);
+            ConnectionTab? connectionTab = interfaceControl?.FindForm() as ConnectionTab;
+
+            if (connectionTab == null)
+                connectionTab = FindConnectionTab(connectionInfo);
+
+            if (connectionTab == null) return false;
+
+            connectionTab.Focus();
+            connectionTab.Show(connectionTab.DockPanel);
             return true;
         }
 
@@ -314,6 +318,34 @@ namespace mRemoteNG.Connection
             return null;
         }
 
+        private static ConnectionTab? FindConnectionTab(ConnectionInfo connectionInfo)
+        {
+            for (int i = 0; i <= Runtime.WindowList.Count - 1; i++)
+            {
+                if (!(Runtime.WindowList[i] is ConnectionWindow connectionWindow)) continue;
+                if (connectionWindow.Controls.Count < 1) continue;
+                if (!(connectionWindow.Controls[0] is DockPanel dockPanel)) continue;
+
+                foreach (IDockContent dockContent in dockPanel.Documents)
+                {
+                    if (dockContent is not ConnectionTab connectionTab) continue;
+
+                    if (connectionTab.Tag is InterfaceControl interfaceControl)
+                    {
+                        if (interfaceControl.Info == connectionInfo || interfaceControl.OriginalInfo == connectionInfo)
+                            return connectionTab;
+                        continue;
+                    }
+
+                    ConnectionInfo? trackedConnectionInfo = connectionTab.Tag as ConnectionInfo ?? connectionTab.TrackedConnectionInfo;
+                    if (trackedConnectionInfo == connectionInfo)
+                        return connectionTab;
+                }
+            }
+
+            return null;
+        }
+
         private static string? SetConnectionPanel(ConnectionInfo connectionInfo, ConnectionInfo.Force force)
         {
             if (connectionInfo.Panel != "" && !force.HasFlag(ConnectionInfo.Force.OverridePanel) && !Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelSelectionDlg)
@@ -341,7 +373,7 @@ namespace mRemoteNG.Connection
 
         private static Control? SetConnectionContainer(ConnectionInfo connectionInfo, ConnectionWindow connectionForm)
         {
-            Control? connectionContainer = connectionForm.AddConnectionTab(connectionInfo);
+            Control? connectionContainer = connectionForm.GetOrAddConnectionTab(connectionInfo);
 
             if (connectionInfo.Protocol != ProtocolType.IntApp) return connectionContainer;
 

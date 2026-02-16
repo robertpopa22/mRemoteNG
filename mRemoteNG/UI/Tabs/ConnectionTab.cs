@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
@@ -27,6 +28,10 @@ namespace mRemoteNG.UI.Tabs
         /// </summary>
         public bool protocolClose { get; set; }
 
+        public ConnectionInfo? TrackedConnectionInfo { get; private set; }
+
+        private Label? _closedStateLabel;
+
         public ConnectionTab()
         {
             InitializeComponent();
@@ -36,6 +41,33 @@ namespace mRemoteNG.UI.Tabs
         private void ConnectionTab_GotFocus(object sender, EventArgs e)
         {
             TabHelper.Instance.CurrentTab = this;
+        }
+
+        public void TrackConnection(ConnectionInfo connectionInfo)
+        {
+            TrackedConnectionInfo = connectionInfo;
+        }
+
+        public void ShowClosedState()
+        {
+            _closedStateLabel ??= new Label
+            {
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            if (!Controls.Contains(_closedStateLabel))
+                Controls.Add(_closedStateLabel);
+
+            _closedStateLabel.Text = Language.ConnenctionCloseEvent;
+            _closedStateLabel.BringToFront();
+        }
+
+        public void HideClosedState()
+        {
+            if (_closedStateLabel == null) return;
+            if (Controls.Contains(_closedStateLabel))
+                Controls.Remove(_closedStateLabel);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

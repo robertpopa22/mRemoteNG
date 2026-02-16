@@ -57,6 +57,38 @@ namespace mRemoteNG.UI.Window
             return InterfaceControl.FindInterfaceControl(connDock);
         }
 
+        private ConnectionTab? GetSelectedTab()
+        {
+            return connDock.ActiveDocument as ConnectionTab ?? GetInterfaceControl()?.Parent as ConnectionTab;
+        }
+
+        private static ConnectionInfo? GetConnectionInfoForTab(ConnectionTab? connectionTab)
+        {
+            if (connectionTab == null) return null;
+
+            if (connectionTab.Tag is InterfaceControl interfaceControl)
+                return interfaceControl.Info;
+
+            if (connectionTab.Tag is ConnectionInfo connectionInfo)
+                return connectionInfo;
+
+            return connectionTab.TrackedConnectionInfo;
+        }
+
+        private ConnectionTab? FindReusableClosedTab(ConnectionInfo connectionInfo)
+        {
+            foreach (IDockContent dockContent in connDock.DocumentsToArray())
+            {
+                if (dockContent is not ConnectionTab connectionTab) continue;
+                if (InterfaceControl.FindInterfaceControl(connectionTab) != null) continue;
+
+                if (GetConnectionInfoForTab(connectionTab) == connectionInfo)
+                    return connectionTab;
+            }
+
+            return null;
+        }
+
         private void SetEventHandlers()
         {
             SetFormEventHandlers();
@@ -146,6 +178,9 @@ namespace mRemoteNG.UI.Window
                     TabPageContextMenuStrip = cmenTab
                 };
 
+                conTab.TrackConnection(connectionInfo);
+                conTab.HideClosedState();
+
                 //if (Settings.Default.AlwaysShowConnectionTabs == false)
                 // TODO: See if we can make this work with DPS...
                 //TabController.HideTabsMode = TabControl.HideTabsModes.HideAlways;
@@ -169,6 +204,21 @@ namespace mRemoteNG.UI.Window
             }
 
             return null;
+        }
+
+        public ConnectionTab? GetOrAddConnectionTab(ConnectionInfo connectionInfo)
+        {
+            ConnectionTab? reusableTab = FindReusableClosedTab(connectionInfo);
+            if (reusableTab != null)
+            {
+                reusableTab.TrackConnection(connectionInfo);
+                reusableTab.HideClosedState();
+                reusableTab.DockHandler.Activate();
+                reusableTab.Focus();
+                return reusableTab;
+            }
+
+            return AddConnectionTab(connectionInfo);
         }
 
         private static string GetFolderPath(ConnectionInfo connectionInfo)
@@ -414,9 +464,10 @@ namespace mRemoteNG.UI.Window
 
         private void ConnDockOnActiveContentChanged(object sender, EventArgs e)
         {
-            InterfaceControl? ic = GetInterfaceControl();
-            if (ic?.Info == null) return;
-            FrmMain.Default.SelectedConnection = ic.Info;
+            ConnectionTab? selectedTab = GetSelectedTab();
+            ConnectionInfo? selectedConnectionInfo = GetConnectionInfoForTab(selectedTab);
+            if (selectedConnectionInfo == null) return;
+            FrmMain.Default.SelectedConnection = selectedConnectionInfo;
         }
 
         private void ClosePanelIfEmpty()
@@ -489,7 +540,21 @@ namespace mRemoteNG.UI.Window
             try
             {
                 InterfaceControl? interfaceControl = GetInterfaceControl();
-                if (interfaceControl == null) return;
+                if (interfaceControl == null)
+                {
+                    cmenTabViewOnly.Visible = false;
+                    cmenTabFullscreen.Visible = false;
+                    cmenTabSmartSize.Visible = false;
+                    cmenTabSendSpecialKeys.Visible = false;
+                    cmenTabStartChat.Visible = false;
+                    cmenTabRefreshScreen.Visible = false;
+                    cmenTabTransferFile.Visible = false;
+                    cmenTabPuttySettings.Visible = false;
+                    cmenTabExternalApps.Visible = false;
+                    return;
+                }
+
+                cmenTabExternalApps.Visible = true;
 
                 if (interfaceControl.Protocol is ISupportsViewOnly viewOnly)
                 {
@@ -778,7 +843,7 @@ namespace mRemoteNG.UI.Window
 
         private void CloseTabMenu()
         {
-            ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
+            ConnectionTab? selectedTab = GetSelectedTab();
             if (selectedTab == null) return;
 
             try
@@ -797,7 +862,7 @@ namespace mRemoteNG.UI.Window
 
         private void CloseOtherTabs()
         {
-            ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
+            ConnectionTab? selectedTab = GetSelectedTab();
             if (selectedTab == null) return;
             if (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple)
             {
@@ -833,7 +898,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                ConnectionTab? selectedTab = GetInterfaceControl()?.Parent as ConnectionTab;
+                ConnectionTab? selectedTab = GetSelectedTab();
                 if (selectedTab == null) return;
                 DockPane dockPane = selectedTab.Pane;
 
@@ -878,15 +943,19 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                InterfaceControl? interfaceControl = GetInterfaceControl();
-                if (interfaceControl == null)
+                ConnectionTab? selectedTab = GetSelectedTab();
+                ConnectionInfo? connectionInfo = GetConnectionInfoForTab(selectedTab);
+                if (connectionInfo == null)
                 {
-                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "Reconnect (UI.Window.ConnectionWindow) failed. Could not find InterfaceControl.");
+                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "Reconnect (UI.Window.ConnectionWindow) failed. Could not find ConnectionInfo.");
                     return;
                 }
 
-                Prot_Event_Closed(interfaceControl.Protocol);
-                Runtime.ConnectionInitiator.OpenConnection(interfaceControl.Info, ConnectionInfo.Force.DoNotJump, this);
+                InterfaceControl? interfaceControl = GetInterfaceControl();
+                if (interfaceControl != null)
+                    HandleProtocolClosed(interfaceControl.Protocol, keepTabOpen: false);
+
+                Runtime.ConnectionInitiator.OpenConnection(connectionInfo, ConnectionInfo.Force.DoNotJump, this);
             }
             catch (Exception ex)
             {
@@ -936,6 +1005,11 @@ namespace mRemoteNG.UI.Window
 
         public void Prot_Event_Closed(object sender)
         {
+            HandleProtocolClosed(sender, keepTabOpen: true);
+        }
+
+        private void HandleProtocolClosed(object sender, bool keepTabOpen)
+        {
             if (IsDisposed || Disposing || !IsHandleCreated)
                 return;
 
@@ -943,7 +1017,7 @@ namespace mRemoteNG.UI.Window
             {
                 try
                 {
-                    BeginInvoke(new Action<object>(Prot_Event_Closed), sender);
+                    BeginInvoke(new Action<object, bool>(HandleProtocolClosed), sender, keepTabOpen);
                 }
                 catch (ObjectDisposedException)
                 {
@@ -960,9 +1034,31 @@ namespace mRemoteNG.UI.Window
             ProtocolBase? protocolBase = sender as ProtocolBase;
             if (!(protocolBase?.InterfaceControl?.Parent is ConnectionTab tabPage)) return;
             if (tabPage.Disposing || tabPage.IsDisposed) return;
-            tabPage.protocolClose = true;
 
-            try
+            ConnectionInfo? closedConnectionInfo =
+                tabPage.TrackedConnectionInfo ??
+                protocolBase.InterfaceControl.OriginalInfo ??
+                GetConnectionInfoForTab(tabPage) ??
+                protocolBase.InterfaceControl.Info;
+
+            if (closedConnectionInfo != null)
+                tabPage.TrackConnection(closedConnectionInfo);
+
+                        if (keepTabOpen)
+                        {
+                            if (protocolBase.InterfaceControl != null)
+                            {
+                                tabPage.Controls.Remove(protocolBase.InterfaceControl);
+                                protocolBase.InterfaceControl.Dispose();
+                            }
+            
+                            tabPage.ShowClosedState();
+                            if (closedConnectionInfo != null)
+                                FrmMain.Default.SelectedConnection = closedConnectionInfo; 
+                            return;
+                        }
+            
+                        tabPage.protocolClose = true;            try
             {
                 tabPage.Close();
             }
