@@ -1,0 +1,23 @@
+To: support@mremoteng.org
+Subject: Apology for automated comment spam — robertpopa22 fork
+
+Hi Dimitrij,
+
+I'm Robert Popa, the maintainer of the robertpopa22/mRemoteNG fork (Community Edition). I believe my account was blocked from the mRemoteNG organization, and I completely understand why.
+
+What happened: I'm using an AI-assisted orchestrator to triage and fix issues from the upstream backlog. Unfortunately, a bug in my script's rate-limiting caused it to post ~36 comments within 76 seconds this morning (07:27-07:28 UTC), plus dozens more over the past two days — all with the same "Fix available for testing" template. I understand this looked exactly like bot spam, and I sincerely apologize for the disruption.
+
+What I've done:
+- Identified and fixed the rate-limiting bug in my orchestrator script
+- I will no longer batch-post comments on upstream issues without manual review
+- Future upstream communication will be consolidated (one PR + one discussion, not per-issue comments)
+
+My contributions are genuine. The fork has real fixes for long-standing issues (self-contained builds, security hardening, 830-issue triage). PR #3134 consolidates everything into a single clean PR for your review.
+
+I'd really appreciate being unblocked so I can continue contributing. I'm happy to discuss the best way to communicate fixes going forward — whether that's a single tracking issue, a discussion thread, or just the consolidated PR.
+
+Thank you for maintaining mRemoteNG, and again, sorry for the noise.
+
+Best regards,
+Robert Popa
+https://github.com/robertpopa22/mRemoteNG

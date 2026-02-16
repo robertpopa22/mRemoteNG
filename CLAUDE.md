@@ -349,6 +349,8 @@ python .project-roadmap/scripts/iis_orchestrator.py report
 5. **ALWAYS** use `--post-comment` when marking issues as `released`
 6. Track iteration loops — if user says "still broken", use `update --issue N --status in-progress`
 7. **COMMIT PER ISSUE** — After fixing an issue, run build + tests. If tests pass, commit immediately before moving to the next issue. Format: `fix(#NNNN): short description`. One issue = one atomic commit. Never batch multiple fixes together.
+8. **NO UPSTREAM SPAM** — Do NOT batch-post comments on upstream issues. Rate limit: max 10 comments/day, min 10s between posts (enforced by `gh_post_comment`). Finish ALL work locally first, then present a single consolidated PR. Only post individual comments when explicitly requested by the user for a specific issue.
+9. **UPSTREAM COMMUNICATION** — Prefer one consolidated PR + one discussion thread over per-issue comments. Only use `--post-comment` on release (not during development/triage).
 
 ### Full documentation
 See `.project-roadmap/issues-db/README.md` for complete schema, examples, and workflow details.

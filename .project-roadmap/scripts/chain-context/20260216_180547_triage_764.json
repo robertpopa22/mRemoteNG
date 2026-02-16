@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "764",
+  "started_at": "2026-02-16T18:05:29",
+  "finished_at": "2026-02-16T18:05:47",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue is stale and does not include a current reproducible case on the latest build, so impact and root cause cannot be validated.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Request a retest on the latest build with exact steps, search input, expected vs actual behavior, and screenshots/logs, then re-triage based on confirmed results."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The issue is stale and does not include a current reproducible case on the latest build, so impact and root cause cannot be validated.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Request a retest on the latest build with exact steps, search input, expected vs actual behavior, and screenshots/logs, then re-triage based on confirmed results.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:05:47"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

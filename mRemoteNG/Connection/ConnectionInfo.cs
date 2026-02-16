@@ -65,6 +65,12 @@ namespace mRemoteNG.Connection
         [Browsable(false)]
         public bool PleaseConnect { get; set; }
 
+        [Browsable(false)]
+        public bool IncludeInMultiSsh { get; set; }
+
+        [Browsable(false)]
+        public bool ExcludeFromMultiSsh { get; set; }
+
         #endregion
 
         #region Constructors
@@ -171,7 +177,8 @@ namespace mRemoteNG.Connection
             string[] excludedProperties = new[]
             {
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
-                "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect"
+                "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
+                "IncludeInMultiSsh", "ExcludeFromMultiSsh"
             };
 
             return GetProperties(excludedProperties);

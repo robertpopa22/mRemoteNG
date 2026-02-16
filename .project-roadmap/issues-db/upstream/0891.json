@@ -22,6 +22,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The issue provides only a title with no behavior details, scope, or acceptance criteria to implement against."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-16",
+      "type": "triaged",
+      "description": "The issue has no description or comments, so the requested connection tree menu behavior and acceptance criteria are undefined."
     }
   ],
   "comments": [],
@@ -30,5 +36,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (codex): The issue provides only a title with no behavior details, scope, or acceptance criteria to implement against.\nApproach: Request the exact menu items, where and when the menu should appear in the connection tree, and clear expected behavior before coding."
+  "notes": "AI triage (codex): The issue provides only a title with no behavior details, scope, or acceptance criteria to implement against.\nApproach: Request the exact menu items, where and when the menu should appear in the connection tree, and clear expected behavior before coding.\nAI triage (codex): The issue has no description or comments, so the requested connection tree menu behavior and acceptance criteria are undefined.\nApproach: Request exact menu items, trigger points (right-click/top menu), and expected actions before implementation."
 }

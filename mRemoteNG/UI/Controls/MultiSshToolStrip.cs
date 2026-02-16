@@ -8,6 +8,9 @@ using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Tabs;
+using mRemoteNG.UI.Window;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.UI.Controls
@@ -18,6 +21,7 @@ namespace mRemoteNG.UI.Controls
         private IContainer components = null!;
         private ToolStripLabel lblMultiSsh = null!;
         private ToolStripTextBox txtMultiSsh = null!;
+        private ToolStripButton btnCurrentPanelOnly = null!;
         private int previousCommandIndex = 0;
         private readonly ArrayList processHandlers = [];
         private readonly ArrayList quickConnectConnections = [];
@@ -41,16 +45,54 @@ namespace mRemoteNG.UI.Controls
             txtMultiSsh.ForeColor = _themeManager.ActiveTheme.ExtendedPalette!.getColor("TextBox_Foreground");
         }
 
-        private ArrayList ProcessOpenConnections(ConnectionInfo connection)
+        private ConnectionWindow? GetCurrentConnectionPanel()
+        {
+            if (FrmMain.Default.pnlDock.ActiveDocument is ConnectionWindow activePanel)
+                return activePanel;
+
+            return TabHelper.Instance.CurrentPanel;
+        }
+
+        private static ConnectionWindow? GetConnectionPanel(PuttyBase puttyBase)
+        {
+            Control? current = puttyBase.InterfaceControl.Parent;
+            while (current != null && current is not ConnectionWindow)
+            {
+                current = current.Parent;
+            }
+
+            return current as ConnectionWindow;
+        }
+
+        private bool ShouldIncludeConnection(ConnectionInfo connection, PuttyBase puttyBase, ConnectionWindow? currentPanel)
+        {
+            if (connection.ExcludeFromMultiSsh)
+                return false;
+
+            if (!btnCurrentPanelOnly.Checked)
+                return true;
+
+            if (connection.IncludeInMultiSsh)
+                return true;
+
+            if (currentPanel == null)
+                return true;
+
+            ConnectionWindow? connectionPanel = GetConnectionPanel(puttyBase);
+            return connectionPanel != null && ReferenceEquals(connectionPanel, currentPanel);
+        }
+
+        private ArrayList ProcessOpenConnections(ConnectionInfo connection, ConnectionWindow? currentPanel)
         {
             ArrayList handlers = new();
 
-            foreach (ProtocolBase _base in connection.OpenConnections)
+            foreach (ProtocolBase protocolBase in connection.OpenConnections)
             {
-                if (_base.GetType().IsSubclassOf(typeof(PuttyBase)))
-                {
-                    handlers.Add((PuttyBase)_base);
-                }
+                if (protocolBase is not PuttyBase puttyBase)
+                    continue;
+
+                if (ShouldIncludeConnection(connection, puttyBase, currentPanel))
+                    handlers.Add(puttyBase);
             }
 
             return handlers;
@@ -68,12 +110,14 @@ namespace mRemoteNG.UI.Controls
 
         #region Key Event Handler
 
-        private void RefreshActiveConnections(object sender, EventArgs e)
+        private void RefreshActiveConnections()
         {
             processHandlers.Clear();
+            ConnectionWindow? currentPanel = GetCurrentConnectionPanel();
+
             foreach (ConnectionInfo connection in quickConnectConnections)
             {
-                processHandlers.AddRange(ProcessOpenConnections(connection));
+                processHandlers.AddRange(ProcessOpenConnections(connection, currentPanel));
             }
 
             System.Collections.Generic.IEnumerable<ConnectionInfo>? connectionTreeConnections = Runtime.ConnectionsService.ConnectionTreeModel?.GetRecursiveChildList().Where(item => item.OpenConnections.Count > 0);
@@ -81,8 +125,13 @@ namespace mRemoteNG.UI.Controls
 
             foreach (ConnectionInfo connection in connectionTreeConnections)
             {
-                processHandlers.AddRange(ProcessOpenConnections(connection));
+                processHandlers.AddRange(ProcessOpenConnections(connection, currentPanel));
             }
+        }
+
+        private void RefreshActiveConnections(object sender, EventArgs e)
+        {
+            RefreshActiveConnections();
         }
 
         private void ProcessKeyPress(object sender, KeyEventArgs e)
@@ -112,11 +161,13 @@ namespace mRemoteNG.UI.Controls
 
             if (e.Control && e.KeyCode != Keys.V && e.Alt == false)
             {
+                RefreshActiveConnections();
                 SendAllKeystrokes(NativeMethods.WM_KEYDOWN, e.KeyValue);
             }
 
             if (e.KeyCode == Keys.Enter)
             {
+                RefreshActiveConnections();
                 foreach (char chr1 in txtMultiSsh.Text)
                 {
                     SendAllKeystrokes(NativeMethods.WM_CHAR, Convert.ToByte(chr1));
@@ -161,6 +212,7 @@ namespace mRemoteNG.UI.Controls
             this.components = new System.ComponentModel.Container();
             this.lblMultiSsh = new ToolStripLabel();
             this.txtMultiSsh = new ToolStripTextBox();
+            this.btnCurrentPanelOnly = new ToolStripButton();
             this.SuspendLayout();
             // 
             // lblMultiSSH
@@ -177,11 +229,22 @@ namespace mRemoteNG.UI.Controls
             this.txtMultiSsh.Enter += RefreshActiveConnections;
             this.txtMultiSsh.KeyDown += ProcessKeyPress;
             this.txtMultiSsh.KeyUp += ProcessKeyRelease;
+            // 
+            // btnCurrentPanelOnly
+            // 
+            this.btnCurrentPanelOnly.CheckOnClick = true;
+            this.btnCurrentPanelOnly.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            this.btnCurrentPanelOnly.Name = "_btnCurrentPanelOnly";
+            this.btnCurrentPanelOnly.Size = new System.Drawing.Size(81, 22);
+            this.btnCurrentPanelOnly.Text = "Current panel";
+            this.btnCurrentPanelOnly.ToolTipText = "Send commands only to tabs in the current panel. Use tab context menu to include or exclude specific tabs.";
+            this.btnCurrentPanelOnly.CheckedChanged += RefreshActiveConnections;
 
             this.Items.AddRange(new ToolStripItem[]
             {
                 lblMultiSsh,
-                txtMultiSsh
+                txtMultiSsh,
+                btnCurrentPanelOnly
             });
             this.ResumeLayout(false);
         }

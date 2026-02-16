@@ -8,7 +8,7 @@
   ],
   "author": "LoTGoD",
   "created_at": "2017-02-02T16:43:23Z",
-  "github_updated_at": "2026-02-16T07:27:32Z",
+  "github_updated_at": "2026-02-16T14:54:40Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\n**I tried importing a Terminals XML file in to mRemoteNG, but keep getting errors about the format of the file:**\r\n\r\n---\r\n\r\n_InformationMsg 1/18/2017 3:17:17 PM You cannot import a normal connection file. Please use File - Load Connections for normal connection files!_\r\n\r\n---\r\n\r\n_WarningMsg 1/18/2017 3:17:17 PM You are trying to load a connection file that was created using an very early version of...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -110,12 +110,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7o_WPK",
+      "author": "miken89",
+      "date": "2026-02-16T14:54:40Z",
+      "snippet": "How do you go about using the new TerminalsImporter?\r\nI tried to 'open connection file', and selected my backup of my Terminals\r\nconnections, but it only created a bunch of empty 'new connection' entrees.\r\nI do not see any option to import connections from file..\r\n\r\nThanks,\r\n-Mike-\r\n\r\n\r\nOn Mon, Feb 16, 2026 at 2:27 AM Robert Popa ***@***.***>\r\nwrote:\r\n\r\n> *robertpopa22* left a comment (mRemoteNG/mRemoteNG#387)\r\n> <https://github.com/mRemoteNG/mRemoteNG/issues/387#issuecomment-3906865350>\r\n>\r\n> *...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:32Z",
-  "unread_comments": 7,
+  "comments_cursor": "2026-02-16T14:54:40Z",
+  "unread_comments": 8,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-16T16:05:22Z",
   "notes": "AI triage: Legitimate enhancement request to import Terminals XML connection files, with multiple users requesting it over time\nApproach: Create a new TerminalsImporter class that parses the Terminals XML format (groups, RDP sessions with host/port/credentials) and maps them to mRemoteNG ConnectionInfo objects, then register it in the import dialog alongside existing importers (PuTTY, RDCMan, etc.)"
 }

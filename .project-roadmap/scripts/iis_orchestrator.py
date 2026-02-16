@@ -2566,14 +2566,78 @@ def gh_run_json(args, timeout=60):
         return None
 
 
+# ── GitHub comment rate-limiting (persisted to disk) ──
+_COMMENT_RATE_MIN_INTERVAL = 10   # seconds between comments
+_COMMENT_RATE_DAILY_LIMIT = 10    # max comments per day (override with --force-comments)
+_COMMENT_RATE_FILE = SCRIPTS_DIR / "_comment_rate.json"
+
+
+def _load_comment_rate():
+    """Load rate-limit state from disk (survives across process invocations)."""
+    today = datetime.date.today().isoformat()
+    default = {"last_post_ts": 0.0, "daily_count": 0, "daily_date": today, "log": []}
+    if not _COMMENT_RATE_FILE.exists():
+        return default
+    try:
+        with open(_COMMENT_RATE_FILE, "r", encoding="utf-8") as f:
+            state = json.load(f)
+        # Reset daily counter on new day
+        if state.get("daily_date") != today:
+            state["daily_date"] = today
+            state["daily_count"] = 0
+            state["log"] = []
+        return state
+    except Exception:
+        return default
+
+
+def _save_comment_rate(state):
+    """Persist rate-limit state to disk."""
+    try:
+        with open(_COMMENT_RATE_FILE, "w", encoding="utf-8") as f:
+            json.dump(state, f, indent=2)
+    except Exception as e:
+        log.warning("  [RATE] Failed to save rate state: %s", e)
+
+
 def gh_post_comment(repo, num, body):
-    """Post a comment on a GitHub issue. Returns True on success."""
+    """Post a comment on a GitHub issue. Returns True on success.
+    Rate-limited: min 10s between posts, max 10/day (persisted to disk)."""
+    state = _load_comment_rate()
+
+    # Check daily limit
+    if state["daily_count"] >= _COMMENT_RATE_DAILY_LIMIT:
+        log.warning("  [RATE LIMIT] Daily comment limit reached (%d/%d). "
+                     "Skipping comment on #%d. Use --force-comments to override.",
+                     state["daily_count"], _COMMENT_RATE_DAILY_LIMIT, num)
+        print(f"RATE LIMIT: {state['daily_count']}/{_COMMENT_RATE_DAILY_LIMIT} "
+              f"daily comments used. Skipping #{num}.")
+        return False
+
+    # Enforce minimum interval (using wall-clock timestamps)
+    now_ts = time.time()
+    elapsed = now_ts - state.get("last_post_ts", 0)
+    if elapsed < _COMMENT_RATE_MIN_INTERVAL and state.get("last_post_ts", 0) > 0:
+        wait = _COMMENT_RATE_MIN_INTERVAL - elapsed
+        log.info("  [RATE LIMIT] Waiting %.1fs before next comment...", wait)
+        print(f"Rate-limiting: waiting {wait:.0f}s before posting comment on #{num}...")
+        time.sleep(wait)
+
     try:
         r = _run(
             ["gh", "issue", "comment", str(num), "--repo", repo, "--body", body],
             timeout=30,
         )
-        return r.returncode == 0
+        if r.returncode == 0:
+            state["last_post_ts"] = time.time()
+            state["daily_count"] += 1
+            state["log"].append({"issue": num, "repo": repo,
+                                 "time": datetime.datetime.now().isoformat()})
+            _save_comment_rate(state)
+            log.info("  [GH] Comment posted on #%d (%d/%d today)",
+                     num, state["daily_count"], _COMMENT_RATE_DAILY_LIMIT)
+            return True
+        return False
     except Exception:
         return False
 
@@ -3445,6 +3509,8 @@ def main():
                         help="Release download URL for update")
     parser.add_argument("--post-comment", action="store_true",
                         help="Post templated comment to GitHub")
+    parser.add_argument("--force-comments", action="store_true",
+                        help="Override daily comment limit (use with caution!)")
     parser.add_argument("--notes", default=None,
                         help="Notes to add/update on the issue")
     parser.add_argument("--add-to-roadmap", action="store_true",
@@ -3478,6 +3544,11 @@ def main():
         if not args.status:
             print("ERROR: --status is required for update mode")
             sys.exit(1)
+        # Override daily limit if --force-comments (interval still enforced)
+        if args.force_comments:
+            state = _load_comment_rate()
+            state["daily_count"] = 0
+            _save_comment_rate(state)
         iis_update(
             issue_num=args.issue, new_status=args.status,
             repo=args.repo, description=args.description,

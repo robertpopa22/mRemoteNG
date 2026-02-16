@@ -29,6 +29,9 @@ namespace mRemoteNG.UI.Window
     {
         private VisualStudioToolStripExtender? _vsToolStripExtender;
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
+        private readonly ToolStripMenuItem _cmenTabIncludeInMultiSsh = new();
+        private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
+        private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();
 
         #region Public Methods
 
@@ -75,6 +78,14 @@ namespace mRemoteNG.UI.Window
             return connectionTab.TrackedConnectionInfo;
         }
 
+        private static ConnectionInfo? GetMultiSshConnectionInfoForTab(ConnectionTab? connectionTab)
+        {
+            if (connectionTab?.Tag is InterfaceControl interfaceControl)
+                return interfaceControl.OriginalInfo ?? interfaceControl.Info;
+
+            return GetConnectionInfoForTab(connectionTab);
+        }
+
         private ConnectionTab? FindReusableClosedTab(ConnectionInfo connectionInfo)
         {
             foreach (IDockContent dockContent in connDock.DocumentsToArray())
@@ -104,6 +115,8 @@ namespace mRemoteNG.UI.Window
 
         private void SetContextMenuEventHandlers()
         {
+            InitializeMultiSshContextMenuItems();
+
             // event handler to adjust the items within the context menu
             cmenTab.Opening += ShowHideMenuButtons;
 
@@ -123,7 +136,28 @@ namespace mRemoteNG.UI.Window
             cmenTabDisconnectOthers.Click += (sender, args) => CloseOtherTabs();
             cmenTabDisconnectOthersRight.Click += (sender, args) => CloseOtherTabsToTheRight();
             cmenTabPuttySettings.Click += (sender, args) => ShowPuttySettingsDialog();
+            _cmenTabIncludeInMultiSsh.Click += (sender, args) => ToggleMultiSshInclude();
+            _cmenTabExcludeFromMultiSsh.Click += (sender, args) => ToggleMultiSshExclude();
             GotFocus += ConnectionWindow_GotFocus;
+        }
+
+        private void InitializeMultiSshContextMenuItems()
+        {
+            _cmenTabIncludeInMultiSsh.Name = "cmenTabIncludeInMultiSsh";
+            _cmenTabExcludeFromMultiSsh.Name = "cmenTabExcludeFromMultiSsh";
+            _cmenTabMultiSshSeparator.Name = "cmenTabMultiSshSeparator";
+
+            int puttySettingsIndex = cmenTab.Items.IndexOf(cmenTabPuttySettings);
+            if (puttySettingsIndex < 0)
+                puttySettingsIndex = cmenTab.Items.Count;
+
+            cmenTab.Items.Insert(puttySettingsIndex, _cmenTabMultiSshSeparator);
+            cmenTab.Items.Insert(puttySettingsIndex + 1, _cmenTabIncludeInMultiSsh);
+            cmenTab.Items.Insert(puttySettingsIndex + 2, _cmenTabExcludeFromMultiSsh);
+
+            _cmenTabMultiSshSeparator.Visible = false;
+            _cmenTabIncludeInMultiSsh.Visible = false;
+            _cmenTabExcludeFromMultiSsh.Visible = false;
         }
 
         private void ConnectionWindow_GotFocus(object sender, EventArgs e)
@@ -441,6 +475,8 @@ namespace mRemoteNG.UI.Window
             cmenTabDisconnectOthers.Text = Language.DisconnectOthers;
             cmenTabDisconnectOthersRight.Text = Language.DisconnectOthersRight;
             cmenTabPuttySettings.Text = Language.PuttySettings;
+            _cmenTabIncludeInMultiSsh.Text = "Include in Multi SSH";
+            _cmenTabExcludeFromMultiSsh.Text = "Exclude from Multi SSH";
         }
 
         private void Connection_FormClosing(object sender, FormClosingEventArgs e)
@@ -635,6 +671,9 @@ namespace mRemoteNG.UI.Window
                     cmenTabTransferFile.Visible = false;
                     cmenTabPuttySettings.Visible = false;
                     cmenTabExternalApps.Visible = false;
+                    _cmenTabMultiSshSeparator.Visible = false;
+                    _cmenTabIncludeInMultiSsh.Visible = false;
+                    _cmenTabExcludeFromMultiSsh.Visible = false;
                     return;
                 }
 
@@ -688,6 +727,21 @@ namespace mRemoteNG.UI.Window
                     cmenTabTransferFile.Visible = true;
                 }
 
+                ConnectionInfo? selectedConnectionInfo = GetMultiSshConnectionInfoForTab(GetSelectedTab());
+                bool showMultiSshFilters = interfaceControl.Protocol is PuttyBase && selectedConnectionInfo != null;
+
+                _cmenTabMultiSshSeparator.Visible = showMultiSshFilters;
+                _cmenTabIncludeInMultiSsh.Visible = showMultiSshFilters;
+                _cmenTabExcludeFromMultiSsh.Visible = showMultiSshFilters;
+
+                if (showMultiSshFilters)
+                {
+                    _cmenTabIncludeInMultiSsh.Checked = selectedConnectionInfo!.IncludeInMultiSsh;
+                    _cmenTabExcludeFromMultiSsh.Checked = selectedConnectionInfo.ExcludeFromMultiSsh;
+                    _cmenTabIncludeInMultiSsh.Enabled = !selectedConnectionInfo.ExcludeFromMultiSsh;
+                    _cmenTabExcludeFromMultiSsh.Enabled = !selectedConnectionInfo.IncludeInMultiSsh;
+                }
+
                 cmenTabPuttySettings.Visible = interfaceControl.Protocol is PuttyBase;
 
                 AddExternalApps();
@@ -738,6 +792,42 @@ namespace mRemoteNG.UI.Window
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("TransferFile (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
+
+        private void ToggleMultiSshInclude()
+        {
+            try
+            {
+                ConnectionInfo? connectionInfo = GetMultiSshConnectionInfoForTab(GetSelectedTab());
+                if (connectionInfo == null)
+                    return;
+
+                connectionInfo.IncludeInMultiSsh = !connectionInfo.IncludeInMultiSsh;
+                if (connectionInfo.IncludeInMultiSsh)
+                    connectionInfo.ExcludeFromMultiSsh = false;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("ToggleMultiSshInclude (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
+
+        private void ToggleMultiSshExclude()
+        {
+            try
+            {
+                ConnectionInfo? connectionInfo = GetMultiSshConnectionInfoForTab(GetSelectedTab());
+                if (connectionInfo == null)
+                    return;
+
+                connectionInfo.ExcludeFromMultiSsh = !connectionInfo.ExcludeFromMultiSsh;
+                if (connectionInfo.ExcludeFromMultiSsh)
+                    connectionInfo.IncludeInMultiSsh = false;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("ToggleMultiSshExclude (UI.Window.ConnectionWindow) failed", ex);
             }
         }
 

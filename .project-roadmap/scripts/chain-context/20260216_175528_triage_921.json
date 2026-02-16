@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "921",
+  "started_at": "2026-02-16T17:54:09",
+  "finished_at": "2026-02-16T17:55:28",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Users need temporary targeting controls for broadcast SSH commands, and maintainers explicitly agreed with both per-connection and panel-level exclusion scenarios.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Controls/MultiSshToolStrip.cs",
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNG/Connection/ConnectionInfo.cs"
+        ],
+        "approach": "Introduce transient include/exclude flags for active SSH tabs plus a panel-scope filter, then apply those filters when MultiSSH refreshes handlers and dispatches keystrokes."
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"Users need temporary targeting controls for broadcast SSH commands, and maintainers explicitly agreed with both per-connection and panel-level exclusion scenarios.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Controls/MultiSshToolStrip.cs\",\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNG/Connection/ConnectionInfo.cs\"],\"approach\":\"Introduce transient include/exclude flags for active SSH tabs plus a panel-scope filter, then apply those filters when MultiSSH refreshes handlers and dispatches keystrokes.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T17:55:28"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

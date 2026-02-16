@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "912",
+  "started_at": "2026-02-16T18:06:47",
+  "finished_at": "2026-02-16T18:07:15",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The report is ambiguous and non-reproducible because the title suggests an RDP 6151 disconnect while the comments describe a password prompt after an unexpected shutdown.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpConnection.cs",
+          "mRemoteNG/Config/Serializers/ConnectionFileSerializer.cs"
+        ],
+        "approach": "Ask for exact reproduction steps, logs/error text, and whether the failure is an RDP session disconnect or connection-file recovery/encryption issue after power loss."
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"The report is ambiguous and non-reproducible because the title suggests an RDP 6151 disconnect while the comments describe a password prompt after an unexpected shutdown.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpConnection.cs\",\"mRemoteNG/Config/Serializers/ConnectionFileSerializer.cs\"],\"approach\":\"Ask for exact reproduction steps, logs/error text, and whether the failure is an RDP session disconnect or connection-file recovery/encryption issue after power loss.\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-16T18:07:15"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
