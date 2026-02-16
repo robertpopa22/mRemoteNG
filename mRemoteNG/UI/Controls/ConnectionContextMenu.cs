@@ -1032,22 +1032,22 @@ namespace mRemoteNG.UI.Controls
 
         private void OnSortAscendingClicked(object sender, EventArgs e)
         {
-            _connectionTree.SortRecursive(_connectionTree.SelectedNode, ListSortDirection.Ascending);
+            _connectionTree.SortSelectedNodesRecursive(ListSortDirection.Ascending);
         }
 
         private void OnSortDescendingClicked(object sender, EventArgs e)
         {
-            _connectionTree.SortRecursive(_connectionTree.SelectedNode, ListSortDirection.Descending);
+            _connectionTree.SortSelectedNodesRecursive(ListSortDirection.Descending);
         }
 
         private void OnMoveUpClicked(object sender, EventArgs e)
         {
-            _connectionTree.SelectedNode?.Parent?.PromoteChild(_connectionTree.SelectedNode);
+            _connectionTree.MoveSelectedNodesUp();
         }
 
         private void OnMoveDownClicked(object sender, EventArgs e)
         {
-            _connectionTree.SelectedNode?.Parent?.DemoteChild(_connectionTree.SelectedNode);
+            _connectionTree.MoveSelectedNodesDown();
         }
 
         private void OnExternalToolClicked(object sender, EventArgs e)

@@ -191,6 +191,24 @@ namespace mRemoteNGTests.Tree
         }
 
         [Test]
+        public void CanDragMultipleNodesWhenAllSourcesAreValid()
+        {
+            ConnectionInfo[] sources = { _connection3, _connection4 };
+            var target = _container1;
+            var dragDropEffects = _dragAndDropHandler.CanModelsDrop(sources, target, DropTargetLocation.Item);
+            Assert.That(dragDropEffects, Is.EqualTo(DragDropEffects.Move));
+        }
+
+        [Test]
+        public void CantDragMultipleNodesWhenOneSourceIsInvalid()
+        {
+            ConnectionInfo[] sources = { _connection3, _rootNode };
+            var target = _container1;
+            var dragDropEffects = _dragAndDropHandler.CanModelsDrop(sources, target, DropTargetLocation.Item);
+            Assert.That(dragDropEffects, Is.EqualTo(DragDropEffects.None));
+        }
+
+        [Test]
         public void DraggingNodeBelowSiblingRearrangesTheUnderlyingModelCorrectly()
         {
             var source = _connection3;

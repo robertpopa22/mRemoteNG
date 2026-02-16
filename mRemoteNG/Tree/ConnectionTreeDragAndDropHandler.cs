@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
@@ -22,12 +23,14 @@ namespace mRemoteNG.Tree
 
         public void HandleEvent_ModelDropped(object sender, ModelDropEventArgs e)
         {
-            if (!(e.TargetModel is ConnectionInfo dropTarget)) return;
-            foreach(ConnectionInfo dropSource in e.SourceModels.Cast<ConnectionInfo>())
+            if (e.TargetModel is not ConnectionInfo dropTarget) return;
+
+            IEnumerable<ConnectionInfo> dropSources = e.SourceModels?.OfType<ConnectionInfo>() ?? [];
+            foreach (ConnectionInfo dropSource in dropSources)
             {
                 DropModel(dropSource, dropTarget, e.DropTargetLocation);
-            }           
-            
+            }
+
             e.Handled = true;
         }
 
@@ -78,20 +81,37 @@ namespace mRemoteNG.Tree
             _enableFeedback = true;
             _currentFeedbackColor = DropDeniedFeedbackColor;
             _infoMessage = null;
-            foreach (ConnectionInfo dropSource in e.SourceModels.Cast<ConnectionInfo>())
-            {
-                if (e.TargetModel is not ConnectionInfo dropTarget)
-                {
-                    e.Effect = DragDropEffects.None;
-                    continue;
-                }
 
-                e.Effect = CanModelDrop(dropSource, dropTarget, e.DropTargetLocation);
-                e.InfoMessage = _infoMessage;
-                e.DropSink.EnableFeedback = _enableFeedback;
-                e.DropSink.FeedbackColor = _currentFeedbackColor;
+            if (e.TargetModel is not ConnectionInfo dropTarget)
+            {
+                e.Effect = DragDropEffects.None;
             }
+            else
+            {
+                IEnumerable<ConnectionInfo> dropSources = e.SourceModels?.OfType<ConnectionInfo>() ?? [];
+                e.Effect = CanModelsDrop(dropSources, dropTarget, e.DropTargetLocation);
+            }
+
+            e.InfoMessage = _infoMessage;
+            e.DropSink.EnableFeedback = _enableFeedback;
+            e.DropSink.FeedbackColor = _currentFeedbackColor;
             e.Handled = true;
+        }
+
+        public DragDropEffects CanModelsDrop(IEnumerable<ConnectionInfo> dropSources,
+                                             ConnectionInfo dropTarget,
+                                             DropTargetLocation dropTargetLocation)
+        {
+            bool hadDropSource = false;
+            foreach (ConnectionInfo dropSource in dropSources)
+            {
+                hadDropSource = true;
+                DragDropEffects dragDropEffect = CanModelDrop(dropSource, dropTarget, dropTargetLocation);
+                if (dragDropEffect == DragDropEffects.None)
+                    return DragDropEffects.None;
+            }
+
+            return hadDropSource ? DragDropEffects.Move : DragDropEffects.None;
         }
 
         public DragDropEffects CanModelDrop(ConnectionInfo dropSource,

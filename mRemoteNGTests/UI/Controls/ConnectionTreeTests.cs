@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -225,6 +226,133 @@ namespace mRemoteNGTests.UI.Controls
 			tree.DuplicateSelectedNode();
 
 			Assert.That(connectionTreeModel.RootNodes, Has.One.Items);
+		});
+
+		[Test]
+		public void CanDuplicateMultipleSelectedNodes() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var con1 = new ConnectionInfo { Name = "con1" };
+			var con2 = new ConnectionInfo { Name = "con2" };
+			root.AddChildRange(new[] { con1, con2 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { con1, con2 };
+			Application.DoEvents();
+			tree.DuplicateSelectedNode();
+
+			Assert.That(root.Children, Has.Exactly(4).Items);
+			Assert.That(root.Children[0], Is.SameAs(con1));
+			Assert.That(root.Children[2], Is.SameAs(con2));
+			Assert.That(root.Children[1], Is.Not.SameAs(con1));
+			Assert.That(root.Children[3], Is.Not.SameAs(con2));
+		});
+
+		[Test]
+		public void CanDeleteMultipleSelectedNodes() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var con1 = new ConnectionInfo { Name = "con1" };
+			var con2 = new ConnectionInfo { Name = "con2" };
+			var con3 = new ConnectionInfo { Name = "con3" };
+			root.AddChildRange(new[] { con1, con2, con3 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { con1, con2 };
+			Application.DoEvents();
+			tree.DeleteSelectedNode();
+
+			Assert.That(root.Children, Has.Exactly(1).Items);
+			Assert.That(root.Children.Single(), Is.SameAs(con3));
+		});
+
+		[Test]
+		public void SortSelectedNodesRecursiveSortsAllSelectedParents() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var folder1 = new ContainerInfo { Name = "folder1" };
+			var folder2 = new ContainerInfo { Name = "folder2" };
+			var b = new ConnectionInfo { Name = "b" };
+			var a = new ConnectionInfo { Name = "a" };
+			var d = new ConnectionInfo { Name = "d" };
+			var c = new ConnectionInfo { Name = "c" };
+			folder1.AddChildRange(new[] { b, a });
+			folder2.AddChildRange(new[] { d, c });
+			root.AddChildRange(new ConnectionInfo[] { folder1, folder2 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { b, d };
+			Application.DoEvents();
+			tree.SortSelectedNodesRecursive(ListSortDirection.Ascending);
+
+			Assert.That(folder1.Children.Select(node => node.Name), Is.EqualTo(new[] { "a", "b" }));
+			Assert.That(folder2.Children.Select(node => node.Name), Is.EqualTo(new[] { "c", "d" }));
+		});
+
+		[Test]
+		public void MoveSelectedNodesUpMovesAllSelectedNodes() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var con1 = new ConnectionInfo { Name = "1" };
+			var con2 = new ConnectionInfo { Name = "2" };
+			var con3 = new ConnectionInfo { Name = "3" };
+			var con4 = new ConnectionInfo { Name = "4" };
+			root.AddChildRange(new[] { con1, con2, con3, con4 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { con2, con4 };
+			Application.DoEvents();
+			tree.MoveSelectedNodesUp();
+
+			Assert.That(root.Children.Select(node => node.Name), Is.EqualTo(new[] { "2", "1", "4", "3" }));
+		});
+
+		[Test]
+		public void MoveSelectedNodesDownMovesAllSelectedNodes() => RunWithMessagePump(tree =>
+		{
+			var connectionTreeModel = new ConnectionTreeModel();
+			var root = new RootNodeInfo(RootNodeType.Connection);
+			var con1 = new ConnectionInfo { Name = "1" };
+			var con2 = new ConnectionInfo { Name = "2" };
+			var con3 = new ConnectionInfo { Name = "3" };
+			var con4 = new ConnectionInfo { Name = "4" };
+			root.AddChildRange(new[] { con1, con2, con3, con4 });
+			connectionTreeModel.AddRootNode(root);
+			tree.ConnectionTreeModel = connectionTreeModel;
+			Application.DoEvents();
+			tree.ExpandAll();
+			Application.DoEvents();
+
+			tree.MultiSelect = true;
+			tree.SelectedObjects = new object[] { con1, con3 };
+			Application.DoEvents();
+			tree.MoveSelectedNodesDown();
+
+			Assert.That(root.Children.Select(node => node.Name), Is.EqualTo(new[] { "2", "1", "4", "3" }));
 		});
 
 		[Test]

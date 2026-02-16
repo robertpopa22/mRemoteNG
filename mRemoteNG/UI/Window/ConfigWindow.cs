@@ -817,9 +817,10 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
+            int portToCheck = info.Port == 0 ? info.GetDefaultPort() : info.Port;
             bool isHostReachable = IsHostReachable(
                 info.Hostname,
-                info.Port,
+                portToCheck,
                 HostStatusCheckTimeoutMilliseconds);
 
             if (_btnHostStatus.Tag as string == "checking")

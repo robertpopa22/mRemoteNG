@@ -336,19 +336,29 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             SelectedItem.BeginEdit();
         }
 
+        private List<ConnectionInfo> GetSelectedNodes()
+        {
+            List<ConnectionInfo> selectedNodes = SelectedObjects?.OfType<ConnectionInfo>().Distinct().ToList() ?? [];
+
+            if (selectedNodes.Count == 0 && SelectedNode != null)
+                selectedNodes.Add(SelectedNode);
+
+            return selectedNodes;
+        }
+
         public void DuplicateSelectedNode()
         {
-            if (SelectedNode == null)
-                return;
+            foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+            {
+                TreeNodeType selectedNodeType = selectedNode.GetTreeNodeType();
+                if (selectedNodeType != TreeNodeType.Connection && selectedNodeType != TreeNodeType.Container)
+                    continue;
 
-            TreeNodeType selectedNodeType = SelectedNode.GetTreeNodeType();
-            if (selectedNodeType != TreeNodeType.Connection && selectedNodeType != TreeNodeType.Container)
-                return;
-
-            ConnectionInfo newNode = SelectedNode.Clone();
-            if (SelectedNode.Parent == null) return;
-            SelectedNode.Parent.AddChildBelow(newNode, SelectedNode);
-            newNode.Parent?.SetChildBelow(newNode, SelectedNode);
+                ConnectionInfo newNode = selectedNode.Clone();
+                if (selectedNode.Parent == null) continue;
+                selectedNode.Parent.AddChildBelow(newNode, selectedNode);
+                newNode.Parent?.SetChildBelow(newNode, selectedNode);
+            }
         }
 
         public void RenameSelectedNode()
@@ -360,9 +370,13 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         public void DeleteSelectedNode()
         {
-            if (SelectedNode is RootNodeInfo || SelectedNode is PuttySessionInfo) return;
-            if (!NodeDeletionConfirmer.Confirm(SelectedNode)) return;
-            ConnectionTreeModel.DeleteNode(SelectedNode);
+            foreach (ConnectionInfo selectedNode in GetSelectedNodes())
+            {
+                if (selectedNode is RootNodeInfo || selectedNode is PuttySessionInfo) continue;
+                if (selectedNode.Parent == null) continue;
+                if (!NodeDeletionConfirmer.Confirm(selectedNode)) return;
+                ConnectionTreeModel.DeleteNode(selectedNode);
+            }
         }
 
         /// <summary>
@@ -395,6 +409,59 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 SelectedNode?.Parent?.SortRecursive(sortDirection);
 
             Runtime.ConnectionsService.EndBatchingSaves();
+        }
+
+        public void SortSelectedNodesRecursive(ListSortDirection sortDirection)
+        {
+            List<ContainerInfo> sortTargets = GetSelectedNodes()
+                .Select(selectedNode => selectedNode as ContainerInfo ?? selectedNode.Parent)
+                .Where(sortTarget => sortTarget != null)
+                .Distinct()
+                .Cast<ContainerInfo>()
+                .ToList();
+
+            if (sortTargets.Count == 0)
+            {
+                SortRecursive(SelectedNode, sortDirection);
+                return;
+            }
+
+            Runtime.ConnectionsService.BeginBatchingSaves();
+
+            foreach (ContainerInfo sortTarget in sortTargets)
+            {
+                sortTarget.SortRecursive(sortDirection);
+            }
+
+            Runtime.ConnectionsService.EndBatchingSaves();
+        }
+
+        public void MoveSelectedNodesUp()
+        {
+            foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
+                     GetSelectedNodes()
+                         .Where(selectedNode => selectedNode.Parent != null)
+                         .GroupBy(selectedNode => selectedNode.Parent!))
+            {
+                foreach (ConnectionInfo selectedNode in parentGroup.OrderBy(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                {
+                    parentGroup.Key.PromoteChild(selectedNode);
+                }
+            }
+        }
+
+        public void MoveSelectedNodesDown()
+        {
+            foreach (IGrouping<ContainerInfo, ConnectionInfo> parentGroup in
+                     GetSelectedNodes()
+                         .Where(selectedNode => selectedNode.Parent != null)
+                         .GroupBy(selectedNode => selectedNode.Parent!))
+            {
+                foreach (ConnectionInfo selectedNode in parentGroup.OrderByDescending(selectedNode => parentGroup.Key.Children.IndexOf(selectedNode)))
+                {
+                    parentGroup.Key.DemoteChild(selectedNode);
+                }
+            }
         }
 
         /// <summary>
