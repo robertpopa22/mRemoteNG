@@ -38,6 +38,9 @@ Full transparency: this project is built by humans and AI working together. We b
   <a href="https://github.com/robertpopa22/mRemoteNG/releases">
     <img alt="Total Downloads" src="https://img.shields.io/badge/total%20downloads-831-green?style=for-the-badge">
   </a>
+  <a href="https://github.com/robertpopa22/mRemoteNG/stargazers">
+    <img alt="Stars" src="https://img.shields.io/github/stars/robertpopa22/mRemoteNG?style=for-the-badge&color=yellow">
+  </a>
 </p>
 
 ## Latest Stable Release
@@ -353,6 +356,16 @@ See [.project-roadmap/issues-db/README.md](.project-roadmap/issues-db/README.md)
 ## License
 
 [GPL-2.0](COPYING.TXT)
+
+## Support the Project
+
+If you find this fork useful, please consider giving it a star — it helps others discover the project and motivates continued development.
+
+<p align="center">
+  <a href="https://github.com/robertpopa22/mRemoteNG/stargazers">
+    <img alt="Star this repo" src="https://img.shields.io/github/stars/robertpopa22/mRemoteNG?style=for-the-badge&label=Star%20on%20GitHub&color=yellow">
+  </a>
+</p>
 
 ## Contributing
 
