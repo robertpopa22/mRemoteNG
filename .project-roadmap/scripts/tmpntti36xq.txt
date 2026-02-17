@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1114: [Feature] Multi select / edit connections
+Description: 
+Approach: Update ConnectionTree to pass all selected nodes to ConfigWindow. Update ConfigWindow and ConnectionInfoPropertyGrid to accept a list of connections. Refactor property filtering logic in ConnectionInfoPropertyGrid to determine common properties and exclusions for the selected set, then use the underlying PropertyGrid.SelectedObjects.
+Likely files: mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs, mRemoteNG/UI/Window/ConfigWindow.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1114
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
