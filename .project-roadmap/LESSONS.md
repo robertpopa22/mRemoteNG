@@ -73,11 +73,71 @@ powershell.exe -NoProfile -Command '& {
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
+### Agent Rate-Limit Tracking (Persistent, Added 2026-02-17)
+
+**Problem:** Codex (OpenAI) has usage limits that reset at a specific date. Without tracking, every orchestrator invocation wastes ~4s per issue trying Codex, getting the same rate-limit error, before falling through to Gemini. Over 612 issues, that's ~40 minutes wasted.
+
+**Solution:** Persistent rate-limit tracking in `_agent_rate_limits.json`:
+```json
+{
+  "codex": {
+    "available_after": "2026-02-21T23:15:00",
+    "detected_at": "2026-02-17T20:23:00"
+  }
+}
+```
+
+**How it works:**
+1. `_agent_dispatch()` checks `_is_agent_rate_limited(agent)` before calling any agent
+2. If rate-limited, logs `[RATE] Skipping codex (rate-limited until ...)` and returns `None` instantly
+3. The chain moves to the next agent (Gemini/Claude) without wasting time
+4. When a rate limit is detected (from error output), `_mark_agent_rate_limited()` persists the reset date
+5. On next orchestrator restart, the rate state is loaded from disk — survives across sessions
+6. When the reset date passes, the limit is auto-cleared and the agent is re-enabled
+
+**Detection:** `_parse_rate_limit_from_output()` parses patterns like:
+- `"try again at Feb 21st, 2026 11:15 PM"` → exact reset date
+- `"rate limit"` / `"usage limit"` without date → default 24h block
+
+**Applied to:** Codex and Gemini (both can be rate-limited). Claude is last in chain, no fallback needed.
+
+**Files:**
+- `_agent_rate_limits.json` — persistent state (git-tracked)
+- `iis_orchestrator.py` — functions: `_load_agent_rate_limits()`, `_save_agent_rate_limits()`, `_mark_agent_rate_limited()`, `_is_agent_rate_limited()`, `_parse_rate_limit_from_output()`
+
+### Codex Sandbox Configuration (Fixed 2026-02-17)
+
+**Problem:** Codex CLI config (`~/.codex/config.toml`) had `approval_policy = "never"` and no `sandbox` setting. The default sandbox is `read-only`, which prevents the agent from writing code. The `--full-auto` flag was supposed to override this, but the config took precedence.
+
+**Fix:** Replaced `--full-auto` in orchestrator with explicit flags:
+```
+-a never        # auto-approve all tool calls (no user prompts)
+-s workspace-write  # writable sandbox (can modify files in repo)
+```
+
+**Config.toml values and meanings:**
+| `approval_policy` | Meaning |
+|-------------------|---------|
+| `never` | Auto-approve everything (no user prompt) — **CORRECT for orchestrator** |
+| `on-request` | Model decides when to ask |
+| `on-failure` | Only ask on command failure |
+| `untrusted` | Only run trusted commands |
+
+| `sandbox` | Meaning |
+|-----------|---------|
+| `read-only` | Cannot write files — **WRONG for orchestrator** |
+| `workspace-write` | Can write in working directory — **CORRECT** |
+| `danger-full-access` | Full system access (dangerous) |
+
 ### Orchestrator speed estimates
 
 - **Triage** (Codex): ~15-30s per issue, ~120s timeout
+- **Triage** (Gemini): ~30-120s per issue, ~132s timeout
+- **Triage** (Claude): ~30-90s per issue, ~90s timeout
 - **Implement** (Codex): 3-10 min per issue (code + build + test)
-- **Fallback** (Gemini/Claude): adds 1-2 min per failed agent
+- **Implement** (Gemini/Claude): 5-15 min per issue
+- **Fallback** (next agent): adds 1-2 min per failed agent
+- **Rate-limited skip**: <100ms (instant, from disk cache)
 - **645 issues total**: ~6-8 hours estimated (triage all + ~50-80 implementations)
 - **Issues triaged as needs_info/wontfix**: ~90% (fast, triage-only)
 - **Issues triaged as implement**: ~10% (slow, full build+test cycle)
