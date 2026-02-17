@@ -26,6 +26,7 @@ namespace mRemoteNG.Config.Putty
         private PuttySessionsManager()
         {
             AddProvider(new PuttySessionsRegistryProvider());
+            AddProvider(new PuttySessionsFileProvider());
         }
 
 
