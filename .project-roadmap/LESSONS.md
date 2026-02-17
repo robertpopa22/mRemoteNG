@@ -190,6 +190,23 @@ taskkill //F //IM VBCSCompiler.exe 2>/dev/null
 taskkill //F //IM testhost.exe 2>/dev/null
 ```
 
+### Bitdefender Quarantines mRemoteNG.dll After Repeated Build Cycles (2026-02-17)
+
+**Problem:** After 31h orchestrator run (247 build+test+revert cycles), Bitdefender Advanced Threat Defense (ATD) quarantined `mRemoteNG\obj\x64\Release\mRemoteNG.dll`. Rapid DLL creation/deletion looks like malware behavior to ATD. Once quarantined, even Admin cannot create a file with that exact name at that exact path — Bitdefender kernel minifilter driver blocks it.
+
+**Symptoms:**
+- `CSC : error CS2012: Cannot open 'mRemoteNG.dll' for writing -- Access denied`
+- `test.dll` in same directory: OK. `mRemoteNG2.dll`: OK. Only `mRemoteNG.dll`: blocked.
+- Even with Bitdefender UI "disabled", kernel services still block.
+
+**Fix:**
+1. Restore from Bitdefender quarantine (Protection → Antivirus → Quarantine)
+2. Add exception: `D:\github\mRemoteNG\` to ALL modules (Antivirus, ATD, Ransomware Remediation)
+3. **Reboot required** — Bitdefender kernel driver caches block list until restart
+4. Set `UseSharedCompilation=false` in `Directory.Build.props` to prevent VBCSCompiler from keeping DLL handles open (reduces chance of false positive)
+
+**Prevention:** Add build output directories to Bitdefender exceptions BEFORE running long orchestrator sessions.
+
 ## Goal
 
 Create a persistent memory of what works, what fails, and the fastest known fix so we do not repeat the same errors.
