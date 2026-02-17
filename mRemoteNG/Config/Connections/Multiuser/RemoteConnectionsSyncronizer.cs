@@ -36,7 +36,15 @@ namespace mRemoteNG.Config.Connections.Multiuser
 
         private void Load(object sender, ConnectionsUpdateAvailableEventArgs args)
         {
-            Runtime.ConnectionsService.LoadConnections(true, false, "");
+            if (args.DatabaseConnector != null)
+            {
+                Runtime.ConnectionsService.LoadConnections(true, false, "");
+            }
+            else
+            {
+                if (Runtime.ConnectionsService.ConnectionFileName != null)
+                    Runtime.ConnectionsService.LoadConnections(false, false, Runtime.ConnectionsService.ConnectionFileName);
+            }
             args.Handled = true;
         }
 

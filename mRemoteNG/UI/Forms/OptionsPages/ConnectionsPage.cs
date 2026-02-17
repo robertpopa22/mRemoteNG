@@ -60,6 +60,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseFilterSearch.Text = Language.FilterSearchMatchesInConnectionTree;
             chkPlaceSearchBarAboveConnectionTree.Text = Language.PlaceSearchBarAboveConnectionTree;
             chkDoNotTrimUsername.Text = Language.DoNotTrimUsername;
+            chkWatchConnectionFile.Text = "Watch connection file for external changes";
 
             lblRdpReconnectionCount.Text = Language.RdpReconnectCount;
             lblRDPConTimeout.Text = Language.RdpOverallConnectionTimeout;
@@ -84,6 +85,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseFilterSearch.Checked = Settings.Default.UseFilterSearch;
             chkPlaceSearchBarAboveConnectionTree.Checked = Settings.Default.PlaceSearchBarAboveConnectionTree;
             chkDoNotTrimUsername.Checked = Settings.Default.DoNotTrimUsername;
+            chkWatchConnectionFile.Checked = Properties.OptionsConnectionsPage.Default.WatchConnectionFile;
 
             numRdpReconnectionCount.Value = Convert.ToDecimal(Settings.Default.RdpReconnectionCount);
             numRDPConTimeout.Value = Convert.ToDecimal(Settings.Default.ConRDPOverallConnectionTimeout);
@@ -136,6 +138,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.Settings.Default.UseFilterSearch = chkUseFilterSearch.Checked;
             Properties.Settings.Default.PlaceSearchBarAboveConnectionTree = chkPlaceSearchBarAboveConnectionTree.Checked;
             Properties.Settings.Default.DoNotTrimUsername = chkDoNotTrimUsername.Checked;
+            Properties.OptionsConnectionsPage.Default.WatchConnectionFile = chkWatchConnectionFile.Checked;
 
             Properties.Settings.Default.RdpReconnectionCount = (int)numRdpReconnectionCount.Value;
             Properties.Settings.Default.ConRDPOverallConnectionTimeout = (int)numRDPConTimeout.Value;

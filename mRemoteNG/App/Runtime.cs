@@ -116,7 +116,7 @@ namespace mRemoteNG.App
                 } 
 				else
                 {
-                    ConnectionsService.LastFileUpdate =  System.IO.File.GetLastWriteTime(connectionFileName);
+                    ConnectionsService.LastFileUpdate =  System.IO.File.GetLastWriteTimeUtc(connectionFileName);
                 }
 
                 // re-enable sql update checking after updates are loaded

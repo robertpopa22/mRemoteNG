@@ -40,6 +40,7 @@ using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Config.Settings.Registry;
 using System.Threading; // ADDED
+using mRemoteNG.Config.Connections.Multiuser;
 #endregion
 
 // ReSharper disable MemberCanBePrivate.Global
@@ -234,6 +235,7 @@ namespace mRemoteNG.UI.Forms
 
             LockToolbarPositions(Properties.Settings.Default.LockToolbars);
             Properties.Settings.Default.PropertyChanged += OnApplicationSettingChanged;
+            Properties.OptionsConnectionsPage.Default.PropertyChanged += OnConnectionsPageSettingChanged;
 
             _themeManager.ThemeChanged += ApplyTheme;
 
@@ -361,6 +363,37 @@ namespace mRemoteNG.UI.Forms
                     break;
                 default:
                     return;
+            }
+        }
+
+        private void OnConnectionsPageSettingChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Properties.OptionsConnectionsPage.Default.WatchConnectionFile))
+            {
+                if (Properties.OptionsConnectionsPage.Default.WatchConnectionFile)
+                {
+                    // Enable file watcher
+                    if (!Properties.OptionsDBsPage.Default.UseSQLServer)
+                    {
+                        string startupFile = Runtime.ConnectionsService.GetStartupConnectionFileName();
+                        if (!string.IsNullOrEmpty(startupFile))
+                        {
+                            Runtime.ConnectionsService.RemoteConnectionsSyncronizer?.Dispose();
+                            Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new FileConnectionsUpdateChecker(startupFile));
+                            Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
+                        }
+                    }
+                }
+                else
+                {
+                    // Disable file watcher (if active and not using SQL)
+                    if (!Properties.OptionsDBsPage.Default.UseSQLServer)
+                    {
+                        Runtime.ConnectionsService.RemoteConnectionsSyncronizer?.Disable();
+                        Runtime.ConnectionsService.RemoteConnectionsSyncronizer?.Dispose();
+                        Runtime.ConnectionsService.RemoteConnectionsSyncronizer = null;
+                    }
+                }
             }
         }
 

@@ -60,32 +60,44 @@ namespace mRemoteNG.App
 
         public void CreateConnectionsProvider(MessageCollector messageCollector)
         {
-            messageCollector.AddMessage(MessageClass.DebugMsg, "Determining if we need a database syncronizer");
-            if (!Properties.OptionsDBsPage.Default.UseSQLServer) return;
+            messageCollector.AddMessage(MessageClass.DebugMsg, "Determining if we need a connections syncronizer");
 
-            // Check if profile picker should be shown
-            if (Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup)
+            if (Properties.OptionsDBsPage.Default.UseSQLServer)
             {
-                using (var picker = new FrmDatabasePicker())
+                // Check if profile picker should be shown
+                if (Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup)
                 {
-                    if (picker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    using (var picker = new FrmDatabasePicker())
                     {
-                        if (picker.SelectedProfile != null)
+                        if (picker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
-                            DatabaseProfileManager.ApplyProfileToSettings(picker.SelectedProfile);
+                            if (picker.SelectedProfile != null)
+                            {
+                                DatabaseProfileManager.ApplyProfileToSettings(picker.SelectedProfile);
+                            }
+                        }
+                        else
+                        {
+                            // User cancelled, do not enable SQL sync
+                            return;
                         }
                     }
-                    else
-                    {
-                        // User cancelled, do not enable SQL sync
-                        return;
-                    }
+                }
+
+                messageCollector.AddMessage(MessageClass.DebugMsg, "Creating database syncronizer");
+                Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new SqlConnectionsUpdateChecker());
+                Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
+            }
+            else if (Properties.OptionsConnectionsPage.Default.WatchConnectionFile)
+            {
+                messageCollector.AddMessage(MessageClass.DebugMsg, "Creating file syncronizer");
+                string startupFile = Runtime.ConnectionsService.GetStartupConnectionFileName();
+                if (!string.IsNullOrEmpty(startupFile))
+                {
+                    Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new FileConnectionsUpdateChecker(startupFile));
+                    Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
                 }
             }
-
-            messageCollector.AddMessage(MessageClass.DebugMsg, "Creating database syncronizer");
-            Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new SqlConnectionsUpdateChecker());
-            Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
         }
 
         public async Task CheckForUpdate()

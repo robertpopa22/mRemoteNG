@@ -55,6 +55,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkPlaceSearchBarAboveConnectionTree = new MrngCheckBox();
             chkConnectionTreeTrackActiveConnection = new MrngCheckBox();
             chkDoNotTrimUsername = new MrngCheckBox();
+            chkWatchConnectionFile = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)numRDPConTimeout).BeginInit();
@@ -169,7 +170,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlConfirmCloseConnection.Controls.Add(radCloseWarnExit);
             pnlConfirmCloseConnection.Controls.Add(radCloseWarnNever);
             pnlConfirmCloseConnection.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlConfirmCloseConnection.Location = new System.Drawing.Point(0, 292);
+            pnlConfirmCloseConnection.Location = new System.Drawing.Point(0, 319);
             pnlConfirmCloseConnection.Name = "pnlConfirmCloseConnection";
             pnlConfirmCloseConnection.Size = new System.Drawing.Size(610, 133);
             pnlConfirmCloseConnection.TabIndex = 6;
@@ -267,7 +268,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             tableLayoutPanel2.Controls.Add(lblRDPConTimeout, 0, 1);
             tableLayoutPanel2.Controls.Add(numRDPConTimeout, 1, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            tableLayoutPanel2.Location = new System.Drawing.Point(0, 213);
+            tableLayoutPanel2.Location = new System.Drawing.Point(0, 240);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -312,10 +313,23 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoNotTrimUsername.Text = "Do not trim usernames";
             chkDoNotTrimUsername.UseVisualStyleBackColor = true;
             // 
+            // chkWatchConnectionFile
+            // 
+            chkWatchConnectionFile._mice = MrngCheckBox.MouseState.OUT;
+            chkWatchConnectionFile.AutoSize = true;
+            chkWatchConnectionFile.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkWatchConnectionFile.Location = new System.Drawing.Point(6, 188);
+            chkWatchConnectionFile.Name = "chkWatchConnectionFile";
+            chkWatchConnectionFile.Size = new System.Drawing.Size(243, 17);
+            chkWatchConnectionFile.TabIndex = 12;
+            chkWatchConnectionFile.Text = "Watch connection file for external changes";
+            chkWatchConnectionFile.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkSingleClickOnConnectionOpensIt);
             pnlOptions.Controls.Add(chkDoNotTrimUsername);
+            pnlOptions.Controls.Add(chkWatchConnectionFile);
             pnlOptions.Controls.Add(chkSingleClickOnOpenedConnectionSwitchesToIt);
             pnlOptions.Controls.Add(chkConnectionTreeTrackActiveConnection);
             pnlOptions.Controls.Add(chkHostnameLikeDisplayName);
@@ -325,7 +339,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 183);
+            pnlOptions.Size = new System.Drawing.Size(610, 210);
             pnlOptions.TabIndex = 12;
             // 
             // lblRegistrySettingsUsedInfo
@@ -383,6 +397,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private MrngCheckBox chkPlaceSearchBarAboveConnectionTree;
         private MrngCheckBox chkConnectionTreeTrackActiveConnection;
         private MrngCheckBox chkDoNotTrimUsername;
+        private MrngCheckBox chkWatchConnectionFile;
         internal System.Windows.Forms.Panel pnlOptions;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
     }

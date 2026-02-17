@@ -275,8 +275,10 @@ namespace mRemoteNG.Connection
 
                 saver.Save(connectionTreeModel, propertyNameTrigger);
 
-                if (UsingDatabase)
+                if (useDatabase)
                     LastSqlUpdate = DateTime.Now.ToUniversalTime();
+                else if (File.Exists(connectionFileName))
+                    LastFileUpdate = File.GetLastWriteTimeUtc(connectionFileName);
 
                 UsingDatabase = useDatabase;
                 ConnectionFileName = connectionFileName;
