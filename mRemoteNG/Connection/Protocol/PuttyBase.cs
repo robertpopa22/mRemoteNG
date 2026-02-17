@@ -93,6 +93,8 @@ namespace mRemoteNG.Connection.Protocol
 
         protected virtual bool UseTerminalTitlePollingTimer => true;
 
+        protected virtual int PowerModeChangedResizeDelay => 2000;
+
         protected virtual string ReadTerminalWindowTitle()
         {
             try
@@ -733,10 +735,21 @@ namespace mRemoteNG.Connection.Protocol
             if (powerMode != PowerModes.Resume)
                 return;
 
-            if (InterfaceControl != null && !InterfaceControl.IsDisposed && InterfaceControl.IsHandleCreated)
+            // Wait a bit for the UI to be fully restored before resizing
+            System.Threading.Tasks.Task.Delay(PowerModeChangedResizeDelay).ContinueWith(_ =>
             {
-                InterfaceControl.BeginInvoke((MethodInvoker)(() => Resize(this, EventArgs.Empty)));
-            }
+                try
+                {
+                    if (InterfaceControl != null && !InterfaceControl.IsDisposed && InterfaceControl.IsHandleCreated)
+                    {
+                        InterfaceControl.BeginInvoke((MethodInvoker)(() => Resize(this, EventArgs.Empty)));
+                    }
+                }
+                catch (Exception)
+                {
+                    // Ignore if we can't invoke (e.g. app closing)
+                }
+            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public override void Close()

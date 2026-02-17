@@ -135,6 +135,8 @@ namespace mRemoteNGTests.Connection.Protocol
 
             protected override bool UseTerminalTitlePollingTimer => false;
 
+            protected override int PowerModeChangedResizeDelay => 0;
+
             protected override void QueuePostOpenLayoutResizePass(MethodInvoker resizeAction)
             {
                 resizeAction();
