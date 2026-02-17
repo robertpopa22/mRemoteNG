@@ -47,6 +47,7 @@ namespace mRemoteNG.App
             _connectionIconLoader.GetConnectionIcons();
             DefaultConnectionInfo.Instance.LoadFrom(Settings.Default, a => "ConDefault" + a);
             DefaultConnectionInheritance.Instance.LoadFrom(Settings.Default, a => "InhDefault" + a);
+            PluginManager.Instance.LoadPlugins();
         }
 
         private static void ParseCommandLineArgs(MessageCollector messageCollector)

@@ -44,6 +44,7 @@ namespace mRemoteNG.App
                 SaveConnections();
                 SaveSettings(quickConnectToolStrip, externalToolsToolStrip, multiSshToolStrip, frmMain);
                 UnregisterBrowsers();
+                PluginManager.Instance.ShutdownPlugins();
             }
             catch (Exception ex)
             {
