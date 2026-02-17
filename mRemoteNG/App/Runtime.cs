@@ -85,6 +85,14 @@ namespace mRemoteNG.App
                 // disable sql update checking while we are loading updates
                 ConnectionsService.RemoteConnectionsSyncronizer?.Disable();
 
+                if (!withDialog && Properties.OptionsDBsPage.Default.UseSQLServer && Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup)
+                {
+                    using (var frm = new mRemoteNG.UI.Forms.FrmPickDatabase())
+                    {
+                        frm.ShowDialog();
+                    }
+                }
+
                 if (withDialog)
                 {
                     OpenFileDialog loadDialog = DialogFactory.BuildLoadConnectionsDialog();

@@ -26,6 +26,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             tabPage1 = new System.Windows.Forms.TabPage();
             pnlSQLCon = new System.Windows.Forms.TableLayoutPanel();
             chkSQLReadOnly = new System.Windows.Forms.CheckBox();
+            chkShowDatabasePickerOnStartup = new System.Windows.Forms.CheckBox();
+            lblShowDatabasePickerOnStartup = new MrngLabel();
             txtSQLAuthType = new MrngComboBox();
             lblSQLAuthType = new MrngLabel();
             lblSQLReadOnly = new MrngLabel();
@@ -197,6 +199,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlSQLCon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             pnlSQLCon.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             pnlSQLCon.Controls.Add(chkSQLReadOnly, 1, 7);
+            pnlSQLCon.Controls.Add(lblShowDatabasePickerOnStartup, 0, 8);
+            pnlSQLCon.Controls.Add(chkShowDatabasePickerOnStartup, 1, 8);
             pnlSQLCon.Controls.Add(txtSQLAuthType, 1, 3);
             pnlSQLCon.Controls.Add(lblSQLAuthType, 0, 3);
             pnlSQLCon.Controls.Add(lblSQLReadOnly, 0, 7);
@@ -233,6 +237,27 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkSQLReadOnly.TabIndex = 24;
             chkSQLReadOnly.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             chkSQLReadOnly.UseVisualStyleBackColor = true;
+            // 
+            // chkShowDatabasePickerOnStartup
+            // 
+            chkShowDatabasePickerOnStartup.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            chkShowDatabasePickerOnStartup.AutoSize = true;
+            chkShowDatabasePickerOnStartup.Location = new System.Drawing.Point(163, 214);
+            chkShowDatabasePickerOnStartup.Name = "chkShowDatabasePickerOnStartup";
+            chkShowDatabasePickerOnStartup.Size = new System.Drawing.Size(15, 14);
+            chkShowDatabasePickerOnStartup.TabIndex = 25;
+            chkShowDatabasePickerOnStartup.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            chkShowDatabasePickerOnStartup.UseVisualStyleBackColor = true;
+            // 
+            // lblShowDatabasePickerOnStartup
+            // 
+            lblShowDatabasePickerOnStartup.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblShowDatabasePickerOnStartup.Location = new System.Drawing.Point(3, 208);
+            lblShowDatabasePickerOnStartup.Name = "lblShowDatabasePickerOnStartup";
+            lblShowDatabasePickerOnStartup.Size = new System.Drawing.Size(154, 26);
+            lblShowDatabasePickerOnStartup.TabIndex = 26;
+            lblShowDatabasePickerOnStartup.Text = "Show picker on startup:";
+            lblShowDatabasePickerOnStartup.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtSQLAuthType
             // 
@@ -1252,6 +1277,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngTextBox txtSQLDatabaseName;
         internal MrngLabel lblSQLDatabaseName;
         internal MrngLabel lblSQLReadOnly;
+        internal MrngLabel lblShowDatabasePickerOnStartup;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.RadioButton DCMSetupRdBtnC;
         private System.Windows.Forms.RadioButton DCMSetupRdBtnV;
@@ -1273,5 +1299,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private System.Windows.Forms.Label DCMSetuptxtmandatory3;
         private System.Windows.Forms.Label DCMSetuptxtmandatory2;
         private System.Windows.Forms.Label DCMSetuptxtmandatory1;
+        private System.Windows.Forms.CheckBox chkShowDatabasePickerOnStartup;
     }
 }

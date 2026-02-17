@@ -58,6 +58,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblSQLUsername.Text = Language.Username;
             lblSQLPassword.Text = Language.Password;
             lblSQLReadOnly.Text = Language.ReadOnly;
+            lblShowDatabasePickerOnStartup.Text = "Show picker on startup:";
             btnTestConnection.Text = Language.TestConnection;
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
         }
@@ -72,6 +73,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             txtSQLPassword.Text = cryptographyProvider.Decrypt(Properties.OptionsDBsPage.Default.SQLPass, Runtime.EncryptionKey);
             chkSQLReadOnly.Checked = Properties.OptionsDBsPage.Default.SQLReadOnly;
+            chkShowDatabasePickerOnStartup.Checked = Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup;
             lblTestConnectionResults.Text = "";
         }
 
@@ -88,6 +90,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             Properties.OptionsDBsPage.Default.SQLPass = cryptographyProvider.Encrypt(txtSQLPassword.Text, Runtime.EncryptionKey);
             Properties.OptionsDBsPage.Default.SQLReadOnly = chkSQLReadOnly.Checked;
+            Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup = chkShowDatabasePickerOnStartup.Checked;
 
             if (Properties.OptionsDBsPage.Default.UseSQLServer)
                 ReinitializeSqlUpdater();
