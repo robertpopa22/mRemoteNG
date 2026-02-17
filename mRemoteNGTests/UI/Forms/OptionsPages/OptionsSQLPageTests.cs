@@ -21,35 +21,44 @@ namespace mRemoteNGTests.UI.Forms.OptionsPages
             Exception caught = null;
             var thread = new Thread(() =>
             {
-                var host = new Form
+                FrmOptions optionsForm = null;
+                try
                 {
-                    Width = 800, Height = 600,
-                    ShowInTaskbar = false,
-                    StartPosition = FormStartPosition.Manual,
-                    Location = new System.Drawing.Point(-10000, -10000)
-                };
-                host.Load += (s, e) =>
+                    optionsForm = new FrmOptions();
+                    optionsForm.Load += (s, e) =>
+                    {
+                        // Defer test action via BeginInvoke so Load completes first
+                        // and the message pump can process ObjectListView initialization.
+                        optionsForm.BeginInvoke(() =>
+                        {
+                            try
+                            {
+                                Application.DoEvents();
+                                testAction(optionsForm);
+                            }
+                            catch (Exception ex)
+                            {
+                                caught = ex;
+                            }
+                            finally
+                            {
+                                // Force-exit the message loop. Don't call Close()
+                                // because FrmOptions.FormClosing shows MessageBox
+                                // when HasChanges is true.
+                                Application.ExitThread();
+                            }
+                        });
+                    };
+                    Application.Run(optionsForm);
+                }
+                catch (Exception ex)
                 {
-                    FrmOptions optionsForm = null;
-                    try
-                    {
-                        optionsForm = new FrmOptions();
-                        optionsForm.Show();
-                        Application.DoEvents();
-                        testAction(optionsForm);
-                    }
-                    catch (Exception ex)
-                    {
-                        caught = ex;
-                    }
-                    finally
-                    {
-                        try { optionsForm?.Close(); } catch { }
-                        try { optionsForm?.Dispose(); } catch { }
-                        host.Close();
-                    }
-                };
-                Application.Run(host);
+                    if (caught == null) caught = ex;
+                }
+                finally
+                {
+                    try { optionsForm?.Dispose(); } catch { }
+                }
             });
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
