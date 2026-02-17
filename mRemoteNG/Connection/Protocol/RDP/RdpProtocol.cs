@@ -16,7 +16,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Threading;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace mRemoteNG.Connection.Protocol.RDP
@@ -157,7 +156,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         public RdpProtocol()
         {
             _displayProperties = new DisplayProperties();
-            tmrReconnect.Elapsed += tmrReconnect_Elapsed;
+            tmrReconnect.Tick += tmrReconnect_Tick;
         }
 
         #endregion
@@ -1193,7 +1192,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         
         #region Reconnect Stuff
 
-        private void tmrReconnect_Elapsed(object sender, ElapsedEventArgs e)
+        private void tmrReconnect_Tick(object sender, EventArgs e)
         {
             try
             {

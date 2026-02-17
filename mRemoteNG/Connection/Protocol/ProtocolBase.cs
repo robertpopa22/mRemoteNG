@@ -74,7 +74,7 @@ namespace mRemoteNG.Connection.Protocol
 
         public ConnectionInfo.Force Force { get; set; }
 
-        protected readonly System.Timers.Timer tmrReconnect = new(5000);
+        protected readonly System.Windows.Forms.Timer tmrReconnect = new() { Interval = 5000 };
         protected ReconnectGroup? ReconnectGroup;
 
         protected ProtocolBase(string name)
