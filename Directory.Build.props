@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!-- Keep Roslyn compiler server (VBCSCompiler) alive between builds for faster incremental compilation -->
-    <UseSharedCompilation>true</UseSharedCompilation>
+    <!-- Disabled UseSharedCompilation to fix CS2012 WPF temp assembly lock (VBCSCompiler keeps DLL open) -->
+    <UseSharedCompilation>false</UseSharedCompilation>
 
     <!-- Suppress CA1416 (platform compatibility) — app is 100% Windows-only, net10.0-windows TFM -->
     <NoWarn>$(NoWarn);CA1416</NoWarn>

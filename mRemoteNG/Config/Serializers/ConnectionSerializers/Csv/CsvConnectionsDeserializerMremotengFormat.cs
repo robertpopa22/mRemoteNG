@@ -136,6 +136,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 ? connectionCsv[headers.IndexOf("Hostname")]
                 : "";
 
+            connectionRecord.AlternativeAddress = headers.Contains("AlternativeAddress")
+                ? connectionCsv[headers.IndexOf("AlternativeAddress")]
+                : "";
+
             connectionRecord.VmId = headers.Contains("VmId")
                 ? connectionCsv[headers.IndexOf("VmId")] : "";
 
@@ -858,6 +862,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritHostname")], out bool value))
                     connectionRecord.Inheritance.Hostname = value;
+            }
+
+            if (headers.Contains("InheritAlternativeAddress"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritAlternativeAddress")], out bool value))
+                    connectionRecord.Inheritance.AlternativeAddress = value;
             }
 
             if (headers.Contains("InheritEnvironmentTags"))

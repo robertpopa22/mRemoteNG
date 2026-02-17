@@ -398,9 +398,24 @@ iis_orchestrator.py (Python — controller)
 
 ### Key rules
 - Orchestrator NEVER trusts agent output — always verifies with build + test
-- On failure: `git restore`, log error, skip to next issue
+- **Test-fix-first**: On test failure after implementation, try to fix failing tests (up to 2 attempts) before reverting. Only revert as last resort.
+- **Phantom detection**: Tests completing in <10s are phantom (didn't actually run). Triggers rebuild + retry, then infrastructure stop.
+- **Circuit breaker**: After 5 consecutive implementation failures, run baseline build+test. If infrastructure broken, stop. If issues are hard, reset counter.
+- **Single instance lock**: `orchestrator.lock` file prevents concurrent instances (caused garbled output and git conflicts in 31h failure).
 - One agent at a time per issue (no parallel agents on same files)
 - All state tracked in `.project-roadmap/issues-db/` JSON files
+- **CRITICAL: Ensure test projects are in mRemoteNG.sln** — the 31h failure was caused by .sln missing test projects.
+
+### Safeguards (added 2026-02-17, after 31h failure post-mortem)
+| Safeguard | Constant | Value | Description |
+|-----------|----------|-------|-------------|
+| Phantom detection | `TEST_MIN_DURATION_SECS` | 10 | Tests <10s = phantom (didn't run) |
+| Minimum test count | `TEST_MIN_COUNT` | 100 | Reject if fewer tests than expected |
+| Implementation circuit breaker | `IMPL_CONSECUTIVE_FAIL_LIMIT` | 5 | Stop after 5 consecutive impl failures |
+| Test fix attempts | `TEST_FIX_MAX_ATTEMPTS` | 2 | Try to fix failing tests before reverting |
+| Single instance lock | `orchestrator.lock` | PID-based | Prevents concurrent orchestrator instances |
+| Garbled output detection | in `run_tests()` | passed > total | Rejects impossible test results |
+| `run-tests.ps1` exit codes | 97/98/99 | special | 99=phantom, 98=garbled, 97=no tests found |
 
 ### Results (v1.81.0-beta.2)
 - **2,554 nullable warnings** fixed (100% clean) across 4 orchestrator sessions

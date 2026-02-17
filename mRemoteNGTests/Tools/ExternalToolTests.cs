@@ -277,8 +277,14 @@ namespace mRemoteNGTests.Tools
         [Test]
         public void System32Path_NormalizesToSysnativeInWow64_WithFallback()
         {
-            const string system32Path = @"C:\Windows\System32\telnet.exe";
-            const string sysnativePath = @"C:\Windows\Sysnative\telnet.exe";
+            // Use the actual Windows directory from the environment to avoid
+            // case mismatches (e.g. "C:\Windows" vs "C:\WINDOWS") across machines.
+            string windowsDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            if (string.IsNullOrWhiteSpace(windowsDir))
+                windowsDir = Environment.GetEnvironmentVariable("SystemRoot") ?? @"C:\Windows";
+
+            string system32Path = System.IO.Path.Combine(windowsDir, "System32", "telnet.exe");
+            string sysnativePath = System.IO.Path.Combine(windowsDir, "Sysnative", "telnet.exe");
 
             string normalized = NormalizeSystem32PathForWow64(
                 system32Path,

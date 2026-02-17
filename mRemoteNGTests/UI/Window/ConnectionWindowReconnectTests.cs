@@ -80,6 +80,25 @@ namespace mRemoteNGTests.UI.Window
             var confirmCloseProp = settingsType?.GetProperty("ConfirmCloseConnection");
             int previousConfirmCloseConnection = (int)(confirmCloseProp?.GetValue(settingsDefault) ?? 0);
 
+            // Use a lightweight host form with a DockPanel instead of FrmMain.Default,
+            // which triggers heavy app initialization and deadlocks the message pump.
+            var hostForm = new Form
+            {
+                Width = 800,
+                Height = 600,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(-10000, -10000)
+            };
+
+            var hostDockPanel = new DockPanel
+            {
+                Dock = DockStyle.Fill,
+                DocumentStyle = DocumentStyle.DockingWindow,
+                Theme = new VS2015LightTheme()
+            };
+            hostForm.Controls.Add(hostDockPanel);
+
             try
             {
                 alwaysShowProp?.SetValue(optionsDefault, false);
@@ -91,13 +110,14 @@ namespace mRemoteNGTests.UI.Window
                 ITunnelPortValidator tunnelPortValidator = Substitute.For<ITunnelPortValidator>();
                 Runtime.ConnectionInitiator = new ConnectionInitiator(protocolFactory, tunnelPortValidator);
 
-                FrmMain mainForm = FrmMain.Default;
-                DockPanel mainDockPanel = GetMainDockPanel(mainForm);
-                mainForm.CreateControl();
-                mainDockPanel.CreateControl();
+                hostForm.Show();
+                Application.DoEvents();
+                Application.DoEvents();
 
                 using var connectionWindow = new ConnectionWindow(new DockContent(), "Reconnect Test");
-                connectionWindow.Show(mainDockPanel, DockState.Document);
+                connectionWindow.Show(hostDockPanel, DockState.Document);
+                Application.DoEvents();
+                Application.DoEvents();
                 Application.DoEvents();
 
                 var reconnectTarget = new ConnectionInfo
@@ -116,10 +136,27 @@ namespace mRemoteNGTests.UI.Window
                     Panel = "General"
                 };
 
-                ConnectionTab firstTab = connectionWindow.AddConnectionTab(reconnectTarget)
-                    ?? throw new AssertionException("Failed to create first tab");
-                _ = connectionWindow.AddConnectionTab(secondConnection)
-                    ?? throw new AssertionException("Failed to create second tab");
+                // Pump events to ensure the ConnectionWindow's internal DockPanel is fully initialized
+                Application.DoEvents();
+
+                ConnectionTab? firstTab = connectionWindow.AddConnectionTab(reconnectTarget);
+                if (firstTab == null)
+                {
+                    // Retry after pumping more events - DockPanel may need additional layout passes
+                    Application.DoEvents();
+                    Application.DoEvents();
+                    firstTab = connectionWindow.AddConnectionTab(reconnectTarget);
+                }
+                Assert.That(firstTab, Is.Not.Null, "Failed to create first tab after retry — DockPanel infrastructure not available in test context.");
+
+                ConnectionTab? secondTab = connectionWindow.AddConnectionTab(secondConnection);
+                if (secondTab == null)
+                {
+                    Application.DoEvents();
+                    Application.DoEvents();
+                    secondTab = connectionWindow.AddConnectionTab(secondConnection);
+                }
+                Assert.That(secondTab, Is.Not.Null, "Failed to create second tab after retry.");
 
                 AttachTestInterface(firstTab, reconnectTarget);
                 firstTab.DockHandler.Activate();
@@ -150,16 +187,10 @@ namespace mRemoteNGTests.UI.Window
                 Runtime.ConnectionInitiator = previousInitiator;
                 alwaysShowProp?.SetValue(optionsDefault, previousAlwaysShowPanelSelectionDlg);
                 confirmCloseProp?.SetValue(settingsDefault, previousConfirmCloseConnection);
+                hostForm.Close();
+                hostForm.Dispose();
             }
         });
-
-        private static DockPanel GetMainDockPanel(FrmMain mainForm)
-        {
-            FieldInfo dockPanelField = typeof(FrmMain).GetField("pnlDock", BindingFlags.Instance | BindingFlags.NonPublic)
-                ?? throw new AssertionException("Failed to resolve FrmMain.pnlDock field.");
-            return dockPanelField.GetValue(mainForm) as DockPanel
-                ?? throw new AssertionException("Failed to resolve main dock panel.");
-        }
 
         private static void AttachTestInterface(ConnectionTab tab, ConnectionInfo connectionInfo)
         {

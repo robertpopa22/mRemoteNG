@@ -53,7 +53,16 @@ $runSettings = "$repoRoot\mRemoteNGTests\mRemoteNGTests.runsettings"
 
 if (-not (Test-Path $testDll)) {
     Write-Host "ERROR: Test DLL not found at $testDll" -ForegroundColor Red
+    Write-Host "HINT: Run build.ps1 first (it builds the entire solution including test projects)" -ForegroundColor Yellow
+    Write-Host "TEST_DLL_MISSING" -ForegroundColor Red
     exit 1
+}
+
+# Verify test DLL is not stale (warn if older than 1 hour)
+$testDllAge = (Get-Date) - (Get-Item $testDll).LastWriteTime
+if ($testDllAge.TotalHours -gt 1) {
+    Write-Host "WARNING: Test DLL is $([math]::Round($testDllAge.TotalHours, 1))h old -- may be stale" -ForegroundColor Yellow
+    Write-Host "Consider running without -NoBuild to recompile" -ForegroundColor Yellow
 }
 
 # --- Step 5: Define test groups (each runs in a separate process) ---
@@ -155,6 +164,22 @@ $elapsed = $stopwatch.Elapsed
 Write-Host ""
 Write-Host "mRemoteNGTests completed in $($elapsed.Minutes)m $($elapsed.Seconds).$($elapsed.Milliseconds.ToString('000'))s" -ForegroundColor Cyan
 if (-not $Sequential) {
+    # -- SANITY CHECKS --
+    # Detect phantom runs: if total elapsed < 10s, tests didn't actually execute
+    if ($elapsed.TotalSeconds -lt 10) {
+        Write-Host "PHANTOM_TEST_RUN: completed in $($elapsed.TotalSeconds.ToString('F1'))s -- tests did NOT run!" -ForegroundColor Red
+        exit 99
+    }
+    # Detect garbled output: passed > total is impossible
+    if ($totalTests -gt 0 -and $totalPassed -gt $totalTests) {
+        Write-Host "GARBLED_OUTPUT: $totalPassed/$totalTests passed -- concurrent output corruption!" -ForegroundColor Red
+        exit 98
+    }
+    # Detect empty runs: 0 tests found
+    if ($totalTests -eq 0) {
+        Write-Host "NO_TESTS_FOUND: 0 tests executed -- DLL may be stale or incompatible" -ForegroundColor Red
+        exit 97
+    }
     Write-Host "Total: $totalPassed/$totalTests passed, $totalFailed failed" -ForegroundColor $(if ($totalFailed -gt 0) { "Red" } else { "Green" })
 }
 

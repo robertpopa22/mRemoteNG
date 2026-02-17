@@ -1,6 +1,6 @@
 # Lessons Learned System
 
-Last updated: 2026-02-16
+Last updated: 2026-02-17
 Scope: `D:\github\mRemoteNG` modernization and release work.
 
 ## IIS Orchestrator — Execution Lessons (CRITICAL)
@@ -107,6 +107,88 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless 
 4. Applied to ALL agent functions: `codex_run`, `claude_run`, `gemini_run`, `_agent_dispatch`
 
 **Key lesson:** NEVER use `subprocess.run(capture_output=True, timeout=T)` for long-running processes on Windows that spawn children. Always use `Popen` + process group + tree kill.
+
+## 31-Hour Orchestrator Failure Post-Mortem (2026-02-17, CRITICAL)
+
+### Root Cause: mRemoteNG.sln Did NOT Include Test Projects
+
+**Problem:** The committed `mRemoteNG.sln` did NOT include `mRemoteNGTests` and `mRemoteNGSpecs` projects. An AI agent added them to the working tree .sln but never committed the change. Since `build.ps1` builds the .sln, test projects were never compiled. `run-tests.ps1 -NoBuild` found stale/missing test DLLs and either ran phantom tests (0 tests in <1s) or ran stale tests that didn't reflect current code changes.
+
+**Impact:** 31 hours of orchestrator runtime, 247 test invocations, but only 46 actually ran tests. 201 were phantom runs (<1s). 31 commits were made in the first 10 hours, then nothing useful after.
+
+**Fix:** Committed mRemoteNG.sln with test projects included. Added phantom detection to both `run-tests.ps1` (exit codes 97-99) and `iis_orchestrator.py` (`run_tests()` returns phantom flag).
+
+**Rule: ALWAYS verify that test projects are in the .sln before any orchestrator run.**
+
+### 5 Problems Discovered in Post-Mortem
+
+| # | Problem | Detection Added |
+|---|---------|-----------------|
+| 1 | **Phantom tests**: completed in <1s (vs 60-90s normal), 201/247 invocations | `run-tests.ps1` exit 99 if elapsed <10s; `run_tests()` returns `phantom=True` |
+| 2 | **Concurrent orchestrator instances**: 3 FLUX sessions at 15:40 | Single-instance lock file (`orchestrator.lock`) with PID check |
+| 3 | **Garbled test counts**: pass rates like 353.7% (1832/518) accepted | `run-tests.ps1` exit 98 if passed > total; `run_tests()` rejects garbled output |
+| 4 | **No circuit breaker at implementation level** | `IMPL_CONSECUTIVE_FAIL_LIMIT = 5` in `flux_issues()` with baseline verification |
+| 5 | **Immediate revert instead of test fix** | `_attempt_test_fix()` tries to fix failing tests before reverting |
+
+### Phantom Test Detection (Added to Both Layers)
+
+**`run-tests.ps1` (PowerShell layer):**
+- Exit 99: `PHANTOM_TEST_RUN` -- elapsed <10s
+- Exit 98: `GARBLED_OUTPUT` -- passed > total (concurrent output corruption)
+- Exit 97: `NO_TESTS_FOUND` -- 0 tests executed
+
+**`iis_orchestrator.py` (Python layer):**
+- `run_tests()` returns `(ok, output, failed_tests, phantom)` when `return_details=True`
+- Phantom: elapsed < `TEST_MIN_DURATION_SECS` (10s)
+- Garbled: passed > total tests
+- Low count: total < `TEST_MIN_COUNT` (100)
+
+### Test-Fix-First Strategy (Replaces Immediate Revert)
+
+**Old behavior:** Test fails after implementation -> git restore (revert) -> try next agent.
+**New behavior:** Test fails after implementation -> `_attempt_test_fix()` -> only revert if ALL fix attempts fail.
+
+`_attempt_test_fix()` asks an AI agent to:
+1. Analyze which tests failed and why
+2. Determine: is the test wrong (testing old behavior) or is the implementation wrong?
+3. If test is wrong: update the test to match new behavior
+4. If implementation is wrong: fix the implementation
+5. Rebuild and re-test after each attempt
+6. Up to `TEST_FIX_MAX_ATTEMPTS` (2) iterations
+
+### Circuit Breaker for Implementation Failures
+
+**Old behavior:** No limit on consecutive implementation failures. Could waste hours on issues that all fail for the same reason (e.g., stale test DLL).
+
+**New behavior:** `flux_issues()` tracks `consecutive_impl_failures`:
+- After `IMPL_CONSECUTIVE_FAIL_LIMIT` (5) consecutive failures:
+  1. Runs baseline build + test (no code changes)
+  2. If phantom: stops immediately ("Fix test infrastructure before resuming")
+  3. If baseline tests fail: stops ("Infrastructure broken")
+  4. If baseline passes: resets counter (issues are genuinely hard, not infrastructure)
+
+### Single Instance Lock
+
+**Problem:** Multiple orchestrator instances running simultaneously cause git conflicts, double commits, and garbled test output.
+
+**Fix:** Lock file at `.project-roadmap/scripts/orchestrator.lock`:
+- Contains `{"pid": <PID>, "started": "<ISO timestamp>"}`
+- On startup: checks if lock exists and PID is alive (`os.kill(pid, 0)`)
+- Stale locks (dead PID) are removed automatically
+- `finally` block always cleans up lock on exit
+
+### MSBuild/VBCSCompiler Stale Processes
+
+**Problem:** After long orchestrator runs, MSBuild.exe and VBCSCompiler.exe processes remain and hold file locks on `mRemoteNG\obj\x64\Release\mRemoteNG.dll`, preventing subsequent builds.
+
+**Fix:** Added `MSBuild` and `VBCSCompiler` to the orchestrator's `kill_stale_processes()` function. Also kill before starting any new orchestrator session.
+
+```bash
+# Manual cleanup
+taskkill //F //IM MSBuild.exe 2>/dev/null
+taskkill //F //IM VBCSCompiler.exe 2>/dev/null
+taskkill //F //IM testhost.exe 2>/dev/null
+```
 
 ## Goal
 

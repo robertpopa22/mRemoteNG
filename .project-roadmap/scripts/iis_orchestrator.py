@@ -67,6 +67,10 @@ TIMEOUT_MIN = 60                  # absolute minimum (seconds)
 TIMEOUT_MAX = 3600                # absolute cap (1 hour)
 TIMEOUT_HISTORY_MAX_SAMPLES = 50  # keep last N durations per agent/task for p80
 TEST_PASS_THRESHOLD = 0.99        # accept commit if ≥99% tests pass (1-3 failures OK)
+TEST_MIN_DURATION_SECS = 10       # tests taking less than this = phantom (didn't run)
+TEST_MIN_COUNT = 100              # reject if fewer tests than expected (sanity check)
+IMPL_CONSECUTIVE_FAIL_LIMIT = 5   # circuit breaker: stop after N consecutive impl failures
+TEST_FIX_MAX_ATTEMPTS = 2         # how many times to ask an agent to fix failing tests
 
 BUILD_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -782,33 +786,60 @@ def run_build(capture_output=False):
 def run_tests(return_details=False):
     """Run non-UI tests via run-tests.ps1 (4 parallel processes).
     Returns True/False if return_details=False.
-    Returns (True/False, test_output, failed_tests) if return_details=True."""
+    Returns (True/False, test_output, failed_tests) if return_details=True.
+
+    SAFETY: Validates that tests actually ran (duration > TEST_MIN_DURATION_SECS,
+    test count > TEST_MIN_COUNT, pass_rate <= 100%). Phantom runs (exit in <10s
+    with no real output) are detected and reported as PHANTOM, not FAIL."""
     log.info("    [TEST] Running parallel tests (run-tests.ps1 -NoBuild) ...")
     kill_stale_processes()
 
-    def _result(ok, out="", failed_list=None):
+    def _result(ok, out="", failed_list=None, phantom=False):
         if return_details:
-            return ok, out, failed_list or []
+            return ok, out, failed_list or [], phantom
         return ok
 
+    t_start = time.time()
     try:
         r = _run(TEST_CMD, timeout=TEST_TIMEOUT)
+        elapsed = time.time() - t_start
         out = (r.stdout or "") + "\n" + (r.stderr or "")
+
+        # ── PHANTOM DETECTION ──
+        # If tests completed in under TEST_MIN_DURATION_SECS, they didn't actually run
+        if elapsed < TEST_MIN_DURATION_SECS:
+            log.error("    [TEST] PHANTOM: completed in %.1fs (min %ds) — tests did NOT run!",
+                      elapsed, TEST_MIN_DURATION_SECS)
+            log.error("    [TEST] PHANTOM output: %s", out.strip()[:500])
+            return _result(False, out, [], phantom=True)
 
         # Parse run-tests.ps1 output: "Total: 1926/1926 passed, 0 failed"
         total_m = re.search(r"Total:\s+(\d+)/(\d+)\s+passed,\s+(\d+)\s+failed", out)
         if total_m:
             passed, total, failed = int(total_m.group(1)), int(total_m.group(2)), int(total_m.group(3))
+
+            # ── SANITY: reject impossible pass rates (>100% = garbled output) ──
+            if total > 0 and passed > total:
+                log.error("    [TEST] GARBLED: %d/%d passed (%.1f%%) — concurrent output corruption!",
+                          passed, total, (passed / total) * 100)
+                return _result(False, out, [], phantom=True)
+
+            # ── SANITY: reject suspiciously low test counts ──
+            if total < TEST_MIN_COUNT:
+                log.error("    [TEST] SUSPICIOUS: only %d tests found (min %d) — DLL may be stale",
+                          total, TEST_MIN_COUNT)
+                return _result(False, out, [], phantom=True)
+
             pass_rate = passed / total if total > 0 else 0
             if failed > 0 and pass_rate < TEST_PASS_THRESHOLD:
-                log.error("    [TEST] FAILED: %d/%d passed, %d failed (%.1f%% < %.0f%% threshold)",
-                          passed, total, failed, pass_rate * 100, TEST_PASS_THRESHOLD * 100)
+                log.error("    [TEST] FAILED: %d/%d passed, %d failed (%.1f%% < %.0f%% threshold) [%.0fs]",
+                          passed, total, failed, pass_rate * 100, TEST_PASS_THRESHOLD * 100, elapsed)
                 return _result(False, out, _parse_failed_tests(out))
             if failed > 0:
-                log.warning("    [TEST] OK (%.1f%%): %d/%d passed, %d failed — within threshold",
-                            pass_rate * 100, passed, total, failed)
+                log.warning("    [TEST] OK: %d/%d passed, %d failed — within threshold [%.0fs]",
+                            passed, total, failed, elapsed)
             else:
-                log.info("    [TEST] OK (%d/%d passed, parallel)", passed, total)
+                log.info("    [TEST] OK (%d/%d passed, parallel) [%.0fs]", passed, total, elapsed)
             kill_stale_processes()
             return _result(True, out, _parse_failed_tests(out) if failed > 0 else [])
 
@@ -816,22 +847,28 @@ def run_tests(return_details=False):
         if "Failed!" in out or r.returncode != 0:
             m = re.search(r"Failed:\s+(\d+)", out)
             if m and int(m.group(1)) > 0:
-                log.error("    [TEST] FAILED: %s", m.group(0))
+                log.error("    [TEST] FAILED: %s [%.0fs]", m.group(0), elapsed)
                 return _result(False, out, _parse_failed_tests(out))
         m = re.search(r"Passed:\s+(\d+)", out)
         if m:
-            log.info("    [TEST] OK (%s passed)", m.group(1))
+            log.info("    [TEST] OK (%s passed) [%.0fs]", m.group(1), elapsed)
 
         # Also check for "ALL TESTS PASSED" from run-tests.ps1
         if "ALL TESTS PASSED" in out:
-            log.info("    [TEST] OK (all tests passed)")
+            log.info("    [TEST] OK (all tests passed) [%.0fs]", elapsed)
             kill_stale_processes()
             return _result(True, out)
         # Check for "TESTS FAILED" from run-tests.ps1
         if "TESTS FAILED" in out:
-            log.error("    [TEST] FAILED (run-tests.ps1 reported failure)")
+            log.error("    [TEST] FAILED (run-tests.ps1 reported failure) [%.0fs]", elapsed)
             kill_stale_processes()
             return _result(False, out, _parse_failed_tests(out))
+
+        # ── NO PARSEABLE OUTPUT: likely phantom ──
+        if r.returncode != 0:
+            log.error("    [TEST] NO PARSEABLE OUTPUT: exit code %d in %.1fs — likely infrastructure error",
+                      r.returncode, elapsed)
+            log.error("    [TEST] Output snippet: %s", out.strip()[:500])
 
         kill_stale_processes()
         ok = r.returncode == 0
@@ -1378,6 +1415,103 @@ Reply with ONLY a JSON object:
     return None, None
 
 
+def _attempt_test_fix(num, title, impl_agent, failed_tests, test_output, status, ctx):
+    """Try to fix failing tests instead of reverting the implementation.
+
+    When an implementation builds but causes test failures, this function asks
+    an AI agent to analyze the failures and fix the tests (or the implementation
+    if the tests are correct). Returns True if tests pass after fix.
+
+    Strategy:
+    - Prefer fixing tests over reverting implementation
+    - Use the same agent that did the implementation (it has context)
+    - Fall back to claude if the original agent can't fix
+    - Max TEST_FIX_MAX_ATTEMPTS iterations
+    """
+    if not failed_tests:
+        return False
+
+    test_names = [ft["name"] for ft in failed_tests[:10]]
+    test_errors = "\n".join(
+        f"  - {ft['name']}: {ft.get('error', 'no details')[:200]}"
+        for ft in failed_tests[:10]
+    )
+
+    for attempt in range(TEST_FIX_MAX_ATTEMPTS):
+        # Use the implementation agent first, then fall back to claude
+        fix_agent = impl_agent if attempt == 0 else "claude"
+        log.info("  [TEST-FIX] Attempt %d/%d with %s for #%d (%d failing tests)",
+                 attempt + 1, TEST_FIX_MAX_ATTEMPTS, fix_agent, num, len(failed_tests))
+
+        prompt = f"""Project: mRemoteNG (.NET 10, WinForms)
+Working directory: D:\\github\\mRemoteNG
+Branch: main
+
+TASK: Fix failing tests after implementing issue #{num}: {title}
+
+The implementation builds successfully but {len(failed_tests)} test(s) fail.
+
+FAILING TESTS:
+{test_errors}
+
+INSTRUCTIONS:
+1. Read each failing test to understand what it expects
+2. Read the implementation changes (git diff) to understand what changed
+3. DECIDE: Is the test wrong (testing old behavior) or is the implementation wrong?
+   - If test is testing OLD behavior that the fix intentionally changed → UPDATE THE TEST
+   - If test found a real bug in the implementation → FIX THE IMPLEMENTATION
+4. Run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
+5. Run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
+6. ALL tests must pass
+
+CRITICAL: Do NOT revert the implementation. Fix the tests OR fix the implementation bug.
+Do NOT create new test files. Only modify existing tests or existing implementation."""
+
+        status.set_task(type="test_fix", issue=num, step=f"test_fix_{fix_agent}_{attempt}")
+        timeout = _estimate_timeout(fix_agent, "implement",
+                                     issue_key=f"testfix_{num}", triage=None)
+        agent_out = _agent_dispatch(fix_agent, prompt, max_turns=20,
+                                     timeout=timeout, retries=1)
+        kill_stale_processes()
+
+        if agent_out is None:
+            log.warning("  [TEST-FIX] %s returned nothing on attempt %d", fix_agent, attempt + 1)
+            continue
+
+        # Verify: build + test
+        build_ok, _ = run_build(capture_output=True)
+        if not build_ok:
+            log.warning("  [TEST-FIX] Build failed after test fix attempt %d", attempt + 1)
+            continue
+
+        test_result = run_tests(return_details=True)
+        if len(test_result) == 4:
+            test_ok, test_out2, failed2, is_phantom = test_result
+        else:
+            test_ok, test_out2, failed2 = test_result
+            is_phantom = False
+
+        if is_phantom:
+            log.error("  [TEST-FIX] Phantom test run on attempt %d — infrastructure issue", attempt + 1)
+            continue
+
+        if test_ok:
+            log.info("  [TEST-FIX] SUCCESS — tests pass after %s fix (attempt %d)", fix_agent, attempt + 1)
+            return True
+
+        # Update failed_tests for next iteration
+        failed_tests = failed2
+        test_names = [ft["name"] for ft in failed_tests[:10]]
+        test_errors = "\n".join(
+            f"  - {ft['name']}: {ft.get('error', 'no details')[:200]}"
+            for ft in failed_tests[:10]
+        )
+        log.warning("  [TEST-FIX] Still %d tests failing after attempt %d", len(failed_tests), attempt + 1)
+
+    log.error("  [TEST-FIX] Could not fix tests after %d attempts for #%d", TEST_FIX_MAX_ATTEMPTS, num)
+    return False
+
+
 def chain_implement(issue, triage, status):
     """Chain-of-agents implementation: loops through AGENT_CHAIN.
     Each agent gets context from previous attempts. If build/test fail,
@@ -1502,7 +1636,38 @@ Do ONLY the fix. Nothing else."""
             # Build OK — run tests (with details for failure capture)
             status.set_task(type="issue_fix", issue=num, step=f"testing_{agent}")
             test_result = run_tests(return_details=True)
-            test_ok, test_output, failed_tests = test_result
+            # Unpack: run_tests now returns 4 values when return_details=True
+            if len(test_result) == 4:
+                test_ok, test_output, failed_tests, is_phantom = test_result
+            else:
+                test_ok, test_output, failed_tests = test_result
+                is_phantom = False
+
+            # ── PHANTOM TEST DETECTION ──
+            if is_phantom:
+                log.error("  [CHAIN] PHANTOM TESTS for #%d — tests did not actually run!", num)
+                log.error("  [CHAIN] Keeping changes, will retry tests after rebuild")
+                # Don't count as test failure — rebuild test project and retry
+                status.set_task(type="issue_fix", issue=num, step="rebuild_tests")
+                rebuild_ok, _ = run_build(capture_output=True)
+                if rebuild_ok:
+                    test_result2 = run_tests(return_details=True)
+                    if len(test_result2) == 4:
+                        test_ok, test_output, failed_tests, is_phantom2 = test_result2
+                    else:
+                        test_ok, test_output, failed_tests = test_result2
+                        is_phantom2 = False
+                    if is_phantom2:
+                        log.error("  [CHAIN] PHANTOM persists after rebuild for #%d — infrastructure issue!", num)
+                        # Mark as phantom failure — don't count against the implementation
+                        ctx.add_attempt(agent, f"implement #{num}", False,
+                                        build_result="OK", test_result="PHANTOM",
+                                        errors="Tests could not run (phantom). Infrastructure issue.")
+                        git_restore()
+                        ctx.save()
+                        return False
+                else:
+                    log.error("  [CHAIN] Rebuild also failed for #%d", num)
 
             if test_ok:
                 # Full success — commit, push, comment (minimal context)
@@ -1529,22 +1694,55 @@ Do ONLY the fix. Nothing else."""
                 status.clear_task()
                 return True
             else:
-                # Tests fail — capture FULL context before passing to next agent
+                # ── TEST-FIX-FIRST STRATEGY ──
+                # Instead of immediately reverting, try to fix the failing tests.
+                # The implementation is likely correct; the tests may need updating.
                 diff_out = _capture_full_diff()
                 modified, diff_stat = _capture_post_timeout_state()
-                ctx.add_attempt(agent, f"implement #{num}", False,
-                                build_result="OK", test_result="FAIL",
-                                errors="Build OK but tests failed. Changes left in working tree.",
-                                diff_output=diff_out, diff_summary=diff_stat,
-                                files_modified=modified,
-                                test_output=test_output[:10000] if test_output else "",
-                                failed_tests=failed_tests)
                 if failed_tests:
                     names = [ft["name"] for ft in failed_tests[:5]]
-                    log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d — failed: %s",
-                                agent, num, ", ".join(names))
+                    log.warning("  [CHAIN] %s fix builds but %d tests FAIL for #%d — attempting test fix: %s",
+                                agent, len(failed_tests), num, ", ".join(names))
                 else:
-                    log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d", agent, num)
+                    log.warning("  [CHAIN] %s fix builds but tests FAIL for #%d — attempting test fix", agent, num)
+
+                # Try to fix failing tests (up to TEST_FIX_MAX_ATTEMPTS)
+                test_fixed = _attempt_test_fix(
+                    num, title, agent, failed_tests, test_output, status, ctx)
+
+                if test_fixed:
+                    # Tests fixed! Commit everything (impl + test fixes)
+                    ctx.add_attempt(agent, f"implement #{num}", True,
+                                    build_result="OK", test_result="OK (after test fix)")
+                    ctx.save()
+
+                    status.set_task(type="issue_fix", issue=num, step="committing")
+                    short = (approach or title)[:60]
+                    msg = f"fix(#{num}): {short}"
+                    h = git_commit(msg)
+                    if not h:
+                        log.warning("  [CHAIN] No changes to commit for #%d", num)
+                        return False
+                    status.add_commit(h, msg, True)
+                    status.data["issues"]["implemented"] += 1
+                    log.info("  [CHAIN] %s fix + test fix committed %s", agent.capitalize(), h[:8])
+
+                    status.set_task(type="issue_fix", issue=num, step="pushing")
+                    git_push()
+                    if post_github_comment(num, h, short):
+                        status.data["issues"]["commented_on_github"] += 1
+                    update_issue_json(num, "testing", f"Fix in {h[:8]}")
+                    status.clear_task()
+                    return True
+                else:
+                    # Test fix failed — record context for next agent
+                    ctx.add_attempt(agent, f"implement #{num}", False,
+                                    build_result="OK", test_result="FAIL",
+                                    errors="Build OK but tests failed. Test fix attempted but failed.",
+                                    diff_output=diff_out, diff_summary=diff_stat,
+                                    files_modified=modified,
+                                    test_output=test_output[:10000] if test_output else "",
+                                    failed_tests=failed_tests)
         else:
             # Build fail — capture FULL context (diff + build errors)
             diff_out = _capture_full_diff()
@@ -1854,7 +2052,9 @@ def flux_issues(status, dry_run=False, max_issues=None):
     if max_issues:
         issues = issues[:max_issues]
 
-    consecutive_failures = 0
+    consecutive_triage_failures = 0
+    consecutive_impl_failures = 0
+    consecutive_phantom_tests = 0
     for i, issue in enumerate(issues, 1):
         num = issue["number"]
         title = issue.get("title", "")[:50]
@@ -1868,20 +2068,20 @@ def flux_issues(status, dry_run=False, max_issues=None):
 
         # Rate-limit: pause between API calls (2s normal, 30s after failures)
         if i > 1:
-            delay = 30 if consecutive_failures >= 3 else 2
+            delay = 30 if consecutive_triage_failures >= 3 else 2
             time.sleep(delay)
 
         triage, triage_agent = chain_triage(issue)
         if not triage:
             status.add_error(f"issue_{num}", "triage", "chain failed (both agents)")
             status.data["issues"]["failed"] += 1
-            consecutive_failures += 1
-            if consecutive_failures >= 10:
-                log.error("  [CIRCUIT BREAKER] %d consecutive failures — stopping triage", consecutive_failures)
+            consecutive_triage_failures += 1
+            if consecutive_triage_failures >= 10:
+                log.error("  [CIRCUIT BREAKER] %d consecutive triage failures — stopping", consecutive_triage_failures)
                 break
             continue
 
-        consecutive_failures = 0  # reset on success
+        consecutive_triage_failures = 0  # reset on success
         decision = triage.get("decision", "needs_info")
         ai_priority = triage.get("priority")
         ai_reason = triage.get("reason", "")
@@ -1896,7 +2096,41 @@ def flux_issues(status, dry_run=False, max_issues=None):
             status.data["issues"]["to_implement"] += 1
             update_issue_json(num, "triaged", ai_reason,
                               priority=ai_priority, notes=ai_notes)
-            chain_implement(issue, triage, status)
+            impl_ok = chain_implement(issue, triage, status)
+
+            if impl_ok:
+                consecutive_impl_failures = 0
+                consecutive_phantom_tests = 0
+            else:
+                consecutive_impl_failures += 1
+
+                # ── CIRCUIT BREAKER: consecutive implementation failures ──
+                if consecutive_impl_failures >= IMPL_CONSECUTIVE_FAIL_LIMIT:
+                    log.error("  [CIRCUIT BREAKER] %d consecutive implementation failures — stopping!",
+                              consecutive_impl_failures)
+                    log.error("  [CIRCUIT BREAKER] Last %d issues all failed. Likely infrastructure problem.",
+                              IMPL_CONSECUTIVE_FAIL_LIMIT)
+                    # Verify infrastructure: do a baseline build+test
+                    log.info("  [CIRCUIT BREAKER] Running baseline build+test to check infrastructure...")
+                    b_ok, _ = run_build(capture_output=True)
+                    if b_ok:
+                        t_result = run_tests(return_details=True)
+                        t_phantom = len(t_result) == 4 and t_result[3]
+                        t_ok = t_result[0]
+                        if t_phantom:
+                            log.error("  [CIRCUIT BREAKER] CONFIRMED: tests are phantom — STOPPING run")
+                            log.error("  [CIRCUIT BREAKER] Fix test infrastructure before resuming")
+                            break
+                        elif not t_ok:
+                            log.error("  [CIRCUIT BREAKER] Baseline tests failing — STOPPING run")
+                            break
+                        else:
+                            log.info("  [CIRCUIT BREAKER] Baseline OK — issues may be genuinely hard. Resetting counter.")
+                            consecutive_impl_failures = 0
+                    else:
+                        log.error("  [CIRCUIT BREAKER] Build itself is failing — STOPPING run")
+                        break
+
         elif decision == "wontfix":
             status.data["issues"]["skipped_wontfix"] += 1
             update_issue_json(num, "wontfix", ai_reason,
@@ -3582,16 +3816,54 @@ def main():
         CODEX_MODEL = args.codex_model
         log.info("Codex model override: %s", CODEX_MODEL)
 
+    # ── SINGLE INSTANCE LOCK ──
+    # Prevent multiple orchestrator instances from running simultaneously.
+    # Concurrent instances cause race conditions on git, garbled test output,
+    # and wrong-issue-attribution (discovered in 31h run, 2026-02-16).
+    lock_file = SCRIPTS_DIR / "orchestrator.lock"
+    if lock_file.exists():
+        try:
+            lock_data = json.loads(lock_file.read_text(encoding="utf-8"))
+            lock_pid = lock_data.get("pid", 0)
+            lock_time = lock_data.get("started", "unknown")
+            # Check if the PID is still alive
+            pid_alive = False
+            try:
+                os.kill(lock_pid, 0)  # signal 0 = check if process exists
+                pid_alive = True
+            except (OSError, ProcessLookupError):
+                pid_alive = False
+
+            if pid_alive:
+                print(f"ERROR: Another orchestrator instance is running (PID {lock_pid}, started {lock_time})")
+                print(f"       If this is stale, delete: {lock_file}")
+                sys.exit(1)
+            else:
+                log.warning("  [LOCK] Stale lock found (PID %d dead) — removing", lock_pid)
+                lock_file.unlink()
+        except Exception:
+            log.warning("  [LOCK] Corrupt lock file — removing")
+            lock_file.unlink()
+
+    # Create lock file
+    lock_file.write_text(
+        json.dumps({"pid": os.getpid(), "started": _now_iso()}, indent=2),
+        encoding="utf-8",
+    )
+
     # Preflight checks
     agents_needed = set(AGENT_CONFIG.values())
     if "codex" in agents_needed and not shutil.which("codex"):
         print("ERROR: 'codex' CLI not found in PATH.  Install: npm i -g @openai/codex")
+        lock_file.unlink(missing_ok=True)
         sys.exit(1)
     if "claude" in agents_needed and not shutil.which("claude"):
         print("ERROR: 'claude' CLI not found in PATH.  Install Claude Code first.")
+        lock_file.unlink(missing_ok=True)
         sys.exit(1)
     if "gemini" in agents_needed and not shutil.which("gemini"):
         print("ERROR: 'gemini' CLI not found in PATH.  Install Gemini CLI first.")
+        lock_file.unlink(missing_ok=True)
         sys.exit(1)
     if AGENT_FALLBACK_ENABLED:
         for cli_name in ("codex", "claude", "gemini"):
@@ -3599,9 +3871,11 @@ def main():
                 log.warning("%s CLI not found — fallback to %s disabled", cli_name, cli_name)
     if not shutil.which("gh"):
         print("ERROR: 'gh' CLI not found in PATH.  Install GitHub CLI first.")
+        lock_file.unlink(missing_ok=True)
         sys.exit(1)
     if not REPO_ROOT.exists():
         print(f"ERROR: Repo not found at {REPO_ROOT}")
+        lock_file.unlink(missing_ok=True)
         sys.exit(1)
 
     status = Status()
@@ -3630,6 +3904,10 @@ def main():
         log.error("FATAL: %s", e, exc_info=True)
         status.add_error("orchestrator", "fatal", str(e))
         status.finish()
+
+    finally:
+        # Always remove lock file on exit
+        lock_file.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

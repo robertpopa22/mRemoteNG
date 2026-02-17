@@ -288,7 +288,9 @@ namespace mRemoteNG.Container
         /// </summary>
         public void ApplyConnectionPropertiesToChildren()
         {
-            IEnumerable<ConnectionInfo> children = GetRecursiveChildList();
+            // Materialize the list to avoid "Collection was modified" when
+            // CopyFrom triggers PropertyChanged -> auto-sort on parent containers.
+            List<ConnectionInfo> children = GetRecursiveChildList().ToList();
 
             foreach (ConnectionInfo child in children)
             {
@@ -302,7 +304,8 @@ namespace mRemoteNG.Container
         /// </summary>
         public void ApplyInheritancePropertiesToChildren()
         {
-            IEnumerable<ConnectionInfo> children = GetRecursiveChildList();
+            // Materialize the list to avoid "Collection was modified" during iteration.
+            List<ConnectionInfo> children = GetRecursiveChildList().ToList();
 
             foreach (ConnectionInfo child in children)
             {

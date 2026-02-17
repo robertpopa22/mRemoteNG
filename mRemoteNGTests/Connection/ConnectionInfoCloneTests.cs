@@ -30,7 +30,7 @@ namespace mRemoteNGTests.Connection
             var clone = original.Clone();
             
             // Logic from ConnectionInitiator.cs
-            clone.Parent = original.Parent;
+            clone.SetParent((ContainerInfo)original.Parent!);
             clone.Inheritance.Username = false;
             clone.Inheritance.Password = false;
             clone.Inheritance.Domain = false;
