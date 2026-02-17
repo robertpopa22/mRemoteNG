@@ -385,6 +385,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MSRA (Microsoft Remote Assistance).
+        /// </summary>
+        internal static string Msra {
+            get {
+                return ResourceManager.GetString("Msra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance.
         /// </summary>
         internal static string Appearance {

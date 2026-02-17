@@ -240,7 +240,7 @@ namespace mRemoteNG.Connection
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          LocalizedAttributes.LocalizedDisplayName(nameof(Language.Port)),
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionPort)),
-         AttributeUsedInAllProtocolsExcept()]
+         AttributeUsedInAllProtocolsExcept(ProtocolType.MSRA)]
         public virtual int Port
         {
             get => GetPropertyValue("Port", _port);
@@ -285,7 +285,7 @@ namespace mRemoteNG.Connection
          LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionPassword)),
          PasswordPropertyText(true),
          Editor(typeof(UI.Controls.ConnectionInfoPropertyGrid.PasswordRevealEditor), typeof(UITypeEditor)),
-         AttributeUsedInAllProtocolsExcept(ProtocolType.Telnet, ProtocolType.Rlogin, ProtocolType.RAW)]
+         AttributeUsedInAllProtocolsExcept(ProtocolType.Telnet, ProtocolType.Rlogin, ProtocolType.RAW, ProtocolType.MSRA)]
         //public virtual SecureString Password
         public virtual string Password
         {

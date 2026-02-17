@@ -53,6 +53,9 @@ namespace mRemoteNG.Connection.Protocol
         [LocalizedAttributes.LocalizedDescription(nameof(Language.Vmrc))]
         VMRC = 15,
 
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.Msra))]
+        MSRA = 16,
+
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]
         IntApp = 20
     }

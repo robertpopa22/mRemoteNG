@@ -418,6 +418,8 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Port),
                     });
                     break;
+                case ProtocolType.MSRA:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(protocol), protocol, null);
             }

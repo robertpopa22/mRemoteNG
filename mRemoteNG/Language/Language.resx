@@ -162,6 +162,9 @@
   <data name="AnyDesk" xml:space="preserve">
     <value>AnyDesk</value>
   </data>
+  <data name="Msra" xml:space="preserve">
+    <value>MSRA (Microsoft Remote Assistance)</value>
+  </data>
   <data name="Ard" xml:space="preserve">
     <value>ARD (Apple Remote Desktop)</value>
   </data>
