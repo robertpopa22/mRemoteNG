@@ -36,7 +36,10 @@ namespace mRemoteNG.Config.Putty
         {
             foreach (AbstractPuttySessionsProvider provider in Providers)
             {
-                AddSessionsFromProvider(provider);
+                if (IsProviderEnabled(provider))
+                {
+                    AddSessionsFromProvider(provider);
+                }
             }
         }
 
@@ -136,10 +139,14 @@ namespace mRemoteNG.Config.Putty
 
         private bool IsProviderEnabled(AbstractPuttySessionsProvider puttySessionsProvider)
         {
-            bool enabled = true;
-            if (!(puttySessionsProvider is PuttySessionsRegistryProvider)) enabled = false;
+            if (puttySessionsProvider is PuttySessionsRegistryProvider) return true;
 
-            return enabled;
+            if (puttySessionsProvider is PuttySessionsFileProvider)
+            {
+                return PuttyTypeDetector.GetPuttyType() == PuttyTypeDetector.PuttyType.Kitty;
+            }
+
+            return false;
         }
 
         #endregion
