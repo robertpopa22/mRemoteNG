@@ -40,6 +40,17 @@ issues-db/
 ├── reports/           # Generated markdown reports
 │   └── 2026-02-10_sync.md
 └── README.md          # This file
+
+scripts/
+├── iis_orchestrator.py          # Main orchestrator (sync, triage, implement, report)
+├── orchestrator.log             # Internal log (auto-flushed, ALWAYS read this)
+├── orchestrator-status.json     # Machine-readable state
+├── orchestrator.lock            # Single-instance lock (PID-based)
+├── _agent_rate_limits.json      # Persistent agent rate-limit state
+├── _comment_rate.json           # GitHub comment rate-limit state
+├── chain-context/               # Per-session AI agent context files
+│   └── 20260217_*.json          # Triage/implement results per issue
+└── find-lesson.ps1              # Search LESSONS.md by keyword
 ```
 
 ## Issue Lifecycle
@@ -79,6 +90,22 @@ Each iteration is tracked with sequence numbers, dates, and descriptions.
 ## Scripts Reference
 
 All IIS functions are in a single Python script: `iis_orchestrator.py`.
+
+### issues (AI-driven auto-fix mode)
+Runs the full multi-agent orchestrator: sync → triage → implement → build → test → commit → notify.
+
+```bash
+# Process all open issues (612+)
+python iis_orchestrator.py issues
+
+# Limit to N issues
+python iis_orchestrator.py issues --max-issues 50
+
+# Use specific agent
+python iis_orchestrator.py issues --agent gemini
+```
+
+**Agent chain:** Codex → Gemini → Claude (fallback order). Rate-limited agents are automatically skipped.
 
 ### sync
 Fetches issues and comments from GitHub. **Run this FIRST, every session.**
@@ -227,6 +254,32 @@ python iis_orchestrator.py report --no-save
 3. **Use `--post-comment`** to notify users on GitHub
 4. **`iis_orchestrator.py report --include-all`** — Full inventory for release notes
 5. **Commit everything** — JSON updates are part of the release commit
+
+## Agent Rate-Limit Management
+
+The orchestrator automatically detects and persists rate limits for each AI agent. State is stored in `_agent_rate_limits.json` and survives across orchestrator restarts.
+
+### How it works
+1. When an agent returns a rate-limit error, the orchestrator parses the reset date
+2. The agent is marked as rate-limited in `_agent_rate_limits.json`
+3. On subsequent calls, `_agent_dispatch()` checks the rate state and skips the agent instantly
+4. When the reset date passes, the agent is automatically re-enabled
+
+### Manual management
+```bash
+# Check current rate limits
+cat .project-roadmap/scripts/_agent_rate_limits.json
+
+# Clear a rate limit manually (e.g., after upgrading API plan)
+python -c "import json; d=json.load(open('.project-roadmap/scripts/_agent_rate_limits.json')); del d['codex']; json.dump(d, open('.project-roadmap/scripts/_agent_rate_limits.json','w'), indent=2)"
+```
+
+### Agent configuration
+| Agent | CLI Tool | Sandbox | Approval | Model |
+|-------|----------|---------|----------|-------|
+| Codex | `codex exec` | `workspace-write` | `never` (auto-approve) | `gpt-5.3-codex` |
+| Gemini | `gemini` | N/A (native) | `-y` (auto-approve) | `gemini-3-pro-preview` |
+| Claude | `claude -p` | N/A (native) | `--dangerously-skip-permissions` | default |
 
 ## Rules
 

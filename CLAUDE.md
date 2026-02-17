@@ -109,8 +109,8 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (v1.81.0-beta.3, 2026-02-15):
-- **Full parallel run:** 2228/2231 passed, 3 skipped, **0 failed** — 5 processes, ~2 minutes
+### Current test status (v1.81.0-beta.3, 2026-02-17):
+- **Full parallel run:** 2460/2463 passed, 3 skipped, **0 failed** — 5 processes, ~65s
 - **mRemoteNGSpecs:** 2/5 passed, 3 failed (pre-existing BouncyCastle GCM decryption issue)
 - **No headless filter needed** — all UI tests redesigned with RunWithMessagePump pattern
 - **3 [Ignore] tests** (need production code refactoring, not test exclusion):
@@ -407,8 +407,8 @@ iis_orchestrator.py (Python — controller)
 - **CRITICAL: Ensure test projects are in mRemoteNG.sln** — the 31h failure was caused by .sln missing test projects.
 
 ### Safeguards (added 2026-02-17, after 31h failure post-mortem)
-| Safeguard | Constant | Value | Description |
-|-----------|----------|-------|-------------|
+| Safeguard | Constant/File | Value | Description |
+|-----------|---------------|-------|-------------|
 | Phantom detection | `TEST_MIN_DURATION_SECS` | 10 | Tests <10s = phantom (didn't run) |
 | Minimum test count | `TEST_MIN_COUNT` | 100 | Reject if fewer tests than expected |
 | Implementation circuit breaker | `IMPL_CONSECUTIVE_FAIL_LIMIT` | 5 | Stop after 5 consecutive impl failures |
@@ -416,6 +416,8 @@ iis_orchestrator.py (Python — controller)
 | Single instance lock | `orchestrator.lock` | PID-based | Prevents concurrent orchestrator instances |
 | Garbled output detection | in `run_tests()` | passed > total | Rejects impossible test results |
 | `run-tests.ps1` exit codes | 97/98/99 | special | 99=phantom, 98=garbled, 97=no tests found |
+| **Agent rate-limit tracking** | `_agent_rate_limits.json` | persistent | Auto-detects rate limits, skips agent until reset date. Survives restarts. |
+| **Codex sandbox fix** | `-a never -s workspace-write` | CLI flags | Overrides config.toml read-only default |
 
 ### Results (v1.81.0-beta.2)
 - **2,554 nullable warnings** fixed (100% clean) across 4 orchestrator sessions
@@ -429,6 +431,8 @@ iis_orchestrator.py (Python — controller)
 | `.project-roadmap/scripts/orchestrator.log` | Internal log (auto-flushed, always read THIS) |
 | `.project-roadmap/scripts/orchestrator-status.json` | Machine-readable state |
 | `.project-roadmap/scripts/chain-context/` | Per-session context files |
+| `.project-roadmap/scripts/_agent_rate_limits.json` | Persistent agent rate-limit state (auto-managed) |
+| `.project-roadmap/scripts/_comment_rate.json` | GitHub comment rate-limit state |
 
 ---
 
