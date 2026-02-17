@@ -166,6 +166,90 @@ GEMINI_CMD = shutil.which("gemini") or "gemini"
 CODEX_CMD = shutil.which("codex") or "codex"
 
 
+# ── AGENT RATE-LIMIT TRACKING (persisted to disk) ────────────────────────
+_AGENT_RATE_FILE = SCRIPTS_DIR / "_agent_rate_limits.json"
+
+
+def _load_agent_rate_limits():
+    """Load per-agent rate-limit state from disk."""
+    if not _AGENT_RATE_FILE.exists():
+        return {}
+    try:
+        with open(_AGENT_RATE_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def _save_agent_rate_limits(state):
+    """Persist per-agent rate-limit state to disk."""
+    try:
+        with open(_AGENT_RATE_FILE, "w", encoding="utf-8") as f:
+            json.dump(state, f, indent=2)
+    except Exception as e:
+        log.warning("  [RATE] Failed to save agent rate state: %s", e)
+
+
+def _mark_agent_rate_limited(agent, available_after_iso):
+    """Mark an agent as rate-limited until a specific datetime (ISO format)."""
+    state = _load_agent_rate_limits()
+    state[agent] = {
+        "available_after": available_after_iso,
+        "detected_at": datetime.datetime.now().isoformat(),
+    }
+    _save_agent_rate_limits(state)
+    log.warning("  [RATE] Agent '%s' rate-limited until %s", agent, available_after_iso)
+
+
+def _is_agent_rate_limited(agent):
+    """Check if an agent is currently rate-limited. Returns (bool, available_after_str)."""
+    state = _load_agent_rate_limits()
+    entry = state.get(agent)
+    if not entry:
+        return False, None
+    available_after = entry.get("available_after")
+    if not available_after:
+        return False, None
+    try:
+        available_dt = datetime.datetime.fromisoformat(available_after)
+        if datetime.datetime.now() >= available_dt:
+            # Rate limit expired — clear it
+            del state[agent]
+            _save_agent_rate_limits(state)
+            log.info("  [RATE] Agent '%s' rate limit expired — re-enabling", agent)
+            return False, None
+        return True, available_after
+    except (ValueError, TypeError):
+        return False, None
+
+
+def _parse_rate_limit_from_output(output):
+    """Parse rate-limit reset date from Codex/agent error output.
+    Returns ISO datetime string or None.
+    Examples: 'try again at Feb 21st, 2026 11:15 PM'
+    """
+    import re
+    m = re.search(
+        r"try again at\s+(\w+ \d+\w*,?\s*\d{4}\s+\d{1,2}:\d{2}\s*[AP]M)",
+        output, re.IGNORECASE
+    )
+    if not m:
+        if re.search(r"(rate|usage)\s+limit", output, re.IGNORECASE):
+            dt = datetime.datetime.now() + datetime.timedelta(hours=24)
+            return dt.isoformat()
+        return None
+    raw_date = m.group(1)
+    raw_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", raw_date)
+    for fmt in ("%b %d, %Y %I:%M %p", "%b %d %Y %I:%M %p",
+                "%B %d, %Y %I:%M %p", "%B %d %Y %I:%M %p"):
+        try:
+            return datetime.datetime.strptime(raw_date.strip(), fmt).isoformat()
+        except ValueError:
+            continue
+    dt = datetime.datetime.now() + datetime.timedelta(hours=24)
+    return dt.isoformat()
+
+
 # ── TIMEOUT ESTIMATION (complexity + history + escalation) ───────────────
 def _load_timeout_history():
     """Load timeout history from disk.
@@ -1110,9 +1194,10 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 
             cmd = [
                 CODEX_CMD, "exec", "-",
-                "--full-auto",
                 "--color", "never",
                 "--ephemeral",
+                "-a", "never",                   # auto-approve all (no user prompts)
+                "-s", "workspace-write",         # writable sandbox (override config read-only)
                 "-m", CODEX_MODEL,
                 "-c", f'model_reasoning_effort="{CODEX_REASONING}"',
                 "-C", str(REPO_ROOT),
@@ -1127,9 +1212,17 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
             kill_stale_processes()
 
             if rc != 0:
-                err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty output)"
+                all_output = (stderr or "") + "\n" + (stdout or "")
+                err_detail = all_output.strip()[:200] or "(empty output)"
                 log.error("    [CODEX] attempt %d/%d exit %d: %s",
                           attempt, retries, rc, err_detail)
+
+                # Detect rate limiting and persist for future runs
+                rate_reset = _parse_rate_limit_from_output(all_output)
+                if rate_reset:
+                    _mark_agent_rate_limited("codex", rate_reset)
+                    return None  # Don't retry — rate-limited
+
                 if attempt < retries:
                     log.info("    [CODEX] Retrying in 10s ...")
                     time.sleep(10)
@@ -1204,10 +1297,18 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
                     timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
     """Dispatch a prompt to a specific agent. Returns stdout string or None.
-    Sets _last_dispatch_timed_out if the agent timed out."""
+    Sets _last_dispatch_timed_out if the agent timed out.
+    Skips agents that are currently rate-limited."""
     global _last_dispatch_timed_out, _last_dispatch_partial_output
     _last_dispatch_timed_out = False
     _last_dispatch_partial_output = ""
+
+    # Check rate limit before dispatching
+    is_limited, available_after = _is_agent_rate_limited(agent)
+    if is_limited:
+        log.info("    [RATE] Skipping %s (rate-limited until %s)", agent, available_after)
+        return None
+
     _session_agents_used.add(agent)
 
     if agent == "codex":
@@ -1224,8 +1325,13 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
             kill_stale_processes()
             if rc == 0 and stdout:
                 return stdout
-            err_detail = (stderr or "")[:200] or (stdout or "")[:200] or "(empty)"
+            all_output = (stderr or "") + "\n" + (stdout or "")
+            err_detail = all_output.strip()[:200] or "(empty)"
             log.error("    [GEMINI] dispatch exit %d: %s", rc, err_detail)
+            # Detect rate limiting for Gemini
+            rate_reset = _parse_rate_limit_from_output(all_output)
+            if rate_reset:
+                _mark_agent_rate_limited("gemini", rate_reset)
             return None
         except subprocess.TimeoutExpired:
             log.error("    [GEMINI] dispatch TIMEOUT (%ds)", timeout)
