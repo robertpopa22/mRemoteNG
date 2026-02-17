@@ -23,6 +23,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblSectionName = new System.Windows.Forms.Label();
             pnlServerBlock = new System.Windows.Forms.Panel();
             tabCtrlSQL = new System.Windows.Forms.TabControl();
+            tabPageProfiles = new System.Windows.Forms.TabPage();
+            lstProfiles = new System.Windows.Forms.ListBox();
+            btnLoadProfile = new MrngButton();
+            btnSaveProfile = new MrngButton();
+            btnDeleteProfile = new MrngButton();
+            txtProfileName = new MrngTextBox();
+            lblProfileName = new MrngLabel();
             tabPage1 = new System.Windows.Forms.TabPage();
             pnlSQLCon = new System.Windows.Forms.TableLayoutPanel();
             chkSQLReadOnly = new System.Windows.Forms.CheckBox();
@@ -170,6 +177,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // 
             // tabCtrlSQL
             // 
+            tabCtrlSQL.Controls.Add(tabPageProfiles);
             tabCtrlSQL.Controls.Add(tabPage1);
             tabCtrlSQL.Controls.Add(tabPage2);
             tabCtrlSQL.Controls.Add(tabPage3);
@@ -180,6 +188,74 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             tabCtrlSQL.Size = new System.Drawing.Size(481, 277);
             tabCtrlSQL.TabIndex = 33;
             tabCtrlSQL.Visible = false;
+            // 
+            // tabPageProfiles
+            // 
+            tabPageProfiles.Controls.Add(lstProfiles);
+            tabPageProfiles.Controls.Add(lblProfileName);
+            tabPageProfiles.Controls.Add(txtProfileName);
+            tabPageProfiles.Controls.Add(btnLoadProfile);
+            tabPageProfiles.Controls.Add(btnSaveProfile);
+            tabPageProfiles.Controls.Add(btnDeleteProfile);
+            tabPageProfiles.Location = new System.Drawing.Point(4, 22);
+            tabPageProfiles.Name = "tabPageProfiles";
+            tabPageProfiles.Padding = new System.Windows.Forms.Padding(3);
+            tabPageProfiles.Size = new System.Drawing.Size(473, 251);
+            tabPageProfiles.TabIndex = 4;
+            tabPageProfiles.Text = "Profiles";
+            tabPageProfiles.UseVisualStyleBackColor = true;
+            // 
+            // lstProfiles
+            // 
+            lstProfiles.FormattingEnabled = true;
+            lstProfiles.Location = new System.Drawing.Point(6, 6);
+            lstProfiles.Name = "lstProfiles";
+            lstProfiles.Size = new System.Drawing.Size(200, 238);
+            lstProfiles.TabIndex = 0;
+            // 
+            // lblProfileName
+            // 
+            lblProfileName.AutoSize = true;
+            lblProfileName.Location = new System.Drawing.Point(212, 6);
+            lblProfileName.Name = "lblProfileName";
+            lblProfileName.Size = new System.Drawing.Size(70, 13);
+            lblProfileName.TabIndex = 1;
+            lblProfileName.Text = "Profile Name:";
+            // 
+            // txtProfileName
+            // 
+            txtProfileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            txtProfileName.Location = new System.Drawing.Point(215, 22);
+            txtProfileName.Name = "txtProfileName";
+            txtProfileName.Size = new System.Drawing.Size(200, 20);
+            txtProfileName.TabIndex = 2;
+            // 
+            // btnLoadProfile
+            // 
+            btnLoadProfile.Location = new System.Drawing.Point(215, 48);
+            btnLoadProfile.Name = "btnLoadProfile";
+            btnLoadProfile.Size = new System.Drawing.Size(75, 23);
+            btnLoadProfile.TabIndex = 3;
+            btnLoadProfile.Text = "Load";
+            btnLoadProfile.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveProfile
+            // 
+            btnSaveProfile.Location = new System.Drawing.Point(296, 48);
+            btnSaveProfile.Name = "btnSaveProfile";
+            btnSaveProfile.Size = new System.Drawing.Size(75, 23);
+            btnSaveProfile.TabIndex = 4;
+            btnSaveProfile.Text = "Save";
+            btnSaveProfile.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteProfile
+            // 
+            btnDeleteProfile.Location = new System.Drawing.Point(377, 48);
+            btnDeleteProfile.Name = "btnDeleteProfile";
+            btnDeleteProfile.Size = new System.Drawing.Size(75, 23);
+            btnDeleteProfile.TabIndex = 5;
+            btnDeleteProfile.Text = "Delete";
+            btnDeleteProfile.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -1300,5 +1376,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private System.Windows.Forms.Label DCMSetuptxtmandatory2;
         private System.Windows.Forms.Label DCMSetuptxtmandatory1;
         private System.Windows.Forms.CheckBox chkShowDatabasePickerOnStartup;
+        private System.Windows.Forms.TabPage tabPageProfiles;
+        private System.Windows.Forms.ListBox lstProfiles;
+        private MrngButton btnLoadProfile;
+        private MrngButton btnSaveProfile;
+        private MrngButton btnDeleteProfile;
+        private MrngTextBox txtProfileName;
+        private MrngLabel lblProfileName;
     }
 }

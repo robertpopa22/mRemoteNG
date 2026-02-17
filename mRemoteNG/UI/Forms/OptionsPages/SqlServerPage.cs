@@ -37,6 +37,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.SQLDatabase_16x);
             _databaseConnectionTester = new DatabaseConnectionTester();
             pageRegSettingsInstance = new OptRegistrySqlServerPage(); // Initialize the field to avoid nullability issues
+
+            // Event subscriptions for Profile Management
+            btnLoadProfile.Click += btnLoadProfile_Click;
+            btnSaveProfile.Click += btnSaveProfile_Click;
+            btnDeleteProfile.Click += btnDeleteProfile_Click;
+            lstProfiles.SelectedIndexChanged += lstProfiles_SelectedIndexChanged;
+            LoadProfilesList();
         }
 
         public override string PageName
@@ -486,5 +493,97 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             return new Version(0, 0);
         }
+
+        #region Profile Management
+
+        private void LoadProfilesList()
+        {
+            lstProfiles.Items.Clear();
+            foreach (var profile in DatabaseProfileManager.Profiles)
+            {
+                lstProfiles.Items.Add(profile);
+            }
+            lstProfiles.DisplayMember = "Name";
+        }
+
+        private void lstProfiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstProfiles.SelectedItem is DatabaseProfile profile)
+            {
+                txtProfileName.Text = profile.Name;
+            }
+        }
+
+        private void btnLoadProfile_Click(object sender, EventArgs e)
+        {
+            if (lstProfiles.SelectedItem is DatabaseProfile profile)
+            {
+                DatabaseProfileManager.ApplyProfileToSettings(profile);
+                LoadSettings(); // Refresh UI with new settings
+                MessageBox.Show($"Profile '{profile.Name}' loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Please select a profile to load.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnSaveProfile_Click(object sender, EventArgs e)
+        {
+            string profileName = txtProfileName.Text.Trim();
+            if (string.IsNullOrEmpty(profileName))
+            {
+                MessageBox.Show("Please enter a profile name.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Save current settings to properties first (handled by SaveSettings call usually, but here we read from UI controls)
+            // But wait, SaveSettings() persists to properties. We should probably update properties from UI first before creating profile?
+            // Or just read from UI controls directly.
+            
+            // To be safe and consistent, let's update properties from UI controls first (in-memory, not necessarily saved to disk yet)
+            // But SaveSettings() method does exactly this.
+            // However, SaveSettings() is 'override' and called by the Options dialog logic when OK/Apply is clicked.
+            // Here we want to capture current UI state into a profile.
+            
+            // Let's manually create profile from UI controls to avoid modifying global settings if user cancels.
+            // Actually, the requirement is "Pick database on logon".
+            // So saving a profile should probably just save the current configuration on screen.
+            
+            LegacyRijndaelCryptographyProvider cryptographyProvider = new();
+            var profile = new DatabaseProfile
+            {
+                Name = profileName,
+                Type = DatabaseConnectorFactory.NormalizeType(txtSQLType.Text),
+                Host = txtSQLServer.Text,
+                DatabaseName = txtSQLDatabaseName.Text,
+                Username = txtSQLUsername.Text,
+                EncryptedPassword = cryptographyProvider.Encrypt(txtSQLPassword.Text, Runtime.EncryptionKey),
+                ReadOnly = chkSQLReadOnly.Checked
+            };
+
+            DatabaseProfileManager.AddProfile(profile);
+            LoadProfilesList();
+            MessageBox.Show($"Profile '{profileName}' saved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnDeleteProfile_Click(object sender, EventArgs e)
+        {
+            if (lstProfiles.SelectedItem is DatabaseProfile profile)
+            {
+                if (MessageBox.Show($"Are you sure you want to delete profile '{profile.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    DatabaseProfileManager.RemoveProfile(profile.Name);
+                    LoadProfilesList();
+                    txtProfileName.Text = "";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a profile to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        #endregion
     }
 }

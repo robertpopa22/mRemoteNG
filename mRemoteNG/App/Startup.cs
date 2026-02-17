@@ -17,6 +17,8 @@ using mRemoteNG.UI;
 using mRemoteNG.UI.Forms;
 
 
+using mRemoteNG.Config.DatabaseConnectors; // Added for DatabaseProfileManager
+
 namespace mRemoteNG.App
 {
     [SupportedOSPlatform("windows")]
@@ -60,6 +62,27 @@ namespace mRemoteNG.App
         {
             messageCollector.AddMessage(MessageClass.DebugMsg, "Determining if we need a database syncronizer");
             if (!Properties.OptionsDBsPage.Default.UseSQLServer) return;
+
+            // Check if profile picker should be shown
+            if (Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup)
+            {
+                using (var picker = new FrmDatabasePicker())
+                {
+                    if (picker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (picker.SelectedProfile != null)
+                        {
+                            DatabaseProfileManager.ApplyProfileToSettings(picker.SelectedProfile);
+                        }
+                    }
+                    else
+                    {
+                        // User cancelled, do not enable SQL sync
+                        return;
+                    }
+                }
+            }
+
             messageCollector.AddMessage(MessageClass.DebugMsg, "Creating database syncronizer");
             Runtime.ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new SqlConnectionsUpdateChecker());
             Runtime.ConnectionsService.RemoteConnectionsSyncronizer.Enable();
