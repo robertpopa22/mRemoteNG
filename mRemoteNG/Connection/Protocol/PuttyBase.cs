@@ -733,7 +733,10 @@ namespace mRemoteNG.Connection.Protocol
             if (powerMode != PowerModes.Resume)
                 return;
 
-            Resize(this, EventArgs.Empty);
+            if (InterfaceControl != null && !InterfaceControl.IsDisposed && InterfaceControl.IsHandleCreated)
+            {
+                InterfaceControl.BeginInvoke((MethodInvoker)(() => Resize(this, EventArgs.Empty)));
+            }
         }
 
         public override void Close()

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.UI.Tabs;
@@ -107,6 +108,22 @@ namespace mRemoteNGTests.Connection.Protocol
 
             _ = _interfaceControl.Handle;
             Assert.That(_puttyProtocol.DeferredResizeCallCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void OnPowerModeChanged_Resume_TriggersResizeOnUIThread()
+        {
+            // Ensure handle is created so BeginInvoke works
+            _ = _interfaceControl.Handle;
+
+            int initialCount = _puttyProtocol.DeferredResizeCallCount;
+
+            _puttyProtocol.OnPowerModeChanged(PowerModes.Resume);
+
+            // Allow UI message loop to process the BeginInvoke
+            Application.DoEvents();
+
+            Assert.That(_puttyProtocol.DeferredResizeCallCount, Is.GreaterThan(initialCount));
         }
 
         private sealed class TestablePuttyBase : PuttyBase
