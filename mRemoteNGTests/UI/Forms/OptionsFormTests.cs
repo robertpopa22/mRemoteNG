@@ -1,4 +1,5 @@
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.UI.Forms;
@@ -11,6 +12,57 @@ namespace mRemoteNGTests.UI.Forms
     [Apartment(ApartmentState.STA)]
     public class OptionsFormTests : OptionsFormSetupAndTeardown
     {
+        /// <summary>
+        /// Runs the given action on a dedicated STA thread with a WinForms message pump.
+        /// Required because FrmOptions uses ObjectListView which forces native Win32
+        /// handle creation that deadlocks without an active message pump.
+        /// </summary>
+        private static void RunWithMessagePump(Action<FrmOptions> testAction)
+        {
+            Exception caught = null;
+            var thread = new Thread(() =>
+            {
+                var host = new Form
+                {
+                    Width = 800, Height = 600,
+                    ShowInTaskbar = false,
+                    StartPosition = FormStartPosition.Manual,
+                    Location = new System.Drawing.Point(-10000, -10000)
+                };
+                host.Load += (s, e) =>
+                {
+                    FrmOptions optionsForm = null;
+                    try
+                    {
+                        optionsForm = new FrmOptions();
+                        optionsForm.Show();
+                        Application.DoEvents();
+                        testAction(optionsForm);
+                    }
+                    catch (Exception ex)
+                    {
+                        caught = ex;
+                    }
+                    finally
+                    {
+                        try { optionsForm?.Close(); } catch { }
+                        try { optionsForm?.Dispose(); } catch { }
+                        host.Close();
+                    }
+                };
+                Application.Run(host);
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            if (!thread.Join(TimeSpan.FromSeconds(30)))
+            {
+                thread.Interrupt();
+                Assert.Fail("Test timed out after 30 seconds (message pump deadlock)");
+            }
+            if (caught != null)
+                throw caught;
+        }
+
         [Test]
         public void ClickingCloseButtonClosesTheForm()
         {
@@ -35,32 +87,27 @@ namespace mRemoteNGTests.UI.Forms
         }
 
         [Test]
-        [Ignore("Options page initialization triggers ObjectListView handle creation that deadlocks without Application.Run message pump. Needs OptionsForm refactoring to use RunWithMessagePump pattern.")]
-        public void ChangingOptionMarksPageAsChanged()
+        public void ChangingOptionMarksPageAsChanged() => RunWithMessagePump(optionsForm =>
         {
             Application.DoEvents();
 
-            var pnlMain = _optionsForm.FindControl<Panel>("pnlMain");
-            Assert.That(pnlMain, Is.Not.Null);
+            var pnlMain = optionsForm.FindControl<Panel>("pnlMain");
+            Assert.That(pnlMain, Is.Not.Null, "pnlMain should exist on the options form");
+            Assert.That(pnlMain.Controls.Count, Is.GreaterThan(0), "pnlMain should have at least one options page");
 
-            if (pnlMain.Controls.Count > 0)
-            {
-                var optionsPage = pnlMain.Controls[0] as mRemoteNG.UI.Forms.OptionsPages.OptionsPage;
-                Assert.That(optionsPage, Is.Not.Null);
+            var optionsPage = pnlMain.Controls[0] as mRemoteNG.UI.Forms.OptionsPages.OptionsPage;
+            Assert.That(optionsPage, Is.Not.Null, "First control in pnlMain should be an OptionsPage");
 
-                var checkBoxes = optionsPage.GetAllControls().OfType<CheckBox>().ToList();
+            var checkBoxes = optionsPage.GetAllControls().OfType<CheckBox>().ToList();
+            Assert.That(checkBoxes.Count, Is.GreaterThan(0), "Options page should have at least one checkbox");
 
-                if (checkBoxes.Count > 0)
-                {
-                    var checkBox = checkBoxes[0];
-                    bool originalValue = checkBox.Checked;
-                    checkBox.Checked = !originalValue;
-                    Application.DoEvents();
+            var checkBox = checkBoxes[0];
+            bool originalValue = checkBox.Checked;
+            checkBox.Checked = !originalValue;
+            Application.DoEvents();
 
-                    Assert.That(optionsPage.HasChanges, Is.True);
-                }
-            }
-        }
+            Assert.That(optionsPage.HasChanges, Is.True, "Toggling a checkbox should mark the page as having changes");
+        });
 
         [Test]
         public void ControlsAreCreatedAfterFormInitialization()

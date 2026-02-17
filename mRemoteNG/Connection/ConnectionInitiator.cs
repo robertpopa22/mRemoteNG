@@ -286,7 +286,8 @@ namespace mRemoteNG.Connection
 
                 connectionInfoOriginal.OpenConnections.Add(newProtocol);
                 _activeConnections.Add(useAlternativeAddress ? connectionInfoOriginal.ConstantID : connectionInfo.ConstantID);
-                FrmMain.Default.SelectedConnection = useAlternativeAddress ? connectionInfoOriginal : connectionInfo;
+                if (FrmMain.IsCreated)
+                    FrmMain.Default.SelectedConnection = useAlternativeAddress ? connectionInfoOriginal : connectionInfo;
             }
             catch (Exception ex)
             {
