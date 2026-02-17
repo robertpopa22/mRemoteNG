@@ -406,6 +406,10 @@ namespace mRemoteNG.UI.Forms
             if (!_themeManager.ThemingActive)
             {
                 pnlDock.Theme = _themeManager.DefaultTheme.Theme;
+                if (pnlDock.Theme?.Measures != null)
+                {
+                    pnlDock.Theme.Measures.SplitterSize = 10;
+                }
                 return;
             }
 
@@ -414,6 +418,10 @@ namespace mRemoteNG.UI.Forms
                 // this will always throw when turning themes on from
                 // the options menu.
                 pnlDock.Theme = _themeManager.ActiveTheme.Theme;
+                if (pnlDock.Theme?.Measures != null)
+                {
+                    pnlDock.Theme.Measures.SplitterSize = 10;
+                }
             }
             catch (Exception)
             {
