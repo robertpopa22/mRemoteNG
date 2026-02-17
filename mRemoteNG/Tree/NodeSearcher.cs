@@ -28,6 +28,11 @@ namespace mRemoteNG.Tree
                     Matches.Add(node);
             }
 
+            Matches = Matches.OrderByDescending(node =>
+                node.Name.Equals(searchText, System.StringComparison.OrdinalIgnoreCase) ||
+                node.Hostname.Equals(searchText, System.StringComparison.OrdinalIgnoreCase)
+            ).ToList();
+
             if (Matches.Count > 0)
                 CurrentMatch = Matches.First();
             return Matches;
