@@ -107,6 +107,20 @@ python iis_orchestrator.py issues --agent gemini
 
 **Agent chain:** Codex → Gemini → Claude (fallback order). Rate-limited agents are automatically skipped.
 
+**Implementation workflow per issue:**
+1. **Triage** — agent classifies as `implement`, `wontfix`, `needs_info`, or `duplicate`
+2. **Implement** — agent modifies code to fix the issue
+3. **Build** — `build.ps1` must pass (compile check)
+4. **Test** — `run-tests.ps1 -NoBuild` must pass (2460+ tests)
+5. **Test-fix-first** — If tests fail, agent analyzes failures and either:
+   - Fixes the implementation (if bug in new code)
+   - Updates the test (if testing old/changed behavior)
+   - Up to `TEST_FIX_MAX_ATTEMPTS` (2) iterations before reverting
+6. **Commit** — atomic commit `fix(#NNNN): description` (only on green)
+7. **Push + Comment** — pushes to origin, posts GitHub comment on upstream issue
+
+**Key principle:** The orchestrator does NOT immediately revert on test failure. It first attempts to fix the failing tests or the implementation, looping until tests pass or all attempts are exhausted. Tests are only modified if they test behavior that was intentionally changed — never deleted unless truly irrelevant.
+
 ### sync
 Fetches issues and comments from GitHub. **Run this FIRST, every session.**
 
