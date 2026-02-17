@@ -1,0 +1,45 @@
+{
+  "task_type": "triage",
+  "task_id": "787",
+  "started_at": "2026-02-17T08:47:14",
+  "finished_at": "2026-02-17T08:47:55",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:47:32"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "Microsoft Remote Assistance (msra.exe) and SCCM Remote Control cannot be embedded as panel protocols — they lack embeddable COM/ActiveX controls and require invitation-based workflows incompatible with mRemoteNG's connection model; launching msra.exe is already possible via External Tools.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Close as wontfix — no embeddable API exists for Remote Assistance; users can already use External Tools to launch msra.exe with connection parameters."
+      },
+      "raw_output": "Based on my analysis:\n\n- **Issue #787** requests adding Microsoft Remote Assistance (`msra.exe`) and/or SCCM-style Remote Control as a new protocol in mRemoteNG.\n- This is a significant feature request from 2017 with community interest (4+ users endorsing it over the years).\n- Microsoft Remote Assistance (`msra.exe`) is a standalone Windows tool that uses DCOM/RPC - it has no embeddable COM control like RDP's `MSTSCLib`. It requires invitation files or Easy Connect, making it fundamentally different from the protocols mRemoteNG currently embeds.\n- SCCM Remote Control requires a ConfigMgr infrastructure and is not a standalone protocol.\n- There's no practical way to embed these as a panel-integrated protocol. At best, mRemoteNG could launch `msra.exe` as an external tool, which is already possible via the External Tools feature.\n- The issue has been open 8+ years with no concrete implementation path proposed by anyone.\n\n```json\n{\"decision\":\"wontfix\",\"reason\":\"Microsoft Remote Assistance (msra.exe) and SCCM Remote Control cannot be embedded as panel protocols — they lack embeddable COM/ActiveX controls and require invitation-based workflows incompatible with mRemoteNG's connection model; launching msra.exe is already possible via External Tools.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Close as wontfix — no embeddable API exists for Remote Assistance; users can already use External Tools to launch msra.exe with connection parameters.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:47:55"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1114",
+  "started_at": "2026-02-17T04:03:23",
+  "finished_at": "2026-02-17T04:18:53",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1114",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T04:03:25"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1114",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T04:14:15"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1114",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        ".project-roadmap/scripts/tmpim2o1qdn.txt"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".../scripts/chain-context/_timeout_history.json    |  7 +++++--\n .project-roadmap/scripts/tmpim2o1qdn.txt           | 24 ----------------------\n 2 files changed, 5 insertions(+), 26 deletions(-)",
+      "timestamp": "2026-02-17T04:18:53",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..f7bd445d0 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,7 +20,9 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        126.9,\n+        257.8\n       ],\n       \"triage\": [\n         24.5,\n@@ -48,7 +50,8 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        537.1\n       ],\n       \"triage\": [\n         74.7,\ndiff --git a/.project-roadmap/scripts/tmpim2o1qdn.txt b/.project-roadmap/scripts/tmpim2o1qdn.txt\ndeleted file mode 100644\nindex 93fce24f8..000000000\n--- a/.project-roadmap/scripts/tmpim2o1qdn.txt\n+++ /dev/null\n@@ -1,24 +0,0 @@\n-Project: mRemoteNG (.NET 10, WinForms, COM references)\n-Working directory: D:\\github\\mRemoteNG\n-Branch: main\n-\n-Fix GitHub issue #1148: Feature Request: Connection Count in Folder Title\n-Description: \n-Approach: Add 'ShowConnectionCount' setting to OptionsAppearancePage. Update ConnectionNameFormatter.FormatName to append child count to folder names if enabled.\n-Likely files: mRemoteNG/Tools/ConnectionNameFormatter.cs, mRemoteNG/Properties/OptionsAppearancePage.settings\n-\n-IMPORTANT — Previous agents already attempted this fix.\n-Their changes may still be in the working tree.\n-\n-=== PREVIOUS AGENT ATTEMPTS ===\n-\n---- Attempt 1: CODEX [FAILED] ---\n-Task: implement #1148\n-Errors: Agent returned None after retries\n-\n-=== END PREVIOUS ATTEMPTS ===\n-\n-Review the current state of the code, correct any issues, and make the fix work.\n-\n-RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.\n-Do ONLY the fix. Nothing else.\n\\ No newline at end of file",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

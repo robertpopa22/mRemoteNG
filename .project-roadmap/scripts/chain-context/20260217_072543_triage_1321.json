@@ -1,0 +1,67 @@
+{
+  "task_type": "triage",
+  "task_id": "1321",
+  "started_at": "2026-02-17T07:24:57",
+  "finished_at": "2026-02-17T07:25:43",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:24:59"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:25:17"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Architectural improvement to simplify adding connection properties by centralizing metadata (attributes or property objects) instead of requiring changes across 6+ locations — reduces developer friction and maintenance burden.",
+        "priority": "P4-debt",
+        "estimated_files": [
+          "mRemoteNG/Connection/AbstractConnectionInfo.cs",
+          "mRemoteNG/Connection/ConnectionInfoInheritance.cs",
+          "mRemoteNG/Connection/Serializers/Xml/XmlConnectionsSerializer.cs",
+          "mRemoteNG/Connection/Serializers/Xml/XmlConnectionsDeserializer.cs",
+          "mRemoteNG/Connection/Serializers/Db/MSSql/DataTableSerializer.cs",
+          "mRemoteNG/Connection/Serializers/Db/MSSql/DataTableDeserializer.cs",
+          "mRemoteNG/UI/Window/ConfigWindow.cs"
+        ],
+        "approach": "Implement attribute-based approach: add custom attributes (e.g. [ConnectionProperty], [UsedInProtocols], [SharedProperty]) to AbstractConnectionInfo properties, then refactor serializers and ConfigWindow to discover properties via reflection instead of hardcoded lists. This is the lighter-weight option from the issue that preserves the existing property access pattern (connectionInfo.Hostname) while centralizing metadata. Phase 2 could migrate to IConnectionProperty<T> pattern if needed."
+      },
+      "raw_output": "This is a well-documented architectural/technical debt issue requesting simplification of how connection properties are added. It's a significant refactoring task, not a bug fix. Let me check the current state of the relevant files.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Architectural improvement to simplify adding connection properties by centralizing metadata (attributes or property objects) instead of requiring changes across 6+ locations — reduces developer friction and maintenance burden.\",\"priority\":\"P4-debt\",\"estimated_files\":[\"mRemoteNG/Connection/AbstractConnectionInfo.cs\",\"mRemoteNG/Connection/ConnectionInfoInheritance.cs\",\"mRemoteNG/Connection/Serializers/Xml/XmlConnectionsSerializer.cs\",\"mRemoteNG/Connection/Serializers/Xml/XmlConnectionsDeserializer.cs\",\"mRemoteNG/Connection/Serializers/Db/MSSql/DataTableSerializer.cs\",\"mRemoteNG/Connection/Serializers/Db/MSSql/DataTableDeserializer.cs\",\"mRemoteNG/UI/Window/ConfigWindow.cs\"],\"approach\":\"Implement attribute-based approach: add custom attributes (e.g. [ConnectionProperty], [UsedInProtocols], [SharedProperty]) to AbstractConnectionInfo properties, then refactor serializers and ConfigWindow to discover properties via reflection instead of hardcoded lists. This is the lighter-weight option from the issue that preserves the existing property access pattern (connectionInfo.Hostname) while centralizing metadata. Phase 2 could migrate to IConnectionProperty<T> pattern if needed.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:25:43"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

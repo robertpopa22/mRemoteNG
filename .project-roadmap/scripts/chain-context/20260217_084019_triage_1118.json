@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "1118",
+  "started_at": "2026-02-17T08:39:32",
+  "finished_at": "2026-02-17T08:40:19",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:39:50"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Touchpad scroll causes InterfaceControl to capture focus from embedded PuTTY window; needs WM_MOUSEWHEEL handling to return focus to the PuTTY process.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/InterfaceControl.cs"
+        ],
+        "approach": "Override WndProc or OnMouseWheel in InterfaceControl to detect WM_MOUSEWHEEL messages and, after processing, call NativeMethods.SetForegroundWindow(PuttyHandle) to return focus to the embedded PuTTY session. This should only apply when the active protocol is PuttyBase-derived."
+      },
+      "raw_output": "Now I have enough context. The issue is about the WinForms `InterfaceControl` (which hosts embedded PuTTY windows) stealing focus from the PuTTY process when the touchpad scroll event ends. When scrolling with a touchpad, the WM_MOUSEWHEEL messages go to the WinForms control, and when the finger lifts, focus stays on the WinForms container rather than being returned to the embedded PuTTY window.\n\nThe fix would involve overriding `WndProc` or `OnMouseWheel` in `InterfaceControl` to forward focus back to the PuTTY handle after mouse wheel events, or using `SetForegroundWindow`/`SetFocus` on the PuTTY handle.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Touchpad scroll causes InterfaceControl to capture focus from embedded PuTTY window; needs WM_MOUSEWHEEL handling to return focus to the PuTTY process.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/InterfaceControl.cs\"],\"approach\":\"Override WndProc or OnMouseWheel in InterfaceControl to detect WM_MOUSEWHEEL messages and, after processing, call NativeMethods.SetForegroundWindow(PuttyHandle) to return focus to the embedded PuTTY session. This should only apply when the active protocol is PuttyBase-derived.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:40:19"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

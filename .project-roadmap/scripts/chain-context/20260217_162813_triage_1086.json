@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "1086",
+  "started_at": "2026-02-17T16:26:35",
+  "finished_at": "2026-02-17T16:28:13",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "Issue description is empty and maintainer requested retesting/more information to clarify if this is a bug or feature request.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Wait for user response"
+      },
+      "raw_output": "```json\n{\"decision\":\"needs_info\",\"reason\":\"Issue description is empty and maintainer requested retesting/more information to clarify if this is a bug or feature request.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Wait for user response\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T16:28:13"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

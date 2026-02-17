@@ -1,0 +1,65 @@
+{
+  "task_type": "triage",
+  "task_id": "1250",
+  "started_at": "2026-02-17T06:50:37",
+  "finished_at": "2026-02-17T06:51:22",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:50:39"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:50:59"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Smart connection groups (connected, recent) improve navigation for users with many connections, a common UX request inspired by RDCMan.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionTreeWindow.cs",
+          "mRemoteNG/Tree/ConnectionTreeModel.cs",
+          "mRemoteNG/Connection/ConnectionsService.cs",
+          "mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs",
+          "mRemoteNG/Config/Settings/AppSettings.cs"
+        ],
+        "approach": "Add virtual smart group nodes (Connected, Recent) to the connection tree that dynamically populate from active connections and a recently-used history list, without modifying the persisted connection file."
+      },
+      "raw_output": "This is a feature request for \"smart groups\" — virtual/dynamic connection folders that auto-populate based on criteria like \"currently connected\" or \"recently used.\" This is a significant new feature requiring new UI components, connection tracking, and persistence logic.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Smart connection groups (connected, recent) improve navigation for users with many connections, a common UX request inspired by RDCMan.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\",\"mRemoteNG/Tree/ConnectionTreeModel.cs\",\"mRemoteNG/Connection/ConnectionsService.cs\",\"mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs\",\"mRemoteNG/Config/Settings/AppSettings.cs\"],\"approach\":\"Add virtual smart group nodes (Connected, Recent) to the connection tree that dynamically populate from active connections and a recently-used history list, without modifying the persisted connection file.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:51:22"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -1,0 +1,48 @@
+{
+  "task_type": "triage",
+  "task_id": "865",
+  "started_at": "2026-02-17T08:37:47",
+  "finished_at": "2026-02-17T08:38:32",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:38:05"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "Already fixed — PuttyBase.OnPowerModeChanged calls Resize on power resume, and frmMain dispatches PowerModeChanged to all active connections",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+          "mRemoteNG/UI/Forms/frmMain.cs"
+        ],
+        "approach": "No action needed — the fix is already in place (PuttyBase.OnPowerModeChanged triggers Resize on Resume, frmMain.OnPowerModeChanged iterates all open connections)"
+      },
+      "raw_output": "This issue has already been fixed. The code at `PuttyBase.cs:731-737` handles `OnPowerModeChanged` by calling `Resize()` on resume from hibernate/suspend. The `frmMain.cs:598-616` subscribes to `SystemEvents.PowerModeChanged` and dispatches the event to all active protocol connections.\n\n```json\n{\"decision\":\"wontfix\",\"reason\":\"Already fixed — PuttyBase.OnPowerModeChanged calls Resize on power resume, and frmMain dispatches PowerModeChanged to all active connections\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/PuttyBase.cs\",\"mRemoteNG/UI/Forms/frmMain.cs\"],\"approach\":\"No action needed — the fix is already in place (PuttyBase.OnPowerModeChanged triggers Resize on Resume, frmMain.OnPowerModeChanged iterates all open connections)\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:38:32"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

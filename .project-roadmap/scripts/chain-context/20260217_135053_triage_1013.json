@@ -1,0 +1,39 @@
+{
+  "task_type": "triage",
+  "task_id": "1013",
+  "started_at": "2026-02-17T13:48:05",
+  "finished_at": "2026-02-17T13:50:53",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T13:50:23"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "Error: Reached max turns (5)",
+      "errors": "Could not extract valid JSON",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T13:50:53"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

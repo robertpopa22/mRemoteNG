@@ -1,0 +1,63 @@
+{
+  "task_type": "implement",
+  "task_id": "1175",
+  "started_at": "2026-02-17T05:29:51",
+  "finished_at": "2026-02-17T05:46:57",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1175",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T05:29:53"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1175",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".../scripts/chain-context/_timeout_history.json    | 33 ++++++++++++++++++----\n 1 file changed, 28 insertions(+), 5 deletions(-)",
+      "timestamp": "2026-02-17T05:43:01",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..272ccd97e 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,7 +20,15 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2,\n+        206.4,\n+        207.1,\n+        243.5,\n+        200.4,\n+        187.8,\n+        155.9\n       ],\n       \"triage\": [\n         24.5,\n@@ -32,7 +40,8 @@\n         78.1,\n         50.0,\n         20.1,\n-        27.8\n+        27.8,\n+        24.0\n       ]\n     },\n     \"gemini\": {\n@@ -48,7 +57,12 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        153.5,\n+        332.7,\n+        591.5,\n+        494.4,\n+        768.6\n       ],\n       \"triage\": [\n         74.7,\n@@ -71,12 +85,21 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3,\n+        120.2,\n+        78.6,\n+        100.1,\n+        130.6,\n+        104.4,\n+        100.2,\n+        70.0\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1175",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1148.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1148.json      |  8 ++++-\n .../scripts/chain-context/_timeout_history.json    | 35 ++++++++++++++++++----\n mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs | 13 +++++++-\n 3 files changed, 49 insertions(+), 7 deletions(-)",
+      "timestamp": "2026-02-17T05:46:57",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1148.json b/.project-roadmap/issues-db/upstream/1148.json\nindex daa024a7e..20d0650b8 100644\n--- a/.project-roadmap/issues-db/upstream/1148.json\n+++ b/.project-roadmap/issues-db/upstream/1148.json\n@@ -21,6 +21,12 @@\n       \"date\": \"2026-02-17\",\n       \"type\": \"triaged\",\n       \"description\": \"Useful feature for users to see folder content size at a glance.\"\n+    },\n+    {\n+      \"seq\": 2,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Enhances usability by allowing users to quickly see the number of connections within folders in the tree view.\"\n     }\n   ],\n   \"comments\": [],\n@@ -29,5 +35,5 @@\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"AI triage (gemini): Useful feature for users to see folder content size at a glance.\\nApproach: Add 'ShowConnectionCount' setting to OptionsAppearancePage. Update ConnectionNameFormatter.FormatName to append child count to folder names if enabled.\"\n+  \"notes\": \"AI triage (gemini): Useful feature for users to see folder content size at a glance.\\nApproach: Add 'ShowConnectionCount' setting to OptionsAppearancePage. Update ConnectionNameFormatter.FormatName to append child count to folder names if enabled.\\nAI triage (gemini): Enhances usability by allowing users to quickly see the number of connections within folders in the tree view.\\nApproach: Modify the AspectGetter in NameColumn.cs. Check if the item is a ContainerInfo. If it is, use GetRecursiveChildList() to count the number of descendant nodes with TreeNodeType.Connection and append this count to the formatted name (e.g., \\\"Name (Count)\\\").\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..24f7367f6 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,7 +20,16 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2,\n+        206.4,\n+        207.1,\n+        243.5,\n+        200.4,\n+        187.8,\n+        155.9,\n+        216.2\n       ],\n       \"triage\": [\n         24.5,\n@@ -32,7 +41,8 @@\n         78.1,\n         50.0,\n         20.1,\n-        27.8\n+        27.8,\n+        24.0\n       ]\n     },\n     \"gemini\": {\n@@ -48,7 +58,12 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        153.5,\n+        332.7,\n+        591.5,\n+        494.4,\n+        768.6\n       ],\n       \"triage\": [\n         74.7,\n@@ -71,12 +86,22 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3,\n+        120.2,\n+        78.6,\n+        100.1,\n+        130.6,\n+        104.4,\n+        100.2,\n+        70.0,\n+        79.1\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5\n   }\n }\ndiff --git a/mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs b/mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs\nindex 3832bfd66..ff197bc09 100644\n--- a/mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs\n+++ b/mRemoteNG/UI/Controls/ConnectionTree/NameColumn.cs\n@@ -2,6 +2,9 @@\n using mRemoteNG.Connection;\n using mRemoteNG.Tools;\n using System.Runtime.Versioning;\n+using mRemoteNG.Container;\n+using mRemoteNG.Tree;\n+using System.Linq;\n \n namespace mRemoteNG.UI.Controls.ConnectionTree\n {\n@@ -15,7 +18,15 @@ namespace mRemoteNG.UI.Controls.ConnectionTree\n             AspectGetter = item =>\n             {\n                 var ci = (ConnectionInfo)item;\n-                return ConnectionNameFormatter.FormatName(ci);\n+                var name = ConnectionNameFormatter.FormatName(ci);\n+\n+                if (ci is ContainerInfo container)\n+                {\n+                    var count = container.GetRecursiveChildList().Count(child => child.GetTreeNodeType() == TreeNodeType.Connection);\n+                    return $\"{name} ({count})\";\n+                }\n+\n+                return name;\n             };\n             ImageGetter = imageGetterDelegate;\n             AutoCompleteEditor = false;",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

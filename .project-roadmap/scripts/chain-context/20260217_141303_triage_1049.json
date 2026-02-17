@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "1049",
+  "started_at": "2026-02-17T14:11:48",
+  "finished_at": "2026-02-17T14:13:03",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "A standalone diagnostic script is needed to collect logs, configuration, and system information from users to aid in troubleshooting issues in the field.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "Tools/CollectDiagnostics.ps1"
+        ],
+        "approach": "Create a PowerShell script that gathers mRemoteNG logs, configuration files, and system information, and packages them into a zip file for easy sharing."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"A standalone diagnostic script is needed to collect logs, configuration, and system information from users to aid in troubleshooting issues in the field.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"Tools/CollectDiagnostics.ps1\"],\"approach\":\"Create a PowerShell script that gathers mRemoteNG logs, configuration files, and system information, and packages them into a zip file for easy sharing.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T14:13:03"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

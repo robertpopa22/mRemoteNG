@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "1291",
+  "started_at": "2026-02-17T07:16:50",
+  "finished_at": "2026-02-17T07:21:12",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1291",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:16:52"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1291",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:17:11"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1291",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1302.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/Tools/ExternalToolArgumentParser.cs"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1302.json      |  15 ++-\n .../scripts/chain-context/_timeout_history.json    | 125 ++++++++++++++++++---\n mRemoteNG/Tools/ExternalToolArgumentParser.cs      |  30 +++++\n 3 files changed, 152 insertions(+), 18 deletions(-)",
+      "timestamp": "2026-02-17T07:21:12",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1302.json b/.project-roadmap/issues-db/upstream/1302.json\nindex 09ee83c33..e6ebd1aaf 100644\n--- a/.project-roadmap/issues-db/upstream/1302.json\n+++ b/.project-roadmap/issues-db/upstream/1302.json\n@@ -10,12 +10,19 @@\n   \"created_at\": \"2019-02-07T13:09:41Z\",\n   \"github_updated_at\": \"2021-12-13T21:18:58Z\",\n   \"body_snippet\": \"A new feature that would be very handy is the ability to assign multiple credentials to a single connection. That way when you connect you can select which credential that you want to use. We have multiple server that can be connected using different credentials and the only way that this can be done at the moment is having a separate connection per credentials. This is very annoying, especially for someone who has moved from RDCMan.\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Community-requested feature to connect with selectable credentials instead of duplicating connections, endorsed by upstream contributors (sparerd) as 'easy to add'\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"MDEyOklzc3VlQ29tbWVudDQ2MTQyODEwMA==\",\n@@ -86,5 +93,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): Community-requested feature to connect with selectable credentials instead of duplicating connections, endorsed by upstream contributors (sparerd) as 'easy to add'\\nApproach: Add 'Connect with credentials' submenu to ConnectionContextMenu that lists available credentials from CredentialRepositoryList. On selection, temporarily override the connection's credentials for that session via ConnectionInitiator. No model changes needed - leverage existing credential repository infrastructure.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..f18fc0f7a 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,19 +20,84 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2,\n+        206.4,\n+        207.1,\n+        243.5,\n+        200.4,\n+        187.8,\n+        155.9,\n+        216.2,\n+        193.2,\n+        193.7,\n+        237.9,\n+        137.6,\n+        304.3,\n+        298.0,\n+        222.4,\n+        281.4,\n+        247.4,\n+        344.9,\n+        274.2,\n+        294.5,\n+        293.7,\n+        230.9,\n+        259.8,\n+        221.0\n       ],\n       \"triage\": [\n-        24.5,\n-        28.2,\n-        25.9,\n-        19.9,\n-        21.7,\n-        21.0,\n-        78.1,\n-        50.0,\n-        20.1,\n-        27.8\n+        21.3,\n+        15.5,\n+        88.1,\n+        55.2,\n+        27.2,\n+        24.2,\n+        19.5,\n+        26.5,\n+        18.9,\n+        27.2,\n+        16.0,\n+        27.8,\n+        21.8,\n+        26.1,\n+        24.7,\n+        24.0,\n+        20.2,\n+        20.9,\n+        85.3,\n+        14.1,\n+        131.9,\n+        24.6,\n+        32.9,\n+        23.4,\n+        19.1,\n+        23.9,\n+        23.3,\n+        25.3,\n+        62.7,\n+        21.5,\n+        75.1,\n+        27.1,\n+        19.3,\n+        8.8,\n+        20.9,\n+        22.7,\n+        21.1,\n+        23.6,\n+        22.2,\n+        22.6,\n+        19.5,\n+        56.6,\n+        57.4,\n+        60.1,\n+        22.9,\n+        16.0,\n+        21.8,\n+        79.1,\n+        40.3,\n+        29.1\n       ]\n     },\n     \"gemini\": {\n@@ -48,7 +113,14 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        153.5,\n+        332.7,\n+        591.5,\n+        494.4,\n+        768.6,\n+        440.4,\n+        248.8\n       ],\n       \"triage\": [\n         74.7,\n@@ -71,12 +143,37 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3,\n+        120.2,\n+        78.6,\n+        100.1,\n+        130.6,\n+        104.4,\n+        100.2,\n+        70.0,\n+        79.1,\n+        108.4,\n+        58.7\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5,\n+    \"triage_1206\": 1.5,\n+    \"triage_1175\": 1.5,\n+    \"triage_1185\": 1.5,\n+    \"triage_1190\": 1.5,\n+    \"triage_1195\": 1.5,\n+    \"triage_1197\": 1.5,\n+    \"triage_1213\": 1.5,\n+    \"triage_1214\": 1.5,\n+    \"triage_1219\": 1.5,\n+    \"triage_1233\": 1.5,\n+    \"triage_1244\": 1.5,\n+    \"triage_1268\": 1.5,\n+    \"triage_1294\": 1.5\n   }\n }\ndiff --git a/mRemoteNG/Tools/ExternalToolArgumentParser.cs b/mRemoteNG/Tools/ExternalToolArgumentParser.cs\nindex 19e784ae3..9a14b9f2a 100644\n--- a/mRemoteNG/Tools/ExternalToolArgumentParser.cs\n+++ b/mRemoteNG/Tools/ExternalToolArgumentParser.cs\n@@ -15,6 +15,36 @@ namespace mRemoteNG.Tools\n     {\n         private readonly ConnectionInfo _connectionInfo = connectionInfo;\n \n+        /// <summary>\n+        /// All supported variable tokens (without % delimiters).\n+        /// </summary>\n+        public static readonly string[] AvailableTokens =\n+        [\n+            \"Name\",\n+            \"Hostname\",\n+            \"Port\",\n+            \"Username\",\n+            \"Password\",\n+            \"Domain\",\n+            \"Description\",\n+            \"MacAddress\",\n+            \"UserField\",\n+            \"UserField1\",\n+            \"UserField2\",\n+            \"UserField3\",\n+            \"UserField4\",\n+            \"UserField5\",\n+            \"UserField6\",\n+            \"UserField7\",\n+            \"UserField8\",\n+            \"UserField9\",\n+            \"UserField10\",\n+            \"Protocol\",\n+            \"EnvironmentTags\",\n+            \"SSHOptions\",\n+            \"PuttySession\"\n+        ];\n+\n         public string ParseArguments(string input, bool escapeForShell = true)\n         {\n             List<Replacement> replacements = BuildReplacementList(input, escapeForShell);",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

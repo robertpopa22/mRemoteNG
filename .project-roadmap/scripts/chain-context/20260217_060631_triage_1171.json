@@ -1,0 +1,65 @@
+{
+  "task_type": "triage",
+  "task_id": "1171",
+  "started_at": "2026-02-17T06:05:44",
+  "finished_at": "2026-02-17T06:06:31",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:05:46"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:06:05"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Users want to hide connection tab strip for RDCMan-like workflow; existing AlwaysShowPanelTabs infrastructure is already in place and HideAlways mode exists but is commented out",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmMain.cs",
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNG/UI/Forms/OptionsPages/TabsPanelsPage.cs",
+          "mRemoteNG/UI/Forms/OptionsPages/TabsPanelsPage.Designer.cs",
+          "mRemoteNG/Config/Settings/SettingsLoader.cs"
+        ],
+        "approach": "Expose a 'Hide connection tabs' option in TabsPanels settings page (inverse of AlwaysShowPanelTabs or a new setting). When enabled, set TabController.HideTabsMode to HideAlways on all ConnectionWindows. The DockPanel already supports HideTabsModes — uncomment and wire the existing HideAlways path in ConnectionWindow.cs and frmMain.cs, add UI checkbox in TabsPanelsPage."
+      },
+      "raw_output": "Now I have a clear picture. The issue requests the ability to hide connection tabs. The codebase already has `AlwaysShowPanelTabs` which controls tab visibility, but there's a commented-out `HideTabsMode = HideAlways` in ConnectionWindow.cs. The feature is essentially about adding a \"hide tabs\" option (the inverse of \"always show panel tabs\"). Looking at the existing code, there's already infrastructure for this - `AlwaysShowPanelTabs` exists and `HideTabsModes.HideAlways` is available but commented out. The original author even submitted a PR that was merged but got lost during the MagicLib removal.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Users want to hide connection tab strip for RDCMan-like workflow; existing AlwaysShowPanelTabs infrastructure is already in place and HideAlways mode exists but is commented out\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmMain.cs\",\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNG/UI/Forms/OptionsPages/TabsPanelsPage.cs\",\"mRemoteNG/UI/Forms/OptionsPages/TabsPanelsPage.Designer.cs\",\"mRemoteNG/Config/Settings/SettingsLoader.cs\"],\"approach\":\"Expose a 'Hide connection tabs' option in TabsPanels settings page (inverse of AlwaysShowPanelTabs or a new setting). When enabled, set TabController.HideTabsMode to HideAlways on all ConnectionWindows. The DockPanel already supports HideTabsModes — uncomment and wire the existing HideAlways path in ConnectionWindow.cs and frmMain.cs, add UI checkbox in TabsPanelsPage.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T06:06:31"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

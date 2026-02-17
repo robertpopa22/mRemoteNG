@@ -1,0 +1,35 @@
+{
+  "task_type": "triage",
+  "task_id": "976",
+  "started_at": "2026-02-17T12:26:54",
+  "finished_at": "2026-02-17T12:27:24",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Feature request for plugin support; groundwork appears to exist in mRemoteNG.Plugins project.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG.Plugins/IPlugin.cs",
+          "mRemoteNG.Plugins/IPluginHost.cs",
+          "mRemoteNG/App/Tools/PluginManager.cs"
+        ],
+        "approach": "Expand mRemoteNG.Plugins interfaces, implement a plugin loader/manager in the core app to discover and initialize plugins, and add hooks for UI/connection interaction."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Feature request for plugin support; groundwork appears to exist in mRemoteNG.Plugins project.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG.Plugins/IPlugin.cs\",\n    \"mRemoteNG.Plugins/IPluginHost.cs\",\n    \"mRemoteNG/App/Tools/PluginManager.cs\"\n  ],\n  \"approach\": \"Expand mRemoteNG.Plugins interfaces, implement a plugin loader/manager in the core app to discover and initialize plugins, and add hooks for UI/connection interaction.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T12:27:24"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

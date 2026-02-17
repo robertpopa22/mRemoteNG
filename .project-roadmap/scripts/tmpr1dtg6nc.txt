@@ -1,0 +1,20 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1065: UI: Some menu items that open a dialog are missing "..." on the menu item
+
+Description:
+
+
+Recommended approach: Add '...' suffix to 4 menu item texts that open dialogs: 'Keyboard Shortcuts' and 'About' in HelpMenu.cs, 'Find in Session' in ToolsMenu.cs, and 'Properties' in ConnectionContextMenu.cs. Update both Initialize() and ApplyLanguage() methods in each file.
+Likely files: mRemoteNG/UI/Menu/msMain/HelpMenu.cs, mRemoteNG/UI/Menu/msMain/ToolsMenu.cs, mRemoteNG/UI/Controls/ConnectionContextMenu.cs
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else.

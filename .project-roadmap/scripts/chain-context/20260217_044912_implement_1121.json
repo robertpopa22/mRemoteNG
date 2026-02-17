@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1121",
+  "started_at": "2026-02-17T04:33:53",
+  "finished_at": "2026-02-17T04:49:12",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1121",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T04:33:54"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1121",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T04:44:44"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1121",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1169.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1169.json             | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json           | 10 +++++++---\n 2 files changed, 18 insertions(+), 7 deletions(-)",
+      "timestamp": "2026-02-17T04:49:12",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1169.json b/.project-roadmap/issues-db/upstream/1169.json\nindex 38db14144..e208b7346 100644\n--- a/.project-roadmap/issues-db/upstream/1169.json\n+++ b/.project-roadmap/issues-db/upstream/1169.json\n@@ -10,17 +10,24 @@\n   \"created_at\": \"2018-11-01T11:47:50Z\",\n   \"github_updated_at\": \"2018-11-01T13:51:17Z\",\n   \"body_snippet\": \"Remote Desktop (mstsc) has shortcut of CTRL+ALT+HOME which activates control bar and lets you to get outside from remote connection.\\r\\nSee: https://docs.microsoft.com/en-us/windows/desktop/termserv/terminal-services-shortcut-keys\\r\\n\\r\\nI would expect mRemoteNG to work the similar way.\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Adding a global hotkey (CTRL+ALT+HOME) to activate mRemoteNG is a valid enhancement request for better accessibility.\"\n+    }\n+  ],\n   \"comments\": [],\n   \"comments_cursor\": \"2018-11-01T13:51:17Z\",\n   \"unread_comments\": 0,\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (gemini): Adding a global hotkey (CTRL+ALT+HOME) to activate mRemoteNG is a valid enhancement request for better accessibility.\\nApproach: Add RegisterHotKey/UnregisterHotKey to NativeMethods. In FrmMain, register the hotkey on load and handle WM_HOTKEY in WndProc to activate the window.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..431901416 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,7 +20,9 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2\n       ],\n       \"triage\": [\n         24.5,\n@@ -71,12 +73,14 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

@@ -1,0 +1,116 @@
+{
+  "number": 690,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "mRemoteNG saves User-Settings not in RoamingProfiles",
+  "state": "closed",
+  "labels": [
+    "Priority - High",
+    "Ready"
+  ],
+  "author": "tcn-pdr",
+  "created_at": "2017-09-05T08:40:33Z",
+  "github_updated_at": "2019-09-02T20:12:18Z",
+  "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nUser-Settings are saved in Path C:\\ Users\\ %Username%\\ AppData\\ Local\\ mRemoteNG\\ *Crypted Path*\\ 1.75.7008.17907\\ user.config and not in RoamingProfiles.\r\nWe use mRemoteNG on a Citrix XenApp Server and would like to set the User-Settings ...",
+  "our_status": "wontfix",
+  "priority": "P2-bug",
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-17",
+      "type": "wontfix",
+      "description": "The issue is already closed and comments confirm that settings storage was updated to use the Roaming AppData directory."
+    }
+  ],
+  "comments": [
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyNzE4NjU3Mw==",
+      "author": "LIyoai",
+      "date": "2017-09-05T14:08:12Z",
+      "snippet": "Do you use the portable version?\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/414 (scheduled for 1.76)\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/487",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDMyNzY5NTMzOQ==",
+      "author": "tcn-pdr",
+      "date": "2017-09-07T05:57:48Z",
+      "snippet": "No, we use the installed Version\r\n\r\nVersion is 1.75.7008.17907 ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0NjkxODU5MQ==",
+      "author": "penguinairlines",
+      "date": "2018-12-13T10:27:54Z",
+      "snippet": "Is this issue not fixed?  I had bookmarked it after having an issue with themes not being saved in the folder, but I just downloaded 1.76.11.40592 (portable) and was able to apply the theme, copy folder to another machine, and launch mRemoteNG which had kept the theme.\r\n\r\nP.S. I noticed that the Stable and Beta downloads on GitHub are reporting v1.75.7012 https://github.com/mRemoteNG/mRemoteNG and not sure the appropriate place to make this comment since it's not an issue outright.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0Nzg4OTI0Mw==",
+      "author": "sparerd",
+      "date": "2018-12-17T15:40:19Z",
+      "snippet": "@penguinairlines As of v1.76 the portable version saves user preferences in the same folder as mRemoteNG.exe. The installed version still saves to AppData\\Local\r\n\r\n(Thanks for pointing out the badges, I've updated them now)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0ODIwNDk1Nw==",
+      "author": "penguinairlines",
+      "date": "2018-12-18T12:31:57Z",
+      "snippet": "@sparerd Awesome! Looks like we can close this issue then!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0ODIxMTE3Ng==",
+      "author": "sparerd",
+      "date": "2018-12-18T12:55:01Z",
+      "snippet": "The installed (msi) version saves to AppData\\Local and should still be changed",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ0ODQ5OTIxMw==",
+      "author": "penguinairlines",
+      "date": "2018-12-19T07:42:24Z",
+      "snippet": "Ah good point! Carry on then!\r\n\r\nKeep up the awesome work guys, your tool is fantastic!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDQ2MTU1NzEyNg==",
+      "author": "kmscode",
+      "date": "2019-02-07T19:09:40Z",
+      "snippet": "Now that #414 is fixed in the portable version, we could fix this easily either with a quick change in PortableSettingsProvider - basically mimic what we do in SettingsFileInfo.cs:\r\n\r\n```\r\npublic static string SettingsPath => Runtime.IsPortableEdition ? ExePath : Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + \"\\\\\" + Application.ProductName;\r\n```\r\n\r\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "MDEyOklzc3VlQ29tbWVudDUyNzIzNjAzNg==",
+      "author": "farosch",
+      "date": "2019-09-02T20:12:18Z",
+      "snippet": "Closed, because both versions (MSI and Portable) now use the `%APPDATA%` directory",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2019-09-02T20:12:18Z",
+  "unread_comments": 9,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-17T06:11:40Z",
+  "notes": "AI triage (gemini): The issue is already closed and comments confirm that settings storage was updated to use the Roaming AppData directory.\nApproach: No action required as the issue is closed."
+}

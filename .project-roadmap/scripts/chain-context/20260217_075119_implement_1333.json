@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1333",
+  "started_at": "2026-02-17T07:46:24",
+  "finished_at": "2026-02-17T07:51:19",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1333",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:46:26"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1333",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:46:47"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1333",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1354.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1354.json      |  15 ++-\n .../scripts/chain-context/_timeout_history.json    | 135 +++++++++++++++++++--\n 2 files changed, 134 insertions(+), 16 deletions(-)",
+      "timestamp": "2026-02-17T07:51:19",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1354.json b/.project-roadmap/issues-db/upstream/1354.json\nindex c71896482..bab551acc 100644\n--- a/.project-roadmap/issues-db/upstream/1354.json\n+++ b/.project-roadmap/issues-db/upstream/1354.json\n@@ -10,17 +10,24 @@\n   \"created_at\": \"2019-03-15T14:59:15Z\",\n   \"github_updated_at\": \"2019-03-15T14:59:15Z\",\n   \"body_snippet\": \"From #1348. Local connection properties (such as folder expansion states) are not saved when the user does not have write access to the database. We should be able to detect and handle this situation and still save local-only properties, even though database values won't be saved.\\r\\n\\r\\n## Expected Behavior\\r\\nLocal connection properties should still be saved.\\r\\n\\r\\n## Current Behavior\\r\\nLocal connection properties are not saved.\\r\\n\\r\\n## Steps to Reproduce (for bugs)\\r\\n<!--- Provide an unambiguous set of st...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"When SQL database is read-only, local connection properties (window size, panel layout) should fall back to local XML storage instead of failing silently.\"\n+    }\n+  ],\n   \"comments\": [],\n   \"comments_cursor\": \"2019-03-15T14:59:15Z\",\n   \"unread_comments\": 0,\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): When SQL database is read-only, local connection properties (window size, panel layout) should fall back to local XML storage instead of failing silently.\\nApproach: Detect read-only SQL access and save local UI properties (panel positions, window size) to local XML config file as fallback, while keeping the SQL source as read-only for shared connection data.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..68be23a67 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,19 +20,88 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2,\n+        206.4,\n+        207.1,\n+        243.5,\n+        200.4,\n+        187.8,\n+        155.9,\n+        216.2,\n+        193.2,\n+        193.7,\n+        237.9,\n+        137.6,\n+        304.3,\n+        298.0,\n+        222.4,\n+        281.4,\n+        247.4,\n+        344.9,\n+        274.2,\n+        294.5,\n+        293.7,\n+        230.9,\n+        259.8,\n+        221.0,\n+        119.5,\n+        263.7,\n+        708.2,\n+        250.2\n       ],\n       \"triage\": [\n-        24.5,\n-        28.2,\n-        25.9,\n-        19.9,\n+        21.8,\n+        26.1,\n+        24.7,\n+        24.0,\n+        20.2,\n+        20.9,\n+        85.3,\n+        14.1,\n+        131.9,\n+        24.6,\n+        32.9,\n+        23.4,\n+        19.1,\n+        23.9,\n+        23.3,\n+        25.3,\n+        62.7,\n+        21.5,\n+        75.1,\n+        27.1,\n+        19.3,\n+        8.8,\n+        20.9,\n+        22.7,\n+        21.1,\n+        23.6,\n+        22.2,\n+        22.6,\n+        19.5,\n+        56.6,\n+        57.4,\n+        60.1,\n+        22.9,\n+        16.0,\n+        21.8,\n+        79.1,\n+        40.3,\n+        29.1,\n+        21.6,\n+        16.8,\n         21.7,\n-        21.0,\n-        78.1,\n-        50.0,\n+        22.5,\n+        26.1,\n+        37.3,\n+        54.0,\n+        20.6,\n+        21.9,\n         20.1,\n-        27.8\n+        79.5,\n+        51.6\n       ]\n     },\n     \"gemini\": {\n@@ -48,7 +117,14 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        153.5,\n+        332.7,\n+        591.5,\n+        494.4,\n+        768.6,\n+        440.4,\n+        248.8\n       ],\n       \"triage\": [\n         74.7,\n@@ -71,12 +147,47 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3,\n+        120.2,\n+        78.6,\n+        100.1,\n+        130.6,\n+        104.4,\n+        100.2,\n+        70.0,\n+        79.1,\n+        108.4,\n+        58.7\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5,\n+    \"triage_1206\": 1.5,\n+    \"triage_1175\": 1.5,\n+    \"triage_1185\": 1.5,\n+    \"triage_1190\": 1.5,\n+    \"triage_1195\": 1.5,\n+    \"triage_1197\": 1.5,\n+    \"triage_1213\": 1.5,\n+    \"triage_1214\": 1.5,\n+    \"triage_1219\": 1.5,\n+    \"triage_1233\": 1.5,\n+    \"triage_1244\": 1.5,\n+    \"triage_1268\": 1.5,\n+    \"triage_1294\": 1.5,\n+    \"triage_1295\": 1.5,\n+    \"triage_1297\": 1.5,\n+    \"triage_1302\": 1.5,\n+    \"triage_1304\": 1.5,\n+    \"triage_1308\": 1.5,\n+    \"triage_1333\": 1.5,\n+    \"triage_1321\": 1.5,\n+    \"triage_1346\": 1.5,\n+    \"triage_1349\": 1.5,\n+    \"triage_1351\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

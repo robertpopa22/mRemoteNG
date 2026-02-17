@@ -1,0 +1,20 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1011: SSH tab activity signaling
+
+Description:
+
+
+Recommended approach: Modify PuttyBase to detect title changes or window invalidation in background sessions and trigger a visual indicator (e.g., color change or icon update) on the ConnectionTab.
+Likely files: mRemoteNG/Connection/Protocol/PuttyBase.cs, mRemoteNG/UI/Tabs/ConnectionTab.cs
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else.

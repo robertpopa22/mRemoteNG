@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1137: export and import with encryption
+Description: 
+Approach: Update FrmExport to allow setting an encryption password. Modify Export.cs to use the provided password. Update MRemoteNGXmlImporter to supply an authentication callback to the deserializer to handle encrypted imports.
+Likely files: mRemoteNG/App/Export.cs, mRemoteNG/Config/Import/MRemoteNGXmlImporter.cs, mRemoteNG/UI/Forms/FrmExport.cs
+
+IMPORTANT â€” Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1137
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

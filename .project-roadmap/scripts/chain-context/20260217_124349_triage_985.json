@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "985",
+  "started_at": "2026-02-17T12:42:55",
+  "finished_at": "2026-02-17T12:43:49",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue body is empty, making the specific requirements for 'entity' ambiguous (e.g., could mean 'One Host, Multiple Protocols' or a database entity refactor).",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/App/Connection/ConnectionInfo.cs"
+        ],
+        "approach": "Request clarification from the author to define 'entity' behavior and how it differs from the current folder/inheritance model."
+      },
+      "raw_output": "{\n  \"decision\": \"needs_info\",\n  \"reason\": \"The issue body is empty, making the specific requirements for 'entity' ambiguous (e.g., could mean 'One Host, Multiple Protocols' or a database entity refactor).\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/App/Connection/ConnectionInfo.cs\"\n  ],\n  \"approach\": \"Request clarification from the author to define 'entity' behavior and how it differs from the current folder/inheritance model.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T12:43:49"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

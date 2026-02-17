@@ -1,0 +1,24 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #886: Double click to open duplicate session
+Labels: Enhancement, UI/UX, 1.77.4
+State: open
+
+Body:
+
+
+Recent comments:
+  [msmigiel]: Note that this also happens in the Quick Connect Toolbar, when clicking on the little blue globe - that connection tree has similar behavior, so please address both places.
+  [eunito]: This would be very usefull!
+  [robertpopa22]: Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

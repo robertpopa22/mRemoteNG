@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "955",
+  "started_at": "2026-02-17T09:51:14",
+  "finished_at": "2026-02-17T09:52:58",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The RDP ActiveX control limits MaxReconnectAttempts to 20, but we can implement a manual redial loop in RdpProtocol.cs to support higher limits.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Cap the ActiveX MaxReconnectAttempts at 20 to prevent errors, then implement a manual reconnection handler in OnDisconnected to continue attempting connections up to the user-defined limit."
+      },
+      "raw_output": "{\n\"decision\": \"implement\",\n\"reason\": \"The RDP ActiveX control limits MaxReconnectAttempts to 20, but we can implement a manual redial loop in RdpProtocol.cs to support higher limits.\",\n\"priority\": \"P3-enhancement\",\n\"estimated_files\": [\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\n\"approach\": \"Cap the ActiveX MaxReconnectAttempts at 20 to prevent errors, then implement a manual reconnection handler in OnDisconnected to continue attempting connections up to the user-defined limit.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T09:52:58"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

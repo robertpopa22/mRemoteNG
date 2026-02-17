@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "980",
+  "started_at": "2026-02-17T10:53:07",
+  "finished_at": "2026-02-17T10:55:21",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The Delete key shortcut via ContextMenu is unreliable because the menu's enabled state only updates when opened; adding an explicit KeyDown handler ensures deletion works for both single and multiple selections.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Window/ConnectionTreeWindow.cs"
+        ],
+        "approach": "In 'mRemoteNG/UI/Window/ConnectionTreeWindow.cs', modify 'TvConnections_KeyDown' to explicitly handle 'Keys.Delete' by calling 'ConnectionTree.DeleteSelectedNode()', ensuring the delete action triggers regardless of the context menu's state."
+      },
+      "raw_output": "{\n  \"decision\": \"implement\",\n  \"reason\": \"The Delete key shortcut via ContextMenu is unreliable because the menu's enabled state only updates when opened; adding an explicit KeyDown handler ensures deletion works for both single and multiple selections.\",\n  \"priority\": \"P2-bug\",\n  \"estimated_files\": [\n    \"mRemoteNG/UI/Window/ConnectionTreeWindow.cs\"\n  ],\n  \"approach\": \"In 'mRemoteNG/UI/Window/ConnectionTreeWindow.cs', modify 'TvConnections_KeyDown' to explicitly handle 'Keys.Delete' by calling 'ConnectionTree.DeleteSelectedNode()', ensuring the delete action triggers regardless of the context menu's state.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T10:55:21"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

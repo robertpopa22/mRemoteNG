@@ -1,0 +1,27 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #1012: Feature to see what RDP sessions have been disconnected
+Labels: Enhancement
+State: open
+
+Body:
+
+
+Recent comments:
+  [farosch]: This is already possible if you activate this in the settings:
+![mremoteng_2018-07-24_22-34-50](https://user-images.githubusercontent.com/22905106/43164723-3154aadc-8f92-11e8-93db-6c2c38d421ee.png)
+The tab of a disconnected rdp session will then stay open showing this:
+![mremoteng_2018-07-24_22-3
+  [joelsplace]: I know this is old but the answer isn't really the same thing as what was asked for or at least it doesn't address my needs.  I work at a client once a week.  During the week other people RDP to servers and it kicks me out.  I don't want it to automatically try to reconnect since someone else is usi
+  [farosch]: @joelsplace It does cover that. Just take a look at my screenshot or try it out yourself.
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

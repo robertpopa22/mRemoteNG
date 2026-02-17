@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "1083",
+  "started_at": "2026-02-17T15:35:07",
+  "finished_at": "2026-02-17T15:39:06",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T15:38:27"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Folder disconnect only closes direct child connections, not connections in sub-folders — needs recursive traversal",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Controls/ConnectionContextMenu.cs"
+        ],
+        "approach": "In DisconnectConnection(), when handling ContainerInfo, recursively traverse all descendant containers (not just direct children) to disconnect all connections. Use ContainerInfo.GetRecursiveChildList() or implement a recursive helper to find all ConnectionInfo descendants with open connections."
+      },
+      "raw_output": "Now I can see the issue clearly. Looking at the `DisconnectConnection` method (line 898-908), when disconnecting a container (folder), it only iterates over `containerInfo.Children` — the **direct** children. It does NOT recurse into sub-folders. This is exactly what the issue reporter describes: disconnecting a folder only disconnects connections in that folder, not in sub-folders.\n\nThe fix is clear — the disconnect logic needs to recursively traverse sub-folders.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Folder disconnect only closes direct child connections, not connections in sub-folders — needs recursive traversal\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Controls/ConnectionContextMenu.cs\"],\"approach\":\"In DisconnectConnection(), when handling ContainerInfo, recursively traverse all descendant containers (not just direct children) to disconnect all connections. Use ContainerInfo.GetRecursiveChildList() or implement a recursive helper to find all ConnectionInfo descendants with open connections.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T15:39:06"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

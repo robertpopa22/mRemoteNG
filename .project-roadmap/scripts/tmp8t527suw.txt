@@ -1,0 +1,24 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #1006: [Connections]: folders don't automatically expand when searching or filtering
+Labels: Need 2 check, Connections
+State: open
+
+Body:
+
+
+Recent comments:
+  [farosch]: This would be solved by #944. Not the cleanest way though, but a quick solution anyways.
+  [sparerd]: Good point @farosch, I've been so focused on bug fixes I forgot about the open PRs :)
+  [robertpopa22]: Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

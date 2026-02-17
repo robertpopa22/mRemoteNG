@@ -1,0 +1,55 @@
+{
+  "task_type": "triage",
+  "task_id": "1351",
+  "started_at": "2026-02-17T07:47:08",
+  "finished_at": "2026-02-17T07:49:01",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:47:10"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:47:29"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "The investigation reveals a **critical data loss vulnerability** in the SQL save path. Here's the triage:\n\n```json\n{\"decision\":\"implement\",\"reason\":\"SQL save uses DELETE-before-INSERT pattern via DataAdapter.Update() — if INSERT fails (BCP column error), DELETEs already executed cause total data loss; multiple users confirm random database truncation\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Config/DataProviders/SqlDataProvider.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/SqlConnectionsSaver.cs\"],\"approach\":\"Add pre-save validation to abort if connection tree is empty; restructure SqlDataProvider.Save() to ensure DELETE+INSERT are truly atomic within the transaction (reorder DataAdapter operations so INSERTs succeed before DELETEs execute); fix ParentID empty string vs '0' mismatch in DataTableSerializer\"}\n```\n",
+      "errors": "TIMEOUT after 90s",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:49:01"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

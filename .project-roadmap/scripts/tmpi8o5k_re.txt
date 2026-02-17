@@ -1,0 +1,27 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #1023: Wrong (understated) resolution in full screen connection
+Labels: Enhancement, HighDPI, RDP
+State: open
+
+Body:
+
+
+Recent comments:
+  [przem0210]: I have the same problem. I have a laptop with a resolution of 1600x900
+When I connect through a classic RDP, I get a resolution of 1600x900
+However, when I connect through mRemoteNG with the Full Screen option I get a resolution of 1280x720. How to get 1600x900 resolution in Full Screen view
+
+Th
+  [natereal]: I have the same problem 
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

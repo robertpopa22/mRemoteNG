@@ -1,0 +1,44 @@
+{
+  "task_type": "implement",
+  "task_id": "871",
+  "started_at": "2026-02-17T08:55:50",
+  "finished_at": "2026-02-17T09:02:21",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "implement #871",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:56:08"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #871",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/0871.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/0871.json      |  8 +++++++-\n .../scripts/chain-context/_timeout_history.json    | 24 +++++++++++++++++++---\n 2 files changed, 28 insertions(+), 4 deletions(-)",
+      "timestamp": "2026-02-17T09:02:20",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/0871.json b/.project-roadmap/issues-db/upstream/0871.json\nindex e3de58345..7bcf1e0c5 100644\n--- a/.project-roadmap/issues-db/upstream/0871.json\n+++ b/.project-roadmap/issues-db/upstream/0871.json\n@@ -21,6 +21,12 @@\n       \"date\": \"2026-02-16\",\n       \"type\": \"triaged\",\n       \"description\": \"The issue contains only a title with no body or comments, so the enhancement requirements are too vague to implement reliably.\"\n+    },\n+    {\n+      \"seq\": 2,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Allow selecting/switching between multiple SQL database profiles at application startup, enabling multi-database connection management\"\n     }\n   ],\n   \"comments\": [],\n@@ -29,5 +35,5 @@\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"AI triage (codex): The issue contains only a title with no body or comments, so the enhancement requirements are too vague to implement reliably.\\nApproach: Ask for specific logon database-selection behavior (UI location, default choice, persistence rules, and error handling) before implementation planning.\"\n+  \"notes\": \"AI triage (codex): The issue contains only a title with no body or comments, so the enhancement requirements are too vague to implement reliably.\\nApproach: Ask for specific logon database-selection behavior (UI location, default choice, persistence rules, and error handling) before implementation planning.\\nAI triage (claude): Allow selecting/switching between multiple SQL database profiles at application startup, enabling multi-database connection management\\nApproach: Add a database profile selector dialog at startup that lets users choose from saved SQL connection profiles, with support for multiple simultaneous database connections shown as separate root nodes in the connection tree\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..67c67383e 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,7 +20,10 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        212.6,\n+        334.7,\n+        351.9\n       ],\n       \"triage\": [\n         24.5,\n@@ -32,7 +35,19 @@\n         78.1,\n         50.0,\n         20.1,\n-        27.8\n+        27.8,\n+        15.8,\n+        113.3,\n+        30.4,\n+        28.5,\n+        68.2,\n+        27.2,\n+        37.7,\n+        28.5,\n+        27.0,\n+        23.0,\n+        37.6,\n+        23.0\n       ]\n     },\n     \"gemini\": {\n@@ -77,6 +92,9 @@\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_824\": 1.5,\n+    \"triage_859\": 1.5,\n+    \"triage_764\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

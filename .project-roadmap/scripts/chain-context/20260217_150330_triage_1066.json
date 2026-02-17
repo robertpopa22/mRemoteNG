@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "1066",
+  "started_at": "2026-02-17T15:00:41",
+  "finished_at": "2026-02-17T15:03:30",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T15:02:58"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Useful presentation feature for SSH/console connections - zoom via Ctrl+/- to increase terminal font size during demos",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+          "mRemoteNG/Connection/ConnectionInfo.cs",
+          "mRemoteNG/UI/Tabs/ConnectionTab.cs"
+        ],
+        "approach": "Add Ctrl+/- keyboard handler on connection tabs that sends font-size change to embedded PuTTY window via WM_SETFONT or PuTTY config reload; scope to SSH/Telnet console protocols only, not RDP"
+      },
+      "raw_output": "Based on my analysis of the issue and codebase:\n\n**Issue #1066** requests a zoom/presentation mode specifically for console-based connections (SSH via PuTTY). The user wants Ctrl+/- or Ctrl+Scroll to increase font size in open terminal sessions for better visibility during presentations/screen sharing. The discussion clarifies this is specifically about SSH/console connections, not RDP.\n\nThis is a legitimate enhancement but requires modifying PuTTY integration (font size is controlled by PuTTY session settings), which is non-trivial. The PuTTY embedded window doesn't easily expose runtime font-size controls — it would need either:\n1. Sending PuTTY config change commands at runtime, or\n2. A DPI/transform scaling approach on the hosting panel\n\nThis is a P3 enhancement with moderate complexity.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Useful presentation feature for SSH/console connections - zoom via Ctrl+/- to increase terminal font size during demos\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/PuttyBase.cs\",\"mRemoteNG/Connection/ConnectionInfo.cs\",\"mRemoteNG/UI/Tabs/ConnectionTab.cs\"],\"approach\":\"Add Ctrl+/- keyboard handler on connection tabs that sends font-size change to embedded PuTTY window via WM_SETFONT or PuTTY config reload; scope to SSH/Telnet console protocols only, not RDP\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T15:03:30"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

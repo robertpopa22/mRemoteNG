@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "1084",
+  "started_at": "2026-02-17T15:54:35",
+  "finished_at": "2026-02-17T15:56:18",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Currently, properties not matching a folder's protocol are hidden, making it difficult to configure inheritance for child connections of different protocols. Showing all properties for folders resolves this friction.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs"
+        ],
+        "approach": "Update 'ShowHideGridItems' to bypass protocol validation checks when 'SelectedConnectionInfo.IsContainer' is true, effectively displaying all available properties for folder objects."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"Currently, properties not matching a folder's protocol are hidden, making it difficult to configure inheritance for child connections of different protocols. Showing all properties for folders resolves this friction.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs\"],\"approach\":\"Update 'ShowHideGridItems' to bypass protocol validation checks when 'SelectedConnectionInfo.IsContainer' is true, effectively displaying all available properties for folder objects.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T15:56:18"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

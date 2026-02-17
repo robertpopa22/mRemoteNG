@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "1041",
+  "started_at": "2026-02-17T13:58:08",
+  "finished_at": "2026-02-17T13:59:24",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The current single-instance logic switches focus to the running instance but fails to pass the command-line arguments (like `--connect`) to it, requiring an IPC mechanism (e.g., Named Pipes) to be added.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/App/ProgramRoot.cs",
+          "mRemoteNG/Tools/Cmdline/StartupArgumentsInterpreter.cs"
+        ],
+        "approach": "Implement a Named Pipe server in ProgramRoot to listen for arguments from subsequent instances; refactor StartupArgumentsInterpreter to handle runtime requests."
+      },
+      "raw_output": "{\n\"decision\": \"implement\",\n\"reason\": \"The current single-instance logic switches focus to the running instance but fails to pass the command-line arguments (like `--connect`) to it, requiring an IPC mechanism (e.g., Named Pipes) to be added.\",\n\"priority\": \"P3-enhancement\",\n\"estimated_files\": [\"mRemoteNG/App/ProgramRoot.cs\", \"mRemoteNG/Tools/Cmdline/StartupArgumentsInterpreter.cs\"],\n\"approach\": \"Implement a Named Pipe server in ProgramRoot to listen for arguments from subsequent instances; refactor StartupArgumentsInterpreter to handle runtime requests.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T13:59:24"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

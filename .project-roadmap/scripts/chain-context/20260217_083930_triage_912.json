@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "912",
+  "started_at": "2026-02-17T08:38:34",
+  "finished_at": "2026-02-17T08:39:30",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:38:52"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "RDP error 6151 is an NLA/CredSSP negotiation issue between the MSTSC ActiveX library and Server 2016, already handled with a helpful error message; the root cause is in the Windows RDP COM library, not mRemoteNG code.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "The codebase already provides a specific error message for NLA disconnects (lines 1097-1104 in RdpProtocol.cs) suggesting to enable CredSSP. The underlying issue is Windows RDP ActiveX control compatibility with Server 2016 NLA requirements, which cannot be fixed in application code. Related to #220 and #826."
+      },
+      "raw_output": "Based on my analysis, here's the triage. Error 6151 (0x1807) is an RDP disconnect reason related to NLA/CredSSP negotiation between the client and Windows Server 2016. The maintainer (sparerd) already identified this as related to issue #220 and noted that RDP compatibility work in #826 (v1.77) might help. The codebase already handles NLA disconnect errors (line 1097-1104 in `RdpProtocol.cs`) with a specific message telling users to enable \"Use CredSSP\". The underlying issue is the version of the MSTSC ActiveX control used by the RDP library, which is not something that can be easily fixed in application code — it's a Windows RDP library compatibility issue.\n\n```json\n{\"decision\":\"wontfix\",\"reason\":\"RDP error 6151 is an NLA/CredSSP negotiation issue between the MSTSC ActiveX library and Server 2016, already handled with a helpful error message; the root cause is in the Windows RDP COM library, not mRemoteNG code.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"The codebase already provides a specific error message for NLA disconnects (lines 1097-1104 in RdpProtocol.cs) suggesting to enable CredSSP. The underlying issue is Windows RDP ActiveX control compatibility with Server 2016 NLA requirements, which cannot be fixed in application code. Related to #220 and #826.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:39:30"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

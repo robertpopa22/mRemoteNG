@@ -15,15 +15,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             _description = new Hashtable
             {
-                {"0", nameof(Language.RdpErrorUnknown)},
-                {"1", nameof(Language.RdpErrorCode1)},
-                {"2", nameof(Language.RdpErrorOutOfMemory)},
-                {"3", nameof(Language.RdpErrorWindowCreation)},
-                {"4", nameof(Language.RdpErrorCode2)},
-                {"5", nameof(Language.RdpErrorCode3)},
-                {"6", nameof(Language.RdpErrorCode4)},
-                {"7", nameof(Language.RdpErrorConnection)},
-                {"100", nameof(Language.RdpErrorWinsock)}
+                {1, Language.RdpErrorCode1},
+                {2, Language.RdpErrorOutOfMemory},
+                {3, Language.RdpErrorWindowCreation},
+                {4, Language.RdpErrorCode2},
+                {5, Language.RdpErrorCode3},
+                {6, Language.RdpErrorCode4},
+                {7, Language.RdpErrorConnection},
+                {100, Language.RdpErrorWinsock},
+                {3334, Language.RdpError3334}
             };
         }
 

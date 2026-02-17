@@ -1,0 +1,34 @@
+{
+  "task_type": "triage",
+  "task_id": "967",
+  "started_at": "2026-02-17T11:27:47",
+  "finished_at": "2026-02-17T11:28:37",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Requires replacing embedded PuTTY with a native .NET SSH terminal control to enable text buffer access and search functionality.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/App/Connection/Protocol/SSH.cs",
+          "mRemoteNG/UI/Forms/FrmMain.cs"
+        ],
+        "approach": "Replace PuTTY usage with a native terminal emulator control (e.g., utilizing SSH.NET) that exposes the text buffer for search operations."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Requires replacing embedded PuTTY with a native .NET SSH terminal control to enable text buffer access and search functionality.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/App/Connection/Protocol/SSH.cs\",\n    \"mRemoteNG/UI/Forms/FrmMain.cs\"\n  ],\n  \"approach\": \"Replace PuTTY usage with a native terminal emulator control (e.g., utilizing SSH.NET) that exposes the text buffer for search operations.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T11:28:37"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

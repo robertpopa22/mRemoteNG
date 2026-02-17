@@ -1,0 +1,27 @@
+IMPORTANT: This is a READ-ONLY classification task. Do NOT modify any files.
+Do NOT edit JSON files. Do NOT run scripts. Do NOT update any database.
+ONLY read the issue below and return the JSON classification.
+
+Triage this GitHub issue for mRemoteNG (.NET 10, WinForms, remote connections manager).
+
+Issue #1083: Closing Connection Improvement
+Labels: UI/UX, Improvement required
+State: open
+
+Body:
+
+
+Recent comments:
+  [kmscode]: Could you please clarify? When I use disconnect on a folder, all active connections will be disconnected.
+
+![image](https://user-images.githubusercontent.com/16654335/44746849-8ae9bf80-aad9-11e8-87ea-7ac637d476f1.png)
+
+  [spisarau]: Yes, in current folder. But if folder has sub-folder, connections in sub-folder will not be closed
+What if you want to close all connections in Windows folder and all sub-folders?
+
+Reply with ONLY a JSON object (no other text):
+{"decision":"implement","reason":"one sentence","priority":"P2-bug","estimated_files":["path.cs"],"approach":"brief fix"}
+
+Decisions: implement, wontfix, duplicate, needs_info
+Priorities: P0-critical, P1-security, P2-bug, P3-enhancement, P4-debt
+If unclear, use needs_info.

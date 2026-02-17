@@ -1,0 +1,33 @@
+{
+  "task_type": "triage",
+  "task_id": "1021",
+  "started_at": "2026-02-17T13:50:55",
+  "finished_at": "2026-02-17T13:51:29",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "User confirmed 'Reset Layout' resolved the issue, suggesting a state corruption; maintainer requested retest to confirm if underlying bug persists.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/FrmMain.cs"
+        ],
+        "approach": "Wait for reproduction on latest build; investigate DockPanelSuite layout handling on screen move."
+      },
+      "raw_output": "```json\n{\"decision\":\"needs_info\",\"reason\":\"User confirmed 'Reset Layout' resolved the issue, suggesting a state corruption; maintainer requested retest to confirm if underlying bug persists.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/UI/Forms/FrmMain.cs\"],\"approach\":\"Wait for reproduction on latest build; investigate DockPanelSuite layout handling on screen move.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T13:51:29"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

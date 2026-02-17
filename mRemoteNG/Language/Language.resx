@@ -1501,6 +1501,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="RdpErrorWinsock" xml:space="preserve">
     <value>Winsock initialization error.</value>
   </data>
+  <data name="RdpError3334" xml:space="preserve">
+    <value>Protocol error (3334). Try changing the RDP version in the connection settings.</value>
+  </data>
   <data name="FitToPanel" xml:space="preserve">
     <value>Fit To Panel</value>
   </data>

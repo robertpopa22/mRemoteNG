@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1297",
+  "started_at": "2026-02-17T07:12:44",
+  "finished_at": "2026-02-17T07:17:45",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1297",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:12:46"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1297",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T07:13:04"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1297",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1291.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1291.json      |  15 ++-\n .../scripts/chain-context/_timeout_history.json    | 124 ++++++++++++++++++---\n 2 files changed, 121 insertions(+), 18 deletions(-)",
+      "timestamp": "2026-02-17T07:17:45",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1291.json b/.project-roadmap/issues-db/upstream/1291.json\nindex 900fa0c1b..368193cbd 100644\n--- a/.project-roadmap/issues-db/upstream/1291.json\n+++ b/.project-roadmap/issues-db/upstream/1291.json\n@@ -10,17 +10,24 @@\n   \"created_at\": \"2019-01-28T19:28:18Z\",\n   \"github_updated_at\": \"2019-01-28T19:28:18Z\",\n   \"body_snippet\": \"Our variable replacement system is becoming more complex and will be used in more places in the future. Rather than relying just on our documentation to lead users to the correct variable expression, we should provide a UI experience that helps users navigate the available variables.\\r\\n\\r\\nWhen editing a text box that supports variables, there should be a way to view the available variables. Ideally, this would also provide hints for what the current value of that variable would be.\\r\\n\\r\\n\\r\\nOne implem...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Enhancement to add IntelliSense-like autocomplete dropdown for external tool token/variable replacement, improving discoverability of %HOSTNAME%, %PORT% etc. tokens\"\n+    }\n+  ],\n   \"comments\": [],\n   \"comments_cursor\": \"2019-01-28T19:28:18Z\",\n   \"unread_comments\": 0,\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): Enhancement to add IntelliSense-like autocomplete dropdown for external tool token/variable replacement, improving discoverability of %HOSTNAME%, %PORT% etc. tokens\\nApproach: Extract token names from GetVariableReplacement switch into a static list, then enhance the Arguments/Filename/WorkingDir text boxes in ExternalToolsWindow with a popup ListBox that appears when user types %, filtering tokens as they type and inserting the selected token on Enter/click\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 9b864d3f2..9c5045b62 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -20,19 +20,83 @@\n         187.8,\n         308.0,\n         203.1,\n-        144.0\n+        144.0,\n+        251.1,\n+        248.2,\n+        206.4,\n+        207.1,\n+        243.5,\n+        200.4,\n+        187.8,\n+        155.9,\n+        216.2,\n+        193.2,\n+        193.7,\n+        237.9,\n+        137.6,\n+        304.3,\n+        298.0,\n+        222.4,\n+        281.4,\n+        247.4,\n+        344.9,\n+        274.2,\n+        294.5,\n+        293.7,\n+        230.9,\n+        259.8\n       ],\n       \"triage\": [\n-        24.5,\n-        28.2,\n-        25.9,\n-        19.9,\n-        21.7,\n-        21.0,\n-        78.1,\n-        50.0,\n-        20.1,\n-        27.8\n+        17.7,\n+        25.5,\n+        21.3,\n+        15.5,\n+        88.1,\n+        55.2,\n+        27.2,\n+        24.2,\n+        19.5,\n+        26.5,\n+        18.9,\n+        27.2,\n+        16.0,\n+        27.8,\n+        21.8,\n+        26.1,\n+        24.7,\n+        24.0,\n+        20.2,\n+        20.9,\n+        85.3,\n+        14.1,\n+        131.9,\n+        24.6,\n+        32.9,\n+        23.4,\n+        19.1,\n+        23.9,\n+        23.3,\n+        25.3,\n+        62.7,\n+        21.5,\n+        75.1,\n+        27.1,\n+        19.3,\n+        8.8,\n+        20.9,\n+        22.7,\n+        21.1,\n+        23.6,\n+        22.2,\n+        22.6,\n+        19.5,\n+        56.6,\n+        57.4,\n+        60.1,\n+        22.9,\n+        16.0,\n+        21.8,\n+        79.1\n       ]\n     },\n     \"gemini\": {\n@@ -48,7 +112,14 @@\n         491.9,\n         442.0,\n         481.7,\n-        397.5\n+        397.5,\n+        153.5,\n+        332.7,\n+        591.5,\n+        494.4,\n+        768.6,\n+        440.4,\n+        248.8\n       ],\n       \"triage\": [\n         74.7,\n@@ -71,12 +142,37 @@\n         73.3,\n         98.5,\n         86.4,\n-        112.9\n+        112.9,\n+        62.3,\n+        120.2,\n+        78.6,\n+        100.1,\n+        130.6,\n+        104.4,\n+        100.2,\n+        70.0,\n+        79.1,\n+        108.4,\n+        58.7\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"triage_1157\": 1.5,\n+    \"triage_1206\": 1.5,\n+    \"triage_1175\": 1.5,\n+    \"triage_1185\": 1.5,\n+    \"triage_1190\": 1.5,\n+    \"triage_1195\": 1.5,\n+    \"triage_1197\": 1.5,\n+    \"triage_1213\": 1.5,\n+    \"triage_1214\": 1.5,\n+    \"triage_1219\": 1.5,\n+    \"triage_1233\": 1.5,\n+    \"triage_1244\": 1.5,\n+    \"triage_1268\": 1.5,\n+    \"triage_1294\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

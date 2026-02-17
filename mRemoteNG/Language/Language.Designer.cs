@@ -5396,6 +5396,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Protocol error (3334). Try changing the RDP version in the connection settings..
+        /// </summary>
+        internal static string RdpError3334 {
+            get {
+                return ResourceManager.GetString("RdpError3334", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RDP Focus failed!.
         /// </summary>
         internal static string RdpFocusFailed {

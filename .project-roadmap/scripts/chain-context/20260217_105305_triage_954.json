@@ -1,0 +1,31 @@
+{
+  "task_type": "triage",
+  "task_id": "954",
+  "started_at": "2026-02-17T10:52:40",
+  "finished_at": "2026-02-17T10:53:05",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "The issue body is empty and the title is ambiguous; specific reproduction steps and expected behavior are required to investigate.",
+        "priority": "P4-debt",
+        "estimated_files": [],
+        "approach": "Request the reporter to provide a detailed description, reproduction steps, and logs, as the current issue contains no actionable information."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"needs_info\",\n  \"reason\": \"The issue body is empty and the title is ambiguous; specific reproduction steps and expected behavior are required to investigate.\",\n  \"priority\": \"P4-debt\",\n  \"estimated_files\": [],\n  \"approach\": \"Request the reporter to provide a detailed description, reproduction steps, and logs, as the current issue contains no actionable information.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T10:53:05"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

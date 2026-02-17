@@ -1,0 +1,51 @@
+{
+  "task_type": "triage",
+  "task_id": "851",
+  "started_at": "2026-02-17T08:47:57",
+  "finished_at": "2026-02-17T08:48:53",
+  "attempts": [
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:48:15"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "KiTTY detection exists but portable file-based session storage (KiTTY's key feature vs PuTTY) is not supported — only registry-based sessions are read",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Config/Putty/PuttySessionsManager.cs",
+          "mRemoteNG/Config/Putty/KittySessionsFileProvider.cs",
+          "mRemoteNG/Tools/PuttyTypeDetector.cs",
+          "mRemoteNG/Connection/Protocol/PuttyBase.cs",
+          "mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.cs"
+        ],
+        "approach": "Create KittySessionsFileProvider extending AbstractPuttySessionsProvider that reads KiTTY file-based sessions (from Sessions/ folder next to kitty.exe or configured path). Register it in PuttySessionsManager when PuttyTypeDetector identifies KiTTY. Add UI option in AdvancedPage for KiTTY sessions directory path."
+      },
+      "raw_output": "Now I have a clear picture. KiTTY detection already exists but the issue is about KiTTY's **portable file storage** for sessions (instead of Windows registry). Currently mRemoteNG only reads PuTTY sessions from the registry (`PuttySessionsRegistryProvider`). KiTTY stores sessions in files, and a file-based sessions provider would be needed.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"KiTTY detection exists but portable file-based session storage (KiTTY's key feature vs PuTTY) is not supported — only registry-based sessions are read\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Config/Putty/PuttySessionsManager.cs\",\"mRemoteNG/Config/Putty/KittySessionsFileProvider.cs\",\"mRemoteNG/Tools/PuttyTypeDetector.cs\",\"mRemoteNG/Connection/Protocol/PuttyBase.cs\",\"mRemoteNG/UI/Forms/OptionsPages/AdvancedPage.cs\"],\"approach\":\"Create KittySessionsFileProvider extending AbstractPuttySessionsProvider that reads KiTTY file-based sessions (from Sessions/ folder next to kitty.exe or configured path). Register it in PuttySessionsManager when PuttyTypeDetector identifies KiTTY. Add UI option in AdvancedPage for KiTTY sessions directory path.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T08:48:53"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
