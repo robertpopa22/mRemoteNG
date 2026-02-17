@@ -30,6 +30,12 @@
       "date": "2026-02-17",
       "type": "triaged",
       "description": "The 'New Connection' command is missing from the main File menu, where users expect to find it alongside 'New Connection File'."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-18",
+      "type": "triaged",
+      "description": "The 'New Connection' command is currently located near the bottom of the connection tree context menu, deviating from standard UI conventions where creation actions are typically prioritized at the top."
     }
   ],
   "comments": [
@@ -66,5 +72,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (codex): The report is stale and unverified on current builds, and fresh reproducible steps/evidence are required before implementation.\nApproach: Retest on v1.79.x with exact steps plus expected/actual behavior and screenshots/logs, then implement menu-placement and new-connection focus fixes if reproduced.\nAI triage (gemini): The 'New Connection' command is missing from the main File menu, where users expect to find it alongside 'New Connection File'.\nApproach: Add a 'New Connection' menu item to FileMenu.cs using Language.NewConnection, referencing the active ConnectionTreeWindow to trigger the add connection logic."
+  "notes": "AI triage (codex): The report is stale and unverified on current builds, and fresh reproducible steps/evidence are required before implementation.\nApproach: Retest on v1.79.x with exact steps plus expected/actual behavior and screenshots/logs, then implement menu-placement and new-connection focus fixes if reproduced.\nAI triage (gemini): The 'New Connection' command is missing from the main File menu, where users expect to find it alongside 'New Connection File'.\nApproach: Add a 'New Connection' menu item to FileMenu.cs using Language.NewConnection, referencing the active ConnectionTreeWindow to trigger the add connection logic.\nAI triage (gemini): The 'New Connection' command is currently located near the bottom of the connection tree context menu, deviating from standard UI conventions where creation actions are typically prioritized at the top.\nApproach: Move `_cMenTreeAddConnection` and `_cMenTreeAddFolder` to the top of the `Items.AddRange` list in `ConnectionContextMenu.cs` to improve discoverability and adherence to standard UI patterns."
 }

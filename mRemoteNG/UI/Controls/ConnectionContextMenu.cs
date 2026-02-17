@@ -143,6 +143,9 @@ namespace mRemoteNG.UI.Controls
                                            System.Drawing.GraphicsUnit.Point, 0);
             Items.AddRange(new ToolStripItem[]
             {
+                _cMenTreeAddConnection,
+                _cMenTreeAddFolder,
+                _cMenTreeSep4,
                 _cMenTreeConnect,
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
@@ -161,9 +164,6 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeSep3,
                 _cMenTreeImport,
                 _cMenTreeExportFile,
-                _cMenTreeSep4,
-                _cMenTreeAddConnection,
-                _cMenTreeAddFolder,
                 _toolStripSeparator1,
                 _cMenTreeToolsSort,
                 _cMenTreeMoveUp,
