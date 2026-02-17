@@ -482,7 +482,12 @@ namespace mRemoteNG.App
         public const int WM_MOUSEMOVE = 0x200;
 
         /// <summary>
-        /// Posted when the user presses the left mouse button while the cursor is in the client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise, the message is posted to the window that has captured the mouse.
+        /// Sent to the focus window when the mouse wheel is rotated. The DefWindowProc function propagates the message to the window's parent. There should be no internal forwarding of the message, since DefWindowProc propagates it up the parent chain until it finds a window that processes it.
+        /// </summary>
+        public const int WM_MOUSEWHEEL = 0x20A;
+
+        /// <summary>
+        /// Sent when the user presses the left mouse button while the cursor is in the client area of a window. If the mouse is not captured, the message is posted to the window beneath the cursor. Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
         public const int WM_LBUTTONDOWN = 0x201;
 

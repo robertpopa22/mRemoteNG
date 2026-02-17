@@ -47,7 +47,7 @@ using System.Threading; // ADDED
 namespace mRemoteNG.UI.Forms
 {
     [SupportedOSPlatform("windows")]
-    public partial class FrmMain
+    public partial class FrmMain : IMessageFilter
     {
         // CHANGED: lazy, thread-safe, STA-enforced initialization
         private static readonly Lazy<FrmMain> s_default =
@@ -143,6 +143,7 @@ namespace mRemoteNG.UI.Forms
 
             _advancedWindowMenu = new AdvancedWindowMenu(this);
             _autoLockTimer.Tick += AutoLockTimer_Tick;
+            Application.AddMessageFilter(this);
         }
 
         #region Properties
@@ -778,6 +779,23 @@ namespace mRemoteNG.UI.Forms
             _inSizeMove = false;
             // This handles activations from clicks that started a size/move operation
             ActivateConnection();
+        }
+
+        public bool PreFilterMessage(ref System.Windows.Forms.Message m)
+        {
+            if (m.Msg == NativeMethods.WM_MOUSEWHEEL)
+            {
+                IntPtr hWnd = NativeMethods.WindowFromPoint(MousePosition);
+                Control? control = FromChildHandle(hWnd);
+
+                if (control is InterfaceControl ic && ic.Protocol is PuttyBase pb && pb.PuttyHandle != IntPtr.Zero)
+                {
+                    NativeMethods.SendMessage(pb.PuttyHandle, m.Msg, m.WParam, m.LParam);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
