@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -15,6 +15,7 @@ namespace mRemoteNG.UI.Menu
     public class FileMenu : ToolStripMenuItem
     {
         private ToolStripMenuItem _mMenToolsOptions = null!;
+        private ToolStripMenuItem _mMenNewConnection = null!;
         private ToolStripMenuItem _mMenFileNew = null!;
         private ToolStripMenuItem _mMenFileLoad = null!;
         private ToolStripMenuItem _mMenFileSave = null!;
@@ -32,6 +33,7 @@ namespace mRemoteNG.UI.Menu
 
         private void Initialize()
         {
+            _mMenNewConnection = new ToolStripMenuItem();
             _mMenFileNew = new ToolStripMenuItem();
             _mMenFileLoad = new ToolStripMenuItem();
             _mMenFileSave = new ToolStripMenuItem();
@@ -46,6 +48,7 @@ namespace mRemoteNG.UI.Menu
             // 
             DropDownItems.AddRange(new ToolStripItem[]
             {
+                _mMenNewConnection,
                 _mMenFileNew,
                 _mMenFileLoad,
                 _mMenFileSave,
@@ -58,6 +61,14 @@ namespace mRemoteNG.UI.Menu
             Name = "mMenFile";
             Size = new System.Drawing.Size(37, 20);
             Text = Language._File;
+            // 
+            // mMenNewConnection
+            // 
+            _mMenNewConnection.Image = Properties.Resources.AddItem_16x;
+            _mMenNewConnection.Name = "mMenNewConnection";
+            _mMenNewConnection.Size = new System.Drawing.Size(281, 22);
+            _mMenNewConnection.Text = Language.NewConnection;
+            _mMenNewConnection.Click += mMenNewConnection_Click;
             // 
             // mMenFileNew
             // 
@@ -125,6 +136,7 @@ namespace mRemoteNG.UI.Menu
         public void ApplyLanguage()
         {
             Text = Language._File;
+            _mMenNewConnection.Text = Language.NewConnection;
             _mMenFileNew.Text = Language.NewConnectionFile;
             _mMenFileLoad.Text = Language.OpenConnectionFile;
             _mMenFileSave.Text = Language.SaveConnectionFile;
@@ -134,6 +146,11 @@ namespace mRemoteNG.UI.Menu
         }
 
         #region File
+
+        private void mMenNewConnection_Click(object sender, EventArgs e)
+        {
+            TreeWindow?.ConnectionTree.AddConnection();
+        }
 
         private void mMenFileNew_Click(object sender, EventArgs e)
         {
