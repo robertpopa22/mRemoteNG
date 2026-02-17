@@ -102,6 +102,9 @@ namespace mRemoteNG.App
         internal static extern IntPtr WindowFromPoint(Point point);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        internal static extern IntPtr GetParent(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll", SetLastError = true)]

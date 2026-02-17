@@ -786,9 +786,9 @@ namespace mRemoteNG.UI.Forms
             if (m.Msg == NativeMethods.WM_MOUSEWHEEL)
             {
                 IntPtr hWnd = NativeMethods.WindowFromPoint(MousePosition);
-                Control? control = FromChildHandle(hWnd);
+                InterfaceControl? ic = FindInterfaceControl(hWnd);
 
-                if (control is InterfaceControl ic && ic.Protocol is PuttyBase pb && pb.PuttyHandle != IntPtr.Zero)
+                if (ic?.Protocol is PuttyBase pb && pb.PuttyHandle != IntPtr.Zero)
                 {
                     NativeMethods.SendMessage(pb.PuttyHandle, m.Msg, m.WParam, m.LParam);
                     return true;
@@ -796,6 +796,31 @@ namespace mRemoteNG.UI.Forms
             }
 
             return false;
+        }
+
+        private InterfaceControl? FindInterfaceControl(IntPtr hWnd)
+        {
+            if (hWnd == IntPtr.Zero) return null;
+
+            IntPtr current = hWnd;
+            while (current != IntPtr.Zero && current != Handle)
+            {
+                Control? c = Control.FromHandle(current);
+                if (c != null)
+                {
+                    // We found a managed control. Walk up the managed hierarchy.
+                    while (c != null)
+                    {
+                        if (c is InterfaceControl ic) return ic;
+                        c = c.Parent;
+                    }
+                    return null; // Hit top of managed hierarchy without finding InterfaceControl
+                }
+
+                // Still in unmanaged land (or external process window), go up one level
+                current = NativeMethods.GetParent(current);
+            }
+            return null;
         }
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
