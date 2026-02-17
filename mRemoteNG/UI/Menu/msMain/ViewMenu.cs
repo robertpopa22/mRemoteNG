@@ -222,7 +222,7 @@ namespace mRemoteNG.UI.Menu
         internal void mMenView_DropDownOpening(object sender, EventArgs e)
         {
             _mMenViewErrorsAndInfos.Checked = !AppWindows.ErrorsForm.IsHidden;
-            _mMenViewLockToolbars.Checked = Settings.Default.LockToolbars;
+            _mMenViewLockToolbars.Checked = mRemoteNG.Properties.Settings.Default.LockToolbars;
 
             if (TsExternalTools is not null)
                 _mMenViewExtAppsToolbar.Checked = TsExternalTools.Visible;
@@ -320,12 +320,12 @@ namespace mRemoteNG.UI.Menu
         {
             if (_mMenViewLockToolbars.Checked)
             {
-                Settings.Default.LockToolbars = false;
+                mRemoteNG.Properties.Settings.Default.LockToolbars = false;
                 _mMenViewLockToolbars.Checked = false;
             }
             else
             {
-                Settings.Default.LockToolbars = true;
+                mRemoteNG.Properties.Settings.Default.LockToolbars = true;
                 _mMenViewLockToolbars.Checked = true;
             }
         }
@@ -339,13 +339,13 @@ namespace mRemoteNG.UI.Menu
         {
             if (_mMenViewExtAppsToolbar.Checked)
             {
-                Settings.Default.ViewMenuExternalTools = false;
+                mRemoteNG.Properties.Settings.Default.ViewMenuExternalTools = false;
                 _mMenViewExtAppsToolbar.Checked = false;
                 if (TsExternalTools is not null) TsExternalTools.Visible = false;
             }
             else
             {
-                Settings.Default.ViewMenuExternalTools = true;
+                mRemoteNG.Properties.Settings.Default.ViewMenuExternalTools = true;
                 _mMenViewExtAppsToolbar.Checked = true;
                 if (TsExternalTools is not null) TsExternalTools.Visible = true;
             }
@@ -355,13 +355,13 @@ namespace mRemoteNG.UI.Menu
         {
             if (_mMenViewQuickConnectToolbar.Checked)
             {
-                Settings.Default.ViewMenuQuickConnect = false;
+                mRemoteNG.Properties.Settings.Default.ViewMenuQuickConnect = false;
                 _mMenViewQuickConnectToolbar.Checked = false;
                 if (TsQuickConnect is not null) TsQuickConnect.Visible = false;
             }
             else
             {
-                Settings.Default.ViewMenuQuickConnect = true;
+                mRemoteNG.Properties.Settings.Default.ViewMenuQuickConnect = true;
                 _mMenViewQuickConnectToolbar.Checked = true;
                 if (TsQuickConnect is not null) TsQuickConnect.Visible = true;
             }
@@ -371,13 +371,13 @@ namespace mRemoteNG.UI.Menu
         {
             if (_mMenViewMultiSshToolbar.Checked)
             {
-                Settings.Default.ViewMenuMultiSSH = false;
+                mRemoteNG.Properties.Settings.Default.ViewMenuMultiSSH = false;
                 _mMenViewMultiSshToolbar.Checked = false;
                 if (TsMultiSsh is not null) TsMultiSsh.Visible = false;
             }
             else
             {
-                Settings.Default.ViewMenuMultiSSH = true;
+                mRemoteNG.Properties.Settings.Default.ViewMenuMultiSSH = true;
                 _mMenViewMultiSshToolbar.Checked = true;
                 if (TsMultiSsh is not null) TsMultiSsh.Visible = true;
             }
