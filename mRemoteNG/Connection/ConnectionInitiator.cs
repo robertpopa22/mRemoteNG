@@ -59,7 +59,14 @@ namespace mRemoteNG.Connection
             ConnectionInfo.Force force = ConnectionInfo.Force.None,
             ConnectionWindow? conForm = null)
         {
-            if (containerInfo == null || containerInfo.Children.Count == 0)
+            if (containerInfo == null)
+                return;
+
+            // If the container itself has a hostname, connect it as a connection (#874)
+            if (!string.IsNullOrEmpty(containerInfo.Hostname))
+                OpenConnection((ConnectionInfo)containerInfo, force, conForm);
+
+            if (containerInfo.Children.Count == 0)
                 return;
 
             foreach (ConnectionInfo child in containerInfo.Children)

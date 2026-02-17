@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #874: [Feature Request] Allow connections to behave as folders.
+Description: 
+Approach: Update ConnectionInitiator to attempt connection on ContainerInfo if hostname is present; expose connection properties for Containers in UI; adjust tree click behavior.
+Likely files: mRemoteNG/Connection/ConnectionInitiator.cs, mRemoteNG/Container/ContainerInfo.cs, mRemoteNG/Tree/ConnectionTreeModel.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #874
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

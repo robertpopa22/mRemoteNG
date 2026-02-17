@@ -20,8 +20,13 @@ namespace mRemoteNG.Tree.ClickHandlers
         {
             if (clickedNode == null)
                 throw new ArgumentNullException(nameof(clickedNode));
-            if (clickedNode.GetTreeNodeType() != TreeNodeType.Connection &&
-                clickedNode.GetTreeNodeType() != TreeNodeType.PuttySession) return;
+
+            var nodeType = clickedNode.GetTreeNodeType();
+            bool isConnectable = nodeType == TreeNodeType.Connection ||
+                                 nodeType == TreeNodeType.PuttySession ||
+                                 (nodeType == TreeNodeType.Container && !string.IsNullOrEmpty(clickedNode.Hostname));
+
+            if (!isConnectable) return;
             _connectionInitiator.SwitchToOpenConnection(clickedNode);
         }
     }
