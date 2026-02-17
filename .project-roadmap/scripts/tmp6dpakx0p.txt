@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1121: [Feature] Quick Connect in CAPS
+Description: 
+Approach: Add a new boolean setting `QuickConnectForceUpperCase` in Settings. Add a checkbox to the Connections options page to toggle this setting. In `QuickConnectComboBox`, bind the inner ComboBox's `CharacterCasing` property to this setting (Upper vs Normal).
+Likely files: mRemoteNG/UI/Controls/QuickConnectComboBox.cs, mRemoteNG/Properties/Settings.settings, mRemoteNG/UI/Forms/OptionsPages/ConnectionsPage.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1121
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

@@ -1,0 +1,65 @@
+{
+  "task_type": "implement",
+  "task_id": "1118",
+  "started_at": "2026-02-17T03:15:46",
+  "finished_at": "2026-02-17T03:25:12",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1118",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T03:15:48"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1118",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        ".project-roadmap/scripts/tmpvrjfkwox.txt",
+        "mRemoteNG/Connection/InterfaceControl.cs"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".../scripts/chain-context/_timeout_history.json    |  3 ++-\n .project-roadmap/scripts/tmpvrjfkwox.txt           | 24 ----------------------\n mRemoteNG/Connection/InterfaceControl.cs           | 12 +++++++++++\n 3 files changed, 14 insertions(+), 25 deletions(-)",
+      "timestamp": "2026-02-17T03:19:01",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 0c43a6940..6f8f39bc6 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -45,7 +45,8 @@\n         677.1,\n         491.9,\n         442.0,\n-        481.7\n+        481.7,\n+        173.1\n       ],\n       \"triage\": [\n         74.7,\ndiff --git a/.project-roadmap/scripts/tmpvrjfkwox.txt b/.project-roadmap/scripts/tmpvrjfkwox.txt\ndeleted file mode 100644\nindex 6ed27c57f..000000000\n--- a/.project-roadmap/scripts/tmpvrjfkwox.txt\n+++ /dev/null\n@@ -1,24 +0,0 @@\n-Project: mRemoteNG (.NET 10, WinForms, COM references)\n-Working directory: D:\\github\\mRemoteNG\n-Branch: main\n-\n-Fix GitHub issue #1118: Putty panels lose focus on touchpad scroll\n-Description: \n-Approach: Override OnGotFocus and OnMouseWheel in InterfaceControl to call Protocol.Focus().\n-Likely files: mRemoteNG/Connection/InterfaceControl.cs\n-\n-IMPORTANT — Previous agents already attempted this fix.\n-Their changes may still be in the working tree.\n-\n-=== PREVIOUS AGENT ATTEMPTS ===\n-\n---- Attempt 1: CODEX [FAILED] ---\n-Task: implement #1118\n-Errors: Agent returned None after retries\n-\n-=== END PREVIOUS ATTEMPTS ===\n-\n-Review the current state of the code, correct any issues, and make the fix work.\n-\n-RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.\n-Do ONLY the fix. Nothing else.\n\\ No newline at end of file\ndiff --git a/mRemoteNG/Connection/InterfaceControl.cs b/mRemoteNG/Connection/InterfaceControl.cs\nindex 8b0604279..9c74aef0a 100644\n--- a/mRemoteNG/Connection/InterfaceControl.cs\n+++ b/mRemoteNG/Connection/InterfaceControl.cs\n@@ -85,6 +85,18 @@ namespace mRemoteNG.Connection\n             }\n         }\n \n+        protected override void OnGotFocus(EventArgs e)\n+        {\n+            base.OnGotFocus(e);\n+            Protocol?.Focus();\n+        }\n+\n+        protected override void OnMouseWheel(MouseEventArgs e)\n+        {\n+            base.OnMouseWheel(e);\n+            Protocol?.Focus();\n+        }\n+\n         private Color GetFrameColor(ConnectionFrameColor frameColor)\n         {\n             return frameColor switch",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1118",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 360s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1105.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/App/Info/SettingsFileInfo.cs",
+        "mRemoteNG/UI/Forms/frmMain.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1105.json             | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json           |  6 ++++--\n mRemoteNG/App/Info/SettingsFileInfo.cs                    |  1 +\n mRemoteNG/UI/Forms/frmMain.cs                             |  8 ++++++++\n 4 files changed, 24 insertions(+), 6 deletions(-)",
+      "timestamp": "2026-02-17T03:25:11",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1105.json b/.project-roadmap/issues-db/upstream/1105.json\nindex 3942258e7..e3748d804 100644\n--- a/.project-roadmap/issues-db/upstream/1105.json\n+++ b/.project-roadmap/issues-db/upstream/1105.json\n@@ -12,12 +12,19 @@\n   \"created_at\": \"2018-09-19T08:40:41Z\",\n   \"github_updated_at\": \"2022-06-29T15:41:25Z\",\n   \"body_snippet\": \"Hi all. Was just wondering (and I feel like its already been suggested but couldn't see it in the issues list) if the panel windows can be more functional when it comes to resizing. For me when I pull a panel out it defaults to a tiny square that needs resizing the moment its made which is a little inconvenient. Its also a little tedious having to resize the window manually to achieve a maximized panel.\\r\\n\\r\\nI'm not sure how difficult it would be to implement, but if the panel windows could have m...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-17\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Improving panel resizing and snapping significantly enhances usability and workspace management.\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"IC_kwDOAAcIMM5FvvHU\",\n@@ -34,5 +41,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (gemini): Improving panel resizing and snapping significantly enhances usability and workspace management.\\nApproach: Investigate the DockPanel configuration (likely WeifenLuo DockPanelSuite) in FrmMain.cs to increase splitter width or sensitivity and check for available snapping properties to enable.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 0c43a6940..cfa98e669 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -18,7 +18,8 @@\n         160.6,\n         173.3,\n         187.8,\n-        308.0\n+        308.0,\n+        284.3\n       ],\n       \"triage\": [\n         24.5,\n@@ -66,7 +67,8 @@\n         83.6,\n         55.1,\n         73.3,\n-        98.5\n+        98.5,\n+        34.3\n       ]\n     }\n   },\ndiff --git a/mRemoteNG/App/Info/SettingsFileInfo.cs b/mRemoteNG/App/Info/SettingsFileInfo.cs\nindex 13b926594..ae1f06e4b 100644\n--- a/mRemoteNG/App/Info/SettingsFileInfo.cs\n+++ b/mRemoteNG/App/Info/SettingsFileInfo.cs\n@@ -33,6 +33,7 @@ namespace mRemoteNG.App.Info\n         public static string ThemesFileName { get; } = \"Themes.xml\";\n         public static string LocalConnectionProperties { get; } = \"LocalConnectionProperties.xml\";\n         public static string QuickConnectHistoryFileName { get; } = \"quickConnectHistory.xml\";\n+        public static string RecentConnectionsFileName { get; } = \"recentConnections.xml\";\n \n         public static string ThemeFolder { get; } =\n             SettingsPath != null ? Path.Combine(SettingsPath, \"Themes\") : String.Empty;\ndiff --git a/mRemoteNG/UI/Forms/frmMain.cs b/mRemoteNG/UI/Forms/frmMain.cs\nindex 08dee4e59..70eea463c 100644\n--- a/mRemoteNG/UI/Forms/frmMain.cs\n+++ b/mRemoteNG/UI/Forms/frmMain.cs\n@@ -406,6 +406,10 @@ namespace mRemoteNG.UI.Forms\n             if (!_themeManager.ThemingActive)\n             {\n                 pnlDock.Theme = _themeManager.DefaultTheme.Theme;\n+                if (pnlDock.Theme?.Measures != null)\n+                {\n+                    pnlDock.Theme.Measures.SplitterSize = 10;\n+                }\n                 return;\n             }\n \n@@ -414,6 +418,10 @@ namespace mRemoteNG.UI.Forms\n                 // this will always throw when turning themes on from\n                 // the options menu.\n                 pnlDock.Theme = _themeManager.ActiveTheme.Theme;\n+                if (pnlDock.Theme?.Measures != null)\n+                {\n+                    pnlDock.Theme.Measures.SplitterSize = 10;\n+                }\n             }\n             catch (Exception)\n             {"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

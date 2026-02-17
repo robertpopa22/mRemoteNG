@@ -1,0 +1,62 @@
+{
+  "task_type": "implement",
+  "task_id": "1111",
+  "started_at": "2026-02-17T03:38:56",
+  "finished_at": "2026-02-17T03:48:37",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1111",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T03:38:58"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1111",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".../scripts/chain-context/_timeout_history.json        | 18 ++++++++++++++----\n 1 file changed, 14 insertions(+), 4 deletions(-)",
+      "timestamp": "2026-02-17T03:45:05",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 0c43a6940..94878d188 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -18,7 +18,10 @@\n         160.6,\n         173.3,\n         187.8,\n-        308.0\n+        308.0,\n+        284.3,\n+        239.3,\n+        133.5\n       ],\n       \"triage\": [\n         24.5,\n@@ -45,7 +48,8 @@\n         677.1,\n         491.9,\n         442.0,\n-        481.7\n+        481.7,\n+        347.8\n       ],\n       \"triage\": [\n         74.7,\n@@ -66,12 +70,18 @@\n         83.6,\n         55.1,\n         73.3,\n-        98.5\n+        98.5,\n+        34.3,\n+        65.8,\n+        39.9,\n+        44.5\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"impl_1118\": 1.5,\n+    \"triage_1122\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1111",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/UI/FullscreenHandler.cs"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".../scripts/chain-context/_timeout_history.json    | 22 +++++++--\n mRemoteNG/UI/FullscreenHandler.cs                  | 55 +++++++++++++++++++++-\n 2 files changed, 70 insertions(+), 7 deletions(-)",
+      "timestamp": "2026-02-17T03:48:36",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 0c43a6940..bbd862077 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -18,7 +18,11 @@\n         160.6,\n         173.3,\n         187.8,\n-        308.0\n+        308.0,\n+        284.3,\n+        239.3,\n+        133.5,\n+        191.4\n       ],\n       \"triage\": [\n         24.5,\n@@ -30,7 +34,8 @@\n         78.1,\n         50.0,\n         20.1,\n-        27.8\n+        27.8,\n+        18.4\n       ]\n     },\n     \"gemini\": {\n@@ -45,7 +50,8 @@\n         677.1,\n         491.9,\n         442.0,\n-        481.7\n+        481.7,\n+        347.8\n       ],\n       \"triage\": [\n         74.7,\n@@ -66,12 +72,18 @@\n         83.6,\n         55.1,\n         73.3,\n-        98.5\n+        98.5,\n+        34.3,\n+        65.8,\n+        39.9,\n+        44.5\n       ]\n     }\n   },\n   \"escalations\": {\n     \"triage_1083\": 1.5,\n-    \"triage_1086\": 1.5\n+    \"triage_1086\": 1.5,\n+    \"impl_1118\": 1.5,\n+    \"triage_1122\": 1.5\n   }\n }\ndiff --git a/mRemoteNG/UI/FullscreenHandler.cs b/mRemoteNG/UI/FullscreenHandler.cs\nindex e5700f801..00359da09 100644\n--- a/mRemoteNG/UI/FullscreenHandler.cs\n+++ b/mRemoteNG/UI/FullscreenHandler.cs\n@@ -1,5 +1,6 @@\n-﻿using System.Drawing;\n+using System.Drawing;\n using System.Windows.Forms;\n+using mRemoteNG.UI.Forms;\n \n namespace mRemoteNG.UI\n {\n@@ -10,6 +11,7 @@ namespace mRemoteNG.UI\n         private FormBorderStyle _savedBorderStyle;\n         private Rectangle _savedBounds;\n         private bool _value;\n+        private FrmFullscreenToolbar? _toolbar;\n \n         public bool Value\n         {\n@@ -25,6 +27,21 @@ namespace mRemoteNG.UI\n             }\n         }\n \n+        public void Minimize()\n+        {\n+            _handledForm.WindowState = FormWindowState.Minimized;\n+        }\n+\n+        public void Restore()\n+        {\n+            Value = false;\n+        }\n+\n+        public void Close()\n+        {\n+            _handledForm.Close();\n+        }\n+\n         private void EnterFullscreen()\n         {\n             _savedBorderStyle = _handledForm.FormBorderStyle;\n@@ -38,13 +55,47 @@ namespace mRemoteNG.UI\n             }\n \n             _handledForm.WindowState = FormWindowState.Maximized;\n+\n+            ShowToolbar();\n         }\n \n         private void ExitFullscreen()\n         {\n+            HideToolbar();\n+\n             _handledForm.FormBorderStyle = _savedBorderStyle;\n             _handledForm.WindowState = _savedWindowState;\n             _handledForm.Bounds = _savedBounds;\n         }\n+\n+        private void ShowToolbar()\n+        {\n+            if (_toolbar == null || _toolbar.IsDisposed)\n+            {\n+                _toolbar = new FrmFullscreenToolbar(this);\n+            }\n+\n+            PositionToolbar();\n+            _toolbar.Show(_handledForm);\n+        }\n+\n+        private void HideToolbar()\n+        {\n+            if (_toolbar != null && !_toolbar.IsDisposed)\n+            {\n+                _toolbar.Hide();\n+            }\n+        }\n+\n+        private void PositionToolbar()\n+        {\n+            if (_toolbar == null || _toolbar.IsDisposed) return;\n+\n+            var screen = Screen.FromControl(_handledForm);\n+            _toolbar.Location = new Point(\n+                screen.WorkingArea.Right - _toolbar.Width - 10,\n+                screen.WorkingArea.Top + 10\n+            );\n+        }\n     }\n-}\n\\ No newline at end of file\n+}",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}

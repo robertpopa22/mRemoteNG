@@ -1,0 +1,60 @@
+{
+  "task_type": "implement",
+  "task_id": "1101",
+  "started_at": "2026-02-17T03:05:37",
+  "finished_at": "2026-02-17T03:21:32",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1101",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T03:05:39"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1101",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-17T03:16:28"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1101",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Changes left in working tree.",
+      "files_modified": [
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/App/Info/SettingsFileInfo.cs",
+        "mRemoteNG/Connection/InterfaceControl.cs",
+        "mRemoteNG/UI/Menu/msMain/FileMenu.cs"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/scripts/chain-context/_timeout_history.json |  3 ++-\n mRemoteNG/App/Info/SettingsFileInfo.cs                       |  1 +\n mRemoteNG/Connection/InterfaceControl.cs                     | 12 ++++++++++++\n mRemoteNG/UI/Menu/msMain/FileMenu.cs                         |  1 +\n 4 files changed, 16 insertions(+), 1 deletion(-)",
+      "timestamp": "2026-02-17T03:21:32",
+      "diff_output": "diff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 0c43a6940..a5c7020dc 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -18,7 +18,8 @@\n         160.6,\n         173.3,\n         187.8,\n-        308.0\n+        308.0,\n+        284.3\n       ],\n       \"triage\": [\n         24.5,\ndiff --git a/mRemoteNG/App/Info/SettingsFileInfo.cs b/mRemoteNG/App/Info/SettingsFileInfo.cs\nindex 13b926594..ae1f06e4b 100644\n--- a/mRemoteNG/App/Info/SettingsFileInfo.cs\n+++ b/mRemoteNG/App/Info/SettingsFileInfo.cs\n@@ -33,6 +33,7 @@ namespace mRemoteNG.App.Info\n         public static string ThemesFileName { get; } = \"Themes.xml\";\n         public static string LocalConnectionProperties { get; } = \"LocalConnectionProperties.xml\";\n         public static string QuickConnectHistoryFileName { get; } = \"quickConnectHistory.xml\";\n+        public static string RecentConnectionsFileName { get; } = \"recentConnections.xml\";\n \n         public static string ThemeFolder { get; } =\n             SettingsPath != null ? Path.Combine(SettingsPath, \"Themes\") : String.Empty;\ndiff --git a/mRemoteNG/Connection/InterfaceControl.cs b/mRemoteNG/Connection/InterfaceControl.cs\nindex 8b0604279..9c74aef0a 100644\n--- a/mRemoteNG/Connection/InterfaceControl.cs\n+++ b/mRemoteNG/Connection/InterfaceControl.cs\n@@ -85,6 +85,18 @@ namespace mRemoteNG.Connection\n             }\n         }\n \n+        protected override void OnGotFocus(EventArgs e)\n+        {\n+            base.OnGotFocus(e);\n+            Protocol?.Focus();\n+        }\n+\n+        protected override void OnMouseWheel(MouseEventArgs e)\n+        {\n+            base.OnMouseWheel(e);\n+            Protocol?.Focus();\n+        }\n+\n         private Color GetFrameColor(ConnectionFrameColor frameColor)\n         {\n             return frameColor switch\ndiff --git a/mRemoteNG/UI/Menu/msMain/FileMenu.cs b/mRemoteNG/UI/Menu/msMain/FileMenu.cs\nindex 2a464440a..65bd8488c 100644\n--- a/mRemoteNG/UI/Menu/msMain/FileMenu.cs\n+++ b/mRemoteNG/UI/Menu/msMain/FileMenu.cs\n@@ -1,6 +1,7 @@\n ﻿using System;\n using System.Windows.Forms;\n using mRemoteNG.App;\n+using mRemoteNG.Config.Settings;\n using mRemoteNG.Connection;\n using mRemoteNG.Properties;\n using mRemoteNG.Security;",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nERROR: Test DLL not found at D:\\github\\mRemoteNG\\mRemoteNGTests\\bin\\x64\\Release\\mRemoteNGTests.dll\n\n"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}
