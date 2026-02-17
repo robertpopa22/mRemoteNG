@@ -103,6 +103,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             {
                 _themeManager.updateTheme(updatedTheme);
             }
+
+            Properties.OptionsThemePage.Default.Save();
         }
 
         public override void RevertSettings()
