@@ -186,6 +186,12 @@ namespace mRemoteNG.Connection.Protocol
 
         private void CloseBG()
         {
+            if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)
+            {
+                _interfaceControl.Invoke(new MethodInvoker(CloseBG));
+                return;
+            }
+
             ClosedEvent?.Invoke(this);
             try
             {
