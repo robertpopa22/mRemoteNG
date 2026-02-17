@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using mRemoteNG.Config.Import;
+using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Container;
@@ -156,6 +157,23 @@ namespace mRemoteNG.App
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("App.Import.ImportFromPutty() failed.", ex);
+            }
+        }
+
+        public static void ImportFromGuacamole(IDatabaseConnector connector, ContainerInfo destinationContainer)
+        {
+            try
+            {
+                using (Runtime.ConnectionsService.BatchedSavingContext())
+                {
+                    var importer = new GuacamoleImporter(connector);
+                    importer.Import(destinationContainer);
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("App.Import.ImportFromGuacamole() failed.", ex);
+                throw; // Rethrow to let the UI know
             }
         }
 

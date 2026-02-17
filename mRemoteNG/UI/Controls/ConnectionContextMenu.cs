@@ -64,6 +64,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeImportFromRemoteDesktopManager = null!;
         private ToolStripMenuItem _cMenTreeImportActiveDirectory = null!;
         private ToolStripMenuItem _cMenTreeImportPortScan = null!;
+        private ToolStripMenuItem _cMenTreeImportGuacamole = null!;
         private ToolStripMenuItem _cMenTreeImportPutty = null!;
         private ToolStripMenuItem _cMenTreeApplyInheritanceToChildren = null!;
         private ToolStripMenuItem _cMenTreeApplyDefaultInheritance = null!;
@@ -118,6 +119,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeImportFromRemoteDesktopManager = new ToolStripMenuItem();
             _cMenTreeImportActiveDirectory = new ToolStripMenuItem();
             _cMenTreeImportPortScan = new ToolStripMenuItem();
+            _cMenTreeImportGuacamole = new ToolStripMenuItem();
             _cMenTreeImportPutty = new ToolStripMenuItem();
             _cMenInheritanceSubMenu = new ToolStripMenuItem();
             _cMenTreeApplyInheritanceToChildren = new ToolStripMenuItem();
@@ -354,7 +356,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeImportFromRemoteDesktopManager,
                 _cMenTreeImportActiveDirectory,
                 _cMenTreeImportPutty,
-                _cMenTreeImportPortScan
+                _cMenTreeImportPortScan,
+                _cMenTreeImportGuacamole
             });
             _cMenTreeImport.Name = "_cMenTreeImport";
             _cMenTreeImport.Size = new System.Drawing.Size(199, 22);
@@ -386,6 +389,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeImportPortScan.Size = new System.Drawing.Size(226, 22);
             _cMenTreeImportPortScan.Text = "Import from &Port Scan...";
             _cMenTreeImportPortScan.Click += OnImportPortScanClicked;
+            //
+            // cMenTreeImportGuacamole
+            //
+            _cMenTreeImportGuacamole.Name = "_cMenTreeImportGuacamole";
+            _cMenTreeImportGuacamole.Size = new System.Drawing.Size(226, 22);
+            _cMenTreeImportGuacamole.Text = "Import from &Guacamole...";
+            _cMenTreeImportGuacamole.Click += OnImportGuacamoleClicked;
             //
             // cMenTreeImportPutty
             //
@@ -1032,6 +1042,22 @@ namespace mRemoteNG.UI.Controls
         private void OnImportPortScanClicked(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.PortScan);
+        }
+
+        private void OnImportGuacamoleClicked(object sender, EventArgs e)
+        {
+            ContainerInfo? selectedNodeAsContainer;
+            if (_connectionTree.SelectedNode == null)
+                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes.First();
+            else
+                selectedNodeAsContainer =
+                    _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
+            if (selectedNodeAsContainer == null) return;
+
+            using (var frm = new UI.Forms.FrmGuacamoleImport(selectedNodeAsContainer))
+            {
+                frm.ShowDialog();
+            }
         }
 
         private void OnExportFileClicked(object sender, EventArgs e)
