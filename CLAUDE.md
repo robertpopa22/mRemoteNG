@@ -110,14 +110,14 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
 ### Current test status (v1.81.0-beta.3, 2026-02-17):
-- **Full parallel run:** 2460/2463 passed, 3 skipped, **0 failed** — 5 processes, ~65s
+- **Full parallel run:** 2479/2479 passed, 0 skipped, **0 failed** — 5 processes, ~72s
 - **mRemoteNGSpecs:** 2/5 passed, 3 failed (pre-existing BouncyCastle GCM decryption issue)
 - **No headless filter needed** — all UI tests redesigned with RunWithMessagePump pattern
-- **3 [Ignore] tests** (need production code refactoring, not test exclusion):
-  - `ChangingOptionMarksPageAsChanged` — ObjectListView deadlock in OptionsPage (needs RunWithMessagePump refactoring of OptionsForm)
-  - `SelectingSQLPageLoadsSettings` — ObjectListView deadlock on SQL page activation
-  - `OpenConnection_RetriesSshTunnel_OnFailure` — requires FrmMain/PanelAdder DI
-- **RunWithMessagePump pattern**: For ObjectListView-based tests, creates dedicated STA thread with `Application.Run(form)` message pump. Tests run inside form's Load event. Required because .NET 10 NUnit `[Apartment(STA)]` doesn't provide message pump, causing `Invoke()` deadlock.
+- **0 [Ignore] tests** — all 3 previously-ignored tests fixed:
+  - `ChangingOptionMarksPageAsChanged` — Fixed: `Application.Run(optionsForm)` + `Application.ExitThread()` avoids FrmOptions.FormClosing MessageBox deadlock
+  - `SelectingSQLPageLoadsSettings` — Fixed: same RunWithMessagePump pattern as above
+  - `OpenConnection_RetriesSshTunnel_OnFailure` — Fixed: RunWithMessagePump with DockPanel
+- **RunWithMessagePump pattern**: For ObjectListView/FrmOptions tests, uses `Application.Run(form)` directly (form becomes main form), with `Application.ExitThread()` in finally block. Previous approaches with `form.Close()` deadlock because `FrmOptions.FormClosing` always sets `e.Cancel = true` and shows `MessageBox.Show()` when `HasChanges` is true.
 - **Run command:** `powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -NoBuild`
 - **IMPORTANT: Do NOT use `[assembly: Parallelizable]`** in the test project — causes race conditions on `DefaultConnectionInheritance.Instance`, `Runtime.ConnectionsService`, `Runtime.EncryptionKey` (shared mutable singletons). Use multi-process parallelism via `run-tests.ps1` instead.
 - Coverage analysis: `.project-roadmap/P7_TEST_COVERAGE_ANALYSIS_2026-02-08.md`
@@ -405,6 +405,7 @@ iis_orchestrator.py (Python — controller)
 - One agent at a time per issue (no parallel agents on same files)
 - All state tracked in `.project-roadmap/issues-db/` JSON files
 - **CRITICAL: Ensure test projects are in mRemoteNG.sln** — the 31h failure was caused by .sln missing test projects.
+- **CRITICAL: Agents MUST NOT commit** — `claude -p` reads CLAUDE.md "COMMIT PER ISSUE" rule and runs `git commit` independently. Implementation prompt now explicitly forbids git operations. Rogue commit `45cf3c5e1` (2026-02-17) was caused by Claude agent committing broken code with references to non-existent members.
 
 ### Safeguards (added 2026-02-17, after 31h failure post-mortem)
 | Safeguard | Constant/File | Value | Description |
@@ -418,6 +419,8 @@ iis_orchestrator.py (Python — controller)
 | `run-tests.ps1` exit codes | 97/98/99 | special | 99=phantom, 98=garbled, 97=no tests found |
 | **Agent rate-limit tracking** | `_agent_rate_limits.json` | persistent | Auto-detects rate limits, skips agent until reset date. Survives restarts. |
 | **Codex sandbox fix** | `-a never -s workspace-write` | CLI flags | Overrides config.toml read-only default |
+| **No agent git ops** | impl_prompt RULES | explicit | Agents MUST NOT run git commit/add/push — orchestrator handles all commits |
+| **Adaptive timeouts** | `_complexity_base_timeout()` | 400/800/1200s | Base timeout by file count (1/≤3/>3 files). Adaptive: p80 history, per-issue escalation (1.5x), max 4x |
 
 ### Results (v1.81.0-beta.2)
 - **2,554 nullable warnings** fixed (100% clean) across 4 orchestrator sessions

@@ -1645,6 +1645,7 @@ RULES (CRITICAL):
 - Read code BEFORE modifying
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
@@ -2086,6 +2087,7 @@ RULES (CRITICAL):
 - Read code BEFORE modifying
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.

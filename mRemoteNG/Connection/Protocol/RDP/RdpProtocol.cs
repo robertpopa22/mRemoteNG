@@ -1094,6 +1094,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             const int UI_ERR_NORMAL_DISCONNECT = 0xB08;
             const int UI_ERR_NLA_NOT_ENABLED = 0xB09;
+            const int UI_ERR_CONNECT_FAILED_DOWN = 0x1807;
+
             if (discReason != UI_ERR_NORMAL_DISCONNECT)
             {
                 uint extendedDisconnectReason = (uint)_rdpClient.ExtendedDisconnectReason;
@@ -1102,6 +1104,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     reason = "The remote computer requires Network Level Authentication (NLA). Enable \"Use CredSSP\" for this RDP connection and try again.";
                 }
+                else if (discReason == UI_ERR_CONNECT_FAILED_DOWN || extendedDisconnectReason == (uint)UI_ERR_CONNECT_FAILED_DOWN)
+                {
+                    reason = "The connection failed. This may be due to a domain trust issue or NLA settings. Please check your domain trust relationship and NLA settings.";
+                }
+
                 Event_Disconnected(this, reason, discReason);
             }
 
