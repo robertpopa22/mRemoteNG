@@ -29,6 +29,16 @@ namespace mRemoteNG.Container
 
         [Browsable(false)] public List<ConnectionInfo> Children { get; } = [];
 
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.General)),
+         DisplayName("Folder Password"),
+         Description("Password to protect this folder."),
+         PasswordPropertyText(true),
+         Browsable(true)]
+        public string ContainerPassword { get; set; } = string.Empty;
+
+        [Browsable(false)]
+        public bool IsUnlocked { get; set; }
+
         [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(""), DesignOnly(false)]
         public bool IsExpanded
         {

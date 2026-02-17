@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #872: Enhancement - Security at the Folder Level
+Description: 
+Approach: Extend the ConnectionInfo class to support a security/lock state for containers. Implement a password prompt UI mechanism when expanding locked folders in the ConnectionTree. Investigate feasibility of encrypting the subtree in the XML storage vs UI-only locking.
+Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Tree/ConnectionTreeModel.cs, mRemoteNG/Security/Security.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #872
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

@@ -195,6 +195,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                             if (_confVersion >= 2.8)
                             {
                                 containerInfo.AutoSort = xmlNode.GetAttributeAsBool("AutoSort");
+                                containerInfo.ContainerPassword = _decryptor.Decrypt(xmlNode.GetAttributeAsString("ContainerPassword"));
                             }
 
                             parentContainer.AddChild(containerInfo);

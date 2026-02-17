@@ -41,6 +41,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             {
                 element.Add(new XAttribute("Expanded", nodeAsContainer.IsExpanded.ToString().ToLowerInvariant()));
                 element.Add(new XAttribute("AutoSort", nodeAsContainer.AutoSort.ToString().ToLowerInvariant()));
+
+                if (_saveFilter.SavePassword && !string.IsNullOrEmpty(nodeAsContainer.ContainerPassword))
+                    element.Add(new XAttribute("ContainerPassword", _cryptographyProvider.Encrypt(nodeAsContainer.ContainerPassword, _encryptionKey)));
             }
             element.Add(new XAttribute("Descr", connectionInfo.Description));
             element.Add(new XAttribute("Icon", connectionInfo.Icon));

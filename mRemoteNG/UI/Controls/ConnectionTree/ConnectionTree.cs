@@ -10,12 +10,16 @@ using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
 using mRemoteNG.Properties;
+using System.Security;
 using mRemoteNG.Themes;
+using mRemoteNG.Tools;
 using mRemoteNG.Tools.Clipboard;
 using mRemoteNG.Tree;
 using mRemoteNG.Tree.ClickHandlers;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.Security;
+using mRemoteNG.UI.Forms;
 using System.Runtime.Versioning;
 
 // ReSharper disable ArrangeAccessorOwnerBody
@@ -162,6 +166,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 container.IsExpanded = true;
                 AutoResizeColumn(Columns[0]);
             };
+            Expanding += OnExpanding;
             SelectionChanged += TvConnections_AfterSelect;
             MouseDoubleClick += OnMouse_DoubleClick;
             MouseClick += OnMouse_SingleClick;
@@ -172,6 +177,32 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             BeforeLabelEdit += OnBeforeLabelEdit;
             AfterLabelEdit += OnAfterLabelEdit;
             FormatCell += ConnectionTree_FormatCell;
+        }
+
+        private void OnExpanding(object? sender, TreeBranchExpandingEventArgs e)
+        {
+            if (e.Model is not ContainerInfo container) return;
+            if (string.IsNullOrEmpty(container.ContainerPassword)) return;
+            if (container.IsUnlocked) return;
+
+            using FrmPassword passwordForm = new(container.Name, false);
+            if (passwordForm.ShowDialog() == DialogResult.OK)
+            {
+                Optional<SecureString> key = passwordForm.GetKey();
+                if (key.Any() && key.First().ConvertToUnsecureString() == container.ContainerPassword)
+                {
+                    container.IsUnlocked = true;
+                }
+                else
+                {
+                    e.Canceled = true;
+                    MessageBox.Show("Incorrect password.", "Security", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                e.Canceled = true;
+            }
         }
 
         /// <summary>
