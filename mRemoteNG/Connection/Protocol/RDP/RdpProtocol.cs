@@ -254,7 +254,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     Thread.Sleep(10);
                     Application.DoEvents();
                 }
-                Control.Anchor = AnchorStyles.None;
 
                 _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
 
@@ -299,7 +298,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
                     await System.Threading.Tasks.Task.Delay(10);
                 }
-                Control.Anchor = AnchorStyles.None;
 
                 _rdpClient = (MsRdpClient6NotSafeForScripting)((AxHost)Control).GetOcx()!;
 

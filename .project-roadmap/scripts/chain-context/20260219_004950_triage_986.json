@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "986",
+  "started_at": "2026-02-19T00:47:48",
+  "finished_at": "2026-02-19T00:49:50",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T00:47:48"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The RDP ActiveX control is explicitly set to Anchor=None during initialization, overriding Dock=Fill and preventing the session window from resizing with the application. Removing this line will restore proper docking behavior.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Remove 'Control.Anchor = AnchorStyles.None;' in RdpProtocol.cs (in both InitializeActiveXControl and InitializeActiveXControlAsync) to allow the control to respect 'Dock = DockStyle.Fill' set by the base class."
+      },
+      "raw_output": "The issue \"RDP window not expandable\" is caused by the RDP ActiveX control being explicitly set to `Anchor = AnchorStyles.None` in `RdpProtocol.cs`, which overrides the `Dock = DockStyle.Fill` setting from the base class. This prevents the RDP session window from resizing when the mRemoteNG window is resized (breaking \"Smart Sizing\" and general layout). `RdpProtocol8` (RDP 8+) implements a manual resize workaround, but the default `RdpProtocol` (RDP < 8) lacks this, leading to the reported behavior.\n\nThe fix is to remove the `Control.Anchor = AnchorStyles.None;` line in `RdpProtocol.cs`.\n\n```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"The RDP ActiveX control is explicitly set to Anchor=None during initialization, overriding Dock=Fill and preventing the session window from resizing with the application. Removing this line will restore proper docking behavior.\",\n  \"priority\": \"P2-bug\",\n  \"estimated_files\": [\n    \"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"\n  ],\n  \"approach\": \"Remove 'Control.Anchor = AnchorStyles.None;' in RdpProtocol.cs (in both InitializeActiveXControl and InitializeActiveXControlAsync) to allow the control to respect 'Dock = DockStyle.Fill' set by the base class.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T00:49:50"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
