@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "1182",
+  "started_at": "2026-02-18T13:50:31",
+  "finished_at": "2026-02-18T13:52:47",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T13:50:31"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "Printer redirection stability is a known upstream issue with the RDP ActiveX control; specific failure mode (missing printers vs. stuck jobs) and RDP version details are required to diagnose.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Investigate using IMsRdpClientNonScriptable interfaces or extended RDP settings to match mstsc.exe printer redirection behavior."
+      },
+      "raw_output": "{\n\"decision\": \"needs_info\",\n\"reason\": \"Printer redirection stability is a known upstream issue with the RDP ActiveX control; specific failure mode (missing printers vs. stuck jobs) and RDP version details are required to diagnose.\",\n\"priority\": \"P2-bug\",\n\"estimated_files\": [\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\n\"approach\": \"Investigate using IMsRdpClientNonScriptable interfaces or extended RDP settings to match mstsc.exe printer redirection behavior.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T13:52:47"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

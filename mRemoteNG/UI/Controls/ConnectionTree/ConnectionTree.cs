@@ -389,7 +389,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             SelectedItem.BeginEdit();
         }
 
-        private List<ConnectionInfo> GetSelectedNodes()
+        internal List<ConnectionInfo> GetSelectedNodes()
         {
             List<ConnectionInfo> selectedNodes = SelectedObjects?.OfType<ConnectionInfo>().Distinct().ToList() ?? [];
 

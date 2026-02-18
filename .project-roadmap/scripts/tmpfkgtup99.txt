@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1175: Select a custom resolution and set it to smart size also for RDP session
+Description: 
+Approach: Add 'SmartSizing' boolean property to ConnectionInfo and AbstractConnectionRecord. Update RdpProtocol.SetResolution to apply SmartSizing property to the RDP client. Update XML/SQL/CSV serializers and inheritance logic to persist the new property. Expose in UI.
+Likely files: mRemoteNG/Connection/AbstractConnectionRecord.cs, mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs, mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs, mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionsDeserializer.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1175
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

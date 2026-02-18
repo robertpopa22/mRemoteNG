@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1185: [Feature Request] Shift+LClick/Ctrl+LClick, select multiple targets, issue commands
+Description: 
+Approach: Verify MultiSelect is enabled in ConnectionTree and refactor ConnectionContextMenu to iterate over SelectedObjects to perform actions on all selected connections.
+Likely files: mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs, mRemoteNG/UI/Controls/ConnectionContextMenu.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1185
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

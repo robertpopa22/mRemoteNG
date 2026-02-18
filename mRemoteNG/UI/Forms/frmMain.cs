@@ -1205,7 +1205,7 @@ namespace mRemoteNG.UI.Forms
             foreach (var window in Runtime.WindowList.OfType<ConnectionWindow>())
             {
                 if (!window.IsDisposed)
-                    window.ApplyConnectionTabVisibility();
+                    window.ShowHideConnectionTabs();
             }
         }
 

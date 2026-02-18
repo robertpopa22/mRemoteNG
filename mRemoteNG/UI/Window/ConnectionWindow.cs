@@ -33,6 +33,7 @@ namespace mRemoteNG.UI.Window
         private readonly ToolStripMenuItem _cmenTabIncludeInMultiSsh = new();
         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
         private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();
+        private bool _isAddingTab;
 
         #region Public Methods
 
@@ -59,14 +60,33 @@ namespace mRemoteNG.UI.Window
             InitializeConnectionTabDragDropTargets();
         }
 
-        public void ApplyConnectionTabVisibility()
+        internal void ShowHideConnectionTabs()
         {
-            var newStyle = Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs
-                ? DocumentStyle.DockingWindow
-                : DocumentStyle.DockingSdi;
+            if (_isAddingTab) return;
 
-            if (connDock.DocumentStyle != newStyle)
-                connDock.DocumentStyle = newStyle;
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(ShowHideConnectionTabs));
+                return;
+            }
+
+            DocumentStyle newDocumentStyle;
+
+            if (Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs)
+            {
+                newDocumentStyle = DocumentStyle.DockingWindow;
+            }
+            else
+            {
+                newDocumentStyle = connDock.Contents.Count > 1
+                    ? DocumentStyle.DockingWindow
+                    : DocumentStyle.DockingSdi;
+            }
+
+            if (connDock.DocumentStyle != newDocumentStyle)
+            {
+                connDock.DocumentStyle = newDocumentStyle;
+            }
         }
 
         private InterfaceControl? GetInterfaceControl()
@@ -102,7 +122,7 @@ namespace mRemoteNG.UI.Window
 
         private ConnectionTab? FindReusableClosedTab(ConnectionInfo connectionInfo)
         {
-            foreach (IDockContent dockContent in connDock.DocumentsToArray())
+            foreach (IDockContent dockContent in connDock.Contents)
             {
                 if (dockContent is not ConnectionTab connectionTab) continue;
                 if (InterfaceControl.FindInterfaceControl(connectionTab) != null) continue;
@@ -118,6 +138,19 @@ namespace mRemoteNG.UI.Window
         {
             SetFormEventHandlers();
             SetContextMenuEventHandlers();
+            connDock.ContentAdded += ConnDock_ContentAdded;
+            connDock.ContentRemoved += ConnDock_ContentRemoved;
+        }
+
+        private void ConnDock_ContentAdded(object? sender, DockContentEventArgs e)
+        {
+            ShowHideConnectionTabs();
+            AttachConnectionTabDropTarget(e.Content.DockHandler.Form);
+        }
+
+        private void ConnDock_ContentRemoved(object? sender, DockContentEventArgs e)
+        {
+            ShowHideConnectionTabs();
         }
 
         private void SetFormEventHandlers()
@@ -588,16 +621,35 @@ namespace mRemoteNG.UI.Window
                 // Connection tab visibility is controlled by connDock.DocumentStyle
                 // set in the constructor based on AlwaysShowConnectionTabs setting.
 
-                // Ensure the ConnectionWindow is visible before adding the tab
-                // This prevents visibility issues when the window was created but not yet shown
-                // Check DockState instead of Visible to properly detect if window is shown in DockPanel
-                if (DockState == DockState.Unknown || DockState == DockState.Hidden || !Visible)
+                _isAddingTab = true;
+                try
                 {
-                    Show(FrmMain.Default.pnlDock, DockState.Document);
+                    // Check if we need to switch style BEFORE showing to prevent SDI from closing existing tabs
+                    if (!Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs)
+                    {
+                        if (connDock.DocumentStyle == DocumentStyle.DockingSdi && connDock.Contents.Count >= 1)
+                        {
+                            connDock.DocumentStyle = DocumentStyle.DockingWindow;
+                        }
+                    }
+
+                    // Ensure the ConnectionWindow is visible before adding the tab
+                    // This prevents visibility issues when the window was created but not yet shown
+                    // Check DockState instead of Visible to properly detect if window is shown in DockPanel
+                    if (DockState == DockState.Unknown || DockState == DockState.Hidden || !Visible)
+                    {
+                        Show(FrmMain.Default.pnlDock, DockState.Document);
+                    }
+
+                    //Show the tab
+                    conTab.Show(connDock, DockState.Document);
+                }
+                finally
+                {
+                    _isAddingTab = false;
+                    ShowHideConnectionTabs();
                 }
 
-                //Show the tab
-                conTab.Show(connDock, DockState.Document);
                 if (switchToConnection)
                 {
                     conTab.Focus();
