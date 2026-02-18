@@ -199,6 +199,17 @@ namespace mRemoteNG.UI.Forms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            if (SaveFormat == SaveFormat.mRCSV && IncludePassword)
+            {
+                if (MessageBox.Show("Exporting to CSV with passwords enabled will save passwords in clear text. Are you sure you want to continue?",
+                        "Security Warning",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning) != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
             DialogResult = DialogResult.OK;
         }
 
