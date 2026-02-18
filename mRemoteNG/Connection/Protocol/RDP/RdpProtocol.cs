@@ -1080,6 +1080,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnDisconnected += RDPEvent_OnDisconnected;
                 _rdpClient.OnIdleTimeoutNotification += RDPEvent_OnIdleTimeoutNotification;
                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;
+                _rdpClient.OnLogonError += RDPEvent_OnLogonError;
             }
             catch (Exception ex)
             {
@@ -1215,6 +1216,27 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("RDP leave-fullscreen refocus failed", ex, MessageClass.WarningMsg, false);
+            }
+        }
+
+        private void RDPEvent_OnLogonError(int lError)
+        {
+            try
+            {
+                string errorMsg = $"RDP Logon Error: {lError}";
+                // 0x2000c = Authentication failure (131084)
+                if (lError == 0x2000c || lError == -2147023570) // E_ACCESSDENIED / 0x8007000E
+                {
+                     errorMsg = "Authentication failed";
+                }
+                
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, errorMsg);
+                Event_ErrorOccured(this, errorMsg, lError);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
             }
         }
 
