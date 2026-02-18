@@ -32,6 +32,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripSeparator _cMenTreeSep1 = null!;
         private ToolStripMenuItem _cMenTreeConnect = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptions = null!;
+        private ToolStripMenuItem _cMenTreeConnectWithOptionsDialog = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectToConsoleSession = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsNoCredentials = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectInFullscreen = null!;
@@ -99,6 +100,7 @@ namespace mRemoteNG.UI.Controls
         {
             _cMenTreeConnect = new ToolStripMenuItem();
             _cMenTreeConnectWithOptions = new ToolStripMenuItem();
+            _cMenTreeConnectWithOptionsDialog = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsDontConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsConnectInFullscreen = new ToolStripMenuItem();
@@ -200,6 +202,7 @@ namespace mRemoteNG.UI.Controls
             //
             _cMenTreeConnectWithOptions.DropDownItems.AddRange(new ToolStripItem[]
             {
+                _cMenTreeConnectWithOptionsDialog,
                 _cMenTreeConnectWithOptionsConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsDontConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsConnectInFullscreen,
@@ -211,6 +214,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptions.Name = "_cMenTreeConnectWithOptions";
             _cMenTreeConnectWithOptions.Size = new System.Drawing.Size(199, 22);
             _cMenTreeConnectWithOptions.Text = "Connect (with options)";
+            //
+            // cMenTreeConnectWithOptionsDialog
+            //
+            _cMenTreeConnectWithOptionsDialog.Name = "_cMenTreeConnectWithOptionsDialog";
+            _cMenTreeConnectWithOptionsDialog.Size = new System.Drawing.Size(245, 22);
+            _cMenTreeConnectWithOptionsDialog.Text = "Connect with options...";
+            _cMenTreeConnectWithOptionsDialog.Click += OnConnectWithOptionsDialogClicked;
             //
             // cMenTreeConnectWithOptionsConnectToConsoleSession
             //
@@ -704,6 +714,7 @@ namespace mRemoteNG.UI.Controls
 
         internal void ShowHideMenuItemsForContainer(ContainerInfo containerInfo)
         {
+            _cMenTreeConnectWithOptionsDialog.Enabled = false;
             _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
 
@@ -876,6 +887,20 @@ namespace mRemoteNG.UI.Controls
         private void OnConnectClicked(object sender, EventArgs e)
         {
             OpenSelectedConnections(ConnectionInfo.Force.DoNotJump);
+        }
+
+        private void OnConnectWithOptionsDialogClicked(object sender, EventArgs e)
+        {
+            var selectedNode = _connectionTree.SelectedNode;
+            if (selectedNode == null || selectedNode is ContainerInfo) return;
+
+            using (var frm = new UI.Forms.FrmConnectWithOptions(selectedNode))
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    Runtime.ConnectionInitiator.OpenConnection(frm.ConnectionInfo, ConnectionInfo.Force.DoNotJump);
+                }
+            }
         }
 
         private void OnConnectToConsoleSessionClicked(object sender, EventArgs e)
