@@ -106,6 +106,7 @@
 		public TType ExternalAddressProvider { get; set; }
 		public TType EC2Region { get; set; }
         public TType UsePersistentBrowser { get; set; }
+        public TType DesktopScaleFactor { get; set; }
         public TType IsTemplate { get; set; }
 	}
 }
