@@ -32,6 +32,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
         private readonly string ConnectionFileName = connectionFileName;
         private const double MaxSupportedConfVersion = 2.8;
         private readonly RootNodeInfo _rootNodeInfo = new(RootNodeType.Connection);
+        private ConnectionTreeModel _connectionTreeModel = null!;
 
         public Func<Optional<SecureString>>? AuthenticationRequestor { get; set; } = authenticationRequestor;
 
@@ -56,8 +57,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     ?? throw new XmlException("Failed to parse XML connection file.");
                 InitializeRootNode(rootXmlElement);
                 CreateDecryptor(_rootNodeInfo, rootXmlElement);
-                ConnectionTreeModel connectionTreeModel = new();
-                connectionTreeModel.AddRootNode(_rootNodeInfo);
+                _connectionTreeModel = new ConnectionTreeModel();
+                _connectionTreeModel.AddRootNode(_rootNodeInfo);
 
 
                 if (_confVersion > 1.3)
@@ -87,7 +88,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 stopwatch.Stop(); // Stop stopwatch
                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Connection deserialization completed in {stopwatch.ElapsedMilliseconds} ms."); // Log performance
 
-                return connectionTreeModel;
+                return _connectionTreeModel;
             }
             catch (Exception ex)
             {
@@ -199,7 +200,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                                 containerInfo.ContainerPassword = _decryptor.Decrypt(xmlNode.GetAttributeAsString("ContainerPassword"));
                             }
 
-                            parentContainer.AddChild(containerInfo);
+                            if (containerInfo.IsRoot)
+                                _connectionTreeModel.AddRootNode(containerInfo);
+                            else
+                                parentContainer.AddChild(containerInfo);
+
                             AddNodesFromXmlRecursive(xmlNode, containerInfo);
                             break;
                     }
@@ -566,6 +571,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.RDGatewayAccessToken = xmlnode.GetAttributeAsString("RDGatewayAccessToken");
                     connectionInfo.Inheritance.RDGatewayExternalCredentialProvider = xmlnode.GetAttributeAsBool("InheritRDGatewayExternalCredentialProvider");
                     connectionInfo.Inheritance.RDGatewayUserViaAPI = xmlnode.GetAttributeAsBool("InheritRDGatewayUserViaAPI");
+                }
+
+                if (_confVersion >= 2.8)
+                {
+                    // Get settings
+                    connectionInfo.IsRoot = xmlnode.GetAttributeAsBool("IsRoot");
                 }
 
                 switch (_confVersion)

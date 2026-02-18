@@ -28,6 +28,7 @@ namespace mRemoteNG.UI.Controls
     {
         private ToolStripMenuItem _cMenTreeAddConnection = null!;
         private ToolStripMenuItem _cMenTreeAddFolder = null!;
+        private ToolStripMenuItem _cMenTreeAddRootFolder = null!;
         private ToolStripSeparator _cMenTreeSep1 = null!;
         private ToolStripMenuItem _cMenTreeConnect = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptions = null!;
@@ -134,6 +135,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeSep4 = new ToolStripSeparator();
             _cMenTreeAddConnection = new ToolStripMenuItem();
             _cMenTreeAddFolder = new ToolStripMenuItem();
+            _cMenTreeAddRootFolder = new ToolStripMenuItem();
             _toolStripSeparator1 = new ToolStripSeparator();
             _cMenTreeToolsSort = new ToolStripMenuItem();
             _cMenTreeToolsSortAscending = new ToolStripMenuItem();
@@ -151,6 +153,7 @@ namespace mRemoteNG.UI.Controls
             {
                 _cMenTreeAddConnection,
                 _cMenTreeAddFolder,
+                _cMenTreeAddRootFolder,
                 _cMenTreeSep4,
                 _cMenTreeConnect,
                 _cMenTreeConnectWithOptions,
@@ -448,6 +451,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeAddFolder.Text = "New Folder";
             _cMenTreeAddFolder.Click += OnAddFolderClicked;
             //
+            // cMenTreeAddRootFolder
+            //
+            _cMenTreeAddRootFolder.Image = Properties.Resources.AddFolder_16x;
+            _cMenTreeAddRootFolder.Name = "_cMenTreeAddRootFolder";
+            _cMenTreeAddRootFolder.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeAddRootFolder.Text = "New Root Folder";
+            _cMenTreeAddRootFolder.Click += OnAddRootFolderClicked;
+            //
             // ToolStripSeparator1
             //
             _toolStripSeparator1.Name = "_toolStripSeparator1";
@@ -571,6 +582,7 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeAddConnection.Text = Language.NewConnection;
             _cMenTreeAddFolder.Text = Language.NewFolder;
+            _cMenTreeAddRootFolder.Text = "New Root Folder";
 
             _cMenTreeToolsSort.Text = Language.Sort;
             _cMenTreeToolsSortAscending.Text = Language.SortAsc;
@@ -625,6 +637,7 @@ namespace mRemoteNG.UI.Controls
         {
             _cMenTreeAddConnection.Enabled = false;
             _cMenTreeAddFolder.Enabled = false;
+            _cMenTreeAddRootFolder.Enabled = false;
             _cMenTreeConnect.Enabled = false;
             _cMenTreeConnectWithOptions.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
@@ -697,6 +710,7 @@ namespace mRemoteNG.UI.Controls
         {
             _cMenTreeAddConnection.Enabled = false;
             _cMenTreeAddFolder.Enabled = false;
+            _cMenTreeAddRootFolder.Enabled = false;
 
             if (connectionInfo.OpenConnections.Count == 0)
                 _cMenTreeDisconnect.Enabled = false;
@@ -1196,6 +1210,11 @@ namespace mRemoteNG.UI.Controls
                 return;
             
             Runtime.DynamicFolderManager.RefreshFolder(container);
+        }
+
+        private void OnAddRootFolderClicked(object sender, EventArgs e)
+        {
+            _connectionTree.AddRootFolder();
         }
 
         private void OnApplyInheritanceToChildrenClicked(object sender, EventArgs e)

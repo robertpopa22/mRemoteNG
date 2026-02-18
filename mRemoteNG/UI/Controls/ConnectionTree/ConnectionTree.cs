@@ -343,6 +343,28 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             }
         }
 
+        public void AddRootFolder()
+        {
+            try
+            {
+                ContainerInfo newFolder = new();
+                newFolder.IsRoot = true;
+                DefaultConnectionInfo.Instance.SaveTo(newFolder);
+                DefaultConnectionInheritance.Instance.SaveTo(newFolder.Inheritance);
+
+                ConnectionTreeModel.AddRootNode(newFolder);
+
+                SelectObject(newFolder, true);
+                EnsureModelVisible(newFolder);
+                _allowEdit = true;
+                SelectedItem.BeginEdit();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.ErrorAddFolderFailed, ex);
+            }
+        }
+
         private void AddNode(ConnectionInfo newNode)
         {
             if (SelectedNode?.GetTreeNodeType() == TreeNodeType.PuttyRoot ||

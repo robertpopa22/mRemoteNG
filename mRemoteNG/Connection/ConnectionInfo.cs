@@ -84,6 +84,9 @@ namespace mRemoteNG.Connection
         [Browsable(false)]
         public string Role { get; set; }
 
+        [Browsable(false)]
+        public bool IsRoot { get; set; }
+
         #endregion
 
         #region Constructors
