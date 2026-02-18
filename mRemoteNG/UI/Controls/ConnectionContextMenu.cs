@@ -38,6 +38,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsAlternativeAddress = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly = null!;
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
+        private ToolStripMenuItem _cMenTreeReconnect = null!;
         private ToolStripSeparator _cMenTreeSep2 = null!;
         private ToolStripMenuItem _cMenTreeToolsTransferFile = null!;
         private ToolStripMenuItem _cMenTreeToolsWakeOnLan = null!;
@@ -106,6 +107,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsAlternativeAddress = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsViewOnly = new ToolStripMenuItem();
             _cMenTreeDisconnect = new ToolStripMenuItem();
+            _cMenTreeReconnect = new ToolStripMenuItem();
             _cMenTreeSep1 = new ToolStripSeparator();
             _cMenTreeToolsExternalApps = new ToolStripMenuItem();
             _cMenTreeToolsTransferFile = new ToolStripMenuItem();
@@ -158,6 +160,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnect,
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
+                _cMenTreeReconnect,
                 _cMenTreeSep1,
                 _cMenTreeToolsExternalApps,
                 _cMenTreeToolsTransferFile,
@@ -275,6 +278,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDisconnect.Size = new System.Drawing.Size(199, 22);
             _cMenTreeDisconnect.Text = "Disconnect";
             _cMenTreeDisconnect.Click += OnDisconnectClicked;
+            //
+            // cMenTreeReconnect
+            //
+            _cMenTreeReconnect.Image = Properties.Resources.Refresh_16x;
+            _cMenTreeReconnect.Name = "_cMenTreeReconnect";
+            _cMenTreeReconnect.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeReconnect.Text = "Reconnect";
+            _cMenTreeReconnect.Click += OnReconnectClicked;
             //
             // cMenTreeSep1
             //
@@ -562,6 +573,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsAlternativeAddress.Text = "Connect using alternative hostname/IP";
             _cMenTreeConnectWithOptionsViewOnly.Text = Language.ConnectInViewOnlyMode;
             _cMenTreeDisconnect.Text = Language.Disconnect;
+            _cMenTreeReconnect.Text = Language.Reconnect;
 
             _cMenTreeToolsExternalApps.Text = Language._Tools;
             _cMenTreeToolsTransferFile.Text = Language.TransferFile;
@@ -641,6 +653,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnect.Enabled = false;
             _cMenTreeConnectWithOptions.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
+            _cMenTreeReconnect.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeConnectWithOptions.Enabled = false;
@@ -673,6 +686,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting.Enabled = false;
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
+            _cMenTreeReconnect.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
@@ -695,6 +709,7 @@ namespace mRemoteNG.UI.Controls
 
             bool hasOpenConnections = containerInfo.Children.Any(child => child.OpenConnections.Count > 0);
             _cMenTreeDisconnect.Enabled = hasOpenConnections;
+            _cMenTreeReconnect.Enabled = hasOpenConnections;
 
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(containerInfo.MacAddress);
@@ -713,7 +728,10 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeAddRootFolder.Enabled = false;
 
             if (connectionInfo.OpenConnections.Count == 0)
+            {
                 _cMenTreeDisconnect.Enabled = false;
+                _cMenTreeReconnect.Enabled = false;
+            }
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
                 _cMenTreeToolsTransferFile.Enabled = false;
@@ -743,7 +761,10 @@ namespace mRemoteNG.UI.Controls
         internal void ShowHideMenuItemsForConnectionNode(ConnectionInfo connectionInfo)
         {
             if (connectionInfo.OpenConnections.Count == 0)
+            {
                 _cMenTreeDisconnect.Enabled = false;
+                _cMenTreeReconnect.Enabled = false;
+            }
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
                 _cMenTreeToolsTransferFile.Enabled = false;
@@ -896,15 +917,34 @@ namespace mRemoteNG.UI.Controls
         {
             foreach (ConnectionInfo node in _connectionTree.GetSelectedNodes())
             {
-                DisconnectConnection(node);
+                DisconnectConnectionInternal(node);
+            }
+        }
+
+        private void OnReconnectClicked(object sender, EventArgs e)
+        {
+            foreach (ConnectionInfo node in _connectionTree.GetSelectedNodes())
+            {
+                if (DisconnectConnectionInternal(node))
+                {
+                    if (node is ContainerInfo container)
+                        Runtime.ConnectionInitiator.OpenConnection(container, ConnectionInfo.Force.DoNotJump);
+                    else
+                        Runtime.ConnectionInitiator.OpenConnection(node, ConnectionInfo.Force.DoNotJump);
+                }
             }
         }
 
         public void DisconnectConnection(ConnectionInfo connectionInfo)
         {
+            DisconnectConnectionInternal(connectionInfo);
+        }
+
+        private bool DisconnectConnectionInternal(ConnectionInfo connectionInfo)
+        {
             try
             {
-                if (connectionInfo == null) return;
+                if (connectionInfo == null) return false;
                 
                 // Check if confirmation is needed based on settings
                 if (Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All)
@@ -923,7 +963,7 @@ namespace mRemoteNG.UI.Controls
 
                     if (result == DialogResult.No)
                     {
-                        return; // User cancelled the disconnect
+                        return false; // User cancelled the disconnect
                     }
                 }
                 
@@ -945,12 +985,15 @@ namespace mRemoteNG.UI.Controls
                         connectionInfo.OpenConnections[i]?.Disconnect();
                     }
                 }
+
+                return true;
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(
                                                                 "DisconnectConnection (UI.Window.ConnectionTreeWindow) failed",
                                                                 ex);
+                return true;
             }
         }
 
