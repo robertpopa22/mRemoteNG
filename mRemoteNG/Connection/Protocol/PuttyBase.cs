@@ -44,6 +44,8 @@ namespace mRemoteNG.Connection.Protocol
         private bool _terminalTitleTrackingEnabled;
         private bool _postOpenLayoutResizePending;
         private bool _postOpenLayoutResizeHooked;
+        private System.Windows.Forms.Timer? _windowSearchTimer;
+        private int _windowSearchStartTime;
 
         #region Public Properties
 
@@ -155,6 +157,81 @@ namespace mRemoteNG.Connection.Protocol
 
             if (restoreFallback)
                 ApplyTabText(fallbackTabText);
+        }
+
+        private void StopWindowSearch()
+        {
+            if (_windowSearchTimer == null) return;
+            _windowSearchTimer.Stop();
+            _windowSearchTimer.Dispose();
+            _windowSearchTimer = null;
+        }
+
+        private void WindowSearchTimer_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (PuttyProcess == null || PuttyProcess.HasExited)
+                {
+                    StopWindowSearch();
+                    Event_Closed(this);
+                    return;
+                }
+
+                if (_isPuttyNg)
+                {
+                    PuttyHandle = NativeMethods.FindWindowEx(InterfaceControl.Handle, new IntPtr(0), null, null);
+                }
+                else
+                {
+                    PuttyProcess.Refresh();
+                    PuttyHandle = PuttyProcess.MainWindowHandle;
+                }
+
+                if (PuttyHandle != IntPtr.Zero)
+                {
+                    StopWindowSearch();
+                    CompleteConnectionSetup();
+                }
+                else if (Environment.TickCount - _windowSearchStartTime > Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime * 1000)
+                {
+                    StopWindowSearch();
+                    Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "PuTTY window discovery timed out.");
+                    CompleteConnectionSetup();
+                }
+            }
+            catch (Exception ex)
+            {
+                StopWindowSearch();
+                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, "Error during PuTTY window discovery: " + ex.Message);
+            }
+        }
+
+        private void CompleteConnectionSetup()
+        {
+            if (!_isPuttyNg && PuttyHandle != IntPtr.Zero)
+            {
+                NativeMethods.SetParent(PuttyHandle, InterfaceControl.Handle);
+            }
+
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.PuttyStuff, true);
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyHandle, PuttyHandle), true);
+            if (PuttyProcess != null)
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyTitle, PuttyProcess.MainWindowTitle), true);
+            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PanelHandle, InterfaceControl.Parent?.Handle), true);
+
+            if (!string.IsNullOrEmpty(InterfaceControl.Info?.OpeningCommand) && PuttyHandle != IntPtr.Zero)
+            {
+                NativeMethods.SetForegroundWindow(PuttyHandle);
+                string finalCommand = InterfaceControl.Info.OpeningCommand.TrimEnd() + "\n";
+                SendKeys.SendWait(finalCommand);
+            }
+
+            Resize(this, EventArgs.Empty);
+            SchedulePostOpenLayoutResizePass();
+
+            StartTerminalTitleTracking();
+            base.Connect();
         }
 
         protected virtual void UpdateTabTitleFromTerminalTitle()
@@ -591,50 +668,13 @@ namespace mRemoteNG.Connection.Protocol
                 PuttyProcess.Exited += ProcessExited;
 
                 PuttyProcess.Start();
-                PuttyProcess.WaitForInputIdle(Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime * 1000);
 
-                int startTicks = Environment.TickCount;
-                while (PuttyHandle.ToInt32() == 0 &
-                       Environment.TickCount < startTicks + Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime * 1000)
-                {
-                    if (_isPuttyNg)
-                    {
-                        PuttyHandle = NativeMethods.FindWindowEx(InterfaceControl.Handle, new IntPtr(0), null, null);
-                    }
-                    else
-                    {
-                        PuttyProcess.Refresh();
-                        PuttyHandle = PuttyProcess.MainWindowHandle;
-                    }
+                _windowSearchStartTime = Environment.TickCount;
+                _windowSearchTimer = new System.Windows.Forms.Timer();
+                _windowSearchTimer.Interval = 50;
+                _windowSearchTimer.Tick += WindowSearchTimer_Tick;
+                _windowSearchTimer.Start();
 
-                    if (PuttyHandle.ToInt32() == 0)
-                    {
-                        Thread.Sleep(0);
-                    }
-                }
-
-                if (!_isPuttyNg)
-                {
-                    NativeMethods.SetParent(PuttyHandle, InterfaceControl.Handle);
-                }
-
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.PuttyStuff, true);
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyHandle, PuttyHandle), true);
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PuttyTitle, PuttyProcess.MainWindowTitle), true);
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, string.Format(Language.PanelHandle, InterfaceControl.Parent?.Handle), true);
-
-                if (!string.IsNullOrEmpty(InterfaceControl.Info?.OpeningCommand))
-                {
-                    NativeMethods.SetForegroundWindow(PuttyHandle);
-                    string finalCommand = InterfaceControl.Info.OpeningCommand.TrimEnd() + "\n";
-                    SendKeys.SendWait(finalCommand);
-                }
-
-                Resize(this, EventArgs.Empty);
-                SchedulePostOpenLayoutResizePass();
-
-                StartTerminalTitleTracking();
-                base.Connect();
                 return true;
             }
             catch (Exception ex)
@@ -794,6 +834,7 @@ namespace mRemoteNG.Connection.Protocol
             }
 
             StopTerminalTitleTracking();
+            StopWindowSearch();
             ResetPostOpenLayoutResizeState();
 
             try
