@@ -114,9 +114,9 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
 ### Current test status (v1.81.0-beta.3, 2026-02-18):
-- **Full parallel run:** 2554/2554 passed, 0 skipped, **0 failed** — 5 processes, ~42s
-- **mRemoteNGSpecs:** 5/5 passed, 0 failed (KDF mismatch fixed in commit `03d94b117`)
-- **Smoke test (FlaUI):** 1 additional spec fails in headless/CLI context only (window title check — environment-dependent)
+- **Full parallel run:** 2553/2553 passed, 0 skipped, **0 failed** — 5 processes, ~81s
+- **mRemoteNGSpecs:** 6/6 passed, 0 failed (including FlaUI smoke test — title polling fix in `e3875404`)
+- **Smoke test (FlaUI):** Fixed — title polling (10s retry) handles CLI/headless context where title is delayed
 - **No headless filter needed** — all UI tests redesigned with RunWithMessagePump pattern
 - **0 [Ignore] tests** — all 3 previously-ignored tests fixed:
   - `ChangingOptionMarksPageAsChanged` — Fixed: `Application.Run(optionsForm)` + `Application.ExitThread()` avoids FrmOptions.FormClosing MessageBox deadlock
@@ -154,7 +154,7 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - **CI Run:** All 7 jobs passed (6 builds + 1 release) — run `22031139133`
 - **Key changes:** Zero nullable warnings (2,554 fixed across 242 files), IIS Orchestrator, System.Drawing.Common security bump, upstream sync
 - **Nullable cleanup:** 2,338 → 0 warnings (100%), 247 commits, 353 files changed, 4 orchestrator sessions
-- **Tests:** 1926/1926 passed (headless filter)
+- **Tests:** 2553/2553 + 6/6 specs passed (full parallel, no filter)
 
 ## Release Status (v1.81.0-beta.1, 2026-02-14) ✅ RELEASED
 - **Tag:** `v1.81.0-beta.1` on `main` (no CI release — superseded by beta.2)
@@ -240,7 +240,7 @@ git fetch upstream && git merge upstream/v1.78.2-dev   # on main
 2. Bump version in `mRemoteNG/mRemoteNG.csproj` (`<Version>` element) — CI reads this automatically
 3. Update `CHANGELOG.md`
 4. Build all architectures (x86, x64, ARM64) — framework-dependent + self-contained
-5. Run tests (1926+ headless, verify zero regressions)
+5. Run tests (2553+ tests + 6 specs, verify zero regressions)
 6. Commit, tag (`v1.XX.Y`), push — CI auto-builds 6 variants and creates GitHub release
 7. **MANDATORY: Update issue statuses to `released` with `--post-comment`:**
    ```bash
@@ -389,7 +389,7 @@ iis_orchestrator.py (Python — controller)
 │
 └── VERIFICATION (independent, no AI)
     ├── build.ps1 → compile check
-    ├── run-tests.ps1 → 2349 tests
+    ├── run-tests.ps1 → 2553 tests + 6 specs
     ├── git commit (only on green) / git restore (on failure)
     └── gh issue comment (post to upstream)
 ```
