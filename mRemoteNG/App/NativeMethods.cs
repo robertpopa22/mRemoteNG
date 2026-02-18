@@ -135,6 +135,14 @@ namespace mRemoteNG.App
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
         #endregion
 
         #region Structures
@@ -554,6 +562,11 @@ namespace mRemoteNG.App
         /// </summary>
         public const int WM_CHANGECBCHAIN = 0x30D;
 
+        /// <summary>
+        /// Posted when the user presses a hot key registered by the RegisterHotKey function.
+        /// </summary>
+        public const int WM_HOTKEY = 0x312;
+
         #endregion
 
         #region Window Styles
@@ -569,6 +582,11 @@ namespace mRemoteNG.App
 
         public const int VK_CONTROL = 0x11;
         public const int VK_C = 0x67;
+        public const uint VK_HOME = 0x24;
+
+        public const uint MOD_ALT = 0x0001;
+        public const uint MOD_CONTROL = 0x0002;
+        public const uint MOD_NOREPEAT = 0x4000;
 
         #endregion
 

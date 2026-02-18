@@ -93,6 +93,7 @@ namespace mRemoteNG.UI.Forms
         private readonly FileBackupPruner _backupPruner = new();
         private readonly System.Windows.Forms.Timer _autoLockTimer = new() { Interval = 1000 };
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
+        private const int HOTKEY_ID_ACTIVATE = 1;
         private bool _isAutoLocked;
         private bool _unlockPromptInProgress;
         public static FrmOptions? OptionsForm;
@@ -285,6 +286,11 @@ namespace mRemoteNG.UI.Forms
             //Fix MagicRemove , revision on panel strategy for mdi
 
             pnlDock.ShowDocumentIcon = true;
+
+            // Register global hotkey Ctrl+Alt+Home to activate mRemoteNG (#1169)
+            NativeMethods.RegisterHotKey(Handle, HOTKEY_ID_ACTIVATE,
+                NativeMethods.MOD_CONTROL | NativeMethods.MOD_ALT | NativeMethods.MOD_NOREPEAT,
+                NativeMethods.VK_HOME);
 
             if (Properties.OptionsStartupExitPage.Default.StartMinimized)
             {
@@ -597,6 +603,8 @@ namespace mRemoteNG.UI.Forms
 
             IsClosing = true;
             _autoLockTimer.Stop();
+
+            NativeMethods.UnregisterHotKey(Handle, HOTKEY_ID_ACTIVATE);
 
             Hide();
 
@@ -958,6 +966,23 @@ namespace mRemoteNG.UI.Forms
                         {
                             Screens.SendFormToScreen(screen);
                             Console.WriteLine(screen.ToString());
+                        }
+                        break;
+                    case NativeMethods.WM_HOTKEY:
+                        if (m.WParam.ToInt32() == HOTKEY_ID_ACTIVATE)
+                        {
+                            if (WindowState == FormWindowState.Minimized)
+                            {
+                                Show();
+                                ShowInTaskbar = true;
+                                WindowState = PreviousWindowState == FormWindowState.Maximized
+                                    ? FormWindowState.Maximized
+                                    : FormWindowState.Normal;
+                            }
+
+                            Activate();
+                            BringToFront();
+                            NativeMethods.SetForegroundWindow(Handle);
                         }
                         break;
                     case NativeMethods.WM_DRAWCLIPBOARD:
