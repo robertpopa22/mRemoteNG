@@ -56,6 +56,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkConnectionTreeTrackActiveConnection = new MrngCheckBox();
             chkDoNotTrimUsername = new MrngCheckBox();
             chkWatchConnectionFile = new MrngCheckBox();
+            chkDoubleClickOpensNewConnection = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)numRDPConTimeout).BeginInit();
@@ -325,11 +326,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkWatchConnectionFile.Text = "Watch connection file for external changes";
             chkWatchConnectionFile.UseVisualStyleBackColor = true;
             // 
+            // chkDoubleClickOpensNewConnection
+            // 
+            chkDoubleClickOpensNewConnection._mice = MrngCheckBox.MouseState.OUT;
+            chkDoubleClickOpensNewConnection.AutoSize = true;
+            chkDoubleClickOpensNewConnection.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkDoubleClickOpensNewConnection.Location = new System.Drawing.Point(6, 211);
+            chkDoubleClickOpensNewConnection.Name = "chkDoubleClickOpensNewConnection";
+            chkDoubleClickOpensNewConnection.Size = new System.Drawing.Size(243, 17);
+            chkDoubleClickOpensNewConnection.TabIndex = 13;
+            chkDoubleClickOpensNewConnection.Text = "Double click opens duplicate connection";
+            chkDoubleClickOpensNewConnection.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkSingleClickOnConnectionOpensIt);
             pnlOptions.Controls.Add(chkDoNotTrimUsername);
             pnlOptions.Controls.Add(chkWatchConnectionFile);
+            pnlOptions.Controls.Add(chkDoubleClickOpensNewConnection);
             pnlOptions.Controls.Add(chkSingleClickOnOpenedConnectionSwitchesToIt);
             pnlOptions.Controls.Add(chkConnectionTreeTrackActiveConnection);
             pnlOptions.Controls.Add(chkHostnameLikeDisplayName);
@@ -339,7 +353,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 210);
+            pnlOptions.Size = new System.Drawing.Size(610, 233);
             pnlOptions.TabIndex = 12;
             // 
             // lblRegistrySettingsUsedInfo
@@ -398,6 +412,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private MrngCheckBox chkConnectionTreeTrackActiveConnection;
         private MrngCheckBox chkDoNotTrimUsername;
         private MrngCheckBox chkWatchConnectionFile;
+        private MrngCheckBox chkDoubleClickOpensNewConnection;
         internal System.Windows.Forms.Panel pnlOptions;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
     }

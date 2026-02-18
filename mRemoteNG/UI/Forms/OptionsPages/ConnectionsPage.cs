@@ -86,6 +86,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkPlaceSearchBarAboveConnectionTree.Checked = Settings.Default.PlaceSearchBarAboveConnectionTree;
             chkDoNotTrimUsername.Checked = Settings.Default.DoNotTrimUsername;
             chkWatchConnectionFile.Checked = Properties.OptionsConnectionsPage.Default.WatchConnectionFile;
+            chkDoubleClickOpensNewConnection.Checked = Settings.Default.DoubleClickOpensNewConnection;
 
             numRdpReconnectionCount.Value = Convert.ToDecimal(Settings.Default.RdpReconnectionCount);
             numRDPConTimeout.Value = Convert.ToDecimal(Settings.Default.ConRDPOverallConnectionTimeout);
@@ -139,6 +140,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.Settings.Default.PlaceSearchBarAboveConnectionTree = chkPlaceSearchBarAboveConnectionTree.Checked;
             Properties.Settings.Default.DoNotTrimUsername = chkDoNotTrimUsername.Checked;
             Properties.OptionsConnectionsPage.Default.WatchConnectionFile = chkWatchConnectionFile.Checked;
+            Properties.Settings.Default.DoubleClickOpensNewConnection = chkDoubleClickOpensNewConnection.Checked;
 
             Properties.Settings.Default.RdpReconnectionCount = (int)numRdpReconnectionCount.Value;
             Properties.Settings.Default.ConRDPOverallConnectionTimeout = (int)numRDPConTimeout.Value;

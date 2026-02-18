@@ -2453,16 +2453,28 @@ namespace mRemoteNG.Properties {
             }
         }
 
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool InhDefaultRDGatewayUserViaAPI {
-            get {
-                return ((bool)(this["InhDefaultRDGatewayUserViaAPI"]));
-            }
-            set {
-                this["InhDefaultRDGatewayUserViaAPI"] = value;
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("False")]    
+                public bool InhDefaultRDGatewayUserViaAPI {
+                    get {
+                        return ((bool)(this["InhDefaultRDGatewayUserViaAPI"]));
+                    }
+                    set {
+                        this["InhDefaultRDGatewayUserViaAPI"] = value;
+                    }
+                }
+        
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("False")]
+                public bool DoubleClickOpensNewConnection {
+                    get {
+                        return ((bool)(this["DoubleClickOpensNewConnection"]));
+                    }
+                    set {
+                        this["DoubleClickOpensNewConnection"] = value;
+                    }
+                }
             }
         }
-    }
-}

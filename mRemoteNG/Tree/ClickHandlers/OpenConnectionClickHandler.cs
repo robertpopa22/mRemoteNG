@@ -30,7 +30,7 @@ namespace mRemoteNG.Tree.ClickHandlers
             if (!isConnectable) return;
 
             // Ctrl+DoubleClick opens a new connection tab even if one is already open (#397)
-            var force = Control.ModifierKeys.HasFlag(Keys.Control)
+            var force = Control.ModifierKeys.HasFlag(Keys.Control) || Properties.Settings.Default.DoubleClickOpensNewConnection
                 ? ConnectionInfo.Force.DoNotJump
                 : ConnectionInfo.Force.None;
             _connectionInitiator.OpenConnection(clickedNode, force);
