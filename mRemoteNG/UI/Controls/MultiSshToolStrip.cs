@@ -159,6 +159,36 @@ namespace mRemoteNG.UI.Controls
                 txtMultiSsh.SelectAll();
             }
 
+            if (e.Control && e.KeyCode == Keys.V && !e.Alt)
+            {
+                if (Clipboard.ContainsText())
+                {
+                    string text = Clipboard.GetText();
+                    string[] lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+                    if (lines.Length > 1)
+                    {
+                        e.SuppressKeyPress = true;
+                        RefreshActiveConnections();
+
+                        for (int i = 0; i < lines.Length - 1; i++)
+                        {
+                            foreach (char c in lines[i])
+                            {
+                                SendAllKeystrokes(NativeMethods.WM_CHAR, (int)c);
+                            }
+                            SendAllKeystrokes(NativeMethods.WM_KEYDOWN, 13); // Enter
+                        }
+
+                        if (!string.IsNullOrEmpty(lines[lines.Length - 1]))
+                        {
+                            txtMultiSsh.TextBox.SelectedText = lines[lines.Length - 1];
+                        }
+                    }
+                }
+                return;
+            }
+
             if (e.Control && e.KeyCode != Keys.V && e.Alt == false)
             {
                 RefreshActiveConnections();
