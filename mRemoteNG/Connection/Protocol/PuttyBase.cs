@@ -735,8 +735,22 @@ namespace mRemoteNG.Connection.Protocol
             if (powerMode != PowerModes.Resume)
                 return;
 
-            // Wait a bit for the UI to be fully restored before resizing
-            System.Threading.Tasks.Task.Delay(PowerModeChangedResizeDelay).ContinueWith(_ =>
+            // After hibernate/sleep, GPU and display drivers may take a variable amount
+            // of time to restore.  Fire multiple resize attempts with increasing delays
+            // so the PuTTY window fills its container as soon as the UI is ready.
+            int[] delays = PowerModeChangedResizeDelay == 0
+                ? [0]  // test override — single immediate attempt
+                : [PowerModeChangedResizeDelay, PowerModeChangedResizeDelay * 2, PowerModeChangedResizeDelay * 4];
+
+            foreach (int delay in delays)
+            {
+                ScheduleResizeAfterDelay(delay);
+            }
+        }
+
+        private void ScheduleResizeAfterDelay(int delayMs)
+        {
+            void DoResize()
             {
                 try
                 {
@@ -749,7 +763,16 @@ namespace mRemoteNG.Connection.Protocol
                 {
                     // Ignore if we can't invoke (e.g. app closing)
                 }
-            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+            }
+
+            if (delayMs <= 0)
+            {
+                DoResize();
+                return;
+            }
+
+            System.Threading.Tasks.Task.Delay(delayMs).ContinueWith(_ => DoResize(),
+                System.Threading.Tasks.TaskScheduler.Default);
         }
 
         public override void Close()
