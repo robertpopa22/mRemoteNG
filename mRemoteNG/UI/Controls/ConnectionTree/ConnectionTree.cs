@@ -634,6 +634,16 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             else
             {
                 RefreshObject(sender);
+
+                if (sender is ConnectionInfo connectionInfo)
+                {
+                    ContainerInfo? parent = connectionInfo.Parent;
+                    while (parent != null)
+                    {
+                        RefreshObject(parent);
+                        parent = parent.Parent;
+                    }
+                }
             }
 
             AutoResizeColumn(Columns[0]);
