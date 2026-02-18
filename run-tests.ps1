@@ -125,10 +125,16 @@ if ($Sequential) {
         $jobs += @{ Job = $job; Name = $group.Name; Log = $logFile }
     }
 
-    # Wait for all jobs
+    # Wait for all jobs and parse results from LOG FILES (not job output).
+    # Why: Receive-Job returns a mix of String, ErrorRecord, and Int objects.
+    # Filtering with Where-Object { $_ -is [string] } can miss lines or get
+    # confused by deserialized types. The log file is always clean text.
+    # Also handles "Total tests: Unknown" (test host crash) by falling back
+    # to Passed + Failed + Skipped.
     $testExitCode = 0
     $totalPassed = 0
     $totalFailed = 0
+    $totalSkipped = 0
     $totalTests = 0
 
     foreach ($entry in $jobs) {
@@ -136,18 +142,32 @@ if ($Sequential) {
         $jobExitCode = $result | Where-Object { $_ -is [int] } | Select-Object -Last 1
         if ($null -eq $jobExitCode) { $jobExitCode = 0 }
 
-        # Parse results from output
-        $output = $result | Where-Object { $_ -is [string] } | Out-String
-        $passMatch = [regex]::Match($output, 'Passed:\s+(\d+)')
-        $failMatch = [regex]::Match($output, 'Failed:\s+(\d+)')
-        $totalMatch = [regex]::Match($output, 'Total tests:\s+(\d+)')
+        # Parse results from the LOG FILE (reliable plain text)
+        $passed = 0; $failed = 0; $skipped = 0; $total = 0
+        if (Test-Path $entry.Log) {
+            $logContent = Get-Content -Path $entry.Log -Raw -ErrorAction SilentlyContinue
+            if ($logContent) {
+                $passMatch = [regex]::Match($logContent, 'Passed:\s+(\d+)')
+                $failMatch = [regex]::Match($logContent, 'Failed:\s+(\d+)')
+                $skipMatch = [regex]::Match($logContent, 'Skipped:\s+(\d+)')
+                $totalMatch = [regex]::Match($logContent, 'Total tests:\s+(\d+)')
 
-        $passed = if ($passMatch.Success) { [int]$passMatch.Groups[1].Value } else { 0 }
-        $failed = if ($failMatch.Success) { [int]$failMatch.Groups[1].Value } else { 0 }
-        $total = if ($totalMatch.Success) { [int]$totalMatch.Groups[1].Value } else { 0 }
+                $passed = if ($passMatch.Success) { [int]$passMatch.Groups[1].Value } else { 0 }
+                $failed = if ($failMatch.Success) { [int]$failMatch.Groups[1].Value } else { 0 }
+                $skipped = if ($skipMatch.Success) { [int]$skipMatch.Groups[1].Value } else { 0 }
+
+                if ($totalMatch.Success) {
+                    $total = [int]$totalMatch.Groups[1].Value
+                } else {
+                    # "Total tests: Unknown" (test host crash) — derive from counts
+                    $total = $passed + $failed + $skipped
+                }
+            }
+        }
 
         $totalPassed += $passed
         $totalFailed += $failed
+        $totalSkipped += $skipped
         $totalTests += $total
 
         $color = if ($failed -gt 0) { "Red" } else { "Green" }

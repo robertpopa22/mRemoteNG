@@ -1,6 +1,6 @@
 # Lessons Learned System
 
-Last updated: 2026-02-17
+Last updated: 2026-02-18
 Scope: `D:\github\mRemoteNG` modernization and release work.
 
 ## IIS Orchestrator — Execution Lessons (CRITICAL)
@@ -758,11 +758,11 @@ run-tests.ps1
 | --- | --- | --- |
 | Test DLL timestamp stays old after editing test .cs files and running `build.ps1` | MSBuild incremental build skips test project if main project changes trigger recompile first, and test project's dependency graph isn't invalidated | Build test project explicitly: `msbuild mRemoteNGTests.csproj -t:Rebuild` |
 
-### mRemoteNGSpecs BouncyCastle GCM Failures (Pre-Existing)
+### mRemoteNGSpecs BouncyCastle GCM Failures (FIXED 2026-02-18)
 
 | Symptom | Root Cause | Status |
 | --- | --- | --- |
-| 3/5 SpecFlow tests fail with `InvalidCipherTextException: mac check in GCM failed` | BouncyCastle AEAD decryption fails on test fixtures. Pre-existing, not caused by any recent changes. | Known issue, investigate separately |
+| 3/5 SpecFlow tests fail with `InvalidCipherTextException: mac check in GCM failed` | `CredRepoXmlFileBuilder.cs` hardcoded `KdfIterations="1000"` but `AeadCryptographyProvider` encrypts with 600,000 iterations. Key derived with wrong iteration count → different key → GCM MAC check fails. | **FIXED** — commit `03d94b117` — parameterized KDF iterations with default 600,000 |
 
 ## Build Performance Optimization (2026-02-16)
 
@@ -917,6 +917,86 @@ Get-Process dotnet -ErrorAction SilentlyContinue | Stop-Process -Force
 Start-Sleep -Seconds 3  # Wait for handles to release
 # THEN build
 ```
+
+## NuGet Package Cleanup & Build Warning Suppression (2026-02-18)
+
+### Legacy .NET Core 1.x/2.x Packages — NU1510 Warnings (42+ packages removed)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| Hundreds of `NU1510` NuGet warnings on restore: "A dependency was resolved using 'X' instead of the project framework 'net10.0-windows'" | Test projects (`mRemoteNGTests`, `mRemoteNGSpecs`) referenced 34+ packages like `System.Buffers 4.6.1`, `System.Console 4.3.1`, `System.Net.Http 4.3.4`, `System.Security.Cryptography.OpenSsl 5.0.0`. These are all **built-in** to .NET 10 runtime — explicit references are unnecessary and produce version mismatch warnings. | Remove all legacy `System.*` PackageReference from test .csproj files AND corresponding `PackageVersion` entries from `Directory.Packages.props`. |
+
+**Removed from `mRemoteNGSpecs.csproj` (34 packages):**
+System.Buffers, System.Collections.Immutable, System.Configuration.ConfigurationManager, System.Console, System.Diagnostics.DiagnosticSource, System.Diagnostics.EventLog, System.Drawing.Common, System.Dynamic.Runtime, System.Formats.Asn1, System.IO.Pipelines, System.Memory, System.Net.Http, System.Net.Primitives, System.Net.Sockets, System.Reflection.Emit, System.Reflection.Emit.ILGeneration, System.Reflection.Emit.Lightweight, System.Reflection.Metadata, System.Reflection.TypeExtensions, System.Runtime, System.Runtime.CompilerServices.Unsafe, System.Runtime.Extensions, System.Security.Cryptography.Algorithms, System.Security.Cryptography.Cng, System.Security.Cryptography.OpenSsl, System.Security.Cryptography.X509Certificates, System.Security.Permissions, System.Text.Encoding.CodePages, System.Text.Json, System.Text.RegularExpressions, System.Threading.Tasks.Extensions, System.ValueTuple, System.Windows.Extensions, System.Xml.ReaderWriter
+
+**Removed from `Directory.Packages.props` (38 PackageVersion entries):**
+Same packages as above plus: System.Data.Common, System.Resources.ResourceManager, System.Security.AccessControl, System.Security.Principal.Windows. Also fixed duplicate `System.Runtime.Serialization.Formatters` entry.
+
+**Kept (still needed by main project):** System.Data.Odbc, System.DirectoryServices, System.Management, System.Security.Cryptography.ProtectedData, System.Runtime.Serialization.Formatters, ZstdSharp.Port
+
+**Rule:** On .NET 10, never explicitly reference `System.*` packages that are part of the shared framework. Only reference packages for functionality NOT included in the TFM (e.g., `System.Data.Odbc` for ODBC access, `System.DirectoryServices` for LDAP).
+
+### CS8622/CS8618 Warning Suppression
+
+| Warning | Count | Root Cause | Fix |
+| --- | --- | --- | --- |
+| CS8622 | ~300 | .NET 10 WinForms delegates changed `object sender` to `object? sender`. All event handler signatures are now nullable mismatch. | `<NoWarn>CS8622</NoWarn>` in `Directory.Build.props` |
+| CS8618 | ~450 | WinForms designer fields initialized in `InitializeComponent()` which compiler can't track as constructor. Every form shows uninitialized field warnings. | `<NoWarn>CS8618</NoWarn>` in `Directory.Build.props` |
+
+**`Directory.Build.props` after fix:**
+```xml
+<NoWarn>$(NoWarn);CA1416;CS8622;CS8618</NoWarn>
+```
+
+**Result:** Build warnings reduced from ~750 to ~25 (remaining are real nullable issues worth tracking).
+
+### CredentialRepository Specs — KDF Iterations Mismatch (3 failures fixed)
+
+| Symptom | Root Cause | Immediate Fix |
+| --- | --- | --- |
+| 3/5 SpecFlow specs fail: `InvalidCipherTextException: mac check in GCM failed` | `CredRepoXmlFileBuilder.cs` hardcoded `KdfIterations="1000"` in test XML. `AeadCryptographyProvider` encrypts auth header with default 600,000 iterations. Decryption reads "1000" from XML, derives different PBKDF2 key → GCM authentication tag mismatch. | Make `kdfIterations` a parameter with default `600_000` matching `AeadCryptographyProvider`'s default. |
+
+**File:** `mRemoteNGSpecs/Utilities/CredRepoXmlFileBuilder.cs`
+```csharp
+// BEFORE (broken):
+public string Build(string authHeader) { ... KdfIterations="1000" ... }
+// AFTER (fixed):
+public string Build(string authHeader, int kdfIterations = 600_000) { ... KdfIterations="{kdfIterations}" ... }
+```
+
+**Key insight:** The KDF iterations must match between encryption (code default) and decryption (XML attribute). Always use the same default value.
+
+### Orchestrator git_restore() Reverts Working Tree Files
+
+| Symptom | Root Cause | Prevention |
+| --- | --- | --- |
+| `mRemoteNGSpecs.csproj` reverts after every edit, repeatedly across sessions | IIS orchestrator (`iis_orchestrator.py`) runs `git checkout -- mRemoteNGSpecs/` in its `git_restore()` function after every agent failure or timeout. This wipes ALL unstaged changes in the directory. | 1. Kill orchestrator before making manual edits. 2. Stage files immediately with `git add`. 3. Commit atomically — don't leave changes uncommitted when orchestrator runs. |
+
+**Detection:** `ps -W | grep python | grep orchestrator` — if running, expect file reverts.
+**Kill:** `taskkill //F //PID <pid>` or `taskkill //F //IM python.exe`
+
+**`git_restore()` code (line 1007-1015 in iis_orchestrator.py):**
+```python
+def git_restore():
+    _run(["git", "checkout", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
+    _run(["git", "clean", "-fd", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
+```
+
+### Parallel Test Runner — "Total tests: Unknown" Parsing Fix
+
+| Symptom | Root Cause | Fix |
+| --- | --- | --- |
+| Garbled output: "Config 420/0 passed", total "2099/1591", exit code 98 | When test host crashes, `dotnet test` reports `Total tests: Unknown` instead of a number. Regex `Total tests:\s+(\d+)` doesn't match "Unknown" → total=0. Also, parsing from `Receive-Job` output drops `ErrorRecord` objects. | 1. Parse from log files (`Tee-Object` output) instead of job objects. 2. When total regex fails, derive total from `Passed + Failed + Skipped`. |
+
+**Files:** `run-tests.ps1` — changed parallel result parsing to use log file content + fallback total calculation.
+
+### DesktopScaleFactor Missing from Test Helper
+
+| Symptom | Root Cause | Fix |
+| --- | --- | --- |
+| `CanSaveDefaultConnectionToModelWithAllStringProperties` test fails silently | `SerializableConnectionInfoAllPropertiesOfType<T>` missing `DesktopScaleFactor` property. `SaveTo` reflection catches `SettingsPropertyNotFoundException` silently. | Add `DesktopScaleFactor` property to test helper class. |
+
+**Rule:** When adding a new property to `ConnectionInfo`, also add it to `SerializableConnectionInfoAllPropertiesOfType<T>` in test helpers.
 
 ## Local Artifacts
 

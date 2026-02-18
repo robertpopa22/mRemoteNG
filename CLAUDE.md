@@ -63,7 +63,11 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\bui
 
 **Optimizations applied (`Directory.Build.props`):**
 - `NoWarn=CA1416` — suppresses 1,795 platform compatibility warnings (app is 100% Windows-only)
+- `NoWarn=CS8622` — suppresses .NET 10 WinForms nullable event handler mismatch (~300 warnings)
+- `NoWarn=CS8618` — suppresses WinForms designer uninitialized field warnings (~450 warnings)
 - `UseSharedCompilation=true` — keeps Roslyn server warm between builds
+
+**NuGet cleanup (2026-02-18):** Removed 34 legacy .NET Core 1.x/2.x `System.*` packages from test projects + 38 `PackageVersion` entries from `Directory.Packages.props`. These packages are built into .NET 10 runtime and generated hundreds of NU1510 warnings.
 
 ## Testing
 
@@ -109,9 +113,10 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (v1.81.0-beta.3, 2026-02-17):
-- **Full parallel run:** 2479/2479 passed, 0 skipped, **0 failed** — 5 processes, ~72s
-- **mRemoteNGSpecs:** 2/5 passed, 3 failed (pre-existing BouncyCastle GCM decryption issue)
+### Current test status (v1.81.0-beta.3, 2026-02-18):
+- **Full parallel run:** 2554/2554 passed, 0 skipped, **0 failed** — 5 processes, ~42s
+- **mRemoteNGSpecs:** 5/5 passed, 0 failed (KDF mismatch fixed in commit `03d94b117`)
+- **Smoke test (FlaUI):** 1 additional spec fails in headless/CLI context only (window title check — environment-dependent)
 - **No headless filter needed** — all UI tests redesigned with RunWithMessagePump pattern
 - **0 [Ignore] tests** — all 3 previously-ignored tests fixed:
   - `ChangingOptionMarksPageAsChanged` — Fixed: `Application.Run(optionsForm)` + `Application.ExitThread()` avoids FrmOptions.FormClosing MessageBox deadlock
