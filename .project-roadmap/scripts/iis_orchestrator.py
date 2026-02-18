@@ -17,9 +17,10 @@ Usage — IIS (Issue Intelligence):
     python iis_orchestrator.py report --include-all --no-save     # full inventory to console
 
 Usage — Orchestrator (AI-driven fix automation):
-    python iis_orchestrator.py                  # run all (issues + warnings)
-    python iis_orchestrator.py issues           # only open issues
+    python iis_orchestrator.py                  # run all (hygiene + issues + warnings)
+    python iis_orchestrator.py issues           # hygiene + open issues
     python iis_orchestrator.py warnings         # only CS8xxx warnings
+    python iis_orchestrator.py test-hygiene     # only test hygiene (detect+fix failing tests)
     python iis_orchestrator.py status           # show current status
     python iis_orchestrator.py --dry-run        # simulate without changes
     python iis_orchestrator.py --max-issues 5   # limit issues processed
@@ -71,6 +72,9 @@ TEST_MIN_DURATION_SECS = 10       # tests taking less than this = phantom (didn'
 TEST_MIN_COUNT = 100              # reject if fewer tests than expected (sanity check)
 IMPL_CONSECUTIVE_FAIL_LIMIT = 5   # circuit breaker: stop after N consecutive impl failures
 TEST_FIX_MAX_ATTEMPTS = 2         # how many times to ask an agent to fix failing tests
+TEST_HYGIENE_MAX_GROUPS = 10      # max failure groups to attempt fixing in hygiene phase
+TEST_HYGIENE_FIX_ATTEMPTS = 2    # attempts per failure group during hygiene
+TEST_HYGIENE_AGENT = "claude"    # best agent for test analysis/fix (needs arch understanding)
 
 BUILD_CMD = [
     "powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -160,6 +164,7 @@ AGENT_FALLBACK_ENABLED = True           # if primary fails, try the next agent i
 _session_agents_used = set()            # tracks which agents contributed (for co-author)
 _last_dispatch_timed_out = False        # set True by sub-agents on TimeoutExpired
 _last_dispatch_partial_output = ""      # partial stdout captured before timeout
+_committed_issues_cache = set()         # issue numbers already committed (dedup guard)
 
 # Resolve full paths to CLI tools (Windows needs .CMD extension for subprocess)
 GEMINI_CMD = shutil.which("gemini") or "gemini"
@@ -977,6 +982,15 @@ def git_commit(message):
     """Stage all + commit.  Returns commit hash or None."""
     if not git_has_changes():
         return None
+    # ── DEDUP safety net: reject duplicate issue commits ──
+    issue_match = re.search(r"#(\d+)", message)
+    if issue_match:
+        issue_num = int(issue_match.group(1))
+        if issue_num in _committed_issues_cache:
+            log.warning("  [GIT] DEDUP: #%d appears already committed — skipping duplicate commit",
+                        issue_num)
+            git_restore()
+            return None
     try:
         _run(["git", "add", "-A"])
         co_authors = []
@@ -990,7 +1004,11 @@ def git_commit(message):
         full_msg = f"{message}\n\n{co_author_str}"
         _run(["git", "commit", "-m", full_msg])
         r = _run(["git", "rev-parse", "HEAD"])
-        return (r.stdout or "").strip()
+        commit_hash = (r.stdout or "").strip()
+        # Update dedup cache after successful commit
+        if issue_match:
+            _committed_issues_cache.add(int(issue_match.group(1)))
+        return commit_hash
     except Exception as e:
         log.error("    [GIT] commit failed: %s", e)
         return None
@@ -1013,6 +1031,39 @@ def git_restore():
         log.info("    [GIT] Reverted source code changes")
     except Exception as e:
         log.warning("    [GIT] Restore failed: %s", e)
+
+
+# ── DUPLICATE COMMIT PREVENTION ──────────────────────────────────────────
+
+def _warm_committed_issues_cache(lookback=200):
+    """Pre-populate cache with all issue numbers from recent commits."""
+    try:
+        r = _run(["git", "log", f"--max-count={lookback}", "--oneline"])
+        for line in (r.stdout or "").splitlines():
+            for m in re.finditer(r"#(\d+)", line):
+                _committed_issues_cache.add(int(m.group(1)))
+        log.info("  [DEDUP] Cached %d issue numbers from last %d commits",
+                 len(_committed_issues_cache), lookback)
+    except Exception as e:
+        log.warning("  [DEDUP] Cache warming failed: %s", e)
+
+
+def _is_issue_already_committed(issue_num, lookback=100):
+    """Check if issue was already fixed in recent commits.
+
+    Uses the in-memory cache first (warmed at startup), then falls back
+    to scanning git log if not found in cache."""
+    if issue_num in _committed_issues_cache:
+        return True
+    try:
+        r = _run(["git", "log", f"--max-count={lookback}", "--oneline"])
+        for line in (r.stdout or "").splitlines():
+            if f"#{issue_num}" in line:
+                _committed_issues_cache.add(issue_num)
+                return True
+    except Exception:
+        pass
+    return False
 
 
 def git_squash_last(n, message):
@@ -2139,6 +2190,243 @@ RULES (CRITICAL):
     return True
 
 
+# ── FLUX 0: TEST HYGIENE ─────────────────────────────────────────────────
+
+def _classify_test_failures(failed_tests):
+    """Group failed tests by likely root cause (class or error pattern).
+
+    Returns list of dicts:
+        [{"description": str, "tests": [test_dicts], "error_pattern": str}]
+
+    Grouping strategy:
+    - Same test class (namespace.ClassName) = same group
+    - If no class can be extracted, group by error message similarity
+    """
+    if not failed_tests:
+        return []
+
+    # Group by test class (everything before last dot = class)
+    class_groups = {}
+    ungrouped = []
+    for ft in failed_tests:
+        name = ft.get("name", "")
+        parts = name.rsplit(".", 1)
+        if len(parts) == 2:
+            cls = parts[0]
+            class_groups.setdefault(cls, []).append(ft)
+        else:
+            ungrouped.append(ft)
+
+    groups = []
+    for cls, tests in class_groups.items():
+        # Extract common error pattern from first test
+        error_pattern = ""
+        for t in tests:
+            err = t.get("error", "")
+            if err:
+                # Use first 80 chars as pattern identifier
+                error_pattern = err[:80]
+                break
+        groups.append({
+            "description": cls.split(".")[-1] if "." in cls else cls,
+            "tests": tests,
+            "error_pattern": error_pattern,
+        })
+
+    # Group ungrouped tests by error similarity
+    if ungrouped:
+        error_groups = {}
+        for ft in ungrouped:
+            err = ft.get("error", "")[:60] or "unknown"
+            error_groups.setdefault(err, []).append(ft)
+        for err_key, tests in error_groups.items():
+            groups.append({
+                "description": f"misc ({err_key[:40]}...)" if len(err_key) > 40 else f"misc ({err_key})",
+                "tests": tests,
+                "error_pattern": err_key,
+            })
+
+    return groups
+
+
+def _attempt_hygiene_fix(group, status):
+    """Try to fix a group of pre-existing test failures.
+
+    Similar to _attempt_test_fix but without issue context.
+    Returns True if tests pass after fix."""
+    test_errors = "\n".join(
+        f"  - {ft['name']}: {ft.get('error', 'no details')[:200]}"
+        for ft in group["tests"][:15]
+    )
+
+    for attempt in range(TEST_HYGIENE_FIX_ATTEMPTS):
+        log.info("  [HYGIENE] Attempt %d/%d for %s (%d tests)",
+                 attempt + 1, TEST_HYGIENE_FIX_ATTEMPTS,
+                 group["description"], len(group["tests"]))
+
+        prompt = f"""Project: mRemoteNG (.NET 10, WinForms)
+Working directory: D:\\github\\mRemoteNG
+
+TASK: Fix {len(group['tests'])} failing test(s) in {group['description']}
+
+FAILING TESTS:
+{test_errors}
+
+These are PRE-EXISTING test failures (not caused by a recent change).
+Analyze root cause and fix. Could be: stale test expectations, missing mocks,
+API changes, environment dependencies, or actual bugs in the code under test.
+
+RULES:
+1. Read the failing tests first to understand what they expect
+2. Read the code they test to understand the actual behavior
+3. Fix the tests OR the code (whichever is wrong)
+4. Build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
+5. Test: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
+6. Do NOT run git operations (no git add, commit, push)
+7. Do NOT create new test files — only modify existing tests or code"""
+
+        status.set_task(type="test_hygiene", step=f"fix_{group['description']}_{attempt}")
+        timeout = 600  # 10 min per hygiene fix attempt
+        agent_out = _agent_dispatch(TEST_HYGIENE_AGENT, prompt, max_turns=20,
+                                     timeout=timeout, retries=1)
+        kill_stale_processes()
+
+        if agent_out is None:
+            log.warning("  [HYGIENE] Agent returned nothing on attempt %d", attempt + 1)
+            continue
+
+        # Verify: build + test
+        build_ok, _ = run_build(capture_output=True)
+        if not build_ok:
+            log.warning("  [HYGIENE] Build failed after fix attempt %d — reverting", attempt + 1)
+            git_restore()
+            continue
+
+        test_result = run_tests(return_details=True)
+        if len(test_result) == 4:
+            test_ok, test_out, failed2, is_phantom = test_result
+        else:
+            test_ok, test_out, failed2 = test_result
+            is_phantom = False
+
+        if is_phantom:
+            log.error("  [HYGIENE] Phantom test run on attempt %d", attempt + 1)
+            git_restore()
+            continue
+
+        if test_ok:
+            log.info("  [HYGIENE] SUCCESS — tests pass after fix (attempt %d)", attempt + 1)
+            return True
+
+        # Check if we at least reduced failures
+        if failed2 and len(failed2) < len(group["tests"]):
+            log.info("  [HYGIENE] Partial improvement: %d → %d failures", len(group["tests"]), len(failed2))
+            # Update error info for next attempt
+            test_errors = "\n".join(
+                f"  - {ft['name']}: {ft.get('error', 'no details')[:200]}"
+                for ft in failed2[:15]
+            )
+        else:
+            log.warning("  [HYGIENE] No improvement after attempt %d — reverting", attempt + 1)
+            git_restore()
+
+    log.warning("  [HYGIENE] Could not fix %s after %d attempts",
+                group["description"], TEST_HYGIENE_FIX_ATTEMPTS)
+    git_restore()
+    return False
+
+
+def flux_test_hygiene(status, phase="pre-flight"):
+    """Detect and auto-fix pre-existing test failures.
+
+    Called at orchestrator startup (pre-flight) and after all issues (post-flight).
+    Each fixed group gets an atomic commit: 'chore(tests): fix {description}'.
+
+    Args:
+        status: Status object for progress tracking
+        phase: "pre-flight" or "post-flight" — for logging context
+    """
+    log.info("=" * 60)
+    log.info("  TEST HYGIENE (%s)", phase)
+    log.info("=" * 60)
+
+    # Step 1: Build must pass first
+    status.set_task(type="test_hygiene", step=f"{phase}_build")
+    build_ok, _ = run_build(capture_output=True)
+    if not build_ok:
+        log.error("  [HYGIENE] Build failed — cannot run hygiene (infrastructure broken)")
+        status.add_error("test_hygiene", phase, "Build failed — skipping hygiene")
+        return
+
+    # Step 2: Run tests to get baseline
+    status.set_task(type="test_hygiene", step=f"{phase}_baseline")
+    test_result = run_tests(return_details=True)
+    if len(test_result) == 4:
+        test_ok, test_out, failed_tests, is_phantom = test_result
+    else:
+        test_ok, test_out, failed_tests = test_result
+        is_phantom = False
+
+    if is_phantom:
+        log.error("  [HYGIENE] Phantom test run — cannot determine baseline")
+        status.add_error("test_hygiene", phase, "Phantom test run")
+        return
+
+    if test_ok and not failed_tests:
+        log.info("  [HYGIENE] Baseline clean — all tests pass (%s)", phase)
+        return
+
+    if not failed_tests:
+        # Tests reported OK but no failures list — might be within threshold
+        log.info("  [HYGIENE] Tests within threshold, no actionable failures (%s)", phase)
+        return
+
+    # Step 3: Classify failures into groups
+    groups = _classify_test_failures(failed_tests)
+    log.info("  [HYGIENE] %d failing test(s) in %d group(s)",
+             len(failed_tests), len(groups))
+    for g in groups:
+        log.info("    - %s: %d test(s) — %s",
+                 g["description"], len(g["tests"]),
+                 g["error_pattern"][:60] if g["error_pattern"] else "no pattern")
+
+    # Step 4: Attempt to fix each group
+    groups_to_fix = groups[:TEST_HYGIENE_MAX_GROUPS]
+    fixed_count = 0
+    tests_fixed = 0
+
+    for gi, group in enumerate(groups_to_fix, 1):
+        log.info("  [HYGIENE] Group %d/%d: %s (%d tests)",
+                 gi, len(groups_to_fix), group["description"], len(group["tests"]))
+
+        status.set_task(type="test_hygiene", step=f"{phase}_group_{gi}")
+        success = _attempt_hygiene_fix(group, status)
+
+        if success:
+            # Commit atomically
+            desc = group["description"][:50]
+            msg = f"chore(tests): fix {desc}"
+            h = git_commit(msg)
+            if h:
+                fixed_count += 1
+                tests_fixed += len(group["tests"])
+                status.add_commit(h, msg, True)
+                log.info("  [HYGIENE] Committed %s — %s", h[:8], msg)
+            else:
+                log.warning("  [HYGIENE] Fix succeeded but nothing to commit for %s", desc)
+        else:
+            # Ensure clean state for next group
+            git_restore()
+
+    # Step 5: Summary
+    log.info("  [HYGIENE] %s complete: fixed %d/%d groups (%d tests recovered)",
+             phase, fixed_count, len(groups_to_fix), tests_fixed)
+    if len(groups) > TEST_HYGIENE_MAX_GROUPS:
+        log.warning("  [HYGIENE] %d groups skipped (limit: %d)",
+                    len(groups) - TEST_HYGIENE_MAX_GROUPS, TEST_HYGIENE_MAX_GROUPS)
+    status.clear_task()
+
+
 def flux_issues(status, dry_run=False, max_issues=None):
     """FLUX 1: Sync, triage, implement open issues."""
     log.info("=" * 60)
@@ -2156,6 +2444,9 @@ def flux_issues(status, dry_run=False, max_issues=None):
     status.data["issues"]["total_synced"] = len(issues)
     status.save()
     log.info("  Found %d actionable issues", len(issues))
+
+    # Warm the committed-issues cache from recent git log
+    _warm_committed_issues_cache(lookback=200)
 
     if max_issues:
         issues = issues[:max_issues]
@@ -2201,6 +2492,12 @@ def flux_issues(status, dry_run=False, max_issues=None):
         log.info("  Decision: %s [%s] — %s", decision, triage_agent, ai_reason)
 
         if decision == "implement":
+            # ── DEDUP: skip if already committed ──
+            if _is_issue_already_committed(num):
+                log.info("  [DEDUP] #%d already committed — skipping", num)
+                update_issue_json(num, "testing", "Already committed (dedup)")
+                continue
+
             status.data["issues"]["to_implement"] += 1
             update_issue_json(num, "triaged", ai_reason,
                               priority=ai_priority, notes=ai_notes)
@@ -3791,9 +4088,9 @@ def main():
     )
     parser.add_argument(
         "mode", nargs="?", default="all",
-        choices=["all", "issues", "warnings", "status",
+        choices=["all", "issues", "warnings", "status", "test-hygiene",
                  "sync", "analyze", "update", "report"],
-        help="sync/analyze/update/report (IIS), or all/issues/warnings/status (orchestrator)",
+        help="sync/analyze/update/report (IIS), or all/issues/warnings/status/test-hygiene (orchestrator)",
     )
     # ── Orchestrator args ──
     parser.add_argument("--dry-run", action="store_true",
@@ -3989,6 +4286,11 @@ def main():
     status = Status()
 
     try:
+        # ── Pre-flight test hygiene ──
+        if args.mode in ("all", "issues", "test-hygiene"):
+            status.set_phase("test_hygiene_pre")
+            flux_test_hygiene(status, phase="pre-flight")
+
         if args.mode in ("all", "issues"):
             status.set_phase("issues")
             flux_issues(status, dry_run=args.dry_run, max_issues=args.max_issues)
@@ -3998,6 +4300,11 @@ def main():
             flux_warnings(status, dry_run=args.dry_run, max_files=args.max_files,
                           squash=args.squash, max_passes=args.max_passes,
                           parallel=args.parallel)
+
+        # ── Post-flight test hygiene ──
+        if args.mode in ("all", "issues", "test-hygiene"):
+            status.set_phase("test_hygiene_post")
+            flux_test_hygiene(status, phase="post-flight")
 
         status.finish()
         log.info("=== Orchestrator finished ===")

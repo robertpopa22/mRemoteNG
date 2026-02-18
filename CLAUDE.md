@@ -338,6 +338,7 @@ python .project-roadmap/scripts/iis_orchestrator.py report
 | `analyze` | Shows what needs action: urgent, iteration needed, waiting for response |
 | `update` | Transitions lifecycle, records iterations, posts GitHub comments |
 | `report` | Generates markdown reports for triage and releases |
+| `test-hygiene` | Detect and auto-fix pre-existing test failures (runs pre-flight + post-flight) |
 
 ### Key flags
 - `sync --issues 3044,3069` — targeted sync (fast)
@@ -426,6 +427,8 @@ iis_orchestrator.py (Python — controller)
 | **Codex sandbox fix** | `-a never -s workspace-write` | CLI flags | Overrides config.toml read-only default |
 | **No agent git ops** | impl_prompt RULES | explicit | Agents MUST NOT run git commit/add/push — orchestrator handles all commits |
 | **Adaptive timeouts** | `_complexity_base_timeout()` | 400/800/1200s | Base timeout by file count (1/≤3/>3 files). Adaptive: p80 history, per-issue escalation (1.5x), max 4x |
+| **Test hygiene phase** | `flux_test_hygiene()` | pre+post flight | Auto-detects and fixes pre-existing test failures at startup and after issues |
+| **Duplicate commit prevention** | `_committed_issues_cache` | git log scan | Prevents re-implementing already-committed issues. Cache warmed at startup, checked per-issue + in git_commit |
 
 ### Results (v1.81.0-beta.2)
 - **2,554 nullable warnings** fixed (100% clean) across 4 orchestrator sessions
