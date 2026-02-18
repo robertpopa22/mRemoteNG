@@ -180,17 +180,17 @@ namespace mRemoteNG.Themes
 
                     if (lightNG != null)
                     {
-                        ThemeInfo vs2015Light = new("vs2015Light", new VS2015LightTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, lightNG.ExtendedPalette);
+                        ThemeInfo vs2015Light = new("vs2015Light", lightNG.Theme, "", VisualStudioToolStripExtender.VsVersion.Vs2015, lightNG.ExtendedPalette);
                         themes.Add(vs2015Light.Name!, vs2015Light);
                     }
                     if (darkNG != null)
                     {
-                        ThemeInfo vs2015Dark = new("vs2015Dark", new VS2015DarkTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, darkNG.ExtendedPalette);
+                        ThemeInfo vs2015Dark = new("vs2015Dark", darkNG.Theme, "", VisualStudioToolStripExtender.VsVersion.Vs2015, darkNG.ExtendedPalette);
                         themes.Add(vs2015Dark.Name!, vs2015Dark);
                     }
                     if (blueNG != null)
                     {
-                        ThemeInfo vs2015Blue = new("vs2015Blue", new VS2015BlueTheme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, blueNG.ExtendedPalette);
+                        ThemeInfo vs2015Blue = new("vs2015Blue", blueNG.Theme, "", VisualStudioToolStripExtender.VsVersion.Vs2015, blueNG.ExtendedPalette);
                         themes.Add(vs2015Blue.Name!, vs2015Blue);
                     }
                 }
