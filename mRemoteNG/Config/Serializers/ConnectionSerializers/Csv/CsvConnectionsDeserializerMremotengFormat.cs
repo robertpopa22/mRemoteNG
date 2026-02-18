@@ -532,6 +532,23 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.ExternalAddressProvider = value;
             }
 
+            if (headers.Contains("PrivateKeyPath"))
+            {
+                connectionRecord.PrivateKeyPath = connectionCsv[headers.IndexOf("PrivateKeyPath")];
+            }
+
+            if (headers.Contains("UsePersistentBrowser"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("UsePersistentBrowser")], out bool value))
+                    connectionRecord.UsePersistentBrowser = value;
+            }
+
+            if (headers.Contains("DesktopScaleFactor"))
+            {
+                if (Enum.TryParse(connectionCsv[headers.IndexOf("DesktopScaleFactor")], true, out RDPDesktopScaleFactor value))
+                    connectionRecord.DesktopScaleFactor = value;
+            }
+
             #region Inheritance
 
             if (headers.Contains("InheritCacheBitmaps"))
@@ -1037,6 +1054,18 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRdpVersion")], out bool value))
                     connectionRecord.Inheritance.RdpVersion = value;
+            }
+
+            if (headers.Contains("InheritPrivateKeyPath"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritPrivateKeyPath")], out bool value))
+                    connectionRecord.Inheritance.PrivateKeyPath = value;
+            }
+
+            if (headers.Contains("InheritDesktopScaleFactor"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritDesktopScaleFactor")], out bool value))
+                    connectionRecord.Inheritance.DesktopScaleFactor = value;
             }
 
             #endregion

@@ -1468,7 +1468,7 @@ Reply with ONLY a JSON object:
                  i + 1, agent.capitalize(), num, timeout)
 
         t0 = time.time()
-        raw_output = _agent_dispatch(agent, prompt, max_turns=3, timeout=timeout, retries=1)
+        raw_output = _agent_dispatch(agent, prompt, max_turns=5, timeout=timeout, retries=1)
         elapsed = time.time() - t0
         kill_stale_processes()
 
@@ -2054,7 +2054,7 @@ Valid priorities: "P0-critical", "P1-security", "P2-bug", "P3-enhancement", "P4-
 
 Be conservative: if the issue is unclear, use "needs_info"."""
 
-    out = agent_run("triage", prompt, max_turns=3, json_output=False, timeout=120)
+    out = agent_run("triage", prompt, max_turns=5, json_output=False, timeout=120)
     if not out:
         return None
     return _extract_json(out)
