@@ -2,6 +2,8 @@
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using AxMSTSCLib;
+using mRemoteNG.App;
+using mRemoteNG.Messages;
 using MSTSCLib;
 
 namespace mRemoteNG.Connection.Protocol.RDP
@@ -56,9 +58,11 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     base.UpdateSessionDisplaySettings(width, height);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 // target OS does not support newer method, fallback to an older method
+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                    $"RdpProtocol9: UpdateSessionDisplaySettings failed (falling back to Reconnect): {ex.Message}");
                 base.UpdateSessionDisplaySettings(width, height);
             }
         }

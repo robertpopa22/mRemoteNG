@@ -34,8 +34,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             _frmMain.ResizeEnd += ResizeEnd;
 
-            // Initialize debounce timer (300ms delay)
-            _resizeDebounceTimer = new System.Timers.Timer(300);
+            // Initialize debounce timer (100ms delay)
+            _resizeDebounceTimer = new System.Timers.Timer(100);
             _resizeDebounceTimer.AutoReset = false;
             _resizeDebounceTimer.Elapsed += ResizeDebounceTimer_Elapsed;
         }
@@ -151,7 +151,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _resizeDebounceTimer?.Start();
 
             Runtime.MessageCollector?.AddMessage(MessageClass.DebugMsg,
-                $"Resize debounced - will resize to {_pendingResizeSize.Width}x{_pendingResizeSize.Height} after 300ms");
+                $"Resize debounced - will resize to {_pendingResizeSize.Width}x{_pendingResizeSize.Height} after 100ms");
         }
 
         private void ResizeDebounceTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -238,6 +238,13 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 Size size = Fullscreen
                     ? Screen.FromControl(Control).Bounds.Size
                     : InterfaceControl.Size;
+                
+                if (size.Width <= 0 || size.Height <= 0)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                        $"Resize skipped for '{connectionInfo.Hostname}': Invalid size {size.Width}x{size.Height}");
+                    return;
+                }
 
                 Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
                     $"Calling UpdateSessionDisplaySettings({size.Width}, {size.Height}) for '{connectionInfo.Hostname}' (Control.Size={Control.Size}, InterfaceControl.Size={InterfaceControl.Size})");
