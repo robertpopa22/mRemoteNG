@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 using BrightIdeasSoftware;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
@@ -38,6 +39,24 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 return false;
 
             string filterTextLower = FilterText.ToLowerInvariant();
+
+            // Support "regex:" prefix syntax
+            if (filterTextLower.StartsWith("regex:", StringComparison.Ordinal))
+            {
+                try
+                {
+                    string pattern = FilterText.Substring(6);
+                    Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                    return regex.IsMatch(objectAsConnectionInfo.Name) ||
+                           regex.IsMatch(objectAsConnectionInfo.Hostname) ||
+                           regex.IsMatch(objectAsConnectionInfo.Description) ||
+                           regex.IsMatch(objectAsConnectionInfo.EnvironmentTags ?? "");
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
+            }
 
             // Support "protocol:RDP" and "tag:production" prefix syntax
             if (filterTextLower.StartsWith("protocol:", StringComparison.Ordinal))
