@@ -38,6 +38,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly DisplayProperties _displayProperties;
         protected readonly FrmMain _frmMain = FrmMain.Default;
         protected bool loginComplete;
+        private int _extendedReconnectAttemptsRemaining;
+        private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
         protected uint DesktopScaleFactor => (uint)(_displayProperties.ResolutionScalingFactor.Width * 100);
@@ -157,6 +159,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             _displayProperties = new DisplayProperties();
             tmrReconnect.Tick += tmrReconnect_Tick;
+            _extendedReconnectTimer = new System.Windows.Forms.Timer { Interval = 2000 };
+            _extendedReconnectTimer.Tick += ExtendedReconnectTimer_Tick;
         }
 
         #endregion
@@ -460,12 +464,23 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _rdpClient.AdvancedSettings3.EnableAutoReconnect = true;
             try
             {
-                _rdpClient.AdvancedSettings3.MaxReconnectAttempts = Settings.Default.RdpReconnectionCount;
+                int reconnectCount = Settings.Default.RdpReconnectionCount;
+                if (reconnectCount > 20)
+                {
+                    _rdpClient.AdvancedSettings3.MaxReconnectAttempts = 20;
+                    _extendedReconnectAttemptsRemaining = reconnectCount - 20;
+                }
+                else
+                {
+                    _rdpClient.AdvancedSettings3.MaxReconnectAttempts = reconnectCount;
+                    _extendedReconnectAttemptsRemaining = 0;
+                }
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage($"Failed to set RDP MaxReconnectAttempts to {Settings.Default.RdpReconnectionCount}. Reverting to default maximum (20).", ex, MessageClass.WarningMsg, false);
                 _rdpClient.AdvancedSettings3.MaxReconnectAttempts = 20;
+                _extendedReconnectAttemptsRemaining = 0;
             }
             _rdpClient.AdvancedSettings2.keepAliveInterval = 60000; //in milliseconds (10,000 = 10 seconds)
             _rdpClient.AdvancedSettings5.AuthenticationLevel = 0;
@@ -1096,6 +1111,29 @@ namespace mRemoteNG.Connection.Protocol.RDP
             const int UI_ERR_NLA_NOT_ENABLED = 0xB09;
             const int UI_ERR_CONNECT_FAILED_DOWN = 0x1807;
 
+            if (discReason != UI_ERR_NORMAL_DISCONNECT && _extendedReconnectAttemptsRemaining > 0)
+            {
+                uint extendedDisconnectReason = (uint)_rdpClient.ExtendedDisconnectReason;
+                // 4 = exDiscReasonLogoff, 12 = exDiscReasonLogoffByUser
+                if (extendedDisconnectReason != 4 && extendedDisconnectReason != 12)
+                {
+                    int attemptsToSet = Math.Min(_extendedReconnectAttemptsRemaining, 20);
+                    _extendedReconnectAttemptsRemaining -= attemptsToSet;
+
+                    try
+                    {
+                        _rdpClient.AdvancedSettings3.MaxReconnectAttempts = attemptsToSet;
+                    }
+                    catch { }
+
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"Auto-reconnect exhausted. Retrying... ({_extendedReconnectAttemptsRemaining} extended attempts remaining)");
+
+                    _extendedReconnectTimer.Start();
+                    return;
+                }
+            }
+
             if (discReason != UI_ERR_NORMAL_DISCONNECT)
             {
                 uint extendedDisconnectReason = (uint)_rdpClient.ExtendedDisconnectReason;
@@ -1135,6 +1173,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnConnected()
         {
+            try
+            {
+                int reconnectCount = Settings.Default.RdpReconnectionCount;
+                if (reconnectCount > 20)
+                {
+                    _rdpClient.AdvancedSettings3.MaxReconnectAttempts = 20;
+                    _extendedReconnectAttemptsRemaining = reconnectCount - 20;
+                }
+                else
+                {
+                    _extendedReconnectAttemptsRemaining = 0;
+                }
+            }
+            catch { }
+
             Event_Connected(this);
         }
 
@@ -1162,6 +1215,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("RDP leave-fullscreen refocus failed", ex, MessageClass.WarningMsg, false);
+            }
+        }
+
+        private void ExtendedReconnectTimer_Tick(object? sender, EventArgs e)
+        {
+            _extendedReconnectTimer.Stop();
+
+            try
+            {
+                _rdpClient.Connect();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionOpenFailed, ex);
+                Close();
             }
         }
 
@@ -1199,7 +1267,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         
         #region Reconnect Stuff
 
-        private void tmrReconnect_Tick(object sender, EventArgs e)
+        private void tmrReconnect_Tick(object? sender, EventArgs e)
         {
             try
             {

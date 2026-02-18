@@ -33,6 +33,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "The issue is a clear enhancement request to make the current 20-attempt cap configurable for users who need higher retry limits."
+    },
+    {
+      "seq": 4,
+      "date": "2026-02-18",
+      "type": "triaged",
+      "description": "The RDP ActiveX control strictly limits 'MaxReconnectAttempts' to 20, causing the application to revert to 20 even when the UI allows setting up to 200. A manual reconnection loop must be implemented to support higher values."
     }
   ],
   "comments": [],
@@ -41,5 +47,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (codex): The request is a clear, low-risk enhancement with defined behavior and an obvious implementation point where the reconnection count cap is currently hard-limited to 20.\nApproach: Increase the RDP reconnection numeric maximum beyond 20 and keep validation aligned with that new upper bound so higher values persist and flow to RDP MaxReconnectAttempts.\nAI triage (codex): The issue is a clear enhancement request to make the current 20-attempt cap configurable for users who need higher retry limits.\nApproach: Introduce a configurable max connection-attempt setting with validation, use it in retry logic, and expose it in the Options UI."
+  "notes": "AI triage (codex): The request is a clear, low-risk enhancement with defined behavior and an obvious implementation point where the reconnection count cap is currently hard-limited to 20.\nApproach: Increase the RDP reconnection numeric maximum beyond 20 and keep validation aligned with that new upper bound so higher values persist and flow to RDP MaxReconnectAttempts.\nAI triage (codex): The issue is a clear enhancement request to make the current 20-attempt cap configurable for users who need higher retry limits.\nApproach: Introduce a configurable max connection-attempt setting with validation, use it in retry logic, and expose it in the Options UI.\nAI triage (gemini): The RDP ActiveX control strictly limits 'MaxReconnectAttempts' to 20, causing the application to revert to 20 even when the UI allows setting up to 200. A manual reconnection loop must be implemented to support higher values.\nApproach: Modify `RdpProtocol.cs` to handle reconnection counts > 20 by implementing a custom reconnection timer/loop in the `OnDisconnected` event, bypassing the ActiveX control's `MaxReconnectAttempts` limit."
 }
