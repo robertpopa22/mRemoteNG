@@ -84,6 +84,11 @@ namespace mRemoteNG.Config.DataProviders
                         sqlTransaction.Commit();
                     }
                 }
+                catch (DBConcurrencyException ex)
+                {
+                    Runtime.MessageCollector.AddExceptionStackTrace("Database concurrency conflict detected. Please reload connections.", ex);
+                    throw;
+                }
                 finally
                 {
                     if (mustDisposeTransaction)
@@ -113,12 +118,23 @@ namespace mRemoteNG.Config.DataProviders
                     using MySqlDataAdapter dataAdapter = new(sqlCommand);
                     dataAdapter.UpdateBatchSize = 1000;
                     using MySqlCommandBuilder cb = new(dataAdapter);
+
+                    ConflictOption conflictOption = ConflictOption.OverwriteChanges;
+                    if (dataTable.Columns.Contains("RowVersion"))
+                        conflictOption = ConflictOption.CompareRowVersion;
+                    cb.ConflictOption = conflictOption;
+
                     dataAdapter.Update(dataTable);
 
                     if (mustDisposeTransaction)
                     {
                         mySqlTransaction.Commit();
                     }
+                }
+                catch (DBConcurrencyException ex)
+                {
+                    Runtime.MessageCollector.AddExceptionStackTrace("Database concurrency conflict detected. Please reload connections.", ex);
+                    throw;
                 }
                 finally
                 {
@@ -163,6 +179,11 @@ namespace mRemoteNG.Config.DataProviders
                     {
                         odbcTransaction.Commit();
                     }
+                }
+                catch (DBConcurrencyException ex)
+                {
+                    Runtime.MessageCollector.AddExceptionStackTrace("Database concurrency conflict detected. Please reload connections.", ex);
+                    throw;
                 }
                 finally
                 {

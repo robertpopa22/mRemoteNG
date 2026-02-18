@@ -419,7 +419,7 @@ CREATE TABLE [dbo].[tblCons] (
     [UserViaAPI] nvarchar(512) NOT NULL,
     [User] nvarchar(512) NULL,
     [Role] nvarchar(512) NULL,
-    [RowVersion] rowversion NOT NULL,
+    [RowVersion] rowversion NOT NULL
 ) ON [PRIMARY]
 
 CREATE TABLE [dbo].[tblRoot] (
@@ -640,6 +640,7 @@ CREATE TABLE `tblCons` (
     `UserViaAPI` varchar(512) NOT NULL,
     `User` varchar(512) DEFAULT NULL,
     `Role` varchar(512) DEFAULT NULL,
+    `RowVersion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`ConstantID`),
     UNIQUE KEY `ID_UNIQUE` (`ID`),
     UNIQUE KEY `ConstantID_UNIQUE` (`ConstantID`)
@@ -744,6 +745,13 @@ CREATE TABLE `tblExternalTools` (
                      {
                          databaseConnector.DbCommand("ALTER TABLE tblCons ADD [RowVersion] rowversion NOT NULL").ExecuteNonQuery();
                      }
+                }
+                else if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
+                {
+                    if (!DoesColumnExist(databaseConnector, "tblCons", "RowVersion"))
+                    {
+                        databaseConnector.DbCommand("ALTER TABLE tblCons ADD COLUMN `RowVersion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP").ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception ex)
