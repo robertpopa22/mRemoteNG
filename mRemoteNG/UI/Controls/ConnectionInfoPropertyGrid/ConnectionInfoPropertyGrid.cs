@@ -161,17 +161,21 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     return;
                 }
 
-                // Gather valid properties for ALL selected connections (Union)
-                var validProperties = new HashSet<string>();
+                // Gather valid properties for ALL selected connections (Intersection)
+                List<string>? commonValidProperties = null;
                 foreach (var info in _selectedConnectionInfos)
                 {
                     object gridObject = IsShowingInheritance ? info.Inheritance : info;
                     var props = GetPropertiesForGridObject(gridObject)
                                 .Where(property => IsValidForProtocol(property, info.Protocol, IsShowingInheritance))
                                 .Select(property => property.Name);
-                    foreach (var p in props) validProperties.Add(p);
+
+                    if (commonValidProperties == null)
+                        commonValidProperties = props.ToList();
+                    else
+                        commonValidProperties = commonValidProperties.Intersect(props).ToList();
                 }
-                BrowsableProperties = validProperties.ToArray();
+                BrowsableProperties = commonValidProperties?.ToArray() ?? Array.Empty<string>();
 
                 // Gather exclusions for ALL selected connections (Intersection)
                 // If a property is excluded in ALL, then hide it.
