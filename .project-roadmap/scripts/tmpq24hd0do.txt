@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1233: Add Reconnect option to connection tree context menu
+Description: 
+Approach: Add a 'Reconnect' menu item to the context menu in 'mRemoteNG/UI/Controls/ConnectionContextMenu.cs'. Implement logic to invoke Disconnect() then Connect() on the selected connection.
+Likely files: mRemoteNG/UI/Controls/ConnectionContextMenu.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1233
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
