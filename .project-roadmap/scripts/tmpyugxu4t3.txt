@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1093: Themeing issue - Options -> Theme
+Description: 
+Approach: Investigate ThemeManager logic to ensure vs2015dark theme properties are correctly propagated to all docking panels and UI controls in the Options dialog.
+Likely files: mRemoteNG/Themes/ThemeManager.cs, mRemoteNG/UI/Forms/OptionsPages/ThemePage.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1093
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
