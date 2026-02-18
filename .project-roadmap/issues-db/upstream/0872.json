@@ -13,7 +13,7 @@
   "created_at": "2018-01-25T15:21:21Z",
   "github_updated_at": "2026-02-07T19:51:31Z",
   "body_snippet": "As we already have the ability to use SQL and AD integration it would be great if we could restrict access at the folder levels.  This would allow the ability to share connections with other members of our teams, but also allow us to restrict who has access to what sections within the application\r\n\r\nAlso having a local and centralized credentials manager would help as well with this",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -30,6 +30,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Allows granular password protection or encryption for specific folders in the connection tree, improving security for shared or mixed-sensitivity config files."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

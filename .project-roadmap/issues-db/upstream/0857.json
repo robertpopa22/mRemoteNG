@@ -13,7 +13,7 @@
   "created_at": "2018-01-04T09:19:50Z",
   "github_updated_at": "2026-02-07T19:51:19Z",
   "body_snippet": "\r\n1) Not possible to use a Windows Authentication to connect to the MS SQL Database\r\n\r\n2) Each user using the database will access to any connection string. It's not really secure. Workaround, not really professional : create a database by user. Should be great to add a filter  \"user\" column into the table tblcons \r\n\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008  |\r\n\r\n\r\n  ",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -36,6 +36,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The current SQL provider lacks proper concurrency control (optimistic concurrency), causing data overwrites when multiple users access the same database."
+    },
+    {
+      "seq": 4,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

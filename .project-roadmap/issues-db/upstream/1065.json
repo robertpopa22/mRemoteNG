@@ -13,7 +13,7 @@
   "created_at": "2018-08-06T08:43:17Z",
   "github_updated_at": "2026-02-07T19:54:28Z",
   "body_snippet": "Some menu items, such as \"Tools\" -> \"Options\" are missing the \"...\" at the end of the menu item (should be: \"Options...\") to indicate a dialog box will open.\r\n\r\n## Expected Behavior\r\nAll menu items that open a dialog box should have \"...\" at the end of the menu item.\r\n\r\n## Current Behavior\r\n\"Tools\" -> \"Options\" should be \"Options...\"\r\n\"File\" -> \"New Connection File\" should be \"New Connection File...\"\r\nand so on.\r\n\r\n## Possible Solution\r\nEdit the menu items to add \"...\" where appropriate.\r\n\r\n## C...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -30,6 +30,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Two menu items (About, Keyboard Shortcuts) open dialogs but are missing the standard '...' ellipsis suffix convention."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

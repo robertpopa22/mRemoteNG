@@ -10,7 +10,7 @@
   "created_at": "2018-10-03T01:26:29Z",
   "github_updated_at": "2018-10-03T16:08:01Z",
   "body_snippet": "If a connection is open and focus is in the connection window, then painting in search bar does not move the focus to the search bar. Keystrokes after the painting are sent to the open connection.\r\n\r\n## Expected Behavior\r\n* Have a connection window open with focus in it.\r\n* Paint the existing search filter/part of it in the search bar.\r\n* Type some characters, the characters typed should replace the selected/painted part of the search filter in the search box.\r\n\r\n## Current Behavior\r\nKeystrokes ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The search box does not gain focus when selecting text with the mouse, which contradicts standard UI behavior and hinders quick editing."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

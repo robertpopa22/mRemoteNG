@@ -12,7 +12,7 @@
   "created_at": "2018-04-20T05:26:36Z",
   "github_updated_at": "2026-02-07T19:52:50Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nI grab the tab header of a connection and drag-and-drop it to another connection panel to give it a new home.\r\n\r\n## Current Behavior\r\nI grab the tab header of a connection and drag-and-drop it but all it does is reorder the list of tabs. As far as I can tell it is impossible to actually move any connections to the new connection panel I created.\r\n\r\nOn the below screenshot you can see my empty new connect...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -29,6 +29,12 @@
       "date": "2026-02-16",
       "type": "triaged",
       "description": "Current implementation only allows dragging ConnectionTabs between panels, not dragging ConnectionInfo nodes from the tree to a panel to open them."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

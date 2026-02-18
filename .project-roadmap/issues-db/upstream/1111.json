@@ -10,7 +10,7 @@
   "created_at": "2018-09-24T15:54:28Z",
   "github_updated_at": "2018-10-04T11:38:52Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nIt would be nice if these buttons were in *Full Screen* mode:\r\n![minmaxclose buttons](https://user-images.githubusercontent.com/22843816/45963060-f7010a00-c02a-11e8-9a6a-7b632056a7c8.png)\r\n\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happen...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Adding window controls (min/max/close) to full screen mode improves usability, aligning with common full-screen behaviors in other applications (e.g., browsers, RDP)."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

@@ -13,7 +13,7 @@
   "created_at": "2019-01-08T21:02:11Z",
   "github_updated_at": "2019-01-22T05:11:07Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nOptions panel should open every time requested.\r\n\r\n## Current Behavior\r\nEventually mRemoteNG will crash with an exception.\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a fix/reason for the bug, -->\r\n<!--- or ideas how to implement the addition or change -->\r\n\r\n## Steps to Reproduce (for bugs)\r\n<!--- Provide an unambiguous set of steps to reproduce -->\r\n<!--- this bug. Include code to reprod...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -24,6 +24,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The crash after a specific number of openings (7 times) strongly indicates a resource leak (GDI handles, User handles) or failure to properly dispose the Options form and its controls."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

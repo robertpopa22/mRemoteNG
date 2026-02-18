@@ -10,7 +10,7 @@
   "created_at": "2018-11-01T11:47:50Z",
   "github_updated_at": "2018-11-01T13:51:17Z",
   "body_snippet": "Remote Desktop (mstsc) has shortcut of CTRL+ALT+HOME which activates control bar and lets you to get outside from remote connection.\r\nSee: https://docs.microsoft.com/en-us/windows/desktop/termserv/terminal-services-shortcut-keys\r\n\r\nI would expect mRemoteNG to work the similar way.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The requested feature (global hotkey to activate mRemoteNG) is currently missing and requires implementing global hotkey registration logic."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [],

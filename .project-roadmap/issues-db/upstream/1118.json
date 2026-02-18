@@ -10,7 +10,7 @@
   "created_at": "2018-09-30T23:03:37Z",
   "github_updated_at": "2019-03-21T17:36:21Z",
   "body_snippet": "I have found some strange behavior with panel focus in version 1.76.8.17254. Scrolling up or down using the laptop's touchpad in any panel containing a Putty session will cause focus to be lost to the main window. Scrolling works as long as my finger remains on the touchpad but as soon as I lift my finger off of the touchpad, the Putty session will no longer accept any additional input from the keyboard or mouse until the Putty session window is clicked again. When the Putty panel loses focus, i...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -33,6 +33,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Touchpad scrolling causing focus loss in embedded PuTTY sessions indicates a window message handling issue in the embedding container."
+    },
+    {
+      "seq": 4,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

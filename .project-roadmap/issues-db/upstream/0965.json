@@ -10,7 +10,7 @@
   "created_at": "2018-04-24T21:30:59Z",
   "github_updated_at": "2018-09-30T17:27:32Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen \"Use SQL Server to load & save connections\" is enabled from options, the \"Open Connection File...\" menu option does not work and does not notify the user of the issue. Functionality is restored after disabling the SQL Server option.\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nNotify user they are ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -27,6 +27,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "ConnectionTree.HandleCollectionChanged fails to update the TreeListView roots when ConnectionTreeModel adds a new root node (via Open Connection File) because it attempts to refresh the model object instead of adding the new root node to the view."
+    },
+    {
+      "seq": 3,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [],

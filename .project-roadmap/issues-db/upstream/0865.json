@@ -10,7 +10,7 @@
   "created_at": "2018-01-15T08:33:13Z",
   "github_updated_at": "2018-02-05T06:05:22Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75.7008  |\r\n\r\n\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -45,6 +45,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The Putty window fails to resize correctly after hibernation, likely due to timing issues in the OnPowerModeChanged handler."
+    },
+    {
+      "seq": 6,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

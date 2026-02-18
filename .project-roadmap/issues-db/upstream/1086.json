@@ -13,7 +13,7 @@
   "created_at": "2018-08-24T16:42:16Z",
   "github_updated_at": "2026-02-07T19:54:43Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nI place connections windows like tiles. \r\n## Expected Behavior\r\nAfter restarting program previously  created layout should be loaded\r\n\r\n## Current Behavior\r\nEvery time after program restart I need to place connection windows  in a proper position.\r\n\r\n## Your Environment\r\n<!--- Include as many relevant details about the environment you experienced the bug in -->\r\n* Version used:ALL\r\n* Operating System and version (e.g. Windows 1...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -24,6 +24,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The current layout saving mechanism (DockPanelLayoutLoader) does not persist open connection windows or their tabs, only tool windows."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

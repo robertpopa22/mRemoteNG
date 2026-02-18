@@ -13,7 +13,7 @@
   "created_at": "2018-01-08T19:54:02Z",
   "github_updated_at": "2026-02-07T19:51:21Z",
   "body_snippet": "I upgraded from 1.72.x to 1.75.7012.16814 and now I find it much more difficult to connect to servers due to the 'New Connection' menu item being relocated to the middle of the menu.  \r\n\r\nNormally I'm pasting server names in very easily because the New Connection command is right at the top of the menu.  Is there a way to re-order this back to the original?\r\n\r\n<!-- Bug -->\r\n|Detail|Value|\r\n|--:|---|\r\n|Operating system | Windows 2012 R2 |\r\n|mRemoteNG version| 1.75.7012.16814  |\r\n\r\nThis is how it ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -36,6 +36,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "The 'New Connection' command is currently located near the bottom of the connection tree context menu, deviating from standard UI conventions where creation actions are typically prioritized at the top."
+    },
+    {
+      "seq": 4,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

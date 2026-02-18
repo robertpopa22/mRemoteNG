@@ -10,7 +10,7 @@
   "created_at": "2018-05-28T02:58:18Z",
   "github_updated_at": "2018-05-28T14:03:29Z",
   "body_snippet": "This is only a feature suggestion.\r\nFrom time to time, when I have a lot of connections and folders created, I want to have some kind of shortcut, or something similar to a symbolic link created pointing to another connection. Currently I have a \"_Quick\" folder and a bunch of duplicated connections. It works fine but when I need to update the connection configurations, I have to update both the original one and the duplicated one. It would be nice if I can create a link to a connection.\r\nThanks!",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -39,6 +39,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Feature is already implemented in the codebase (ConnectionInfo, ConnectionTree, ContextMenu) and verified with tests."
+    },
+    {
+      "seq": 5,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [

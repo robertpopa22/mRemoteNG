@@ -11,7 +11,7 @@
   "created_at": "2018-11-20T19:34:02Z",
   "github_updated_at": "2019-09-14T10:00:21Z",
   "body_snippet": "mRemoteNG hangs if incorrect credentials are provided\r\n\r\nHave the newest version of mRemote installed on Windows 10 build 1803. When setting up new connections if the credentials are incorrect, the program hangs and i have to end the task in task manager.  If the credentials are correct, i can login without issue.\r\n\r\nHave a second identical machine that works just fine, same versions of mRemote and Windows 10.\r\n\r\nI've uninstalled reinstalled, tried an older version, nothing seems to work.\r\n\r\nFau...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-18",
       "type": "triaged",
       "description": "Application hang on incorrect credentials is a significant usability defect requiring a fix to error handling logic."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-18",
+      "type": "testing",
+      "description": "Already committed (dedup fix - batch update)"
     }
   ],
   "comments": [
