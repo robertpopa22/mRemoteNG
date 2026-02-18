@@ -24,12 +24,12 @@ using System.Runtime.Versioning;
 namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 {
     [SupportedOSPlatform("windows")]
-    public class XmlConnectionsDeserializer(Func<Optional<SecureString>>? authenticationRequestor = null) : IDeserializer<string, ConnectionTreeModel>
+    public class XmlConnectionsDeserializer(string connectionFileName = "", Func<Optional<SecureString>>? authenticationRequestor = null) : IDeserializer<string, ConnectionTreeModel>
     {
         private XmlDocument _xmlDocument = null!;
         private double _confVersion;
         private XmlConnectionsDecryptor _decryptor = null!;
-        private readonly string ConnectionFileName = "";
+        private readonly string ConnectionFileName = connectionFileName;
         private const double MaxSupportedConfVersion = 2.8;
         private readonly RootNodeInfo _rootNodeInfo = new(RootNodeType.Connection);
 
@@ -48,6 +48,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
             try
             {
+                _rootNodeInfo.Filename = ConnectionFileName;
                 LoadXmlConnectionData(xml);
                 ValidateConnectionFileVersion();
 

@@ -58,6 +58,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsChoosePanelBeforeConnecting = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsDontConnectToConsoleSession = null!;
         private ToolStripMenuItem _cMenTreeImport = null!;
+        private ToolStripMenuItem _cMenTreeLoadAdditionalFile = null!;
         private ToolStripMenuItem _cMenTreeExportFile = null!;
         private ToolStripSeparator _toolStripSeparator1 = null!;
         private ToolStripMenuItem _cMenTreeImportFile = null!;
@@ -114,6 +115,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeDelete = new ToolStripMenuItem();
             _cMenTreeCopyHostname = new ToolStripMenuItem();
             _cMenTreeSep3 = new ToolStripSeparator();
+            _cMenTreeLoadAdditionalFile = new ToolStripMenuItem();
             _cMenTreeImport = new ToolStripMenuItem();
             _cMenTreeImportFile = new ToolStripMenuItem();
             _cMenTreeImportFromRemoteDesktopManager = new ToolStripMenuItem();
@@ -162,6 +164,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeProperties,
                 _cMenInheritanceSubMenu,
                 _cMenTreeSep3,
+                _cMenTreeLoadAdditionalFile,
                 _cMenTreeImport,
                 _cMenTreeExportFile,
                 _toolStripSeparator1,
@@ -347,6 +350,13 @@ namespace mRemoteNG.UI.Controls
             //
             _cMenTreeSep3.Name = "_cMenTreeSep3";
             _cMenTreeSep3.Size = new System.Drawing.Size(196, 6);
+            //
+            // cMenTreeLoadAdditionalFile
+            //
+            _cMenTreeLoadAdditionalFile.Name = "_cMenTreeLoadAdditionalFile";
+            _cMenTreeLoadAdditionalFile.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeLoadAdditionalFile.Text = "Open Connection File...";
+            _cMenTreeLoadAdditionalFile.Click += OnLoadAdditionalFileClicked;
             //
             // cMenTreeImport
             //
@@ -631,7 +641,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsExternalApps.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
             _cMenTreeCreateLink.Enabled = false;
-            _cMenTreeDelete.Enabled = false;
+            _cMenTreeDelete.Enabled = _connectionTree.ConnectionTreeModel.RootNodes.Count > 1;
             _cMenTreeMoveUp.Enabled = false;
             _cMenTreeMoveDown.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
@@ -996,6 +1006,16 @@ namespace mRemoteNG.UI.Controls
             AppWindows.ConfigForm.ShowConnectionProperties();
             AppWindows.ConfigForm.Show();
             AppWindows.ConfigForm.Activate();
+        }
+
+        private void OnLoadAdditionalFileClicked(object sender, EventArgs e)
+        {
+            using OpenFileDialog openFileDialog = new();
+            openFileDialog.Filter = "mRemoteNG Connections Files (*.xml)|*.xml|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                Runtime.ConnectionsService.LoadAdditionalConnectionFile(openFileDialog.FileName);
+            }
         }
 
         private void OnImportFileClicked(object sender, EventArgs e)

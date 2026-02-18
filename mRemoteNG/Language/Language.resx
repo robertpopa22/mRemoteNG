@@ -2658,4 +2658,7 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="WakeOnLan" xml:space="preserve">
     <value>Wake On LAN</value>
   </data>
+  <data name="Winbox" xml:space="preserve">
+    <value>Winbox</value>
+  </data>
 </root>

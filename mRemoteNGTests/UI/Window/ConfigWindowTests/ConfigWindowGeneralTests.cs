@@ -279,6 +279,9 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
             else
             {
                 expectedProperties.Add(nameof(ContainerInfo.AutoSort));
+                expectedProperties.Add(nameof(ConnectionInfo.Hostname));
+                expectedProperties.Add(nameof(ConnectionInfo.AlternativeAddress));
+                expectedProperties.Add(nameof(ContainerInfo.ContainerPassword));
             }
 
             switch (protocol)
@@ -406,6 +409,14 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Domain),
                         nameof(ConnectionInfo.Port),
                         nameof(ConnectionInfo.ExtApp),
+                    });
+                    break;
+                case ProtocolType.Winbox:
+                    expectedProperties.AddRange(new[]
+                    {
+                        nameof(ConnectionInfo.Username),
+                        nameof(ConnectionInfo.Password),
+                        nameof(ConnectionInfo.Port),
                     });
                     break;
                 case ProtocolType.Terminal:

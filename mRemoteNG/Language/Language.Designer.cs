@@ -7503,5 +7503,13 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
+        /// <summary>
+        ///   Looks up a localized string similar to Winbox.
+        /// </summary>
+        internal static string Winbox {
+            get {
+                return ResourceManager.GetString("Winbox", resourceCulture);
+            }
+        }
     }
 }

@@ -444,7 +444,17 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             {
                 foreach (ConnectionInfo selectedNode in GetSelectedNodes())
                 {
-                    if (selectedNode is RootNodeInfo || selectedNode is PuttySessionInfo) continue;
+                    if (selectedNode is RootNodeInfo rootNode)
+                    {
+                        if (ConnectionTreeModel.RootNodes.Count > 1)
+                        {
+                            if (!NodeDeletionConfirmer.Confirm(selectedNode)) return;
+                            ConnectionTreeModel.RemoveRootNode(rootNode);
+                        }
+                        continue;
+                    }
+
+                    if (selectedNode is PuttySessionInfo) continue;
                     if (selectedNode.Parent == null) continue;
                     if (!NodeDeletionConfirmer.Confirm(selectedNode)) return;
                     ConnectionTreeModel.DeleteNode(selectedNode);

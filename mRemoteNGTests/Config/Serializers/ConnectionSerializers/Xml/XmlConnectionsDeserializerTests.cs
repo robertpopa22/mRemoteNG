@@ -19,7 +19,7 @@ public class XmlConnectionsDeserializerTests
 
     public void Setup(string confCons, string password)
     {
-        _xmlConnectionsDeserializer = new XmlConnectionsDeserializer(() => password.ConvertToSecureString());
+        _xmlConnectionsDeserializer = new XmlConnectionsDeserializer("", () => password.ConvertToSecureString());
         _connectionTreeModel = _xmlConnectionsDeserializer.Deserialize(confCons);
     }
 

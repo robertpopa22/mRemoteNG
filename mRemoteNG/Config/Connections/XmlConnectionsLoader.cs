@@ -44,7 +44,7 @@ namespace mRemoteNG.Config.Connections
         {
             FileDataProvider dataProvider = new(_connectionFilePath);
             string xmlString = dataProvider.Load();
-            XmlConnectionsDeserializer deserializer = new(() => PromptForPassword());
+            XmlConnectionsDeserializer deserializer = new(_connectionFilePath, () => PromptForPassword());
 
             try
             {

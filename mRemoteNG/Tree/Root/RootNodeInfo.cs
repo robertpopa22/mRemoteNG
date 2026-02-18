@@ -83,6 +83,9 @@ namespace mRemoteNG.Tree.Root
                 ? TreeNodeType.Root
                 : TreeNodeType.PuttyRoot;
         }
+
+        [Browsable(false)]
+        public string Filename { get; set; } = string.Empty;
         #endregion
     }
 }

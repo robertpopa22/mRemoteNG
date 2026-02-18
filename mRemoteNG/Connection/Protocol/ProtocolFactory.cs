@@ -13,6 +13,7 @@ using mRemoteNG.Connection.Protocol.WSL;
 using mRemoteNG.Connection.Protocol.Terminal;
 using mRemoteNG.Connection.Protocol.AnyDesk;
 using mRemoteNG.Connection.Protocol.MSRA;
+using mRemoteNG.Connection.Protocol.Winbox;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 
@@ -62,6 +63,8 @@ namespace mRemoteNG.Connection.Protocol
                     return new ProtocolAnyDesk(connectionInfo);
                 case ProtocolType.MSRA:
                     return new ProtocolMSRA(connectionInfo);
+                case ProtocolType.Winbox:
+                    return new ProtocolWinbox(connectionInfo);
                 case ProtocolType.IntApp:
                     if (connectionInfo.ExtApp == "")
                     {

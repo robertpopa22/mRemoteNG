@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -10,6 +11,7 @@ using mRemoteNG.Config.Connections.Multiuser;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Container;
 using mRemoteNG.Messages;
 using mRemoteNG.Security;
 using mRemoteNG.Tools;
@@ -123,6 +125,39 @@ namespace mRemoteNG.Connection
             }
         }
 
+        public void LoadAdditionalConnectionFile(string filename)
+        {
+            if (string.IsNullOrEmpty(filename)) return;
+
+            try
+            {
+                IConnectionsLoader connectionLoader = new XmlConnectionsLoader(filename);
+                ConnectionTreeModel? loadedModel = connectionLoader.Load();
+
+                if (loadedModel == null) return;
+
+                if (ConnectionTreeModel == null)
+                {
+                    LoadConnections(false, false, filename);
+                }
+                else
+                {
+                    foreach (ContainerInfo root in loadedModel.RootNodes)
+                    {
+                        if (root is RootNodeInfo rni && string.IsNullOrEmpty(rni.Filename))
+                        {
+                            rni.Filename = filename;
+                        }
+                        ConnectionTreeModel.AddRootNode(root);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(string.Format(Language.LoadFromXmlFailed, filename), ex);
+            }
+        }
+
         /// <summary>
         /// Load connections from a source. <see cref="connectionFileName"/> is ignored if
         /// <see cref="useDatabase"/> is true.
@@ -177,6 +212,15 @@ namespace mRemoteNG.Connection
             {
                 _puttySessionsManager.AddSessions();
                 newConnectionTreeModel.RootNodes.AddRange(_puttySessionsManager.RootPuttySessionsNodes);
+            }
+            
+            // Set Filename on root nodes if not set
+            if (!useDatabase)
+            {
+                foreach (var root in newConnectionTreeModel.RootNodes.OfType<RootNodeInfo>())
+                {
+                     if (string.IsNullOrEmpty(root.Filename)) root.Filename = connectionFileName;
+                }
             }
 
             ConnectionTreeModel = newConnectionTreeModel;
@@ -269,16 +313,40 @@ namespace mRemoteNG.Connection
 
                 bool previouslyUsingDatabase = UsingDatabase;
 
-                ISaver<ConnectionTreeModel> saver = useDatabase
-                    ? (ISaver<ConnectionTreeModel>)new SqlConnectionsSaver(saveFilter, _localConnectionPropertiesSerializer, _localConnectionPropertiesDataProvider)
-                    : new XmlConnectionsSaver(connectionFileName, saveFilter);
-
-                saver.Save(connectionTreeModel, propertyNameTrigger);
-
                 if (useDatabase)
+                {
+                    ISaver<ConnectionTreeModel> saver = (ISaver<ConnectionTreeModel>)new SqlConnectionsSaver(saveFilter, _localConnectionPropertiesSerializer, _localConnectionPropertiesDataProvider);
+                    saver.Save(connectionTreeModel, propertyNameTrigger);
                     LastSqlUpdate = DateTime.Now.ToUniversalTime();
-                else if (File.Exists(connectionFileName))
-                    LastFileUpdate = File.GetLastWriteTimeUtc(connectionFileName);
+                }
+                else
+                {
+                    // XML Saving with support for multiple roots/files
+                    foreach (var rootNode in connectionTreeModel.RootNodes.OfType<RootNodeInfo>())
+                    {
+                        string targetFile = rootNode.Filename;
+                        if (string.IsNullOrEmpty(targetFile)) targetFile = connectionFileName;
+
+                        // If Save As is detected (connectionFileName arg != ConnectionFileName prop), 
+                        // and this is the "main" root (checked by Filename matching ConnectionFileName or being empty),
+                        // then redirect to the new connectionFileName.
+                        if (connectionFileName != ConnectionFileName && (rootNode.Filename == ConnectionFileName || string.IsNullOrEmpty(rootNode.Filename)))
+                        {
+                            targetFile = connectionFileName;
+                            // Optionally update the root's filename to the new one?
+                            // rootNode.Filename = connectionFileName; // Side effect?
+                        }
+
+                        var tempModel = new ConnectionTreeModel();
+                        tempModel.AddRootNode(rootNode);
+
+                        ISaver<ConnectionTreeModel> saver = new XmlConnectionsSaver(targetFile, saveFilter);
+                        saver.Save(tempModel, propertyNameTrigger);
+                        
+                        if (targetFile == connectionFileName && File.Exists(connectionFileName))
+                             LastFileUpdate = File.GetLastWriteTimeUtc(connectionFileName);
+                    }
+                }
 
                 UsingDatabase = useDatabase;
                 ConnectionFileName = connectionFileName;
