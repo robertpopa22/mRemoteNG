@@ -104,11 +104,8 @@ namespace mRemoteNG.Config.DatabaseConnectors
              Properties.OptionsDBsPage.Default.SQLUser = profile.Username;
              Properties.OptionsDBsPage.Default.SQLPass = profile.EncryptedPassword; // Already encrypted
              Properties.OptionsDBsPage.Default.SQLReadOnly = profile.ReadOnly;
-             // Note: AuthType handling might need more logic depending on how it's stored in settings,
-             // currently SqlServerPage just changes UI state based on it, but doesn't seem to save it directly to a single property?
-             // Checking SqlServerPage.cs again...
-             // It seems AuthType isn't directly saved in OptionsDBsPage.Default in a simple way visible in SaveSettings,
-             // or maybe I missed it. Let's re-read SaveSettings in SqlServerPage.cs.
+             if (!string.IsNullOrEmpty(profile.AuthType))
+                 Properties.OptionsDBsPage.Default.SQLAuthType = profile.AuthType;
         }
         
         public static DatabaseProfile CreateProfileFromCurrentSettings(string name)
@@ -121,7 +118,8 @@ namespace mRemoteNG.Config.DatabaseConnectors
                  DatabaseName = Properties.OptionsDBsPage.Default.SQLDatabaseName,
                  Username = Properties.OptionsDBsPage.Default.SQLUser,
                  EncryptedPassword = Properties.OptionsDBsPage.Default.SQLPass,
-                 ReadOnly = Properties.OptionsDBsPage.Default.SQLReadOnly
+                 ReadOnly = Properties.OptionsDBsPage.Default.SQLReadOnly,
+                 AuthType = Properties.OptionsDBsPage.Default.SQLAuthType
              };
         }
     }

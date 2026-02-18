@@ -81,6 +81,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             txtSQLPassword.Text = cryptographyProvider.Decrypt(Properties.OptionsDBsPage.Default.SQLPass, Runtime.EncryptionKey);
             chkSQLReadOnly.Checked = Properties.OptionsDBsPage.Default.SQLReadOnly;
             chkShowDatabasePickerOnStartup.Checked = Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup;
+
+            string savedAuthType = Properties.OptionsDBsPage.Default.SQLAuthType;
+            int authIndex = txtSQLAuthType.FindStringExact(savedAuthType);
+            txtSQLAuthType.SelectedIndex = authIndex >= 0 ? authIndex : 0;
+
             lblTestConnectionResults.Text = "";
         }
 
@@ -98,6 +103,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsDBsPage.Default.SQLPass = cryptographyProvider.Encrypt(txtSQLPassword.Text, Runtime.EncryptionKey);
             Properties.OptionsDBsPage.Default.SQLReadOnly = chkSQLReadOnly.Checked;
             Properties.OptionsDBsPage.Default.ShowDatabasePickerOnStartup = chkShowDatabasePickerOnStartup.Checked;
+            Properties.OptionsDBsPage.Default.SQLAuthType = txtSQLAuthType.SelectedItem?.ToString() ?? "Windows Authentication";
 
             if (Properties.OptionsDBsPage.Default.UseSQLServer)
                 ReinitializeSqlUpdater();
@@ -559,7 +565,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 DatabaseName = txtSQLDatabaseName.Text,
                 Username = txtSQLUsername.Text,
                 EncryptedPassword = cryptographyProvider.Encrypt(txtSQLPassword.Text, Runtime.EncryptionKey),
-                ReadOnly = chkSQLReadOnly.Checked
+                ReadOnly = chkSQLReadOnly.Checked,
+                AuthType = txtSQLAuthType.SelectedItem?.ToString() ?? "Windows Authentication"
             };
 
             DatabaseProfileManager.AddProfile(profile);

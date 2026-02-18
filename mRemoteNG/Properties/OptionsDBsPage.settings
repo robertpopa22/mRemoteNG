@@ -29,5 +29,8 @@
     <Setting Name="ShowDatabasePickerOnStartup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SQLAuthType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Windows Authentication</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
