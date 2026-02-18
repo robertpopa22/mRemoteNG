@@ -529,6 +529,8 @@ namespace mRemoteNG.Connection
                 prot.InterfaceControl.OriginalInfo.Hostname,
                 prot.InterfaceControl.Info.Protocol.ToString(),
                 Environment.UserName);
+            
+            RecentConnectionsService.Instance.Add(prot.InterfaceControl.OriginalInfo);
         }
 
         private static void Prot_Event_ErrorOccured(object sender, string errorMessage, int? errorCode)

@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1101: [Feature] Recently connected
+Description: 
+Approach: Extract recent connection tracking logic from JumpListManager into a shared service. Update ConnectionInitiator to register successful connections. Implement a 'Recently Connected' submenu in FileMenu and ensure JumpList is also updated.
+Likely files: mRemoteNG/UI/Menu/msMain/FileMenu.cs, mRemoteNG/Connection/ConnectionInitiator.cs, mRemoteNG/UI/Taskbar/JumpListManager.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1101
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

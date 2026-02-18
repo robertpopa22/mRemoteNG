@@ -19,12 +19,18 @@ namespace mRemoteNG.UI.Taskbar
     internal sealed class JumpListManager
     {
         private const int MaxRecentConnections = 10;
-        private readonly List<string> _recentConnectionNames = [];
         private static readonly Lazy<JumpListManager> s_instance = new(() => new JumpListManager());
 
         public static JumpListManager Instance => s_instance.Value;
 
-        private JumpListManager() { }
+        private JumpListManager()
+        {
+            RecentConnectionsService.Instance.RecentConnectionsChanged += (s, e) =>
+            {
+                if (TaskbarManager.IsPlatformSupported)
+                    Rebuild();
+            };
+        }
 
         /// <summary>
         /// Initializes the JumpList after connections are loaded.
@@ -50,29 +56,7 @@ namespace mRemoteNG.UI.Taskbar
         /// </summary>
         public void AddRecentConnection(ConnectionInfo connectionInfo)
         {
-            if (connectionInfo == null || connectionInfo.IsQuickConnect)
-                return;
-
-            if (string.IsNullOrEmpty(connectionInfo.Name))
-                return;
-
-            try
-            {
-                // Move to front if already in list
-                _recentConnectionNames.Remove(connectionInfo.Name);
-                _recentConnectionNames.Insert(0, connectionInfo.Name);
-
-                // Trim to max size
-                while (_recentConnectionNames.Count > MaxRecentConnections)
-                    _recentConnectionNames.RemoveAt(_recentConnectionNames.Count - 1);
-
-                if (TaskbarManager.IsPlatformSupported)
-                    Rebuild();
-            }
-            catch (Exception ex)
-            {
-                Runtime.MessageCollector.AddExceptionStackTrace("JumpList update failed", ex, MessageClass.WarningMsg);
-            }
+            RecentConnectionsService.Instance.Add(connectionInfo);
         }
 
         private void Rebuild()
@@ -94,15 +78,17 @@ namespace mRemoteNG.UI.Taskbar
                 jumpList.AddUserTasks(newConnectionTask);
 
                 // Add recent connections as a custom category
-                if (_recentConnectionNames.Count > 0)
+                var recentConnections = RecentConnectionsService.Instance.GetRecentConnections().ToList();
+
+                if (recentConnections.Count > 0)
                 {
                     var recentCategory = new JumpListCustomCategory("Recent Connections");
 
-                    foreach (string name in _recentConnectionNames)
+                    foreach (var conn in recentConnections)
                     {
-                        var link = new JumpListLink(exePath, name)
+                        var link = new JumpListLink(exePath, conn.Name)
                         {
-                            Arguments = $"--connect \"{name}\"",
+                            Arguments = $"--connect \"{conn.ConstantID}\"",
                             IconReference = new Microsoft.WindowsAPICodePack.Shell.IconReference(exePath, 0)
                         };
                         recentCategory.AddJumpListItems(link);
@@ -112,7 +98,7 @@ namespace mRemoteNG.UI.Taskbar
                 }
 
                 // Also add connections from the tree (top-level, non-folder)
-                if (_recentConnectionNames.Count == 0)
+                if (recentConnections.Count == 0)
                 {
                     AddTopConnectionsFromTree(jumpList, exePath);
                 }

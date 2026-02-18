@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -19,6 +20,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenFileNew = null!;
         private ToolStripMenuItem _mMenFileLoad = null!;
         private ToolStripMenuItem _mMenFileSave = null!;
+        private ToolStripMenuItem _mMenRecentConnections = null!;
         private ToolStripMenuItem _mMenFileSaveAs = null!;
         private ToolStripMenuItem _mMenFileExit = null!;
         private ToolStripSeparator _mMenFileSep2 = null!;
@@ -42,6 +44,22 @@ namespace mRemoteNG.UI.Menu
             _mMenFileSep1 = new ToolStripSeparator();
             _mMenFileExit = new ToolStripMenuItem();
             _mMenToolsOptions = new ToolStripMenuItem();
+            _mMenRecentConnections = new ToolStripMenuItem();
+
+            _mMenRecentConnections.Name = "mMenRecentConnections";
+            _mMenRecentConnections.Text = "Recent Connections";
+
+            RecentConnectionsService.Instance.RecentConnectionsChanged += (s, e) =>
+            {
+                if (FrmMain.IsCreated && FrmMain.Default.InvokeRequired)
+                {
+                    FrmMain.Default.BeginInvoke(new Action(RebuildRecentConnectionsMenu));
+                }
+                else
+                {
+                    RebuildRecentConnectionsMenu();
+                }
+            };
 
             // 
             // mMenFile
@@ -51,6 +69,7 @@ namespace mRemoteNG.UI.Menu
                 _mMenNewConnection,
                 _mMenFileNew,
                 _mMenFileLoad,
+                _mMenRecentConnections,
                 _mMenFileSave,
                 _mMenFileSaveAs,
                 _mMenFileSep1,
@@ -95,6 +114,8 @@ namespace mRemoteNG.UI.Menu
             _mMenFileSave.Size = new System.Drawing.Size(281, 22);
             _mMenFileSave.Text = Language.SaveConnectionFile;
             _mMenFileSave.Click += mMenFileSave_Click;
+            
+            RebuildRecentConnectionsMenu();
             // 
             // mMenFileSaveAs
             // 
@@ -143,6 +164,37 @@ namespace mRemoteNG.UI.Menu
             _mMenFileSaveAs.Text = Language.SaveConnectionFileAs;
             _mMenToolsOptions.Text = Language.OptionsMenuItem;
             _mMenFileExit.Text = Language.Exit;
+            _mMenRecentConnections.Text = "Recent Connections";
+        }
+
+        private void RebuildRecentConnectionsMenu()
+        {
+            if (_mMenRecentConnections == null) return;
+            
+            _mMenRecentConnections.DropDownItems.Clear();
+            var recent = RecentConnectionsService.Instance.GetRecentConnections().ToList();
+
+            if (recent.Count == 0)
+            {
+                _mMenRecentConnections.Enabled = false;
+                return;
+            }
+
+            _mMenRecentConnections.Enabled = true;
+            foreach (var conn in recent)
+            {
+                var item = new ToolStripMenuItem(conn.Name);
+                item.Tag = conn;
+                item.Click += (s, e) =>
+                {
+                    if (s is ToolStripMenuItem menuItem && menuItem.Tag is ConnectionInfo connection)
+                    {
+                        Runtime.ConnectionInitiator.OpenConnection(connection);
+                    }
+                };
+                
+                _mMenRecentConnections.DropDownItems.Add(item);
+            }
         }
 
         #region File
