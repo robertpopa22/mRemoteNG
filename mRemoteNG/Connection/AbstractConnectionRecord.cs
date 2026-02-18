@@ -78,6 +78,7 @@ namespace mRemoteNG.Connection
 
 
         private RDPResolutions _resolution = default;
+        private RDPDesktopScaleFactor _desktopScaleFactor = default;
         private bool _automaticResize = default;
         private RDPColors _colors = default;
         private bool _cacheBitmaps = default;
@@ -724,6 +725,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Resolution", _resolution);
             set => SetField(ref _resolution, value, "Resolution");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
+         DisplayName("Desktop Scale Factor"),
+         Description("The scaling factor to use for the remote desktop session. 'Auto' matches the local display scaling."),
+         TypeConverter(typeof(MiscTools.EnumTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public RDPDesktopScaleFactor DesktopScaleFactor
+        {
+            get => GetPropertyValue("DesktopScaleFactor", _desktopScaleFactor);
+            set => SetField(ref _desktopScaleFactor, value, "DesktopScaleFactor");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),

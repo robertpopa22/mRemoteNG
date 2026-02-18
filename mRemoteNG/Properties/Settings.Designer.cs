@@ -97,6 +97,30 @@ namespace mRemoteNG.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Auto")]
+        public string ConDefaultDesktopScaleFactor {
+            get {
+                return ((string)(this["ConDefaultDesktopScaleFactor"]));
+            }
+            set {
+                this["ConDefaultDesktopScaleFactor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultDesktopScaleFactor {
+            get {
+                return ((bool)(this["InhDefaultDesktopScaleFactor"]));
+            }
+            set {
+                this["InhDefaultDesktopScaleFactor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("FitToWindow")]
         public string ConDefaultResolution {
             get {
@@ -1850,6 +1874,30 @@ namespace mRemoteNG.Properties {
             }
             set {
                 this["MultiSshToolbarVisible"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point MainMenuLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["MainMenuLocation"]));
+            }
+            set {
+                this["MainMenuLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Top")]
+        public string MainMenuParentDock {
+            get {
+                return ((string)(this["MainMenuParentDock"]));
+            }
+            set {
+                this["MainMenuParentDock"] = value;
             }
         }
         

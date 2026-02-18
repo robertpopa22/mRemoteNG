@@ -534,6 +534,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.SSHTunnelConnectionName = xmlnode.GetAttributeAsString("SSHTunnelConnectionName");
                     connectionInfo.OpeningCommand = xmlnode.GetAttributeAsString("OpeningCommand");
                     connectionInfo.SSHOptions = xmlnode.GetAttributeAsString("SSHOptions");
+                    connectionInfo.PrivateKeyPath = xmlnode.GetAttributeAsString("PrivateKeyPath");
                     connectionInfo.RDPStartProgram = xmlnode.GetAttributeAsString("StartProgram");
                     connectionInfo.RDPStartProgramWorkDir = xmlnode.GetAttributeAsString("StartProgramWorkDir");
                     connectionInfo.DisableFullWindowDrag = xmlnode.GetAttributeAsBool("DisableFullWindowDrag");
@@ -551,6 +552,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.SSHTunnelConnectionName = xmlnode.GetAttributeAsBool("InheritSSHTunnelConnectionName");
                     connectionInfo.Inheritance.OpeningCommand = xmlnode.GetAttributeAsBool("InheritOpeningCommand");
                     connectionInfo.Inheritance.SSHOptions = xmlnode.GetAttributeAsBool("InheritSSHOptions");
+                    connectionInfo.Inheritance.PrivateKeyPath = xmlnode.GetAttributeAsBool("InheritPrivateKeyPath");
                     connectionInfo.Inheritance.DisableFullWindowDrag = xmlnode.GetAttributeAsBool("InheritDisableFullWindowDrag");
                     connectionInfo.Inheritance.DisableMenuAnimations = xmlnode.GetAttributeAsBool("InheritDisableMenuAnimations");
                     connectionInfo.Inheritance.DisableCursorShadow = xmlnode.GetAttributeAsBool("InheritDisableCursorShadow");
@@ -581,6 +583,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     // Get settings
                     connectionInfo.IsRoot = xmlnode.GetAttributeAsBool("IsRoot");
                     connectionInfo.IsTemplate = xmlnode.GetAttributeAsBool("IsTemplate");
+                    connectionInfo.UsePersistentBrowser = xmlnode.GetAttributeAsBool("UsePersistentBrowser");
+                    connectionInfo.DesktopScaleFactor = xmlnode.GetAttributeAsEnum<RDPDesktopScaleFactor>("DesktopScaleFactor");
+                    connectionInfo.Inheritance.DesktopScaleFactor = xmlnode.GetAttributeAsBool("InheritDesktopScaleFactor");
                 }
 
                 switch (_confVersion)

@@ -335,6 +335,12 @@ namespace mRemoteNG.Connection
         public bool Resolution { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
+         DisplayName("Inherit Desktop Scale Factor"),
+         Description("Inherit the Desktop Scale Factor setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool DesktopScaleFactor { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.AutomaticResize)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionAutomaticResize)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

@@ -208,8 +208,8 @@ namespace mRemoteNG.Config.Settings
         private void AddMainMenuPanel()
         {
             SetToolstripGripStyle(_mainMenu);
-            ToolStripPanel toolStripPanel = ToolStripPanelFromString("top");
-            toolStripPanel.Join(_mainMenu, new Point(3, 0));
+            ToolStripPanel toolStripPanel = ToolStripPanelFromString(Properties.Settings.Default.MainMenuParentDock);
+            toolStripPanel.Join(_mainMenu, Properties.Settings.Default.MainMenuLocation);
         }
 
         private void AddQuickConnectPanel()

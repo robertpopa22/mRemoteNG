@@ -609,7 +609,7 @@ namespace mRemoteNG.UI.Forms
             Hide();
 
             NativeMethods.ChangeClipboardChain(Handle, _fpChainedWindowHandle);
-            Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, this);
+            Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain, this);
 
             Shutdown.StartUpdate();
 

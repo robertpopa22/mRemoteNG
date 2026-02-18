@@ -67,6 +67,7 @@
     <xs:attribute name="LoadBalanceInfo" type="xs:string" use="required" />
     <xs:attribute name="Colors" type="xs:string" use="required" />
     <xs:attribute name="Resolution" type="xs:string" use="required" />
+    <xs:attribute name="DesktopScaleFactor" type="xs:string" use="optional" />
     <xs:attribute name="AutomaticResize" type="xs:boolean" use="required" />
     <xs:attribute name="DisplayWallpaper" type="xs:boolean" use="required" />
     <xs:attribute name="DisplayThemes" type="xs:boolean" use="required" />
@@ -159,6 +160,7 @@
     <xs:attribute name="InheritSoundQuality" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritRedirectAudioCapture" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritResolution" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritDesktopScaleFactor" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritAutomaticResize" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseConsoleSession" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritRenderingEngine" type="xs:boolean" use="optional" />

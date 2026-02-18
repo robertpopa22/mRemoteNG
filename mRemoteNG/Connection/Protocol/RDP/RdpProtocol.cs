@@ -880,7 +880,28 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                SetExtendedProperty("DesktopScaleFactor", DesktopScaleFactor);
+                uint scaleFactor;
+                switch (connectionInfo.DesktopScaleFactor)
+                {
+                    case RDPDesktopScaleFactor.Scale100:
+                        scaleFactor = 100;
+                        break;
+                    case RDPDesktopScaleFactor.Scale125:
+                        scaleFactor = 125;
+                        break;
+                    case RDPDesktopScaleFactor.Scale150:
+                        scaleFactor = 150;
+                        break;
+                    case RDPDesktopScaleFactor.Scale200:
+                        scaleFactor = 200;
+                        break;
+                    case RDPDesktopScaleFactor.Auto:
+                    default:
+                        scaleFactor = DesktopScaleFactor;
+                        break;
+                }
+
+                SetExtendedProperty("DesktopScaleFactor", scaleFactor);
                 SetExtendedProperty("DeviceScaleFactor", DeviceScaleFactor);
 
                 if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))

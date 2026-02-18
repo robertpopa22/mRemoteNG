@@ -13,7 +13,7 @@ namespace mRemoteNG.Config.Settings
     [SupportedOSPlatform("windows")]
     public static class SettingsSaver
     {
-        public static void SaveSettings(Control quickConnectToolStrip, ExternalToolsToolStrip externalToolsToolStrip, MultiSshToolStrip multiSshToolStrip, FrmMain frmMain)
+        public static void SaveSettings(Control quickConnectToolStrip, ExternalToolsToolStrip externalToolsToolStrip, MultiSshToolStrip multiSshToolStrip, MenuStrip mainMenu, FrmMain frmMain)
         {
             try
             {
@@ -47,6 +47,7 @@ namespace mRemoteNG.Config.Settings
                 SaveExternalAppsToolbarLocation(externalToolsToolStrip);
                 SaveQuickConnectToolbarLocation(quickConnectToolStrip);
                 SaveMultiSshToolbarLocation(multiSshToolStrip);
+                SaveMainMenuToolbarLocation(mainMenu);
 
                 Properties.App.Default.Save();
                 Properties.AppUI.Default.Save();
@@ -106,6 +107,16 @@ namespace mRemoteNG.Config.Settings
             if (multiSshToolStrip.Parent != null)
             {
                 Properties.Settings.Default.MultiSshToolbarParentDock = multiSshToolStrip.Parent.Dock.ToString();
+            }
+        }
+
+        private static void SaveMainMenuToolbarLocation(MenuStrip mainMenu)
+        {
+            Properties.Settings.Default.MainMenuLocation = mainMenu.Location;
+
+            if (mainMenu.Parent != null)
+            {
+                Properties.Settings.Default.MainMenuParentDock = mainMenu.Parent.Dock.ToString();
             }
         }
 

@@ -304,6 +304,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.UseRCG),
                         nameof(ConnectionInfo.RDGatewayUsageMethod),
                         nameof(ConnectionInfo.Resolution),
+                        nameof(ConnectionInfo.DesktopScaleFactor),
                         nameof(ConnectionInfo.Colors),
                         nameof(ConnectionInfo.CacheBitmaps),
                         nameof(ConnectionInfo.DisplayWallpaper),
