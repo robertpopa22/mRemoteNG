@@ -69,6 +69,30 @@ namespace mRemoteNG.Container
             set { }
         }
 
+        [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(DynamicSourceType.None), DesignOnly(false)]
+        public DynamicSourceType DynamicSource
+        {
+            get => _dynamicSource;
+            set => SetField(ref _dynamicSource, value, nameof(DynamicSource));
+        }
+        private DynamicSourceType _dynamicSource;
+
+        [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(""), DesignOnly(false)]
+        public string DynamicSourceValue
+        {
+            get => _dynamicSourceValue;
+            set => SetField(ref _dynamicSourceValue, value, nameof(DynamicSourceValue));
+        }
+        private string _dynamicSourceValue;
+
+        [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(0), DesignOnly(false)]
+        public int DynamicRefreshInterval
+        {
+            get => _dynamicRefreshInterval;
+            set => SetField(ref _dynamicRefreshInterval, value, nameof(DynamicRefreshInterval));
+        }
+        private int _dynamicRefreshInterval;
+
         public ContainerInfo(string uniqueId)
             : base(uniqueId)
         {

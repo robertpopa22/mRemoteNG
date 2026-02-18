@@ -69,6 +69,8 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeImportPutty = null!;
         private ToolStripMenuItem _cMenTreeApplyInheritanceToChildren = null!;
         private ToolStripMenuItem _cMenTreeApplyDefaultInheritance = null!;
+        private ToolStripMenuItem _cMenTreeConfigureDynamicSource = null!;
+        private ToolStripMenuItem _cMenTreeRefreshDynamicSource = null!;
         private readonly ConnectionTree.ConnectionTree _connectionTree;
 
 
@@ -126,6 +128,8 @@ namespace mRemoteNG.UI.Controls
             _cMenInheritanceSubMenu = new ToolStripMenuItem();
             _cMenTreeApplyInheritanceToChildren = new ToolStripMenuItem();
             _cMenTreeApplyDefaultInheritance = new ToolStripMenuItem();
+            _cMenTreeConfigureDynamicSource = new ToolStripMenuItem();
+            _cMenTreeRefreshDynamicSource = new ToolStripMenuItem();
             _cMenTreeExportFile = new ToolStripMenuItem();
             _cMenTreeSep4 = new ToolStripSeparator();
             _cMenTreeAddConnection = new ToolStripMenuItem();
@@ -163,6 +167,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeCopyHostname,
                 _cMenTreeProperties,
                 _cMenInheritanceSubMenu,
+                _cMenTreeConfigureDynamicSource,
+                _cMenTreeRefreshDynamicSource,
                 _cMenTreeSep3,
                 _cMenTreeLoadAdditionalFile,
                 _cMenTreeImport,
@@ -514,6 +520,22 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyDefaultInheritance.Size = new System.Drawing.Size(199, 22);
             _cMenTreeApplyDefaultInheritance.Text = "Apply default inheritance";
             _cMenTreeApplyDefaultInheritance.Click += OnApplyDefaultInheritanceClicked;
+
+            //
+            // _cMenTreeConfigureDynamicSource
+            //
+            _cMenTreeConfigureDynamicSource.Name = "_cMenTreeConfigureDynamicSource";
+            _cMenTreeConfigureDynamicSource.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeConfigureDynamicSource.Text = "Configure Dynamic Source...";
+            _cMenTreeConfigureDynamicSource.Click += OnConfigureDynamicSourceClicked;
+
+            //
+            // _cMenTreeRefreshDynamicSource
+            //
+            _cMenTreeRefreshDynamicSource.Name = "_cMenTreeRefreshDynamicSource";
+            _cMenTreeRefreshDynamicSource.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeRefreshDynamicSource.Text = "Refresh Dynamic Folder";
+            _cMenTreeRefreshDynamicSource.Click += OnRefreshDynamicSourceClicked;
         }
 
 
@@ -625,6 +647,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeCopyHostname.Enabled = false;
             _cMenTreeProperties.Enabled = false;
+            _cMenTreeConfigureDynamicSource.Visible = false;
+            _cMenTreeRefreshDynamicSource.Visible = false;
         }
 
         internal void ShowHideMenuItemsForRootConnectionNode()
@@ -647,6 +671,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
+            _cMenTreeConfigureDynamicSource.Visible = false;
+            _cMenTreeRefreshDynamicSource.Visible = false;
         }
 
         internal void ShowHideMenuItemsForContainer(ContainerInfo containerInfo)
@@ -662,6 +688,9 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeCreateLink.Enabled = false;
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
+
+            _cMenTreeConfigureDynamicSource.Visible = true;
+            _cMenTreeRefreshDynamicSource.Visible = containerInfo.DynamicSource != DynamicSourceType.None;
         }
 
         internal void ShowHideMenuItemsForPuttyNode(PuttySessionInfo connectionInfo)
@@ -693,6 +722,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeProperties.Enabled = false;
+            _cMenTreeConfigureDynamicSource.Visible = false;
+            _cMenTreeRefreshDynamicSource.Visible = false;
         }
 
         internal void ShowHideMenuItemsForConnectionNode(ConnectionInfo connectionInfo)
@@ -719,6 +750,8 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = !string.IsNullOrWhiteSpace(connectionInfo.AlternativeAddress);
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
+            _cMenTreeConfigureDynamicSource.Visible = false;
+            _cMenTreeRefreshDynamicSource.Visible = false;
         }
 
         internal void DisableShortcutKeys()
@@ -1138,6 +1171,31 @@ namespace mRemoteNG.UI.Controls
                                                                 "cMenTreeToolsExternalAppsEntry_Click failed (UI.Window.ConnectionTreeWindow)",
                                                                 ex);
             }
+        }
+
+        private void OnConfigureDynamicSourceClicked(object sender, EventArgs e)
+        {
+            if (!(_connectionTree.SelectedNode is ContainerInfo container))
+                return;
+
+            using (var frm = new UI.Forms.FrmDynamicFolderConfig(container))
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                     if (container.DynamicSource != DynamicSourceType.None)
+                     {
+                         Runtime.DynamicFolderManager.RefreshFolder(container);
+                     }
+                }
+            }
+        }
+
+        private void OnRefreshDynamicSourceClicked(object sender, EventArgs e)
+        {
+            if (!(_connectionTree.SelectedNode is ContainerInfo container))
+                return;
+            
+            Runtime.DynamicFolderManager.RefreshFolder(container);
         }
 
         private void OnApplyInheritanceToChildrenClicked(object sender, EventArgs e)

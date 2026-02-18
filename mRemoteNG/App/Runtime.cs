@@ -54,6 +54,7 @@ namespace mRemoteNG.App
         public static ConnectionInitiator ConnectionInitiator { get; set; } = new ConnectionInitiator();
 
         public static ConnectionsService ConnectionsService { get; } = new ConnectionsService(PuttySessionsManager.Instance);
+        public static mRemoteNG.Container.DynamicFolderManager DynamicFolderManager { get; } = new mRemoteNG.Container.DynamicFolderManager();
 
         #region Connections Loading/Saving
 
