@@ -1,0 +1,18 @@
+You are refining a triage result for mRemoteNG issue #958: I cannot drag my connections to other connection panels
+
+Issue body:
+
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: triage
+Errors: Agent returned None
+
+=== END PREVIOUS ATTEMPTS ===
+
+Extract or produce the correct triage JSON from the above attempts, or if they are unusable,
+analyze the issue yourself and produce the triage.
+
+Reply with ONLY a JSON object:
+{"decision":"implement|wontfix|duplicate|needs_info","reason":"one sentence","priority":"P0-critical|P1-security|P2-bug|P3-enhancement|P4-debt","estimated_files":["path.cs"],"approach":"brief fix"}
