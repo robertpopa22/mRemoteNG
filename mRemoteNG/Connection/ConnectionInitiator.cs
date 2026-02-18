@@ -147,7 +147,7 @@ namespace mRemoteNG.Connection
                 bool switchToConnection = !force.HasFlag(ConnectionInfo.Force.DoNotJump);
                 if (switchToConnection)
                 {
-                    if (SwitchToOpenConnection(connectionInfoOriginal))
+                    if (SwitchToOpenConnection(connectionInfo))
                         return;
                 }
 
