@@ -40,6 +40,24 @@ namespace mRemoteNG.Tools
             return PuttyType.Unknown;
         }
 
+        public static Version GetPuttyVersion(string filename)
+        {
+            if (string.IsNullOrEmpty(filename) || !File.Exists(filename))
+            {
+                return new Version(0, 0);
+            }
+
+            try
+            {
+                var versionInfo = FileVersionInfo.GetVersionInfo(filename);
+                return new Version(versionInfo.FileMajorPart, versionInfo.FileMinorPart, versionInfo.FileBuildPart, versionInfo.FilePrivatePart);
+            }
+            catch
+            {
+                return new Version(0, 0);
+            }
+        }
+
         private static bool IsPutty(string filename)
         {
             return !string.IsNullOrEmpty(filename) && File.Exists(filename) &&

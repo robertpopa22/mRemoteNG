@@ -514,17 +514,24 @@ namespace mRemoteNG.Connection.Protocol
                                 arguments.Add("-l", username);
                             }
 
-                            if (!string.IsNullOrEmpty(password))
-                            {
-                                string random = string.Join("", Guid.NewGuid().ToString("n").Take(8));
-                                // write data to pipe
-                                Thread thread = new(new ParameterizedThreadStart(CreatePipe));
-                                thread.Start($"{random}{password}");
-                                // start putty with piped password
-                                arguments.Add("-pwfile", $"\\\\.\\PIPE\\mRemoteNGSecretPipe{random}");
-                                //arguments.Add("-pw", password);
-                            }
-                        }
+                                                    if (!string.IsNullOrEmpty(password))
+                                                    {
+                                                        Version puttyVersion = PuttyTypeDetector.GetPuttyVersion(PuttyPath);
+                                                        // -pwfile was introduced in PuTTY 0.81
+                                                        if (puttyVersion >= new Version(0, 81))
+                                                        {
+                                                            string random = string.Join("", Guid.NewGuid().ToString("n").Take(8));
+                                                            // write data to pipe
+                                                            Thread thread = new(new ParameterizedThreadStart(CreatePipe));
+                                                            thread.Start($"{random}{password}");
+                                                            // start putty with piped password
+                                                            arguments.Add("-pwfile", $"\\\\.\\PIPE\\mRemoteNGSecretPipe{random}");
+                                                        }
+                                                        else
+                                                        {
+                                                            arguments.Add("-pw", password);
+                                                        }
+                                                    }                        }
 
                         if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao && InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP) {
                             if (!_isPuttyNg) {
