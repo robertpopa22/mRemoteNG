@@ -11,6 +11,12 @@ namespace mRemoteNG.UI.Controls
         private readonly PictureBox _pbClear = new();
         private readonly ToolTip _btClearToolTip = new();
 
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+            Focus();
+        }
+
         public MrngSearchBox()
         {
             TextChanged += NGSearchBox_TextChanged;
