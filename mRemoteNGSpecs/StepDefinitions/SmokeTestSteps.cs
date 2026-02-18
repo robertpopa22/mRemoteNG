@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using FlaUI.Core.AutomationElements;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -25,8 +27,21 @@ namespace mRemoteNGSpecs.StepDefinitions
         public void ThenTheMainWindowTitleContains(string expectedTitle)
         {
             var mainWindow = _scenarioContext.Get<Window>();
-            Assert.That(mainWindow.Title, Does.Contain(expectedTitle),
-                $"Expected main window title to contain '{expectedTitle}', but was '{mainWindow.Title}'.");
+
+            // FlaUI may return the window before the title is fully set.
+            // Poll for up to 10 seconds waiting for the title to populate.
+            var deadline = DateTime.UtcNow.AddSeconds(10);
+            string title = mainWindow.Title;
+            while (string.IsNullOrWhiteSpace(title) || !title.Contains(expectedTitle, StringComparison.OrdinalIgnoreCase))
+            {
+                if (DateTime.UtcNow >= deadline)
+                    break;
+                Thread.Sleep(500);
+                title = mainWindow.Title;
+            }
+
+            Assert.That(title, Does.Contain(expectedTitle),
+                $"Expected main window title to contain '{expectedTitle}', but was '{title}'.");
         }
     }
 }
