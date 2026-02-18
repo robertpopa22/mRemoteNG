@@ -117,13 +117,15 @@ namespace mRemoteNG.Config.Settings
                 AddBuiltInShellPresetIfMissing("cmd.exe", "%ComSpec%");
                 AddBuiltInShellPresetIfMissing("pwsh.exe", "pwsh.exe");
                 AddBuiltInShellPresetIfMissing("wsl.exe", @"%windir%\system32\wsl.exe");
+                AddBuiltInShellPresetIfMissing("Ping", "ping.exe", "-t %HOSTNAME%");
+                AddBuiltInShellPresetIfMissing("Traceroute", "tracert.exe", "%HOSTNAME%");
             }
 
             _externalToolsToolStrip.SwitchToolBarText(Properties.Settings.Default.ExtAppsTBShowText);
             _externalToolsToolStrip.AddExternalToolsToToolBar();
         }
 
-        private void AddBuiltInShellPresetIfMissing(string displayName, string fileName)
+        private void AddBuiltInShellPresetIfMissing(string displayName, string fileName, string arguments = "", bool tryIntegrate = true)
         {
             foreach (ExternalTool existingTool in Runtime.ExternalToolsService.ExternalTools)
             {
@@ -135,8 +137,8 @@ namespace mRemoteNG.Config.Settings
             {
                 DisplayName = displayName,
                 FileName = fileName,
-                Arguments = string.Empty,
-                TryIntegrate = true,
+                Arguments = arguments,
+                TryIntegrate = tryIntegrate,
                 ShowOnToolbar = false
             };
 
