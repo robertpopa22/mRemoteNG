@@ -16,8 +16,8 @@ namespace mRemoteNG.Themes
         public MremoteNGThemeBase(byte[] themeResource)
             : base(themeResource)
         {
-            Measures.SplitterSize = 3;
-            Measures.AutoHideSplitterSize = 3;
+            Measures.SplitterSize = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
+            Measures.AutoHideSplitterSize = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
             Measures.DockPadding = 2;
             ShowAutoHideContentOnHover = false;
         }

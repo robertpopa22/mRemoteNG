@@ -49,6 +49,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart.Text = Language.CreateEmptyPanelOnStartUp;
             chkBindConnectionsAndConfigPanels.Text = "Bind Connections and Config panels together when auto-hidden";
             lblPanelName.Text = $@"{Language.PanelName}:";
+            lblSplitterSize.Text = "Splitter size:";
 
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
         }
@@ -81,6 +82,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart.Checked = Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp;
             chkBindConnectionsAndConfigPanels.Checked = Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels;
             txtBoxPanelName.Text = Properties.OptionsTabsPanelsPage.Default.StartUpPanelName;
+            nudSplitterSize.Value = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
             UpdatePanelNameTextBox();
         }
 
@@ -115,6 +117,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp = chkCreateEmptyPanelOnStart.Checked;
             Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels = chkBindConnectionsAndConfigPanels.Checked;
             Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = txtBoxPanelName.Text;
+            Properties.OptionsTabsPanelsPage.Default.SplitterSize = (int)nudSplitterSize.Value;
         }
 
         public override void LoadRegistrySettings()

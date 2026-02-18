@@ -47,6 +47,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowFolderPathOnTabs = new MrngCheckBox();
             txtBoxPanelName = new MrngTextBox();
             lblPanelName = new MrngLabel();
+            nudSplitterSize = new MrngNumericUpDown();
+            lblSplitterSize = new MrngLabel();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -203,6 +205,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblPanelName.TabIndex = 9;
             lblPanelName.Text = "Panel name:";
             // 
+            // lblSplitterSize
+            // 
+            lblSplitterSize.AutoSize = true;
+            lblSplitterSize.Location = new System.Drawing.Point(3, 260);
+            lblSplitterSize.Name = "lblSplitterSize";
+            lblSplitterSize.Size = new System.Drawing.Size(66, 13);
+            lblSplitterSize.TabIndex = 11;
+            lblSplitterSize.Text = "Splitter size:";
+            // 
+            // nudSplitterSize
+            // 
+            nudSplitterSize.Location = new System.Drawing.Point(80, 258);
+            nudSplitterSize.Name = "nudSplitterSize";
+            nudSplitterSize.Size = new System.Drawing.Size(50, 22);
+            nudSplitterSize.TabIndex = 12;
+            nudSplitterSize.Minimum = 3;
+            nudSplitterSize.Maximum = 20;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkAlwaysShowPanelTabs);
@@ -218,10 +238,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(chkAlwaysShowConnectionTabs);
             pnlOptions.Controls.Add(chkOpenNewTabRightOfSelected);
             pnlOptions.Controls.Add(chkIdentifyQuickConnectTabs);
+            pnlOptions.Controls.Add(nudSplitterSize);
+            pnlOptions.Controls.Add(lblSplitterSize);
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 263);
+            pnlOptions.Size = new System.Drawing.Size(610, 290);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
@@ -265,5 +287,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private Controls.MrngLabel lblPanelName;
         private System.Windows.Forms.Panel pnlOptions;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
+        internal Controls.MrngNumericUpDown nudSplitterSize;
+        internal Controls.MrngLabel lblSplitterSize;
     }
 }

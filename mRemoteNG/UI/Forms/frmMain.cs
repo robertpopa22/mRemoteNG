@@ -442,7 +442,7 @@ namespace mRemoteNG.UI.Forms
                 pnlDock.Theme = _themeManager.DefaultTheme.Theme;
                 if (pnlDock.Theme?.Measures != null)
                 {
-                    pnlDock.Theme.Measures.SplitterSize = 10;
+                    pnlDock.Theme.Measures.SplitterSize = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
                 }
                 return;
             }
@@ -454,7 +454,7 @@ namespace mRemoteNG.UI.Forms
                 pnlDock.Theme = _themeManager.ActiveTheme.Theme;
                 if (pnlDock.Theme?.Measures != null)
                 {
-                    pnlDock.Theme.Measures.SplitterSize = 10;
+                    pnlDock.Theme.Measures.SplitterSize = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
                 }
             }
             catch (Exception)

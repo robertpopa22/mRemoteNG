@@ -12,12 +12,19 @@
   "created_at": "2018-09-19T08:40:41Z",
   "github_updated_at": "2022-06-29T15:41:25Z",
   "body_snippet": "Hi all. Was just wondering (and I feel like its already been suggested but couldn't see it in the issues list) if the panel windows can be more functional when it comes to resizing. For me when I pull a panel out it defaults to a tiny square that needs resizing the moment its made which is a little inconvenient. Its also a little tedious having to resize the window manually to achieve a maximized panel.\r\n\r\nI'm not sure how difficult it would be to implement, but if the panel windows could have m...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-18",
+      "type": "triaged",
+      "description": "User requests improved UX for panel resizing and snapping; current implementation has hardcoded splitter size overrides that may be insufficient or inconsistent, and snapping behavior (docking) may need tuning."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM5FvvHU",
@@ -34,5 +41,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): User requests improved UX for panel resizing and snapping; current implementation has hardcoded splitter size overrides that may be insufficient or inconsistent, and snapping behavior (docking) may need tuning.\nApproach: Make splitter size configurable in options (removing hardcoded 10px override if preferred) and investigate enabling better snapping/docking behaviors in DockPanelSuite configuration."
 }

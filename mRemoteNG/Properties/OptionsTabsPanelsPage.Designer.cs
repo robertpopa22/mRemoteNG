@@ -178,5 +178,17 @@ namespace mRemoteNG.Properties {
                 this["ShowFolderPathOnTabs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int SplitterSize {
+            get {
+                return ((int)(this["SplitterSize"]));
+            }
+            set {
+                this["SplitterSize"] = value;
+            }
+        }
     }
 }
