@@ -37,14 +37,6 @@ namespace mRemoteNG.Connection.Protocol.Http
             {
                 if (renderingEngine == RenderingEngine.EdgeChromium)
                 {
-                    // Create a unique user data folder for each WebView2 instance
-                    // This prevents session sharing between multiple HTTP/HTTPS connections
-                    _userDataFolder = Path.Combine(
-                        Path.GetTempPath(),
-                        "mRemoteNG_WebView2",
-                        Guid.NewGuid().ToString()
-                    );
-                    
                     Control = new Microsoft.Web.WebView2.WinForms.WebView2()
                     {
                         Dock = DockStyle.Fill,
@@ -83,6 +75,24 @@ namespace mRemoteNG.Connection.Protocol.Http
                     if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge)
                     {
                         edge.CoreWebView2InitializationCompleted += Edge_CoreWebView2InitializationCompleted;
+
+                        if (InterfaceControl.Info.UsePersistentBrowser)
+                        {
+                            _userDataFolder = Path.Combine(
+                                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                                "mRemoteNG",
+                                "BrowserProfiles",
+                                InterfaceControl.Info.ConstantID
+                            );
+                        }
+                        else
+                        {
+                            _userDataFolder = Path.Combine(
+                                Path.GetTempPath(),
+                                "mRemoteNG_WebView2",
+                                Guid.NewGuid().ToString()
+                            );
+                        }
 
                         // Initialize WebView2 with unique user data folder asynchronously
                         _webView2InitializationTask = InitializeWebView2Async(edge);

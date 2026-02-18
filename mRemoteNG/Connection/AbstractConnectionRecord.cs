@@ -59,6 +59,7 @@ namespace mRemoteNG.Connection
         private bool _rdpAlertIdleTimeout = default;
         private string _loadBalanceInfo = string.Empty;
         private HTTPBase.RenderingEngine _renderingEngine = default;
+        private bool _usePersistentBrowser = default;
         private bool _useCredSsp = default;
         private bool _useRestrictedAdmin = default;
         private bool _useRCG = default;
@@ -522,6 +523,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("RenderingEngine", _renderingEngine);
             set => SetField(ref _renderingEngine, value, "RenderingEngine");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("Use Persistent Browser"),
+         Description("If enabled, browser cookies and data will be saved across sessions."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.HTTP, ProtocolType.HTTPS)]
+        public bool UsePersistentBrowser
+        {
+            get => GetPropertyValue("UsePersistentBrowser", _usePersistentBrowser);
+            set => SetField(ref _usePersistentBrowser, value, "UsePersistentBrowser");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
