@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -25,7 +25,21 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
     public partial class ConnectionInfoPropertyGrid : FilteredPropertyGrid.FilteredPropertyGrid {
         private readonly Dictionary<Type, IEnumerable<PropertyInfo>> _propertyCache = [];
         private ConnectionInfo? _selectedConnectionInfo;
+        private IEnumerable<ConnectionInfo>? _selectedConnectionInfos;
         private PropertyMode _propertyMode;
+
+        public IEnumerable<ConnectionInfo>? SelectedConnectionInfos
+        {
+            get => _selectedConnectionInfos;
+            set
+            {
+                if (_selectedConnectionInfos == value) return;
+                _selectedConnectionInfos = value;
+                _selectedConnectionInfo = _selectedConnectionInfos?.FirstOrDefault();
+                RootNodeSelected = _selectedConnectionInfos?.Any(c => c is RootNodeInfo) == true;
+                SetGridObject();
+            }
+        }
 
         /// <summary>
         /// The <see cref="ConnectionInfo"/> currently being shown by this
@@ -38,6 +52,7 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     return;
 
                 _selectedConnectionInfo = value;
+                _selectedConnectionInfos = value != null ? new[] { value } : null;
                 RootNodeSelected = SelectedConnectionInfo is RootNodeInfo;
                 SetGridObject();
             }
@@ -85,13 +100,19 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
         private void SetGridObject() {
             ClearFilters();
 
+            if (_selectedConnectionInfos == null || !_selectedConnectionInfos.Any())
+            {
+                SelectedObjects = null;
+                return;
+            }
+
             switch (PropertyMode) {
                 case PropertyMode.Connection:
                 default:
-                    SelectedObject = SelectedConnectionInfo;
+                    SelectedObjects = _selectedConnectionInfos.ToArray();
                     break;
                 case PropertyMode.Inheritance:
-                    SelectedObject = SelectedConnectionInfo?.Inheritance;
+                    SelectedObjects = _selectedConnectionInfos.Select(c => c.Inheritance).ToArray();
                     break;
                 case PropertyMode.DefaultConnection:
                     SelectedObject = DefaultConnectionInfo.Instance;
@@ -101,13 +122,19 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     break;
             }
 
-            if (SelectedObject != null)
+            if ((SelectedObjects != null && SelectedObjects.Length > 0) || SelectedObject != null)
                 ShowHideGridItems();
         }
 
         private void ShowHideGridItems() {
             try {
-                if (SelectedConnectionInfo == null)
+                if (IsShowingDefaultProperties)
+                {
+                    ShowHideGridItemsDefault();
+                    return;
+                }
+
+                if (_selectedConnectionInfos == null || !_selectedConnectionInfos.Any())
                     return;
 
                 if (RootNodeSelected && PropertyMode == PropertyMode.Connection) {
@@ -134,62 +161,64 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     return;
                 }
 
-                // set all browsable properties valid for this connection's protocol
-                if (SelectedObject == null)
-                    return;
+                // Gather valid properties for ALL selected connections (Union)
+                var validProperties = new HashSet<string>();
+                foreach (var info in _selectedConnectionInfos)
+                {
+                    object gridObject = IsShowingInheritance ? info.Inheritance : info;
+                    var props = GetPropertiesForGridObject(gridObject)
+                                .Where(property => IsValidForProtocol(property, info.Protocol, IsShowingInheritance))
+                                .Select(property => property.Name);
+                    foreach (var p in props) validProperties.Add(p);
+                }
+                BrowsableProperties = validProperties.ToArray();
 
-                BrowsableProperties =
-                    GetPropertiesForGridObject(SelectedObject)
-                    .Where(property =>
-                        IsValidForProtocol(property, SelectedConnectionInfo.Protocol, IsShowingInheritance))
-                    .Select(property => property.Name)
-                    .ToArray();
+                // Gather exclusions for ALL selected connections (Intersection)
+                // If a property is excluded in ALL, then hide it.
+                // If it is needed by ANY, keep it visible.
+                List<string>? commonExclusions = null;
 
-                List<string> strHide = new();
+                foreach (var info in _selectedConnectionInfos)
+                {
+                    var exclusions = new List<string>();
 
-                if (PropertyMode == PropertyMode.Connection) {
-                    // hide any inherited properties
-                    strHide.AddRange(SelectedConnectionInfo.Inheritance.GetEnabledInheritanceProperties());
+                    if (PropertyMode == PropertyMode.Connection) {
+                        // hide any inherited properties
+                        exclusions.AddRange(info.Inheritance.GetEnabledInheritanceProperties());
 
-                    // hide external provider fields
-                    strHide.AddRange(SpecialExternalAddressProviderExclusions());
-                    strHide.AddRange(SpecialExternalCredentialProviderExclusions());
+                        // hide external provider fields
+                        exclusions.AddRange(SpecialExternalAddressProviderExclusions(info));
+                        exclusions.AddRange(SpecialExternalCredentialProviderExclusions(info));
 
-                    // ReSharper disable once SwitchStatementMissingSomeCases
-                    switch (SelectedConnectionInfo.Protocol) {
-                        case ProtocolType.RDP:
-                            strHide.AddRange(SpecialRdpExclusions());
-                            break;
-                        case ProtocolType.VNC:
-                        case ProtocolType.ARD:
-                            strHide.AddRange(SpecialVncExclusions());
-                            break;
+                        // ReSharper disable once SwitchStatementMissingSomeCases
+                        switch (info.Protocol) {
+                            case ProtocolType.RDP:
+                                exclusions.AddRange(SpecialRdpExclusions(info));
+                                break;
+                            case ProtocolType.VNC:
+                            case ProtocolType.ARD:
+                                exclusions.AddRange(SpecialVncExclusions(info));
+                                break;
+                        }
+
+                        if (info is PuttySessionInfo)
+                            exclusions.Add(nameof(AbstractConnectionRecord.Favorite));
                     }
 
-                    /*
-                    if (SelectedConnectionInfo.IsContainer)
-                    {
-                        strHide.Add(nameof(AbstractConnectionRecord.Hostname));
-                        strHide.Add(nameof(AbstractConnectionRecord.AlternativeAddress));
-                    }
-                    */
+                    // Hide credential fields when registry policy denies saving
+                    if (!CommonRegistrySettings.AllowSavePasswords)
+                        exclusions.Add(nameof(AbstractConnectionRecord.Password));
 
-                    if (SelectedConnectionInfo is PuttySessionInfo)
-                        strHide.Add(nameof(AbstractConnectionRecord.Favorite));
-                } else if (PropertyMode == PropertyMode.DefaultConnection) {
-                    strHide.Add(nameof(AbstractConnectionRecord.Hostname));
-                    strHide.Add(nameof(AbstractConnectionRecord.AlternativeAddress));
-                    strHide.Add(nameof(AbstractConnectionRecord.Name));
+                    if (!CommonRegistrySettings.AllowSaveUsernames)
+                        exclusions.Add(nameof(AbstractConnectionRecord.Username));
+
+                    if (commonExclusions == null)
+                        commonExclusions = exclusions;
+                    else
+                        commonExclusions = commonExclusions.Intersect(exclusions).ToList();
                 }
 
-                // Hide credential fields when registry policy denies saving
-                if (!CommonRegistrySettings.AllowSavePasswords)
-                    strHide.Add(nameof(AbstractConnectionRecord.Password));
-
-                if (!CommonRegistrySettings.AllowSaveUsernames)
-                    strHide.Add(nameof(AbstractConnectionRecord.Username));
-
-                HiddenProperties = strHide.ToArray();
+                HiddenProperties = commonExclusions?.ToArray();
                 Refresh();
             } catch (Exception ex) {
                 Runtime.MessageCollector.AddMessage(
@@ -197,6 +226,18 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     Language.ConfigPropertyGridHideItemsFailed +
                     Environment.NewLine + ex.Message, true);
             }
+        }
+
+        private void ShowHideGridItemsDefault()
+        {
+             List<string> strHide = new();
+             if (PropertyMode == PropertyMode.DefaultConnection) {
+                    strHide.Add(nameof(AbstractConnectionRecord.Hostname));
+                    strHide.Add(nameof(AbstractConnectionRecord.AlternativeAddress));
+                    strHide.Add(nameof(AbstractConnectionRecord.Name));
+             }
+             HiddenProperties = strHide.ToArray();
+             Refresh();
         }
 
         private IEnumerable<PropertyInfo> GetPropertiesForGridObject(object currentGridObject) {
@@ -218,45 +259,45 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                     .Contains(protocol) != false);
         }
 
-        private List<string> SpecialExternalAddressProviderExclusions() {
+        private List<string> SpecialExternalAddressProviderExclusions(ConnectionInfo info) {
             List<string> strHide = new();
-            if (SelectedConnectionInfo == null)
+            if (info == null)
                 return strHide;
 
             // aws
-            if (SelectedConnectionInfo.ExternalAddressProvider != ExternalAddressProvider.AmazonWebServices) {
+            if (info.ExternalAddressProvider != ExternalAddressProvider.AmazonWebServices) {
                 strHide.Add(nameof(AbstractConnectionRecord.EC2InstanceId));
                 strHide.Add(nameof(AbstractConnectionRecord.EC2Region));
             }
             return strHide;
         }
 
-        private List<string> SpecialExternalCredentialProviderExclusions() {
+        private List<string> SpecialExternalCredentialProviderExclusions(ConnectionInfo info) {
             List<string> strHide = new();
-            if (SelectedConnectionInfo == null)
+            if (info == null)
                 return strHide;
 
-            if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.None) {
+            if (info.ExternalCredentialProvider == ExternalCredentialProvider.None) {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
-            } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer
-                  || SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState) {
+            } else if (info.ExternalCredentialProvider == ExternalCredentialProvider.DelineaSecretServer
+                  || info.ExternalCredentialProvider == ExternalCredentialProvider.ClickstudiosPasswordState) {
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
                 strHide.Add(nameof(AbstractConnectionRecord.Domain));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
-            } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
+            } else if (info.ExternalCredentialProvider == ExternalCredentialProvider.OnePassword) {
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoSecretEngine));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoMount));
                 strHide.Add(nameof(AbstractConnectionRecord.VaultOpenbaoRole));
-            } else if (SelectedConnectionInfo.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
+            } else if (info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                 strHide.Add(nameof(AbstractConnectionRecord.UserViaAPI));
-                if (SelectedConnectionInfo.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.Kv
-                    && SelectedConnectionInfo.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.SSHOTP)
+                if (info.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.Kv
+                    && info.VaultOpenbaoSecretEngine != VaultOpenbaoSecretEngine.SSHOTP)
                     strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Password));
             }
@@ -266,36 +307,36 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
         /// <summary>
         /// 
         /// </summary>
-        private List<string> SpecialRdpExclusions() {
+        private List<string> SpecialRdpExclusions(ConnectionInfo info) {
             List<string> strHide = new();
-            if (SelectedConnectionInfo == null)
+            if (info == null)
                 return strHide;
 
-            if (SelectedConnectionInfo.RDPMinutesToIdleTimeout <= 0) {
+            if (info.RDPMinutesToIdleTimeout <= 0) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDPAlertIdleTimeout));
             }
 
-            if (SelectedConnectionInfo.RDGatewayUsageMethod == RDGatewayUsageMethod.Never) {
+            if (info.RDGatewayUsageMethod == RDGatewayUsageMethod.Never) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayDomain));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayHostname));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayPassword));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUseConnectionCredentials));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUsername));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayAccessToken));
-            } else if (SelectedConnectionInfo.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.Yes ||
-                       SelectedConnectionInfo.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.SmartCard) {
+            } else if (info.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.Yes ||
+                       info.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.SmartCard) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayDomain));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayPassword));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUsername));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayExternalCredentialProvider));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUserViaAPI));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayAccessToken));
-            } else if (SelectedConnectionInfo.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.ExternalCredentialProvider) {
+            } else if (info.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.ExternalCredentialProvider) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayDomain));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayPassword));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUsername));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayAccessToken));
-            } else if (SelectedConnectionInfo.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.AccessToken) {
+            } else if (info.RDGatewayUseConnectionCredentials == RDGatewayUseConnectionCredentials.AccessToken) {
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayDomain));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayPassword));
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUsername));
@@ -303,20 +344,20 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
                 strHide.Add(nameof(AbstractConnectionRecord.RDGatewayUserViaAPI));
             }
 
-            if (!(SelectedConnectionInfo.Resolution == RDPResolutions.FitToWindow ||
-                  SelectedConnectionInfo.Resolution == RDPResolutions.Fullscreen)) {
+            if (!(info.Resolution == RDPResolutions.FitToWindow ||
+                  info.Resolution == RDPResolutions.Fullscreen)) {
                 strHide.Add(nameof(AbstractConnectionRecord.AutomaticResize));
             }
 
-            if (SelectedConnectionInfo.RedirectDiskDrives != RDPDiskDrives.Custom) {
+            if (info.RedirectDiskDrives != RDPDiskDrives.Custom) {
                 strHide.Add(nameof(AbstractConnectionRecord.RedirectDiskDrivesCustom));
             }
 
-            if (SelectedConnectionInfo.RedirectSound != RDPSounds.BringToThisComputer) {
+            if (info.RedirectSound != RDPSounds.BringToThisComputer) {
                 strHide.Add(nameof(AbstractConnectionRecord.SoundQuality));
             }
 
-            if (!SelectedConnectionInfo.UseVmId) {
+            if (!info.UseVmId) {
                 strHide.Add(nameof(AbstractConnectionRecord.VmId));
                 strHide.Add(nameof(AbstractConnectionRecord.UseEnhancedMode));
             }
@@ -324,16 +365,16 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
             return strHide;
         }
 
-        private List<string> SpecialVncExclusions() {
+        private List<string> SpecialVncExclusions(ConnectionInfo info) {
             List<string> strHide = new();
-            if (SelectedConnectionInfo == null)
+            if (info == null)
                 return strHide;
-            if (SelectedConnectionInfo.VNCAuthMode == ProtocolVNC.AuthMode.AuthVNC) {
+            if (info.VNCAuthMode == ProtocolVNC.AuthMode.AuthVNC) {
                 strHide.Add(nameof(AbstractConnectionRecord.Username));
                 strHide.Add(nameof(AbstractConnectionRecord.Domain));
             }
 
-            if (SelectedConnectionInfo.VNCProxyType == ProtocolVNC.ProxyType.ProxyNone) {
+            if (info.VNCProxyType == ProtocolVNC.ProxyType.ProxyNone) {
                 strHide.Add(nameof(AbstractConnectionRecord.VNCProxyIP));
                 strHide.Add(nameof(AbstractConnectionRecord.VNCProxyPassword));
                 strHide.Add(nameof(AbstractConnectionRecord.VNCProxyPort));
@@ -347,12 +388,16 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid {
             if (IsShowingInheritance)
                 return;
 
-            if (e.ChangedItem?.Label == Language.Protocol) {
-                SelectedConnectionInfo?.SetDefaultPort();
-            } else if (e.ChangedItem?.Label == Language.Name) {
-                if (Settings.Default.SetHostnameLikeDisplayName) {
-                    if (SelectedConnectionInfo != null && !string.IsNullOrEmpty(SelectedConnectionInfo.Name))
-                        SelectedConnectionInfo.Hostname = SelectedConnectionInfo.Name;
+            if (_selectedConnectionInfos != null) {
+                foreach (var info in _selectedConnectionInfos) {
+                    if (e.ChangedItem?.Label == Language.Protocol) {
+                        info.SetDefaultPort();
+                    } else if (e.ChangedItem?.Label == Language.Name) {
+                        if (Settings.Default.SetHostnameLikeDisplayName) {
+                            if (!string.IsNullOrEmpty(info.Name))
+                                info.Hostname = info.Name;
+                        }
+                    }
                 }
             }
 

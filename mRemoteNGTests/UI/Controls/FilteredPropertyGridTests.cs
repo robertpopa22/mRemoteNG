@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using mRemoteNG.UI.Controls.FilteredPropertyGrid;
 using NUnit.Framework;
@@ -53,14 +53,16 @@ namespace mRemoteNGTests.UI.Controls
 		}
 
 		[Test]
-		public void ExceptionThrownWhenNonExistantPropertyFoundInBrowsablePropertiesList()
+		public void DoesNotThrowWhenNonExistantPropertyFoundInBrowsablePropertiesList()
 		{
 			var grid = new FilteredPropertyGrid();
 			var obj = new { Prop1 = "hello" };
 			grid.SelectedObject = obj;
 
-			Assert.Throws<InvalidOperationException>(() =>
+			Assert.DoesNotThrow(() =>
 				grid.BrowsableProperties = new[] {"NonExistantProperty"});
+
+			Assert.That(grid.VisibleProperties, Is.Empty);
 		}
 
 		[Test]

@@ -612,7 +612,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             try
             {
-                AppWindows.ConfigForm.SelectedTreeNode = SelectedNode;
+                AppWindows.ConfigForm.SelectedTreeNodes = GetSelectedNodes();
             }
             catch (Exception ex)
             {

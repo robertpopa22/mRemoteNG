@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
@@ -49,14 +50,25 @@ namespace mRemoteNG.UI.Window
         private static readonly BindingFlags NonPublicInstanceBinding = BindingFlags.Instance | BindingFlags.NonPublic;
 
         private ConnectionInfo? _selectedTreeNode;
+        private IEnumerable<ConnectionInfo>? _selectedTreeNodes;
 
         public ConnectionInfo? SelectedTreeNode
         {
             get => _selectedTreeNode;
             set
             {
-                _selectedTreeNode = value;
-                _pGrid.SelectedConnectionInfo = value!;
+                SelectedTreeNodes = value != null ? new[] { value } : null;
+            }
+        }
+
+        public IEnumerable<ConnectionInfo>? SelectedTreeNodes
+        {
+            get => _selectedTreeNodes;
+            set
+            {
+                _selectedTreeNodes = value;
+                _selectedTreeNode = _selectedTreeNodes?.FirstOrDefault();
+                _pGrid.SelectedConnectionInfos = value;
                 UpdateTopRow();
             }
         }
@@ -218,11 +230,11 @@ namespace mRemoteNG.UI.Window
         #region Public Properties
 
         public bool PropertiesVisible => _btnShowProperties.Checked;
-        public bool CanShowProperties => SelectedTreeNode != null;
+        public bool CanShowProperties => SelectedTreeNodes != null && SelectedTreeNodes.Any();
 
         public bool InheritanceVisible => _btnShowInheritance.Checked;
-        public bool CanShowInheritance => SelectedTreeNode != null &&
-                                          _pGrid.SelectedConnectionInfo?.Parent != null;
+        public bool CanShowInheritance => SelectedTreeNodes != null && SelectedTreeNodes.Any() &&
+                                          SelectedTreeNodes.All(n => n.Parent != null);
 
         public bool DefaultPropertiesVisible => _btnShowDefaultProperties.Checked;
         public bool CanShowDefaultProperties => true;
@@ -399,7 +411,7 @@ namespace mRemoteNG.UI.Window
             _btnHostStatus.Enabled =
                 !_pGrid.RootNodeSelected &&
                 !_pGrid.IsShowingDefaultProperties &&
-                _pGrid.SelectedConnectionInfo is not ContainerInfo;
+                _pGrid.SelectedConnectionInfos?.All(c => !(c is ContainerInfo)) == true;
 
             SetHostStatus(_pGrid.SelectedObject);
         }
@@ -407,7 +419,8 @@ namespace mRemoteNG.UI.Window
         private void UpdateIconButton()
         {
             _btnIcon.Enabled =
-                _pGrid.SelectedConnectionInfo != null &&
+                _pGrid.SelectedConnectionInfos != null &&
+                _pGrid.SelectedConnectionInfos.Any() &&
                 !_pGrid.IsShowingDefaultProperties &&
                 !_pGrid.RootNodeSelected;
 
@@ -734,7 +747,9 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                if (_pGrid.SelectedObject is not ConnectionInfo || _pGrid.SelectedObject is PuttySessionInfo) return;
+                if (_pGrid.SelectedConnectionInfos == null || !_pGrid.SelectedConnectionInfos.Any()) return;
+                if (_pGrid.SelectedConnectionInfos.Any(c => c is PuttySessionInfo)) return;
+                
                 CMenIcons.Items.Clear();
 
                 foreach (string iStr in ConnectionIcon.Icons)
@@ -762,7 +777,7 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                if (_pGrid.SelectedObject is not ConnectionInfo connectionInfo) return;
+                if (_pGrid.SelectedObjects == null && _pGrid.SelectedObject == null) return;
 
                 if (sender is not ToolStripMenuItem selectedMenuItem) return;
 
@@ -774,7 +789,18 @@ namespace mRemoteNG.UI.Window
 
                 _btnIcon.Image = connectionIcon.ToBitmap();
 
-                connectionInfo.Icon = iconName;
+                // Update ALL selected objects if they are ConnectionInfo
+                var objects = _pGrid.SelectedObjects ?? new[] { _pGrid.SelectedObject };
+                if (objects == null) return;
+                
+                foreach (var obj in objects)
+                {
+                     if (obj is ConnectionInfo info)
+                     {
+                         info.Icon = iconName;
+                     }
+                }
+                
                 _pGrid.Refresh();
 
                 Runtime.ConnectionsService.SaveConnectionsAsync();
