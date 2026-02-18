@@ -21,6 +21,7 @@ using mRemoteNG.Connection.Protocol.Winbox;
 using mRemoteNG.Container;
 using mRemoteNG.Properties;
 using mRemoteNG.Tree;
+using mRemoteNG.Tools;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.Tree.Root;
 using System.Runtime.Versioning;
@@ -90,6 +91,23 @@ namespace mRemoteNG.Connection
 
         [Browsable(false)]
         public bool IsRoot { get; set; }
+
+        private bool _isTemplate;
+
+        [Browsable(true)]
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display))]
+        [DisplayName("Is Template")]
+        [Description("If enabled, this connection serves as a template and cannot be initiated.")]
+        public bool IsTemplate
+        {
+            get => _isTemplate;
+            set
+            {
+                if (_isTemplate == value) return;
+                _isTemplate = value;
+                RaisePropertyChangedEvent(this, new PropertyChangedEventArgs(nameof(IsTemplate)));
+            }
+        }
 
         #endregion
 
@@ -199,7 +217,7 @@ namespace mRemoteNG.Connection
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
                 "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection",
-                "User", "Role", "IsRoot"
+                "User", "Role", "IsRoot", "HasDisconnectedSessions"
             };
 
             return GetProperties(excludedProperties);
@@ -414,6 +432,9 @@ namespace mRemoteNG.Connection
             UseRCG = Settings.Default.ConDefaultUseRCG;
             UseVmId = Settings.Default.ConDefaultUseVmId;
             UseEnhancedMode = Settings.Default.ConDefaultUseEnhancedMode;
+            SSHOptions = "";
+            PrivateKeyPath = Settings.Default.ConDefaultPrivateKeyPath;
+            UsePersistentBrowser = Settings.Default.ConDefaultUsePersistentBrowser;
         }
 
         private void SetRemoteDesktopServicesDefaults()

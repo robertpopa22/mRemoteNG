@@ -557,6 +557,10 @@ namespace mRemoteNG.Connection.Protocol
                         {
                             arguments.Add("-i", optionalTemporaryPrivateKeyPath);
                         }
+                        else if (!string.IsNullOrEmpty(InterfaceControl.Info?.PrivateKeyPath))
+                        {
+                            arguments.Add("-i", InterfaceControl.Info.PrivateKeyPath);
+                        }
 
                     }
 

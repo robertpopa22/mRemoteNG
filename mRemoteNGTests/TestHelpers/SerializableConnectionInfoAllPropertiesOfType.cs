@@ -92,6 +92,7 @@
         public TType RdpVersion { get; set; }
         public TType UseEnhancedMode { get; set; }
         public TType SSHOptions { get; set; }
+        public TType PrivateKeyPath { get; set; }
         public TType SSHTunnelConnectionName { get; set; }
         public TType RDPStartProgram { get; set; }
         public TType RDPStartProgramWorkDir { get; set; }
@@ -104,5 +105,7 @@
 		public TType EC2InstanceId { get; set; }
 		public TType ExternalAddressProvider { get; set; }
 		public TType EC2Region { get; set; }
+        public TType UsePersistentBrowser { get; set; }
+        public TType IsTemplate { get; set; }
 	}
 }

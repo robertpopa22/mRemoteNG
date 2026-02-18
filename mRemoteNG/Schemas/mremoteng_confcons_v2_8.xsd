@@ -34,6 +34,7 @@
     <xs:attribute name="Id" type="xs:string" use="required" />
     <xs:attribute name="LinkedConnectionId" type="xs:string" use="optional" />
     <xs:attribute name="Type" type="xs:string" use="required" />
+    <xs:attribute name="IsTemplate" type="xs:boolean" use="optional" />
     <xs:attribute name="Expanded" type="xs:boolean" use="optional" />
     <xs:attribute name="AutoSort" type="xs:boolean" use="optional" />
     <xs:attribute name="Descr" type="xs:string" use="required" />
@@ -54,6 +55,7 @@
     <xs:attribute name="UseEnhancedMode" type="xs:boolean" use="required" />
     <xs:attribute name="SSHTunnelConnectionName" type="xs:string" use="optional" />
     <xs:attribute name="SSHOptions" type="xs:string" use="optional" />
+    <xs:attribute name="PrivateKeyPath" type="xs:string" use="optional" />
     <xs:attribute name="PuttySession" type="xs:string" use="required" />
     <xs:attribute name="Port" type="xs:int" use="required" />
     <xs:attribute name="ConnectToConsole" type="xs:boolean" use="required" />
@@ -144,6 +146,7 @@
     <xs:attribute name="InheritRdpVersion" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritSSHTunnelConnectionName" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritSSHOptions" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritPrivateKeyPath" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritPuttySession" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritRedirectDiskDrives" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritRedirectDiskDrivesCustom" type="xs:boolean" use="optional" />
