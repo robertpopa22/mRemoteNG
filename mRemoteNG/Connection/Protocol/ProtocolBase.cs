@@ -74,6 +74,8 @@ namespace mRemoteNG.Connection.Protocol
 
         public ConnectionInfo.Force Force { get; set; }
 
+        public bool IsSessionDisconnected { get; set; }
+
         protected readonly System.Windows.Forms.Timer tmrReconnect = new() { Interval = 5000 };
         protected ReconnectGroup? ReconnectGroup;
 
@@ -364,11 +366,13 @@ namespace mRemoteNG.Connection.Protocol
 
         protected void Event_Connected(object sender)
         {
+            IsSessionDisconnected = false;
             ConnectedEvent?.Invoke(sender);
         }
 
         protected void Event_Disconnected(object sender, string disconnectedMessage, int? reasonCode)
         {
+            IsSessionDisconnected = true;
             DisconnectedEvent?.Invoke(sender, disconnectedMessage, reasonCode);
         }
 

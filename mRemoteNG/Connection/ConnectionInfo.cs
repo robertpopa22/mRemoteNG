@@ -54,6 +54,10 @@ namespace mRemoteNG.Connection
 
         [Browsable(false)] public ProtocolList OpenConnections { get; protected set; } = null!;
 
+        [Browsable(false)]
+        public bool HasDisconnectedSessions =>
+            OpenConnections.Count > 0 && OpenConnections.Cast<ProtocolBase>().Any(p => p.IsSessionDisconnected);
+
         [Browsable(false)] public virtual bool IsContainer { get; set; }
 
         [Browsable(false)] public bool IsDefault { get; set; }
@@ -510,6 +514,11 @@ namespace mRemoteNG.Connection
         {
             OpenConnections = [];
             OpenConnections.CollectionChanged += (sender, args) => RaisePropertyChangedEvent(this, new PropertyChangedEventArgs("OpenConnections"));
+        }
+
+        public void NotifyDisconnectedStateChanged()
+        {
+            RaisePropertyChangedEvent(this, new PropertyChangedEventArgs(nameof(OpenConnections)));
         }
 
         #endregion

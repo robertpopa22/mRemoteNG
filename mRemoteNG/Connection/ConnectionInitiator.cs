@@ -473,6 +473,8 @@ namespace mRemoteNG.Connection
                                                                   strHostname,
                                                                   prot.InterfaceControl.Info.Protocol.ToString()));
                 ConnectionAuditLogger.LogConnectionDisconnected(strHostname, prot.InterfaceControl.Info.Protocol.ToString(), disconnectedMessage);
+
+                prot.InterfaceControl.OriginalInfo.NotifyDisconnectedStateChanged();
             }
             catch (Exception ex)
             {
