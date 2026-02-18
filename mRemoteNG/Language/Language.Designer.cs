@@ -7520,5 +7520,23 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("Winbox", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type Password.
+        /// </summary>
+        internal static string TypePassword {
+            get {
+                return ResourceManager.GetString("TypePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type Clipboard Text.
+        /// </summary>
+        internal static string TypeClipboard {
+            get {
+                return ResourceManager.GetString("TypeClipboard", resourceCulture);
+            }
+        }
     }
 }

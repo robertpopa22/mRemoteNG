@@ -40,6 +40,8 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly = null!;
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
         private ToolStripMenuItem _cMenTreeReconnect = null!;
+        private ToolStripMenuItem _cMenTreeTypePassword = null!;
+        private ToolStripMenuItem _cMenTreeTypeClipboard = null!;
         private ToolStripSeparator _cMenTreeSep2 = null!;
         private ToolStripMenuItem _cMenTreeToolsTransferFile = null!;
         private ToolStripMenuItem _cMenTreeToolsWakeOnLan = null!;
@@ -110,6 +112,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly = new ToolStripMenuItem();
             _cMenTreeDisconnect = new ToolStripMenuItem();
             _cMenTreeReconnect = new ToolStripMenuItem();
+            _cMenTreeTypePassword = new ToolStripMenuItem();
+            _cMenTreeTypeClipboard = new ToolStripMenuItem();
             _cMenTreeSep1 = new ToolStripSeparator();
             _cMenTreeToolsExternalApps = new ToolStripMenuItem();
             _cMenTreeToolsTransferFile = new ToolStripMenuItem();
@@ -163,6 +167,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
                 _cMenTreeReconnect,
+                _cMenTreeTypePassword,
+                _cMenTreeTypeClipboard,
                 _cMenTreeSep1,
                 _cMenTreeToolsExternalApps,
                 _cMenTreeToolsTransferFile,
@@ -296,6 +302,20 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeReconnect.Size = new System.Drawing.Size(199, 22);
             _cMenTreeReconnect.Text = "Reconnect";
             _cMenTreeReconnect.Click += OnReconnectClicked;
+            //
+            // cMenTreeTypePassword
+            //
+            _cMenTreeTypePassword.Name = "_cMenTreeTypePassword";
+            _cMenTreeTypePassword.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeTypePassword.Text = "Type Password";
+            _cMenTreeTypePassword.Click += OnTypePasswordClicked;
+            //
+            // cMenTreeTypeClipboard
+            //
+            _cMenTreeTypeClipboard.Name = "_cMenTreeTypeClipboard";
+            _cMenTreeTypeClipboard.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeTypeClipboard.Text = "Type Clipboard Text";
+            _cMenTreeTypeClipboard.Click += OnTypeClipboardClicked;
             //
             // cMenTreeSep1
             //
@@ -584,6 +604,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Text = Language.ConnectInViewOnlyMode;
             _cMenTreeDisconnect.Text = Language.Disconnect;
             _cMenTreeReconnect.Text = Language.Reconnect;
+            _cMenTreeTypePassword.Text = Language.TypePassword;
+            _cMenTreeTypeClipboard.Text = Language.TypeClipboard;
 
             _cMenTreeToolsExternalApps.Text = Language._Tools;
             _cMenTreeToolsTransferFile.Text = Language.TransferFile;
@@ -664,6 +686,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptions.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
             _cMenTreeReconnect.Enabled = false;
+            _cMenTreeTypePassword.Enabled = false;
+            _cMenTreeTypeClipboard.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeConnectWithOptions.Enabled = false;
@@ -697,6 +721,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeDisconnect.Enabled = false;
             _cMenTreeReconnect.Enabled = false;
+            _cMenTreeTypePassword.Enabled = false;
+            _cMenTreeTypeClipboard.Enabled = false;
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = false;
             _cMenTreeToolsExternalApps.Enabled = false;
@@ -721,6 +747,8 @@ namespace mRemoteNG.UI.Controls
             bool hasOpenConnections = containerInfo.Children.Any(child => child.OpenConnections.Count > 0);
             _cMenTreeDisconnect.Enabled = hasOpenConnections;
             _cMenTreeReconnect.Enabled = hasOpenConnections;
+            _cMenTreeTypePassword.Enabled = false;
+            _cMenTreeTypeClipboard.Enabled = false;
 
             _cMenTreeToolsTransferFile.Enabled = false;
             _cMenTreeToolsWakeOnLan.Enabled = WakeOnLan.IsValidMacAddress(containerInfo.MacAddress);
@@ -742,6 +770,8 @@ namespace mRemoteNG.UI.Controls
             {
                 _cMenTreeDisconnect.Enabled = false;
                 _cMenTreeReconnect.Enabled = false;
+                _cMenTreeTypePassword.Enabled = false;
+                _cMenTreeTypeClipboard.Enabled = false;
             }
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
@@ -775,6 +805,8 @@ namespace mRemoteNG.UI.Controls
             {
                 _cMenTreeDisconnect.Enabled = false;
                 _cMenTreeReconnect.Enabled = false;
+                _cMenTreeTypePassword.Enabled = false;
+                _cMenTreeTypeClipboard.Enabled = false;
             }
 
             if (!(connectionInfo.Protocol == ProtocolType.SSH1 | connectionInfo.Protocol == ProtocolType.SSH2))
@@ -958,6 +990,62 @@ namespace mRemoteNG.UI.Controls
                         Runtime.ConnectionInitiator.OpenConnection(node, ConnectionInfo.Force.DoNotJump);
                 }
             }
+        }
+
+        private void OnTypePasswordClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode is ConnectionInfo connectionInfo && connectionInfo.OpenConnections.Count > 0)
+            {
+                var protocol = connectionInfo.OpenConnections[connectionInfo.OpenConnections.Count - 1];
+                if (protocol != null)
+                {
+                    protocol.Focus();
+                    string password = connectionInfo.Password;
+                    if (!string.IsNullOrEmpty(password))
+                    {
+                        System.Windows.Forms.SendKeys.SendWait(EscapeSendKeys(password));
+                    }
+                }
+            }
+        }
+
+        private void OnTypeClipboardClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode is ConnectionInfo connectionInfo && connectionInfo.OpenConnections.Count > 0)
+            {
+                var protocol = connectionInfo.OpenConnections[connectionInfo.OpenConnections.Count - 1];
+                if (protocol != null)
+                {
+                    protocol.Focus();
+                    if (Clipboard.ContainsText())
+                    {
+                        string text = Clipboard.GetText();
+                        if (!string.IsNullOrEmpty(text))
+                        {
+                            System.Windows.Forms.SendKeys.SendWait(EscapeSendKeys(text));
+                        }
+                    }
+                }
+            }
+        }
+
+        private string EscapeSendKeys(string str)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (char c in str)
+            {
+                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
+                {
+                    sb.Append("{");
+                    sb.Append(c);
+                    sb.Append("}");
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
         }
 
         public void DisconnectConnection(ConnectionInfo connectionInfo)

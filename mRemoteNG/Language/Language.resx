@@ -2664,4 +2664,10 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="Winbox" xml:space="preserve">
     <value>Winbox</value>
   </data>
+  <data name="TypePassword" xml:space="preserve">
+    <value>Type Password</value>
+  </data>
+  <data name="TypeClipboard" xml:space="preserve">
+    <value>Type Clipboard Text</value>
+  </data>
 </root>
