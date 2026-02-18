@@ -195,7 +195,7 @@ namespace mRemoteNG.Connection
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
                 "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection",
-                "User", "Role"
+                "User", "Role", "IsRoot"
             };
 
             return GetProperties(excludedProperties);
