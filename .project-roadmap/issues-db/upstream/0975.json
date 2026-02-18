@@ -11,17 +11,24 @@
   "created_at": "2018-05-08T00:19:41Z",
   "github_updated_at": "2018-05-08T00:19:41Z",
   "body_snippet": "Create a User Manual page describing how to set Default Connection properties and Default Inheritance properties. Also include how they are used throughout the application (creating new connections, importing, quick connection, etc).\r\n\r\n## Context\r\n<!--- How has this issue affected you? What are you trying to accomplish? -->\r\n<!--- Providing context helps us come up with a solution that is most useful in the real world -->\r\nA number of users have had questions that relate to default connection p...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "Documentation is required to explain the Default Connection and Default Inheritance features, which are core to how connection properties propagate."
+    }
+  ],
   "comments": [],
   "comments_cursor": "2018-05-08T00:19:41Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Documentation is required to explain the Default Connection and Default Inheritance features, which are core to how connection properties propagate.\nApproach: Update documentation to describe how the Default Connection node functions as a template and how inheritance works for folders and connections."
 }
