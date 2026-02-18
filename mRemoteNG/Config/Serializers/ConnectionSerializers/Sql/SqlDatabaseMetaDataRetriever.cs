@@ -32,6 +32,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     // database exists but is empty, initialize it with the schema
                     InitializeDatabaseSchema(databaseConnector);
                 }
+                else
+                {
+                    UpgradeSchema(databaseConnector);
+                }
 
                 DbCommand dbCommand = databaseConnector.DbCommand("SELECT * FROM tblRoot");
                 dbDataReader = dbCommand.ExecuteReader();
@@ -413,6 +417,9 @@ CREATE TABLE [dbo].[tblCons] (
     [ExternalCredentialProvider] nvarchar(256) NULL,
     [ExternalAddressProvider] nvarchar(256) NULL,
     [UserViaAPI] nvarchar(512) NOT NULL,
+    [User] nvarchar(512) NULL,
+    [Role] nvarchar(512) NULL,
+    [RowVersion] rowversion NOT NULL,
 ) ON [PRIMARY]
 
 CREATE TABLE [dbo].[tblRoot] (
@@ -631,6 +638,8 @@ CREATE TABLE `tblCons` (
     `ExternalCredentialProvider` varchar(256) DEFAULT NULL,
     `ExternalAddressProvider` varchar(256) DEFAULT NULL,
     `UserViaAPI` varchar(512) NOT NULL,
+    `User` varchar(512) DEFAULT NULL,
+    `Role` varchar(512) DEFAULT NULL,
     PRIMARY KEY (`ConstantID`),
     UNIQUE KEY `ID_UNIQUE` (`ID`),
     UNIQUE KEY `ConstantID_UNIQUE` (`ConstantID`)
@@ -707,6 +716,83 @@ CREATE TABLE `tblExternalTools` (
 
             DbCommand cmd = databaseConnector.DbCommand(sql);
             cmd.ExecuteNonQuery();
+        }
+
+        private void UpgradeSchema(IDatabaseConnector databaseConnector)
+        {
+            try
+            {
+                if (!DoesColumnExist(databaseConnector, "tblCons", "User"))
+                {
+                    string sql = databaseConnector.GetType() == typeof(MySqlDatabaseConnector)
+                        ? "ALTER TABLE tblCons ADD COLUMN `User` varchar(512) DEFAULT NULL"
+                        : "ALTER TABLE tblCons ADD [User] nvarchar(512) NULL";
+                    databaseConnector.DbCommand(sql).ExecuteNonQuery();
+                }
+
+                if (!DoesColumnExist(databaseConnector, "tblCons", "Role"))
+                {
+                    string sql = databaseConnector.GetType() == typeof(MySqlDatabaseConnector)
+                        ? "ALTER TABLE tblCons ADD COLUMN `Role` varchar(512) DEFAULT NULL"
+                        : "ALTER TABLE tblCons ADD [Role] nvarchar(512) NULL";
+                    databaseConnector.DbCommand(sql).ExecuteNonQuery();
+                }
+
+                if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
+                {
+                     if (!DoesColumnExist(databaseConnector, "tblCons", "RowVersion"))
+                     {
+                         databaseConnector.DbCommand("ALTER TABLE tblCons ADD [RowVersion] rowversion NOT NULL").ExecuteNonQuery();
+                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Schema upgrade failed", ex);
+            }
+        }
+
+        private bool DoesColumnExist(IDatabaseConnector databaseConnector, string tableName, string columnName)
+        {
+             try
+             {
+                 string databaseName = Properties.OptionsDBsPage.Default.SQLDatabaseName;
+                 // INFORMATION_SCHEMA is standard
+                 string sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName AND COLUMN_NAME = @ColumnName";
+                 
+                 // However, some DBs might need database name filter if table names are not unique across schemas
+                 if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
+                 {
+                     sql += " AND TABLE_SCHEMA = @DatabaseName";
+                 }
+
+                 DbCommand cmd = databaseConnector.DbCommand(sql);
+                 
+                 DbParameter tableNameParam = cmd.CreateParameter();
+                 tableNameParam.ParameterName = "@TableName";
+                 tableNameParam.Value = tableName;
+                 cmd.Parameters.Add(tableNameParam);
+
+                 DbParameter columnNameParam = cmd.CreateParameter();
+                 columnNameParam.ParameterName = "@ColumnName";
+                 columnNameParam.Value = columnName;
+                 cmd.Parameters.Add(columnNameParam);
+
+                 if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
+                 {
+                     DbParameter dbNameParam = cmd.CreateParameter();
+                     dbNameParam.ParameterName = "@DatabaseName";
+                     dbNameParam.Value = databaseName;
+                     cmd.Parameters.Add(dbNameParam);
+                 }
+
+                 object result = cmd.ExecuteScalar();
+                 return Convert.ToInt32(result) > 0;
+             }
+             catch
+             {
+                 return false;
+             }
         }
         
     }

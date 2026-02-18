@@ -284,6 +284,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("UserField10", typeof(string));
             dataTable.Columns.Add("EnvironmentTags", typeof(string));
             dataTable.Columns.Add("UserViaAPI", typeof(string));
+            dataTable.Columns.Add("User", typeof(string));
+            dataTable.Columns.Add("Role", typeof(string));
             dataTable.Columns.Add("Username", typeof(string));
             dataTable.Columns.Add("VNCAuthMode", typeof(string));
             dataTable.Columns.Add("VNCColors", typeof(string));
@@ -415,6 +417,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["VNCSmartSizeMode"].Equals(connectionInfo.VNCSmartSizeMode.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["VNCViewOnly"].Equals(connectionInfo.VNCViewOnly);
             isFieldNotChange = isFieldNotChange && dataRow["VmId"].Equals(connectionInfo.VmId);
+            isFieldNotChange = isFieldNotChange && dataRow["User"].Equals(connectionInfo.User);
+            isFieldNotChange = isFieldNotChange && dataRow["Role"].Equals(connectionInfo.Role);
 
             bool isInheritanceFieldNotChange = false;
             if (_saveFilter.SaveInheritance)
@@ -690,6 +694,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["VNCViewOnly"] = connectionInfo.VNCViewOnly; // TODO: this column can eventually be removed. we now save this property locally
             dataRow["VmId"] = connectionInfo.VmId;
             dataRow["UserViaAPI"] = connectionInfo.UserViaAPI;
+            dataRow["User"] = connectionInfo.User;
+            dataRow["Role"] = connectionInfo.Role;
 
             if (_saveFilter.SaveInheritance)
             {

@@ -77,6 +77,12 @@ namespace mRemoteNG.Connection
         [Browsable(false)]
         public bool ExcludeFromMultiSsh { get; set; }
 
+        [Browsable(false)]
+        public string User { get; set; }
+
+        [Browsable(false)]
+        public string Role { get; set; }
+
         #endregion
 
         #region Constructors
@@ -184,7 +190,8 @@ namespace mRemoteNG.Connection
             {
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
-                "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection"
+                "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection",
+                "User", "Role"
             };
 
             return GetProperties(excludedProperties);
@@ -468,6 +475,8 @@ namespace mRemoteNG.Connection
             RDPStartProgram = Settings.Default.ConDefaultRDPStartProgram;
             RDPStartProgramWorkDir = Settings.Default.ConDefaultRDPStartProgramWorkDir;
             OpeningCommand = Settings.Default.OpeningCommand;
+            User = "";
+            Role = "";
         }
 
         private void SetVncDefaults()

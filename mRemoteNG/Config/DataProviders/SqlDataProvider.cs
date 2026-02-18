@@ -64,10 +64,14 @@ namespace mRemoteNG.Config.DataProviders
                     using SqlDataAdapter dataAdapter = new();
                     dataAdapter.SelectCommand = sqlCommand;
 
+                    ConflictOption conflictOption = ConflictOption.OverwriteChanges;
+                    if (dataTable.Columns.Contains("RowVersion"))
+                        conflictOption = ConflictOption.CompareRowVersion;
+
                     SqlCommandBuilder builder = new(dataAdapter)
                     {
                         // Avoid optimistic concurrency, check if it is necessary.
-                        ConflictOption = ConflictOption.OverwriteChanges
+                        ConflictOption = conflictOption
                     };
 
                     dataAdapter.UpdateCommand = builder.GetUpdateCommand();
