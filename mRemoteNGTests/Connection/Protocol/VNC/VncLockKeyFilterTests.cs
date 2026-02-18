@@ -1,0 +1,125 @@
+using System;
+using System.Reflection;
+using System.Windows.Forms;
+using NUnit.Framework;
+using VncSharpCore;
+
+namespace mRemoteNGTests.Connection.Protocol.VNC
+{
+    [TestFixture]
+    public class VncLockKeyFilterTests
+    {
+        private RemoteDesktop _remoteDesktop;
+        private object _filter;
+        private MockVncClient _mockClient;
+
+        public class MockVncClient : VncClient
+        {
+            public uint LastKeysym;
+            public bool LastPressed;
+            public int CallCount;
+
+            // Hide the base method to intercept the call.
+            // VncLockKeyFilter uses .GetType().GetMethod(), so it will find this method on the instance.
+            public new void WriteKeyboardEvent(uint keysym, bool pressed)
+            {
+                LastKeysym = keysym;
+                LastPressed = pressed;
+                CallCount++;
+            }
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            _remoteDesktop = new RemoteDesktop();
+            _mockClient = new MockVncClient();
+
+            // Set the private 'vnc' field
+            var vncField = typeof(RemoteDesktop).GetField("vnc", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (vncField == null) Assert.Fail("Could not find 'vnc' field on RemoteDesktop");
+            
+            try 
+            {
+                vncField.SetValue(_remoteDesktop, _mockClient);
+            }
+            catch (ArgumentException)
+            {
+                Assert.Fail($"MockVncClient is not assignable to field type {vncField.FieldType.Name}. Is VncClient sealed?");
+            }
+
+            // Create VncLockKeyFilter using reflection
+            // It is internal, so we need to find the type in mRemoteNG assembly
+            // Use a known public type from mRemoteNG to get the assembly
+            var asm = typeof(mRemoteNG.Connection.Protocol.VNC.ProtocolVNC).Assembly; 
+            var filterType = asm.GetType("mRemoteNG.Connection.Protocol.VNC.VncLockKeyFilter");
+            if (filterType == null) Assert.Fail("Could not find VncLockKeyFilter type");
+
+            _filter = Activator.CreateInstance(filterType, _remoteDesktop);
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_Cyrillic_Small_a()
+        {
+            // Cyrillic 'а' is U+0430. Expected keysym 0x06C1.
+            char c = '\u0430';
+            // WM_CHAR = 0x0102
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True, "Should return true to suppress original message");
+            Assert.That(_mockClient.CallCount, Is.EqualTo(2), "Should call WriteKeyboardEvent twice (down/up)");
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0x06C1));
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_Cyrillic_Capital_A()
+        {
+            // Cyrillic 'А' is U+0410. Expected keysym 0x06E1.
+            char c = '\u0410';
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True);
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0x06E1));
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_Cyrillic_Yo_Small()
+        {
+            // 'ё' U+0451 -> 0x06A3
+            char c = '\u0451';
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True);
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0x06A3));
+        }
+
+        [Test]
+        public void PreFilterMessage_Ignores_Latin_Chars()
+        {
+            // 'a' U+0061
+            char c = 'a';
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.False, "Should return false for non-Cyrillic");
+            Assert.That(_mockClient.CallCount, Is.EqualTo(0));
+        }
+
+        // Helper to invoke PreFilterMessage
+        private bool InvokePreFilterMessage(ref Message m)
+        {
+            var method = _filter.GetType().GetMethod("PreFilterMessage", BindingFlags.Public | BindingFlags.Instance);
+            object[] args = new object[] { m };
+            bool result = (bool)method.Invoke(_filter, args);
+            m = (Message)args[0]; // Ref update
+            return result;
+        }
+    }
+}

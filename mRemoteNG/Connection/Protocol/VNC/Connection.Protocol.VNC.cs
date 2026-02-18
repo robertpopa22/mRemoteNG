@@ -29,6 +29,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
     {
         private const int WM_KEYDOWN = 0x0100;
         private const int WM_KEYUP = 0x0101;
+        private const int WM_CHAR = 0x0102;
         private const int WM_SYSKEYDOWN = 0x0104;
         private const int WM_SYSKEYUP = 0x0105;
 
@@ -54,51 +55,110 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         public bool PreFilterMessage(ref Message m)
         {
-            // Only intercept key messages
+            // Only intercept key messages including WM_CHAR
             if (m.Msg != WM_KEYDOWN && m.Msg != WM_KEYUP &&
-                m.Msg != WM_SYSKEYDOWN && m.Msg != WM_SYSKEYUP)
+                m.Msg != WM_SYSKEYDOWN && m.Msg != WM_SYSKEYUP &&
+                m.Msg != WM_CHAR)
                 return false;
 
-            int vk = m.WParam.ToInt32();
-
-            // Only intercept lock keys
-            uint keysym;
-            switch (vk)
+            // Handle lock keys (existing logic)
+            if (m.Msg != WM_CHAR)
             {
-                case VK_CAPITAL:    keysym = XK_Caps_Lock;   break;
-                case VK_NUMLOCK:    keysym = XK_Num_Lock;    break;
-                case VK_SCROLL:     keysym = XK_Scroll_Lock; break;
-                default: return false;
+                int vk = m.WParam.ToInt32();
+
+                // Only intercept lock keys
+                uint keysym;
+                switch (vk)
+                {
+                    case VK_CAPITAL:    keysym = XK_Caps_Lock;   break;
+                    case VK_NUMLOCK:    keysym = XK_Num_Lock;    break;
+                    case VK_SCROLL:     keysym = XK_Scroll_Lock; break;
+                    default: return false;
+                }
+
+                // Only intercept when targeted at the VNC RemoteDesktop control
+                if (m.HWnd != _remoteDesktop.Handle)
+                    return false;
+
+                // Resolve the VncClient on each call (it's created during Connect)
+                var vncClient = _vncField?.GetValue(_remoteDesktop);
+                if (vncClient == null)
+                    return false;
+
+                _writeKeyboardEvent ??= vncClient.GetType()
+                    .GetMethod("WriteKeyboardEvent", BindingFlags.Public | BindingFlags.Instance);
+                if (_writeKeyboardEvent == null)
+                    return false;
+
+                // Send the correct keysym via the VNC protocol
+                bool pressed = m.Msg == WM_KEYDOWN || m.Msg == WM_SYSKEYDOWN;
+                try
+                {
+                    _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, pressed });
+                }
+                catch
+                {
+                    // If reflection call fails, let the message through (degraded behavior)
+                    return false;
+                }
+
+                // Suppress the original message so VncSharpCore doesn't mistranslate it
+                return true;
             }
-
-            // Only intercept when targeted at the VNC RemoteDesktop control
-            if (m.HWnd != _remoteDesktop.Handle)
-                return false;
-
-            // Resolve the VncClient on each call (it's created during Connect)
-            var vncClient = _vncField?.GetValue(_remoteDesktop);
-            if (vncClient == null)
-                return false;
-
-            _writeKeyboardEvent ??= vncClient.GetType()
-                .GetMethod("WriteKeyboardEvent", BindingFlags.Public | BindingFlags.Instance);
-            if (_writeKeyboardEvent == null)
-                return false;
-
-            // Send the correct keysym via the VNC protocol
-            bool pressed = m.Msg == WM_KEYDOWN || m.Msg == WM_SYSKEYDOWN;
-            try
+            else // WM_CHAR
             {
-                _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, pressed });
-            }
-            catch
-            {
-                // If reflection call fails, let the message through (degraded behavior)
-                return false;
-            }
+                // Handle Cyrillic
+                char c = (char)m.WParam.ToInt32();
+                uint keysym = GetCyrillicKeysym(c);
+                if (keysym == 0) return false;
 
-            // Suppress the original message so VncSharpCore doesn't mistranslate it
-            return true;
+                // Only intercept when targeted at the VNC RemoteDesktop control
+                if (m.HWnd != _remoteDesktop.Handle)
+                    return false;
+
+                // Resolve the VncClient on each call (it's created during Connect)
+                var vncClient = _vncField?.GetValue(_remoteDesktop);
+                if (vncClient == null)
+                    return false;
+
+                _writeKeyboardEvent ??= vncClient.GetType()
+                    .GetMethod("WriteKeyboardEvent", BindingFlags.Public | BindingFlags.Instance);
+                if (_writeKeyboardEvent == null)
+                    return false;
+
+                try
+                {
+                    // For WM_CHAR, we simulate a full key press (down then up)
+                    _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, true });
+                    _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, false });
+                }
+                catch
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        private static uint GetCyrillicKeysym(char c)
+        {
+            // X11 keysyms for Cyrillic
+            // Based on X11 keysymdef.h
+            
+            if (c >= 0x0430 && c <= 0x044F) // a-ya
+                return (uint)(0x06C1 + (c - 0x0430));
+            
+            if (c >= 0x0410 && c <= 0x042F) // A-YA
+                return (uint)(0x06E1 + (c - 0x0410));
+
+            // Special cases
+            return c switch
+            {
+                'ё' => 0x06A3, // XK_Cyrillic_io
+                'Ё' => 0x06B3, // XK_Cyrillic_IO
+                _ => 0
+            };
         }
     }
 
