@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #980: Cannot select multiple connections, inheritance is not useful in current implementation.
+Description: 
+Approach: Enable multi-selection awareness in ConfigWindow. Update ConnectionInfoPropertyGrid to use SelectedObjects for batch editing. Modify ConnectionTree to pass the list of selected nodes to ConfigWindow.
+Likely files: mRemoteNG/UI/Window/ConfigWindow.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs, mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #980
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

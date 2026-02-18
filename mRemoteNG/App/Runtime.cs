@@ -1,4 +1,5 @@
 ﻿using mRemoteNG.App.Info;
+using mRemoteNG.Config.Connections.Multiuser;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection;
 using mRemoteNG.Credential;
@@ -120,6 +121,8 @@ namespace mRemoteNG.App
                     ConnectionsService.LastFileUpdate =  System.IO.File.GetLastWriteTimeUtc(connectionFileName);
                 }
 
+                UpdateRemoteConnectionsSynchronizer(Properties.OptionsDBsPage.Default.UseSQLServer, connectionFileName);
+
                 // re-enable sql update checking after updates are loaded
                 ConnectionsService.RemoteConnectionsSyncronizer?.Enable();
             }
@@ -219,6 +222,21 @@ namespace mRemoteNG.App
                     MessageBox.Show(FrmMain.Default, string.Format(Language.ErrorStartupConnectionFileLoad, Environment.NewLine, Application.ProductName, ConnectionsService.GetStartupConnectionFileName(), MiscTools.GetExceptionMessageRecursive(ex)), @"Could not load startup file.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Application.Exit();
                 }
+            }
+        }
+
+        private static void UpdateRemoteConnectionsSynchronizer(bool useSql, string connectionFileName)
+        {
+            ConnectionsService.RemoteConnectionsSyncronizer?.Dispose();
+            ConnectionsService.RemoteConnectionsSyncronizer = null;
+
+            if (useSql)
+            {
+                ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new SqlConnectionsUpdateChecker());
+            }
+            else if (Properties.OptionsConnectionsPage.Default.WatchConnectionFile && !string.IsNullOrEmpty(connectionFileName))
+            {
+                ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new FileConnectionsUpdateChecker(connectionFileName));
             }
         }
 
