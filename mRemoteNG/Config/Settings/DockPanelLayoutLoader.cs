@@ -108,6 +108,38 @@ namespace mRemoteNG.Config.Settings
                 {
                     return contentFactory.Invoke();
                 }
+
+                if (persistString.StartsWith("mRemoteNG.UI.Window.ConnectionWindow"))
+                {
+                    var parts = persistString.Split(';');
+                    string title = "";
+                    var connectionIds = new List<string>();
+
+                    if (parts.Length > 1)
+                    {
+                        try
+                        {
+                            title = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(parts[1]));
+                        }
+                        catch
+                        {
+                            // Fallback if decoding fails
+                        }
+                    }
+
+                    if (parts.Length > 2 && !string.IsNullOrEmpty(parts[2]))
+                    {
+                        connectionIds.AddRange(parts[2].Split(','));
+                    }
+
+                    var panelAdder = new mRemoteNG.UI.Panels.PanelAdder();
+                    var cw = panelAdder.AddPanel(title, false);
+                    if (cw != null)
+                    {
+                        cw.LoadConnections(connectionIds);
+                        return cw;
+                    }
+                }
             }
             catch (Exception ex)
             {

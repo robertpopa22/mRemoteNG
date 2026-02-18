@@ -1576,5 +1576,83 @@ namespace mRemoteNG.UI.Window
         }
 
         #endregion
+
+        #region Persistence
+
+        private readonly List<string> _pendingConnectionIds = new();
+
+        protected override string GetPersistString()
+        {
+            var connectionIds = new List<string>();
+            if (connDock != null && !connDock.IsDisposed)
+            {
+                foreach (var doc in connDock.Contents)
+                {
+                    if (doc is ConnectionTab tab)
+                    {
+                        var info = GetConnectionInfoForTab(tab);
+                        if (info != null && !string.IsNullOrEmpty(info.ConstantID))
+                        {
+                            connectionIds.Add(info.ConstantID);
+                        }
+                    }
+                }
+            }
+            
+            // Preserve pending IDs that haven't been processed yet
+            connectionIds.AddRange(_pendingConnectionIds);
+            
+            string joinedIds = string.Join(",", connectionIds.Distinct());
+            string titleEncoded = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Text));
+
+            return $"{typeof(ConnectionWindow)};{titleEncoded};{joinedIds}";
+        }
+
+        public void LoadConnections(IEnumerable<string> ids)
+        {
+            _pendingConnectionIds.Clear();
+            _pendingConnectionIds.AddRange(ids);
+
+            if (Runtime.ConnectionsService.IsConnectionsFileLoaded)
+            {
+                ProcessPendingConnections();
+            }
+            else
+            {
+                Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsService_ConnectionsLoaded;
+            }
+        }
+
+        private void ConnectionsService_ConnectionsLoaded(object? sender, EventArgs e)
+        {
+            Runtime.ConnectionsService.ConnectionsLoaded -= ConnectionsService_ConnectionsLoaded;
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(ProcessPendingConnections));
+            }
+            else
+            {
+                ProcessPendingConnections();
+            }
+        }
+
+        private void ProcessPendingConnections()
+        {
+            if (_pendingConnectionIds.Count == 0) return;
+            var tree = Runtime.ConnectionsService.ConnectionTreeModel;
+            if (tree == null) return;
+
+            foreach (var id in _pendingConnectionIds)
+            {
+                var info = tree.FindConnectionById(id);
+                if (info != null)
+                {
+                    Runtime.ConnectionInitiator.OpenConnection(info, ConnectionInfo.Force.DoNotJump, this);
+                }
+            }
+            _pendingConnectionIds.Clear();
+        }
+
+        #endregion
     }
 }
