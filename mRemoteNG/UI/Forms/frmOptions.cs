@@ -58,6 +58,34 @@ namespace mRemoteNG.UI.Forms
             InitOptionsPagesToListView();
         }
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Dispose all option pages to prevent resource leaks (GDI handles, etc.)
+                // This is critical as inactive pages are not in the Controls collection
+                // and would otherwise not be disposed.
+                foreach (var page in _optionPages)
+                {
+                    if (page != null && !page.IsDisposed)
+                    {
+                        page.Dispose();
+                    }
+                }
+                _optionPages.Clear();
+
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
         private void FrmOptions_Load(object sender, EventArgs e)
         {
             Logger.Instance.Log?.Debug($"[FrmOptions_Load] START - IsInitialized: {_isInitialized}, Visible: {this.Visible}, Handle: {this.Handle}");
