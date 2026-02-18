@@ -99,6 +99,9 @@ namespace mRemoteNG.Config.Settings
                     if (xEl.HasAttribute("Category"))
                         extA.Category = xEl.Attributes["Category"]?.Value ?? string.Empty;
 
+                    if (xEl.HasAttribute("Hotkey") && int.TryParse(xEl.Attributes["Hotkey"]!.Value, out int hotkeyValue))
+                        extA.Hotkey = (System.Windows.Forms.Keys)hotkeyValue;
+
                     _messageCollector.AddMessage(MessageClass.InformationMsg,
                                                  $"Adding External App: {extA.DisplayName} {extA.FileName} {extA.Arguments}",
                                                  true);

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
+using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
@@ -31,6 +32,7 @@ namespace mRemoteNG.Tools
         private bool _runElevated;
         private bool _runOnStartup;
         private bool _stopOnShutdown;
+        private Keys _hotkey = Keys.None;
 
         #region Public Properties
 
@@ -110,6 +112,12 @@ namespace mRemoteNG.Tools
         {
             get => _stopOnShutdown;
             set => SetField(ref _stopOnShutdown, value, nameof(StopOnShutdown));
+        }
+
+        public Keys Hotkey
+        {
+            get => _hotkey;
+            set => SetField(ref _hotkey, value, nameof(Hotkey));
         }
 
         /// <summary>

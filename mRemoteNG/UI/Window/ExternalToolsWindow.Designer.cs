@@ -39,6 +39,8 @@ namespace mRemoteNG.UI.Window
 	    internal MrngCheckBox RunElevatedCheckBox;
 	    internal Controls.MrngLabel CategoryLabel;
 	    internal Controls.MrngTextBox CategoryTextBox;
+	    internal Controls.MrngLabel HotkeyLabel;
+	    internal Controls.MrngTextBox HotkeyTextBox;
 
         private void InitializeComponent()
 		{
@@ -76,6 +78,8 @@ namespace mRemoteNG.UI.Window
             this.WaitForExitCheckBox = new MrngCheckBox();
             this.BrowseButton = new MrngButton();
             this.BrowseWorkingDir = new MrngButton();
+            this.HotkeyLabel = new mRemoteNG.UI.Controls.MrngLabel();
+            this.HotkeyTextBox = new mRemoteNG.UI.Controls.MrngTextBox();
             this.ToolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.ToolStrip = new System.Windows.Forms.ToolStrip();
             this.NewToolToolstripButton = new System.Windows.Forms.ToolStripButton();
@@ -272,24 +276,27 @@ namespace mRemoteNG.UI.Window
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.DisplayNameLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ShowOnToolbarCheckBox, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ShowOnToolbarCheckBox, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.WorkingDirTextBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.DisplayNameTextBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.FilenameTextBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.ArgumentsCheckBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.FilenameLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.RunElevatedCheckBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.RunElevatedCheckBox, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.ArgumentsLabel, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.TryToIntegrateCheckBox, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.TryToIntegrateCheckBox, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.WorkingDirLabel, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.OptionsLabel, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.WaitForExitCheckBox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.HotkeyLabel, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.HotkeyTextBox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.OptionsLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.WaitForExitCheckBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.BrowseButton, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.BrowseWorkingDir, 4, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -316,11 +323,11 @@ namespace mRemoteNG.UI.Window
             this.ShowOnToolbarCheckBox._mice = MrngCheckBox.MouseState.HOVER;
             this.ShowOnToolbarCheckBox.AutoSize = true;
             this.ShowOnToolbarCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ShowOnToolbarCheckBox.Location = new System.Drawing.Point(239, 133);
+            this.ShowOnToolbarCheckBox.Location = new System.Drawing.Point(239, 159);
             this.ShowOnToolbarCheckBox.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.ShowOnToolbarCheckBox.Name = "ShowOnToolbarCheckBox";
             this.ShowOnToolbarCheckBox.Size = new System.Drawing.Size(113, 20);
-            this.ShowOnToolbarCheckBox.TabIndex = 10;
+            this.ShowOnToolbarCheckBox.TabIndex = 12;
             this.ShowOnToolbarCheckBox.Text = "Show on toolbar";
             this.ShowOnToolbarCheckBox.UseVisualStyleBackColor = true;
             this.ShowOnToolbarCheckBox.Click += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
@@ -389,11 +396,11 @@ namespace mRemoteNG.UI.Window
             this.RunElevatedCheckBox._mice = MrngCheckBox.MouseState.HOVER;
             this.RunElevatedCheckBox.AutoSize = true;
             this.RunElevatedCheckBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RunElevatedCheckBox.Location = new System.Drawing.Point(113, 133);
+            this.RunElevatedCheckBox.Location = new System.Drawing.Point(113, 159);
             this.RunElevatedCheckBox.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.RunElevatedCheckBox.Name = "RunElevatedCheckBox";
             this.RunElevatedCheckBox.Size = new System.Drawing.Size(93, 20);
-            this.RunElevatedCheckBox.TabIndex = 9;
+            this.RunElevatedCheckBox.TabIndex = 11;
             this.RunElevatedCheckBox.Text = "Run Elevated";
             this.RunElevatedCheckBox.UseVisualStyleBackColor = true;
             this.RunElevatedCheckBox.Click += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);

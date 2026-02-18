@@ -60,6 +60,8 @@ namespace mRemoteNG.Config.Settings
                     xmlTextWriter.WriteAttributeString("RunElevated", "", Convert.ToString(extA.RunElevated));
                     xmlTextWriter.WriteAttributeString("ShowOnToolbar", "", Convert.ToString(extA.ShowOnToolbar));
                     xmlTextWriter.WriteAttributeString("Category", "", extA.Category);
+                    if (extA.Hotkey != System.Windows.Forms.Keys.None)
+                        xmlTextWriter.WriteAttributeString("Hotkey", "", Convert.ToString((int)extA.Hotkey));
                     xmlTextWriter.WriteEndElement();
                 }
 
@@ -98,8 +100,8 @@ namespace mRemoteNG.Config.Settings
                     foreach (ExternalTool extA in externalTools)
                     {
                         cmd = dbConnector.DbCommand(
-                            "INSERT INTO tblExternalTools (DisplayName, FileName, Arguments, WorkingDir, WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown) " +
-                            "VALUES (@DisplayName, @FileName, @Arguments, @WorkingDir, @WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown)");
+                            "INSERT INTO tblExternalTools (DisplayName, FileName, Arguments, WorkingDir, WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, Hotkey) " +
+                            "VALUES (@DisplayName, @FileName, @Arguments, @WorkingDir, @WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown, @Hotkey)");
                         cmd.Transaction = transaction;
 
                         AddParameter(cmd, "@DisplayName", extA.DisplayName);
@@ -113,6 +115,7 @@ namespace mRemoteNG.Config.Settings
                         AddParameter(cmd, "@Category", extA.Category);
                         AddParameter(cmd, "@RunOnStartup", extA.RunOnStartup);
                         AddParameter(cmd, "@StopOnShutdown", extA.StopOnShutdown);
+                        AddParameter(cmd, "@Hotkey", (int)extA.Hotkey);
 
                         cmd.ExecuteNonQuery();
                     }

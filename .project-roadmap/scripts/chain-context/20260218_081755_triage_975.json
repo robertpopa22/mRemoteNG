@@ -1,0 +1,59 @@
+{
+  "task_type": "triage",
+  "task_id": "975",
+  "started_at": "2026-02-18T08:17:35",
+  "finished_at": "2026-02-18T08:17:55",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T08:17:35"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T08:17:48"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "Documentation request for existing feature - not a code change; belongs in wiki/docs, not in codebase fixes",
+        "priority": "P4-debt",
+        "estimated_files": [],
+        "approach": "No code changes needed; documentation should be added to the project wiki or user guide, not tracked as a code issue"
+      },
+      "raw_output": "Looking at issue #975, this is a documentation request — \"Document the Default Connection and Default Inheritance feature.\" There's no code bug or feature to implement; it's asking for user-facing documentation about an existing feature.\n\n```json\n{\"decision\":\"wontfix\",\"reason\":\"Documentation request for existing feature - not a code change; belongs in wiki/docs, not in codebase fixes\",\"priority\":\"P4-debt\",\"estimated_files\":[],\"approach\":\"No code changes needed; documentation should be added to the project wiki or user guide, not tracked as a code issue\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T08:17:55"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
