@@ -92,23 +92,6 @@ namespace mRemoteNG.Connection
         [Browsable(false)]
         public bool IsRoot { get; set; }
 
-        private bool _isTemplate;
-
-        [Browsable(true)]
-        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display))]
-        [DisplayName("Is Template")]
-        [Description("If enabled, this connection serves as a template and cannot be initiated.")]
-        public bool IsTemplate
-        {
-            get => _isTemplate;
-            set
-            {
-                if (_isTemplate == value) return;
-                _isTemplate = value;
-                RaisePropertyChangedEvent(this, new PropertyChangedEventArgs(nameof(IsTemplate)));
-            }
-        }
-
         #endregion
 
         #region Constructors

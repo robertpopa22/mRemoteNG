@@ -122,6 +122,7 @@ namespace mRemoteNG.Connection
         private string _rdpRemoteAppProgram = string.Empty;
         private string _rdpRemoteAppCmdLine = string.Empty;
         private bool _favorite = default;
+        private bool _isTemplate = default;
 
         private ProtocolVNC.Compression _vncCompression = default;
         private ProtocolVNC.Encoding _vncEncoding = default;
@@ -162,6 +163,15 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue(nameof(Description), _description);
             set => SetField(ref _description, value, nameof(Description));
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Display))]
+        [DisplayName("Is Template")]
+        [Description("If enabled, this connection serves as a template and cannot be initiated.")]
+        public virtual bool IsTemplate
+        {
+            get => GetPropertyValue(nameof(IsTemplate), _isTemplate);
+            set => SetField(ref _isTemplate, value, nameof(IsTemplate));
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Display)),
