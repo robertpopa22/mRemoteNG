@@ -74,5 +74,33 @@ namespace mRemoteNGTests.UI.Window
             Assert.That(connectionTreeWindow.ConnectionTree.MultiSelect, Is.True);
             connectionTreeWindow.Close();
         });
+
+        [Test]
+        public void ClearButtonVisibilityTests() => RunWithMessagePump(() =>
+        {
+            var connectionTreeWindow = new ConnectionTreeWindow(new DockContent());
+            connectionTreeWindow.Show();
+            Application.DoEvents();
+
+            var pbClear = connectionTreeWindow.Controls.Find("pbClearSearch", true)[0];
+            var txtSearch = connectionTreeWindow.Controls.Find("txtSearch", true)[0];
+
+            // Initially hidden
+            Assert.That(pbClear.Visible, Is.False, "Clear button should be hidden initially");
+
+            // Set text
+            txtSearch.Text = "foo";
+            Application.DoEvents();
+            
+            // Should be visible
+            Assert.That(pbClear.Visible, Is.True, "Clear button should be visible when text is present");
+
+            // Clear text
+            txtSearch.Text = "";
+            Application.DoEvents();
+            Assert.That(pbClear.Visible, Is.False, "Clear button should be hidden when text is empty");
+            
+            connectionTreeWindow.Close();
+        });
     }
 }

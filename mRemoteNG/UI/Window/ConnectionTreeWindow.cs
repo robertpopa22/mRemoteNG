@@ -121,6 +121,7 @@ namespace mRemoteNG.UI.Window
             txtSearch.ForeColor = extendedPalette.getColor("TextBox_Foreground");
             //Picturebox needs to be manually themed
             pbSearch.BackColor = extendedPalette.getColor("TreeView_Background");
+            pbClearSearch.BackColor = extendedPalette.getColor("TreeView_Background");
         }
 
         #endregion
@@ -312,7 +313,15 @@ namespace mRemoteNG.UI.Window
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
+            pbClearSearch.Visible = txtSearch.Text.Length > 0
+                                    && txtSearch.Text != Language.SearchPrompt;
             ApplyFiltering();
+        }
+
+        private void PbClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = string.Empty;
+            txtSearch.Focus();
         }
 
         private void ApplyFiltering()
