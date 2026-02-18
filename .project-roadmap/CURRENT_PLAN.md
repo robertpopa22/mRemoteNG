@@ -1,10 +1,10 @@
 # Current Plan: Automated Issue Resolution & Warning Cleanup
 
-**Status:** COMPLETED (nullable warnings phase)
-**Branch:** `main` (v1.81.0-beta.2)
-**Last updated:** 2026-02-15
+**Status:** ACTIVE (orchestrator improvements)
+**Branch:** `main` (v1.81.0-beta.3)
+**Last updated:** 2026-02-18
 **Released:** `v1.81.0-beta.2` — https://github.com/robertpopa22/mRemoteNG/releases/tag/20260215-v1.81.0-beta.2-NB-(3396)
-**Last commit:** `2597fafe` — fix(ci): read version from csproj instead of hardcoded values
+**Last commit:** `4ccbb1ec` — feat(orchestrator): Add test hygiene phase + duplicate commit prevention
 
 ---
 
@@ -16,17 +16,30 @@ care apeleaza Claude Code ca sub-agent. Totul automat, pas cu pas, cu monitoring
 ## Arhitectura orchestratorului
 
 ```
-orchestrate.py (Python — ruleaza continuu)
+iis_orchestrator.py (Python — ruleaza continuu)
+│
+├── FLUX 0: Test Hygiene — PRE-FLIGHT (2026-02-18)
+│   ├── build.ps1 → verifica infrastructura
+│   ├── run-tests.ps1 → baseline (colecteaza failures)
+│   ├── _classify_test_failures() → grupeaza pe clasa/error pattern
+│   ├── Pentru fiecare grup (max 10):
+│   │   ├── claude -p "fix failing tests in {group}"
+│   │   ├── build.ps1 + run-tests.ps1 → verifica
+│   │   ├── git commit "chore(tests): fix {description}" (pe success)
+│   │   └── git restore (pe fail)
+│   └── Summary: "Fixed N/M groups, K tests recovered"
 │
 ├── FLUX 1: Open Issues (upstream GitHub)
-│   ├── Sync issues (Sync-Issues.ps1)
-│   ├── AI Triage (claude -p → analizeaza fiecare issue)
+│   ├── Sync issues (gh api)
+│   ├── _warm_committed_issues_cache() → DEDUP guard
+│   ├── AI Triage (codex/claude/gemini chain → analizeaza fiecare issue)
 │   │   └── Decizie: implement / wontfix / needs-info / duplicate
 │   ├── Pentru fiecare "implement":
-│   │   ├── claude -p "fix issue #N" (cu context din issue + cod)
+│   │   ├── DEDUP check → skip daca deja comis
+│   │   ├── chain_implement() (codex → gemini → claude fallback)
 │   │   ├── build.ps1 → verifica compilare
-│   │   ├── dotnet test → verifica teste
-│   │   ├── git commit -m "fix(#N): description"
+│   │   ├── run-tests.ps1 → verifica teste
+│   │   ├── git commit -m "fix(#N): description" (cu DEDUP safety net)
 │   │   ├── git push
 │   │   └── gh issue comment #N → "Fixed, test in beta [link]"
 │   └── Update issue status in IIS JSON
@@ -37,9 +50,12 @@ orchestrate.py (Python — ruleaza continuu)
 │   ├── Pentru fiecare fisier:
 │   │   ├── claude -p "fix warnings in file X"
 │   │   ├── build.ps1 → verifica
-│   │   ├── dotnet test → verifica
+│   │   ├── run-tests.ps1 → verifica
 │   │   └── git commit
-│   └── Actualizeaza metrici in CURRENT_PLAN.md
+│   └── Actualizeaza metrici
+│
+├── FLUX 0: Test Hygiene — POST-FLIGHT (2026-02-18)
+│   └── (same as pre-flight — catches regressions from issues/warnings)
 │
 └── MONITORING (live)
     ├── orchestrator-status.json (stare masina)
@@ -281,14 +297,14 @@ for file_path, file_warnings in files_by_warning_count:
 - Cleanup: 25 branch-uri, 25 worktrees, .auto-claude/
 - Comise in `a653e86f`
 
-### Stare curenta (v1.81.0-beta.3, 2026-02-15)
+### Stare curenta (v1.81.0-beta.3, 2026-02-18)
 - **Build:** compileaza fara erori
-- **Teste:** 2228/2231 passed (full parallel, 5 procese), 0 failures, 3 skipped ([Ignore])
-- **Test time:** ~2 min paralel (5 procese)
+- **Teste:** 2554/2554 passed (full parallel, 5 procese), 0 failures, 0 skipped
+- **Test time:** ~42s paralel (5 procese)
 - **UI tests:** toate redesigned cu RunWithMessagePump pattern (fara headless filter)
 - **Nullable warnings:** 0 (2,554 fixed, 100% clean)
 - **Release:** v1.81.0-beta.2 published, 6 assets, all 7 CI jobs passed
-- **Specs:** 3/5 fail pre-existent (BouncyCastle GCM) — nu cauzat de noi
+- **Orchestrator v2:** test hygiene phase + duplicate commit prevention (commit `4ccbb1ec`)
 
 ---
 
@@ -330,7 +346,9 @@ Logheaza eroarea si treci la urmatorul task.
 | 2026-02-14 (Gemini) | Gemini | 386 | 846 | ~4,831 | 0 | d60d2b80 |
 | 2026-02-14 (fixuri) | Claude | 386 | 846 | ~4,831 | 0 | a653e86f |
 | 2026-02-14-15 (IIS) | Claude+Gemini | 0 | 0 | 0 | 0 | c935f161 |
-| **FINAL** | **All** | **0** | **0** | **0** | **0** | **v1.81.0-beta.2** |
+| **v1.81.0-beta.2** | **All** | **0** | **0** | **0** | **0** | **v1.81.0-beta.2** |
+| 2026-02-18 | Claude | 0 | 0 | 0 | 2 (#1260, #1257) | 8faf2c7c9 |
+| 2026-02-18 | Claude | — | — | — | +hygiene+dedup | 4ccbb1ec |
 
 ---
 
