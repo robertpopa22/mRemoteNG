@@ -17,6 +17,7 @@ using mRemoteNG.Connection.Protocol.Serial;
 using mRemoteNG.Connection.Protocol.SSH;
 using mRemoteNG.Connection.Protocol.Telnet;
 using mRemoteNG.Connection.Protocol.VNC;
+using mRemoteNG.Connection.Protocol.Winbox;
 using mRemoteNG.Container;
 using mRemoteNG.Properties;
 using mRemoteNG.Tree;
@@ -356,6 +357,8 @@ namespace mRemoteNG.Connection
                         return (int)ProtocolTerminal.Defaults.Port;
                     case ProtocolType.IntApp:
                         return (int)IntegratedProgram.Defaults.Port;
+                    case ProtocolType.Winbox:
+                        return (int)ProtocolWinbox.Defaults.Port;
                 }
 
                 return 0;

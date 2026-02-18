@@ -236,7 +236,7 @@ namespace mRemoteNG.Connection.Protocol.Winbox
 
             // Handle port if specified in hostname or port field?
             // Usually Winbox uses address:port.
-            if (_connectionInfo.Port > 0 && _connectionInfo.Port != 80 && !address.Contains(":"))
+            if (_connectionInfo.Port > 0 && !address.Contains(":"))
             {
                  address = $"{address}:{_connectionInfo.Port}";
             }
@@ -298,6 +298,14 @@ namespace mRemoteNG.Connection.Protocol.Winbox
                     Thread.Sleep(50);
             }
             return found;
+        }
+
+        #endregion
+        #region Enumerations
+
+        public enum Defaults
+        {
+            Port = 8291
         }
 
         #endregion
