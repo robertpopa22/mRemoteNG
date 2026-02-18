@@ -441,6 +441,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void SetRdpClientProperties()
         {
+            // Fix for #1005: Gateway Authentication box hidden behind other windows
+            try
+            {
+                // Use dynamic to set UIParentWindowHandle to avoid manual construction of _RemotableHandle
+                // which is required by the strongly-typed interface method in the interop assembly.
+                if (_rdpClient is IMsRdpClientNonScriptable3)
+                {
+                    ((dynamic)_rdpClient).UIParentWindowHandle = _frmMain.Handle;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to set UIParentWindowHandle for RDP client.", ex, MessageClass.WarningMsg, false);
+            }
+
             // https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/clients/rdp-files
 
             _rdpClient.Server = connectionInfo.Hostname;
