@@ -88,7 +88,7 @@ namespace mRemoteNG.UI.Menu
             //
             _mMenKeyboardShortcuts.Name = "mMenKeyboardShortcuts";
             _mMenKeyboardShortcuts.Size = new System.Drawing.Size(190, 22);
-            _mMenKeyboardShortcuts.Text = "Keyboard Shortcuts";
+            _mMenKeyboardShortcuts.Text = "Keyboard Shortcuts...";
             _mMenKeyboardShortcuts.Click += mMenKeyboardShortcuts_Click;
             //
             // mMenToolsUpdate
