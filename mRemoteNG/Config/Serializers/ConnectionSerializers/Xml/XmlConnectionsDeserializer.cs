@@ -198,6 +198,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                             {
                                 containerInfo.AutoSort = xmlNode.GetAttributeAsBool("AutoSort");
                                 containerInfo.ContainerPassword = _decryptor.Decrypt(xmlNode.GetAttributeAsString("ContainerPassword"));
+                                containerInfo.DynamicSource = xmlNode.GetAttributeAsEnum("DynamicSource", DynamicSourceType.None);
+                                containerInfo.DynamicSourceValue = xmlNode.GetAttributeAsString("DynamicSourceValue");
+                                containerInfo.DynamicRefreshInterval = xmlNode.GetAttributeAsInt("DynamicRefreshInterval");
                             }
 
                             if (containerInfo.IsRoot)

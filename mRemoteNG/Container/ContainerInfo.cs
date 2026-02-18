@@ -83,7 +83,7 @@ namespace mRemoteNG.Container
             get => _dynamicSourceValue;
             set => SetField(ref _dynamicSourceValue, value, nameof(DynamicSourceValue));
         }
-        private string _dynamicSourceValue;
+        private string _dynamicSourceValue = string.Empty;
 
         [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(0), DesignOnly(false)]
         public int DynamicRefreshInterval

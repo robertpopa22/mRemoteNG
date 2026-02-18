@@ -44,6 +44,13 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
                 if (_saveFilter.SavePassword && !string.IsNullOrEmpty(nodeAsContainer.ContainerPassword))
                     element.Add(new XAttribute("ContainerPassword", _cryptographyProvider.Encrypt(nodeAsContainer.ContainerPassword, _encryptionKey)));
+
+                if (nodeAsContainer.DynamicSource != DynamicSourceType.None)
+                {
+                    element.Add(new XAttribute("DynamicSource", nodeAsContainer.DynamicSource.ToString()));
+                    element.Add(new XAttribute("DynamicSourceValue", nodeAsContainer.DynamicSourceValue));
+                    element.Add(new XAttribute("DynamicRefreshInterval", nodeAsContainer.DynamicRefreshInterval));
+                }
             }
             element.Add(new XAttribute("Descr", connectionInfo.Description));
             element.Add(new XAttribute("Icon", connectionInfo.Icon));

@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
+using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
 using mRemoteNG.App;
 using mRemoteNG.Config.Import;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Connection;
 using mRemoteNG.Tree;
 using System.Runtime.Versioning;
@@ -87,7 +91,7 @@ namespace mRemoteNG.Container
         {
             try
             {
-                if (container.DynamicSource == DynamicSourceType.ActiveDirectory)
+                if (container.DynamicSource != DynamicSourceType.None)
                 {
                     if (mRemoteNG.UI.Forms.FrmMain.Default?.InvokeRequired == true)
                     {
@@ -112,10 +116,18 @@ namespace mRemoteNG.Container
                 var childrenToRemove = container.Children.ToList();
                 container.RemoveChildRange(childrenToRemove);
                 
-                if (container.DynamicSource == DynamicSourceType.ActiveDirectory)
+                switch (container.DynamicSource)
                 {
-                     // Assuming true for recursive import
-                     ActiveDirectoryImporter.Import(container.DynamicSourceValue, container, true);
+                    case DynamicSourceType.ActiveDirectory:
+                        // Assuming true for recursive import
+                        ActiveDirectoryImporter.Import(container.DynamicSourceValue, container, true);
+                        break;
+                    case DynamicSourceType.File:
+                        ImportFromFile(container);
+                        break;
+                    case DynamicSourceType.Script:
+                        ImportFromScript(container);
+                        break;
                 }
                 
                 Runtime.MessageCollector.AddMessage(Messages.MessageClass.InformationMsg, $"Dynamic folder '{container.Name}' refreshed.");
@@ -123,6 +135,119 @@ namespace mRemoteNG.Container
             catch (Exception ex)
             {
                  Runtime.MessageCollector.AddExceptionMessage($"Error executing refresh for {container.Name}", ex);
+            }
+        }
+
+        private void ImportFromFile(ContainerInfo container)
+        {
+            string filePath = container.DynamicSourceValue;
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.WarningMsg, $"Dynamic folder '{container.Name}': File path is empty.");
+                return;
+            }
+
+            if (!File.Exists(filePath))
+            {
+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg, $"Dynamic folder '{container.Name}': File '{filePath}' not found.");
+                return;
+            }
+
+            try
+            {
+                string xmlContent = File.ReadAllText(filePath);
+                ImportXml(xmlContent, container, filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to read file '{filePath}'", ex);
+            }
+        }
+
+        private void ImportFromScript(ContainerInfo container)
+        {
+            string scriptPath = container.DynamicSourceValue;
+            if (string.IsNullOrWhiteSpace(scriptPath))
+            {
+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.WarningMsg, $"Dynamic folder '{container.Name}': Script path is empty.");
+                return;
+            }
+
+            try
+            {
+                string output = ExecuteScript(scriptPath);
+                if (!string.IsNullOrWhiteSpace(output))
+                {
+                    ImportXml(output, container, "ScriptOutput");
+                }
+                else
+                {
+                    Runtime.MessageCollector.AddMessage(Messages.MessageClass.WarningMsg, $"Dynamic folder '{container.Name}': Script returned no output.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to execute script '{scriptPath}'", ex);
+            }
+        }
+
+        private string ExecuteScript(string scriptPath)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            if (scriptPath.EndsWith(".ps1", StringComparison.OrdinalIgnoreCase))
+            {
+                startInfo.FileName = "powershell.exe";
+                startInfo.Arguments = $"-ExecutionPolicy Bypass -File \"{scriptPath}\"";
+            }
+            else if (scriptPath.EndsWith(".bat", StringComparison.OrdinalIgnoreCase) || scriptPath.EndsWith(".cmd", StringComparison.OrdinalIgnoreCase))
+            {
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = $"/c \"{scriptPath}\"";
+            }
+            else
+            {
+                startInfo.FileName = scriptPath;
+            }
+
+            using var process = new Process { StartInfo = startInfo };
+            process.Start();
+
+            var outputTask = process.StandardOutput.ReadToEndAsync();
+            var errorTask = process.StandardError.ReadToEndAsync();
+
+            Task.WaitAll(outputTask, errorTask);
+            process.WaitForExit();
+
+            if (process.ExitCode != 0)
+            {
+                 string error = errorTask.Result;
+                 if (!string.IsNullOrWhiteSpace(error))
+                     throw new Exception($"Script exited with code {process.ExitCode}: {error}");
+                 
+                 throw new Exception($"Script exited with code {process.ExitCode}");
+            }
+
+            return outputTask.Result;
+        }
+
+        private void ImportXml(string xmlContent, ContainerInfo container, string sourceName)
+        {
+            var deserializer = new XmlConnectionsDeserializer(sourceName);
+            var tree = deserializer.Deserialize(xmlContent, true);
+
+            if (tree != null)
+            {
+                foreach (var rootNode in tree.RootNodes)
+                {
+                    container.AddChildRange(rootNode.Children.ToList());
+                }
             }
         }
     }
