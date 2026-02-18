@@ -143,18 +143,78 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static uint GetCyrillicKeysym(char c)
         {
-            // X11 keysyms for Cyrillic
-            // Based on X11 keysymdef.h
-            
-            if (c >= 0x0430 && c <= 0x044F) // a-ya
-                return (uint)(0x06C1 + (c - 0x0430));
-            
-            if (c >= 0x0410 && c <= 0x042F) // A-YA
-                return (uint)(0x06E1 + (c - 0x0410));
-
-            // Special cases
+            // X11 keysyms for Cyrillic (from keysymdef.h).
+            // IMPORTANT: X11 keysyms follow JCUKEN keyboard order, NOT Unicode order,
+            // so a linear offset formula does NOT work. Use explicit lookup.
             return c switch
             {
+                // Lowercase (U+0430–U+044F)
+                'а' => 0x06C1, // XK_Cyrillic_a
+                'б' => 0x06C2, // XK_Cyrillic_be
+                'в' => 0x06D7, // XK_Cyrillic_ve
+                'г' => 0x06C7, // XK_Cyrillic_ghe
+                'д' => 0x06C4, // XK_Cyrillic_de
+                'е' => 0x06C5, // XK_Cyrillic_ie
+                'ж' => 0x06D6, // XK_Cyrillic_zhe
+                'з' => 0x06DA, // XK_Cyrillic_ze
+                'и' => 0x06C9, // XK_Cyrillic_i
+                'й' => 0x06CA, // XK_Cyrillic_shorti
+                'к' => 0x06CB, // XK_Cyrillic_ka
+                'л' => 0x06CC, // XK_Cyrillic_el
+                'м' => 0x06CD, // XK_Cyrillic_em
+                'н' => 0x06CE, // XK_Cyrillic_en
+                'о' => 0x06CF, // XK_Cyrillic_o
+                'п' => 0x06D0, // XK_Cyrillic_pe
+                'р' => 0x06D2, // XK_Cyrillic_er
+                'с' => 0x06D3, // XK_Cyrillic_es
+                'т' => 0x06D4, // XK_Cyrillic_te
+                'у' => 0x06D5, // XK_Cyrillic_u
+                'ф' => 0x06C6, // XK_Cyrillic_ef
+                'х' => 0x06C8, // XK_Cyrillic_ha
+                'ц' => 0x06C3, // XK_Cyrillic_tse
+                'ч' => 0x06DE, // XK_Cyrillic_che
+                'ш' => 0x06DB, // XK_Cyrillic_sha
+                'щ' => 0x06DD, // XK_Cyrillic_shcha
+                'ъ' => 0x06DF, // XK_Cyrillic_hardsign
+                'ы' => 0x06D9, // XK_Cyrillic_yeru
+                'ь' => 0x06D8, // XK_Cyrillic_softsign
+                'э' => 0x06DC, // XK_Cyrillic_e
+                'ю' => 0x06C0, // XK_Cyrillic_yu
+                'я' => 0x06D1, // XK_Cyrillic_ya
+                // Uppercase (U+0410–U+042F)
+                'А' => 0x06E1, // XK_Cyrillic_A
+                'Б' => 0x06E2, // XK_Cyrillic_BE
+                'В' => 0x06F7, // XK_Cyrillic_VE
+                'Г' => 0x06E7, // XK_Cyrillic_GHE
+                'Д' => 0x06E4, // XK_Cyrillic_DE
+                'Е' => 0x06E5, // XK_Cyrillic_IE
+                'Ж' => 0x06F6, // XK_Cyrillic_ZHE
+                'З' => 0x06FA, // XK_Cyrillic_ZE
+                'И' => 0x06E9, // XK_Cyrillic_I
+                'Й' => 0x06EA, // XK_Cyrillic_SHORTI
+                'К' => 0x06EB, // XK_Cyrillic_KA
+                'Л' => 0x06EC, // XK_Cyrillic_EL
+                'М' => 0x06ED, // XK_Cyrillic_EM
+                'Н' => 0x06EE, // XK_Cyrillic_EN
+                'О' => 0x06EF, // XK_Cyrillic_O
+                'П' => 0x06F0, // XK_Cyrillic_PE
+                'Р' => 0x06F2, // XK_Cyrillic_ER
+                'С' => 0x06F3, // XK_Cyrillic_ES
+                'Т' => 0x06F4, // XK_Cyrillic_TE
+                'У' => 0x06F5, // XK_Cyrillic_U
+                'Ф' => 0x06E6, // XK_Cyrillic_EF
+                'Х' => 0x06E8, // XK_Cyrillic_HA
+                'Ц' => 0x06E3, // XK_Cyrillic_TSE
+                'Ч' => 0x06FE, // XK_Cyrillic_CHE
+                'Ш' => 0x06FB, // XK_Cyrillic_SHA
+                'Щ' => 0x06FD, // XK_Cyrillic_SHCHA
+                'Ъ' => 0x06FF, // XK_Cyrillic_HARDSIGN
+                'Ы' => 0x06F9, // XK_Cyrillic_YERU
+                'Ь' => 0x06F8, // XK_Cyrillic_SOFTSIGN
+                'Э' => 0x06FC, // XK_Cyrillic_E
+                'Ю' => 0x06E0, // XK_Cyrillic_YU
+                'Я' => 0x06F1, // XK_Cyrillic_YA
+                // Special characters
                 'ё' => 0x06A3, // XK_Cyrillic_io
                 'Ё' => 0x06B3, // XK_Cyrillic_IO
                 _ => 0

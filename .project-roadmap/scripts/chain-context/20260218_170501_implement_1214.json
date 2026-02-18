@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1214",
+  "started_at": "2026-02-18T16:44:56",
+  "finished_at": "2026-02-18T17:05:01",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1214",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T16:44:56"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1214",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Build OK but tests failed. Test fix attempted but failed.",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1214.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json"
+      ],
+      "build_result": "OK",
+      "test_result": "FAIL",
+      "timed_out": false,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1214.json      | 15 +++++++---\n .../scripts/chain-context/_timeout_history.json    | 33 +++++++++++-----------\n 2 files changed, 28 insertions(+), 20 deletions(-)",
+      "timestamp": "2026-02-18T16:56:33",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1214.json b/.project-roadmap/issues-db/upstream/1214.json\nindex b789b5531..418dfb789 100644\n--- a/.project-roadmap/issues-db/upstream/1214.json\n+++ b/.project-roadmap/issues-db/upstream/1214.json\n@@ -12,12 +12,19 @@\n   \"created_at\": \"2018-12-20T09:04:10Z\",\n   \"github_updated_at\": \"2021-07-09T10:50:44Z\",\n   \"body_snippet\": \"Hello.\\r\\nRussian lletters turning into crap over vnc protocol connection from win10 to win10 (at least).\\r\\nRDP protocol connection works fine\\r\\nEnglish language works fine\\r\\n\\r\\nRNG ver. 1.76.11.40527\\r\\nWindows 10 Pro (any build)\\r\\n\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-18\",\n+      \"type\": \"triaged\",\n+      \"description\": \"The issue is caused by the VNC implementation not correctly handling non-Latin keyboard input. The proposed fix is to extend the existing `VncLockKeyFilter` to intercept `WM_CHAR` and IME messages and send the correct keysyms for Cyrillic characters via reflection.\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"MDEyOklzc3VlQ29tbWVudDQ0OTE0MDkwOQ==\",\n@@ -106,5 +113,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (gemini): The issue is caused by the VNC implementation not correctly handling non-Latin keyboard input. The proposed fix is to extend the existing `VncLockKeyFilter` to intercept `WM_CHAR` and IME messages and send the correct keysyms for Cyrillic characters via reflection.\\nApproach: Extend `VncLockKeyFilter` to intercept `WM_CHAR`/IME messages and send correct keysyms for Cyrillic characters.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex f0dc5f01e..313ede5f5 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -2,8 +2,6 @@\n   \"durations\": {\n     \"claude\": {\n       \"implement\": [\n-        334.7,\n-        351.9,\n         267.4,\n         233.0,\n         213.5,\n@@ -51,10 +49,11 @@\n         268.5,\n         310.3,\n         399.5,\n-        267.9\n+        267.9,\n+        291.8,\n+        308.8\n       ],\n       \"triage\": [\n-        36.5,\n         31.2,\n         38.5,\n         31.3,\n@@ -103,14 +102,12 @@\n         17.5,\n         19.2,\n         19.5,\n-        22.6\n+        22.6,\n+        21.0\n       ]\n     },\n     \"gemini\": {\n       \"implement\": [\n-        418.9,\n-        535.0,\n-        492.2,\n         340.1,\n         401.6,\n         408.0,\n@@ -157,14 +154,12 @@\n         455.1,\n         526.6,\n         459.9,\n-        400.1\n+        400.1,\n+        569.0,\n+        557.3,\n+        600.1\n       ],\n       \"triage\": [\n-        105.1,\n-        132.9,\n-        122.7,\n-        220.5,\n-        39.9,\n         94.8,\n         114.3,\n         114.3,\n@@ -209,7 +204,12 @@\n         95.8,\n         89.3,\n         152.1,\n-        27.9\n+        27.9,\n+        79.6,\n+        122.4,\n+        118.9,\n+        103.5,\n+        52.9\n       ]\n     }\n   },\n@@ -224,6 +224,7 @@\n     \"triage_1012\": 1.5,\n     \"impl_1084\": 1.5,\n     \"triage_980\": 1.5,\n-    \"impl_1097\": 1.5\n+    \"impl_1097\": 1.5,\n+    \"impl_1213\": 1.5\n   }\n }",
+      "test_output": "=== mRemoteNG Test Runner ===\nCPU: 48 logical processors\nTimeout: 15000ms per test\nMode: Full parallel (5 processes)\n\nCleaning stale processes...\nLaunching 5 parallel test processes...\n\n  [Security] starting...\n  [Tools+Misc] starting...\n  [Config] starting...\n  [Connection+Rest] starting...\n  [UI] starting...\n  [Security] 164/164 passed \n  [Tools+Misc] 395/395 passed \n  [Config] 616/616 passed \n  [Connection+Rest] 1031/1032 passed (1 FAILED)\n  [UI] 97/0 passed \n\nmRemoteNGTests completed in 0m 59.143s\nGARBLED_OUTPUT: 2303/2207 passed -- concurrent output corruption!\n\n"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1214",
+      "success": true,
+      "result": null,
+      "raw_output": "",
+      "errors": null,
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "OK",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T17:05:01"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

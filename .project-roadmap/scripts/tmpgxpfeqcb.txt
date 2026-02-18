@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1197: Scaling the size of text, applications and other elements 125% on a remote machine.
+Description: 
+Approach: Add a `DesktopScaleFactor` property (e.g. Auto, 100, 125, 150, 200) to `ConnectionInfo`. Update `RdpProtocol.SetResolution` to use this value for the RDP `DesktopScaleFactor` extended property, falling back to local DPI only if set to Auto.
+Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1197
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
