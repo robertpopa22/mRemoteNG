@@ -1193,29 +1193,20 @@ namespace mRemoteNG.UI.Forms
                     : DocumentStyle.DockingWindow;
             }
 
-            // TODO: See if we can get this to work with DPS
-#if false
-            foreach (var dockContent in pnlDock.Documents)
-			{
-				var document = (DockContent)dockContent;
-				if (document is ConnectionWindow)
-				{
-					var connectionWindow = (ConnectionWindow)document;
-					if (Settings.Default.AlwaysShowConnectionTabs == false)
-					{
-						connectionWindow.TabController.HideTabsMode = TabControl.HideTabsModes.HidepnlDock.DockLeftPortion = Always;
-					}
-					else
-					{
-						connectionWindow.TabController.HideTabsMode = TabControl.HideTabsModes.ShowAlways;
-					}
-				}
-			}
-#endif
-
             if (pnlDock.DocumentStyle == newDocumentStyle) return;
             pnlDock.DocumentStyle = newDocumentStyle;
             pnlDock.Size = new Size(1, 1);
+        }
+
+        public void ShowHideConnectionTabs()
+        {
+            if (Runtime.WindowList == null) return;
+
+            foreach (var window in Runtime.WindowList.OfType<ConnectionWindow>())
+            {
+                if (!window.IsDisposed)
+                    window.ApplyConnectionTabVisibility();
+            }
         }
 
         public void SetDefaultLayout()

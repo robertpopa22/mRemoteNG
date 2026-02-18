@@ -77,7 +77,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkAlwaysShowConnectionTabs.TabIndex = 0;
             chkAlwaysShowConnectionTabs.Text = "Always show connection tabs";
             chkAlwaysShowConnectionTabs.UseVisualStyleBackColor = true;
-            chkAlwaysShowConnectionTabs.Visible = false;
             // 
             // chkIdentifyQuickConnectTabs
             // 

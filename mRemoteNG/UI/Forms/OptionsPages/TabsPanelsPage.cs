@@ -34,11 +34,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             base.ApplyLanguage();
 
             chkAlwaysShowPanelTabs.Text = Language.AlwaysShowPanelTabs;
-            /* 
-             * Comments added: June 16, 2024
-             * UI control (chkAlwaysShowConnectionTabs) is not visible and poperty never used
-            */
-            //chkAlwaysShowConnectionTabs.Text = Language.AlwaysShowConnectionTabs;
+            chkAlwaysShowConnectionTabs.Text = Language.AlwaysShowConnectionTabs;
             chkOpenNewTabRightOfSelected.Text = Language.OpenNewTabRight;
             chkShowLogonInfoOnTabs.Text = Language.ShowLogonInfoOnTabs;
             chkShowProtocolOnTabs.Text = Language.ShowProtocolOnTabs;
@@ -57,13 +53,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public override void LoadSettings()
         {
             chkAlwaysShowPanelTabs.Checked = Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelTabs;
-
-            /* 
-             * Comment added: June 16, 2024
-             * Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs nerver used
-             *  UI control (chkAlwaysShowConnectionTabs) is not visible
-            */
-            //chkAlwaysShowConnectionTabs.Checked = Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs;
+            chkAlwaysShowConnectionTabs.Checked = Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs;
 
             /* 
              * Comment added: June 16, 2024
@@ -91,16 +81,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             base.SaveSettings();
 
             Properties.OptionsTabsPanelsPage.Default.AlwaysShowPanelTabs = chkAlwaysShowPanelTabs.Checked;
-            /* 
-             * Comment added: June 16, 2024
-             * Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs nerver used
-             */
-            //Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs = chkAlwaysShowConnectionTabs.Checked;
-            
+            Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs = chkAlwaysShowConnectionTabs.Checked;
+
             // Defer the ShowHidePanelTabs call to avoid corrupting the Options window
             // This ensures the call happens after the Options window is closed
             if (FrmMain.IsCreated)
-                FrmMain.Default.BeginInvoke(new System.Windows.Forms.MethodInvoker(() => FrmMain.Default.ShowHidePanelTabs()));
+            {
+                FrmMain.Default.BeginInvoke(new System.Windows.Forms.MethodInvoker(() =>
+                {
+                    FrmMain.Default.ShowHidePanelTabs();
+                    FrmMain.Default.ShowHideConnectionTabs();
+                }));
+            }
 
             /* 
              * Comment added: June 16, 2024

@@ -50,11 +50,23 @@ namespace mRemoteNG.UI.Window
             // ReSharper disable once VirtualMemberCallInConstructor
             Text = formText;
             TabText = formText;
-            connDock.DocumentStyle = DocumentStyle.DockingWindow;
+            connDock.DocumentStyle = Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs
+                ? DocumentStyle.DockingWindow
+                : DocumentStyle.DockingSdi;
             connDock.ShowDocumentIcon = true;
 
             connDock.ActiveContentChanged += ConnDockOnActiveContentChanged;
             InitializeConnectionTabDragDropTargets();
+        }
+
+        public void ApplyConnectionTabVisibility()
+        {
+            var newStyle = Properties.OptionsTabsPanelsPage.Default.AlwaysShowConnectionTabs
+                ? DocumentStyle.DockingWindow
+                : DocumentStyle.DockingSdi;
+
+            if (connDock.DocumentStyle != newStyle)
+                connDock.DocumentStyle = newStyle;
         }
 
         private InterfaceControl? GetInterfaceControl()
@@ -573,9 +585,8 @@ namespace mRemoteNG.UI.Window
                 conTab.TrackConnection(connectionInfo);
                 conTab.HideClosedState();
 
-                //if (Settings.Default.AlwaysShowConnectionTabs == false)
-                // TODO: See if we can make this work with DPS...
-                //TabController.HideTabsMode = TabControl.HideTabsModes.HideAlways;
+                // Connection tab visibility is controlled by connDock.DocumentStyle
+                // set in the constructor based on AlwaysShowConnectionTabs setting.
 
                 // Ensure the ConnectionWindow is visible before adding the tab
                 // This prevents visibility issues when the window was created but not yet shown
