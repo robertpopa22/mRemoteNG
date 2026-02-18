@@ -200,6 +200,12 @@ namespace mRemoteNG.Connection
         public bool SSHOptions { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
+         DisplayName("Inherit Private Key File"),
+         Description("Inherit the Private Key File path from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool PrivateKeyPath { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.AuthenticationLevel)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionAuthenticationLevel)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

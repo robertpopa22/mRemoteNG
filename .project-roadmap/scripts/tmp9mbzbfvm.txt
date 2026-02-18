@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1190: Support autenticate with private key without have too make an Putty Session
+Description: 
+Approach: Add a new PrivateKeyPath property to AbstractConnectionRecord with a custom file picker editor attribute. Update PuttyBase.Connect to check this property and append the '-i' argument to the PuTTY command line if a key file is specified.
+Likely files: mRemoteNG/Connection/AbstractConnectionRecord.cs, mRemoteNG/Connection/Protocol/PuttyBase.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/PrivateKeyFileEditor.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1190
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

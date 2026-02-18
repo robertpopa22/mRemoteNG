@@ -52,6 +52,7 @@ namespace mRemoteNG.Connection
         private string _extApp = string.Empty;
         private int _port = default;
         private string _sshOptions = string.Empty;
+        private string _privateKeyPath = string.Empty;
         private string _puttySession = string.Empty;
         private bool _useConsoleSession = default;
         private AuthenticationLevel _rdpAuthenticationLevel = default;
@@ -453,6 +454,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("SSHOptions", _sshOptions);
             set => SetField(ref _sshOptions, value, "SSHOptions");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("Private Key File"),
+         Description("Path to a PuTTY private key (.ppk) file for SSH authentication. When set, the key is passed to PuTTY via the -i argument."),
+         Editor(typeof(UI.Controls.ConnectionInfoPropertyGrid.PrivateKeyFileEditor), typeof(System.Drawing.Design.UITypeEditor)),
+         AttributeUsedInProtocol(ProtocolType.SSH1, ProtocolType.SSH2)]
+        public virtual string PrivateKeyPath
+        {
+            get => GetPropertyValue("PrivateKeyPath", _privateKeyPath);
+            set => SetField(ref _privateKeyPath, value, "PrivateKeyPath");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

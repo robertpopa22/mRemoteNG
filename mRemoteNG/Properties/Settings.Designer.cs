@@ -2476,5 +2476,41 @@ namespace mRemoteNG.Properties {
                         this["DoubleClickOpensNewConnection"] = value;
                     }
                 }
+        
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("")]
+                public string ConDefaultPrivateKeyPath {
+                    get {
+                        return ((string)(this["ConDefaultPrivateKeyPath"]));
+                    }
+                    set {
+                        this["ConDefaultPrivateKeyPath"] = value;
+                    }
+                }
+
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("True")]
+                public bool InhDefaultPrivateKeyPath {
+                    get {
+                        return ((bool)(this["InhDefaultPrivateKeyPath"]));
+                    }
+                    set {
+                        this["InhDefaultPrivateKeyPath"] = value;
+                    }
+                }
+
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("False")]
+                public bool ConDefaultUsePersistentBrowser {
+                    get {
+                        return ((bool)(this["ConDefaultUsePersistentBrowser"]));
+                    }
+                    set {
+                        this["ConDefaultUsePersistentBrowser"] = value;
+                    }
+                }
             }
         }
