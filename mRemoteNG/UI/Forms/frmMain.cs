@@ -344,6 +344,7 @@ namespace mRemoteNG.UI.Forms
         {
             fileMenu.ApplyLanguage();
             viewMenu.ApplyLanguage();
+            connectionsMenu.ApplyLanguage();
             toolsMenu.ApplyLanguage();
             helpMenu.ApplyLanguage();
         }

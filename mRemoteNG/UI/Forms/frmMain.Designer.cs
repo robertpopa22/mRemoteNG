@@ -39,6 +39,7 @@ namespace mRemoteNG.UI.Forms
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new mRemoteNG.UI.Menu.FileMenu();
             this.viewMenu = new mRemoteNG.UI.Menu.ViewMenu();
+            this.connectionsMenu = new mRemoteNG.UI.Menu.ConnectionsMenu();
             this.toolsMenu = new mRemoteNG.UI.Menu.ToolsMenu();
             this.helpMenu = new mRemoteNG.UI.Menu.HelpMenu();
             this.mMenSep3 = new System.Windows.Forms.ToolStripSeparator();
@@ -78,6 +79,7 @@ namespace mRemoteNG.UI.Forms
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.viewMenu,
+            this.connectionsMenu,
             this.toolsMenu,
             this.helpMenu});
             this.msMain.Location = new System.Drawing.Point(3, 0);
@@ -110,6 +112,13 @@ namespace mRemoteNG.UI.Forms
             this.viewMenu.TsMultiSsh = null;
             this.viewMenu.TsQuickConnect = null;
             this.viewMenu.DropDownOpening += new System.EventHandler(this.ViewMenu_Opening);
+            // 
+            // connectionsMenu
+            // 
+            this.connectionsMenu.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.connectionsMenu.Name = "mMenConnections";
+            this.connectionsMenu.Size = new System.Drawing.Size(86, 19);
+            this.connectionsMenu.Text = "Connections";
             // 
             // toolsMenu
             // 
@@ -264,6 +273,7 @@ namespace mRemoteNG.UI.Forms
         private System.ComponentModel.IContainer components;
         private Menu.FileMenu fileMenu;
         private Menu.ViewMenu viewMenu;
+        private Menu.ConnectionsMenu connectionsMenu;
         private Menu.ToolsMenu toolsMenu;
         private Menu.HelpMenu helpMenu;
         internal mRemoteNG.UI.Controls.QuickConnectToolStrip _quickConnectToolStrip;

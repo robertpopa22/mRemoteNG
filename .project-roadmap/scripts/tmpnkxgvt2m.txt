@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1262: Use native OpenSSH client on newer Windows 10
+Description: 
+Approach: Create a new `ProtocolOpenSSH` class inheriting from `ProtocolBase` that utilizes the `ConsoleControl` library to embed the native `ssh.exe` process. Map connection properties (hostname, username, port, private key) to OpenSSH command-line arguments and expose the new protocol in `ProtocolType` and `ProtocolFactory`.
+Likely files: mRemoteNG/Connection/Protocol/OpenSSH/Connection.Protocol.OpenSSH.cs, mRemoteNG/Connection/Protocol/ProtocolType.cs, mRemoteNG/Connection/Protocol/ProtocolFactory.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1262
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

@@ -1,0 +1,1 @@
+{"decision":"needs_info","reason":"No explicit connection limit found in codebase; likely an environmental or OS-level resource limitation (e.g. Desktop Heap). Need client OS, architecture (x86/x64), and error details to investigate further.","priority":"P2-bug","estimated_files":[],"approach":""}

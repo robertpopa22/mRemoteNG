@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1268: Window layout broken if DPS deserialization throws exception
+Description: 
+Approach: Wrap the logic in LoadLayout with a try-catch block. In the catch block, log the exception and call _mainForm.SetDefaultLayout() to ensure the UI remains usable.
+Likely files: mRemoteNG/Config/Settings/DockPanelLayoutLoader.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1268
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
