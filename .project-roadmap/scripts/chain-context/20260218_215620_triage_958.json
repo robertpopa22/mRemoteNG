@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "958",
+  "started_at": "2026-02-18T21:53:49",
+  "finished_at": "2026-02-18T21:56:20",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T21:53:49"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "ConnectionTree uses SimpleDragSource which creates an OLVDataObject that fails to include the raw model objects (ArrayList) in the drag data, causing ConnectionWindow to reject drops.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "ObjectListView/DragDrop/OLVDataObject.cs"
+        ],
+        "approach": "Modify OLVDataObject.cs to call SetData(this.ModelObjects) in its constructor or CreateTextFormats method, ensuring the ArrayList of dragged items is available to drop targets like ConnectionWindow."
+      },
+      "raw_output": "I will search for \"Drag\" and \"Drop\" in the codebase to find where this is handled and list files in `mRemoteNG/UI` to understand the structure.\nI will read `mRemoteNG/UI/Window/ConnectionTreeWindow.cs` to see how the drag is initiated and `mRemoteNG/UI/Window/ConnectionWindow.cs` to understand how it handles drag and drop.\nI will search for `ConnectionTree.cs` to check how `ItemDrag` is handled.\nI will read `mRemoteNG/UI/Controls/ConnectionTree/ConnectionTree.cs` to see how it handles drag operations.\nI will search for `ConnectionTreeDragAndDropHandler.cs` to understand how it handles drag and drop events.\nI will read `mRemoteNG/Tree/ConnectionTreeDragAndDropHandler.cs`.\nI will read `mRemoteNG/UI/Window/ConnectionTreeWindow.Designer.cs` to confirm the settings for `ConnectionTree` regarding drag and drop.\nI will search for `SimpleDragSource` usage in `ObjectListView/ObjectListView.cs` to determine the data format used for drag and drop operations.\nI will read `ObjectListView/DragDrop/DragSource.cs` to determine the data format used by `SimpleDragSource` in drag and drop operations.\nI will search for `OLVDataObject.cs` to understand the structure of the data object created by `SimpleDragSource`.\nI will read `ObjectListView/DragDrop/OLVDataObject.cs`.\nI will read `ObjectListView/ObjectListView.cs` to check the return type of `SelectedObjects`.\nI will search for the definition of the `SelectedObjects` property in `ObjectListView/ObjectListView.cs`.\nI will read `ObjectListView/ObjectListView.cs` around line 3197 to understand the `SelectedObjects` implementation.\nI have analyzed the issue and codebase. The `ConnectionTree` uses `SimpleDragSource`, which creates an `OLVDataObject`. This data object currently only populates text and HTML formats, missing the raw `ArrayList` of model objects that `ConnectionWindow` expects for drag-and-drop operations. The fix is to modify `OLVDataObject.cs` to explicitly add the model objects to the data object using `SetData`.\n\n```json\n{",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T21:56:20"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

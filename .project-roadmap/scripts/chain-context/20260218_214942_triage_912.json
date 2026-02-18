@@ -1,0 +1,48 @@
+{
+  "task_type": "triage",
+  "task_id": "912",
+  "started_at": "2026-02-18T21:47:05",
+  "finished_at": "2026-02-18T21:49:42",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T21:47:05"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "RDP error 6151 (0x1807) is unhandled in RdpErrorCodes, resulting in a generic 'Unknown error' message. It corresponds to UI_ERR_CONNECT_FAILED_DOWN (NLA/Domain Trust issues).",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpErrorCodes.cs",
+          "mRemoteNG/Language/Language.resx"
+        ],
+        "approach": "Add error code 6151 to RdpErrorCodes.cs mapping it to a new resource string in Language.resx that explains the NLA/Domain Trust issue."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"RDP error 6151 (0x1807) is unhandled in RdpErrorCodes, resulting in a generic 'Unknown error' message. It corresponds to UI_ERR_CONNECT_FAILED_DOWN (NLA/Domain Trust issues).\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/Connection/Protocol/RDP/RdpErrorCodes.cs\",\n    \"mRemoteNG/Language/Language.resx\"\n  ],\n  \"approach\": \"Add error code 6151 to RdpErrorCodes.cs mapping it to a new resource string in Language.resx that explains the NLA/Domain Trust issue.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-18T21:49:42"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
