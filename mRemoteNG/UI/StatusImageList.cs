@@ -51,9 +51,9 @@ namespace mRemoteNG.UI
             return GetConnectionIcon(connectionInfo);
         }
 
-        private static string BuildConnectionIconName(string icon, bool connected)
+        private static string BuildConnectionIconName(string icon, bool connected, bool isTemplate = false)
         {
-            string status = connected ? "Play" : "Default";
+            string status = connected ? "Play" : isTemplate ? "Template" : "Default";
             return $"Connection_{icon}_{status}";
         }
 
@@ -67,7 +67,10 @@ namespace mRemoteNG.UI
             }
 
             bool connected = connection.OpenConnections.Count > 0;
-            string name = BuildConnectionIconName(connection.Icon, connected);
+            bool isTemplate = connection.IsTemplate;
+            string name = isTemplate
+                ? BuildConnectionIconName(connection.Icon, false, true)
+                : BuildConnectionIconName(connection.Icon, connected);
             if (ImageList.Images.ContainsKey(name)) return name;
             Icon? image = ConnectionIcon.FromString(connection.Icon);
             if (image == null)
@@ -77,7 +80,24 @@ namespace mRemoteNG.UI
 
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false), image);
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, true), Overlay(image, Properties.Resources.ConnectedOverlay));
+            ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false, true), CreateTemplateIcon(image));
             return name;
+        }
+
+        private static Bitmap CreateTemplateIcon(Icon baseIcon)
+        {
+            Bitmap result = new(baseIcon.ToBitmap(), new Size(16, 16));
+            using (Graphics gr = Graphics.FromImage(result))
+            {
+                // Draw a small "T" badge in the bottom-right corner
+                using Font font = new("Arial", 7, FontStyle.Bold, GraphicsUnit.Pixel);
+                using SolidBrush bgBrush = new(Color.FromArgb(200, 70, 130, 180));
+                using SolidBrush fgBrush = new(Color.White);
+                gr.FillRectangle(bgBrush, 9, 9, 7, 7);
+                gr.DrawString("T", font, fgBrush, 9, 8);
+            }
+
+            return result;
         }
 
         private static Bitmap Overlay(Icon background, Image foreground)

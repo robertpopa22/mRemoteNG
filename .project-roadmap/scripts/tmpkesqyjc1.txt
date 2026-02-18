@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1192: Feature Request: Template connections with no hostnames
+Description: 
+Approach: 1. Add `IsTemplate` boolean property to `ConnectionInfo`. 2. Expose `IsTemplate` in `ConnectionInfoPropertyGrid`. 3. Modify `ConnectionInitiator.OpenConnection` to block connection attempts if `IsTemplate` is true (with a user-friendly message or silent return). 4. Update `StatusImageList` to show a distinct icon for template connections. 5. Verify inheritance still works correctly.
+Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/Connection/ConnectionInitiator.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs, mRemoteNG/UI/StatusImageList.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1192
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

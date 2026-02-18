@@ -36,6 +36,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("VmId", connectionInfo.VmId));
             element.Add(new XAttribute("UseVmId", connectionInfo.UseVmId));
             element.Add(new XAttribute("UseEnhancedMode", connectionInfo.UseVmId));
+            element.Add(new XAttribute("IsTemplate", connectionInfo.IsTemplate.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("UsePersistentBrowser", connectionInfo.UsePersistentBrowser.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("Type", connectionInfo.GetTreeNodeType().ToString()));
             if (nodeAsContainer != null)
             {

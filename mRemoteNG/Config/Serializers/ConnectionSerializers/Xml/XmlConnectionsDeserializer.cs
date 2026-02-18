@@ -580,6 +580,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 {
                     // Get settings
                     connectionInfo.IsRoot = xmlnode.GetAttributeAsBool("IsRoot");
+                    connectionInfo.IsTemplate = xmlnode.GetAttributeAsBool("IsTemplate");
                 }
 
                 switch (_confVersion)

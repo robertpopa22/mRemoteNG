@@ -136,6 +136,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("Hostname", typeof(string));
             dataTable.Columns.Add("ICAEncryptionStrength", typeof(string));
             dataTable.Columns.Add("Icon", typeof(string));
+            dataTable.Columns.Add("IsTemplate", typeof(bool));
             dataTable.Columns.Add("InheritAutomaticResize", typeof(bool));
             dataTable.Columns.Add("InheritCacheBitmaps", typeof(bool));
             dataTable.Columns.Add("InheritColors", typeof(bool));
@@ -356,6 +357,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["ExternalAddressProvider"].Equals(connectionInfo.ExternalAddressProvider);
             isFieldNotChange = isFieldNotChange && dataRow["ExternalCredentialProvider"].Equals(connectionInfo.ExternalCredentialProvider);
             isFieldNotChange = isFieldNotChange && dataRow["Hostname"].Equals(connectionInfo.Hostname);
+            isFieldNotChange = isFieldNotChange && dataRow["IsTemplate"].Equals(connectionInfo.IsTemplate);
             isFieldNotChange = isFieldNotChange && dataRow["LoadBalanceInfo"].Equals(connectionInfo.LoadBalanceInfo);
             isFieldNotChange = isFieldNotChange && dataRow["MacAddress"].Equals(connectionInfo.MacAddress);
             isFieldNotChange = isFieldNotChange && dataRow["OpeningCommand"].Equals(connectionInfo.OpeningCommand);
@@ -620,6 +622,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["Hostname"] = connectionInfo.Hostname;
             dataRow["ICAEncryptionStrength"] = string.Empty;
             dataRow["Icon"] = connectionInfo.Icon;
+            dataRow["IsTemplate"] = connectionInfo.IsTemplate;
             dataRow["LastChange"] = MiscTools.DBTimeStampNow();
             dataRow["LoadBalanceInfo"] = connectionInfo.LoadBalanceInfo;
             dataRow["MacAddress"] = connectionInfo.MacAddress;

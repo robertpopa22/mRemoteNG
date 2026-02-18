@@ -243,6 +243,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
             {
                 nameof(ConnectionInfo.Name),
                 nameof(ConnectionInfo.Description),
+                nameof(ConnectionInfo.IsTemplate),
                 nameof(ConnectionInfo.Icon),
                 nameof(ConnectionInfo.Panel),
                 nameof(ConnectionInfo.Color),
@@ -348,6 +349,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Password),
                         nameof(ConnectionInfo.Port),
                         nameof(ConnectionInfo.SSHOptions),
+                        nameof(ConnectionInfo.PrivateKeyPath),
                         nameof(ConnectionInfo.PuttySession),
                         nameof(ConnectionInfo.OpeningCommand),
                         nameof(ConnectionInfo.ExternalCredentialProvider),
@@ -360,6 +362,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Password),
                         nameof(ConnectionInfo.Port),
                         nameof(ConnectionInfo.SSHOptions),
+                        nameof(ConnectionInfo.PrivateKeyPath),
                         nameof(ConnectionInfo.PuttySession),
                         nameof(ConnectionInfo.OpeningCommand),
                         nameof(ConnectionInfo.ExternalAddressProvider),
@@ -383,6 +386,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Password),
                         nameof(ConnectionInfo.Port),
                         nameof(ConnectionInfo.RenderingEngine),
+                        nameof(ConnectionInfo.UsePersistentBrowser),
                     });
                     break;
                 case ProtocolType.PowerShell:

@@ -101,6 +101,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.ExtApp = (string)dataRow["ExtApp"];
             connectionInfo.Hostname = (string)dataRow["Hostname"];
             connectionInfo.Icon = (string)dataRow["Icon"];
+            if (dataRow.Table.Columns.Contains("IsTemplate"))
+                connectionInfo.IsTemplate = MiscTools.GetBooleanValue(dataRow["IsTemplate"]);
             connectionInfo.LoadBalanceInfo = (string)dataRow["LoadBalanceInfo"];
             connectionInfo.MacAddress = (string)dataRow["MacAddress"];
             connectionInfo.OpeningCommand = (string)dataRow["OpeningCommand"];

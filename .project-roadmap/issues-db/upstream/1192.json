@@ -10,12 +10,19 @@
   "created_at": "2018-11-15T22:41:52Z",
   "github_updated_at": "2018-12-20T21:34:25Z",
   "body_snippet": "My remote hosts frequently change but I have common credentials for all of them.  It would be terrific if I could create a template connection that has my credentials (or inherits them), and when I launch it, I'm prompted for the host to connect to.  If the connection is successful, it would then ask me if I wanted to save the connection. ",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-18",
+      "type": "triaged",
+      "description": "Add 'IsTemplate' property to ConnectionInfo to allow connections to serve as templates without requiring a hostname or valid connection parameters, suppressing connection attempts and associated errors."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ0NTk5OTg5OA==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Add 'IsTemplate' property to ConnectionInfo to allow connections to serve as templates without requiring a hostname or valid connection parameters, suppressing connection attempts and associated errors.\nApproach: 1. Add `IsTemplate` boolean property to `ConnectionInfo`. 2. Expose `IsTemplate` in `ConnectionInfoPropertyGrid`. 3. Modify `ConnectionInitiator.OpenConnection` to block connection attempts if `IsTemplate` is true (with a user-friendly message or silent return). 4. Update `StatusImageList` to show a distinct icon for template connections. 5. Verify inheritance still works correctly."
 }

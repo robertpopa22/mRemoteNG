@@ -87,6 +87,12 @@ namespace mRemoteNG.Connection
             if (connectionInfo == null)
                 return;
 
+            if (connectionInfo.IsTemplate)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, $"Connection '{connectionInfo.Name}' is a template and cannot be opened.");
+                return;
+            }
+
             try
             {
                 ConnectionInfo connectionInfoOriginal = connectionInfo;
