@@ -91,6 +91,39 @@ namespace mRemoteNG.Config.Settings
             _mainForm.pnlDock.LoadFromXml(filePath, GetContentFromPersistString);
         }
 
+        public void LoadLayoutByName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Layout name cannot be empty", nameof(name));
+
+            string layoutsDir = Path.Combine(SettingsFileInfo.SettingsPath, "Layouts");
+            string filePath = Path.Combine(layoutsDir, name + ".xml");
+
+            if (File.Exists(filePath))
+            {
+                LoadLayout(filePath);
+            }
+            else
+            {
+                _messageCollector.AddMessage(MessageClass.ErrorMsg, $"Layout file '{name}' not found.");
+            }
+        }
+
+        public List<string> GetLayoutNames()
+        {
+            var names = new List<string>();
+            string layoutsDir = Path.Combine(SettingsFileInfo.SettingsPath, "Layouts");
+            if (Directory.Exists(layoutsDir))
+            {
+                string[] files = Directory.GetFiles(layoutsDir, "*.xml");
+                foreach (string file in files)
+                {
+                    names.Add(Path.GetFileNameWithoutExtension(file));
+                }
+            }
+            return names;
+        }
+
         public void SaveLayout(string filePath)
         {
             _mainForm.pnlDock.SaveAsXml(filePath);

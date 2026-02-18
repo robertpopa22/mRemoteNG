@@ -8,6 +8,10 @@ using mRemoteNG.Resources.Language;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Panels;
 using mRemoteNG.UI.Window;
+using mRemoteNG.Config.Serializers; // Added
+using mRemoteNG.Config.DataProviders; // Added
+using mRemoteNG.App.Info; // Added
+using System.IO; // Added
 
 namespace mRemoteNG.UI.Menu
 {
@@ -146,8 +150,8 @@ namespace mRemoteNG.UI.Menu
             // 
             _mMenViewLoadLayout.Name = "mMenViewLoadLayout";
             _mMenViewLoadLayout.Size = new System.Drawing.Size(228, 22);
-            _mMenViewLoadLayout.Text = "Load Layout...";
-            _mMenViewLoadLayout.Click += mMenViewLoadLayout_Click;
+            _mMenViewLoadLayout.Text = "Load Layout";
+            _mMenViewLoadLayout.DropDownOpening += mMenViewLoadLayout_DropDownOpening;
             // 
             // mMenViewSaveLayout
             // 
@@ -208,7 +212,7 @@ namespace mRemoteNG.UI.Menu
             _mMenViewConnectionPanels.Text = Language.ConnectionPanels;
             _mMenViewErrorsAndInfos.Text = Language.Notifications;
             _mMenViewResetLayout.Text = Language.ResetLayout;
-            _mMenViewLoadLayout.Text = "Load Layout...";
+            _mMenViewLoadLayout.Text = "Load Layout";
             _mMenViewSaveLayout.Text = "Save Layout...";
             _mMenViewLockToolbars.Text = Language.LockToolbars;
             _mMenViewQuickConnectToolbar.Text = Language.QuickConnectToolbar;
@@ -290,7 +294,27 @@ namespace mRemoteNG.UI.Menu
             }
         }
 
-        private void mMenViewLoadLayout_Click(object sender, EventArgs e)
+        private void mMenViewLoadLayout_DropDownOpening(object sender, EventArgs e)
+        {
+            if (MainForm == null) return;
+            _mMenViewLoadLayout.DropDownItems.Clear();
+
+            var loader = new DockPanelLayoutLoader(MainForm, Runtime.MessageCollector);
+            var layoutNames = loader.GetLayoutNames();
+
+            if (layoutNames.Count > 0)
+            {
+                foreach (var name in layoutNames)
+                {
+                    _mMenViewLoadLayout.DropDownItems.Add(name, null, (s, args) => loader.LoadLayoutByName(name));
+                }
+                _mMenViewLoadLayout.DropDownItems.Add(new ToolStripSeparator());
+            }
+
+            _mMenViewLoadLayout.DropDownItems.Add("Load from file...", null, mMenViewLoadLayoutFromFile_Click);
+        }
+
+        private void mMenViewLoadLayoutFromFile_Click(object sender, EventArgs e)
         {
             if (MainForm == null) return;
             using var openFileDialog = new OpenFileDialog();
@@ -306,13 +330,21 @@ namespace mRemoteNG.UI.Menu
         private void mMenViewSaveLayout_Click(object sender, EventArgs e)
         {
             if (MainForm == null) return;
-            using var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Layout Files (*.xml)|*.xml|All Files (*.*)|*.*";
-            saveFileDialog.Title = "Save Layout";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+
+            string layoutName = "";
+            using (var inputBox = new FrmInputBox("Save Layout", "Enter a name for the layout:", layoutName))
             {
-                var loader = new DockPanelLayoutLoader(MainForm, Runtime.MessageCollector);
-                loader.SaveLayout(saveFileDialog.FileName);
+                if (inputBox.ShowDialog() == DialogResult.OK)
+                {
+                    layoutName = inputBox.returnValue ?? "";
+                    if (!string.IsNullOrWhiteSpace(layoutName))
+                    {
+                        // Create dummy IDataProvider for now as we use SaveLayout(string name) which bypasses it or create a proper one
+                        // We can reuse the same pattern as default saver
+                        var saver = new DockPanelLayoutSaver(new DockPanelLayoutSerializer(), new FileDataProvider(Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LayoutFileName)));
+                        saver.SaveLayout(layoutName);
+                    }
+                }
             }
         }
 

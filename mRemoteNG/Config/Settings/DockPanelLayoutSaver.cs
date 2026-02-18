@@ -45,5 +45,48 @@ namespace mRemoteNG.Config.Settings
                 Runtime.MessageCollector.AddExceptionStackTrace("SavePanelsToXML failed", ex);
             }
         }
+
+        public void SaveLayout(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Layout name cannot be empty", nameof(name));
+
+            try
+            {
+                string layoutsDir = Path.Combine(SettingsFileInfo.SettingsPath, "Layouts");
+                if (!Directory.Exists(layoutsDir))
+                {
+                    Directory.CreateDirectory(layoutsDir);
+                }
+
+                string filePath = Path.Combine(layoutsDir, name + ".xml");
+                string serializedLayout = _dockPanelSerializer.Serialize(FrmMain.Default.pnlDock);
+                File.WriteAllText(filePath, serializedLayout);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace($"Failed to save layout '{name}'", ex);
+            }
+        }
+
+        public void DeleteLayout(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException("Layout name cannot be empty", nameof(name));
+
+            try
+            {
+                string layoutsDir = Path.Combine(SettingsFileInfo.SettingsPath, "Layouts");
+                string filePath = Path.Combine(layoutsDir, name + ".xml");
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace($"Failed to delete layout '{name}'", ex);
+            }
+        }
     }
 }
