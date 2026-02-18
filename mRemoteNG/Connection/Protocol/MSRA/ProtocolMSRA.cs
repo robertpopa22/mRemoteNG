@@ -184,6 +184,15 @@ namespace mRemoteNG.Connection.Protocol.MSRA
                 _process.Exited += ProcessExited;
                 _process.Start();
 
+                try
+                {
+                    _process.WaitForInputIdle(5000); // Wait up to 5 seconds for input idle
+                }
+                catch
+                {
+                    // Ignore if WaitForInputIdle fails (e.g. process exited or not GUI)
+                }
+
                 // Wait for the MSRA window to appear
                 if (!WaitForMsraWindow())
                 {
@@ -236,10 +245,12 @@ namespace mRemoteNG.Connection.Protocol.MSRA
                             {
                                 _handle = msraProcess.MainWindowHandle;
                                 
-                                // Update _process if we found the window in a different process instance (unlikely for msra but good practice)
+                                // Update _process if we found the window in a different process instance
                                 if (_process != null && _process.Id != msraProcess.Id)
                                 {
                                      try { _process.Exited -= ProcessExited; } catch {}
+                                     try { _process.Dispose(); } catch {} // Dispose old process
+                                     
                                      _process = msraProcess;
                                      _process.EnableRaisingEvents = true;
                                      _process.Exited += ProcessExited;
