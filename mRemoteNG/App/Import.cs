@@ -27,12 +27,13 @@ namespace mRemoteNG.App
                     openFileDialog.Multiselect = true;
 
                     List<string> fileTypes = new();
-                    fileTypes.AddRange(new[] {Language.FilterAllImportable, "*.xml;*.rdp;*.rdg;*.dat;*.csv"});
+                    fileTypes.AddRange(new[] {Language.FilterAllImportable, "*.xml;*.rdp;*.rdg;*.dat;*.csv;*.html;*.htm"});
                     fileTypes.AddRange(new[] {Language.FiltermRemoteXML, "*.xml"});
                     fileTypes.AddRange(new[] {Language.FiltermRemoteCSV, "*.csv"});
                     fileTypes.AddRange(new[] {Language.FilterRDP, "*.rdp"});
                     fileTypes.AddRange(new[] {Language.FilterRdgFiles, "*.rdg"});
                     fileTypes.AddRange(new[] {Language.FilterPuttyConnectionManager, "*.dat"});
+                    fileTypes.AddRange(new[] {Language.FilterNetscapeBookmarks, "*.html;*.htm"});
                     fileTypes.AddRange(new[] {Language.FilterAll, "*.*"});
                     fileTypes.AddRange(new[] { Language.FilterSecureCRT, "*.crt" });
 
@@ -195,6 +196,9 @@ namespace mRemoteNG.App
                     return new PuttyConnectionManagerImporter();
                 case ".crt":
                     return new SecureCRTImporter();
+                case ".html":
+                case ".htm":
+                    return new BookmarksHtmlImporter();
                 default:
                     throw new FileFormatException("Unrecognized file format.");
             }

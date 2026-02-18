@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #969: Request import bookmarks.html and right-click properties
+Description: 
+Approach: Create a new `BookmarksHtmlImporter` class implementing `IConnectionImporter` to parse Netscape Bookmark HTML files. Update `mRemoteNG/App/Import.cs` to register the `.html` extension and potentially add a specific menu item if needed. The importer will map bookmark folders to mRemoteNG folders and URLs to HTTP/HTTPS connections (or other protocols if scheme is present).
+Likely files: mRemoteNG/App/Import.cs, mRemoteNG/Config/Import/BookmarksHtmlImporter.cs, mRemoteNG/Resources/Language/Language.resx
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #969
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

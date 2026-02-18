@@ -2478,6 +2478,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Netscape Bookmarks (*.html).
+        /// </summary>
+        internal static string FilterNetscapeBookmarks {
+            get {
+                return ResourceManager.GetString("FilterNetscapeBookmarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remote Desktop Connection Manager files (*.rdg).
         /// </summary>
         internal static string FilterRdgFiles {

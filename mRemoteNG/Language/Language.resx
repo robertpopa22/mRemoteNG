@@ -572,6 +572,9 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="FilterPuttyConnectionManager" xml:space="preserve">
     <value>PuTTY Connection Manager files</value>
   </data>
+  <data name="FilterNetscapeBookmarks" xml:space="preserve">
+    <value>Netscape Bookmarks (*.html)</value>
+  </data>
   <data name="FilterRdgFiles" xml:space="preserve">
     <value>Remote Desktop Connection Manager files (*.rdg)</value>
   </data>
