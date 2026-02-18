@@ -593,7 +593,27 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 ResetColumnFiltering();
             }
 
-            RefreshObject(sender);
+            if (sender is ConnectionTreeModel)
+            {
+                switch (args.Action)
+                {
+                    case NotifyCollectionChangedAction.Add:
+                        AddObjects(args.NewItems);
+                        break;
+                    case NotifyCollectionChangedAction.Remove:
+                        RemoveObjects(args.OldItems);
+                        break;
+                    case NotifyCollectionChangedAction.Reset:
+                        if (_connectionTreeModel != null)
+                            SetObjects(_connectionTreeModel.RootNodes);
+                        break;
+                }
+            }
+            else
+            {
+                RefreshObject(sender);
+            }
+
             AutoResizeColumn(Columns[0]);
 
             // turn filtering back on
