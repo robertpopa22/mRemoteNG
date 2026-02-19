@@ -36,11 +36,15 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private const int VK_CAPITAL = 0x14;   // Caps Lock
         private const int VK_NUMLOCK = 0x90;   // Num Lock
         private const int VK_SCROLL = 0x91;    // Scroll Lock
+        private const int VK_LWIN = 0x5B;      // Left Windows key
+        private const int VK_RWIN = 0x5C;      // Right Windows key
 
         // X11 keysym values for lock keys
         private const uint XK_Caps_Lock = 0xFFE5;
         private const uint XK_Num_Lock = 0xFF7F;
         private const uint XK_Scroll_Lock = 0xFF14;
+        private const uint XK_Super_L = 0xFFEB;
+        private const uint XK_Super_R = 0xFFEC;
 
         private readonly VncSharpCore.RemoteDesktop _remoteDesktop;
         private readonly FieldInfo? _vncField;
@@ -73,6 +77,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                     case VK_CAPITAL:    keysym = XK_Caps_Lock;   break;
                     case VK_NUMLOCK:    keysym = XK_Num_Lock;    break;
                     case VK_SCROLL:     keysym = XK_Scroll_Lock; break;
+                    case VK_LWIN:       keysym = XK_Super_L;     break;
+                    case VK_RWIN:       keysym = XK_Super_R;     break;
                     default: return false;
                 }
 

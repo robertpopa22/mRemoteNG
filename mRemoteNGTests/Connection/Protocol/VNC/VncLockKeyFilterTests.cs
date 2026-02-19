@@ -112,6 +112,38 @@ namespace mRemoteNGTests.Connection.Protocol.VNC
             Assert.That(_mockClient.CallCount, Is.EqualTo(0));
         }
 
+        [Test]
+        public void PreFilterMessage_Intercepts_LeftWindowsKey()
+        {
+            // VK_LWIN = 0x5B
+            // WM_KEYDOWN = 0x0100
+            // XK_Super_L = 0xFFEB
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0100, (IntPtr)0x5B, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True, "Should return true to suppress original message");
+            Assert.That(_mockClient.CallCount, Is.EqualTo(1));
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0xFFEB));
+            Assert.That(_mockClient.LastPressed, Is.True);
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_RightWindowsKey()
+        {
+            // VK_RWIN = 0x5C
+            // WM_KEYDOWN = 0x0100
+            // XK_Super_R = 0xFFEC
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0100, (IntPtr)0x5C, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True, "Should return true to suppress original message");
+            Assert.That(_mockClient.CallCount, Is.EqualTo(1));
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0xFFEC));
+            Assert.That(_mockClient.LastPressed, Is.True);
+        }
+
         // Helper to invoke PreFilterMessage
         private bool InvokePreFilterMessage(ref Message m)
         {
