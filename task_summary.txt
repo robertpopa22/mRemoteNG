@@ -1,11 +1,10 @@
-I have completed the task. "Presentation Mode" is implemented, verified, and committed.
+I have implemented the fix for issue #1070 by adding the `ScriptErrorsSuppressed` property to `ConnectionInfo` and updating `HTTPBase.cs` to use it.
 
-Summary of changes:
-1.  **Created `mRemoteNG/UI/PresentationModeHandler.cs`**: Handles the logic for entering/exiting presentation mode (hiding/showing panels) and toggling RDP Smart Size.
-2.  **Modified `mRemoteNG/UI/Menu/msMain/ViewMenu.cs`**: Added the "Presentation Mode" menu item (`Shift+F11`) and wired it to the handler.
-3.  **Modified `mRemoteNG/UI/Forms/FrmMain.cs`**: Instantiated the handler.
-4.  **Modified `mRemoteNG/UI/Forms/FrmMain.Designer.cs`**: Added a global key handler for `Shift+F11` to ensuring the toggle works even when the menu is hidden.
-5.  **Documentation**: Created `ISSUE_1066_FIX_DETAILS.md`.
+1.  Modified `mRemoteNG/Connection/AbstractConnectionRecord.cs`: Added `_scriptErrorsSuppressed` field (default `true`) and `ScriptErrorsSuppressed` property.
+2.  Modified `mRemoteNG/Connection/ConnectionInfoInheritance.cs`: Added `ScriptErrorsSuppressed` property for inheritance.
+3.  Modified `mRemoteNG/Connection/Protocol/Http/Connection.Protocol.HTTPBase.cs`: Updated to use `InterfaceControl.Info.ScriptErrorsSuppressed`.
+4.  Modified `mRemoteNGTests/TestHelpers/SerializableConnectionInfoAllPropertiesOfType.cs`: Added `ScriptErrorsSuppressed` property to support existing tests.
 
-The build passed, and existing tests passed (with known environment-related exceptions unrelated to changes).
-I am done.
+I verified the changes with a new unit test `ScriptErrorsSuppressedTests.cs` (which passed) and ran existing `DefaultConnectionInfoTests` (which also passed).
+
+The changes have been committed to the `main` branch.
