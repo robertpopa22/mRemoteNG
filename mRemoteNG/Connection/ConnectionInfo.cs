@@ -307,25 +307,53 @@ namespace mRemoteNG.Connection
 
         private bool TryGetInheritedPropertyValue<TPropertyType>(string propertyName, out TPropertyType inheritedValue)
         {
-            try
+            var currentParent = Parent;
+            while (currentParent != null)
             {
-                Type connectionInfoType = Parent!.GetType();
-                PropertyInfo? parentPropertyInfo = connectionInfoType.GetProperty(propertyName);
-                if (parentPropertyInfo == null)
-                    throw new NullReferenceException(
-                        $"Could not retrieve property data for property '{propertyName}' on parent node '{Parent?.Name}'"
-                    );
+                try
+                {
+                    Type connectionInfoType = currentParent.GetType();
+                    PropertyInfo? parentPropertyInfo = connectionInfoType.GetProperty(propertyName);
+                    if (parentPropertyInfo == null)
+                        throw new NullReferenceException(
+                            $"Could not retrieve property data for property '{propertyName}' on parent node '{currentParent.Name}'"
+                        );
 
-                object? rawValue = parentPropertyInfo.GetValue(Parent, null);
-                inheritedValue = rawValue is TPropertyType typed ? typed : default!;
-                return true;
+                    object? rawValue = parentPropertyInfo.GetValue(currentParent, null);
+                    inheritedValue = rawValue is TPropertyType typed ? typed : default!;
+
+                    if (IsCredentialProperty(propertyName) && IsValueEmpty(inheritedValue))
+                    {
+                        currentParent = currentParent.Parent;
+                        continue;
+                    }
+
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    Runtime.MessageCollector.AddExceptionStackTrace($"Error retrieving inherited property '{propertyName}'", e);
+                    inheritedValue = default!;
+                    return false;
+                }
             }
-            catch (Exception e)
-            {
-                Runtime.MessageCollector.AddExceptionStackTrace($"Error retrieving inherited property '{propertyName}'", e);
-                inheritedValue = default!;
-                return false;
-            }
+
+            inheritedValue = default!;
+            return false;
+        }
+
+        private static bool IsCredentialProperty(string propertyName)
+        {
+            return propertyName == nameof(Username) ||
+                   propertyName == nameof(Password) ||
+                   propertyName == nameof(Domain);
+        }
+
+        private static bool IsValueEmpty(object? value)
+        {
+            if (value == null) return true;
+            if (value is string s) return string.IsNullOrEmpty(s);
+            return false;
         }
 
         private static int GetDefaultPort(ProtocolType protocol)
