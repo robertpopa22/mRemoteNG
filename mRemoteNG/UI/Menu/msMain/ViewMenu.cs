@@ -68,10 +68,11 @@ namespace mRemoteNG.UI.Menu
             _mMenViewExtAppsToolbar = new ToolStripMenuItem();
             _mMenViewMultiSshToolbar = new ToolStripMenuItem();
             _mMenViewFullscreen = new ToolStripMenuItem();
+            _mMenViewPresentationMode = new ToolStripMenuItem();
 
-            // 
+            //
             // mMenView
-            // 
+            //
             DropDownItems.AddRange(new ToolStripItem[]
             {
                 _mMenViewFileMenu,
@@ -88,7 +89,8 @@ namespace mRemoteNG.UI.Menu
                 _mMenViewSaveLayout,
                 _mMenViewLockToolbars,
                 _mMenViewSep2,
-                _mMenViewFullscreen
+                _mMenViewFullscreen,
+                _mMenViewPresentationMode
             });
             Name = "mMenView";
             Size = new System.Drawing.Size(44, 20);

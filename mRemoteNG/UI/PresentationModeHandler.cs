@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using mRemoteNG.Connection;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Window;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace mRemoteNG.UI
@@ -108,11 +111,11 @@ namespace mRemoteNG.UI
                     
                     if (cw.Controls.Count > 0 && cw.Controls[0] is DockPanel dp)
                     {
-                         if (dp.ActiveContent is UI.Tabs.ConnectionTab tab)
+                         if (dp.ActiveContent is Tabs.ConnectionTab tab)
                          {
-                             if (tab.Tag is UI.Controls.InterfaceControl ic)
+                             if (tab.Tag is InterfaceControl ic)
                              {
-                                 if (ic.Protocol is mRemoteNG.Connection.Protocol.RDP.RdpProtocol rdp)
+                                 if (ic.Protocol is RdpProtocol rdp)
                                  {
                                      if (!rdp.SmartSize && enable)
                                      {
