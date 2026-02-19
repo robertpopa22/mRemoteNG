@@ -387,6 +387,50 @@ namespace mRemoteNG.UI.Window
                 $"'{Language.WaitForExit}' cannot be enabled if '{Language.TryToIntegrate}' is enabled";
         }
 
+        private void VariablesButton_Click(object sender, EventArgs e)
+        {
+            ContextMenuStrip variablesMenu = new();
+            
+            AddVariableMenuItem(variablesMenu, "Name");
+            AddVariableMenuItem(variablesMenu, "Hostname");
+            AddVariableMenuItem(variablesMenu, "Port");
+            AddVariableMenuItem(variablesMenu, "Protocol");
+            AddVariableMenuItem(variablesMenu, "Username");
+            AddVariableMenuItem(variablesMenu, "Password");
+            AddVariableMenuItem(variablesMenu, "Domain");
+            AddVariableMenuItem(variablesMenu, "Description");
+            AddVariableMenuItem(variablesMenu, "MacAddress");
+            AddVariableMenuItem(variablesMenu, "UserField");
+            for (int i = 1; i <= 10; i++)
+            {
+                AddVariableMenuItem(variablesMenu, $"UserField{i}");
+            }
+            AddVariableMenuItem(variablesMenu, "EnvironmentTags");
+            AddVariableMenuItem(variablesMenu, "SSHOptions");
+            AddVariableMenuItem(variablesMenu, "PuttySession");
+
+            variablesMenu.Show(VariablesButton, new System.Drawing.Point(0, VariablesButton.Height));
+        }
+
+        private void AddVariableMenuItem(ContextMenuStrip menu, string variableName)
+        {
+            ToolStripMenuItem item = new(variableName);
+            item.Click += (s, args) => InsertVariable(variableName);
+            menu.Items.Add(item);
+        }
+
+        private void InsertVariable(string variableName)
+        {
+            string textToInsert = $"%{variableName}%";
+            int selectionStart = ArgumentsCheckBox.SelectionStart;
+            ArgumentsCheckBox.Text = ArgumentsCheckBox.Text.Insert(selectionStart, textToInsert);
+            ArgumentsCheckBox.SelectionStart = selectionStart + textToInsert.Length;
+            ArgumentsCheckBox.Focus();
+            
+            // Trigger update
+            PropertyControl_ChangedOrLostFocus(ArgumentsCheckBox, EventArgs.Empty);
+        }
+
         #endregion
     }
 }

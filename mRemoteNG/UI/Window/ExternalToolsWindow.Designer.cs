@@ -23,6 +23,7 @@ namespace mRemoteNG.UI.Window
 		internal Controls.MrngLabel ArgumentsLabel;
 		internal Controls.MrngLabel FilenameLabel;
 		internal MrngButton BrowseButton; 
+        internal MrngButton VariablesButton;
 		internal System.Windows.Forms.ContextMenuStrip ToolsContextMenuStrip;
 		internal System.Windows.Forms.ToolStripMenuItem NewToolMenuItem;
 		internal System.Windows.Forms.ToolStripMenuItem DeleteToolMenuItem;
@@ -77,6 +78,7 @@ namespace mRemoteNG.UI.Window
             this.OptionsLabel = new mRemoteNG.UI.Controls.MrngLabel();
             this.WaitForExitCheckBox = new MrngCheckBox();
             this.BrowseButton = new MrngButton();
+            this.VariablesButton = new MrngButton();
             this.BrowseWorkingDir = new MrngButton();
             this.HotkeyLabel = new mRemoteNG.UI.Controls.MrngLabel();
             this.HotkeyTextBox = new mRemoteNG.UI.Controls.MrngTextBox();
@@ -291,6 +293,7 @@ namespace mRemoteNG.UI.Window
             this.tableLayoutPanel1.Controls.Add(this.OptionsLabel, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.WaitForExitCheckBox, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.BrowseButton, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.VariablesButton, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.BrowseWorkingDir, 4, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 18);
@@ -466,6 +469,19 @@ namespace mRemoteNG.UI.Window
             this.WaitForExitCheckBox.UseVisualStyleBackColor = true;
             this.WaitForExitCheckBox.Click += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
             this.WaitForExitCheckBox.LostFocus += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
+            // 
+            // VariablesButton
+            // 
+            this.VariablesButton._mice = MrngButton.MouseState.HOVER;
+            this.VariablesButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VariablesButton.Location = new System.Drawing.Point(723, 55);
+            this.VariablesButton.Name = "VariablesButton";
+            this.VariablesButton.Size = new System.Drawing.Size(95, 20);
+            this.VariablesButton.TabIndex = 5;
+            this.VariablesButton.Text = "Variables";
+            this.VariablesButton.UseVisualStyleBackColor = true;
+            this.VariablesButton.Click += new System.EventHandler(this.VariablesButton_Click);
+            this.VariablesButton.LostFocus += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
             // 
             // BrowseButton
             // 
