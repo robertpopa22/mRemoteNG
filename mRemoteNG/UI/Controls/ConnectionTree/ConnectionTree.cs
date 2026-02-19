@@ -78,6 +78,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             InitializeComponent();
             SetupConnectionTreeView();
             UseOverlays = false;
+            UseWaitCursorWhenExpanding = false;
             _themeManager = ThemeManager.getInstance();
             _themeManager.ThemeChanged += ThemeManagerOnThemeChanged;
             ApplyTheme();
@@ -234,10 +235,18 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         private void PopulateTreeView(ConnectionTreeModel newModel)
         {
-            SetObjects(newModel.RootNodes);
-            RegisterModelUpdateHandlers(newModel);
-            NodeSearcher = new NodeSearcher(newModel);
-            ExecutePostSetupActions();
+            BeginUpdate();
+            try
+            {
+                SetObjects(newModel.RootNodes);
+                RegisterModelUpdateHandlers(newModel);
+                NodeSearcher = new NodeSearcher(newModel);
+                ExecutePostSetupActions();
+            }
+            finally
+            {
+                EndUpdate();
+            }
             AutoResizeColumn(Columns[0]);
         }
 
