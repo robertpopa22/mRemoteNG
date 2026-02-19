@@ -119,5 +119,58 @@ namespace mRemoteNGTests.UI.Controls
                 Assert.That(tree.IsExpanded(folderB), Is.True, "Folder B should be expanded after filtering");
             });
         }
+
+        [Test]
+        public void UserExpandAll_ExpandsHiddenFolders_AfterFilterRemoval()
+        {
+            RunWithMessagePump(tree =>
+            {
+                // Setup model
+                // Root
+                //  - Folder1 (Container)
+                //     - Match (Connection)
+                //  - Folder2 (Container)
+                //     - NoMatch (Connection)
+                
+                var model = new ConnectionTreeModel();
+                var root = new RootNodeInfo(RootNodeType.Connection);
+                
+                var folder1 = new ContainerInfo { Name = "Folder1" };
+                var match = new ConnectionInfo { Name = "Match" };
+                folder1.AddChild(match);
+                
+                var folder2 = new ContainerInfo { Name = "Folder2" };
+                var noMatch = new ConnectionInfo { Name = "NoMatch" };
+                folder2.AddChild(noMatch);
+                
+                root.AddChild(folder1);
+                root.AddChild(folder2);
+                
+                model.AddRootNode(root);
+                tree.ConnectionTreeModel = model;
+
+                // 1. Collapse all initially
+                tree.CollapseAll();
+                
+                // 2. Apply filter - only "Match" is visible, so Folder1 expands, Folder2 is hidden
+                tree.ApplyFilter("Match");
+                Application.DoEvents(); // Process filter
+
+                // 3. User clicks "Expand All"
+                tree.UserExpandAll(); 
+                Application.DoEvents();
+
+                // 4. Remove filter
+                tree.RemoveFilter();
+                Application.DoEvents();
+
+                // 5. Assert ALL are expanded
+                // Folder1 was expanded by filter, should remain expanded
+                Assert.That(tree.IsExpanded(folder1), Is.True, "Folder1 should be expanded");
+                
+                // Folder2 was NOT expanded by filter (hidden), but UserExpandAll should have marked it for expansion
+                Assert.That(tree.IsExpanded(folder2), Is.True, "Folder2 should be expanded");
+            });
+        }
     }
 }

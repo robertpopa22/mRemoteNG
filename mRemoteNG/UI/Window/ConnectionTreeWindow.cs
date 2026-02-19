@@ -202,7 +202,7 @@ namespace mRemoteNG.UI.Window
 
         private void SetMenuEventHandlers()
         {
-            mMenViewExpandAllFolders.Click += (sender, args) => ConnectionTree.ExpandAll();
+            mMenViewExpandAllFolders.Click += (sender, args) => ConnectionTree.UserExpandAll();
             mMenViewCollapseAllFolders.Click += (sender, args) =>
             {
                 ConnectionTree.CollapseAll();

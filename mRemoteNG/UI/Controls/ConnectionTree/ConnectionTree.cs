@@ -586,6 +586,31 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         }
 
         /// <summary>
+        /// Expands all tree objects. If filtering is active, it ensures that
+        /// when the filter is removed, all objects remain expanded.
+        /// </summary>
+        public void UserExpandAll()
+        {
+            ExpandAll();
+
+            if (IsFiltering)
+            {
+                // Update the pre-filter expanded state to include all containers
+                // so that when the filter is cleared, everything stays expanded.
+                var allContainers = new List<ContainerInfo>();
+                if (ConnectionTreeModel != null)
+                {
+                    foreach (ContainerInfo root in ConnectionTreeModel.RootNodes)
+                    {
+                        allContainers.Add(root);
+                        allContainers.AddRange(root.GetRecursiveChildList().OfType<ContainerInfo>());
+                    }
+                }
+                _preFilterExpandedObjects = allContainers;
+            }
+        }
+
+        /// <summary>
         /// Filters tree items based on the given <see cref="filterText"/>
         /// </summary>
         /// <param name="filterText">The text to filter by</param>
