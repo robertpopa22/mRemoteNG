@@ -12,12 +12,19 @@
   "created_at": "2019-01-26T05:16:52Z",
   "github_updated_at": "2026-02-07T19:51:32Z",
   "body_snippet": "Inheritance on sub folder and connections within should have inherit all to yes as default\r\n\r\n## Expected Behavior\r\nCreate a Parent folder, set your folder properties. Create a Sub folder within it, it should have all the properties of it's parent automatically.\r\n\r\n## Current Behavior\r\nI have to select the inheritance Icon, set inherit All: Yes\r\nFor every sub folder, and every sub connection.\r\n\r\n## Possible Solution\r\nSet inheritance to be default to yes. If I had to do this in Windows folder cre...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "Allows users to configure the default inheritance behavior for newly created connections, streamlining workflows where inheritance is not always desired."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ1NzgxMzg5Mw==",
@@ -61,5 +68,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Allows users to configure the default inheritance behavior for newly created connections, streamlining workflows where inheritance is not always desired.\nApproach: Add a new user setting to toggle the default inheritance state. Update the ConnectionInfo constructor or initialization logic to respect this setting when creating new connection instances."
 }

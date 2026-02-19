@@ -374,6 +374,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                 newFolder.IsRoot = true;
                 DefaultConnectionInfo.Instance.SaveTo(newFolder);
                 DefaultConnectionInheritance.Instance.SaveTo(newFolder.Inheritance);
+                if (Settings.Default.InhDefaultEverythingInherited)
+                    newFolder.Inheritance.TurnOnInheritanceCompletely();
 
                 ConnectionTreeModel.AddRootNode(newFolder);
 
@@ -401,6 +403,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             ConnectionInfo parentNode = SelectedNode ?? GetRootConnectionNode();
             DefaultConnectionInfo.Instance.SaveTo(newNode);
             DefaultConnectionInheritance.Instance.SaveTo(newNode.Inheritance);
+            if (Settings.Default.InhDefaultEverythingInherited)
+                newNode.Inheritance.TurnOnInheritanceCompletely();
             ContainerInfo? selectedContainer = parentNode as ContainerInfo;
             ContainerInfo? parent = selectedContainer ?? parentNode.Parent;
             if (parent == null) return;

@@ -661,7 +661,19 @@ namespace mRemoteNG.Properties {
                 this["InhDefaultPanel"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultEverythingInherited {
+            get {
+                return ((bool)(this["InhDefaultEverythingInherited"]));
+            }
+            set {
+                this["InhDefaultEverythingInherited"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]

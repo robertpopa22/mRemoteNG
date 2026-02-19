@@ -152,6 +152,9 @@
     <Setting Name="InhDefaultPanel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="InhDefaultEverythingInherited" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="ConDefaultPreExtApp" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
