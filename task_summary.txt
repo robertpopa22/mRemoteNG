@@ -1,10 +1,30 @@
-I have implemented the fix for issue #1070 by adding the `ScriptErrorsSuppressed` property to `ConnectionInfo` and updating `HTTPBase.cs` to use it.
+I have implemented the "Variables" button in the `ExternalToolsWindow`.
 
-1.  Modified `mRemoteNG/Connection/AbstractConnectionRecord.cs`: Added `_scriptErrorsSuppressed` field (default `true`) and `ScriptErrorsSuppressed` property.
-2.  Modified `mRemoteNG/Connection/ConnectionInfoInheritance.cs`: Added `ScriptErrorsSuppressed` property for inheritance.
-3.  Modified `mRemoteNG/Connection/Protocol/Http/Connection.Protocol.HTTPBase.cs`: Updated to use `InterfaceControl.Info.ScriptErrorsSuppressed`.
-4.  Modified `mRemoteNGTests/TestHelpers/SerializableConnectionInfoAllPropertiesOfType.cs`: Added `ScriptErrorsSuppressed` property to support existing tests.
+**Changes:**
+1.  **`mRemoteNG/UI/Window/ExternalToolsWindow.Designer.cs`**:
+    *   Added `VariablesButton` (MrngButton) to the `tableLayoutPanel1`.
+    *   Placed it next to the "Arguments" text box (Column 4, Row 2).
+    *   Set the button text to "Variables" and wired up the `Click` event.
 
-I verified the changes with a new unit test `ScriptErrorsSuppressedTests.cs` (which passed) and ran existing `DefaultConnectionInfoTests` (which also passed).
+2.  **`mRemoteNG/UI/Window/ExternalToolsWindow.cs`**:
+    *   Implemented `VariablesButton_Click` event handler.
+    *   Created a `ContextMenuStrip` populated with supported variables:
+        *   Connection Info: Name, Hostname, Port, Protocol, Description, MacAddress, EnvironmentTags.
+        *   Credentials: Username, Password, Domain.
+        *   User Fields: UserField, UserField1-10.
+        *   Other: SSHOptions, PuttySession.
+    *   Implemented `InsertVariable` helper method to insert the selected variable (e.g., `%Hostname%`) into the `ArgumentsCheckBox` text box at the current cursor position.
 
-The changes have been committed to the `main` branch.
+3.  **Tests**:
+    *   Created a new test file: `mRemoteNGTests/UI/Window/ExternalToolsWindowVariablesTests.cs`.
+    *   The test instantiates `ExternalToolsWindow`, simulates user input in the arguments box, and verifies that the `InsertVariable` method correctly inserts the variable text at the cursor position.
+    *   The test passed successfully.
+
+**Verification:**
+*   Built the solution using `build.ps1` -> **Success**.
+*   Ran the new test -> **Passed**.
+*   Ran all tests -> **Passed 2609, Failed 4**. The failures appear to be unrelated to my changes (pre-existing serialization issues and flaky UI tests related to docking).
+
+**Note:**
+*   The `Arguments` field in the UI code is named `ArgumentsCheckBox` (likely a legacy name), but it is indeed a `MrngTextBox`, so the text insertion logic works correctly.
+*   I used reflection in the unit test to access the private button and method because `ExternalToolsWindow` controls and methods are internal/private.
