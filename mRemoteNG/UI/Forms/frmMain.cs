@@ -120,11 +120,27 @@ namespace mRemoteNG.UI.Forms
         internal FullscreenHandler Fullscreen { get; set; }
         internal mRemoteNG.UI.PresentationModeHandler PresentationMode { get; set; }
 
+        /// <summary>
+        /// The <see cref="Properties.Settings"/> instance used by this form.
+        /// Defaults to <see cref="Properties.Settings.Default"/> but can be
+        /// overridden via the <see cref="FrmMain(Properties.Settings)"/>
+        /// constructor to enable in-memory-only acceptance testing (#1259).
+        /// </summary>
+        internal Properties.Settings Settings { get; }
+
         //Added theming support
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
 
-        private FrmMain()
+        private FrmMain() : this(Properties.Settings.Default) { }
+
+        /// <summary>
+        /// Creates an <see cref="FrmMain"/> instance backed by the given
+        /// <paramref name="settings"/> object instead of the file-persisted
+        /// <see cref="Properties.Settings.Default"/> singleton.
+        /// </summary>
+        internal FrmMain(Properties.Settings settings)
         {
+            Settings = settings;
             _showFullPathInTitle = Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle;
             InitializeComponent();
 
@@ -235,8 +251,8 @@ namespace mRemoteNG.UI.Forms
 
             ShowHidePanelTabs();
 
-            LockToolbarPositions(Properties.Settings.Default.LockToolbars);
-            Properties.Settings.Default.PropertyChanged += OnApplicationSettingChanged;
+            LockToolbarPositions(Settings.LockToolbars);
+            Settings.PropertyChanged += OnApplicationSettingChanged;
             Properties.OptionsConnectionsPage.Default.PropertyChanged += OnConnectionsPageSettingChanged;
 
             _themeManager.ThemeChanged += ApplyTheme;
@@ -356,19 +372,19 @@ namespace mRemoteNG.UI.Forms
             switch (propertyChangedEventArgs.PropertyName)
             {
                 case nameof(Properties.Settings.LockToolbars):
-                    LockToolbarPositions(Properties.Settings.Default.LockToolbars);
+                    LockToolbarPositions(Settings.LockToolbars);
                     break;
                 case nameof(Properties.Settings.ViewMenuExternalTools):
-                    LockToolbarPositions(Properties.Settings.Default.LockToolbars);
+                    LockToolbarPositions(Settings.LockToolbars);
                     break;
                 case nameof(Properties.Settings.ViewMenuMessages):
-                    LockToolbarPositions(Properties.Settings.Default.LockToolbars);
+                    LockToolbarPositions(Settings.LockToolbars);
                     break;
                 case nameof(Properties.Settings.ViewMenuMultiSSH):
-                    LockToolbarPositions(Properties.Settings.Default.LockToolbars);
+                    LockToolbarPositions(Settings.LockToolbars);
                     break;
                 case nameof(Properties.Settings.ViewMenuQuickConnect):
-                    LockToolbarPositions(Properties.Settings.Default.LockToolbars);
+                    LockToolbarPositions(Settings.LockToolbars);
                     break;
                 default:
                     return;
@@ -565,14 +581,14 @@ namespace mRemoteNG.UI.Forms
             {
                 int openConnections = GetOpenConnectionsCount();
                 if (openConnections > 0 &&
-                    (Properties.Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.All |
-                     (Properties.Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
-                      openConnections > 1) || Properties.Settings.Default.ConfirmCloseConnection == (int)ConfirmCloseEnum.Exit))
+                    (Settings.ConfirmCloseConnection == (int)ConfirmCloseEnum.All |
+                     (Settings.ConfirmCloseConnection == (int)ConfirmCloseEnum.Multiple &
+                      openConnections > 1) || Settings.ConfirmCloseConnection == (int)ConfirmCloseEnum.Exit))
                 {
                     DialogResult result = CTaskDialog.MessageBox(this, Application.ProductName ?? string.Empty, Language.ConfirmExitMainInstruction, "", "", "", Language.CheckboxDoNotShowThisMessageAgain, ETaskDialogButtons.YesNo, ESysIcons.Question, ESysIcons.Question);
                     if (CTaskDialog.VerificationChecked)
                     {
-                        Properties.Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                        Settings.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
                     }
 
                     if (result == DialogResult.No)
@@ -1202,7 +1218,7 @@ namespace mRemoteNG.UI.Forms
                 titleBuilder.Append(separator);
                 titleBuilder.Append(SelectedConnection!.Name);
 
-                if (Properties.Settings.Default.TrackActiveConnectionInConnectionTree)
+                if (Settings.TrackActiveConnectionInConnectionTree)
                     AppWindows.TreeForm?.JumpToNode(SelectedConnection);
             }
 
@@ -1295,7 +1311,7 @@ namespace mRemoteNG.UI.Forms
         {
             pnlDock.Visible = false;
 
-            if (Properties.Settings.Default.ViewMenuMessages == true)
+            if (Settings.ViewMenuMessages == true)
             {
                 AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
                 viewMenu._mMenViewErrorsAndInfos.Checked = true;
@@ -1304,7 +1320,7 @@ namespace mRemoteNG.UI.Forms
                 viewMenu._mMenViewErrorsAndInfos.Checked = false;
 
 
-            if (Properties.Settings.Default.ViewMenuExternalTools == true)
+            if (Settings.ViewMenuExternalTools == true)
             {
                 if (viewMenu.TsExternalTools is not null) viewMenu.TsExternalTools.Visible = true;
                 viewMenu._mMenViewExtAppsToolbar.Checked = true;
@@ -1315,7 +1331,7 @@ namespace mRemoteNG.UI.Forms
                 viewMenu._mMenViewExtAppsToolbar.Checked = false;
             }
 
-            if (Properties.Settings.Default.ViewMenuMultiSSH == true)
+            if (Settings.ViewMenuMultiSSH == true)
             {
                 if (viewMenu.TsMultiSsh is not null) viewMenu.TsMultiSsh.Visible = true;
                 viewMenu._mMenViewMultiSshToolbar.Checked = true;
@@ -1326,7 +1342,7 @@ namespace mRemoteNG.UI.Forms
                 viewMenu._mMenViewMultiSshToolbar.Checked = false;
             }
 
-            if (Properties.Settings.Default.ViewMenuQuickConnect == true)
+            if (Settings.ViewMenuQuickConnect == true)
             {
                 if (viewMenu.TsQuickConnect is not null) viewMenu.TsQuickConnect.Visible = true;
                 viewMenu._mMenViewQuickConnectToolbar.Checked = true;
@@ -1337,14 +1353,14 @@ namespace mRemoteNG.UI.Forms
                 viewMenu._mMenViewQuickConnectToolbar.Checked = false;
             }
 
-            if (Properties.Settings.Default.LockToolbars == true)
+            if (Settings.LockToolbars == true)
             {
-                Properties.Settings.Default.LockToolbars = true;
-                viewMenu._mMenViewLockToolbars.Checked = true;                
+                Settings.LockToolbars = true;
+                viewMenu._mMenViewLockToolbars.Checked = true;
             }
             else
             {
-                Properties.Settings.Default.LockToolbars = false;
+                Settings.LockToolbars = false;
                 viewMenu._mMenViewLockToolbars.Checked = false;
             }
 
