@@ -2037,7 +2037,7 @@ def find_dependents(fpath, all_warnings):
 def load_actionable_issues():
     """Load issues from JSON DB that need triage or implementation.
 
-    Skips issues already triaged by AI (have 'AI triage:' in notes)
+    Skips issues already triaged by AI (have 'AI triage' in notes)
     to avoid re-processing on orchestrator restart.
     """
     issues = []
@@ -2054,7 +2054,7 @@ def load_actionable_issues():
                 continue
             # Skip issues already processed by AI orchestrator
             notes = data.get("notes") or ""
-            if status == "triaged" and "AI triage:" in notes:
+            if status == "triaged" and "AI triage" in notes:
                 continue
             issues.append(data)
         except Exception:
