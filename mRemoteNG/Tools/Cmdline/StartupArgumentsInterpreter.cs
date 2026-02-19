@@ -29,6 +29,12 @@ namespace mRemoteNG.Tools.Cmdline
         /// </summary>
         public static string? StartupConnectTo { get; private set; }
 
+        public static void ResetConnectionArgs()
+        {
+            ConnectTo = null;
+            StartupConnectTo = null;
+        }
+
         public StartupArgumentsInterpreter(MessageCollector messageCollector)
         {
             if (messageCollector == null)

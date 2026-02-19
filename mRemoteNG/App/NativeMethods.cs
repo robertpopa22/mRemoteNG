@@ -70,6 +70,9 @@ namespace mRemoteNG.App
                                                   [Out] StringBuilder wParam,
                                                   [In] IntPtr lParam);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, ref COPYDATASTRUCT lParam);
+
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
 
@@ -157,6 +160,14 @@ namespace mRemoteNG.App
             public int cx;
             public int cy;
             public int flags;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cbData;
+            public IntPtr lpData;
         }
 
         internal struct WINDOWPLACEMENT
@@ -448,9 +459,14 @@ namespace mRemoteNG.App
         public const int WM_MOUSEACTIVATE = 0x21;
 
         /// <summary>
-        /// Sent to a window when the size or position of the window is about to change. An application can use this message to override the window's default maximized size and position, or its default minimum or maximum tracking size.
+        /// Sent when the size or position of the window is about to change. An application can use this message to override the window's default maximized size and position, or its default minimum or maximum tracking size.
         /// </summary>
         public const int WM_GETMINMAXINFO = 0x24;
+
+        /// <summary>
+        /// An application sends the WM_COPYDATA message to pass data to another application.
+        /// </summary>
+        public const int WM_COPYDATA = 0x4A;
 
         /// <summary>
         /// Sent to a window whose size, position, or place in the Z order is about to change as a result of a call to the SetWindowPos function or another window-management function.

@@ -113,7 +113,7 @@ namespace mRemoteNG.App
 
             Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
             if (singleInstanceOption.Value)
-                StartApplicationAsSingleInstance();
+                StartApplicationAsSingleInstance(args);
             else
                 StartApplication();
 
@@ -164,13 +164,13 @@ namespace mRemoteNG.App
             _mutex?.Close();
         }
 
-        private static void StartApplicationAsSingleInstance()
+        private static void StartApplicationAsSingleInstance(string[] args)
         {
             const string mutexID = "mRemoteNG_SingleInstanceMutex";
             _mutex = new Mutex(false, mutexID, out bool newInstanceCreated);
             if (!newInstanceCreated)
             {
-                SwitchToCurrentInstance();
+                SwitchToCurrentInstance(args);
                 return;
             }
 
@@ -178,13 +178,37 @@ namespace mRemoteNG.App
             GC.KeepAlive(_mutex);
         }
 
-        private static void SwitchToCurrentInstance()
+        private static void SwitchToCurrentInstance(string[] args)
         {
             IntPtr singletonInstanceWindowHandle = GetRunningSingletonInstanceWindowHandle();
             if (singletonInstanceWindowHandle == IntPtr.Zero) return;
             if (NativeMethods.IsIconic(singletonInstanceWindowHandle) != 0)
                 _ = NativeMethods.ShowWindow(singletonInstanceWindowHandle, (int)NativeMethods.SW_RESTORE);
             NativeMethods.SetForegroundWindow(singletonInstanceWindowHandle);
+
+            if (args != null && args.Length > 0)
+            {
+                SendArgsToRunningInstance(singletonInstanceWindowHandle, args);
+            }
+        }
+
+        private static void SendArgsToRunningInstance(IntPtr hWnd, string[] args)
+        {
+            string message = string.Join("\n", args);
+            
+            NativeMethods.COPYDATASTRUCT cds;
+            cds.dwData = (IntPtr)1; // ID for args
+            cds.cbData = (message.Length + 1) * 2;
+            cds.lpData = Marshal.StringToHGlobalUni(message);
+            
+            try
+            {
+                NativeMethods.SendMessage(hWnd, NativeMethods.WM_COPYDATA, IntPtr.Zero, ref cds);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(cds.lpData);
+            }
         }
 
         private static IntPtr GetRunningSingletonInstanceWindowHandle()

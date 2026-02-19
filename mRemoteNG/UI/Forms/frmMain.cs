@@ -873,6 +873,13 @@ namespace mRemoteNG.UI.Forms
                 // ReSharper disable once SwitchStatementMissingSomeCases
                 switch (m.Msg)
                 {
+                    case NativeMethods.WM_COPYDATA:
+                        if (m.GetLParam(typeof(NativeMethods.COPYDATASTRUCT)) is NativeMethods.COPYDATASTRUCT cds && (int)cds.dwData == 1)
+                        {
+                            string? message = Marshal.PtrToStringUni(cds.lpData);
+                            HandleStartupArgs(message);
+                        }
+                        break;
                     case NativeMethods.WM_MOUSEACTIVATE:
                         _inMouseActivate = true;
                         break;
@@ -1019,6 +1026,42 @@ namespace mRemoteNG.UI.Forms
             }
 
             base.WndProc(ref m);
+        }
+
+        private void HandleStartupArgs(string? argsMessage)
+        {
+            if (string.IsNullOrEmpty(argsMessage))
+                return;
+
+            string[] args = argsMessage.Split('\n');
+
+            StartupArgumentsInterpreter.ResetConnectionArgs();
+            StartupArgumentsInterpreter interpreter = new(Runtime.MessageCollector);
+            interpreter.ParseArguments(args);
+
+            RootNodeInfo? root = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes
+                .OfType<RootNodeInfo>()
+                .FirstOrDefault();
+
+            if (root == null)
+                return;
+
+            if (!string.IsNullOrEmpty(StartupArgumentsInterpreter.ConnectTo))
+            {
+                new CommandLineConnectionOpener(Runtime.ConnectionInitiator, StartupArgumentsInterpreter.ConnectTo, "--connect").Execute(root);
+            }
+
+            if (!string.IsNullOrEmpty(StartupArgumentsInterpreter.StartupConnectTo))
+            {
+                new CommandLineConnectionOpener(Runtime.ConnectionInitiator, StartupArgumentsInterpreter.StartupConnectTo, "--startup").Execute(root);
+            }
+
+            // Bring window to front
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = PreviousWindowState == FormWindowState.Minimized ? FormWindowState.Normal : PreviousWindowState;
+            }
+            Activate();
         }
 
         private static void SimulateClick(Control control)
