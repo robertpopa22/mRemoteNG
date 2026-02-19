@@ -26,6 +26,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenInfoChat = null!;
         private ToolStripMenuItem _mMenInfoCommunity = null!;
         private ToolStripMenuItem _mMenInfoBug = null!;
+        private ToolStripMenuItem _mMenToolsDebugDump = null!;
         private ToolStripMenuItem _mMenToolsUpdate = null!;
 
         public HelpMenu()
@@ -44,6 +45,7 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoChat = new ToolStripMenuItem();
             _mMenInfoCommunity = new ToolStripMenuItem();
             _mMenInfoBug = new ToolStripMenuItem();
+            _mMenToolsDebugDump = new ToolStripMenuItem();
             _mMenToolsUpdate = new ToolStripMenuItem();
             _mMenInfoSep2 = new ToolStripSeparator();
             _mMenInfoSep3 = new ToolStripSeparator();
@@ -64,6 +66,7 @@ namespace mRemoteNG.UI.Menu
                 _mMenInfoCommunity,
                 _mMenInfoBug,
                 _mMenInfoSep2,
+                _mMenToolsDebugDump,
                 _mMenToolsUpdate,
                 _mMenInfoSep3,
                 _mMenInfoDonate,
@@ -90,6 +93,13 @@ namespace mRemoteNG.UI.Menu
             _mMenKeyboardShortcuts.Size = new System.Drawing.Size(190, 22);
             _mMenKeyboardShortcuts.Text = "Keyboard Shortcuts...";
             _mMenKeyboardShortcuts.Click += mMenKeyboardShortcuts_Click;
+            //
+            // mMenToolsDebugDump
+            //
+            _mMenToolsDebugDump.Name = "mMenToolsDebugDump";
+            _mMenToolsDebugDump.Size = new System.Drawing.Size(190, 22);
+            _mMenToolsDebugDump.Text = "Generate Debug Bundle";
+            _mMenToolsDebugDump.Click += mMenToolsDebugDump_Click;
             //
             // mMenToolsUpdate
             //
@@ -182,6 +192,7 @@ namespace mRemoteNG.UI.Menu
             _mMenInfoChat.Text = Language.MenuItem_Chat;
             _mMenInfoCommunity.Text = Language.MenuItem_Community;
             _mMenInfoBug.Text = Language.MenuItem_ReportIssue;
+            _mMenToolsDebugDump.Text = "Generate Debug Bundle";
             _mMenInfoAbout.Text = Language.MenuItem_About;
             _mMenToolsUpdate.Text = Language.MenuItem_CheckForUpdates;
         }
@@ -196,6 +207,11 @@ namespace mRemoteNG.UI.Menu
             {
                 await updateWindow.PerformUpdateCheckAsync();
             }
+        }
+
+        private void mMenToolsDebugDump_Click(object? sender, EventArgs e)
+        {
+            mRemoteNG.Tools.DebugDumper.CreateDebugBundle();
         }
 
         private void mMenKeyboardShortcuts_Click(object sender, EventArgs e)
