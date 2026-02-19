@@ -34,6 +34,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnect = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptions = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsDialog = null!;
+        private ToolStripMenuItem _cMenTreeConnectWithOptionsWithCredentials = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectToConsoleSession = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsNoCredentials = null!;
         private ToolStripMenuItem _cMenTreeConnectWithOptionsConnectInFullscreen = null!;
@@ -106,6 +107,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnect = new ToolStripMenuItem();
             _cMenTreeConnectWithOptions = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsDialog = new ToolStripMenuItem();
+            _cMenTreeConnectWithOptionsWithCredentials = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsDontConnectToConsoleSession = new ToolStripMenuItem();
             _cMenTreeConnectWithOptionsConnectInFullscreen = new ToolStripMenuItem();
@@ -218,6 +220,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptions.DropDownItems.AddRange(new ToolStripItem[]
             {
                 _cMenTreeConnectWithOptionsDialog,
+                _cMenTreeConnectWithOptionsWithCredentials,
                 _cMenTreeConnectWithOptionsConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsDontConnectToConsoleSession,
                 _cMenTreeConnectWithOptionsConnectInFullscreen,
@@ -236,6 +239,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsDialog.Size = new System.Drawing.Size(245, 22);
             _cMenTreeConnectWithOptionsDialog.Text = "Connect with options...";
             _cMenTreeConnectWithOptionsDialog.Click += OnConnectWithOptionsDialogClicked;
+            //
+            // cMenTreeConnectWithOptionsWithCredentials
+            //
+            _cMenTreeConnectWithOptionsWithCredentials.Name = "_cMenTreeConnectWithOptionsWithCredentials";
+            _cMenTreeConnectWithOptionsWithCredentials.Size = new System.Drawing.Size(245, 22);
+            _cMenTreeConnectWithOptionsWithCredentials.Text = "Connect with credentials";
+            _cMenTreeConnectWithOptionsWithCredentials.Click += OnConnectWithCredentialsClicked;
             //
             // cMenTreeConnectWithOptionsConnectToConsoleSession
             //
@@ -625,6 +635,7 @@ namespace mRemoteNG.UI.Controls
         {
             _cMenTreeConnect.Text = Language.Connect;
             _cMenTreeConnectWithOptions.Text = Language.ConnectWithOptions;
+            _cMenTreeConnectWithOptionsWithCredentials.Text = "Connect with credentials..."; 
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Text = Language.ConnectToConsoleSession;
             _cMenTreeConnectWithOptionsDontConnectToConsoleSession.Text = Language.DontConnectToConsoleSession;
             _cMenTreeConnectWithOptionsConnectInFullscreen.Text = Language.ConnectInFullscreen;
@@ -774,6 +785,7 @@ namespace mRemoteNG.UI.Controls
         internal void ShowHideMenuItemsForContainer(ContainerInfo containerInfo)
         {
             _cMenTreeConnectWithOptionsDialog.Enabled = false;
+            _cMenTreeConnectWithOptionsWithCredentials.Enabled = false;
             _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
 
@@ -967,6 +979,59 @@ namespace mRemoteNG.UI.Controls
                     Runtime.ConnectionInitiator.OpenConnection(frm.ConnectionInfo, ConnectionInfo.Force.DoNotJump);
                 }
             }
+        }
+
+        private void OnConnectWithCredentialsClicked(object sender, EventArgs e)
+        {
+            var selectedNode = _connectionTree.SelectedNode;
+            if (selectedNode == null || selectedNode is ContainerInfo) return;
+
+            // Get current resolved credentials to pre-fill
+            string currentUsername = selectedNode.Username;
+            string currentDomain = selectedNode.Domain;
+
+            using (var frm = new UI.Forms.FrmConnectWithCredentials(currentUsername, currentDomain))
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    ConnectionInfo tempConnection = CreateFlattenedConnectionInfo(selectedNode);
+                    tempConnection.Username = frm.Username;
+                    tempConnection.Password = frm.Password;
+                    tempConnection.Domain = frm.Domain;
+                    
+                    Runtime.ConnectionInitiator.OpenConnection(tempConnection, ConnectionInfo.Force.DoNotJump);
+                }
+            }
+        }
+
+        private ConnectionInfo CreateFlattenedConnectionInfo(ConnectionInfo original)
+        {
+            var clone = new ConnectionInfo();
+            // Copy properties resolving inheritance
+            foreach (System.Reflection.PropertyInfo prop in typeof(ConnectionInfo).GetProperties())
+            {
+                if (!prop.CanRead || !prop.CanWrite) continue;
+                if (prop.Name == "Parent" || 
+                    prop.Name == "Inheritance" || 
+                    prop.Name == "OpenConnections" || 
+                    prop.Name == "ConstantID" ||
+                    prop.Name == "TreeNode" || 
+                    prop.Name == "IsContainer" || 
+                    prop.Name == "IsRoot") continue;
+
+                try
+                {
+                    object val = prop.GetValue(original, null);
+                    prop.SetValue(clone, val, null);
+                }
+                catch (Exception)
+                {
+                    // Ignore errors copying specific properties
+                }
+            }
+            
+            clone.Name = original.Name;
+            return clone;
         }
 
         private void OnConnectToConsoleSessionClicked(object sender, EventArgs e)
