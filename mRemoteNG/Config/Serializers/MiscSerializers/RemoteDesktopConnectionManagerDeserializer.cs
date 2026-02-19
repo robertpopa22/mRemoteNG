@@ -18,7 +18,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
     [SupportedOSPlatform("windows")]
     public class RemoteDesktopConnectionManagerDeserializer : IDeserializer<string, ConnectionTreeModel>
     {
-        private static int _schemaVersion; /* 1 = RDCMan v2.2
+        private int _schemaVersion; /* 1 = RDCMan v2.2
                                        3 = RDCMan v2.7  */
 
         public ConnectionTreeModel Deserialize(string rdcmConnectionsXml)
@@ -43,7 +43,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             return connectionTreeModel;
         }
 
-        private static void VerifySchemaVersion(XmlNode rdcManNode)
+        private void VerifySchemaVersion(XmlNode rdcManNode)
         {
 	        if (!int.TryParse(rdcManNode?.Attributes?["schemaVersion"]?.Value, out int version))
 		        throw new FileFormatException("Could not find schema version attribute.");
@@ -56,7 +56,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             _schemaVersion = version;
         }
 
-        private static void VerifyFileVersion(XmlNode rdcManNode)
+        private void VerifyFileVersion(XmlNode rdcManNode)
         {
             string? versionAttribute = rdcManNode.Attributes?["programVersion"]?.Value;
             if (versionAttribute != null)
@@ -85,7 +85,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
         }
 
-        private static void ImportFileOrGroup(XmlNode xmlNode, ContainerInfo parentContainer)
+        private void ImportFileOrGroup(XmlNode xmlNode, ContainerInfo parentContainer)
         {
             ContainerInfo newContainer = ImportContainer(xmlNode, parentContainer);
 
@@ -106,7 +106,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
         }
 
-        private static ContainerInfo ImportContainer(XmlNode containerPropertiesNode, ContainerInfo parentContainer)
+        private ContainerInfo ImportContainer(XmlNode containerPropertiesNode, ContainerInfo parentContainer)
         {
             if (_schemaVersion == 1)
             {
@@ -130,13 +130,13 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             return newContainer;
         }
 
-        private static void ImportServer(XmlNode serverNode, ContainerInfo parentContainer)
+        private void ImportServer(XmlNode serverNode, ContainerInfo parentContainer)
         {
             ConnectionInfo newConnectionInfo = ConnectionInfoFromXml(serverNode);
             parentContainer.AddChild(newConnectionInfo);
         }
 
-        private static ConnectionInfo ConnectionInfoFromXml(XmlNode xmlNode)
+        private ConnectionInfo ConnectionInfoFromXml(XmlNode xmlNode)
         {
             ConnectionInfo connectionInfo = new() { Protocol = ProtocolType.RDP};
 
