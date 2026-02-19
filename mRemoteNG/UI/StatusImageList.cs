@@ -68,9 +68,12 @@ namespace mRemoteNG.UI
 
             bool connected = connection.OpenConnections.Count > 0;
             bool isTemplate = connection.IsTemplate;
+            bool replaceIcon = connected && Properties.OptionsAppearancePage.Default.ReplaceIconOnConnect;
             string name = isTemplate
                 ? BuildConnectionIconName(connection.Icon, false, true)
-                : BuildConnectionIconName(connection.Icon, connected);
+                : replaceIcon
+                    ? BuildConnectionIconNameReplace(connection.Icon)
+                    : BuildConnectionIconName(connection.Icon, connected);
             if (ImageList.Images.ContainsKey(name)) return name;
             Icon? image = ConnectionIcon.FromString(connection.Icon);
             if (image == null)
@@ -81,7 +84,18 @@ namespace mRemoteNG.UI
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false), image);
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, true), Overlay(image, Properties.Resources.ConnectedOverlay));
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false, true), CreateTemplateIcon(image));
+            ImageList.Images.Add(BuildConnectionIconNameReplace(connection.Icon), CreateReplaceIcon());
             return name;
+        }
+
+        private static string BuildConnectionIconNameReplace(string icon)
+        {
+            return $"Connection_{icon}_Replace";
+        }
+
+        private static Bitmap CreateReplaceIcon()
+        {
+            return new Bitmap(Properties.Resources.Run_16x, new Size(16, 16));
         }
 
         private static Bitmap CreateTemplateIcon(Icon baseIcon)

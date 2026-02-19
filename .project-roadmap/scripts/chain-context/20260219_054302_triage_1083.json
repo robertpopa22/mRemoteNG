@@ -1,0 +1,65 @@
+{
+  "task_type": "triage",
+  "task_id": "1083",
+  "started_at": "2026-02-19T05:40:07",
+  "finished_at": "2026-02-19T05:43:02",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T05:40:07"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T05:42:14"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Folder disconnect only closes direct children, not recursive subfolder connections - user wants both options in context menu",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Controls/ConnectionContextMenu.cs",
+          "mRemoteNG/Properties/Resources.Designer.cs",
+          "mRemoteNG/Properties/Resources.resx",
+          "mRemoteNG/Language/Language.resx",
+          "mRemoteNG/Language/Language.Designer.cs"
+        ],
+        "approach": "Add recursive helper to walk ContainerInfo tree disconnecting all descendants; add a second context menu item 'Disconnect All (Recursive)' alongside existing 'Disconnect' for folder nodes; add Language resource strings for the new menu item"
+      },
+      "raw_output": "Based on the issue and code analysis:\n\n- **Issue #1083** requests that the folder context menu disconnect should have options to disconnect recursively (all subfolders) vs. current folder only.\n- The current code at `ConnectionContextMenu.cs:1106` only iterates `nodeAsContainer.Children` (direct children), not recursively into sub-containers.\n- This is a valid UX enhancement with a clear, small scope.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Folder disconnect only closes direct children, not recursive subfolder connections - user wants both options in context menu\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Controls/ConnectionContextMenu.cs\",\"mRemoteNG/Properties/Resources.Designer.cs\",\"mRemoteNG/Properties/Resources.resx\",\"mRemoteNG/Language/Language.resx\",\"mRemoteNG/Language/Language.Designer.cs\"],\"approach\":\"Add recursive helper to walk ContainerInfo tree disconnecting all descendants; add a second context menu item 'Disconnect All (Recursive)' alongside existing 'Disconnect' for folder nodes; add Language resource strings for the new menu item\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T05:43:02"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
