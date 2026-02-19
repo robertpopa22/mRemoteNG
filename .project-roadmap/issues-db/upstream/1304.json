@@ -10,12 +10,19 @@
   "created_at": "2019-02-10T07:16:40Z",
   "github_updated_at": "2019-03-09T17:22:52Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nFile confCons.xml is wiped If I import *.RDG files (from RDCMan v2.7 build 1406.0). Also as many \"confCons.xml.<DATE-TIME>.backup\" files are wiped, as I imported RDG files (some were with saved credentials).\r\nDomain field in some imported connections cotains \"Object reference not set to an instance of an object.\" and cannot be changed.\r\nApplication cannot be started because of zero-sized confCons.xml file.\r\n\r\n\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "Importing multiple *.RDG files wipes configuration; likely an issue in the import loop or deserializer state management causing data loss."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ2OTIzNjY1Ng==",
@@ -68,5 +75,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Importing multiple *.RDG files wipes configuration; likely an issue in the import loop or deserializer state management causing data loss.\nApproach: Refactor `RemoteDesktopConnectionManagerDeserializer` to remove static state. Investigate `HeadlessFileImport` and `SaveConnections` interaction during batch imports."
 }
