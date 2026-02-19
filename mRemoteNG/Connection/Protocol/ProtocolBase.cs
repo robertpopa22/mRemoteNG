@@ -190,7 +190,20 @@ namespace mRemoteNG.Connection.Protocol
         {
             if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)
             {
-                _interfaceControl.Invoke(new MethodInvoker(CloseBG));
+                try
+                {
+                    _interfaceControl.Invoke(new MethodInvoker(CloseBG));
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Control was disposed between the IsDisposed check and the Invoke call (race condition).
+                    // Nothing left to close — the panel/tab is already gone.
+                }
+                catch (InvalidOperationException)
+                {
+                    // Window handle is no longer valid.
+                }
+
                 return;
             }
 
