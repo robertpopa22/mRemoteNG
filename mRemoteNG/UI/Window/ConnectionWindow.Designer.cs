@@ -26,6 +26,7 @@ namespace mRemoteNG.UI.Window
         internal ToolStripMenuItem cmenTabExternalApps;
         private ToolStripMenuItem cmenTabStartChat;
         private ToolStripMenuItem cmenTabRefreshScreen;
+        private ToolStripMenuItem cmenTabScreenshot;
         private ToolStripMenuItem cmenTabPuttySettings;
 
 
@@ -47,6 +48,7 @@ namespace mRemoteNG.UI.Window
             this.cmenTabViewOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabStartChat = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabRefreshScreen = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmenTabScreenshot = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabTransferFile = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabSendSpecialKeys = new System.Windows.Forms.ToolStripMenuItem();
             this.cmenTabSendSpecialKeysCtrlAltDel = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +85,7 @@ namespace mRemoteNG.UI.Window
             this.cmenTabViewOnly,
             this.cmenTabStartChat,
             this.cmenTabRefreshScreen,
+            this.cmenTabScreenshot,
             this.cmenTabTransferFile,
             this.cmenTabSendSpecialKeys,
             this.cmenTabSep2,
@@ -174,7 +177,14 @@ namespace mRemoteNG.UI.Window
             this.cmenTabRefreshScreen.Name = "cmenTabRefreshScreen";
             this.cmenTabRefreshScreen.Size = new System.Drawing.Size(230, 22);
             this.cmenTabRefreshScreen.Text = "Refresh Screen (VNC)";
-            // 
+            //
+            // cmenTabScreenshot
+            //
+            this.cmenTabScreenshot.Image = global::mRemoteNG.Properties.Resources.Monitor_16x;
+            this.cmenTabScreenshot.Name = "cmenTabScreenshot";
+            this.cmenTabScreenshot.Size = new System.Drawing.Size(230, 22);
+            this.cmenTabScreenshot.Text = "Take Screenshot";
+            //
             // cmenTabTransferFile
             // 
             this.cmenTabTransferFile.Image = global::mRemoteNG.Properties.Resources.SyncArrow_16x;

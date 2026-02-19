@@ -19,6 +19,9 @@ using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.TaskDialog;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.Versioning;
 using mRemoteNG.Security;
 
@@ -175,6 +178,7 @@ namespace mRemoteNG.UI.Window
             cmenTabStartChat.Click += (sender, args) => StartChat();
             cmenTabTransferFile.Click += (sender, args) => TransferFile();
             cmenTabRefreshScreen.Click += (sender, args) => RefreshScreen();
+            cmenTabScreenshot.Click += (sender, args) => TakeScreenshotToFile();
             cmenTabSendSpecialKeysCtrlAltDel.Click += (sender, args) => SendSpecialKeys(ProtocolVNC.SpecialKeys.CtrlAltDel);
             cmenTabSendSpecialKeysCtrlEsc.Click += (sender, args) => SendSpecialKeys(ProtocolVNC.SpecialKeys.CtrlEsc);
             cmenTabRenameTab.Click += (sender, args) => RenameTab();
@@ -815,6 +819,7 @@ namespace mRemoteNG.UI.Window
             cmenTabStartChat.Text = Language.StartChat;
             cmenTabTransferFile.Text = Language.TransferFile;
             cmenTabRefreshScreen.Text = Language.RefreshScreen;
+            cmenTabScreenshot.Text = Language.Screenshot;
             cmenTabSendSpecialKeys.Text = Language.SendSpecialKeys;
             cmenTabSendSpecialKeysCtrlAltDel.Text = Language.CtrlAltDel;
             cmenTabSendSpecialKeysCtrlEsc.Text = Language.CtrlEsc;
@@ -1038,6 +1043,7 @@ namespace mRemoteNG.UI.Window
                     cmenTabSendSpecialKeys.Visible = false;
                     cmenTabStartChat.Visible = false;
                     cmenTabRefreshScreen.Visible = false;
+                    cmenTabScreenshot.Visible = false;
                     cmenTabTransferFile.Visible = false;
                     cmenTabPuttySettings.Visible = false;
                     cmenTabExternalApps.Visible = false;
@@ -1048,6 +1054,7 @@ namespace mRemoteNG.UI.Window
                 }
 
                 cmenTabExternalApps.Visible = true;
+                cmenTabScreenshot.Visible = true;
 
                 if (interfaceControl.Protocol is ISupportsViewOnly viewOnly)
                 {
@@ -1125,6 +1132,42 @@ namespace mRemoteNG.UI.Window
         #endregion
 
         #region Tab Actions
+
+        private void TakeScreenshotToFile()
+        {
+            try
+            {
+                ConnectionTab? selectedTab = GetSelectedTab();
+                if (selectedTab == null) return;
+
+                Image? screenshot = MiscTools.TakeScreenshot(selectedTab);
+                if (screenshot == null) return;
+
+                string connectionName = selectedTab.TabText.Replace("&&", "&");
+                // Sanitize the connection name for use in a file name
+                foreach (char c in System.IO.Path.GetInvalidFileNameChars())
+                    connectionName = connectionName.Replace(c, '_');
+
+                string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                string fileName = $"{connectionName}_{timestamp}.png";
+
+                string screenshotDir = System.IO.Path.Combine(
+                    App.Info.SettingsFileInfo.SettingsPath, "Screenshots");
+                System.IO.Directory.CreateDirectory(screenshotDir);
+
+                string filePath = System.IO.Path.Combine(screenshotDir, fileName);
+                screenshot.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+                screenshot.Dispose();
+
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"Screenshot saved: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(
+                    "TakeScreenshotToFile (UI.Window.ConnectionWindow) failed", ex);
+            }
+        }
 
         private void ToggleSmartSize()
         {

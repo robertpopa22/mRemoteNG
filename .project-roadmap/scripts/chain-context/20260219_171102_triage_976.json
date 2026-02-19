@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "976",
+  "started_at": "2026-02-19T17:09:58",
+  "finished_at": "2026-02-19T17:11:02",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T17:09:58"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Basic plugin infrastructure exists but is limited to menu items and logging; needs expansion to support robust extensions.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/App/Tools/PluginManager.cs",
+          "mRemoteNG.Plugins/IPlugin.cs",
+          "mRemoteNG.Plugins/IPluginHost.cs"
+        ],
+        "approach": "Expand IPluginHost to expose connection lifecycle events, connection tree access, and UI panel integration."
+      },
+      "raw_output": "```json\n{\n\"decision\": \"implement\",\n\"reason\": \"Basic plugin infrastructure exists but is limited to menu items and logging; needs expansion to support robust extensions.\",\n\"priority\": \"P3-enhancement\",\n\"estimated_files\": [\n\"mRemoteNG/App/Tools/PluginManager.cs\",\n\"mRemoteNG.Plugins/IPlugin.cs\",\n\"mRemoteNG.Plugins/IPluginHost.cs\"\n],\n\"approach\": \"Expand IPluginHost to expose connection lifecycle events, connection tree access, and UI panel integration.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T17:11:02"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
