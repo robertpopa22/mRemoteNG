@@ -29,6 +29,7 @@ namespace mRemoteNG.UI.Menu
         public ToolStripMenuItem _mMenViewExtAppsToolbar = null!;
         public ToolStripMenuItem _mMenViewQuickConnectToolbar = null!;
         public ToolStripMenuItem _mMenViewMultiSshToolbar = null!;
+        public ToolStripMenuItem _mMenViewPresentationMode = null!;
         private ToolStripMenuItem _mMenViewResetLayout = null!;
         private ToolStripMenuItem _mMenViewLoadLayout = null!;
         private ToolStripMenuItem _mMenViewSaveLayout = null!;
@@ -40,6 +41,7 @@ namespace mRemoteNG.UI.Menu
         public ToolStrip? TsQuickConnect { get; set; }
         public ToolStrip? TsMultiSsh { get; set; }
         public FullscreenHandler? FullscreenHandler { get; set; }
+        public PresentationModeHandler? PresentationMode { get; set; }
         public FrmMain? MainForm { get; set; }
 
 
@@ -202,6 +204,15 @@ namespace mRemoteNG.UI.Menu
             _mMenViewFullscreen.Text = Language.Fullscreen;
             _mMenViewFullscreen.Checked = Properties.App.Default.MainFormKiosk;
             _mMenViewFullscreen.Click += mMenViewFullscreen_Click;
+            // 
+            // mMenViewPresentationMode
+            // 
+            _mMenViewPresentationMode.Image = null; // Properties.Resources.Presentation_16x;
+            _mMenViewPresentationMode.Name = "mMenViewPresentationMode";
+            _mMenViewPresentationMode.ShortcutKeys = Keys.Shift | Keys.F11;
+            _mMenViewPresentationMode.Size = new System.Drawing.Size(228, 22);
+            _mMenViewPresentationMode.Text = "Presentation Mode";
+            _mMenViewPresentationMode.Click += mMenViewPresentationMode_Click;
         }
 
 
@@ -219,6 +230,7 @@ namespace mRemoteNG.UI.Menu
             _mMenViewExtAppsToolbar.Text = Language.ExternalToolsToolbar;
             _mMenViewMultiSshToolbar.Text = Language.MultiSshToolbar;
             _mMenViewFullscreen.Text = Language.Fullscreen;
+            _mMenViewPresentationMode.Text = "Presentation Mode";
         }
 
         #region View
@@ -420,6 +432,13 @@ namespace mRemoteNG.UI.Menu
             if (FullscreenHandler is null) return;
             FullscreenHandler.Value = !FullscreenHandler.Value;
             _mMenViewFullscreen.Checked = FullscreenHandler.Value;
+        }
+
+        private void mMenViewPresentationMode_Click(object sender, EventArgs e)
+        {
+            if (PresentationMode is null) return;
+            PresentationMode.Active = !PresentationMode.Active;
+            _mMenViewPresentationMode.Checked = PresentationMode.Active;
         }
 
         private void mMenReconnectAll_Click(object sender, EventArgs e)

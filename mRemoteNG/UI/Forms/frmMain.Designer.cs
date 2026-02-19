@@ -261,6 +261,15 @@ namespace mRemoteNG.UI.Forms
                     msMain.Visible = true;
                 }
             }
+            else if (keyData == (Keys.Shift | Keys.F11))
+            {
+                // Ensure PresentationMode is initialized (it might be null if called too early, though unlikely for this shortcut)
+                if (PresentationMode != null)
+                {
+                    PresentationMode.Active = !PresentationMode.Active;
+                    return true;
+                }
+            }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }

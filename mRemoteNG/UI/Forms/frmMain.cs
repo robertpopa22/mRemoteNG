@@ -119,6 +119,7 @@ namespace mRemoteNG.UI.Forms
         }
 
         internal FullscreenHandler Fullscreen { get; set; }
+        internal mRemoteNG.UI.PresentationModeHandler PresentationMode { get; set; }
 
         //Added theming support
         private readonly ToolStripRenderer _toolStripProfessionalRenderer = new ToolStripProfessionalRenderer();
@@ -137,6 +138,7 @@ namespace mRemoteNG.UI.Forms
             this.Top = viewport.Top + (targetScreen.Bounds.Size.Height / 2) - (this.Height / 2);
 
             Fullscreen = new FullscreenHandler(this);
+            PresentationMode = new mRemoteNG.UI.PresentationModeHandler(this);
 
             //Theming support
             _themeManager = ThemeManager.getInstance();
@@ -435,6 +437,7 @@ namespace mRemoteNG.UI.Forms
             viewMenu.TsQuickConnect = _quickConnectToolStrip;
             viewMenu.TsMultiSsh = _multiSshToolStrip;
             viewMenu.FullscreenHandler = Fullscreen;
+            viewMenu.PresentationMode = PresentationMode;
             viewMenu.MainForm = this;
 
             toolsMenu.MainForm = this;
