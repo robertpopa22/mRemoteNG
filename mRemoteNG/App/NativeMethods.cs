@@ -96,7 +96,13 @@ namespace mRemoteNG.App
         internal static extern long SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        internal static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        internal static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, int uFlags);
 
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         internal static extern int ShowWindow(IntPtr hWnd, int nCmdShow);
@@ -265,6 +271,7 @@ namespace mRemoteNG.App
         #region GetWindowLong
 
         public const int GWL_STYLE = (-16);
+        public const int GWL_EXSTYLE = (-20);
 
         #endregion
 
@@ -606,6 +613,7 @@ namespace mRemoteNG.App
         public const int WS_VISIBLE = 0x10000000;
         public const int WS_CHILD = 0x40000000;
         public const int WS_EX_MDICHILD = 0x40;
+        public const int WS_EX_APPWINDOW = 0x40000;
 
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using AxMSTSCLib;
 using System.Drawing;
+using System.Text;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 using mRemoteNG.Properties;
@@ -1245,6 +1246,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 _rdpClient.OnFatalError += RDPEvent_OnFatalError;
                 _rdpClient.OnDisconnected += RDPEvent_OnDisconnected;
                 _rdpClient.OnIdleTimeoutNotification += RDPEvent_OnIdleTimeoutNotification;
+                _rdpClient.OnEnterFullScreenMode += RDPEvent_OnEnterFullScreenMode;
                 _rdpClient.OnLeaveFullScreenMode += RDPEvent_OnLeaveFullscreenMode;
                 _rdpClient.OnLogonError += RDPEvent_OnLogonError;
             }
@@ -1361,6 +1363,60 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RDPEvent_OnLoginComplete()
         {
             loginComplete = true;
+        }
+
+        private void RDPEvent_OnEnterFullScreenMode()
+        {
+            try
+            {
+                // Fix for #1294: RDP session on wrong monitor's taskbar
+                // When RDP goes fullscreen, we want it to have its own taskbar button on the correct monitor.
+                // We find the foreground window (which should be the RDP window) and add WS_EX_APPWINDOW style.
+                
+                System.Threading.Tasks.Task.Run(async () =>
+                {
+                    try
+                    {
+                        for (int i = 0; i < 10; i++) // Try for ~1 second
+                        {
+                            await System.Threading.Tasks.Task.Delay(100);
+
+                            if (_frmMain == null || _frmMain.IsDisposed) return;
+
+                            _frmMain.Invoke((MethodInvoker)delegate
+                            {
+                                IntPtr hwnd = NativeMethods.GetForegroundWindow();
+                                if (hwnd == IntPtr.Zero) return;
+
+                                StringBuilder className = new StringBuilder(256);
+                                NativeMethods.GetClassName(hwnd, className, className.Capacity);
+                                string cls = className.ToString();
+
+                                // Check for standard RDP container classes
+                                if (cls.Contains("TscShellContainerClass") || cls.Contains("UIContainerClass"))
+                                {
+                                    int exStyle = NativeMethods.GetWindowLong(hwnd, NativeMethods.GWL_EXSTYLE);
+                                    if ((exStyle & NativeMethods.WS_EX_APPWINDOW) == 0)
+                                    {
+                                        NativeMethods.SetWindowLong(hwnd, NativeMethods.GWL_EXSTYLE, exStyle | NativeMethods.WS_EX_APPWINDOW);
+                                        // Force style update
+                                        NativeMethods.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0,
+                                            NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_FRAMECHANGED | NativeMethods.SWP_NOACTIVATE);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Runtime.MessageCollector.AddExceptionStackTrace("Error in RDP fullscreen taskbar fix task", ex, MessageClass.WarningMsg, false);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error initiating RDP fullscreen taskbar fix", ex, MessageClass.WarningMsg, false);
+            }
         }
 
         private void RDPEvent_OnLeaveFullscreenMode()
