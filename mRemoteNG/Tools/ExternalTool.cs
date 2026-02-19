@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
@@ -181,6 +182,30 @@ namespace mRemoteNG.Tools
             Process process = new();
             SetProcessProperties(process, ConnectionInfo);
             process.Start();
+
+            // Attempt to bring the external tool window to the foreground
+            // Fixes #1297: External Tool opens behind mRemoteNG window
+            Task.Run(async () =>
+            {
+                try
+                {
+                    // Poll for the main window handle for up to 5 seconds
+                    for (int i = 0; i < 50; i++)
+                    {
+                        process.Refresh();
+                        if (process.MainWindowHandle != IntPtr.Zero)
+                        {
+                            NativeMethods.SetForegroundWindow(process.MainWindowHandle);
+                            break;
+                        }
+                        await Task.Delay(100);
+                    }
+                }
+                catch
+                {
+                    // Ignore exceptions (e.g., process exited or handle invalid)
+                }
+            });
 
             if (WaitForExit)
             {
