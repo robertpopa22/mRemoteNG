@@ -105,7 +105,7 @@ namespace mRemoteNG.UI.Tabs
                                                             ESysIcons.Question);
                         if (CTaskDialog.VerificationChecked)
                         {
-                            Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Never;
+                            Settings.Default.ConfirmCloseConnection = (int)ConfirmCloseEnum.Multiple;
                             Settings.Default.Save();
                         }
 
