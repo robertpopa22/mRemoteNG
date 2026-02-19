@@ -898,6 +898,14 @@ namespace mRemoteNG.UI.Window
         private void Connection_ResizeEnd(object sender, EventArgs e)
         {
             ResizeEnd?.Invoke(sender, e);
+            if (connDock == null || connDock.IsDisposed) return;
+            foreach (var doc in connDock.Documents)
+            {
+                if (doc is ConnectionTab tab)
+                {
+                    tab.FireResizeEnd();
+                }
+            }
         }
 
         internal void NavigateToNextTab()

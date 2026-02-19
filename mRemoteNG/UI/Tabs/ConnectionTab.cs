@@ -150,6 +150,11 @@ namespace mRemoteNG.UI.Tabs
             }
         }
 
+        public void FireResizeEnd()
+        {
+            OnResizeEnd(EventArgs.Empty);
+        }
+
         #endregion
     }
 }
