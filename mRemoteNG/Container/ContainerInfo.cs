@@ -69,6 +69,9 @@ namespace mRemoteNG.Container
             set { }
         }
 
+        [Browsable(false)]
+        public bool IsEntity { get; set; }
+
         [Category(""), Browsable(false), ReadOnly(false), Bindable(false), DefaultValue(DynamicSourceType.None), DesignOnly(false)]
         public DynamicSourceType DynamicSource
         {
@@ -106,7 +109,7 @@ namespace mRemoteNG.Container
 
         public override TreeNodeType GetTreeNodeType()
         {
-            return TreeNodeType.Container;
+            return IsEntity ? TreeNodeType.Entity : TreeNodeType.Container;
         }
 
         public bool HasChildren()

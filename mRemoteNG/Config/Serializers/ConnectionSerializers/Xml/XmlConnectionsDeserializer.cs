@@ -181,7 +181,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                                 parentContainer.AddChild(connectionInfo);
                             break;
                         case TreeNodeType.Container:
+                        case TreeNodeType.Entity:
                             ContainerInfo containerInfo = new();
+                            if (nodeType == TreeNodeType.Entity)
+                                containerInfo.IsEntity = true;
 
                             if (_confVersion >= 0.9)
                             {

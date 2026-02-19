@@ -27,6 +27,7 @@ namespace mRemoteNG.UI.Controls
     public sealed class ConnectionContextMenu : ContextMenuStrip
     {
         private ToolStripMenuItem _cMenTreeAddConnection = null!;
+        private ToolStripMenuItem _cMenTreeAddEntity = null!;
         private ToolStripMenuItem _cMenTreeAddFolder = null!;
         private ToolStripMenuItem _cMenTreeAddRootFolder = null!;
         private ToolStripSeparator _cMenTreeSep1 = null!;
@@ -144,6 +145,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeExportFile = new ToolStripMenuItem();
             _cMenTreeSep4 = new ToolStripSeparator();
             _cMenTreeAddConnection = new ToolStripMenuItem();
+            _cMenTreeAddEntity = new ToolStripMenuItem();
             _cMenTreeAddFolder = new ToolStripMenuItem();
             _cMenTreeAddRootFolder = new ToolStripMenuItem();
             _toolStripSeparator1 = new ToolStripSeparator();
@@ -164,6 +166,7 @@ namespace mRemoteNG.UI.Controls
             Items.AddRange(new ToolStripItem[]
             {
                 _cMenTreeAddConnection,
+                _cMenTreeAddEntity,
                 _cMenTreeAddFolder,
                 _cMenTreeAddRootFolder,
                 _cMenTreeSep4,
@@ -490,6 +493,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeAddConnection.Text = "New Connection";
             _cMenTreeAddConnection.Click += OnAddConnectionClicked;
             //
+            // cMenTreeAddEntity
+            //
+            _cMenTreeAddEntity.Image = Properties.Resources.AddFolder_16x; // Placeholder image
+            _cMenTreeAddEntity.Name = "_cMenTreeAddEntity";
+            _cMenTreeAddEntity.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeAddEntity.Text = "New Entity";
+            _cMenTreeAddEntity.Click += OnAddEntityClicked;
+            //
             // cMenTreeAddFolder
             //
             _cMenTreeAddFolder.Image = Properties.Resources.AddFolder_16x;
@@ -644,6 +655,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeExportFile.Text = Language._ExportToFile;
 
             _cMenTreeAddConnection.Text = Language.NewConnection;
+            _cMenTreeAddEntity.Text = "New Entity";
             _cMenTreeAddFolder.Text = Language.NewFolder;
             _cMenTreeAddRootFolder.Text = "New Root Folder";
 
@@ -700,6 +712,7 @@ namespace mRemoteNG.UI.Controls
         internal void ShowHideMenuItemsForRootPuttyNode()
         {
             _cMenTreeAddConnection.Enabled = false;
+            _cMenTreeAddEntity.Enabled = false;
             _cMenTreeAddFolder.Enabled = false;
             _cMenTreeAddRootFolder.Enabled = false;
             _cMenTreeConnect.Enabled = false;
@@ -783,6 +796,7 @@ namespace mRemoteNG.UI.Controls
         internal void ShowHideMenuItemsForPuttyNode(PuttySessionInfo connectionInfo)
         {
             _cMenTreeAddConnection.Enabled = false;
+            _cMenTreeAddEntity.Enabled = false;
             _cMenTreeAddFolder.Enabled = false;
             _cMenTreeAddRootFolder.Enabled = false;
 
@@ -1278,6 +1292,11 @@ namespace mRemoteNG.UI.Controls
         private void OnAddConnectionClicked(object sender, EventArgs e)
         {
             _connectionTree.AddConnection();
+        }
+
+        private void OnAddEntityClicked(object sender, EventArgs e)
+        {
+            _connectionTree.AddEntity();
         }
 
         private void OnAddFolderClicked(object sender, EventArgs e)

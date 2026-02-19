@@ -353,6 +353,19 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             }
         }
 
+        public void AddEntity()
+        {
+            try
+            {
+                ContainerInfo entity = new() { IsEntity = true, Name = "New Entity" };
+                AddNode(entity);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Failed to add entity", ex);
+            }
+        }
+
         public void AddRootFolder()
         {
             try
