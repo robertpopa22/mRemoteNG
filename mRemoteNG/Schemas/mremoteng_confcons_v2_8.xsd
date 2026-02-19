@@ -219,6 +219,8 @@
     <xs:attribute name="UserViaAPI" type="xs:string" use="optional" />
     <xs:attribute name="ExternalAddressProvider" type="xs:string" use="optional" />
     <xs:attribute name="UsePersistentBrowser" type="xs:boolean" use="optional" />
+    <xs:attribute name="ScriptErrorsSuppressed" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritScriptErrorsSuppressed" type="xs:boolean" use="optional" />
     <xs:attribute name="EC2InstanceId" type="xs:string" use="optional" />
     <xs:attribute name="EC2Region" type="xs:string" use="optional" />
     <xs:attribute name="UseRCG" type="xs:boolean" use="optional" />

@@ -555,6 +555,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.UsePersistentBrowser = value;
             }
 
+            if (headers.Contains("ScriptErrorsSuppressed"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("ScriptErrorsSuppressed")], out bool value))
+                    connectionRecord.ScriptErrorsSuppressed = value;
+            }
+
             if (headers.Contains("DesktopScaleFactor"))
             {
                 if (Enum.TryParse(connectionCsv[headers.IndexOf("DesktopScaleFactor")], true, out RDPDesktopScaleFactor value))
@@ -1078,6 +1084,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritDesktopScaleFactor")], out bool value))
                     connectionRecord.Inheritance.DesktopScaleFactor = value;
+            }
+
+            if (headers.Contains("InheritScriptErrorsSuppressed"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritScriptErrorsSuppressed")], out bool value))
+                    connectionRecord.Inheritance.ScriptErrorsSuppressed = value;
             }
 
             #endregion

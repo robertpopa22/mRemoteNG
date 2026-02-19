@@ -63,7 +63,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                       "CacheBitmaps;RedirectDiskDrives;RedirectDiskDrivesCustom;RedirectPorts;RedirectPrinters;RedirectClipboard;RedirectSmartCards;RedirectSound;RedirectKeys;" +
                       "PreExtApp;PostExtApp;MacAddress;UserField;UserField1;UserField2;UserField3;UserField4;UserField5;UserField6;UserField7;UserField8;UserField9;UserField10;EnvironmentTags;ExtApp;Favorite;AutoSort;VNCCompression;VNCEncoding;VNCAuthMode;VNCProxyType;VNCProxyIP;" +
                       "VNCProxyPort;VNCProxyUsername;VNCProxyPassword;VNCColors;VNCSmartSizeMode;VNCViewOnly;RDGatewayUsageMethod;RDGatewayHostname;" +
-                      "RDGatewayUseConnectionCredentials;RDGatewayUsername;RDGatewayPassword;RDGatewayDomain;RDGatewayExternalCredentialProvider;RDGatewayUserViaAPI;RedirectAudioCapture;RdpVersion;RDPStartProgram;RDPStartProgramWorkDir;UserViaAPI;EC2InstanceId;EC2Region;ExternalCredentialProvider;ExternalAddressProvider;PrivateKeyPath;UsePersistentBrowser;DesktopScaleFactor;");
+                      "RDGatewayUseConnectionCredentials;RDGatewayUsername;RDGatewayPassword;RDGatewayDomain;RDGatewayExternalCredentialProvider;RDGatewayUserViaAPI;RedirectAudioCapture;RdpVersion;RDPStartProgram;RDPStartProgramWorkDir;UserViaAPI;EC2InstanceId;EC2Region;ExternalCredentialProvider;ExternalAddressProvider;PrivateKeyPath;UsePersistentBrowser;ScriptErrorsSuppressed;DesktopScaleFactor;");
 
             if (_saveFilter.SaveInheritance)
                 sb.Append("InheritCacheBitmaps;InheritColors;InheritDescription;InheritDisplayThemes;InheritDisplayWallpaper;" +
@@ -78,7 +78,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                           "InheritRDGatewayUsageMethod;InheritRDGatewayHostname;InheritRDGatewayUseConnectionCredentials;InheritRDGatewayUsername;" +
                           "InheritRDGatewayPassword;InheritRDGatewayDomain;InheritRDGatewayExternalCredentialProvider;InheritRDGatewayUserViaAPI;InheritRDPAlertIdleTimeout;InheritRDPMinutesToIdleTimeout;InheritSoundQuality;InheritUserViaAPI;" +
                           "InheritRedirectAudioCapture;InheritRdpVersion;InheritExternalCredentialProvider;" +
-                          "InheritPrivateKeyPath;InheritDesktopScaleFactor");
+                          "InheritPrivateKeyPath;InheritScriptErrorsSuppressed;InheritDesktopScaleFactor");
         }
 
         private void SerializeNodesRecursive(ConnectionInfo node, StringBuilder sb)
@@ -208,6 +208,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.ExternalAddressProvider))
               .Append(FormatForCsv(con.PrivateKeyPath))
               .Append(FormatForCsv(con.UsePersistentBrowser))
+              .Append(FormatForCsv(con.ScriptErrorsSuppressed))
               .Append(FormatForCsv(con.DesktopScaleFactor))
               ;
 
@@ -307,6 +308,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.Inheritance.UserViaAPI))
               .Append(FormatForCsv(con.Inheritance.ExternalCredentialProvider))
               .Append(FormatForCsv(con.Inheritance.PrivateKeyPath))
+              .Append(FormatForCsv(con.Inheritance.ScriptErrorsSuppressed))
               .Append(FormatForCsv(con.Inheritance.DesktopScaleFactor));
         }
 

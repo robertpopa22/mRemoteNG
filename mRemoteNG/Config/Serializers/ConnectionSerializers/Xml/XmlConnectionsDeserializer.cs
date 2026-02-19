@@ -584,6 +584,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.IsRoot = xmlnode.GetAttributeAsBool("IsRoot");
                     connectionInfo.IsTemplate = xmlnode.GetAttributeAsBool("IsTemplate");
                     connectionInfo.UsePersistentBrowser = xmlnode.GetAttributeAsBool("UsePersistentBrowser");
+                    connectionInfo.ScriptErrorsSuppressed = xmlnode.GetAttributeAsBool("ScriptErrorsSuppressed", true);
+                    connectionInfo.Inheritance.ScriptErrorsSuppressed = xmlnode.GetAttributeAsBool("InheritScriptErrorsSuppressed");
                     connectionInfo.DesktopScaleFactor = xmlnode.GetAttributeAsEnum<RDPDesktopScaleFactor>("DesktopScaleFactor");
                     connectionInfo.Inheritance.DesktopScaleFactor = xmlnode.GetAttributeAsBool("InheritDesktopScaleFactor");
                 }

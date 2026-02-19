@@ -38,6 +38,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("UseEnhancedMode", connectionInfo.UseVmId));
             element.Add(new XAttribute("IsTemplate", connectionInfo.IsTemplate.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("UsePersistentBrowser", connectionInfo.UsePersistentBrowser.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("ScriptErrorsSuppressed", connectionInfo.ScriptErrorsSuppressed.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("Type", connectionInfo.GetTreeNodeType().ToString()));
             if (nodeAsContainer != null)
             {
@@ -386,6 +387,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritUseRCG", inheritance.UseRCG.ToString().ToLowerInvariant()));
             if (inheritance.UseRestrictedAdmin)
                 element.Add(new XAttribute("InheritUseRestrictedAdmin", inheritance.UseRestrictedAdmin.ToString().ToLowerInvariant()));
+            if (inheritance.ScriptErrorsSuppressed)
+                element.Add(new XAttribute("InheritScriptErrorsSuppressed", inheritance.ScriptErrorsSuppressed.ToString().ToLowerInvariant()));
         }
     }
 }

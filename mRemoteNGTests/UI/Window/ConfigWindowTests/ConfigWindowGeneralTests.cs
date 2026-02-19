@@ -388,6 +388,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Port),
                         nameof(ConnectionInfo.RenderingEngine),
                         nameof(ConnectionInfo.UsePersistentBrowser),
+                        nameof(ConnectionInfo.ScriptErrorsSuppressed),
                     });
                     break;
                 case ProtocolType.PowerShell:
