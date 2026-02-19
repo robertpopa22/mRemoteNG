@@ -35,6 +35,7 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         private ThemeManager _themeManager;
 
         private readonly ConnectionTreeSearchTextFilter _connectionTreeSearchTextFilter = new();
+        private System.Collections.IEnumerable? _preFilterExpandedObjects;
 
         private bool _nodeInEditMode;
         private bool _allowEdit;
@@ -590,9 +591,15 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         /// <param name="filterText">The text to filter by</param>
         public void ApplyFilter(string filterText)
         {
+            if (!UseFiltering)
+            {
+                _preFilterExpandedObjects = ExpandedObjects;
+            }
+
             UseFiltering = true;
             _connectionTreeSearchTextFilter.FilterText = filterText;
             ModelFilter = _connectionTreeSearchTextFilter;
+            ExpandAll();
         }
 
         /// <summary>
@@ -602,6 +609,12 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         {
             UseFiltering = false;
             ResetColumnFiltering();
+
+            if (_preFilterExpandedObjects != null)
+            {
+                ExpandedObjects = _preFilterExpandedObjects;
+                _preFilterExpandedObjects = null;
+            }
         }
 
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
