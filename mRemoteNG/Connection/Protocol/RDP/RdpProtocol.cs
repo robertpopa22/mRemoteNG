@@ -194,6 +194,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
+            Control.Disposed += OnControlDisposed;
             base.Initialize();
 
             try
@@ -220,6 +221,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             connectionInfo = InterfaceControl.Info;
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, $"Requesting RDP version: {connectionInfo.RdpVersion}. Using: {RdpProtocolVersion}");
             Control = CreateActiveXRdpClientControl();
+            Control.Disposed += OnControlDisposed;
             base.Initialize();
 
             try
@@ -1422,6 +1424,52 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private void RdpClient_GotFocus(object sender, EventArgs e)
         {
             (Control?.Parent?.Parent as ConnectionTab)?.Focus();
+        }
+
+        private void OnControlDisposed(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (Control != null)
+                {
+                    Control.Disposed -= OnControlDisposed;
+                }
+
+                _extendedReconnectTimer.Stop();
+                _extendedReconnectTimer.Dispose();
+
+                if (_rdpClient != null)
+                {
+                    // If connected, try to disconnect first
+                    try
+                    {
+                        if (_rdpClient.Connected == 1)
+                        {
+                            _rdpClient.Disconnect();
+                        }
+                    }
+                    catch { }
+
+                    // Force release the COM object
+                    try
+                    {
+                        int refCount = Marshal.FinalReleaseComObject(_rdpClient);
+                        while (refCount > 0)
+                        {
+                            refCount = Marshal.FinalReleaseComObject(_rdpClient);
+                        }
+                    }
+                    catch { }
+                    finally
+                    {
+                        _rdpClient = null!;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error during RDP control disposal", ex);
+            }
         }
         #endregion
 
