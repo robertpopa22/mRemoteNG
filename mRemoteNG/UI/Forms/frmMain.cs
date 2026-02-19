@@ -981,8 +981,14 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_DPICHANGED:
                         {
-                            Rect32 newRect = Marshal.PtrToStructure<Rect32>(m.LParam);
-                            Bounds = new Rectangle(newRect.left, newRect.top, newRect.right - newRect.left, newRect.bottom - newRect.top);
+                            // Fix #1174: Do not manually set Bounds if maximized, as this can cause
+                            // the window to enter an invalid state or render incorrectly.
+                            // The OS and WinForms (PerMonitorV2) handle maximized scaling.
+                            if (WindowState != FormWindowState.Maximized)
+                            {
+                                Rect32 newRect = Marshal.PtrToStructure<Rect32>(m.LParam);
+                                Bounds = new Rectangle(newRect.left, newRect.top, newRect.right - newRect.left, newRect.bottom - newRect.top);
+                            }
 
                             // Force layout refresh for DockPanel to fix missing tabs/config
                             pnlDock.PerformLayout();
