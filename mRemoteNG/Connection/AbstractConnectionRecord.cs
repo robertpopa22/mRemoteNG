@@ -138,6 +138,8 @@ namespace mRemoteNG.Connection
         private ProtocolVNC.SmartSizeMode _vncSmartSizeMode = default;
         private bool _vncViewOnly = default;
 
+        private string _credentialId = string.Empty;
+
         private int _serialDataBits = 8;
         private ProtocolSerial.Parity _serialParity = ProtocolSerial.Parity.None;
         private ProtocolSerial.StopBits _serialStopBits = ProtocolSerial.StopBits.One;
@@ -271,6 +273,13 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("ExternalCredentialProvider", _externalCredentialProvider);
             set => SetField(ref _externalCredentialProvider, value, "ExternalCredentialProvider");
+        }
+
+        [Browsable(false)]
+        public virtual string CredentialId
+        {
+            get => GetPropertyValue("CredentialId", _credentialId);
+            set => SetField(ref _credentialId, value, "CredentialId");
         }
 
         // credential record identifier for external credential provider

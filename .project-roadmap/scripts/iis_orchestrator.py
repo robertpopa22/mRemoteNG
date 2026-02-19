@@ -1377,7 +1377,10 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
             if rc == 0 and stdout:
                 return stdout
             all_output = (stderr or "") + "\n" + (stdout or "")
-            err_detail = all_output.strip()[:200] or "(empty)"
+            err_head = all_output.strip()[:200]
+            err_tail = all_output.strip()[-300:]
+            err_detail = err_head if err_head == err_tail else f"{err_head} [...] {err_tail}"
+            err_detail = err_detail or "(empty)"
             log.error("    [GEMINI] dispatch exit %d: %s", rc, err_detail)
             # Detect rate limiting for Gemini
             rate_reset = _parse_rate_limit_from_output(all_output)
