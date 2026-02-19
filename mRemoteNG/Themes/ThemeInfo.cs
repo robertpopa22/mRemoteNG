@@ -26,7 +26,7 @@ namespace mRemoteNG.Themes
 
         #region Constructors
 
-        public ThemeInfo(string? themeName, ThemeBase? inTheme, string? inURI, VisualStudioToolStripExtender.VsVersion inVersion, ExtendedColorPalette? inExtendedPalette)
+        public ThemeInfo(string? themeName, ThemeBase? inTheme, string? inURI, VisualStudioToolStripExtender.VsVersion inVersion, ExtendedColorPalette? inExtendedPalette, bool applyCustomExtenders = true)
         {
             _name = themeName;
             _theme = inTheme;
@@ -39,10 +39,11 @@ namespace mRemoteNG.Themes
             if (_extendedPalette != null)
                 IsExtended = true;
 
-            setCustomExtenders();
+            if (applyCustomExtenders)
+                setCustomExtenders();
         }
 
-        public ThemeInfo(string? themeName, ThemeBase? inTheme, string? inURI, VisualStudioToolStripExtender.VsVersion inVersion)
+        public ThemeInfo(string? themeName, ThemeBase? inTheme, string? inURI, VisualStudioToolStripExtender.VsVersion inVersion, bool applyCustomExtenders = true)
         {
             _name = themeName;
             _theme = inTheme;
@@ -51,7 +52,8 @@ namespace mRemoteNG.Themes
             IsThemeBase = false;
             IsExtendable = false;
             IsExtended = false;
-            setCustomExtenders();
+            if (applyCustomExtenders)
+                setCustomExtenders();
         }
 
         #endregion

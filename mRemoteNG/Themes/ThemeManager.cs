@@ -1,4 +1,5 @@
 ﻿using mRemoteNG.App;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using mRemoteNG.Messages;
 using mRemoteNG.Properties;
 using WeifenLuo.WinFormsUI.Docking;
@@ -27,6 +29,8 @@ namespace mRemoteNG.Themes
         #region Private Variables
 
         private ThemeInfo _activeTheme = null!;
+        private ThemeInfo? _highContrastTheme;
+        private bool _highContrastActive;
         private Hashtable themes = null!;
         private bool _themeActive;
         private static ThemeManager? themeInstance;
@@ -38,9 +42,25 @@ namespace mRemoteNG.Themes
 
         private ThemeManager()
         {
+            _highContrastActive = SystemInformation.HighContrast;
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+
             LoadThemes();
             SetActive();
             _themeActive = true;
+        }
+
+        private void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
+        {
+            if (e.Category == UserPreferenceCategory.Accessibility || e.Category == UserPreferenceCategory.Color)
+            {
+                bool newState = SystemInformation.HighContrast;
+                if (_highContrastActive != newState)
+                {
+                    _highContrastActive = newState;
+                    NotifyThemeChanged(this, new PropertyChangedEventArgs("HighContrast"));
+                }
+            }
         }
 
         private void SetActive()
@@ -307,11 +327,16 @@ namespace mRemoteNG.Themes
                 : new ThemeInfo("vs2015Light", new VS2015LightTheme(), "",
                                 VisualStudioToolStripExtender.VsVersion.Vs2015);
 
+        public ThemeInfo HighContrastTheme =>
+             _highContrastTheme ??= new ThemeInfo("HighContrast", new VS2005Theme(), "", VisualStudioToolStripExtender.VsVersion.Vs2015, false);
+
         public ThemeInfo ActiveTheme
         {
             // default if themes are not enabled
             get
             {
+                if (_highContrastActive) return HighContrastTheme;
+
                 if (!ThemingActive) return DefaultTheme;
                 return _activeTheme ?? DefaultTheme;
             }
