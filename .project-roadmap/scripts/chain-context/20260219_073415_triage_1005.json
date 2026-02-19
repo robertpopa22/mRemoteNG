@@ -1,0 +1,62 @@
+{
+  "task_type": "triage",
+  "task_id": "1005",
+  "started_at": "2026-02-19T07:33:51",
+  "finished_at": "2026-02-19T07:34:15",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T07:33:51"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T07:34:05"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "RDP Gateway credential dialog appears behind main window due to missing TopMost/BringToFront handling on the AxMsRdpClient credential prompt",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+          "mRemoteNG/Connection/Protocol/RDP/RdpEventHandlers.cs"
+        ],
+        "approach": "Handle the OnAuthenticationWarningDisplayed or OnReceivedTSPublicKey event to bring the gateway auth dialog to foreground, or set the parent window handle so credential prompts appear in the correct z-order"
+      },
+      "raw_output": "{\"decision\":\"implement\",\"reason\":\"RDP Gateway credential dialog appears behind main window due to missing TopMost/BringToFront handling on the AxMsRdpClient credential prompt\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\",\"mRemoteNG/Connection/Protocol/RDP/RdpEventHandlers.cs\"],\"approach\":\"Handle the OnAuthenticationWarningDisplayed or OnReceivedTSPublicKey event to bring the gateway auth dialog to foreground, or set the parent window handle so credential prompts appear in the correct z-order\"}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T07:34:15"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -18,6 +18,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenToolsPortScan = null!;
         private ToolStripMenuItem _mMenToolsUvncsc = null!;
         private ToolStripMenuItem _mMenToolsFindInSession = null!;
+        private ToolStripMenuItem _mMenToolsQuickImport = null!;
 
         public Form? MainForm { get; set; }
         public ICredentialRepositoryList? CredentialProviderCatalog { get; set; }
@@ -34,6 +35,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsExternalApps = new ToolStripMenuItem();
             _mMenToolsPortScan = new ToolStripMenuItem();
             _mMenToolsFindInSession = new ToolStripMenuItem();
+            _mMenToolsQuickImport = new ToolStripMenuItem();
             // 
             // mMenTools
             // 
@@ -43,7 +45,8 @@ namespace mRemoteNG.UI.Menu
                 _mMenToolsUvncsc,
                 _mMenToolsExternalApps,
                 _mMenToolsPortScan,
-                _mMenToolsFindInSession
+                _mMenToolsFindInSession,
+                _mMenToolsQuickImport
             });
             Name = "mMenTools";
             Size = new System.Drawing.Size(48, 20);
@@ -87,6 +90,13 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsFindInSession.Size = new System.Drawing.Size(184, 22);
             _mMenToolsFindInSession.Text = "Find in Session";
             _mMenToolsFindInSession.Click += mMenToolsFindInSession_Click;
+            // 
+            // mMenToolsQuickImport
+            // 
+            _mMenToolsQuickImport.Name = "mMenToolsQuickImport";
+            _mMenToolsQuickImport.Size = new System.Drawing.Size(184, 22);
+            _mMenToolsQuickImport.Text = "Quick Import";
+            _mMenToolsQuickImport.Click += mMenToolsQuickImport_Click;
         }
 
         public void ApplyLanguage()
@@ -96,6 +106,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsExternalApps.Text = Language.ExternalToolsMenuItem;
             _mMenToolsPortScan.Text = Language.PortScanMenuItem;
             _mMenToolsFindInSession.Text = "Find in Session";
+            _mMenToolsQuickImport.Text = "Quick Import";
         }
 
         #region Tools
@@ -130,6 +141,14 @@ namespace mRemoteNG.UI.Menu
             if (MainForm is FrmMain frmMain && frmMain.pnlDock.ActiveDocument is ConnectionWindow connectionWindow)
             {
                 connectionWindow.FindInSession();
+            }
+        }
+        
+        private void mMenToolsQuickImport_Click(object sender, EventArgs e)
+        {
+            using (var frm = new FrmQuickImport())
+            {
+                frm.ShowDialog(MainForm);
             }
         }
 
