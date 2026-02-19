@@ -416,28 +416,6 @@ namespace mRemoteNG.UI.Forms
         private Controls.MrngTextBox txtPassword;
         private Controls.MrngLabel lblConfirm;
         private Controls.MrngTextBox txtConfirm;
-
-		}
-		private MrngButton btnCancel;
-		private MrngButton btnOK;
-		private Controls.MrngLabel lblUncheckProperties;
-		private MrngCheckBox chkUsername;
-		private MrngCheckBox chkPassword;
-		private MrngCheckBox chkDomain;
-		private MrngCheckBox chkInheritance;
-		private Controls.MrngTextBox txtFileName;
-		private MrngButton btnBrowse;
-		private System.Windows.Forms.GroupBox grpProperties;
-		private System.Windows.Forms.GroupBox grpFile;
-		private Controls.MrngLabel lblFileFormat;
-		private Controls.MrngLabel lblFileName;
-		private MrngComboBox cboFileFormat;
-		private System.Windows.Forms.GroupBox grpItems;
-		private Controls.MrngLabel lblSelectedConnection;
-		private Controls.MrngLabel lblSelectedFolder;
-		private Controls.MrngRadioButton rdoExportSelectedConnection;
-		private Controls.MrngRadioButton rdoExportSelectedFolder;
-		private Controls.MrngRadioButton rdoExportEverything;
         #endregion
 
         private MrngCheckBox chkAssignedCredential;

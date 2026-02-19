@@ -10,12 +10,19 @@
   "created_at": "2018-10-26T17:46:11Z",
   "github_updated_at": "2018-10-28T15:53:26Z",
   "body_snippet": "When leaving blank the credentials on the session and using the ones on options, is not showing the login information on the Tab Name",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "PuTTY/SSH connections overwrite the tab title with the terminal window title, removing the logon information suffix. The fix is to re-append this information in PuttyBase if the option is enabled."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQzMzcxNzQzMg==",
@@ -32,5 +39,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): PuTTY/SSH connections overwrite the tab title with the terminal window title, removing the logon information suffix. The fix is to re-append this information in PuttyBase if the option is enabled.\nApproach: Modify PuttyBase.ResolveTabText to check Properties.OptionsTabsPanelsPage.Default.ShowLogonInfoOnTabs and append the configured username/domain to the resolved terminal title, ensuring consistency with ConnectionWindow behavior."
 }

@@ -224,7 +224,7 @@ namespace mRemoteNG.UI.Forms
 
                 if (txtPassword.Text != txtConfirm.Text)
                 {
-                    MessageBox.Show(Language.PasswordConfirmFailed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Passwords do not match.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }

@@ -264,7 +264,33 @@ namespace mRemoteNG.Connection.Protocol
                 }
             }
 
-            return terminalTitle.Replace("&", "&&");
+            string tabText = terminalTitle.Replace("&", "&&");
+
+            if (Properties.OptionsTabsPanelsPage.Default.ShowLogonInfoOnTabs)
+            {
+                ConnectionInfo? info = InterfaceControl?.Info;
+                if (info != null)
+                {
+                    string domain = info.Domain;
+                    string username = info.Username;
+                    if (domain != "" || username != "")
+                    {
+                        string logonSuffix = " (";
+                        if (domain != "")
+                            logonSuffix += domain;
+                        if (username != "")
+                        {
+                            if (domain != "")
+                                logonSuffix += @"\";
+                            logonSuffix += username;
+                        }
+                        logonSuffix += ")";
+                        tabText += logonSuffix;
+                    }
+                }
+            }
+
+            return tabText;
         }
 
         private void ApplyTabText(string tabText)
