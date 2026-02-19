@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1289: [CredManager] Provide a way to save credentials when using the Import feature
+Description: 
+Approach: Modify 'Import.HeadlessFileImport' (and related methods) to track newly imported nodes. After import, scan these nodes for embedded credentials. If found, prompt the user to migrate them to the Credential Repository. If accepted, iterate through nodes, create CredentialRecords, link them to the connections via ExternalCredentialProvider, and clear embedded credentials.
+Likely files: mRemoteNG/App/Import.cs, mRemoteNG/Config/Import/MRemoteNGXmlImporter.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1289
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
