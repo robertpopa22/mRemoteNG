@@ -24,9 +24,21 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             // used to map a connectioninfo to it's parent's GUID
             Dictionary<ConnectionInfo, string> parentMapping = new();
 
+            char delimiter = ';';
+            if (lines.Length > 0)
+            {
+                int countSemicolon = lines[0].Count(c => c == ';');
+                int countComma = lines[0].Count(c => c == ',');
+
+                if (countComma > countSemicolon)
+                {
+                    delimiter = ',';
+                }
+            }
+
             for (int lineNumber = 0; lineNumber < lines.Length; lineNumber++)
             {
-                string[] line = lines[lineNumber].Split(';');
+                string[] line = lines[lineNumber].Split(delimiter);
                 if (lineNumber == 0)
                     csvHeaders = line.ToList();
                 else
