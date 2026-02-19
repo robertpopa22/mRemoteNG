@@ -1,0 +1,66 @@
+{
+  "task_type": "triage",
+  "task_id": "1097",
+  "started_at": "2026-02-19T06:05:13",
+  "finished_at": "2026-02-19T06:06:05",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:05:13"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:05:28"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Panel layout save/restore infrastructure exists but isn't fully wired — custom panels and their connections aren't persisted across sessions",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Config/Settings/DockPanelLayoutSaver.cs",
+          "mRemoteNG/Config/Settings/DockPanelLayoutLoader.cs",
+          "mRemoteNG/UI/Window/ConnectionWindow.cs",
+          "mRemoteNG/Config/Settings/SettingsSaver.cs",
+          "mRemoteNG/UI/Panels/PanelAdder.cs",
+          "mRemoteNG/UI/Forms/frmMain.cs"
+        ],
+        "approach": "Wire existing SaveLayout/LoadLayoutByName into app shutdown/startup cycle so custom-named ConnectionWindows and their connection assignments persist in pnlLayout.xml via GetPersistString override; ensure panel chooser dialog shows previously-saved panel names"
+      },
+      "raw_output": "Based on the issue details and codebase analysis, the infrastructure for named panel layout save/restore already exists (`DockPanelLayoutSaver.SaveLayout`, `DockPanelLayoutLoader.LoadLayoutByName`, `GetContentFromPersistString` with ConnectionWindow persist strings). The gap is that the default save-on-exit doesn't persist custom panel names and connection assignments, and the UI doesn't offer previously-created panel names on restart.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Panel layout save/restore infrastructure exists but isn't fully wired — custom panels and their connections aren't persisted across sessions\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Config/Settings/DockPanelLayoutSaver.cs\",\"mRemoteNG/Config/Settings/DockPanelLayoutLoader.cs\",\"mRemoteNG/UI/Window/ConnectionWindow.cs\",\"mRemoteNG/Config/Settings/SettingsSaver.cs\",\"mRemoteNG/UI/Panels/PanelAdder.cs\",\"mRemoteNG/UI/Forms/frmMain.cs\"],\"approach\":\"Wire existing SaveLayout/LoadLayoutByName into app shutdown/startup cycle so custom-named ConnectionWindows and their connection assignments persist in pnlLayout.xml via GetPersistString override; ensure panel chooser dialog shows previously-saved panel names\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:06:05"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
