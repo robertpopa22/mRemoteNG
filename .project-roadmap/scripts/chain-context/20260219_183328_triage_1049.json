@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "1049",
+  "started_at": "2026-02-19T18:32:58",
+  "finished_at": "2026-02-19T18:33:28",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T18:32:58"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "A debug dump tool is essential for efficiently troubleshooting field issues by gathering logs, configuration, and environment details in a standardized format.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Tools/DebugDumper.cs",
+          "mRemoteNG/UI/Forms/FrmMain.cs",
+          "mRemoteNG/Program.cs"
+        ],
+        "approach": "Implement a `DebugDumper` class to collect system info, application logs, and sanitized configuration (removing sensitive credentials), then package them into a ZIP file. Expose this via a 'Generate Debug Info' menu item in Help and potentially a command-line switch."
+      },
+      "raw_output": "{\n  \"decision\": \"implement\",\n  \"reason\": \"A debug dump tool is essential for efficiently troubleshooting field issues by gathering logs, configuration, and environment details in a standardized format.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/Tools/DebugDumper.cs\",\n    \"mRemoteNG/UI/Forms/FrmMain.cs\",\n    \"mRemoteNG/Program.cs\"\n  ],\n  \"approach\": \"Implement a `DebugDumper` class to collect system info, application logs, and sanitized configuration (removing sensitive credentials), then package them into a ZIP file. Expose this via a 'Generate Debug Info' menu item in Help and potentially a command-line switch.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T18:33:28"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

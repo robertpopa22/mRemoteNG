@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1219: Disable detach panels
+Description: 
+Approach: Add a 'LockPanels' setting to TabsPanelsPage. When enabled, set 'AllowEndUserDocking = false' for all DockContent panels (Tree, Config, Errors, etc.). Update BaseWindow to respect this setting on initialization.
+Likely files: mRemoteNG/Properties/OptionsTabsPanelsPage.settings, mRemoteNG/UI/Forms/OptionsPages/TabsPanelsPage.cs, mRemoteNG/UI/Window/BaseWindow.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1219
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "1023",
+  "started_at": "2026-02-19T17:21:05",
+  "finished_at": "2026-02-19T17:23:40",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T17:21:05"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The RDP resolution calculation incorrectly relies on the main form's (_frmMain) DPI and screen bounds, which leads to wrong (understated) resolution when the connection window is detached or located on a different monitor with different DPI/resolution settings. The fix is to use the actual hosting Control for these calculations.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Modify 'ResolutionScalingFactor' and 'SetResolution' in 'mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs' to use the hosting 'Control' (the RDP ActiveX control) or 'InterfaceControl' to determine 'DeviceDpi' and 'Screen.FromControl()', ensuring the resolution matches the monitor where the connection is actually displayed."
+      },
+      "raw_output": "I will search for code related to resolution and full-screen handling in `mRemoteNG` to investigate the reported issue.\nI'll search for the `RDP` class definition to investigate how the RDP control is configured and how resolution is handled, which might be the cause of the reported issue.\nI'll browse the `mRemoteNG\\Connection\\Protocol` directory to locate the relevant files for the RDP protocol, as `RDP.cs` was not found.\nI'll investigate the contents of the `mRemoteNG\\Connection\\Protocol\\RDP` directory, as that's where the RDP-related files are located.\nI'll examine `mRemoteNG\\Connection\\Protocol\\RDP\\RdpProtocol.cs` to understand how `Fullscreen` and `SmartSize` are implemented, searching specifically for those terms within the file.\nI'll examine `mRemoteNG\\Connection\\Protocol\\RDP\\RdpProtocol.cs` around line 1044 to better understand how `SetResolution` uses `ResolutionScalingFactor` and `screen.Bounds`, as this logic seems crucial to the reported resolution issue.\nI'll investigate `ResolutionScalingFactor` in `RdpProtocol.cs` to understand how it compensates for potential discrepancies between logical and physical screen resolutions, especially when scaling is involved.\nI'll check the application manifest, likely `mRemoteNG\\app.manifest`, to determine the DPI awareness level, as this affects whether `screen.Bounds` returns logical or physical pixels and could explain the resolution discrepancy.\nI'll investigate the contents of `mRemoteNG\\Properties` to locate the application manifest or configuration file, which might clarify the DPI awareness settings.\nI'll read `mRemoteNG\\Properties\\app.manifest` to check the application's DPI awareness settings.\nI'll examine `mRemoteNG\\Connection\\Protocol\\RDP\\RDPResolutions.cs` to verify the resolution values and definitions, as improper values could cause the reported resolution issues.\nI'll check `mRemoteNG\\mRemoteNG.csproj` to confirm the target framework, as this could impact how screen bounds and DPI are handled.\nI'll inv",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T17:23:40"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
