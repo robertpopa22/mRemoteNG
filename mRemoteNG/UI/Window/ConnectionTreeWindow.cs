@@ -192,6 +192,23 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
+            var model = connectionsLoadedEventArgs.NewConnectionTreeModel;
+            if (model != null)
+            {
+                var smartRoot = new mRemoteNG.Tree.Smart.SmartGroupRoot();
+
+                var connected = new mRemoteNG.Tree.Smart.ConnectedGroupNode();
+                smartRoot.AddChild(connected);
+
+                var recent = new mRemoteNG.Tree.Smart.RecentGroupNode();
+                smartRoot.AddChild(recent);
+
+                model.AddRootNode(smartRoot);
+
+                connected.Initialize();
+                recent.Initialize();
+            }
+
             ConnectionTree.ConnectionTreeModel = connectionsLoadedEventArgs.NewConnectionTreeModel;
             ConnectionTree.SelectedObject = connectionsLoadedEventArgs.NewConnectionTreeModel.RootNodes.FirstOrDefault();
         }
