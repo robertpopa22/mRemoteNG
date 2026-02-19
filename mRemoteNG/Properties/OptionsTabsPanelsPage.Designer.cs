@@ -226,5 +226,17 @@ namespace mRemoteNG.Properties {
                 this["ConfirmClosePanel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DoNotRestoreOnRdpMinimize {
+            get {
+                return ((bool)(this["DoNotRestoreOnRdpMinimize"]));
+            }
+            set {
+                this["DoNotRestoreOnRdpMinimize"] = value;
+            }
+        }
     }
 }

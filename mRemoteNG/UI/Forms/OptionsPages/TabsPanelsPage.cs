@@ -45,6 +45,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart.Text = Language.CreateEmptyPanelOnStartUp;
             chkBindConnectionsAndConfigPanels.Text = "Bind Connections and Config panels together when auto-hidden";
             chkLockPanels.Text = "Lock panels";
+            chkDoNotRestoreOnRdpMinimize.Text = Language.DoNotRestoreOnRdpMinimize;
             lblPanelName.Text = $@"{Language.PanelName}:";
             lblSplitterSize.Text = "Splitter size:";
 
@@ -73,6 +74,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCreateEmptyPanelOnStart.Checked = Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp;
             chkBindConnectionsAndConfigPanels.Checked = Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels;
             chkLockPanels.Checked = Properties.OptionsTabsPanelsPage.Default.LockPanels;
+            chkDoNotRestoreOnRdpMinimize.Checked = Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize;
             txtBoxPanelName.Text = Properties.OptionsTabsPanelsPage.Default.StartUpPanelName;
             nudSplitterSize.Value = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
             UpdatePanelNameTextBox();
@@ -112,6 +114,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsTabsPanelsPage.Default.CreateEmptyPanelOnStartUp = chkCreateEmptyPanelOnStart.Checked;
             Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels = chkBindConnectionsAndConfigPanels.Checked;
             Properties.OptionsTabsPanelsPage.Default.LockPanels = chkLockPanels.Checked;
+            Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize = chkDoNotRestoreOnRdpMinimize.Checked;
             Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = txtBoxPanelName.Text;
             Properties.OptionsTabsPanelsPage.Default.SplitterSize = (int)nudSplitterSize.Value;
         }

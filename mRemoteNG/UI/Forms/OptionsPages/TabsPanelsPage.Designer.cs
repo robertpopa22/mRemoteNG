@@ -50,6 +50,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             nudSplitterSize = new MrngNumericUpDown();
             lblSplitterSize = new MrngLabel();
             chkLockPanels = new MrngCheckBox();
+            chkDoNotRestoreOnRdpMinimize = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -235,6 +236,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkLockPanels.Text = "Lock panels";
             chkLockPanels.UseVisualStyleBackColor = true;
             // 
+            // chkDoNotRestoreOnRdpMinimize
+            // 
+            chkDoNotRestoreOnRdpMinimize._mice = MrngCheckBox.MouseState.OUT;
+            chkDoNotRestoreOnRdpMinimize.AutoSize = true;
+            chkDoNotRestoreOnRdpMinimize.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkDoNotRestoreOnRdpMinimize.Location = new System.Drawing.Point(3, 308);
+            chkDoNotRestoreOnRdpMinimize.Name = "chkDoNotRestoreOnRdpMinimize";
+            chkDoNotRestoreOnRdpMinimize.Size = new System.Drawing.Size(199, 17);
+            chkDoNotRestoreOnRdpMinimize.TabIndex = 14;
+            chkDoNotRestoreOnRdpMinimize.Text = "Do not restore on RDP minimize";
+            chkDoNotRestoreOnRdpMinimize.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkAlwaysShowPanelTabs);
@@ -253,10 +266,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(nudSplitterSize);
             pnlOptions.Controls.Add(lblSplitterSize);
             pnlOptions.Controls.Add(chkLockPanels);
+            pnlOptions.Controls.Add(chkDoNotRestoreOnRdpMinimize);
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 290);
+            pnlOptions.Size = new System.Drawing.Size(610, 330);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
@@ -303,5 +317,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal Controls.MrngNumericUpDown nudSplitterSize;
         internal Controls.MrngLabel lblSplitterSize;
         internal MrngCheckBox chkLockPanels;
+        internal MrngCheckBox chkDoNotRestoreOnRdpMinimize;
     }
 }

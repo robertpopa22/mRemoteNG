@@ -1426,7 +1426,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
-                if (_frmMain.WindowState == FormWindowState.Minimized)
+                if (_frmMain.WindowState == FormWindowState.Minimized && !Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize)
                 {
                     _frmMain.WindowState = FormWindowState.Normal;
                 }

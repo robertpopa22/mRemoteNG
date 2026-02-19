@@ -7565,5 +7565,14 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("TypeClipboard", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not dock to tab when minimizing from Full screen.
+        /// </summary>
+        internal static string DoNotRestoreOnRdpMinimize {
+            get {
+                return ResourceManager.GetString("DoNotRestoreOnRdpMinimize", resourceCulture);
+            }
+        }
     }
 }
