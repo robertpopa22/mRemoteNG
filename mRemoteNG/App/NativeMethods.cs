@@ -146,6 +146,14 @@ namespace mRemoteNG.App
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool AddClipboardFormatListener(IntPtr hwnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
+
         #endregion
 
         #region Structures
@@ -577,6 +585,8 @@ namespace mRemoteNG.App
         /// Sent to the first window in the clipboard viewer chain when a window is being removed from the chain.
         /// </summary>
         public const int WM_CHANGECBCHAIN = 0x30D;
+
+        public const int WM_CLIPBOARDUPDATE = 0x031D;
 
         /// <summary>
         /// Posted when the user presses a hot key registered by the RegisterHotKey function.
