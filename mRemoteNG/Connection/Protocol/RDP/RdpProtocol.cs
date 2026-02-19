@@ -43,7 +43,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
-        protected uint DesktopScaleFactor => (uint)(ResolutionScalingFactor.Width * 100);
+        protected uint DesktopScaleFactor
+        {
+            get
+            {
+                if (connectionInfo == null)
+                {
+                    return (uint)(ResolutionScalingFactor.Width * 100);
+                }
+
+                return connectionInfo.DesktopScaleFactor switch
+                {
+                    RDPDesktopScaleFactor.Scale100 => 100,
+                    RDPDesktopScaleFactor.Scale125 => 125,
+                    RDPDesktopScaleFactor.Scale150 => 150,
+                    RDPDesktopScaleFactor.Scale200 => 200,
+                    _ => (uint)(ResolutionScalingFactor.Width * 100)
+                };
+            }
+        }
         protected readonly uint DeviceScaleFactor = 100;
         protected readonly uint Orientation = 0;
         private AxHost AxHost => (AxHost)Control!;
