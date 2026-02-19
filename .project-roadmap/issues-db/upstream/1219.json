@@ -10,17 +10,24 @@
   "created_at": "2018-12-21T06:20:03Z",
   "github_updated_at": "2018-12-21T18:15:59Z",
   "body_snippet": "Hi,\r\nit would be very useful feature if it could be possible to disable detaching panels. Sometime  it is extremely annoying while clicking between multiple panels accidently it is being detached and then it is barely possible to attach it back to the main window.",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "Feature request to prevent accidental undocking of panels by adding a 'Lock Panels' option."
+    }
+  ],
   "comments": [],
   "comments_cursor": "2018-12-21T18:15:59Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Feature request to prevent accidental undocking of panels by adding a 'Lock Panels' option.\nApproach: Add 'LockPanels' setting to OptionsTabsPanelsPage. Update FrmMain to apply AllowEndUserDocking = !LockPanels to all DockContents in pnlDock when setting changes."
 }

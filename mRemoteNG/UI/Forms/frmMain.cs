@@ -251,6 +251,7 @@ namespace mRemoteNG.UI.Forms
                 SetLayout();
 
             ShowHidePanelTabs();
+            SetPanelLock();
 
             Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsServiceOnConnectionsLoaded;
             Runtime.ConnectionsService.ConnectionsSaved += ConnectionsServiceOnConnectionsSaved;
@@ -1246,6 +1247,20 @@ namespace mRemoteNG.UI.Forms
             {
                 if (!window.IsDisposed)
                     window.ShowHideConnectionTabs();
+            }
+        }
+
+        public void SetPanelLock()
+        {
+            if (pnlDock.Contents.Count == 0) return;
+
+            var lockPanels = !Properties.OptionsTabsPanelsPage.Default.LockPanels;
+            foreach (IDockContent dc in pnlDock.Contents)
+            {
+                if (dc.DockHandler != null)
+                {
+                    dc.DockHandler.AllowEndUserDocking = lockPanels;
+                }
             }
         }
 

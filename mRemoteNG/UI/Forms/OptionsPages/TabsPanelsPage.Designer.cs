@@ -49,6 +49,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblPanelName = new MrngLabel();
             nudSplitterSize = new MrngNumericUpDown();
             lblSplitterSize = new MrngLabel();
+            chkLockPanels = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -222,6 +223,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             nudSplitterSize.Minimum = 3;
             nudSplitterSize.Maximum = 20;
             // 
+            // chkLockPanels
+            // 
+            chkLockPanels._mice = MrngCheckBox.MouseState.OUT;
+            chkLockPanels.AutoSize = true;
+            chkLockPanels.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkLockPanels.Location = new System.Drawing.Point(3, 285);
+            chkLockPanels.Name = "chkLockPanels";
+            chkLockPanels.Size = new System.Drawing.Size(86, 17);
+            chkLockPanels.TabIndex = 13;
+            chkLockPanels.Text = "Lock panels";
+            chkLockPanels.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkAlwaysShowPanelTabs);
@@ -239,6 +252,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(chkIdentifyQuickConnectTabs);
             pnlOptions.Controls.Add(nudSplitterSize);
             pnlOptions.Controls.Add(lblSplitterSize);
+            pnlOptions.Controls.Add(chkLockPanels);
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
@@ -288,5 +302,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
         internal Controls.MrngNumericUpDown nudSplitterSize;
         internal Controls.MrngLabel lblSplitterSize;
+        internal MrngCheckBox chkLockPanels;
     }
 }

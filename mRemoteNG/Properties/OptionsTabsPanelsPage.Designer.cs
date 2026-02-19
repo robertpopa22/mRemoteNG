@@ -190,5 +190,17 @@ namespace mRemoteNG.Properties {
                 this["SplitterSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LockPanels {
+            get {
+                return ((bool)(this["LockPanels"]));
+            }
+            set {
+                this["LockPanels"] = value;
+            }
+        }
     }
 }
