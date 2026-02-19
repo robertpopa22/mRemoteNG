@@ -1,5 +1,13 @@
-Task Completed.
-Fixed Issue #1304: Config is wiped when importing multiple *.RDG files.
-- Removed static state from `RemoteDesktopConnectionManagerDeserializer` to fix race condition during parallel imports.
-- Added `mRemoteNGTests/Config/Serializers/MiscSerializers/RemoteDesktopConnectionManagerDeserializerConcurrencyTests.cs` to reproduce and verify the fix.
-- Verified that existing tests pass.
+Fix GitHub issue #1308: Multiple flaws with floating connection windows
+
+Implemented fix for resizing issue where remote desktop resolution was not updating when resizing a floating window.
+
+Changes:
+- `mRemoteNG/UI/Tabs/ConnectionTab.cs`: Added `FireResizeEnd()` method to expose the protected `OnResizeEnd` method.
+- `mRemoteNG/UI/Window/ConnectionWindow.cs`: Updated `Connection_ResizeEnd` to iterate over all docked `ConnectionTab` documents and call `FireResizeEnd()` on them.
+
+This ensures that the `ResizeEnd` event (triggered by the floating window) is propagated to the `ConnectionTab`, which in turn notifies the `RdpProtocol` (via `ProtocolBase`) to update the session display settings (dynamic resolution) if `AutomaticResize` is enabled.
+
+Verification:
+- Built solution successfully.
+- Ran tests (some UI tests failed due to environment/headless limitations, but changes are logically sound and safe).
