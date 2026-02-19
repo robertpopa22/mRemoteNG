@@ -11,6 +11,7 @@ namespace mRemoteNG.Config.Import
     {
         public static void ExtractCredentials(ConnectionInfo connection, ICredentialRepository repository)
         {
+            // Check if this specific node has credentials to extract
             if (!string.IsNullOrEmpty(connection.Username) || 
                 !string.IsNullOrEmpty(connection.Password) || 
                 !string.IsNullOrEmpty(connection.Domain))
@@ -25,12 +26,14 @@ namespace mRemoteNG.Config.Import
 
                 repository.CredentialRecords.Add(record);
                 connection.CredentialId = record.Id.ToString();
-
+                
+                // Clear local credentials after extraction
                 connection.Username = string.Empty;
                 connection.Password = string.Empty;
                 connection.Domain = string.Empty;
             }
 
+            // Recurse into children if it's a container
             if (connection is ContainerInfo container)
             {
                 foreach (ConnectionInfo child in container.Children)
@@ -38,6 +41,23 @@ namespace mRemoteNG.Config.Import
                     ExtractCredentials(child, repository);
                 }
             }
+        }
+
+        public static bool HasCredentials(ConnectionInfo connection)
+        {
+            if (!string.IsNullOrEmpty(connection.Username) || 
+                !string.IsNullOrEmpty(connection.Password) || 
+                !string.IsNullOrEmpty(connection.Domain))
+            {
+                return true;
+            }
+
+            if (connection is ContainerInfo container)
+            {
+                return container.Children.Any(HasCredentials);
+            }
+
+            return false;
         }
     }
 }

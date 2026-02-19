@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Windows.Forms;
 using mRemoteNG.Config.Import;
@@ -7,6 +8,8 @@ using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Container;
+using mRemoteNG.Credential;
+using mRemoteNG.Credential.Repositories;
 using mRemoteNG.Tools;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
@@ -47,7 +50,31 @@ namespace mRemoteNG.App
 						importDestinationContainer,
 						Runtime.ConnectionsService,
 						fileName => MessageBox.Show(string.Format(Language.ImportFileFailedContent, fileName), Language.AskUpdatesMainInstruction,
-							MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1));
+							MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1),
+                        (nodes) =>
+                        {
+                            var repos = Runtime.CredentialProviderCatalog.CredentialProviders;
+                            if (!repos.Any()) return;
+
+                            if (nodes.Any(CredentialImportHelper.HasCredentials))
+                            {
+                                var repo = repos.First();
+                                var result = MessageBox.Show(
+                                    $"The imported file contains credentials.{Environment.NewLine}Do you want to extract them to the Credential Repository '{repo.Config.Title}'?",
+                                    "Import Credentials",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+
+                                if (result == DialogResult.Yes)
+                                {
+                                    foreach (var node in nodes)
+                                    {
+                                        CredentialImportHelper.ExtractCredentials(node, repo);
+                                    }
+                                    repo.SaveCredentials(repo.Config.Key);
+                                }
+                            }
+                        });
                 }
             }
             catch (Exception ex)
@@ -91,7 +118,8 @@ namespace mRemoteNG.App
 	        IEnumerable<string> filePaths,
 	        ContainerInfo importDestinationContainer,
 	        ConnectionsService connectionsService,
-	        Action<string>? exceptionAction = null)
+	        Action<string>? exceptionAction = null,
+            Action<IEnumerable<ConnectionInfo>>? credentialHandler = null)
         {
 	        using (connectionsService.BatchedSavingContext())
 	        {
@@ -99,8 +127,20 @@ namespace mRemoteNG.App
 		        {
 			        try
 			        {
+                        int childrenBefore = importDestinationContainer.Children.Count;
                         IConnectionImporter<string> importer = BuildConnectionImporterFromFileExtension(fileName);
 				        importer.Import(fileName, importDestinationContainer);
+
+                        int childrenAfter = importDestinationContainer.Children.Count;
+                        if (childrenAfter > childrenBefore && credentialHandler != null)
+                        {
+                            var newNodes = new List<ConnectionInfo>();
+                            for (int i = childrenBefore; i < childrenAfter; i++)
+                            {
+                                newNodes.Add(importDestinationContainer.Children[i]);
+                            }
+                            credentialHandler(newNodes);
+                        }
 			        }
 			        catch (Exception ex)
 			        {
