@@ -889,6 +889,75 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
+        protected override void Resize(object sender, EventArgs e)
+        {
+            base.Resize(sender, e);
+            if (InterfaceControl?.Info.Resolution == RDPResolutions.SmartSizeAspect)
+            {
+                ApplySmartSizeAspect();
+            }
+        }
+
+        private void ApplySmartSizeAspect()
+        {
+            if (Control == null || Control.IsDisposed || InterfaceControl == null || InterfaceControl.IsDisposed || _rdpClient == null)
+            {
+                return;
+            }
+
+            try
+            {
+                // Get source resolution (set during connection)
+                int sourceWidth = _rdpClient.DesktopWidth;
+                int sourceHeight = _rdpClient.DesktopHeight;
+
+                if (sourceWidth <= 0 || sourceHeight <= 0) return;
+
+                double sourceRatio = (double)sourceWidth / sourceHeight;
+
+                // Get available area
+                int targetWidth = InterfaceControl.ClientSize.Width;
+                int targetHeight = InterfaceControl.ClientSize.Height;
+
+                if (targetWidth <= 0 || targetHeight <= 0) return;
+
+                double targetRatio = (double)targetWidth / targetHeight;
+
+                int newWidth, newHeight;
+
+                if (targetRatio > sourceRatio)
+                {
+                    // Available area is wider than source -> height limited
+                    newHeight = targetHeight;
+                    newWidth = (int)(newHeight * sourceRatio);
+                }
+                else
+                {
+                    // Available area is taller than source -> width limited
+                    newWidth = targetWidth;
+                    newHeight = (int)(newWidth / sourceRatio);
+                }
+
+                // Only modify if needed to prevent infinite loop or jitter
+                if (Control.Width != newWidth || Control.Height != newHeight || Control.Dock != DockStyle.None)
+                {
+                    if (Control.Dock != DockStyle.None)
+                    {
+                        Control.Dock = DockStyle.None;
+                    }
+
+                    int x = (targetWidth - newWidth) / 2;
+                    int y = (targetHeight - newHeight) / 2;
+
+                    Control.SetBounds(x, y, newWidth, newHeight);
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Error applying SmartSize aspect ratio.", ex, MessageClass.WarningMsg, true);
+            }
+        }
+
         private void SetResolution()
         {
             try
@@ -931,13 +1000,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     case RDPResolutions.FitToWindow:
                     case RDPResolutions.SmartSize:
+                    case RDPResolutions.SmartSizeAspect:
                         {
                             _rdpClient.DesktopWidth = InterfaceControl.Size.Width;
                             _rdpClient.DesktopHeight = InterfaceControl.Size.Height;
 
-                            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSize)
+                            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSize ||
+                                InterfaceControl.Info.Resolution == RDPResolutions.SmartSizeAspect)
                             {
                                 _rdpClient.AdvancedSettings2.SmartSizing = true;
+                            }
+
+                            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSizeAspect)
+                            {
+                                ApplySmartSizeAspect();
                             }
 
                             break;

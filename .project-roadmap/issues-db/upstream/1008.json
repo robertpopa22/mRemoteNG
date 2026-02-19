@@ -12,12 +12,19 @@
   "created_at": "2018-06-25T01:42:29Z",
   "github_updated_at": "2021-06-28T12:10:34Z",
   "body_snippet": "I love SmartSize. I come form using a VNC client where I scaled the remote to 80% so I can see it all on my client screen. I can't see a scale option in mRemoteNG, but I do see SmartSize and it does the job for me, in that I can see the whole of both remote screens. I have two problems with it:\r\n\r\n1) It doesn't preserve the aspect ratio, which well, is handy for quick checks on stuff, but not a working mode for me.\r\n\r\n2) Because it forces a larger net workspace (on my report machine) into a smal...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-19",
+      "type": "triaged",
+      "description": "The current RDP SmartSize implementation stretches the session content when the window is resized. Adding a 'SmartSize (Aspect)' option to RDPResolutions allows maintaining the aspect ratio (via letterboxing) by dynamically resizing the RDP control."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDUzNjM0MjIzMA==",
@@ -34,5 +41,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The current RDP SmartSize implementation stretches the session content when the window is resized. Adding a 'SmartSize (Aspect)' option to RDPResolutions allows maintaining the aspect ratio (via letterboxing) by dynamically resizing the RDP control.\nApproach: Add `SmartSizeAspect` to `RDPResolutions`; update `RdpExtensions` to handle the new value; update `RdpProtocol` to handle this resolution by enabling SmartSizing and attaching a resize handler to maintain aspect ratio."
 }

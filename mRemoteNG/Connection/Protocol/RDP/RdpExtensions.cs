@@ -9,7 +9,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             string[]? resolutionParts = null;
             if (resolution != RDPResolutions.FitToWindow & resolution != RDPResolutions.Fullscreen &
-                resolution != RDPResolutions.SmartSize)
+                resolution != RDPResolutions.SmartSize & resolution != RDPResolutions.SmartSizeAspect)
             {
                 resolutionParts = resolution.ToString().Replace("Res", "").Split('x');
             }
