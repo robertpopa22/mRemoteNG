@@ -363,6 +363,34 @@ See `.project-roadmap/issues-db/README.md` for complete schema, examples, and wo
 
 ---
 
+## Orchestrator — Reguli Operaționale (A1)
+
+**OBLIGATORIU la fiecare sesiune de orchestrator:**
+
+1. **Verifică instanțe existente** ÎNAINTE de restart:
+   ```bash
+   # Check lock files
+   ls -la D:/github/mRemoteNG/.project-roadmap/scripts/orchestrator.lock 2>/dev/null
+   # Check running processes
+   ps aux | grep -i orchestrator | grep -v grep
+   ```
+2. **Commit fix-urile IMEDIAT** după ce verifici că funcționează — `git checkout` revertează tot ce nu e commitat
+3. **NU folosi flag-uri inexistente** (ex: `--batch-size` NU există)
+4. **Kill duplicate instances** înainte de restart — un singur orchestrator la un moment dat
+5. Consultă `ORCHESTRATOR_RUNBOOK.md` pentru proceduri standard și bug-uri cunoscute
+
+## Session Discipline — Build Verification (A2)
+
+**La schimbări multi-file (refactoring, features noi):**
+
+1. **OBLIGATORIU:** Rulează build înainte de a încheia sesiunea
+   ```powershell
+   powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1" -NoRestore
+   ```
+2. Dacă build-ul pică, fix-uiește ÎNAINTE de a raporta progresul
+3. **NU lăsa cod necompilat** la finalul sesiunii — e mai rău decât progres mai lent
+4. Preferă pași mici verificați vs. refactoring masiv neverificat
+
 ## Multi-Agent Orchestrator (3 Agents)
 
 The project uses a Python orchestrator (`iis_orchestrator.py`) that drives 3 AI agents to automate issue resolution and code cleanup. Each agent has a specific role; the orchestrator verifies independently (build + test) after every change.
