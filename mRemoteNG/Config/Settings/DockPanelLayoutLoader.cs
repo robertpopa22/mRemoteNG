@@ -68,8 +68,13 @@ namespace mRemoteNG.Config.Settings
                 _messageCollector.AddExceptionMessage("LoadPanelsFromXML failed. Resetting to default layout.", ex);
                 try
                 {
-                    // Self-healing: Corrupted layout file detected. Reset to defaults to ensure UI is usable.
-                    // This fixes issues #2907, #2910, #2914 where users get stuck with broken panels.
+                    // Clear any partially-loaded dock contents before resetting (#1268).
+                    while (_mainForm.pnlDock.Contents.Count > 0)
+                    {
+                        DockContent dc = (DockContent)_mainForm.pnlDock.Contents[0];
+                        dc.Close();
+                    }
+
                     _mainForm.SetDefaultLayout();
                     Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, "Panel layout file was corrupted and has been reset to defaults.");
                 }
