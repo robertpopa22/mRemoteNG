@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1028: Cannot use saved credentials
+Description: 
+Approach: 1. Add a 'CredentialRecordId' (Guid) property to AbstractConnectionRecord, decorated with CredentialRecordListAdaptor as its editor. 2. Update ConnectionInitiator to look up the credential record by ID and apply the username, password, and domain to the connection before connecting.
+Likely files: mRemoteNG/Connection/AbstractConnectionRecord.cs, mRemoteNG/Connection/ConnectionInitiator.cs, mRemoteNG/UI/Controls/Adapters/CredentialRecordListAdaptor.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1028
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.

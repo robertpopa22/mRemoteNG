@@ -1,0 +1,24 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1031: Can't save ConfCons.xml
+Description: 
+Approach: 1. Update XmlConnectionsSaver to validate that the serialized XML string is not empty before writing to disk. 2. Update XmlConnectionNodeSerializer28 (and older versions if needed) to null-coalesce all string properties (e.g., PuttySession ?? "") to prevent ArgumentNullException.
+Likely files: mRemoteNG/Config/Connections/XmlConnectionsSaver.cs, mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs
+
+IMPORTANT — Previous agents already attempted this fix.
+Their changes may still be in the working tree.
+
+=== PREVIOUS AGENT ATTEMPTS ===
+
+--- Attempt 1: CODEX [FAILED] ---
+Task: implement #1031
+Errors: Agent returned None after retries
+
+=== END PREVIOUS ATTEMPTS ===
+
+Review the current state of the code, correct any issues, and make the fix work.
+
+RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+Do ONLY the fix. Nothing else.
