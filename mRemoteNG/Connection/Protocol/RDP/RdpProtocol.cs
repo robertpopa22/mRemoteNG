@@ -1,4 +1,5 @@
 ﻿using AxMSTSCLib;
+using System.Drawing;
 using mRemoteNG.App;
 using mRemoteNG.Messages;
 using mRemoteNG.Properties;
@@ -35,17 +36,32 @@ namespace mRemoteNG.Connection.Protocol.RDP
         protected virtual RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc6;
         protected ConnectionInfo connectionInfo = null!; // initialized in Initialize()
         protected Version RdpVersion = null!; // initialized in Initialize()
-        private readonly DisplayProperties _displayProperties;
         protected readonly FrmMain _frmMain = FrmMain.Default;
         protected bool loginComplete;
         private int _extendedReconnectAttemptsRemaining;
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
-        protected uint DesktopScaleFactor => (uint)(_displayProperties.ResolutionScalingFactor.Width * 100);
+        protected uint DesktopScaleFactor => (uint)(ResolutionScalingFactor.Width * 100);
         protected readonly uint DeviceScaleFactor = 100;
         protected readonly uint Orientation = 0;
         private AxHost AxHost => (AxHost)Control!;
+
+        private SizeF ResolutionScalingFactor
+        {
+            get
+            {
+                if (_frmMain == null || _frmMain.IsDisposed)
+                {
+                    return new SizeF(1f, 1f);
+                }
+
+                // Use DeviceDpi from the main form to get the correct DPI for the monitor it's on
+                // 96 DPI is the baseline (100% scale)
+                float scale = _frmMain.DeviceDpi / 96f;
+                return new SizeF(scale, scale);
+            }
+        }
 
 
         #region Properties
@@ -157,7 +173,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public RdpProtocol()
         {
-            _displayProperties = new DisplayProperties();
             tmrReconnect.Tick += tmrReconnect_Tick;
             _extendedReconnectTimer = new System.Windows.Forms.Timer { Interval = 2000 };
             _extendedReconnectTimer.Tick += ExtendedReconnectTimer_Tick;
@@ -990,8 +1005,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 {
                     _rdpClient.FullScreen = true;
                     var screen = Screen.FromControl(_frmMain);
-                    _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * _displayProperties.ResolutionScalingFactor.Width);
-                    _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * _displayProperties.ResolutionScalingFactor.Height);
+                    _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * ResolutionScalingFactor.Width);
+                    _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * ResolutionScalingFactor.Height);
 
                     return;
                 }
@@ -1021,8 +1036,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     case RDPResolutions.Fullscreen:
                         _rdpClient.FullScreen = true;
                         var screen = Screen.FromControl(_frmMain);
-                        _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * _displayProperties.ResolutionScalingFactor.Width);
-                        _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * _displayProperties.ResolutionScalingFactor.Height);
+                        _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * ResolutionScalingFactor.Width);
+                        _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * ResolutionScalingFactor.Height);
                         break;
                     default:
                         {
