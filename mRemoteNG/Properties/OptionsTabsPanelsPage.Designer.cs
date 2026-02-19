@@ -202,5 +202,17 @@ namespace mRemoteNG.Properties {
                 this["LockPanels"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExternalToolsUseActiveTab {
+            get {
+                return ((bool)(this["ExternalToolsUseActiveTab"]));
+            }
+            set {
+                this["ExternalToolsUseActiveTab"] = value;
+            }
+        }
     }
 }

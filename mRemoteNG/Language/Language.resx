@@ -773,6 +773,9 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="ExternalToolsToolbar" xml:space="preserve">
     <value>External Tools Toolbar</value>
   </data>
+  <data name="ExternalToolsUseActiveTab" xml:space="preserve">
+    <value>External tools use active connection tab instead of selected tree node</value>
+  </data>
   <data name="_File" xml:space="preserve">
     <value>&amp;File</value>
   </data>
