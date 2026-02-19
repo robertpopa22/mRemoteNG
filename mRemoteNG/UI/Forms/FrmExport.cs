@@ -126,6 +126,9 @@ namespace mRemoteNG.UI.Forms
             set => chkInheritance.Checked = value;
         }
 
+        public bool IsEncrypted => chkEncrypt.Checked;
+        public string Password => txtPassword.Text;
+
         #endregion
 
         #region Constructors
@@ -138,6 +141,7 @@ namespace mRemoteNG.UI.Forms
             SelectedFolder = null;
             SelectedConnection = null;
             btnOK.Enabled = false;
+            ToggleEncryptionControls();
         }
 
         #endregion
@@ -160,7 +164,7 @@ namespace mRemoteNG.UI.Forms
 
         private void txtFileName_TextChanged(object sender, EventArgs e)
         {
-            btnOK.Enabled = !string.IsNullOrEmpty(txtFileName.Text);
+            ValidateForm();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -210,6 +214,21 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
+            if (IsEncrypted)
+            {
+                if (string.IsNullOrEmpty(txtPassword.Text))
+                {
+                    MessageBox.Show("Password cannot be empty.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (txtPassword.Text != txtConfirm.Text)
+                {
+                    MessageBox.Show(Language.PasswordConfirmFailed, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             DialogResult = DialogResult.OK;
         }
 
@@ -220,21 +239,36 @@ namespace mRemoteNG.UI.Forms
 
         private void cboFileformat_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // should only be active if we are using the credential manager feature
-            //if (SaveFormat == SaveFormat.mRXML)
-            //{
-            //    chkUsername.Enabled = false;
-            //    chkPassword.Enabled = false;
-            //    chkDomain.Enabled = false;
-            //    chkAssignedCredential.Enabled = true;
-            //}
-            //else
-            //{
-            //    chkUsername.Enabled = true;
-            //    chkPassword.Enabled = true;
-            //    chkDomain.Enabled = true;
-            //    chkAssignedCredential.Enabled = false;
-            //}
+            if (SaveFormat != SaveFormat.mRXML)
+            {
+                chkEncrypt.Checked = false;
+                chkEncrypt.Enabled = false;
+            }
+            else
+            {
+                chkEncrypt.Enabled = true;
+            }
+            ToggleEncryptionControls();
+        }
+
+        private void chkEncrypt_CheckedChanged(object sender, EventArgs e)
+        {
+            ToggleEncryptionControls();
+            ValidateForm();
+        }
+
+        private void ToggleEncryptionControls()
+        {
+            bool enabled = chkEncrypt.Checked && chkEncrypt.Enabled;
+            txtPassword.Enabled = enabled;
+            txtConfirm.Enabled = enabled;
+            lblPassword.Enabled = enabled;
+            lblConfirm.Enabled = enabled;
+        }
+
+        private void ValidateForm()
+        {
+            btnOK.Enabled = !string.IsNullOrEmpty(txtFileName.Text);
         }
 
         #endregion
@@ -264,6 +298,11 @@ namespace mRemoteNG.UI.Forms
             rdoExportEverything.Text = Language.ExportEverything;
             rdoExportSelectedFolder.Text = Language.ExportSelectedFolder;
             rdoExportSelectedConnection.Text = Language.ExportSelectedConnection;
+
+            grpEncryption.Text = "Encryption"; // TODO: Localize
+            chkEncrypt.Text = "Encrypt File"; // TODO: Localize
+            lblPassword.Text = Language.Password;
+            lblConfirm.Text = "Confirm:"; // TODO: Localize
 
             grpProperties.Text = Language.ExportProperties;
             chkUsername.Text = Language.Username;

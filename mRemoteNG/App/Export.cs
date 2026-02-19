@@ -56,7 +56,7 @@ namespace mRemoteNG.App
                     saveFilter.SaveInheritance = exportForm.IncludeInheritance;
                     saveFilter.SaveCredentialId = exportForm.IncludeAssignedCredential;
 
-                    SaveExportFile(exportForm.FileName, exportForm.SaveFormat, saveFilter, exportTarget);
+                    SaveExportFile(exportForm.FileName, exportForm.SaveFormat, saveFilter, exportTarget, exportForm.IsEncrypted, exportForm.Password);
                 }
             }
             catch (Exception ex)
@@ -68,7 +68,9 @@ namespace mRemoteNG.App
         private static void SaveExportFile(string fileName,
                                            SaveFormat saveFormat,
                                            SaveFilter saveFilter,
-                                           ConnectionInfo exportTarget)
+                                           ConnectionInfo exportTarget,
+                                           bool isEncrypted = false,
+                                           string password = "")
         {
             try
             {
@@ -76,6 +78,30 @@ namespace mRemoteNG.App
                 switch (saveFormat)
                 {
                     case SaveFormat.mRXML:
+                        if (isEncrypted)
+                        {
+                            RootNodeInfo tempRoot = new(RootNodeType.Connection)
+                            {
+                                PasswordString = password
+                            };
+
+                            ConnectionInfo clonedTarget = exportTarget.Clone();
+
+                            if (exportTarget is RootNodeInfo)
+                            {
+                                if (clonedTarget is ContainerInfo container)
+                                {
+                                    tempRoot.AddChildRange(container.Children.ToArray());
+                                }
+                                exportTarget = tempRoot;
+                            }
+                            else
+                            {
+                                tempRoot.AddChild(clonedTarget);
+                                exportTarget = clonedTarget;
+                            }
+                        }
+
                         ICryptographyProvider cryptographyProvider = new CryptoProviderFactoryFromSettings().Build();
                         RootNodeInfo? rootNode = exportTarget.GetRootParent() as RootNodeInfo;
                         XmlConnectionNodeSerializer28 connectionNodeSerializer = new(
@@ -87,7 +113,10 @@ namespace mRemoteNG.App
                                                                                              .PasswordString
                                                                                              .ConvertToSecureString(),
                                                                                          saveFilter);
-                        serializer = new XmlConnectionsSerializer(cryptographyProvider, connectionNodeSerializer);
+                        serializer = new XmlConnectionsSerializer(cryptographyProvider, connectionNodeSerializer)
+                        {
+                            UseFullEncryption = isEncrypted
+                        };
                         break;
                     case SaveFormat.mRCSV:
                         serializer =

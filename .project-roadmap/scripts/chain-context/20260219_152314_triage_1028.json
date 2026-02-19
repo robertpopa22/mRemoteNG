@@ -1,0 +1,48 @@
+{
+  "task_type": "triage",
+  "task_id": "1028",
+  "started_at": "2026-02-19T15:21:55",
+  "finished_at": "2026-02-19T15:23:14",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T15:21:55"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The error 'server authentication policy does not allow connection requests using saved credentials' indicates a delegation policy block, but since 'mstsc' works, mRemoteNG likely lacks a specific RDP configuration (e.g., correct AuthenticationLevel or CredSSP handling) to match native client behavior.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+          "mRemoteNG/Connection/ConnectionInfo.cs"
+        ],
+        "approach": "Investigate 'RdpProtocol.cs' to ensure 'EnableCredSspSupport' and 'AuthenticationLevel' settings match 'mstsc' defaults, and verify if explicit credential passing triggers the policy block."
+      },
+      "raw_output": "{\n  \"decision\": \"implement\",\n  \"reason\": \"The error 'server authentication policy does not allow connection requests using saved credentials' indicates a delegation policy block, but since 'mstsc' works, mRemoteNG likely lacks a specific RDP configuration (e.g., correct AuthenticationLevel or CredSSP handling) to match native client behavior.\",\n  \"priority\": \"P2-bug\",\n  \"estimated_files\": [\n    \"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\",\n    \"mRemoteNG/Connection/ConnectionInfo.cs\"\n  ],\n  \"approach\": \"Investigate 'RdpProtocol.cs' to ensure 'EnableCredSspSupport' and 'AuthenticationLevel' settings match 'mstsc' defaults, and verify if explicit credential passing triggers the policy block.\"\n}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T15:23:14"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

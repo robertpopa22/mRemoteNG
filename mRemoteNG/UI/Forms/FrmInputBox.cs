@@ -21,6 +21,15 @@ namespace mRemoteNG.UI.Forms
             ApplyTheme();
         }
 
+        public FrmInputBox(string title, string promptText, string value, bool isPassword)
+            : this(title, promptText, value)
+        {
+            if (isPassword)
+            {
+                textBox.UseSystemPasswordChar = true;
+            }
+        }
+
         private void ApplyLanguage()
         {
             _Ok.Text = Language._Ok;

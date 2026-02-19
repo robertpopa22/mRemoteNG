@@ -1,11 +1,16 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
+using System.Security;
+using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Container;
 using mRemoteNG.Messages;
+using mRemoteNG.Security;
+using mRemoteNG.Tools;
+using mRemoteNG.UI.Forms;
 
 
 namespace mRemoteNG.Config.Import
@@ -31,7 +36,10 @@ namespace mRemoteNG.Config.Import
 
             FileDataProvider dataProvider = new(fileName);
             string xmlString = dataProvider.Load();
-            XmlConnectionsDeserializer xmlConnectionsDeserializer = new();
+            XmlConnectionsDeserializer xmlConnectionsDeserializer = new()
+            {
+                AuthenticationRequestor = RequestPassword
+            };
             Tree.ConnectionTreeModel? connectionTreeModel = xmlConnectionsDeserializer.Deserialize(xmlString, true);
 
             if (connectionTreeModel == null)
@@ -44,6 +52,18 @@ namespace mRemoteNG.Config.Import
             ContainerInfo rootImportContainer = new() { Name = Path.GetFileNameWithoutExtension(fileName)};
             rootImportContainer.AddChildRange(connectionTreeModel.RootNodes.First().Children.ToArray());
             destinationContainer.AddChild(rootImportContainer);
+        }
+
+        private Optional<SecureString> RequestPassword()
+        {
+            using (FrmInputBox input = new("Password Required", "Please enter the password for the encrypted file:", "", true))
+            {
+                if (input.ShowDialog() == DialogResult.OK)
+                {
+                    return input.returnValue.ConvertToSecureString();
+                }
+            }
+            return Optional<SecureString>.Empty;
         }
     }
 }
