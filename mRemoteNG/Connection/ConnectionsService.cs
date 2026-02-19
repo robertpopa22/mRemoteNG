@@ -92,11 +92,11 @@ namespace mRemoteNG.Connection
                 newConnectionInfo.CopyFrom(DefaultConnectionInfo.Instance);
 
                 newConnectionInfo.Name = Properties.OptionsTabsPanelsPage.Default.IdentifyQuickConnectTabs
-                    ? string.Format(Language.Quick, uriBuilder.Host)
-                    : uriBuilder.Host;
+                    ? string.Format(Language.Quick, connectionString)
+                    : connectionString;
 
                 newConnectionInfo.Protocol = protocol;
-                newConnectionInfo.Hostname = uriBuilder.Host;
+                newConnectionInfo.Hostname = connectionString;
                 if (!string.IsNullOrWhiteSpace(explicitUsername))
                 {
                     newConnectionInfo.Username = explicitUsername;

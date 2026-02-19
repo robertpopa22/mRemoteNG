@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1121",
+  "started_at": "2026-02-19T06:16:42",
+  "finished_at": "2026-02-19T06:17:26",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:16:42"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:16:56"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "UriBuilder.Host lowercases hostnames; Quick Connect should preserve user-typed case for servers with uppercase DNS/NetBIOS names",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/ConnectionsService.cs"
+        ],
+        "approach": "In CreateQuickConnect(), use the original connectionString directly for Hostname and Name instead of uriBuilder.Host, since port parsing is already done manually before uriBuilder assignment"
+      },
+      "raw_output": "Now I understand the issue. The `UriBuilder.Host` property at line 89 of `ConnectionsService.cs` automatically lowercases the hostname per RFC 3986. When users type \"MYSERVER\" in Quick Connect, it becomes \"myserver\".\n\n```json\n{\"decision\":\"implement\",\"reason\":\"UriBuilder.Host lowercases hostnames; Quick Connect should preserve user-typed case for servers with uppercase DNS/NetBIOS names\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/ConnectionsService.cs\"],\"approach\":\"In CreateQuickConnect(), use the original connectionString directly for Hostname and Name instead of uriBuilder.Host, since port parsing is already done manually before uriBuilder assignment\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-19T06:17:26"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
