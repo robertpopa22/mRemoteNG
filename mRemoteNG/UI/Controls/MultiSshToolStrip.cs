@@ -12,6 +12,7 @@ using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.Window;
 using System.Runtime.Versioning;
+using mRemoteNG.Tools;
 
 namespace mRemoteNG.UI.Controls
 {
@@ -108,6 +109,31 @@ namespace mRemoteNG.UI.Controls
             }
         }
 
+        private void SendTextToConnections(string text, bool sendEnter)
+        {
+            if (processHandlers.Count == 0) return;
+
+            foreach (PuttyBase proc in processHandlers)
+            {
+                string textToSend = text;
+                if (proc.InterfaceControl?.Info != null)
+                {
+                    var parser = new ExternalToolArgumentParser(proc.InterfaceControl.Info);
+                    textToSend = parser.ParseArguments(text, false);
+                }
+
+                foreach (char c in textToSend)
+                {
+                    NativeMethods.PostMessage(proc.PuttyHandle, NativeMethods.WM_CHAR, (int)c, new IntPtr(0));
+                }
+
+                if (sendEnter)
+                {
+                    NativeMethods.PostMessage(proc.PuttyHandle, NativeMethods.WM_KEYDOWN, 13, new IntPtr(0)); // Enter
+                }
+            }
+        }
+
         #region Key Event Handler
 
         private void RefreshActiveConnections()
@@ -173,11 +199,7 @@ namespace mRemoteNG.UI.Controls
 
                         for (int i = 0; i < lines.Length - 1; i++)
                         {
-                            foreach (char c in lines[i])
-                            {
-                                SendAllKeystrokes(NativeMethods.WM_CHAR, (int)c);
-                            }
-                            SendAllKeystrokes(NativeMethods.WM_KEYDOWN, 13); // Enter
+                            SendTextToConnections(lines[i], true);
                         }
 
                         if (!string.IsNullOrEmpty(lines[lines.Length - 1]))
@@ -198,12 +220,7 @@ namespace mRemoteNG.UI.Controls
             if (e.KeyCode == Keys.Enter)
             {
                 RefreshActiveConnections();
-                foreach (char chr1 in txtMultiSsh.Text)
-                {
-                    SendAllKeystrokes(NativeMethods.WM_CHAR, Convert.ToByte(chr1));
-                }
-
-                SendAllKeystrokes(NativeMethods.WM_KEYDOWN, 13); // Enter = char13
+                SendTextToConnections(txtMultiSsh.Text, true);
             }
         }
 
