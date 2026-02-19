@@ -2443,6 +2443,15 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="ECPOnePasswordCommandLine" xml:space="preserve">
     <value>1Password command line</value>
   </data>
+  <data name="ECPPasswordSafe" xml:space="preserve">
+    <value>Password Safe</value>
+  </data>
+  <data name="ECPPasswordSafeReadFailed" xml:space="preserve">
+    <value>Password Safe read failed</value>
+  </data>
+  <data name="ECPPasswordSafeCommandLine" xml:space="preserve">
+    <value>Password Safe command line</value>
+  </data>
   <data name="ECPNone" xml:space="preserve">
     <value>None</value>
   </data>

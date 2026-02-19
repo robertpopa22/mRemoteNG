@@ -1925,6 +1925,33 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password Safe.
+        /// </summary>
+        internal static string ECPPasswordSafe {
+            get {
+                return ResourceManager.GetString("ECPPasswordSafe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Safe command line.
+        /// </summary>
+        internal static string ECPPasswordSafeCommandLine {
+            get {
+                return ResourceManager.GetString("ECPPasswordSafeCommandLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password Safe read failed.
+        /// </summary>
+        internal static string ECPPasswordSafeReadFailed {
+            get {
+                return ResourceManager.GetString("ECPPasswordSafeReadFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to continue with no password?.
         /// </summary>
         internal static string EmptyPasswordContinue {

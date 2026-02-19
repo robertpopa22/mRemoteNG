@@ -510,6 +510,17 @@ namespace mRemoteNG.Connection.Protocol
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
+                        else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.PasswordSafe) {
+                            try
+                            {
+                                ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword($"{UserViaAPI}", out username, out password, out _, out privatekey);
+                            }
+                            catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                            {
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
+                            }
+                        }
                         else if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                             try {
                                 if (InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP)
@@ -568,6 +579,19 @@ namespace mRemoteNG.Connection.Protocol
                                             {
                                                 Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
                                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                                            }
+
+                                            break;
+                                        case ExternalCredentialProvider.PasswordSafe:
+                                            try
+                                            {
+                                                ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword(
+                                                    $"{Properties.OptionsCredentialsPage.Default.UserViaAPIDefault}", out username, out password, out _, out privatekey);
+                                            }
+                                            catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                                            {
+                                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
                                             }
 
                                             break;

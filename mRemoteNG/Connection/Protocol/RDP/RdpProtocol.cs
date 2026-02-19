@@ -651,6 +651,19 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                             }
                         }
+                        else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.PasswordSafe)
+                        {
+                            try
+                            {
+                                string RDGUserViaAPI = InterfaceControl.Info.RDGatewayUserViaAPI;
+                                ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword($"{RDGUserViaAPI}", out gwu, out gwp, out gwd, out pkey);
+                            }
+                            catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                            {
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                                Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
+                            }
+                        }
                         else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao)
                         {
                             try {
@@ -793,6 +806,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
                     }
                 }
+                else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.PasswordSafe)
+                {
+                    try
+                    {
+                        ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword($"{userViaApi}", out userName, out password, out domain, out pkey);
+                    }
+                    catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
+                    }
+                }
                 else if (InterfaceControl.Info.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao) {
                     try {
                         if(connectionInfo.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.Kv)
@@ -850,6 +875,19 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                     {
                                         Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPOnePasswordCommandLine + ": " + ex.Arguments);
                                         Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPOnePasswordReadFailed + Environment.NewLine + ex.Message);
+                                    }
+
+                                    break;
+                                case ExternalCredentialProvider.PasswordSafe:
+                                    try
+                                    {
+                                        ExternalConnectors.PasswordSafe.PasswordSafeCli.ReadPassword(
+                                            Properties.OptionsCredentialsPage.Default.UserViaAPIDefault, out userName, out password, out domain, out pkey);
+                                    }
+                                    catch (ExternalConnectors.PasswordSafe.PasswordSafeCliException ex)
+                                    {
+                                        Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ECPPasswordSafeCommandLine + ": " + ex.Arguments);
+                                        Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ECPPasswordSafeReadFailed + Environment.NewLine + ex.Message);
                                     }
 
                                     break;
