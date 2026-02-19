@@ -38,6 +38,9 @@ namespace mRemoteNG.Config.Connections
                 RootNodeInfo rootNode = connectionTreeModel.RootNodes.OfType<RootNodeInfo>().First();
                 string xml = xmlConnectionsSerializer.Serialize(rootNode);
 
+                if (string.IsNullOrEmpty(xml))
+                    throw new InvalidOperationException("Serialized XML is empty");
+
                 FileDataProviderWithRollingBackup fileDataProvider = new(_connectionFileName);
                 fileDataProvider.Save(xml);
             }
