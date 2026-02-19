@@ -41,6 +41,8 @@ namespace mRemoteNG.Connection.Protocol
                     return new ProtocolSSH1();
                 case ProtocolType.SSH2:
                     return new ProtocolSSH2();
+                case ProtocolType.OpenSSH:
+                    return new ProtocolOpenSSH(connectionInfo);
                 case ProtocolType.Telnet:
                     return new ProtocolTelnet();
                 case ProtocolType.Rlogin:

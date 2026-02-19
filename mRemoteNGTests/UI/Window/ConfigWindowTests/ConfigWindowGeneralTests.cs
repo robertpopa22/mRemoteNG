@@ -425,6 +425,16 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.Port),
                     });
                     break;
+                case ProtocolType.OpenSSH:
+                    expectedProperties.AddRange(new[]
+                    {
+                        nameof(ConnectionInfo.Username),
+                        nameof(ConnectionInfo.Password),
+                        nameof(ConnectionInfo.Port),
+                        nameof(ConnectionInfo.SSHOptions),
+                        nameof(ConnectionInfo.PrivateKeyPath),
+                    });
+                    break;
                 case ProtocolType.Terminal:
                 case ProtocolType.AnyDesk:
                 case ProtocolType.Serial:

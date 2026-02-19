@@ -7523,6 +7523,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OpenSSH.
+        /// </summary>
+        internal static string OpenSsh {
+            get {
+                return ResourceManager.GetString("OpenSsh", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to WSL.
         /// </summary>
         internal static string Wsl {

@@ -59,6 +59,9 @@ namespace mRemoteNG.Connection.Protocol
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ExternalTool))]
         IntApp = 20,
 
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.OpenSsh))]
+        OpenSSH = 22,
+
         [LocalizedAttributes.LocalizedDescription(nameof(Language.Winbox))]
         Winbox = 21
     }

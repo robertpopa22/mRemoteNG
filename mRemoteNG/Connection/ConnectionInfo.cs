@@ -380,6 +380,8 @@ namespace mRemoteNG.Connection
                         return (int)ProtocolSSH1.Defaults.Port;
                     case ProtocolType.SSH2:
                         return (int)ProtocolSSH2.Defaults.Port;
+                    case ProtocolType.OpenSSH:
+                        return (int)ProtocolOpenSSH.Defaults.Port;
                     case ProtocolType.Telnet:
                         return (int)ProtocolTelnet.Defaults.Port;
                     case ProtocolType.Rlogin:
