@@ -76,6 +76,8 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeApplyDefaultInheritance = null!;
         private ToolStripMenuItem _cMenTreeConfigureDynamicSource = null!;
         private ToolStripMenuItem _cMenTreeRefreshDynamicSource = null!;
+        private ToolStripSeparator _cMenTreeSep5 = null!;
+        private ToolStripMenuItem _cMenTreeOptions = null!;
         private readonly ConnectionTree.ConnectionTree _connectionTree;
 
 
@@ -150,6 +152,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsSortDescending = new ToolStripMenuItem();
             _cMenTreeMoveUp = new ToolStripMenuItem();
             _cMenTreeMoveDown = new ToolStripMenuItem();
+            _cMenTreeSep5 = new ToolStripSeparator();
+            _cMenTreeOptions = new ToolStripMenuItem();
 
 
             //
@@ -190,7 +194,9 @@ namespace mRemoteNG.UI.Controls
                 _toolStripSeparator1,
                 _cMenTreeToolsSort,
                 _cMenTreeMoveUp,
-                _cMenTreeMoveDown
+                _cMenTreeMoveDown,
+                _cMenTreeSep5,
+                _cMenTreeOptions
             });
             Name = "cMenTree";
             RenderMode = ToolStripRenderMode.Professional;
@@ -548,6 +554,19 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeMoveDown.Text = "Move down";
             _cMenTreeMoveDown.Click += OnMoveDownClicked;
             //
+            // cMenTreeSep5
+            //
+            _cMenTreeSep5.Name = "_cMenTreeSep5";
+            _cMenTreeSep5.Size = new System.Drawing.Size(196, 6);
+            //
+            // cMenTreeOptions
+            //
+            _cMenTreeOptions.Image = Properties.Resources.Settings_16x;
+            _cMenTreeOptions.Name = "_cMenTreeOptions";
+            _cMenTreeOptions.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeOptions.Text = "Options";
+            _cMenTreeOptions.Click += OnOptionsClicked;
+            //
             // cMenEditSubMenu
             //
             _cMenInheritanceSubMenu.DropDownItems.AddRange(new ToolStripItem[]
@@ -633,6 +652,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeToolsSortDescending.Text = Language.SortDesc;
             _cMenTreeMoveUp.Text = Language.MoveUp;
             _cMenTreeMoveDown.Text = Language.MoveDown;
+            _cMenTreeOptions.Text = Language.OptionsMenuItem;
 
             _cMenInheritanceSubMenu.Text = Language.Inheritance;
             _cMenTreeApplyInheritanceToChildren.Text = Language.ApplyInheritanceToChildren;
@@ -1356,6 +1376,11 @@ namespace mRemoteNG.UI.Controls
                 return;
 
             DefaultConnectionInheritance.Instance.SaveTo(_connectionTree.SelectedNode.Inheritance);
+        }
+
+        private void OnOptionsClicked(object sender, EventArgs e)
+        {
+            AppWindows.Show(WindowType.Options);
         }
 
         #endregion
