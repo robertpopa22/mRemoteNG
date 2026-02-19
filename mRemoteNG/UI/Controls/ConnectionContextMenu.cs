@@ -1117,7 +1117,7 @@ namespace mRemoteNG.UI.Controls
                 ContainerInfo? nodeAsContainer = connectionInfo as ContainerInfo;
                 if (nodeAsContainer != null)
                 {
-                    foreach (ConnectionInfo child in nodeAsContainer.Children)
+                    foreach (ConnectionInfo child in nodeAsContainer.GetRecursiveChildList())
                     {
                         for (int i = 0; i <= child.OpenConnections.Count - 1; i++)
                         {
