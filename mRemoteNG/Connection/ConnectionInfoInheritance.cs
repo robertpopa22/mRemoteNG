@@ -236,6 +236,12 @@ namespace mRemoteNG.Connection
         public bool RenderingEngine { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
+         DisplayName("Inherit Suppress Script Errors"),
+         Description("Inherit the Suppress Script Errors setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool ScriptErrorsSuppressed { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.UseConsoleSession)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionUseConsoleSession)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

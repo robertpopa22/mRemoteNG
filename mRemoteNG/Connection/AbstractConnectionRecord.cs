@@ -60,6 +60,7 @@ namespace mRemoteNG.Connection
         private bool _rdpAlertIdleTimeout = default;
         private string _loadBalanceInfo = string.Empty;
         private HTTPBase.RenderingEngine _renderingEngine = default;
+        private bool _scriptErrorsSuppressed = true;
         private bool _usePersistentBrowser = default;
         private bool _useCredSsp = default;
         private bool _useRestrictedAdmin = default;
@@ -546,6 +547,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("RenderingEngine", _renderingEngine);
             set => SetField(ref _renderingEngine, value, "RenderingEngine");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("Suppress Script Errors"),
+         Description("If enabled, script errors in the browser will be suppressed."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.HTTP, ProtocolType.HTTPS)]
+        public bool ScriptErrorsSuppressed
+        {
+            get => GetPropertyValue("ScriptErrorsSuppressed", _scriptErrorsSuppressed);
+            set => SetField(ref _scriptErrorsSuppressed, value, "ScriptErrorsSuppressed");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

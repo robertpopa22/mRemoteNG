@@ -104,7 +104,7 @@ namespace mRemoteNG.Connection.Protocol.Http
                     objWebBrowser.ScrollBarsEnabled = true;
 
                     // http://stackoverflow.com/questions/4655662/how-to-ignore-script-errors-in-webbrowser
-                    objWebBrowser.ScriptErrorsSuppressed = true;
+                    objWebBrowser.ScriptErrorsSuppressed = InterfaceControl.Info.ScriptErrorsSuppressed;
 
                     objWebBrowser.Navigated += WBrowser_Navigated;
                     objWebBrowser.DocumentTitleChanged += WBrowser_DocumentTitleChanged;

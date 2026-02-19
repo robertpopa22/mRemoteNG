@@ -104,9 +104,9 @@
 		public TType VaultOpenbaoSecretEngine { get; set; }
 		public TType EC2InstanceId { get; set; }
 		public TType ExternalAddressProvider { get; set; }
-		public TType EC2Region { get; set; }
-        public TType UsePersistentBrowser { get; set; }
-        public TType DesktopScaleFactor { get; set; }
-        public TType IsTemplate { get; set; }
+		        public TType EC2Region { get; set; }
+		        public TType UsePersistentBrowser { get; set; }
+		        public TType ScriptErrorsSuppressed { get; set; }
+		        public TType DesktopScaleFactor { get; set; }        public TType IsTemplate { get; set; }
 	}
 }
