@@ -583,6 +583,11 @@ namespace mRemoteNG.App
         /// </summary>
         public const int WM_HOTKEY = 0x312;
 
+        /// <summary>
+        /// Sent when the effective dots per inch (dpi) for a window has changed. The DPI is the scale factor for a window.
+        /// </summary>
+        public const int WM_DPICHANGED = 0x02E0;
+
         #endregion
 
         #region Window Styles

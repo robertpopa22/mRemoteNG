@@ -979,6 +979,16 @@ namespace mRemoteNG.UI.Forms
                             Console.WriteLine(screen.ToString());
                         }
                         break;
+                    case NativeMethods.WM_DPICHANGED:
+                        {
+                            Rect32 newRect = Marshal.PtrToStructure<Rect32>(m.LParam);
+                            Bounds = new Rectangle(newRect.left, newRect.top, newRect.right - newRect.left, newRect.bottom - newRect.top);
+
+                            // Force layout refresh for DockPanel to fix missing tabs/config
+                            pnlDock.PerformLayout();
+                            pnlDock.Refresh();
+                        }
+                        break;
                     case NativeMethods.WM_HOTKEY:
                         if (m.WParam.ToInt32() == HOTKEY_ID_ACTIVATE)
                         {
@@ -1376,6 +1386,15 @@ namespace mRemoteNG.UI.Forms
         private void TsModeAdmin_Click(object sender, EventArgs e)
         {
             Properties.OptionsRbac.Default.ActiveRole = "AdminRole";
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct Rect32
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
         }
     }
 }
