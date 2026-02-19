@@ -1082,6 +1082,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             System.Drawing.Rectangle resolution = connectionInfo.Resolution.GetResolutionRectangle();
                             _rdpClient.DesktopWidth = resolution.Width;
                             _rdpClient.DesktopHeight = resolution.Height;
+                            _rdpClient.AdvancedSettings2.SmartSizing = true;
                             break;
                         }
                 }
