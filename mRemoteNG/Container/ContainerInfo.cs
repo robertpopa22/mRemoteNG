@@ -8,6 +8,7 @@ using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.Tools;
+using mRemoteNG.PluginSystem;
 using mRemoteNG.Tree;
 
 namespace mRemoteNG.Container
@@ -22,10 +23,14 @@ namespace mRemoteNG.Container
     /// </summary>
     [SupportedOSPlatform("windows")]
     [DefaultProperty("Name")]
-    public class ContainerInfo : ConnectionInfo, INotifyCollectionChanged
+    public class ContainerInfo : ConnectionInfo, INotifyCollectionChanged, IConnectionNode
     {
         private bool _isExpanded;
         private bool _autoSort;
+
+        #region IConnectionNode Implementation
+        IEnumerable<IConnectionNode> IConnectionNode.Children => Children;
+        #endregion
 
         [Browsable(false)] public List<ConnectionInfo> Children { get; } = [];
 

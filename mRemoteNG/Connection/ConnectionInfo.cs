@@ -24,6 +24,7 @@ using mRemoteNG.Tree;
 using mRemoteNG.Tools;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.Tree.Root;
+using mRemoteNG.PluginSystem;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection
@@ -38,9 +39,15 @@ namespace mRemoteNG.Connection
     /// </summary>
     [SupportedOSPlatform("windows")]
     [DefaultProperty("Name")]
-    public class ConnectionInfo : AbstractConnectionRecord, IHasParent, IInheritable
+    public class ConnectionInfo : AbstractConnectionRecord, IHasParent, IInheritable, IConnectionNode
     {
         private ConnectionInfoInheritance _inheritance = null!;
+
+        #region IConnectionNode Implementation
+        IEnumerable<IConnectionNode> IConnectionNode.Children => Enumerable.Empty<IConnectionNode>();
+        IConnectionNode IConnectionNode.Parent => Parent;
+        string IConnectionNode.Protocol => Protocol.ToString();
+        #endregion
 
         #region Public Properties
 

@@ -6,6 +6,10 @@ using System.Windows.Forms;
 using mRemoteNG.PluginSystem;
 using mRemoteNG.UI.Forms;
 
+using mRemoteNG.App;
+using mRemoteNG.Connection;
+using System.Linq;
+
 namespace mRemoteNG.Tools
 {
     public class PluginManager : IPluginHost
@@ -17,10 +21,21 @@ namespace mRemoteNG.Tools
         private readonly string _pluginsPath;
 
         public Form MainWindow => FrmMain.Default;
+        
+        public IEnumerable<IConnectionNode> RootNodes => 
+            Runtime.ConnectionsService?.ConnectionTreeModel?.RootNodes ?? Enumerable.Empty<IConnectionNode>();
+
+        public event Action<string, string> OnConnectionOpened;
+        public event Action<string, string> OnConnectionClosed;
 
         private PluginManager()
         {
             _pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
+            if (Runtime.ConnectionInitiator != null)
+            {
+                Runtime.ConnectionInitiator.ConnectionOpened += (host, protocol) => OnConnectionOpened?.Invoke(host, protocol);
+                Runtime.ConnectionInitiator.ConnectionClosed += (host, protocol) => OnConnectionClosed?.Invoke(host, protocol);
+            }
         }
 
         public void LoadPlugins()

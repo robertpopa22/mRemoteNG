@@ -33,6 +33,9 @@ namespace mRemoteNG.Connection
 
         public IEnumerable<string> ActiveConnections => _activeConnections;
 
+        public event Action<string, string> ConnectionOpened;
+        public event Action<string, string> ConnectionClosed;
+
         public ConnectionInitiator(IProtocolFactory? protocolFactory = null, ITunnelPortValidator? tunnelPortValidator = null)
         {
             _protocolFactory = protocolFactory ?? new ProtocolFactory();
@@ -510,6 +513,8 @@ namespace mRemoteNG.Connection
                 if (_activeConnections.Contains(prot.InterfaceControl.OriginalInfo.ConstantID))
                     _activeConnections.Remove(prot.InterfaceControl.OriginalInfo.ConstantID);
 
+                ConnectionClosed?.Invoke(prot.InterfaceControl.OriginalInfo.Hostname, prot.InterfaceControl.Info.Protocol.ToString());
+
                 if (prot.InterfaceControl.Info.PostExtApp == "") return;
                 Tools.ExternalTool? extA = Runtime.ExternalToolsService.GetExtAppByName(prot.InterfaceControl.Info.PostExtApp);
                 extA?.Start(prot.InterfaceControl.OriginalInfo);
@@ -520,7 +525,7 @@ namespace mRemoteNG.Connection
             }
         }
 
-        private static void Prot_Event_Connected(object sender)
+        private void Prot_Event_Connected(object sender)
         {
             ProtocolBase prot = (ProtocolBase)sender;
             Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ConnectionEventConnected,
@@ -537,6 +542,8 @@ namespace mRemoteNG.Connection
                 Environment.UserName);
             
             RecentConnectionsService.Instance.Add(prot.InterfaceControl.OriginalInfo);
+
+            ConnectionOpened?.Invoke(prot.InterfaceControl.OriginalInfo.Hostname, prot.InterfaceControl.Info.Protocol.ToString());
         }
 
         private static void Prot_Event_ErrorOccured(object sender, string errorMessage, int? errorCode)

@@ -1,0 +1,50 @@
+{
+  "task_type": "triage",
+  "task_id": "976",
+  "started_at": "2026-02-20T00:47:03",
+  "finished_at": "2026-02-20T00:48:33",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T00:47:03"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Basic plugin infrastructure exists but is minimal (only supports menu items) and lacks essential hooks for connections/protocols and unit tests.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/App/Tools/PluginManager.cs",
+          "mRemoteNG.Plugins/IPlugin.cs",
+          "mRemoteNG.Plugins/IPluginHost.cs",
+          "mRemoteNGTests/App/Tools/PluginManagerTests.cs"
+        ],
+        "approach": "Expand IPlugin/IPluginHost to expose connection lifecycle events and tree access, harden PluginManager against null references, and add comprehensive unit tests."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Basic plugin infrastructure exists but is minimal (only supports menu items) and lacks essential hooks for connections/protocols and unit tests.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/App/Tools/PluginManager.cs\",\n    \"mRemoteNG.Plugins/IPlugin.cs\",\n    \"mRemoteNG.Plugins/IPluginHost.cs\",\n    \"mRemoteNGTests/App/Tools/PluginManagerTests.cs\"\n  ],\n  \"approach\": \"Expand IPlugin/IPluginHost to expose connection lifecycle events and tree access, harden PluginManager against null references, and add comprehensive unit tests.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T00:48:33"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
