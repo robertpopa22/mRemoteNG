@@ -48,6 +48,24 @@ namespace mRemoteNG.UI.Tabs
             TrackedConnectionInfo = connectionInfo;
         }
 
+        private bool _hasUnreadActivity;
+        public bool HasUnreadActivity
+        {
+            get => _hasUnreadActivity;
+            set
+            {
+                if (_hasUnreadActivity == value) return;
+                _hasUnreadActivity = value;
+                DockHandler?.Pane?.Refresh();
+            }
+        }
+
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            HasUnreadActivity = false;
+        }
+
         public void ShowClosedState()
         {
             _closedStateLabel ??= new Label

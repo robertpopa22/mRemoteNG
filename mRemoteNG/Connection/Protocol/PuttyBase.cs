@@ -281,6 +281,11 @@ namespace mRemoteNG.Connection.Protocol
                     return;
 
                 connectionTab.TabText = tabText;
+
+                if (!connectionTab.IsActivated)
+                {
+                    connectionTab.HasUnreadActivity = true;
+                }
             }
 
             if (connectionTab.InvokeRequired)

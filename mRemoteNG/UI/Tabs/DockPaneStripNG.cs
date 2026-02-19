@@ -1001,6 +1001,7 @@ namespace mRemoteNG.UI.Tabs
             Color lostFocusColor = customTabColor ?? DockPane.DockPanel.Theme.ColorPalette.TabSelectedInactive.Background;
             Color inactiveColor = DockPane.DockPanel.Theme.ColorPalette.MainWindowActive.Background;
             Color mouseHoverColor = DockPane.DockPanel.Theme.ColorPalette.TabUnselectedHovered.Background;
+            Color unreadColor = Color.FromArgb(255, 140, 0);
 
             Color activeText = DockPane.DockPanel.Theme.ColorPalette.TabSelectedActive.Text;
             Color lostFocusText = DockPane.DockPanel.Theme.ColorPalette.TabSelectedInactive.Text;
@@ -1045,6 +1046,11 @@ namespace mRemoteNG.UI.Tabs
                         : rectCloseButton == ActiveClose
                             ? imageService.TabHoverInactive_Close
                             : imageService.TabInactive_Close;
+                }
+                else if (tab.Content is ConnectionTab ct && ct.HasUnreadActivity)
+                {
+                    paint = unreadColor;
+                    text = Color.White; // Ensure contrast on orange
                 }
                 else
                 {
