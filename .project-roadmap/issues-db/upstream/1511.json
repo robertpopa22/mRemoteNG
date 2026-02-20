@@ -12,12 +12,19 @@
   "created_at": "2019-07-10T12:09:07Z",
   "github_updated_at": "2022-04-25T08:11:59Z",
   "body_snippet": "I have imported computer items from root of our Active Directory and we have many different OU's where computer objects are located.\r\n\r\nI would like to search and find(filter) all result from the imported connection tree without expanding all of the folders.\r\n\r\nSo this is the wanted behaviour and it would make our life much easier:\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/338#issuecomment-345527562",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "Users with large AD-imported trees need search to find connections inside collapsed folders without manually expanding all nodes first"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY1NjQxMDY4MQ==",
@@ -61,5 +68,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Users with large AD-imported trees need search to find connections inside collapsed folders without manually expanding all nodes first\nApproach: Ensure the TreeListView filter traverses all children recursively (even collapsed branches) when filtering. The ObjectListView TreeListView already walks the model tree for filtering — verify CanExpandGetter and the model enumeration include collapsed nodes. If not, override the filtering to flatten and search all descendants, then show matching items with their parent chain expanded."
 }
