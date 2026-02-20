@@ -44,7 +44,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 else
                 {
                     ConnectionInfo connectionInfo = ParseConnectionInfo(csvHeaders, line);
-                    parentMapping.Add(connectionInfo, line[csvHeaders.IndexOf("Parent")]);
+                    int parentIdx = csvHeaders.IndexOf("Parent");
+                    parentMapping.Add(connectionInfo, parentIdx >= 0 ? line[parentIdx] : "");
                 }
             }
 
