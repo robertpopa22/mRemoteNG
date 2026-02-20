@@ -141,6 +141,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("UserField10", connectionInfo.UserField10 ?? string.Empty));
             element.Add(new XAttribute("EnvironmentTags", connectionInfo.EnvironmentTags ?? string.Empty));
             element.Add(new XAttribute("Favorite", connectionInfo.Favorite));
+            element.Add(new XAttribute("RetryOnFirstConnect", connectionInfo.RetryOnFirstConnect.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("ExtApp", connectionInfo.ExtApp ?? string.Empty));
             element.Add(new XAttribute("StartProgram", connectionInfo.RDPStartProgram ?? string.Empty));
             element.Add(new XAttribute("StartProgramWorkDir", connectionInfo.RDPStartProgramWorkDir ?? string.Empty));
@@ -337,6 +338,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritEnvironmentTags", inheritance.EnvironmentTags.ToString().ToLowerInvariant()));
             if (inheritance.Favorite)
                 element.Add(new XAttribute("InheritFavorite", inheritance.Favorite.ToString().ToLowerInvariant()));
+            if (inheritance.RetryOnFirstConnect)
+                element.Add(new XAttribute("InheritRetryOnFirstConnect", inheritance.RetryOnFirstConnect.ToString().ToLowerInvariant()));
             if (inheritance.AutoSort)
                 element.Add(new XAttribute("InheritAutoSort", inheritance.AutoSort.ToString().ToLowerInvariant()));
             if (inheritance.ExtApp)

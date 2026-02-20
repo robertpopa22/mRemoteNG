@@ -126,6 +126,7 @@ namespace mRemoteNG.Connection
         private string _rdpSignScope = string.Empty;
         private string _rdpSignature = string.Empty;
         private bool _favorite = default;
+        private bool _retryOnFirstConnect = default;
         private bool _isTemplate = default;
 
         private ProtocolVNC.Compression _vncCompression = default;
@@ -1167,6 +1168,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Favorite", _favorite);
             set => SetField(ref _favorite, value, "Favorite");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("Retry On First Connect"),
+         Description("If enabled, the reconnect dialog will be shown when the initial connection attempt fails, polling the server until it becomes available."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInAllProtocolsExcept()]
+        public bool RetryOnFirstConnect
+        {
+            get => GetPropertyValue("RetryOnFirstConnect", _retryOnFirstConnect);
+            set => SetField(ref _retryOnFirstConnect, value, "RetryOnFirstConnect");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),

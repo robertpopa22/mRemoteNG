@@ -524,6 +524,7 @@ namespace mRemoteNG.Connection
             UserField10 = string.Empty;
             EnvironmentTags = Settings.Default.ConDefaultEnvironmentTags;
             Favorite = Settings.Default.ConDefaultFavorite;
+            RetryOnFirstConnect = Settings.Default.ConDefaultRetryOnFirstConnect;
             RDPStartProgram = Settings.Default.ConDefaultRDPStartProgram;
             RDPStartProgramWorkDir = Settings.Default.ConDefaultRDPStartProgramWorkDir;
             OpeningCommand = Settings.Default.OpeningCommand;

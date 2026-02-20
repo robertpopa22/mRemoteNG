@@ -587,6 +587,12 @@ namespace mRemoteNG.Connection
         LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionFavorite)),
         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
         public bool Favorite { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 8),
+         DisplayName("Inherit Retry On First Connect"),
+         Description("Inherit the Retry On First Connect property from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool RetryOnFirstConnect { get; set; }
         #endregion
 
         #region VNC

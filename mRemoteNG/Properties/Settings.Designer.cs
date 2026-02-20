@@ -1972,7 +1972,31 @@ namespace mRemoteNG.Properties {
                 this["InhDefaultFavorite"] = value;
             }
         }
-        
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ConDefaultRetryOnFirstConnect {
+            get {
+                return ((bool)(this["ConDefaultRetryOnFirstConnect"]));
+            }
+            set {
+                this["ConDefaultRetryOnFirstConnect"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool InhDefaultRetryOnFirstConnect {
+            get {
+                return ((bool)(this["InhDefaultRetryOnFirstConnect"]));
+            }
+            set {
+                this["InhDefaultRetryOnFirstConnect"] = value;
+            }
+        }
+
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]

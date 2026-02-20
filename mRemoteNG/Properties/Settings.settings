@@ -479,6 +479,12 @@
     <Setting Name="InhDefaultFavorite" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="ConDefaultRetryOnFirstConnect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InhDefaultRetryOnFirstConnect" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="DoNotTrimUsername" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
