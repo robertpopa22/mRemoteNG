@@ -106,7 +106,16 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsDBsPage.Default.SQLAuthType = txtSQLAuthType.SelectedItem?.ToString() ?? "Windows Authentication";
 
             if (Properties.OptionsDBsPage.Default.UseSQLServer)
-                ReinitializeSqlUpdater();
+            {
+                try
+                {
+                    ReinitializeSqlUpdater();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Language.ErrorConnectionListSaveFailed + Environment.NewLine + ex.Message, Language.Errors, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             else if (!Properties.OptionsDBsPage.Default.UseSQLServer && sqlServerWasPreviouslyEnabled)
                 DisableSql();
         }
