@@ -579,12 +579,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
-        protected void SetExtendedProperty(string property, object value)
+        protected void SetExtendedProperty(string property, object value, bool silent = false)
         {
             try
             {
                 // ReSharper disable once UseIndexedProperty
                 ((IMsRdpExtendedSettings)_rdpClient).set_Property(property, ref value);
+            }
+            catch (COMException ex) when (silent && ex.HResult == unchecked((int)0x8000FFFF))
+            {
+                // Silently ignore E_UNEXPECTED for non-essential properties (#1693).
+                // Older RDP clients don't support certain extended properties like scale factors.
             }
             catch (Exception ex)
             {
@@ -1062,8 +1067,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         break;
                 }
 
-                SetExtendedProperty("DesktopScaleFactor", scaleFactor);
-                SetExtendedProperty("DeviceScaleFactor", DeviceScaleFactor);
+                SetExtendedProperty("DesktopScaleFactor", scaleFactor, silent: true);
+                SetExtendedProperty("DeviceScaleFactor", DeviceScaleFactor, silent: true);
 
                 if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))
                 {

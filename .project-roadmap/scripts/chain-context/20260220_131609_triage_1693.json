@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1693",
+  "started_at": "2026-02-20T13:15:28",
+  "finished_at": "2026-02-20T13:16:09",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T13:15:28"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T13:15:42"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "DeviceScaleFactor/DesktopScaleFactor extended properties fail on older RDP clients (pre-MsRdpClient9) with E_UNEXPECTED; the error is caught but still shown as a confusing warning to users",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Guard SetExtendedProperty calls for DesktopScaleFactor and DeviceScaleFactor at line 1065-1066 with a version check (only set on RdpClient9+), or catch COMException with HRESULT 0x8000FFFF silently for these specific properties since they are non-essential"
+      },
+      "raw_output": "Based on my analysis of the code and issue:\n\n- **Issue**: On Windows Server 2008 R2, the older RDP ActiveX control doesn't support `DeviceScaleFactor`/`DesktopScaleFactor` extended properties, causing `E_UNEXPECTED (0x8000FFFF)` at `RdpProtocol.cs:1066`\n- **Current state**: The exception IS caught (line 589-592) and logged as a warning — the connection still works, but the user sees a scary error message\n- **Fix**: Guard the `SetExtendedProperty` calls for scale factors with an RDP client version check, or silently handle the specific `COMException` for unsupported properties on older clients\n\n```json\n{\"decision\":\"implement\",\"reason\":\"DeviceScaleFactor/DesktopScaleFactor extended properties fail on older RDP clients (pre-MsRdpClient9) with E_UNEXPECTED; the error is caught but still shown as a confusing warning to users\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"Guard SetExtendedProperty calls for DesktopScaleFactor and DeviceScaleFactor at line 1065-1066 with a version check (only set on RdpClient9+), or catch COMException with HRESULT 0x8000FFFF silently for these specific properties since they are non-essential\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T13:16:09"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
