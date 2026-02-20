@@ -21,6 +21,7 @@ namespace mRemoteNG.UI.Window
         private ControlLayout _layout = ControlLayout.Vertical;
         private readonly ThemeManager _themeManager;
         private readonly DisplayProperties _display;
+        private readonly System.Collections.Generic.List<ListViewItem> _allItems = new();
 
         public DockContent? PreviousActiveForm { get; set; }
 
@@ -91,14 +92,15 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
+                int toolbarHeight = tsFilter.Height;
                 pnlErrorMsg.Location = new Point(0, Height - _display.ScaleHeight(200));
                 pnlErrorMsg.Size = new Size(Width, Height - pnlErrorMsg.Top);
                 pnlErrorMsg.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
                 txtMsgText.Size = new Size(
                                            pnlErrorMsg.Width - pbError.Width - _display.ScaleWidth(8),
                                            pnlErrorMsg.Height - _display.ScaleHeight(20));
-                lvErrorCollector.Location = new Point(0, 0);
-                lvErrorCollector.Size = new Size(Width, Height - pnlErrorMsg.Height - _display.ScaleHeight(5));
+                lvErrorCollector.Location = new Point(0, toolbarHeight);
+                lvErrorCollector.Size = new Size(Width, Height - pnlErrorMsg.Height - toolbarHeight - _display.ScaleHeight(5));
                 lvErrorCollector.Anchor =
                     AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
@@ -116,15 +118,16 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
-                pnlErrorMsg.Location = new Point(0, 0);
-                pnlErrorMsg.Size = new Size(_display.ScaleWidth(200), Height);
+                int toolbarHeight = tsFilter.Height;
+                pnlErrorMsg.Location = new Point(0, toolbarHeight);
+                pnlErrorMsg.Size = new Size(_display.ScaleWidth(200), Height - toolbarHeight);
                 pnlErrorMsg.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Top;
 
                 txtMsgText.Size = new Size(
                                            pnlErrorMsg.Width - pbError.Width - _display.ScaleWidth(8),
                                            pnlErrorMsg.Height - _display.ScaleHeight(20));
-                lvErrorCollector.Location = new Point(pnlErrorMsg.Width + _display.ScaleWidth(5), 0);
-                lvErrorCollector.Size = new Size(Width - pnlErrorMsg.Width - _display.ScaleWidth(5), Height);
+                lvErrorCollector.Location = new Point(pnlErrorMsg.Width + _display.ScaleWidth(5), toolbarHeight);
+                lvErrorCollector.Size = new Size(Width - pnlErrorMsg.Width - _display.ScaleWidth(5), Height - toolbarHeight);
                 lvErrorCollector.Anchor =
                     AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 
@@ -382,11 +385,17 @@ namespace mRemoteNG.UI.Window
 
                 if (lvErrorCollector.SelectedItems.Count > 0)
                 {
-                    foreach (ListViewItem item in lvErrorCollector.SelectedItems)
+                    var selected = new ListViewItem[lvErrorCollector.SelectedItems.Count];
+                    lvErrorCollector.SelectedItems.CopyTo(selected, 0);
+                    foreach (ListViewItem item in selected)
+                    {
+                        _allItems.Remove(item);
                         item.Remove();
+                    }
                 }
                 else
                 {
+                    _allItems.Clear();
                     lvErrorCollector.Items.Clear();
                 }
 
@@ -406,6 +415,60 @@ namespace mRemoteNG.UI.Window
             {
                 lvErrorCollector.EndUpdate();
             }
+        }
+
+        public void AddMessage(ListViewItem item)
+        {
+            _allItems.Insert(0, item);
+
+            string filterText = tstbSearch.Text;
+            if (string.IsNullOrEmpty(filterText) ||
+                item.Text.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                lvErrorCollector.Items.Insert(0, item);
+            }
+
+            if (lvErrorCollector.Items.Count > 0)
+                pbError.Visible = true;
+        }
+
+        private void ApplyFilter()
+        {
+            lvErrorCollector.BeginUpdate();
+            lvErrorCollector.Items.Clear();
+
+            string filterText = tstbSearch.Text;
+            foreach (var item in _allItems)
+            {
+                if (string.IsNullOrEmpty(filterText) ||
+                    item.Text.IndexOf(filterText, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    lvErrorCollector.Items.Add(item);
+                }
+            }
+
+            lvErrorCollector.EndUpdate();
+            pbError.Visible = lvErrorCollector.Items.Count > 0;
+            tsbSearch.Checked = !string.IsNullOrEmpty(filterText);
+        }
+
+        private void tsbSearch_Click(object sender, EventArgs e)
+        {
+            tstbSearch.Visible = tsbSearch.Checked;
+            if (!tsbSearch.Checked)
+            {
+                tstbSearch.Text = string.Empty;
+                ApplyFilter();
+            }
+            else
+            {
+                tstbSearch.Focus();
+            }
+        }
+
+        private void tstbSearch_TextChanged(object sender, EventArgs e)
+        {
+            ApplyFilter();
         }
 
         #endregion
