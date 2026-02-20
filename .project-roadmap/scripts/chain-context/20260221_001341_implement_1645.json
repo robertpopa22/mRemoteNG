@@ -1,0 +1,58 @@
+{
+  "task_type": "implement",
+  "task_id": "1645",
+  "started_at": "2026-02-21T00:02:05",
+  "finished_at": "2026-02-21T00:13:41",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1645",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T00:02:05"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1645",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T00:02:18"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1645",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 672s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1645.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/UI/Window/ConnectionWindow.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1645.json      | 26 +++++++++++--\n .../scripts/chain-context/_timeout_history.json    |  7 ++--\n mRemoteNG/UI/Window/ConnectionWindow.cs            | 45 ++++++++++++++++++++++\n 3 files changed, 71 insertions(+), 7 deletions(-)",
+      "timestamp": "2026-02-21T00:13:40",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1645.json b/.project-roadmap/issues-db/upstream/1645.json\nindex acee9d303..e9e0a103e 100644\n--- a/.project-roadmap/issues-db/upstream/1645.json\n+++ b/.project-roadmap/issues-db/upstream/1645.json\n@@ -12,17 +12,35 @@\n   \"created_at\": \"2019-11-27T07:42:31Z\",\n   \"github_updated_at\": \"2021-06-27T22:47:09Z\",\n   \"body_snippet\": \"<!--- Provide a general summary of the issue in the Title above -->\\r\\n\\r\\n## Expected Behavior\\r\\nI logoff from a connection the tab next to it will be activated\\r\\n\\r\\n## Current Behavior\\r\\nI logoff and the first tab is activated. If I just close a tab, without logging off the next tab is activated as I would expect it.\\r\\n\\r\\n## Steps to Reproduce (for bugs)\\r\\n1. Open three connections\\r\\n2. Logoff from the third\\r\\n\\r\\n## Your Environment\\r\\n* Version used: 1.77.1.27713\\r\\n* Operating System and version (e.g. Windows...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"When closing a tab, focus should move to the previously active tab (MRU order) rather than the adjacent tab, which is standard tabbed UI behavior.\",\n+      \"token_usage\": {\n+        \"input_tokens\": 3,\n+        \"output_tokens\": 514,\n+        \"cost_usd\": 0.124793,\n+        \"operations\": 1\n+      }\n+    }\n+  ],\n   \"comments\": [],\n   \"comments_cursor\": \"2021-06-27T22:47:09Z\",\n   \"unread_comments\": 0,\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): When closing a tab, focus should move to the previously active tab (MRU order) rather than the adjacent tab, which is standard tabbed UI behavior.\\nApproach: Track MRU tab stack; on tab close, activate the previously focused tab instead of the next/previous sibling.\",\n+  \"token_usage\": {\n+    \"input_tokens\": 3,\n+    \"output_tokens\": 514,\n+    \"cost_usd\": 0.124793\n+  }\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 539263efc..7e132e266 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -54,7 +54,6 @@\n         667.5\n       ],\n       \"triage\": [\n-        39.9,\n         12.2,\n         43.6,\n         11.8,\n@@ -103,7 +102,8 @@\n         13.8,\n         17.8,\n         25.2,\n-        61.8\n+        61.8,\n+        12.3\n       ]\n     },\n     \"gemini\": {\n@@ -291,6 +291,7 @@\n     \"triage_1869\": 1.5,\n     \"triage_1875\": 1.5,\n     \"triage_1876\": 1.5,\n-    \"triage_1897\": 1.5\n+    \"triage_1897\": 1.5,\n+    \"impl_1644\": 1.5\n   }\n }\ndiff --git a/mRemoteNG/UI/Window/ConnectionWindow.cs b/mRemoteNG/UI/Window/ConnectionWindow.cs\nindex f598e0547..d9a2d5728 100644\n--- a/mRemoteNG/UI/Window/ConnectionWindow.cs\n+++ b/mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -37,6 +37,8 @@ namespace mRemoteNG.UI.Window\n         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();\n         private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();\n         private bool _isAddingTab;\n+        private readonly Stack<IDockContent> _mruStack = new();\n+        private bool _suppressMruTracking;\n \n         #region Public Methods\n \n@@ -154,11 +156,47 @@ namespace mRemoteNG.UI.Window\n         {\n             ShowHideConnectionTabs();\n             AttachConnectionTabDropTarget(e.Content.DockHandler.Form);\n+            if (e.Content is ConnectionTab addedTab)\n+                addedTab.FormClosing += ConnectionTab_FormClosing_Mru;\n         }\n \n         private void ConnDock_ContentRemoved(object? sender, DockContentEventArgs e)\n         {\n             ShowHideConnectionTabs();\n+\n+            if (e.Content is ConnectionTab removedTab)\n+            {\n+                removedTab.FormClosing -= ConnectionTab_FormClosing_Mru;\n+\n+                bool wasSuppressed = _suppressMruTracking;\n+                _suppressMruTracking = false;\n+\n+                // Rebuild MRU stack, removing the closed tab and any stale entries\n+                var remaining = _mruStack\n+                    .Where(t => !ReferenceEquals(t, removedTab) &&\n+                                t is ConnectionTab ct && !ct.IsDisposed &&\n+                                connDock.Documents.Contains(t))\n+                    .ToList();\n+                _mruStack.Clear();\n+                for (int i = remaining.Count - 1; i >= 0; i--)\n+                    _mruStack.Push(remaining[i]);\n+\n+                // Activate the previously focused tab (MRU order) instead of DockPanelSuite's default\n+                if (wasSuppressed && _mruStack.Count > 0 &&\n+                    _mruStack.Peek() is ConnectionTab toActivate && !toActivate.IsDisposed)\n+                {\n+                    toActivate.DockHandler.Activate();\n+                }\n+            }\n+        }\n+\n+        private void ConnectionTab_FormClosing_Mru(object? sender, FormClosingEventArgs e)\n+        {\n+            // If the close is already cancelled (e.g. user clicked No in confirm dialog), do nothing.\n+            // Otherwise set the suppress flag so ConnDockOnActiveContentChanged ignores\n+            // DockPanelSuite's automatic adjacent-tab activation during the close sequence.\n+            if (e.Cancel) return;\n+            _suppressMruTracking = true;\n         }\n \n         private void SetFormEventHandlers()\n@@ -988,6 +1026,13 @@ namespace mRemoteNG.UI.Window\n             ConnectionInfo? selectedConnectionInfo = GetConnectionInfoForTab(selectedTab);\n             if (selectedConnectionInfo == null) return;\n             FrmMain.Default.SelectedConnection = selectedConnectionInfo;\n+\n+            // Track MRU order; skip during tab close (DockPanelSuite auto-activates an adjacent tab)\n+            if (!_suppressMruTracking && connDock.ActiveContent is ConnectionTab activeTab)\n+            {\n+                if (_mruStack.Count == 0 || !ReferenceEquals(_mruStack.Peek(), activeTab))\n+                    _mruStack.Push(activeTab);\n+            }\n         }\n \n         private void ClosePanelIfEmpty()"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

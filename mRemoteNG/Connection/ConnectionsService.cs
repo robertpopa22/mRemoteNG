@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Security;
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.App;
@@ -39,6 +40,8 @@ namespace mRemoteNG.Connection
         private bool _batchingSaves = false;
         private bool _saveRequested = false;
         private bool _saveAsyncRequested = false;
+        // Cached SQL custom encryption password — avoids re-prompting on every reload (#1646)
+        private SecureString? _cachedSqlEncryptionPassword;
 
         public bool IsConnectionsFileLoaded { get; set; }
         public bool UsingDatabase { get; private set; }
@@ -185,6 +188,7 @@ namespace mRemoteNG.Connection
                 SqlDataProvider sqlDataProvider = new(dbConnector);
                 SqlDatabaseMetaDataRetriever metaDataRetriever = new();
                 SqlDatabaseVersionVerifier versionVerifier = new(dbConnector);
+                bool triedCached = false;
                 connectionLoader = new SqlConnectionsLoader(
                     _localConnectionPropertiesSerializer,
                     _localConnectionPropertiesDataProvider,
@@ -192,7 +196,23 @@ namespace mRemoteNG.Connection
                     sqlDataProvider,
                     metaDataRetriever,
                     versionVerifier,
-                    new LegacyRijndaelCryptographyProvider());
+                    new LegacyRijndaelCryptographyProvider(),
+                    (filename) =>
+                    {
+                        // Return cached password on first call (avoids re-prompting on every reload — #1646)
+                        if (_cachedSqlEncryptionPassword != null && !triedCached)
+                        {
+                            triedCached = true;
+                            return new Optional<SecureString>(_cachedSqlEncryptionPassword);
+                        }
+                        // Cached password was wrong or not set — clear cache and prompt
+                        _cachedSqlEncryptionPassword?.Dispose();
+                        _cachedSqlEncryptionPassword = null;
+                        Optional<SecureString> result = MiscTools.PasswordDialog(filename, false);
+                        if (result.Any())
+                            _cachedSqlEncryptionPassword = result.First();
+                        return result;
+                    });
             }
             else
             {
