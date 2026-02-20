@@ -1,0 +1,59 @@
+{
+  "task_type": "triage",
+  "task_id": "1409",
+  "started_at": "2026-02-20T20:30:08",
+  "finished_at": "2026-02-20T20:30:37",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:30:08"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:30:22"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "Bundled multi-feature request that is too vague to implement atomically; quick search already exists in the connection tree filter, undocking panels is a major architectural change with no clear scope, and the connection panel options request lacks specifics.",
+        "priority": "P3-enhancement",
+        "estimated_files": [],
+        "approach": "Close as wontfix; direct users to open separate focused issues for any still-missing functionality with concrete requirements."
+      },
+      "raw_output": "```json\n{\"decision\":\"wontfix\",\"reason\":\"Bundled multi-feature request that is too vague to implement atomically; quick search already exists in the connection tree filter, undocking panels is a major architectural change with no clear scope, and the connection panel options request lacks specifics.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[],\"approach\":\"Close as wontfix; direct users to open separate focused issues for any still-missing functionality with concrete requirements.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:30:37"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -167,6 +167,13 @@ namespace mRemoteNG.Connection.Protocol
                 }
 
                 NativeMethods.SetParent(_handle, InterfaceControl.Handle);
+
+                // Give keyboard focus to the embedded window after re-parenting.
+                // Required for Java-based apps (e.g. TigerVNC) where the Java AWT focus model
+                // does not automatically acquire Win32 keyboard focus after SetParent (#1442).
+                if (_handle != IntPtr.Zero)
+                    NativeMethods.SetFocus(_handle);
+
                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, Language.IntAppStuff, true);
                 Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
                                                      string.Format(Language.IntAppHandle, _handle), true);
@@ -193,6 +200,10 @@ namespace mRemoteNG.Connection.Protocol
             try
             {
                 NativeMethods.SetForegroundWindow(_handle);
+                // SetFocus is required for Java-based embedded apps (e.g. TigerVNC) to receive
+                // keyboard input — SetForegroundWindow alone is insufficient for Java AWT windows (#1442).
+                if (_handle != IntPtr.Zero)
+                    NativeMethods.SetFocus(_handle);
             }
             catch (Exception ex)
             {

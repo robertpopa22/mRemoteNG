@@ -1,0 +1,62 @@
+{
+  "task_type": "triage",
+  "task_id": "1442",
+  "started_at": "2026-02-20T20:30:39",
+  "finished_at": "2026-02-20T20:31:07",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:30:39"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:30:52"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Java AWT/Swing has its own focus model that conflicts with Win32 SetParent embedding — keyboard events aren't forwarded to the embedded TigerVNC Java window because Java intercepts WM_SETFOCUS differently than native apps.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/VNC/VNCProtocol.cs",
+          "mRemoteNG/UI/Window/ConnectionWindow.cs"
+        ],
+        "approach": "After SetParent embedding, explicitly call SetFocus/SendMessage(WM_SETFOCUS) on the Java child window handle, and/or install a low-level keyboard hook (WH_KEYBOARD_LL) to relay WM_KEYDOWN/WM_KEYUP to the embedded Java HWND when it is the active connection."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"Java AWT/Swing has its own focus model that conflicts with Win32 SetParent embedding — keyboard events aren't forwarded to the embedded TigerVNC Java window because Java intercepts WM_SETFOCUS differently than native apps.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/VNC/VNCProtocol.cs\",\"mRemoteNG/UI/Window/ConnectionWindow.cs\"],\"approach\":\"After SetParent embedding, explicitly call SetFocus/SendMessage(WM_SETFOCUS) on the Java child window handle, and/or install a low-level keyboard hook (WH_KEYBOARD_LL) to relay WM_KEYDOWN/WM_KEYUP to the embedded Java HWND when it is the active connection.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T20:31:07"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

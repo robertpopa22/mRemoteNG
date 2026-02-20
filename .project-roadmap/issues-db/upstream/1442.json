@@ -11,12 +11,25 @@
   "created_at": "2019-04-26T12:51:54Z",
   "github_updated_at": "2026-02-07T16:47:26Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nI have an SSH session to my linux machine at home. I also forward tcp5900 over my ssh session and connect to VNC on my home-linux machine. Normal operation would be that I can embed the VNC (java) client into mRemoteNG and work with that. \r\n\r\nThis all works perfectly except for the fact that I cannot use the keyboard in the embedded VNC session. Everything BUT embedded in mRemoteNG and the keyboard input...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "Java AWT/Swing has its own focus model that conflicts with Win32 SetParent embedding — keyboard events aren't forwarded to the embedded TigerVNC Java window because Java intercepts WM_SETFOCUS differently than native apps.",
+      "token_usage": {
+        "input_tokens": 3,
+        "output_tokens": 621,
+        "cost_usd": 0.126871,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXF6j",
@@ -33,5 +46,10 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Java AWT/Swing has its own focus model that conflicts with Win32 SetParent embedding — keyboard events aren't forwarded to the embedded TigerVNC Java window because Java intercepts WM_SETFOCUS differently than native apps.\nApproach: After SetParent embedding, explicitly call SetFocus/SendMessage(WM_SETFOCUS) on the Java child window handle, and/or install a low-level keyboard hook (WH_KEYBOARD_LL) to relay WM_KEYDOWN/WM_KEYUP to the embedded Java HWND when it is the active connection.",
+  "token_usage": {
+    "input_tokens": 3,
+    "output_tokens": 621,
+    "cost_usd": 0.126871
+  }
 }
