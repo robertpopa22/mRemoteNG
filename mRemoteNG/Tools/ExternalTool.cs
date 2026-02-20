@@ -312,8 +312,14 @@ namespace mRemoteNG.Tools
                 }
                 else
                 {
-                    // Non-batch elevated: shell escaping for cmd.exe passthrough
-                    process.StartInfo.Arguments = argParser.ParseArguments(Arguments);
+                    // Non-batch elevated: ShellExecuteEx passes args directly to the target app
+                    // (no cmd.exe involved), so shell-escaping (^→^^) would corrupt metacharacters.
+                    // Double-quoting each argument protects special chars like ^ without doubling them.
+                    string rawArgs = argParser.ParseArguments(Arguments, escapeForShell: false);
+                    var parts = SplitCommandLineArguments(rawArgs);
+                    process.StartInfo.Arguments = string.Join(" ", parts
+                        .Where(a => !string.IsNullOrWhiteSpace(a))
+                        .Select(QuoteArgumentForCmd));
                 }
             }
             else
