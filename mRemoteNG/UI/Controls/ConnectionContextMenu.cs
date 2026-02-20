@@ -1133,7 +1133,7 @@ namespace mRemoteNG.UI.Controls
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             foreach (char c in str)
             {
-                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
+                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '!' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
                 {
                     sb.Append("{");
                     sb.Append(c);

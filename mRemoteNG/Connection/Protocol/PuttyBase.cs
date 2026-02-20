@@ -243,7 +243,7 @@ namespace mRemoteNG.Connection.Protocol
             if (!string.IsNullOrEmpty(InterfaceControl.Info?.OpeningCommand) && PuttyHandle != IntPtr.Zero)
             {
                 NativeMethods.SetForegroundWindow(PuttyHandle);
-                string finalCommand = InterfaceControl.Info.OpeningCommand.TrimEnd() + "\n";
+                string finalCommand = EscapeSendKeys(InterfaceControl.Info.OpeningCommand.TrimEnd()) + "\n";
                 SendKeys.SendWait(finalCommand);
             }
 
@@ -1011,6 +1011,26 @@ namespace mRemoteNG.Connection.Protocol
                 outBufferSize: 0,
                 pipeSecurity);
         }
+        private static string EscapeSendKeys(string str)
+        {
+            var sb = new StringBuilder();
+            foreach (char c in str)
+            {
+                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '!' ||
+                    c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
+                {
+                    sb.Append('{');
+                    sb.Append(c);
+                    sb.Append('}');
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
+
         private static (string Username, string Hostname, uint Port) DeserializeData(string data) {
             var strings = data.Split(':');
             if (strings.Length != 3) {
