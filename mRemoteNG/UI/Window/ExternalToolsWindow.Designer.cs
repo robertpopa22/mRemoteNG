@@ -22,6 +22,9 @@ namespace mRemoteNG.UI.Window
 		internal Controls.MrngTextBox FilenameTextBox;
 		internal Controls.MrngLabel ArgumentsLabel;
 		internal Controls.MrngLabel FilenameLabel;
+		internal Controls.MrngLabel IconPathLabel;
+		internal Controls.MrngTextBox IconPathTextBox;
+		internal MrngButton BrowseIconButton; 
 		internal MrngButton BrowseButton; 
         internal MrngButton VariablesButton;
 		internal System.Windows.Forms.ContextMenuStrip ToolsContextMenuStrip;
@@ -77,6 +80,9 @@ namespace mRemoteNG.UI.Window
             this.WorkingDirLabel = new mRemoteNG.UI.Controls.MrngLabel();
             this.OptionsLabel = new mRemoteNG.UI.Controls.MrngLabel();
             this.WaitForExitCheckBox = new MrngCheckBox();
+            this.IconPathLabel = new mRemoteNG.UI.Controls.MrngLabel();
+            this.IconPathTextBox = new mRemoteNG.UI.Controls.MrngTextBox();
+            this.BrowseIconButton = new MrngButton();
             this.BrowseButton = new MrngButton();
             this.VariablesButton = new MrngButton();
             this.BrowseWorkingDir = new MrngButton();
@@ -278,27 +284,31 @@ namespace mRemoteNG.UI.Window
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.DisplayNameLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ShowOnToolbarCheckBox, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ShowOnToolbarCheckBox, 2, 7);
             this.tableLayoutPanel1.Controls.Add(this.WorkingDirTextBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.DisplayNameTextBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.FilenameTextBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.ArgumentsCheckBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.FilenameLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.RunElevatedCheckBox, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.RunElevatedCheckBox, 1, 7);
             this.tableLayoutPanel1.Controls.Add(this.ArgumentsLabel, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.TryToIntegrateCheckBox, 2, 5);
+            this.tableLayoutPanel1.Controls.Add(this.TryToIntegrateCheckBox, 2, 6);
             this.tableLayoutPanel1.Controls.Add(this.WorkingDirLabel, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.HotkeyLabel, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.HotkeyTextBox, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.OptionsLabel, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.WaitForExitCheckBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.IconPathLabel, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.IconPathTextBox, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.BrowseIconButton, 4, 4);
+            this.tableLayoutPanel1.Controls.Add(this.HotkeyLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.HotkeyTextBox, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.OptionsLabel, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.WaitForExitCheckBox, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.BrowseButton, 4, 1);
             this.tableLayoutPanel1.Controls.Add(this.VariablesButton, 4, 2);
             this.tableLayoutPanel1.Controls.Add(this.BrowseWorkingDir, 4, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 18);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -346,6 +356,42 @@ namespace mRemoteNG.UI.Window
             this.WorkingDirTextBox.Size = new System.Drawing.Size(607, 22);
             this.WorkingDirTextBox.TabIndex = 5;
             this.WorkingDirTextBox.Leave += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
+            // 
+            // IconPathLabel
+            // 
+            this.IconPathLabel.AutoSize = true;
+            this.IconPathLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IconPathLabel.Location = new System.Drawing.Point(3, 104);
+            this.IconPathLabel.Name = "IconPathLabel";
+            this.IconPathLabel.Size = new System.Drawing.Size(104, 26);
+            this.IconPathLabel.TabIndex = 13;
+            this.IconPathLabel.Text = "Icon Path:";
+            this.IconPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // IconPathTextBox
+            // 
+            this.IconPathTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.IconPathTextBox, 3);
+            this.IconPathTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IconPathTextBox.Location = new System.Drawing.Point(110, 106);
+            this.IconPathTextBox.Margin = new System.Windows.Forms.Padding(0, 2, 3, 2);
+            this.IconPathTextBox.Name = "IconPathTextBox";
+            this.IconPathTextBox.Size = new System.Drawing.Size(607, 22);
+            this.IconPathTextBox.TabIndex = 6;
+            this.IconPathTextBox.Leave += new System.EventHandler(this.PropertyControl_ChangedOrLostFocus);
+            // 
+            // BrowseIconButton
+            // 
+            this.BrowseIconButton._mice = MrngButton.MouseState.HOVER;
+            this.BrowseIconButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BrowseIconButton.Location = new System.Drawing.Point(723, 107);
+            this.BrowseIconButton.Name = "BrowseIconButton";
+            this.BrowseIconButton.Size = new System.Drawing.Size(95, 20);
+            this.BrowseIconButton.TabIndex = 7;
+            this.BrowseIconButton.Text = "Browse...";
+            this.BrowseIconButton.UseVisualStyleBackColor = true;
+            this.BrowseIconButton.Click += new System.EventHandler(this.BrowseIconButton_Click);
+
             // 
             // DisplayNameTextBox
             // 

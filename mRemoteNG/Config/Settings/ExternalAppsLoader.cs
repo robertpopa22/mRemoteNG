@@ -72,6 +72,7 @@ namespace mRemoteNG.Config.Settings
                     {
                         DisplayName = xEl.Attributes["DisplayName"]?.Value ?? string.Empty,
                         FileName = xEl.Attributes["FileName"]?.Value ?? string.Empty,
+                        IconPath = xEl.Attributes["IconPath"]?.Value ?? string.Empty,
                         Arguments = xEl.Attributes["Arguments"]?.Value ?? string.Empty
                     };
 

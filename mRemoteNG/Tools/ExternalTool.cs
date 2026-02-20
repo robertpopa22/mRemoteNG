@@ -121,6 +121,8 @@ namespace mRemoteNG.Tools
             set => SetField(ref _hotkey, value, nameof(Hotkey));
         }
 
+        public string IconPath { get; set; } = string.Empty;
+
         /// <summary>
         /// Tracks the process started by <see cref="StartForAutoRun"/> so it can be
         /// terminated on shutdown when <see cref="StopOnShutdown"/> is enabled.
@@ -130,7 +132,18 @@ namespace mRemoteNG.Tools
 
         public ConnectionInfo ConnectionInfo { get; set; } = new ConnectionInfo(); // Initialize to avoid CS8618
 
-        public Icon Icon => File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) ?? Properties.Resources.mRemoteNG_Icon : Properties.Resources.mRemoteNG_Icon;
+        public Icon Icon
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(IconPath) && File.Exists(IconPath))
+                {
+                    return MiscTools.GetIconFromFile(IconPath) ?? Properties.Resources.mRemoteNG_Icon;
+                }
+
+                return File.Exists(FileName) ? MiscTools.GetIconFromFile(FileName) ?? Properties.Resources.mRemoteNG_Icon : Properties.Resources.mRemoteNG_Icon;
+            }
+        }
 
         public Image Image => Icon?.ToBitmap() ?? Properties.Resources.mRemoteNG_Icon.ToBitmap();
 

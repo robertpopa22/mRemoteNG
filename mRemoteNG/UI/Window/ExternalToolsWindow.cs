@@ -78,6 +78,7 @@ namespace mRemoteNG.UI.Window
 
             DisplayNameLabel.Text = Language.DisplayName;
             FilenameLabel.Text = Language.Filename;
+            IconPathLabel.Text = "Icon Path:";
             ArgumentsLabel.Text = Language.Arguments;
             WorkingDirLabel.Text = Language.WorkingDirectory;
             OptionsLabel.Text = Language.Options;
@@ -144,6 +145,7 @@ namespace mRemoteNG.UI.Window
 
             DisplayNameTextBox.Text = selectedTool?.DisplayName;
             FilenameTextBox.Text = selectedTool?.FileName;
+            IconPathTextBox.Text = selectedTool?.IconPath;
             ArgumentsCheckBox.Text = selectedTool?.Arguments;
             WorkingDirTextBox.Text = selectedTool?.WorkingDir;
             WaitForExitCheckBox.Checked = selectedTool?.WaitForExit ?? false;
@@ -314,6 +316,7 @@ namespace mRemoteNG.UI.Window
             {
                 selectedTool.DisplayName = DisplayNameTextBox.Text;
                 selectedTool.FileName = FilenameTextBox.Text;
+                selectedTool.IconPath = IconPathTextBox.Text;
                 selectedTool.Arguments = ArgumentsCheckBox.Text;
                 selectedTool.WorkingDir = WorkingDirTextBox.Text;
                 selectedTool.WaitForExit = WaitForExitCheckBox.Checked;
@@ -350,6 +353,28 @@ namespace mRemoteNG.UI.Window
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("UI.Window.ExternalTools.BrowseButton_Click() failed.",
+                                                             ex);
+            }
+        }
+
+        private void BrowseIconButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog browseDialog = new())
+                {
+                    browseDialog.Filter = "Icons|*.ico;*.exe;*.dll|All files|*.*";
+                    if (browseDialog.ShowDialog() != DialogResult.OK)
+                        return;
+                    ExternalTool? selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
+                    if (selectedItem == null)
+                        return;
+                    selectedItem.IconPath = browseDialog.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("UI.Window.ExternalTools.BrowseIconButton_Click() failed.",
                                                              ex);
             }
         }

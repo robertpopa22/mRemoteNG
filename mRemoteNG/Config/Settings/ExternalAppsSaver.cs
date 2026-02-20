@@ -53,6 +53,7 @@ namespace mRemoteNG.Config.Settings
                     xmlTextWriter.WriteStartElement("App");
                     xmlTextWriter.WriteAttributeString("DisplayName", "", extA.DisplayName);
                     xmlTextWriter.WriteAttributeString("FileName", "", extA.FileName);
+                    xmlTextWriter.WriteAttributeString("IconPath", "", extA.IconPath);
                     xmlTextWriter.WriteAttributeString("Arguments", "", extA.Arguments);
                     xmlTextWriter.WriteAttributeString("WorkingDir", "", extA.WorkingDir);
                     xmlTextWriter.WriteAttributeString("WaitForExit", "", Convert.ToString(extA.WaitForExit));
@@ -100,12 +101,13 @@ namespace mRemoteNG.Config.Settings
                     foreach (ExternalTool extA in externalTools)
                     {
                         cmd = dbConnector.DbCommand(
-                            "INSERT INTO tblExternalTools (DisplayName, FileName, Arguments, WorkingDir, WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, Hotkey) " +
-                            "VALUES (@DisplayName, @FileName, @Arguments, @WorkingDir, @WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown, @Hotkey)");
+                            "INSERT INTO tblExternalTools (DisplayName, FileName, IconPath, Arguments, WorkingDir, WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, Hotkey) " +
+                            "VALUES (@DisplayName, @FileName, @IconPath, @Arguments, @WorkingDir, @WaitForExit, @TryIntegrate, @RunElevated, @ShowOnToolbar, @Category, @RunOnStartup, @StopOnShutdown, @Hotkey)");
                         cmd.Transaction = transaction;
 
                         AddParameter(cmd, "@DisplayName", extA.DisplayName);
                         AddParameter(cmd, "@FileName", extA.FileName);
+                        AddParameter(cmd, "@IconPath", extA.IconPath);
                         AddParameter(cmd, "@Arguments", extA.Arguments);
                         AddParameter(cmd, "@WorkingDir", extA.WorkingDir);
                         AddParameter(cmd, "@WaitForExit", extA.WaitForExit);

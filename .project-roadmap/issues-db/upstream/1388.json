@@ -10,12 +10,19 @@
   "created_at": "2019-04-03T08:23:32Z",
   "github_updated_at": "2021-09-25T23:18:18Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI would suggest an extra option to add the path to a custom icon file for external tools.\r\n\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the diff...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "Valid feature request to allow users to customize external tool icons for better visual distinction."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM43Q-fZ",
@@ -32,5 +39,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Valid feature request to allow users to customize external tool icons for better visual distinction.\nApproach: Add `IconPath` property to `ExternalTool` class. Update serialization in `ExternalAppsSaver` (XML/SQL) and `ExternalAppsLoader` (XML). Add UI control in `ExternalToolsWindow` to browse/select an icon file. Update `ExternalTool.Icon` property to return the custom icon if `IconPath` is set, otherwise fall back to the executable's icon."
 }
