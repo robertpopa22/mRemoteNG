@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             foreach (DataRow row in table.Rows)
             {
                 // ReSharper disable once SwitchStatementMissingSomeCases
-                switch ((string)row["Type"])
+                switch (row["Type"] as string)
                 {
                     case "Connection":
                         nodeList.Add(DeserializeConnectionInfo(row));
@@ -53,7 +53,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
             return nodeList;
         }
-        
+
         private ConnectionInfo DeserializeConnectionInfo(DataRow row)
         {
             string connectionId = row["ConstantID"] as string ?? Guid.NewGuid().ToString();
@@ -72,7 +72,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
         private void PopulateConnectionInfoFromDatarow(DataRow dataRow, ConnectionInfo connectionInfo)
         {
-            connectionInfo.Name = (string)dataRow["Name"];
+            connectionInfo.Name = dataRow["Name"] as string ?? "";
 
             // This throws a NPE - Parent is a connectionInfo object which will be null at this point.
             // The Parent object is linked properly later in CreateNodeHierarchy()
@@ -87,80 +87,99 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             //connectionInfo.UserViaAPI = (string)dataRow["UserViaAPI"];
             connectionInfo.AutomaticResize = MiscTools.GetBooleanValue(dataRow["AutomaticResize"]);
             connectionInfo.CacheBitmaps = MiscTools.GetBooleanValue(dataRow["CacheBitmaps"]);
-            connectionInfo.Colors = (RDPColors)Enum.Parse(typeof(RDPColors), (string)dataRow["Colors"]);
-            connectionInfo.Description = (string)dataRow["Description"];
+            if (!dataRow.IsNull("Colors"))
+                connectionInfo.Colors = (RDPColors)Enum.Parse(typeof(RDPColors), (string)dataRow["Colors"]);
+            connectionInfo.Description = dataRow["Description"] as string ?? "";
             connectionInfo.DisableCursorBlinking = MiscTools.GetBooleanValue(dataRow["DisableCursorBlinking"]);
             connectionInfo.DisableCursorShadow = MiscTools.GetBooleanValue(dataRow["DisableCursorShadow"]);
             connectionInfo.DisableFullWindowDrag = MiscTools.GetBooleanValue(dataRow["DisableFullWindowDrag"]);
             connectionInfo.DisableMenuAnimations = MiscTools.GetBooleanValue(dataRow["DisableMenuAnimations"]);
             connectionInfo.DisplayThemes = MiscTools.GetBooleanValue(dataRow["DisplayThemes"]);
             connectionInfo.DisplayWallpaper = MiscTools.GetBooleanValue(dataRow["DisplayWallpaper"]);
-            connectionInfo.Domain = (string)dataRow["Domain"];
+            connectionInfo.Domain = dataRow["Domain"] as string ?? "";
             connectionInfo.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["EnableDesktopComposition"]);
             connectionInfo.EnableFontSmoothing = MiscTools.GetBooleanValue(dataRow["EnableFontSmoothing"]);
-            connectionInfo.ExtApp = (string)dataRow["ExtApp"];
-            connectionInfo.Hostname = (string)dataRow["Hostname"];
-            connectionInfo.Icon = (string)dataRow["Icon"];
+            connectionInfo.ExtApp = dataRow["ExtApp"] as string ?? "";
+            connectionInfo.Hostname = dataRow["Hostname"] as string ?? "";
+            connectionInfo.Icon = dataRow["Icon"] as string ?? "";
             if (dataRow.Table.Columns.Contains("IsTemplate"))
                 connectionInfo.IsTemplate = MiscTools.GetBooleanValue(dataRow["IsTemplate"]);
-            connectionInfo.LoadBalanceInfo = (string)dataRow["LoadBalanceInfo"];
-            connectionInfo.MacAddress = (string)dataRow["MacAddress"];
-            connectionInfo.OpeningCommand = (string)dataRow["OpeningCommand"];
-            connectionInfo.OpeningCommand = (string)dataRow["OpeningCommand"];
-            connectionInfo.Panel = (string)dataRow["Panel"];
+            connectionInfo.LoadBalanceInfo = dataRow["LoadBalanceInfo"] as string ?? "";
+            connectionInfo.MacAddress = dataRow["MacAddress"] as string ?? "";
+            connectionInfo.OpeningCommand = dataRow["OpeningCommand"] as string ?? "";
+            connectionInfo.OpeningCommand = dataRow["OpeningCommand"] as string ?? "";
+            connectionInfo.Panel = dataRow["Panel"] as string ?? "";
             var pw = dataRow["Password"] as string;
             //connectionInfo.Password = DecryptValue(pw ?? "").ConvertToSecureString();
             connectionInfo.Password = DecryptValue(pw ?? "");
-            connectionInfo.Port = (int)dataRow["Port"];
-            connectionInfo.PostExtApp = (string)dataRow["PostExtApp"];
-            connectionInfo.PreExtApp = (string)dataRow["PreExtApp"];
-            connectionInfo.Protocol = (ProtocolType)Enum.Parse(typeof(ProtocolType), (string)dataRow["Protocol"]);
-            connectionInfo.PuttySession = (string)dataRow["PuttySession"];
-            connectionInfo.RDGatewayDomain = (string)dataRow["RDGatewayDomain"];
-            connectionInfo.RDGatewayHostname = (string)dataRow["RDGatewayHostname"];
-            connectionInfo.RDGatewayPassword = DecryptValue((string)dataRow["RDGatewayPassword"]);
-            connectionInfo.RDGatewayUsageMethod = (RDGatewayUsageMethod)Enum.Parse(typeof(RDGatewayUsageMethod), (string)dataRow["RDGatewayUsageMethod"]);
-            connectionInfo.RDGatewayUseConnectionCredentials = (RDGatewayUseConnectionCredentials)Enum.Parse(typeof(RDGatewayUseConnectionCredentials), (string)dataRow["RDGatewayUseConnectionCredentials"]);
-            connectionInfo.RDGatewayUsername = (string)dataRow["RDGatewayUsername"];
+            if (!dataRow.IsNull("Port"))
+                connectionInfo.Port = (int)dataRow["Port"];
+            connectionInfo.PostExtApp = dataRow["PostExtApp"] as string ?? "";
+            connectionInfo.PreExtApp = dataRow["PreExtApp"] as string ?? "";
+            if (!dataRow.IsNull("Protocol"))
+                connectionInfo.Protocol = (ProtocolType)Enum.Parse(typeof(ProtocolType), (string)dataRow["Protocol"]);
+            connectionInfo.PuttySession = dataRow["PuttySession"] as string ?? "";
+            connectionInfo.RDGatewayDomain = dataRow["RDGatewayDomain"] as string ?? "";
+            connectionInfo.RDGatewayHostname = dataRow["RDGatewayHostname"] as string ?? "";
+            connectionInfo.RDGatewayPassword = DecryptValue(dataRow["RDGatewayPassword"] as string ?? "");
+            if (!dataRow.IsNull("RDGatewayUsageMethod"))
+                connectionInfo.RDGatewayUsageMethod = (RDGatewayUsageMethod)Enum.Parse(typeof(RDGatewayUsageMethod), (string)dataRow["RDGatewayUsageMethod"]);
+            if (!dataRow.IsNull("RDGatewayUseConnectionCredentials"))
+                connectionInfo.RDGatewayUseConnectionCredentials = (RDGatewayUseConnectionCredentials)Enum.Parse(typeof(RDGatewayUseConnectionCredentials), (string)dataRow["RDGatewayUseConnectionCredentials"]);
+            connectionInfo.RDGatewayUsername = dataRow["RDGatewayUsername"] as string ?? "";
             connectionInfo.RDPAlertIdleTimeout = MiscTools.GetBooleanValue(dataRow["RDPAlertIdleTimeout"]);
-            connectionInfo.RDPAuthenticationLevel = (AuthenticationLevel)Enum.Parse(typeof(AuthenticationLevel), (string)dataRow["RDPAuthenticationLevel"]);
-            connectionInfo.RDPMinutesToIdleTimeout = (int)dataRow["RDPMinutesToIdleTimeout"];
-            connectionInfo.RDPStartProgram = (string)dataRow["StartProgram"];
-            connectionInfo.RDPStartProgramWorkDir = (string)dataRow["StartProgramWorkDir"];
+            if (!dataRow.IsNull("RDPAuthenticationLevel"))
+                connectionInfo.RDPAuthenticationLevel = (AuthenticationLevel)Enum.Parse(typeof(AuthenticationLevel), (string)dataRow["RDPAuthenticationLevel"]);
+            if (!dataRow.IsNull("RDPMinutesToIdleTimeout"))
+                connectionInfo.RDPMinutesToIdleTimeout = (int)dataRow["RDPMinutesToIdleTimeout"];
+            connectionInfo.RDPStartProgram = dataRow["StartProgram"] as string ?? "";
+            connectionInfo.RDPStartProgramWorkDir = dataRow["StartProgramWorkDir"] as string ?? "";
             connectionInfo.RedirectAudioCapture = MiscTools.GetBooleanValue(dataRow["RedirectAudioCapture"]);
             connectionInfo.RedirectClipboard = MiscTools.GetBooleanValue(dataRow["RedirectClipboard"]);
-            connectionInfo.RedirectDiskDrives = (RDPDiskDrives)Enum.Parse(typeof(RDPDiskDrives), (string)dataRow["RedirectDiskDrives"]);
-            connectionInfo.RedirectDiskDrivesCustom = (string)dataRow["RedirectDiskDrivesCustom"];
+            if (!dataRow.IsNull("RedirectDiskDrives"))
+                connectionInfo.RedirectDiskDrives = (RDPDiskDrives)Enum.Parse(typeof(RDPDiskDrives), (string)dataRow["RedirectDiskDrives"]);
+            connectionInfo.RedirectDiskDrivesCustom = dataRow["RedirectDiskDrivesCustom"] as string ?? "";
             connectionInfo.RedirectKeys = MiscTools.GetBooleanValue(dataRow["RedirectKeys"]);
             connectionInfo.RedirectPorts = MiscTools.GetBooleanValue(dataRow["RedirectPorts"]);
             connectionInfo.RedirectPrinters = MiscTools.GetBooleanValue(dataRow["RedirectPrinters"]);
             connectionInfo.RedirectSmartCards = MiscTools.GetBooleanValue(dataRow["RedirectSmartCards"]);
-            connectionInfo.RedirectSound = (RDPSounds)Enum.Parse(typeof(RDPSounds), (string)dataRow["RedirectSound"]);
-            connectionInfo.RenderingEngine = (HTTPBase.RenderingEngine)Enum.Parse(typeof(HTTPBase.RenderingEngine), (string)dataRow["RenderingEngine"]);
-            connectionInfo.Resolution = (RDPResolutions)Enum.Parse(typeof(RDPResolutions), (string)dataRow["Resolution"]);
-            connectionInfo.SoundQuality = (RDPSoundQuality)Enum.Parse(typeof(RDPSoundQuality), (string)dataRow["SoundQuality"]);
-            connectionInfo.SSHOptions = (string)dataRow["SSHOptions"];
-            connectionInfo.SSHTunnelConnectionName = (string)dataRow["SSHTunnelConnectionName"];
+            if (!dataRow.IsNull("RedirectSound"))
+                connectionInfo.RedirectSound = (RDPSounds)Enum.Parse(typeof(RDPSounds), (string)dataRow["RedirectSound"]);
+            if (!dataRow.IsNull("RenderingEngine"))
+                connectionInfo.RenderingEngine = (HTTPBase.RenderingEngine)Enum.Parse(typeof(HTTPBase.RenderingEngine), (string)dataRow["RenderingEngine"]);
+            if (!dataRow.IsNull("Resolution"))
+                connectionInfo.Resolution = (RDPResolutions)Enum.Parse(typeof(RDPResolutions), (string)dataRow["Resolution"]);
+            if (!dataRow.IsNull("SoundQuality"))
+                connectionInfo.SoundQuality = (RDPSoundQuality)Enum.Parse(typeof(RDPSoundQuality), (string)dataRow["SoundQuality"]);
+            connectionInfo.SSHOptions = dataRow["SSHOptions"] as string ?? "";
+            connectionInfo.SSHTunnelConnectionName = dataRow["SSHTunnelConnectionName"] as string ?? "";
             connectionInfo.UseConsoleSession = MiscTools.GetBooleanValue(dataRow["ConnectToConsole"]);
             connectionInfo.UseCredSsp = MiscTools.GetBooleanValue(dataRow["UseCredSsp"]);
             connectionInfo.UseEnhancedMode = MiscTools.GetBooleanValue(dataRow["UseEnhancedMode"]);
             connectionInfo.UseRCG = MiscTools.GetBooleanValue(dataRow["UseRCG"]);
             connectionInfo.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["UseRestrictedAdmin"]);
-            connectionInfo.UserField = (string)dataRow["UserField"];
-            connectionInfo.EnvironmentTags = dataRow.Table.Columns.Contains("EnvironmentTags") ? (string)dataRow["EnvironmentTags"] : "";
-            connectionInfo.Username = (string)dataRow["Username"];
+            connectionInfo.UserField = dataRow["UserField"] as string ?? "";
+            connectionInfo.EnvironmentTags = dataRow.Table.Columns.Contains("EnvironmentTags") ? (dataRow["EnvironmentTags"] as string ?? "") : "";
+            connectionInfo.Username = dataRow["Username"] as string ?? "";
             connectionInfo.UseVmId = MiscTools.GetBooleanValue(dataRow["UseVmId"]);
-            connectionInfo.VmId = (string)dataRow["VmId"];
-            connectionInfo.VNCAuthMode = (ProtocolVNC.AuthMode)Enum.Parse(typeof(ProtocolVNC.AuthMode), (string)dataRow["VNCAuthMode"]);
-            connectionInfo.VNCColors = (ProtocolVNC.Colors)Enum.Parse(typeof(ProtocolVNC.Colors), (string)dataRow["VNCColors"]);
-            connectionInfo.VNCCompression = (ProtocolVNC.Compression)Enum.Parse(typeof(ProtocolVNC.Compression), (string)dataRow["VNCCompression"]);
-            connectionInfo.VNCEncoding = (ProtocolVNC.Encoding)Enum.Parse(typeof(ProtocolVNC.Encoding), (string)dataRow["VNCEncoding"]);
-            connectionInfo.VNCProxyIP = (string)dataRow["VNCProxyIP"];
-            connectionInfo.VNCProxyPassword = DecryptValue((string)dataRow["VNCProxyPassword"]);
-            connectionInfo.VNCProxyPort = (int)dataRow["VNCProxyPort"];
-            connectionInfo.VNCProxyType = (ProtocolVNC.ProxyType)Enum.Parse(typeof(ProtocolVNC.ProxyType), (string)dataRow["VNCProxyType"]);
-            connectionInfo.VNCProxyUsername = (string)dataRow["VNCProxyUsername"];
-            connectionInfo.VNCSmartSizeMode = (ProtocolVNC.SmartSizeMode)Enum.Parse(typeof(ProtocolVNC.SmartSizeMode), (string)dataRow["VNCSmartSizeMode"]);
+            connectionInfo.VmId = dataRow["VmId"] as string ?? "";
+            if (!dataRow.IsNull("VNCAuthMode"))
+                connectionInfo.VNCAuthMode = (ProtocolVNC.AuthMode)Enum.Parse(typeof(ProtocolVNC.AuthMode), (string)dataRow["VNCAuthMode"]);
+            if (!dataRow.IsNull("VNCColors"))
+                connectionInfo.VNCColors = (ProtocolVNC.Colors)Enum.Parse(typeof(ProtocolVNC.Colors), (string)dataRow["VNCColors"]);
+            if (!dataRow.IsNull("VNCCompression"))
+                connectionInfo.VNCCompression = (ProtocolVNC.Compression)Enum.Parse(typeof(ProtocolVNC.Compression), (string)dataRow["VNCCompression"]);
+            if (!dataRow.IsNull("VNCEncoding"))
+                connectionInfo.VNCEncoding = (ProtocolVNC.Encoding)Enum.Parse(typeof(ProtocolVNC.Encoding), (string)dataRow["VNCEncoding"]);
+            connectionInfo.VNCProxyIP = dataRow["VNCProxyIP"] as string ?? "";
+            connectionInfo.VNCProxyPassword = DecryptValue(dataRow["VNCProxyPassword"] as string ?? "");
+            if (!dataRow.IsNull("VNCProxyPort"))
+                connectionInfo.VNCProxyPort = (int)dataRow["VNCProxyPort"];
+            if (!dataRow.IsNull("VNCProxyType"))
+                connectionInfo.VNCProxyType = (ProtocolVNC.ProxyType)Enum.Parse(typeof(ProtocolVNC.ProxyType), (string)dataRow["VNCProxyType"]);
+            connectionInfo.VNCProxyUsername = dataRow["VNCProxyUsername"] as string ?? "";
+            if (!dataRow.IsNull("VNCSmartSizeMode"))
+                connectionInfo.VNCSmartSizeMode = (ProtocolVNC.SmartSizeMode)Enum.Parse(typeof(ProtocolVNC.SmartSizeMode), (string)dataRow["VNCSmartSizeMode"]);
             connectionInfo.VNCViewOnly = MiscTools.GetBooleanValue(dataRow["VNCViewOnly"]);
             connectionInfo.VNCClipboardRedirect = dataRow.Table.Columns.Contains("VNCClipboardRedirect")
                 ? MiscTools.GetBooleanValue(dataRow["VNCClipboardRedirect"])
@@ -278,7 +297,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
             foreach (DataRow row in dataTable.Rows)
             {
-                string id = (string)row["ConstantID"];
+                string id = row["ConstantID"] as string ?? "";
+                if (string.IsNullOrEmpty(id))
+                    continue;
 
                 // Track every connection ID from the database so we can distinguish
                 // user-deleted connections from connections added by other users (#1424).
@@ -286,7 +307,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
                 if (!nodeById.TryGetValue(id, out ConnectionInfo? connectionInfo))
                     continue;
-                string parentId = (string)row["ParentID"];
+                string parentId = row["ParentID"] as string ?? "0";
                 if (parentId == "0" || !nodeById.TryGetValue(parentId, out ConnectionInfo? parentNode))
                     rootNode.AddChild(connectionInfo);
                 else
