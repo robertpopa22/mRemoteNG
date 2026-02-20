@@ -8,6 +8,7 @@ using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Connection.Protocol.VNC;
 using mRemoteNG.Properties;
+using mRemoteNG.Tree;
 using mRemoteNG.UI.TaskDialog;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
@@ -31,6 +32,7 @@ namespace mRemoteNG.UI.Tabs
         public ConnectionInfo? TrackedConnectionInfo { get; private set; }
 
         private Label? _closedStateLabel;
+        private Panel? _closedStatePanel;
 
         public ConnectionTab()
         {
@@ -68,24 +70,92 @@ namespace mRemoteNG.UI.Tabs
 
         public void ShowClosedState()
         {
-            _closedStateLabel ??= new Label
+            HideClosedState();
+
+            ConnectionInfo? info = TrackedConnectionInfo;
+            if (info == null)
             {
-                Dock = DockStyle.Fill,
-                TextAlign = ContentAlignment.MiddleCenter
-            };
-
-            if (!Controls.Contains(_closedStateLabel))
+                // Fallback: simple label when no connection info is available
+                _closedStateLabel ??= new Label
+                {
+                    Dock = DockStyle.Fill,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                _closedStateLabel.Text = Language.ConnenctionCloseEvent;
                 Controls.Add(_closedStateLabel);
+                _closedStateLabel.BringToFront();
+                return;
+            }
 
-            _closedStateLabel.Text = Language.ConnenctionCloseEvent;
-            _closedStateLabel.BringToFront();
+            _closedStatePanel = BuildClosedStatePanel(info);
+            Controls.Add(_closedStatePanel);
+            _closedStatePanel.BringToFront();
         }
 
         public void HideClosedState()
         {
-            if (_closedStateLabel == null) return;
-            if (Controls.Contains(_closedStateLabel))
+            if (_closedStateLabel != null && Controls.Contains(_closedStateLabel))
                 Controls.Remove(_closedStateLabel);
+
+            if (_closedStatePanel != null)
+            {
+                if (Controls.Contains(_closedStatePanel))
+                    Controls.Remove(_closedStatePanel);
+                _closedStatePanel.Dispose();
+                _closedStatePanel = null;
+            }
+        }
+
+        private Panel BuildClosedStatePanel(ConnectionInfo info)
+        {
+            Panel outer = new() { Dock = DockStyle.Fill };
+
+            Label lblName = new()
+            {
+                Text = info.Name,
+                Font = new Font(Font.FontFamily, 14f, FontStyle.Bold),
+                AutoSize = true,
+            };
+
+            string details = $"{info.Protocol}   {info.Hostname}:{info.Port}";
+            if (!string.IsNullOrWhiteSpace(info.Description))
+                details += $"\n{info.Description}";
+
+            Label lblDetails = new()
+            {
+                Text = details,
+                Font = new Font(Font.FontFamily, 9.5f),
+                AutoSize = true,
+                ForeColor = SystemColors.GrayText,
+            };
+
+            Button btnConnect = new()
+            {
+                Text = Language.Connect,
+                AutoSize = true,
+                Padding = new Padding(24, 4, 24, 4),
+            };
+            btnConnect.Click += (_, _) => Runtime.ConnectionInitiator.OpenConnection(info);
+
+            outer.Controls.AddRange([lblName, lblDetails, btnConnect]);
+
+            void CenterControls(object? s, EventArgs a)
+            {
+                const int gap = 8;
+                int totalH = lblName.Height + gap + lblDetails.Height + gap * 2 + btnConnect.Height;
+                int y = Math.Max(10, (outer.Height - totalH) / 2);
+                int cx = outer.Width / 2;
+
+                lblName.Location = new Point(cx - lblName.Width / 2, y);
+                y += lblName.Height + gap;
+                lblDetails.Location = new Point(cx - lblDetails.Width / 2, y);
+                y += lblDetails.Height + gap * 2;
+                btnConnect.Location = new Point(cx - btnConnect.Width / 2, y);
+            }
+
+            outer.Resize += CenterControls;
+            outer.Layout += CenterControls;
+            return outer;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

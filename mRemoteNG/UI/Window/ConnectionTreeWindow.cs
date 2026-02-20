@@ -14,6 +14,8 @@ using mRemoteNG.Tree;
 using mRemoteNG.Tree.ClickHandlers;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.UI.Controls.ConnectionTree;
+using mRemoteNG.UI.Panels;
+using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.TaskDialog;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
@@ -136,6 +138,7 @@ namespace mRemoteNG.UI.Window
                     Application.ProductName ?? "", prompt, "", ETaskDialogButtons.YesNo, ESysIcons.Question));
             ConnectionTree.KeyDown += TvConnections_KeyDown;
             ConnectionTree.KeyPress += TvConnections_KeyPress;
+            ConnectionTree.SelectionChanged += OnTreeSelectionChangedShowPreview;
             SetTreePostSetupActions();
             SetConnectionTreeClickHandlers();
             Runtime.ConnectionsService.ConnectionsLoaded += ConnectionsServiceOnConnectionsLoaded;
@@ -182,6 +185,45 @@ namespace mRemoteNG.UI.Window
             ConnectionTree.SingleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = singleClickHandlers };
             ConnectionTree.DoubleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = doubleClickHandlers };
             ConnectionTree.MiddleClickHandler = new TreeNodeCompositeClickHandler { ClickHandlers = middleClickHandlers };
+        }
+
+        private void OnTreeSelectionChangedShowPreview(object sender, EventArgs e)
+        {
+            try
+            {
+                ConnectionInfo? selected = ConnectionTree.SelectedNode;
+                if (selected == null) return;
+
+                TreeNodeType nodeType = selected.GetTreeNodeType();
+                if (nodeType != TreeNodeType.Connection && nodeType != TreeNodeType.PuttySession)
+                    return;
+
+                // If the connection has open sessions, let existing SwitchToConnection handling cover it
+                if (selected.OpenConnections.Count > 0)
+                    return;
+
+                // Already showing a tab for this connection somewhere — just focus it
+                if (Runtime.ConnectionInitiator.SwitchToOpenConnection(selected))
+                    return;
+
+                // Determine target panel
+                string panelName = !string.IsNullOrEmpty(selected.Panel) ? selected.Panel : Language.NewPanel;
+
+                ConnectionWindow? connectionForm = Runtime.WindowList.FromString(panelName) as ConnectionWindow;
+                if (connectionForm == null)
+                {
+                    connectionForm = new PanelAdder().AddPanel(panelName, showImmediately: true);
+                    if (connectionForm == null) return;
+                }
+
+                ConnectionTab? tab = connectionForm.GetOrAddConnectionTab(selected, switchToConnection: true);
+                tab?.ShowClosedState();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(
+                    "OnTreeSelectionChangedShowPreview (UI.Window.ConnectionTreeWindow) failed", ex);
+            }
         }
 
         private void ConnectionsServiceOnConnectionsLoaded(object o, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)
