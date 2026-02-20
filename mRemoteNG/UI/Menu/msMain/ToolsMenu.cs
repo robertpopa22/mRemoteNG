@@ -16,6 +16,7 @@ namespace mRemoteNG.UI.Menu
         private ToolStripMenuItem _mMenToolsSshTransfer = null!;
         private ToolStripMenuItem _mMenToolsExternalApps = null!;
         private ToolStripMenuItem _mMenToolsPortScan = null!;
+        private ToolStripMenuItem _mMenToolsConnectionTester = null!;
         private ToolStripMenuItem _mMenToolsUvncsc = null!;
         private ToolStripMenuItem _mMenToolsFindInSession = null!;
         private ToolStripMenuItem _mMenToolsQuickImport = null!;
@@ -34,6 +35,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsUvncsc = new ToolStripMenuItem();
             _mMenToolsExternalApps = new ToolStripMenuItem();
             _mMenToolsPortScan = new ToolStripMenuItem();
+            _mMenToolsConnectionTester = new ToolStripMenuItem();
             _mMenToolsFindInSession = new ToolStripMenuItem();
             _mMenToolsQuickImport = new ToolStripMenuItem();
             // 
@@ -45,6 +47,7 @@ namespace mRemoteNG.UI.Menu
                 _mMenToolsUvncsc,
                 _mMenToolsExternalApps,
                 _mMenToolsPortScan,
+                _mMenToolsConnectionTester,
                 _mMenToolsFindInSession,
                 _mMenToolsQuickImport
             });
@@ -81,12 +84,19 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsPortScan.Image = Properties.Resources.SearchAndApps_16x;
             _mMenToolsPortScan.Name = "mMenToolsPortScan";
             _mMenToolsPortScan.Size = new System.Drawing.Size(184, 22);
-            _mMenToolsPortScan.Text = Language.PortScanMenuItem;
-            _mMenToolsPortScan.Click += mMenToolsPortScan_Click;
-            // 
-            // mMenToolsFindInSession
-            // 
-            _mMenToolsFindInSession.Name = "mMenToolsFindInSession";
+                        _mMenToolsPortScan.Text = Language.PortScanMenuItem;
+                        _mMenToolsPortScan.Click += mMenToolsPortScan_Click;
+                        //
+                        // mMenToolsConnectionTester
+                        //
+                        _mMenToolsConnectionTester.Image = Properties.Resources.SearchAndApps_16x;
+                        _mMenToolsConnectionTester.Name = "mMenToolsConnectionTester";
+                        _mMenToolsConnectionTester.Size = new System.Drawing.Size(184, 22);
+                        _mMenToolsConnectionTester.Text = "Connection Tester";
+                        _mMenToolsConnectionTester.Click += mMenToolsConnectionTester_Click;
+                        // 
+                        // mMenToolsFindInSession
+                        //              _mMenToolsFindInSession.Name = "mMenToolsFindInSession";
             _mMenToolsFindInSession.Size = new System.Drawing.Size(184, 22);
             _mMenToolsFindInSession.Text = "Find in Session";
             _mMenToolsFindInSession.Click += mMenToolsFindInSession_Click;
@@ -105,6 +115,7 @@ namespace mRemoteNG.UI.Menu
             _mMenToolsSshTransfer.Text = Language.SshFileTransferMenuItem;
             _mMenToolsExternalApps.Text = Language.ExternalToolsMenuItem;
             _mMenToolsPortScan.Text = Language.PortScanMenuItem;
+            _mMenToolsConnectionTester.Text = "Connection Tester";
             _mMenToolsFindInSession.Text = "Find in Session";
             _mMenToolsQuickImport.Text = "Quick Import";
         }
@@ -129,6 +140,11 @@ namespace mRemoteNG.UI.Menu
         private void mMenToolsPortScan_Click(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.PortScan);
+        }
+
+        private void mMenToolsConnectionTester_Click(object sender, EventArgs e)
+        {
+            AppWindows.Show(WindowType.ConnectionTester);
         }
 
         private void mMenToolsOptions_Click(object sender, EventArgs e)

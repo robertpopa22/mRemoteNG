@@ -12,6 +12,7 @@
         ActiveDirectoryImport = 11,
         ExternalApps = 13,
         PortScan = 14,
+        ConnectionTester = 15,
         UltraVNCSC = 16,
         KeyboardShortcuts = 17,
     }
