@@ -21,6 +21,7 @@ Show the current status of the IIS Orchestrator (running or last completed run).
    - **Commits**: List of commits made this session (hash + message)
    - **Errors**: Any errors encountered (file, step, description)
    - **Duration**: How long the session has been running
+   - **Report time**: Current date and time when the status is generated
 
 4. If the status file doesn't exist, inform the user that no orchestrator run has been recorded yet.
 
@@ -29,7 +30,7 @@ Show the current status of the IIS Orchestrator (running or last completed run).
 Present the status in a clean, readable format. Example:
 
 ```
-IIS Orchestrator Status: RUNNING
+IIS Orchestrator Status: RUNNING                          Report: 2026-02-19 21:45
 Phase: warnings | Task: fixing ConnectionInfo.cs (15 warnings)
 
 Warnings: 2302 → 2086 (-216 fixed, 9.4%)

@@ -139,6 +139,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("UserField8", connectionInfo.UserField8 ?? string.Empty));
             element.Add(new XAttribute("UserField9", connectionInfo.UserField9 ?? string.Empty));
             element.Add(new XAttribute("UserField10", connectionInfo.UserField10 ?? string.Empty));
+            element.Add(new XAttribute("Notes", connectionInfo.Notes ?? string.Empty));
             element.Add(new XAttribute("EnvironmentTags", connectionInfo.EnvironmentTags ?? string.Empty));
             element.Add(new XAttribute("Favorite", connectionInfo.Favorite));
             element.Add(new XAttribute("RetryOnFirstConnect", connectionInfo.RetryOnFirstConnect.ToString().ToLowerInvariant()));

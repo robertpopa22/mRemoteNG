@@ -118,6 +118,7 @@ namespace mRemoteNG.Connection
         private string _userField8 = string.Empty;
         private string _userField9 = string.Empty;
         private string _userField10 = string.Empty;
+        private string _notes = string.Empty;
         private string _environmentTags = "";
         private string _rdpStartProgram = string.Empty;
         private string _rdpStartProgramWorkDir = string.Empty;
@@ -1149,6 +1150,15 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("UserField10", _userField10);
             set => SetField(ref _userField10, value, "UserField10");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
+         DisplayName("Notes"),
+         Description("Free-form multiline notes for this connection.")]
+        public virtual string Notes
+        {
+            get => GetPropertyValue("Notes", _notes);
+            set => SetField(ref _notes, value, "Notes");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),

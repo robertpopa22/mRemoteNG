@@ -522,6 +522,7 @@ namespace mRemoteNG.Connection
             UserField8 = string.Empty;
             UserField9 = string.Empty;
             UserField10 = string.Empty;
+            Notes = string.Empty;
             EnvironmentTags = Settings.Default.ConDefaultEnvironmentTags;
             Favorite = Settings.Default.ConDefaultFavorite;
             RetryOnFirstConnect = Settings.Default.ConDefaultRetryOnFirstConnect;

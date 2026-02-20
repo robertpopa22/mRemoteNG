@@ -577,6 +577,12 @@ namespace mRemoteNG.Connection
         public bool UserField10 { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 8),
+         DisplayName("Inherit Notes"),
+         Description("Inherit the Notes property from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool Notes { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 8),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.EnvironmentTags)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionEnvironmentTags)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
