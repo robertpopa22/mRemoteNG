@@ -1080,6 +1080,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     return;
                 }
 
+                // Determine sizing mode: use the new RDPSizingMode property,
+                // but legacy SmartSize/SmartSizeAspect Resolution values still override.
+                var sizingMode = connectionInfo.RDPSizingMode;
+                bool isLegacySmartSize = connectionInfo.Resolution == RDPResolutions.SmartSize;
+                bool isLegacySmartSizeAspect = connectionInfo.Resolution == RDPResolutions.SmartSizeAspect;
+
+                if (isLegacySmartSize)
+                    sizingMode = RDPSizingMode.SmartSize;
+                else if (isLegacySmartSizeAspect)
+                    sizingMode = RDPSizingMode.SmartSizeAspect;
+
+                bool enableSmartSizing = sizingMode == RDPSizingMode.SmartSize ||
+                                         sizingMode == RDPSizingMode.SmartSizeAspect;
+
                 switch (InterfaceControl.Info.Resolution)
                 {
                     case RDPResolutions.FitToWindow:
@@ -1089,13 +1103,12 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             _rdpClient.DesktopWidth = InterfaceControl.Size.Width;
                             _rdpClient.DesktopHeight = InterfaceControl.Size.Height;
 
-                            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSize ||
-                                InterfaceControl.Info.Resolution == RDPResolutions.SmartSizeAspect)
+                            if (enableSmartSizing)
                             {
                                 _rdpClient.AdvancedSettings2.SmartSizing = true;
                             }
 
-                            if (InterfaceControl.Info.Resolution == RDPResolutions.SmartSizeAspect)
+                            if (sizingMode == RDPSizingMode.SmartSizeAspect)
                             {
                                 ApplySmartSizeAspect();
                             }
@@ -1116,13 +1129,23 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             {
                                 _rdpClient.DesktopWidth = w;
                                 _rdpClient.DesktopHeight = h;
-                                _rdpClient.AdvancedSettings2.SmartSizing = true;
                             }
                             else
                             {
                                 _rdpClient.DesktopWidth = InterfaceControl.Size.Width;
                                 _rdpClient.DesktopHeight = InterfaceControl.Size.Height;
                             }
+
+                            if (enableSmartSizing)
+                            {
+                                _rdpClient.AdvancedSettings2.SmartSizing = true;
+                            }
+
+                            if (sizingMode == RDPSizingMode.SmartSizeAspect)
+                            {
+                                ApplySmartSizeAspect();
+                            }
+
                             break;
                         }
                     default:
@@ -1130,7 +1153,17 @@ namespace mRemoteNG.Connection.Protocol.RDP
                             System.Drawing.Rectangle resolution = connectionInfo.Resolution.GetResolutionRectangle();
                             _rdpClient.DesktopWidth = resolution.Width;
                             _rdpClient.DesktopHeight = resolution.Height;
-                            _rdpClient.AdvancedSettings2.SmartSizing = true;
+
+                            if (enableSmartSizing)
+                            {
+                                _rdpClient.AdvancedSettings2.SmartSizing = true;
+                            }
+
+                            if (sizingMode == RDPSizingMode.SmartSizeAspect)
+                            {
+                                ApplySmartSizeAspect();
+                            }
+
                             break;
                         }
                 }

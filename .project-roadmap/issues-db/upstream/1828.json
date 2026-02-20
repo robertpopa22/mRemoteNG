@@ -11,12 +11,19 @@
   "created_at": "2020-08-07T07:43:51Z",
   "github_updated_at": "2021-06-27T18:47:42Z",
   "body_snippet": "I sometimes work on a laptop with very small screen and RDP to certain computer for operations that require more \"screen space\".\r\n\r\nSo normally I do it with a RDP setting files by setting the resolution to higher than my laptop (1920 x1080) and enable smart sizing - which allow more \"working space\" without having to use the scroll bars to see parts of the screen in the RDP session.\r\n\r\nThe specific parameters are as follows:\r\n\r\ndesktopwidth:i:1920\r\ndesktopheight:i:1080\r\nsmart sizing:i:1\r\n\r\nI know...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "Feature request to allow SmartSize combined with a specific resolution instead of mutually exclusive dropdown — has community support with 3 users requesting it"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY3NDYxNjQzNg==",
@@ -51,5 +58,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Feature request to allow SmartSize combined with a specific resolution instead of mutually exclusive dropdown — has community support with 3 users requesting it\nApproach: Separate SmartSize/SmartSizeAspect from RDPResolutions enum into a new RDPSizingMode property on AbstractConnectionRecord, allowing users to independently set resolution + sizing mode; update all serializers for backward-compatible migration"
 }

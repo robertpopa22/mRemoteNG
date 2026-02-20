@@ -353,6 +353,12 @@ namespace mRemoteNG.Connection
         public bool Resolution { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
+         DisplayName("Inherit Sizing Mode"),
+         Description("Inherit the RDP sizing mode from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool RDPSizingMode { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
          DisplayName("Inherit Resolution Width"),
          Description("Inherit the custom resolution width from the parent."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

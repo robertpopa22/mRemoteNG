@@ -79,6 +79,7 @@ namespace mRemoteNG.Connection
 
 
         private RDPResolutions _resolution = default;
+        private RDPSizingMode _rdpSizingMode = default;
         private int _resolutionWidth;
         private int _resolutionHeight;
         private RDPDesktopScaleFactor _desktopScaleFactor = default;
@@ -773,6 +774,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Resolution", _resolution);
             set => SetField(ref _resolution, value, "Resolution");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
+         DisplayName("Sizing Mode"),
+         Description("Controls how the remote desktop is scaled to fit the panel. SmartSize stretches to fill; SmartSize (Aspect Ratio) preserves aspect ratio."),
+         TypeConverter(typeof(MiscTools.EnumTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public RDPSizingMode RDPSizingMode
+        {
+            get => GetPropertyValue("RDPSizingMode", _rdpSizingMode);
+            set => SetField(ref _rdpSizingMode, value, "RDPSizingMode");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
