@@ -788,9 +788,23 @@ namespace mRemoteNG.UI.Window
                             _documentHandlersAdded = false;
                         }
 
-                        DockHandler.FloatPane.FloatWindow.ResizeBegin += Connection_ResizeBegin;
-                        DockHandler.FloatPane.FloatWindow.ResizeEnd += Connection_ResizeEnd;
+                        var floatWindow = DockHandler.FloatPane.FloatWindow;
+                        floatWindow.ResizeBegin += Connection_ResizeBegin;
+                        floatWindow.ResizeEnd += Connection_ResizeEnd;
                         _floatHandlersAdded = true;
+
+                        // Set a reasonable default size (75% of primary screen working area)
+                        // instead of DockPanelSuite's small default
+                        var workingArea = Screen.PrimaryScreen?.WorkingArea
+                                          ?? new Rectangle(0, 0, 1920, 1080);
+                        int width = (int)(workingArea.Width * 0.75);
+                        int height = (int)(workingArea.Height * 0.75);
+                        floatWindow.Size = new Size(width, height);
+
+                        // Center on the working area
+                        floatWindow.Location = new Point(
+                            workingArea.X + (workingArea.Width - width) / 2,
+                            workingArea.Y + (workingArea.Height - height) / 2);
                         break;
                     }
                 case DockState.Document:
