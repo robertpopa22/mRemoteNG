@@ -56,6 +56,16 @@ namespace mRemoteNG.UI.Window
                 }
             }
 
+            // Handle Ctrl+F to find in session output (SSH/Telnet)
+            if (keyData == (Keys.Control | Keys.F))
+            {
+                if (this is ConnectionWindow connectionWindow)
+                {
+                    connectionWindow.FindInSession();
+                    return true;
+                }
+            }
+
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

@@ -11,8 +11,8 @@
     "created_at":  "2019-04-07T04:57:01Z",
     "github_updated_at":  "2026-02-08T18:13:09Z",
     "body_snippet":  "## Expected Behavior\r\nThe confCons.xml file should not be empty after a crash\r\n\r\n## Current Behavior\r\nconfCons.xml is empty after a system crash\r\n\r\n## Possible Solution\r\nA workaround is to replace confCons.xml (which is empty) with conCons.xml.*.backup file. Choose the  conCons.xml.*.backup such that:\r\n  It is the latest among all the options you have\r\n  It is not empty\r\nFile location in my machine: C:\\Users\\\u003cusername\u003e\\AppData\\Roaming\\mRemoteNG\\\r\n\r\n## Steps to Reproduce (for bugs)\r\n\r\n1. Open mRe...",
-    "our_status":  "new",
-    "priority":  null,
+    "our_status":  "triaged",
+    "priority":  "P2-bug",
     "target_release":  null,
     "our_branch":  null,
     "our_pr":  null,
@@ -80,5 +80,5 @@
     "needs_action":  true,
     "waiting_for_us":  true,
     "last_synced":  "2026-02-10T10:15:26Z",
-    "notes":  ""
+    "notes":  "AI triage (claude-retry): ConfCons.xml empty after system crash — data loss risk, but reporter confirmed can be closed (moved to Mac/Linux). Underlying atomic-write issue may still exist but no active reporter to verify."
 }

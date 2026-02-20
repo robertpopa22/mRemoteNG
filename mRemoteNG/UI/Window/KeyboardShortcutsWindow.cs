@@ -82,6 +82,7 @@ namespace mRemoteNG.UI.Window
                 ("Ctrl+Shift+Tab", "Previous connection tab"),
                 ("Ctrl+PageDown", "Next connection tab"),
                 ("Ctrl+PageUp", "Previous connection tab"),
+                ("Ctrl+F", "Find in session output (SSH/Telnet)"),
                 ("F11", "Toggle fullscreen"),
                 ("F1", "Help contents"),
                 ("Alt+F4", "Exit application"),

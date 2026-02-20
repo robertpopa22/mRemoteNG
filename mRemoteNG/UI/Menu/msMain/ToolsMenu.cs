@@ -94,11 +94,12 @@ namespace mRemoteNG.UI.Menu
                         _mMenToolsConnectionTester.Size = new System.Drawing.Size(184, 22);
                         _mMenToolsConnectionTester.Text = "Connection Tester";
                         _mMenToolsConnectionTester.Click += mMenToolsConnectionTester_Click;
-                        // 
+                        //
                         // mMenToolsFindInSession
                         //              _mMenToolsFindInSession.Name = "mMenToolsFindInSession";
             _mMenToolsFindInSession.Size = new System.Drawing.Size(184, 22);
             _mMenToolsFindInSession.Text = "Find in Session";
+            _mMenToolsFindInSession.ShortcutKeyDisplayString = "Ctrl+F";
             _mMenToolsFindInSession.Click += mMenToolsFindInSession_Click;
             // 
             // mMenToolsQuickImport

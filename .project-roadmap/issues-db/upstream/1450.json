@@ -10,8 +10,8 @@
   "created_at": "2019-05-15T14:12:18Z",
   "github_updated_at": "2024-01-19T11:22:06Z",
   "body_snippet": "As the title suggests, after upgrading to 1.77 and now after using the latest CI build 1.77.0.41252, KeePass AutoType no longer works. Unsure if this is a focus issue as the window focus does change to mRemoteNG but whatever credentials that is being passed along does not get \"typed\" in to any text field within the RDP session.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Launch KeePass & connect to a RDP session\r\n2. Launch notepad for example, or select any text field that requires input\r\n3. Select ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -131,5 +131,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude-retry): KeePass AutoType fails because RDP tab does not receive focus on Alt+Tab — high-impact focus regression since v1.77, 12 confirmations. Root cause is same focus issue as #1408/#1535."
 }

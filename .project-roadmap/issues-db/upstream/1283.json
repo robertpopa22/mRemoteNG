@@ -12,8 +12,8 @@
   "created_at": "2019-01-21T20:37:56Z",
   "github_updated_at": "2021-06-28T10:49:26Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nI had mremoteng 1.76.11 installed, connected to a database and working fine. it was then pointed out to me that it was saving the passwords in plain text. \r\nSo I upgraded to 1.76.13 and I get the message 'Object reference not set to an instance of an object'.\r\nI have tried to uninstall mremote, delete the folders in AppData and run a registry cleaner and then reinstalling.\r\n\r\n## Expected Behavior\r\nmremote should connect to th...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P4-debt",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -34,5 +34,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude-retry): NullReferenceException on upgrade from 1.76.11 to 1.76.13 with SQL DB — ancient version-specific bug (2019), no repro steps for current codebase, likely resolved by .NET 10 migration."
 }
