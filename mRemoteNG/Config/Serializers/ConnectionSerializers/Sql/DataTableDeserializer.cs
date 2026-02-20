@@ -85,7 +85,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             //connectionInfo.RDGatewayExternalCredentialProvider = (ExternalCredentialProvider)Enum.Parse(typeof(ExternalCredentialProvider), (string)dataRow["RDGatewayExternalCredentialProvider"]);
             //connectionInfo.RDGatewayUserViaAPI = (string)dataRow["RDGatewayUserViaAPI"];
             //connectionInfo.UserViaAPI = (string)dataRow["UserViaAPI"];
-            connectionInfo.AutomaticResize = MiscTools.GetBooleanValue(dataRow["AutomaticResize"]);
+            if (dataRow.Table.Columns.Contains("AutomaticResize"))
+                connectionInfo.AutomaticResize = MiscTools.GetBooleanValue(dataRow["AutomaticResize"]);
             connectionInfo.CacheBitmaps = MiscTools.GetBooleanValue(dataRow["CacheBitmaps"]);
             if (!dataRow.IsNull("Colors"))
                 connectionInfo.Colors = (RDPColors)Enum.Parse(typeof(RDPColors), (string)dataRow["Colors"]);
@@ -100,14 +101,17 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.DisplayThemes = MiscTools.GetBooleanValue(dataRow["DisplayThemes"]);
             connectionInfo.DisplayWallpaper = MiscTools.GetBooleanValue(dataRow["DisplayWallpaper"]);
             connectionInfo.Domain = dataRow["Domain"] as string ?? "";
-            connectionInfo.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["EnableDesktopComposition"]);
-            connectionInfo.EnableFontSmoothing = MiscTools.GetBooleanValue(dataRow["EnableFontSmoothing"]);
+            if (dataRow.Table.Columns.Contains("EnableDesktopComposition"))
+                connectionInfo.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["EnableDesktopComposition"]);
+            if (dataRow.Table.Columns.Contains("EnableFontSmoothing"))
+                connectionInfo.EnableFontSmoothing = MiscTools.GetBooleanValue(dataRow["EnableFontSmoothing"]);
             connectionInfo.ExtApp = dataRow["ExtApp"] as string ?? "";
             connectionInfo.Hostname = dataRow["Hostname"] as string ?? "";
             connectionInfo.Icon = dataRow["Icon"] as string ?? "";
             if (dataRow.Table.Columns.Contains("IsTemplate"))
                 connectionInfo.IsTemplate = MiscTools.GetBooleanValue(dataRow["IsTemplate"]);
-            connectionInfo.LoadBalanceInfo = dataRow["LoadBalanceInfo"] as string ?? "";
+            if (dataRow.Table.Columns.Contains("LoadBalanceInfo"))
+                connectionInfo.LoadBalanceInfo = dataRow["LoadBalanceInfo"] as string ?? "";
             connectionInfo.MacAddress = dataRow["MacAddress"] as string ?? "";
             connectionInfo.OpeningCommand = dataRow["OpeningCommand"] as string ?? "";
             connectionInfo.OpeningCommand = dataRow["OpeningCommand"] as string ?? "";
@@ -130,18 +134,21 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             if (!dataRow.IsNull("RDGatewayUseConnectionCredentials"))
                 connectionInfo.RDGatewayUseConnectionCredentials = (RDGatewayUseConnectionCredentials)Enum.Parse(typeof(RDGatewayUseConnectionCredentials), (string)dataRow["RDGatewayUseConnectionCredentials"]);
             connectionInfo.RDGatewayUsername = dataRow["RDGatewayUsername"] as string ?? "";
-            connectionInfo.RDPAlertIdleTimeout = MiscTools.GetBooleanValue(dataRow["RDPAlertIdleTimeout"]);
+            if (dataRow.Table.Columns.Contains("RDPAlertIdleTimeout"))
+                connectionInfo.RDPAlertIdleTimeout = MiscTools.GetBooleanValue(dataRow["RDPAlertIdleTimeout"]);
             if (!dataRow.IsNull("RDPAuthenticationLevel"))
                 connectionInfo.RDPAuthenticationLevel = (AuthenticationLevel)Enum.Parse(typeof(AuthenticationLevel), (string)dataRow["RDPAuthenticationLevel"]);
-            if (!dataRow.IsNull("RDPMinutesToIdleTimeout"))
+            if (dataRow.Table.Columns.Contains("RDPMinutesToIdleTimeout") && !dataRow.IsNull("RDPMinutesToIdleTimeout"))
                 connectionInfo.RDPMinutesToIdleTimeout = (int)dataRow["RDPMinutesToIdleTimeout"];
             connectionInfo.RDPStartProgram = dataRow["StartProgram"] as string ?? "";
             connectionInfo.RDPStartProgramWorkDir = dataRow["StartProgramWorkDir"] as string ?? "";
             connectionInfo.RedirectAudioCapture = MiscTools.GetBooleanValue(dataRow["RedirectAudioCapture"]);
-            connectionInfo.RedirectClipboard = MiscTools.GetBooleanValue(dataRow["RedirectClipboard"]);
+            if (dataRow.Table.Columns.Contains("RedirectClipboard"))
+                connectionInfo.RedirectClipboard = MiscTools.GetBooleanValue(dataRow["RedirectClipboard"]);
             if (!dataRow.IsNull("RedirectDiskDrives"))
                 connectionInfo.RedirectDiskDrives = (RDPDiskDrives)Enum.Parse(typeof(RDPDiskDrives), (string)dataRow["RedirectDiskDrives"]);
-            connectionInfo.RedirectDiskDrivesCustom = dataRow["RedirectDiskDrivesCustom"] as string ?? "";
+            if (dataRow.Table.Columns.Contains("RedirectDiskDrivesCustom"))
+                connectionInfo.RedirectDiskDrivesCustom = dataRow["RedirectDiskDrivesCustom"] as string ?? "";
             connectionInfo.RedirectKeys = MiscTools.GetBooleanValue(dataRow["RedirectKeys"]);
             connectionInfo.RedirectPorts = MiscTools.GetBooleanValue(dataRow["RedirectPorts"]);
             connectionInfo.RedirectPrinters = MiscTools.GetBooleanValue(dataRow["RedirectPrinters"]);
@@ -152,20 +159,28 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 connectionInfo.RenderingEngine = (HTTPBase.RenderingEngine)Enum.Parse(typeof(HTTPBase.RenderingEngine), (string)dataRow["RenderingEngine"]);
             if (!dataRow.IsNull("Resolution"))
                 connectionInfo.Resolution = (RDPResolutions)Enum.Parse(typeof(RDPResolutions), (string)dataRow["Resolution"]);
-            if (!dataRow.IsNull("SoundQuality"))
+            if (dataRow.Table.Columns.Contains("SoundQuality") && !dataRow.IsNull("SoundQuality"))
                 connectionInfo.SoundQuality = (RDPSoundQuality)Enum.Parse(typeof(RDPSoundQuality), (string)dataRow["SoundQuality"]);
-            connectionInfo.SSHOptions = dataRow["SSHOptions"] as string ?? "";
-            connectionInfo.SSHTunnelConnectionName = dataRow["SSHTunnelConnectionName"] as string ?? "";
+            if (dataRow.Table.Columns.Contains("SSHOptions"))
+                connectionInfo.SSHOptions = dataRow["SSHOptions"] as string ?? "";
+            if (dataRow.Table.Columns.Contains("SSHTunnelConnectionName"))
+                connectionInfo.SSHTunnelConnectionName = dataRow["SSHTunnelConnectionName"] as string ?? "";
             connectionInfo.UseConsoleSession = MiscTools.GetBooleanValue(dataRow["ConnectToConsole"]);
-            connectionInfo.UseCredSsp = MiscTools.GetBooleanValue(dataRow["UseCredSsp"]);
-            connectionInfo.UseEnhancedMode = MiscTools.GetBooleanValue(dataRow["UseEnhancedMode"]);
-            connectionInfo.UseRCG = MiscTools.GetBooleanValue(dataRow["UseRCG"]);
-            connectionInfo.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["UseRestrictedAdmin"]);
+            if (dataRow.Table.Columns.Contains("UseCredSsp"))
+                connectionInfo.UseCredSsp = MiscTools.GetBooleanValue(dataRow["UseCredSsp"]);
+            if (dataRow.Table.Columns.Contains("UseEnhancedMode"))
+                connectionInfo.UseEnhancedMode = MiscTools.GetBooleanValue(dataRow["UseEnhancedMode"]);
+            if (dataRow.Table.Columns.Contains("UseRCG"))
+                connectionInfo.UseRCG = MiscTools.GetBooleanValue(dataRow["UseRCG"]);
+            if (dataRow.Table.Columns.Contains("UseRestrictedAdmin"))
+                connectionInfo.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["UseRestrictedAdmin"]);
             connectionInfo.UserField = dataRow["UserField"] as string ?? "";
             connectionInfo.EnvironmentTags = dataRow.Table.Columns.Contains("EnvironmentTags") ? (dataRow["EnvironmentTags"] as string ?? "") : "";
             connectionInfo.Username = dataRow["Username"] as string ?? "";
-            connectionInfo.UseVmId = MiscTools.GetBooleanValue(dataRow["UseVmId"]);
-            connectionInfo.VmId = dataRow["VmId"] as string ?? "";
+            if (dataRow.Table.Columns.Contains("UseVmId"))
+                connectionInfo.UseVmId = MiscTools.GetBooleanValue(dataRow["UseVmId"]);
+            if (dataRow.Table.Columns.Contains("VmId"))
+                connectionInfo.VmId = dataRow["VmId"] as string ?? "";
             if (!dataRow.IsNull("VNCAuthMode"))
                 connectionInfo.VNCAuthMode = (ProtocolVNC.AuthMode)Enum.Parse(typeof(ProtocolVNC.AuthMode), (string)dataRow["VNCAuthMode"]);
             if (!dataRow.IsNull("VNCColors"))
@@ -196,7 +211,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             //connectionInfo.Inheritance.RDGatewayExternalCredentialProvider = MiscTools.GetBooleanValue(dataRow["InheritRDGatewayExternalCredentialProvider"]);
             //connectionInfo.Inheritance.RDGatewayUserViaAPI = MiscTools.GetBooleanValue(dataRow["InheritRDGatewayUserViaAPI"]);
             //connectionInfo.Inheritance.UserViaAPI = MiscTools.GetBooleanValue(dataRow["InheritUserViaAPI"]);
-            connectionInfo.Inheritance.AutomaticResize = MiscTools.GetBooleanValue(dataRow["InheritAutomaticResize"]);
+            if (dataRow.Table.Columns.Contains("InheritAutomaticResize"))
+                connectionInfo.Inheritance.AutomaticResize = MiscTools.GetBooleanValue(dataRow["InheritAutomaticResize"]);
             connectionInfo.Inheritance.CacheBitmaps = MiscTools.GetBooleanValue(dataRow["InheritCacheBitmaps"]);
             connectionInfo.Inheritance.Colors = MiscTools.GetBooleanValue(dataRow["InheritColors"]);
             if (dataRow.Table.Columns.Contains("InheritConnectionFrameColor"))
@@ -209,11 +225,14 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.DisplayThemes = MiscTools.GetBooleanValue(dataRow["InheritDisplayThemes"]);
             connectionInfo.Inheritance.DisplayWallpaper = MiscTools.GetBooleanValue(dataRow["InheritDisplayWallpaper"]);
             connectionInfo.Inheritance.Domain = MiscTools.GetBooleanValue(dataRow["InheritDomain"]);
-            connectionInfo.Inheritance.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["InheritEnableDesktopComposition"]);
-            connectionInfo.Inheritance.EnableFontSmoothing = MiscTools.GetBooleanValue(dataRow["InheritEnableFontSmoothing"]);
+            if (dataRow.Table.Columns.Contains("InheritEnableDesktopComposition"))
+                connectionInfo.Inheritance.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["InheritEnableDesktopComposition"]);
+            if (dataRow.Table.Columns.Contains("InheritEnableFontSmoothing"))
+                connectionInfo.Inheritance.EnableFontSmoothing = MiscTools.GetBooleanValue(dataRow["InheritEnableFontSmoothing"]);
             connectionInfo.Inheritance.ExtApp = MiscTools.GetBooleanValue(dataRow["InheritExtApp"]);
             connectionInfo.Inheritance.Icon = MiscTools.GetBooleanValue(dataRow["InheritIcon"]);
-            connectionInfo.Inheritance.LoadBalanceInfo = MiscTools.GetBooleanValue(dataRow["InheritLoadBalanceInfo"]);
+            if (dataRow.Table.Columns.Contains("InheritLoadBalanceInfo"))
+                connectionInfo.Inheritance.LoadBalanceInfo = MiscTools.GetBooleanValue(dataRow["InheritLoadBalanceInfo"]);
             connectionInfo.Inheritance.MacAddress = MiscTools.GetBooleanValue(dataRow["InheritMacAddress"]);
             connectionInfo.Inheritance.OpeningCommand = MiscTools.GetBooleanValue(dataRow["InheritOpeningCommand"]);
             connectionInfo.Inheritance.OpeningCommand = MiscTools.GetBooleanValue(dataRow["InheritOpeningCommand"]);
@@ -230,14 +249,18 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.RDGatewayUsageMethod = MiscTools.GetBooleanValue(dataRow["InheritRDGatewayUsageMethod"]);
             connectionInfo.Inheritance.RDGatewayUseConnectionCredentials = MiscTools.GetBooleanValue(dataRow["InheritRDGatewayUseConnectionCredentials"]);
             connectionInfo.Inheritance.RDGatewayUsername = MiscTools.GetBooleanValue(dataRow["InheritRDGatewayUsername"]);
-            connectionInfo.Inheritance.RDPAlertIdleTimeout = MiscTools.GetBooleanValue(dataRow["InheritRDPAlertIdleTimeout"]);
+            if (dataRow.Table.Columns.Contains("InheritRDPAlertIdleTimeout"))
+                connectionInfo.Inheritance.RDPAlertIdleTimeout = MiscTools.GetBooleanValue(dataRow["InheritRDPAlertIdleTimeout"]);
             connectionInfo.Inheritance.RDPAuthenticationLevel = MiscTools.GetBooleanValue(dataRow["InheritRDPAuthenticationLevel"]);
-            connectionInfo.Inheritance.RDPMinutesToIdleTimeout = MiscTools.GetBooleanValue(dataRow["InheritRDPMinutesToIdleTimeout"]);
+            if (dataRow.Table.Columns.Contains("InheritRDPMinutesToIdleTimeout"))
+                connectionInfo.Inheritance.RDPMinutesToIdleTimeout = MiscTools.GetBooleanValue(dataRow["InheritRDPMinutesToIdleTimeout"]);
             connectionInfo.Inheritance.RdpVersion = MiscTools.GetBooleanValue(dataRow["InheritRdpVersion"]);
             connectionInfo.Inheritance.RedirectAudioCapture = MiscTools.GetBooleanValue(dataRow["InheritRedirectAudioCapture"]);
-            connectionInfo.Inheritance.RedirectClipboard = MiscTools.GetBooleanValue(dataRow["InheritRedirectClipboard"]);
+            if (dataRow.Table.Columns.Contains("InheritRedirectClipboard"))
+                connectionInfo.Inheritance.RedirectClipboard = MiscTools.GetBooleanValue(dataRow["InheritRedirectClipboard"]);
             connectionInfo.Inheritance.RedirectDiskDrives = MiscTools.GetBooleanValue(dataRow["InheritRedirectDiskDrives"]);
-            connectionInfo.Inheritance.RedirectDiskDrivesCustom = MiscTools.GetBooleanValue(dataRow["InheritRedirectDiskDrivesCustom"]);
+            if (dataRow.Table.Columns.Contains("InheritRedirectDiskDrivesCustom"))
+                connectionInfo.Inheritance.RedirectDiskDrivesCustom = MiscTools.GetBooleanValue(dataRow["InheritRedirectDiskDrivesCustom"]);
             connectionInfo.Inheritance.RedirectKeys = MiscTools.GetBooleanValue(dataRow["InheritRedirectKeys"]);
             connectionInfo.Inheritance.RedirectPorts = MiscTools.GetBooleanValue(dataRow["InheritRedirectPorts"]);
             connectionInfo.Inheritance.RedirectPrinters = MiscTools.GetBooleanValue(dataRow["InheritRedirectPrinters"]);
@@ -245,7 +268,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.RedirectSound = MiscTools.GetBooleanValue(dataRow["InheritRedirectSound"]);
             connectionInfo.Inheritance.RenderingEngine = MiscTools.GetBooleanValue(dataRow["InheritRenderingEngine"]);
             connectionInfo.Inheritance.Resolution = MiscTools.GetBooleanValue(dataRow["InheritResolution"]);
-            connectionInfo.Inheritance.SoundQuality = MiscTools.GetBooleanValue(dataRow["InheritSoundQuality"]);
+            if (dataRow.Table.Columns.Contains("InheritSoundQuality"))
+                connectionInfo.Inheritance.SoundQuality = MiscTools.GetBooleanValue(dataRow["InheritSoundQuality"]);
             connectionInfo.Inheritance.SSHOptions = MiscTools.GetBooleanValue(dataRow["InheritSSHOptions"]);
             connectionInfo.Inheritance.SSHTunnelConnectionName = MiscTools.GetBooleanValue(dataRow["InheritSSHTunnelConnectionName"]);
             connectionInfo.Inheritance.UseConsoleSession = MiscTools.GetBooleanValue(dataRow["InheritUseConsoleSession"]);
