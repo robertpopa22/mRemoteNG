@@ -1,6 +1,6 @@
 # Lessons Learned System
 
-Last updated: 2026-02-18
+Last updated: 2026-02-20
 Scope: `D:\github\mRemoteNG` modernization and release work.
 
 ## IIS Orchestrator — Execution Lessons (CRITICAL)
@@ -133,9 +133,10 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless 
 
 - **Triage** (Codex): ~15-30s per issue, ~120s timeout
 - **Triage** (Gemini): ~30-120s per issue, ~132s timeout
-- **Triage** (Claude): ~30-90s per issue, ~90s timeout
+- **Triage** (Claude Sonnet 4.6): ~20-30s per issue, ~180s timeout ← UPDATED
+- **Triage** (Claude Opus 4.6 fallback): ~40-90s per issue, ~270s timeout ← NEW
 - **Implement** (Codex): 3-10 min per issue (code + build + test)
-- **Implement** (Gemini/Claude): 5-15 min per issue
+- **Implement** (Claude Sonnet 4.6): ~3-10 min per issue ← UPDATED
 - **Fallback** (next agent): adds 1-2 min per failed agent
 - **Rate-limited skip**: <100ms (instant, from disk cache)
 - **645 issues total**: ~6-8 hours estimated (triage all + ~50-80 implementations)
@@ -997,6 +998,142 @@ def git_restore():
 | `CanSaveDefaultConnectionToModelWithAllStringProperties` test fails silently | `SerializableConnectionInfoAllPropertiesOfType<T>` missing `DesktopScaleFactor` property. `SaveTo` reflection catches `SettingsPropertyNotFoundException` silently. | Add `DesktopScaleFactor` property to test helper class. |
 
 **Rule:** When adding a new property to `ConnectionInfo`, also add it to `SerializableConnectionInfoAllPropertiesOfType<T>` in test helpers.
+
+## Orchestrator Lessons — Session 19-20 Feb 2026 (CRITICAL)
+
+### git restore REVERTEAZA orchestratorul — COMMIT INAINTE DE START (A1-CRITICAL)
+
+**Problema:** Funcția `_restore_triage_contamination()` face `git diff --name-only` și apoi `git checkout --` pe TOATE fișierele modificate. Aceasta include `iis_orchestrator.py` dacă are modificări uncommitted. Rezultat: orice edit la orchestrator e revertuit la prima triage.
+
+**Impact:** Fix-uri aplicate de 5+ ori în sesiune, toate pierdute. Ore pierdute, frustare maximă.
+
+**Soluția permanentă (commit `756d03c7f`):**
+1. **COMMIT orice modificare la orchestrator ÎNAINTE de a-l porni** — fișierele commited sunt imune la git restore
+2. **`_ORCHESTRATOR_PROTECTED_FILES`** — set de fișiere excluse din restore:
+   ```python
+   _ORCHESTRATOR_PROTECTED_FILES = {
+       ".project-roadmap/scripts/iis_orchestrator.py",
+       ".project-roadmap/scripts/orchestrator_supervisor.py",
+       ".project-roadmap/scripts/orchestrator-status.json",
+       ".project-roadmap/scripts/_agent_rate_limits.json",
+       ".project-roadmap/scripts/_comment_rate.json",
+   }
+   ```
+3. `_restore_triage_contamination()` exclude aceste fișiere din restore
+
+**Regula:** NU porni orchestratorul cu edituri uncommitted la `iis_orchestrator.py`. Commit → Start → Monitor.
+
+### Claude nesting guard — strip CLAUDECODE env var
+
+**Problema:** Când orchestratorul e lansat dintr-o sesiune Claude Code, variabilele `CLAUDECODE=1` și `CLAUDE_CODE_ENTRYPOINT` sunt moștenite. Claude CLI detectează asta și limitează la max_turns=2 (nested session restriction), ignorând `--max-turns 5`.
+
+**Simptom:** `Error: Reached max turns (2)` chiar dacă `--max-turns 5` e în comandă.
+
+**Fix:** Lansare cu env clean:
+```bash
+env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT python iis_orchestrator.py issues
+```
+
+Sau în orchestrator:
+```python
+CLAUDE_ENV = {k: v for k, v in os.environ.items()
+              if k not in ("CLAUDECODE", "CLAUDE_CODE_ENTRYPOINT")}
+```
+
+### Dual-model strategy: Sonnet triage + cod, Opus analiză (commit `756d03c7f`)
+
+**Motivație:** Optimizarea consumului de tokeni — Sonnet 4.6 e mai rapid și mai ieftin decât Opus 4.6 pentru task-uri repetitive (triage, scriere cod).
+
+**Implementare:**
+```python
+CLAUDE_MODEL_SONNET = "claude-sonnet-4-6"  # triage + coding
+CLAUDE_MODEL_OPUS = "claude-opus-4-6"      # deep analysis fallback
+
+CLAUDE_MODEL_BY_TASK = {
+    "triage":     CLAUDE_MODEL_SONNET,
+    "implement":  CLAUDE_MODEL_SONNET,
+    "test_fix":   CLAUDE_MODEL_SONNET,
+    "analysis":   CLAUDE_MODEL_OPUS,   # fallback when Sonnet fails
+}
+```
+
+**Flux:**
+1. Triage cu Sonnet (rapid, ~27s/issue)
+2. Dacă TOȚI agenții eșuează (Codex+Gemini rate-limited, Sonnet fail) → retry automat cu Opus (analiză profundă, max_turns=15, timeout=1.5x)
+3. Implementare cu Sonnet
+4. `claude_run()` acceptă parametrul `--model` passat direct CLI-ului
+
+**Rezultat:** Sonnet triază cu succes issue-uri pe care le prelua anterior doar Opus, la cost redus.
+
+### Triage max_turns=5 insuficient — crescut la 10
+
+**Problema:** Claude cu max_turns=5 pentru triage folosea toate 5 turn-urile citind CLAUDE.md, explorând codul, și epuiza turn-urile înainte de a produce JSON-ul de răspuns.
+
+**Fix:** `max_turns=10` pentru Claude triage, timeout 90s→180s.
+
+**Rezultat:** 0 eșecuri Claude triage după modificare (anterior ~30-40% fail rate).
+
+### GPT-4.1 API — evaluat și RESPINS ca agent
+
+**Context:** S-a încercat adăugarea GPT-4.1 (OpenAI API) ca al 4-lea agent, doar pentru triage.
+
+**Avantaje:** Răspuns rapid (~2s/triage), cost redus per token.
+
+**Dezavantaje fatale:**
+1. **Fără acces la codebase** — nu poate citi fișiere, nu poate explora codul
+2. **Tokenuri plătite** — Claude/Codex/Gemini sunt pe abonament, GPT-4.1 consumă tokeni
+3. **Calitate triage inferioară** — fără context de cod, deciziile sunt superficiale
+
+**Decizie:** Eliminat complet din lanț. Pentru acest model de orchestrator (filesystem access necesar), doar agenți cu CLI + sandbox sunt utili.
+
+### Gemini workspace sandbox — restricție acces fișiere
+
+**Problema:** Gemini CLI restricționează accesul la fișiere la CWD (Current Working Directory). Când orchestratorul rulează din `scripts/`, Gemini nu poate accesa restul repo-ului.
+
+**Impact:** Gemini eșuează frecvent la implementare (nu poate citi codul sursă).
+
+**Mitigare:** Orchestratorul setează CWD la REPO_ROOT pentru Gemini, dar sandbox-ul poate încă restricționa.
+
+### Gemini 3.1 Pro — nu e disponibil în API (feb 2026)
+
+**Context:** Google a anunțat Gemini 3.1 Pro pe blog, dar modelul `gemini-3.1-pro-preview` returnează 404 (ModelNotFoundError) în API.
+
+**Status actual:** `gemini-3-pro-preview` rămâne modelul funcțional. Se va testa periodic dacă 3.1 devine disponibil.
+
+### Supervisor vs direct launch
+
+**Supervisor (`orchestrator_supervisor.py`):**
+- Self-healing wrapper, monitorizează la 30s
+- Auto-recovery din 8 tipuri de eșec
+- Lansează orchestratorul ca subprocess
+
+**Problemă:** Supervisorul moștenește env-ul (inclusiv CLAUDECODE). Fix: lansare cu `env -u CLAUDECODE`.
+
+**Direct launch (preferat acum):**
+```bash
+cd scripts && env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT nohup python iis_orchestrator.py issues > orchestrator-stdout.log 2>&1 &
+```
+
+### Agent chain — ordine și fallback
+
+**Lanț curent:** `["codex", "gemini", "claude"]`
+
+**Comportament pe rate limit:**
+- Codex rate-limited → skip instant (<100ms) → Gemini
+- Gemini rate-limited (429) → fail ~15s → Claude
+- Claude = last resort, ALWAYS gets a chance
+
+**Când TOȚI sunt down:** Doar Claude funcționează (pe abonament Max, fără rate limit practic). Codex și Gemini au limite de quota care se resetează la intervale fixe.
+
+### Orchestrator speed cu Sonnet 4.6
+
+| Task | Agent | Durată | Model |
+|------|-------|--------|-------|
+| Triage | Sonnet 4.6 | ~20-30s | claude-sonnet-4-6 |
+| Triage | Opus 4.6 (fallback) | ~40-90s | claude-opus-4-6 |
+| Implementation | Sonnet 4.6 | ~3-10 min | claude-sonnet-4-6 |
+| Triage | Codex | ~15-30s | gpt-5.3-codex |
+| Triage | Gemini | ~30-120s | gemini-3-pro-preview |
 
 ## Local Artifacts
 
