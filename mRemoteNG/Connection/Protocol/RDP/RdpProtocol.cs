@@ -70,14 +70,18 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             get
             {
-                if (_frmMain == null || _frmMain.IsDisposed)
+                // Use the DPI of the control hosting the RDP session (per-monitor aware)
+                // rather than _frmMain which may be on a different monitor with different DPI.
+                // Fix for #1438: incorrect smartsize on multi-monitor mixed-DPI setups.
+                Control? dpiSource = InterfaceControl ?? (Control?)_frmMain;
+
+                if (dpiSource == null || dpiSource.IsDisposed)
                 {
                     return new SizeF(1f, 1f);
                 }
 
-                // Use DeviceDpi from the main form to get the correct DPI for the monitor it's on
                 // 96 DPI is the baseline (100% scale)
-                float scale = _frmMain.DeviceDpi / 96f;
+                float scale = dpiSource.DeviceDpi / 96f;
                 return new SizeF(scale, scale);
             }
         }
@@ -1064,7 +1068,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 if (Force.HasFlag(ConnectionInfo.Force.Fullscreen))
                 {
                     _rdpClient.FullScreen = true;
-                    var screen = Screen.FromControl(_frmMain);
+                    var screen = Screen.FromControl(InterfaceControl ?? (Control)_frmMain);
                     _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * ResolutionScalingFactor.Width);
                     _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * ResolutionScalingFactor.Height);
 
@@ -1095,7 +1099,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                         }
                     case RDPResolutions.Fullscreen:
                         _rdpClient.FullScreen = true;
-                        var screen = Screen.FromControl(_frmMain);
+                        var screen = Screen.FromControl(InterfaceControl ?? (Control)_frmMain);
                         _rdpClient.DesktopWidth = (int)(screen.Bounds.Width * ResolutionScalingFactor.Width);
                         _rdpClient.DesktopHeight = (int)(screen.Bounds.Height * ResolutionScalingFactor.Height);
                         break;
