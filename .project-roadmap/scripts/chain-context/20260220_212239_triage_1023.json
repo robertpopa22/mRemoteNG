@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1023",
+  "started_at": "2026-02-20T21:20:30",
+  "finished_at": "2026-02-20T21:22:39",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T21:20:30"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T21:20:45"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Screen.Bounds returns logical pixels and fullscreen DesktopWidth/DesktopHeight must be multiplied by per-monitor DPI scale factor to match the physical screen resolution.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Ensure ResolutionScalingFactor uses the correct DPI source (InterfaceControl ?? _frmMain) and that both fullscreen code paths (Force.Fullscreen branch and RDPResolutions.Fullscreen case) consistently apply the scaling factor when setting DesktopWidth/DesktopHeight."
+      },
+      "raw_output": "Based on the codebase analysis, the fullscreen resolution code in `RdpProtocol.cs` uses `screen.Bounds.Width/Height * ResolutionScalingFactor`. The bug in issue #1023 is that `Screen.Bounds` returns logical pixels (baseline 96 DPI), and if the `ResolutionScalingFactor` is not properly applied (or the DPI source control is null), the desktop dimensions sent to the RDP client will be understated — matching the logical/scaled-down size rather than the physical pixel resolution.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"Screen.Bounds returns logical pixels and fullscreen DesktopWidth/DesktopHeight must be multiplied by per-monitor DPI scale factor to match the physical screen resolution.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"Ensure ResolutionScalingFactor uses the correct DPI source (InterfaceControl ?? _frmMain) and that both fullscreen code paths (Force.Fullscreen branch and RDPResolutions.Fullscreen case) consistently apply the scaling factor when setting DesktopWidth/DesktopHeight.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T21:22:39"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
