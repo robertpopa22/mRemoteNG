@@ -416,6 +416,41 @@ namespace mRemoteNG.Connection.Protocol.RDP
         }
 
         /// <summary>
+        /// Sends Ctrl+Alt+End to the active RDP session via the IMsRdpClientNonScriptable COM API.
+        /// Ctrl+Alt+End maps to Ctrl+Alt+Del on the remote host, bypassing keyboard interception
+        /// by intermediate RDP sessions (works for nested/jump-box scenarios).
+        /// </summary>
+        public void SendCtrlAltEnd()
+        {
+            try
+            {
+                if (Control == null) return;
+                var nonScriptable = (IMsRdpClientNonScriptable)((AxHost)Control).GetOcx()!;
+
+                const int VK_CONTROL = 0x11;
+                const int VK_MENU = 0x12;
+                const int VK_END = 0x23;
+
+                bool keyDown = false;
+                bool keyUp = true;
+                int vkCtrl = VK_CONTROL;
+                int vkAlt = VK_MENU;
+                int vkEnd = VK_END;
+
+                nonScriptable.SendKeys(1, ref keyDown, ref vkCtrl);
+                nonScriptable.SendKeys(1, ref keyDown, ref vkAlt);
+                nonScriptable.SendKeys(1, ref keyDown, ref vkEnd);
+                nonScriptable.SendKeys(1, ref keyUp, ref vkEnd);
+                nonScriptable.SendKeys(1, ref keyUp, ref vkAlt);
+                nonScriptable.SendKeys(1, ref keyUp, ref vkCtrl);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Failed to send Ctrl+Alt+End to RDP session", ex);
+            }
+        }
+
+        /// <summary>
         /// Toggles whether the RDP ActiveX control will capture and send input events to the remote host.
         /// The local host will continue to receive data from the remote host regardless of this setting.
         /// </summary>
