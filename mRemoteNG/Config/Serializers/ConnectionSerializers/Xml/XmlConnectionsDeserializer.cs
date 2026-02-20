@@ -591,6 +591,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.ScriptErrorsSuppressed = xmlnode.GetAttributeAsBool("InheritScriptErrorsSuppressed");
                     connectionInfo.DesktopScaleFactor = xmlnode.GetAttributeAsEnum<RDPDesktopScaleFactor>("DesktopScaleFactor");
                     connectionInfo.Inheritance.DesktopScaleFactor = xmlnode.GetAttributeAsBool("InheritDesktopScaleFactor");
+                    connectionInfo.RDPSignScope = xmlnode.GetAttributeAsString("RDPSignScope");
+                    connectionInfo.RDPSignature = xmlnode.GetAttributeAsString("RDPSignature");
+                    connectionInfo.Inheritance.RDPSignScope = xmlnode.GetAttributeAsBool("InheritRDPSignScope");
+                    connectionInfo.Inheritance.RDPSignature = xmlnode.GetAttributeAsBool("InheritRDPSignature");
                 }
 
                 switch (_confVersion)

@@ -99,6 +99,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("RDPMinutesToIdleTimeout", connectionInfo.RDPMinutesToIdleTimeout));
             element.Add(new XAttribute("RDPAlertIdleTimeout", connectionInfo.RDPAlertIdleTimeout.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("LoadBalanceInfo", connectionInfo.LoadBalanceInfo ?? string.Empty));
+            element.Add(new XAttribute("RDPSignScope", connectionInfo.RDPSignScope ?? string.Empty));
+            element.Add(new XAttribute("RDPSignature", connectionInfo.RDPSignature ?? string.Empty));
             element.Add(new XAttribute("Colors", connectionInfo.Colors));
             element.Add(new XAttribute("Resolution", connectionInfo.Resolution));
             element.Add(new XAttribute("DesktopScaleFactor", connectionInfo.DesktopScaleFactor));
@@ -294,6 +296,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritRDPAlertIdleTimeout", inheritance.RDPAlertIdleTimeout.ToString().ToLowerInvariant()));
             if (inheritance.LoadBalanceInfo)
                 element.Add(new XAttribute("InheritLoadBalanceInfo", inheritance.LoadBalanceInfo.ToString().ToLowerInvariant()));
+            if (inheritance.RDPSignScope)
+                element.Add(new XAttribute("InheritRDPSignScope", inheritance.RDPSignScope.ToString().ToLowerInvariant()));
+            if (inheritance.RDPSignature)
+                element.Add(new XAttribute("InheritRDPSignature", inheritance.RDPSignature.ToString().ToLowerInvariant()));
             if (inheritance.PreExtApp)
                 element.Add(new XAttribute("InheritPreExtApp", inheritance.PreExtApp.ToString().ToLowerInvariant()));
             if (inheritance.PostExtApp)

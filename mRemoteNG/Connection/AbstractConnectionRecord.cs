@@ -123,6 +123,8 @@ namespace mRemoteNG.Connection
         private string _rdpStartProgramWorkDir = string.Empty;
         private string _rdpRemoteAppProgram = string.Empty;
         private string _rdpRemoteAppCmdLine = string.Empty;
+        private string _rdpSignScope = string.Empty;
+        private string _rdpSignature = string.Empty;
         private bool _favorite = default;
         private bool _isTemplate = default;
 
@@ -545,6 +547,26 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("LoadBalanceInfo", _loadBalanceInfo)?.Trim() ?? string.Empty;
             set => SetField(ref _loadBalanceInfo, value?.Trim() ?? string.Empty, "LoadBalanceInfo");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("RDP Sign Scope"),
+         Description("The signscope value from a signed RDP file. Defines which connection properties are covered by the signature."),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public string RDPSignScope
+        {
+            get => GetPropertyValue("RDPSignScope", _rdpSignScope);
+            set => SetField(ref _rdpSignScope, value, "RDPSignScope");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("RDP Signature"),
+         Description("The signature value from a signed RDP file. Used by RD Connection Broker to validate that connection settings have not been tampered with."),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public string RDPSignature
+        {
+            get => GetPropertyValue("RDPSignature", _rdpSignature);
+            set => SetField(ref _rdpSignature, value, "RDPSignature");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

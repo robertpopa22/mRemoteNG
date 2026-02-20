@@ -157,6 +157,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritICAEncryptionStrength", typeof(bool));
             dataTable.Columns.Add("InheritIcon", typeof(bool));
             dataTable.Columns.Add("InheritLoadBalanceInfo", typeof(bool));
+            dataTable.Columns.Add("InheritRDPSignScope", typeof(bool));
+            dataTable.Columns.Add("InheritRDPSignature", typeof(bool));
             dataTable.Columns.Add("InheritMacAddress", typeof(bool));
             dataTable.Columns.Add("InheritOpeningCommand", typeof(bool));
             dataTable.Columns.Add("InheritPanel", typeof(bool));
@@ -226,6 +228,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritVmId", typeof(bool));
             dataTable.Columns.Add("LastChange", MiscTools.DBTimeStampType());
             dataTable.Columns.Add("LoadBalanceInfo", typeof(string));
+            dataTable.Columns.Add("RDPSignScope", typeof(string));
+            dataTable.Columns.Add("RDPSignature", typeof(string));
             dataTable.Columns.Add("MacAddress", typeof(string));
             dataTable.Columns.Add("Name", typeof(string));
             dataTable.Columns.Add("OpeningCommand", typeof(string));
@@ -359,6 +363,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["Hostname"].Equals(connectionInfo.Hostname);
             isFieldNotChange = isFieldNotChange && dataRow["IsTemplate"].Equals(connectionInfo.IsTemplate);
             isFieldNotChange = isFieldNotChange && dataRow["LoadBalanceInfo"].Equals(connectionInfo.LoadBalanceInfo);
+            isFieldNotChange = isFieldNotChange && dataRow["RDPSignScope"].Equals(connectionInfo.RDPSignScope);
+            isFieldNotChange = isFieldNotChange && dataRow["RDPSignature"].Equals(connectionInfo.RDPSignature);
             isFieldNotChange = isFieldNotChange && dataRow["MacAddress"].Equals(connectionInfo.MacAddress);
             isFieldNotChange = isFieldNotChange && dataRow["OpeningCommand"].Equals(connectionInfo.OpeningCommand);
             isFieldNotChange = isFieldNotChange && dataRow["Port"].Equals(connectionInfo.Port);

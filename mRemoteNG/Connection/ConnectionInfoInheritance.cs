@@ -230,6 +230,18 @@ namespace mRemoteNG.Connection
         public bool LoadBalanceInfo { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
+         DisplayName("Inherit RDP Sign Scope"),
+         Description("Inherit the RDP Sign Scope setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool RDPSignScope { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
+         DisplayName("Inherit RDP Signature"),
+         Description("Inherit the RDP Signature setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool RDPSignature { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 4),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.RenderingEngine)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionRenderingEngine)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

@@ -556,6 +556,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
             _rdpClient.ColorDepth = (int)connectionInfo.Colors;
 
             SetPerformanceFlags();
+            SetRdpSignature();
 
             _rdpClient.ConnectingText = Language.Connecting;
         }
@@ -1232,6 +1233,25 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetAuthenticationLevelFailed, ex);
+            }
+        }
+
+        private void SetRdpSignature()
+        {
+            if (string.IsNullOrEmpty(connectionInfo.RDPSignScope) && string.IsNullOrEmpty(connectionInfo.RDPSignature))
+                return;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(connectionInfo.RDPSignScope))
+                    SetExtendedProperty("SignScope", connectionInfo.RDPSignScope);
+
+                if (!string.IsNullOrEmpty(connectionInfo.RDPSignature))
+                    SetExtendedProperty("Signature", connectionInfo.RDPSignature);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to set RDP signature properties.", ex, MessageClass.WarningMsg, false);
             }
         }
 
