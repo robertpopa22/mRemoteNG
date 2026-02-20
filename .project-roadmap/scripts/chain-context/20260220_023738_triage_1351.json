@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "1351",
+  "started_at": "2026-02-20T02:36:34",
+  "finished_at": "2026-02-20T02:37:38",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T02:36:34"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The issue describes critical data loss (SQL database truncation) occurring randomly upon application restart, likely due to a race condition or failure during the initial load resulting in an empty or partial connection tree being saved back to the database on exit.",
+        "priority": "P0-critical",
+        "estimated_files": [
+          "mRemoteNG/Config/Connections/SqlConnectionsSaver.cs",
+          "mRemoteNG/Config/Connections/SqlConnectionsLoader.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs"
+        ],
+        "approach": "Modify SqlConnectionsSaver to prevent saving if the initial load was unsuccessful or incomplete. Introduce a state tracking mechanism (e.g., a 'LoadSuccessful' flag) in the connection loading process. Ensure that exceptions during load propagate correctly or set this flag to false, blocking subsequent saves to protect existing data."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"The issue describes critical data loss (SQL database truncation) occurring randomly upon application restart, likely due to a race condition or failure during the initial load resulting in an empty or partial connection tree being saved back to the database on exit.\",\"priority\":\"P0-critical\",\"estimated_files\":[\"mRemoteNG/Config/Connections/SqlConnectionsSaver.cs\",\"mRemoteNG/Config/Connections/SqlConnectionsLoader.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Sql/DataTableSerializer.cs\"],\"approach\":\"Modify SqlConnectionsSaver to prevent saving if the initial load was unsuccessful or incomplete. Introduce a state tracking mechanism (e.g., a 'LoadSuccessful' flag) in the connection loading process. Ensure that exceptions during load propagate correctly or set this flag to false, blocking subsequent saves to protect existing data.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T02:37:38"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

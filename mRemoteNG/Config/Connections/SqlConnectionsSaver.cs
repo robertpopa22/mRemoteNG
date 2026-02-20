@@ -61,6 +61,23 @@ namespace mRemoteNG.Config.Connections
                     return;
                 }
 
+                // Safety check: prevent truncating a non-empty database when the in-memory
+                // tree is empty — this indicates a failed or incomplete load (#1351)
+                int connectionCount = rootTreeNode.GetRecursiveChildList().Count();
+                if (connectionCount == 0)
+                {
+                    SqlDataProvider checkProvider = new(dbConnector);
+                    DataTable existingData = checkProvider.Load();
+                    if (existingData.Rows.Count > 0)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                            $"SQL save aborted: in-memory connection tree is empty but database contains " +
+                            $"{existingData.Rows.Count} connection(s). This may indicate the connection tree " +
+                            "was not loaded properly. Database data has been preserved. (See issue #1351)");
+                        return;
+                    }
+                }
+
                 using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
                 try
                 {

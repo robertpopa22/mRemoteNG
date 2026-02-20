@@ -12,12 +12,19 @@
   "created_at": "2019-03-15T07:57:09Z",
   "github_updated_at": "2026-02-07T19:52:02Z",
   "body_snippet": "I used mRemonteNG since 6 months and this is the 3nd time that this problem occured: mRemonteNg SQL database is completely truncated (empty)\r\n\r\n## Current Behavior\r\nThis problem is rare and random. I think that this occured when mRemonteNg  was closed and opened again fastly but not sure\r\n\r\n## Steps to Reproduce (for bugs)\r\nVery hard to reproduce\r\nHere is some logs. This time, this is just after an update.\r\nI have bolded a strange part in log. Next time, I will permanently enable debug info....\r...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P0-critical",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "The issue describes critical data loss (SQL database truncation) occurring randomly upon application restart, likely due to a race condition or failure during the initial load resulting in an empty or partial connection tree being saved back to the database on exit."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ4OTAyMzUxNg==",
@@ -106,5 +113,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The issue describes critical data loss (SQL database truncation) occurring randomly upon application restart, likely due to a race condition or failure during the initial load resulting in an empty or partial connection tree being saved back to the database on exit.\nApproach: Modify SqlConnectionsSaver to prevent saving if the initial load was unsuccessful or incomplete. Introduce a state tracking mechanism (e.g., a 'LoadSuccessful' flag) in the connection loading process. Ensure that exceptions during load propagate correctly or set this flag to false, blocking subsequent saves to protect existing data."
 }

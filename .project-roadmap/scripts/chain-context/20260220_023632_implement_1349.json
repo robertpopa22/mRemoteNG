@@ -1,0 +1,53 @@
+{
+  "task_type": "implement",
+  "task_id": "1349",
+  "started_at": "2026-02-20T02:26:00",
+  "finished_at": "2026-02-20T02:36:32",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1349",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T02:26:00"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1349",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T02:31:11"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1349",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Tests could not run (phantom). Infrastructure issue.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "PHANTOM",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T02:36:32"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}
