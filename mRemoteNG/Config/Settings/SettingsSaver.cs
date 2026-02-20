@@ -66,7 +66,6 @@ namespace mRemoteNG.Config.Settings
                 
                 Properties.Settings.Default.Save();
 
-                SaveDockPanelLayout();
                 SaveExternalApps();
                 SaveQuickConnectHistory(quickConnectToolStrip as QuickConnectToolStrip);
             }
@@ -120,7 +119,7 @@ namespace mRemoteNG.Config.Settings
             }
         }
 
-        private static void SaveDockPanelLayout()
+        public static void SaveDockPanelLayout()
         {
             string panelLayoutXmlFilePath = SettingsFileInfo.SettingsPath + "\\" + SettingsFileInfo.LayoutFileName;
             DockPanelLayoutSaver panelLayoutSaver = new(
