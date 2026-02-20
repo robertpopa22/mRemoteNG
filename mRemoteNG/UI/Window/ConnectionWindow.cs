@@ -1708,21 +1708,42 @@ namespace mRemoteNG.UI.Window
             if (closedConnectionInfo != null)
                 tabPage.TrackConnection(closedConnectionInfo);
 
-                        if (keepTabOpen)
+            if (keepTabOpen)
+            {
+                if (protocolBase.InterfaceControl != null)
+                {
+                    var ic = protocolBase.InterfaceControl;
+                    tabPage.Controls.Remove(ic);
+                    try
+                    {
+                        if (!ic.IsDisposed)
+                            ic.Dispose();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // Dispose() cannot be called while CreateHandle() is in progress.
+                        // This can happen when a protocol disconnect fires during handle creation
+                        // (WinForms pumps messages during CreateWindowEx). Defer to next UI tick.
+                        try
                         {
-                            if (protocolBase.InterfaceControl != null)
+                            BeginInvoke(new MethodInvoker(() =>
                             {
-                                tabPage.Controls.Remove(protocolBase.InterfaceControl);
-                                protocolBase.InterfaceControl.Dispose();
-                            }
-            
-                            tabPage.ShowClosedState();
-                            if (closedConnectionInfo != null)
-                                FrmMain.Default.SelectedConnection = closedConnectionInfo; 
-                            return;
+                                if (!ic.IsDisposed) ic.Dispose();
+                            }));
                         }
-            
-                        tabPage.protocolClose = true;            try
+                        catch (ObjectDisposedException) { }
+                        catch (InvalidOperationException) { }
+                    }
+                }
+
+                tabPage.ShowClosedState();
+                if (closedConnectionInfo != null)
+                    FrmMain.Default.SelectedConnection = closedConnectionInfo;
+                return;
+            }
+
+            tabPage.protocolClose = true;
+            try
             {
                 tabPage.Close();
             }
