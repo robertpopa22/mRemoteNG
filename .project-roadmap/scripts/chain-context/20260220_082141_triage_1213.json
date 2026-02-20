@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1213",
+  "started_at": "2026-02-20T08:20:54",
+  "finished_at": "2026-02-20T08:21:41",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T08:20:54"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T08:21:07"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "PuTTY embedded window hangs on auth failure because interactive password retry dialogs block in child-window mode; adding -batch flag when credentials are supplied makes PuTTY exit immediately on failure instead of prompting",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/PuttyBase.cs"
+        ],
+        "approach": "When SSH credentials are provided via -pw/-pwfile, also pass the PuTTY -batch flag to disable interactive auth prompts — PuTTY will exit with non-zero code on failure, which ProcessExited already handles by prompting to update the stored password"
+      },
+      "raw_output": "Based on my analysis of the SSH connection code in `PuttyBase.cs`, the issue is clear: when PuTTY is embedded as a child window and receives wrong credentials, it shows interactive authentication retry dialogs that can't be properly interacted with in embedded mode, causing the app to appear hung. The `ProcessExited` handler (line 69-92) already handles the case where PuTTY *exits* with an error, but the hang occurs because PuTTY *doesn't exit* — it waits for interactive input.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"PuTTY embedded window hangs on auth failure because interactive password retry dialogs block in child-window mode; adding -batch flag when credentials are supplied makes PuTTY exit immediately on failure instead of prompting\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/PuttyBase.cs\"],\"approach\":\"When SSH credentials are provided via -pw/-pwfile, also pass the PuTTY -batch flag to disable interactive auth prompts — PuTTY will exit with non-zero code on failure, which ProcessExited already handles by prompting to update the stored password\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T08:21:41"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
