@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Management;
 using System.Runtime.Versioning;
 using System.Threading;
@@ -101,11 +102,26 @@ namespace mRemoteNG.App.Initialization
         {
             if (string.IsNullOrWhiteSpace(SettingsFileInfo.UserSettingsFilePath))
             {
+                _messageCollector.AddMessage(MessageClass.InformationMsg,
+                    "User settings file path could not be determined.", true);
                 return;
             }
 
-            _messageCollector.AddMessage(MessageClass.InformationMsg,
-                $"User settings file: {SettingsFileInfo.UserSettingsFilePath}", true);
+            string path = SettingsFileInfo.UserSettingsFilePath;
+            string detail;
+            try
+            {
+                FileInfo fi = new(path);
+                detail = fi.Exists
+                    ? $"User settings file: {path} (size: {fi.Length} bytes, modified: {fi.LastWriteTime:yyyy-MM-dd HH:mm:ss})"
+                    : $"User settings file: {path} (file does not exist — using defaults)";
+            }
+            catch (Exception ex)
+            {
+                detail = $"User settings file: {path} (could not read file info: {ex.Message})";
+            }
+
+            _messageCollector.AddMessage(MessageClass.InformationMsg, detail, true);
         }
 
         private void LogCmdLineArgs()

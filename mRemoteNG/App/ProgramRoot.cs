@@ -6,6 +6,7 @@ using mRemoteNG.DotNet.Update;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -111,8 +112,17 @@ namespace mRemoteNG.App
             }
 #endif
 
-            Lazy<bool> singleInstanceOption = new(() => Properties.OptionsStartupExitPage.Default.SingleInstance);
-            if (singleInstanceOption.Value)
+            bool singleInstance = false;
+            try
+            {
+                singleInstance = Properties.OptionsStartupExitPage.Default.SingleInstance;
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                HandleCorruptedUserConfig(ex);
+            }
+
+            if (singleInstance)
                 StartApplicationAsSingleInstance(args);
             else
                 StartApplication();
@@ -240,6 +250,68 @@ namespace mRemoteNG.App
             }
 
             return windowHandle;
+        }
+
+        /// <summary>
+        /// Handles a corrupted user.config file by logging diagnostics, backing up the
+        /// corrupted file, and deleting it so the application can continue with defaults.
+        /// </summary>
+        private static void HandleCorruptedUserConfig(ConfigurationErrorsException ex)
+        {
+            string configPath = GetConfigFilePathFromException(ex);
+            string logPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                Application.ProductName ?? "mRemoteNG",
+                "user.config-error.log");
+
+            try
+            {
+                string? logDir = Path.GetDirectoryName(logPath);
+                if (!string.IsNullOrEmpty(logDir))
+                    Directory.CreateDirectory(logDir);
+            }
+            catch { /* best effort */ }
+
+            string logEntry =
+                $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] user.config load failed{Environment.NewLine}" +
+                $"  Config file: {configPath}{Environment.NewLine}" +
+                $"  Error: {ex.Message}{Environment.NewLine}" +
+                $"  Inner: {ex.InnerException?.Message}{Environment.NewLine}" +
+                $"  Stack: {ex.StackTrace}{Environment.NewLine}{Environment.NewLine}";
+
+            try { File.AppendAllText(logPath, logEntry); }
+            catch { /* best effort */ }
+
+            if (!string.IsNullOrEmpty(configPath) && File.Exists(configPath))
+            {
+                try
+                {
+                    string backup = configPath + ".corrupted." + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    File.Copy(configPath, backup, true);
+                    File.Delete(configPath);
+                }
+                catch { /* best effort */ }
+            }
+
+            MessageBox.Show(
+                $"Your settings file was corrupted and could not be loaded.{Environment.NewLine}{Environment.NewLine}" +
+                $"File: {configPath}{Environment.NewLine}" +
+                $"Error: {ex.InnerException?.Message ?? ex.Message}{Environment.NewLine}{Environment.NewLine}" +
+                $"The corrupted file has been backed up and settings have been reset to defaults.{Environment.NewLine}" +
+                $"Diagnostic details logged to: {logPath}",
+                "mRemoteNG - Settings Reset",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+        }
+
+        private static string GetConfigFilePathFromException(ConfigurationErrorsException ex)
+        {
+            if (!string.IsNullOrEmpty(ex.Filename))
+                return ex.Filename;
+            if (ex.InnerException is ConfigurationErrorsException inner && !string.IsNullOrEmpty(inner.Filename))
+                return inner.Filename;
+            try { return Info.SettingsFileInfo.UserSettingsFilePath; }
+            catch { return "(unknown path)"; }
         }
 
         private static void CatchAllUnhandledExceptions()

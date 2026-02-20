@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Drawing;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -45,6 +46,22 @@ namespace mRemoteNG.Config.Settings
         {
             try
             {
+                try
+                {
+                    string configPath = SettingsFileInfo.UserSettingsFilePath;
+                    if (!string.IsNullOrWhiteSpace(configPath))
+                    {
+                        bool exists = System.IO.File.Exists(configPath);
+                        _messageCollector.AddMessage(MessageClass.InformationMsg,
+                            $"Loading settings from: {configPath} (exists: {exists})", true);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _messageCollector.AddMessage(MessageClass.WarningMsg,
+                        $"Could not determine user settings file path: {ex.Message}");
+                }
+
                 EnsureSettingsAreSavedInNewestVersion();
 
                 SetSupportedCulture();
@@ -62,6 +79,16 @@ namespace mRemoteNG.Config.Settings
                     SetToolbarsDefault();
                 else
                     LoadToolbarsFromSettings();
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                string configFile = ex.Filename
+                    ?? (ex.InnerException as ConfigurationErrorsException)?.Filename
+                    ?? SettingsFileInfo.UserSettingsFilePath;
+                _messageCollector.AddExceptionMessage(
+                    $"Settings file is corrupted and could not be loaded. " +
+                    $"Path: {configFile}. The application will use default settings. " +
+                    $"To resolve this, delete or rename the corrupted file and restart.", ex);
             }
             catch (Exception ex)
             {
