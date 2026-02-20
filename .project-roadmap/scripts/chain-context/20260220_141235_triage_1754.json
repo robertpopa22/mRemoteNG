@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1754",
+  "started_at": "2026-02-20T14:11:43",
+  "finished_at": "2026-02-20T14:12:35",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:11:43"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:11:58"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "AltGr capture is a known RDP ActiveX control (AxMsTscLib) keyboard hook behavior, not an mRemoteNG bug; triage refresh already posted requesting reproduction steps on latest build with no response yet",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "If confirmed reproducible, investigate AxMsTscLib keyboard hook release on focus-loss; likely requires SecuredSettingsEnabled or OnFocusReleased handling in the RDP protocol wrapper, but may be an unfixable upstream ActiveX limitation"
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"AltGr capture is a known RDP ActiveX control (AxMsTscLib) keyboard hook behavior, not an mRemoteNG bug; triage refresh already posted requesting reproduction steps on latest build with no response yet\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"If confirmed reproducible, investigate AxMsTscLib keyboard hook release on focus-loss; likely requires SecuredSettingsEnabled or OnFocusReleased handling in the RDP protocol wrapper, but may be an unfixable upstream ActiveX limitation\"}\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:12:35"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

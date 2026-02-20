@@ -38,7 +38,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
 
             for (int lineNumber = 0; lineNumber < lines.Length; lineNumber++)
             {
-                string[] line = lines[lineNumber].Split(delimiter);
+                string[] line = ParseCsvLine(lines[lineNumber], delimiter);
                 if (lineNumber == 0)
                     csvHeaders = line.ToList();
                 else
@@ -53,6 +53,83 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             ConnectionTreeModel connectionTreeModel = new();
             connectionTreeModel.AddRootNode(root);
             return connectionTreeModel;
+        }
+
+        /// <summary>
+        /// Parses a single CSV line respecting RFC 4180 double-quoted fields.
+        /// </summary>
+        private static string[] ParseCsvLine(string line, char delimiter)
+        {
+            List<string> fields = new();
+            int i = 0;
+            while (i <= line.Length)
+            {
+                if (i == line.Length)
+                {
+                    fields.Add("");
+                    break;
+                }
+
+                if (line[i] == '"')
+                {
+                    // Quoted field
+                    i++; // skip opening quote
+                    int start = i;
+                    System.Text.StringBuilder sb = new();
+                    while (i < line.Length)
+                    {
+                        if (line[i] == '"')
+                        {
+                            if (i + 1 < line.Length && line[i + 1] == '"')
+                            {
+                                sb.Append(line, start, i - start);
+                                sb.Append('"');
+                                i += 2;
+                                start = i;
+                            }
+                            else
+                            {
+                                // End of quoted field
+                                sb.Append(line, start, i - start);
+                                i++; // skip closing quote
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+
+                    if (i == line.Length && (start <= line.Length - 1) && (sb.Length == 0 || line[i - 1] != '"'))
+                    {
+                        sb.Append(line, start, i - start);
+                    }
+
+                    fields.Add(sb.ToString());
+
+                    // skip delimiter after quoted field
+                    if (i < line.Length && line[i] == delimiter)
+                        i++;
+                }
+                else
+                {
+                    // Unquoted field
+                    int next = line.IndexOf(delimiter, i);
+                    if (next == -1)
+                    {
+                        fields.Add(line[i..]);
+                        break;
+                    }
+                    else
+                    {
+                        fields.Add(line[i..next]);
+                        i = next + 1;
+                    }
+                }
+            }
+
+            return fields.ToArray();
         }
 
         private RootNodeInfo CreateTreeStructure(Dictionary<ConnectionInfo, string> parentMapping)

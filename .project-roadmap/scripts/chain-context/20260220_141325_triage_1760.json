@@ -1,0 +1,62 @@
+{
+  "task_type": "triage",
+  "task_id": "1760",
+  "started_at": "2026-02-20T14:12:37",
+  "finished_at": "2026-02-20T14:13:25",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:12:37"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:12:52"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "CSV serializer writes password without escaping delimiters, and deserializer uses naive Split() with no RFC 4180 quoting support, corrupting import when any field contains the delimiter",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs"
+        ],
+        "approach": "Replace lossy FormatForCsv (strips semicolons) with RFC 4180 quoting (wrap fields containing delimiter/quotes in double quotes, escape internal quotes by doubling). Fix password serialization to use FormatForCsv. In deserializer, replace naive Split() with a quote-aware CSV parser that respects double-quoted fields."
+      },
+      "raw_output": "Based on my analysis of the code, here's the root cause:\n\n**Serializer** (`CsvConnectionsSerializerMremotengFormat.cs:120`): Password is written as `con.Password + \";\"` bypassing `FormatForCsv()`. The `FormatForCsv` method (line 319) strips semicolons entirely (`.Replace(\";\", \"\")`), which is lossy. But the password doesn't even go through it.\n\n**Deserializer** (`CsvConnectionsDeserializerMremotengFormat.cs:41`): Uses naive `Split(delimiter)` with no CSV quoting support, so any semicolon in a field value produces extra columns and shifts all subsequent fields.\n\n```json\n{\"decision\":\"implement\",\"reason\":\"CSV serializer writes password without escaping delimiters, and deserializer uses naive Split() with no RFC 4180 quoting support, corrupting import when any field contains the delimiter\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsSerializerMremotengFormat.cs\",\"mRemoteNG/Config/Serializers/ConnectionSerializers/Csv/CsvConnectionsDeserializerMremotengFormat.cs\"],\"approach\":\"Replace lossy FormatForCsv (strips semicolons) with RFC 4180 quoting (wrap fields containing delimiter/quotes in double quotes, escape internal quotes by doubling). Fix password serialization to use FormatForCsv. In deserializer, replace naive Split() with a quote-aware CSV parser that respects double-quoted fields.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T14:13:25"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
