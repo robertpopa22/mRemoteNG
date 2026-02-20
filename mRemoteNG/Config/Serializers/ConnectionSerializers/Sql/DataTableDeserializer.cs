@@ -89,6 +89,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.CacheBitmaps = MiscTools.GetBooleanValue(dataRow["CacheBitmaps"]);
             if (!dataRow.IsNull("Colors"))
                 connectionInfo.Colors = (RDPColors)Enum.Parse(typeof(RDPColors), (string)dataRow["Colors"]);
+            if (dataRow.Table.Columns.Contains("ConnectionFrameColor") && !dataRow.IsNull("ConnectionFrameColor"))
+                if (Enum.TryParse((string)dataRow["ConnectionFrameColor"], true, out ConnectionFrameColor frameColor))
+                    connectionInfo.ConnectionFrameColor = frameColor;
             connectionInfo.Description = dataRow["Description"] as string ?? "";
             connectionInfo.DisableCursorBlinking = MiscTools.GetBooleanValue(dataRow["DisableCursorBlinking"]);
             connectionInfo.DisableCursorShadow = MiscTools.GetBooleanValue(dataRow["DisableCursorShadow"]);
@@ -196,6 +199,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.AutomaticResize = MiscTools.GetBooleanValue(dataRow["InheritAutomaticResize"]);
             connectionInfo.Inheritance.CacheBitmaps = MiscTools.GetBooleanValue(dataRow["InheritCacheBitmaps"]);
             connectionInfo.Inheritance.Colors = MiscTools.GetBooleanValue(dataRow["InheritColors"]);
+            if (dataRow.Table.Columns.Contains("InheritConnectionFrameColor"))
+                connectionInfo.Inheritance.ConnectionFrameColor = MiscTools.GetBooleanValue(dataRow["InheritConnectionFrameColor"]);
             connectionInfo.Inheritance.Description = MiscTools.GetBooleanValue(dataRow["InheritDescription"]);
             connectionInfo.Inheritance.DisableCursorBlinking = MiscTools.GetBooleanValue(dataRow["InheritDisableCursorBlinking"]);
             connectionInfo.Inheritance.DisableCursorShadow = MiscTools.GetBooleanValue(dataRow["InheritDisableCursorShadow"]);

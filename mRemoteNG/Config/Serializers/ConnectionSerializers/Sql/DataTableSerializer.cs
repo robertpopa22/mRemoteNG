@@ -130,6 +130,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("AutomaticResize", typeof(bool));
             dataTable.Columns.Add("CacheBitmaps", typeof(bool));
             dataTable.Columns.Add("Colors", typeof(string));
+            dataTable.Columns.Add("ConnectionFrameColor", typeof(string));
             dataTable.Columns.Add("ConnectToConsole", typeof(bool));
             dataTable.Columns.Add("Connected", typeof(bool));
             dataTable.Columns.Add("ConstantID", typeof(string));
@@ -158,6 +159,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritAutomaticResize", typeof(bool));
             dataTable.Columns.Add("InheritCacheBitmaps", typeof(bool));
             dataTable.Columns.Add("InheritColors", typeof(bool));
+            dataTable.Columns.Add("InheritConnectionFrameColor", typeof(bool));
             dataTable.Columns.Add("InheritDescription", typeof(bool));
             dataTable.Columns.Add("InheritDisableCursorBlinking", typeof(bool));
             dataTable.Columns.Add("InheritDisableCursorShadow", typeof(bool));
@@ -365,6 +367,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["AutomaticResize"].Equals(connectionInfo.AutomaticResize);
             isFieldNotChange = isFieldNotChange && dataRow["CacheBitmaps"].Equals(connectionInfo.CacheBitmaps);
             isFieldNotChange = isFieldNotChange && dataRow["Colors"].Equals(connectionInfo.Colors.ToString());
+            isFieldNotChange = isFieldNotChange && dataRow["ConnectionFrameColor"].Equals(connectionInfo.ConnectionFrameColor.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["ConnectToConsole"].Equals(connectionInfo.UseConsoleSession);
             isFieldNotChange = isFieldNotChange && dataRow["Connected"].Equals(false); // TODO: this column can eventually be removed. we now save this property locally
             isFieldNotChange = isFieldNotChange && dataRow["DisableCursorBlinking"].Equals(connectionInfo.DisableCursorBlinking);
@@ -456,6 +459,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritAutomaticResize"].Equals(connectionInfo.Inheritance.AutomaticResize) &&
                     dataRow["InheritCacheBitmaps"].Equals(connectionInfo.Inheritance.CacheBitmaps) &&
                     dataRow["InheritColors"].Equals(connectionInfo.Inheritance.Colors) &&
+                    dataRow["InheritConnectionFrameColor"].Equals(connectionInfo.Inheritance.ConnectionFrameColor) &&
                     dataRow["InheritDescription"].Equals(connectionInfo.Inheritance.Description) &&
                     dataRow["InheritDisableCursorBlinking"].Equals(connectionInfo.Inheritance.DisableCursorBlinking) &&
                     dataRow["InheritDisableCursorShadow"].Equals(connectionInfo.Inheritance.DisableCursorShadow) &&
@@ -532,6 +536,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritAutomaticResize"].Equals(false) &&
                     dataRow["InheritCacheBitmaps"].Equals(false) &&
                     dataRow["InheritColors"].Equals(false) &&
+                    dataRow["InheritConnectionFrameColor"].Equals(false) &&
                     dataRow["InheritDescription"].Equals(false) &&
                     dataRow["InheritDisableCursorBlinking"].Equals(false) &&
                     dataRow["InheritDisableCursorShadow"].Equals(false) &&
@@ -633,6 +638,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["AutomaticResize"] = connectionInfo.AutomaticResize;
             dataRow["CacheBitmaps"] = connectionInfo.CacheBitmaps;
             dataRow["Colors"] = connectionInfo.Colors;
+            dataRow["ConnectionFrameColor"] = connectionInfo.ConnectionFrameColor.ToString();
             dataRow["ConnectToConsole"] = connectionInfo.UseConsoleSession;
             dataRow["Connected"] = false;
             dataRow["Description"] = connectionInfo.Description; // TODO: this column can eventually be removed. we now save this property locally
@@ -734,6 +740,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             {
                 dataRow["InheritAutomaticResize"] = connectionInfo.Inheritance.AutomaticResize;
                 dataRow["InheritColors"] = connectionInfo.Inheritance.Colors;
+                dataRow["InheritConnectionFrameColor"] = connectionInfo.Inheritance.ConnectionFrameColor;
                 dataRow["InheritDescription"] = connectionInfo.Inheritance.Description;
                 dataRow["InheritDisableCursorBlinking"] = connectionInfo.Inheritance.DisableCursorBlinking;
                 dataRow["InheritDisableCursorShadow"] = connectionInfo.Inheritance.DisableCursorShadow;
@@ -826,6 +833,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             {
                 dataRow["InheritAutomaticResize"] = false;
                 dataRow["InheritColors"] = false;
+                dataRow["InheritConnectionFrameColor"] = false;
                 dataRow["InheritDescription"] = false;
                 dataRow["InheritDisableCursorBlinking"] = false;
                 dataRow["InheritDisableCursorShadow"] = false;
