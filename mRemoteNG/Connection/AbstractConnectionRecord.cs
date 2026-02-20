@@ -139,6 +139,7 @@ namespace mRemoteNG.Connection
         private ProtocolVNC.Colors _vncColors = default;
         private ProtocolVNC.SmartSizeMode _vncSmartSizeMode = default;
         private bool _vncViewOnly = default;
+        private bool _vncClipboardRedirect = true;
 
         private string _credentialId = string.Empty;
 
@@ -1317,6 +1318,18 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("VNCViewOnly", _vncViewOnly);
             set => SetField(ref _vncViewOnly, value, "VNCViewOnly");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Redirect), 6),
+         Browsable(true),
+         DisplayName("VNC Clipboard Redirect"),
+         Description("If enabled, the local clipboard is shared with the remote VNC server."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.VNC, ProtocolType.ARD)]
+        public bool VNCClipboardRedirect
+        {
+            get => GetPropertyValue("VNCClipboardRedirect", _vncClipboardRedirect);
+            set => SetField(ref _vncClipboardRedirect, value, "VNCClipboardRedirect");
         }
 
         #endregion

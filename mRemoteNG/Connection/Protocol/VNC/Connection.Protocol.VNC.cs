@@ -395,7 +395,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 if (_vnc == null) return;
                 _vnc.ConnectComplete += VNCEvent_Connected;
                 _vnc.ConnectionLost += VNCEvent_Disconnected;
-                FrmMain.ClipboardChanged += VNCEvent_ClipboardChanged;
+                if (_info?.VNCClipboardRedirect != false)
+                    FrmMain.ClipboardChanged += VNCEvent_ClipboardChanged;
                 if (!Force.HasFlag(ConnectionInfo.Force.NoCredentials) && _info?.Password?.Length > 0)
                 {
                     _vnc.GetPassword = VNCEvent_Authenticate;

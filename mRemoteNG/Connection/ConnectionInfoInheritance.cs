@@ -644,6 +644,11 @@ namespace mRemoteNG.Connection
 		LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.ViewOnly)), 
 		LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionViewOnly)), 
 		TypeConverter(typeof(MiscTools.YesNoTypeConverter))]public bool VNCViewOnly {get; set;}
+
+		[LocalizedAttributes.LocalizedCategory(nameof(Language.Redirect), 9),
+		DisplayName("Inherit VNC Clipboard Redirect"),
+		Description("Inherit the VNC Clipboard Redirect setting from the parent."),
+		TypeConverter(typeof(MiscTools.YesNoTypeConverter))]public bool VNCClipboardRedirect {get; set;}
         #endregion
 
         [Browsable(false)]

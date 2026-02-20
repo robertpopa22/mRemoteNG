@@ -10,12 +10,19 @@
   "created_at": "2019-06-03T22:27:01Z",
   "github_updated_at": "2019-06-06T13:32:01Z",
   "body_snippet": "Related to #416, when remote connected to Xubuntu on the VNC protocol, any time I select anything, it is deselected and copied to my home PC's clipboard.\r\n\r\nThis can be a useful feature, but the problem is this happens when you don't want it to, and it seems to break copy/cut and pasting files when using the file manager, which is likely the problem #1196 had.\r\n\r\nThere doesn't seem to be a way to disable this behavior, and I don't want to use an external program because the primary reason I chos...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-20",
+      "type": "triaged",
+      "description": "VNC clipboard sharing is always enabled with no per-connection toggle; need a VNCClipboardRedirect property like RDP has"
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ5ODQ1NDc4OA==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): VNC clipboard sharing is always enabled with no per-connection toggle; need a VNCClipboardRedirect property like RDP has\nApproach: Add a VNCClipboardRedirect bool property (default true for backward compat) to AbstractConnectionRecord and ConnectionInfoInheritance. In ProtocolVNC.SetEventHandlers(), only subscribe to FrmMain.ClipboardChanged when the property is true. Update all serializers/deserializers to persist the new field."
 }

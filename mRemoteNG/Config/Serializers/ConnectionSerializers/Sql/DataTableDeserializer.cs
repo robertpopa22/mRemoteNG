@@ -162,6 +162,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.VNCProxyUsername = (string)dataRow["VNCProxyUsername"];
             connectionInfo.VNCSmartSizeMode = (ProtocolVNC.SmartSizeMode)Enum.Parse(typeof(ProtocolVNC.SmartSizeMode), (string)dataRow["VNCSmartSizeMode"]);
             connectionInfo.VNCViewOnly = MiscTools.GetBooleanValue(dataRow["VNCViewOnly"]);
+            connectionInfo.VNCClipboardRedirect = dataRow.Table.Columns.Contains("VNCClipboardRedirect")
+                ? MiscTools.GetBooleanValue(dataRow["VNCClipboardRedirect"])
+                : true;
 
             if (!dataRow.IsNull("RdpVersion")) // table allows null values which must be handled
                 if (Enum.TryParse((string)dataRow["RdpVersion"], true, out RdpVersion rdpVersion))
@@ -243,6 +246,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.VNCProxyUsername = MiscTools.GetBooleanValue(dataRow["InheritVNCProxyUsername"]);
             connectionInfo.Inheritance.VNCSmartSizeMode = MiscTools.GetBooleanValue(dataRow["InheritVNCSmartSizeMode"]);
             connectionInfo.Inheritance.VNCViewOnly = MiscTools.GetBooleanValue(dataRow["InheritVNCViewOnly"]);
+            if (dataRow.Table.Columns.Contains("InheritVNCClipboardRedirect"))
+                connectionInfo.Inheritance.VNCClipboardRedirect = MiscTools.GetBooleanValue(dataRow["InheritVNCClipboardRedirect"]);
         }
 
         private string DecryptValue(string cipherText)

@@ -504,6 +504,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.VNCViewOnly = value;
             }
 
+            if (headers.Contains("VNCClipboardRedirect"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("VNCClipboardRedirect")], out bool value))
+                    connectionRecord.VNCClipboardRedirect = value;
+            }
+
             if (headers.Contains("RDGatewayUsageMethod"))
             {
                 if (Enum.TryParse(connectionCsv[headers.IndexOf("RDGatewayUsageMethod")], out RDGatewayUsageMethod value))
@@ -993,6 +999,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritVNCViewOnly")], out bool value))
                     connectionRecord.Inheritance.VNCViewOnly = value;
+            }
+
+            if (headers.Contains("InheritVNCClipboardRedirect"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritVNCClipboardRedirect")], out bool value))
+                    connectionRecord.Inheritance.VNCClipboardRedirect = value;
             }
 
             if (headers.Contains("InheritRDGatewayUsageMethod"))

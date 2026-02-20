@@ -162,6 +162,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("VNCColors", connectionInfo.VNCColors));
             element.Add(new XAttribute("VNCSmartSizeMode", connectionInfo.VNCSmartSizeMode));
             element.Add(new XAttribute("VNCViewOnly", connectionInfo.VNCViewOnly.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("VNCClipboardRedirect", connectionInfo.VNCClipboardRedirect.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("RDGatewayUsageMethod", connectionInfo.RDGatewayUsageMethod));
             element.Add(new XAttribute("RDGatewayHostname", connectionInfo.RDGatewayHostname ?? string.Empty));
             element.Add(new XAttribute("RDGatewayUseConnectionCredentials", connectionInfo.RDGatewayUseConnectionCredentials));
@@ -362,6 +363,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritVNCSmartSizeMode", inheritance.VNCSmartSizeMode.ToString().ToLowerInvariant()));
             if (inheritance.VNCViewOnly)
                 element.Add(new XAttribute("InheritVNCViewOnly", inheritance.VNCViewOnly.ToString().ToLowerInvariant()));
+            if (inheritance.VNCClipboardRedirect)
+                element.Add(new XAttribute("InheritVNCClipboardRedirect", inheritance.VNCClipboardRedirect.ToString().ToLowerInvariant()));
             if (inheritance.RDGatewayUsageMethod)
                 element.Add(new XAttribute("InheritRDGatewayUsageMethod", inheritance.RDGatewayUsageMethod.ToString().ToLowerInvariant()));
             if (inheritance.RDGatewayHostname)

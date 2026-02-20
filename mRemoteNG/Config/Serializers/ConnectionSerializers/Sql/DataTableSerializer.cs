@@ -243,6 +243,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritVNCProxyUsername", typeof(bool));
             dataTable.Columns.Add("InheritVNCSmartSizeMode", typeof(bool));
             dataTable.Columns.Add("InheritVNCViewOnly", typeof(bool));
+            dataTable.Columns.Add("InheritVNCClipboardRedirect", typeof(bool));
             dataTable.Columns.Add("InheritVmId", typeof(bool));
             dataTable.Columns.Add("LastChange", MiscTools.DBTimeStampType());
             dataTable.Columns.Add("LoadBalanceInfo", typeof(string));
@@ -321,6 +322,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("VNCProxyUsername", typeof(string));
             dataTable.Columns.Add("VNCSmartSizeMode", typeof(string));
             dataTable.Columns.Add("VNCViewOnly", typeof(bool));
+            dataTable.Columns.Add("VNCClipboardRedirect", typeof(bool));
             dataTable.Columns.Add("VmId", typeof(string));
             dataTable.Columns[0].AutoIncrement = true;
             dataTable.Columns.Add("ID", typeof(int));
@@ -442,6 +444,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["VNCProxyUsername"].Equals(connectionInfo.VNCProxyUsername);
             isFieldNotChange = isFieldNotChange && dataRow["VNCSmartSizeMode"].Equals(connectionInfo.VNCSmartSizeMode.ToString());
             isFieldNotChange = isFieldNotChange && dataRow["VNCViewOnly"].Equals(connectionInfo.VNCViewOnly);
+            isFieldNotChange = isFieldNotChange && dataRow["VNCClipboardRedirect"].Equals(connectionInfo.VNCClipboardRedirect);
             isFieldNotChange = isFieldNotChange && dataRow["VmId"].Equals(connectionInfo.VmId);
             isFieldNotChange = isFieldNotChange && dataRow["User"].Equals(connectionInfo.User);
             isFieldNotChange = isFieldNotChange && dataRow["Role"].Equals(connectionInfo.Role);
@@ -520,7 +523,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritVNCProxyType"].Equals(connectionInfo.Inheritance.VNCProxyType) &&
                     dataRow["InheritVNCProxyUsername"].Equals(connectionInfo.Inheritance.VNCProxyUsername) &&
                     dataRow["InheritVNCSmartSizeMode"].Equals(connectionInfo.Inheritance.VNCSmartSizeMode) &&
-                    dataRow["InheritVNCViewOnly"].Equals(connectionInfo.Inheritance.VNCViewOnly);
+                    dataRow["InheritVNCViewOnly"].Equals(connectionInfo.Inheritance.VNCViewOnly) &&
+                    dataRow["InheritVNCClipboardRedirect"].Equals(connectionInfo.Inheritance.VNCClipboardRedirect);
             }
             else
             {
@@ -592,7 +596,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritVNCProxyType"].Equals(false) &&
                     dataRow["InheritVNCProxyUsername"].Equals(false) &&
                     dataRow["InheritVNCSmartSizeMode"].Equals(false) &&
-                    dataRow["InheritVNCViewOnly"].Equals(false);
+                    dataRow["InheritVNCViewOnly"].Equals(false) &&
+                    dataRow["InheritVNCClipboardRedirect"].Equals(false);
             }
 
             //bool pwd = dataRow["Password"].Equals(_saveFilter.SavePassword ? _cryptographyProvider.Encrypt(connectionInfo.Password?.ConvertToUnsecureString(), _encryptionKey) : "") &&
@@ -719,6 +724,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["VNCProxyUsername"] = connectionInfo.VNCProxyUsername;
             dataRow["VNCSmartSizeMode"] = connectionInfo.VNCSmartSizeMode;
             dataRow["VNCViewOnly"] = connectionInfo.VNCViewOnly; // TODO: this column can eventually be removed. we now save this property locally
+            dataRow["VNCClipboardRedirect"] = connectionInfo.VNCClipboardRedirect;
             dataRow["VmId"] = connectionInfo.VmId;
             dataRow["UserViaAPI"] = connectionInfo.UserViaAPI;
             dataRow["User"] = connectionInfo.User;
@@ -811,6 +817,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritVNCProxyUsername"] = connectionInfo.Inheritance.VNCProxyUsername;
                 dataRow["InheritVNCSmartSizeMode"] = connectionInfo.Inheritance.VNCSmartSizeMode;
                 dataRow["InheritVNCViewOnly"] = connectionInfo.Inheritance.VNCViewOnly;
+                dataRow["InheritVNCClipboardRedirect"] = connectionInfo.Inheritance.VNCClipboardRedirect;
                 dataRow["InheritVmId"] = connectionInfo.Inheritance.VmId;
                 dataRow["UserViaAPI"] = connectionInfo.UserViaAPI;
                 dataRow["InheritCacheBitmaps"] = connectionInfo.Inheritance.CacheBitmaps;
@@ -889,6 +896,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritVNCProxyUsername"] = false;
                 dataRow["InheritVNCSmartSizeMode"] = false;
                 dataRow["InheritVNCViewOnly"] = false;
+                dataRow["InheritVNCClipboardRedirect"] = false;
                 dataRow["InheritCacheBitmaps"] = false;
                 dataRow["UserViaAPI"] = "";
             }
