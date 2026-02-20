@@ -29,6 +29,9 @@ using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection
 {
+    /// <summary>Runtime-only reachability status of a connection's host, updated by the background host-status monitor.</summary>
+    public enum HostReachabilityStatus { Unknown, Reachable, Unreachable }
+
     /// <summary>
     /// Represents a single remote connection with all its configuration properties.
     /// This is the core data model for connections in mRemoteNG — each node in the
@@ -42,6 +45,7 @@ namespace mRemoteNG.Connection
     public class ConnectionInfo : AbstractConnectionRecord, IHasParent, IInheritable, IConnectionNode
     {
         private ConnectionInfoInheritance _inheritance = null!;
+        private HostReachabilityStatus _hostReachabilityStatus = HostReachabilityStatus.Unknown;
 
         #region IConnectionNode Implementation
         IEnumerable<IConnectionNode> IConnectionNode.Children => Enumerable.Empty<IConnectionNode>();
@@ -98,6 +102,14 @@ namespace mRemoteNG.Connection
 
         [Browsable(false)]
         public bool IsRoot { get; set; }
+
+        /// <summary>Runtime-only host reachability status — not persisted to the connections file.</summary>
+        [Browsable(false)]
+        public HostReachabilityStatus HostReachabilityStatus
+        {
+            get => _hostReachabilityStatus;
+            set => SetField(ref _hostReachabilityStatus, value, nameof(HostReachabilityStatus));
+        }
 
         #endregion
 
@@ -207,7 +219,7 @@ namespace mRemoteNG.Connection
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
                 "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection",
-                "User", "Role", "IsRoot", "HasDisconnectedSessions"
+                "User", "Role", "IsRoot", "HasDisconnectedSessions", "HostReachabilityStatus"
             };
 
             return GetProperties(excludedProperties);
