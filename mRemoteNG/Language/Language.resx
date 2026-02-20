@@ -2458,6 +2458,12 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="ECPNone" xml:space="preserve">
     <value>None</value>
   </data>
+  <data name="ECPLAPS" xml:space="preserve">
+    <value>LAPS (Active Directory)</value>
+  </data>
+  <data name="ECPLAPSQueryFailed" xml:space="preserve">
+    <value>LAPS query failed</value>
+  </data>
   <data name="EAPAmazonWebServices" xml:space="preserve">
     <value>AmazonEC2</value>
   </data>

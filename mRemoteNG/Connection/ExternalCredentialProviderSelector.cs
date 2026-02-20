@@ -22,5 +22,8 @@ namespace mRemoteNG.Connection
 
         [LocalizedAttributes.LocalizedDescription(nameof(Language.ECPPasswordSafe))]
         PasswordSafe = 5,
+
+        [LocalizedAttributes.LocalizedDescription(nameof(Language.ECPLAPS))]
+        LAPS = 6,
     }
 }

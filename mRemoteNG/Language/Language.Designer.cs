@@ -1896,7 +1896,25 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("ECPNone", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to LAPS (Active Directory).
+        /// </summary>
+        internal static string ECPLAPS {
+            get {
+                return ResourceManager.GetString("ECPLAPS", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to LAPS query failed.
+        /// </summary>
+        internal static string ECPLAPSQueryFailed {
+            get {
+                return ResourceManager.GetString("ECPLAPSQueryFailed", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to 1Password.
         /// </summary>
