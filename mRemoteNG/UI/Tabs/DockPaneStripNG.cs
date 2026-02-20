@@ -242,6 +242,8 @@ namespace mRemoteNG.UI.Tabs
 
         #region Customizable Properties
 
+        private int ScaleForDpi(int value) => (int)Math.Round(value * (DeviceDpi / 96.0));
+
         private static int ToolWindowStripGapTop => _ToolWindowStripGapTop;
 
         private static int ToolWindowStripGapBottom => _ToolWindowStripGapBottom;
@@ -286,7 +288,7 @@ namespace mRemoteNG.UI.Tabs
 
         private static int DocumentStripGapTop => _DocumentStripGapTop;
 
-        private static int DocumentStripGapBottom => _DocumentStripGapBottom;
+        private int DocumentStripGapBottom => ScaleForDpi(_DocumentStripGapBottom);
 
         private TextFormatFlags DocumentTextFormat
         {
@@ -302,15 +304,15 @@ namespace mRemoteNG.UI.Tabs
             }
         }
 
-        private static int DocumentTabMaxWidth => _DocumentTabMaxWidth;
+        private int DocumentTabMaxWidth => ScaleForDpi(_DocumentTabMaxWidth);
 
-        private static int DocumentButtonGapTop => _DocumentButtonGapTop;
+        private int DocumentButtonGapTop => ScaleForDpi(_DocumentButtonGapTop);
 
-        private static int DocumentButtonGapBottom => _DocumentButtonGapBottom;
+        private int DocumentButtonGapBottom => ScaleForDpi(_DocumentButtonGapBottom);
 
         private static int DocumentButtonGapBetween => _DocumentButtonGapBetween;
 
-        private static int DocumentButtonGapRight => _DocumentButtonGapRight;
+        private int DocumentButtonGapRight => ScaleForDpi(_DocumentButtonGapRight);
 
         private static int DocumentTabGapTop => _DocumentTabGapTop;
 
@@ -318,17 +320,17 @@ namespace mRemoteNG.UI.Tabs
 
         private static int DocumentTabGapRight => _DocumentTabGapRight;
 
-        private static int DocumentIconGapBottom => _DocumentIconGapBottom;
+        private int DocumentIconGapBottom => ScaleForDpi(_DocumentIconGapBottom);
 
-        private static int DocumentIconGapLeft => _DocumentIconGapLeft;
+        private int DocumentIconGapLeft => ScaleForDpi(_DocumentIconGapLeft);
 
         private static int DocumentIconGapRight => _DocumentIconGapRight;
 
-        private static int DocumentIconWidth => _DocumentIconWidth;
+        private int DocumentIconWidth => ScaleForDpi(_DocumentIconWidth);
 
-        private static int DocumentIconHeight => _DocumentIconHeight;
+        private int DocumentIconHeight => ScaleForDpi(_DocumentIconHeight);
 
-        private static int DocumentTextGapRight => _DocumentTextGapRight;
+        private int DocumentTextGapRight => ScaleForDpi(_DocumentTextGapRight);
 
         #endregion
 
@@ -700,7 +702,7 @@ namespace mRemoteNG.UI.Tabs
                  + ToolWindowImageGapRight + ToolWindowTextGapRight;
         }
 
-        private const int TAB_CLOSE_BUTTON_WIDTH = 30;
+        private int TabCloseButtonWidth => ScaleForDpi(30);
 
         private int GetMaxTabWidth_Document(int index)
         {
@@ -716,7 +718,7 @@ namespace mRemoteNG.UI.Tabs
             else
                 width = sizeText.Width + DocumentIconGapLeft + DocumentTextGapRight;
 
-            width += TAB_CLOSE_BUTTON_WIDTH;
+            width += TabCloseButtonWidth;
             return width;
         }
 
