@@ -1636,6 +1636,21 @@ namespace mRemoteNG.UI.Window
 
         #endregion
 
+        protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                ConnectionTab? selectedTab = GetSelectedTab();
+                if (selectedTab != null && GetInterfaceControl() == null)
+                {
+                    Reconnect();
+                    return true;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             if (m.Msg == NativeMethods.WM_MOUSEACTIVATE)
