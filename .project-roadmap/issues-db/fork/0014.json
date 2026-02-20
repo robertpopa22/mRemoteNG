@@ -1,0 +1,34 @@
+{
+  "number": 14,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Is CVE-2023-30367 fixed or mitigated in this version?",
+  "state": "open",
+  "labels": [],
+  "author": "krwudtke",
+  "created_at": "2026-02-20T21:34:58Z",
+  "github_updated_at": "2026-02-20T21:43:42Z",
+  "body_snippet": "I looked for something other than an issue to file this as but couldn't find anything.\n\n@robertpopa22 \nIssue #2420 from the parent project: Public Disclosure of issue 726 seems to be a major vulnerability. Has this been addressed in this branch?\n(I think it has, but I need clarification.)\n\nHow stable is v1.80.2? Since ALL releases on the parent project are apparently Alpha releases, I am looking for a newer stable release to use in a corporate environment. ",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7qrmGB",
+      "author": "krwudtke",
+      "date": "2026-02-20T21:43:42Z",
+      "snippet": "Also, I'd like to install this version while keeping my install of mRemoteNG version 1.77.1.27654 intact in case I need to go back. I originally installed from the installer, not portable. Is there a way to install v1.80.2 other than extracting over an existing mRemoteNG installation or building from source?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-02-20T21:43:42Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-02-20T22:31:21Z",
+  "notes": ""
+}
