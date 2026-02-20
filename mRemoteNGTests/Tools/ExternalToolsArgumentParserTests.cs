@@ -16,6 +16,7 @@ namespace mRemoteNGTests.Tools
         private const string StringAfterMetacharacterEscaping = @"^(^)^%^!^^abc123*^<^>^&^|^""'\";
         private const string StringAfterAllEscaping = @"^(^)^%^!^^abc123*^<^>^&^|\^""'\";
         private const string StringAfterNoEscaping = TestString;
+        private const string StringAfterUrlEncoding = @"%28%29%25%21%5Eabc123%2A%3C%3E%26%7C%22%27%5C";
         private const int Port = 9933;
         private const string PortAsString = "9933";
         private const string ProtocolAsString = "RDP";
@@ -86,49 +87,63 @@ namespace mRemoteNGTests.Tools
                     yield return new TestCaseData("%NAME%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-NAME%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!NAME%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+NAME%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%HOSTNAME%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-HOSTNAME%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!HOSTNAME%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+HOSTNAME%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%PORT%").Returns(PortAsString);
                     yield return new TestCaseData("%-PORT%").Returns(PortAsString);
                     yield return new TestCaseData("%!PORT%").Returns(PortAsString);
+                    yield return new TestCaseData("%+PORT%").Returns(PortAsString);
                     yield return new TestCaseData("%USERNAME%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-USERNAME%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!USERNAME%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+USERNAME%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%PASSWORD%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-PASSWORD%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!PASSWORD%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+PASSWORD%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%DOMAIN%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-DOMAIN%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!DOMAIN%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+DOMAIN%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%DESCRIPTION%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-DESCRIPTION%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!DESCRIPTION%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+DESCRIPTION%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%MACADDRESS%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-MACADDRESS%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!MACADDRESS%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+MACADDRESS%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%USERFIELD%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-USERFIELD%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!USERFIELD%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+USERFIELD%").Returns(StringAfterUrlEncoding);
                     for (int userFieldNumber = 1; userFieldNumber <= 10; userFieldNumber++)
                     {
                         string suffix = userFieldNumber.ToString();
                         yield return new TestCaseData($"%USERFIELD{suffix}%").Returns(StringAfterAllEscaping + suffix);
                         yield return new TestCaseData($"%-USERFIELD{suffix}%").Returns(StringAfterMetacharacterEscaping + suffix);
                         yield return new TestCaseData($"%!USERFIELD{suffix}%").Returns(StringAfterNoEscaping + suffix);
+                        yield return new TestCaseData($"%+USERFIELD{suffix}%").Returns(StringAfterUrlEncoding + suffix);
                     }
                     yield return new TestCaseData("%PROTOCOL%").Returns(ProtocolAsString);
                     yield return new TestCaseData("%-PROTOCOL%").Returns(ProtocolAsString);
                     yield return new TestCaseData("%!PROTOCOL%").Returns(ProtocolAsString);
+                    yield return new TestCaseData("%+PROTOCOL%").Returns(ProtocolAsString);
                     yield return new TestCaseData("%ENVIRONMENTTAGS%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-ENVIRONMENTTAGS%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!ENVIRONMENTTAGS%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+ENVIRONMENTTAGS%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%SSHOPTIONS%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-SSHOPTIONS%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!SSHOPTIONS%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+SSHOPTIONS%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%PUTTYSESSION%").Returns(StringAfterAllEscaping);
                     yield return new TestCaseData("%-PUTTYSESSION%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!PUTTYSESSION%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+PUTTYSESSION%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%%") {TestName = "EmptyVariableTagsNotParsed" }.Returns("%%");
                     yield return new TestCaseData("/k echo %!USERNAME%") { TestName = "ParsingWorksWhenVariableIsNotInFirstPosition" }.Returns(SampleCommandString);
                     yield return new TestCaseData("%COMSPEC%") { TestName = "EnvironmentVariablesParsed" }.Returns(Environment.GetEnvironmentVariable("comspec"));
@@ -230,6 +245,21 @@ namespace mRemoteNGTests.Tools
             var result = parser.ParseArguments("%!USERFIELD%");
             // Should stop expanding after reaching max depth, returning the last unexpanded value
             Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public void UrlEncodePrefixEncodesSpecialCharactersInPassword()
+        {
+            // Issue #1515: passwords with :;=/>  break WinSCP URLs without URL encoding
+            var connectionInfo = new ConnectionInfo
+            {
+                Username = "root",
+                Hostname = "172.28.3.151",
+                Password = "J4Lk:;7=0!S>>/"
+            };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("scp://%+USERNAME%:%+PASSWORD%@%+HOSTNAME%", escapeForShell: false);
+            Assert.That(result, Is.EqualTo("scp://root:J4Lk%3A%3B7%3D0%21S%3E%3E%2F@172.28.3.151"));
         }
 
         [TestCase(ProtocolType.SSH2, "SSH2")]

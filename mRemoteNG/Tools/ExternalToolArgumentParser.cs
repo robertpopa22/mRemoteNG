@@ -133,7 +133,11 @@ namespace mRemoteNG.Tools
 
                 if (haveReplacement)
                 {
-                    if (escapeForShell)
+                    if (escape == EscapeType.UrlEncode)
+                    {
+                        replacementValue = Uri.EscapeDataString(replacementValue);
+                    }
+                    else if (escapeForShell)
                     {
                         char trailing = tokenEnd + 2 <= input.Length
                             ? input.Substring(tokenEnd + 1, 1).ToCharArray()[0]
@@ -173,6 +177,9 @@ namespace mRemoteNG.Tools
                     break;
                 case '!':
                     escape = EscapeType.None;
+                    break;
+                case '+':
+                    escape = EscapeType.UrlEncode;
                     break;
             }
 
@@ -306,7 +313,8 @@ namespace mRemoteNG.Tools
         {
             All,
             ShellMetacharacters,
-            None
+            None,
+            UrlEncode
         }
 
         private struct Replacement(int start, int length, string value)
