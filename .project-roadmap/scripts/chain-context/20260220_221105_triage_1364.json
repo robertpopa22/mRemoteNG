@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1364",
+  "started_at": "2026-02-20T22:10:32",
+  "finished_at": "2026-02-20T22:11:05",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T22:10:32"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T22:10:45"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "Issue references a specific development branch 'reapply_credential_manager' that no longer exists; branch-specific bugs are not tracked once the branch is merged or abandoned, and the issue body is empty with no reproduction steps.",
+        "priority": "P4-debt",
+        "estimated_files": [
+          "mRemoteNG/Tools/PuttySessionsProvider.cs"
+        ],
+        "approach": "Close as wontfix — branch-specific issue with no repro steps; verify PuTTY sessions work on current main before re-opening"
+      },
+      "raw_output": "```json\n{\"decision\":\"wontfix\",\"reason\":\"Issue references a specific development branch 'reapply_credential_manager' that no longer exists; branch-specific bugs are not tracked once the branch is merged or abandoned, and the issue body is empty with no reproduction steps.\",\"priority\":\"P4-debt\",\"estimated_files\":[\"mRemoteNG/Tools/PuttySessionsProvider.cs\"],\"approach\":\"Close as wontfix — branch-specific issue with no repro steps; verify PuTTY sessions work on current main before re-opening\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T22:11:05"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
