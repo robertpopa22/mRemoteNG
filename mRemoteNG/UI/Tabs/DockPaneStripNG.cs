@@ -433,6 +433,7 @@ namespace mRemoteNG.UI.Tabs
 
         private GraphicsPath? GetOutline_Document(int index)
         {
+            if (index < 0 || index >= Tabs.Count) return null;
             Rectangle? rectangle = Tabs[index].Rectangle;
             if (rectangle == null) return null;
             Rectangle rectTab = rectangle.Value;
@@ -467,6 +468,7 @@ namespace mRemoteNG.UI.Tabs
 
         private GraphicsPath? GetOutline_ToolWindow(int index)
         {
+            if (index < 0 || index >= Tabs.Count) return null;
             Rectangle? rectangle = Tabs[index].Rectangle;
             if (rectangle == null) return null;
             Rectangle rectTab = rectangle.Value;
@@ -815,6 +817,7 @@ namespace mRemoteNG.UI.Tabs
 
         private Rectangle GetTabRectangle_ToolWindow(int index)
         {
+            if (index < 0 || index >= Tabs.Count) return Rectangle.Empty;
             Rectangle rectTabStrip = TabStripRectangle;
 
             MremoteNGTab tab = (MremoteNGTab)Tabs[index];
@@ -823,6 +826,7 @@ namespace mRemoteNG.UI.Tabs
 
         private Rectangle GetTabRectangle_Document(int index)
         {
+            if (index < 0 || index >= Tabs.Count) return Rectangle.Empty;
             Rectangle rectTabStrip = TabStripRectangle;
             MremoteNGTab tab = (MremoteNGTab)Tabs[index];
 
