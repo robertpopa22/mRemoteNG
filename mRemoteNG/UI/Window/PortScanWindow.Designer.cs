@@ -230,7 +230,8 @@ namespace mRemoteNG.UI.Window
             "HTTPS",
             "Rlogin",
             "RDP",
-            "VNC"});
+            "VNC",
+            "All detected"});
             this.cbProtocol.Location = new System.Drawing.Point(3, 27);
             this.cbProtocol.Name = "cbProtocol";
             this.cbProtocol.Size = new System.Drawing.Size(144, 21);

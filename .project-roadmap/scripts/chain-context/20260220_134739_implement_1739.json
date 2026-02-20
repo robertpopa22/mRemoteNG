@@ -1,0 +1,63 @@
+{
+  "task_type": "implement",
+  "task_id": "1739",
+  "started_at": "2026-02-20T13:32:14",
+  "finished_at": "2026-02-20T13:47:39",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1739",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T13:32:15"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1739",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T13:32:28"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1739",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 900s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1739.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/Connection/ConnectionInfo.cs",
+        "mRemoteNG/Connection/Protocol/ProtocolFactory.cs",
+        "mRemoteNG/Connection/Protocol/ProtocolType.cs",
+        "mRemoteNG/Language/Language.Designer.cs",
+        "mRemoteNG/Language/Language.resx",
+        "mRemoteNGTests/UI/Window/ConfigWindowTests/ConfigWindowGeneralTests.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1739.json        | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json      | 20 +++++++++++---------\n mRemoteNG/Connection/ConnectionInfo.cs               |  3 +++\n mRemoteNG/Connection/Protocol/ProtocolFactory.cs     |  3 +++\n mRemoteNG/Connection/Protocol/ProtocolType.cs        |  5 ++++-\n mRemoteNG/Language/Language.Designer.cs              | 11 ++++++++++-\n mRemoteNG/Language/Language.resx                     |  3 +++\n .../ConfigWindowTests/ConfigWindowGeneralTests.cs    |  1 +\n 8 files changed, 46 insertions(+), 15 deletions(-)",
+      "timestamp": "2026-02-20T13:47:39",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1739.json b/.project-roadmap/issues-db/upstream/1739.json\nindex 626313be8..6dd1d7c40 100644\n--- a/.project-roadmap/issues-db/upstream/1739.json\n+++ b/.project-roadmap/issues-db/upstream/1739.json\n@@ -12,12 +12,19 @@\n   \"created_at\": \"2020-04-24T18:56:26Z\",\n   \"github_updated_at\": \"2026-02-10T11:50:48Z\",\n   \"body_snippet\": \"I'd love to be able to use mRemoteNG to handle libvirt/QEMU SPICE protocol.  That would allow connections to libvirt/QEMU VMs even if there was some reason that networking was not working within the VM.  OS installs, upgrades, etc.  Oddball OSes that you don't know whether there's remote access.  Or, diagnosing networking issues in the VM.\\r\\n\\r\\nIt seems like it would slot in well with the mRemoteNG's ethos.\\r\\n\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-20\",\n+      \"type\": \"triaged\",\n+      \"description\": \"SPICE protocol support is a valid feature request for KVM/Proxmox users; can be implemented as an external tool integration launching virt-viewer/remote-viewer\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"MDEyOklzc3VlQ29tbWVudDYyNDg3NjgwNA==\",\n@@ -160,5 +167,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): SPICE protocol support is a valid feature request for KVM/Proxmox users; can be implemented as an external tool integration launching virt-viewer/remote-viewer\\nApproach: Add SPICE as a new protocol type that launches external virt-viewer (remote-viewer.exe) with connection parameters, similar to how PuTTY/external tools are integrated. Requires new ProtocolType enum value, connection info fields (host, port, TLS, password), and UI settings page entry.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 8ffd9355f..24a019298 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -54,13 +54,6 @@\n         189.6\n       ],\n       \"triage\": [\n-        26.9,\n-        35.2,\n-        40.1,\n-        55.7,\n-        25.7,\n-        16.8,\n-        31.1,\n         28.8,\n         61.1,\n         38.1,\n@@ -103,7 +96,14 @@\n         21.7,\n         24.7,\n         36.4,\n-        27.2\n+        27.2,\n+        11.8,\n+        36.5,\n+        24.4,\n+        31.9,\n+        14.0,\n+        35.7,\n+        19.0\n       ]\n     },\n     \"gemini\": {\n@@ -274,6 +274,8 @@\n     \"triage_1637\": 1.5,\n     \"triage_1653\": 1.5,\n     \"triage_1656\": 1.5,\n-    \"triage_1673\": 1.5\n+    \"triage_1673\": 1.5,\n+    \"triage_1715\": 1.5,\n+    \"triage_1727\": 1.5\n   }\n }\ndiff --git a/mRemoteNG/Connection/ConnectionInfo.cs b/mRemoteNG/Connection/ConnectionInfo.cs\nindex 067f8cdb8..24fce9c16 100644\n--- a/mRemoteNG/Connection/ConnectionInfo.cs\n+++ b/mRemoteNG/Connection/ConnectionInfo.cs\n@@ -18,6 +18,7 @@ using mRemoteNG.Connection.Protocol.SSH;\n using mRemoteNG.Connection.Protocol.Telnet;\n using mRemoteNG.Connection.Protocol.VNC;\n using mRemoteNG.Connection.Protocol.Winbox;\n+using mRemoteNG.Connection.Protocol.Spice;\n using mRemoteNG.Container;\n using mRemoteNG.Properties;\n using mRemoteNG.Tree;\n@@ -404,6 +405,8 @@ namespace mRemoteNG.Connection\n                         return (int)IntegratedProgram.Defaults.Port;\n                     case ProtocolType.Winbox:\n                         return (int)ProtocolWinbox.Defaults.Port;\n+                    case ProtocolType.Spice:\n+                        return (int)ProtocolSpice.Defaults.Port;\n                 }\n \n                 return 0;\ndiff --git a/mRemoteNG/Connection/Protocol/ProtocolFactory.cs b/mRemoteNG/Connection/Protocol/ProtocolFactory.cs\nindex 3c0a484d1..cdb04fbd3 100644\n--- a/mRemoteNG/Connection/Protocol/ProtocolFactory.cs\n+++ b/mRemoteNG/Connection/Protocol/ProtocolFactory.cs\n@@ -14,6 +14,7 @@ using mRemoteNG.Connection.Protocol.Terminal;\n using mRemoteNG.Connection.Protocol.AnyDesk;\n using mRemoteNG.Connection.Protocol.MSRA;\n using mRemoteNG.Connection.Protocol.Winbox;\n+using mRemoteNG.Connection.Protocol.Spice;\n using mRemoteNG.Resources.Language;\n using System.Runtime.Versioning;\n \n@@ -67,6 +68,8 @@ namespace mRemoteNG.Connection.Protocol\n                     return new ProtocolMSRA(connectionInfo);\n                 case ProtocolType.Winbox:\n                     return new ProtocolWinbox(connectionInfo);\n+                case ProtocolType.Spice:\n+                    return new ProtocolSpice(connectionInfo);\n                 case ProtocolType.IntApp:\n                     if (connectionInfo.ExtApp == \"\")\n                     {\ndiff --git a/mRemoteNG/Connection/Protocol/ProtocolType.cs b/mRemoteNG/Connection/Protocol/ProtocolType.cs\nindex 266b284cf..8de5752f5 100644\n--- a/mRemoteNG/Connection/Protocol/ProtocolType.cs\n+++ b/mRemoteNG/Connection/Protocol/ProtocolType.cs\n@@ -63,7 +63,10 @@ namespace mRemoteNG.Connection.Protocol\n         OpenSSH = 22,\n \n         [LocalizedAttributes.LocalizedDescription(nameof(Language.Winbox))]\n-        Winbox = 21\n+        Winbox = 21,\n+\n+        [LocalizedAttributes.LocalizedDescription(nameof(Language.Spice))]\n+        Spice = 23\n     }\n \n     public class ProtocolFeature\ndiff --git a/mRemoteNG/Language/Language.Designer.cs b/mRemoteNG/Language/Language.Designer.cs\nindex 08a306e36..6fc8fd9e9 100644\n--- a/mRemoteNG/Language/Language.Designer.cs\n+++ b/mRemoteNG/Language/Language.Designer.cs\n@@ -7556,7 +7556,16 @@ namespace mRemoteNG.Resources.Language {\n                 return ResourceManager.GetString(\"Winbox\", resourceCulture);\n             }\n         }\n-        \n+\n+        /// <summary>\n+        ///   Looks up a localized string similar to SPICE.\n+        /// </summary>\n+        internal static string Spice {\n+            get {\n+                return ResourceManager.GetString(\"Spice\", resourceCulture);\n+            }\n+        }\n+\n         /// <summary>\n         ///   Looks up a localized string similar to Type Password.\n         /// </summary>\ndiff --git a/mRemoteNG/Language/Language.resx b/mRemoteNG/Language/Language.resx\nindex 515c83012..4e1c8fdaa 100644\n--- a/mRemoteNG/Language/Language.resx\n+++ b/mRemoteNG/Language/Language.resx\n@@ -2679,6 +2679,9 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>\n   <data name=\"Winbox\" xml:space=\"preserve\">\n     <value>Winbox</value>\n   </data>\n+  <data name=\"Spice\" xml:space=\"preserve\">\n+    <value>SPICE</value>\n+  </data>\n   <data name=\"TypePassword\" xml:space=\"preserve\">\n     <value>Type Password</value>\n   </data>\ndiff --git a/mRemoteNGTests/UI/Window/ConfigWindowTests/ConfigWindowGeneralTests.cs b/mRemoteNGTests/UI/Window/ConfigWindowTests/ConfigWindowGeneralTests.cs\nindex 826fa5867..60f6ee6b8 100644\n--- a/mRemoteNGTests/UI/Window/ConfigWindowTests/ConfigWindowGeneralTests.cs\n+++ b/mRemoteNGTests/UI/Window/ConfigWindowTests/ConfigWindowGeneralTests.cs\n@@ -439,6 +439,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests\n                 case ProtocolType.AnyDesk:\n                 case ProtocolType.Serial:\n                 case ProtocolType.VMRC:\n+                case ProtocolType.Spice:\n                     expectedProperties.AddRange(new[]\n                     {\n                         nameof(ConnectionInfo.Password),"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

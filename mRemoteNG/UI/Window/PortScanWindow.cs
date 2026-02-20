@@ -155,8 +155,14 @@ namespace mRemoteNG.UI.Window
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            ProtocolType protocol =
-                (ProtocolType)Enum.Parse(typeof(ProtocolType), Convert.ToString(cbProtocol.SelectedItem) ?? string.Empty, true);
+            string selectedItem = Convert.ToString(cbProtocol.SelectedItem) ?? string.Empty;
+            if (selectedItem == "All detected")
+            {
+                importAllDetectedProtocols();
+                return;
+            }
+
+            ProtocolType protocol = (ProtocolType)Enum.Parse(typeof(ProtocolType), selectedItem, true);
             importSelectedHosts(protocol);
         }
 
@@ -300,6 +306,44 @@ namespace mRemoteNG.UI.Window
             if (destinationContainer is null)
                 return;
             Import.ImportFromPortScan(hosts, protocol, destinationContainer);
+        }
+
+        private void importAllDetectedProtocols()
+        {
+            List<ScanHost> hosts = new();
+            foreach (ScanHost host in olvHosts.SelectedObjects)
+            {
+                hosts.Add(host);
+            }
+
+            if (hosts.Count < 1)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                                                    "Could not import host(s) from port scan context menu");
+                return;
+            }
+
+            ContainerInfo? destinationContainer = GetDestinationContainerForImportedHosts();
+            if (destinationContainer is null)
+                return;
+
+            (ProtocolType protocol, Func<ScanHost, bool> detected)[] protocolFilters =
+            [
+                (ProtocolType.SSH2, h => h.Ssh),
+                (ProtocolType.Telnet, h => h.Telnet),
+                (ProtocolType.HTTP, h => h.Http),
+                (ProtocolType.HTTPS, h => h.Https),
+                (ProtocolType.Rlogin, h => h.Rlogin),
+                (ProtocolType.RDP, h => h.Rdp),
+                (ProtocolType.VNC, h => h.Vnc),
+            ];
+
+            foreach (var (protocol, detected) in protocolFilters)
+            {
+                List<ScanHost> filtered = hosts.Where(detected).ToList();
+                if (filtered.Count > 0)
+                    Import.ImportFromPortScan(filtered, protocol, destinationContainer);
+            }
         }
 
         /// <summary>
