@@ -332,6 +332,27 @@ jobs:
           echo "Release assets:"
           ls -lh release-assets/
 
+      - name: (06b) Generate SHA256 checksums
+        id: checksums
+        shell: pwsh
+        run: |
+          $checksumFile = "release-assets/checksums-SHA256.txt"
+          $lines = @()
+          $files = Get-ChildItem -Path release-assets -Filter *.zip
+          foreach ($file in $files | Sort-Object Name) {
+            $hash = (Get-FileHash -Path $file.FullName -Algorithm SHA256).Hash.ToLower()
+            $line = "$hash  $($file.Name)"
+            $lines += $line
+          }
+          $lines | Set-Content -Path $checksumFile -Encoding UTF8
+          Write-Host "Generated checksums:"
+          Get-Content $checksumFile
+          # Export for release body
+          $joined = $lines -join "`n"
+          echo "sha256<<EOF" >> $env:GITHUB_OUTPUT
+          echo $joined >> $env:GITHUB_OUTPUT
+          echo "EOF" >> $env:GITHUB_OUTPUT
+
       - name: (07) Create release
         uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2
         env:
@@ -359,6 +380,11 @@ jobs:
 
             ### Changes in this Release
             ${{ steps.changelog.outputs.log }}
+
+            ### SHA256 Checksums
+            ```
+            ${{ steps.checksums.outputs.sha256 }}
+            ```
 
             Last Commit Message:
             ${{ steps.meta.outputs.message }}
