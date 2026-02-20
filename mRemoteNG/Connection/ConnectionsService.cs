@@ -20,6 +20,8 @@ using mRemoteNG.Tree.Root;
 using mRemoteNG.UI;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
+using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Window;
 using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using mRemoteNG.Config.Serializers.Versioning;
@@ -112,7 +114,13 @@ namespace mRemoteNG.Connection
                 }
 
                 if (string.IsNullOrEmpty(newConnectionInfo.Panel))
-                    newConnectionInfo.Panel = Language.General;
+                {
+                    // Use the currently active panel instead of hardcoding "General" (#1682)
+                    if (FrmMain.IsCreated && FrmMain.Default.pnlDock.ActiveDocument is ConnectionWindow activeCw)
+                        newConnectionInfo.Panel = activeCw.TabText;
+                    else
+                        newConnectionInfo.Panel = Language.General;
+                }
 
                 newConnectionInfo.IsQuickConnect = true;
 

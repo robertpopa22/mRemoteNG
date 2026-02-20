@@ -1,6 +1,8 @@
 ﻿using mRemoteNG.App;
 using mRemoteNG.Connection.Protocol;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Forms;
+using mRemoteNG.UI.Window;
 using System.Runtime.Versioning;
 
 namespace mRemoteNG.Connection
@@ -18,7 +20,13 @@ namespace mRemoteNG.Connection
             connectionInfo.Protocol = url.StartsWith("https:") ? ProtocolType.HTTPS : ProtocolType.HTTP;
             connectionInfo.SetDefaultPort();
             if (string.IsNullOrEmpty(connectionInfo.Panel))
-                connectionInfo.Panel = Language.General;
+            {
+                // Use the currently active panel instead of hardcoding "General" (#1682)
+                if (FrmMain.IsCreated && FrmMain.Default.pnlDock.ActiveDocument is ConnectionWindow activeCw)
+                    connectionInfo.Panel = activeCw.TabText;
+                else
+                    connectionInfo.Panel = Language.General;
+            }
             connectionInfo.IsQuickConnect = true;
             Runtime.ConnectionInitiator.OpenConnection(connectionInfo, ConnectionInfo.Force.DoNotJump);
         }
