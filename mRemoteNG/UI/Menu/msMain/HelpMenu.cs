@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
+using mRemoteNG.Connection;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
@@ -219,7 +220,7 @@ namespace mRemoteNG.UI.Menu
             AppWindows.Show(WindowType.KeyboardShortcuts);
         }
 
-        private void mMenInfoHelp_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlDocumentation);
+        private void mMenInfoHelp_Click(object? sender, EventArgs e) => WebHelper.GoToUrl(GeneralAppInfo.UrlDocumentation);
 
         private void mMenInfoForum_Click(object? sender, EventArgs e) => OpenUrl(GeneralAppInfo.UrlForum);
 
