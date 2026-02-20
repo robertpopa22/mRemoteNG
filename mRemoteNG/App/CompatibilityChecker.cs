@@ -24,6 +24,15 @@ namespace mRemoteNG.App
 
         private static void CheckFipsPolicy(MessageCollector messageCollector)
         {
+            // .NET 5+ uses CNG crypto implementations that are FIPS-validated.
+            // The legacy FIPS warning only applied to .NET Framework's managed implementations
+            // (e.g. RijndaelManaged, MD5CryptoServiceProvider) which are no longer used.
+            if (Environment.Version.Major >= 5)
+            {
+                messageCollector.AddMessage(MessageClass.InformationMsg, "FIPS check skipped: .NET 5+ uses FIPS-validated CNG implementations", true);
+                return;
+            }
+
             if (Settings.Default.OverrideFIPSCheck)
             {
                 messageCollector.AddMessage(MessageClass.InformationMsg, "OverrideFIPSCheck is set. Will skip check", true);
