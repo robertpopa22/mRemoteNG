@@ -435,6 +435,46 @@ namespace mRemoteNG.UI.Forms
         {
             UpdateWindowTitle();
             UI.Taskbar.JumpListManager.Instance.Initialize();
+            StartRestApiIfConfigured();
+        }
+
+        private static void StartRestApiIfConfigured()
+        {
+            if (Runtime.RestApi is { IsRunning: true }) return;
+
+            try
+            {
+                string configPath = System.IO.Path.Combine(App.Info.SettingsFileInfo.SettingsPath, "restapi.json");
+                if (!System.IO.File.Exists(configPath)) return;
+
+                string json = System.IO.File.ReadAllText(configPath);
+                var doc = System.Text.Json.JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                bool enabled = root.TryGetProperty("enabled", out var ep) && ep.GetBoolean();
+                if (!enabled) return;
+
+                int port = root.TryGetProperty("port", out var pp) ? pp.GetInt32() : 8234;
+                string apiKey = root.TryGetProperty("apiKey", out var kp) ? kp.GetString() ?? "" : "";
+
+                if (string.IsNullOrWhiteSpace(apiKey))
+                {
+                    apiKey = RestApiService.GenerateApiKey();
+                    // Write back the generated key
+                    string updated = System.Text.Json.JsonSerializer.Serialize(new { enabled = true, port, apiKey });
+                    System.IO.File.WriteAllText(configPath, updated);
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"REST API key generated and saved to {configPath}");
+                }
+
+                Runtime.RestApi = new RestApiService(port, apiKey);
+                Runtime.RestApi.Start();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg,
+                    $"Failed to start REST API: {ex.Message}");
+            }
         }
 
         private void ConnectionsServiceOnConnectionsSaved(object sender, ConnectionsSavedEventArgs connectionsSavedEventArgs)

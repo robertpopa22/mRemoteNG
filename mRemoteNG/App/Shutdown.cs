@@ -39,6 +39,7 @@ namespace mRemoteNG.App
         {
             try
             {
+                StopRestApi();
                 StopAutoStartedExternalTools();
                 StopPuttySessionWatcher();
                 DisposeNotificationAreaIcon();
@@ -51,6 +52,12 @@ namespace mRemoteNG.App
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.SettingsCouldNotBeSavedOrTrayDispose, ex);
             }
+        }
+
+        private static void StopRestApi()
+        {
+            Runtime.RestApi?.Dispose();
+            Runtime.RestApi = null;
         }
 
         private static void StopAutoStartedExternalTools()
