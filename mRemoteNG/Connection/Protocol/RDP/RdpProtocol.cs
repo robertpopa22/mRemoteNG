@@ -1434,9 +1434,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
                                 if (cls.Contains("TscShellContainerClass") || cls.Contains("UIContainerClass"))
                                 {
                                     int exStyle = NativeMethods.GetWindowLong(hwnd, NativeMethods.GWL_EXSTYLE);
-                                    if ((exStyle & NativeMethods.WS_EX_APPWINDOW) == 0)
+                                    bool needsAppWindow = (exStyle & NativeMethods.WS_EX_APPWINDOW) == 0;
+                                    bool hasToolWindow = (exStyle & NativeMethods.WS_EX_TOOLWINDOW) != 0;
+                                    // Fix for #1413: Ensure fullscreen RDP container appears in Alt+Tab
+                                    // WS_EX_APPWINDOW forces the window into Alt+Tab and taskbar;
+                                    // WS_EX_TOOLWINDOW must be removed as it hides the window from Alt+Tab.
+                                    if (needsAppWindow || hasToolWindow)
                                     {
-                                        NativeMethods.SetWindowLong(hwnd, NativeMethods.GWL_EXSTYLE, exStyle | NativeMethods.WS_EX_APPWINDOW);
+                                        int newStyle = (exStyle | NativeMethods.WS_EX_APPWINDOW) & ~NativeMethods.WS_EX_TOOLWINDOW;
+                                        NativeMethods.SetWindowLong(hwnd, NativeMethods.GWL_EXSTYLE, newStyle);
                                         // Force style update
                                         NativeMethods.SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0,
                                             NativeMethods.SWP_NOMOVE | NativeMethods.SWP_NOSIZE | NativeMethods.SWP_NOZORDER | NativeMethods.SWP_FRAMECHANGED | NativeMethods.SWP_NOACTIVATE);

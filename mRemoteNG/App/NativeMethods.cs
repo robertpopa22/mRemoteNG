@@ -613,6 +613,7 @@ namespace mRemoteNG.App
         public const int WS_VISIBLE = 0x10000000;
         public const int WS_CHILD = 0x40000000;
         public const int WS_EX_MDICHILD = 0x40;
+        public const int WS_EX_TOOLWINDOW = 0x80;
         public const int WS_EX_APPWINDOW = 0x40000;
 
         #endregion
