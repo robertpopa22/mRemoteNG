@@ -180,6 +180,58 @@ namespace mRemoteNGTests.Tools
             Assert.That(result, Is.EqualTo("pass,word;test^&more"));
         }
 
+        [Test]
+        public void UserFieldWithNestedVariableIsExpanded()
+        {
+            var connectionInfo = new ConnectionInfo
+            {
+                Hostname = "myserver",
+                Port = 3389,
+                UserField = "%HOSTNAME%:%PORT%"
+            };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("%!USERFIELD%");
+            Assert.That(result, Is.EqualTo("myserver:3389"));
+        }
+
+        [Test]
+        public void UserField1WithNestedVariableIsExpanded()
+        {
+            var connectionInfo = new ConnectionInfo
+            {
+                Username = "admin",
+                UserField1 = "user=%USERNAME%"
+            };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("%!USERFIELD1%");
+            Assert.That(result, Is.EqualTo("user=admin"));
+        }
+
+        [Test]
+        public void UserFieldWithNoVariablesIsUnchanged()
+        {
+            var connectionInfo = new ConnectionInfo
+            {
+                UserField = "plain-value"
+            };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("%!USERFIELD%");
+            Assert.That(result, Is.EqualTo("plain-value"));
+        }
+
+        [Test]
+        public void UserFieldWithSelfReferenceDoesNotInfiniteLoop()
+        {
+            var connectionInfo = new ConnectionInfo
+            {
+                UserField = "%USERFIELD%"
+            };
+            var parser = new ExternalToolArgumentParser(connectionInfo);
+            var result = parser.ParseArguments("%!USERFIELD%");
+            // Should stop expanding after reaching max depth, returning the last unexpanded value
+            Assert.That(result, Is.Not.Null);
+        }
+
         [TestCase(ProtocolType.SSH2, "SSH2")]
         [TestCase(ProtocolType.VNC, "VNC")]
         [TestCase(ProtocolType.Telnet, "Telnet")]

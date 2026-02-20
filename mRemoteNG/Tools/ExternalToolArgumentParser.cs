@@ -14,15 +14,21 @@ namespace mRemoteNG.Tools
     public class ExternalToolArgumentParser(ConnectionInfo connectionInfo)
     {
         private readonly ConnectionInfo _connectionInfo = connectionInfo;
+        private const int MaxNestedExpansionDepth = 5;
 
         public string ParseArguments(string input, bool escapeForShell = true)
         {
-            List<Replacement> replacements = BuildReplacementList(input, escapeForShell);
+            return ParseArguments(input, escapeForShell, 0);
+        }
+
+        private string ParseArguments(string input, bool escapeForShell, int depth)
+        {
+            List<Replacement> replacements = BuildReplacementList(input, escapeForShell, depth);
             string result = PerformReplacements(input, replacements);
             return result;
         }
 
-        private List<Replacement> BuildReplacementList(string input, bool escapeForShell)
+        private List<Replacement> BuildReplacementList(string input, bool escapeForShell, int depth)
         {
             int index = 0;
             List<Replacement> replacements = new();
@@ -98,6 +104,15 @@ namespace mRemoteNG.Tools
                 if (!isEnvironmentVariable)
                 {
                     replacementValue = GetVariableReplacement(variableName, token);
+
+                    // Expand nested variables in UserField values (e.g., UserField = "%HOSTNAME%:8080")
+                    if (replacementValue != token
+                        && depth < MaxNestedExpansionDepth
+                        && replacementValue.Contains('%')
+                        && IsUserFieldVariable(variableName))
+                    {
+                        replacementValue = ParseArguments(replacementValue, escapeForShell, depth + 1);
+                    }
                 }
 
                 bool haveReplacement = false;
@@ -257,6 +272,11 @@ namespace mRemoteNG.Tools
             }
 
             return replacement;
+        }
+
+        private static bool IsUserFieldVariable(string variableName)
+        {
+            return variableName.ToLowerInvariant().StartsWith("userfield");
         }
 
         private string PerformReplacements(string input, List<Replacement> replacements)
