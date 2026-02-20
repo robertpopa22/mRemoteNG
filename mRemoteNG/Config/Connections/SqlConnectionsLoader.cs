@@ -59,6 +59,12 @@ namespace mRemoteNG.Config.Connections
         private Optional<SecureString> GetDecryptionKey(SqlConnectionListMetaData metaData)
         {
             string cipherText = metaData.Protected;
+
+            // If Protected is empty, the database has no master password set.
+            // Return the default password directly without authentication.
+            if (string.IsNullOrEmpty(cipherText))
+                return new RootNodeInfo(RootNodeType.Connection).DefaultPassword.ConvertToSecureString();
+
             PasswordAuthenticator authenticator = new(_cryptographyProvider, cipherText, () => AuthenticationRequestor(""));
             bool authenticated = authenticator.Authenticate(new RootNodeInfo(RootNodeType.Connection).DefaultPassword.ConvertToSecureString());
 
