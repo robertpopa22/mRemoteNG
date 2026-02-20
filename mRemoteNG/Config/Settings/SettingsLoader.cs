@@ -160,6 +160,21 @@ namespace mRemoteNG.Config.Settings
             {
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Upgrade();
+                Properties.App.Default.Upgrade();
+                Properties.AppUI.Default.Upgrade();
+                Properties.OptionsAdvancedPage.Default.Upgrade();
+                Properties.OptionsAppearancePage.Default.Upgrade();
+                Properties.OptionsBackupPage.Default.Upgrade();
+                Properties.OptionsConnectionsPage.Default.Upgrade();
+                Properties.OptionsCredentialsPage.Default.Upgrade();
+                Properties.OptionsDBsPage.Default.Upgrade();
+                Properties.OptionsNotificationsPage.Default.Upgrade();
+                Properties.OptionsRbac.Default.Upgrade();
+                Properties.OptionsSecurityPage.Default.Upgrade();
+                Properties.OptionsStartupExitPage.Default.Upgrade();
+                Properties.OptionsTabsPanelsPage.Default.Upgrade();
+                Properties.OptionsThemePage.Default.Upgrade();
+                Properties.OptionsUpdatesPage.Default.Upgrade();
             }
             catch (Exception ex)
             {
