@@ -23,6 +23,7 @@ namespace mRemoteNG.Tree
 
         public void HandleEvent_ModelDropped(object sender, ModelDropEventArgs e)
         {
+            if (Properties.Settings.Default.DisableTreeDragAndDrop) return;
             if (e.TargetModel is not ConnectionInfo dropTarget) return;
 
             IEnumerable<ConnectionInfo> dropSources = e.SourceModels?.OfType<ConnectionInfo>() ?? [];
@@ -78,6 +79,13 @@ namespace mRemoteNG.Tree
 
         public void HandleEvent_ModelCanDrop(object sender, ModelDropEventArgs e)
         {
+            if (Properties.Settings.Default.DisableTreeDragAndDrop)
+            {
+                e.Effect = DragDropEffects.None;
+                e.Handled = true;
+                return;
+            }
+
             _enableFeedback = true;
             _currentFeedbackColor = DropDeniedFeedbackColor;
             _infoMessage = null;

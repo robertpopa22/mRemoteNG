@@ -58,6 +58,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkWatchConnectionFile = new MrngCheckBox();
             chkDoubleClickOpensNewConnection = new MrngCheckBox();
             chkDefaultInheritance = new MrngCheckBox();
+            chkDisableTreeDragAndDrop = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)numRDPConTimeout).BeginInit();
@@ -172,7 +173,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlConfirmCloseConnection.Controls.Add(radCloseWarnExit);
             pnlConfirmCloseConnection.Controls.Add(radCloseWarnNever);
             pnlConfirmCloseConnection.Dock = System.Windows.Forms.DockStyle.Top;
-            pnlConfirmCloseConnection.Location = new System.Drawing.Point(0, 319);
+            pnlConfirmCloseConnection.Location = new System.Drawing.Point(0, 343);
             pnlConfirmCloseConnection.Name = "pnlConfirmCloseConnection";
             pnlConfirmCloseConnection.Size = new System.Drawing.Size(610, 133);
             pnlConfirmCloseConnection.TabIndex = 6;
@@ -270,7 +271,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             tableLayoutPanel2.Controls.Add(lblRDPConTimeout, 0, 1);
             tableLayoutPanel2.Controls.Add(numRDPConTimeout, 1, 1);
             tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            tableLayoutPanel2.Location = new System.Drawing.Point(0, 240);
+            tableLayoutPanel2.Location = new System.Drawing.Point(0, 264);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -351,12 +352,25 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDefaultInheritance.Text = "New connections inherit all properties from parent by default";
             chkDefaultInheritance.UseVisualStyleBackColor = true;
             //
+            // chkDisableTreeDragAndDrop
+            //
+            chkDisableTreeDragAndDrop._mice = MrngCheckBox.MouseState.OUT;
+            chkDisableTreeDragAndDrop.AutoSize = true;
+            chkDisableTreeDragAndDrop.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkDisableTreeDragAndDrop.Location = new System.Drawing.Point(6, 257);
+            chkDisableTreeDragAndDrop.Name = "chkDisableTreeDragAndDrop";
+            chkDisableTreeDragAndDrop.Size = new System.Drawing.Size(300, 17);
+            chkDisableTreeDragAndDrop.TabIndex = 15;
+            chkDisableTreeDragAndDrop.Text = "Disable drag and drop in the connection tree";
+            chkDisableTreeDragAndDrop.UseVisualStyleBackColor = true;
+            //
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkSingleClickOnConnectionOpensIt);
             pnlOptions.Controls.Add(chkDoNotTrimUsername);
             pnlOptions.Controls.Add(chkWatchConnectionFile);
             pnlOptions.Controls.Add(chkDoubleClickOpensNewConnection);
+            pnlOptions.Controls.Add(chkDisableTreeDragAndDrop);
             pnlOptions.Controls.Add(chkDefaultInheritance);
             pnlOptions.Controls.Add(chkSingleClickOnOpenedConnectionSwitchesToIt);
             pnlOptions.Controls.Add(chkConnectionTreeTrackActiveConnection);
@@ -367,7 +381,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 256);
+            pnlOptions.Size = new System.Drawing.Size(610, 280);
             pnlOptions.TabIndex = 12;
             // 
             // lblRegistrySettingsUsedInfo
@@ -428,6 +442,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private MrngCheckBox chkWatchConnectionFile;
         private MrngCheckBox chkDoubleClickOpensNewConnection;
         private MrngCheckBox chkDefaultInheritance;
+        private MrngCheckBox chkDisableTreeDragAndDrop;
         internal System.Windows.Forms.Panel pnlOptions;
         internal System.Windows.Forms.Label lblRegistrySettingsUsedInfo;
     }

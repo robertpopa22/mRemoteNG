@@ -2596,5 +2596,17 @@ namespace mRemoteNG.Properties {
                         this["ConDefaultUsePersistentBrowser"] = value;
                     }
                 }
+
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("False")]
+                public bool DisableTreeDragAndDrop {
+                    get {
+                        return ((bool)(this["DisableTreeDragAndDrop"]));
+                    }
+                    set {
+                        this["DisableTreeDragAndDrop"] = value;
+                    }
+                }
             }
         }

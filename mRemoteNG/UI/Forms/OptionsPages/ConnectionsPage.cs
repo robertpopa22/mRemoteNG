@@ -88,6 +88,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkWatchConnectionFile.Checked = Properties.OptionsConnectionsPage.Default.WatchConnectionFile;
             chkDoubleClickOpensNewConnection.Checked = Settings.Default.DoubleClickOpensNewConnection;
             chkDefaultInheritance.Checked = Settings.Default.InhDefaultEverythingInherited;
+            chkDisableTreeDragAndDrop.Checked = Settings.Default.DisableTreeDragAndDrop;
 
             numRdpReconnectionCount.Value = Convert.ToDecimal(Settings.Default.RdpReconnectionCount);
             numRDPConTimeout.Value = Convert.ToDecimal(Settings.Default.ConRDPOverallConnectionTimeout);
@@ -143,6 +144,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsConnectionsPage.Default.WatchConnectionFile = chkWatchConnectionFile.Checked;
             Properties.Settings.Default.DoubleClickOpensNewConnection = chkDoubleClickOpensNewConnection.Checked;
             Properties.Settings.Default.InhDefaultEverythingInherited = chkDefaultInheritance.Checked;
+            Properties.Settings.Default.DisableTreeDragAndDrop = chkDisableTreeDragAndDrop.Checked;
 
             Properties.Settings.Default.RdpReconnectionCount = (int)numRdpReconnectionCount.Value;
             Properties.Settings.Default.ConRDPOverallConnectionTimeout = (int)numRDPConTimeout.Value;

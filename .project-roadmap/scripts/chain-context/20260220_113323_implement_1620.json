@@ -1,0 +1,53 @@
+{
+  "task_type": "implement",
+  "task_id": "1620",
+  "started_at": "2026-02-20T11:20:58",
+  "finished_at": "2026-02-20T11:33:23",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1620",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T11:20:58"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1620",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T11:21:13"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1620",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 720s",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": "",
+      "timestamp": "2026-02-20T11:33:23"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}
