@@ -180,6 +180,64 @@ _last_dispatch_timed_out = False        # set True by sub-agents on TimeoutExpir
 _last_dispatch_partial_output = ""      # partial stdout captured before timeout
 _committed_issues_cache = set()         # issue numbers already committed (dedup guard)
 
+# ── TOKEN USAGE TRACKING ─────────────────────────────────────────────────
+# Tracks token consumption per issue and per session for cost analysis
+_token_tracker = {
+    "current_issue": None,
+    "by_issue": {},       # issue_num -> {"input_tokens":N, "output_tokens":N, "cost_usd":F, "ops":[]}
+    "session_total": {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0},
+}
+
+
+def _track_tokens(issue_num, operation, agent, model, usage_dict):
+    """Record token usage for an operation on an issue.
+    usage_dict: {"input_tokens":N, "output_tokens":N, "cost_usd":F, ...}"""
+    if not usage_dict:
+        return
+    inp = usage_dict.get("input_tokens", 0)
+    out = usage_dict.get("output_tokens", 0)
+    cost = usage_dict.get("cost_usd", 0.0)
+
+    # Session total
+    _token_tracker["session_total"]["input_tokens"] += inp
+    _token_tracker["session_total"]["output_tokens"] += out
+    _token_tracker["session_total"]["cost_usd"] += cost
+
+    # Per-issue
+    key = str(issue_num) if issue_num else "_no_issue"
+    if key not in _token_tracker["by_issue"]:
+        _token_tracker["by_issue"][key] = {
+            "input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "ops": []
+        }
+    entry = _token_tracker["by_issue"][key]
+    entry["input_tokens"] += inp
+    entry["output_tokens"] += out
+    entry["cost_usd"] += cost
+    entry["ops"].append({
+        "type": operation, "agent": agent, "model": model or "",
+        "input_tokens": inp, "output_tokens": out, "cost_usd": round(cost, 6),
+    })
+
+
+def _get_issue_tokens(issue_num):
+    """Get accumulated token usage for an issue. Returns dict or None."""
+    key = str(issue_num)
+    return _token_tracker["by_issue"].get(key)
+
+
+def _get_session_tokens():
+    """Get session-wide token totals."""
+    return _token_tracker["session_total"].copy()
+
+
+def _set_token_context(issue_num=None, operation=None):
+    """Set current issue/operation context for automatic token tracking in _agent_dispatch."""
+    if issue_num is not None:
+        _token_tracker["current_issue"] = issue_num
+    if operation is not None:
+        _token_tracker["current_operation"] = operation
+
+
 # Resolve full paths to CLI tools (Windows needs .CMD extension for subprocess)
 GEMINI_CMD = shutil.which("gemini") or "gemini"
 CODEX_CMD = shutil.which("codex") or "codex"
@@ -465,6 +523,8 @@ class Status:
 
     def save(self):
         self.data["last_updated"] = _now_iso()
+        # Include session token totals in status
+        self.data["token_usage"] = _get_session_tokens()
         content = json.dumps(self.data, indent=2, ensure_ascii=False)
         for attempt in range(3):
             try:
@@ -1031,7 +1091,15 @@ def git_commit(message):
         if "gemini" in _session_agents_used:
             co_authors.append(f"Co-Authored-By: Gemini ({GEMINI_MODEL}) <noreply@google.com>")
         co_author_str = "\n".join(co_authors) if co_authors else "Co-Authored-By: AI Agent <noreply@example.com>"
-        full_msg = f"{message}\n\n{co_author_str}"
+        # Add token cost summary if available for this issue
+        token_line = ""
+        if issue_match:
+            issue_tokens = _get_issue_tokens(int(issue_match.group(1)))
+            if issue_tokens:
+                token_line = (f"\nTokens: {issue_tokens['input_tokens']:,} in / "
+                              f"{issue_tokens['output_tokens']:,} out / "
+                              f"${issue_tokens['cost_usd']:.4f}")
+        full_msg = f"{message}{token_line}\n\n{co_author_str}"
         _run(["git", "commit", "-m", full_msg])
         r = _run(["git", "rev-parse", "HEAD"])
         commit_hash = (r.stdout or "").strip()
@@ -1121,17 +1189,62 @@ def git_squash_last(n, message):
         return None
 
 
+# ── CLAUDE JSON OUTPUT PARSER ──────────────────────────────────────────────
+# Global: last parsed usage from claude_run (read by _agent_dispatch for tracking)
+_last_claude_usage = {}
+
+
+def _parse_claude_json_output(raw_output, model=None):
+    """Parse claude --output-format json response.
+    Extracts .result as text, stores usage in _last_claude_usage.
+    Falls back to raw text if JSON parsing fails (backward compatible)."""
+    global _last_claude_usage
+    _last_claude_usage = {}
+    if not raw_output:
+        return ""
+    try:
+        data = json.loads(raw_output)
+        # Store usage for tracking
+        usage = data.get("usage") or {}
+        cost = data.get("total_cost_usd", 0.0)
+        _last_claude_usage = {
+            "input_tokens": usage.get("input_tokens", 0),
+            "output_tokens": usage.get("output_tokens", 0),
+            "cache_read_tokens": usage.get("cache_read_input_tokens", 0),
+            "cost_usd": cost,
+            "num_turns": data.get("num_turns", 0),
+            "duration_ms": data.get("duration_ms", 0),
+            "model": model or "",
+        }
+        if _last_claude_usage["input_tokens"] > 0:
+            log.info("    [TOKENS] %d in / %d out / $%.4f (%s)",
+                     _last_claude_usage["input_tokens"],
+                     _last_claude_usage["output_tokens"],
+                     cost, model or "default")
+        # Return the text result (backward compatible)
+        result = data.get("result", "")
+        if data.get("is_error"):
+            log.warning("    [CLAUDE] JSON result is_error=true: %s", (result or "")[:200])
+            return None
+        return result or ""
+    except (json.JSONDecodeError, TypeError, KeyError):
+        # Fallback: raw output is not JSON (old CLI version or error)
+        log.debug("    [CLAUDE] Output not JSON, using raw text (%d chars)", len(raw_output))
+        return raw_output
+
+
 # ── CORE: CLAUDE SUB-AGENT ─────────────────────────────────────────────────
 def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                retries=CLAUDE_RETRIES, model=None):
     """Call claude -p (headless) with retry.  Returns stdout string.
     Uses CLAUDE_ENV to strip CLAUDECODE nesting guard.
-    model: override Claude model (e.g. claude-sonnet-4-6 or claude-opus-4-6)."""
-    cmd = ["claude", "-p", prompt, "--max-turns", str(max_turns)]
+    model: override Claude model (e.g. claude-sonnet-4-6 or claude-opus-4-6).
+    Always uses --output-format json internally for token tracking,
+    extracts .result as the text response."""
+    cmd = ["claude", "-p", prompt, "--max-turns", str(max_turns),
+           "--output-format", "json"]
     if model:
         cmd += ["--model", model]
-    if json_output:
-        cmd += ["--output-format", "json"]
 
     for attempt in range(1, retries + 1):
         try:
@@ -1148,7 +1261,9 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
                     time.sleep(5)
                     continue
                 return None
-            return stdout or ""
+            # Parse JSON output — extract .result text + usage info
+            raw = stdout or ""
+            return _parse_claude_json_output(raw, model)
         except subprocess.TimeoutExpired as exc:
             global _last_dispatch_timed_out, _last_dispatch_partial_output
             _last_dispatch_timed_out = True
@@ -1437,8 +1552,16 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
                 pass
 
     # Default: claude
-    return claude_run(prompt, max_turns=max_turns, json_output=json_output,
-                      timeout=timeout, retries=retries, model=claude_model)
+    result = claude_run(prompt, max_turns=max_turns, json_output=json_output,
+                        timeout=timeout, retries=retries, model=claude_model)
+    # Track token usage from Claude call
+    if _last_claude_usage:
+        _track_tokens(
+            _token_tracker.get("current_issue"),
+            _token_tracker.get("current_operation", "dispatch"),
+            "claude", claude_model or "", _last_claude_usage,
+        )
+    return result
 
 
 # ── CORE: AGENT SIMPLE DISPATCH (for warnings) ───────────────────────────
@@ -1533,6 +1656,7 @@ If unclear, use needs_info."""
     ctx = ChainContext("triage", str(num))
     issue_key = f"triage_{num}"
     chain_esc = 1.0  # grows within this run on each timeout
+    _set_token_context(issue_num=num, operation="triage")
 
     for i, agent in enumerate(AGENT_CHAIN):
         _session_agents_used.add(agent)
@@ -1658,6 +1782,7 @@ def _attempt_test_fix(num, title, impl_agent, failed_tests, test_output, status,
     - Fall back to claude if the original agent can't fix
     - Max TEST_FIX_MAX_ATTEMPTS iterations
     """
+    _set_token_context(issue_num=num, operation="test_fix")
     if not failed_tests:
         return False
 
@@ -1779,6 +1904,7 @@ RULES (CRITICAL):
     ctx = ChainContext("implement", str(num))
     issue_key = f"impl_{num}"
     chain_esc = 1.0  # grows within this run on each timeout
+    _set_token_context(issue_num=num, operation="implement")
 
     for i, agent in enumerate(AGENT_CHAIN):
         is_last = (i == len(AGENT_CHAIN) - 1)
@@ -2059,12 +2185,30 @@ def update_issue_json(issue_num, new_status, description="", *,
             data["notes"] = f"{prev}\n{notes}".strip() if prev else notes
         if "iterations" not in data:
             data["iterations"] = []
-        data["iterations"].append({
+        # Add token usage to iteration record if available
+        issue_tokens = _get_issue_tokens(issue_num)
+        iteration_entry = {
             "seq": len(data["iterations"]) + 1,
             "date": datetime.date.today().isoformat(),
             "type": new_status,
             "description": description,
-        })
+        }
+        if issue_tokens:
+            iteration_entry["token_usage"] = {
+                "input_tokens": issue_tokens["input_tokens"],
+                "output_tokens": issue_tokens["output_tokens"],
+                "cost_usd": round(issue_tokens["cost_usd"], 6),
+                "operations": len(issue_tokens.get("ops", [])),
+            }
+        data["iterations"].append(iteration_entry)
+        # Also store cumulative token_usage at issue level
+        if issue_tokens:
+            prev_usage = data.get("token_usage", {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0})
+            data["token_usage"] = {
+                "input_tokens": prev_usage["input_tokens"] + issue_tokens["input_tokens"],
+                "output_tokens": prev_usage["output_tokens"] + issue_tokens["output_tokens"],
+                "cost_usd": round(prev_usage["cost_usd"] + issue_tokens["cost_usd"], 6),
+            }
         json_file.write_text(
             json.dumps(data, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
@@ -2145,6 +2289,7 @@ def load_actionable_issues():
 def ai_triage(issue):
     """Claude analyzes an issue and returns a triage decision."""
     num = issue["number"]
+    _set_token_context(issue_num=num, operation="triage")
     title = issue.get("title", "")
     body = (issue.get("body") or "")[:2000]
     labels = ", ".join(issue.get("labels", []))
@@ -2191,6 +2336,7 @@ Be conservative: if the issue is unclear, use "needs_info"."""
 def implement_issue(issue, triage, status):
     """Use Claude to fix an issue, verify, commit, push, comment."""
     num = issue["number"]
+    _set_token_context(issue_num=num, operation="implement")
     title = issue.get("title", "")
     body = (issue.get("body") or "")[:3000]
     approach = triage.get("approach", "")
@@ -2635,6 +2781,7 @@ def _fix_single_file(fpath, file_warnings, all_warnings, status, squash_mode):
     """Fix warnings in a single file. Returns (success: bool, fixed_count: int)."""
     rel = os.path.relpath(fpath, REPO_ROOT)
     n = len(file_warnings)
+    _set_token_context(operation="warning_fix")
 
     status.set_task(type="warning_fix", file=rel, step="fixing", count=n)
 
