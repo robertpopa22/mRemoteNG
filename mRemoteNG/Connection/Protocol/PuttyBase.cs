@@ -46,6 +46,7 @@ namespace mRemoteNG.Connection.Protocol
         private bool _postOpenLayoutResizeHooked;
         private System.Windows.Forms.Timer? _windowSearchTimer;
         private int _windowSearchStartTime;
+        private long _processStartTicks;
 
         #region Public Properties
 
@@ -68,6 +69,25 @@ namespace mRemoteNG.Connection.Protocol
         private void ProcessExited(object sender, EventArgs e)
         {
             StopTerminalTitleTracking();
+
+            // If PuTTY exited with an error within 30 seconds, it likely indicates
+            // an authentication failure. Prompt the user to update the stored password.
+            try
+            {
+                bool hasStoredPassword = !string.IsNullOrEmpty(InterfaceControl?.Info?.Password);
+                int exitCode = PuttyProcess?.ExitCode ?? 0;
+                long elapsedMs = Environment.TickCount64 - _processStartTicks;
+
+                if (hasStoredPassword && exitCode != 0 && elapsedMs < 30_000)
+                {
+                    PromptToUpdatePassword();
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Error checking PuTTY exit for password prompt", ex);
+            }
+
             Event_Closed(this);
         }
 
@@ -723,6 +743,7 @@ namespace mRemoteNG.Connection.Protocol
                 PuttyProcess.Exited += ProcessExited;
 
                 PuttyProcess.Start();
+                _processStartTicks = Environment.TickCount64;
 
                 _windowSearchStartTime = Environment.TickCount;
                 _windowSearchTimer = new System.Windows.Forms.Timer();

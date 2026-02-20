@@ -1,5 +1,7 @@
 ﻿using mRemoteNG.App;
+using mRemoteNG.Connection;
 using mRemoteNG.Tools;
+using mRemoteNG.UI.Forms;
 using Microsoft.Win32;
 using System;
 using System.Threading;
@@ -397,6 +399,54 @@ namespace mRemoteNG.Connection.Protocol
         protected void Event_ReconnectGroupCloseClicked()
         {
             Close();
+        }
+
+        /// <summary>
+        /// Prompts the user to enter a new password after an authentication failure
+        /// and saves it to the connection info if confirmed.
+        /// </summary>
+        protected void PromptToUpdatePassword()
+        {
+            try
+            {
+                ConnectionInfo? originalInfo = InterfaceControl?.OriginalInfo;
+                if (originalInfo == null)
+                    return;
+
+                // Don't prompt for connections using external credential providers
+                if (originalInfo.ExternalCredentialProvider != ExternalCredentialProvider.None)
+                    return;
+
+                void DoPrompt()
+                {
+                    using FrmInputBox inputBox = new(
+                        "Update Password",
+                        $"Authentication failed for {originalInfo.Hostname}.\nWould you like to save a new password?",
+                        "",
+                        isPassword: true);
+
+                    if (inputBox.ShowDialog() != DialogResult.OK || string.IsNullOrEmpty(inputBox.returnValue))
+                        return;
+
+                    originalInfo.Password = inputBox.returnValue;
+                    Runtime.ConnectionsService.SaveConnectionsAsync();
+                }
+
+                if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)
+                {
+                    try { _interfaceControl.BeginInvoke((Action)DoPrompt); }
+                    catch (ObjectDisposedException) { }
+                    catch (InvalidOperationException) { }
+                }
+                else
+                {
+                    DoPrompt();
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Failed to prompt for password update", ex);
+            }
         }
 
         #endregion

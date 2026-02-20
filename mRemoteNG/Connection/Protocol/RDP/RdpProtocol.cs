@@ -1494,14 +1494,22 @@ namespace mRemoteNG.Connection.Protocol.RDP
             try
             {
                 string errorMsg = $"RDP Logon Error: {lError}";
+                bool isAuthFailure = false;
                 // 0x2000c = Authentication failure (131084)
                 if (lError == 0x2000c || lError == -2147023570) // E_ACCESSDENIED / 0x8007000E
                 {
-                     errorMsg = "Authentication failed";
+                    errorMsg = "Authentication failed";
+                    isAuthFailure = true;
                 }
-                
+
                 Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, errorMsg);
                 Event_ErrorOccured(this, errorMsg, lError);
+
+                if (isAuthFailure)
+                {
+                    PromptToUpdatePassword();
+                }
+
                 Close();
             }
             catch (Exception ex)
