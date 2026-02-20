@@ -238,5 +238,17 @@ namespace mRemoteNG.Properties {
                 this["DoNotRestoreOnRdpMinimize"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OpenTabsInTreeOrder {
+            get {
+                return ((bool)(this["OpenTabsInTreeOrder"]));
+            }
+            set {
+                this["OpenTabsInTreeOrder"] = value;
+            }
+        }
     }
 }
