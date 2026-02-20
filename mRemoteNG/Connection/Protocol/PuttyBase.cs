@@ -683,6 +683,9 @@ namespace mRemoteNG.Connection.Protocol
                                                         {
                                                             arguments.Add("-pw", password);
                                                         }
+                                                        // Disable interactive prompts so PuTTY exits on auth failure
+                                                        // instead of hanging with a password retry prompt (#1213)
+                                                        arguments.Add("-batch");
                                                     }                        }
 
                         if (InterfaceControl.Info?.ExternalCredentialProvider == ExternalCredentialProvider.VaultOpenbao && InterfaceControl.Info?.VaultOpenbaoSecretEngine == VaultOpenbaoSecretEngine.SSHOTP) {
