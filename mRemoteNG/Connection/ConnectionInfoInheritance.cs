@@ -353,6 +353,18 @@ namespace mRemoteNG.Connection
         public bool Resolution { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
+         DisplayName("Inherit Resolution Width"),
+         Description("Inherit the custom resolution width from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool ResolutionWidth { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
+         DisplayName("Inherit Resolution Height"),
+         Description("Inherit the custom resolution height from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool ResolutionHeight { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
          DisplayName("Inherit Desktop Scale Factor"),
          Description("Inherit the Desktop Scale Factor setting from the parent."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

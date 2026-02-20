@@ -33,6 +33,9 @@ namespace mRemoteNG.Connection.Protocol.RDP
         [Description("2560x1440")] Res2560x1440,
         [Description("2560x1600")] Res2560x1600,
         [Description("2560x2048")] Res2560x2048,
-        [Description("3840x2160")] Res3840x2160
+        [Description("3840x2160")] Res3840x2160,
+
+        [LocalizedAttributes.LocalizedDescription("Custom")]
+        Custom
     }
 }

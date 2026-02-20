@@ -79,6 +79,8 @@ namespace mRemoteNG.Connection
 
 
         private RDPResolutions _resolution = default;
+        private int _resolutionWidth;
+        private int _resolutionHeight;
         private RDPDesktopScaleFactor _desktopScaleFactor = default;
         private bool _automaticResize = default;
         private RDPColors _colors = default;
@@ -771,6 +773,26 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("Resolution", _resolution);
             set => SetField(ref _resolution, value, "Resolution");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
+         DisplayName("Resolution Width"),
+         Description("Custom resolution width in pixels (used when Resolution is set to Custom)."),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public int ResolutionWidth
+        {
+            get => GetPropertyValue("ResolutionWidth", _resolutionWidth);
+            set => SetField(ref _resolutionWidth, value, "ResolutionWidth");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
+         DisplayName("Resolution Height"),
+         Description("Custom resolution height in pixels (used when Resolution is set to Custom)."),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public int ResolutionHeight
+        {
+            get => GetPropertyValue("ResolutionHeight", _resolutionHeight);
+            set => SetField(ref _resolutionHeight, value, "ResolutionHeight");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
