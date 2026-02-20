@@ -111,7 +111,7 @@ namespace mRemoteNG.UI.Window
             {
                 olvHosts.Columns.AddRange(new ColumnHeader[]
                 {
-                    clmHost, clmSSH, clmTelnet, clmHTTP, clmHTTPS, clmRlogin, clmRDP, clmVNC, clmOpenPorts,
+                    clmHostIP, clmHostName, clmSSH, clmTelnet, clmHTTP, clmHTTPS, clmRlogin, clmRDP, clmVNC, clmOpenPorts,
                     clmClosedPorts
                 });
                 ShowImportControls(true);
@@ -169,7 +169,8 @@ namespace mRemoteNG.UI.Window
             btnScan.Text = Language._Scan;
             btnImport.Text = Language._Import;
             lblOnlyImport.Text = Language.ProtocolToImport;
-            clmHost.Text = Language.HostnameIp;
+            clmHostIP.Text = "IP Address";
+            clmHostName.Text = "Hostname";
             clmOpenPorts.Text = Language.OpenPorts;
             clmClosedPorts.Text = Language.ClosedPorts;
             ngCheckFirstPort.Text = Language.FirstPort;

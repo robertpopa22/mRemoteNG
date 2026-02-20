@@ -12,7 +12,8 @@ namespace mRemoteNG.UI.Window
 		internal Controls.MrngLabel lblStartIP;
 		internal MrngIpTextBox ipEnd;
 		internal Controls.MrngListView olvHosts;
-		internal BrightIdeasSoftware.OLVColumn clmHost;
+		internal BrightIdeasSoftware.OLVColumn clmHostName;
+		internal BrightIdeasSoftware.OLVColumn clmHostIP;
 		internal BrightIdeasSoftware.OLVColumn clmSSH;
 		internal BrightIdeasSoftware.OLVColumn clmTelnet;
 		internal BrightIdeasSoftware.OLVColumn clmHTTP;
@@ -50,7 +51,8 @@ namespace mRemoteNG.UI.Window
             this.btnImport = new MrngButton();
             this.cbProtocol = new MrngComboBox();
             this.lblOnlyImport = new mRemoteNG.UI.Controls.MrngLabel();
-            this.clmHost = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmHostName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmHostIP = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmSSH = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmTelnet = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmHTTP = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -244,13 +246,18 @@ namespace mRemoteNG.UI.Window
             this.lblOnlyImport.TabIndex = 1;
             this.lblOnlyImport.Text = "Protocol to import";
             this.lblOnlyImport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // clmHost
-            // 
-            this.clmHost.AspectName = "HostIPorName";
-            this.clmHost.FillsFreeSpace = true;
-            this.clmHost.Text = "Hostname/IP";
-            this.clmHost.Width = 130;
+            //
+            // clmHostName
+            //
+            this.clmHostName.AspectName = "HostName";
+            this.clmHostName.Text = "Hostname";
+            this.clmHostName.Width = 130;
+            //
+            // clmHostIP
+            //
+            this.clmHostIP.AspectName = "HostIp";
+            this.clmHostIP.Text = "IP Address";
+            this.clmHostIP.Width = 130;
             // 
             // clmSSH
             // 
