@@ -277,7 +277,7 @@ namespace mRemoteNG.App
                 $"  Config file: {configPath}{Environment.NewLine}" +
                 $"  Error: {ex.Message}{Environment.NewLine}" +
                 $"  Inner: {ex.InnerException?.Message}{Environment.NewLine}" +
-                $"  Stack: {ex.StackTrace}{Environment.NewLine}{Environment.NewLine}";
+                $"  Stack: {ex.Demystify().StackTrace}{Environment.NewLine}{Environment.NewLine}";
 
             try { File.AppendAllText(logPath, logEntry); }
             catch { /* best effort */ }

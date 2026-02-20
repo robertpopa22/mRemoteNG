@@ -232,6 +232,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Ben.Demystifier" />
     <PackageReference Include="BouncyCastle.Cryptography" />
     <PackageReference Include="Castle.Core" />
     <PackageReference Include="ConsoleControl" />

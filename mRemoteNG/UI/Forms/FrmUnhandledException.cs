@@ -38,7 +38,7 @@ namespace mRemoteNG.UI.Forms
                 return;
 
             textBoxExceptionMessage.Text = exception.Message;
-            textBoxStackTrace.Text = exception.StackTrace;
+            textBoxStackTrace.Text = exception.Demystify().StackTrace;
             SetEnvironmentText();
         }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Versioning;
 
@@ -59,7 +60,7 @@ namespace mRemoteNG.Messages
 
         public void AddExceptionStackTrace(string message, Exception ex, MessageClass msgClass = MessageClass.ErrorMsg, bool logOnly = true)
         {
-            AddMessage(msgClass, message + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace,
+            AddMessage(msgClass, message + Environment.NewLine + ex.Message + Environment.NewLine + ex.Demystify().StackTrace,
                        logOnly);
         }
 
