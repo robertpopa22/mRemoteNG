@@ -55,6 +55,7 @@ STALE_LOCK_HOURS = 24              # lock older than this = definitely stale
 MAX_RESTART_BACKOFF_SECONDS = 600  # cap backoff at 10 min
 INITIAL_BACKOFF_SECONDS = 10       # first restart delay
 HEALTH_CHECK_INTERVAL = 30        # seconds between checks in supervisor loop
+REPORT_INTERVAL_CYCLES = 10       # report every N health checks (~5 min at 30s interval)
 
 # Stale processes to monitor
 STALE_PROCESSES = ["notepad.exe", "testhost.exe", "mstsc.exe", "dotnet.exe"]
@@ -579,6 +580,9 @@ class Supervisor:
         self.recovery = RecoveryEngine()
         self._running = True
         self._orchestrator_proc: Optional[subprocess.Popen] = None
+        self._cycle_count = 0
+        self._last_report_triaged = 0
+        self._last_report_implemented = 0
 
         signal.signal(signal.SIGINT, self._handle_signal)
         signal.signal(signal.SIGTERM, self._handle_signal)
@@ -658,7 +662,12 @@ class Supervisor:
                     log.error("[SUPERVISOR] Orchestrator failed to start — "
                               "next backoff: %ds", self.backoff)
 
-            # Phase 3: Wait before next check
+            # Phase 3: Periodic progress report
+            self._cycle_count += 1
+            if self._cycle_count % REPORT_INTERVAL_CYCLES == 0:
+                self._periodic_report()
+
+            # Phase 4: Wait before next check
             for _ in range(HEALTH_CHECK_INTERVAL):
                 if not self._running:
                     break
@@ -666,6 +675,78 @@ class Supervisor:
 
         log.info("[SUPERVISOR] Shutting down — %d restarts total",
                  self.restart_count)
+
+    def _periodic_report(self):
+        """Log a concise progress summary from orchestrator-status.json."""
+        if not STATUS_FILE.exists():
+            return
+        try:
+            data = json.loads(STATUS_FILE.read_text(encoding="utf-8"))
+            if not data.get("running"):
+                return
+
+            issues = data.get("issues", {})
+            tokens = data.get("token_usage", {})
+            task = data.get("current_task", {})
+            commits = data.get("commits", [])
+            errors = data.get("errors", [])
+            started = data.get("started_at", "")
+
+            triaged = issues.get("triaged", 0)
+            implemented = issues.get("implemented", 0)
+            failed = issues.get("failed", 0)
+            total = issues.get("total_synced", 0)
+            wontfix = issues.get("skipped_wontfix", 0)
+            needs_info = issues.get("skipped_needs_info", 0)
+            duplicate = issues.get("skipped_duplicate", 0)
+            processed = triaged + wontfix + needs_info + duplicate
+
+            # Delta since last report
+            d_triaged = triaged - self._last_report_triaged
+            d_impl = implemented - self._last_report_implemented
+            self._last_report_triaged = triaged
+            self._last_report_implemented = implemented
+
+            # Duration
+            duration = ""
+            if started:
+                try:
+                    dt = datetime.datetime.fromisoformat(started)
+                    elapsed = datetime.datetime.now() - dt
+                    h, rem = divmod(int(elapsed.total_seconds()), 3600)
+                    m, s = divmod(rem, 60)
+                    duration = f"{h:02d}:{m:02d}:{s:02d}"
+                except (ValueError, TypeError):
+                    pass
+
+            # Current task
+            task_desc = ""
+            if task:
+                t_type = task.get("type", "?")
+                t_issue = task.get("issue", "")
+                t_step = task.get("step", "")
+                task_desc = f"{t_type} #{t_issue} ({t_step})" if t_issue else t_type
+
+            cost = tokens.get("cost_usd", 0)
+            cost_per = cost / processed if processed > 0 else 0
+
+            log.info("=" * 60)
+            log.info("[REPORT] Progress: %d/%d (%.1f%%) | +%d triaged, +%d impl since last",
+                     processed, total, (processed / total * 100) if total else 0,
+                     d_triaged, d_impl)
+            log.info("[REPORT] Triaged: %d | Implemented: %d | Failed: %d | "
+                     "Wontfix: %d | NeedsInfo: %d",
+                     triaged, implemented, failed, wontfix, needs_info)
+            log.info("[REPORT] Commits: %d | Errors: %d | Cost: $%.2f ($%.2f/issue)",
+                     len(commits), len(errors), cost, cost_per)
+            if task_desc:
+                log.info("[REPORT] Current: %s", task_desc)
+            if duration:
+                log.info("[REPORT] Duration: %s", duration)
+            log.info("=" * 60)
+
+        except (json.JSONDecodeError, OSError, KeyError) as e:
+            log.debug("[REPORT] Could not read status: %s", e)
 
     def _is_orchestrator_running(self) -> bool:
         """Check if we have a live orchestrator process."""
