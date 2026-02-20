@@ -29,7 +29,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             PageIcon = Resources.ImageConverter.GetImageAsIcon(Properties.Resources.AppearanceEditor_16x);
             _themeManager = ThemeManager.getInstance();
             if (!_themeManager.ThemingActive) return;
-            _themeManager = ThemeManager.getInstance();
             _themeManager.ThemeChanged += ApplyTheme;
             _oriActiveTheming = _themeManager.ThemingActive;
         }
@@ -63,15 +62,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnThemeDelete.Enabled = false;
             //Load the list of themes
             cboTheme.Items.Clear();
+            cboTheme.DisplayMember = "Name";
             // ReSharper disable once CoVariantArrayConversion
             cboTheme.Items.AddRange(_themeManager.LoadThemes().OrderBy(x => x.Name).ToArray());
             cboTheme.SelectedItem = _themeManager.ActiveTheme;
             // Store the original active theme for reverting
             _oriActiveTheme = _themeManager.ActiveTheme;
             cboTheme_SelectionChangeCommitted(this, new EventArgs());
-            cboTheme.DisplayMember = "Name";
 
             listPalette.FormatCell += ListPalette_FormatCell; //Color cell formatter
+
+            // Apply the current theme to the panel on load
+            ApplyTheme();
         }
 
         private void ListPalette_FormatCell(object sender, FormatCellEventArgs e)
@@ -156,6 +158,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 listPalette.Visible = true;
                 listPalette.CellClick += ListPalette_CellClick;
             }
+
+            // Apply selected theme as live preview
+            if (selectedTheme != null)
+                _themeManager.ActiveTheme = selectedTheme;
 
             if (selectedTheme != null && selectedTheme.IsThemeBase) return;
 
