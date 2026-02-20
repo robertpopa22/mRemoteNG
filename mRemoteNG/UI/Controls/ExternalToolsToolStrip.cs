@@ -87,6 +87,9 @@ namespace mRemoteNG.UI.Controls
                             : ToolStripItemDisplayStyle.ImageAndText;
 
                     button.Tag = tool;
+                    button.ToolTipText = string.IsNullOrEmpty(tool.Arguments)
+                        ? tool.FileName
+                        : $"{tool.FileName} {tool.Arguments}";
                 }
             }
             catch (Exception ex)
