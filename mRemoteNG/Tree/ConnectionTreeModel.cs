@@ -23,6 +23,28 @@ namespace mRemoteNG.Tree
     [SupportedOSPlatform("windows")]
     public sealed class ConnectionTreeModel : INotifyCollectionChanged, INotifyPropertyChanged
     {
+        /// <summary>
+        /// Tracks connection ConstantIDs present when this model was loaded from a data
+        /// source (e.g. SQL database). Used during save to distinguish between connections
+        /// the user explicitly deleted (was loaded, now absent) vs. connections added by
+        /// other users after our last load (never loaded, should not be deleted). (#1424)
+        /// </summary>
+        private readonly HashSet<string> _loadedConnectionIds = new(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// The set of connection IDs that were present at load time.
+        /// </summary>
+        public IReadOnlyCollection<string> LoadedConnectionIds => _loadedConnectionIds;
+
+        /// <summary>
+        /// Records a connection ID as having been loaded from the data source.
+        /// </summary>
+        public void TrackLoadedConnectionId(string constantId)
+        {
+            if (!string.IsNullOrEmpty(constantId))
+                _loadedConnectionIds.Add(constantId);
+        }
+
         public List<ContainerInfo> RootNodes { get; } = [];
 
         public void AddRootNode(ContainerInfo rootNode)

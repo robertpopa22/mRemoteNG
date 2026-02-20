@@ -25,12 +25,24 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
         private const string TABLE_NAME = "tblCons";
         private readonly SaveFilter _saveFilter = saveFilter.ThrowIfNull(nameof(saveFilter));
         private int _currentNodeIndex;
+        private IReadOnlyCollection<string>? _loadedConnectionIds;
 
         public Version Version { get; } = new Version(3, 0);
 
         public void SetSourceDataTable(DataTable sourceDataTable)
         {
             _sourceDataTable = sourceDataTable;
+        }
+
+        /// <summary>
+        /// Sets the connection IDs that were loaded from the database at load time.
+        /// When set, only connections that were in this set but are no longer in the
+        /// tree will be deleted from the database. Connections added by other users
+        /// (not in this set) will be preserved. (#1424 — SQL multiuser support)
+        /// </summary>
+        public void SetLoadedConnectionIds(IReadOnlyCollection<string> loadedConnectionIds)
+        {
+            _loadedConnectionIds = loadedConnectionIds;
         }
 
         public DataTable Serialize(ConnectionTreeModel connectionTreeModel)
@@ -60,10 +72,16 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             // Register add or update row
             SerializeNodesRecursive(serializationTarget);
 
+            // Only delete connections that we knew about at load time but are no
+            // longer in the tree (user explicitly deleted them). Connections in the
+            // DB that we never loaded (added by other users) are preserved. (#1424)
             List<string> entryToDelete = _sourcePrimaryKeyDict.Keys.ToList();
 
             foreach (string entry in entryToDelete)
             {
+                if (_loadedConnectionIds != null && !_loadedConnectionIds.Contains(entry))
+                    continue; // Unknown to us — added by another user, don't delete
+
                 _dataTable.Rows.Find(entry)?.Delete();
             }
 

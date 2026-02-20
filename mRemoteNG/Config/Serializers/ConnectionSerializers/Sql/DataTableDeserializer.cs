@@ -274,6 +274,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             foreach (DataRow row in dataTable.Rows)
             {
                 string id = (string)row["ConstantID"];
+
+                // Track every connection ID from the database so we can distinguish
+                // user-deleted connections from connections added by other users (#1424).
+                connectionTreeModel.TrackLoadedConnectionId(id);
+
                 if (!nodeById.TryGetValue(id, out ConnectionInfo? connectionInfo))
                     continue;
                 string parentId = (string)row["ParentID"];
