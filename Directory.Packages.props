@@ -21,6 +21,7 @@
     <PackageVersion Include="FlaUI.Core" Version="4.0.0" />
     <PackageVersion Include="FlaUI.UIA3" Version="4.0.0" />
     <PackageVersion Include="Gherkin" Version="38.0.0" />
+    <PackageVersion Include="Google.Apis.Drive.v3" Version="1.73.0.4045" />
     <PackageVersion Include="Google.Protobuf" Version="3.33.5" />
     <PackageVersion Include="LiteDB" Version="5.0.21" />
     <PackageVersion Include="log4net" Version="3.2.0" />

@@ -240,6 +240,7 @@
     <PackageReference Include="DockPanelSuite" />
     <PackageReference Include="DockPanelSuite.ThemeVS2005" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" />
+    <PackageReference Include="Google.Apis.Drive.v3" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="LiteDB" />
     <PackageReference Include="log4net" />
