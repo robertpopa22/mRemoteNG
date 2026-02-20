@@ -249,6 +249,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         public ProtocolVNC()
         {
             Control = new VncSharpCore.RemoteDesktop();
+            tmrReconnect.Tick += tmrReconnect_Tick;
         }
 
         public override bool Initialize()
@@ -517,7 +518,49 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
             FrmMain.ClipboardChanged -= VNCEvent_ClipboardChanged;
             Event_Disconnected(this, @"VncSharp Disconnected.", null);
-            Close();
+
+            if (Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect)
+            {
+                ReconnectGroup = new ReconnectGroup();
+                ReconnectGroup.CloseClicked += Event_ReconnectGroupCloseClicked;
+                ReconnectGroup.Left = (int)((double)Control!.Width / 2 - (double)ReconnectGroup.Width / 2);
+                ReconnectGroup.Top = (int)((double)Control.Height / 2 - (double)ReconnectGroup.Height / 2);
+                ReconnectGroup.Parent = Control;
+                ReconnectGroup.Show();
+                tmrReconnect.Enabled = true;
+            }
+            else
+            {
+                Close();
+            }
+        }
+
+        private void tmrReconnect_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (ReconnectGroup == null || _vnc == null || _info == null) return;
+
+                bool srvReady = PortScanner.IsPortOpen(_info.Hostname, Convert.ToString(_info.Port));
+                ReconnectGroup.ServerReady = srvReady;
+
+                if (!ReconnectGroup.ReconnectWhenReady || !srvReady) return;
+                tmrReconnect.Enabled = false;
+                ReconnectGroup.DisposeReconnectGroup();
+
+                _vnc.Connect(_info.Hostname, _info.VNCViewOnly,
+                             _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+
+                // Re-install lock key filter after reconnect
+                _lockKeyFilter = new VncLockKeyFilter(_vnc);
+                Application.AddMessageFilter(_lockKeyFilter);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage(
+                    string.Format(Language.AutomaticReconnectError, _info?.Hostname),
+                    ex, Messages.MessageClass.WarningMsg, false);
+            }
         }
 
         private void VNCEvent_ClipboardChanged()
