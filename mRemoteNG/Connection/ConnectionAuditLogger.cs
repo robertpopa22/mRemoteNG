@@ -13,7 +13,7 @@ namespace mRemoteNG.Connection
         private const string AuditFileName = "connectionAudit.log";
         private const long MaxFileSize = 10 * 1024 * 1024; // 10 MB
 
-        public static bool Enabled { get; set; }
+        public static bool Enabled => Properties.OptionsAdvancedPage.Default.EnableConnectionLogging;
 
         public static void LogConnectionAttempt(ConnectionInfo connectionInfo)
         {

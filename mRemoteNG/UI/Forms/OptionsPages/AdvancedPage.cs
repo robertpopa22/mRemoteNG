@@ -63,6 +63,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             SetPuttyLaunchButtonEnabled();
 
             numUVNCSCPort.Value = Properties.OptionsAdvancedPage.Default.UVNCSCPort;
+
+            chkConnectionLogging.Checked = Properties.OptionsAdvancedPage.Default.EnableConnectionLogging;
         }
 
         public override void SaveSettings()
@@ -92,6 +94,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
             Properties.OptionsAdvancedPage.Default.MaxPuttyWaitTime = (int)numPuttyWaitTime.Value;
             Properties.OptionsAdvancedPage.Default.UVNCSCPort = (int)numUVNCSCPort.Value;
+
+            Properties.OptionsAdvancedPage.Default.EnableConnectionLogging = chkConnectionLogging.Checked;
         }
 
         #endregion

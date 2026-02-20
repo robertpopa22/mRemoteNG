@@ -118,5 +118,17 @@ namespace mRemoteNG.Properties {
                 this["NoReconnect"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableConnectionLogging {
+            get {
+                return ((bool)(this["EnableConnectionLogging"]));
+            }
+            set {
+                this["EnableConnectionLogging"] = value;
+            }
+        }
     }
 }

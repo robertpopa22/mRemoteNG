@@ -46,6 +46,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnBrowseCustomPuttyPath = new MrngButton();
             chkLoadBalanceInfoUseUtf8 = new MrngCheckBox();
             chkNoReconnect = new MrngCheckBox();
+            chkConnectionLogging = new MrngCheckBox();
             ((System.ComponentModel.ISupportInitialize)numPuttyWaitTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numUVNCSCPort).BeginInit();
             SuspendLayout();
@@ -197,11 +198,24 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkNoReconnect.Text = "Automatically try to reconnect when disconnected from server (RDP && ICA only)";
             chkNoReconnect.UseVisualStyleBackColor = true;
             chkNoReconnect.CheckedChanged += chkNoReconnect_CheckedChanged;
-            // 
+            //
+            // chkConnectionLogging
+            //
+            chkConnectionLogging._mice = MrngCheckBox.MouseState.OUT;
+            chkConnectionLogging.AutoSize = true;
+            chkConnectionLogging.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            chkConnectionLogging.Location = new System.Drawing.Point(9, 230);
+            chkConnectionLogging.Name = "chkConnectionLogging";
+            chkConnectionLogging.Size = new System.Drawing.Size(400, 17);
+            chkConnectionLogging.TabIndex = 12;
+            chkConnectionLogging.Text = "Log connection open/close events to file (for auditing/billing)";
+            chkConnectionLogging.UseVisualStyleBackColor = true;
+            //
             // AdvancedPage
-            // 
+            //
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            Controls.Add(chkConnectionLogging);
             Controls.Add(chkNoReconnect);
             Controls.Add(chkLoadBalanceInfoUseUtf8);
             Controls.Add(lblMaximumPuttyWaitTime);
@@ -237,5 +251,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngButton btnBrowseCustomPuttyPath;
         private MrngCheckBox chkLoadBalanceInfoUseUtf8;
         internal MrngCheckBox chkNoReconnect;
+        internal MrngCheckBox chkConnectionLogging;
     }
 }
