@@ -51,8 +51,8 @@ namespace mRemoteNG.Tools
             Password = pass;
             Port = port;
             Protocol = protocol;
-            SrcFile = source;
-            DstFile = dest;
+            SrcFile = source.Trim('"');
+            DstFile = dest.Trim('"');
         }
 
         public void Connect()
@@ -86,6 +86,9 @@ namespace mRemoteNG.Tools
 
         public void Upload()
         {
+            var srcFile = SrcFile.Trim('"');
+            var dstFile = DstFile.Trim('"');
+
             if (Protocol == SSHTransferProtocol.SCP)
             {
                 if (ScpClt is null || !ScpClt.IsConnected)
@@ -96,7 +99,7 @@ namespace mRemoteNG.Tools
                     return;
                 }
 
-                ScpClt.Upload(new FileInfo(SrcFile), $"{DstFile}");
+                ScpClt.Upload(new FileInfo(srcFile), dstFile);
             }
 
             if (Protocol == SSHTransferProtocol.SFTP)
@@ -110,7 +113,7 @@ namespace mRemoteNG.Tools
                 }
 
                 asyncResult =
-                    (SftpUploadAsyncResult)SftpClt.BeginUploadFile(new FileStream(SrcFile, Open), $"{DstFile}",
+                    (SftpUploadAsyncResult)SftpClt.BeginUploadFile(new FileStream(srcFile, Open), dstFile,
                         asyncCallback);
             }
         }
