@@ -161,6 +161,20 @@ GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
 CODEX_MODEL = "gpt-5.3-codex"          # overridable via --codex-model
 CODEX_REASONING = "xhigh"               # model_reasoning_effort for codex
 AGENT_FALLBACK_ENABLED = True           # if primary fails, try the next agent in chain
+
+# ── CLAUDE MODEL STRATEGY ────────────────────────────────────────────────
+# Sonnet 4.6 for high-volume tasks (triage + code), Opus 4.6 for deep analysis
+CLAUDE_MODEL_SONNET = "claude-sonnet-4-6"  # fast, cheap — triage & code writing
+CLAUDE_MODEL_OPUS = "claude-opus-4-6"      # deep analysis — complex issues, fallback
+CLAUDE_MODEL_BY_TASK = {
+    "triage":               CLAUDE_MODEL_SONNET,
+    "implement":            CLAUDE_MODEL_SONNET,
+    "test_fix":             CLAUDE_MODEL_SONNET,
+    "warning_fix":          CLAUDE_MODEL_SONNET,
+    "warning_fix_parallel": CLAUDE_MODEL_SONNET,
+    "test_hygiene":         CLAUDE_MODEL_SONNET,
+    "analysis":             CLAUDE_MODEL_OPUS,   # deep analysis fallback
+}
 _session_agents_used = set()            # tracks which agents contributed (for co-author)
 _last_dispatch_timed_out = False        # set True by sub-agents on TimeoutExpired
 _last_dispatch_partial_output = ""      # partial stdout captured before timeout
@@ -328,9 +342,14 @@ def _bump_escalation(issue_key):
 def _complexity_base_timeout(agent, task_type, triage=None):
     """Estimate base timeout from task complexity.
     triage dict may contain: estimated_files, priority, decision."""
-    # Triage tasks are always fast — agents just analyze text
+    # Triage tasks — Claude needs more time (reads CLAUDE.md + codebase exploration)
     if task_type == "triage":
-        return 120 if agent == "codex" else 90
+        if agent == "codex":
+            return 120
+        elif agent == "claude":
+            return 180
+        else:
+            return 120
 
     # Implementation: scale with estimated file count and priority
     n_files = 0
@@ -514,14 +533,25 @@ def kill_stale_processes():
             pass
 
 
+_ORCHESTRATOR_PROTECTED_FILES = {
+    ".project-roadmap/scripts/iis_orchestrator.py",
+    ".project-roadmap/scripts/orchestrator_supervisor.py",
+    ".project-roadmap/scripts/orchestrator-status.json",
+    ".project-roadmap/scripts/_agent_rate_limits.json",
+    ".project-roadmap/scripts/_comment_rate.json",
+}
+
+
 def _restore_triage_contamination(modified):
     """After triage timeout, revert any files the agent modified.
-    Triage is read-only — it should only return JSON, never touch files."""
+    Triage is read-only — it should only return JSON, never touch files.
+    NEVER restores orchestrator infrastructure files or chain-context."""
     if not modified:
         return
-    # Keep chain-context files (they are ours), restore everything else
+    # Keep chain-context files AND orchestrator files (they are ours)
     restore = [f for f in modified
-               if not f.startswith(".project-roadmap/scripts/chain-context/")]
+               if not f.startswith(".project-roadmap/scripts/chain-context/")
+               and f not in _ORCHESTRATOR_PROTECTED_FILES]
     if restore:
         try:
             subprocess.run(
@@ -1093,10 +1123,13 @@ def git_squash_last(n, message):
 
 # ── CORE: CLAUDE SUB-AGENT ─────────────────────────────────────────────────
 def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
-               retries=CLAUDE_RETRIES):
+               retries=CLAUDE_RETRIES, model=None):
     """Call claude -p (headless) with retry.  Returns stdout string.
-    Uses CLAUDE_ENV to strip CLAUDECODE nesting guard."""
+    Uses CLAUDE_ENV to strip CLAUDECODE nesting guard.
+    model: override Claude model (e.g. claude-sonnet-4-6 or claude-opus-4-6)."""
     cmd = ["claude", "-p", prompt, "--max-turns", str(max_turns)]
+    if model:
+        cmd += ["--model", model]
     if json_output:
         cmd += ["--output-format", "json"]
 
@@ -1346,10 +1379,12 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 
 # ── CORE: AGENT DISPATCH HELPER ──────────────────────────────────────────
 def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
-                    timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES):
+                    timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES,
+                    claude_model=None):
     """Dispatch a prompt to a specific agent. Returns stdout string or None.
     Sets _last_dispatch_timed_out if the agent timed out.
-    Skips agents that are currently rate-limited."""
+    Skips agents that are currently rate-limited.
+    claude_model: override Claude model (sonnet vs opus) when agent=='claude'."""
     global _last_dispatch_timed_out, _last_dispatch_partial_output
     _last_dispatch_timed_out = False
     _last_dispatch_partial_output = ""
@@ -1403,7 +1438,7 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
 
     # Default: claude
     return claude_run(prompt, max_turns=max_turns, json_output=json_output,
-                      timeout=timeout, retries=retries)
+                      timeout=timeout, retries=retries, model=claude_model)
 
 
 # ── CORE: AGENT SIMPLE DISPATCH (for warnings) ───────────────────────────
@@ -1426,12 +1461,14 @@ def agent_run(task_type, prompt, max_turns=15, json_output=False,
             agent_timeout = max(timeout, CODEX_TIMEOUT)
             agent_retries = min(agent_retries, CODEX_RETRIES)
 
-        log.info("    [AGENT] Trying %s for %s (attempt %d/%d in chain)",
-                 agent, task_type, i + 1, len(chain))
+        _ar_model = CLAUDE_MODEL_BY_TASK.get(task_type) if agent == "claude" else None
+        _ar_tag = f" [{_ar_model}]" if _ar_model else ""
+        log.info("    [AGENT] Trying %s%s for %s (attempt %d/%d in chain)",
+                 agent, _ar_tag, task_type, i + 1, len(chain))
 
         result = _agent_dispatch(agent, prompt, max_turns=max_turns,
                                  json_output=json_output, timeout=agent_timeout,
-                                 retries=agent_retries)
+                                 retries=agent_retries, claude_model=_ar_model)
         if result:
             return result
 
@@ -1518,11 +1555,15 @@ Reply with ONLY a JSON object:
 
         timeout = _estimate_timeout(agent, "triage", issue_key=issue_key,
                                     chain_escalation=chain_esc)
-        log.info("    [CHAIN] Step %d: %s triage for #%d (timeout=%ds)",
-                 i + 1, agent.capitalize(), num, timeout)
+        _triage_claude_model = CLAUDE_MODEL_BY_TASK.get("triage") if agent == "claude" else None
+        _model_tag = f" [{_triage_claude_model}]" if _triage_claude_model else ""
+        log.info("    [CHAIN] Step %d: %s%s triage for #%d (timeout=%ds)",
+                 i + 1, agent.capitalize(), _model_tag, num, timeout)
 
         t0 = time.time()
-        raw_output = _agent_dispatch(agent, prompt, max_turns=5, timeout=timeout, retries=1)
+        turns = 10 if agent == "claude" else 5
+        raw_output = _agent_dispatch(agent, prompt, max_turns=turns, timeout=timeout,
+                                     retries=1, claude_model=_triage_claude_model)
         elapsed = time.time() - t0
         kill_stale_processes()
 
@@ -1564,6 +1605,35 @@ Reply with ONLY a JSON object:
             break
 
         log.warning("    [CHAIN] %s failed triage for #%d — trying next agent", agent, num)
+
+    # ── OPUS FALLBACK: when all chain agents failed, retry with Opus for deep analysis ──
+    if CLAUDE_MODEL_BY_TASK.get("triage") != CLAUDE_MODEL_OPUS:
+        log.info("    [CHAIN] All agents failed with Sonnet — retrying triage #%d with Opus (deep analysis)", num)
+        opus_timeout = int(_estimate_timeout("claude", "triage", issue_key=issue_key,
+                                             chain_escalation=chain_esc) * 1.5)
+        status.set_task(type="triage", issue=num, step="opus_analysis")
+        t0 = time.time()
+        raw_output = _agent_dispatch("claude", triage_prompt, max_turns=15,
+                                     timeout=opus_timeout, retries=1,
+                                     claude_model=CLAUDE_MODEL_OPUS)
+        elapsed = time.time() - t0
+        kill_stale_processes()
+        if raw_output:
+            log.info("    [CHAIN] Opus raw (%d chars, %.0fs): %s",
+                     len(raw_output), elapsed, raw_output[:150].replace("\n", " "))
+            result = _extract_json(raw_output)
+            if result and "decision" in result:
+                ctx.add_attempt("claude", "triage", True, result=result, raw_output=raw_output)
+                ctx.save()
+                log.info("    [CHAIN] Opus triage OK for #%d", num)
+                _session_agents_used.add("claude")
+                return result, "claude"
+            else:
+                ctx.add_attempt("claude", "triage", False, raw_output=raw_output,
+                                errors="Opus could not extract valid JSON")
+        else:
+            ctx.add_attempt("claude", "triage", False, errors="Opus returned None")
+        log.warning("    [CHAIN] Opus fallback also failed for #%d", num)
 
     ctx.save()
     # Bump per-issue escalation if agents timed out (for next session)
@@ -1630,8 +1700,9 @@ Do NOT create new test files. Only modify existing tests or existing implementat
         status.set_task(type="test_fix", issue=num, step=f"test_fix_{fix_agent}_{attempt}")
         timeout = _estimate_timeout(fix_agent, "implement",
                                      issue_key=f"testfix_{num}", triage=None)
+        _tf_model = CLAUDE_MODEL_BY_TASK.get("test_fix") if fix_agent == "claude" else None
         agent_out = _agent_dispatch(fix_agent, prompt, max_turns=20,
-                                     timeout=timeout, retries=1)
+                                     timeout=timeout, retries=1, claude_model=_tf_model)
         kill_stale_processes()
 
         if agent_out is None:
@@ -1738,12 +1809,15 @@ Do ONLY the fix. Nothing else."""
 
         timeout = _estimate_timeout(agent, "implement", issue_key=issue_key,
                                     triage=triage, chain_escalation=chain_esc)
-        log.info("  [CHAIN] Step %d: %s implementing #%d (timeout=%ds) ...",
-                 i + 1, agent.capitalize(), num, timeout)
+        _impl_model = CLAUDE_MODEL_BY_TASK.get("implement") if agent == "claude" else None
+        _impl_tag = f" [{_impl_model}]" if _impl_model else ""
+        log.info("  [CHAIN] Step %d: %s%s implementing #%d (timeout=%ds) ...",
+                 i + 1, agent.capitalize(), _impl_tag, num, timeout)
         status.set_task(type="issue_fix", issue=num, step=f"{agent}_fixing")
 
         t0 = time.time()
-        agent_out = _agent_dispatch(agent, prompt, max_turns=25, timeout=timeout, retries=1)
+        agent_out = _agent_dispatch(agent, prompt, max_turns=25, timeout=timeout,
+                                    retries=1, claude_model=_impl_model)
         elapsed = time.time() - t0
         kill_stale_processes()
 
@@ -2108,7 +2182,7 @@ Valid priorities: "P0-critical", "P1-security", "P2-bug", "P3-enhancement", "P4-
 
 Be conservative: if the issue is unclear, use "needs_info"."""
 
-    out = agent_run("triage", prompt, max_turns=5, json_output=False, timeout=120)
+    out = agent_run("triage", prompt, max_turns=10, json_output=False, timeout=180)
     if not out:
         return None
     return _extract_json(out)
@@ -2290,8 +2364,9 @@ RULES:
 
         status.set_task(type="test_hygiene", step=f"fix_{group['description']}_{attempt}")
         timeout = 600  # 10 min per hygiene fix attempt
+        _th_model = CLAUDE_MODEL_BY_TASK.get("test_hygiene") if TEST_HYGIENE_AGENT == "claude" else None
         agent_out = _agent_dispatch(TEST_HYGIENE_AGENT, prompt, max_turns=20,
-                                     timeout=timeout, retries=1)
+                                     timeout=timeout, retries=1, claude_model=_th_model)
         kill_stale_processes()
 
         if agent_out is None:
