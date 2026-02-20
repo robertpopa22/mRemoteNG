@@ -65,11 +65,16 @@ namespace mRemoteNG.UI.Window
 
         internal void ShowHideConnectionTabs()
         {
-            if (_isAddingTab) return;
+            if (_isAddingTab || IsDisposed || Disposing) return;
 
             if (InvokeRequired)
             {
-                Invoke(new MethodInvoker(ShowHideConnectionTabs));
+                try
+                {
+                    Invoke(new MethodInvoker(ShowHideConnectionTabs));
+                }
+                catch (ObjectDisposedException) { }
+                catch (InvalidOperationException) { }
                 return;
             }
 
@@ -384,6 +389,8 @@ namespace mRemoteNG.UI.Window
             _cmenTabMoveToPanel.Enabled = true;
             foreach (ConnectionWindow panel in targetPanels)
             {
+                if (panel.IsDisposed) continue;
+
                 ToolStripMenuItem panelItem = new(GetPanelName(panel))
                 {
                     Tag = panel
@@ -446,7 +453,8 @@ namespace mRemoteNG.UI.Window
                 return false;
             }
 
-            sourcePanel.ClosePanelIfEmpty();
+            if (!sourcePanel.IsDisposed && !sourcePanel.Disposing)
+                sourcePanel.ClosePanelIfEmpty();
             return true;
         }
 
@@ -994,7 +1002,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            if (connDock.Documents.Any())
+            if (connDock == null || connDock.IsDisposed || connDock.Documents.Any())
             {
                 return;
             }
@@ -1028,7 +1036,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            if (connDock.Documents.Any())
+            if (connDock == null || connDock.IsDisposed || connDock.Documents.Any())
             {
                 return;
             }

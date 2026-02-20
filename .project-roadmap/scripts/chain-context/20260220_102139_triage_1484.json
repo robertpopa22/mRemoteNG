@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1484",
+  "started_at": "2026-02-20T10:20:50",
+  "finished_at": "2026-02-20T10:21:39",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T10:20:50"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T10:21:05"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "wontfix",
+        "reason": "RDP ActiveX control (AxMsRdpClient) does not support custom credential provider UI like OTP prompts — this is a Microsoft limitation of the embedded control, not something mRemoteNG can fix",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Cannot be fixed — the embedded RDP ActiveX control does not render custom credential provider dialogs (2FA/OTP). Users must use native mstsc.exe for RDP servers requiring OTP. A potential workaround would be to add a 'connect with external RDP' option, but the core issue is a Microsoft API limitation."
+      },
+      "raw_output": "Now I have the full context. The issue is about RDP connections to servers requiring two-factor authentication (OTP) — the RDP credential prompt for OTP is rendered incorrectly (\"broken\" input form) in mRemoteNG's embedded RDP control, while native `mstsc.exe` renders it correctly.\n\nThis is an RDP ActiveX control (MSTSCLib) rendering issue — the embedded AxMsRdpClient doesn't properly handle custom credential providers (like OTP/2FA prompts). This is a known limitation of the embedded RDP ActiveX control.\n\n```json\n{\"decision\":\"wontfix\",\"reason\":\"RDP ActiveX control (AxMsRdpClient) does not support custom credential provider UI like OTP prompts — this is a Microsoft limitation of the embedded control, not something mRemoteNG can fix\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"Cannot be fixed — the embedded RDP ActiveX control does not render custom credential provider dialogs (2FA/OTP). Users must use native mstsc.exe for RDP servers requiring OTP. A potential workaround would be to add a 'connect with external RDP' option, but the core issue is a Microsoft API limitation.\"}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-20T10:21:39"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
