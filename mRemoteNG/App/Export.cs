@@ -7,6 +7,7 @@ using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Serializers;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Csv;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Json;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Rdp;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
@@ -124,6 +125,9 @@ namespace mRemoteNG.App
                         break;
                     case SaveFormat.mRJSON:
                         serializer = new JsonConnectionsSerializer(saveFilter);
+                        break;
+                    case SaveFormat.RDP:
+                        serializer = new RdpConnectionSerializer(saveFilter);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(saveFormat), saveFormat, null);

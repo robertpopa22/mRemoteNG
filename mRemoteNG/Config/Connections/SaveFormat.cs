@@ -6,6 +6,7 @@
         mRXML,
         mRCSV,
         mRJSON,
-        SQL
+        SQL,
+        RDP
     }
 }

@@ -156,6 +156,7 @@ namespace mRemoteNG.UI.Forms
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRXML));
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRCSV));
             cboFileFormat.Items.Add(new ExportFormat(SaveFormat.mRJSON));
+            cboFileFormat.Items.Add(new ExportFormat(SaveFormat.RDP));
             cboFileFormat.SelectedIndex = 0;
             ApplyTheme();
             ThemeManager.getInstance().ThemeChanged += ApplyTheme;
@@ -179,6 +180,7 @@ namespace mRemoteNG.UI.Forms
                 fileTypes.AddRange(new[] {Language.FiltermRemoteXML, "*.xml"});
                 fileTypes.AddRange(new[] {Language.FiltermRemoteCSV, "*.csv"});
                 fileTypes.AddRange(new[] {"mRemoteNG JSON|*.json"});
+                fileTypes.AddRange(new[] {"RDP File (*.rdp)|*.rdp"});
                 fileTypes.AddRange(new[] {Language.FilterAll, "*.*"});
 
                 saveFileDialog.Filter = string.Join("|", fileTypes.ToArray());
@@ -197,6 +199,7 @@ namespace mRemoteNG.UI.Forms
             {
                 SaveFormat.mRCSV => 2,
                 SaveFormat.mRJSON => 3,
+                SaveFormat.RDP => 4,
                 _ => 1
             };
         }
@@ -352,6 +355,7 @@ namespace mRemoteNG.UI.Forms
                     SaveFormat.mRXML => Language.MremoteNgXml,
                     SaveFormat.mRCSV => Language.MremoteNgCsv,
                     SaveFormat.mRJSON => "mRemoteNG JSON",
+                    SaveFormat.RDP => "RDP File",
                     _ => Format.ToString()
                 };
             }
