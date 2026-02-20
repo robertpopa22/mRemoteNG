@@ -53,6 +53,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                     ldapSearcher.SearchRoot = new DirectoryEntry(ldapPath);
                     ldapSearcher.Filter = ldapFilter;
                     ldapSearcher.SearchScope = SearchScope.OneLevel;
+                    ldapSearcher.PageSize = 1000;
                     ldapSearcher.PropertiesToLoad.AddRange(new[] {"securityEquals", "cn", "objectClass"});
 
                     SearchResultCollection ldapResults = ldapSearcher.FindAll();
