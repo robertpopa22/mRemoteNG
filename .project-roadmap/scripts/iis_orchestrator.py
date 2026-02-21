@@ -653,6 +653,21 @@ _ORCHESTRATOR_PROTECTED_FILES = {
     ".project-roadmap/scripts/_comment_rate.json",
 }
 
+# Infrastructure files that agents MUST NEVER modify.
+# These are critical build/test scripts — if an agent overwrites them,
+# subsequent builds/tests silently break (phantom tests, lost functionality).
+# Protected at 3 levels: (1) agent prompt forbids, (2) pre-commit guard restores,
+# (3) git_restore() also covers them.
+_AGENT_FORBIDDEN_FILES = {
+    "run-tests.ps1",
+    "build.ps1",
+    "mRemoteNG.sln",
+    "Directory.Build.props",
+    "Directory.Packages.props",
+    ".github/workflows/pr_validation.yml",
+    ".github/workflows/Build_mR-NB.yml",
+}
+
 
 def _restore_triage_contamination(modified):
     """After triage timeout, revert any files the agent modified.
@@ -1120,9 +1135,42 @@ def git_has_changes():
     return bool((r.stdout or "").strip())
 
 
+def _guard_forbidden_files():
+    """Restore any _AGENT_FORBIDDEN_FILES modified by agents before commit.
+    Returns list of files that were restored (for logging)."""
+    restored = []
+    try:
+        r = _run(["git", "diff", "--name-only", "HEAD"], timeout=10)
+        staged = (r.stdout or "").strip().splitlines()
+        # Also check unstaged
+        r2 = _run(["git", "diff", "--name-only"], timeout=10)
+        unstaged = (r2.stdout or "").strip().splitlines()
+        all_modified = set(staged + unstaged)
+        for f in all_modified:
+            if f in _AGENT_FORBIDDEN_FILES:
+                try:
+                    _run(["git", "checkout", "HEAD", "--", f], timeout=10)
+                    restored.append(f)
+                    log.warning("    [GUARD] Restored forbidden file modified by agent: %s", f)
+                except Exception:
+                    log.error("    [GUARD] Failed to restore forbidden file: %s", f)
+    except Exception as e:
+        log.warning("    [GUARD] Could not check forbidden files: %s", e)
+    return restored
+
+
 def git_commit(message):
     """Stage all + commit.  Returns commit hash or None."""
     if not git_has_changes():
+        return None
+    # ── GUARD: restore any forbidden files agents may have modified ──
+    restored = _guard_forbidden_files()
+    if restored:
+        log.warning("  [GIT] GUARD restored %d forbidden file(s) before commit: %s",
+                    len(restored), ", ".join(restored))
+    # Re-check after guard — agent may have only modified forbidden files
+    if not git_has_changes():
+        log.info("  [GIT] No changes remain after guard — skipping commit")
         return None
     # ── DEDUP safety net: reject duplicate issue commits ──
     issue_match = re.search(r"#(\d+)", message)
@@ -1173,11 +1221,17 @@ def git_push():
 
 
 def git_restore():
-    """Revert all uncommitted changes (except .project-roadmap/ and run-tests.ps1)."""
+    """Revert all uncommitted changes in source dirs + forbidden infra files."""
     try:
-        # Restore only source code, not orchestrator scripts or issues-db
+        # Restore source code directories
         _run(["git", "checkout", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
         _run(["git", "clean", "-fd", "--", "mRemoteNG/", "mRemoteNGTests/", "mRemoteNGSpecs/"])
+        # Always restore forbidden infrastructure files (agents must never change these)
+        for f in _AGENT_FORBIDDEN_FILES:
+            try:
+                _run(["git", "checkout", "HEAD", "--", f], timeout=5)
+            except Exception:
+                pass  # file may not be modified — that's fine
         log.info("    [GIT] Reverted source code changes")
     except Exception as e:
         log.warning("    [GIT] Restore failed: %s", e)
@@ -1974,6 +2028,7 @@ RULES (CRITICAL):
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
+- NEVER modify these infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props, .github/workflows/*. They are READ-ONLY.
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
@@ -2008,7 +2063,7 @@ Their changes may still be in the working tree.
 
 Review the current state of the code, correct any issues, and make the fix work.
 
-RULES: Read code first. Do NOT change existing behavior. Run build.ps1 then run-tests.ps1 -NoBuild.
+RULES: Read code first. Do NOT change existing behavior. NEVER modify infrastructure files (run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props). Run build.ps1 then run-tests.ps1 -NoBuild.
 Do ONLY the fix. Nothing else."""
 
         timeout = _estimate_timeout(agent, "implement", issue_key=issue_key,
@@ -2438,6 +2493,7 @@ RULES (CRITICAL):
 - Do NOT change existing behavior — only fix the reported issue
 - Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
 - Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
+- NEVER modify these infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props, .github/workflows/*. They are READ-ONLY.
 - After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
 - After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 - If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
@@ -2582,7 +2638,8 @@ RULES:
 4. Build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\build.ps1"
 5. Test: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\\github\\mRemoteNG\\run-tests.ps1" -NoBuild
 6. Do NOT run git operations (no git add, commit, push)
-7. Do NOT create new test files — only modify existing tests or code"""
+7. Do NOT create new test files — only modify existing tests or code
+8. NEVER modify infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props"""
 
         status.set_task(type="test_hygiene", step=f"fix_{group['description']}_{attempt}")
         timeout = 600  # 10 min per hygiene fix attempt

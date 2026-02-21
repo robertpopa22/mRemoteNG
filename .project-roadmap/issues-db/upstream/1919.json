@@ -11,12 +11,19 @@
   "created_at": "2021-01-07T23:32:59Z",
   "github_updated_at": "2026-02-21T10:23:13Z",
   "body_snippet": "new feature/enhancement request\r\n\r\nUse-case:\r\nOften I am using the fqdn, or dns name, in order to craft a new session. I use the hostname, possibly with the subdomain, as the name (name: hostname.dev) in most cases. Today I thought \"gee, it would be swell if I could use a variable to reference the connection name as part of the hostname, because then I could inherit that too and only modify a single field when duplicating to make a new connection!\" \r\n\r\nI found that external tools can reference s...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Implemented variable expansion for the hostname field to support dynamic connection names like %name% using a new ConnectionInfoVariableExpander."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM5D7PIH",
@@ -51,5 +58,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Implemented variable expansion for the hostname field to support dynamic connection names like %name% using a new ConnectionInfoVariableExpander.\nApproach: Created a new ConnectionInfoVariableExpander class to handle variable substitution, and modified the ConnectionInfo.Hostname getter to utilize this expander."
 }

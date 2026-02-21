@@ -12,12 +12,19 @@
   "created_at": "2021-01-26T21:03:01Z",
   "github_updated_at": "2026-02-21T10:23:18Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nThe default behavior for new rdp connections sets Server authentication to always connect, event if auth fails \r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI think it should a minimum be configure to the warn setting for the default. \r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P1-security",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Authentication failures should prevent continuation to avoid potential security risks."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFil",
@@ -43,5 +50,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Authentication failures should prevent continuation to avoid potential security risks.\nApproach: Investigate the authentication flow, especially concerning server connections (e.g., SQL Server, proxy), to ensure that any authentication failure correctly terminates the connection attempt and does not proceed to an insecure state. Review relevant security settings and their default behaviors."
 }
