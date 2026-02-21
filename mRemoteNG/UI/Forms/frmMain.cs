@@ -1038,6 +1038,17 @@ namespace mRemoteNG.UI.Forms
                             Screens.SendFormToScreen(screen);
                             Console.WriteLine(screen.ToString());
                         }
+                        // Block restore/maximize while session is locked (#1666):
+                        // Prompt for password BEFORE base.WndProc makes the window visible.
+                        if (_isAutoLocked)
+                        {
+                            int syscmd = m.WParam.ToInt32() & 0xFFF0;
+                            if (syscmd == NativeMethods.SC_RESTORE || syscmd == NativeMethods.SC_MAXIMIZE)
+                            {
+                                if (!TryUnlockIfNeeded())
+                                    return; // suppress the restore/maximize — window stays minimized
+                            }
+                        }
                         break;
                     case NativeMethods.WM_DPICHANGED:
                         {

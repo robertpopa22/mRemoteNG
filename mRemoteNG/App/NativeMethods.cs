@@ -521,6 +521,12 @@ namespace mRemoteNG.App
         /// </summary>
         public const int WM_SYSCOMMAND = 0x112;
 
+        /// <summary>Restores the window to its normal position and size (WM_SYSCOMMAND wParam, mask with 0xFFF0).</summary>
+        public const int SC_RESTORE = 0xF120;
+
+        /// <summary>Maximizes the window (WM_SYSCOMMAND wParam, mask with 0xFFF0).</summary>
+        public const int SC_MAXIMIZE = 0xF030;
+
         /// <summary>
         /// Posted to a window when the cursor moves. If the mouse is not captured, the message is posted to the window that contains the cursor. Otherwise, the message is posted to the window that has captured the mouse.
         /// </summary>
