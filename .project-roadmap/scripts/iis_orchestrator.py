@@ -1505,8 +1505,7 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES,
                 CODEX_CMD, "exec", "-",
                 "--color", "never",
                 "--ephemeral",
-                "-a", "never",                   # auto-approve all (no user prompts)
-                "-s", "workspace-write",         # writable sandbox (override config read-only)
+                "--full-auto",                   # auto-approve + workspace-write sandbox
                 "-m", use_model,
                 "-c", f'model_reasoning_effort="{use_reasoning}"',
                 "-C", str(REPO_ROOT),

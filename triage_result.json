@@ -1,9 +1,7 @@
 {
   "decision": "implement",
-  "reason": "The Connections panel (ConnectionTree, a TreeListView) scrolls unnecessarily when a node gains focus, likely due to an aggressive auto-scroll-on-focus behavior in the underlying TreeListView control.",
+  "reason": "The current logic for MSSQL connections incorrectly falls back to integrated security when a password is provided but the username is empty, or vice versa. This needs to be corrected.",
   "priority": "P2-bug",
-  "estimated_files": [
-    "mRemoteNG\\UI\\Controls\\ConnectionTree\\ConnectionTree.cs"
-  ],
-  "approach": "Investigate and disable or modify the TreeListView's auto-scroll-on-focus behavior in ConnectionTree.cs to prevent unwanted scrolling while ensuring the focused item remains visible when necessary (e.g., after adding a new node)."
+  "estimated_files": ["mRemoteNG\\Config\\DatabaseConnectors\\MSSqlDatabaseConnector.cs"],
+  "approach": "Modify the `BuildSqlConnectionString` method in `MSSqlDatabaseConnector.cs` to use custom credentials if either the username or password is provided; otherwise, use integrated security."
 }

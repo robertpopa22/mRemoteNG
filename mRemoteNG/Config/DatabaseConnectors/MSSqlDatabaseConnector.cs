@@ -46,7 +46,7 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
         private void BuildSqlConnectionString()
         {
-            if (_dbUsername != "")
+            if (!string.IsNullOrEmpty(_dbUsername) || !string.IsNullOrEmpty(_dbPassword))
                 BuildDbConnectionStringWithCustomCredentials();
             else
                 BuildDbConnectionStringWithDefaultCredentials();
