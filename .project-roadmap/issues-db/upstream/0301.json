@@ -10,7 +10,7 @@
   ],
   "author": "TomAltenburg",
   "created_at": "2016-12-07T13:39:54Z",
-  "github_updated_at": "2026-02-16T07:27:14Z",
+  "github_updated_at": "2026-02-20T13:43:40Z",
   "body_snippet": "I was sent here from the Subreddit.\r\n\r\nIt would be nice to have the ability to open a RDS session straight from your desktop, instead of having to open mRemoteNG first and scrolling through the connections tab.\r\n\r\nThanks in advance.",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -58,30 +58,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7owNZS",
-      "author": "robertpopa22",
-      "date": "2026-02-15T18:25:28Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`eb50df0e`](https://github.com/robertpopa22/mRemoteNG/commit/eb50df0eda8aaefd96c585cff4eb5e524e470c50)\n**Branch:** `main`\n**What changed:** Add a --connect <connection-name-or-id> command-line argumen\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gUJ",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:14Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:14Z",
+  "comments_cursor": "2026-02-20T13:43:40Z",
   "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: Feature request for command-line switch to open a specific connection directly, enabling desktop shortcuts to RDS sessions - has community support and clear implementation path\nApproach: Add a --connect <connection-name-or-id> command-line argument that, on startup, locates the matching connection in the tree and automatically opens it, allowing users to create Windows shortcuts with this parameter"
 }

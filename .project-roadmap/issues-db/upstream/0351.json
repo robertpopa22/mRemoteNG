@@ -8,7 +8,7 @@
   ],
   "author": "cwi-ezoutas",
   "created_at": "2017-01-18T15:01:11Z",
-  "github_updated_at": "2026-02-16T07:27:24Z",
+  "github_updated_at": "2026-02-20T13:39:12Z",
   "body_snippet": "It would be very useful to have dynamic tab naming for ssh connections.\r\nExample:\r\n1) Connect to \"Server A\" as user \"testor\" where hostname is \"servera\"\r\n2) Tab should be named \"testor@servera (Server A)\"\r\n3) SSH from \"Server A\" to another server at IP 192.168.1.2 with user \"test\"\r\n4) Tab should be named \"test@192.168.1.2 (Server A)\"\r\n\r\nThis is extremely useful when you manage hundred of servers.\r\nThis is the same with:\r\nhttps://mremoteng.atlassian.net/browse/MR-571\r\n\r\nCould not find the same ti...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -110,30 +110,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7owXNR",
-      "author": "robertpopa22",
-      "date": "2026-02-15T18:50:28Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`b84d21b1`](https://github.com/robertpopa22/mRemoteNG/commit/b84d21b1dba210124363b72479dacfbe787a2051)\n**Branch:** `main`\n**What changed:** Subscribe to the embedded process/control window title chang\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gbx",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:23Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:24Z",
+  "comments_cursor": "2026-02-20T13:39:12Z",
   "unread_comments": 9,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: Feature request to dynamically update tab titles to reflect the remote session's window title (e.g., PuTTY progress), improving usability for multi-session workflows\nApproach: Subscribe to the embedded process/control window title changes (via WinEvents or polling NativeWindow text) and propagate updates to the tab header, with an opt-in setting in ConnectionInfo to enable dynamic tab naming"
 }

@@ -8,7 +8,7 @@
   ],
   "author": "crispy9352",
   "created_at": "2017-10-23T23:56:52Z",
-  "github_updated_at": "2026-02-16T07:28:18Z",
+  "github_updated_at": "2026-02-20T13:55:39Z",
   "body_snippet": "\"Reconnect to previously opened sessions on startup\" option doesn't work. Steps to reproduce:\r\n\r\n1. Stop mRemoteNG\r\n2. Uninstall mRemoteNG\r\n3. Delete folder \"%APPDATA%\\mRemoteNG\"\r\n4. Delete folder \"%LOCALAPPDATA%\\mRemoteNG\"\r\n5. Delete folder \"%ProgramFiles(x86)%\\mRemoteNG\"\r\n6. Install mRemoteNG\r\n7. Start mRemoteNG\r\n8. Click \"Use the recommended settings\"\r\n9. Enable option \"Save connections on exit\"\r\n10. Enable option \"Reconnect to previously opened sessions on startup\"\r\n11. Enable option \"For em...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -55,28 +55,37 @@
       "action_needed": true
     },
     {
-      "id": "IC_kwDOAAcIMM7o3Ih1",
-      "author": "robertpopa22",
-      "date": "2026-02-16T06:54:24Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`d3a6fe18`](https://github.com/robertpopa22/mRemoteNG/commit/d3a6fe18207f468670cda4a878a868deec7e3f9b)\n**Branch:** `main`\n**What changed:** Persist metadata for open Quick Connect sessions on shutdown\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
+      "id": "IC_kwDOAAcIMM7qY22e",
+      "author": "gioxx",
+      "date": "2026-02-20T08:26:52Z",
+      "snippet": "@robertpopa22 I've been trying out the new release for a few days now, but - _unless I've made a configuration error_ - when I close mRemoteNG, the connections are also closed and are not re-established the next time I start it up.\nWhat information can I give you to help you understand how to resolve the problem?\n\nThanks!",
+      "is_ours": false,
       "analyzed": false,
-      "action_needed": false
+      "action_needed": true
     },
     {
-      "id": "IC_kwDOAAcIMM7o3hIy",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:28:18Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
+      "id": "IC_kwDOAAcIMM7qbb0X",
+      "author": "Kvarkas",
+      "date": "2026-02-20T10:54:54Z",
+      "snippet": "You need ask him questions in his repo ;) he use ai, its look like as fixing but making a lot of uncontrolable changes so need be very accurate with ai sugestions and verify twice before merge",
+      "is_ours": false,
       "analyzed": false,
-      "action_needed": false
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7qbwuZ",
+      "author": "gioxx",
+      "date": "2026-02-20T11:06:25Z",
+      "snippet": "🤦🏻‍♂️ 😮‍💨 \nThanks @Kvarkas!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-16T07:28:18Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-02-20T13:55:39Z",
+  "unread_comments": 5,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage (codex): Startup reconnect currently only reopens persisted tree nodes (`PleaseConnect`) and ignores Quick Connect sessions, so adding lightweight Quick Connect session persistence will make the option behave as users expect.\nApproach: Persist minimal metadata for active Quick Connect sessions on exit and replay them during startup reconnect, plus tests for mixed saved and quick-connect sessions.\nAI triage (gemini): The startup reconnect flow currently only reopens persisted tree nodes and does not persist enough data to rehydrate open Quick Connect sessions.\nApproach: Persist metadata for open Quick Connect sessions on shutdown and extend startup reconnect logic to recreate and open those quick sessions alongside normal saved connections."
 }

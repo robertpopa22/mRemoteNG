@@ -10,7 +10,7 @@
   ],
   "author": "swfreak18",
   "created_at": "2016-11-07T14:50:01Z",
-  "github_updated_at": "2026-02-16T07:27:06Z",
+  "github_updated_at": "2026-02-20T13:51:12Z",
   "body_snippet": "<!--\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\nPressing the Caps Lock key causes a lowercase t keypress when connected to a Mac via VNC.\r\n\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.74  |",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -85,30 +85,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7ov-Ls",
-      "author": "robertpopa22",
-      "date": "2026-02-15T17:38:23Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`171f4d5e`](https://github.com/robertpopa22/mRemoteNG/commit/171f4d5eeb2bddb52863fd13182acf25fac3937d)\n**Branch:** `main`\n**What changed:** Investigate VNC key event handling to filter or correctly ma\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gNK",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:06Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:06Z",
+  "comments_cursor": "2026-02-20T13:51:12Z",
   "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: Verified reproducible bug where Caps Lock keypress injects a lowercase 't' character in VNC sessions, confirmed across multiple versions and OS combinations\nApproach: Investigate VNC key event handling to filter or correctly map the Caps Lock keycode (0x14) so it is not misinterpreted as a 't' keypress; likely needs special-casing of modifier keys in the VNC key input pipeline"
 }

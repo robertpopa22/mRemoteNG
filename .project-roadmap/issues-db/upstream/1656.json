@@ -11,8 +11,8 @@
   "created_at": "2019-12-17T09:45:49Z",
   "github_updated_at": "2026-02-07T16:55:40Z",
   "body_snippet": "## Current Behavior\r\n```\r\nException Message\r\n\"Cannot access a disposed object.\r\nObject name: 'ConnectionWindow'.\"\r\n\r\nStack trace\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\r\n   at System.Windows.Forms.Control.Invoke(Delegate method)\r\n   at mRemoteNG.UI.Window.ConnectionWin...",
-  "our_status": "triaged",
-  "priority": "P2-high",
+  "our_status": "duplicate",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -26,6 +26,18 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "duplicate",
+      "description": "Same root cause as #3069/#2166 — disposed object access during async close; already fixed in v1.79.0 (PR #3106) with IsDisposed guards on ConnectionWindow.",
+      "token_usage": {
+        "input_tokens": 5,
+        "output_tokens": 1327,
+        "cost_usd": 0.209433,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -71,5 +83,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T11:20:37Z",
-  "notes": "Same root cause as #1794, #3069, #2166 - disposed object access during async close. Already fixed in v1.79.0 (PR #3106) with comprehensive dispose guards."
+  "notes": "Same root cause as #1794, #3069, #2166 - disposed object access during async close. Already fixed in v1.79.0 (PR #3106) with comprehensive dispose guards.\nAI triage (claude): Same root cause as #3069/#2166 — disposed object access during async close; already fixed in v1.79.0 (PR #3106) with IsDisposed guards on ConnectionWindow.\nApproach: Already fixed via PR #3106 dispose guards; close as duplicate of #3069",
+  "token_usage": {
+    "input_tokens": 5,
+    "output_tokens": 1327,
+    "cost_usd": 0.209433
+  }
 }

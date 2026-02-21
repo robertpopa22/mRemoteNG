@@ -10,7 +10,7 @@
   ],
   "author": "sparerd",
   "created_at": "2017-01-28T18:30:36Z",
-  "github_updated_at": "2026-02-16T07:27:28Z",
+  "github_updated_at": "2026-02-20T13:36:01Z",
   "body_snippet": "If credentials are saved in a location controlled by mRemoteNG (ie, xml file) then setting a custom password should be mandatory. If a user fully encrypts their connections file, then a custom password will also be required.\r\n\r\nCurrently, the default is to use a hard coded default password unless the user specifies a different one. This makes decryption trivial and is poor practice.\r\n\r\nRelated to #306 \r\nRelated to #208 ",
   "our_status": "testing",
   "priority": "P1-security",
@@ -58,30 +58,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7owcul",
-      "author": "robertpopa22",
-      "date": "2026-02-15T19:04:33Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`2e92dc6a`](https://github.com/robertpopa22/mRemoteNG/commit/2e92dc6a916e4b21f4689d869391bf6b05876572)\n**Branch:** `main`\n**What changed:** Add a configurable policy or startup check that requires use\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3gfg",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:27:28Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:28Z",
+  "comments_cursor": "2026-02-20T13:36:01Z",
   "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: Feature request to enforce custom master password as mandatory, improving default security posture for connection file encryption\nApproach: Add a configurable policy or startup check that requires users to set a custom master password before saving connections, with UI enforcement on first launch and in security options"
 }

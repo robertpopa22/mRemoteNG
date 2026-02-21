@@ -10,12 +10,25 @@
   "created_at": "2018-11-06T14:08:19Z",
   "github_updated_at": "2020-10-05T07:21:20Z",
   "body_snippet": "Hello,\r\n\r\nthe Printer redirecting not working correctly. \r\n\r\nwhen i connect to an host with printer redirecting, then just only 4 of 8 printer are redirecting. When i use the Windows RemoteClient (mstsc.exe), all printer are redirected. \r\n\r\nWhen i connect to our windows server 2008 R2, then only 4 / 8 printers are redirected. When i connect to an other server, then 3/8 printer are redirected. It varies from remote server to remote server...\r\n\r\nEnvironment:\r\n2 PCs with Windows 10 Pro in a domain ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Printer redirection is wired up correctly via AdvancedSettings2.RedirectPrinters in RdpProtocol.cs:1233, but the issue body is empty so the specific failure mode (UI not saving, RDP not applying, specific OS version) cannot be determined without reporter follow-up.",
+      "token_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1362,
+        "cost_usd": 0.256901,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDQ0MDI4NTQ0Mw==",
@@ -50,5 +63,10 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Printer redirection is wired up correctly via AdvancedSettings2.RedirectPrinters in RdpProtocol.cs:1233, but the issue body is empty so the specific failure mode (UI not saving, RDP not applying, specific OS version) cannot be determined without reporter follow-up.\nApproach: Ask reporter for repro steps, OS version, and whether the RedirectPrinters checkbox is saved/loaded correctly vs. not applied to the RDP session",
+  "token_usage": {
+    "input_tokens": 7,
+    "output_tokens": 1362,
+    "cost_usd": 0.256901
+  }
 }

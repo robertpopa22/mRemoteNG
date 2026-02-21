@@ -8,7 +8,7 @@
   ],
   "author": "diegoshock",
   "created_at": "2017-07-11T17:53:27Z",
-  "github_updated_at": "2026-02-16T07:28:02Z",
+  "github_updated_at": "2026-02-20T14:03:32Z",
   "body_snippet": "<!-- attached image file with error, its takes several minutes to get mRemoteng to work again\r\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\r\n\r\nBefore opening an issue, please search for a duplicate or closed issue.\r\nPlease provide as much detail as possible for us to fix your issue.\r\n-->\r\n\r\n<!-- Bug -->\r\n|||\r\n|--:|---|\r\n|Operating system | Windows 7 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n![captura](https://user-images.githubusercontent.com/3008596...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -29,30 +29,11 @@
       "description": "Fix in 27f9d714"
     }
   ],
-  "comments": [
-    {
-      "id": "IC_kwDOAAcIMM7oxrwp",
-      "author": "robertpopa22",
-      "date": "2026-02-15T22:58:46Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`27f9d714`](https://github.com/robertpopa22/mRemoteNG/commit/27f9d7148bd1fca9b81ebe4f1b905fd90add0891)\n**Branch:** `main`\n**What changed:** Add a short connection timeout (e.g. 5-10 seconds) to the VN\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3g75",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:28:02Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    }
-  ],
-  "comments_cursor": "2026-02-16T07:28:02Z",
+  "comments": [],
+  "comments_cursor": "2026-02-20T14:03:32Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: VNC connection attempts to unavailable hosts block the UI thread for ~3 minutes due to synchronous socket connect without a reasonable timeout\nApproach: Add a short connection timeout (e.g. 5-10 seconds) to the VNC protocol handler so that unreachable hosts fail fast instead of blocking the application for the full TCP default timeout. Ensure the connection attempt runs asynchronously or with a cancellation token to keep the UI responsive."
 }

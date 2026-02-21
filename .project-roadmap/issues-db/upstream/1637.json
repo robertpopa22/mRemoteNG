@@ -8,7 +8,7 @@
   ],
   "author": "hunnymonster",
   "created_at": "2019-11-18T09:26:44Z",
-  "github_updated_at": "2026-02-07T16:47:07Z",
+  "github_updated_at": "2026-02-21T00:05:12Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nUpgrade should be transparent and not wipe out stored default credentials.\r\n\r\n## Current Behavior\r\nApplying MSI installer from 1.77.0 (or 1.76.x) clears stored credentials under Tools > Options > Credentials > The Following\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a fix/reason for the bug, -->\r\n<!--- or ideas how to implement the addition or change -->\r\n\r\n## Steps to Reproduce (for bugs...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -47,17 +47,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7qtLyV",
+      "author": "robertpopa22",
+      "date": "2026-02-21T00:05:11Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`53b0ece3`](https://github.com/robertpopa22/mRemoteNG/commit/53b0ece341030a49296c5e43e92bd03f242534c9)\n**Branch:** `main`\n**What changed:** Identify the settings migration step introduced in 1.77.1 th\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T16:47:07Z",
+  "comments_cursor": "2026-02-21T00:05:12Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): Upgrade to 1.77.1 clears stored default credentials, causing data loss regression for users who rely on inherited/default connection credentials.\nApproach: Identify the settings migration step introduced in 1.77.1 that resets or fails to carry over default credential fields; restore preservation of DefaultConnectionInheritance credential properties during config load/upgrade.",
-  "token_usage": {
-    "input_tokens": 3,
-    "output_tokens": 584,
-    "cost_usd": 0.126754
-  }
+  "last_synced": "2026-02-21T06:14:50Z",
+  "notes": "AI triage (claude): Upgrade to 1.77.1 clears stored default credentials, causing data loss regression for users who rely on inherited/default connection credentials.\nApproach: Identify the settings migration step introduced in 1.77.1 that resets or fails to carry over default credential fields; restore preservation of DefaultConnectionInheritance credential properties during config load/upgrade."
 }

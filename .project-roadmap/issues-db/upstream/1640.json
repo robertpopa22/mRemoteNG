@@ -12,12 +12,25 @@
   "created_at": "2019-11-19T12:44:51Z",
   "github_updated_at": "2026-02-07T19:56:25Z",
   "body_snippet": "We could lock access to folders or subfolders by asking a password\r\n\r\n## Expected Behavior\r\nAdd a new option \"password protect this folder\" to folders and subfolders\r\n\r\n## Current Behavior\r\nAccess to folder are not password locked (anyone can access to all connections)\r\nOnly the top level folder (called \"connections\" can be password locked (so the entire file or DB)\r\n\r\n## Context\r\nWe are trying to allow access to some critical servers to only a few techs\r\nBy now, we use 2 modes to do this:\r\n- MS...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "wontfix",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "wontfix",
+      "description": "This is a significant new feature (per-folder password protection) that requires deep architectural changes to the connection tree, encryption layer, and UI — scope is too large and complex for the current roadmap, and the issue has been open since 2019 with no upstream traction.",
+      "token_usage": {
+        "input_tokens": 5,
+        "output_tokens": 410,
+        "cost_usd": 0.178834,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mYic6",
@@ -34,5 +47,10 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): This is a significant new feature (per-folder password protection) that requires deep architectural changes to the connection tree, encryption layer, and UI — scope is too large and complex for the current roadmap, and the issue has been open since 2019 with no upstream traction.\nApproach: Would require adding per-folder encryption keys, password prompt on expand, and serialization support — out of scope for fork maintenance focus",
+  "token_usage": {
+    "input_tokens": 5,
+    "output_tokens": 410,
+    "cost_usd": 0.178834
+  }
 }

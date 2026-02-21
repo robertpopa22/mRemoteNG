@@ -10,7 +10,7 @@
   ],
   "author": "OmisNomis",
   "created_at": "2017-07-20T09:28:54Z",
-  "github_updated_at": "2026-02-16T07:28:06Z",
+  "github_updated_at": "2026-02-20T14:01:30Z",
   "body_snippet": "<!-- Bug -->\r\nI have tried integrating Powershell ISE, Powershell, MinTTY, Git Bash and CMD and none of them are integrating; instead, they open a separate window. \r\n\r\nHave searched extensively and cannot find an answer to this.\r\n|--:|---|\r\n|Operating system | Windows 10 x64 |\r\n|mRemoteNG version| 1.75 aplha 3  |\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -112,30 +112,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7ozANy",
-      "author": "robertpopa22",
-      "date": "2026-02-16T00:15:42Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`258db923`](https://github.com/robertpopa22/mRemoteNG/commit/258db9238c663e83d3a6cee8d7dfed6e8f7cd82d)\n**Branch:** `main`\n**What changed:** Implement an IExternalAppIntegrator strategy pattern with sp\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0-beta.2)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7o3g_x",
-      "author": "robertpopa22",
-      "date": "2026-02-16T07:28:06Z",
-      "snippet": "**Correction:** The download link in my previous comment was broken. Here is the correct one:\n\n**Download pre-built binaries:** https://github.com/robertpopa22/mRemoteNG/releases\n\nLook for the latest **v1.81.0-beta.2** build (x64, x86, ARM64 — both portable and self-contained variants available).\n\nSorry for the inconvenience!",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:28:06Z",
+  "comments_cursor": "2026-02-20T14:01:30Z",
   "unread_comments": 9,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": "AI triage: External apps (PowerShell, cmd, Git Bash, mintty) cannot integrate into mRemoteNG panels because IntegratedProgram relies on Process.MainWindowHandle which returns IntPtr.Zero for console apps and child-process-spawning apps — a long-standing integration gap confirmed by multiple users over 7+ years\nApproach: Implement an IExternalAppIntegrator strategy pattern with specialized handlers for well-known apps (cmd, PowerShell, mintty via -d flag, Git Bash) that use alternative window-handle discovery (EnumChildWindows, FindWindow by class, or app-specific embedding flags) instead of relying solely on Process.MainWindowHandle polling"
 }

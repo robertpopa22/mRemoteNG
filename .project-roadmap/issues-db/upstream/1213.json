@@ -8,7 +8,7 @@
   ],
   "author": "sadfriend",
   "created_at": "2018-12-18T12:35:53Z",
-  "github_updated_at": "2021-06-27T23:03:10Z",
+  "github_updated_at": "2026-02-20T23:10:41Z",
   "body_snippet": "mRemoteNG hang when using ssh with wromg credential when trying to connect to server with ssh by the saved credential witch is not the right credential and not response\r\n\r\n\r\n* Version used:1.76.12.38511\r\n* Operating System and version (e.g. Windows 10 1709 x64)\r\n",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -38,17 +38,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7qsq-L",
+      "author": "robertpopa22",
+      "date": "2026-02-20T23:10:41Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`aa98b54f`](https://github.com/robertpopa22/mRemoteNG/commit/aa98b54f0cf595f21aadcb3cabf43efec677f14a)\n**Branch:** `main`\n**What changed:** Add authentication timeout and ensure SSH connect/auth calls\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2021-06-27T23:03:10Z",
+  "comments_cursor": "2026-02-20T23:10:41Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): SSH connection hangs indefinitely on authentication failure due to missing timeout or blocking call on the UI/connection thread when wrong credentials are provided.\nApproach: Add authentication timeout and ensure SSH connect/auth calls run on a background thread with proper cancellation; catch AuthenticationException and surface error instead of blocking indefinitely.",
-  "token_usage": {
-    "input_tokens": 3,
-    "output_tokens": 489,
-    "cost_usd": 0.124599
-  }
+  "waiting_for_us": false,
+  "last_synced": "2026-02-21T06:14:50Z",
+  "notes": "AI triage (claude): SSH connection hangs indefinitely on authentication failure due to missing timeout or blocking call on the UI/connection thread when wrong credentials are provided.\nApproach: Add authentication timeout and ensure SSH connect/auth calls run on a background thread with proper cancellation; catch AuthenticationException and surface error instead of blocking indefinitely."
 }

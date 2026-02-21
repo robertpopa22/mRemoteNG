@@ -9,7 +9,7 @@
   ],
   "author": "MariyanDI",
   "created_at": "2019-04-16T12:49:43Z",
-  "github_updated_at": "2026-02-07T19:52:45Z",
+  "github_updated_at": "2026-02-21T03:45:17Z",
   "body_snippet": "1) Add Option: Quick \"Undock\" option: Allows you to quickly create new 'Connection Panel' and move your current session to it with one click (similar to MS RDCM undock option)\r\n\r\n2) Add Option/Properties of 'Connection Panel' to be a separate window with individual options: Minimize, Maximize. Allows you to minimize this window or main window only, while the other one remains opened.\r\n\r\n3) Add Quick search field: The same functionality like \"Connections > Search\" field, but as a separate menu (l...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -39,17 +39,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7quo7r",
+      "author": "robertpopa22",
+      "date": "2026-02-21T03:45:17Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** [`383ce1b1`](https://github.com/robertpopa22/mRemoteNG/commit/383ce1b1292109f59002ee31e42fe8d5b45f3756)\n**Branch:** `main`\n**What changed:** Add undock support via WeifenLuo DockPanel float mode for co\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:52:45Z",
+  "comments_cursor": "2026-02-21T03:45:17Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): Legitimate UX enhancement request for panel undocking, connection panel customization, and quick-search filtering — common quality-of-life features for remote connection managers.\nApproach: Add undock support via WeifenLuo DockPanel float mode for connection panel; add quick-search TextBox to ConnectionTreeWindow toolbar that filters the tree view nodes by name.",
-  "token_usage": {
-    "input_tokens": 3,
-    "output_tokens": 503,
-    "cost_usd": 0.125979
-  }
+  "last_synced": "2026-02-21T06:14:50Z",
+  "notes": "AI triage (claude): Legitimate UX enhancement request for panel undocking, connection panel customization, and quick-search filtering — common quality-of-life features for remote connection managers.\nApproach: Add undock support via WeifenLuo DockPanel float mode for connection panel; add quick-search TextBox to ConnectionTreeWindow toolbar that filters the tree view nodes by name."
 }

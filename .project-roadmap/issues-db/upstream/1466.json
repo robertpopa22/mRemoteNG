@@ -8,7 +8,7 @@
   ],
   "author": "eunito",
   "created_at": "2019-05-28T11:03:47Z",
-  "github_updated_at": "2019-06-06T13:39:22Z",
+  "github_updated_at": "2026-02-20T20:43:13Z",
   "body_snippet": "Possibility to search content in the output using a toolbar icon\r\n\r\n## Expected Behavior\r\nIf a user wants to search for a key in the terminal output not inside a file if there was a search icon the user could filter that keyword...\r\n\r\n## Current Behavior\r\nCurrently the only way is to copy paste the content into a text editor and filter the key there...\r\n\r\n## Possible Solution\r\nCreation of a search/filter output icon.\r\n",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -58,15 +58,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2019-06-06T13:39:22Z",
+  "comments_cursor": "2026-02-20T20:43:13Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): Valid UX enhancement to add a visual indicator icon when connection output filtering is active, improving discoverability of the filter state.\nApproach: Add a small filter/funnel icon to the output toolbar that toggles visibility or highlights when a filter is active; update toolbar initialization and filter toggle handler to set icon state.",
-  "token_usage": {
-    "input_tokens": 3,
-    "output_tokens": 476,
-    "cost_usd": 0.122937
-  }
+  "last_synced": "2026-02-21T06:14:50Z",
+  "notes": "AI triage (claude): Valid UX enhancement to add a visual indicator icon when connection output filtering is active, improving discoverability of the filter state.\nApproach: Add a small filter/funnel icon to the output toolbar that toggles visibility or highlights when a filter is active; update toolbar initialization and filter toggle handler to set icon state."
 }

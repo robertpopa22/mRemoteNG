@@ -10,7 +10,7 @@
   ],
   "author": "mtorres10",
   "created_at": "2024-03-27T20:48:18Z",
-  "github_updated_at": "2026-02-07T19:52:21Z",
+  "github_updated_at": "2026-02-18T22:20:56Z",
   "body_snippet": "Add an option so Connections and Config tabs both display at the same time on click when \"unpinned\".\r\n\r\n## Expected Behavior\r\nWhen Connections and Config tabs are **\"unpinned/hidden/collapsed\"** add an option that when clicking on either, it will display both tabs. Similar to the behavior when both tabs are **\"pinned/visible/uncollapsed\"**.\r\n\r\nIn my humble opinion, is easier to work with remote connections when you have both Connection and Config tabs available at the same time, regardless if is...",
   "our_status": "new",
   "priority": null,
@@ -45,12 +45,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7p3BDy",
+      "author": "mtorres10",
+      "date": "2026-02-18T22:20:38Z",
+      "snippet": "Hi, \n\nThis, issue is still present on latest nightly build. 1.78.2 (Nightly Build 3228) x64. Steps are the same\n\n![Image](https://github.com/user-attachments/assets/74e22028-3994-4023-8b68-c638e94c2337)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-07T19:52:21Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-02-18T22:20:56Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T06:14:50Z",
   "notes": ""
 }
