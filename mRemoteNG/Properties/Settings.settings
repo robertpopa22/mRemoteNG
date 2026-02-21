@@ -45,7 +45,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="ConDefaultRedirectClipboard" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ConDefaultRedirectPorts" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
