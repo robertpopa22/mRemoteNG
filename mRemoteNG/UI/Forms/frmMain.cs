@@ -1454,6 +1454,8 @@ namespace mRemoteNG.UI.Forms
                     (ClipboardchangeEventHandler?)Delegate.Remove(_clipboardChangedEvent, value);
         }
 
+        public event EventHandler? UserInterfaceResize;
+
         #endregion
 
         private void ViewMenu_Opening(object sender, EventArgs e)
