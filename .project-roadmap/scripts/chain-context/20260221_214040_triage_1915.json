@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "1915",
+  "started_at": "2026-02-21T21:40:02",
+  "finished_at": "2026-02-21T21:40:40",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T21:40:02"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "The issue requests separate storage for hostname and IP addresses, which is an enhancement to provide more granular control and clarity in connection definitions.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/AbstractConnectionRecord.cs",
+          "mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs",
+          "mRemoteNG/UI/Forms/FrmConnection.cs"
+        ],
+        "approach": "Introduce new properties (e.g., 'IPAddress' and a flag/enum for connection type) in AbstractConnectionRecord. Modify the existing 'Hostname' property to support the new structure. Update the XML serialization/deserialization logic in XmlConnectionNodeSerializer28 for backward compatibility. Finally, update the connection property editor UI (likely FrmConnection.cs) to expose these new fields for user input."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"The issue requests separate storage for hostname and IP addresses, which is an enhancement to provide more granular control and clarity in connection definitions.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/Connection/AbstractConnectionRecord.cs\",\n    \"mRemoteNG/Config/Serializers/ConnectionSerializers/Xml/XmlConnectionNodeSerializer28.cs\",\n    \"mRemoteNG/UI/Forms/FrmConnection.cs\"\n  ],\n  \"approach\": \"Introduce new properties (e.g., 'IPAddress' and a flag/enum for connection type) in AbstractConnectionRecord. Modify the existing 'Hostname' property to support the new structure. Update the XML serialization/deserialization logic in XmlConnectionNodeSerializer28 for backward compatibility. Finally, update the connection property editor UI (likely FrmConnection.cs) to expose these new fields for user input.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T21:40:40"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

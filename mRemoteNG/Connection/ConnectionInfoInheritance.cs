@@ -138,6 +138,18 @@ namespace mRemoteNG.Connection
         public bool Hostname { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 3),
+         DisplayName("Inherit IP Address"),
+         Description("Inherit the IP Address property from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool IPAddress { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 3),
+         DisplayName("Inherit Primary Address"),
+         Description("Inherit the Primary Address setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool ConnectionAddressPrimary { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 3),
          DisplayName("Inherit Alternative Hostname/IP"),
          Description("Inherit the Alternative Hostname/IP property from the parent."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

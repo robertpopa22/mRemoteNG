@@ -84,6 +84,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
 
             element.Add(new XAttribute("Hostname", connectionInfo.Hostname ?? string.Empty));
+            element.Add(new XAttribute("IPAddress", connectionInfo.IPAddress ?? string.Empty));
+            element.Add(new XAttribute("ConnectionAddressPrimary", connectionInfo.ConnectionAddressPrimary));
             element.Add(new XAttribute("AlternativeAddress", connectionInfo.AlternativeAddress ?? string.Empty));
             element.Add(new XAttribute("Protocol", connectionInfo.Protocol));
             element.Add(new XAttribute("RdpVersion", connectionInfo.RdpVersion.ToString().ToLowerInvariant()));

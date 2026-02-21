@@ -30,6 +30,8 @@ namespace mRemoteNG.Connection
         private ConnectionFrameColor _connectionFrameColor = default;
 
         private string _hostname = string.Empty;
+        private string _ipAddress = string.Empty;
+        private ConnectionAddressPrimary _connectionAddressPrimary = ConnectionAddressPrimary.Hostname;
         private string _alternativeAddress = string.Empty;
         private ExternalAddressProvider _externalAddressProvider = default;
         private string _ec2InstanceId = "";
@@ -250,8 +252,38 @@ namespace mRemoteNG.Connection
          AttributeUsedInAllProtocolsExcept()]
         public virtual string Hostname
         {
-            get => GetPropertyValue("Hostname", _hostname?.Trim() ?? string.Empty);
+            get => GetPropertyValue("Hostname", GetEffectiveHostname());
             set => SetField(ref _hostname, value?.Trim() ?? string.Empty, "Hostname");
+        }
+
+        /// <summary>
+        /// Returns the hostname backing field or IP address field based on the <see cref="ConnectionAddressPrimary"/> setting.
+        /// Used as the fallback value passed to <see cref="GetPropertyValue"/> for the Hostname property.
+        /// </summary>
+        private string GetEffectiveHostname() =>
+            _connectionAddressPrimary == ConnectionAddressPrimary.IPAddress && !string.IsNullOrWhiteSpace(_ipAddress)
+                ? _ipAddress.Trim()
+                : _hostname?.Trim() ?? string.Empty;
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         DisplayName("IP Address"),
+         Description("IP address for this connection. When 'Primary Address' is set to 'IP Address', this is used for connecting instead of the Hostname field."),
+         AttributeUsedInAllProtocolsExcept()]
+        public virtual string IPAddress
+        {
+            get => GetPropertyValue("IPAddress", _ipAddress?.Trim() ?? string.Empty);
+            set => SetField(ref _ipAddress, value?.Trim() ?? string.Empty, "IPAddress");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         DisplayName("Primary Address"),
+         Description("Determines which address field (Hostname or IP Address) is used when initiating a connection. Defaults to Hostname for backward compatibility."),
+         TypeConverter(typeof(MiscTools.EnumTypeConverter)),
+         AttributeUsedInAllProtocolsExcept()]
+        public virtual ConnectionAddressPrimary ConnectionAddressPrimary
+        {
+            get => GetPropertyValue("ConnectionAddressPrimary", _connectionAddressPrimary);
+            set => SetField(ref _connectionAddressPrimary, value, "ConnectionAddressPrimary");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
