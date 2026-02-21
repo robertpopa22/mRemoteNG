@@ -289,6 +289,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private TraceListener? _traceListener;
         private StringWriter? _traceWriter;
+        private bool _reconnectAttemptInProgress;
 
         #endregion
 
@@ -616,6 +617,17 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private void VNCEvent_Connected(object sender, EventArgs e)
         {
+            tmrReconnect.Enabled = false;
+            _reconnectAttemptInProgress = false;
+            if (ReconnectGroup != null)
+            {
+                if (!ReconnectGroup.IsDisposed)
+                {
+                    ReconnectGroup.DisposeReconnectGroup();
+                }
+                ReconnectGroup = null;
+            }
+
             Event_Connected(this);
             if (_vnc != null && _info != null)
                 _vnc.AutoScroll = _info.VNCSmartSizeMode == SmartSizeMode.SmartSNo;
@@ -623,6 +635,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private void VNCEvent_Disconnected(object sender, EventArgs e)
         {
+            _reconnectAttemptInProgress = false;
+
             if (_lockKeyFilter != null)
             {
                 Application.RemoveMessageFilter(_lockKeyFilter);
@@ -643,12 +657,16 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
             if (Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect)
             {
-                ReconnectGroup = new ReconnectGroup();
-                ReconnectGroup.CloseClicked += Event_ReconnectGroupCloseClicked;
-                ReconnectGroup.Left = (int)((double)Control!.Width / 2 - (double)ReconnectGroup.Width / 2);
-                ReconnectGroup.Top = (int)((double)Control.Height / 2 - (double)ReconnectGroup.Height / 2);
-                ReconnectGroup.Parent = Control;
-                ReconnectGroup.Show();
+                if (ReconnectGroup == null || ReconnectGroup.IsDisposed)
+                {
+                    ReconnectGroup = new ReconnectGroup();
+                    ReconnectGroup.CloseClicked += Event_ReconnectGroupCloseClicked;
+                    ReconnectGroup.Left = (int)((double)Control!.Width / 2 - (double)ReconnectGroup.Width / 2);
+                    ReconnectGroup.Top = (int)((double)Control.Height / 2 - (double)ReconnectGroup.Height / 2);
+                    ReconnectGroup.Parent = Control;
+                    ReconnectGroup.Show();
+                }
+
                 tmrReconnect.Enabled = true;
             }
             else
@@ -661,18 +679,24 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             try
             {
-                if (ReconnectGroup == null || _vnc == null || _info == null) return;
+                if (ReconnectGroup == null || _vnc == null || _info == null || _reconnectAttemptInProgress) return;
 
                 bool srvReady = PortScanner.IsPortOpen(_info.Hostname, Convert.ToString(_info.Port));
                 ReconnectGroup.ServerReady = srvReady;
 
                 if (!ReconnectGroup.ReconnectWhenReady || !srvReady) return;
-                tmrReconnect.Enabled = false;
-                ReconnectGroup.DisposeReconnectGroup();
+
+                _reconnectAttemptInProgress = true;
 
                 SetupTraceListener();
-                _vnc.Connect(_info.Hostname, _info.VNCViewOnly,
-                             _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+                ConnectWithTimeout(_vnc, _info, VncConnectTimeoutMs);
+
+                tmrReconnect.Enabled = false;
+                if (ReconnectGroup != null && !ReconnectGroup.IsDisposed)
+                {
+                    ReconnectGroup.DisposeReconnectGroup();
+                }
+                ReconnectGroup = null;
 
                 // Re-install lock key filter after reconnect
                 _lockKeyFilter = new VncLockKeyFilter(_vnc);
@@ -683,6 +707,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 Runtime.MessageCollector.AddExceptionMessage(
                     string.Format(Language.AutomaticReconnectError, _info?.Hostname),
                     ex, Messages.MessageClass.WarningMsg, false);
+            }
+            finally
+            {
+                _reconnectAttemptInProgress = false;
             }
         }
 
