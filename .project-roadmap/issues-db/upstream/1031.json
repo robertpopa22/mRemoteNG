@@ -11,7 +11,7 @@
   ],
   "author": "TScalzott",
   "created_at": "2018-07-21T01:18:12Z",
-  "github_updated_at": "2026-02-07T19:54:07Z",
+  "github_updated_at": "2026-02-21T10:23:34Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWith 1.76 Alpha and imported connections from RDMan, save of ConfCons fails, leaving a zero-byte file behind.  That in turn throws an exception at next mRemoteNG launch.\r\n\r\n## Expected Behavior\r\nConnection file should get saved :-)\r\n\r\n## Current Behavior\r\nError writing ConfCons.xml due to an null value inside, which is not identified.\r\nLog snippet:\r\n\r\n2018-07-11 08:45:38,005 [1] ERROR - SaveToXml failed\r\nValue cannot be null.\r\n...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -55,10 +55,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:07Z",
+  "comments_cursor": "2026-02-21T10:23:34Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): Serialization failure (System.ArgumentNullException) causes XmlConnectionsSaver to write an empty file, leading to data loss. Triggered by null properties in ConnectionInfo (likely from RDMan import or specific settings).\nApproach: 1. Update XmlConnectionsSaver to validate that the serialized XML string is not empty before writing to disk. 2. Update XmlConnectionNodeSerializer28 (and older versions if needed) to null-coalesce all string properties (e.g., PuttySession ?? \"\") to prevent ArgumentNullException."
 }

@@ -10,7 +10,7 @@
   ],
   "author": "TerriWright",
   "created_at": "2020-02-20T14:44:48Z",
-  "github_updated_at": "2026-02-21T07:47:45Z",
+  "github_updated_at": "2026-02-21T10:24:27Z",
   "body_snippet": "TightVNC 2.8.27 closes gracefully using mRemoteNG\r\n\r\nWhen trying to connect with TightVNC using mRemoteNG v1.76.20.24669, connection gracefully closes.\r\n\r\nUsing Linux v 3.10 on 64bit\r\n\r\nTunnel set",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -57,10 +57,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T07:47:45Z",
+  "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T08:45:09Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): TightVNC connections are closing unexpectedly without explicit error messages, indicating an underlying issue that causes the 'graceful' disconnection.\nApproach: Investigate the `VNCEvent_Disconnected` handler and other event subscriptions in `mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs` to understand why `VncSharpCore.RemoteDesktop` might be disconnecting unexpectedly. This may involve adding detailed logging around `VncSharpCore` events to identify the trigger for these 'graceful' closures."
 }

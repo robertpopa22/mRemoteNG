@@ -9,7 +9,7 @@
   ],
   "author": "DERDomink",
   "created_at": "2018-12-10T12:41:39Z",
-  "github_updated_at": "2026-02-20T22:55:18Z",
+  "github_updated_at": "2026-02-21T10:24:24Z",
   "body_snippet": "Autologin is not working any more\r\n\r\n## Expected Behavior\r\nWhen saving the credentials I expect that I do not have to enter the credentials when connecting\r\n\r\n## Current Behavior\r\nSince 2 weeks (I made no changes) autologin is not possible for one maschine. When connecting the windows login screen appears and I have to enter username and password.\r\nOther maschines are working.\r\n\r\n## Steps to Reproduce (for bugs)\r\nEverytime I connect it asks for credentials. Same machine and same credentials work...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -86,10 +86,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-20T22:55:18Z",
+  "comments_cursor": "2026-02-21T10:24:24Z",
   "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Regression where stored credentials are not automatically sent on connection; ClearTextPassword/UserName flow in RdpProtocol.cs likely broken by SecureString→string refactor or credential inheritance chain.\nApproach: Trace the credential assignment path (lines 833-988 in RdpProtocol.cs): verify _rdpClient.UserName, .Domain, and AdvancedSettings2.ClearTextPassword are all set before Connect() is called; check that UseCredSsp and AuthenticationLevel are not blocking NLA credential pass-through."
 }

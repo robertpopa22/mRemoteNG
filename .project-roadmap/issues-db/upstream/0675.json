@@ -10,7 +10,7 @@
   ],
   "author": "FrancescoBonizzi",
   "created_at": "2017-08-07T09:55:51Z",
-  "github_updated_at": "2026-02-07T19:54:29Z",
+  "github_updated_at": "2026-02-21T10:23:36Z",
   "body_snippet": "<!-- Feature Request -->\r\n\r\nIn our company we have all logins stored in a SQL storage. We coded a little application to generate an mRemotNG XML configuration based on our data. The idea is to generate that configuration once and distribute such file over our company. \r\n\r\nWe don't understand how to encrypt correctly each remote desktop login password to make you application read it correctly. Do you have any suggestions? Maybe is there the possibility to encrypt / decrypt such passwords with a c...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -36,10 +36,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:29Z",
+  "comments_cursor": "2026-02-21T10:23:36Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage: Feature request for certificate-based password encryption lacks concrete specification (which certificate store, X.509 vs DPAPI, key management workflow) and has no recent community demand beyond the legacy triage refresh comment\nApproach: Would require a new ICryptographyProvider implementation using X.509 certificate public/private key pairs (RSA/ECDH) to wrap the symmetric encryption key, plus UI for certificate selection and key escrow strategy — needs detailed design spec and user input before implementation"
 }

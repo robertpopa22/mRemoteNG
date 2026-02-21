@@ -10,7 +10,7 @@
   ],
   "author": "davi2td",
   "created_at": "2020-01-19T15:30:26Z",
-  "github_updated_at": "2026-02-21T07:07:27Z",
+  "github_updated_at": "2026-02-21T10:24:27Z",
   "body_snippet": "VMRDP Connections do not work when connecting to Linux Guest VM's.\r\nCan't connect to Debian 10 , Latest Hyper-v supported version per : [Debian-Supported-Hyper-v](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-debian-virtual-machines-on-hyper-v)\r\n\r\n## Expected Behavior\r\nSuccessfully connect to guest Linux OS. \r\n\r\n## Current Behavior\r\nReceive the following generic error when trying to connect to a Linux host:\r\nProtocol Event Disconnected. Host: \"localhost\"; Proto...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -186,10 +186,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T07:07:27Z",
+  "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 15,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T08:45:09Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): mRemoteNG is unable to connect to Linux Hyper-V VMs via RDP/VM console, while RDCman can, indicating a potential client-side issue or specific configuration mismatch within mRemoteNG.\nApproach: Investigate mRemoteNG's RDP connection logic for Linux guests, focusing on differences with RDCman's behavior and the 'Use VM ID' Hyper-V console connection, to identify and fix compatibility issues."
 }

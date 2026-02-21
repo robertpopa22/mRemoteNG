@@ -11,7 +11,7 @@
   ],
   "author": "C4rb0n",
   "created_at": "2022-02-04T22:16:53Z",
-  "github_updated_at": "2026-02-09T06:27:42Z",
+  "github_updated_at": "2026-02-21T10:24:14Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen dragging a tab to reposition it in a panel where that tab strip has overflowed, that tab strip no longer scrolls.  This is a regression  in published nightly v1.77.2-nb.\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nExpect pre-nightly v1.77.2-nb behavior whereby the tab strip scrolled when dragging ...",
   "our_status": "released",
   "priority": null,
@@ -68,10 +68,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-09T06:27:42Z",
+  "comments_cursor": "2026-02-21T10:24:14Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

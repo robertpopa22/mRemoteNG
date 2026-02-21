@@ -8,7 +8,7 @@
   ],
   "author": "hunnymonster",
   "created_at": "2019-11-18T09:26:44Z",
-  "github_updated_at": "2026-02-21T00:05:12Z",
+  "github_updated_at": "2026-02-21T10:24:24Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nUpgrade should be transparent and not wipe out stored default credentials.\r\n\r\n## Current Behavior\r\nApplying MSI installer from 1.77.0 (or 1.76.x) clears stored credentials under Tools > Options > Credentials > The Following\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a fix/reason for the bug, -->\r\n<!--- or ideas how to implement the addition or change -->\r\n\r\n## Steps to Reproduce (for bugs...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -58,10 +58,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T00:05:12Z",
+  "comments_cursor": "2026-02-21T10:24:24Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Upgrade to 1.77.1 clears stored default credentials, causing data loss regression for users who rely on inherited/default connection credentials.\nApproach: Identify the settings migration step introduced in 1.77.1 that resets or fails to carry over default credential fields; restore preservation of DefaultConnectionInheritance credential properties during config load/upgrade."
 }

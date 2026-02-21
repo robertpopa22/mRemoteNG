@@ -11,7 +11,7 @@
   ],
   "author": "DavidRobinsonDk",
   "created_at": "2023-07-26T20:51:50Z",
-  "github_updated_at": "2026-02-07T19:54:21Z",
+  "github_updated_at": "2026-02-21T10:23:35Z",
   "body_snippet": "Ability to move full screen RDP session between monitors, including the ability to have multiple full screen RDP sessions open at the same time.\r\n\r\n## Expected Behavior\r\nWith mstsc.exe I can \"restore\" the full screen session to a window, move the window to another monitor and go back to full screen.\r\n\r\n## Current Behavior\r\nCurrently I can see no way to do this in mRemoteNG.\r\nIf I \"restore\" a full screen RDP session in mRemoteNG, it gets put in in tab.\r\nA tabbed window goes to full screen on the ...",
   "our_status": "new",
   "priority": null,
@@ -48,10 +48,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:21Z",
+  "comments_cursor": "2026-02-21T10:23:35Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

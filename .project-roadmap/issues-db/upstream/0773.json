@@ -8,7 +8,7 @@
   ],
   "author": "rubaboo",
   "created_at": "2017-11-05T06:01:15Z",
-  "github_updated_at": "2026-02-16T07:55:11Z",
+  "github_updated_at": "2026-02-21T10:24:23Z",
   "body_snippet": "<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\nIt's easy to screw up a carefully ordered list of connections by hitting the sort button. Please implement one of these (in order of preference):\r\n1. make the sort button into a switch: down = sorted, up = custom ordered\r\n2. an option to disable the sort connections functionality\r\n3. a confirmation dialog: \"Sort connections? There is no undo.\"",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -58,10 +58,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:55:11Z",
+  "comments_cursor": "2026-02-21T10:24:23Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T09:19:21Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): Users currently lose manual connection ordering when sorting; an undo or toggle is needed to restore the previous state.\nApproach: Implement an 'Undo Sort' feature by caching the child node order of a folder before applying a sort operation, allowing restoration of the manual order."
 }

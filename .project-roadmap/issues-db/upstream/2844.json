@@ -11,7 +11,7 @@
   ],
   "author": "igor2x",
   "created_at": "2025-10-06T13:32:59Z",
-  "github_updated_at": "2026-02-07T19:55:33Z",
+  "github_updated_at": "2026-02-21T10:23:42Z",
   "body_snippet": "I see [issue 2841](https://github.com/mRemoteNG/mRemoteNG/issues/2841) was closed down, because bug is now actually fixed.\n\nI have intentionally opened new issue, because this issue can be marked as feature request, because this is now UX inconsistency and \"beauty\" issue in grand aspect of _the same issues should have the same solution._\n\nI did:\n1. Removed previous mRemoteNG and downloaded latest v1.78.2-NB-3206.\n2. Intentionally uninstalled Microsoft Windows Desktop Runtime 9.0.9 (x64)\n3. Inten...",
   "our_status": "new",
   "priority": null,
@@ -129,10 +129,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:55:33Z",
+  "comments_cursor": "2026-02-21T10:23:42Z",
   "unread_comments": 11,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

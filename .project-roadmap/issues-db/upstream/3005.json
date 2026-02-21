@@ -11,7 +11,7 @@
   ],
   "author": "KaveSys",
   "created_at": "2025-11-11T10:01:35Z",
-  "github_updated_at": "2026-02-10T12:15:01Z",
+  "github_updated_at": "2026-02-21T10:24:18Z",
   "body_snippet": "Hello,\nI'm opening a new issue after fix the SQL Injection vulnerability in mRemoteNG 1.78.2 NB 3228, an installation is not available and using the portable version, when try to attach a SQL Server Express database to share the connections with other people, mRemoteNG will stuck and is not possible to use it.\n\nFrom the logs:\n\nThe SSL connection could not be established, see inner exception.\nUnable to read data from the transport connection: An existing connection was forcibly closed by the remo...",
   "our_status": "released",
   "priority": null,
@@ -149,10 +149,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-10T12:15:01Z",
+  "comments_cursor": "2026-02-21T10:24:18Z",
   "unread_comments": 8,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

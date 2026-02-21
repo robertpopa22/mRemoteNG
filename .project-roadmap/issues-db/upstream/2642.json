@@ -11,7 +11,7 @@
   ],
   "author": "zabanet",
   "created_at": "2024-09-29T11:56:08Z",
-  "github_updated_at": "2026-02-07T19:55:22Z",
+  "github_updated_at": "2026-02-21T10:23:41Z",
   "body_snippet": "**Expected Behavior**\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nThe application's title bar color should match the selected theme to provide a cohesive and visually appealing user interface. The theme should have the option to set title bar color or have the title bar automatically adjust based on the application's theme setting (light or dark).\r\n\r\n**Current Behavior**\r\n<!--- If suggesting a change/improvement, explain the difference from current behavior ...",
   "our_status": "new",
   "priority": null,
@@ -39,10 +39,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:55:22Z",
+  "comments_cursor": "2026-02-21T10:23:41Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

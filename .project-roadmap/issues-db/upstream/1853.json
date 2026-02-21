@@ -12,7 +12,7 @@
   ],
   "author": "clarkie82",
   "created_at": "2020-09-03T01:14:41Z",
-  "github_updated_at": "2026-02-07T19:54:55Z",
+  "github_updated_at": "2026-02-21T10:23:39Z",
   "body_snippet": "When clicking \"Check for Updates\", the installed version is higher than the latest version. \r\nThe version I have installed is the latest stable version as per https://mremoteng.org/download\r\nAs such, the \"latest\" version in the check appears to be incorrect, and retrieving that data from https://mremoteng.org/update.txt\r\n\r\nIs https://mremoteng.org/update.txt not being updated?\r\n\r\n## Possible Solution\r\nUse https://github.com/mRemoteNG/mRemoteNG.github.io/blob/master/_data/releases.json rather tha...",
   "our_status": "new",
   "priority": null,
@@ -148,10 +148,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:55Z",
+  "comments_cursor": "2026-02-21T10:23:39Z",
   "unread_comments": 13,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

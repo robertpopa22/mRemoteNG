@@ -8,7 +8,7 @@
   ],
   "author": "djpbessems",
   "created_at": "2020-04-29T07:06:59Z",
-  "github_updated_at": "2026-02-21T08:42:05Z",
+  "github_updated_at": "2026-02-21T10:24:27Z",
   "body_snippet": "## Expected Behavior\r\nWhen typing, single keypresses on dead keys should produce actual characters after being followed by another key.\r\n\r\n## Current Behavior\r\nContext: a VNC connection to a VM running on vSphere, through vSphere's builtin VNC server.\r\nDead keys produce no output, unless held for roughly 5 seconds, then the output doesn't stop anymore.\r\nFor reference, the same VNC connection through Guacamole works as intended.\r\n\r\n## Possible Solution\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Set ...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -40,10 +40,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T08:42:05Z",
+  "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T08:45:09Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Dead keys (compose/accent keys) are not properly handled in VNC keyboard input—they need to be sent as key-down+key-up pairs without intermediate release, or via compose sequence logic, rather than treated as regular keys.\nApproach: Intercept dead key WM_KEYDOWN events in the VNC protocol handler and defer sending until the composed character is resolved, or send the Unicode code point directly via RFB key event rather than relying on continuous key-hold timing."
 }

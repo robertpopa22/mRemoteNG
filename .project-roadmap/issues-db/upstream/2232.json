@@ -8,7 +8,7 @@
   ],
   "author": "paoloholzl",
   "created_at": "2022-05-26T09:38:19Z",
-  "github_updated_at": "2026-02-07T16:45:11Z",
+  "github_updated_at": "2026-02-21T10:22:46Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n## Expected Behavior\r\n\r\n<!--- If you're describing a bug, tell us what should happen -->\r\nConnected from Windows 2010 Pro 21H2 to other Win 10 Pro 21H2 on a virtual machine Virtualbox, all with italian keyboard, often Shift is not functioning.\r\nIn some situation using shift lock work bud not normal shift.\r\nIn rare case also some characters are not functioning (but the keyboard language is correct)\r\n\r\n<!--- If you're suggesting ...",
   "our_status": "new",
   "priority": null,
@@ -45,10 +45,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T16:45:11Z",
+  "comments_cursor": "2026-02-21T10:22:46Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

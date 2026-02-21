@@ -10,7 +10,7 @@
   ],
   "author": "genepy",
   "created_at": "2026-01-02T14:40:41Z",
-  "github_updated_at": "2026-02-09T06:26:16Z",
+  "github_updated_at": "2026-02-21T10:24:09Z",
   "body_snippet": "\n## Expected Behavior\nmRemotNG not crash and just close panel and connections in this panel\n\n## Current Behavior\nmRemotNG crash and need to be closed\n\n\n## Possible Solution\n\n## Steps to Reproduce (for bugs)\n<!--- Provide an unambiguous set of steps to reproduce -->\n<!--- this bug. Include code to reproduce, if relevant -->\n1. open 2 or more panels with one or more connections inside\n2. close one panel with one or more connections still opened\n3. some time mRemotNG don't crash\n\n## Context\n\n\n## Yo...",
   "our_status": "released",
   "priority": null,
@@ -67,10 +67,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-09T06:26:16Z",
+  "comments_cursor": "2026-02-21T10:24:09Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

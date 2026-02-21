@@ -10,7 +10,7 @@
   ],
   "author": "mariowitdoek",
   "created_at": "2020-04-12T09:42:52Z",
-  "github_updated_at": "2026-02-21T08:29:26Z",
+  "github_updated_at": "2026-02-21T10:24:27Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nIt would be interesting if there was a backup possibility to backup the conf files to Google Drive, Onedrive, Nextcloud, ... or maybe a simple FTP server (like a NAS)\r\n\r\n## Expected Behavior\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI just reinstalled my computer ... without a backup :( ... \r\nNor further comments please and yes it is a life lesson ...\r\n\r\n## Current Behavior\r\n\r\n## Possible...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -84,10 +84,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T08:29:26Z",
+  "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T08:45:09Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): Feature request to add automatic cloud backup and restore for connection data.\nApproach: Design and implement a modular system for cloud integration, allowing users to configure automatic backups and manual restore from supported cloud storage providers. This would involve adding new UI elements, configuration options, and a service layer to interact with cloud APIs."
 }

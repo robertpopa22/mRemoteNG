@@ -11,7 +11,7 @@
   ],
   "author": "klngh",
   "created_at": "2020-07-23T07:22:51Z",
-  "github_updated_at": "2026-02-07T19:54:09Z",
+  "github_updated_at": "2026-02-21T10:23:34Z",
   "body_snippet": "This exception will force mRemoteNG to close. Cannot access a disposed object. Object name: 'ConnectionWindow'.\r\n\r\n## Expected Behavior\r\nReporting a bug. When closing a saved SSH connection window, the window should close.\r\n\r\n\r\n## Current Behavior\r\nWhen closing a saved SSH connection window, an unhandled exception has occurred window pops up and force closes mRemoteNG. See error below:\r\n\r\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean s...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -52,15 +52,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:09Z",
+  "comments_cursor": "2026-02-21T10:23:34Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): Verified ObjectDisposedException crash when closing SSH connection window — protocol fires Prot_Event_Closed after ConnectionWindow is already disposed, causing unhandled exception that terminates the app.\nApproach: In Prot_Event_Closed, add IsDisposed/Disposing guard before Control.Invoke so the callback is silently ignored if the window was already disposed during closure.",
-  "token_usage": {
-    "input_tokens": 4,
-    "output_tokens": 583,
-    "cost_usd": 0.150976
-  }
+  "last_synced": "2026-02-21T12:06:48Z",
+  "notes": "AI triage (claude): Verified ObjectDisposedException crash when closing SSH connection window — protocol fires Prot_Event_Closed after ConnectionWindow is already disposed, causing unhandled exception that terminates the app.\nApproach: In Prot_Event_Closed, add IsDisposed/Disposing guard before Control.Invoke so the callback is silently ignored if the window was already disposed during closure."
 }

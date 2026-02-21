@@ -8,7 +8,7 @@
   ],
   "author": "NetVicious",
   "created_at": "2017-02-10T16:50:03Z",
-  "github_updated_at": "2026-02-16T07:27:39Z",
+  "github_updated_at": "2026-02-21T10:24:21Z",
   "body_snippet": "<!-- Bug -->\r\nHi!\r\nI have the notifications pane unpinned/autohided like a statusbar.\r\n\r\nWhen I get a connection error, like trying to connect with RDP to a non-existent server, the focus on mRemoteNG it's changed to the notifications pane (I see the blue bottom bar of being active) but the pane it's now show, it remains hided.\r\n\r\nThis worked on 1.72, the pane opened letting me to see the error. I think the problem should be in the code change from Visual Basic to C#\r\n\r\nRegards,\r\n\r\n|--:|---|\r\n|O...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -58,10 +58,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:39Z",
+  "comments_cursor": "2026-02-21T10:24:21Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage: Bug where notification/connection error pane fails to show properly when auto-hidden, related to known notifications pane issues (#368)\nApproach: When a connection error occurs and the notifications pane is auto-hidden, force it to become visible/docked before displaying the error, ensuring the user sees the connection failure notification regardless of pane state"
 }

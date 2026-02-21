@@ -11,7 +11,7 @@
   ],
   "author": "e345",
   "created_at": "2019-07-11T22:55:43Z",
-  "github_updated_at": "2026-02-07T19:53:58Z",
+  "github_updated_at": "2026-02-21T10:23:33Z",
   "body_snippet": "这篇文章提到的问题并不是通用解决方案：\r\nhttps://github.com/mRemoteNG/mRemoteNG/issues/1411\r\n其中%!password%并没有解决复杂密码登录winscp的问题，希望能够提供urlencode的编码方法，例如可以考虑使用两个感叹号表示urlencode转码：%!!password%\r\n让错误的密码： scp://root:“J4Lk:;7=0!S>>/”@172.28.3.151:22\r\n转换为正确的： scp://root:“J4Lk%3a%3b7%3d0!S%3e%3e%2f”@172.28.3.151:22",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -64,10 +64,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:53:58Z",
+  "comments_cursor": "2026-02-21T10:23:33Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Feature request for URL-encoded token variant (e.g. %+password%) so passwords with special characters work in URLs passed to external tools\nApproach: Add a new EscapeType.UrlEncode triggered by a prefix character (e.g. '+'), then apply Uri.EscapeDataString() to the replacement value in BuildReplacementList, alongside existing shell-escape and no-escape modes"
 }

@@ -11,7 +11,7 @@
   ],
   "author": "ninken",
   "created_at": "2016-10-21T18:23:35Z",
-  "github_updated_at": "2026-02-07T19:55:55Z",
+  "github_updated_at": "2026-02-21T10:23:45Z",
   "body_snippet": "<!--\nOnly file GitHub issues for bugs and feature requests.  All other topics will be closed.\n\nBefore opening an issue, please search for a duplicate or closed issue.\nPlease provide as much detail as possible for us to fix your issue.\n-->\n\n<!-- Feature Request -->\n\nIs it possible to add a option for Multiple Monitor option for RDP aka \"Use all my monitors..\"  feature? \nI understand the ActiveX parameters changes the normal syntax and functionality radically, possible work around making you have ...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -262,10 +262,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:55:55Z",
+  "comments_cursor": "2026-02-21T10:23:45Z",
   "unread_comments": 24,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage: Enhancement request for multi-monitor RDP support with no clear reproducible steps, empty body, and last triage comment already asked reporter to retest on latest build and provide details\nApproach: Awaiting reporter confirmation if issue persists on v1.80+; if valid, would involve exposing mstscax UseMultimon/SelectedMonitors properties in connection settings UI"
 }

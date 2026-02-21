@@ -8,7 +8,7 @@
   ],
   "author": "milika",
   "created_at": "2017-05-03T17:55:28Z",
-  "github_updated_at": "2026-02-16T07:27:51Z",
+  "github_updated_at": "2026-02-21T10:24:22Z",
   "body_snippet": "<!-- Feature Request -->\r\nWould be great to have Windows 10 additional icons within task-bar pin of mRemoteNG. (right click on its)\r\nSimilar to this:\r\n![image](https://cloud.githubusercontent.com/assets/1072578/25674160/2c8d3e28-303a-11e7-811c-14119d0eb761.png)\r\n\r\nCurrently it just shows this:\r\n![image](https://cloud.githubusercontent.com/assets/1072578/25674174/3861e2da-303a-11e7-8532-8e6a2b9d7d48.png)\r\n\r\nList of connections, perhaps few last used ones etc...\r\n\r\nRegards...\r\n",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -58,10 +58,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:51Z",
+  "comments_cursor": "2026-02-21T10:24:22Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage: Jumplist support is a valid enhancement request for WinForms apps on Windows 10+ with a known implementation path via WindowsAPICodePack\nApproach: Use Windows API Code Pack (Microsoft.WindowsAPICodePack.Shell) to add a custom JumpList with recent/frequent connections and quick-connect actions to the taskbar icon on application startup"
 }

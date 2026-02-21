@@ -8,7 +8,7 @@
   ],
   "author": "yderi",
   "created_at": "2019-03-13T16:09:55Z",
-  "github_updated_at": "2026-02-20T18:28:07Z",
+  "github_updated_at": "2026-02-21T10:24:24Z",
   "body_snippet": "Hello everyone.\r\nI have enabled the \"Key combination\" option and it works fine to me. But when you open a secondary RDP session to go further (open RDP connection again on remote side) it cannot pass Ctrl+Alt+End combination for the second or third nested session.\r\nIt works only for the first one. Some time we have even three or four nested RDP session, it such a kind of security using jump-boxes to go thru.\r\nThe trick here is to open on-screen keyboard in the first session and using it, send a ...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -130,10 +130,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-20T18:28:07Z",
+  "comments_cursor": "2026-02-21T10:24:24Z",
   "unread_comments": 10,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Common RDP usability gap: nested sessions need a UI action to send Ctrl+Alt+End (maps to Ctrl+Alt+Del on remote) since the keypress is consumed by the outer session.\nApproach: Add toolbar/context-menu action that calls the MSTSCLib ActiveX SendKeys or focus-then-PostMessage with VK_CANCEL sequence to inject Ctrl+Alt+End into the active RDP session window."
 }

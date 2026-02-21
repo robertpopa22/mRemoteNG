@@ -10,7 +10,7 @@
   ],
   "author": "Brainiarc7",
   "created_at": "2017-03-12T08:06:56Z",
-  "github_updated_at": "2026-02-16T07:27:46Z",
+  "github_updated_at": "2026-02-21T10:24:22Z",
   "body_snippet": "\r\n<!-- Feature Request -->\r\n<!-- If you file a feature request, please delete the bug section -->\r\n\r\nAs stated on the title: Make connection details editable from a right click context menu.\r\nHaving to go through a different panel to do the same thing over and over again is broken design.",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -60,10 +60,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-16T07:27:46Z",
+  "comments_cursor": "2026-02-21T10:24:22Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-16T07:34:38Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage: Clear UI/UX enhancement request to allow editing connection properties directly from the right-click context menu, improving workflow efficiency\nApproach: Add an 'Edit Connection' or 'Properties' menu item to the connection node right-click context menu that opens the connection's property editor, similar to double-click behavior"
 }

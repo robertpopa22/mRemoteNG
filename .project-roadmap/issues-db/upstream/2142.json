@@ -11,7 +11,7 @@
   ],
   "author": "austin-bridge",
   "created_at": "2022-01-28T01:56:45Z",
-  "github_updated_at": "2026-02-16T12:15:23Z",
+  "github_updated_at": "2026-02-21T10:24:17Z",
   "body_snippet": "## Expected Behavior\r\nI would expect that when disconnecting from HDMI (going from 2 screens to 1 screen) that the connections would auto-resize.\r\n\r\n## Current Behavior\r\nWhen disconnecting from HDMI, the mRemoteNG application appears on the primary screen, however, the connections do not resize appropriately. They still appear the same, large size as if they are still on a larger monitor so I can only access basically the top-left 1/4 of the screen.  Reconnecting does not resize. It seems I have...",
   "our_status": "released",
   "priority": null,
@@ -95,10 +95,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-16T12:15:23Z",
+  "comments_cursor": "2026-02-21T10:24:17Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-16T13:13:42Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

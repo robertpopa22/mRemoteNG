@@ -9,7 +9,7 @@
   ],
   "author": "rgmorato",
   "created_at": "2021-11-01T13:57:20Z",
-  "github_updated_at": "2026-02-07T19:56:05Z",
+  "github_updated_at": "2026-02-21T10:23:46Z",
   "body_snippet": "It would be nice if the history created in Quick Connections is not deleted after closing and reopening the app, as I often just type the server name in quick connection instead of registering a new connection.\r\n\r\nAlso, would it be nice if there was some way to add the option to save each of the Quick Connections to the list of Connections, like a right click option on the tab that says \"Add to Connections\"?\r\n\r\nThank you very much!",
   "our_status": "new",
   "priority": null,
@@ -55,10 +55,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:56:05Z",
+  "comments_cursor": "2026-02-21T10:23:46Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

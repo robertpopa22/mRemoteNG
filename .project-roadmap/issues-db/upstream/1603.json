@@ -9,7 +9,7 @@
   ],
   "author": "Glober777",
   "created_at": "2019-09-30T08:42:38Z",
-  "github_updated_at": "2026-02-21T05:12:16Z",
+  "github_updated_at": "2026-02-21T10:24:26Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nIs it possible to combine the Connect field on the tool bar with the Search field capability, so that when you type something there on the top field, it would filter-out connections in the list accordingly?\r\n\r\n## Expected Behavior\r\nA user types in the name of the server in the filed on the tool bar (Could be renamed to 'Search\\Connect' or something more human-readable). As the user types in the name the list of connections fi...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -86,10 +86,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T05:12:16Z",
+  "comments_cursor": "2026-02-21T10:24:26Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (claude): Valid UX enhancement to reduce UI clutter by merging the filter/search field with the quick-connect field into a single smart input field.\nApproach: Extend the quick-connect toolbar input to also serve as a live filter for the connection tree when no protocol prefix is detected, clearing the filter on connect or Escape."
 }

@@ -10,7 +10,7 @@
   ],
   "author": "Alessio71",
   "created_at": "2025-12-11T22:41:50Z",
-  "github_updated_at": "2026-02-15T14:41:59Z",
+  "github_updated_at": "2026-02-21T10:24:17Z",
   "body_snippet": "1.78.2.3228\n\nWith external tool, if password contains a comma, the comma acts as a divider and the variable get split.\nIf I have a password 123456789, the comma is just omitted, if I have a password 1234,56789 the external tool receives two strings, divided in two, one 1234 and the other 56789\nTo test it, create a .cmd file that echoes the %Password% 1234,56789\n```\n@echo off\necho \"%1%\"\necho \"%2%\"\npause\n```\nand pass %Password% to it, the `echo \"%2%\"` should give a `\"\" ` result if working normally...",
   "our_status": "released",
   "priority": "P2-bug",
@@ -197,10 +197,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-15T14:41:59Z",
+  "comments_cursor": "2026-02-21T10:24:17Z",
   "unread_comments": 10,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-15T16:55:33Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "ITERATION EXAMPLE: Fix applied (PR #3109) -> user tested -> still broken for .cmd batch files -> re-opened. Batch .cmd files handle commas differently than direct process invocation. Need to wrap password in double-quotes when passing to .cmd scripts, or use ProcessStartInfo with ArgumentList instead of Arguments string."
 }

@@ -9,7 +9,7 @@
   ],
   "author": "strajk-",
   "created_at": "2024-08-16T06:32:05Z",
-  "github_updated_at": "2026-02-07T19:54:34Z",
+  "github_updated_at": "2026-02-21T10:23:36Z",
   "body_snippet": "## Expected Behavior\r\nCopy and Paste using key combination or any other command such as WIN+E, writing with caps lock or using shift to write in upper case letters should work using TeamViewer -> mRemoteNG\r\nIn both applications the setting is enabled to have them passthrough.\r\n\r\n## Current Behavior\r\nNo key combinations work and even if caps lock is enabled it will still not write in upper case.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Connect to PC which will have mRemoteNG installed with TeamVie...",
   "our_status": "new",
   "priority": null,
@@ -37,10 +37,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:54:34Z",
+  "comments_cursor": "2026-02-21T10:23:36Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }

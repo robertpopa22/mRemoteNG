@@ -8,7 +8,7 @@
   ],
   "author": "thorntonp72",
   "created_at": "2020-02-06T02:28:52Z",
-  "github_updated_at": "2026-02-21T07:22:21Z",
+  "github_updated_at": "2026-02-21T10:24:27Z",
   "body_snippet": "Hi,\r\n\r\nFirstly. Awesome tool and great work.\r\n\r\nWhen I use the browser integration for either Firefox or Internet Explorer, there is never an option to either show/enable either the Menu, Bookmark or URL options at the top.\r\n\r\n## Expected Behavior\r\nOne would expect to be able to either use the setting defined by the Browser or be able to show/hide these options. At the moment it only opens the browser into a full screen mode with no menu options or bookmarks at all. The reason for wanting this i...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -64,10 +64,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T07:22:21Z",
+  "comments_cursor": "2026-02-21T10:24:27Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T08:45:09Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": "AI triage (gemini): Implement bookmarking and enhanced URL management features for the integrated browser component.\nApproach: Add menu items for bookmarking the current page and managing bookmarks. Implement new configuration classes to store bookmark data, along with serializers for persistence. Create new UI components to display and interact with these bookmarks within the integrated browser functionality."
 }

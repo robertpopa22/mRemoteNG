@@ -12,7 +12,7 @@
   ],
   "author": "igor2x",
   "created_at": "2023-03-24T13:21:24Z",
-  "github_updated_at": "2026-02-07T19:52:09Z",
+  "github_updated_at": "2026-02-21T10:23:22Z",
   "body_snippet": "I have been using mRemoteNG for years. Currently I am using mRemoteNG officially stable version 1.76.20 on Windows 10.\r\n\r\n1. Open some SSH connection to e.g. Linux computer.\r\n2. Reboot remote computer: \"sudo reboot\" type in password and press Enter. Problem appears. Dialog is displayed \"Remote side unexpectedly closed network connection\".\r\n![image](https://user-images.githubusercontent.com/10895030/227530307-3bf5acb6-b8e5-4855-adab-1be44cce0e79.png)\r\n\r\n\r\nThis is not the best user experience beca...",
   "our_status": "new",
   "priority": null,
@@ -103,10 +103,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-07T19:52:09Z",
+  "comments_cursor": "2026-02-21T10:23:22Z",
   "unread_comments": 8,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "last_synced": "2026-02-21T12:06:48Z",
   "notes": ""
 }
