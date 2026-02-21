@@ -27,19 +27,19 @@ namespace mRemoteNG.Connection.Protocol.RDP
             };
         }
 
-        public static string GetError(int id)
+        public static string GetError(int id, string hostname = "")
         {
             try
             {
                 if (_description == null)
                     InitDescription();
 
-                return (string?)_description?[id] ?? string.Format(Language.RdpErrorUnknown, id);
+                return (string?)_description?[id] ?? string.Format(Language.RdpErrorUnknown, hostname, id);
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpErrorGetFailure, ex);
-                return string.Format(Language.RdpErrorUnknown, id);
+                return string.Format(Language.RdpErrorUnknown, hostname, id);
             }
         }
     }

@@ -12,12 +12,19 @@
   "created_at": "2020-10-14T15:38:57Z",
   "github_updated_at": "2026-02-21T10:23:56Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nIf RDP disconnects, Notifications 'should' provide server name in error 516, like it does for error 260.\r\n   -- RDP disconnected!  516 Remote Desktop can’t connect to the remote computer <**computer name here**> for one of...\r\n\r\n## Current Behavior\r\n   -- RDP disconnected!  516 Remote Desktop can’t connect to the remote computer for one of...\r\n  -- RDP disconnected!  260 Remote Desktop can't find the com...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "The error message for unknown RDP errors (including 516) does not include the server name, making it harder to diagnose. The current implementation of RdpErrorCodes.GetError does not receive the hostname."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFle",
@@ -52,5 +59,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The error message for unknown RDP errors (including 516) does not include the server name, making it harder to diagnose. The current implementation of RdpErrorCodes.GetError does not receive the hostname.\nApproach: Modify `RdpErrorCodes.GetError` to accept `hostname` as a parameter, update `Language.RdpErrorUnknown` in `Language.resx` to include `{0}` for the hostname in its format, and pass the `connectionInfo.Hostname` from `RdpProtocol.cs` to `RdpErrorCodes.GetError` in the `RDPEvent_OnFatalError` method."
 }

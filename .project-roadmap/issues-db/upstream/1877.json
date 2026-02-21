@@ -10,7 +10,7 @@
   "created_at": "2020-10-06T23:41:42Z",
   "github_updated_at": "2026-02-21T10:22:52Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nScreenshot took using term tab can't be deleted clicking in the **x** icon.\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\nWhen the **x** button that is in the top right of the screenshot is clicked, the image screenshot should be deleted.\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "The application generates screenshots but lacks a user interface for managing and deleting these files, which contradicts documentation suggesting a 'Screenshot Manager' with deletion capabilities."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in d9084f15",
+      "token_usage": {
+        "input_tokens": 27,
+        "output_tokens": 17842,
+        "cost_usd": 2.014361,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -57,5 +69,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): The application generates screenshots but lacks a user interface for managing and deleting these files, which contradicts documentation suggesting a 'Screenshot Manager' with deletion capabilities.\nApproach: Implement a dedicated 'Screenshot Manager' UI as a new form/dockable window that lists all saved screenshots from the designated directory. This manager will provide functionality to view and delete selected screenshots. An entry point to this manager will be added to the main application UI, possibly via the existing connection tab context menu or a new menu item."
+  "notes": "AI triage (gemini): The application generates screenshots but lacks a user interface for managing and deleting these files, which contradicts documentation suggesting a 'Screenshot Manager' with deletion capabilities.\nApproach: Implement a dedicated 'Screenshot Manager' UI as a new form/dockable window that lists all saved screenshots from the designated directory. This manager will provide functionality to view and delete selected screenshots. An entry point to this manager will be added to the main application UI, possibly via the existing connection tab context menu or a new menu item.",
+  "token_usage": {
+    "input_tokens": 27,
+    "output_tokens": 17842,
+    "cost_usd": 2.014361
+  }
 }

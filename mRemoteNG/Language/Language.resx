@@ -1502,7 +1502,7 @@ If you run into such an error, please create a new connection file!</value>
     <value>An out-of-memory error has occurred.</value>
   </data>
   <data name="RdpErrorUnknown" xml:space="preserve">
-    <value>An unknown error has occurred.</value>
+    <value>An unknown error has occurred on {0} (Error {1}).</value>
   </data>
   <data name="RdpErrorWindowCreation" xml:space="preserve">
     <value>A window-creation error has occurred.</value>

@@ -1504,7 +1504,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void RDPEvent_OnFatalError(int errorCode)
         {
-            string errorMsg = RdpErrorCodes.GetError(errorCode);
+            string errorMsg = RdpErrorCodes.GetError(errorCode, connectionInfo.Hostname);
             Event_ErrorOccured(this, errorMsg, errorCode);
         }
 
