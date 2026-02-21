@@ -1288,7 +1288,7 @@ namespace mRemoteNG.UI.Forms
                 titleBuilder.Append(SelectedConnection!.Name);
 
                 if (Settings.TrackActiveConnectionInConnectionTree)
-                    AppWindows.TreeForm?.JumpToNode(SelectedConnection);
+                    AppWindows.TreeForm?.JumpToNode(SelectedConnection, suppressPreview: true);
             }
 
             Text = titleBuilder.ToString();

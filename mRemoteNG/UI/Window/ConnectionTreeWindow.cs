@@ -30,6 +30,7 @@ namespace mRemoteNG.UI.Window
     {
         private ThemeManager? _themeManager;
         private bool _sortedAz = true;
+        private bool _suppressSelectionPreview;
 
         public ConnectionInfo SelectedNode => ConnectionTree.SelectedNode;
 
@@ -189,6 +190,12 @@ namespace mRemoteNG.UI.Window
 
         private void OnTreeSelectionChangedShowPreview(object sender, EventArgs e)
         {
+            if (_suppressSelectionPreview)
+            {
+                _suppressSelectionPreview = false;
+                return;
+            }
+
             try
             {
                 ConnectionInfo? selected = ConnectionTree.SelectedNode;
@@ -415,8 +422,10 @@ namespace mRemoteNG.UI.Window
             }
         }
 
-        public void JumpToNode(ConnectionInfo? connectionInfo)
+        public void JumpToNode(ConnectionInfo? connectionInfo, bool suppressPreview = false)
         {
+            _suppressSelectionPreview = suppressPreview;
+
             if (connectionInfo == null)
             {
                 ConnectionTree.SelectedObject = null;
