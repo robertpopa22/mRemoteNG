@@ -23,8 +23,11 @@ using System.Windows.Forms;
 namespace mRemoteNG.Connection.Protocol.RDP
 {
     [SupportedOSPlatform("windows")]
-    public class RdpProtocol : ProtocolBase, ISupportsViewOnly
+    public class RdpProtocol : ProtocolBase, ISupportsViewOnly, IMessageFilter
     {
+        [DllImport("user32.dll")]
+        private static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+
         /* RDP v8 requires Windows 7 with:
          * https://support.microsoft.com/en-us/kb/2592687
          * OR
@@ -43,6 +46,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         private readonly System.Windows.Forms.Timer _extendedReconnectTimer;
         private bool _redirectKeys;
         private bool _alertOnIdleDisconnect;
+        private bool _viewOnly;
         protected uint DesktopScaleFactor
         {
             get
@@ -186,8 +190,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public bool ViewOnly
         {
-            get => !AxHost.Enabled;
-            set => AxHost.Enabled = !value;
+            get => _viewOnly;
+            set
+            {
+                if (_viewOnly == value) return;
+                _viewOnly = value;
+
+                if (_viewOnly)
+                {
+                    Application.AddMessageFilter(this);
+                }
+                else
+                {
+                    Application.RemoveMessageFilter(this);
+                }
+            }
         }
 
         #endregion
@@ -479,6 +496,27 @@ namespace mRemoteNG.Connection.Protocol.RDP
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpFocusFailed, ex);
             }
+        }
+
+        public bool PreFilterMessage(ref System.Windows.Forms.Message m)
+        {
+            if (!_viewOnly || Control == null || Control.IsDisposed || !Control.Created) return false;
+
+            // Only filter messages for the RDP control and its children
+            if (m.HWnd == Control.Handle || IsChild(Control.Handle, m.HWnd))
+            {
+                const int WM_KEYFIRST = 0x0100;
+                const int WM_KEYLAST = 0x0109;
+                const int WM_MOUSEFIRST = 0x0200;
+                const int WM_MOUSELAST = 0x020D;
+
+                if ((m.Msg >= WM_KEYFIRST && m.Msg <= WM_KEYLAST) ||
+                    (m.Msg >= WM_MOUSEFIRST && m.Msg <= WM_MOUSELAST))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -1652,6 +1690,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     Control.Disposed -= OnControlDisposed;
                 }
 
+                Application.RemoveMessageFilter(this);
+
                 _extendedReconnectTimer.Stop();
                 _extendedReconnectTimer.Dispose();
 
@@ -1743,6 +1783,16 @@ namespace mRemoteNG.Connection.Protocol.RDP
         }
 
         #endregion
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Application.RemoveMessageFilter(this);
+                _extendedReconnectTimer?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
     }
 }
