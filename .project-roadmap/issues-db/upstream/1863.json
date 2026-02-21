@@ -12,12 +12,19 @@
   "created_at": "2020-09-16T07:06:37Z",
   "github_updated_at": "2026-02-21T10:23:40Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the difference from current behavior -->\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "The issue indicates a conflict between 'DockAreas' and 'DockState' which suggests a bug in the docking library's state management or its usage within the application."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFoP",
@@ -43,5 +50,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The issue indicates a conflict between 'DockAreas' and 'DockState' which suggests a bug in the docking library's state management or its usage within the application.\nApproach: Investigate how 'DockAreas' and 'DockState' are set and modified, particularly during application startup, panel loading, or when programmatic docking changes occur, to resolve the conflict."
 }
