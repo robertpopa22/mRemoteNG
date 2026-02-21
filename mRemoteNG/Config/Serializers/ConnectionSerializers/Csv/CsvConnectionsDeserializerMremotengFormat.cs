@@ -212,11 +212,20 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 ? connectionCsv[headers.IndexOf("Username")]
                 : "";
 
-            connectionRecord.Password = headers.Contains("Password")
-                // ? connectionCsv[headers.IndexOf("Password")].ConvertToSecureString()
-                // : "".ConvertToSecureString();
-                ? connectionCsv[headers.IndexOf("Password")]
-                : "";
+            if (connectionRecord is ContainerInfo containerForPassword)
+            {
+                // For containers, the "Password" column maps to the folder protection password
+                if (headers.Contains("ContainerPassword"))
+                    containerForPassword.ContainerPassword = connectionCsv[headers.IndexOf("ContainerPassword")];
+                else if (headers.Contains("Password"))
+                    containerForPassword.ContainerPassword = connectionCsv[headers.IndexOf("Password")];
+            }
+            else
+            {
+                connectionRecord.Password = headers.Contains("Password")
+                    ? connectionCsv[headers.IndexOf("Password")]
+                    : "";
+            }
 
             connectionRecord.Domain = headers.Contains("Domain")
                 ? connectionCsv[headers.IndexOf("Domain")]

@@ -11,7 +11,7 @@
   "created_at": "2020-09-18T01:42:56Z",
   "github_updated_at": "2026-02-21T10:22:52Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nSo I started saving and opening the config xml from my OneDrive for Business local location, C:\\Users\\user\\OneDrive - company.com.au\\mRemoteNG-name.xml, and now OneDrive repeatedly gets stuck syncing that file. 0 KB out of 346 KB.\r\nI created a subfolder C:\\Users\\user\\OneDrive - company.com.au\\mRemote\\mRemoteNG-name.xml, and opened it from there, but it still happens.\r\nIf I close OneDrive and reopen, it processes and syncs files...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "OneDrive's file syncing mechanism can cause file locking, preventing mRemoteNG from saving or loading its configuration XML, leading to data loss or inaccessible configurations."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in b657b682",
+      "token_usage": {
+        "input_tokens": 27,
+        "output_tokens": 16075,
+        "cost_usd": 1.526113,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -58,5 +70,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): OneDrive's file syncing mechanism can cause file locking, preventing mRemoteNG from saving or loading its configuration XML, leading to data loss or inaccessible configurations.\nApproach: Implement a more robust file access mechanism in XmlConnectionsSaver and XmlConnectionsLoader, potentially involving retries with backoff, shared file access modes, or temporary file writes followed by atomic renames to avoid file locking conflicts with cloud synchronization services like OneDrive."
+  "notes": "AI triage (gemini): OneDrive's file syncing mechanism can cause file locking, preventing mRemoteNG from saving or loading its configuration XML, leading to data loss or inaccessible configurations.\nApproach: Implement a more robust file access mechanism in XmlConnectionsSaver and XmlConnectionsLoader, potentially involving retries with backoff, shared file access modes, or temporary file writes followed by atomic renames to avoid file locking conflicts with cloud synchronization services like OneDrive.",
+  "token_usage": {
+    "input_tokens": 27,
+    "output_tokens": 16075,
+    "cost_usd": 1.526113
+  }
 }

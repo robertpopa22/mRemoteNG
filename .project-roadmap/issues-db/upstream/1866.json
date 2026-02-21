@@ -10,12 +10,19 @@
   "created_at": "2020-09-23T14:37:21Z",
   "github_updated_at": "2026-02-21T10:22:52Z",
   "body_snippet": "## Expected Behavior\r\nAfter `Get-Credential` is called as shown in the example, the containers should have the username and password supplied within them.\r\n \r\n## Current Behavior\r\nIf a password is supplied in the pop up prompt, the generation of the xml file will fail.\r\n\r\n## Possible Solution\r\nNot sure, I tinkered with this for several hours and couldn't come up with a good solution.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Copy the `CreateBulkConnections_ConfCons2_6.ps1` from [here](https://gith...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "When importing CSV connections, the password for containers is incorrectly assigned to the inherited ConnectionInfo.Password property instead of the ContainerInfo.ContainerPassword property, preventing proper folder protection."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFni",
@@ -32,5 +39,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): When importing CSV connections, the password for containers is incorrectly assigned to the inherited ConnectionInfo.Password property instead of the ContainerInfo.ContainerPassword property, preventing proper folder protection.\nApproach: Modify CsvConnectionsDeserializerMremotengFormat.cs to distinguish between ConnectionInfo and ContainerInfo when assigning the password during CSV import. If the record is a ContainerInfo, assign the password to ContainerPassword. Also, ensure the Password property in AbstractConnectionRecord is correctly typed as string, as seen in the analysis."
 }
