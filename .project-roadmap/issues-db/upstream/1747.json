@@ -11,12 +11,25 @@
   "created_at": "2020-05-07T12:32:41Z",
   "github_updated_at": "2026-02-07T16:46:44Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nHello everyone I am suffering an issue that all connections are duplicated in the list after i use one user to modify the connection information. I am using sql server as connection pool and i have restored the db. Please help me how to change the information without hands on other connections that I  dont want to change. thanks !!!\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- I...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Connections are duplicated in the tree after editing the connection list, likely due to a double event subscription or double-load in the save/refresh cycle of ConnectionsService or the XML serializer.",
+      "token_usage": {
+        "input_tokens": 3,
+        "output_tokens": 550,
+        "cost_usd": 0.126617,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDYyNTI2NDAxMg==",
@@ -51,5 +64,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Connections are duplicated in the tree after editing the connection list, likely due to a double event subscription or double-load in the save/refresh cycle of ConnectionsService or the XML serializer.\nApproach: Audit event handler registration in ConnectionsService and the XML load path to ensure connections are not added twice (e.g., CollectionChanged fired during load + explicit AddRange after load); add guard or clear-before-load pattern.",
+  "token_usage": {
+    "input_tokens": 3,
+    "output_tokens": 550,
+    "cost_usd": 0.126617
+  }
 }
