@@ -540,8 +540,23 @@ namespace mRemoteNG.Connection
                 prot.InterfaceControl.OriginalInfo.Hostname,
                 prot.InterfaceControl.Info.Protocol.ToString(),
                 Environment.UserName);
-            
+
             RecentConnectionsService.Instance.Add(prot.InterfaceControl.OriginalInfo);
+
+            // Update the Connections pane to highlight the newly established connection (#1869)
+            if (FrmMain.IsCreated)
+            {
+                ConnectionInfo originalInfo = prot.InterfaceControl.OriginalInfo;
+                FrmMain.Default.SelectedConnection = originalInfo;
+                ConnectionTreeWindow? treeForm = AppWindows.TreeForm;
+                if (treeForm != null)
+                {
+                    if (treeForm.InvokeRequired)
+                        treeForm.Invoke(() => treeForm.JumpToNode(originalInfo, suppressPreview: true));
+                    else
+                        treeForm.JumpToNode(originalInfo, suppressPreview: true);
+                }
+            }
 
             ConnectionOpened?.Invoke(prot.InterfaceControl.OriginalInfo.Hostname, prot.InterfaceControl.Info.Protocol.ToString());
         }
