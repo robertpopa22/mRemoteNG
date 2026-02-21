@@ -597,6 +597,25 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.RDPSignature = xmlnode.GetAttributeAsString("RDPSignature");
                     connectionInfo.Inheritance.RDPSignScope = xmlnode.GetAttributeAsBool("InheritRDPSignScope");
                     connectionInfo.Inheritance.RDPSignature = xmlnode.GetAttributeAsBool("InheritRDPSignature");
+                    connectionInfo.IPAddress = xmlnode.GetAttributeAsString("IPAddress");
+                    connectionInfo.ConnectionAddressPrimary = xmlnode.GetAttributeAsEnum<ConnectionAddressPrimary>("ConnectionAddressPrimary");
+                    connectionInfo.RDPSizingMode = xmlnode.GetAttributeAsEnum<RDPSizingMode>("RDPSizingMode");
+                    connectionInfo.ResolutionWidth = xmlnode.GetAttributeAsInt("ResolutionWidth");
+                    connectionInfo.ResolutionHeight = xmlnode.GetAttributeAsInt("ResolutionHeight");
+                    connectionInfo.RDPUseMultimon = xmlnode.GetAttributeAsBool("RDPUseMultimon");
+                    connectionInfo.Notes = xmlnode.GetAttributeAsString("Notes");
+                    connectionInfo.RetryOnFirstConnect = xmlnode.GetAttributeAsBool("RetryOnFirstConnect");
+                    connectionInfo.ShowBrowserNavigationBar = xmlnode.GetAttributeAsBool("ShowBrowserNavigationBar");
+                    connectionInfo.HttpPath = xmlnode.GetAttributeAsString("HttpPath");
+                    connectionInfo.AlwaysPromptForCredentials = xmlnode.GetAttributeAsBool("AlwaysPromptForCredentials");
+                    connectionInfo.Inheritance.IPAddress = xmlnode.GetAttributeAsBool("InheritIPAddress");
+                    connectionInfo.Inheritance.ConnectionAddressPrimary = xmlnode.GetAttributeAsBool("InheritConnectionAddressPrimary");
+                    connectionInfo.Inheritance.RDPSizingMode = xmlnode.GetAttributeAsBool("InheritRDPSizingMode");
+                    connectionInfo.Inheritance.ResolutionWidth = xmlnode.GetAttributeAsBool("InheritResolutionWidth");
+                    connectionInfo.Inheritance.ResolutionHeight = xmlnode.GetAttributeAsBool("InheritResolutionHeight");
+                    connectionInfo.Inheritance.RDPUseMultimon = xmlnode.GetAttributeAsBool("InheritRDPUseMultimon");
+                    connectionInfo.Inheritance.Notes = xmlnode.GetAttributeAsBool("InheritNotes");
+                    connectionInfo.Inheritance.RetryOnFirstConnect = xmlnode.GetAttributeAsBool("InheritRetryOnFirstConnect");
                 }
 
                 switch (_confVersion)

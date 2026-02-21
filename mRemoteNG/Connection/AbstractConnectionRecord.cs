@@ -412,8 +412,18 @@ namespace mRemoteNG.Connection
          AttributeUsedInProtocol(ProtocolType.RDP, ProtocolType.IntApp, ProtocolType.PowerShell, ProtocolType.WSL)]
         public string Domain
         {
-            get => GetPropertyValue("Domain", _domain)?.Trim() ?? string.Empty;
+            get => GetPropertyValue("Domain", ExpandDomainVariables(_domain))?.Trim() ?? string.Empty;
             set => SetField(ref _domain, value?.Trim() ?? string.Empty, "Domain");
+        }
+
+        /// <summary>
+        /// Expands <c>%name%</c> tokens in a domain template to the connection's <see cref="Name"/> value.
+        /// </summary>
+        private string ExpandDomainVariables(string raw)
+        {
+            if (string.IsNullOrEmpty(raw) || !raw.Contains('%'))
+                return raw;
+            return raw.Replace("%name%", _name, StringComparison.OrdinalIgnoreCase);
         }
 
 

@@ -104,9 +104,24 @@
 		public TType VaultOpenbaoSecretEngine { get; set; }
 		public TType EC2InstanceId { get; set; }
 		public TType ExternalAddressProvider { get; set; }
-		        public TType EC2Region { get; set; }
-		        public TType UsePersistentBrowser { get; set; }
-		        public TType ScriptErrorsSuppressed { get; set; }
-		        public TType DesktopScaleFactor { get; set; }        public TType IsTemplate { get; set; }
+		public TType EC2Region { get; set; }
+		public TType UsePersistentBrowser { get; set; }
+		public TType ScriptErrorsSuppressed { get; set; }
+		public TType DesktopScaleFactor { get; set; }
+		public TType IsTemplate { get; set; }
+		public TType IPAddress { get; set; }
+		public TType ConnectionAddressPrimary { get; set; }
+		public TType RDPSignScope { get; set; }
+		public TType RDPSignature { get; set; }
+		public TType RDPSizingMode { get; set; }
+		public TType ResolutionWidth { get; set; }
+		public TType ResolutionHeight { get; set; }
+		public TType RDPUseMultimon { get; set; }
+		public TType Notes { get; set; }
+		public TType RetryOnFirstConnect { get; set; }
+		public TType ShowBrowserNavigationBar { get; set; }
+		public TType VNCClipboardRedirect { get; set; }
+		public TType HttpPath { get; set; }
+		public TType AlwaysPromptForCredentials { get; set; }
 	}
 }

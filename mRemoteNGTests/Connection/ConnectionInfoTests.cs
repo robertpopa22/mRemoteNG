@@ -190,6 +190,30 @@ namespace mRemoteNGTests.Connection
         }
 
         [Test]
+        public void DomainExpandsNameToken()
+        {
+            _connectionInfo.Name = "CONTOSO";
+            _connectionInfo.Domain = "%Name%";
+            Assert.That(_connectionInfo.Domain, Is.EqualTo("CONTOSO"));
+        }
+
+        [Test]
+        public void DomainExpandsNameTokenCaseInsensitive()
+        {
+            _connectionInfo.Name = "contoso";
+            _connectionInfo.Domain = "%NAME%";
+            Assert.That(_connectionInfo.Domain, Is.EqualTo("contoso"));
+        }
+
+        [Test]
+        public void DomainWithNoTokensIsUnchanged()
+        {
+            _connectionInfo.Name = "ignored";
+            _connectionInfo.Domain = "static.domain.com";
+            Assert.That(_connectionInfo.Domain, Is.EqualTo("static.domain.com"));
+        }
+
+        [Test]
         public void HostnameExpandsNameToken()
         {
             _connectionInfo.Name = "myserver.example.com";

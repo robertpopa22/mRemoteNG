@@ -239,6 +239,37 @@
     <xs:attribute name="VaultOpenbaoMount" type="xs:string" use="optional" />
     <xs:attribute name="VaultOpenbaoRole" type="xs:string" use="optional" />
     <xs:attribute name="VaultOpenbaoSecretEngine" type="xs:string" use="optional" />
+    <xs:attribute name="IPAddress" type="xs:string" use="optional" />
+    <xs:attribute name="ConnectionAddressPrimary" type="xs:string" use="optional" />
+    <xs:attribute name="RDPSignScope" type="xs:string" use="optional" />
+    <xs:attribute name="RDPSignature" type="xs:string" use="optional" />
+    <xs:attribute name="RDPSizingMode" type="xs:string" use="optional" />
+    <xs:attribute name="ResolutionWidth" type="xs:int" use="optional" />
+    <xs:attribute name="ResolutionHeight" type="xs:int" use="optional" />
+    <xs:attribute name="RDPUseMultimon" type="xs:boolean" use="optional" />
+    <xs:attribute name="Notes" type="xs:string" use="optional" />
+    <xs:attribute name="RetryOnFirstConnect" type="xs:boolean" use="optional" />
+    <xs:attribute name="ShowBrowserNavigationBar" type="xs:boolean" use="optional" />
+    <xs:attribute name="VNCClipboardRedirect" type="xs:boolean" use="optional" />
+    <xs:attribute name="HttpPath" type="xs:string" use="optional" />
+    <xs:attribute name="AlwaysPromptForCredentials" type="xs:boolean" use="optional" />
+    <xs:attribute name="ContainerPassword" type="xs:string" use="optional" />
+    <xs:attribute name="DynamicSource" type="xs:string" use="optional" />
+    <xs:attribute name="DynamicSourceValue" type="xs:string" use="optional" />
+    <xs:attribute name="DynamicRefreshInterval" type="xs:int" use="optional" />
+    <xs:attribute name="InheritIPAddress" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritConnectionAddressPrimary" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritRDPSignScope" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritRDPSignature" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritRDPSizingMode" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritResolutionWidth" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritResolutionHeight" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritRDPUseMultimon" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritNotes" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritRetryOnFirstConnect" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritVNCClipboardRedirect" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritAlternativeAddress" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritShowBrowserNavigationBar" type="xs:boolean" use="optional" />
 
   </xs:complexType>
 </xs:schema>

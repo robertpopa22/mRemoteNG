@@ -146,6 +146,12 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("EnvironmentTags", connectionInfo.EnvironmentTags ?? string.Empty));
             element.Add(new XAttribute("Favorite", connectionInfo.Favorite));
             element.Add(new XAttribute("RetryOnFirstConnect", connectionInfo.RetryOnFirstConnect.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("AlwaysPromptForCredentials", connectionInfo.AlwaysPromptForCredentials.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("RDPSizingMode", connectionInfo.RDPSizingMode));
+            element.Add(new XAttribute("ResolutionWidth", connectionInfo.ResolutionWidth));
+            element.Add(new XAttribute("ResolutionHeight", connectionInfo.ResolutionHeight));
+            element.Add(new XAttribute("RDPUseMultimon", connectionInfo.RDPUseMultimon.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("HttpPath", connectionInfo.HttpPath ?? string.Empty));
             element.Add(new XAttribute("ExtApp", connectionInfo.ExtApp ?? string.Empty));
             element.Add(new XAttribute("StartProgram", connectionInfo.RDPStartProgram ?? string.Empty));
             element.Add(new XAttribute("StartProgramWorkDir", connectionInfo.RDPStartProgramWorkDir ?? string.Empty));
@@ -302,10 +308,24 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritRDPAlertIdleTimeout", inheritance.RDPAlertIdleTimeout.ToString().ToLowerInvariant()));
             if (inheritance.LoadBalanceInfo)
                 element.Add(new XAttribute("InheritLoadBalanceInfo", inheritance.LoadBalanceInfo.ToString().ToLowerInvariant()));
+            if (inheritance.IPAddress)
+                element.Add(new XAttribute("InheritIPAddress", inheritance.IPAddress.ToString().ToLowerInvariant()));
+            if (inheritance.ConnectionAddressPrimary)
+                element.Add(new XAttribute("InheritConnectionAddressPrimary", inheritance.ConnectionAddressPrimary.ToString().ToLowerInvariant()));
             if (inheritance.RDPSignScope)
                 element.Add(new XAttribute("InheritRDPSignScope", inheritance.RDPSignScope.ToString().ToLowerInvariant()));
             if (inheritance.RDPSignature)
                 element.Add(new XAttribute("InheritRDPSignature", inheritance.RDPSignature.ToString().ToLowerInvariant()));
+            if (inheritance.RDPSizingMode)
+                element.Add(new XAttribute("InheritRDPSizingMode", inheritance.RDPSizingMode.ToString().ToLowerInvariant()));
+            if (inheritance.ResolutionWidth)
+                element.Add(new XAttribute("InheritResolutionWidth", inheritance.ResolutionWidth.ToString().ToLowerInvariant()));
+            if (inheritance.ResolutionHeight)
+                element.Add(new XAttribute("InheritResolutionHeight", inheritance.ResolutionHeight.ToString().ToLowerInvariant()));
+            if (inheritance.RDPUseMultimon)
+                element.Add(new XAttribute("InheritRDPUseMultimon", inheritance.RDPUseMultimon.ToString().ToLowerInvariant()));
+            if (inheritance.Notes)
+                element.Add(new XAttribute("InheritNotes", inheritance.Notes.ToString().ToLowerInvariant()));
             if (inheritance.PreExtApp)
                 element.Add(new XAttribute("InheritPreExtApp", inheritance.PreExtApp.ToString().ToLowerInvariant()));
             if (inheritance.PostExtApp)

@@ -122,7 +122,7 @@ namespace mRemoteNG.Connection
             foreach (var prop in connectionType.GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 // Skip non-data properties (events, indexers)
-                if (!prop.CanRead || !prop.CanWrite) continue;
+                if (!prop.CanRead) continue;
 
                 // Check for explicit [ConnectionProperty] attribute first
                 var cpAttr = prop.GetCustomAttribute<ConnectionPropertyAttribute>();
@@ -159,7 +159,8 @@ namespace mRemoteNG.Connection
                 }
                 else
                 {
-                    serializable = true;
+                    // Read-only properties are not serializable by default
+                    serializable = prop.CanWrite;
                 }
 
                 // Determine encryption: explicit attribute > PasswordPropertyText > default false
