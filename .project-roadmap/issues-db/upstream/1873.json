@@ -11,12 +11,19 @@
   "created_at": "2020-10-05T11:36:30Z",
   "github_updated_at": "2026-02-21T10:22:52Z",
   "body_snippet": "I am currently experiencing random freezes of the tool on windows 10.\r\nThe app ,  when connecting to a host ,  sometimes freezes for half a minute , apparently randomly.\r\nThis prompts a unresponsive program error from windows.\r\nConnection type : SSH\r\n\r\n## Expected Behavior\r\nConnection is instant and a new tab  opens with prompt\r\n\r\n## Current Behavior\r\nConnection sometimes hangs whole app to the point  of windows marking it unresponsive\r\n\r\n## Possible Solution\r\nWaiting or closing down RemoteNG co...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "The issue description 'Random freeze' lacks sufficient detail (e.g., stack traces, steps to reproduce, specific context) to diagnose the root cause and plan an implementation."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg2OTY4NjgwMw==",
@@ -78,5 +85,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The issue description 'Random freeze' lacks sufficient detail (e.g., stack traces, steps to reproduce, specific context) to diagnose the root cause and plan an implementation.\nApproach: Request more information from the user, such as steps to reliably reproduce the freeze, any error messages or logs, and the version of mRemoteNG being used."
 }

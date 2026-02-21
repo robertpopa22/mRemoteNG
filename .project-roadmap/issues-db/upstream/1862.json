@@ -10,12 +10,19 @@
   "created_at": "2020-09-14T15:11:56Z",
   "github_updated_at": "2020-10-01T09:36:21Z",
   "body_snippet": "When I click to start mRemoteNG on Windows 10 I can see its process pop up for a moment but then disappear a second later. It does this with MSI and Portable versions. I have uninstalled and re-installed several times. I have attempted to find left over items in the registry and the file system. Since it never starts there is no user.config file to remove, it doesn't exist. I have searched all of the event logs for mention of '*mremoteng*' and found nothing reflecting an error or warning. There ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Application crashes immediately on startup, indicating a critical unhandled exception during initialization that prevents normal operation."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY5Mjk2NTM5Nw==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Application crashes immediately on startup, indicating a critical unhandled exception during initialization that prevents normal operation.\nApproach: Debug the application's startup sequence, focusing on the ProgramRoot.cs Main method and the FrmMain loading process, to identify the source of the unhandled exception. This will likely involve stepping through the code, inspecting configuration loading, and checking dependency initializations."
 }
