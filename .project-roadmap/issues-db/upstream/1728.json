@@ -11,7 +11,7 @@
   "created_at": "2020-04-02T23:18:09Z",
   "github_updated_at": "2026-02-07T16:46:47Z",
   "body_snippet": "## Expected Behavior\r\nRDP copy paste text filter out numbers when is imput not in EN-US keyboard layout - respectvive is in CS-CZ layout.\r\n\r\n## Possible Solution\r\nsry, no idea. I solve it by switching bot sides of RDP to en-us keyboard layout.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Install czech locale imput both on server and client, and setup same language priority\r\n2. Mame some string with numbers in notepad for example.\r\n3. Copy paste From Local PC to Remote\r\n4. In czech keyb layout is all ...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "RDP copy-paste functionality incorrectly filters out numbers when a non-EN-US keyboard layout is used, hindering international user experience."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in c3062e33"
     }
   ],
   "comments": [

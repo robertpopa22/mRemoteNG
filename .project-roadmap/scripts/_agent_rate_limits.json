@@ -2,5 +2,9 @@
   "codex": {
     "available_after": "2026-02-21T23:15:00",
     "detected_at": "2026-02-17T20:23:00"
+  },
+  "gemini": {
+    "available_after": "2026-02-22T08:52:08.055864",
+    "detected_at": "2026-02-21T10:19:20.056142"
   }
 }
