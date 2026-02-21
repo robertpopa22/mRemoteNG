@@ -144,6 +144,38 @@ namespace mRemoteNGTests.Connection.Protocol.VNC
             Assert.That(_mockClient.LastPressed, Is.True);
         }
 
+        [Test]
+        public void ReleaseAllModifiers_SendsKeyUpForAllSixModifiers()
+        {
+            // Arrange: MockVncClient is already wired in SetUp.
+            var method = _filter.GetType().GetMethod("ReleaseAllModifiers", BindingFlags.Public | BindingFlags.Instance);
+            Assert.That(method, Is.Not.Null, "ReleaseAllModifiers should be a public method on VncLockKeyFilter");
+
+            // Act
+            method.Invoke(_filter, null);
+
+            // Assert: six modifier keysyms × 1 call each, all with pressed=false
+            // Shift_L, Shift_R, Control_L, Control_R, Alt_L, Alt_R
+            Assert.That(_mockClient.CallCount, Is.EqualTo(6),
+                "Should send key-up for each of the 6 modifier keysyms");
+            Assert.That(_mockClient.LastPressed, Is.False,
+                "All calls must be key-up (pressed=false)");
+        }
+
+        [Test]
+        public void ReleaseAllModifiers_WithNullVncClient_DoesNotThrow()
+        {
+            // Arrange: clear the vnc field so vncClient resolves to null
+            var vncField = typeof(RemoteDesktop).GetField("vnc", BindingFlags.NonPublic | BindingFlags.Instance);
+            vncField?.SetValue(_remoteDesktop, null);
+
+            var method = _filter.GetType().GetMethod("ReleaseAllModifiers", BindingFlags.Public | BindingFlags.Instance);
+
+            // Act & Assert: no exception even when not connected
+            Assert.DoesNotThrow(() => method.Invoke(_filter, null));
+            Assert.That(_mockClient.CallCount, Is.EqualTo(0));
+        }
+
         // Helper to invoke PreFilterMessage
         private bool InvokePreFilterMessage(ref Message m)
         {

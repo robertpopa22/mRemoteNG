@@ -46,6 +46,17 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private const uint XK_Super_L = 0xFFEB;
         private const uint XK_Super_R = 0xFFEC;
 
+        // X11 keysyms for modifier keys (sent on focus loss to release any stuck modifiers)
+        private static readonly uint[] ModifierKeysyms =
+        {
+            0xFFE1, // XK_Shift_L
+            0xFFE2, // XK_Shift_R
+            0xFFE3, // XK_Control_L
+            0xFFE4, // XK_Control_R
+            0xFFE9, // XK_Alt_L
+            0xFFEA, // XK_Alt_R
+        };
+
         private readonly VncSharpCore.RemoteDesktop _remoteDesktop;
         private readonly FieldInfo? _vncField;
         private MethodInfo? _writeKeyboardEvent;
@@ -55,6 +66,28 @@ namespace mRemoteNG.Connection.Protocol.VNC
             _remoteDesktop = remoteDesktop;
             _vncField = typeof(VncSharpCore.RemoteDesktop)
                 .GetField("vnc", BindingFlags.NonPublic | BindingFlags.Instance);
+        }
+
+        /// <summary>
+        /// Sends key-up events for all common modifier keys (Shift, Ctrl, Alt).
+        /// Call this when the VNC control loses focus to prevent stuck modifier keys
+        /// caused by focus-change key events not reaching the VNC server (issue #1327).
+        /// Sending a key-up for a key that was never pressed is a safe no-op on X11.
+        /// </summary>
+        public void ReleaseAllModifiers()
+        {
+            var vncClient = _vncField?.GetValue(_remoteDesktop);
+            if (vncClient == null) return;
+
+            _writeKeyboardEvent ??= vncClient.GetType()
+                .GetMethod("WriteKeyboardEvent", BindingFlags.Public | BindingFlags.Instance);
+            if (_writeKeyboardEvent == null) return;
+
+            foreach (var keysym in ModifierKeysyms)
+            {
+                try { _writeKeyboardEvent.Invoke(vncClient, new object[] { keysym, false }); }
+                catch { /* best-effort; ignore if connection is already gone */ }
+            }
         }
 
         public bool PreFilterMessage(ref Message m)
@@ -325,7 +358,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
                     _lockKeyFilter = null;
                 }
 
-                _vnc?.Disconnect();
+                if (_vnc != null)
+                {
+                    _vnc.Leave -= VNCEvent_LostFocus;
+                    _vnc.Disconnect();
+                }
             }
             catch (Exception ex)
             {
@@ -396,6 +433,10 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 if (_vnc == null) return;
                 _vnc.ConnectComplete += VNCEvent_Connected;
                 _vnc.ConnectionLost += VNCEvent_Disconnected;
+                // Release stuck modifier keys when the VNC control loses focus (issue #1327).
+                // Windows does not always deliver key-up events when focus switches away,
+                // leaving Shift/Ctrl/Alt pressed on the remote until the next keystroke.
+                _vnc.Leave += VNCEvent_LostFocus;
                 if (_info?.VNCClipboardRedirect != false)
                     FrmMain.ClipboardChanged += VNCEvent_ClipboardChanged;
                 if (!Force.HasFlag(ConnectionInfo.Force.NoCredentials) && _info?.Password?.Length > 0)
@@ -409,6 +450,11 @@ namespace mRemoteNG.Connection.Protocol.VNC
                                                     Language.VncSetEventHandlersFailed + Environment.NewLine +
                                                     ex.Message, true);
             }
+        }
+
+        private void VNCEvent_LostFocus(object? sender, EventArgs e)
+        {
+            _lockKeyFilter?.ReleaseAllModifiers();
         }
 
         /// <summary>
