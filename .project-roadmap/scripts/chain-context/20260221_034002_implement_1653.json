@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "1653",
+  "started_at": "2026-02-21T03:28:10",
+  "finished_at": "2026-02-21T03:40:02",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1653",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:28:10"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1653",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:28:25"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1653",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 687s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1653.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        ".project-roadmap/scripts/orchestrator.lock",
+        "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1653.json      | 26 +++++++++--\n .../scripts/chain-context/_timeout_history.json    | 54 +++++++++++-----------\n .project-roadmap/scripts/orchestrator.lock         |  4 --\n mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs   |  8 ++++\n 4 files changed, 58 insertions(+), 34 deletions(-)",
+      "timestamp": "2026-02-21T03:40:02",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1653.json b/.project-roadmap/issues-db/upstream/1653.json\nindex 1c5111e1f..db4453582 100644\n--- a/.project-roadmap/issues-db/upstream/1653.json\n+++ b/.project-roadmap/issues-db/upstream/1653.json\n@@ -11,12 +11,25 @@\n   \"created_at\": \"2019-12-12T18:04:21Z\",\n   \"github_updated_at\": \"2026-02-07T16:47:03Z\",\n   \"body_snippet\": \"mRemoteNG closes without warning when I select the 'more choices' option in a RDP login window\\r\\n\\r\\n## Expected Behavior\\r\\nThe 'more choices' option should expand the RDP login window to allow the user to modify the username/domain that will be used to login.\\r\\n\\r\\n## Current Behavior\\r\\nAfter connecting to a RDP client, if the user clicks the \\\"More choices\\\" link, the program pauses for about 5 seconds, then closes without warning or visible error message. Windows application log gives the following inf...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"mRemoteNG crashes silently after 5 seconds when user clicks 'More choices' in the Windows Security RDP credential dialog, likely due to an unhandled exception in the RDP ActiveX credential-picker flow (missing event handlers or unprotected cross-thread handle access).\",\n+      \"token_usage\": {\n+        \"input_tokens\": 4,\n+        \"output_tokens\": 520,\n+        \"cost_usd\": 0.373313,\n+        \"operations\": 1\n+      }\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"IC_kwDOAAcIMM7mXFzI\",\n@@ -33,5 +46,10 @@\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): mRemoteNG crashes silently after 5 seconds when user clicks 'More choices' in the Windows Security RDP credential dialog, likely due to an unhandled exception in the RDP ActiveX credential-picker flow (missing event handlers or unprotected cross-thread handle access).\\nApproach: Add try/catch around credential dialog interactions and subscribe to OnRequestCredentials/OnAuthenticationWarningDisplayed ActiveX events; ensure UIParentWindowHandle is set before the credential dialog appears so the credential picker has a valid parent window and does not crash the COM host.\",\n+  \"token_usage\": {\n+    \"input_tokens\": 4,\n+    \"output_tokens\": 520,\n+    \"cost_usd\": 0.373313\n+  }\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 985850690..c5adc1c76 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -2,7 +2,6 @@\n   \"durations\": {\n     \"claude\": {\n       \"implement\": [\n-        402.4,\n         162.2,\n         476.5,\n         436.0,\n@@ -51,31 +50,10 @@\n         310.5,\n         573.5,\n         335.7,\n-        265.7\n+        265.7,\n+        321.6\n       ],\n       \"triage\": [\n-        18.3,\n-        12.4,\n-        20.0,\n-        13.7,\n-        13.9,\n-        11.5,\n-        19.6,\n-        12.1,\n-        11.6,\n-        13.8,\n-        17.8,\n-        25.2,\n-        61.8,\n-        12.3,\n-        14.5,\n-        51.2,\n-        12.7,\n-        8.4,\n-        15.3,\n-        13.0,\n-        12.0,\n-        12.3,\n         13.8,\n         11.2,\n         31.2,\n@@ -103,7 +81,29 @@\n         86.9,\n         16.3,\n         37.2,\n-        13.2\n+        13.2,\n+        64.2,\n+        13.8,\n+        23.4,\n+        13.8,\n+        11.9,\n+        21.2,\n+        67.7,\n+        35.7,\n+        19.4,\n+        21.7,\n+        24.0,\n+        22.5,\n+        15.6,\n+        20.5,\n+        20.1,\n+        17.1,\n+        57.0,\n+        20.0,\n+        19.4,\n+        13.6,\n+        15.5,\n+        114.7\n       ]\n     },\n     \"gemini\": {\n@@ -295,6 +295,8 @@\n     \"impl_1644\": 1.5,\n     \"impl_1645\": 1.5,\n     \"impl_1602\": 1.5,\n-    \"impl_1636\": 1.5\n+    \"impl_1636\": 1.5,\n+    \"impl_1603\": 1.5,\n+    \"impl_1631\": 1.5\n   }\n }\ndiff --git a/.project-roadmap/scripts/orchestrator.lock b/.project-roadmap/scripts/orchestrator.lock\ndeleted file mode 100644\nindex d855e5faa..000000000\n--- a/.project-roadmap/scripts/orchestrator.lock\n+++ /dev/null\n@@ -1,4 +0,0 @@\n-{\n-  \"pid\": 39216,\n-  \"started\": \"2026-02-21T00:56:37\"\n-}\n\\ No newline at end of file\ndiff --git a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\nindex 6b627a3ab..db94e1089 100644\n--- a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n+++ b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -1583,6 +1583,14 @@ namespace mRemoteNG.Connection.Protocol.RDP\n         {\n             try\n             {\n+                // lError == -2: the Windows Security credential dialog is currently active\n+                // (e.g., user clicked \"More choices\" to select a different credential provider).\n+                // This is a transient notification, not a terminal failure — closing here would\n+                // abort the credential selection flow and cause an apparent silent crash (#1653).\n+                // If authentication ultimately fails, OnDisconnected will fire and close the session.\n+                if (lError == -2)\n+                    return;\n+\n                 string errorMsg = $\"RDP Logon Error: {lError}\";\n                 bool isAuthFailure = false;\n                 // 0x2000c = Authentication failure (131084)"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

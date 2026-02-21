@@ -1,0 +1,62 @@
+{
+  "task_type": "triage",
+  "task_id": "1655",
+  "started_at": "2026-02-21T03:40:04",
+  "finished_at": "2026-02-21T03:40:33",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:40:04"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:40:19"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "User setting to disable saving connections on exit is ignored — the save logic runs unconditionally on app close instead of checking the option flag.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmMain.cs",
+          "mRemoteNG/App/Runtime.cs"
+        ],
+        "approach": "In the FormClosing/exit handler, wrap the connections-save call with a check against the 'Save connections on exit' setting (e.g. `if (Settings.Default.SaveConnectionsOnExit)`) before invoking the serializer/save routine."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"User setting to disable saving connections on exit is ignored — the save logic runs unconditionally on app close instead of checking the option flag.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmMain.cs\",\"mRemoteNG/App/Runtime.cs\"],\"approach\":\"In the FormClosing/exit handler, wrap the connections-save call with a check against the 'Save connections on exit' setting (e.g. `if (Settings.Default.SaveConnectionsOnExit)`) before invoking the serializer/save routine.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:40:33"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "1631",
+  "started_at": "2026-02-21T03:13:36",
+  "finished_at": "2026-02-21T03:25:28",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1631",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:13:36"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1631",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:13:50"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1631",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 687s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1631.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        ".project-roadmap/scripts/orchestrator.lock",
+        "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1631.json      | 26 ++++++++++--\n .../scripts/chain-context/_timeout_history.json    | 49 +++++++++++-----------\n .project-roadmap/scripts/orchestrator.lock         |  4 --\n mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs   | 44 ++++++++++++++++++-\n 4 files changed, 90 insertions(+), 33 deletions(-)",
+      "timestamp": "2026-02-21T03:25:27",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1631.json b/.project-roadmap/issues-db/upstream/1631.json\nindex c19660de9..359fc693e 100644\n--- a/.project-roadmap/issues-db/upstream/1631.json\n+++ b/.project-roadmap/issues-db/upstream/1631.json\n@@ -13,12 +13,25 @@\n   \"created_at\": \"2019-10-25T14:15:04Z\",\n   \"github_updated_at\": \"2024-02-07T01:33:31Z\",\n   \"body_snippet\": \"When using Chrome remote desktop to connect to a windows 10 machine running mRemoteNG the right shift key isn't recognised (Tested in RDP)\\r\\n\\r\\n## Expected Behavior\\r\\nPressing the right shift key should send the key to the remote connection\\r\\n\\r\\n## Current Behavior\\r\\nNothing happens\\r\\n\\r\\n## Possible Solution\\r\\n<!--- Not obligatory, but suggest a fix/reason for the bug, -->\\r\\n<!--- or ideas how to implement the addition or change -->\\r\\n\\r\\n## Steps to Reproduce (for bugs)\\r\\n<!--- Provide an unambiguous set of ...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Right shift key not recognized due to missing extended key flag handling in RDP keyboard input — right-side modifier keys require the extended key bit to distinguish them from their left counterparts.\",\n+      \"token_usage\": {\n+        \"input_tokens\": 3,\n+        \"output_tokens\": 533,\n+        \"cost_usd\": 0.127923,\n+        \"operations\": 1\n+      }\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"MDEyOklzc3VlQ29tbWVudDU0NjM3MjUwOQ==\",\n@@ -134,5 +147,10 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (claude): Right shift key not recognized due to missing extended key flag handling in RDP keyboard input — right-side modifier keys require the extended key bit to distinguish them from their left counterparts.\\nApproach: In the RDP keyboard event handler, check for extended key flag (e.KeyValue == 0xA1 or e.Modifiers check) to ensure right shift (VK_RSHIFT) is sent with the correct virtual key code rather than being collapsed into generic VK_SHIFT.\",\n+  \"token_usage\": {\n+    \"input_tokens\": 3,\n+    \"output_tokens\": 533,\n+    \"cost_usd\": 0.127923\n+  }\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 985850690..afdebd03c 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -2,7 +2,6 @@\n   \"durations\": {\n     \"claude\": {\n       \"implement\": [\n-        402.4,\n         162.2,\n         476.5,\n         436.0,\n@@ -51,29 +50,10 @@\n         310.5,\n         573.5,\n         335.7,\n-        265.7\n+        265.7,\n+        321.6\n       ],\n       \"triage\": [\n-        18.3,\n-        12.4,\n-        20.0,\n-        13.7,\n-        13.9,\n-        11.5,\n-        19.6,\n-        12.1,\n-        11.6,\n-        13.8,\n-        17.8,\n-        25.2,\n-        61.8,\n-        12.3,\n-        14.5,\n-        51.2,\n-        12.7,\n-        8.4,\n-        15.3,\n-        13.0,\n         12.0,\n         12.3,\n         13.8,\n@@ -103,7 +83,27 @@\n         86.9,\n         16.3,\n         37.2,\n-        13.2\n+        13.2,\n+        64.2,\n+        13.8,\n+        23.4,\n+        13.8,\n+        11.9,\n+        21.2,\n+        67.7,\n+        35.7,\n+        19.4,\n+        21.7,\n+        24.0,\n+        22.5,\n+        15.6,\n+        20.5,\n+        20.1,\n+        17.1,\n+        57.0,\n+        20.0,\n+        19.4,\n+        13.6\n       ]\n     },\n     \"gemini\": {\n@@ -295,6 +295,7 @@\n     \"impl_1644\": 1.5,\n     \"impl_1645\": 1.5,\n     \"impl_1602\": 1.5,\n-    \"impl_1636\": 1.5\n+    \"impl_1636\": 1.5,\n+    \"impl_1603\": 1.5\n   }\n }\ndiff --git a/.project-roadmap/scripts/orchestrator.lock b/.project-roadmap/scripts/orchestrator.lock\ndeleted file mode 100644\nindex d855e5faa..000000000\n--- a/.project-roadmap/scripts/orchestrator.lock\n+++ /dev/null\n@@ -1,4 +0,0 @@\n-{\n-  \"pid\": 39216,\n-  \"started\": \"2026-02-21T00:56:37\"\n-}\n\\ No newline at end of file\ndiff --git a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\nindex 6b627a3ab..41062b1ab 100644\n--- a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n+++ b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -1372,6 +1372,7 @@ namespace mRemoteNG.Connection.Protocol.RDP\n         {\n             try\n             {\n+                EnsureRightShiftKeyFixerRegistered();\n                 _rdpClient.OnConnecting += RDPEvent_OnConnecting;\n                 _rdpClient.OnConnected += RDPEvent_OnConnected;\n                 _rdpClient.OnLoginComplete += RDPEvent_OnLoginComplete;\n@@ -1387,7 +1388,48 @@ namespace mRemoteNG.Connection.Protocol.RDP\n                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetEventHandlersFailed, ex);\n             }\n         }\n-        \n+\n+        // Fix for #1631: When mRemoteNG runs inside Chrome Remote Desktop (or similar remote\n+        // access tools), right shift may be injected as WM_KEYDOWN with VK_SHIFT (0x10) and\n+        // the right-shift scan code (0x36) in lParam rather than VK_RSHIFT (0xA1).  The RDP\n+        // ActiveX client forwards the virtual-key code to the remote server, so it would send\n+        // a generic VK_SHIFT and the remote host would not recognise the key as right shift.\n+        // This one-time message filter re-posts such messages with the correct VK_RSHIFT code.\n+        private static bool _rightShiftFixerRegistered;\n+\n+        private static void EnsureRightShiftKeyFixerRegistered()\n+        {\n+            if (_rightShiftFixerRegistered) return;\n+            _rightShiftFixerRegistered = true;\n+            Application.AddMessageFilter(new RightShiftKeyFixer());\n+        }\n+\n+        private sealed class RightShiftKeyFixer : IMessageFilter\n+        {\n+            private const int VK_SHIFT = 0x10;\n+            private const int VK_RSHIFT = 0xA1;\n+            private const int RightShiftScanCode = 0x36;\n+\n+            public bool PreFilterMessage(ref System.Windows.Forms.Message m)\n+            {\n+                if ((m.Msg != NativeMethods.WM_KEYDOWN && m.Msg != NativeMethods.WM_KEYUP) ||\n+                    (int)m.WParam != VK_SHIFT)\n+                    return false;\n+\n+                // Scan code is in bits 16-23 of lParam; right shift = 0x36, left shift = 0x2A\n+                int scanCode = (m.LParam.ToInt32() >> 16) & 0xFF;\n+                if (scanCode != RightShiftScanCode)\n+                    return false;\n+\n+                // Re-post the same message with VK_RSHIFT so the RDP ActiveX forwards the\n+                // correct virtual key to the remote server.\n+                IntPtr hwnd = m.HWnd != IntPtr.Zero ? m.HWnd : NativeMethods.GetForegroundWindow();\n+                if (hwnd != IntPtr.Zero)\n+                    NativeMethods.PostMessage(hwnd, m.Msg, (IntPtr)VK_RSHIFT, m.LParam);\n+                return true; // consume the original VK_SHIFT message\n+            }\n+        }\n+\n         #endregion\n \n         #region Private Events & Handlers"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}
