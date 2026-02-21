@@ -75,7 +75,7 @@ $groups = @(
     },
     @{
         Name = "Tools+Misc"
-        Filter = "(FullyQualifiedName~mRemoteNGTests.Tools|FullyQualifiedName~mRemoteNGTests.Messages|FullyQualifiedName~mRemoteNGTests.App|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.ExternalConnectors|FullyQualifiedName~mRemoteNGTests.Installer|FullyQualifiedName~mRemoteNGTests.BinaryFileTests)"
+        Filter = "(FullyQualifiedName~mRemoteNGTests.Tools|FullyQualifiedName~mRemoteNGTests.Messages|FullyQualifiedName~mRemoteNGTests.App|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.ExternalConnectors|FullyQualifiedName~mRemoteNGTests.Installer|FullyQualifiedName~mRemoteNGTests.BinaryFileTests|FullyQualifiedName~mRemoteNGTests.Properties|FullyQualifiedName~mRemoteNGTests.TestHelpers|FullyQualifiedName~mRemoteNGTests.Themes)"
     },
     @{
         Name = "Config"
@@ -201,6 +201,15 @@ if (-not $Sequential) {
         exit 97
     }
     Write-Host "Total: $totalPassed/$totalTests passed, $totalFailed failed" -ForegroundColor $(if ($totalFailed -gt 0) { "Red" } else { "Green" })
+
+    # Detect uncovered tests: compare parallel sum vs full DLL test count
+    # If agents added tests in new namespaces not covered by group filters, warn loudly
+    $listOutput = & dotnet test $testDll --list-tests --verbosity quiet 2>&1 | Out-String
+    $allTestCount = ($listOutput -split "`n" | Where-Object { $_ -match '^\s{4}\S' }).Count
+    if ($allTestCount -gt 0 -and $totalTests -lt $allTestCount) {
+        $missing = $allTestCount - $totalTests
+        Write-Host "WARNING: $missing tests NOT covered by parallel groups ($totalTests/$allTestCount). Update group filters in run-tests.ps1!" -ForegroundColor Yellow
+    }
 }
 
 # --- Step 7: Run specs ---
