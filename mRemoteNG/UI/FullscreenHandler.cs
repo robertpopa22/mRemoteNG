@@ -64,7 +64,13 @@ namespace mRemoteNG.UI
 
             _handledForm.FormBorderStyle = _savedBorderStyle;
             _handledForm.WindowState = _savedWindowState;
-            _handledForm.Bounds = _savedBounds;
+
+            // Clamp restored bounds to working area so the title bar is always reachable (#1804)
+            var bounds = _savedBounds;
+            var workingArea = Screen.GetWorkingArea(bounds);
+            if (bounds.Top < workingArea.Top)
+                bounds.Y = workingArea.Top;
+            _handledForm.Bounds = bounds;
         }
 
         private void CheckMousePosition(object? sender, EventArgs e)

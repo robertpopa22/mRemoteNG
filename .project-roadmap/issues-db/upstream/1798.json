@@ -11,7 +11,7 @@
   "created_at": "2020-06-20T11:17:27Z",
   "github_updated_at": "2023-02-22T01:03:33Z",
   "body_snippet": "The grid lines in the Config panel, by default, are the same colour as the background, making it very difficult to see where to click to enter each field.\r\n\r\n![image](https://user-images.githubusercontent.com/3789849/85200505-dba25c00-b2ef-11ea-85d7-84f1513ca543.png)\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -27,6 +27,18 @@
         "output_tokens": 1655,
         "cost_usd": 0.234429,
         "operations": 1
+      }
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in 3a53a0a7",
+      "token_usage": {
+        "input_tokens": 23,
+        "output_tokens": 5989,
+        "cost_usd": 0.996124,
+        "operations": 2
       }
     }
   ],
@@ -75,8 +87,8 @@
   "last_synced": "2026-02-15T09:52:50Z",
   "notes": "AI triage (claude): The Config panel PropertyGrid sets LineColor from the theme palette's 'List_Item_Border' color (ConfigWindow.cs:340), but if that color matches ViewBackColor ('List_Item_Background') in any theme the grid lines become invisible.\nApproach: In ApplyTheme(), add a fallback: if List_Item_Border is null/empty or matches ViewBackColor, derive a contrasting LineColor (e.g. SystemColors.ControlDark) so grid lines remain visible regardless of theme.",
   "token_usage": {
-    "input_tokens": 6,
-    "output_tokens": 1655,
-    "cost_usd": 0.234429
+    "input_tokens": 29,
+    "output_tokens": 7644,
+    "cost_usd": 1.230553
   }
 }

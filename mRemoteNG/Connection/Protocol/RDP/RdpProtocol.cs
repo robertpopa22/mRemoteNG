@@ -1671,6 +1671,19 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     _frmMain.WindowState = FormWindowState.Normal;
                 }
 
+                // Clamp frmMain to working area after leaving RDP fullscreen so the title bar
+                // is always reachable when switching back to the tabbed view (#1804)
+                if (_frmMain.WindowState == FormWindowState.Normal)
+                {
+                    var bounds = _frmMain.Bounds;
+                    var workingArea = Screen.GetWorkingArea(bounds);
+                    if (bounds.Top < workingArea.Top)
+                    {
+                        bounds.Y = workingArea.Top;
+                        _frmMain.Bounds = bounds;
+                    }
+                }
+
                 _frmMain.Activate();
                 InterfaceControl?.Parent?.Focus();
                 Focus();
