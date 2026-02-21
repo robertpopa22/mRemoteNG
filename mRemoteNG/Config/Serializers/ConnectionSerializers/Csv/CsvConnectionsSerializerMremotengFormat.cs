@@ -78,7 +78,10 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                           "InheritRDGatewayUsageMethod;InheritRDGatewayHostname;InheritRDGatewayUseConnectionCredentials;InheritRDGatewayUsername;" +
                           "InheritRDGatewayPassword;InheritRDGatewayDomain;InheritRDGatewayExternalCredentialProvider;InheritRDGatewayUserViaAPI;InheritRDPAlertIdleTimeout;InheritRDPMinutesToIdleTimeout;InheritSoundQuality;InheritUserViaAPI;" +
                           "InheritRedirectAudioCapture;InheritRdpVersion;InheritExternalCredentialProvider;" +
-                          "InheritPrivateKeyPath;InheritScriptErrorsSuppressed;InheritDesktopScaleFactor");
+                          "InheritPrivateKeyPath;InheritScriptErrorsSuppressed;InheritDesktopScaleFactor;" +
+                          "InheritIPAddress;InheritConnectionAddressPrimary;InheritRDPSignScope;InheritRDPSignature;" +
+                          "InheritRDPSizingMode;InheritResolutionWidth;InheritResolutionHeight;InheritRDPUseMultimon;" +
+                          "InheritNotes;InheritRetryOnFirstConnect");
         }
 
         private void SerializeNodesRecursive(ConnectionInfo node, StringBuilder sb)
@@ -310,7 +313,17 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
               .Append(FormatForCsv(con.Inheritance.ExternalCredentialProvider))
               .Append(FormatForCsv(con.Inheritance.PrivateKeyPath))
               .Append(FormatForCsv(con.Inheritance.ScriptErrorsSuppressed))
-              .Append(FormatForCsv(con.Inheritance.DesktopScaleFactor));
+              .Append(FormatForCsv(con.Inheritance.DesktopScaleFactor))
+              .Append(FormatForCsv(con.Inheritance.IPAddress))
+              .Append(FormatForCsv(con.Inheritance.ConnectionAddressPrimary))
+              .Append(FormatForCsv(con.Inheritance.RDPSignScope))
+              .Append(FormatForCsv(con.Inheritance.RDPSignature))
+              .Append(FormatForCsv(con.Inheritance.RDPSizingMode))
+              .Append(FormatForCsv(con.Inheritance.ResolutionWidth))
+              .Append(FormatForCsv(con.Inheritance.ResolutionHeight))
+              .Append(FormatForCsv(con.Inheritance.RDPUseMultimon))
+              .Append(FormatForCsv(con.Inheritance.Notes))
+              .Append(FormatForCsv(con.Inheritance.RetryOnFirstConnect));
         }
 
         private string FormatForCsv(object value)

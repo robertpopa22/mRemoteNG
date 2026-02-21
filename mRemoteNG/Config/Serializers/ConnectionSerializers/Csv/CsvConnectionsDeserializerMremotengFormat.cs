@@ -1191,6 +1191,66 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.Inheritance.ScriptErrorsSuppressed = value;
             }
 
+            if (headers.Contains("InheritIPAddress"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritIPAddress")], out bool value))
+                    connectionRecord.Inheritance.IPAddress = value;
+            }
+
+            if (headers.Contains("InheritConnectionAddressPrimary"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritConnectionAddressPrimary")], out bool value))
+                    connectionRecord.Inheritance.ConnectionAddressPrimary = value;
+            }
+
+            if (headers.Contains("InheritRDPSignScope"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDPSignScope")], out bool value))
+                    connectionRecord.Inheritance.RDPSignScope = value;
+            }
+
+            if (headers.Contains("InheritRDPSignature"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDPSignature")], out bool value))
+                    connectionRecord.Inheritance.RDPSignature = value;
+            }
+
+            if (headers.Contains("InheritRDPSizingMode"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDPSizingMode")], out bool value))
+                    connectionRecord.Inheritance.RDPSizingMode = value;
+            }
+
+            if (headers.Contains("InheritResolutionWidth"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritResolutionWidth")], out bool value))
+                    connectionRecord.Inheritance.ResolutionWidth = value;
+            }
+
+            if (headers.Contains("InheritResolutionHeight"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritResolutionHeight")], out bool value))
+                    connectionRecord.Inheritance.ResolutionHeight = value;
+            }
+
+            if (headers.Contains("InheritRDPUseMultimon"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDPUseMultimon")], out bool value))
+                    connectionRecord.Inheritance.RDPUseMultimon = value;
+            }
+
+            if (headers.Contains("InheritNotes"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritNotes")], out bool value))
+                    connectionRecord.Inheritance.Notes = value;
+            }
+
+            if (headers.Contains("InheritRetryOnFirstConnect"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRetryOnFirstConnect")], out bool value))
+                    connectionRecord.Inheritance.RetryOnFirstConnect = value;
+            }
+
             #endregion
 
             return connectionRecord;

@@ -6,6 +6,7 @@
 	/// </summary>
 	internal class SerializableConnectionInfoAllPropertiesOfType<TType>
 	{
+		public TType CredentialId { get; set; }
 		public TType Description { get; set; }
 		public TType Icon { get; set; }
 		public TType Panel { get; set; }
