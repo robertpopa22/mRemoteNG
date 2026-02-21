@@ -47,7 +47,8 @@ namespace mRemoteNG.Config.DataProviders
 
         private bool FeatureIsTurnedOff()
         {
-            return Properties.OptionsBackupPage.Default.BackupFileKeepCount == 0;
+            return Properties.OptionsBackupPage.Default.BackupFileKeepCount == 0
+                || !Properties.OptionsBackupPage.Default.BackupConnectionsOnSave;
         }
     }
 }
