@@ -257,13 +257,28 @@ namespace mRemoteNG.Connection
         }
 
         /// <summary>
-        /// Returns the hostname backing field or IP address field based on the <see cref="ConnectionAddressPrimary"/> setting.
+        /// Returns the hostname backing field or IP address field based on the <see cref="ConnectionAddressPrimary"/> setting,
+        /// with <c>%name%</c> tokens expanded to the connection's <see cref="Name"/> value.
         /// Used as the fallback value passed to <see cref="GetPropertyValue"/> for the Hostname property.
         /// </summary>
-        private string GetEffectiveHostname() =>
-            _connectionAddressPrimary == ConnectionAddressPrimary.IPAddress && !string.IsNullOrWhiteSpace(_ipAddress)
+        private string GetEffectiveHostname()
+        {
+            string raw = _connectionAddressPrimary == ConnectionAddressPrimary.IPAddress && !string.IsNullOrWhiteSpace(_ipAddress)
                 ? _ipAddress.Trim()
                 : _hostname?.Trim() ?? string.Empty;
+            return ExpandHostnameVariables(raw);
+        }
+
+        /// <summary>
+        /// Expands <c>%name%</c> tokens in a hostname template to the connection's <see cref="Name"/> value.
+        /// Intentionally does not expand <c>%hostname%</c> to avoid circular references.
+        /// </summary>
+        private string ExpandHostnameVariables(string raw)
+        {
+            if (string.IsNullOrEmpty(raw) || !raw.Contains('%'))
+                return raw;
+            return raw.Replace("%name%", _name, StringComparison.OrdinalIgnoreCase);
+        }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
          DisplayName("IP Address"),

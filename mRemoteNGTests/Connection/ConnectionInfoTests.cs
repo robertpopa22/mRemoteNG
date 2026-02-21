@@ -189,6 +189,38 @@ namespace mRemoteNGTests.Connection
             propertyInfo?.GetSetMethod(true)?.Invoke(Runtime.ConnectionsService, new object[] { connectionTreeModel });
         }
 
+        [Test]
+        public void HostnameExpandsNameToken()
+        {
+            _connectionInfo.Name = "myserver.example.com";
+            _connectionInfo.Hostname = "%Name%";
+            Assert.That(_connectionInfo.Hostname, Is.EqualTo("myserver.example.com"));
+        }
+
+        [Test]
+        public void HostnameExpandsNameTokenCaseInsensitive()
+        {
+            _connectionInfo.Name = "host1";
+            _connectionInfo.Hostname = "%NAME%";
+            Assert.That(_connectionInfo.Hostname, Is.EqualTo("host1"));
+        }
+
+        [Test]
+        public void HostnameWithNoTokensIsUnchanged()
+        {
+            _connectionInfo.Name = "ignored";
+            _connectionInfo.Hostname = "static-host.example.com";
+            Assert.That(_connectionInfo.Hostname, Is.EqualTo("static-host.example.com"));
+        }
+
+        [Test]
+        public void HostnameExpandsNameTokenMixedWithLiteral()
+        {
+            _connectionInfo.Name = "myserver";
+            _connectionInfo.Hostname = "%name%.example.com";
+            Assert.That(_connectionInfo.Hostname, Is.EqualTo("myserver.example.com"));
+        }
+
 	    private class InheritancePropertyProvider
 	    {
 		    public static IEnumerable<PropertyInfo> GetProperties()
