@@ -12,6 +12,8 @@ using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 using mRemoteNG.Security;
 using System.Runtime.ExceptionServices;
+using System.Diagnostics;
+using System.IO;
 
 // ReSharper disable ArrangeAccessorOwnerBody
 
@@ -275,6 +277,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private static readonly ManualResetEvent TimeoutObject = new(false);
         private static readonly object _testConnectLock = new();
 
+        private TraceListener? _traceListener;
+        private StringWriter? _traceWriter;
+
         #endregion
 
         #region Public Methods
@@ -326,6 +331,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         public override bool Connect()
         {
             SetEventHandlers();
+            SetupTraceListener();
             try
             {
                 if (_vnc == null || _info == null) return false;
@@ -363,6 +369,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
                     _vnc.Leave -= VNCEvent_LostFocus;
                     _vnc.Disconnect();
                 }
+                CleanupTraceListener();
             }
             catch (Exception ex)
             {
@@ -370,6 +377,15 @@ namespace mRemoteNG.Connection.Protocol.VNC
                                                     Language.VncConnectionDisconnectFailed + Environment.NewLine +
                                                     ex.Message, true);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                CleanupTraceListener();
+            }
+            base.Dispose(disposing);
         }
 
         public void SendSpecialKeys(SpecialKeys Keys)
@@ -425,6 +441,47 @@ namespace mRemoteNG.Connection.Protocol.VNC
         #endregion
 
         #region Private Methods
+
+        private void SetupTraceListener()
+        {
+            if (_traceListener != null) return;
+            try
+            {
+                _traceWriter = new StringWriter();
+                _traceListener = new TextWriterTraceListener(_traceWriter);
+                Trace.Listeners.Add(_traceListener);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to setup VNC trace listener", ex, Messages.MessageClass.WarningMsg, true);
+            }
+        }
+
+        private string CleanupTraceListener()
+        {
+            try
+            {
+                string logs = "";
+                if (_traceListener != null)
+                {
+                    Trace.Listeners.Remove(_traceListener);
+                    _traceListener.Dispose();
+                    _traceListener = null;
+                }
+                if (_traceWriter != null)
+                {
+                    logs = _traceWriter.ToString();
+                    _traceWriter.Dispose();
+                    _traceWriter = null;
+                }
+                return logs;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to cleanup VNC trace listener", ex, Messages.MessageClass.WarningMsg, true);
+                return string.Empty;
+            }
+        }
 
         private void SetEventHandlers()
         {
@@ -563,7 +620,16 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
 
             FrmMain.ClipboardChanged -= VNCEvent_ClipboardChanged;
-            Event_Disconnected(this, @"VncSharp Disconnected.", null);
+
+            string logs = CleanupTraceListener();
+            string msg = "VncSharp Disconnected.";
+            if (!string.IsNullOrWhiteSpace(logs))
+            {
+                msg += Environment.NewLine + "Check Messages panel for details.";
+                Runtime.MessageCollector.AddMessage(Messages.MessageClass.DebugMsg, "VNC Trace Logs for " + (_info?.Hostname ?? "Unknown") + ":" + Environment.NewLine + logs, false);
+            }
+
+            Event_Disconnected(this, msg, null);
 
             if (Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect)
             {
@@ -594,6 +660,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 tmrReconnect.Enabled = false;
                 ReconnectGroup.DisposeReconnectGroup();
 
+                SetupTraceListener();
                 _vnc.Connect(_info.Hostname, _info.VNCViewOnly,
                              _info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
 
