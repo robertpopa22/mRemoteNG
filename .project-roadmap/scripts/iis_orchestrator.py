@@ -1580,6 +1580,13 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
 
     if agent == "gemini":
         gemini_model = GEMINI_MODEL_BY_TASK.get(task_type, GEMINI_MODEL) if task_type else GEMINI_MODEL
+        # Check per-model rate limit (e.g. gemini-3-pro-preview may be limited while flash works)
+        model_rate_key = f"gemini:{gemini_model}"
+        is_model_limited, model_available = _is_agent_rate_limited(model_rate_key)
+        if is_model_limited:
+            log.info("    [RATE] Skipping %s model %s (rate-limited until %s)",
+                     agent, gemini_model, model_available)
+            return None
         log.info("    [GEMINI] model=%s task=%s", gemini_model, task_type or "default")
         prompt_file = _write_prompt_file(prompt)
         try:
@@ -1596,11 +1603,18 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
             err_tail = all_output.strip()[-300:]
             err_detail = err_head if err_head == err_tail else f"{err_head} [...] {err_tail}"
             err_detail = err_detail or "(empty)"
-            log.error("    [GEMINI] dispatch exit %d: %s", rc, err_detail)
-            # Detect rate limiting for Gemini
+            log.error("    [GEMINI] dispatch exit %d (model=%s): %s", rc, gemini_model, err_detail)
+            # Log full output for rate-limit diagnosis (max 1000 chars)
+            if len(all_output.strip()) > 200:
+                log.info("    [GEMINI] full error output (%d chars): %s",
+                         len(all_output.strip()), all_output.strip()[:1000])
+            # Detect rate limiting — mark per-model, not blanket agent
             rate_reset = _parse_rate_limit_from_output(all_output)
             if rate_reset:
-                _mark_agent_rate_limited("gemini", rate_reset)
+                rate_key = f"gemini:{gemini_model}"
+                _mark_agent_rate_limited(rate_key, rate_reset)
+                log.warning("    [GEMINI] Rate-limited model %s until %s (other models may still work)",
+                            gemini_model, rate_reset)
             return None
         except subprocess.TimeoutExpired:
             log.error("    [GEMINI] dispatch TIMEOUT (%ds)", timeout)
