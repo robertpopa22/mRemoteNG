@@ -527,38 +527,85 @@ namespace mRemoteNG.Connection
 
         private void Prot_Event_Connected(object sender)
         {
-            ProtocolBase prot = (ProtocolBase)sender;
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ConnectionEventConnected,
-                                                true);
-            Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                                                string.Format(Language.ConnectionEventConnectedDetail,
-                                                              prot.InterfaceControl.OriginalInfo.Hostname,
-                                                              prot.InterfaceControl.Info.Protocol, Environment.UserName,
-                                                              prot.InterfaceControl.Info.Description,
-                                                              prot.InterfaceControl.Info.UserField));
-            ConnectionAuditLogger.LogConnectionEstablished(
-                prot.InterfaceControl.OriginalInfo.Hostname,
-                prot.InterfaceControl.Info.Protocol.ToString(),
-                Environment.UserName);
-
-            RecentConnectionsService.Instance.Add(prot.InterfaceControl.OriginalInfo);
-
-            // Update the Connections pane to highlight the newly established connection (#1869)
-            if (FrmMain.IsCreated)
+            try
             {
-                ConnectionInfo originalInfo = prot.InterfaceControl.OriginalInfo;
-                FrmMain.Default.SelectedConnection = originalInfo;
-                ConnectionTreeWindow? treeForm = AppWindows.TreeForm;
-                if (treeForm != null)
-                {
-                    if (treeForm.InvokeRequired)
-                        treeForm.Invoke(() => treeForm.JumpToNode(originalInfo, suppressPreview: true));
-                    else
-                        treeForm.JumpToNode(originalInfo, suppressPreview: true);
-                }
-            }
+                if (sender is not ProtocolBase prot)
+                    return;
 
-            ConnectionOpened?.Invoke(prot.InterfaceControl.OriginalInfo.Hostname, prot.InterfaceControl.Info.Protocol.ToString());
+                InterfaceControl? interfaceControl = prot.InterfaceControl;
+                ConnectionInfo? originalInfo = interfaceControl?.OriginalInfo;
+                ConnectionInfo? connectionInfo = interfaceControl?.Info;
+                if (originalInfo == null || connectionInfo == null)
+                    return;
+
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, Language.ConnectionEventConnected, true);
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    string.Format(
+                        Language.ConnectionEventConnectedDetail,
+                        originalInfo.Hostname,
+                        connectionInfo.Protocol,
+                        Environment.UserName,
+                        connectionInfo.Description,
+                        connectionInfo.UserField));
+
+                ConnectionAuditLogger.LogConnectionEstablished(
+                    originalInfo.Hostname,
+                    connectionInfo.Protocol.ToString(),
+                    Environment.UserName);
+
+                RecentConnectionsService.Instance.Add(originalInfo);
+
+                // Update the Connections pane to highlight the newly established connection (#1869)
+                if (FrmMain.IsCreated)
+                {
+                    FrmMain.Default.SelectedConnection = originalInfo;
+                    ConnectionTreeWindow? treeForm = AppWindows.TreeForm;
+                    if (treeForm != null && !treeForm.IsDisposed)
+                    {
+                        if (treeForm.InvokeRequired)
+                        {
+                            try
+                            {
+                                treeForm.BeginInvoke(new MethodInvoker(() =>
+                                {
+                                    try
+                                    {
+                                        if (!treeForm.IsDisposed)
+                                            treeForm.JumpToNode(originalInfo, suppressPreview: true);
+                                    }
+                                    catch (ObjectDisposedException)
+                                    {
+                                        // Tree form was disposed before the queued callback executed.
+                                    }
+                                    catch (InvalidOperationException)
+                                    {
+                                        // Tree form handle became invalid before callback execution.
+                                    }
+                                }));
+                            }
+                            catch (ObjectDisposedException)
+                            {
+                                // Tree form was disposed while marshaling.
+                            }
+                            catch (InvalidOperationException)
+                            {
+                                // Tree form handle is no longer valid.
+                            }
+                        }
+                        else
+                        {
+                            treeForm.JumpToNode(originalInfo, suppressPreview: true);
+                        }
+                    }
+                }
+
+                ConnectionOpened?.Invoke(originalInfo.Hostname, connectionInfo.Protocol.ToString());
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.ConnectionFailed, ex);
+            }
         }
 
         private static void Prot_Event_ErrorOccured(object sender, string errorMessage, int? errorCode)

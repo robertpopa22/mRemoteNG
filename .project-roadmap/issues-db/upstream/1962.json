@@ -10,12 +10,19 @@
   "created_at": "2021-05-25T06:57:36Z",
   "github_updated_at": "2026-02-21T10:22:50Z",
   "body_snippet": "I can open mRemoteNG without any issues but as soon as I connect to one of my RDP connections, my PC becomes sluggish and after a couple of seconds mRemoteNG crashes.\r\n\r\n## Expected Behavior\r\nWhen I try connect to one of my RDP instances, it should connect.\r\n\r\n## Current Behavior\r\nWhen I connect to one of my RDP instances, mRemoteNG crashes.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open mRemoteNG\r\n2. Connect to an RDP instance\r\n\r\n## Context\r\nThis only happens sometimes and after about 2 or 3 trie...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "mRemoteNG crashes during connection, impacting usability and stability."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MDE3NTAyNw==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): mRemoteNG crashes during connection, impacting usability and stability.\nApproach: Investigate connection initiation logic for potential null references, race conditions, or unhandled exceptions within connection services and UI components."
 }
