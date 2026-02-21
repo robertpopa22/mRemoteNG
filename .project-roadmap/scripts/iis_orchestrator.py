@@ -301,30 +301,45 @@ def _is_agent_rate_limited(agent):
 
 
 def _parse_rate_limit_from_output(output):
-    """Parse rate-limit reset date from Codex/agent error output.
+    """Parse rate-limit reset date from Codex/Gemini agent error output.
     Returns ISO datetime string or None.
-    Examples: 'try again at Feb 21st, 2026 11:15 PM'
+    Handles: Codex 'try again at ...' and Gemini 'quota will reset after Xh Ym Zs'.
     """
     import re
+    # Codex format: "try again at Feb 21st, 2026 11:15 PM"
     m = re.search(
         r"try again at\s+(\w+ \d+\w*,?\s*\d{4}\s+\d{1,2}:\d{2}\s*[AP]M)",
         output, re.IGNORECASE
     )
-    if not m:
-        if re.search(r"(rate|usage)\s+limit", output, re.IGNORECASE):
-            dt = datetime.datetime.now() + datetime.timedelta(hours=24)
-            return dt.isoformat()
-        return None
-    raw_date = m.group(1)
-    raw_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", raw_date)
-    for fmt in ("%b %d, %Y %I:%M %p", "%b %d %Y %I:%M %p",
-                "%B %d, %Y %I:%M %p", "%B %d %Y %I:%M %p"):
-        try:
-            return datetime.datetime.strptime(raw_date.strip(), fmt).isoformat()
-        except ValueError:
-            continue
-    dt = datetime.datetime.now() + datetime.timedelta(hours=24)
-    return dt.isoformat()
+    if m:
+        raw_date = m.group(1)
+        raw_date = re.sub(r"(\d+)(st|nd|rd|th)", r"\1", raw_date)
+        for fmt in ("%b %d, %Y %I:%M %p", "%b %d %Y %I:%M %p",
+                    "%B %d, %Y %I:%M %p", "%B %d %Y %I:%M %p"):
+            try:
+                return datetime.datetime.strptime(raw_date.strip(), fmt).isoformat()
+            except ValueError:
+                continue
+        dt = datetime.datetime.now() + datetime.timedelta(hours=24)
+        return dt.isoformat()
+
+    # Gemini format: "quota will reset after 5h23m42s" or "12h56m12s"
+    m = re.search(r"reset after\s+(?:(\d+)h)?(\d+)m(\d+)s", output, re.IGNORECASE)
+    if m:
+        hours = int(m.group(1) or 0)
+        minutes = int(m.group(2))
+        seconds = int(m.group(3))
+        dt = datetime.datetime.now() + datetime.timedelta(
+            hours=hours, minutes=minutes, seconds=seconds)
+        return dt.isoformat()
+
+    # Generic fallback: "rate limit", "usage limit", "exhausted", "quota"
+    if re.search(r"(rate|usage)\s+limit|exhausted.*capacity|quota.*reset",
+                 output, re.IGNORECASE):
+        dt = datetime.datetime.now() + datetime.timedelta(hours=1)
+        return dt.isoformat()
+
+    return None
 
 
 # ── TIMEOUT ESTIMATION (complexity + history + escalation) ───────────────
@@ -1720,10 +1735,11 @@ Reply with ONLY a JSON object:
                                 errors="Could not extract valid JSON")
         else:
             ctx.add_attempt(agent, "triage", False, errors="Agent returned None")
-            # Clean up any files modified even without timeout
-            modified_check, _ = _capture_post_timeout_state()
-            if modified_check:
-                _restore_triage_contamination(modified_check)
+            # Clean up any files modified — but skip if agent was rate-limited (never ran)
+            if elapsed > 1:  # agent actually ran (not just rate-limit skip)
+                modified_check, _ = _capture_post_timeout_state()
+                if modified_check:
+                    _restore_triage_contamination(modified_check)
 
         if not AGENT_FALLBACK_ENABLED:
             break
