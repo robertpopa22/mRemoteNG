@@ -11,12 +11,19 @@
   "created_at": "2020-10-02T11:49:43Z",
   "github_updated_at": "2026-02-21T10:23:42Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nI would like a feature in which the confcons.xml file is located on a ftp share. KeePass has that functionality. The pro's are that we i can have one file and open it on several machines.\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Implement support for storing connection files on FTP, similar to KeePass, to enhance flexibility and user convenience."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXI1G",
@@ -42,5 +49,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Implement support for storing connection files on FTP, similar to KeePass, to enhance flexibility and user convenience.\nApproach: Introduce an abstract data provider interface or extend existing data providers to support various storage backends, including local file system and FTP. The existing XmlConnectionsDeserializer and XmlConnectionsSaver will then utilize this extended data provider for reading/writing connection data, allowing them to handle FTP paths. This will involve modifying how file paths/URIs are interpreted and how authentication for network protocols like FTP is handled."
 }
