@@ -10,7 +10,7 @@
   "created_at": "2020-12-07T12:59:31Z",
   "github_updated_at": "2026-02-21T10:22:51Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\n<!--- If suggesting a change/improvement, explain the difference from current behavior -->\r\n\r\n## Possible Solution\r\n<!--- Not obligatory, but suggest a...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "Copy-paste functionality between sessions is critical for user experience. Although `RedirectClipboard` defaults to `True` for RDP, the issue persists, indicating a problem with its application, the underlying RDP ActiveX control, or clipboard handling in other protocols like VNC/SSH which may lack proper implementation."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in 55a3bb82",
+      "token_usage": {
+        "input_tokens": 27,
+        "output_tokens": 21034,
+        "cost_usd": 2.117468,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -75,5 +87,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): Copy-paste functionality between sessions is critical for user experience. Although `RedirectClipboard` defaults to `True` for RDP, the issue persists, indicating a problem with its application, the underlying RDP ActiveX control, or clipboard handling in other protocols like VNC/SSH which may lack proper implementation.\nApproach: Verify that the `ConnectionInfo.RedirectClipboard` setting, which defaults to `True`, is correctly translated and applied to the `_rdpClient.AdvancedSettings6.RedirectClipboard` property in `RdpProtocol.cs`. Debug the interaction with the RDP ActiveX control if necessary. Additionally, investigate clipboard integration for other relevant protocols (e.g., VNC, SSH) to determine if the issue is RDP-specific or affects other session types."
+  "notes": "AI triage (gemini): Copy-paste functionality between sessions is critical for user experience. Although `RedirectClipboard` defaults to `True` for RDP, the issue persists, indicating a problem with its application, the underlying RDP ActiveX control, or clipboard handling in other protocols like VNC/SSH which may lack proper implementation.\nApproach: Verify that the `ConnectionInfo.RedirectClipboard` setting, which defaults to `True`, is correctly translated and applied to the `_rdpClient.AdvancedSettings6.RedirectClipboard` property in `RdpProtocol.cs`. Debug the interaction with the RDP ActiveX control if necessary. Additionally, investigate clipboard integration for other relevant protocols (e.g., VNC, SSH) to determine if the issue is RDP-specific or affects other session types.",
+  "token_usage": {
+    "input_tokens": 27,
+    "output_tokens": 21034,
+    "cost_usd": 2.117468
+  }
 }

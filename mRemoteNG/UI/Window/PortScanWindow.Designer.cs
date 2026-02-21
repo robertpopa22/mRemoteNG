@@ -140,6 +140,7 @@ namespace mRemoteNG.UI.Window
             this.olvHosts.Location = new System.Drawing.Point(3, 168);
             this.olvHosts.Name = "olvHosts";
             this.olvHosts.ShowGroups = false;
+            this.olvHosts.ShowSortIndicators = true;
             this.olvHosts.Size = new System.Drawing.Size(878, 230);
             this.olvHosts.TabIndex = 26;
             this.olvHosts.UseCompatibleStateImageBehavior = false;
