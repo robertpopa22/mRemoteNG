@@ -11,12 +11,19 @@
   "created_at": "2020-09-09T08:54:35Z",
   "github_updated_at": "2026-02-21T10:22:53Z",
   "body_snippet": "Couldn't add panel\r\nThe type initializer for 'Crownwood.Magic.Controls.TabControl' threw an exception.",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Investigate and fix errors occurring during the initialization or establishment of RDP and Telnet connections, potentially related to ActiveX control handling or external tool configuration."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFoh",
@@ -33,5 +40,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Investigate and fix errors occurring during the initialization or establishment of RDP and Telnet connections, potentially related to ActiveX control handling or external tool configuration.\nApproach: Debug the connection initiation flow for both RDP and Telnet protocols. This will involve examining how connection parameters are used, how external tools (like PuTTY for Telnet) are invoked, and how RDP ActiveX controls are initialized and interact with the system. Special attention will be paid to error handling and logging during connection establishment."
 }
