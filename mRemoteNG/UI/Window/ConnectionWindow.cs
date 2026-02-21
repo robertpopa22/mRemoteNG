@@ -167,6 +167,7 @@ namespace mRemoteNG.UI.Window
                 tab.FormClosing -= OnConnectionTabFormClosing;
                 _tabActivationHistory.Remove(e.Content);
             }
+            ClosePanelIfEmpty();
         }
 
         // Before a tab closes, activate the MRU (previously used) tab so DockPanelSuite
