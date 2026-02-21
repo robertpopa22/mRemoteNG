@@ -176,6 +176,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// <param name="e"></param>
         private void ListPalette_CellClick(object sender, CellClickEventArgs e)
         {
+            if (e.Model == null) return;
             PseudoKeyColor colorElem = (PseudoKeyColor)e.Model;
 
             ColorDialog colorDlg = new()
