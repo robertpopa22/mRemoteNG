@@ -13,7 +13,7 @@
   "created_at": "2020-11-17T10:19:32Z",
   "github_updated_at": "2026-02-21T10:23:47Z",
   "body_snippet": "Feature request.\r\nList session function in RDP, for view the connected users to the server and the ability to disconnect them. Like in Remote Desktop Connection Manager. Maybe this can be done with externlal tool? \r\n\r\n![image002](https://user-images.githubusercontent.com/39201353/99377365-2cd26e00-28d7-11eb-8342-f784b4c199c4.png)\r\n![image001](https://user-images.githubusercontent.com/39201353/99377308-1c21f800-28d7-11eb-9172-3d8bdae5b6a3.png)\r\n\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -24,6 +24,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "Implement a new feature to list sessions, similar to Remote Desktop Connection Manager, providing a centralized view of active or configured connections."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in b89404bd",
+      "token_usage": {
+        "input_tokens": 884,
+        "output_tokens": 19080,
+        "cost_usd": 1.989789,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -42,5 +54,10 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): Implement a new feature to list sessions, similar to Remote Desktop Connection Manager, providing a centralized view of active or configured connections.\nApproach: Create a new form (FrmSessionList.cs) containing a custom MrngListView (or SessionListView inheriting from it) to display session details. Develop a SessionListProvider class to retrieve and format session information from the existing connection management system. Integrate the new form into FrmMain.cs via a menu item or toolbar button, enabling users to access the session list function."
+  "notes": "AI triage (gemini): Implement a new feature to list sessions, similar to Remote Desktop Connection Manager, providing a centralized view of active or configured connections.\nApproach: Create a new form (FrmSessionList.cs) containing a custom MrngListView (or SessionListView inheriting from it) to display session details. Develop a SessionListProvider class to retrieve and format session information from the existing connection management system. Integrate the new form into FrmMain.cs via a menu item or toolbar button, enabling users to access the session list function.",
+  "token_usage": {
+    "input_tokens": 884,
+    "output_tokens": 19080,
+    "cost_usd": 1.989789
+  }
 }
