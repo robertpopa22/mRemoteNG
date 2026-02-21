@@ -12,17 +12,35 @@
   "created_at": "2019-11-27T07:42:31Z",
   "github_updated_at": "2021-06-27T22:47:09Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nI logoff from a connection the tab next to it will be activated\r\n\r\n## Current Behavior\r\nI logoff and the first tab is activated. If I just close a tab, without logging off the next tab is activated as I would expect it.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open three connections\r\n2. Logoff from the third\r\n\r\n## Your Environment\r\n* Version used: 1.77.1.27713\r\n* Operating System and version (e.g. Windows...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "When closing a tab, focus jumps to the next tab by position instead of returning to the previously active tab (MRU order), which breaks multi-session workflows.",
+      "token_usage": {
+        "input_tokens": 10,
+        "output_tokens": 1542,
+        "cost_usd": 0.306412,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [],
   "comments_cursor": "2021-06-27T22:47:09Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): When closing a tab, focus jumps to the next tab by position instead of returning to the previously active tab (MRU order), which breaks multi-session workflows.\nApproach: Track tab activation history in a stack/MRU list in ConnectionWindow; on tab close, pop the stack and activate the previous tab instead of the positionally adjacent one.",
+  "token_usage": {
+    "input_tokens": 10,
+    "output_tokens": 1542,
+    "cost_usd": 0.306412
+  }
 }
