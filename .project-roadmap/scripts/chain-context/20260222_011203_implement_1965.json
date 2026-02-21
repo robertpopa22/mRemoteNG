@@ -1,0 +1,25 @@
+{
+  "task_type": "implement",
+  "task_id": "1965",
+  "started_at": "2026-02-22T01:08:05",
+  "finished_at": "2026-02-22T01:12:03",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1965",
+      "success": true,
+      "result": null,
+      "raw_output": "",
+      "errors": null,
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "OK",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T01:12:03"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
