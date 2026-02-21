@@ -1299,11 +1299,20 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         private void SetDriveRedirection()
         {
+            bool redirectAnyDrives = connectionInfo.RedirectDiskDrives != RDPDiskDrives.None;
+            _rdpClient.AdvancedSettings2.RedirectDrives = redirectAnyDrives;
+
             if (RDPDiskDrives.None == connectionInfo.RedirectDiskDrives)
-                _rdpClient.AdvancedSettings2.RedirectDrives = false;
-            else if (RDPDiskDrives.All == connectionInfo.RedirectDiskDrives)
-                _rdpClient.AdvancedSettings2.RedirectDrives = true;
-            else if (RDPDiskDrives.Custom == connectionInfo.RedirectDiskDrives)
+            {
+                return;
+            }
+
+            if (RDPDiskDrives.All == connectionInfo.RedirectDiskDrives)
+            {
+                return;
+            }
+
+            if (RDPDiskDrives.Custom == connectionInfo.RedirectDiskDrives)
             {
                 IMsRdpClientNonScriptable5 rdpNS5 = (IMsRdpClientNonScriptable5)((AxHost)Control!).GetOcx()!;
                 for (uint i = 0; i < rdpNS5.DriveCollection.DriveCount; i++)
