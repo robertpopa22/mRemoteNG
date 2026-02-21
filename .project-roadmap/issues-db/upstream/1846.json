@@ -11,12 +11,19 @@
   "created_at": "2020-08-28T03:49:32Z",
   "github_updated_at": "2026-02-21T10:23:38Z",
   "body_snippet": "It appears as though the `AzureAD\\` user principal name prefix is not honored as specified.  This causes login to fail on many versions of windows (See Recording below) when that machine is joined to an Azure AD domain (as opposed to an on-prem or hybrid AD domain).\r\n\r\nHere is a recording of this behavior, where you can see that I have specified `AzureAD\\` as a prefix to my user name (in the bottom left), and that the login fails and I have to manually type it to login (you can click on the imag...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "The RDP connection logic is ignoring the 'AzureAD\\' prefix for usernames, forcing manual re-entry, which is a functional bug."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY5Mjk4MDM4Ng==",
@@ -150,5 +157,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The RDP connection logic is ignoring the 'AzureAD\\' prefix for usernames, forcing manual re-entry, which is a functional bug.\nApproach: Investigate how the username field, especially when containing 'AzureAD\\' prefixes, is parsed and passed to the underlying RDP control. Ensure the full prefixed username is preserved and correctly utilized during connection establishment."
 }

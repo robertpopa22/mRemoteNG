@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "1846",
+  "started_at": "2026-02-21T14:41:37",
+  "finished_at": "2026-02-21T14:55:56",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1846",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T14:41:37"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1846",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T14:41:38"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1846",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 848s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1843.json",
+        ".project-roadmap/issues-db/upstream/1846.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1843.json       | 21 +++++++++++++++++++--\n .project-roadmap/issues-db/upstream/1846.json       | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json     |  4 ++--\n mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs    |  7 +++++++\n 4 files changed, 39 insertions(+), 8 deletions(-)",
+      "timestamp": "2026-02-21T14:55:56",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1843.json b/.project-roadmap/issues-db/upstream/1843.json\nindex 2a20e1e37..5cf9021ba 100644\n--- a/.project-roadmap/issues-db/upstream/1843.json\n+++ b/.project-roadmap/issues-db/upstream/1843.json\n@@ -12,7 +12,7 @@\n   \"created_at\": \"2020-08-25T00:46:01Z\",\n   \"github_updated_at\": \"2026-02-07T16:46:33Z\",\n   \"body_snippet\": \"Sometimes when I try to connect to a server with RDP, it will start to connect, show a black screen and then dump me back out. I can use the context menu > Reconnect option over and over and get the same results with a 4360 error. Then, sometimes, I can click the box that says 'reconnect when ready' and that works. Other times it doesn't and gives error 3334. \\r\\n\\r\\nMy local machine is Windows 10 Enterprise 1909. I've only had this computer for a couple weeks. I think it has only happened with this...\",\n-  \"our_status\": \"triaged\",\n+  \"our_status\": \"testing\",\n   \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n@@ -23,6 +23,18 @@\n       \"date\": \"2026-02-21\",\n       \"type\": \"triaged\",\n       \"description\": \"The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\"\n+    },\n+    {\n+      \"seq\": 2,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"testing\",\n+      \"description\": \"Fix in 997528b0\",\n+      \"token_usage\": {\n+        \"input_tokens\": 19,\n+        \"output_tokens\": 7066,\n+        \"cost_usd\": 1.218402,\n+        \"operations\": 1\n+      }\n     }\n   ],\n   \"comments\": [\n@@ -50,5 +62,10 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-10T10:15:26Z\",\n-  \"notes\": \"AI triage (gemini): The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\\nApproach: Rename 'NoReconnect' to 'AutoReconnect' and update all references for clarity. Then, investigate how the 'AutoReconnect' setting is used within the connection management logic (e.g., in ConnectionWindow or RdpProtocol) to identify where the logic is inverted or failing to act on the setting. Correct the logical error and add/update unit tests in 'ConnectionWindowReconnectTests.cs' to ensure the 'reconnect when ready' scenario is properly covered and fixed.\"\n+  \"notes\": \"AI triage (gemini): The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\\nApproach: Rename 'NoReconnect' to 'AutoReconnect' and update all references for clarity. Then, investigate how the 'AutoReconnect' setting is used within the connection management logic (e.g., in ConnectionWindow or RdpProtocol) to identify where the logic is inverted or failing to act on the setting. Correct the logical error and add/update unit tests in 'ConnectionWindowReconnectTests.cs' to ensure the 'reconnect when ready' scenario is properly covered and fixed.\",\n+  \"token_usage\": {\n+    \"input_tokens\": 19,\n+    \"output_tokens\": 7066,\n+    \"cost_usd\": 1.218402\n+  }\n }\ndiff --git a/.project-roadmap/issues-db/upstream/1846.json b/.project-roadmap/issues-db/upstream/1846.json\nindex 07b01b585..e36432c1b 100644\n--- a/.project-roadmap/issues-db/upstream/1846.json\n+++ b/.project-roadmap/issues-db/upstream/1846.json\n@@ -11,12 +11,19 @@\n   \"created_at\": \"2020-08-28T03:49:32Z\",\n   \"github_updated_at\": \"2026-02-21T10:23:38Z\",\n   \"body_snippet\": \"It appears as though the `AzureAD\\\\` user principal name prefix is not honored as specified.  This causes login to fail on many versions of windows (See Recording below) when that machine is joined to an Azure AD domain (as opposed to an on-prem or hybrid AD domain).\\r\\n\\r\\nHere is a recording of this behavior, where you can see that I have specified `AzureAD\\\\` as a prefix to my user name (in the bottom left), and that the login fails and I have to manually type it to login (you can click on the imag...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"The RDP connection logic is ignoring the 'AzureAD\\\\' prefix for usernames, forcing manual re-entry, which is a functional bug.\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"MDEyOklzc3VlQ29tbWVudDY5Mjk4MDM4Ng==\",\n@@ -150,5 +157,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-21T12:06:48Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (gemini): The RDP connection logic is ignoring the 'AzureAD\\\\' prefix for usernames, forcing manual re-entry, which is a functional bug.\\nApproach: Investigate how the username field, especially when containing 'AzureAD\\\\' prefixes, is parsed and passed to the underlying RDP control. Ensure the full prefixed username is preserved and correctly utilized during connection establishment.\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex 33254796a..7bda2f1c2 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -160,7 +160,6 @@\n         589.2\n       ],\n       \"triage\": [\n-        93.7,\n         164.2,\n         55.2,\n         58.3,\n@@ -209,7 +208,8 @@\n         22.2,\n         36.1,\n         38.7,\n-        40.8\n+        40.8,\n+        24.7\n       ]\n     },\n     \"gpt41\": {\ndiff --git a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\nindex 1684728f8..866e33917 100644\n--- a/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n+++ b/mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -932,6 +932,13 @@ namespace mRemoteNG.Connection.Protocol.RDP\n                     }\n                 }\n \n+                // Fix for #1846: The RDP ActiveX control strips the AzureAD\\ prefix during NLA\n+                // authentication. Prepending '.\\' preserves the full prefix (per MS workaround).\n+                if (userName.StartsWith(\"AzureAD\\\\\", StringComparison.OrdinalIgnoreCase))\n+                {\n+                    userName = \".\\\\\" + userName;\n+                }\n+\n                 if (string.IsNullOrEmpty(userName))\n                 {\n                     switch (Properties.OptionsCredentialsPage.Default.EmptyCredentials)"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

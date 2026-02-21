@@ -12,7 +12,7 @@
   "created_at": "2020-08-25T00:46:01Z",
   "github_updated_at": "2026-02-07T16:46:33Z",
   "body_snippet": "Sometimes when I try to connect to a server with RDP, it will start to connect, show a black screen and then dump me back out. I can use the context menu > Reconnect option over and over and get the same results with a 4360 error. Then, sometimes, I can click the box that says 'reconnect when ready' and that works. Other times it doesn't and gives error 3334. \r\n\r\nMy local machine is Windows 10 Enterprise 1909. I've only had this computer for a couple weeks. I think it has only happened with this...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in 997528b0",
+      "token_usage": {
+        "input_tokens": 19,
+        "output_tokens": 7066,
+        "cost_usd": 1.218402,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -50,5 +62,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-10T10:15:26Z",
-  "notes": "AI triage (gemini): The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\nApproach: Rename 'NoReconnect' to 'AutoReconnect' and update all references for clarity. Then, investigate how the 'AutoReconnect' setting is used within the connection management logic (e.g., in ConnectionWindow or RdpProtocol) to identify where the logic is inverted or failing to act on the setting. Correct the logical error and add/update unit tests in 'ConnectionWindowReconnectTests.cs' to ensure the 'reconnect when ready' scenario is properly covered and fixed."
+  "notes": "AI triage (gemini): The 'reconnect when ready' functionality is likely broken due to a logical inversion or misinterpretation of the 'NoReconnect' setting, leading to connections not re-establishing as expected. The naming convention of 'NoReconnect' is confusing and should be addressed.\nApproach: Rename 'NoReconnect' to 'AutoReconnect' and update all references for clarity. Then, investigate how the 'AutoReconnect' setting is used within the connection management logic (e.g., in ConnectionWindow or RdpProtocol) to identify where the logic is inverted or failing to act on the setting. Correct the logical error and add/update unit tests in 'ConnectionWindowReconnectTests.cs' to ensure the 'reconnect when ready' scenario is properly covered and fixed.",
+  "token_usage": {
+    "input_tokens": 19,
+    "output_tokens": 7066,
+    "cost_usd": 1.218402
+  }
 }
