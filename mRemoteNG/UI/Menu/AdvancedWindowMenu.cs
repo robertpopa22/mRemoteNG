@@ -18,6 +18,7 @@ namespace mRemoteNG.UI.Menu
             for (int i = 0; i <= _sysMenSubItems.Length - 1; i++)
             {
                 if (_sysMenSubItems[i] != id) continue;
+                if (i >= Screen.AllScreens.Length) continue;
                 return Screen.AllScreens[i];
             }
 
@@ -32,6 +33,7 @@ namespace mRemoteNG.UI.Menu
 
         private void ResetScreenList()
         {
+            Array.Clear(_sysMenSubItems, 0, _sysMenSubItems.Length);
             _windowMenu.Reset();
         }
 
