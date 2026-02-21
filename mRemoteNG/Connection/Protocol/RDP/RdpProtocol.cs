@@ -1583,6 +1583,21 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
+                // Transient NLA/credential UI state transitions — not actual errors.
+                // These fire during normal authentication when the user interacts with
+                // the Windows credential dialog. Closing for these causes #1653 (crash
+                // when user clicks "More choices").
+                // -1 = NTLM_CHALLENGE_SENT_TO_CLIENT
+                // -2 = MORE_CHOICES_REQUESTED  ← "More choices" click fires this
+                // -3 = CREDUI_SUCCESS_NOMAPPED
+                // -5 = NTLMv2_CHALLENGE_SENT_TO_CLIENT
+                if (lError == -1 || lError == -2 || lError == -3 || lError == -5)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        $"RDP credential UI state transition: {lError}", true);
+                    return;
+                }
+
                 string errorMsg = $"RDP Logon Error: {lError}";
                 bool isAuthFailure = false;
                 // 0x2000c = Authentication failure (131084)
