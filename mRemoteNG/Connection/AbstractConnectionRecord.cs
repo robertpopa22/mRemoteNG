@@ -62,6 +62,7 @@ namespace mRemoteNG.Connection
         private HTTPBase.RenderingEngine _renderingEngine = default;
         private bool _scriptErrorsSuppressed = true;
         private bool _usePersistentBrowser = default;
+        private bool _showBrowserNavigationBar = default;
         private bool _useCredSsp = default;
         private bool _useRestrictedAdmin = default;
         private bool _useRCG = default;
@@ -606,6 +607,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("UsePersistentBrowser", _usePersistentBrowser);
             set => SetField(ref _usePersistentBrowser, value, "UsePersistentBrowser");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         DisplayName("Show Navigation Bar"),
+         Description("If enabled, a navigation bar with back/forward/refresh buttons and an address box is shown above the embedded browser."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.HTTP, ProtocolType.HTTPS)]
+        public bool ShowBrowserNavigationBar
+        {
+            get => GetPropertyValue("ShowBrowserNavigationBar", _showBrowserNavigationBar);
+            set => SetField(ref _showBrowserNavigationBar, value, "ShowBrowserNavigationBar");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

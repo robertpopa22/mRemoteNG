@@ -39,6 +39,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             element.Add(new XAttribute("IsTemplate", connectionInfo.IsTemplate.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("UsePersistentBrowser", connectionInfo.UsePersistentBrowser.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("ScriptErrorsSuppressed", connectionInfo.ScriptErrorsSuppressed.ToString().ToLowerInvariant()));
+            element.Add(new XAttribute("ShowBrowserNavigationBar", connectionInfo.ShowBrowserNavigationBar.ToString().ToLowerInvariant()));
             element.Add(new XAttribute("Type", connectionInfo.GetTreeNodeType().ToString()));
             if (nodeAsContainer != null)
             {

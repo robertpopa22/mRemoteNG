@@ -26,6 +26,8 @@ namespace mRemoteNG.Connection.Protocol.Http
         private string _userDataFolder = string.Empty;
         private CoreWebView2Environment? _webView2Environment;
         private Task? _webView2InitializationTask;
+        private ToolStrip? _navigationBar;
+        private ToolStripTextBox? _urlBox;
 
         #endregion
 
@@ -110,6 +112,9 @@ namespace mRemoteNG.Connection.Protocol.Http
                     objWebBrowser.DocumentTitleChanged += WBrowser_DocumentTitleChanged;
                 }
 
+                if (InterfaceControl.Info.ShowBrowserNavigationBar)
+                    AddNavigationBar();
+
                 return true;
             }
             catch (Exception ex)
@@ -117,6 +122,107 @@ namespace mRemoteNG.Connection.Protocol.Http
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpSetPropsFailed, ex);
                 return false;
             }
+        }
+
+        private void AddNavigationBar()
+        {
+            if (_wBrowser == null) return;
+
+            _navigationBar = new ToolStrip { GripStyle = ToolStripGripStyle.Hidden };
+
+            var btnBack = new ToolStripButton("◄") { ToolTipText = "Back", DisplayStyle = ToolStripItemDisplayStyle.Text };
+            var btnForward = new ToolStripButton("►") { ToolTipText = "Forward", DisplayStyle = ToolStripItemDisplayStyle.Text };
+            var btnRefresh = new ToolStripButton("↻") { ToolTipText = "Refresh", DisplayStyle = ToolStripItemDisplayStyle.Text };
+            _urlBox = new ToolStripTextBox { Width = 400, AutoSize = false };
+            var btnGo = new ToolStripButton("Go") { DisplayStyle = ToolStripItemDisplayStyle.Text };
+
+            btnBack.Click += (s, e) => NavigateBack();
+            btnForward.Click += (s, e) => NavigateForward();
+            btnRefresh.Click += (s, e) => NavigateRefresh();
+            btnGo.Click += (s, e) => NavigateTo(_urlBox.Text);
+            _urlBox.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    NavigateTo(_urlBox.Text);
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
+
+            _navigationBar.Items.Add(btnBack);
+            _navigationBar.Items.Add(btnForward);
+            _navigationBar.Items.Add(btnRefresh);
+            _navigationBar.Items.Add(new ToolStripSeparator());
+            _navigationBar.Items.Add(_urlBox);
+            _navigationBar.Items.Add(btnGo);
+
+            // Re-arrange: remove browser from InterfaceControl, add navbar (Top), re-add browser (Fill)
+            InterfaceControl.Controls.Remove(_wBrowser);
+            _navigationBar.Dock = DockStyle.Top;
+            InterfaceControl.Controls.Add(_navigationBar);
+            _wBrowser.Dock = DockStyle.Fill;
+            InterfaceControl.Controls.Add(_wBrowser);
+
+            // Wire navigation events for EdgeChromium
+            if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge)
+            {
+                // Hook after CoreWebView2 is initialized
+                edge.CoreWebView2InitializationCompleted += (s, e) =>
+                {
+                    if (!e.IsSuccess || edge.CoreWebView2 == null) return;
+                    edge.CoreWebView2.NavigationCompleted += (src, args) =>
+                    {
+                        if (edge.InvokeRequired)
+                            edge.Invoke(new Action(() => _urlBox!.Text = edge.Source?.ToString() ?? string.Empty));
+                        else
+                            _urlBox!.Text = edge.Source?.ToString() ?? string.Empty;
+                    };
+                };
+            }
+            else if (_wBrowser is WebBrowser wb)
+            {
+                wb.Navigated += (s, e) =>
+                {
+                    if (_urlBox != null)
+                        _urlBox.Text = wb.Url?.ToString() ?? string.Empty;
+                };
+            }
+        }
+
+        private void NavigateBack()
+        {
+            if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge && edge.CoreWebView2 != null)
+                edge.CoreWebView2.GoBack();
+            else if (_wBrowser is WebBrowser wb && wb.CanGoBack)
+                wb.GoBack();
+        }
+
+        private void NavigateForward()
+        {
+            if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge && edge.CoreWebView2 != null)
+                edge.CoreWebView2.GoForward();
+            else if (_wBrowser is WebBrowser wb && wb.CanGoForward)
+                wb.GoForward();
+        }
+
+        private void NavigateRefresh()
+        {
+            if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge && edge.CoreWebView2 != null)
+                edge.CoreWebView2.Reload();
+            else if (_wBrowser is WebBrowser wb)
+                wb.Refresh();
+        }
+
+        private void NavigateTo(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return;
+            if (!url.Contains("://"))
+                url = "https://" + url;
+            if (_wBrowser is Microsoft.Web.WebView2.WinForms.WebView2 edge && edge.CoreWebView2 != null)
+                edge.CoreWebView2.Navigate(url);
+            else if (_wBrowser is WebBrowser wb)
+                wb.Navigate(url);
         }
 
         private async Task InitializeWebView2Async(Microsoft.Web.WebView2.WinForms.WebView2 webView2)
