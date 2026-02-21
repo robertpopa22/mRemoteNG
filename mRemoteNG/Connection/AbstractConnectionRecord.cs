@@ -132,6 +132,7 @@ namespace mRemoteNG.Connection
         private string _rdpSignature = string.Empty;
         private bool _favorite = default;
         private bool _retryOnFirstConnect = default;
+        private bool _alwaysPromptForCredentials = default;
         private bool _isTemplate = default;
 
         private ProtocolVNC.Compression _vncCompression = default;
@@ -1235,6 +1236,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("RetryOnFirstConnect", _retryOnFirstConnect);
             set => SetField(ref _retryOnFirstConnect, value, "RetryOnFirstConnect");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Connection), 2),
+         DisplayName("Always Prompt For Credentials"),
+         Description("If enabled, a credential dialog will be shown every time this connection is opened, instead of using stored credentials."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInAllProtocolsExcept(ProtocolType.Telnet, ProtocolType.Rlogin, ProtocolType.RAW, ProtocolType.MSRA)]
+        public bool AlwaysPromptForCredentials
+        {
+            get => GetPropertyValue("AlwaysPromptForCredentials", _alwaysPromptForCredentials);
+            set => SetField(ref _alwaysPromptForCredentials, value, "AlwaysPromptForCredentials");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Miscellaneous), 7),
