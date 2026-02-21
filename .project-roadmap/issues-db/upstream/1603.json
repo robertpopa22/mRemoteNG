@@ -11,12 +11,25 @@
   "created_at": "2019-09-30T08:42:38Z",
   "github_updated_at": "2026-02-07T19:55:25Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nIs it possible to combine the Connect field on the tool bar with the Search field capability, so that when you type something there on the top field, it would filter-out connections in the list accordingly?\r\n\r\n## Expected Behavior\r\nA user types in the name of the server in the filed on the tool bar (Could be renamed to 'Search\\Connect' or something more human-readable). As the user types in the name the list of connections fi...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Valid UX enhancement to reduce UI clutter by merging the filter/search field with the quick-connect field into a single smart input field.",
+      "token_usage": {
+        "input_tokens": 3,
+        "output_tokens": 574,
+        "cost_usd": 0.125642,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDUzNjUzMjg3OQ==",
@@ -69,5 +82,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Valid UX enhancement to reduce UI clutter by merging the filter/search field with the quick-connect field into a single smart input field.\nApproach: Extend the quick-connect toolbar input to also serve as a live filter for the connection tree when no protocol prefix is detected, clearing the filter on connect or Escape.",
+  "token_usage": {
+    "input_tokens": 3,
+    "output_tokens": 574,
+    "cost_usd": 0.125642
+  }
 }

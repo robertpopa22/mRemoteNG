@@ -333,6 +333,18 @@ namespace mRemoteNG.UI.Window
 
         #endregion
 
+        /// <summary>
+        /// Applies a live filter to the connection tree from the quick-connect toolbar input.
+        /// Pass an empty string to remove the filter.
+        /// </summary>
+        public void FilterByQuickConnect(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                ConnectionTree.RemoveFilter();
+            else
+                ConnectionTree.ApplyFilter(text);
+        }
+
         #region Search
 
         private void TxtSearch_KeyDown(object sender, KeyEventArgs e)

@@ -498,6 +498,20 @@ namespace mRemoteNG.UI.Forms
 
             toolsMenu.MainForm = this;
             toolsMenu.CredentialProviderCatalog = Runtime.CredentialProviderCatalog;
+
+            // Wire quick-connect text to live-filter the connection tree (#1603)
+            _quickConnectToolStrip.QuickConnectComboBox.TextChanged += OnQuickConnectTextChanged;
+            _quickConnectToolStrip.QuickConnectComboBox.ConnectRequested += OnQuickConnectConnected;
+        }
+
+        private void OnQuickConnectTextChanged(object? sender, EventArgs e)
+        {
+            AppWindows.TreeForm?.FilterByQuickConnect(_quickConnectToolStrip.QuickConnectComboBox.Text.Trim());
+        }
+
+        private void OnQuickConnectConnected(object sender, QuickConnectComboBox.ConnectRequestedEventArgs e)
+        {
+            AppWindows.TreeForm?.FilterByQuickConnect(string.Empty);
         }
 
         //Theming support
