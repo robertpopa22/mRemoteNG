@@ -11,12 +11,25 @@
   "created_at": "2020-10-06T19:28:52Z",
   "github_updated_at": "2026-02-21T10:22:52Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nWindows in background update properly, command output shows without enter pressed\r\nWorked fully in previous versions. This is the first time i've encountered this.\r\n\r\n## Current Behavior\r\nWindows in background do not update properly, contents of commands don't show until enter is hit, bottom of session has outdated lines below the prompt. clear resets it for a while.\r\n\r\n## Possible Solution\r\n<!--- Not ob...",
-  "our_status": "new",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in 8b816a9b",
+      "token_usage": {
+        "input_tokens": 1235,
+        "output_tokens": 21225,
+        "cost_usd": 2.002432,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDcxNjUyNDM3NA==",
@@ -51,5 +64,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "",
+  "token_usage": {
+    "input_tokens": 1235,
+    "output_tokens": 21225,
+    "cost_usd": 2.002432
+  }
 }

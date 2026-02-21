@@ -36,6 +36,7 @@ namespace mRemoteNG.UI.Window
         private readonly ToolStripMenuItem _cmenTabIncludeInMultiSsh = new();
         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
         private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();
+        private readonly ToolStripMenuItem _cmenTabScreenshotManager = new();
         private bool _isAddingTab;
         private readonly List<IDockContent> _tabActivationHistory = new();
 
@@ -198,6 +199,7 @@ namespace mRemoteNG.UI.Window
         {
             InitializeMoveToPanelContextMenuItems();
             InitializeMultiSshContextMenuItems();
+            InitializeScreenshotManagerMenuItem();
 
             // event handler to adjust the items within the context menu
             cmenTab.Opening += ShowHideMenuButtons;
@@ -255,6 +257,28 @@ namespace mRemoteNG.UI.Window
             _cmenTabMultiSshSeparator.Visible = false;
             _cmenTabIncludeInMultiSsh.Visible = false;
             _cmenTabExcludeFromMultiSsh.Visible = false;
+        }
+
+        private void InitializeScreenshotManagerMenuItem()
+        {
+            _cmenTabScreenshotManager.Name = "cmenTabScreenshotManager";
+            _cmenTabScreenshotManager.Image = Properties.Resources.Monitor_16x;
+            _cmenTabScreenshotManager.Text = "Screenshot Manager...";
+            _cmenTabScreenshotManager.Click += (sender, args) => OpenScreenshotManager();
+
+            int insertIndex = cmenTab.Items.IndexOf(cmenTabScreenshot);
+            if (insertIndex < 0)
+                insertIndex = cmenTab.Items.Count;
+            else
+                insertIndex++; // insert right after "Take Screenshot"
+
+            cmenTab.Items.Insert(insertIndex, _cmenTabScreenshotManager);
+        }
+
+        private void OpenScreenshotManager()
+        {
+            using FrmScreenshotManager manager = new();
+            manager.ShowDialog(this);
         }
 
         private void InitializeConnectionTabDragDropTargets()
@@ -1098,6 +1122,7 @@ namespace mRemoteNG.UI.Window
                 _cmenTabMoveToPanel.Enabled = canMoveToAnotherPanel;
 
                 InterfaceControl? interfaceControl = GetInterfaceControl();
+                _cmenTabScreenshotManager.Visible = true;
                 if (interfaceControl == null)
                 {
                     cmenTabViewOnly.Visible = false;
