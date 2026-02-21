@@ -26,6 +26,27 @@ namespace mRemoteNG.Tools
 
         public PortScanner(IPAddress ipAddress1,
                            IPAddress ipAddress2,
+                           IEnumerable<int> ports,
+                           int timeoutInMilliseconds = 5000)
+        {
+            IPAddress ipAddressStart = IpAddressMin(ipAddress1, ipAddress2);
+            IPAddress ipAddressEnd = IpAddressMax(ipAddress1, ipAddress2);
+
+            if (timeoutInMilliseconds < 0)
+                throw new ArgumentOutOfRangeException(nameof(timeoutInMilliseconds));
+
+            _timeoutInMilliseconds = timeoutInMilliseconds;
+            _ports.Clear();
+            _ports.AddRange(ports);
+
+            _ipAddresses.Clear();
+            _ipAddresses.AddRange(IpAddressArrayFromRange(ipAddressStart, ipAddressEnd));
+
+            _scannedHosts.Clear();
+        }
+
+        public PortScanner(IPAddress ipAddress1,
+                           IPAddress ipAddress2,
                            int port1,
                            int port2,
                            int timeoutInMilliseconds = 5000,

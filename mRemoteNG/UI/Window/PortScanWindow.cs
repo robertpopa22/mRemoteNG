@@ -181,6 +181,7 @@ namespace mRemoteNG.UI.Window
             clmClosedPorts.Text = Language.ClosedPorts;
             ngCheckFirstPort.Text = Language.FirstPort;
             ngCheckLastPort.Text = Language.LastPort;
+            lblCustomPorts.Text = "Custom ports (e.g. 22,80,443):";
             lblTimeout.Text = Language.TimeoutInSeconds;
             TabText = Language.PortScan;
             Text = Language.PortScan;
@@ -206,7 +207,21 @@ namespace mRemoteNG.UI.Window
                 IPAddress ipAddressStart = IPAddress.Parse(ipStart.Text);
                 IPAddress ipAddressEnd = IPAddress.Parse(ipEnd.Text);
 
-                if (!ngCheckFirstPort.Checked && !ngCheckLastPort.Checked)
+                string customPortsText = txtCustomPorts.Text.Trim();
+                if (!string.IsNullOrEmpty(customPortsText))
+                {
+                    List<int> customPorts = ParsePortList(customPortsText);
+                    if (customPorts.Count == 0)
+                    {
+                        Runtime.MessageCollector.AddMessage(MessageClass.WarningMsg, Language.CannotStartPortScan);
+                        _scanning = false;
+                        SwitchButtonText();
+                        return;
+                    }
+                    _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, customPorts,
+                                                   (int)numericSelectorTimeout.Value * 1000);
+                }
+                else if (!ngCheckFirstPort.Checked && !ngCheckLastPort.Checked)
                     _portScanner = new PortScanner(ipAddressStart, ipAddressEnd, (int)portStart.Value,
                                                    (int)portEnd.Value, (int)numericSelectorTimeout.Value * 1000, true);
                 else
@@ -236,6 +251,18 @@ namespace mRemoteNG.UI.Window
             }
             _scanning = false;
             SwitchButtonText();
+        }
+
+        private static List<int> ParsePortList(string portListText)
+        {
+            List<int> ports = new();
+            foreach (string part in portListText.Split(',', ';', ' '))
+            {
+                string trimmed = part.Trim();
+                if (int.TryParse(trimmed, out int port) && port >= 1 && port <= 65535)
+                    ports.Add(port);
+            }
+            return ports;
         }
 
         private void SwitchButtonText()
