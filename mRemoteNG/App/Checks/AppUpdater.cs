@@ -228,8 +228,11 @@ namespace mRemoteNG.App.Update
                 _getUpdateInfoCancelToken = new CancellationTokenSource();
                 if (_httpClient == null)
                     throw new InvalidOperationException("HttpClient has not been initialized.");
-                string updateInfo = await _httpClient.GetStringAsync(UpdateChannelInfo.GetUpdateChannelInfo(), _getUpdateInfoCancelToken.Token);
-                CurrentUpdateInfo = UpdateInfo.FromString(updateInfo);
+                Uri updateUri = UpdateChannelInfo.GetUpdateChannelInfo();
+                string updateInfo = await _httpClient.GetStringAsync(updateUri, _getUpdateInfoCancelToken.Token);
+                CurrentUpdateInfo = UpdateChannelInfo.IsGitHubUri(updateUri)
+                    ? UpdateInfo.FromGitHubJson(updateInfo)
+                    : UpdateInfo.FromString(updateInfo);
                 Properties.OptionsUpdatesPage.Default.CheckForUpdatesLastCheck = DateTime.UtcNow;
 
                 if (!Properties.OptionsUpdatesPage.Default.UpdatePending)

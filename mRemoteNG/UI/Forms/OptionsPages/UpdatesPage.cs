@@ -356,12 +356,14 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             int stable = cboReleaseChannel.Items.Add(UpdateChannelInfo.STABLE);
             int beta = cboReleaseChannel.Items.Add(UpdateChannelInfo.PREVIEW);
             int dev = cboReleaseChannel.Items.Add(UpdateChannelInfo.NIGHTLY);
+            int github = cboReleaseChannel.Items.Add(UpdateChannelInfo.GITHUB);
             cboReleaseChannel.SelectedIndex = Properties.OptionsUpdatesPage.Default.UpdateChannel switch
             {
                 UpdateChannelInfo.STABLE => stable,
                 UpdateChannelInfo.PREVIEW => beta,
                 UpdateChannelInfo.NIGHTLY => dev,
-                _ => stable,
+                UpdateChannelInfo.GITHUB => github,
+                _ => github,
             };
         }
 

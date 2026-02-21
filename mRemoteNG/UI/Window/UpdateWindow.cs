@@ -165,14 +165,21 @@ namespace mRemoteNG.UI.Window
                         pbUpdateImage.Visible = true;
                     }
 
-                    try
+                    if (updateInfo.IsGitHubSource && !string.IsNullOrEmpty(updateInfo.ChangeLogBody))
                     {
-                        string changeLog = await _appUpdate.GetChangeLogAsync();
-                        txtChangeLog.Text = changeLog.Replace("\n", Environment.NewLine);
+                        txtChangeLog.Text = updateInfo.ChangeLogBody.Replace("\n", Environment.NewLine);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Runtime.MessageCollector?.AddExceptionStackTrace(Language.UpdateGetChangeLogFailed, ex);
+                        try
+                        {
+                            string changeLog = await _appUpdate.GetChangeLogAsync();
+                            txtChangeLog.Text = changeLog.Replace("\n", Environment.NewLine);
+                        }
+                        catch (Exception ex)
+                        {
+                            Runtime.MessageCollector?.AddExceptionStackTrace(Language.UpdateGetChangeLogFailed, ex);
+                        }
                     }
 
                     btnDownload.Focus();
@@ -211,6 +218,14 @@ namespace mRemoteNG.UI.Window
         {
             try
             {
+                if (_appUpdate?.CurrentUpdateInfo?.IsGitHubSource == true)
+                {
+                    Uri? releasePageUrl = _appUpdate.CurrentUpdateInfo.ReleasePageUrl;
+                    if (releasePageUrl != null && !releasePageUrl.IsFile && !releasePageUrl.IsUnc && !releasePageUrl.IsLoopback)
+                        Process.Start(new ProcessStartInfo { FileName = releasePageUrl.ToString(), UseShellExecute = true });
+                    return;
+                }
+
                 btnDownload.Enabled = false;
                 prgbDownload.Visible = true;
                 prgbDownload.Value = 0;

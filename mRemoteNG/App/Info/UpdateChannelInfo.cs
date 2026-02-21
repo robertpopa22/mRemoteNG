@@ -12,6 +12,7 @@ namespace mRemoteNG.App.Info
         public const string STABLE = "Stable";
         public const string PREVIEW = "Preview";
         public const string NIGHTLY = "Nightly";
+        public const string GITHUB = "GitHub";
 
         public const string STABLE_PORTABLE = "update-portable.txt";
         public const string PREVIEW_PORTABLE = "preview-update-portable.txt";
@@ -21,11 +22,23 @@ namespace mRemoteNG.App.Info
         public const string PREVIEW_MSI = "preview-update.txt";
         public const string NIGHTLY_MSI = "nightly-update.txt";
 
+        private const string GITHUB_API_URI = "https://api.github.com/repos/mRemoteNG/mRemoteNG/releases/latest";
 
         public static Uri GetUpdateChannelInfo()
         {
-            string channel = IsValidChannel(Properties.OptionsUpdatesPage.Default.UpdateChannel) ? Properties.OptionsUpdatesPage.Default.UpdateChannel : STABLE;
+            string channel = IsValidChannel(Properties.OptionsUpdatesPage.Default.UpdateChannel)
+                ? Properties.OptionsUpdatesPage.Default.UpdateChannel
+                : GITHUB;
+
+            if (channel == GITHUB)
+                return new Uri(GITHUB_API_URI);
+
             return GetUpdateTxtUri(channel);
+        }
+
+        public static bool IsGitHubUri(Uri uri)
+        {
+            return uri.AbsoluteUri.Equals(GITHUB_API_URI, StringComparison.OrdinalIgnoreCase);
         }
 
         private static string GetChannelFileName(string channel)
@@ -73,7 +86,7 @@ namespace mRemoteNG.App.Info
 
         private static bool IsValidChannel(string s)
         {
-            return s.Equals(STABLE) || s.Equals(PREVIEW) || s.Equals(NIGHTLY);
+            return s.Equals(STABLE) || s.Equals(PREVIEW) || s.Equals(NIGHTLY) || s.Equals(GITHUB);
         }
     }
 }
