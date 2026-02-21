@@ -157,13 +157,50 @@ AGENT_CONFIG = {
     "warning_fix_parallel": "codex",    # _claude_fix_file_only()
 }
 AGENT_CHAIN = ["codex", "gemini", "claude"]  # fallback order: primary → secondary → tertiary
-GEMINI_MODEL = "gemini-3-pro-preview"   # overridable via --gemini-model
-CODEX_MODEL = "gpt-5.3-codex"          # overridable via --codex-model
-CODEX_REASONING = "xhigh"               # model_reasoning_effort for codex
 AGENT_FALLBACK_ENABLED = True           # if primary fails, try the next agent in chain
 
-# ── CLAUDE MODEL STRATEGY ────────────────────────────────────────────────
-# Sonnet 4.6 for high-volume tasks (triage + code), Opus 4.6 for deep analysis
+# ── DUAL-MODEL STRATEGY (all agents) ─────────────────────────────────────
+# Each agent uses a fast/cheap model for triage and a powerful model for implementation.
+# This applies uniformly to Gemini, Codex, and Claude.
+
+# Gemini models (verified: gemini -m <name>)
+GEMINI_MODEL = "gemini-3-pro-preview"   # powerful — implementation, analysis
+GEMINI_MODEL_FLASH = "gemini-2.5-flash" # fast — triage
+GEMINI_MODEL_BY_TASK = {
+    "triage":               GEMINI_MODEL_FLASH,
+    "implement":            GEMINI_MODEL,
+    "test_fix":             GEMINI_MODEL,
+    "warning_fix":          GEMINI_MODEL,
+    "warning_fix_parallel": GEMINI_MODEL,
+    "test_hygiene":         GEMINI_MODEL,
+    "analysis":             GEMINI_MODEL,
+}
+
+# Codex models (verified: codex exec -m <name>)
+CODEX_MODEL = "gpt-5.3-codex"          # powerful — implementation
+CODEX_MODEL_FAST = "gpt-4.1-mini"      # fast — triage
+CODEX_REASONING = "xhigh"               # reasoning effort for implementation
+CODEX_MODEL_BY_TASK = {
+    "triage":               CODEX_MODEL_FAST,
+    "implement":            CODEX_MODEL,
+    "test_fix":             CODEX_MODEL,
+    "warning_fix":          CODEX_MODEL,
+    "warning_fix_parallel": CODEX_MODEL,
+    "test_hygiene":         CODEX_MODEL,
+    "analysis":             CODEX_MODEL,
+}
+# Codex reasoning effort per task (verified: -c model_reasoning_effort="<value>")
+CODEX_REASONING_BY_TASK = {
+    "triage":               "medium",   # fast classification, no deep reasoning needed
+    "implement":            "xhigh",    # complex code changes
+    "test_fix":             "xhigh",    # needs careful analysis
+    "warning_fix":          "high",     # moderate complexity
+    "warning_fix_parallel": "high",
+    "test_hygiene":         "high",
+    "analysis":             "xhigh",
+}
+
+# Claude models (verified: claude -p --model <name>)
 CLAUDE_MODEL_SONNET = "claude-sonnet-4-6"  # fast, cheap — triage & code writing
 CLAUDE_MODEL_OPUS = "claude-opus-4-6"      # deep analysis — complex issues, fallback
 CLAUDE_MODEL_BY_TASK = {
@@ -1307,10 +1344,11 @@ def claude_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
 
 # ── CORE: GEMINI SUB-AGENT ────────────────────────────────────────────────
 def gemini_run(prompt, max_turns=15, json_output=False, timeout=CLAUDE_TIMEOUT,
-               retries=CLAUDE_RETRIES):
+               retries=CLAUDE_RETRIES, model=None):
     """Call gemini -p (headless) with retry.  Returns stdout string.
     Uses -y for auto-approve, -m for model selection."""
-    cmd = [GEMINI_CMD, "-p", prompt, "-y", "-m", GEMINI_MODEL]
+    use_model = model or GEMINI_MODEL
+    cmd = [GEMINI_CMD, "-p", prompt, "-y", "-m", use_model]
     if json_output:
         cmd += ["-o", "json"]
 
@@ -1382,7 +1420,8 @@ def _extract_codex_last_message(jsonl_output):
     return last_msg
 
 
-def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
+def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES,
+              model=None, reasoning=None):
     """Call codex exec (headless) with retry. Returns stdout string or None.
     Uses temp file for prompt via stdin, -o for output capture."""
     import tempfile
@@ -1406,14 +1445,16 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
             of.close()
             output_file = of.name
 
+            use_model = model or CODEX_MODEL
+            use_reasoning = reasoning or CODEX_REASONING
             cmd = [
                 CODEX_CMD, "exec", "-",
                 "--color", "never",
                 "--ephemeral",
                 "-a", "never",                   # auto-approve all (no user prompts)
                 "-s", "workspace-write",         # writable sandbox (override config read-only)
-                "-m", CODEX_MODEL,
-                "-c", f'model_reasoning_effort="{CODEX_REASONING}"',
+                "-m", use_model,
+                "-c", f'model_reasoning_effort="{use_reasoning}"',
                 "-C", str(REPO_ROOT),
                 "-o", output_file,
             ]
@@ -1510,11 +1551,12 @@ def codex_run(prompt, timeout=CODEX_TIMEOUT, retries=CODEX_RETRIES):
 # ── CORE: AGENT DISPATCH HELPER ──────────────────────────────────────────
 def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
                     timeout=CLAUDE_TIMEOUT, retries=CLAUDE_RETRIES,
-                    claude_model=None):
+                    claude_model=None, task_type=None):
     """Dispatch a prompt to a specific agent. Returns stdout string or None.
     Sets _last_dispatch_timed_out if the agent timed out.
     Skips agents that are currently rate-limited.
-    claude_model: override Claude model (sonnet vs opus) when agent=='claude'."""
+    task_type: selects model variant (fast vs powerful) per agent.
+    claude_model: explicit override for Claude model (takes precedence over task_type)."""
     global _last_dispatch_timed_out, _last_dispatch_partial_output
     _last_dispatch_timed_out = False
     _last_dispatch_partial_output = ""
@@ -1528,13 +1570,21 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
     _session_agents_used.add(agent)
 
     if agent == "codex":
-        return codex_run(prompt, timeout=timeout, retries=min(retries, CODEX_RETRIES))
+        codex_model = CODEX_MODEL_BY_TASK.get(task_type, CODEX_MODEL) if task_type else None
+        codex_reasoning = CODEX_REASONING_BY_TASK.get(task_type, CODEX_REASONING) if task_type else None
+        _model_tag = codex_model or CODEX_MODEL
+        log.info("    [CODEX] model=%s reasoning=%s task=%s",
+                 _model_tag, codex_reasoning or CODEX_REASONING, task_type or "default")
+        return codex_run(prompt, timeout=timeout, retries=min(retries, CODEX_RETRIES),
+                         model=codex_model, reasoning=codex_reasoning)
 
     if agent == "gemini":
+        gemini_model = GEMINI_MODEL_BY_TASK.get(task_type, GEMINI_MODEL) if task_type else GEMINI_MODEL
+        log.info("    [GEMINI] model=%s task=%s", gemini_model, task_type or "default")
         prompt_file = _write_prompt_file(prompt)
         try:
             rc, stdout, stderr = _run_with_timeout(
-                [GEMINI_CMD, "-p", "", "-y", "-m", GEMINI_MODEL],
+                [GEMINI_CMD, "-p", "", "-y", "-m", gemini_model],
                 timeout=timeout, cwd=str(REPO_ROOT),
                 stdin_path=prompt_file,
             )
@@ -1567,14 +1617,17 @@ def _agent_dispatch(agent, prompt, max_turns=15, json_output=False,
                 pass
 
     # Default: claude
+    use_claude_model = claude_model or (CLAUDE_MODEL_BY_TASK.get(task_type) if task_type else None)
+    if use_claude_model:
+        log.info("    [CLAUDE] model=%s task=%s", use_claude_model, task_type or "default")
     result = claude_run(prompt, max_turns=max_turns, json_output=json_output,
-                        timeout=timeout, retries=retries, model=claude_model)
+                        timeout=timeout, retries=retries, model=use_claude_model)
     # Track token usage from Claude call
     if _last_claude_usage:
         _track_tokens(
             _token_tracker.get("current_issue"),
             _token_tracker.get("current_operation", "dispatch"),
-            "claude", claude_model or "", _last_claude_usage,
+            "claude", use_claude_model or "", _last_claude_usage,
         )
     return result
 
@@ -1599,14 +1652,12 @@ def agent_run(task_type, prompt, max_turns=15, json_output=False,
             agent_timeout = max(timeout, CODEX_TIMEOUT)
             agent_retries = min(agent_retries, CODEX_RETRIES)
 
-        _ar_model = CLAUDE_MODEL_BY_TASK.get(task_type) if agent == "claude" else None
-        _ar_tag = f" [{_ar_model}]" if _ar_model else ""
-        log.info("    [AGENT] Trying %s%s for %s (attempt %d/%d in chain)",
-                 agent, _ar_tag, task_type, i + 1, len(chain))
+        log.info("    [AGENT] Trying %s for %s (attempt %d/%d in chain)",
+                 agent, task_type, i + 1, len(chain))
 
         result = _agent_dispatch(agent, prompt, max_turns=max_turns,
                                  json_output=json_output, timeout=agent_timeout,
-                                 retries=agent_retries, claude_model=_ar_model)
+                                 retries=agent_retries, task_type=task_type)
         if result:
             return result
 
@@ -1694,15 +1745,13 @@ Reply with ONLY a JSON object:
 
         timeout = _estimate_timeout(agent, "triage", issue_key=issue_key,
                                     chain_escalation=chain_esc)
-        _triage_claude_model = CLAUDE_MODEL_BY_TASK.get("triage") if agent == "claude" else None
-        _model_tag = f" [{_triage_claude_model}]" if _triage_claude_model else ""
-        log.info("    [CHAIN] Step %d: %s%s triage for #%d (timeout=%ds)",
-                 i + 1, agent.capitalize(), _model_tag, num, timeout)
+        log.info("    [CHAIN] Step %d: %s triage for #%d (timeout=%ds)",
+                 i + 1, agent.capitalize(), num, timeout)
 
         t0 = time.time()
         turns = 10 if agent == "claude" else 5
         raw_output = _agent_dispatch(agent, prompt, max_turns=turns, timeout=timeout,
-                                     retries=1, claude_model=_triage_claude_model)
+                                     retries=1, task_type="triage")
         elapsed = time.time() - t0
         kill_stale_processes()
 
@@ -1841,9 +1890,8 @@ Do NOT create new test files. Only modify existing tests or existing implementat
         status.set_task(type="test_fix", issue=num, step=f"test_fix_{fix_agent}_{attempt}")
         timeout = _estimate_timeout(fix_agent, "implement",
                                      issue_key=f"testfix_{num}", triage=None)
-        _tf_model = CLAUDE_MODEL_BY_TASK.get("test_fix") if fix_agent == "claude" else None
         agent_out = _agent_dispatch(fix_agent, prompt, max_turns=20,
-                                     timeout=timeout, retries=1, claude_model=_tf_model)
+                                     timeout=timeout, retries=1, task_type="test_fix")
         kill_stale_processes()
 
         if agent_out is None:
@@ -1951,15 +1999,13 @@ Do ONLY the fix. Nothing else."""
 
         timeout = _estimate_timeout(agent, "implement", issue_key=issue_key,
                                     triage=triage, chain_escalation=chain_esc)
-        _impl_model = CLAUDE_MODEL_BY_TASK.get("implement") if agent == "claude" else None
-        _impl_tag = f" [{_impl_model}]" if _impl_model else ""
-        log.info("  [CHAIN] Step %d: %s%s implementing #%d (timeout=%ds) ...",
-                 i + 1, agent.capitalize(), _impl_tag, num, timeout)
+        log.info("  [CHAIN] Step %d: %s implementing #%d (timeout=%ds) ...",
+                 i + 1, agent.capitalize(), num, timeout)
         status.set_task(type="issue_fix", issue=num, step=f"{agent}_fixing")
 
         t0 = time.time()
         agent_out = _agent_dispatch(agent, prompt, max_turns=25, timeout=timeout,
-                                    retries=1, claude_model=_impl_model)
+                                    retries=1, task_type="implement")
         elapsed = time.time() - t0
         kill_stale_processes()
 
@@ -2526,9 +2572,8 @@ RULES:
 
         status.set_task(type="test_hygiene", step=f"fix_{group['description']}_{attempt}")
         timeout = 600  # 10 min per hygiene fix attempt
-        _th_model = CLAUDE_MODEL_BY_TASK.get("test_hygiene") if TEST_HYGIENE_AGENT == "claude" else None
         agent_out = _agent_dispatch(TEST_HYGIENE_AGENT, prompt, max_turns=20,
-                                     timeout=timeout, retries=1, claude_model=_th_model)
+                                     timeout=timeout, retries=1, task_type="test_hygiene")
         kill_stale_processes()
 
         if agent_out is None:
