@@ -163,6 +163,12 @@ namespace mRemoteNG.App
         [return: MarshalAs(UnmanagedType.Bool)]
         internal static extern bool RemoveClipboardFormatListener(IntPtr hwnd);
 
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        internal static extern short VkKeyScan(char ch);
+
+        [DllImport("user32.dll")]
+        internal static extern int MapVirtualKey(int uCode, int uMapType);
+
         #endregion
 
         #region Structures

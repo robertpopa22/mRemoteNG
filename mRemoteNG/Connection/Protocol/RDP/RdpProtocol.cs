@@ -1406,6 +1406,70 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
         }
 
+        public override void SendText(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+
+            try
+            {
+                if (Control == null || Control.IsDisposed) return;
+                var nonScriptable = (IMsRdpClientNonScriptable)((AxHost)Control).GetOcx()!;
+
+                bool keyDown = false;
+                bool keyUp = true;
+
+                // VK constants
+                const int VK_SHIFT = 0x10;
+                const int VK_CONTROL = 0x11;
+                const int VK_MENU = 0x12; // Alt
+
+                // Map VK to Scan Code
+                int shiftScanCode = NativeMethods.MapVirtualKey(VK_SHIFT, 0);
+                int ctrlScanCode = NativeMethods.MapVirtualKey(VK_CONTROL, 0);
+                int altScanCode = NativeMethods.MapVirtualKey(VK_MENU, 0);
+
+                foreach (char c in text)
+                {
+                    short vkScan = NativeMethods.VkKeyScan(c);
+                    if (vkScan == -1)
+                    {
+                        // Fallback to SendKeys for unmappable chars
+                        base.SendText(c.ToString());
+                        continue;
+                    }
+
+                    int vk = vkScan & 0xFF;
+                    int shiftState = (vkScan >> 8) & 0xFF;
+
+                    int scanCode = NativeMethods.MapVirtualKey(vk, 0);
+                    if (scanCode == 0)
+                    {
+                        base.SendText(c.ToString());
+                        continue;
+                    }
+
+                    // Press modifiers
+                    if ((shiftState & 1) != 0) nonScriptable.SendKeys(1, ref keyDown, ref shiftScanCode);
+                    if ((shiftState & 2) != 0) nonScriptable.SendKeys(1, ref keyDown, ref ctrlScanCode);
+                    if ((shiftState & 4) != 0) nonScriptable.SendKeys(1, ref keyDown, ref altScanCode);
+
+                    // Press key
+                    nonScriptable.SendKeys(1, ref keyDown, ref scanCode);
+                    nonScriptable.SendKeys(1, ref keyUp, ref scanCode);
+
+                    // Release modifiers (in reverse order)
+                    if ((shiftState & 4) != 0) nonScriptable.SendKeys(1, ref keyUp, ref altScanCode);
+                    if ((shiftState & 2) != 0) nonScriptable.SendKeys(1, ref keyUp, ref ctrlScanCode);
+                    if ((shiftState & 1) != 0) nonScriptable.SendKeys(1, ref keyUp, ref shiftScanCode);
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Failed to send text to RDP session via direct scan codes. Falling back to SendKeys.", ex);
+                base.SendText(text);
+            }
+        }
+
         protected virtual void SetEventHandlers()
         {
             try

@@ -94,6 +94,39 @@ namespace mRemoteNG.Connection.Protocol
 
         #region Methods
 
+        public virtual void SendText(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            try
+            {
+                Focus();
+                System.Windows.Forms.SendKeys.SendWait(EscapeSendKeys(text));
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("SendText failed (ProtocolBase)", ex);
+            }
+        }
+
+        protected string EscapeSendKeys(string str)
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            foreach (char c in str)
+            {
+                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '!' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
+                {
+                    sb.Append("{");
+                    sb.Append(c);
+                    sb.Append("}");
+                }
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
+
         //public abstract int GetDefaultPort();
 
         public virtual void Focus()

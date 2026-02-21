@@ -15,8 +15,10 @@ using mRemoteNG.Tree;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
+using System.Runtime.InteropServices;
 using mRemoteNG.Security;
 using mRemoteNG.UI.TaskDialog;
+using MSTSCLib;
 
 // ReSharper disable UnusedParameter.Local
 
@@ -1101,11 +1103,10 @@ namespace mRemoteNG.UI.Controls
                 var protocol = connectionInfo.OpenConnections[connectionInfo.OpenConnections.Count - 1];
                 if (protocol != null)
                 {
-                    protocol.Focus();
                     string password = connectionInfo.Password;
                     if (!string.IsNullOrEmpty(password))
                     {
-                        System.Windows.Forms.SendKeys.SendWait(EscapeSendKeys(password));
+                        protocol.SendText(password);
                     }
                 }
             }
@@ -1118,36 +1119,13 @@ namespace mRemoteNG.UI.Controls
                 var protocol = connectionInfo.OpenConnections[connectionInfo.OpenConnections.Count - 1];
                 if (protocol != null)
                 {
-                    protocol.Focus();
                     if (Clipboard.ContainsText())
                     {
                         string text = Clipboard.GetText();
-                        if (!string.IsNullOrEmpty(text))
-                        {
-                            System.Windows.Forms.SendKeys.SendWait(EscapeSendKeys(text));
-                        }
+                        protocol.SendText(text);
                     }
                 }
             }
-        }
-
-        private string EscapeSendKeys(string str)
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            foreach (char c in str)
-            {
-                if (c == '+' || c == '^' || c == '%' || c == '~' || c == '!' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']')
-                {
-                    sb.Append("{");
-                    sb.Append(c);
-                    sb.Append("}");
-                }
-                else
-                {
-                    sb.Append(c);
-                }
-            }
-            return sb.ToString();
         }
 
         public void DisconnectConnection(ConnectionInfo connectionInfo)
