@@ -113,6 +113,24 @@ namespace mRemoteNG.Connection.Protocol.SSH
 
         #region Private Methods
 
+        private static string? FindDefaultSshKey()
+        {
+            string sshDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".ssh");
+            if (!Directory.Exists(sshDir))
+                return null;
+
+            // Prefer modern key types (most secure first)
+            string[] defaultKeyNames = ["id_ed25519", "id_ecdsa", "id_rsa", "id_dsa"];
+            foreach (string keyName in defaultKeyNames)
+            {
+                string candidate = Path.Combine(sshDir, keyName);
+                if (File.Exists(candidate))
+                    return candidate;
+            }
+            return null;
+        }
+
         private static string? FindSshExe()
         {
             // Try the standard Windows OpenSSH location first
@@ -159,12 +177,23 @@ namespace mRemoteNG.Connection.Protocol.SSH
                 args += $"{sshOptions} ";
             }
 
-            // Add private key if specified
+            // Add private key if specified; otherwise try auto-discovery of default keys
             string keyPath = _connectionInfo.PrivateKeyPath?.Trim() ?? string.Empty;
             if (!string.IsNullOrEmpty(keyPath))
             {
                 // Convert PuTTY .ppk to OpenSSH format hint — user should use OpenSSH-format keys
                 args += $"-i \"{keyPath}\" ";
+            }
+            else
+            {
+                // Auto-discover standard SSH key files from ~/.ssh/ when no explicit key is configured
+                string? discoveredKey = FindDefaultSshKey();
+                if (discoveredKey != null)
+                {
+                    Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                        $"No private key configured; auto-discovered SSH key: {discoveredKey}", true);
+                    args += $"-i \"{discoveredKey}\" ";
+                }
             }
 
             // Build user@host or just host

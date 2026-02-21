@@ -714,7 +714,7 @@ namespace mRemoteNG.Connection.Protocol
                             }).ConfigureAwait(false);
                         }
 
-                        // use private key if specified
+                        // use private key if specified; otherwise try auto-discovery of default keys
                         if (!string.IsNullOrEmpty(optionalTemporaryPrivateKeyPath))
                         {
                             arguments.Add("-i", optionalTemporaryPrivateKeyPath);
@@ -722,6 +722,17 @@ namespace mRemoteNG.Connection.Protocol
                         else if (!string.IsNullOrEmpty(InterfaceControl.Info?.PrivateKeyPath))
                         {
                             arguments.Add("-i", InterfaceControl.Info.PrivateKeyPath);
+                        }
+                        else if (string.IsNullOrEmpty(password))
+                        {
+                            // No explicit key or password configured: auto-discover a default SSH key from ~/.ssh/
+                            string? discoveredKey = FindDefaultSshKey();
+                            if (discoveredKey != null)
+                            {
+                                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                                    $"No private key configured; auto-discovered SSH key: {discoveredKey}", true);
+                                arguments.Add("-i", discoveredKey);
+                            }
                         }
 
                     }
@@ -991,6 +1002,32 @@ namespace mRemoteNG.Connection.Protocol
         {
             ssh1 = 1,
             ssh2 = 2
+        }
+
+        #endregion
+
+        #region Private Helpers
+
+        private static string? FindDefaultSshKey()
+        {
+            string sshDir = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".ssh");
+            if (!Directory.Exists(sshDir))
+                return null;
+
+            // Prefer PuTTY-format (.ppk) keys first, then OpenSSH format (supported by PuTTY 0.75+)
+            string[] defaultKeyNames =
+            [
+                "id_ed25519.ppk", "id_rsa.ppk", "id_ecdsa.ppk",
+                "id_ed25519", "id_rsa", "id_ecdsa", "id_dsa"
+            ];
+            foreach (string keyName in defaultKeyNames)
+            {
+                string candidate = Path.Combine(sshDir, keyName);
+                if (File.Exists(candidate))
+                    return candidate;
+            }
+            return null;
         }
 
         #endregion
