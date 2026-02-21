@@ -233,6 +233,7 @@ namespace mRemoteNG.Connection
             IsConnectionsFileLoaded = true;
             ConnectionFileName = connectionFileName;
             Properties.OptionsConnectionsPage.Default.ConnectionFilePath = connectionFileName;
+            Properties.OptionsConnectionsPage.Default.Save();
 
             UsingDatabase = useDatabase;
 

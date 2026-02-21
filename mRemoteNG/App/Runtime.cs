@@ -159,7 +159,7 @@ namespace mRemoteNG.App
                     }
                 }
 
-                if (ex is FileNotFoundException && !withDialog)
+                if ((ex is FileNotFoundException || ex is IOException || ex is UnauthorizedAccessException) && !withDialog)
                 {
                     MessageCollector.AddExceptionMessage(
                                                          string.Format(Language.ConnectionsFileCouldNotBeLoadedNew,
@@ -238,7 +238,14 @@ namespace mRemoteNG.App
             }
             else if (Properties.OptionsConnectionsPage.Default.WatchConnectionFile && !string.IsNullOrEmpty(connectionFileName))
             {
-                ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new FileConnectionsUpdateChecker(connectionFileName));
+                try
+                {
+                    ConnectionsService.RemoteConnectionsSyncronizer = new RemoteConnectionsSyncronizer(new FileConnectionsUpdateChecker(connectionFileName));
+                }
+                catch (Exception ex)
+                {
+                    MessageCollector.AddExceptionMessage("Could not set up file watcher for connection file. File watching is disabled.", ex, MessageClass.WarningMsg);
+                }
             }
         }
 
