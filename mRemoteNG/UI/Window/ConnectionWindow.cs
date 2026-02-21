@@ -37,6 +37,7 @@ namespace mRemoteNG.UI.Window
         private readonly ToolStripMenuItem _cmenTabExcludeFromMultiSsh = new();
         private readonly ToolStripSeparator _cmenTabMultiSshSeparator = new();
         private bool _isAddingTab;
+        private readonly List<IDockContent> _tabActivationHistory = new();
 
         #region Public Methods
 
@@ -154,11 +155,35 @@ namespace mRemoteNG.UI.Window
         {
             ShowHideConnectionTabs();
             AttachConnectionTabDropTarget(e.Content.DockHandler.Form);
+            if (e.Content is ConnectionTab tab)
+                tab.FormClosing += OnConnectionTabFormClosing;
         }
 
         private void ConnDock_ContentRemoved(object? sender, DockContentEventArgs e)
         {
             ShowHideConnectionTabs();
+            if (e.Content is ConnectionTab tab)
+            {
+                tab.FormClosing -= OnConnectionTabFormClosing;
+                _tabActivationHistory.Remove(e.Content);
+            }
+        }
+
+        // Before a tab closes, activate the MRU (previously used) tab so DockPanelSuite
+        // does not auto-select the positionally adjacent tab.
+        private void OnConnectionTabFormClosing(object? sender, FormClosingEventArgs e)
+        {
+            if (e.Cancel || sender is not ConnectionTab closingTab) return;
+            if (!ReferenceEquals(connDock.ActiveContent, closingTab)) return;
+
+            for (int i = _tabActivationHistory.Count - 1; i >= 0; i--)
+            {
+                IDockContent candidate = _tabActivationHistory[i];
+                if (ReferenceEquals(candidate, closingTab)) continue;
+                if (candidate is DockContent dc && dc.IsDisposed) continue;
+                candidate.DockHandler.Activate();
+                return;
+            }
         }
 
         private void SetFormEventHandlers()
@@ -984,6 +1009,13 @@ namespace mRemoteNG.UI.Window
 
         private void ConnDockOnActiveContentChanged(object sender, EventArgs e)
         {
+            // Track MRU activation history so closing a tab returns to the previously used tab
+            if (connDock.ActiveContent is ConnectionTab)
+            {
+                _tabActivationHistory.Remove(connDock.ActiveContent);
+                _tabActivationHistory.Add(connDock.ActiveContent);
+            }
+
             ConnectionTab? selectedTab = GetSelectedTab();
             ConnectionInfo? selectedConnectionInfo = GetConnectionInfoForTab(selectedTab);
             if (selectedConnectionInfo == null) return;
@@ -1737,6 +1769,9 @@ namespace mRemoteNG.UI.Window
                 }
 
                 tabPage.ShowClosedState();
+                // Re-focus the tab so that disposing the protocol control does not shift
+                // focus to the first tab (issue #1645).
+                tabPage.DockHandler.Activate();
                 if (closedConnectionInfo != null)
                     FrmMain.Default.SelectedConnection = closedConnectionInfo;
                 return;
