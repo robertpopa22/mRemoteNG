@@ -575,6 +575,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             SetCredentials();
             SetResolution();
+            SetMultimon();
             _rdpClient.FullScreenTitle = connectionInfo.Name;
 
             _alertOnIdleDisconnect = connectionInfo.RDPAlertIdleTimeout;
@@ -1244,6 +1245,23 @@ namespace mRemoteNG.Connection.Protocol.RDP
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace(Language.RdpSetResolutionFailed, ex);
+            }
+        }
+
+        private void SetMultimon()
+        {
+            if (!connectionInfo.RDPUseMultimon) return;
+            try
+            {
+                if (Control is AxHost axHost &&
+                    axHost.GetOcx() is IMsRdpClientNonScriptable5 ns5)
+                {
+                    ns5.UseMultimon = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to enable RDP multi-monitor (UseMultimon).", ex, MessageClass.WarningMsg, false);
             }
         }
 
