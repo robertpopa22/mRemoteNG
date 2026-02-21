@@ -1,1 +1,9 @@
-{"decision":"implement","reason":"Valid feature request to allow users to customize external tool icons for better visual distinction.","priority":"P3-enhancement","estimated_files":["mRemoteNG/Tools/ExternalTool.cs","mRemoteNG/UI/Window/ExternalToolsWindow.cs","mRemoteNG/Config/Settings/ExternalAppsSaver.cs","mRemoteNG/Config/Settings/ExternalAppsLoader.cs"],"approach":"Add `IconPath` property to `ExternalTool` class. Update serialization in `ExternalAppsSaver` (XML/SQL) and `ExternalAppsLoader` (XML). Add UI control in `ExternalToolsWindow` to browse/select an icon file. Update `ExternalTool.Icon` property to return the custom icon if `IconPath` is set, otherwise fall back to the executable's icon."}
+{
+  "decision": "implement",
+  "reason": "The Connections panel (ConnectionTree, a TreeListView) scrolls unnecessarily when a node gains focus, likely due to an aggressive auto-scroll-on-focus behavior in the underlying TreeListView control.",
+  "priority": "P2-bug",
+  "estimated_files": [
+    "mRemoteNG\\UI\\Controls\\ConnectionTree\\ConnectionTree.cs"
+  ],
+  "approach": "Investigate and disable or modify the TreeListView's auto-scroll-on-focus behavior in ConnectionTree.cs to prevent unwanted scrolling while ensuring the focused item remains visible when necessary (e.g., after adding a new node)."
+}

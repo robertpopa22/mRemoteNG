@@ -26,9 +26,11 @@ namespace mRemoteNG.App.Initialization
 
             foreach (string f in Directory.GetFiles(_path, "*.ico", SearchOption.AllDirectories))
             {
-                FileInfo fInfo = new(f);
+                string relativePath = f.Substring(_path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Length)
+                    .TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                    .Replace(".ico", "");
                 Array.Resize(ref ConnectionIcon.Icons, ConnectionIcon.Icons.Length + 1);
-                ConnectionIcon.Icons.SetValue(fInfo.Name.Replace(".ico", ""), ConnectionIcon.Icons.Length - 1);
+                ConnectionIcon.Icons.SetValue(relativePath, ConnectionIcon.Icons.Length - 1);
             }
         }
     }

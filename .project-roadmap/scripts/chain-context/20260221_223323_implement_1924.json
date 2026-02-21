@@ -1,0 +1,60 @@
+{
+  "task_type": "implement",
+  "task_id": "1924",
+  "started_at": "2026-02-21T22:20:33",
+  "finished_at": "2026-02-21T22:33:23",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1924",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T22:20:33"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1924",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T22:20:33"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1924",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 759s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1923.json",
+        ".project-roadmap/issues-db/upstream/1924.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/UI/Forms/frmMain.cs",
+        "run-tests.ps1"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1923.json       | 21 +++++++++++++++++++--\n .project-roadmap/issues-db/upstream/1924.json       | 15 +++++++++++----\n .../scripts/chain-context/_timeout_history.json     |  4 ++--\n mRemoteNG/UI/Forms/frmMain.cs                       | 17 +++++++++++++++++\n run-tests.ps1                                       | 11 ++++++++++-\n 5 files changed, 59 insertions(+), 9 deletions(-)",
+      "timestamp": "2026-02-21T22:33:23",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1923.json b/.project-roadmap/issues-db/upstream/1923.json\nindex 60cebeb72..cd5bb0e33 100644\n--- a/.project-roadmap/issues-db/upstream/1923.json\n+++ b/.project-roadmap/issues-db/upstream/1923.json\n@@ -12,7 +12,7 @@\n   \"created_at\": \"2021-01-26T21:03:01Z\",\n   \"github_updated_at\": \"2026-02-21T10:23:18Z\",\n   \"body_snippet\": \"<!--- Provide a general summary of the issue in the Title above -->\\r\\nThe default behavior for new rdp connections sets Server authentication to always connect, event if auth fails \\r\\n\\r\\n## Expected Behavior\\r\\n<!--- If you're describing a bug, tell us what should happen -->\\r\\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\\r\\nI think it should a minimum be configure to the warn setting for the default. \\r\\n\\r\\n## Current Behavior\\r\\n<!--- If describing a bug, tell us what happ...\",\n-  \"our_status\": \"triaged\",\n+  \"our_status\": \"testing\",\n   \"priority\": \"P1-security\",\n   \"target_release\": null,\n   \"our_branch\": null,\n@@ -23,6 +23,18 @@\n       \"date\": \"2026-02-21\",\n       \"type\": \"triaged\",\n       \"description\": \"Authentication failures should prevent continuation to avoid potential security risks.\"\n+    },\n+    {\n+      \"seq\": 2,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"testing\",\n+      \"description\": \"Fix in 8a6280e5\",\n+      \"token_usage\": {\n+        \"input_tokens\": 27,\n+        \"output_tokens\": 5518,\n+        \"cost_usd\": 1.220544,\n+        \"operations\": 1\n+      }\n     }\n   ],\n   \"comments\": [\n@@ -50,5 +62,10 @@\n   \"needs_action\": false,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-21T12:06:48Z\",\n-  \"notes\": \"AI triage (gemini): Authentication failures should prevent continuation to avoid potential security risks.\\nApproach: Investigate the authentication flow, especially concerning server connections (e.g., SQL Server, proxy), to ensure that any authentication failure correctly terminates the connection attempt and does not proceed to an insecure state. Review relevant security settings and their default behaviors.\"\n+  \"notes\": \"AI triage (gemini): Authentication failures should prevent continuation to avoid potential security risks.\\nApproach: Investigate the authentication flow, especially concerning server connections (e.g., SQL Server, proxy), to ensure that any authentication failure correctly terminates the connection attempt and does not proceed to an insecure state. Review relevant security settings and their default behaviors.\",\n+  \"token_usage\": {\n+    \"input_tokens\": 27,\n+    \"output_tokens\": 5518,\n+    \"cost_usd\": 1.220544\n+  }\n }\ndiff --git a/.project-roadmap/issues-db/upstream/1924.json b/.project-roadmap/issues-db/upstream/1924.json\nindex 7019c97b2..cff5b334e 100644\n--- a/.project-roadmap/issues-db/upstream/1924.json\n+++ b/.project-roadmap/issues-db/upstream/1924.json\n@@ -11,12 +11,19 @@\n   \"created_at\": \"2021-01-27T03:13:15Z\",\n   \"github_updated_at\": \"2026-02-12T14:11:35Z\",\n   \"body_snippet\": \"Switching between sessions seems to be an entirely mouse-oriented task. \\r\\n\\r\\n## Expected Behavior\\r\\n\\r\\nBeing an app that is often used for CLI, there should be a keyboard option to switch between open sessions / tabs.\\r\\nIn my case I switch between session very frequently, and it's a major way in which mremoteng is worse than just having multiple putty windows open (that and the focus / alt-tab issues).\\r\\n\\r\\n## Current Behavior\\r\\n\\r\\nHave to take hands off keyboard and click with mouse, which is orders of...\",\n-  \"our_status\": \"new\",\n-  \"priority\": null,\n+  \"our_status\": \"triaged\",\n+  \"priority\": \"P3-enhancement\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n-  \"iterations\": [],\n+  \"iterations\": [\n+    {\n+      \"seq\": 1,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"Implement keyboard shortcuts for switching between open sessions/tabs to enhance user navigation and productivity.\"\n+    }\n+  ],\n   \"comments\": [\n     {\n       \"id\": \"IC_kwDOAAcIMM42tnTc\",\n@@ -96,5 +103,5 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": true,\n   \"last_synced\": \"2026-02-15T09:52:50Z\",\n-  \"notes\": \"\"\n+  \"notes\": \"AI triage (gemini): Implement keyboard shortcuts for switching between open sessions/tabs to enhance user navigation and productivity.\\nApproach: Add keydown event handlers to FrmMain to detect keyboard shortcuts (e.g., Ctrl+Tab, Ctrl+Shift+Tab). Use the pnlDock (DockPanel) to programmatically activate the next or previous ConnectionWindow (tab).\"\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex e94e6ebc4..b542d9870 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -160,7 +160,6 @@\n         589.2\n       ],\n       \"triage\": [\n-        29.8,\n         44.1,\n         19.3,\n         31.9,\n@@ -209,7 +208,8 @@\n         28.0,\n         33.8,\n         20.0,\n-        93.1\n+        93.1,\n+        31.1\n       ]\n     },\n     \"gpt41\": {\ndiff --git a/mRemoteNG/UI/Forms/frmMain.cs b/mRemoteNG/UI/Forms/frmMain.cs\nindex 9e077e1b4..f8ec40e8f 100644\n--- a/mRemoteNG/UI/Forms/frmMain.cs\n+++ b/mRemoteNG/UI/Forms/frmMain.cs\n@@ -914,6 +914,23 @@ namespace mRemoteNG.UI.Forms\n                 }\n             }\n \n+            if (m.Msg == NativeMethods.WM_KEYDOWN && (Keys)(int)m.WParam == Keys.Tab)\n+            {\n+                Keys modifiers = Control.ModifierKeys;\n+                if ((modifiers & Keys.Control) != 0)\n+                {\n+                    ConnectionWindow? cw = pnlDock.ActiveDocument as ConnectionWindow;\n+                    if (cw != null)\n+                    {\n+                        if ((modifiers & Keys.Shift) != 0)\n+                            cw.NavigateToPreviousTab();\n+                        else\n+                            cw.NavigateToNextTab();\n+                        return true;\n+                    }\n+                }\n+            }\n+\n             return false;\n         }\n \ndiff --git a/run-tests.ps1 b/run-tests.ps1\nindex de5de2f73..d7f9c854c 100644\n--- a/run-tests.ps1\n+++ b/run-tests.ps1\n@@ -75,7 +75,7 @@ $groups = @(\n     },\n     @{\n         Name = \"Tools+Misc\"\n-        Filter = \"(FullyQualifiedName~mRemoteNGTests.Tools|FullyQualifiedName~mRemoteNGTests.Messages|FullyQualifiedName~mRemoteNGTests.App|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.ExternalConnectors|FullyQualifiedName~mRemoteNGTests.Installer|FullyQualifiedName~mRemoteNGTests.BinaryFileTests)\"\n+        Filter = \"(FullyQualifiedName~mRemoteNGTests.Tools|FullyQualifiedName~mRemoteNGTests.Messages|FullyQualifiedName~mRemoteNGTests.App|FullyQualifiedName~mRemoteNGTests.Container|FullyQualifiedName~mRemoteNGTests.ExternalConnectors|FullyQualifiedName~mRemoteNGTests.Installer|FullyQualifiedName~mRemoteNGTests.BinaryFileTests|FullyQualifiedName~mRemoteNGTests.Properties|FullyQualifiedName~mRemoteNGTests.TestHelpers|FullyQualifiedName~mRemoteNGTests.Themes)\"\n     },\n     @{\n         Name = \"Config\"\n@@ -201,6 +201,15 @@ if (-not $Sequential) {\n         exit 97\n     }\n     Write-Host \"Total: $totalPassed/$totalTests passed, $totalFailed failed\" -ForegroundColor $(if ($totalFailed -gt 0) { \"Red\" } else { \"Green\" })\n+\n+    # Detect uncovered tests: compare parallel sum vs full DLL test count\n+    # If agents added tests in new namespaces not covered by group filters, warn loudly\n+    $listOutput = & dotnet test $testDll --list-tests --verbosity quiet 2>&1 | Out-String\n+    $allTestCount = ($listOutput -split \"`n\" | Where-Object { $_ -match '^\\s{4}\\S' }).Count\n+    if ($allTestCount -gt 0 -and $totalTests -lt $allTestCount) {\n+        $missing = $allTestCount - $totalTests\n+        Write-Host \"WARNING: $missing tests NOT covered by parallel groups ($totalTests/$allTestCount). Update group filters in run-tests.ps1!\" -ForegroundColor Yellow\n+    }\n }\n \n # --- Step 7: Run specs ---"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}
