@@ -124,6 +124,14 @@ namespace mRemoteNG.Config.DataProviders
                         conflictOption = ConflictOption.CompareRowVersion;
                     cb.ConflictOption = conflictOption;
 
+                    // Explicitly retrieve commands after setting ConflictOption so the
+                    // generated UPDATE/DELETE/INSERT use only the primary key in their
+                    // WHERE clause (OverwriteChanges semantics). Without this, the adapter
+                    // auto-generates commands at update time and may ignore the option,
+                    // causing DBConcurrencyException in multi-user environments (#1934).
+                    dataAdapter.UpdateCommand = cb.GetUpdateCommand();
+                    dataAdapter.DeleteCommand = cb.GetDeleteCommand();
+                    dataAdapter.InsertCommand = cb.GetInsertCommand();
                     dataAdapter.Update(dataTable);
 
                     if (mustDisposeTransaction)
