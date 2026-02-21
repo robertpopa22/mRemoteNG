@@ -48,7 +48,6 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     SetExtendedProperty("DisableCredentialsDelegation", true);
                     rdpClient.AdvancedSettings7.AuthenticationServiceClass = "Microsoft Virtual Console Service";
                     rdpClient.AdvancedSettings8.EnableCredSspSupport = true;
-                    rdpClient.AdvancedSettings8.NegotiateSecurityLayer = false;
                     rdpClient.AdvancedSettings7.PCB = $"{connectionInfo.VmId}";
                     if (connectionInfo.UseEnhancedMode)
                         rdpClient.AdvancedSettings7.PCB += ";EnhancedMode=1";
