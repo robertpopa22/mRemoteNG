@@ -10,12 +10,19 @@
   "created_at": "2021-05-18T08:03:11Z",
   "github_updated_at": "2026-02-21T10:22:50Z",
   "body_snippet": "## Expected Behavior\r\nmRemoteNG should start\r\n\r\n## Current Behavior\r\nProcess terminates. Exception written to Windows event log:\r\n\"the process was terminated due to an unhandled exception\"\r\n\r\nOriginal Exception in hungarian:\r\nAlkalmazás: mRemoteNG.exe\r\nKeretrendszer verziószáma: v4.0.30319\r\nLeírás: A folyamat egy nem kezelt kivétel miatt meg lett szakítva.\r\nKivétel adatai: System.Xml.XmlException\r\n   a következő helyen: System.Xml.XmlTextReaderImpl.Throw(System.Exception)\r\n   a következő helyen:...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P0-critical",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "The application fails to start due to an unhandled exception during configuration loading, indicating a critical issue in the settings loading process."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg1MDk3NzY0NQ==",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The application fails to start due to an unhandled exception during configuration loading, indicating a critical issue in the settings loading process.\nApproach: Investigate the 'SettingsLoader.cs' to identify the source of the unhandled exception during configuration loading. This may involve examining file I/O operations, deserialization logic, or data validation within the settings. Implement appropriate error handling, such as try-catch blocks, and add validation to prevent malformed or missing configuration data from causing application startup failures."
 }

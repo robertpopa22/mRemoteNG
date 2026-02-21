@@ -24,6 +24,7 @@ using mRemoteNG.UI.Window;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -74,7 +75,15 @@ namespace mRemoteNG.UI.Forms
                 throw new ThreadStateException("FrmMain must be created on an STA thread.");
             }
 
-            return new FrmMain();
+            try
+            {
+                return new FrmMain();
+            }
+            catch (ConfigurationErrorsException ex)
+            {
+                ProgramRoot.HandleCorruptedUserConfig(ex);
+                return new FrmMain();
+            }
         }
 
         private static ClipboardchangeEventHandler? _clipboardChangedEvent;

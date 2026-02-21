@@ -82,13 +82,10 @@ namespace mRemoteNG.Config.Settings
             }
             catch (ConfigurationErrorsException ex)
             {
-                string configFile = ex.Filename
-                    ?? (ex.InnerException as ConfigurationErrorsException)?.Filename
-                    ?? SettingsFileInfo.UserSettingsFilePath;
+                ProgramRoot.HandleCorruptedUserConfig(ex);
                 _messageCollector.AddExceptionMessage(
-                    $"Settings file is corrupted and could not be loaded. " +
-                    $"Path: {configFile}. The application will use default settings. " +
-                    $"To resolve this, delete or rename the corrupted file and restart.", ex);
+                    "Settings file is corrupted and was reset to defaults. " +
+                    "Please restart mRemoteNG if problems persist.", ex);
             }
             catch (Exception ex)
             {

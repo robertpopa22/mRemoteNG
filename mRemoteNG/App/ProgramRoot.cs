@@ -256,7 +256,7 @@ namespace mRemoteNG.App
         /// Handles a corrupted user.config file by logging diagnostics, backing up the
         /// corrupted file, and deleting it so the application can continue with defaults.
         /// </summary>
-        private static void HandleCorruptedUserConfig(ConfigurationErrorsException ex)
+        internal static void HandleCorruptedUserConfig(ConfigurationErrorsException ex)
         {
             string configPath = GetConfigFilePathFromException(ex);
             string logPath = Path.Combine(
