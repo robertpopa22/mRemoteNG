@@ -337,7 +337,8 @@ namespace mRemoteNG.UI.Window
             _pGrid.ForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.ViewBackColor = activeTheme.ExtendedPalette.getColor("List_Item_Background");
             _pGrid.ViewForeColor = activeTheme.ExtendedPalette.getColor("List_Item_Foreground");
-            _pGrid.LineColor = activeTheme.ExtendedPalette.getColor("List_Item_Border");
+            var lineColor = activeTheme.ExtendedPalette.getColor("List_Item_Border");
+            _pGrid.LineColor = lineColor == _pGrid.ViewBackColor ? SystemColors.ControlDark : lineColor;
             _pGrid.HelpBackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
             _pGrid.HelpForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.CategoryForeColor = activeTheme.ExtendedPalette.getColor("List_Header_Foreground");
