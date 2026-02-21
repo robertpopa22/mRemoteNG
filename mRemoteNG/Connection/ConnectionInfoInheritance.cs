@@ -383,6 +383,12 @@ namespace mRemoteNG.Connection
         public bool AutomaticResize { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
+         DisplayName("Inherit Use Multiple Monitors"),
+         Description("Inherit the Use Multiple Monitors setting from the parent."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
+        public bool RDPUseMultimon { get; set; }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
          LocalizedAttributes.LocalizedDisplayNameInherit(nameof(Language.Colors)),
          LocalizedAttributes.LocalizedDescriptionInherit(nameof(Language.PropertyDescriptionColors)),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]

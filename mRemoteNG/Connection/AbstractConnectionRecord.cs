@@ -85,6 +85,7 @@ namespace mRemoteNG.Connection
         private int _resolutionHeight;
         private RDPDesktopScaleFactor _desktopScaleFactor = default;
         private bool _automaticResize = default;
+        private bool _rdpUseMultimon = default;
         private RDPColors _colors = default;
         private bool _cacheBitmaps = default;
         private bool _displayWallpaper = default;
@@ -840,6 +841,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("AutomaticResize", _automaticResize);
             set => SetField(ref _automaticResize, value, "AutomaticResize");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
+         DisplayName("Use Multiple Monitors"),
+         Description("When enabled and connecting in fullscreen, the RDP session spans all local monitors. Requires RDP 8.1 or later."),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public bool RDPUseMultimon
+        {
+            get => GetPropertyValue("RDPUseMultimon", _rdpUseMultimon);
+            set => SetField(ref _rdpUseMultimon, value, "RDPUseMultimon");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
