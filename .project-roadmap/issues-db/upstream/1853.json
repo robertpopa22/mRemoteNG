@@ -14,7 +14,7 @@
   "created_at": "2020-09-03T01:14:41Z",
   "github_updated_at": "2026-02-21T10:23:39Z",
   "body_snippet": "When clicking \"Check for Updates\", the installed version is higher than the latest version. \r\nThe version I have installed is the latest stable version as per https://mremoteng.org/download\r\nAs such, the \"latest\" version in the check appears to be incorrect, and retrieving that data from https://mremoteng.org/update.txt\r\n\r\nIs https://mremoteng.org/update.txt not being updated?\r\n\r\n## Possible Solution\r\nUse https://github.com/mRemoteNG/mRemoteNG.github.io/blob/master/_data/releases.json rather tha...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -25,6 +25,18 @@
       "date": "2026-02-21",
       "type": "triaged",
       "description": "The application's update check mechanism is retrieving outdated version information, likely due to the content of the 'update.txt' file on the official update server being out of sync with actual releases."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-21",
+      "type": "testing",
+      "description": "Fix in 4e5316b5",
+      "token_usage": {
+        "input_tokens": 27,
+        "output_tokens": 21653,
+        "cost_usd": 1.833549,
+        "operations": 1
+      }
     }
   ],
   "comments": [
@@ -160,5 +172,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): The application's update check mechanism is retrieving outdated version information, likely due to the content of the 'update.txt' file on the official update server being out of sync with actual releases.\nApproach: Implement a new update channel that pulls release information directly from the GitHub API (e.g., from 'https://api.github.com/repos/mRemoteNG/mRemoteNG/releases/latest'). This will involve adding a new channel type in UpdateChannelInfo.cs, modifying AppUpdater.cs to fetch and process the GitHub API response, creating a new parsing mechanism in UpdateInfo.cs for the GitHub data, and updating UpdatesPage.cs and OptionsUpdatesPage.settings to enable user selection of this new update source."
+  "notes": "AI triage (gemini): The application's update check mechanism is retrieving outdated version information, likely due to the content of the 'update.txt' file on the official update server being out of sync with actual releases.\nApproach: Implement a new update channel that pulls release information directly from the GitHub API (e.g., from 'https://api.github.com/repos/mRemoteNG/mRemoteNG/releases/latest'). This will involve adding a new channel type in UpdateChannelInfo.cs, modifying AppUpdater.cs to fetch and process the GitHub API response, creating a new parsing mechanism in UpdateInfo.cs for the GitHub data, and updating UpdatesPage.cs and OptionsUpdatesPage.settings to enable user selection of this new update source.",
+  "token_usage": {
+    "input_tokens": 27,
+    "output_tokens": 21653,
+    "cost_usd": 1.833549
+  }
 }
