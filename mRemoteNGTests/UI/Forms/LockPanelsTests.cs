@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using WeifenLuo.WinFormsUI.Docking;
+using WeifenLuo.WinFormsUI.Docking.ThemeVS2015;
 using System.Threading;
 using System.Windows.Forms;
 using System.Reflection;
@@ -25,66 +26,6 @@ namespace mRemoteNGTests.UI.Forms
         }
 
         /// <summary>
-        /// Tests the SetPanelLock logic using a lightweight Form + DockPanel.
-        /// FrmMain.Default cannot be created in headless test environments
-        /// (Win32Exception: Error creating window handle).
-        /// Instead we reproduce the exact same logic that SetPanelLock() uses.
-        /// </summary>
-        private static void RunWithLightweightDockPanel(Action<DockPanel> testAction)
-        {
-            Exception? caught = null;
-            var thread = new Thread(() =>
-            {
-                try
-                {
-                    var form = new Form
-                    {
-                        Width = 400, Height = 300,
-                        ShowInTaskbar = false,
-                        StartPosition = FormStartPosition.Manual,
-                        Location = new System.Drawing.Point(-10000, -10000)
-                    };
-                    var dockPanel = new DockPanel { Dock = DockStyle.Fill };
-                    form.Controls.Add(dockPanel);
-
-                    form.Load += (_, _) =>
-                    {
-                        form.BeginInvoke(() =>
-                        {
-                            try
-                            {
-                                Application.DoEvents();
-                                testAction(dockPanel);
-                            }
-                            catch (Exception ex)
-                            {
-                                caught = ex;
-                            }
-                            finally
-                            {
-                                Application.ExitThread();
-                            }
-                        });
-                    };
-                    Application.Run(form);
-                }
-                catch (Exception ex)
-                {
-                    if (caught == null) caught = ex;
-                }
-            });
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            if (!thread.Join(TimeSpan.FromSeconds(30)))
-            {
-                thread.Interrupt();
-                Assert.Fail("Test timed out after 30 seconds");
-            }
-            if (caught != null)
-                throw caught;
-        }
-
-        /// <summary>
         /// Reproduces the exact logic from FrmMain.SetPanelLock():
         ///   var lockPanels = !Properties.OptionsTabsPanelsPage.Default.LockPanels;
         ///   foreach (IDockContent dc in pnlDock.Contents)
@@ -107,39 +48,85 @@ namespace mRemoteNGTests.UI.Forms
         [Test]
         public void SetPanelLock_LocksPanels_WhenSettingIsTrue()
         {
-            RunWithLightweightDockPanel(pnlDock =>
+            var hostForm = new Form
             {
+                Width = 400, Height = 300,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(-10000, -10000)
+            };
+            var dockPanel = new DockPanel
+            {
+                Dock = DockStyle.Fill,
+                DocumentStyle = DocumentStyle.DockingWindow,
+                Theme = new VS2015LightTheme()
+            };
+            hostForm.Controls.Add(dockPanel);
+
+            try
+            {
+                hostForm.Show();
+                Application.DoEvents();
+
                 var content = new DockContent();
-                content.Show(pnlDock);
+                content.Show(dockPanel, DockState.Document);
                 Application.DoEvents();
 
                 SetLockPanels(true);
-                ApplyPanelLock(pnlDock);
+                ApplyPanelLock(dockPanel);
 
-                foreach (IDockContent dc in pnlDock.Contents)
+                foreach (IDockContent dc in dockPanel.Contents)
                 {
                     Assert.That(dc.DockHandler.AllowEndUserDocking, Is.False, "Panel should be locked");
                 }
-            });
+            }
+            finally
+            {
+                hostForm.Close();
+                hostForm.Dispose();
+            }
         }
 
         [Test]
         public void SetPanelLock_UnlocksPanels_WhenSettingIsFalse()
         {
-            RunWithLightweightDockPanel(pnlDock =>
+            var hostForm = new Form
             {
+                Width = 400, Height = 300,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.Manual,
+                Location = new System.Drawing.Point(-10000, -10000)
+            };
+            var dockPanel = new DockPanel
+            {
+                Dock = DockStyle.Fill,
+                DocumentStyle = DocumentStyle.DockingWindow,
+                Theme = new VS2015LightTheme()
+            };
+            hostForm.Controls.Add(dockPanel);
+
+            try
+            {
+                hostForm.Show();
+                Application.DoEvents();
+
                 var content = new DockContent();
-                content.Show(pnlDock);
+                content.Show(dockPanel, DockState.Document);
                 Application.DoEvents();
 
                 SetLockPanels(false);
-                ApplyPanelLock(pnlDock);
+                ApplyPanelLock(dockPanel);
 
-                foreach (IDockContent dc in pnlDock.Contents)
+                foreach (IDockContent dc in dockPanel.Contents)
                 {
                     Assert.That(dc.DockHandler.AllowEndUserDocking, Is.True, "Panel should be unlocked");
                 }
-            });
+            }
+            finally
+            {
+                hostForm.Close();
+                hostForm.Dispose();
+            }
         }
     }
 }
