@@ -58,7 +58,7 @@ namespace mRemoteNG.Config.Connections
                 if (metaData == null || !databaseVersionVerifier.VerifyDatabaseVersion(metaData.ConfVersion))
                 {
                     Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, Language.ErrorConnectionListSaveFailed);
-                    return;
+                    throw new Exception(Language.ErrorConnectionListSaveFailed);
                 }
 
                 // Safety check: prevent truncating a non-empty database when the in-memory

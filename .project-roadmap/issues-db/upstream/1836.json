@@ -11,17 +11,35 @@
   "created_at": "2020-08-18T18:37:04Z",
   "github_updated_at": "2021-06-27T12:43:30Z",
   "body_snippet": "connection to SQL is successfull, the same for DB scheme population script. When I save connection, no error is given by application, but is logged in mremote.log - after reopening mRemote, connection DB remains empty. \r\n\r\nError log: \r\n2020-08-18 20:33:31,562 [1] INFO  - mRemoteNG 1.77.1.27713 Přenosná verze starting.\r\n2020-08-18 20:33:31,579 [1] INFO  - Command Line: D:\\Applications\\mRemote\\mRemoteNG.exe\r\n2020-08-18 20:33:31,871 [1] INFO  - Microsoft Windows 10 Pro N  64-bit\r\n2020-08-18 20:33:3...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "SQL save silently fails when database version verification fails — error is logged but not surfaced to the user, leaving the DB empty with no UI feedback.",
+      "token_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1330,
+        "cost_usd": 0.254573,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [],
   "comments_cursor": "2021-06-27T12:43:30Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): SQL save silently fails when database version verification fails — error is logged but not surfaced to the user, leaving the DB empty with no UI feedback.\nApproach: In Save(), when VerifyDatabaseVersion() returns false, surface the error to the user (throw or show notification) instead of silently returning after logging ErrorConnectionListSaveFailed.",
+  "token_usage": {
+    "input_tokens": 7,
+    "output_tokens": 1330,
+    "cost_usd": 0.254573
+  }
 }
