@@ -304,6 +304,9 @@ namespace mRemoteNG.UI.Menu
             DialogResult msgBoxResult = MessageBox.Show(Language.ConfirmResetLayout, string.Empty, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (msgBoxResult == DialogResult.Yes)
             {
+                string layoutFilePath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.LayoutFileName);
+                if (File.Exists(layoutFilePath))
+                    File.Delete(layoutFilePath);
                 MainForm?.SetDefaultLayout();
             }
         }
