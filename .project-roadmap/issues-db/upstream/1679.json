@@ -11,7 +11,7 @@
   ],
   "author": "bpsib",
   "created_at": "2020-01-24T11:59:59Z",
-  "github_updated_at": "2026-02-21T10:24:25Z",
+  "github_updated_at": "2026-02-21T21:48:47Z",
   "body_snippet": "There's no fullscreen option when using VNC. Using the fullscreen (F11) option does NOT make it fullscreen. The toolbars are still there and can't do keyboard shortcuts such as alt+tab on remote computer. This makes it completely useless for me.",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -32,39 +32,11 @@
       }
     }
   ],
-  "comments": [
-    {
-      "id": "IC_kwDOAAcIMM7mXFwX",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:46:53Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mYg_R",
-      "author": "robertpopa22",
-      "date": "2026-02-07T19:51:30Z",
-      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7quXkz",
-      "author": "robertpopa22",
-      "date": "2026-02-21T02:59:25Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`2ad55d9b`](https://github.com/robertpopa22/mRemoteNG/commit/2ad55d9bbcc668f896d20e814967cb2dfc91b9dc)\n**Branch:** `main`\n**What changed:** Wire VncSharpCore RemoteDesktop's scaling/fullscreen capabil\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    }
-  ],
-  "comments_cursor": "2026-02-21T10:24:25Z",
+  "comments": [],
+  "comments_cursor": "2026-02-21T21:48:47Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): VNC protocol has no dedicated fullscreen mode; the generic F11 FullscreenHandler exists but VncSharpCore.RemoteDesktop supports a native fullscreen/scale mode that is not wired up for VNC connections.\nApproach: Wire VncSharpCore RemoteDesktop's scaling/fullscreen capability into the existing FullscreenHandler toggle (F11), ensuring the VNC control stretches to fill the panel when fullscreen is activated, mirroring the RDP SmartSize pattern."
 }

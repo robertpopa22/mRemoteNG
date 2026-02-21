@@ -9,7 +9,7 @@
   ],
   "author": "lundakj",
   "created_at": "2020-04-02T23:18:09Z",
-  "github_updated_at": "2026-02-21T10:24:27Z",
+  "github_updated_at": "2026-02-21T21:41:44Z",
   "body_snippet": "## Expected Behavior\r\nRDP copy paste text filter out numbers when is imput not in EN-US keyboard layout - respectvive is in CS-CZ layout.\r\n\r\n## Possible Solution\r\nsry, no idea. I solve it by switching bot sides of RDP to en-us keyboard layout.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Install czech locale imput both on server and client, and setup same language priority\r\n2. Mame some string with numbers in notepad for example.\r\n3. Copy paste From Local PC to Remote\r\n4. In czech keyb layout is all ...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -30,30 +30,11 @@
       "description": "Fix in c3062e33"
     }
   ],
-  "comments": [
-    {
-      "id": "IC_kwDOAAcIMM7mXFuJ",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:46:47Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qv8t8",
-      "author": "robertpopa22",
-      "date": "2026-02-21T08:16:50Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`c3062e33`](https://github.com/robertpopa22/mRemoteNG/commit/c3062e33237fa8f116bcd0d5f658fd1dcac03a1e)\n**Branch:** `main`\n**What changed:** Investigate keyboard input handling within RdpProtocol.cs to\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    }
-  ],
-  "comments_cursor": "2026-02-21T10:24:27Z",
+  "comments": [],
+  "comments_cursor": "2026-02-21T21:41:44Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (gemini): RDP copy-paste functionality incorrectly filters out numbers when a non-EN-US keyboard layout is used, hindering international user experience.\nApproach: Investigate keyboard input handling within RdpProtocol.cs to ensure proper processing of key events, particularly for numbers, across various keyboard layouts, possibly by adjusting input filtering or character mapping logic."
 }

@@ -30,13 +30,14 @@ namespace mRemoteNG.App
                     openFileDialog.Multiselect = true;
 
                     List<string> fileTypes = new();
-                    fileTypes.AddRange(new[] {Language.FilterAllImportable, "*.xml;*.rdp;*.rdg;*.dat;*.csv;*.html;*.htm"});
+                    fileTypes.AddRange(new[] {Language.FilterAllImportable, "*.xml;*.rdp;*.rdg;*.dat;*.csv;*.html;*.htm;*.txt"});
                     fileTypes.AddRange(new[] {Language.FiltermRemoteXML, "*.xml"});
                     fileTypes.AddRange(new[] {Language.FiltermRemoteCSV, "*.csv"});
                     fileTypes.AddRange(new[] {Language.FilterRDP, "*.rdp"});
                     fileTypes.AddRange(new[] {Language.FilterRdgFiles, "*.rdg"});
                     fileTypes.AddRange(new[] {Language.FilterPuttyConnectionManager, "*.dat"});
                     fileTypes.AddRange(new[] {Language.FilterNetscapeBookmarks, "*.html;*.htm"});
+                    fileTypes.AddRange(new[] {"Text List Files (*.txt)", "*.txt"});
                     fileTypes.AddRange(new[] {Language.FilterAll, "*.*"});
                     fileTypes.AddRange(new[] { Language.FilterSecureCRT, "*.crt" });
 
@@ -111,6 +112,34 @@ namespace mRemoteNG.App
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("App.Import.ImportFromRemoteDesktopManagerCsv() failed.", ex);
+            }
+        }
+
+        public static void ImportFromTextList(ContainerInfo importDestinationContainer)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new())
+                {
+                    openFileDialog.CheckFileExists = true;
+                    openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    openFileDialog.Multiselect = true;
+                    openFileDialog.Filter = $"Text List Files (*.txt)|*.txt|{Language.FilterAll}|*.*";
+
+                    if (openFileDialog.ShowDialog() != DialogResult.OK)
+                        return;
+
+                    HeadlessFileImport(
+                        openFileDialog.FileNames,
+                        importDestinationContainer,
+                        Runtime.ConnectionsService,
+                        fileName => MessageBox.Show(string.Format(Language.ImportFileFailedContent, fileName), Language.AskUpdatesMainInstruction,
+                            MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1));
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("App.Import.ImportFromTextList() failed.", ex);
             }
         }
 
@@ -239,6 +268,8 @@ namespace mRemoteNG.App
                 case ".html":
                 case ".htm":
                     return new BookmarksHtmlImporter();
+                case ".txt":
+                    return new TextListConnectionImporter();
                 default:
                     throw new FileFormatException("Unrecognized file format.");
             }

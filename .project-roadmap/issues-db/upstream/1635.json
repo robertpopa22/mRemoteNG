@@ -9,7 +9,7 @@
   ],
   "author": "Matrix651",
   "created_at": "2019-11-13T08:51:26Z",
-  "github_updated_at": "2026-02-21T10:24:24Z",
+  "github_updated_at": "2026-02-21T23:37:59Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nExclamation mark in passwords not working. \r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instead of the expected behavior -->\r\nAll saved connections with an exclamation mark in the password will be aborted with a connection error. Wh...",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -48,39 +48,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXEHj",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:40:44Z",
-      "snippet": "\"%MSG%\"",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXF0_",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:47:09Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qrS-P",
-      "author": "robertpopa22",
-      "date": "2026-02-20T21:21:55Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`032a7125`](https://github.com/robertpopa22/mRemoteNG/commit/032a71258a97e848ca25f2dc79639289ac1484d1)\n**Branch:** `main`\n**What changed:** Add '!' to the EscapeSendKeys() condition at line 1136 in Co\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:24Z",
+  "comments_cursor": "2026-02-21T23:37:59Z",
   "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): EscapeSendKeys() in ConnectionContextMenu.cs omits '!' from its special-char list, causing SendKeys to interpret it as the Alt modifier instead of a literal character when sending passwords.\nApproach: Add '!' to the EscapeSendKeys() condition at line 1136 in ConnectionContextMenu.cs; also apply EscapeSendKeys (or equivalent) to finalCommand in PuttyBase.cs:247 before calling SendKeys.SendWait."
 }

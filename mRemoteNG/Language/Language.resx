@@ -1693,6 +1693,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="SingleClickOnOpenConnectionSwitchesToIt" xml:space="preserve">
     <value>Single click on opened connection in Connection Tree switches to opened Connection Tab</value>
   </data>
+  <data name="Socks4" xml:space="preserve">
+    <value>Socks 4</value>
+  </data>
   <data name="Socks5" xml:space="preserve">
     <value>Socks 5</value>
   </data>

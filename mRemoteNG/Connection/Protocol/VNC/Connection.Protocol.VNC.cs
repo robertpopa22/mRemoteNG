@@ -2,10 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Windows.Forms;
 using mRemoteNG.App;
+using mRemoteNG.Network.Proxy;
 using mRemoteNG.Tools;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
@@ -289,6 +291,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private TraceListener? _traceListener;
         private StringWriter? _traceWriter;
+        private ProxyTunnel? _proxyTunnel;
         private bool _reconnectAttemptInProgress;
 
         #endregion
@@ -346,8 +349,13 @@ namespace mRemoteNG.Connection.Protocol.VNC
             try
             {
                 if (_vnc == null || _info == null) return false;
-                if (TestConnect(_info.Hostname, _info.Port, 5000))
-                    ConnectWithTimeout(_vnc, _info, VncConnectTimeoutMs);
+
+                (string connectHost, int connectPort) = ResolveConnectionEndpoint();
+                _vnc.VncPort = connectPort;
+
+                bool requiresProxyHandshake = UsesExplicitProxy(_info.VNCProxyType);
+                if (requiresProxyHandshake || TestConnect(connectHost, connectPort, 5000))
+                    ConnectWithTimeout(_vnc, connectHost, _info, VncConnectTimeoutMs);
 
                 // Install the lock-key filter after Connect() creates the VncClient.
                 // Fixes Caps Lock sending 't' instead of toggle (issue #227).
@@ -356,6 +364,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
             catch (Exception ex)
             {
+                DisposeProxyTunnel();
                 Runtime.MessageCollector.AddMessage(Messages.MessageClass.ErrorMsg,
                                                     Language.ConnectionOpenFailed + Environment.NewLine +
                                                     ex.Message);
@@ -380,6 +389,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                     _vnc.Leave -= VNCEvent_LostFocus;
                     _vnc.Disconnect();
                 }
+
+                DisposeProxyTunnel();
                 CleanupTraceListener();
             }
             catch (Exception ex)
@@ -394,6 +405,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         {
             if (disposing)
             {
+                DisposeProxyTunnel();
                 CleanupTraceListener();
             }
             base.Dispose(disposing);
@@ -525,18 +537,155 @@ namespace mRemoteNG.Connection.Protocol.VNC
             _lockKeyFilter?.ReleaseAllModifiers();
         }
 
+        private (string Hostname, int Port) ResolveConnectionEndpoint()
+        {
+            DisposeProxyTunnel();
+
+            if (_info == null)
+                throw new InvalidOperationException("Connection info is not initialized.");
+
+            if (!UsesExplicitProxy(_info.VNCProxyType))
+                return (_info.Hostname, _info.Port);
+
+            if (string.IsNullOrWhiteSpace(_info.VNCProxyIP))
+                throw new InvalidOperationException("VNC proxy address is required for the selected proxy type.");
+
+            if (_info.VNCProxyPort <= 0 || _info.VNCProxyPort > ushort.MaxValue)
+                throw new InvalidOperationException("VNC proxy port is invalid.");
+
+            IProxyClient? proxyClient = ProxyClientFactory.Create(
+                _info.VNCProxyType,
+                _info.VNCProxyIP,
+                _info.VNCProxyPort,
+                _info.VNCProxyUsername,
+                _info.VNCProxyPassword);
+
+            if (proxyClient == null)
+                return (_info.Hostname, _info.Port);
+
+            TcpClient proxiedClient = proxyClient.Connect(_info.Hostname, _info.Port, 5000);
+            _proxyTunnel = new ProxyTunnel(proxiedClient);
+
+            return (IPAddress.Loopback.ToString(), _proxyTunnel.LocalPort);
+        }
+
+        private static bool UsesExplicitProxy(ProxyType proxyType)
+        {
+            return proxyType == ProxyType.ProxyHTTP ||
+                   proxyType == ProxyType.ProxySocks4 ||
+                   proxyType == ProxyType.ProxySocks5;
+        }
+
+        private static (string Hostname, int Port) GetReconnectProbeEndpoint(ConnectionInfo info)
+        {
+            if (UsesExplicitProxy(info.VNCProxyType) &&
+                !string.IsNullOrWhiteSpace(info.VNCProxyIP) &&
+                info.VNCProxyPort > 0)
+            {
+                return (info.VNCProxyIP, info.VNCProxyPort);
+            }
+
+            return (info.Hostname, info.Port);
+        }
+
+        private void DisposeProxyTunnel()
+        {
+            _proxyTunnel?.Dispose();
+            _proxyTunnel = null;
+        }
+
+        private sealed class ProxyTunnel : IDisposable
+        {
+            private readonly TcpListener _listener;
+            private readonly TcpClient _proxiedClient;
+            private readonly CancellationTokenSource _cancellationTokenSource = new();
+            private TcpClient? _localClient;
+            private bool _disposed;
+
+            public ProxyTunnel(TcpClient proxiedClient)
+            {
+                _proxiedClient = proxiedClient;
+                _listener = new TcpListener(IPAddress.Loopback, 0);
+                _listener.Start(1);
+                _ = Task.Run(AcceptAndBridgeAsync);
+            }
+
+            public int LocalPort => ((IPEndPoint)_listener.LocalEndpoint).Port;
+
+            private async Task AcceptAndBridgeAsync()
+            {
+                try
+                {
+                    _localClient = await _listener.AcceptTcpClientAsync().ConfigureAwait(false);
+
+                    using NetworkStream localStream = _localClient.GetStream();
+                    using NetworkStream remoteStream = _proxiedClient.GetStream();
+
+                    Task upstream = PumpAsync(localStream, remoteStream, _cancellationTokenSource.Token);
+                    Task downstream = PumpAsync(remoteStream, localStream, _cancellationTokenSource.Token);
+
+                    await Task.WhenAny(upstream, downstream).ConfigureAwait(false);
+                }
+                catch (ObjectDisposedException) when (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    // Expected when disposed during accept/bridge.
+                }
+                catch (SocketException) when (_cancellationTokenSource.IsCancellationRequested)
+                {
+                    // Expected when disposed during accept/bridge.
+                }
+                catch (OperationCanceledException)
+                {
+                    // Expected on cancellation.
+                }
+                finally
+                {
+                    Dispose();
+                }
+            }
+
+            private static async Task PumpAsync(Stream source, Stream destination, CancellationToken cancellationToken)
+            {
+                byte[] buffer = new byte[81920];
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    int read = await source.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken)
+                                           .ConfigureAwait(false);
+                    if (read <= 0) break;
+
+                    await destination.WriteAsync(buffer.AsMemory(0, read), cancellationToken)
+                                     .ConfigureAwait(false);
+                    await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
+                }
+            }
+
+            public void Dispose()
+            {
+                if (_disposed) return;
+                _disposed = true;
+
+                _cancellationTokenSource.Cancel();
+
+                try { _listener.Stop(); } catch { /* best effort */ }
+                try { _localClient?.Close(); } catch { /* best effort */ }
+                try { _proxiedClient.Close(); } catch { /* best effort */ }
+
+                _cancellationTokenSource.Dispose();
+            }
+        }
+
         /// <summary>
         /// Runs the blocking VncSharpCore Connect() on a background thread with a timeout
         /// so that unreachable VNC servers fail fast instead of freezing the UI (issue #636).
         /// </summary>
-        private static void ConnectWithTimeout(VncSharpCore.RemoteDesktop vnc, ConnectionInfo info, int timeoutMs)
+        private static void ConnectWithTimeout(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info, int timeoutMs)
         {
             Exception? connectException = null;
             var connectTask = Task.Run(() =>
             {
                 try
                 {
-                    vnc.Connect(info.Hostname, info.VNCViewOnly,
+                    vnc.Connect(hostName, info.VNCViewOnly,
                                 info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
                 }
                 catch (Exception ex)
@@ -636,6 +785,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private void VNCEvent_Disconnected(object sender, EventArgs e)
         {
             _reconnectAttemptInProgress = false;
+            DisposeProxyTunnel();
 
             if (_lockKeyFilter != null)
             {
@@ -681,7 +831,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
             {
                 if (ReconnectGroup == null || _vnc == null || _info == null || _reconnectAttemptInProgress) return;
 
-                bool srvReady = PortScanner.IsPortOpen(_info.Hostname, Convert.ToString(_info.Port));
+                (string probeHost, int probePort) = GetReconnectProbeEndpoint(_info);
+                bool srvReady = PortScanner.IsPortOpen(probeHost, Convert.ToString(probePort));
                 ReconnectGroup.ServerReady = srvReady;
 
                 if (!ReconnectGroup.ReconnectWhenReady || !srvReady) return;
@@ -689,7 +840,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 _reconnectAttemptInProgress = true;
 
                 SetupTraceListener();
-                ConnectWithTimeout(_vnc, _info, VncConnectTimeoutMs);
+                (string connectHost, int connectPort) = ResolveConnectionEndpoint();
+                _vnc.VncPort = connectPort;
+                ConnectWithTimeout(_vnc, connectHost, _info, VncConnectTimeoutMs);
 
                 tmrReconnect.Enabled = false;
                 if (ReconnectGroup != null && !ReconnectGroup.IsDisposed)
@@ -704,6 +857,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
             catch (Exception ex)
             {
+                DisposeProxyTunnel();
                 Runtime.MessageCollector.AddExceptionMessage(
                     string.Format(Language.AutomaticReconnectError, _info?.Hostname),
                     ex, Messages.MessageClass.WarningMsg, false);
@@ -784,6 +938,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
             [LocalizedAttributes.LocalizedDescription(nameof(Language.Http))]
             ProxyHTTP,
+
+            [LocalizedAttributes.LocalizedDescription(nameof(Language.Socks4))]
+            ProxySocks4,
 
             [LocalizedAttributes.LocalizedDescription(nameof(Language.Socks5))]
             ProxySocks5,

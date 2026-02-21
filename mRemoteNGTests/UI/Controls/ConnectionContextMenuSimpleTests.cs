@@ -35,5 +35,29 @@ namespace mRemoteNGTests.UI.Controls
             var separator = items.FirstOrDefault(i => i.Name == "_cMenTreeSep5");
              Assert.That(separator, Is.Not.Null, "Separator before Options menu item not found");
         }
+
+        [Test]
+        public void VerifyImportFromTextListMenuItemExists()
+        {
+            ConnectionContextMenu? menu = null;
+
+            var thread = new Thread(() =>
+            {
+                menu = new ConnectionContextMenu(null!);
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+
+            Assert.That(menu, Is.Not.Null);
+            var items = menu!.Items.Cast<ToolStripItem>().ToList();
+            var importItem = items.FirstOrDefault(i => i.Name == "_cMenTreeImport") as ToolStripMenuItem;
+
+            Assert.That(importItem, Is.Not.Null, "Import menu item not found");
+            var importDropdownItems = importItem!.DropDownItems.Cast<ToolStripItem>().ToList();
+            var textListItem = importDropdownItems.FirstOrDefault(i => i.Name == "_cMenTreeImportTextList");
+
+            Assert.That(textListItem, Is.Not.Null, "Import from text list menu item not found");
+        }
     }
 }

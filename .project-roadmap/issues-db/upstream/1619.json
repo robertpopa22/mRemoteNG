@@ -8,7 +8,7 @@
   ],
   "author": "boomshankerx",
   "created_at": "2019-10-12T21:11:32Z",
-  "github_updated_at": "2026-02-21T10:24:24Z",
+  "github_updated_at": "2026-02-21T23:40:02Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\nInheritance of Redirect > Audio Capture is not saved when closing mRemoteNG\r\nv 1.77.1.27654\r\n\r\n## Steps to Reproduce (for bugs)\r\n<!--- Provide an unambiguous set of steps to reproduce -->\r\n<!--- this bug. Include code to reproduce, if relevant -->\r\n1. Change inheritance of Redirect > Audio Capture in a folder or connection\r\n2. Close mRemoteNG\r\n3. Open mRemoteNG\r\n4. Settings not preserved\r\n\r\n",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -38,30 +38,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXF26",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:47:15Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qq3RC",
-      "author": "robertpopa22",
-      "date": "2026-02-20T20:52:11Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`a14d0906`](https://github.com/robertpopa22/mRemoteNG/commit/a14d09063bdf6097505f93dcaedf17b5e1f2a98a)\n**Branch:** `main`\n**What changed:** Add InheritRedirectAudioCapture property to ConnectionInfoIn\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:24Z",
+  "comments_cursor": "2026-02-21T23:40:02Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): Audio Capture Redirect inheritance flag is not persisted to XML because the property is missing from the serializer/deserializer for ConnectionInfoInheritance.\nApproach: Add InheritRedirectAudioCapture property to ConnectionInfoInheritance if missing, then ensure it is written/read in the XML serializer and deserializer alongside the other InheritRedirect* fields."
 }

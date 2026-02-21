@@ -8,7 +8,7 @@
   ],
   "author": "itagagaki",
   "created_at": "2021-04-16T04:23:38Z",
-  "github_updated_at": "2023-01-17T00:31:00Z",
+  "github_updated_at": "2026-02-21T22:41:45Z",
   "body_snippet": "On mRemoteNG Version 1.76.20.24615 with Windows 10 (x64),\r\nI can't join a web conference on a remote PC with a webcam or headset on a local PC.\r\n\r\nThis is possible with the Microsoft Remote Desktop client for Windows. It allows us to select the devices and resources on the local PC to use for the remote session, and there is also a choice of video capture device.\r\n\r\nIt would be very nice to be able to do that with mRemoteNG as well.\r\n",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -38,17 +38,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q0eyc",
+      "author": "robertpopa22",
+      "date": "2026-02-21T22:41:35Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Add device redirection properties (RedirectDrives, RedirectP\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2023-01-17T00:31:00Z",
+  "comments_cursor": "2026-02-21T22:41:45Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
-  "notes": "AI triage (claude): Feature request to expose RDP device redirection settings (local drives, printers, ports, smart cards) in connection properties UI via MsRdpClient AdvancedSettings.\nApproach: Add device redirection properties (RedirectDrives, RedirectPrinters, RedirectPorts, RedirectSmartCards, RedirectClipboard) to ConnectionInfo and wire them to MsRdpClientAdvancedSettings in the RDP protocol handler, then expose checkboxes in the connection properties UI panel.",
-  "token_usage": {
-    "input_tokens": 3,
-    "output_tokens": 615,
-    "cost_usd": 0.127633
-  }
+  "waiting_for_us": false,
+  "last_synced": "2026-02-21T23:48:23Z",
+  "notes": "AI triage (claude): Feature request to expose RDP device redirection settings (local drives, printers, ports, smart cards) in connection properties UI via MsRdpClient AdvancedSettings.\nApproach: Add device redirection properties (RedirectDrives, RedirectPrinters, RedirectPorts, RedirectSmartCards, RedirectClipboard) to ConnectionInfo and wire them to MsRdpClientAdvancedSettings in the RDP protocol handler, then expose checkboxes in the connection properties UI panel."
 }

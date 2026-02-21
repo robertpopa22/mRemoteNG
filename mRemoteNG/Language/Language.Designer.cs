@@ -6379,6 +6379,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Socks 4.
+        /// </summary>
+        internal static string Socks4 {
+            get {
+                return ResourceManager.GetString("Socks4", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Socks 5.
         /// </summary>
         internal static string Socks5 {

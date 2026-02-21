@@ -9,7 +9,7 @@
   ],
   "author": "DExUS5",
   "created_at": "2019-12-19T08:58:22Z",
-  "github_updated_at": "2026-02-21T10:24:26Z",
+  "github_updated_at": "2026-02-21T21:44:40Z",
   "body_snippet": "Hi,\r\n\r\nthe app is great, I dont know where it was my whole life.\r\n\r\nIt would be great to have ability to right click on \"folder\" tree node and exclude it from the search.\r\nIt could be grayed out, or with some other icon (crossed out magnifier). \r\n\r\n\r\n",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -57,30 +57,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mYikO",
-      "author": "robertpopa22",
-      "date": "2026-02-07T19:56:52Z",
-      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.8 (Fenix)",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qvP7i",
-      "author": "robertpopa22",
-      "date": "2026-02-21T06:09:22Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`e647fceb`](https://github.com/robertpopa22/mRemoteNG/commit/e647fcebb7cdba35bb76f8ffc66bd03805b55ee1)\n**Branch:** `main`\n**What changed:** Add an ExcludeFromSearch bool property to ContainerInfo; mod\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:26Z",
+  "comments_cursor": "2026-02-21T21:44:40Z",
   "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): Allowing users to exclude specific tree branches from search results is a reasonable UX enhancement that fits naturally into the existing IModelFilter-based search architecture.\nApproach: Add an ExcludeFromSearch bool property to ContainerInfo; modify ConnectionTreeSearchTextFilter to skip nodes whose ancestor containers have that flag set; expose a right-click context menu toggle; persist the flag in the XML serializer/deserializer."
 }

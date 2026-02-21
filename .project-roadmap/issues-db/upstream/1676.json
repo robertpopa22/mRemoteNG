@@ -9,7 +9,7 @@
   ],
   "author": "leaskovski",
   "created_at": "2020-01-21T16:08:41Z",
-  "github_updated_at": "2026-02-21T10:24:27Z",
+  "github_updated_at": "2026-02-21T21:43:46Z",
   "body_snippet": "Hi Guys, I have been using external apps to add in VMWare Player VMs into my setup.  This works great by increasing the default wait time from 2 seconds to 10 seconds for the VM to start, and then it runs integrated with the mRemoteNG container!  What I would like to do though, is get the current resize code that triggers after the external app has been launched, to also trigger when the external app decides to resize itself for some reason.\r\n\r\n## Expected Behavior\r\nSo, I would like a setting th...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -66,21 +66,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qvkhp",
-      "author": "robertpopa22",
-      "date": "2026-02-21T07:12:52Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`9ed73106`](https://github.com/robertpopa22/mRemoteNG/commit/9ed731064c7a617492766bb0326de621f8832566)\n**Branch:** `main`\n**What changed:** Add a new public event to FrmMain.cs that is triggered whene\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:27Z",
+  "comments_cursor": "2026-02-21T21:43:46Z",
   "unread_comments": 4,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (gemini): Introduce a global application resize event hook to allow various UI components and modules to react consistently to changes in the main application window's size.\nApproach: Add a new public event to FrmMain.cs that is triggered whenever the form's Resize event fires, providing a standardized way for other parts of the application to observe and respond to main window size changes."
 }

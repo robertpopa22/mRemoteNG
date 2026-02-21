@@ -1,0 +1,22 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1973: REQUEST: Wide SOCKS4 support
+
+Description:
+
+
+Recommended approach: Extend VNCEnum.ProxyType with SOCKS4. Develop proxy clients for SOCKS4, SOCKS5, and HTTP to establish proxied network streams/sockets. Modify ProtocolVNC.Connect() to use a ProxyClientFactory to create and utilize the appropriate proxy client based on ConnectionInfo.VNCProxyType, and then pass the established proxied stream/socket to VncSharpCore.RemoteDesktop. Update the UI to include the SOCKS4 option and add corresponding localization strings. Ensure comprehensive unit tests are added for the new SOCKS4 functionality and existing proxy types.
+Likely files: mRemoteNG/Connection/Protocol/VNC/VNCEnum.cs, mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs, mRemoteNG/UI/Controls/ConnectionInfoPropertyGrid/ConnectionInfoPropertyGrid.cs, mRemoteNG/Resources/Language/Language.resx, mRemoteNG/Network/Proxy/Socks4ProxyClient.cs, mRemoteNG/Network/Proxy/Socks5ProxyClient.cs, mRemoteNG/Network/Proxy/HttpProxyClient.cs, mRemoteNG/Network/Proxy/ProxyClientFactory.cs, mRemoteNGTests/Connection/Protocol/VNC/VncProxyTests.cs
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
+- NEVER modify these infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props, .github/workflows/*. They are READ-ONLY.
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else.

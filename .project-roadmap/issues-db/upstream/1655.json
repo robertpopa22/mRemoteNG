@@ -10,7 +10,7 @@
   ],
   "author": "gonepaper",
   "created_at": "2019-12-16T11:03:39Z",
-  "github_updated_at": "2026-02-21T10:24:25Z",
+  "github_updated_at": "2026-02-21T23:32:29Z",
   "body_snippet": "Hello,\r\n\r\nVersion : MremoteNG  1.76.11.40527\r\n\r\nImpact: when disabling \"saving connections on exit\", it still save connections.\r\nIs this normal?\r\n\r\nThank you.\r\nGone.\r\n",
   "our_status": "triaged",
   "priority": "P2-bug",
@@ -31,48 +31,11 @@
       }
     }
   ],
-  "comments": [
-    {
-      "id": "IC_kwDOAAcIMM7mXEGh",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:40:41Z",
-      "snippet": "\"%MSG%\"",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXFyK",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:47:00Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mYijm",
-      "author": "robertpopa22",
-      "date": "2026-02-07T19:56:50Z",
-      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.77.2",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qt38q",
-      "author": "robertpopa22",
-      "date": "2026-02-21T01:46:12Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`210d7522`](https://github.com/robertpopa22/mRemoteNG/commit/210d7522e755f539def553ef4764b11a8b7e7bc1)\n**Branch:** `main`\n**What changed:** In the FormClosing/exit handler, wrap the connections-save c\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    }
-  ],
-  "comments_cursor": "2026-02-21T10:24:25Z",
+  "comments": [],
+  "comments_cursor": "2026-02-21T23:32:29Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): User setting to disable saving connections on exit is ignored — the save logic runs unconditionally on app close instead of checking the option flag.\nApproach: In the FormClosing/exit handler, wrap the connections-save call with a check against the 'Save connections on exit' setting (e.g. `if (Settings.Default.SaveConnectionsOnExit)`) before invoking the serializer/save routine."
 }

@@ -9,7 +9,7 @@
   ],
   "author": "bpsib",
   "created_at": "2019-12-31T01:12:46Z",
-  "github_updated_at": "2026-02-21T10:24:25Z",
+  "github_updated_at": "2026-02-21T23:32:00Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nI can't find an option to disable the RDP connection bar from showing when moving the mouse cursor to the top while it's full screen. This gets extremelly annoying when using a touch screen because it appears and gets in the way every time I touch the screen. It's not fit for purpose for me without this option.\r\n\r\n## Your Environment\r\n<!--- Include as many relevant details about the environment you experienced the bug in -->\r\n*...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -66,30 +66,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXFw-",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:46:55Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7quJDn",
-      "author": "robertpopa22",
-      "date": "2026-02-21T02:31:32Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`61b3cd2c`](https://github.com/robertpopa22/mRemoteNG/commit/61b3cd2cd9245565d99bb77cfbdcecf6fa7db83e)\n**Branch:** `main`\n**What changed:** Add a bool ConnectionBar property to ConnectionInfo, apply i\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:25Z",
+  "comments_cursor": "2026-02-21T23:32:00Z",
   "unread_comments": 4,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): RDP connection bar visibility is controllable via MSTSCLib AdvancedSettings2.DisplayConnectionBar; exposing it as a per-connection boolean property is a straightforward enhancement.\nApproach: Add a bool ConnectionBar property to ConnectionInfo, apply it via AdvancedSettings2.DisplayConnectionBar in RdpProtocolHandler before connecting, and expose it in the connection properties panel."
 }

@@ -12,7 +12,7 @@
   ],
   "author": "ics01",
   "created_at": "2020-03-24T14:05:11Z",
-  "github_updated_at": "2026-02-21T10:24:25Z",
+  "github_updated_at": "2026-02-21T21:47:54Z",
   "body_snippet": "Using a sync service (Hubic, for instance) to register the parameters of mRemote (configMRemote.xml) should be improved by the disabling ability of the automatic backup of parameters.\r\n\r\n## Expected Behavior\r\nNo creation of automatic backup\r\n\r\n## Current Behavior\r\nmRemote NG is creating an automatic backup (configMRemote.xml.20200324-1424534988, for example) at the opening and while closing the program. Depending on the option \"Register connexions on exit\", it may create other automatic backups....",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -51,30 +51,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mYhJQ",
-      "author": "robertpopa22",
-      "date": "2026-02-07T19:52:07Z",
-      "snippet": "Triage refresh (P4 version-label debt): this issue is tagged with legacy version labels. Please retest on the latest build (fork v1.79.x or upstream dev), then share reproducible steps and expected vs actual behavior. If still valid, keep open and relabel to current triage scope (for example Need 2 check). If fixed, close with resolution.\n\nCurrent legacy version labels: 1.78.*",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7quiS2",
-      "author": "robertpopa22",
-      "date": "2026-02-21T03:27:50Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`2e69d11f`](https://github.com/robertpopa22/mRemoteNG/commit/2e69d11fca77dbebec16ca4f3b656cd5195b033d)\n**Branch:** `main`\n**What changed:** Add a boolean setting (e.g. BackupOnSave) to app settings, e\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:25Z",
+  "comments_cursor": "2026-02-21T21:47:54Z",
   "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): Legitimate user request to add a toggle option that disables automatic XML backup creation during connection file saves.\nApproach: Add a boolean setting (e.g. BackupOnSave) to app settings, expose it in the Options dialog under the Backup/Connections section, and wrap the existing backup call in Runtime.cs or the XML data provider with a guard that checks this setting before creating the .bak file."
 }

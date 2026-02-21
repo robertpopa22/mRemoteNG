@@ -10,7 +10,7 @@
   ],
   "author": "cguadall",
   "created_at": "2019-11-27T17:54:12Z",
-  "github_updated_at": "2026-02-21T10:24:24Z",
+  "github_updated_at": "2026-02-21T23:37:36Z",
   "body_snippet": "\r\n\r\n## Expected Behavior\r\n\r\nOnly ask for custom encryption password for connections at startup time.\r\n\r\n## Current Behavior\r\n\r\nWhen using SQL Server connections (tested on MySQL), after every change password is asked in a new popup window. This is quite annoying.\r\n\r\nBut what is more annoying is that if from another session someone doesn't enter the custom password (pop-up password window loose the focus) and make any change, previous change are lost.\r\n\r\n\r\n## Possible Solution\r\nStore custom encry...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -40,30 +40,12 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
-    },
-    {
-      "id": "IC_kwDOAAcIMM7mXFz7",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:47:06Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qsMDP",
-      "author": "robertpopa22",
-      "date": "2026-02-20T22:28:22Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`3d05845d`](https://github.com/robertpopa22/mRemoteNG/commit/3d05845ddd0fd4241c2bc6eeccb124d1037cd694)\n**Branch:** `main`\n**What changed:** Cache the SQL custom password in memory (SecureString) for t\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:24:24Z",
+  "comments_cursor": "2026-02-21T23:37:36Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): SQL connections repeatedly prompt for a custom password after any settings change, instead of caching credentials for the session.\nApproach: Cache the SQL custom password in memory (SecureString) for the session lifetime and only re-prompt when credentials are explicitly cleared or authentication fails, rather than prompting on every settings change."
 }

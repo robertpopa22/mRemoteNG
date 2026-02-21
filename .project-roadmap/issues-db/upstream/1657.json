@@ -10,7 +10,7 @@
   ],
   "author": "schittli",
   "created_at": "2019-12-18T16:37:26Z",
-  "github_updated_at": "2026-02-21T10:24:26Z",
+  "github_updated_at": "2026-02-21T21:44:24Z",
   "body_snippet": "Good evening\r\n\r\nIf one has a session with multiple Panels (each contains Sessions) and then the last session in a Panel gets closed, then the Panel does not get closed.\r\n\r\nThis is confusing because it is unclear if active sessions are still open in a panel.\r\n\r\n## Expected Behavior\r\nIf the last Session in a Panel gets closed, \r\nthen the Panel should get closed, too.\r\n\r\n## Current Behavior\r\nIf the last Session in a Panel gets closed, \r\nthen the empoy Panel is kept open.\r\n\r\n## Possible Solution\r\nIn...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -31,30 +31,11 @@
       }
     }
   ],
-  "comments": [
-    {
-      "id": "IC_kwDOAAcIMM7mXFx7",
-      "author": "robertpopa22",
-      "date": "2026-02-07T16:46:58Z",
-      "snippet": "Triage refresh (P2): this issue has been inactive for a long time. Please retest on the latest build and share reproducible steps, expected vs actual behavior, and logs/screenshots. If there is no confirmation/update, maintainers can close it as stale or not reproducible.",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    },
-    {
-      "id": "IC_kwDOAAcIMM7qvX2I",
-      "author": "robertpopa22",
-      "date": "2026-02-21T06:36:11Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** [`24451992`](https://github.com/robertpopa22/mRemoteNG/commit/24451992cadd50f7fd1c714158e5ea63b624ad85)\n**Branch:** `main`\n**What changed:** Hook into the tab/connection close event; after removing the\n\n**Download latest beta:** [v1.81.0-beta.2](https://github.com/robertpopa22/mRemoteNG/releases)\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
-      "is_ours": true,
-      "analyzed": false,
-      "action_needed": false
-    }
-  ],
-  "comments_cursor": "2026-02-21T10:24:26Z",
+  "comments": [],
+  "comments_cursor": "2026-02-21T21:44:24Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (claude): Valid UX enhancement: closing the last session tab in a panel should auto-close the panel to reduce UI clutter, consistent with standard tabbed-interface behavior.\nApproach: Hook into the tab/connection close event; after removing the last IFC tab from a panel, call panel.Close() or hide the empty panel via the docking manager."
 }

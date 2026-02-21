@@ -9,7 +9,7 @@
   ],
   "author": "dz-yamh",
   "created_at": "2021-03-01T15:29:53Z",
-  "github_updated_at": "2026-02-21T10:23:20Z",
+  "github_updated_at": "2026-02-21T22:01:24Z",
   "body_snippet": "## Expected Behavior\r\nEither create a new setting in the config for a folder or if a period is used for domain, don't use the current hostname that mRemoteNG is running on as the value of the domain setting.\r\n\r\n## Current Behavior\r\nAFAIK, current configuration doesn't allow for setting the domain of the connection to be the same as the name of the connection\r\nSetting a period as the value of the domain setting will use the name of the current host that mRemoteNG is running on as the value and no...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -51,12 +51,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q0Sey",
+      "author": "robertpopa22",
+      "date": "2026-02-21T22:01:16Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Introduce a new method `ExpandDomainVariables` in `Connectio\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:23:20Z",
+  "comments_cursor": "2026-02-21T22:01:24Z",
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-21T23:48:23Z",
   "notes": "AI triage (gemini): Allows users to dynamically set the domain value based on the connection name, enhancing flexibility.\nApproach: Introduce a new method `ExpandDomainVariables` in `ConnectionInfo.cs` to replace a placeholder (e.g., `%Name%` or `%ConnectionName%`) in the 'Domain' property with the connection's actual name. Integrate this method into the getter of the 'Domain' property in `ConnectionInfo.cs`. Add a new unit test in `ConnectionInfoTests.cs` to verify this functionality."
 }

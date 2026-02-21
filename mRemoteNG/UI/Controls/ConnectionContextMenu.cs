@@ -71,6 +71,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeExportFile = null!;
         private ToolStripSeparator _toolStripSeparator1 = null!;
         private ToolStripMenuItem _cMenTreeImportFile = null!;
+        private ToolStripMenuItem _cMenTreeImportTextList = null!;
         private ToolStripMenuItem _cMenTreeImportFromRemoteDesktopManager = null!;
         private ToolStripMenuItem _cMenTreeImportActiveDirectory = null!;
         private ToolStripMenuItem _cMenTreeImportPortScan = null!;
@@ -137,6 +138,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeLoadAdditionalFile = new ToolStripMenuItem();
             _cMenTreeImport = new ToolStripMenuItem();
             _cMenTreeImportFile = new ToolStripMenuItem();
+            _cMenTreeImportTextList = new ToolStripMenuItem();
             _cMenTreeImportFromRemoteDesktopManager = new ToolStripMenuItem();
             _cMenTreeImportActiveDirectory = new ToolStripMenuItem();
             _cMenTreeImportPortScan = new ToolStripMenuItem();
@@ -437,6 +439,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeImport.DropDownItems.AddRange(new ToolStripItem[]
             {
                 _cMenTreeImportFile,
+                _cMenTreeImportTextList,
                 _cMenTreeImportFromRemoteDesktopManager,
                 _cMenTreeImportActiveDirectory,
                 _cMenTreeImportPutty,
@@ -453,6 +456,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeImportFile.Size = new System.Drawing.Size(226, 22);
             _cMenTreeImportFile.Text = "Import from &File...";
             _cMenTreeImportFile.Click += OnImportFileClicked;
+            //
+            // cMenTreeImportTextList
+            //
+            _cMenTreeImportTextList.Name = "_cMenTreeImportTextList";
+            _cMenTreeImportTextList.Size = new System.Drawing.Size(226, 22);
+            _cMenTreeImportTextList.Text = "Import from &Text List...";
+            _cMenTreeImportTextList.Click += OnImportTextListClicked;
 
             // cMenTreeImportFromRemoteDesktopManager
             _cMenTreeImportFromRemoteDesktopManager.Name = "_cMenTreeImportFromRemoteDesktopManager";
@@ -666,6 +676,7 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeImport.Text = Language._Import;
             _cMenTreeImportFile.Text = Language.ImportFromFile;
+            _cMenTreeImportTextList.Text = "Import from Text List...";
             _cMenTreeImportActiveDirectory.Text = Language.ImportAD;
             _cMenTreeImportPortScan.Text = Language.ImportPortScan;
             _cMenTreeExportFile.Text = Language._ExportToFile;
@@ -1276,6 +1287,18 @@ namespace mRemoteNG.UI.Controls
                     _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
             if (selectedNodeAsContainer == null) return;
             Import.ImportFromFile(selectedNodeAsContainer);
+        }
+
+        private void OnImportTextListClicked(object sender, EventArgs e)
+        {
+            ContainerInfo? selectedNodeAsContainer;
+            if (_connectionTree.SelectedNode == null)
+                selectedNodeAsContainer = Runtime.ConnectionsService.ConnectionTreeModel?.RootNodes.First();
+            else
+                selectedNodeAsContainer =
+                    _connectionTree.SelectedNode as ContainerInfo ?? _connectionTree.SelectedNode.Parent;
+            if (selectedNodeAsContainer == null) return;
+            Import.ImportFromTextList(selectedNodeAsContainer);
         }
 
         private void OnImportPuttyClicked(object sender, EventArgs e)
