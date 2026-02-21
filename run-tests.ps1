@@ -139,8 +139,12 @@ if ($Sequential) {
 
     foreach ($entry in $jobs) {
         $result = Receive-Job -Job $entry.Job -Wait
-        $jobExitCode = $result | Where-Object { $_ -is [int] } | Select-Object -Last 1
-        if ($null -eq $jobExitCode) { $jobExitCode = 0 }
+        # Deserialized ints from PS jobs don't match [int] type — use TryParse
+        $jobExitCode = 0
+        $tmpInt = 0
+        foreach ($item in $result) {
+            if ([int]::TryParse("$item", [ref]$tmpInt)) { $jobExitCode = $tmpInt }
+        }
 
         # Parse results from the LOG FILE (reliable plain text)
         $passed = 0; $failed = 0; $skipped = 0; $total = 0
@@ -162,8 +166,22 @@ if ($Sequential) {
                     # "Total tests: Unknown" (test host crash) — derive from counts
                     $total = $passed + $failed + $skipped
                 }
+
+                # Fallback: if summary regex found nothing, count individual result lines
+                if ($passed -eq 0 -and $failed -eq 0) {
+                    $logLines = Get-Content -Path $entry.Log -ErrorAction SilentlyContinue
+                    if ($logLines) {
+                        $passed = ($logLines | Where-Object { $_ -match '^\s+Passed\s+\S' } | Measure-Object).Count
+                        $failed = ($logLines | Where-Object { $_ -match '^\s+Failed\s+\S' } | Measure-Object).Count
+                        $skipped = ($logLines | Where-Object { $_ -match '^\s+Skipped\s+\S' } | Measure-Object).Count
+                        $total = $passed + $failed + $skipped
+                    }
+                }
             }
         }
+
+        # Force failure if log shows failed tests but exit code was 0
+        if ($failed -gt 0 -and $jobExitCode -eq 0) { $jobExitCode = 1 }
 
         $totalPassed += $passed
         $totalFailed += $failed
@@ -208,7 +226,13 @@ if (-not $Sequential) {
     $allTestCount = ($listOutput -split "`n" | Where-Object { $_ -match '^\s{4}\S' }).Count
     if ($allTestCount -gt 0 -and $totalTests -lt $allTestCount) {
         $missing = $allTestCount - $totalTests
-        Write-Host "WARNING: $missing tests NOT covered by parallel groups ($totalTests/$allTestCount). Update group filters in run-tests.ps1!" -ForegroundColor Yellow
+        $gapPct = [math]::Round(($missing / $allTestCount) * 100, 1)
+        if ($gapPct -gt 30) {
+            Write-Host ("UNCOVERED_TESTS: $missing tests ({0}%) NOT covered by parallel groups ($totalTests/$allTestCount). FATAL -- update group filters!" -f $gapPct) -ForegroundColor Red
+            exit 96
+        } else {
+            Write-Host ("INFO: $missing tests ({0}%) not covered by parallel groups ($totalTests/$allTestCount) -- within tolerance" -f $gapPct) -ForegroundColor Yellow
+        }
     }
 }
 
