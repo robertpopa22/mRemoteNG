@@ -1,0 +1,61 @@
+{
+  "task_type": "triage",
+  "task_id": "1182",
+  "started_at": "2026-02-21T06:45:04",
+  "finished_at": "2026-02-21T06:45:52",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:45:04"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:45:18"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "Issue body is empty — no reproduction steps, RDP server version, or description of what 'not working correctly' means; the RedirectPrinters property exists and is mapped to AdvancedSettings2.RedirectPrinters in RdpProtocol.cs:1233, so the feature is implemented.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs"
+        ],
+        "approach": "Request reporter to provide: OS/server version, mRemoteNG version, what setting is configured vs what behavior is observed, and whether the printer appears in RDP session device list at all"
+      },
+      "raw_output": "{\"decision\":\"needs_info\",\"reason\":\"Issue body is empty — no reproduction steps, RDP server version, or description of what 'not working correctly' means; the RedirectPrinters property exists and is mapped to AdvancedSettings2.RedirectPrinters in RdpProtocol.cs:1233, so the feature is implemented.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\"],\"approach\":\"Request reporter to provide: OS/server version, mRemoteNG version, what setting is configured vs what behavior is observed, and whether the printer appears in RDP session device list at all\"}",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:45:52"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

@@ -1,0 +1,63 @@
+{
+  "task_type": "triage",
+  "task_id": "1291",
+  "started_at": "2026-02-21T06:46:56",
+  "finished_at": "2026-02-21T06:47:24",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:46:56"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:47:09"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "UX enhancement to show available variable tokens when configuring external tools, reducing user friction and documentation lookups.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/UI/Forms/frmExternalToolsOptions.cs",
+          "mRemoteNG/Tools/ExternalTool.cs",
+          "mRemoteNG/UI/Controls/FilteredPropertyGrid.cs"
+        ],
+        "approach": "Add a tooltip, dropdown, or helper button in the external tools editor form listing all supported substitution tokens (e.g. %HOSTNAME%, %USERNAME%, %PROTOCOL%) with descriptions; wire up insertion on click."
+      },
+      "raw_output": "```json\n{\"decision\":\"implement\",\"reason\":\"UX enhancement to show available variable tokens when configuring external tools, reducing user friction and documentation lookups.\",\"priority\":\"P3-enhancement\",\"estimated_files\":[\"mRemoteNG/UI/Forms/frmExternalToolsOptions.cs\",\"mRemoteNG/Tools/ExternalTool.cs\",\"mRemoteNG/UI/Controls/FilteredPropertyGrid.cs\"],\"approach\":\"Add a tooltip, dropdown, or helper button in the external tools editor form listing all supported substitution tokens (e.g. %HOSTNAME%, %USERNAME%, %PROTOCOL%) with descriptions; wire up insertion on click.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T06:47:24"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
