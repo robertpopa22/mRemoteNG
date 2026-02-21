@@ -66,7 +66,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                 };
             }
         }
-        protected readonly uint DeviceScaleFactor = 100;
+        protected uint DeviceScaleFactor => (uint)(ResolutionScalingFactor.Width * 100);
         protected readonly uint Orientation = 0;
         private AxHost AxHost => (AxHost)Control!;
 

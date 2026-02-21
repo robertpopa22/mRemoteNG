@@ -11,12 +11,25 @@
   "created_at": "2020-06-26T03:59:39Z",
   "github_updated_at": "2026-02-07T16:46:38Z",
   "body_snippet": "Hi Support\r\n\r\nI got an issued when working on mRemoteNG on remote desktop machine, It was quit sudnenly and I get error in windows application log\r\n\r\nFaulting application name: mRemoteNG.exe, version: 1.76.20.24615, time stamp: 0x5cb09552\r\nFaulting module name: mstscax.dll, version: 10.0.18362.449, time stamp: 0xfa706577\r\nException code: 0xc0000005\r\nFault offset: 0x005be81b\r\nFaulting process id: 0x1638\r\nFaulting application start time: 0x01d64aa0f790c06f\r\nFaulting application path: C:\\Program Fi...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Issue body is empty with no crash log, stack trace, or reproduction steps; 'quit suddenly on remote desktop machine' is too vague to diagnose without knowing if it's an unhandled exception, RDP session disconnect event, or rendering issue.",
+      "token_usage": {
+        "input_tokens": 3,
+        "output_tokens": 503,
+        "cost_usd": 0.12351,
+        "operations": 1
+      }
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDY1MDU4NTY5Ng==",
@@ -69,5 +82,10 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (claude): Issue body is empty with no crash log, stack trace, or reproduction steps; 'quit suddenly on remote desktop machine' is too vague to diagnose without knowing if it's an unhandled exception, RDP session disconnect event, or rendering issue.\nApproach: Request crash log from %APPDATA%\\mRemoteNG\\mRemoteNG.log and steps to reproduce (OS version, RDP client version, connection type being used when crash occurs)",
+  "token_usage": {
+    "input_tokens": 3,
+    "output_tokens": 503,
+    "cost_usd": 0.12351
+  }
 }
