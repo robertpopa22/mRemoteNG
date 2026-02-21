@@ -27,6 +27,7 @@ namespace mRemoteNG.Container
     {
         private bool _isExpanded;
         private bool _autoSort;
+        private bool _excludeFromSearch;
 
         #region IConnectionNode Implementation
         IEnumerable<IConnectionNode> IConnectionNode.Children => Children;
@@ -49,6 +50,16 @@ namespace mRemoteNG.Container
         {
             get => _isExpanded;
             set => SetField(ref _isExpanded, value, "IsExpanded");
+        }
+
+        /// <summary>
+        /// When true, this folder and all its children are excluded from connection tree search results.
+        /// </summary>
+        [Browsable(false)]
+        public bool ExcludeFromSearch
+        {
+            get => _excludeFromSearch;
+            set => SetField(ref _excludeFromSearch, value, nameof(ExcludeFromSearch));
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.General)),
@@ -279,6 +290,7 @@ namespace mRemoteNG.Container
             ContainerInfo newContainer = new();
             newContainer.CopyFrom(this);
             newContainer._autoSort = _autoSort;
+            newContainer._excludeFromSearch = _excludeFromSearch;
             newContainer.OpenConnections = [];
             newContainer.Inheritance = Inheritance.Clone(newContainer);
             foreach (ConnectionInfo child in Children.ToArray())

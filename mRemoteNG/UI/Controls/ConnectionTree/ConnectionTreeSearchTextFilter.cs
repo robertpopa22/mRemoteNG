@@ -36,14 +36,40 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
             if (SpecialInclusionList.Contains(objectAsConnectionInfo))
                 return true;
 
+            // Exclude nodes that belong to a folder marked ExcludeFromSearch
+            if (IsUnderExcludedContainer(objectAsConnectionInfo))
+                return false;
+
             if (NodeMatchesFilter(objectAsConnectionInfo))
                 return true;
 
             // For containers, keep visible if any descendant matches so that
             // search finds connections inside collapsed/non-matching folders.
             if (objectAsConnectionInfo is ContainerInfo container)
-                return container.GetRecursiveChildList().Any(NodeMatchesFilter);
+                return container.GetRecursiveChildList()
+                                .Where(child => !IsUnderExcludedContainer(child))
+                                .Any(NodeMatchesFilter);
 
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if <paramref name="node"/> itself is a container with
+        /// <see cref="ContainerInfo.ExcludeFromSearch"/> set, or if any ancestor
+        /// container has that flag set.
+        /// </summary>
+        private static bool IsUnderExcludedContainer(ConnectionInfo node)
+        {
+            if (node is ContainerInfo self && self.ExcludeFromSearch)
+                return true;
+
+            ContainerInfo? parent = node.Parent;
+            while (parent != null)
+            {
+                if (parent.ExcludeFromSearch)
+                    return true;
+                parent = parent.Parent;
+            }
             return false;
         }
 
