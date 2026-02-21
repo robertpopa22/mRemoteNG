@@ -1,0 +1,59 @@
+{
+  "task_type": "implement",
+  "task_id": "1656",
+  "started_at": "2026-02-21T03:46:45",
+  "finished_at": "2026-02-21T03:59:08",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #1656",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:46:45"
+    },
+    {
+      "agent": "gemini",
+      "task": "implement #1656",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None after retries",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T03:46:58"
+    },
+    {
+      "agent": "claude",
+      "task": "implement #1656",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "TIMEOUT after 720s",
+      "files_modified": [
+        ".project-roadmap/issues-db/upstream/1656.json",
+        ".project-roadmap/scripts/chain-context/_timeout_history.json",
+        "mRemoteNG/Connection/Protocol/ProtocolBase.cs",
+        "mRemoteNG/UI/Window/ConnectionWindow.cs"
+      ],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": true,
+      "diff_summary": ".project-roadmap/issues-db/upstream/1656.json      | 21 ++++++++++--\n .../scripts/chain-context/_timeout_history.json    |  4 +--\n mRemoteNG/Connection/Protocol/ProtocolBase.cs      | 38 ++++++++++++++--------\n mRemoteNG/UI/Window/ConnectionWindow.cs            | 15 ++++++++-\n 4 files changed, 60 insertions(+), 18 deletions(-)",
+      "timestamp": "2026-02-21T03:59:08",
+      "diff_output": "diff --git a/.project-roadmap/issues-db/upstream/1656.json b/.project-roadmap/issues-db/upstream/1656.json\nindex 62d936c11..bab8e8102 100644\n--- a/.project-roadmap/issues-db/upstream/1656.json\n+++ b/.project-roadmap/issues-db/upstream/1656.json\n@@ -12,7 +12,7 @@\n   \"github_updated_at\": \"2026-02-07T16:55:40Z\",\n   \"body_snippet\": \"## Current Behavior\\r\\n```\\r\\nException Message\\r\\n\\\"Cannot access a disposed object.\\r\\nObject name: 'ConnectionWindow'.\\\"\\r\\n\\r\\nStack trace\\r\\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\\r\\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\\r\\n   at System.Windows.Forms.Control.Invoke(Delegate method, Object[] args)\\r\\n   at System.Windows.Forms.Control.Invoke(Delegate method)\\r\\n   at mRemoteNG.UI.Window.ConnectionWin...\",\n   \"our_status\": \"triaged\",\n-  \"priority\": \"P2-high\",\n+  \"priority\": \"P2-bug\",\n   \"target_release\": null,\n   \"our_branch\": null,\n   \"our_pr\": null,\n@@ -26,6 +26,18 @@\n       \"branch\": null,\n       \"release\": null,\n       \"comment_posted\": false\n+    },\n+    {\n+      \"seq\": 2,\n+      \"date\": \"2026-02-21\",\n+      \"type\": \"triaged\",\n+      \"description\": \"ObjectDisposedException on a UI control accessed after disposal, likely a race condition between connection panel teardown and an async callback or event handler still referencing the disposed control.\",\n+      \"token_usage\": {\n+        \"input_tokens\": 3,\n+        \"output_tokens\": 793,\n+        \"cost_usd\": 0.130579,\n+        \"operations\": 1\n+      }\n     }\n   ],\n   \"comments\": [\n@@ -71,5 +83,10 @@\n   \"needs_action\": true,\n   \"waiting_for_us\": false,\n   \"last_synced\": \"2026-02-15T11:20:37Z\",\n-  \"notes\": \"Same root cause as #1794, #3069, #2166 - disposed object access during async close. Already fixed in v1.79.0 (PR #3106) with comprehensive dispose guards.\"\n+  \"notes\": \"Same root cause as #1794, #3069, #2166 - disposed object access during async close. Already fixed in v1.79.0 (PR #3106) with comprehensive dispose guards.\\nAI triage (claude): ObjectDisposedException on a UI control accessed after disposal, likely a race condition between connection panel teardown and an async callback or event handler still referencing the disposed control.\\nApproach: Add IsDisposed / InvokeRequired guards before accessing UI controls in async callbacks and event handlers involved in connection panel teardown; ensure Dispose ordering is correct (unsubscribe events before disposing controls).\",\n+  \"token_usage\": {\n+    \"input_tokens\": 3,\n+    \"output_tokens\": 793,\n+    \"cost_usd\": 0.130579\n+  }\n }\ndiff --git a/.project-roadmap/scripts/chain-context/_timeout_history.json b/.project-roadmap/scripts/chain-context/_timeout_history.json\nindex e4e19bd5d..41ee856b9 100644\n--- a/.project-roadmap/scripts/chain-context/_timeout_history.json\n+++ b/.project-roadmap/scripts/chain-context/_timeout_history.json\n@@ -54,7 +54,6 @@\n         250.0\n       ],\n       \"triage\": [\n-        11.2,\n         31.2,\n         11.1,\n         57.4,\n@@ -103,7 +102,8 @@\n         13.6,\n         15.5,\n         114.7,\n-        14.6\n+        14.6,\n+        19.0\n       ]\n     },\n     \"gemini\": {\ndiff --git a/mRemoteNG/Connection/Protocol/ProtocolBase.cs b/mRemoteNG/Connection/Protocol/ProtocolBase.cs\nindex 760db6533..73e0d7f80 100644\n--- a/mRemoteNG/Connection/Protocol/ProtocolBase.cs\n+++ b/mRemoteNG/Connection/Protocol/ProtocolBase.cs\n@@ -190,22 +190,34 @@ namespace mRemoteNG.Connection.Protocol\n \n         private void CloseBG()\n         {\n-            if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)\n+            try\n             {\n-                try\n-                {\n-                    _interfaceControl.Invoke(new MethodInvoker(CloseBG));\n-                }\n-                catch (ObjectDisposedException)\n-                {\n-                    // Control was disposed between the IsDisposed check and the Invoke call (race condition).\n-                    // Nothing left to close — the panel/tab is already gone.\n-                }\n-                catch (InvalidOperationException)\n+                if (_interfaceControl != null && !_interfaceControl.IsDisposed && _interfaceControl.InvokeRequired)\n                 {\n-                    // Window handle is no longer valid.\n-                }\n+                    try\n+                    {\n+                        _interfaceControl.Invoke(new MethodInvoker(CloseBG));\n+                    }\n+                    catch (ObjectDisposedException)\n+                    {\n+                        // Control was disposed between the IsDisposed check and the Invoke call (race condition).\n+                        // Nothing left to close — the panel/tab is already gone.\n+                    }\n+                    catch (InvalidOperationException)\n+                    {\n+                        // Window handle is no longer valid.\n+                    }\n \n+                    return;\n+                }\n+            }\n+            catch (ObjectDisposedException)\n+            {\n+                // _interfaceControl was disposed between the !IsDisposed check and InvokeRequired.\n+                return;\n+            }\n+            catch (InvalidOperationException)\n+            {\n                 return;\n             }\n \ndiff --git a/mRemoteNG/UI/Window/ConnectionWindow.cs b/mRemoteNG/UI/Window/ConnectionWindow.cs\nindex f598e0547..07e0b43c5 100644\n--- a/mRemoteNG/UI/Window/ConnectionWindow.cs\n+++ b/mRemoteNG/UI/Window/ConnectionWindow.cs\n@@ -166,6 +166,7 @@ namespace mRemoteNG.UI.Window\n             Load += Connection_Load;\n             DockStateChanged += Connection_DockStateChanged;\n             FormClosing += Connection_FormClosing;\n+            FormClosed += Connection_FormClosed;\n         }\n \n         private void SetContextMenuEventHandlers()\n@@ -753,6 +754,7 @@ namespace mRemoteNG.UI.Window\n \n         private new void ApplyTheme()\n         {\n+            if (IsDisposed || Disposing) return;\n             if (!ThemeManager.getInstance().ThemingActive)\n             {\n                 connDock.Theme = ThemeManager.getInstance().DefaultTheme.Theme;\n@@ -857,6 +859,11 @@ namespace mRemoteNG.UI.Window\n             _cmenTabExcludeFromMultiSsh.Text = \"Exclude from Multi SSH\";\n         }\n \n+        private void Connection_FormClosed(object sender, FormClosedEventArgs e)\n+        {\n+            ThemeManager.getInstance().ThemeChanged -= ApplyTheme;\n+        }\n+\n         private void Connection_FormClosing(object sender, FormClosingEventArgs e)\n         {\n             if (!FrmMain.Default.IsClosing &&\n@@ -1812,9 +1819,15 @@ namespace mRemoteNG.UI.Window\n         private void ConnectionsService_ConnectionsLoaded(object? sender, EventArgs e)\n         {\n             Runtime.ConnectionsService.ConnectionsLoaded -= ConnectionsService_ConnectionsLoaded;\n+            if (IsDisposed || Disposing) return;\n             if (InvokeRequired)\n             {\n-                BeginInvoke(new Action(ProcessPendingConnections));\n+                try\n+                {\n+                    BeginInvoke(new Action(ProcessPendingConnections));\n+                }\n+                catch (ObjectDisposedException) { }\n+                catch (InvalidOperationException) { }\n             }\n             else\n             {"
+    }
+  ],
+  "timeout_count": 1,
+  "all_timed_out": false,
+  "final_success": false
+}

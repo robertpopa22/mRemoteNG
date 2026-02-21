@@ -1,0 +1,62 @@
+{
+  "task_type": "triage",
+  "task_id": "1660",
+  "started_at": "2026-02-21T04:12:00",
+  "finished_at": "2026-02-21T04:12:44",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T04:12:00"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T04:12:13"
+    },
+    {
+      "agent": "claude",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "needs_info",
+        "reason": "Issue title mentions reconnection problems but body is empty — cannot determine if this is a bug in the auto-reconnect timer (tmrReconnect_Tick in RdpProtocol.cs), the ReconnectGroup UI, or a general UX complaint; need reproduction steps and protocol type.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+          "mRemoteNG/Connection/Protocol/ProtocolBase.cs"
+        ],
+        "approach": "Request repro steps: which protocol, what 'lost connection' means (timeout vs server drop), whether ReconnectGroup appears at all, and what happens when reconnect is attempted — then trace tmrReconnect_Tick / ExtendedReconnectTimer_Tick flow."
+      },
+      "raw_output": "```json\n{\"decision\":\"needs_info\",\"reason\":\"Issue title mentions reconnection problems but body is empty — cannot determine if this is a bug in the auto-reconnect timer (tmrReconnect_Tick in RdpProtocol.cs), the ReconnectGroup UI, or a general UX complaint; need reproduction steps and protocol type.\",\"priority\":\"P2-bug\",\"estimated_files\":[\"mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\",\"mRemoteNG/Connection/Protocol/ProtocolBase.cs\"],\"approach\":\"Request repro steps: which protocol, what 'lost connection' means (timeout vs server drop), whether ReconnectGroup appears at all, and what happens when reconnect is attempted — then trace tmrReconnect_Tick / ExtendedReconnectTimer_Tick flow.\"}\n```",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T04:12:44"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
