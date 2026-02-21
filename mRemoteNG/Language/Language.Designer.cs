@@ -4045,6 +4045,15 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path.
+        /// </summary>
+        internal static string HttpPath {
+            get {
+                return ResourceManager.GetString("HttpPath", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Port.
         /// </summary>
         internal static string Port {
@@ -4476,6 +4485,15 @@ namespace mRemoteNG.Resources.Language {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Optional URL path to append after the host and port (e.g. /admin). Leave empty to connect to the root..
+        /// </summary>
+        internal static string PropertyDescriptionHttpPath {
+            get {
+                return ResourceManager.GetString("PropertyDescriptionHttpPath", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Enter the port the selected protocol is listening on..
         /// </summary>

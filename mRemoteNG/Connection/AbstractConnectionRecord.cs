@@ -57,6 +57,7 @@ namespace mRemoteNG.Connection
         private string _sshOptions = string.Empty;
         private string _privateKeyPath = string.Empty;
         private string _puttySession = string.Empty;
+        private string _httpPath = string.Empty;
         private bool _useConsoleSession = default;
         private AuthenticationLevel _rdpAuthenticationLevel = default;
         private int _rdpMinutesToIdleTimeout = default;
@@ -635,6 +636,16 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue("RenderingEngine", _renderingEngine);
             set => SetField(ref _renderingEngine, value, "RenderingEngine");
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.HttpPath)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionHttpPath)),
+         AttributeUsedInProtocol(ProtocolType.HTTP, ProtocolType.HTTPS)]
+        public virtual string HttpPath
+        {
+            get => GetPropertyValue("HttpPath", _httpPath);
+            set => SetField(ref _httpPath, value ?? string.Empty, "HttpPath");
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

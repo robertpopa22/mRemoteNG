@@ -339,6 +339,17 @@ namespace mRemoteNG.Connection.Protocol.Http
                         strHost = httpOrS + "://" + strHost;
                 }
 
+                string path = InterfaceControl.Info.HttpPath?.Trim() ?? string.Empty;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    if (!strHost.EndsWith("/") && !path.StartsWith("/"))
+                        strHost = strHost + "/" + path;
+                    else if (strHost.EndsWith("/") && path.StartsWith("/"))
+                        strHost = strHost + path[1..];
+                    else
+                        strHost = strHost + path;
+                }
+
                 return strHost;
             }
             catch (Exception ex)

@@ -1089,6 +1089,9 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PropertyDescriptionPassword" xml:space="preserve">
     <value>Enter your password.</value>
   </data>
+  <data name="PropertyDescriptionHttpPath" xml:space="preserve">
+    <value>Optional URL path to append after the host and port (e.g. /admin). Leave empty to connect to the root.</value>
+  </data>
   <data name="PropertyDescriptionPort" xml:space="preserve">
     <value>Enter the port the selected protocol is listening on.</value>
   </data>
@@ -1277,6 +1280,9 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="HttpPath" xml:space="preserve">
+    <value>Path</value>
   </data>
   <data name="Port" xml:space="preserve">
     <value>Port</value>

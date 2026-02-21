@@ -12,12 +12,19 @@
   "created_at": "2021-02-12T17:48:11Z",
   "github_updated_at": "2026-02-21T10:23:15Z",
   "body_snippet": "I would like to be able to store more web admin panels in my connections, but many of them have paths in the URL that I cannot access. e.g. pi.hole:81/admin etc. Hopefully it should be relatively easy to add support for this?",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-21",
+      "type": "triaged",
+      "description": "Feature request to add a path parameter for HTTP/HTTPS connections, enhancing URL configurability."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDc4MzE1MzAzMQ==",
@@ -43,5 +50,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Feature request to add a path parameter for HTTP/HTTPS connections, enhancing URL configurability.\nApproach: Add a new 'Path' property to AbstractConnectionRecord for storing the URL path. Initialize this property in ConnectionInfo.cs. Modify the GetUrl() method in Connection.Protocol.HTTPBase.cs to append the new Path property to the constructed URL, handling leading/trailing slashes appropriately. Add corresponding localization strings for 'Path' and 'PropertyDescriptionPath' in Language.resx for UI display."
 }

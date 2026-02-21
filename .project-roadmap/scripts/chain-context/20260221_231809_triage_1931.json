@@ -1,0 +1,50 @@
+{
+  "task_type": "triage",
+  "task_id": "1931",
+  "started_at": "2026-02-21T23:17:13",
+  "finished_at": "2026-02-21T23:18:09",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T23:17:13"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Feature request to add a path parameter for HTTP/HTTPS connections, enhancing URL configurability.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG\\Connection\\AbstractConnectionRecord.cs",
+          "mRemoteNG\\Connection\\ConnectionInfo.cs",
+          "mRemoteNG\\Connection\\Protocol\\Http\\Connection.Protocol.HTTPBase.cs",
+          "mRemoteNG\\Language\\Language.resx"
+        ],
+        "approach": "Add a new 'Path' property to AbstractConnectionRecord for storing the URL path. Initialize this property in ConnectionInfo.cs. Modify the GetUrl() method in Connection.Protocol.HTTPBase.cs to append the new Path property to the constructed URL, handling leading/trailing slashes appropriately. Add corresponding localization strings for 'Path' and 'PropertyDescriptionPath' in Language.resx for UI display."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Feature request to add a path parameter for HTTP/HTTPS connections, enhancing URL configurability.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG\\\\Connection\\\\AbstractConnectionRecord.cs\",\n    \"mRemoteNG\\\\Connection\\\\ConnectionInfo.cs\",\n    \"mRemoteNG\\\\Connection\\\\Protocol\\\\Http\\\\Connection.Protocol.HTTPBase.cs\",\n    \"mRemoteNG\\\\Language\\\\Language.resx\"\n  ],\n  \"approach\": \"Add a new 'Path' property to AbstractConnectionRecord for storing the URL path. Initialize this property in ConnectionInfo.cs. Modify the GetUrl() method in Connection.Protocol.HTTPBase.cs to append the new Path property to the constructed URL, handling leading/trailing slashes appropriately. Add corresponding localization strings for 'Path' and 'PropertyDescriptionPath' in Language.resx for UI display.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-21T23:18:09"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
