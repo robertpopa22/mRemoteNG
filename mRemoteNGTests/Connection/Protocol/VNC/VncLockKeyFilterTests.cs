@@ -102,14 +102,43 @@ namespace mRemoteNGTests.Connection.Protocol.VNC
         [Test]
         public void PreFilterMessage_Ignores_Latin_Chars()
         {
-            // 'a' U+0061
+            // 'a' U+0061 — ASCII, should pass through to VncSharpCore unchanged
             char c = 'a';
             Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
 
             bool result = InvokePreFilterMessage(ref msg);
 
-            Assert.That(result, Is.False, "Should return false for non-Cyrillic");
+            Assert.That(result, Is.False, "Should return false for ASCII characters");
             Assert.That(_mockClient.CallCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_DeadKey_Composed_a_Acute()
+        {
+            // Dead-key composed character: 'á' U+00E1 (e.g. dead ' + a on many non-US layouts)
+            // Expected X11 Unicode keysym: 0x01000000 | 0x00E1 = 0x010000E1
+            char c = '\u00E1'; // á
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True, "Should intercept and suppress non-ASCII WM_CHAR");
+            Assert.That(_mockClient.CallCount, Is.EqualTo(2), "Should send key-down then key-up");
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0x010000E1u), "Should use X11 Unicode keysym encoding");
+        }
+
+        [Test]
+        public void PreFilterMessage_Intercepts_DeadKey_Composed_n_Tilde()
+        {
+            // Dead-key composed character: 'ñ' U+00F1 (e.g. dead ~ + n on Spanish layout)
+            // Expected X11 Unicode keysym: 0x01000000 | 0x00F1 = 0x010000F1
+            char c = '\u00F1'; // ñ
+            Message msg = Message.Create(_remoteDesktop.Handle, 0x0102, (IntPtr)c, IntPtr.Zero);
+
+            bool result = InvokePreFilterMessage(ref msg);
+
+            Assert.That(result, Is.True);
+            Assert.That(_mockClient.LastKeysym, Is.EqualTo(0x010000F1u));
         }
 
         [Test]

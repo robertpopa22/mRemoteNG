@@ -148,10 +148,20 @@ namespace mRemoteNG.Connection.Protocol.VNC
             }
             else // WM_CHAR
             {
-                // Handle Cyrillic
+                // Handle composed characters from dead keys (issue #1742) and Cyrillic.
                 char c = (char)m.WParam.ToInt32();
+
+                // ASCII characters (< 0x80) are handled correctly by VncSharpCore — do not intercept.
+                if (c < 0x80) return false;
+
+                // Try Cyrillic-specific X11 keysyms first (e.g. issue #227 compatibility).
                 uint keysym = GetCyrillicKeysym(c);
-                if (keysym == 0) return false;
+
+                // For non-Cyrillic non-ASCII characters (e.g. dead-key composed results like á, é, ñ, ü, ô)
+                // use the X11 Unicode keysym encoding: 0x01000000 | Unicode code point.
+                // vSphere's VNC server (and most modern X11 VNC servers) fully supports this encoding.
+                if (keysym == 0)
+                    keysym = 0x01000000u | (uint)c;
 
                 // Only intercept when targeted at the VNC RemoteDesktop control
                 if (m.HWnd != _remoteDesktop.Handle)
