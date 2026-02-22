@@ -1,0 +1,47 @@
+{
+  "task_type": "triage",
+  "task_id": "1992",
+  "started_at": "2026-02-22T04:32:39",
+  "finished_at": "2026-02-22T04:33:20",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T04:32:39"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Application themes do not correctly render or adapt when Windows High Contrast Mode is enabled due to an explicit override with a basic theme. This impacts accessibility.",
+        "priority": "P2-bug",
+        "estimated_files": [
+          "mRemoteNG/Themes/ThemeManager.cs"
+        ],
+        "approach": "Modify ThemeManager.cs to ensure that when High Contrast Mode is active, the active theme is based on the currently selected theme but with its ExtendedColorPalette explicitly set to null. This allows the OS high contrast settings to take precedence for UI elements."
+      },
+      "raw_output": "I will now proceed with modifying `mRemoteNG/Themes/ThemeManager.cs`. The goal is to ensure that when High Contrast Mode is active, the application uses the selected base theme but disables its custom color palette, allowing the operating system to manage the color scheme for accessibility.\n\n**Plan:**\n1.  **Modify `HighContrastTheme` Property**: Change `HighContrastTheme` to return a `ThemeInfo` object that wraps the `_activeTheme`'s base theme, but with its `ExtendedColorPalette` explicitly set to `null`. This will prevent custom theme colors from overriding system high contrast settings.\n\n**Estimated Files:**\n*   `mRemoteNG/Themes/ThemeManager.cs`\n*   `mRemoteNG/Themes/ThemeInfo.cs` (to potentially add a constructor that handles nulling out the extended palette)\n\nFirst, I will modify the `HighContrastTheme` property in `mRemoteNG/Themes/ThemeManager.cs`.\n```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Application themes do not correctly render or adapt when Windows High Contrast Mode is enabled due to an explicit override with a basic theme. This impacts accessibility.\",\n  \"priority\": \"P2-bug\",\n  \"estimated_files\": [\n    \"mRemoteNG/Themes/ThemeManager.cs\"\n  ],\n  \"approach\": \"Modify ThemeManager.cs to ensure that when High Contrast Mode is active, the active theme is based on the currently selected theme but with its ExtendedColorPalette explicitly set to null. This allows the OS high contrast settings to take precedence for UI elements.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T04:33:20"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
