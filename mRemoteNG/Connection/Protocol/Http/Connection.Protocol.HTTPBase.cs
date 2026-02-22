@@ -237,6 +237,7 @@ namespace mRemoteNG.Connection.Protocol.Http
                 
                 // Prevent popups from opening in new windows
                 webView2.CoreWebView2.NewWindowRequested += CoreWebView2_NewWindowRequested;
+                webView2.CoreWebView2.ServerCertificateErrorDetected += CoreWebView2_ServerCertificateErrorDetected;
             }
             catch (Exception ex)
             {
@@ -307,6 +308,28 @@ namespace mRemoteNG.Connection.Protocol.Http
         {
             // Suppress the popup (prevent it from opening in a new window)
             e.Handled = true;
+        }
+
+        private void CoreWebView2_ServerCertificateErrorDetected(object sender, CoreWebView2ServerCertificateErrorDetectedEventArgs e)
+        {
+            try
+            {
+                // Only bypass certificate errors for the configured connection host.
+                if (!Uri.TryCreate(GetUrl(), UriKind.Absolute, out Uri? configuredUri) ||
+                    !Uri.TryCreate(e.RequestUri, UriKind.Absolute, out Uri? requestUri))
+                {
+                    return;
+                }
+
+                if (string.Equals(configuredUri.Host, requestUri.Host, StringComparison.OrdinalIgnoreCase))
+                {
+                    e.Action = CoreWebView2ServerCertificateErrorAction.AlwaysAllow;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(Language.HttpSetPropsFailed, ex);
+            }
         }
 
         #endregion
