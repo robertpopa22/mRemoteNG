@@ -32,7 +32,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public RdpProtocol8()
         {
-            _frmMain.ResizeEnd += ResizeEnd;
+            // ResizeEnd events are forwarded by ConnectionWindow/ConnectionTab.
+            // Avoid wiring FrmMain directly to prevent duplicate and unrelated resize-end handling.
 
             // Initialize debounce timer (100ms delay)
             _resizeDebounceTimer = new System.Timers.Timer(100);
@@ -320,6 +321,8 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         public override void Close()
         {
+            _frmMain.ResizeEnd -= ResizeEnd;
+
             // Clean up debounce timer
             if (_resizeDebounceTimer != null)
             {

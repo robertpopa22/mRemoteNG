@@ -15,7 +15,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
         protected override RdpVersion RdpProtocolVersion => RDP.RdpVersion.Rdc9;
 
-        // Constructor not needed - ResizeEnd is already registered in RdpProtocol8 base class
+        // Constructor not needed - resize handlers are wired by ProtocolBase via ConnectionTab events.
 
         public override bool Initialize()
         {

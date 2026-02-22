@@ -151,6 +151,10 @@ namespace mRemoteNG.Connection.Protocol
 
         protected virtual void ResizeEnd(object sender, EventArgs e)
         {
+            // Some callers synthesize only a resize-end notification.
+            // Run the base resize path so protocols that override Resize()
+            // still get a final layout pass.
+            Resize(sender, e);
         }
 
         /// <summary>

@@ -12,7 +12,7 @@
   "created_at": "2021-09-01T04:53:05Z",
   "github_updated_at": "2026-02-21T10:23:38Z",
   "body_snippet": "The Quick Connect toolbar not saving host history.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "The Quick Connect history is not being persisted across application sessions, indicating a fault in the saving or loading mechanism."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in 863551ca"
     }
   ],
   "comments": [
