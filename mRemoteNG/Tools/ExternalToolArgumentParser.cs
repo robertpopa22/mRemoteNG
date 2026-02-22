@@ -11,9 +11,10 @@ using mRemoteNG.Tools.Cmdline;
 namespace mRemoteNG.Tools
 {
     [SupportedOSPlatform("windows")]
-    public class ExternalToolArgumentParser(ConnectionInfo connectionInfo)
+    public class ExternalToolArgumentParser(ConnectionInfo connectionInfo, ExternalTool? externalTool = null)
     {
         private readonly ConnectionInfo _connectionInfo = connectionInfo;
+        private readonly ExternalTool? _externalTool = externalTool;
         private const int MaxNestedExpansionDepth = 5;
 
         public string ParseArguments(string input, bool escapeForShell = true)
@@ -273,6 +274,21 @@ namespace mRemoteNG.Tools
                     break;
                 case "puttysession":
                     replacement = _connectionInfo.PuttySession;
+                    break;
+                case "authtype":
+                    replacement = _externalTool?.AuthenticationType ?? string.Empty;
+                    break;
+                case "authusername":
+                    replacement = _externalTool?.AuthenticationUsername ?? string.Empty;
+                    break;
+                case "authpassword":
+                    replacement = _externalTool?.AuthenticationPassword ?? string.Empty;
+                    break;
+                case "privatekeyfile":
+                    replacement = _externalTool?.PrivateKeyFile ?? string.Empty;
+                    break;
+                case "passphrase":
+                    replacement = _externalTool?.Passphrase ?? string.Empty;
                     break;
                 default:
                     return original;

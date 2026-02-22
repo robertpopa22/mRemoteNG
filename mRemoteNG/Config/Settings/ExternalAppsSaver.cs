@@ -61,6 +61,11 @@ namespace mRemoteNG.Config.Settings
                     xmlTextWriter.WriteAttributeString("RunElevated", "", Convert.ToString(extA.RunElevated));
                     xmlTextWriter.WriteAttributeString("ShowOnToolbar", "", Convert.ToString(extA.ShowOnToolbar));
                     xmlTextWriter.WriteAttributeString("Category", "", extA.Category);
+                    xmlTextWriter.WriteAttributeString("AuthType", "", extA.AuthenticationType);
+                    xmlTextWriter.WriteAttributeString("AuthUsername", "", extA.AuthenticationUsername);
+                    xmlTextWriter.WriteAttributeString("AuthPassword", "", extA.AuthenticationPassword);
+                    xmlTextWriter.WriteAttributeString("PrivateKeyFile", "", extA.PrivateKeyFile);
+                    xmlTextWriter.WriteAttributeString("Passphrase", "", extA.Passphrase);
                     if (extA.Hotkey != System.Windows.Forms.Keys.None)
                         xmlTextWriter.WriteAttributeString("Hotkey", "", Convert.ToString((int)extA.Hotkey));
                     xmlTextWriter.WriteEndElement();

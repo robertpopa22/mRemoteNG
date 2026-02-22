@@ -53,7 +53,15 @@ namespace mRemoteNGTests.Tools
                 SSHOptions = TestString,
                 PuttySession = TestString
             };
-            _argumentParser = new ExternalToolArgumentParser(connectionInfo);
+            var externalTool = new ExternalTool
+            {
+                AuthenticationType = TestString,
+                AuthenticationUsername = TestString,
+                AuthenticationPassword = TestString,
+                PrivateKeyFile = TestString,
+                Passphrase = TestString
+            };
+            _argumentParser = new ExternalToolArgumentParser(connectionInfo, externalTool);
         }
 
         [OneTimeTearDown]
@@ -144,6 +152,26 @@ namespace mRemoteNGTests.Tools
                     yield return new TestCaseData("%-PUTTYSESSION%").Returns(StringAfterMetacharacterEscaping);
                     yield return new TestCaseData("%!PUTTYSESSION%").Returns(StringAfterNoEscaping);
                     yield return new TestCaseData("%+PUTTYSESSION%").Returns(StringAfterUrlEncoding);
+                    yield return new TestCaseData("%AUTHTYPE%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-AUTHTYPE%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!AUTHTYPE%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+AUTHTYPE%").Returns(StringAfterUrlEncoding);
+                    yield return new TestCaseData("%AUTHUSERNAME%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-AUTHUSERNAME%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!AUTHUSERNAME%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+AUTHUSERNAME%").Returns(StringAfterUrlEncoding);
+                    yield return new TestCaseData("%AUTHPASSWORD%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-AUTHPASSWORD%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!AUTHPASSWORD%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+AUTHPASSWORD%").Returns(StringAfterUrlEncoding);
+                    yield return new TestCaseData("%PRIVATEKEYFILE%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-PRIVATEKEYFILE%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!PRIVATEKEYFILE%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+PRIVATEKEYFILE%").Returns(StringAfterUrlEncoding);
+                    yield return new TestCaseData("%PASSPHRASE%").Returns(StringAfterAllEscaping);
+                    yield return new TestCaseData("%-PASSPHRASE%").Returns(StringAfterMetacharacterEscaping);
+                    yield return new TestCaseData("%!PASSPHRASE%").Returns(StringAfterNoEscaping);
+                    yield return new TestCaseData("%+PASSPHRASE%").Returns(StringAfterUrlEncoding);
                     yield return new TestCaseData("%%") {TestName = "EmptyVariableTagsNotParsed" }.Returns("%%");
                     yield return new TestCaseData("/k echo %!USERNAME%") { TestName = "ParsingWorksWhenVariableIsNotInFirstPosition" }.Returns(SampleCommandString);
                     yield return new TestCaseData("%COMSPEC%") { TestName = "EnvironmentVariablesParsed" }.Returns(Environment.GetEnvironmentVariable("comspec"));

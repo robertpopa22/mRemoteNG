@@ -34,6 +34,9 @@ namespace mRemoteNG.UI.Window
             _currentlySelectedExternalTools.CollectionUpdated += CurrentlySelectedExternalToolsOnCollectionUpdated;
             BrowseButton.Height = FilenameTextBox.Height;
             BrowseWorkingDir.Height = WorkingDirTextBox.Height;
+            BrowsePrivateKeyButton.Height = PrivateKeyFileTextBox.Height;
+            AuthenticationPasswordTextBox.UseSystemPasswordChar = true;
+            PassphraseTextBox.UseSystemPasswordChar = true;
             ResizeEnd += ExternalTools_ResizeEnd;
         }
 
@@ -82,10 +85,16 @@ namespace mRemoteNG.UI.Window
             ArgumentsLabel.Text = Language.Arguments;
             WorkingDirLabel.Text = Language.WorkingDirectory;
             OptionsLabel.Text = Language.Options;
+            AuthenticationTypeLabel.Text = "Authentication Type:";
+            AuthenticationUsernameLabel.Text = "Authentication Username:";
+            AuthenticationPasswordLabel.Text = "Authentication Password:";
+            PrivateKeyFileLabel.Text = "Private Key File:";
+            PassphraseLabel.Text = "Passphrase:";
 
             WaitForExitCheckBox.Text = Language.WaitForExit;
             BrowseButton.Text = Language._Browse;
             BrowseWorkingDir.Text = Language._Browse;
+            BrowsePrivateKeyButton.Text = Language._Browse;
             NewToolMenuItem.Text = Language.NewExternalTool;
             DeleteToolMenuItem.Text = Language.DeleteExternalTool;
             LaunchToolMenuItem.Text = Language.LaunchExternalTool;
@@ -148,6 +157,11 @@ namespace mRemoteNG.UI.Window
             IconPathTextBox.Text = selectedTool?.IconPath;
             ArgumentsCheckBox.Text = selectedTool?.Arguments;
             WorkingDirTextBox.Text = selectedTool?.WorkingDir;
+            AuthenticationTypeTextBox.Text = selectedTool?.AuthenticationType;
+            AuthenticationUsernameTextBox.Text = selectedTool?.AuthenticationUsername;
+            AuthenticationPasswordTextBox.Text = selectedTool?.AuthenticationPassword;
+            PrivateKeyFileTextBox.Text = selectedTool?.PrivateKeyFile;
+            PassphraseTextBox.Text = selectedTool?.Passphrase;
             WaitForExitCheckBox.Checked = selectedTool?.WaitForExit ?? false;
             TryToIntegrateCheckBox.Checked = selectedTool?.TryIntegrate ?? false;
             ShowOnToolbarCheckBox.Checked = selectedTool?.ShowOnToolbar ?? false;
@@ -319,6 +333,11 @@ namespace mRemoteNG.UI.Window
                 selectedTool.IconPath = IconPathTextBox.Text;
                 selectedTool.Arguments = ArgumentsCheckBox.Text;
                 selectedTool.WorkingDir = WorkingDirTextBox.Text;
+                selectedTool.AuthenticationType = AuthenticationTypeTextBox.Text;
+                selectedTool.AuthenticationUsername = AuthenticationUsernameTextBox.Text;
+                selectedTool.AuthenticationPassword = AuthenticationPasswordTextBox.Text;
+                selectedTool.PrivateKeyFile = PrivateKeyFileTextBox.Text;
+                selectedTool.Passphrase = PassphraseTextBox.Text;
                 selectedTool.WaitForExit = WaitForExitCheckBox.Checked;
                 selectedTool.TryIntegrate = TryToIntegrateCheckBox.Checked;
                 selectedTool.ShowOnToolbar = ShowOnToolbarCheckBox.Checked;
@@ -400,6 +419,28 @@ namespace mRemoteNG.UI.Window
             }
         }
 
+        private void BrowsePrivateKeyButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog browseDialog = new())
+                {
+                    browseDialog.Filter = "Private Key Files|*.ppk;*.pem;*.key|All Files|*.*";
+                    if (browseDialog.ShowDialog() != DialogResult.OK)
+                        return;
+                    ExternalTool? selectedItem = _currentlySelectedExternalTools.FirstOrDefault();
+                    if (selectedItem == null)
+                        return;
+                    selectedItem.PrivateKeyFile = browseDialog.FileName;
+                }
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("UI.Window.ExternalTools.BrowsePrivateKeyButton_Click() failed.",
+                                                             ex);
+            }
+        }
+
         private void ToolsListObjView_CellToolTipShowing(object sender, ToolTipShowingEventArgs e)
         {
             if (e.Column != WaitForExitColumnHeader)
@@ -433,6 +474,11 @@ namespace mRemoteNG.UI.Window
             AddVariableMenuItem(variablesMenu, "EnvironmentTags");
             AddVariableMenuItem(variablesMenu, "SSHOptions");
             AddVariableMenuItem(variablesMenu, "PuttySession");
+            AddVariableMenuItem(variablesMenu, "AuthType");
+            AddVariableMenuItem(variablesMenu, "AuthUsername");
+            AddVariableMenuItem(variablesMenu, "AuthPassword");
+            AddVariableMenuItem(variablesMenu, "PrivateKeyFile");
+            AddVariableMenuItem(variablesMenu, "Passphrase");
 
             variablesMenu.Show(VariablesButton, new System.Drawing.Point(0, VariablesButton.Height));
         }

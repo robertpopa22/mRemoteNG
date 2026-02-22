@@ -34,6 +34,11 @@ namespace mRemoteNG.Tools
         private bool _runOnStartup;
         private bool _stopOnShutdown;
         private Keys _hotkey = Keys.None;
+        private string _authenticationType = string.Empty;
+        private string _authenticationUsername = string.Empty;
+        private string _authenticationPassword = string.Empty;
+        private string _privateKeyFile = string.Empty;
+        private string _passphrase = string.Empty;
 
         #region Public Properties
 
@@ -119,6 +124,36 @@ namespace mRemoteNG.Tools
         {
             get => _hotkey;
             set => SetField(ref _hotkey, value, nameof(Hotkey));
+        }
+
+        public string AuthenticationType
+        {
+            get => _authenticationType;
+            set => SetField(ref _authenticationType, value, nameof(AuthenticationType));
+        }
+
+        public string AuthenticationUsername
+        {
+            get => _authenticationUsername;
+            set => SetField(ref _authenticationUsername, value, nameof(AuthenticationUsername));
+        }
+
+        public string AuthenticationPassword
+        {
+            get => _authenticationPassword;
+            set => SetField(ref _authenticationPassword, value, nameof(AuthenticationPassword));
+        }
+
+        public string PrivateKeyFile
+        {
+            get => _privateKeyFile;
+            set => SetField(ref _privateKeyFile, value, nameof(PrivateKeyFile));
+        }
+
+        public string Passphrase
+        {
+            get => _passphrase;
+            set => SetField(ref _passphrase, value, nameof(Passphrase));
         }
 
         public string IconPath { get; set; } = string.Empty;
@@ -282,7 +317,7 @@ namespace mRemoteNG.Tools
 
         private void SetProcessProperties(Process process, ConnectionInfo startConnectionInfo)
         {
-            ExternalToolArgumentParser argParser = new(startConnectionInfo);
+            ExternalToolArgumentParser argParser = new(startConnectionInfo, this);
             string parsedFileName = argParser.ParseArguments(FileName);
             parsedFileName = NormalizeSystem32PathForWow64(parsedFileName);
 
