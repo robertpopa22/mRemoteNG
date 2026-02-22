@@ -22,6 +22,7 @@ namespace mRemoteNG.UI.Window
         private readonly ThemeManager _themeManager;
         private readonly DisplayProperties _display;
         private readonly System.Collections.Generic.List<ListViewItem> _allItems = new();
+        private int _unreadCount;
 
         public DockContent? PreviousActiveForm { get; set; }
 
@@ -43,6 +44,7 @@ namespace mRemoteNG.UI.Window
             LayoutVertical();
             FillImageList();
             ApplyLanguage();
+            lvErrorCollector.Enter += LvErrorCollector_Enter;
         }
 
         #region Form Stuff
@@ -56,8 +58,21 @@ namespace mRemoteNG.UI.Window
             clmMessage.Text = Language.Message;
             cMenMCCopy.Text = Language.CopyAll;
             cMenMCDelete.Text = Language.DeleteAll;
-            TabText = Language.Notifications;
-            Text = Language.Notifications;
+            UpdateTabTitle();
+        }
+
+        private void UpdateTabTitle()
+        {
+            string baseTitle = Language.Notifications;
+            string title = _unreadCount > 0 ? $"{baseTitle} ({_unreadCount})" : baseTitle;
+            TabText = title;
+            Text = title;
+        }
+
+        private void LvErrorCollector_Enter(object? sender, EventArgs e)
+        {
+            _unreadCount = 0;
+            UpdateTabTitle();
         }
 
         #endregion
@@ -404,6 +419,9 @@ namespace mRemoteNG.UI.Window
                     pbError.Visible = false;
                     txtMsgText.Visible = false;
                 }
+
+                _unreadCount = 0;
+                UpdateTabTitle();
             }
             catch (Exception ex)
             {
@@ -430,6 +448,12 @@ namespace mRemoteNG.UI.Window
 
             if (lvErrorCollector.Items.Count > 0)
                 pbError.Visible = true;
+
+            if (!lvErrorCollector.Focused)
+            {
+                _unreadCount++;
+                UpdateTabTitle();
+            }
         }
 
         private void ApplyFilter()

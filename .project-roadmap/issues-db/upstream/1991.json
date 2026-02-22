@@ -11,12 +11,19 @@
   "created_at": "2021-07-06T18:30:26Z",
   "github_updated_at": "2021-07-09T11:03:57Z",
   "body_snippet": "In v 1.76.20 \"Notification\" pop up unexpectedly and show sort time. Show time in v 1.77.2 more, but \"pop up\"  drop concentration. \r\n\r\n## Expected Behavior\r\nShow icon in status bar, if exist new notifications. For manual open-read-close.\r\n\r\n## Current Behavior\r\nPop up new bottom panel with yellow color, without button for manual open again.\r\n\r\n## Possible Solution\r\nRedesign work with notifications.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Try connect to non exist server\r\n2.\r\n3.\r\n4.\r\n\r\n## Context\r\n...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "The user wants pop-up notifications to be integrated into a panel within the main application window for improved user experience and less intrusive alerts."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg3NDk4OTUxNg==",
@@ -33,5 +40,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The user wants pop-up notifications to be integrated into a panel within the main application window for improved user experience and less intrusive alerts.\nApproach: Identify the code within `PopupMessageWriter.cs` responsible for creating and displaying pop-up notifications. Modify their behavior to anchor them to a specific UI panel (e.g., a status bar or a dedicated notification area) within the `FrmMain` window, rather than appearing as independent, free-floating windows. This might involve creating a custom `UserControl` to host the notifications or integrating with an existing panel in `FrmMain`."
 }
