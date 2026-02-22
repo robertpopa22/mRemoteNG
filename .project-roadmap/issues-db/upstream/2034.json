@@ -10,12 +10,19 @@
   "created_at": "2021-08-30T08:02:20Z",
   "github_updated_at": "2026-02-21T10:22:49Z",
   "body_snippet": "Hi,\r\n\r\nI'm testing the last nightly build, and the \"new\" SSH TUNNEL (jump host) functionality is a must have. Thank you for it. However, I have one suggestion to improve it:\r\n\r\n- The idea is to add a new option called \"share tunnel password\". This implements the functionality to store the typed password _the fisrt time it's used_. And for all new connections using the same tunnel, the password of the jump host will be reused... without typing it again. This will be similar to a SSO (Single Sign-...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "Implement functionality to enable SSH tunneling with SSO password authentication when the 'Share SSH Connection' option is active."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM42IfCD",
@@ -50,5 +57,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Implement functionality to enable SSH tunneling with SSO password authentication when the 'Share SSH Connection' option is active.\nApproach: Analyze existing SSH tunneling and connection sharing mechanisms to integrate SSO password handling, ensuring seamless operation across shared SSH connections."
 }

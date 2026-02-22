@@ -916,6 +916,44 @@ namespace mRemoteNG.Connection.Protocol
                 System.Threading.Tasks.TaskScheduler.Default);
         }
 
+        private bool IsSshTunnelSession()
+        {
+            ConnectionInfo? info = InterfaceControl?.Info;
+            if (info == null)
+                return false;
+
+            if (info.Protocol != ProtocolType.SSH1 && info.Protocol != ProtocolType.SSH2)
+                return false;
+
+            string sshOptions = info.SSHOptions ?? string.Empty;
+            return sshOptions.Contains(" -L ", StringComparison.OrdinalIgnoreCase) ||
+                   sshOptions.StartsWith("-L ", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private bool TryClosePuttyGracefully()
+        {
+            if (PuttyProcess == null || PuttyProcess.HasExited)
+                return true;
+
+            bool closeRequested = false;
+            if (PuttyHandle != IntPtr.Zero)
+            {
+                closeRequested = NativeMethods.PostMessage(
+                    PuttyHandle,
+                    NativeMethods.WM_CLOSE,
+                    IntPtr.Zero,
+                    IntPtr.Zero);
+            }
+
+            if (!closeRequested)
+                closeRequested = PuttyProcess.CloseMainWindow();
+
+            if (!closeRequested)
+                return false;
+
+            return PuttyProcess.WaitForExit(1000);
+        }
+
         public override void Close()
         {
             if (InterfaceControl != null)
@@ -931,7 +969,11 @@ namespace mRemoteNG.Connection.Protocol
             {
                 if (PuttyProcess?.HasExited == false)
                 {
-                    PuttyProcess.Kill();
+                    bool processExited = TryClosePuttyGracefully();
+                    if (!processExited && !IsSshTunnelSession())
+                    {
+                        PuttyProcess.Kill();
+                    }
                 }
             }
             catch (Exception ex)

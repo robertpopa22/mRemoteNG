@@ -1,0 +1,49 @@
+{
+  "task_type": "triage",
+  "task_id": "2034",
+  "started_at": "2026-02-22T06:48:58",
+  "finished_at": "2026-02-22T06:49:24",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T06:48:59"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Implement functionality to enable SSH tunneling with SSO password authentication when the 'Share SSH Connection' option is active.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG/Connection/SSH/SshConnectionInfo.cs",
+          "mRemoteNG/Connection/ConnectionInfo.cs",
+          "mRemoteNG/Tools/SSH/SshClient.cs"
+        ],
+        "approach": "Analyze existing SSH tunneling and connection sharing mechanisms to integrate SSO password handling, ensuring seamless operation across shared SSH connections."
+      },
+      "raw_output": "```json\n{\n  \"decision\": \"implement\",\n  \"reason\": \"Implement functionality to enable SSH tunneling with SSO password authentication when the 'Share SSH Connection' option is active.\",\n  \"priority\": \"P3-enhancement\",\n  \"estimated_files\": [\n    \"mRemoteNG/Connection/SSH/SshConnectionInfo.cs\",\n    \"mRemoteNG/Connection/ConnectionInfo.cs\",\n    \"mRemoteNG/Tools/SSH/SshClient.cs\"\n  ],\n  \"approach\": \"Analyze existing SSH tunneling and connection sharing mechanisms to integrate SSO password handling, ensuring seamless operation across shared SSH connections.\"\n}\n```\n",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T06:49:24"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}
