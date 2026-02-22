@@ -477,7 +477,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 if (_confVersion >= 2.2)
                 {
                     // Get settings
-                    connectionInfo.RDGatewayUsageMethod = xmlnode.GetAttributeAsEnum<RDGatewayUsageMethod>("RDGatewayUsageMethod");
+                    connectionInfo.RDGatewayUsageMethod = GetRdGatewayUsageMethod(xmlnode);
                     connectionInfo.RDGatewayHostname = xmlnode.GetAttributeAsString("RDGatewayHostname");
                     connectionInfo.RDGatewayUseConnectionCredentials = xmlnode.GetAttributeAsEnum<RDGatewayUseConnectionCredentials>("RDGatewayUseConnectionCredentials");
                     connectionInfo.RDGatewayUsername = xmlnode.GetAttributeAsString("RDGatewayUsername");
@@ -666,6 +666,35 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
             }
 
             return connectionInfo;
+        }
+
+        private static RDGatewayUsageMethod GetRdGatewayUsageMethod(XmlNode xmlNode)
+        {
+            string value = xmlNode.GetAttributeAsString("RDGatewayUsageMethod");
+            if (string.IsNullOrWhiteSpace(value))
+                return RDGatewayUsageMethod.Never;
+
+            if (int.TryParse(value, out int numericValue))
+            {
+                return numericValue switch
+                {
+                    0 => RDGatewayUsageMethod.Never,
+                    1 => RDGatewayUsageMethod.Always,
+                    2 => RDGatewayUsageMethod.Detect,
+                    // Legacy .rdp imports can carry value 4 (do not use RD Gateway, bypass local addresses),
+                    // which is unsupported by our enum and should behave as "Never".
+                    4 => RDGatewayUsageMethod.Never,
+                    _ => RDGatewayUsageMethod.Never,
+                };
+            }
+
+            if (Enum.TryParse(value, true, out RDGatewayUsageMethod parsedValue) &&
+                Enum.IsDefined(typeof(RDGatewayUsageMethod), parsedValue))
+            {
+                return parsedValue;
+            }
+
+            return RDGatewayUsageMethod.Never;
         }
     }
 }

@@ -10,12 +10,19 @@
   "created_at": "2021-08-27T06:44:09Z",
   "github_updated_at": "2026-02-21T10:22:49Z",
   "body_snippet": "I have installed mRemote version 1.77.\r\nFor an RDP session I tried RDP with protocol version 7 or higher to connect an audio recording device via remote.\r\n\r\nUnfortunately the audio recording device is not forwarded to the server.\r\n\r\n![grafik](https://user-images.githubusercontent.com/13101074/131083958-05209e9b-4e14-4940-b1c7-13aec266d148.png)\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "The issue indicates that the 'RedirectAudioCapture' functionality for RDP sessions, which redirects audio input from the remote machine, is not working as expected despite being implemented in the code."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFdK",
@@ -32,5 +39,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The issue indicates that the 'RedirectAudioCapture' functionality for RDP sessions, which redirects audio input from the remote machine, is not working as expected despite being implemented in the code.\nApproach: Investigate `RdpProtocol7.cs` to verify that `rdpClient.AdvancedSettings8.AudioCaptureRedirectionMode` is being correctly applied and that the underlying RDP control supports and correctly handles this setting, or identify if an issue exists in related connection property handling."
 }

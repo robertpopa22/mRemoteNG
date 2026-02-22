@@ -9,9 +9,9 @@
   ],
   "author": "setta-uk",
   "created_at": "2021-08-12T14:27:01Z",
-  "github_updated_at": "2021-08-13T09:21:57Z",
+  "github_updated_at": "2026-02-22T04:01:15Z",
   "body_snippet": "Hello,\r\n\r\nIs is possible to customise the background colour of a SSH/Telnet session and also the font/size of the text?\r\n\r\nI have seen you can have themes but there doesn't seem to be anywhere to change the appearance of a tabbed SSH/Telnet session\r\n\r\nThanks! :)\r\n",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "Implement custom appearance options for tabbed sessions and connections."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in 86ab9c34"
     }
   ],
   "comments": [
@@ -33,12 +39,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q2Ql-",
+      "author": "robertpopa22",
+      "date": "2026-02-22T04:01:08Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Modify existing tab control implementations to expose custom\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2021-08-13T09:21:57Z",
+  "comments_cursor": "2026-02-22T04:01:15Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-22T04:17:18Z",
   "notes": "AI triage (gemini): Implement custom appearance options for tabbed sessions and connections.\nApproach: Modify existing tab control implementations to expose customization options for colors, fonts, and potentially layout of connection tabs."
 }

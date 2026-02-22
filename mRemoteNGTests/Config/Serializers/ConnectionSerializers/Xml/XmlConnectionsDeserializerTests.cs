@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using mRemoteNG.Config.Serializers.ConnectionSerializers.Xml;
 using mRemoteNG.Connection;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Container;
 using mRemoteNG.Security;
 using mRemoteNG.Tree;
@@ -133,6 +134,21 @@ public class XmlConnectionsDeserializerTests
 
         Assert.That(rootNode, Is.Not.Null);
         Assert.That(rootNode.AutoLockOnMinimize, Is.True);
+    }
+
+    [Test]
+    public void LegacyNumericRdGatewayUsageMethodFallsBackToSupportedEnumValue()
+    {
+        string xml = Resources.confCons_v2_6.Replace("RDGatewayUsageMethod=\"Never\"", "RDGatewayUsageMethod=\"4\"",
+            System.StringComparison.Ordinal);
+
+        Setup(xml, "mR3m");
+
+        ConnectionInfo firstConnection = _connectionTreeModel.GetRecursiveChildList()
+            .First(node => node is not ContainerInfo);
+
+        Assert.That(System.Enum.IsDefined(typeof(RDGatewayUsageMethod), firstConnection.RDGatewayUsageMethod), Is.True);
+        Assert.That(firstConnection.RDGatewayUsageMethod, Is.EqualTo(RDGatewayUsageMethod.Never));
     }
 
     private bool ContainsNodeNamed(string name, IEnumerable<ConnectionInfo> list)

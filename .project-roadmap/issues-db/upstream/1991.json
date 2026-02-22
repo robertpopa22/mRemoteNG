@@ -9,7 +9,7 @@
   ],
   "author": "Apollon-Theos",
   "created_at": "2021-07-06T18:30:26Z",
-  "github_updated_at": "2021-07-09T11:03:57Z",
+  "github_updated_at": "2026-02-22T02:32:46Z",
   "body_snippet": "In v 1.76.20 \"Notification\" pop up unexpectedly and show sort time. Show time in v 1.77.2 more, but \"pop up\"  drop concentration. \r\n\r\n## Expected Behavior\r\nShow icon in status bar, if exist new notifications. For manual open-read-close.\r\n\r\n## Current Behavior\r\nPop up new bottom panel with yellow color, without button for manual open again.\r\n\r\n## Possible Solution\r\nRedesign work with notifications.\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Try connect to non exist server\r\n2.\r\n3.\r\n4.\r\n\r\n## Context\r\n...",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -33,12 +33,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q1xjj",
+      "author": "robertpopa22",
+      "date": "2026-02-22T02:32:38Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Identify the code within `PopupMessageWriter.cs` responsible\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2021-07-09T11:03:57Z",
+  "comments_cursor": "2026-02-22T02:32:46Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-15T09:52:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-02-22T04:17:18Z",
   "notes": "AI triage (gemini): The user wants pop-up notifications to be integrated into a panel within the main application window for improved user experience and less intrusive alerts.\nApproach: Identify the code within `PopupMessageWriter.cs` responsible for creating and displaying pop-up notifications. Modify their behavior to anchor them to a specific UI panel (e.g., a status bar or a dedicated notification area) within the `FrmMain` window, rather than appearing as independent, free-floating windows. This might involve creating a custom `UserControl` to host the notifications or integrating with an existing panel in `FrmMain`."
 }

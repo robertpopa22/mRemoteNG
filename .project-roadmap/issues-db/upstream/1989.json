@@ -9,7 +9,7 @@
   ],
   "author": "Apollon-Theos",
   "created_at": "2021-07-06T18:17:23Z",
-  "github_updated_at": "2026-02-21T10:22:49Z",
+  "github_updated_at": "2026-02-22T02:26:16Z",
   "body_snippet": "After close emptry panel, shortly show first panel, and after switch to panel left from closed.\r\n\r\n## Expected Behavior\r\nShow left panel from closed, without any artifacts.\r\n\r\n## Current Behavior\r\nSwitch to first panel, shortly, then switch to panel left from closed.\r\n\r\n## Possible Solution\r\nRead a book from Donald Knuth ? :)\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open more that 2 panels with tabs inside\r\n2. Close last (right) panel\r\n3. Look at program\r\n4.\r\n\r\n## Context\r\n<!--- How has this issu...",
   "our_status": "testing",
   "priority": "P2-bug",
@@ -63,17 +63,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q1ubS",
+      "author": "robertpopa22",
+      "date": "2026-02-22T02:26:09Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Investigate the panel closing logic in `ConnectionWindow.cs`\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:22:49Z",
+  "comments_cursor": "2026-02-22T02:26:16Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
-  "notes": "AI triage (gemini): The issue describes a UI bug (blinking panel order) that affects user experience when closing panels.\nApproach: Investigate the panel closing logic in `ConnectionWindow.cs`, focusing on `OnConnectionTabFormClosing` and `Connection_FormClosing` events. Analyze the sequence of operations for panel re-arrangement and activation after a panel is closed. The fix will likely involve minimizing redraws or layout updates, possibly by strategically using `SuspendLayout()` and `ResumeLayout()` on the `DockPanel` or related controls, or re-ordering operations to ensure a smoother visual transition.",
-  "token_usage": {
-    "input_tokens": 27,
-    "output_tokens": 19260,
-    "cost_usd": 1.962369
-  }
+  "last_synced": "2026-02-22T04:17:18Z",
+  "notes": "AI triage (gemini): The issue describes a UI bug (blinking panel order) that affects user experience when closing panels.\nApproach: Investigate the panel closing logic in `ConnectionWindow.cs`, focusing on `OnConnectionTabFormClosing` and `Connection_FormClosing` events. Analyze the sequence of operations for panel re-arrangement and activation after a panel is closed. The fix will likely involve minimizing redraws or layout updates, possibly by strategically using `SuspendLayout()` and `ResumeLayout()` on the `DockPanel` or related controls, or re-ordering operations to ensure a smoother visual transition."
 }

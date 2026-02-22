@@ -1,0 +1,22 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #2025: Retire VncSHarp/VncSharpNG
+
+Description:
+
+
+Recommended approach: Research alternative VNC client implementations, integrate a suitable replacement library into the project, and refactor existing VNC connection logic and UI components to use the new implementation.
+Likely files: mRemoteNG/Connection/Protocol/VNC/Connection.Protocol.VNC.cs, mRemoteNGTests/Connection/Protocol/VNC/VncLockKeyFilterTests.cs, mRemoteNG/mRemoteNG.csproj, Directory.Packages.props, mRemoteNGInstaller/Installer/Fragments/FilesFragment.wxs
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
+- NEVER modify these infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props, .github/workflows/*. They are READ-ONLY.
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else.

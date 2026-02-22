@@ -12,12 +12,19 @@
   "created_at": "2021-08-27T17:23:22Z",
   "github_updated_at": "2026-02-21T10:22:49Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n**Internal error on imported connection attempt**\r\nWe have an RD Session Host server farm with 2 servers and a gateway performing load balancing. We'll call the servers RDSSERVER03 & RDSSERVER04 and the gateway server GATEWAY01 with an alias of RDS2. There is an rds2.rdp file that many people in the company use to connect to the servers and it works just fine (see attached). I imported that file into mRemoteNG, but I can't get ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "An internal error during connection import indicates a defect in the deserialization or processing logic of imported connection data, requiring investigation and a fix."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFcz",
@@ -34,5 +41,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): An internal error during connection import indicates a defect in the deserialization or processing logic of imported connection data, requiring investigation and a fix.\nApproach: Investigate the XmlConnectionsDeserializer and MRemoteNGXmlImporter classes to identify the source of the internal error during connection import and implement a robust fix, potentially adding error handling or validation."
 }
