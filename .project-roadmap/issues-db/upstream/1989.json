@@ -11,12 +11,19 @@
   "created_at": "2021-07-06T18:17:23Z",
   "github_updated_at": "2026-02-21T10:22:49Z",
   "body_snippet": "After close emptry panel, shortly show first panel, and after switch to panel left from closed.\r\n\r\n## Expected Behavior\r\nShow left panel from closed, without any artifacts.\r\n\r\n## Current Behavior\r\nSwitch to first panel, shortly, then switch to panel left from closed.\r\n\r\n## Possible Solution\r\nRead a book from Donald Knuth ? :)\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Open more that 2 panels with tabs inside\r\n2. Close last (right) panel\r\n3. Look at program\r\n4.\r\n\r\n## Context\r\n<!--- How has this issu...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "The issue describes a UI bug (blinking panel order) that affects user experience when closing panels."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg3NTM0Nzc1Ng==",
@@ -51,5 +58,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The issue describes a UI bug (blinking panel order) that affects user experience when closing panels.\nApproach: Investigate the panel closing logic in `ConnectionWindow.cs`, focusing on `OnConnectionTabFormClosing` and `Connection_FormClosing` events. Analyze the sequence of operations for panel re-arrangement and activation after a panel is closed. The fix will likely involve minimizing redraws or layout updates, possibly by strategically using `SuspendLayout()` and `ResumeLayout()` on the `DockPanel` or related controls, or re-ordering operations to ensure a smoother visual transition."
 }

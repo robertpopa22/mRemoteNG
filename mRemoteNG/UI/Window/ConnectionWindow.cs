@@ -39,6 +39,8 @@ namespace mRemoteNG.UI.Window
         private readonly ToolStripMenuItem _cmenTabScreenshotManager = new();
         private bool _isAddingTab;
         private readonly List<IDockContent> _tabActivationHistory = new();
+        // Tracks panel activation order across all ConnectionWindow instances (MRU, index 0 = oldest)
+        private static readonly List<ConnectionWindow> _panelActivationHistory = new();
 
         #region Public Methods
 
@@ -557,6 +559,25 @@ namespace mRemoteNG.UI.Window
         private void ConnectionWindow_GotFocus(object sender, EventArgs e)
         {
             TabHelper.Instance.CurrentPanel = this;
+            _panelActivationHistory.RemoveAll(w => w.IsDisposed || ReferenceEquals(w, this));
+            _panelActivationHistory.Add(this);
+        }
+
+        // Activates the MRU sibling panel before this one closes, preventing DockPanelSuite
+        // from briefly flashing the first panel (issue #1989).
+        private void PreActivateSiblingPanel()
+        {
+            if (FrmMain.Default?.pnlDock?.ActiveDocument is not ConnectionWindow activePanel ||
+                !ReferenceEquals(activePanel, this))
+                return;
+
+            for (int i = _panelActivationHistory.Count - 1; i >= 0; i--)
+            {
+                ConnectionWindow candidate = _panelActivationHistory[i];
+                if (candidate.IsDisposed || candidate.Disposing || ReferenceEquals(candidate, this)) continue;
+                candidate.DockHandler.Activate();
+                return;
+            }
         }
 
         private sealed class FocusSnapshot
@@ -941,6 +962,12 @@ namespace mRemoteNG.UI.Window
                     return;
                 }
             }
+
+            // Pre-activate the MRU sibling panel before this one closes to prevent a
+            // brief flash of the first panel (issue #1989). Only needed when not closing
+            // because FrmMain itself is shutting down.
+            if (!FrmMain.Default.IsClosing)
+                PreActivateSiblingPanel();
 
             try
             {
