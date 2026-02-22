@@ -11,11 +11,11 @@ namespace mRemoteNG.Config.DatabaseConnectors
     /// </summary>
     public class DatabaseConnectionTester
     {
-        public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password)
+        public async Task<ConnectionTestResult> TestConnectivity(string type, string server, string database, string username, string password, string? authType = null)
         {
             try
             {
-                using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password);
+                using IDatabaseConnector dbConnector = DatabaseConnectorFactory.DatabaseConnector(type, server, database, username, password, authType);
                 await dbConnector.ConnectAsync();
                 return ConnectionTestResult.ConnectionSucceded;
             }

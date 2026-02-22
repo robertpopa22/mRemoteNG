@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security;
+using Microsoft.Data.SqlClient;
 using mRemoteNG.Config.Connections;
 using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.DataProviders;
@@ -98,6 +99,47 @@ public class SqlConnectionsLoaderIntegrationTests
             "password");
 
         Assert.That(connector, Is.TypeOf<OdbcDatabaseConnector>());
+    }
+
+    [Test]
+    public void DatabaseConnectorFactory_WithMsSqlWindowsAuthentication_UsesIntegratedSecurity()
+    {
+        using IDatabaseConnector connector = DatabaseConnectorFactory.DatabaseConnector(
+            DatabaseConnectorFactory.MsSqlType,
+            "sqlserver.local",
+            "mremoteng",
+            "domain\\user",
+            "password",
+            DatabaseConnectorFactory.WindowsAuthentication);
+
+        Assert.That(connector, Is.TypeOf<MSSqlDatabaseConnector>());
+
+        var sqlConnection = (SqlConnection)connector.DbConnection();
+        var builder = new SqlConnectionStringBuilder(sqlConnection.ConnectionString);
+
+        Assert.That(builder.IntegratedSecurity, Is.True);
+        Assert.That(builder.UserID, Is.Empty);
+        Assert.That(builder.Password, Is.Empty);
+    }
+
+    [Test]
+    public void DatabaseConnectorFactory_WithMsSqlSqlAuthentication_UsesCustomCredentials()
+    {
+        using IDatabaseConnector connector = DatabaseConnectorFactory.DatabaseConnector(
+            DatabaseConnectorFactory.MsSqlType,
+            "sqlserver.local",
+            "mremoteng",
+            "dbuser",
+            string.Empty,
+            "SQL Server Authentication");
+
+        Assert.That(connector, Is.TypeOf<MSSqlDatabaseConnector>());
+
+        var sqlConnection = (SqlConnection)connector.DbConnection();
+        var builder = new SqlConnectionStringBuilder(sqlConnection.ConnectionString);
+
+        Assert.That(builder.IntegratedSecurity, Is.False);
+        Assert.That(builder.UserID, Is.EqualTo("dbuser"));
     }
 
     [Test]

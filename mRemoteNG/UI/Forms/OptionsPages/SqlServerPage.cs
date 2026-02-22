@@ -243,12 +243,13 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             string database = txtSQLDatabaseName.Text;
             string username = txtSQLUsername.Text;
             string password = txtSQLPassword.Text;
+            string authType = txtSQLAuthType.SelectedItem?.ToString() ?? DatabaseConnectorFactory.WindowsAuthentication;
 
             lblTestConnectionResults.Text = Language.TestingConnection;
             imgConnectionStatus.Image = Properties.Resources.Loading_Spinner;
             btnTestConnection.Enabled = false;
 
-            ConnectionTestResult connectionTestResult = await _databaseConnectionTester.TestConnectivity(type, server, database, username, password);
+            ConnectionTestResult connectionTestResult = await _databaseConnectionTester.TestConnectivity(type, server, database, username, password, authType);
 
             btnTestConnection.Enabled = true;
 

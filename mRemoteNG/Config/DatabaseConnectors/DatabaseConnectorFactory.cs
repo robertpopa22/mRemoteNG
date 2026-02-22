@@ -11,6 +11,8 @@ namespace mRemoteNG.Config.DatabaseConnectors
         public const string MsSqlType = "mssql";
         public const string MySqlType = "mysql";
         public const string OdbcType = "odbc";
+        public const string WindowsAuthentication = "Windows Authentication";
+        public const string MicrosoftEntraIntegratedAuthentication = "Microsoft Entra Integrated";
 
         public static IDatabaseConnector DatabaseConnectorFromSettings()
         {
@@ -19,15 +21,24 @@ namespace mRemoteNG.Config.DatabaseConnectors
             string sqlHost = Properties.OptionsDBsPage.Default.SQLHost;
             string sqlCatalog = Properties.OptionsDBsPage.Default.SQLDatabaseName;
             string sqlUsername = Properties.OptionsDBsPage.Default.SQLUser;
+            string sqlAuthType = Properties.OptionsDBsPage.Default.SQLAuthType;
             LegacyRijndaelCryptographyProvider cryptographyProvider = new();
             string sqlPassword = cryptographyProvider.Decrypt(Properties.OptionsDBsPage.Default.SQLPass, Runtime.EncryptionKey);
 
-            return DatabaseConnector(sqlType, sqlHost, sqlCatalog, sqlUsername, sqlPassword);
+            return DatabaseConnector(sqlType, sqlHost, sqlCatalog, sqlUsername, sqlPassword, sqlAuthType);
         }
 
-        public static IDatabaseConnector DatabaseConnector(string? type, string server, string database, string username, string password)
+        public static IDatabaseConnector DatabaseConnector(string? type, string server, string database, string username, string password, string? authType = null)
         {
-            switch (NormalizeType(type))
+            string normalizedType = NormalizeType(type);
+
+            if (ShouldUseIntegratedSecurity(normalizedType, authType))
+            {
+                username = string.Empty;
+                password = string.Empty;
+            }
+
+            switch (normalizedType)
             {
                 case MySqlType:
                     return new MySqlDatabaseConnector(server, database, username, password);
@@ -37,6 +48,15 @@ namespace mRemoteNG.Config.DatabaseConnectors
                 default:
                     return new MSSqlDatabaseConnector(server, database, username, password);
             }
+        }
+
+        public static bool ShouldUseIntegratedSecurity(string? type, string? authType)
+        {
+            if (!string.Equals(NormalizeType(type), MsSqlType, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return string.Equals(authType, WindowsAuthentication, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(authType, MicrosoftEntraIntegratedAuthentication, StringComparison.OrdinalIgnoreCase);
         }
 
         public static string NormalizeType(string? type)
