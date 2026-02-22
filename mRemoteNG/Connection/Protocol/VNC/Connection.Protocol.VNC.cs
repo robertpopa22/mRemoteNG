@@ -354,8 +354,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 _vnc.VncPort = connectPort;
 
                 bool requiresProxyHandshake = UsesExplicitProxy(_info.VNCProxyType);
+                bool viewOnly = _info.VNCViewOnly || Force.HasFlag(ConnectionInfo.Force.ViewOnly);
                 if (requiresProxyHandshake || TestConnect(connectHost, connectPort, 5000))
-                    ConnectWithTimeout(_vnc, connectHost, _info, VncConnectTimeoutMs);
+                    ConnectWithTimeout(_vnc, connectHost, _info, viewOnly, VncConnectTimeoutMs);
 
                 // Install the lock-key filter after Connect() creates the VncClient.
                 // Fixes Caps Lock sending 't' instead of toggle (issue #227).
@@ -678,14 +679,14 @@ namespace mRemoteNG.Connection.Protocol.VNC
         /// Runs the blocking VncSharpCore Connect() on a background thread with a timeout
         /// so that unreachable VNC servers fail fast instead of freezing the UI (issue #636).
         /// </summary>
-        private static void ConnectWithTimeout(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info, int timeoutMs)
+        private static void ConnectWithTimeout(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info, bool viewOnly, int timeoutMs)
         {
             Exception? connectException = null;
             var connectTask = Task.Run(() =>
             {
                 try
                 {
-                    ConnectRemoteDesktop(vnc, hostName, info);
+                    ConnectRemoteDesktop(vnc, hostName, info, viewOnly);
                 }
                 catch (Exception ex)
                 {
@@ -710,10 +711,9 @@ namespace mRemoteNG.Connection.Protocol.VNC
         /// servers that support it (issue #1943). Falls back to the legacy overload behavior if
         /// no explicit shared-session overload is available.
         /// </summary>
-        private static void ConnectRemoteDesktop(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info)
+        private static void ConnectRemoteDesktop(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info, bool viewOnly)
         {
             bool smartSizeEnabled = info.VNCSmartSizeMode != SmartSizeMode.SmartSNo;
-            bool viewOnly = info.VNCViewOnly;
 
             // Preferred: Connect(host, display, viewOnly, scaled, shared)
             MethodInfo? connectWithSharedAndDisplay = typeof(VncSharpCore.RemoteDesktop).GetMethod(
@@ -941,7 +941,8 @@ namespace mRemoteNG.Connection.Protocol.VNC
                 SetupTraceListener();
                 (string connectHost, int connectPort) = ResolveConnectionEndpoint();
                 _vnc.VncPort = connectPort;
-                ConnectWithTimeout(_vnc, connectHost, _info, VncConnectTimeoutMs);
+                bool viewOnly = _info.VNCViewOnly || Force.HasFlag(ConnectionInfo.Force.ViewOnly);
+                ConnectWithTimeout(_vnc, connectHost, _info, viewOnly, VncConnectTimeoutMs);
 
                 tmrReconnect.Enabled = false;
                 if (ReconnectGroup != null && !ReconnectGroup.IsDisposed)
