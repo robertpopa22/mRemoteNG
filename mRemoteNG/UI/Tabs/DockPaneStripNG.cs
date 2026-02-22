@@ -94,6 +94,7 @@ namespace mRemoteNG.UI.Tabs
         private ConnectionTab? m_dragSourceTab;
         private Point m_dragStartPoint;
         private bool m_externalTabDragInProgress;
+        private bool m_tabDragCandidate;
 
         #endregion
 
@@ -1122,6 +1123,7 @@ namespace mRemoteNG.UI.Tabs
             if (IsMouseDown)
                 IsMouseDown = false;
 
+            m_tabDragCandidate = false;
             m_dragSourceTab = null;
         }
 
@@ -1135,12 +1137,14 @@ namespace mRemoteNG.UI.Tabs
             {
                 m_dragStartPoint = e.Location;
                 int tabIndex = HitTest(e.Location);
+                m_tabDragCandidate = tabIndex >= 0;
                 m_dragSourceTab = tabIndex >= 0
                     ? Tabs[tabIndex].Content as ConnectionTab
                     : null;
             }
             else
             {
+                m_tabDragCandidate = false;
                 m_dragSourceTab = null;
             }
 
@@ -1150,10 +1154,13 @@ namespace mRemoteNG.UI.Tabs
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (!m_suspendDrag)
+            bool suppressNearEdgeUndock = ShouldSuppressNearEdgeUndock(e);
+
+            if (!m_suspendDrag && !suppressNearEdgeUndock)
                 base.OnMouseMove(e);
 
-            TryStartExternalConnectionTabDrag(e);
+            if (!suppressNearEdgeUndock)
+                TryStartExternalConnectionTabDrag(e);
 
             int index = HitTest(PointToClient(MousePosition));
             string toolTip = string.Empty;
@@ -1200,6 +1207,27 @@ namespace mRemoteNG.UI.Tabs
             m_toolTip.Active = false;
             m_toolTip.SetToolTip(this, toolTip);
             m_toolTip.Active = true;
+        }
+
+        internal static bool IsWithinUndockSuppressionZone(Rectangle tabStripBounds, Point pointerLocation, Size dragSize)
+        {
+            if (tabStripBounds.Contains(pointerLocation))
+                return false;
+
+            Rectangle suppressionZone = tabStripBounds;
+            suppressionZone.Inflate(Math.Max(1, dragSize.Width), Math.Max(1, dragSize.Height));
+            return suppressionZone.Contains(pointerLocation);
+        }
+
+        private bool ShouldSuppressNearEdgeUndock(MouseEventArgs e)
+        {
+            if (!m_tabDragCandidate || e.Button != MouseButtons.Left)
+                return false;
+
+            if (Appearance != DockPane.AppearanceStyle.Document)
+                return false;
+
+            return IsWithinUndockSuppressionZone(ClientRectangle, e.Location, SystemInformation.DragSize);
         }
 
         private void TryStartExternalConnectionTabDrag(MouseEventArgs e)

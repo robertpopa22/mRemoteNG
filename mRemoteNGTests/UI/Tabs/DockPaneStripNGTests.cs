@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -107,6 +108,42 @@ namespace mRemoteNGTests.UI.Tabs
             Assert.That(doc2.DockState, Is.EqualTo(DockState.Unknown).Or.EqualTo(DockState.Hidden), "Doc2 should be closed");
             Assert.That(doc3.DockState, Is.EqualTo(DockState.Document), "Doc3 should still be open");
         });
+
+        [Test]
+        public void IsWithinUndockSuppressionZone_ReturnsTrue_WhenPointerIsJustOutsideStrip()
+        {
+            var tabStripBounds = new Rectangle(0, 0, 120, 24);
+            var pointerLocation = new Point(60, -1);
+            var dragSize = new Size(8, 8);
+
+            bool isSuppressed = DockPaneStripNG.IsWithinUndockSuppressionZone(tabStripBounds, pointerLocation, dragSize);
+
+            Assert.That(isSuppressed, Is.True);
+        }
+
+        [Test]
+        public void IsWithinUndockSuppressionZone_ReturnsFalse_WhenPointerIsInsideStrip()
+        {
+            var tabStripBounds = new Rectangle(0, 0, 120, 24);
+            var pointerLocation = new Point(60, 10);
+            var dragSize = new Size(8, 8);
+
+            bool isSuppressed = DockPaneStripNG.IsWithinUndockSuppressionZone(tabStripBounds, pointerLocation, dragSize);
+
+            Assert.That(isSuppressed, Is.False);
+        }
+
+        [Test]
+        public void IsWithinUndockSuppressionZone_ReturnsFalse_WhenPointerIsFarOutsideSuppressionZone()
+        {
+            var tabStripBounds = new Rectangle(0, 0, 120, 24);
+            var pointerLocation = new Point(60, -9);
+            var dragSize = new Size(8, 8);
+
+            bool isSuppressed = DockPaneStripNG.IsWithinUndockSuppressionZone(tabStripBounds, pointerLocation, dragSize);
+
+            Assert.That(isSuppressed, Is.False);
+        }
 
         private static Control FindDockPaneStripNG(Control parent)
         {

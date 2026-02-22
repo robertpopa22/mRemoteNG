@@ -13,12 +13,19 @@
   "created_at": "2021-07-05T16:41:38Z",
   "github_updated_at": "2026-02-21T10:23:32Z",
   "body_snippet": "![screenshot](https://i.imgur.com/498FrcY.png)\r\n\r\nI create Database by [wiki](https://mremoteng.readthedocs.io/en/latest/sql_configuration.html?highlight=sql),\r\nenter my connection data,\r\nand get that error\r\n\r\n[dump my database without data](https://drive.google.com/file/d/1iyWfdB1rPdC1AawauG6V8Hz7Pw_bWy0t/view?usp=sharing)\r\n\r\n`Unable to cast object of type 'System.DBNull' to type 'System.String'.`\r\n```\r\n   at mRemoteNG.Config.Serializers.MsSql.DataTableDeserializer.PopulateConnectionInfoFromDat...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "Users are reporting an inability to connect to a SQL database for connection storage, indicating a critical bug in a core feature."
+    }
+  ],
   "comments": [
     {
       "id": "MDEyOklzc3VlQ29tbWVudDg3NDMwMDM3Ng==",
@@ -71,5 +78,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Users are reporting an inability to connect to a SQL database for connection storage, indicating a critical bug in a core feature.\nApproach: Investigate the SQL connection establishment and authentication process within the `mRemoteNG.Config.DatabaseConnectors` namespace and related UI components to pinpoint the failure point."
 }
