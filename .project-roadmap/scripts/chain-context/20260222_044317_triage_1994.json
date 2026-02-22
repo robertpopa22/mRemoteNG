@@ -1,0 +1,48 @@
+{
+  "task_type": "triage",
+  "task_id": "1994",
+  "started_at": "2026-02-22T04:41:37",
+  "finished_at": "2026-02-22T04:43:17",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "triage",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Agent returned None",
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T04:41:37"
+    },
+    {
+      "agent": "gemini",
+      "task": "triage",
+      "success": true,
+      "result": {
+        "decision": "implement",
+        "reason": "Added 'Open in Browser' functionality for HTTP/HTTPS connections, a logical and common enhancement.",
+        "priority": "P3-enhancement",
+        "estimated_files": [
+          "mRemoteNG\\UI\\Controls\\ConnectionContextMenu.cs",
+          "mRemoteNG\\Language\\Language.resx"
+        ],
+        "approach": "Added a new 'Open in Browser' menu item to the connection context menu. This item is enabled only for HTTP/HTTPS connections and, when clicked, opens the connection's URL in the default browser."
+      },
+      "raw_output": "I need to triage issue #1994, \"Extend menu for HTTP connection\", by providing a JSON object with `decision`, `reason`, `priority`, `estimated_files`, and `approach`. To do this, I will analyze relevant code, starting by searching for \"HTTP\" within the `mRemoteNG` directory to understand existing HTTP connection implementations.\nMany files contain \"HTTP,\" but most are irrelevant `resx` files. `PortScanWindow.cs` and `PortScanWindow.Designer.cs` manage HTTP/HTTPS import menus, while `FrmAbout.cs` handles URL validation, and `FrmUnhandledException.cs` uses `HttpClient`. Although the PortScan window files are promising, the issue refers to extending a *connection's context menu*, not the import menu. Therefore, I will now search for \"menu\" within `mRemoteNG`, focusing on \"Connection\" or \"TreeNode\" related files, to locate the connection context menu definition.\nPrevious \"menu\" searches yielded irrelevant context menus. \"Extend menu for HTTP connection\" likely refers to the main connection tree's context menu. I'll now refine my search for \"menu\" to files handling the connection tree context menu, looking for `ConnectionTree` and `ContextMenuStrip` within `mRemoteNG\\UI`. Starting with a general \"ConnectionTree\" search.\n\"ConnectionTree\" grep results indicate `ConnectionTreeWindow.Designer.cs`, `ConnectionTreeWindow.cs`, and `ConnectionTree.cs` are crucial. Line 110 of `ConnectionTreeWindow.cs` verifies `ConnectionTree` uses a `ContextMenuStrip`. My next steps are to analyze `ConnectionTree.cs` to understand context menu population and item addition, then identify HTTP connection handling to extend its menu. I'll start by reading `ConnectionTree.cs`.\nI've analyzed `ConnectionTree.cs`, noting its `TreeListView` base, `ConnectionInfo` object display, and `ContextMenuStrip` assignment to a `ConnectionContextMenu` instance. Key to understanding menu item definition and handling is now to examine `ConnectionContextMenu.cs`. I'll proceed to read that file.\nI assumed `ConnectionC",
+      "errors": null,
+      "files_modified": [],
+      "build_result": null,
+      "test_result": null,
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T04:43:17"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": true
+}

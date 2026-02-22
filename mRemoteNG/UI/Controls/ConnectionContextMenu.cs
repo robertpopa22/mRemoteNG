@@ -44,6 +44,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeConnectWithOptionsViewOnly = null!;
         private ToolStripMenuItem _cMenTreeDisconnect = null!;
         private ToolStripMenuItem _cMenTreeReconnect = null!;
+        private ToolStripMenuItem _cMenTreeOpenInBrowser = null!;
         private ToolStripMenuItem _cMenTreeTypePassword = null!;
         private ToolStripMenuItem _cMenTreeTypeClipboard = null!;
         private ToolStripSeparator _cMenTreeSep2 = null!;
@@ -121,6 +122,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly = new ToolStripMenuItem();
             _cMenTreeDisconnect = new ToolStripMenuItem();
             _cMenTreeReconnect = new ToolStripMenuItem();
+            _cMenTreeOpenInBrowser = new ToolStripMenuItem();
             _cMenTreeTypePassword = new ToolStripMenuItem();
             _cMenTreeTypeClipboard = new ToolStripMenuItem();
             _cMenTreeSep1 = new ToolStripSeparator();
@@ -182,6 +184,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptions,
                 _cMenTreeDisconnect,
                 _cMenTreeReconnect,
+                _cMenTreeOpenInBrowser,
                 _cMenTreeTypePassword,
                 _cMenTreeTypeClipboard,
                 _cMenTreeSep1,
@@ -328,6 +331,14 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeReconnect.Size = new System.Drawing.Size(199, 22);
             _cMenTreeReconnect.Text = "Reconnect";
             _cMenTreeReconnect.Click += OnReconnectClicked;
+            //
+            // cMenTreeOpenInBrowser
+            //
+            _cMenTreeOpenInBrowser.Image = Properties.Resources.ASPWebSite_16x;
+            _cMenTreeOpenInBrowser.Name = "_cMenTreeOpenInBrowser";
+            _cMenTreeOpenInBrowser.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeOpenInBrowser.Text = "Open in Browser";
+            _cMenTreeOpenInBrowser.Click += OnOpenInBrowserClicked;
             //
             // cMenTreeTypePassword
             //
@@ -660,6 +671,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Text = Language.ConnectInViewOnlyMode;
             _cMenTreeDisconnect.Text = Language.Disconnect;
             _cMenTreeReconnect.Text = Language.Reconnect;
+            _cMenTreeOpenInBrowser.Text = "Open in Browser";
             _cMenTreeTypePassword.Text = Language.TypePassword;
             _cMenTreeTypeClipboard.Text = Language.TypeClipboard;
 
@@ -767,6 +779,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeCopyHostname.Enabled = false;
             _cMenTreeProperties.Enabled = false;
+            _cMenTreeOpenInBrowser.Enabled = false;
             _cMenTreeConfigureDynamicSource.Visible = false;
             _cMenTreeRefreshDynamicSource.Visible = false;
         }
@@ -794,6 +807,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
+            _cMenTreeOpenInBrowser.Enabled = false;
             _cMenTreeConfigureDynamicSource.Visible = false;
             _cMenTreeRefreshDynamicSource.Visible = false;
         }
@@ -816,6 +830,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeCreateLink.Enabled = false;
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = false;
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
+            _cMenTreeOpenInBrowser.Enabled = false;
 
             _cMenTreeConfigureDynamicSource.Visible = true;
             _cMenTreeRefreshDynamicSource.Visible = containerInfo.DynamicSource != DynamicSourceType.None;
@@ -857,6 +872,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeProperties.Enabled = false;
+            _cMenTreeOpenInBrowser.Enabled = false;
             _cMenTreeConfigureDynamicSource.Visible = false;
             _cMenTreeRefreshDynamicSource.Visible = false;
         }
@@ -889,6 +905,8 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
 
             _cMenTreeConnectWithOptionsAlternativeAddress.Enabled = !string.IsNullOrWhiteSpace(connectionInfo.AlternativeAddress);
+            _cMenTreeOpenInBrowser.Enabled = connectionInfo.Protocol == ProtocolType.HTTP ||
+                                             connectionInfo.Protocol == ProtocolType.HTTPS;
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeConfigureDynamicSource.Visible = false;
             _cMenTreeRefreshDynamicSource.Visible = false;
@@ -1469,6 +1487,48 @@ namespace mRemoteNG.UI.Controls
         private void OnOptionsClicked(object sender, EventArgs e)
         {
             AppWindows.Show(WindowType.Options);
+        }
+
+        private void OnOpenInBrowserClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode is not ConnectionInfo connectionInfo) return;
+            if (connectionInfo.Protocol != ProtocolType.HTTP && connectionInfo.Protocol != ProtocolType.HTTPS) return;
+
+            try
+            {
+                string scheme = connectionInfo.Protocol == ProtocolType.HTTPS ? "https" : "http";
+                int defaultPort = connectionInfo.Protocol == ProtocolType.HTTPS ? 443 : 80;
+
+                string host = connectionInfo.Hostname?.Trim() ?? string.Empty;
+                if (string.IsNullOrEmpty(host)) return;
+
+                if (!host.Contains("://"))
+                    host = scheme + "://" + host;
+
+                if (connectionInfo.Port != defaultPort)
+                {
+                    if (host.EndsWith("/"))
+                        host = host[..^1];
+                    host = host + ":" + connectionInfo.Port;
+                }
+
+                string path = connectionInfo.HttpPath?.Trim() ?? string.Empty;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    if (!host.EndsWith("/") && !path.StartsWith("/"))
+                        host = host + "/" + path;
+                    else if (host.EndsWith("/") && path.StartsWith("/"))
+                        host = host + path[1..];
+                    else
+                        host = host + path;
+                }
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(host) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("OpenInBrowser (UI.Controls.ConnectionContextMenu) failed", ex);
+            }
         }
 
         #endregion
