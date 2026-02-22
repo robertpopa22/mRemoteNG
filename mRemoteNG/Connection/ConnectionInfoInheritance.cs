@@ -383,8 +383,8 @@ namespace mRemoteNG.Connection
         public bool ResolutionHeight { get; set; }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 6),
-         DisplayName("Inherit Desktop Scale Factor"),
-         Description("Inherit the Desktop Scale Factor setting from the parent."),
+         DisplayName("Inherit Zoom Level (Desktop Scale Factor)"),
+         Description("Inherit the RDP zoom level (Desktop Scale Factor) setting from the parent."),
          TypeConverter(typeof(MiscTools.YesNoTypeConverter))]
         public bool DesktopScaleFactor { get; set; }
 

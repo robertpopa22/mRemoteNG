@@ -10,7 +10,7 @@
   "created_at": "2021-03-28T18:16:29Z",
   "github_updated_at": "2021-06-21T15:15:47Z",
   "body_snippet": "Request to add a new feature: lock the window size of mRemoteNG\r\nSometimes I always drag the window accidentally, and then I feel uncomfortable, and it takes time to adjust it.\r\nIn addition, I hope that another feature can be added: locking the window layout.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -21,6 +21,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "User requests the ability to lock the mRemoteNG window size. This can be implemented by adding a setting and controlling the main form's BorderStyle."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in 70359eb1"
     }
   ],
   "comments": [

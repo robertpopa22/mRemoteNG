@@ -891,8 +891,8 @@ namespace mRemoteNG.Connection
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Appearance), 5),
-         DisplayName("Desktop Scale Factor"),
-         Description("The scaling factor to use for the remote desktop session. 'Auto' matches the local display scaling."),
+         DisplayName("Zoom Level (Desktop Scale Factor)"),
+         Description("Controls RDP zoom for this connection. 'Auto' follows the local display scale; fixed values force a specific zoom level."),
          TypeConverter(typeof(MiscTools.EnumTypeConverter)),
          AttributeUsedInProtocol(ProtocolType.RDP)]
         public RDPDesktopScaleFactor DesktopScaleFactor

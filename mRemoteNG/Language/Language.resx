@@ -1144,7 +1144,7 @@ If you run into such an error, please create a new connection file!</value>
     <value>Select one of the available rendering engines that will be used to display HTML.</value>
   </data>
   <data name="PropertyDescriptionResolution" xml:space="preserve">
-    <value>Choose the resolution or mode this connection will open in.</value>
+    <value>Choose the resolution or mode this connection will open in. For RDP zoom, use "Zoom Level (Desktop Scale Factor)" in the Appearance section.</value>
   </data>
   <data name="PropertyDescriptionSmartSizeMode" xml:space="preserve">
     <value>Select the SmartSize mode to be used.</value>
