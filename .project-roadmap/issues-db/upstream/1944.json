@@ -10,12 +10,19 @@
   "created_at": "2021-03-18T13:55:46Z",
   "github_updated_at": "2026-02-21T10:22:50Z",
   "body_snippet": "## Expected Behavior\r\nLately, when launching mRemoteNG I've been getting a .NET Exception message. It's attached.\r\nIt's not every time I launch it, but I can't quite figure out why it does it. It does more often than not.\r\nI need to end-task the program, then when I try to re-open it works just fine.\r\n\r\n![mremoteng](https://user-images.githubusercontent.com/50890638/111637559-eaab3180-87cf-11eb-9348-10374e4f385c.png)\r\n",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "An unhandled null reference exception ('Value cannot be null. Parameter v1') indicates a critical bug that needs to be addressed to prevent application crashes. The specific context of 'v1' is unknown, but such errors typically require null checks."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXD_q",
@@ -41,5 +48,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): An unhandled null reference exception ('Value cannot be null. Parameter v1') indicates a critical bug that needs to be addressed to prevent application crashes. The specific context of 'v1' is unknown, but such errors typically require null checks.\nApproach: Identify the code path leading to the 'Value cannot be null. Parameter v1' error, specifically where 'v1' is used, and implement appropriate null checks or ensure proper initialization of 'v1' before its access."
 }

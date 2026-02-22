@@ -7619,6 +7619,15 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("TypeClipboard", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Lock window size.
+        /// </summary>
+        internal static string LockWindowSize {
+            get {
+                return ResourceManager.GetString("LockWindowSize", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Do not dock to tab when minimizing from Full screen.

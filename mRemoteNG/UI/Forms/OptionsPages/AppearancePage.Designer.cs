@@ -42,6 +42,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowDescriptionTooltipsInTree = new MrngCheckBox();
             chkReplaceIconOnConnect = new MrngCheckBox();
             chkBoldActiveConnections = new MrngCheckBox();
+            chkLockWindowSize = new MrngCheckBox();
             chkShowSystemTrayIcon = new MrngCheckBox();
             chkMinimizeToSystemTray = new MrngCheckBox();
             chkCloseToSystemTray = new MrngCheckBox();
@@ -127,6 +128,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkBoldActiveConnections.Text = "Bold active connections in tree";
             chkBoldActiveConnections.UseVisualStyleBackColor = true;
             //
+            // chkLockWindowSize
+            //
+            chkLockWindowSize._mice = MrngCheckBox.MouseState.OUT;
+            chkLockWindowSize.AutoSize = true;
+            chkLockWindowSize.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkLockWindowSize.Location = new System.Drawing.Point(3, 199);
+            chkLockWindowSize.Name = "chkLockWindowSize";
+            chkLockWindowSize.Size = new System.Drawing.Size(108, 17);
+            chkLockWindowSize.TabIndex = 7;
+            chkLockWindowSize.Text = "Lock window size";
+            chkLockWindowSize.UseVisualStyleBackColor = true;
+            //
             // chkShowSystemTrayIcon
             //
             chkShowSystemTrayIcon._mice = MrngCheckBox.MouseState.OUT;
@@ -135,7 +148,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowSystemTrayIcon.Location = new System.Drawing.Point(3, 222);
             chkShowSystemTrayIcon.Name = "chkShowSystemTrayIcon";
             chkShowSystemTrayIcon.Size = new System.Drawing.Size(178, 17);
-            chkShowSystemTrayIcon.TabIndex = 7;
+            chkShowSystemTrayIcon.TabIndex = 8;
             chkShowSystemTrayIcon.Text = "Always show System Tray Icon";
             chkShowSystemTrayIcon.UseVisualStyleBackColor = true;
             //
@@ -147,7 +160,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkMinimizeToSystemTray.Location = new System.Drawing.Point(3, 245);
             chkMinimizeToSystemTray.Name = "chkMinimizeToSystemTray";
             chkMinimizeToSystemTray.Size = new System.Drawing.Size(147, 17);
-            chkMinimizeToSystemTray.TabIndex = 8;
+            chkMinimizeToSystemTray.TabIndex = 9;
             chkMinimizeToSystemTray.Text = "Minimize to System Tray";
             chkMinimizeToSystemTray.UseVisualStyleBackColor = true;
             //
@@ -159,7 +172,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCloseToSystemTray.Location = new System.Drawing.Point(3, 268);
             chkCloseToSystemTray.Name = "chkCloseToSystemTray";
             chkCloseToSystemTray.Size = new System.Drawing.Size(129, 17);
-            chkCloseToSystemTray.TabIndex = 9;
+            chkCloseToSystemTray.TabIndex = 10;
             chkCloseToSystemTray.Text = "Close to System Tray";
             chkCloseToSystemTray.UseVisualStyleBackColor = true;
             // 
@@ -170,6 +183,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(chkMinimizeToSystemTray);
             pnlOptions.Controls.Add(lblLanguageRestartRequired);
             pnlOptions.Controls.Add(chkShowSystemTrayIcon);
+            pnlOptions.Controls.Add(chkLockWindowSize);
             pnlOptions.Controls.Add(chkBoldActiveConnections);
             pnlOptions.Controls.Add(chkReplaceIconOnConnect);
             pnlOptions.Controls.Add(chkShowDescriptionTooltipsInTree);
@@ -214,6 +228,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkShowDescriptionTooltipsInTree;
         internal MrngCheckBox chkReplaceIconOnConnect;
         internal MrngCheckBox chkBoldActiveConnections;
+        internal MrngCheckBox chkLockWindowSize;
         internal MrngCheckBox chkShowSystemTrayIcon;
         internal MrngCheckBox chkMinimizeToSystemTray;
         internal MrngCheckBox chkCloseToSystemTray;

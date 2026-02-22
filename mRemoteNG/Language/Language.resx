@@ -2700,6 +2700,9 @@ Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   <data name="TypeClipboard" xml:space="preserve">
     <value>Type Clipboard Text</value>
   </data>
+  <data name="LockWindowSize" xml:space="preserve">
+    <value>Lock window size</value>
+  </data>
   <data name="DoNotRestoreOnRdpMinimize" xml:space="preserve">
     <value>Do not dock to tab when minimizing from Full screen</value>
   </data>

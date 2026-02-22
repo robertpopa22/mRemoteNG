@@ -12,7 +12,7 @@
   "created_at": "2021-03-17T16:16:20Z",
   "github_updated_at": "2021-06-27T13:54:14Z",
   "body_snippet": "When connecting TigerVNC through the mRemoteNG program, multiple people cannot connect at the same time.  In other words, remote access is possible one by one.  Direct remote access with Tiger VNC program allows multiple access at the same time.  When connecting to VNC remotely from mRemoteNG, please tell us why the simultaneous connection is not possible.",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "mRemoteNG does not currently support multiple concurrent users connecting via TigerVNC, likely due to how VNC sessions are initiated or managed by the application or its underlying VNC library."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in 3825efa9"
     }
   ],
   "comments": [],

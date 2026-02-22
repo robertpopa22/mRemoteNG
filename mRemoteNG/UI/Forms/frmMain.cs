@@ -247,6 +247,7 @@ namespace mRemoteNG.UI.Forms
 
             SettingsLoader settingsLoader = new(this, messageCollector, _quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain);
             settingsLoader.LoadSettings();
+            ApplyWindowSizeLockSetting();
 
             MessageCollectorSetup.SetupMessageCollector(messageCollector, _messageWriters);
             MessageCollectorSetup.BuildMessageWritersFromSettings(_messageWriters);
@@ -383,6 +384,9 @@ namespace mRemoteNG.UI.Forms
                 case nameof(Properties.Settings.LockToolbars):
                     LockToolbarPositions(Settings.LockToolbars);
                     break;
+                case nameof(Properties.Settings.LockWindowSize):
+                    ApplyWindowSizeLockSetting();
+                    break;
                 case nameof(Properties.Settings.ViewMenuExternalTools):
                     LockToolbarPositions(Settings.LockToolbars);
                     break;
@@ -438,6 +442,13 @@ namespace mRemoteNG.UI.Forms
             {
                 toolbar.GripStyle = shouldBeLocked ? ToolStripGripStyle.Hidden : ToolStripGripStyle.Visible;
             }
+        }
+
+        private void ApplyWindowSizeLockSetting()
+        {
+            bool lockWindowSize = Settings.LockWindowSize;
+            FormBorderStyle = lockWindowSize ? FormBorderStyle.FixedSingle : FormBorderStyle.Sizable;
+            MaximizeBox = !lockWindowSize;
         }
 
         private void ConnectionsServiceOnConnectionsLoaded(object? sender, ConnectionsLoadedEventArgs connectionsLoadedEventArgs)

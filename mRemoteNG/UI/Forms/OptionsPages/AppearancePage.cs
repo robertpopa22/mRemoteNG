@@ -36,6 +36,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowDescriptionTooltipsInTree.Text = Language.ShowDescriptionTooltips;
             chkShowFullConnectionsFilePathInTitle.Text = Language.ShowFullConsFilePath;
             chkShowSystemTrayIcon.Text = Language.AlwaysShowSysTrayIcon;
+            chkLockWindowSize.Text = Language.LockWindowSize;
             chkMinimizeToSystemTray.Text = Language.MinimizeToSysTray;
             chkCloseToSystemTray.Text = Language.CloseToSysTray;
             lblRegistrySettingsUsedInfo.Text = Language.OptionsCompanyPolicyMessage;
@@ -66,6 +67,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowFullConnectionsFilePathInTitle.Checked = Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle;
             chkReplaceIconOnConnect.Checked = Properties.OptionsAppearancePage.Default.ReplaceIconOnConnect;
             chkBoldActiveConnections.Checked = Properties.OptionsAppearancePage.Default.BoldActiveConnections;
+            chkLockWindowSize.Checked = Settings.Default.LockWindowSize;
             chkShowSystemTrayIcon.Checked = Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon;
             chkMinimizeToSystemTray.Checked = Properties.OptionsAppearancePage.Default.MinimizeToTray;
             chkCloseToSystemTray.Checked = Properties.OptionsAppearancePage.Default.CloseToTray;
@@ -88,6 +90,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsAppearancePage.Default.ShowCompleteConsPathInTitle = chkShowFullConnectionsFilePathInTitle.Checked;
             if (FrmMain.IsCreated)
                 FrmMain.Default.ShowFullPathInTitle = chkShowFullConnectionsFilePathInTitle.Checked;
+
+            Settings.Default.LockWindowSize = chkLockWindowSize.Checked;
 
             Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon = chkShowSystemTrayIcon.Checked;
             if (Properties.OptionsAppearancePage.Default.ShowSystemTrayIcon)
