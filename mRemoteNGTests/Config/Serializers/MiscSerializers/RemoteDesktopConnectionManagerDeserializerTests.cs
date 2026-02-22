@@ -304,6 +304,34 @@ public class RemoteDesktopConnectionManagerDeserializerTests
     }
 
     [Test]
+    public void CanDeserializeRdcMan282File()
+    {
+        var fileContents = Resources.ResourceManager.GetString("test_rdcman_v2_82_schema3");
+        Assert.That(fileContents, Is.Not.Null.And.Not.Empty);
+
+        var connectionTreeModel282 = _deserializer.Deserialize(fileContents!);
+        Assert.That(connectionTreeModel282.RootNodes.Count, Is.GreaterThan(0));
+    }
+
+    [Test]
+    public void RdcMan282ConnectionPropertiesImported()
+    {
+        var fileContents = Resources.ResourceManager.GetString("test_rdcman_v2_82_schema3");
+        Assert.That(fileContents, Is.Not.Null.And.Not.Empty);
+
+        var connectionTreeModel282 = _deserializer.Deserialize(fileContents!);
+
+        var rootNode = connectionTreeModel282.RootNodes.First();
+        var importedRdcmanRootNode = rootNode.Children.OfType<ContainerInfo>().First();
+        var group1 = importedRdcmanRootNode.Children.OfType<ContainerInfo>().First(node => node.Name == "Group1");
+        var connection = group1.Children.First();
+
+        Assert.That(connection.Name, Is.EqualTo(ExpectedName));
+        Assert.That(connection.Hostname, Is.EqualTo(ExpectedHostname));
+        Assert.That(connection.Protocol, Is.EqualTo(ProtocolType.RDP));
+    }
+
+    [Test]
     public void ExceptionThrownOnBadSchemaVersion()
     {
         var badFileContents = Resources.test_rdcman_v2_2_badschemaversion;
