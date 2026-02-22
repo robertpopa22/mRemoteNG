@@ -262,5 +262,65 @@ namespace mRemoteNG.Properties {
                 this["OpenTabsInTreeOrder"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomConnectionTabFont {
+            get {
+                return ((bool)(this["UseCustomConnectionTabFont"]));
+            }
+            set {
+                this["UseCustomConnectionTabFont"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConnectionTabFontName {
+            get {
+                return ((string)(this["ConnectionTabFontName"]));
+            }
+            set {
+                this["ConnectionTabFontName"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public float ConnectionTabFontSize {
+            get {
+                return ((float)(this["ConnectionTabFontSize"]));
+            }
+            set {
+                this["ConnectionTabFontSize"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomConnectionTabColor {
+            get {
+                return ((bool)(this["UseCustomConnectionTabColor"]));
+            }
+            set {
+                this["UseCustomConnectionTabColor"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConnectionTabColor {
+            get {
+                return ((string)(this["ConnectionTabColor"]));
+            }
+            set {
+                this["ConnectionTabColor"] = value;
+            }
+        }
     }
 }

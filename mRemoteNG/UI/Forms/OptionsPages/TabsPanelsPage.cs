@@ -2,8 +2,11 @@
 using mRemoteNG.Config.Settings.Registry;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
+using mRemoteNG.UI.Tabs;
 using System;
+using System.Drawing;
 using System.Runtime.Versioning;
+using System.Windows.Forms;
 
 namespace mRemoteNG.UI.Forms.OptionsPages
 {
@@ -13,6 +16,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         #region Private Fields
 
         private OptRegistryTabsPanelsPage? pageRegSettingsInstance;
+        private Font? _selectedConnectionTabFont;
 
         #endregion
 
@@ -47,6 +51,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkLockPanels.Text = "Lock panels";
             chkDoNotRestoreOnRdpMinimize.Text = Language.DoNotRestoreOnRdpMinimize;
             chkAutoClosePanelOnLastTabClose.Text = "Auto close panel after closing the last tab";
+            chkUseCustomConnectionTabColor.Text = "Use custom connection tab color";
+            chkUseCustomConnectionTabFont.Text = "Use custom connection tab font";
+            btnSelectConnectionTabColor.Text = "Select...";
+            btnSelectConnectionTabFont.Text = "Select...";
             lblPanelName.Text = $@"{Language.PanelName}:";
             lblSplitterSize.Text = "Splitter size:";
 
@@ -79,6 +87,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkAutoClosePanelOnLastTabClose.Checked = Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose;
             txtBoxPanelName.Text = Properties.OptionsTabsPanelsPage.Default.StartUpPanelName;
             nudSplitterSize.Value = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
+
+            LoadConnectionTabAppearanceSettings();
             UpdatePanelNameTextBox();
         }
 
@@ -120,6 +130,22 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose = chkAutoClosePanelOnLastTabClose.Checked;
             Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = txtBoxPanelName.Text;
             Properties.OptionsTabsPanelsPage.Default.SplitterSize = (int)nudSplitterSize.Value;
+
+            Properties.OptionsTabsPanelsPage.Default.UseCustomConnectionTabColor = chkUseCustomConnectionTabColor.Checked;
+            Properties.OptionsTabsPanelsPage.Default.ConnectionTabColor = chkUseCustomConnectionTabColor.Checked
+                ? txtConnectionTabColor.Text.Trim()
+                : string.Empty;
+
+            bool useCustomFont = chkUseCustomConnectionTabFont.Checked && _selectedConnectionTabFont != null;
+            Properties.OptionsTabsPanelsPage.Default.UseCustomConnectionTabFont = useCustomFont;
+            Properties.OptionsTabsPanelsPage.Default.ConnectionTabFontName = useCustomFont
+                ? _selectedConnectionTabFont!.Name
+                : string.Empty;
+            Properties.OptionsTabsPanelsPage.Default.ConnectionTabFontSize = useCustomFont
+                ? _selectedConnectionTabFont!.SizeInPoints
+                : 0f;
+
+            ConnectionTabAppearanceSettings.ResetCache();
         }
 
         public override void LoadRegistrySettings()
@@ -198,6 +224,131 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         {
             if (pageRegSettingsInstance == null || !pageRegSettingsInstance.StartUpPanelName.IsSet)
                 txtBoxPanelName.Enabled = chkCreateEmptyPanelOnStart.Checked;
+        }
+
+        private void LoadConnectionTabAppearanceSettings()
+        {
+            chkUseCustomConnectionTabColor.Checked = Properties.OptionsTabsPanelsPage.Default.UseCustomConnectionTabColor;
+            txtConnectionTabColor.Text = Properties.OptionsTabsPanelsPage.Default.ConnectionTabColor ?? string.Empty;
+            UpdateTabColorControlsState();
+
+            chkUseCustomConnectionTabFont.Checked = Properties.OptionsTabsPanelsPage.Default.UseCustomConnectionTabFont;
+
+            _selectedConnectionTabFont?.Dispose();
+            _selectedConnectionTabFont = CreateTabFontFromSettings();
+            txtConnectionTabFont.Text = FormatFontDisplay(_selectedConnectionTabFont);
+            UpdateTabFontControlsState();
+        }
+
+        private static Font? CreateTabFontFromSettings()
+        {
+            string fontName = Properties.OptionsTabsPanelsPage.Default.ConnectionTabFontName?.Trim() ?? string.Empty;
+            float fontSize = Properties.OptionsTabsPanelsPage.Default.ConnectionTabFontSize;
+
+            if (string.IsNullOrWhiteSpace(fontName) || fontSize <= 0)
+                return null;
+
+            try
+            {
+                return new Font(fontName, fontSize, FontStyle.Regular, GraphicsUnit.Point);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string FormatFontDisplay(Font? font)
+        {
+            return font == null
+                ? string.Empty
+                : $"{font.Name}, {font.SizeInPoints:0.##} pt";
+        }
+
+        private static Color? TryParseColor(string? colorValue)
+        {
+            string value = colorValue?.Trim() ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(value))
+                return null;
+
+            try
+            {
+                ColorConverter converter = new();
+                object? converted = converter.ConvertFromString(value);
+                return converted is Color color && !color.IsEmpty
+                    ? color
+                    : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private static string FormatColorForSettings(Color color)
+        {
+            return color.IsNamedColor
+                ? color.Name
+                : $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+        }
+
+        private void UpdateTabColorControlsState()
+        {
+            bool enabled = chkUseCustomConnectionTabColor.Checked;
+            txtConnectionTabColor.Enabled = enabled;
+            btnSelectConnectionTabColor.Enabled = enabled;
+        }
+
+        private void UpdateTabFontControlsState()
+        {
+            bool enabled = chkUseCustomConnectionTabFont.Checked;
+            txtConnectionTabFont.Enabled = enabled;
+            btnSelectConnectionTabFont.Enabled = enabled;
+        }
+
+        private void chkUseCustomConnectionTabColor_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTabColorControlsState();
+        }
+
+        private void btnSelectConnectionTabColor_Click(object sender, EventArgs e)
+        {
+            using ColorDialog colorDialog = new()
+            {
+                AllowFullOpen = true,
+                AnyColor = true,
+                FullOpen = true,
+                Color = TryParseColor(txtConnectionTabColor.Text) ?? Color.DodgerBlue
+            };
+
+            if (colorDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            txtConnectionTabColor.Text = FormatColorForSettings(colorDialog.Color);
+        }
+
+        private void chkUseCustomConnectionTabFont_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTabFontControlsState();
+        }
+
+        private void btnSelectConnectionTabFont_Click(object sender, EventArgs e)
+        {
+            using FontDialog fontDialog = new()
+            {
+                ShowEffects = false,
+                FontMustExist = true,
+                MinSize = 6,
+                MaxSize = 72,
+                Font = _selectedConnectionTabFont ?? Font
+            };
+
+            if (fontDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            _selectedConnectionTabFont?.Dispose();
+            _selectedConnectionTabFont = (Font)fontDialog.Font.Clone();
+            txtConnectionTabFont.Text = FormatFontDisplay(_selectedConnectionTabFont);
         }
 
         private void chkCreateEmptyPanelOnStart_CheckedChanged(object sender, System.EventArgs e)

@@ -52,6 +52,12 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkLockPanels = new MrngCheckBox();
             chkDoNotRestoreOnRdpMinimize = new MrngCheckBox();
             chkAutoClosePanelOnLastTabClose = new MrngCheckBox();
+            chkUseCustomConnectionTabColor = new MrngCheckBox();
+            txtConnectionTabColor = new MrngTextBox();
+            btnSelectConnectionTabColor = new MrngButton();
+            chkUseCustomConnectionTabFont = new MrngCheckBox();
+            txtConnectionTabFont = new MrngTextBox();
+            btnSelectConnectionTabFont = new MrngButton();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -261,6 +267,72 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkAutoClosePanelOnLastTabClose.Text = "Auto close panel after closing the last tab";
             chkAutoClosePanelOnLastTabClose.UseVisualStyleBackColor = true;
             // 
+            // chkUseCustomConnectionTabColor
+            // 
+            chkUseCustomConnectionTabColor._mice = MrngCheckBox.MouseState.OUT;
+            chkUseCustomConnectionTabColor.AutoSize = true;
+            chkUseCustomConnectionTabColor.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkUseCustomConnectionTabColor.Location = new System.Drawing.Point(3, 354);
+            chkUseCustomConnectionTabColor.Name = "chkUseCustomConnectionTabColor";
+            chkUseCustomConnectionTabColor.Size = new System.Drawing.Size(178, 17);
+            chkUseCustomConnectionTabColor.TabIndex = 16;
+            chkUseCustomConnectionTabColor.Text = "Use custom connection tab color";
+            chkUseCustomConnectionTabColor.UseVisualStyleBackColor = true;
+            chkUseCustomConnectionTabColor.CheckedChanged += chkUseCustomConnectionTabColor_CheckedChanged;
+            // 
+            // txtConnectionTabColor
+            // 
+            txtConnectionTabColor.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtConnectionTabColor.Location = new System.Drawing.Point(25, 377);
+            txtConnectionTabColor.Name = "txtConnectionTabColor";
+            txtConnectionTabColor.ReadOnly = true;
+            txtConnectionTabColor.Size = new System.Drawing.Size(120, 22);
+            txtConnectionTabColor.TabIndex = 17;
+            // 
+            // btnSelectConnectionTabColor
+            // 
+            btnSelectConnectionTabColor._mice = MrngButton.MouseState.OUT;
+            btnSelectConnectionTabColor.Location = new System.Drawing.Point(151, 376);
+            btnSelectConnectionTabColor.Name = "btnSelectConnectionTabColor";
+            btnSelectConnectionTabColor.Size = new System.Drawing.Size(75, 23);
+            btnSelectConnectionTabColor.TabIndex = 18;
+            btnSelectConnectionTabColor.Text = "Select...";
+            btnSelectConnectionTabColor.UseVisualStyleBackColor = true;
+            btnSelectConnectionTabColor.Click += btnSelectConnectionTabColor_Click;
+            // 
+            // chkUseCustomConnectionTabFont
+            // 
+            chkUseCustomConnectionTabFont._mice = MrngCheckBox.MouseState.OUT;
+            chkUseCustomConnectionTabFont.AutoSize = true;
+            chkUseCustomConnectionTabFont.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkUseCustomConnectionTabFont.Location = new System.Drawing.Point(3, 406);
+            chkUseCustomConnectionTabFont.Name = "chkUseCustomConnectionTabFont";
+            chkUseCustomConnectionTabFont.Size = new System.Drawing.Size(175, 17);
+            chkUseCustomConnectionTabFont.TabIndex = 19;
+            chkUseCustomConnectionTabFont.Text = "Use custom connection tab font";
+            chkUseCustomConnectionTabFont.UseVisualStyleBackColor = true;
+            chkUseCustomConnectionTabFont.CheckedChanged += chkUseCustomConnectionTabFont_CheckedChanged;
+            // 
+            // txtConnectionTabFont
+            // 
+            txtConnectionTabFont.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            txtConnectionTabFont.Location = new System.Drawing.Point(25, 429);
+            txtConnectionTabFont.Name = "txtConnectionTabFont";
+            txtConnectionTabFont.ReadOnly = true;
+            txtConnectionTabFont.Size = new System.Drawing.Size(220, 22);
+            txtConnectionTabFont.TabIndex = 20;
+            // 
+            // btnSelectConnectionTabFont
+            // 
+            btnSelectConnectionTabFont._mice = MrngButton.MouseState.OUT;
+            btnSelectConnectionTabFont.Location = new System.Drawing.Point(251, 428);
+            btnSelectConnectionTabFont.Name = "btnSelectConnectionTabFont";
+            btnSelectConnectionTabFont.Size = new System.Drawing.Size(75, 23);
+            btnSelectConnectionTabFont.TabIndex = 21;
+            btnSelectConnectionTabFont.Text = "Select...";
+            btnSelectConnectionTabFont.UseVisualStyleBackColor = true;
+            btnSelectConnectionTabFont.Click += btnSelectConnectionTabFont_Click;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkAlwaysShowPanelTabs);
@@ -281,10 +353,16 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(chkLockPanels);
             pnlOptions.Controls.Add(chkDoNotRestoreOnRdpMinimize);
             pnlOptions.Controls.Add(chkAutoClosePanelOnLastTabClose);
+            pnlOptions.Controls.Add(chkUseCustomConnectionTabColor);
+            pnlOptions.Controls.Add(txtConnectionTabColor);
+            pnlOptions.Controls.Add(btnSelectConnectionTabColor);
+            pnlOptions.Controls.Add(chkUseCustomConnectionTabFont);
+            pnlOptions.Controls.Add(txtConnectionTabFont);
+            pnlOptions.Controls.Add(btnSelectConnectionTabFont);
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 353);
+            pnlOptions.Size = new System.Drawing.Size(610, 460);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
@@ -333,5 +411,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal MrngCheckBox chkLockPanels;
         internal MrngCheckBox chkDoNotRestoreOnRdpMinimize;
         internal MrngCheckBox chkAutoClosePanelOnLastTabClose;
+        private MrngCheckBox chkUseCustomConnectionTabColor;
+        private Controls.MrngTextBox txtConnectionTabColor;
+        private MrngButton btnSelectConnectionTabColor;
+        private MrngCheckBox chkUseCustomConnectionTabFont;
+        private Controls.MrngTextBox txtConnectionTabFont;
+        private MrngButton btnSelectConnectionTabFont;
     }
 }

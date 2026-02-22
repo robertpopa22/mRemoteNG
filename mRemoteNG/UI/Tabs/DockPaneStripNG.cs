@@ -190,7 +190,8 @@ namespace mRemoteNG.UI.Tabs
 
         private IContainer Components { get; }
 
-        public Font TextFont => DockPane.DockPanel.Theme.Skin.DockPaneStripSkin.TextFont;
+        public Font TextFont =>
+            ConnectionTabAppearanceSettings.GetTabFont(DockPane.DockPanel.Theme.Skin.DockPaneStripSkin.TextFont);
 
         private Font? BoldFont
         {
@@ -1001,8 +1002,8 @@ namespace mRemoteNG.UI.Tabs
             rectText = DrawHelper.RtlTransform(this, rectText);
             rectIcon = DrawHelper.RtlTransform(this, rectIcon);
 
-            // Get custom tab color if available
-            Color? customTabColor = GetCustomTabColor(tab.Content);
+            // Per-connection tab color still has priority; global tab color is used when it is empty.
+            Color? customTabColor = ConnectionTabAppearanceSettings.GetTabColorOverride(GetCustomTabColor(tab.Content));
 
             Color activeColor = customTabColor ?? DockPane.DockPanel.Theme.ColorPalette.TabSelectedActive.Background;
             Color lostFocusColor = customTabColor ?? DockPane.DockPanel.Theme.ColorPalette.TabSelectedInactive.Background;

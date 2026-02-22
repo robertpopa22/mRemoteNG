@@ -36,7 +36,8 @@ namespace mRemoteNG.UI.Tabs
 
         #region Customizable Properties
 
-        public Font TextFont => DockPanel.Theme.Skin.AutoHideStripSkin.TextFont;
+        public Font TextFont =>
+            ConnectionTabAppearanceSettings.GetTabFont(DockPanel.Theme.Skin.AutoHideStripSkin.TextFont);
 
         private static StringFormat? _stringFormatTabHorizontal;
 

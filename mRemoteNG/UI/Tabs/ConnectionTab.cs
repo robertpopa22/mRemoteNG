@@ -37,6 +37,7 @@ namespace mRemoteNG.UI.Tabs
         public ConnectionTab()
         {
             InitializeComponent();
+            Font = ConnectionTabAppearanceSettings.GetTabFont(Font);
             GotFocus += ConnectionTab_GotFocus;
         }
 
