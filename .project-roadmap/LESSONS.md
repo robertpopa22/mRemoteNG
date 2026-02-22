@@ -1137,6 +1137,77 @@ cd scripts && env -u CLAUDECODE -u CLAUDE_CODE_ENTRYPOINT nohup python iis_orche
 
 ## Local Artifacts
 
+---
+
+## Test Runner & Test Stability Lessons (2026-02-22)
+
+### run-tests.ps1 — PowerShell Job deserialization bug (CRITICAL)
+
+**Problem:** `Receive-Job` in PowerShell returns deserialized objects. `$_ -is [int]` fails on `Deserialized.System.Int32`. The exit code from dotnet test was silently lost, masking test failures.
+
+**Fix:** Replace `$_ -is [int]` with `[int]::TryParse("$item", [ref]$tmpInt)` loop. Also force `$jobExitCode = 1` when `$failed -gt 0` regardless of exit code.
+
+**Commit:** `13bda6eb5`
+
+### run-tests.ps1 — UTF-16 log files and fallback counting
+
+**Problem:** PowerShell's `Tee-Object` in `Start-Job` writes UTF-16 LE. When `dotnet test` doesn't print "Total tests:" summary line, the runner reported 0 passed / 0 failed.
+
+**Fix:** Added fallback: parse individual `Passed`, `Failed`, `Skipped` lines using `Get-Content` (handles UTF-16). Coverage gap >30% is now fatal (exit 96).
+
+**Commit:** `13bda6eb5`
+
+### DockPanel UI tests crash test host — avoid native window creation
+
+**Problem:** Creating `DockPanel` + `DockContent` + `Form.Show()` + `Application.DoEvents()` in test environment crashes the test host process. The crash deletes the test DLL, making subsequent runs fail with "DLL not found". The DLL disappearance is NOT a build issue — it's the crashed test host process corrupting/deleting the output.
+
+**Fix:** Rewrite UI tests that need DockPanel to pure logic tests. Test the boolean mapping (`AllowEndUserDocking = !LockPanels`) without creating native windows. Only use `Form.Show()` pattern for tests that absolutely require WinForms controls.
+
+**Commit:** `d2c6e7c9f` (orchestrator) superseded `63bce9004`
+
+### WeifenLuo namespace — correct import
+
+**Problem:** `WeifenLuo.WinFormsUI.Docking.ThemeVS2015` does NOT exist. The correct namespace is `WeifenLuo.WinFormsUI.ThemeVS2015`. When the compilation fails silently (namespace error), MSBuild keeps the old DLL and reports "Build completed" — the test project just doesn't produce new output.
+
+**Fix:** Always check build output for actual compilation of the test project DLL. Reference existing tests (e.g., `DockPaneStripNGTests.cs`) for correct namespace usage.
+
+### MSBuild DLL staleness after compilation error
+
+**Problem:** When a source file has a compilation error, MSBuild's incremental build skips recompiling the project but reports success. The old DLL from a previous successful build remains, making it appear "up to date" even though the source code has changed.
+
+**Detection:** Check that build output includes `mRemoteNGTests -> ...mRemoteNGTests.dll`. If this line is missing, the DLL was NOT rebuilt.
+
+**Fix:** Fix the compilation error, rebuild, verify the output line appears.
+
+### Stale testhost processes lock DLLs after crash
+
+**Problem:** When the test host crashes (e.g., from DockPanel UI tests), orphan `testhost.exe` processes remain and lock the test DLLs. Subsequent builds fail with MSB3027 "Could not copy".
+
+**Fix:** Kill stale processes before building:
+```bash
+taskkill //F //IM testhost.exe 2>/dev/null
+taskkill //F //IM dotnet.exe 2>/dev/null
+```
+
+### CSV serialization 3-layer sync
+
+**Problem:** Properties added to `ConnectionInfoInheritance` must be synchronized in 3 places for CSV round-trip tests to pass:
+1. CSV header (column names)
+2. `CsvConnectionsSerializerMremotengFormat.cs` (write values)
+3. `CsvConnectionsDeserializerMremotengFormat.cs` (read values)
+
+Missing any layer causes `InheritancePropertiesDeserializedCorrectly` test failures.
+
+**Commit:** `d5b0c4d50`
+
+### ConnectionInfo.GetSerializableProperties() exclusion list
+
+**Problem:** `CredentialId` property exists on `ConnectionInfo` but is NOT XML-serialized. The `AllPropertiesCorrectWhenSerializingThenDeserializing` test fails because it expects all properties from `GetSerializableProperties()` to round-trip through XML.
+
+**Fix:** Add `"CredentialId"` to the exclusion list in `ConnectionInfo.GetSerializableProperties()`. This is different from `ConnectionPropertyReflector.GetSerializableProperties()`.
+
+**Commit:** `6dd22fc0e`
+
 - Rules: `D:\github\mRemoteNG\.project-roadmap\LESSONS.md`
 - Human log: `D:\github\mRemoteNG\.project-roadmap\COMMAND_FEEDBACK_LOG.md`
 - Machine log: `D:\github\mRemoteNG\.project-roadmap\command-feedback.jsonl`
