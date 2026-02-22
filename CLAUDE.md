@@ -108,6 +108,19 @@ dotnet test "D:\github\mRemoteNG\mRemoteNGSpecs\bin\x64\Release\mRemoteNGSpecs.d
 - Any test that opens `notepad.exe`, shows a password prompt, or displays a save dialog is INVALID
 - Kill stale processes after test runs: `taskkill //F //IM notepad.exe 2>/dev/null`
 
+### THE GOLDEN RULE (TEST FAILURES)
+**Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.**
+1. **Fix the code:** If the test is correct and caught a real bug.
+2. **Fix the test:** If the code is correct but the test logic/expectation is flawed.
+3. **Remove the test:** ONLY if the test is no longer valid.
+**NEVER use `[Ignore]` for failing tests. A failure is a blocker.**
+
+### 100% DLL Coverage Requirement
+- `run-tests.ps1` runs 5 parallel groups AND a 6th sequential 'Remnants' group.
+- **Goal:** Execute EVERY test in the DLL.
+- If `run-tests.ps1` detects a >0 test coverage gap vs. the DLL list, it Fails (exit 96).
+- **Action:** If you add tests in new namespaces, update the `$groups` in `run-tests.ps1` or let the Remnants group handle them sequentially.
+
 ### IMPORTANT: `dotnet test` path quirk
 - Build outputs to `bin\x64\Release\` (because Platform=x64)
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)

@@ -40,15 +40,18 @@ namespace mRemoteNG.Config.Import
             var connectionInfo = new ConnectionInfo();
             connectionInfo.Hostname = parts[0];
             connectionInfo.Name = parts[0]; // Default name to hostname
+            connectionInfo.Inheritance.Hostname = false;
 
             if (parts.Length > 1)
             {
                 connectionInfo.Username = parts[1];
+                connectionInfo.Inheritance.Username = false;
             }
 
             if (parts.Length > 2)
             {
                 connectionInfo.Password = parts[2];
+                connectionInfo.Inheritance.Password = false;
             }
             
             if (parts.Length > 3)
@@ -56,6 +59,7 @@ namespace mRemoteNG.Config.Import
                 if (int.TryParse(parts[3], out int port))
                 {
                     connectionInfo.Port = port;
+                    connectionInfo.Inheritance.Port = false;
                 }
             }
 

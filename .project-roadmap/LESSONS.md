@@ -736,17 +736,25 @@ Open source projects **cannot** get free EV code signing certificates (required 
 **Working solution: Multi-process parallelism (run-tests.ps1)**
 ```
 run-tests.ps1
-  Process 1: mRemoteNGTests.Security (164 tests)
-  Process 2: mRemoteNGTests.Tools + Messages + App + misc (354 tests)
-  Process 3: mRemoteNGTests.Config (563 tests)
-  Process 4: mRemoteNGTests.Connection + Credential + Tree + misc (866 tests)
-  All 4 run simultaneously, each with isolated static state.
+  Process 1-5: Parallel groups by namespace
+  Process 6: Remnants (sequential) -- ensures 100% DLL coverage
 ```
 
-**Result:** 95s -> 46s (2.1x speedup), 1947/1947 passed, 0 failed.
+**Result:** 95s -> 46s (2.1x speedup), 100% coverage verified against DLL list.
+
+### 100% Test Coverage & The Golden Rule (2026-02-22)
+
+**Problem:** Tests not fitting into parallel namespaces were skipped or only reported as "missing", leading to hidden regressions.
+
+**Solution:** `run-tests.ps1` now identifies all tests not covered by parallel filters and runs them sequentially at the end. Any gap in coverage is now a fatal error (exit 96).
+
+**The Golden Rule:** Every test failure MUST be resolved before finishing a task:
+1. **Fix the code:** If the test is correct and caught a real bug.
+2. **Fix the test:** If the code is correct but the test logic/expectation is flawed.
+3. **Remove the test:** ONLY if the test is no longer valid (e.g., feature removed or fundamentally changed).
+**NEVER [Ignore] a failing test.**
 
 ### IntegratedProgramTests Launches Real notepad.exe
-
 | Symptom | Root Cause | Immediate Fix |
 | --- | --- | --- |
 | `CanStartExternalApp` opens real notepad window, leaves zombie process | Test calls `sut.Connect()` which does `_process.Start()` on `notepad.exe` | Replace with `InitializeSucceedsWhenExternalToolExists` which only calls `Initialize()` (no process launch) |
