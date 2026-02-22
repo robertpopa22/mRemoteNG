@@ -2620,5 +2620,17 @@ namespace mRemoteNG.Properties {
                         this["DisableTreeDragAndDrop"] = value;
                     }
                 }
+
+                [global::System.Configuration.UserScopedSettingAttribute()]
+                [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+                [global::System.Configuration.DefaultSettingValueAttribute("")]
+                public string CustomConfigurationPath {
+                    get {
+                        return ((string)(this["CustomConfigurationPath"]));
+                    }
+                    set {
+                        this["CustomConfigurationPath"] = value;
+                    }
+                }
             }
         }

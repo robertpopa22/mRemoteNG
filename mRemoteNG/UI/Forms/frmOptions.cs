@@ -52,7 +52,8 @@ namespace mRemoteNG.UI.Forms
                 nameof(ThemePage),
                 nameof(SecurityPage),
                 nameof(AdvancedPage),
-                nameof(BackupPage)
+                nameof(BackupPage),
+                nameof(ConfigurationPage)
             ];
 
             InitOptionsPagesToListView();
@@ -261,6 +262,11 @@ namespace mRemoteNG.UI.Forms
                         if (Properties.OptionsBackupPage.Default.cbBacupPageInOptionMenu ||
                             Properties.OptionsRbac.Default.ActiveRole == "AdminRole")
                             page = new BackupPage { Dock = DockStyle.Fill };
+                        break;
+                    }
+                case "ConfigurationPage":
+                    {
+                        page = new ConfigurationPage { Dock = DockStyle.Fill };
                         break;
                     }
             }

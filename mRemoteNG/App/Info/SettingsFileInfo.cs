@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Versioning;
 using System.Windows.Forms;
 using mRemoteNG.Connection;
+using mRemoteNG.Properties;
 
 namespace mRemoteNG.App.Info
 {
@@ -12,11 +13,17 @@ namespace mRemoteNG.App.Info
     public static class SettingsFileInfo
     {
         private static readonly string ExePath = Path.GetDirectoryName(Assembly.GetAssembly(typeof(ConnectionInfo))?.Location) ?? string.Empty;
+        private static readonly Lazy<string> InstalledSettingsPath = new(GetInstalledSettingsPath);
+
+        public static string DefaultSettingsPath =>
+            Runtime.IsPortableEdition
+                ? ExePath
+                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.ProductName ?? string.Empty);
 
         public static string SettingsPath =>
             Runtime.IsPortableEdition
                 ? ExePath
-                : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Application.ProductName ?? string.Empty);
+                : InstalledSettingsPath.Value;
 
         public static string UserSettingsFilePath =>
             Runtime.IsPortableEdition
@@ -34,11 +41,42 @@ namespace mRemoteNG.App.Info
         public static string LocalConnectionProperties { get; } = "LocalConnectionProperties.xml";
         public static string QuickConnectHistoryFileName { get; } = "quickConnectHistory.xml";
 
-        public static string ThemeFolder { get; } =
-            SettingsPath != null ? Path.Combine(SettingsPath, "Themes") : String.Empty;
+        public static string ThemeFolder =>
+            string.IsNullOrWhiteSpace(SettingsPath)
+                ? string.Empty
+                : Path.Combine(SettingsPath, "Themes");
 
-        public static string InstalledThemeFolder { get; } =
-            ExePath != null ? Path.Combine(ExePath, "Themes") : String.Empty;
+        public static string InstalledThemeFolder =>
+            string.IsNullOrWhiteSpace(ExePath)
+                ? string.Empty
+                : Path.Combine(ExePath, "Themes");
+
+        private static string GetInstalledSettingsPath()
+        {
+            string configuredPath = GetConfiguredSettingsPath();
+            return string.IsNullOrWhiteSpace(configuredPath) ? DefaultSettingsPath : configuredPath;
+        }
+
+        private static string GetConfiguredSettingsPath()
+        {
+            try
+            {
+                string configuredPath = Settings.Default.CustomConfigurationPath;
+                if (string.IsNullOrWhiteSpace(configuredPath))
+                    return string.Empty;
+
+                string expandedPath = Environment.ExpandEnvironmentVariables(configuredPath.Trim());
+                return Path.GetFullPath(expandedPath);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                return string.Empty;
+            }
+            catch (Exception ex) when (ex is ArgumentException or NotSupportedException or PathTooLongException)
+            {
+                return string.Empty;
+            }
+        }
 
         private static string GetInstalledUserSettingsFilePath()
         {

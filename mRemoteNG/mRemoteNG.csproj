@@ -364,6 +364,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="UI\Forms\OptionsPages\BackupPage.cs" />
+    <Compile Update="UI\Forms\OptionsPages\ConfigurationPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="UI\Forms\OptionsPages\ConnectionsPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
