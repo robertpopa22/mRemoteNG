@@ -51,6 +51,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblSplitterSize = new MrngLabel();
             chkLockPanels = new MrngCheckBox();
             chkDoNotRestoreOnRdpMinimize = new MrngCheckBox();
+            chkAutoClosePanelOnLastTabClose = new MrngCheckBox();
             pnlOptions = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlOptions.SuspendLayout();
@@ -248,6 +249,18 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkDoNotRestoreOnRdpMinimize.Text = "Do not restore on RDP minimize";
             chkDoNotRestoreOnRdpMinimize.UseVisualStyleBackColor = true;
             // 
+            // chkAutoClosePanelOnLastTabClose
+            // 
+            chkAutoClosePanelOnLastTabClose._mice = MrngCheckBox.MouseState.OUT;
+            chkAutoClosePanelOnLastTabClose.AutoSize = true;
+            chkAutoClosePanelOnLastTabClose.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkAutoClosePanelOnLastTabClose.Location = new System.Drawing.Point(3, 331);
+            chkAutoClosePanelOnLastTabClose.Name = "chkAutoClosePanelOnLastTabClose";
+            chkAutoClosePanelOnLastTabClose.Size = new System.Drawing.Size(258, 17);
+            chkAutoClosePanelOnLastTabClose.TabIndex = 15;
+            chkAutoClosePanelOnLastTabClose.Text = "Auto close panel after closing the last tab";
+            chkAutoClosePanelOnLastTabClose.UseVisualStyleBackColor = true;
+            // 
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkAlwaysShowPanelTabs);
@@ -267,10 +280,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Controls.Add(lblSplitterSize);
             pnlOptions.Controls.Add(chkLockPanels);
             pnlOptions.Controls.Add(chkDoNotRestoreOnRdpMinimize);
+            pnlOptions.Controls.Add(chkAutoClosePanelOnLastTabClose);
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 330);
+            pnlOptions.Size = new System.Drawing.Size(610, 353);
             pnlOptions.TabIndex = 10;
             // 
             // lblRegistrySettingsUsedInfo
@@ -318,5 +332,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal Controls.MrngLabel lblSplitterSize;
         internal MrngCheckBox chkLockPanels;
         internal MrngCheckBox chkDoNotRestoreOnRdpMinimize;
+        internal MrngCheckBox chkAutoClosePanelOnLastTabClose;
     }
 }

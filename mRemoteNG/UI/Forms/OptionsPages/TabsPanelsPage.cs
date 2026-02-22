@@ -46,6 +46,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkBindConnectionsAndConfigPanels.Text = "Bind Connections and Config panels together when auto-hidden";
             chkLockPanels.Text = "Lock panels";
             chkDoNotRestoreOnRdpMinimize.Text = Language.DoNotRestoreOnRdpMinimize;
+            chkAutoClosePanelOnLastTabClose.Text = "Auto close panel after closing the last tab";
             lblPanelName.Text = $@"{Language.PanelName}:";
             lblSplitterSize.Text = "Splitter size:";
 
@@ -75,6 +76,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkBindConnectionsAndConfigPanels.Checked = Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels;
             chkLockPanels.Checked = Properties.OptionsTabsPanelsPage.Default.LockPanels;
             chkDoNotRestoreOnRdpMinimize.Checked = Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize;
+            chkAutoClosePanelOnLastTabClose.Checked = Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose;
             txtBoxPanelName.Text = Properties.OptionsTabsPanelsPage.Default.StartUpPanelName;
             nudSplitterSize.Value = Properties.OptionsTabsPanelsPage.Default.SplitterSize;
             UpdatePanelNameTextBox();
@@ -115,6 +117,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.OptionsTabsPanelsPage.Default.BindConnectionsAndConfigPanels = chkBindConnectionsAndConfigPanels.Checked;
             Properties.OptionsTabsPanelsPage.Default.LockPanels = chkLockPanels.Checked;
             Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize = chkDoNotRestoreOnRdpMinimize.Checked;
+            Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose = chkAutoClosePanelOnLastTabClose.Checked;
             Properties.OptionsTabsPanelsPage.Default.StartUpPanelName = txtBoxPanelName.Text;
             Properties.OptionsTabsPanelsPage.Default.SplitterSize = (int)nudSplitterSize.Value;
         }
@@ -164,6 +167,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (pageRegSettingsInstance.BindConnectionsAndConfigPanels.IsSet)
                 DisableControl(chkBindConnectionsAndConfigPanels);
 
+            if (pageRegSettingsInstance.AutoClosePanelOnLastTabClose.IsSet)
+                DisableControl(chkAutoClosePanelOnLastTabClose);
+
             // Updates the visibility of the information label indicating whether registry settings are used.
             lblRegistrySettingsUsedInfo.Visible = ShowRegistrySettingsUsedInfo();
         }
@@ -184,7 +190,8 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 || pageRegSettingsInstance.AlwaysShowPanelSelectionDlg.IsSet
                 || pageRegSettingsInstance.CreateEmptyPanelOnStartUp.IsSet
                 || pageRegSettingsInstance.StartUpPanelName.IsSet
-                || pageRegSettingsInstance.BindConnectionsAndConfigPanels.IsSet;
+                || pageRegSettingsInstance.BindConnectionsAndConfigPanels.IsSet
+                || pageRegSettingsInstance.AutoClosePanelOnLastTabClose.IsSet;
         }
 
         private void UpdatePanelNameTextBox()

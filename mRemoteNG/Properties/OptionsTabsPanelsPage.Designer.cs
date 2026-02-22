@@ -226,6 +226,18 @@ namespace mRemoteNG.Properties {
                 this["ConfirmClosePanel"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoClosePanelOnLastTabClose {
+            get {
+                return ((bool)(this["AutoClosePanelOnLastTabClose"]));
+            }
+            set {
+                this["AutoClosePanelOnLastTabClose"] = value;
+            }
+        }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

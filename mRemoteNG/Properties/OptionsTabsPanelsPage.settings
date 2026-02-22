@@ -53,6 +53,9 @@
     <Setting Name="ConfirmClosePanel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AutoClosePanelOnLastTabClose" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
     <Setting Name="DoNotRestoreOnRdpMinimize" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>

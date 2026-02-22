@@ -1047,8 +1047,25 @@ namespace mRemoteNG.UI.Window
             FrmMain.Default.SelectedConnection = selectedConnectionInfo;
         }
 
+        private bool HasConnectionTabs()
+        {
+            if (connDock == null || connDock.IsDisposed)
+            {
+                return false;
+            }
+
+            return connDock.DocumentsToArray()
+                .OfType<ConnectionTab>()
+                .Any(tab => !tab.IsDisposed && !tab.Disposing);
+        }
+
         private void ClosePanelIfEmpty()
         {
+            if (!Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose)
+            {
+                return;
+            }
+
             if (_emptyPanelCloseQueued || IsDisposed || Disposing || !IsHandleCreated)
             {
                 return;
@@ -1059,7 +1076,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            if (connDock == null || connDock.IsDisposed || connDock.Documents.Any())
+            if (HasConnectionTabs())
             {
                 return;
             }
@@ -1083,6 +1100,11 @@ namespace mRemoteNG.UI.Window
         {
             _emptyPanelCloseQueued = false;
 
+            if (!Properties.OptionsTabsPanelsPage.Default.AutoClosePanelOnLastTabClose)
+            {
+                return;
+            }
+
             if (IsDisposed || Disposing || !IsHandleCreated)
             {
                 return;
@@ -1093,7 +1115,7 @@ namespace mRemoteNG.UI.Window
                 return;
             }
 
-            if (connDock == null || connDock.IsDisposed || connDock.Documents.Any())
+            if (HasConnectionTabs())
             {
                 return;
             }
