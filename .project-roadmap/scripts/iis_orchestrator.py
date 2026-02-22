@@ -1030,7 +1030,7 @@ def run_build(capture_output=False):
 
 
 def run_tests(return_details=False):
-    """Run non-UI tests via run-tests.ps1 (4 parallel processes).
+    """Run non-UI tests via run-tests.ps1 (5 parallel groups + isolated fallback).
     Returns True/False if return_details=False.
     Returns (True/False, test_output, failed_tests) if return_details=True.
 
@@ -1058,6 +1058,13 @@ def run_tests(return_details=False):
                       elapsed, TEST_MIN_DURATION_SECS)
             log.error("    [TEST] PHANTOM output: %s", out.strip()[:500])
             return _result(False, out, [], phantom=True)
+
+        # run-tests.ps1 non-zero exit means hard failure (including uncovered tests)
+        if r.returncode != 0:
+            is_phantom = r.returncode == 99 or "PHANTOM_TEST_RUN" in out
+            log.error("    [TEST] FAILED: run-tests.ps1 exit code %d [%.0fs]", r.returncode, elapsed)
+            kill_stale_processes()
+            return _result(False, out, _parse_failed_tests(out), phantom=is_phantom)
 
         # Parse run-tests.ps1 output: "Total: 1926/1926 passed, 0 failed"
         total_m = re.search(r"Total:\s+(\d+)/(\d+)\s+passed,\s+(\d+)\s+failed", out)

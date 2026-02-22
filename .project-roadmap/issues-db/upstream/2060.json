@@ -11,12 +11,19 @@
   "created_at": "2021-11-01T13:57:20Z",
   "github_updated_at": "2026-02-21T10:23:46Z",
   "body_snippet": "It would be nice if the history created in Quick Connections is not deleted after closing and reopening the app, as I often just type the server name in quick connection instead of registering a new connection.\r\n\r\nAlso, would it be nice if there was some way to add the option to save each of the Quick Connections to the list of Connections, like a right click option on the tab that says \"Add to Connections\"?\r\n\r\nThank you very much!",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "To provide users with quick access to recently opened connections, improving usability and efficiency."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM44_2Ab",
@@ -60,5 +67,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): To provide users with quick access to recently opened connections, improving usability and efficiency.\nApproach: Implement a ConnectionHistoryManager class that maintains a list of recently opened connections, storing their unique identifiers or connection strings. This manager will serialize and deserialize its list to and from the application's user settings. FrmMain will be modified to interact with this manager: adding connections to the history when they are opened, and displaying the history in a new menu item (e.g., under \"File\" -> \"Recent Connections\"). Clicking on a history item will open the corresponding connection."
 }

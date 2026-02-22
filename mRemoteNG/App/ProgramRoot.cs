@@ -16,6 +16,7 @@ using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 
 
@@ -160,6 +161,11 @@ namespace mRemoteNG.App
         private static void StartApplication()
         {
             CatchAllUnhandledExceptions();
+
+            // Fix #2062: ensure DockPanelSuite computes drag indicators correctly
+            // across secondary monitors with different DPI/scaling.
+            PatchController.EnablePerScreenDpi = true;
+
             Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
