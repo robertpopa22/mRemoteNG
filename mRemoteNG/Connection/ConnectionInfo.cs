@@ -95,6 +95,9 @@ namespace mRemoteNG.Connection
         public bool ExcludeFromMultiSsh { get; set; }
 
         [Browsable(false)]
+        public string MultiSshScript { get; set; } = string.Empty;
+
+        [Browsable(false)]
         public string User { get; set; }
 
         [Browsable(false)]
@@ -178,6 +181,8 @@ namespace mRemoteNG.Connection
                 sourceConnectionInfo.Parent = savedParent;
             }
 
+            MultiSshScript = sourceConnectionInfo.MultiSshScript;
+
             ConnectionInfoInheritance clonedInheritance = sourceConnectionInfo.Inheritance.Clone(this);
             Inheritance = clonedInheritance;
         }
@@ -218,7 +223,7 @@ namespace mRemoteNG.Connection
             {
                 "Parent", "Name", "Hostname", "Port", "Inheritance", "OpenConnections",
                 "IsContainer", "IsDefault", "PositionID", "ConstantID", "TreeNode", "IsQuickConnect", "PleaseConnect",
-                "IncludeInMultiSsh", "ExcludeFromMultiSsh", "LinkedConnectionId", "IsLinkedConnection",
+                "IncludeInMultiSsh", "ExcludeFromMultiSsh", "MultiSshScript", "LinkedConnectionId", "IsLinkedConnection",
                 "User", "Role", "IsRoot", "HasDisconnectedSessions", "HostReachabilityStatus",
                 "CredentialId"
             };

@@ -13,12 +13,19 @@
   "created_at": "2021-06-29T10:57:48Z",
   "github_updated_at": "2026-02-21T10:23:32Z",
   "body_snippet": "I want to request for a feature where Multi SSH should allow Loading Scripts. This will save a lot of time. Instead of typing commands on MultiSSH one by one.",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "Users want to execute scripts across multiple SSH connections, enhancing the Multi SSH functionality."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mYhrZ",
@@ -35,5 +42,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Users want to execute scripts across multiple SSH connections, enhancing the Multi SSH functionality.\nApproach: Add a new 'MultiSshScript' string property to ConnectionInfo to store script content. Integrate UI elements in ConnectionWindow or a new dialog to allow input of this script. Implement logic to execute the stored script on all selected SSH connections during a Multi SSH session."
 }

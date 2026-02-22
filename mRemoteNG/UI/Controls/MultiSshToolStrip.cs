@@ -11,6 +11,7 @@ using mRemoteNG.Resources.Language;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.Window;
+using System.IO;
 using System.Runtime.Versioning;
 using mRemoteNG.Tools;
 
@@ -22,6 +23,7 @@ namespace mRemoteNG.UI.Controls
         private IContainer components = null!;
         private ToolStripLabel lblMultiSsh = null!;
         private ToolStripTextBox txtMultiSsh = null!;
+        private ToolStripButton btnLoadScript = null!;
         private ToolStripButton btnCurrentPanelOnly = null!;
         private int previousCommandIndex = 0;
         private readonly ArrayList processHandlers = [];
@@ -109,28 +111,104 @@ namespace mRemoteNG.UI.Controls
             }
         }
 
+        private static ConnectionInfo? GetConnectionInfoForProcess(PuttyBase processHandler)
+        {
+            return processHandler.InterfaceControl?.OriginalInfo ?? processHandler.InterfaceControl?.Info;
+        }
+
+        private static void SendTextToConnection(PuttyBase processHandler, string text, bool sendEnter)
+        {
+            string textToSend = text;
+            if (processHandler.InterfaceControl?.Info != null)
+            {
+                var parser = new ExternalToolArgumentParser(processHandler.InterfaceControl.Info);
+                textToSend = parser.ParseArguments(text, false);
+            }
+
+            foreach (char c in textToSend)
+            {
+                NativeMethods.PostMessage(processHandler.PuttyHandle, NativeMethods.WM_CHAR, (int)c, new IntPtr(0));
+            }
+
+            if (sendEnter)
+            {
+                NativeMethods.PostMessage(processHandler.PuttyHandle, NativeMethods.WM_KEYDOWN, 13, new IntPtr(0)); // Enter
+            }
+        }
+
         private void SendTextToConnections(string text, bool sendEnter)
         {
             if (processHandlers.Count == 0) return;
 
-            foreach (PuttyBase proc in processHandlers)
+            foreach (PuttyBase processHandler in processHandlers)
             {
-                string textToSend = text;
-                if (proc.InterfaceControl?.Info != null)
+                SendTextToConnection(processHandler, text, sendEnter);
+            }
+        }
+
+        private static void SendScriptToConnection(PuttyBase processHandler, string script)
+        {
+            string[] lines = script.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                bool lastEmptyLine = i == lines.Length - 1 && string.IsNullOrEmpty(lines[i]);
+                if (lastEmptyLine)
+                    continue;
+
+                SendTextToConnection(processHandler, lines[i], true);
+            }
+        }
+
+        private void ExecuteStoredScriptsOnConnections()
+        {
+            if (processHandlers.Count == 0) return;
+
+            foreach (PuttyBase processHandler in processHandlers)
+            {
+                ConnectionInfo? connectionInfo = GetConnectionInfoForProcess(processHandler);
+                if (connectionInfo == null || string.IsNullOrWhiteSpace(connectionInfo.MultiSshScript))
+                    continue;
+
+                SendScriptToConnection(processHandler, connectionInfo.MultiSshScript);
+            }
+        }
+
+        private void LoadAndRunScript(object? sender, EventArgs e)
+        {
+            try
+            {
+                RefreshActiveConnections();
+                if (processHandlers.Count == 0)
+                    return;
+
+                using OpenFileDialog openFileDialog = new()
                 {
-                    var parser = new ExternalToolArgumentParser(proc.InterfaceControl.Info);
-                    textToSend = parser.ParseArguments(text, false);
+                    CheckFileExists = true,
+                    CheckPathExists = true,
+                    Filter = "Script files (*.txt;*.sh;*.ps1;*.cmd;*.bat)|*.txt;*.sh;*.ps1;*.cmd;*.bat|All files (*.*)|*.*",
+                    RestoreDirectory = true,
+                    Title = "Load Multi SSH Script"
+                };
+
+                if (openFileDialog.ShowDialog() != DialogResult.OK)
+                    return;
+
+                string scriptContent = File.ReadAllText(openFileDialog.FileName);
+                if (string.IsNullOrWhiteSpace(scriptContent))
+                    return;
+
+                foreach (PuttyBase processHandler in processHandlers)
+                {
+                    ConnectionInfo? connectionInfo = GetConnectionInfoForProcess(processHandler);
+                    if (connectionInfo != null)
+                        connectionInfo.MultiSshScript = scriptContent;
                 }
 
-                foreach (char c in textToSend)
-                {
-                    NativeMethods.PostMessage(proc.PuttyHandle, NativeMethods.WM_CHAR, (int)c, new IntPtr(0));
-                }
-
-                if (sendEnter)
-                {
-                    NativeMethods.PostMessage(proc.PuttyHandle, NativeMethods.WM_KEYDOWN, 13, new IntPtr(0)); // Enter
-                }
+                ExecuteStoredScriptsOnConnections();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("LoadAndRunScript (UI.Controls.MultiSshToolStrip) failed", ex);
             }
         }
 
@@ -259,6 +337,7 @@ namespace mRemoteNG.UI.Controls
             this.components = new System.ComponentModel.Container();
             this.lblMultiSsh = new ToolStripLabel();
             this.txtMultiSsh = new ToolStripTextBox();
+            this.btnLoadScript = new ToolStripButton();
             this.btnCurrentPanelOnly = new ToolStripButton();
             this.SuspendLayout();
             // 
@@ -277,6 +356,15 @@ namespace mRemoteNG.UI.Controls
             this.txtMultiSsh.KeyDown += ProcessKeyPress;
             this.txtMultiSsh.KeyUp += ProcessKeyRelease;
             // 
+            // btnLoadScript
+            // 
+            this.btnLoadScript.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            this.btnLoadScript.Name = "_btnLoadScript";
+            this.btnLoadScript.Size = new System.Drawing.Size(77, 22);
+            this.btnLoadScript.Text = "Load Script";
+            this.btnLoadScript.ToolTipText = "Load a script file and run it on all active Multi SSH sessions.";
+            this.btnLoadScript.Click += LoadAndRunScript;
+            // 
             // btnCurrentPanelOnly
             // 
             this.btnCurrentPanelOnly.CheckOnClick = true;
@@ -291,6 +379,7 @@ namespace mRemoteNG.UI.Controls
             {
                 lblMultiSsh,
                 txtMultiSsh,
+                btnLoadScript,
                 btnCurrentPanelOnly
             });
             this.ResumeLayout(false);

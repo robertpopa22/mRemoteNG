@@ -12,7 +12,7 @@
   "created_at": "2021-06-25T14:04:18Z",
   "github_updated_at": "2026-02-21T10:23:31Z",
   "body_snippet": "\r\n## Expected Behavior\r\nUpdated from 1.77.1 to 1.77.2 nightly. This loses the settings.\r\n\r\n## Current Behavior\r\nConnect to the 1.77.1 SQL database (MSSQL)\r\n\r\nError: An unhandled exception has occurred\r\nException Message: Column 'Domain' does not belong to table .\r\n\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Update mRemoteNG to 1.77.2 nightly\r\n2. Open it\r\n3. Configure MSSQL connection\r\n\r\n## Context\r\nTry to get my connections back\r\n\r\n## Your Environment\r\nWindows Server 2012R2, SQL Server 2014\r\nOS: Mi...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
@@ -23,6 +23,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "The 'Column 'Domain' does not belong to table' error occurs because DataTableDeserializer attempts to access a 'Domain' column that may not exist in the incoming DataTable during connection deserialization, leading to a runtime error."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in f7423aca"
     }
   ],
   "comments": [
