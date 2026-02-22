@@ -11,12 +11,19 @@
   "created_at": "2021-07-25T11:24:45Z",
   "github_updated_at": "2026-02-21T10:22:49Z",
   "body_snippet": "I have a huge configfile with a lot of connection (About 300!). This profile works without any problems. \r\n\r\nmRemoteNG Version 1.76 (actual Stable Version)\r\n\r\nWhen I export the profile and import it on a other System (Windwos Server 2016) non of the connections work. \r\nBut when I setup a new connections, this connection inside the profile works, so it seems the application is installed correctly.\r\n\r\n## Expected Behavior\r\nIt should be possible copy of the XML file to a other machine to use the co...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "Connections are not working after migrating XML to a new Windows system, indicating a critical bug in handling connection file migration or deserialization."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM7mXFdt",
@@ -33,5 +40,5 @@
   "needs_action": false,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Connections are not working after migrating XML to a new Windows system, indicating a critical bug in handling connection file migration or deserialization.\nApproach: Investigate the XML connection loading, saving, and decryption processes to identify why migrated files are not working on a new system. This may involve examining version compatibility, encryption key handling, or deserialization logic for potential inconsistencies or errors during cross-system migration."
 }

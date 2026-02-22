@@ -2,9 +2,5 @@
   "gemini:gemini-3-pro-preview": {
     "available_after": "2026-02-22T08:52:07.075479",
     "detected_at": "2026-02-21T14:18:09.075675"
-  },
-  "codex": {
-    "available_after": "2026-02-22T05:12:22.459429",
-    "detected_at": "2026-02-22T04:12:22.459720"
   }
 }

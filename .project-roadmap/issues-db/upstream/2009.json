@@ -11,12 +11,19 @@
   "created_at": "2021-07-31T17:57:03Z",
   "github_updated_at": "2025-03-25T09:38:47Z",
   "body_snippet": "Feature add\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nAdd the ability to use Bastion services to be able to RDP to cloud instances easily\r\n\r\n## Current Behavior\r\n<!--- If describing a bug, tell us what happens instea...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "Adds support for connecting via bastion services to cloud instances, enhancing connectivity options for RDP."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM41FATt",
@@ -51,5 +58,5 @@
   "needs_action": true,
   "waiting_for_us": true,
   "last_synced": "2026-02-15T09:52:50Z",
-  "notes": ""
+  "notes": "AI triage (gemini): Adds support for connecting via bastion services to cloud instances, enhancing connectivity options for RDP.\nApproach: Extend ConnectionInfo with bastion host details. Implement bastion connection logic within a new or existing RDP protocol handler. Update FrmConnectWithOptions.cs for UI configuration. Update XmlConnectionNodeSerializer28.cs for persistence."
 }

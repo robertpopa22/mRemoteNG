@@ -1,7 +1,13 @@
 {
   "decision": "implement",
-  "reason": "The current logic for MSSQL connections incorrectly falls back to integrated security when a password is provided but the username is empty, or vice versa. This needs to be corrected.",
-  "priority": "P2-bug",
-  "estimated_files": ["mRemoteNG\\Config\\DatabaseConnectors\\MSSqlDatabaseConnector.cs"],
-  "approach": "Modify the `BuildSqlConnectionString` method in `MSSqlDatabaseConnector.cs` to use custom credentials if either the username or password is provided; otherwise, use integrated security."
+  "reason": "Adds support for connecting via bastion services to cloud instances, enhancing connectivity options for RDP.",
+  "priority": "P3-enhancement",
+  "estimated_files": [
+    "mRemoteNG/Connection/ConnectionInfo.cs",
+    "mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs",
+    "mRemoteNG/Connection/Protocol/ProtocolFactory.cs",
+    "mRemoteNG/UI/Forms/FrmConnectWithOptions.cs",
+    "mRemoteNG/Config/Connections/XmlConnectionNodeSerializer28.cs"
+  ],
+  "approach": "Extend ConnectionInfo with bastion host details. Implement bastion connection logic within a new or existing RDP protocol handler. Update FrmConnectWithOptions.cs for UI configuration. Update XmlConnectionNodeSerializer28.cs for persistence."
 }
