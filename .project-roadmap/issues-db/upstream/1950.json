@@ -9,9 +9,9 @@
   ],
   "author": "rohrkemper",
   "created_at": "2021-04-11T11:13:43Z",
-  "github_updated_at": "2026-02-21T10:22:50Z",
+  "github_updated_at": "2026-02-22T00:42:46Z",
   "body_snippet": "I'm working sometimes on a 4K monitor and sometimes on a 5K 2K monitor. I'd like to have the zoom set to 200%. I've seen some very specific issues related to this question, but no general explanation. Could someone help me get started even if there's no optimal solution? I have a very high bandwidth connection. Which other settings would you recommend to have the best display quality possible?",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
@@ -22,6 +22,12 @@
       "date": "2026-02-22",
       "type": "triaged",
       "description": "Users are unable to easily locate or understand the existing resolution and desktop scaling settings for remote connections, particularly 'DesktopScaleFactor', which directly relates to 'zoom level'."
+    },
+    {
+      "seq": 2,
+      "date": "2026-02-22",
+      "type": "testing",
+      "description": "Fix in 9c8300c3"
     }
   ],
   "comments": [
@@ -60,12 +66,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q1Ipf",
+      "author": "robertpopa22",
+      "date": "2026-02-22T00:42:38Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Enhance the UI to make existing resolution and desktop scali\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:22:50Z",
+  "comments_cursor": "2026-02-22T00:42:46Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-22T00:59:31Z",
   "notes": "AI triage (gemini): Users are unable to easily locate or understand the existing resolution and desktop scaling settings for remote connections, particularly 'DesktopScaleFactor', which directly relates to 'zoom level'.\nApproach: Enhance the UI to make existing resolution and desktop scaling settings, especially 'DesktopScaleFactor', more prominent and understandable to users. This may involve renaming UI labels, reorganizing options, or adding tooltips/documentation links."
 }

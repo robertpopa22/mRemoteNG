@@ -1,0 +1,22 @@
+Project: mRemoteNG (.NET 10, WinForms, COM references)
+Working directory: D:\github\mRemoteNG
+Branch: main
+
+Fix GitHub issue #1974: Bypass Windows Proxy
+
+Description:
+
+
+Recommended approach: Add a boolean 'BypassSystemProxy' property to ConnectionInfo to control proxy usage per connection. Expose this setting in the connection properties UI. Modify the connection establishment logic within each protocol handler (e.g., RdpProtocol, VncProtocol, SshProtocol) to explicitly configure the underlying network client (e.g., HttpClient, WebRequest) to bypass the system proxy if 'BypassSystemProxy' is enabled for that connection.
+Likely files: mRemoteNG/Connection/ConnectionInfo.cs, mRemoteNG/UI/Forms/FrmMain.cs, mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs, mRemoteNG/Connection/Protocol/VNC/VncProtocol.cs, mRemoteNG/Connection/Protocol/SSH/SshProtocol.cs, mRemoteNG/Config/Settings.cs
+
+RULES (CRITICAL):
+- Read code BEFORE modifying
+- Do NOT change existing behavior — only fix the reported issue
+- Do NOT create interactive tests (no dialogs, MessageBox, notepad.exe)
+- Do NOT run git commit, git add, git push, or ANY git operations. The orchestrator handles all commits.
+- NEVER modify these infrastructure files: run-tests.ps1, build.ps1, mRemoteNG.sln, Directory.Build.props, Directory.Packages.props, .github/workflows/*. They are READ-ONLY.
+- After fixing, run build: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\build.ps1"
+- After build passes, run tests: powershell.exe -NoProfile -ExecutionPolicy Bypass -File "D:\github\mRemoteNG\run-tests.ps1" -NoBuild
+- If YOUR change breaks tests, fix it.  If tests fail for unrelated reasons, ignore.
+- Do ONLY the fix.  Nothing else.

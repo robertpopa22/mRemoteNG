@@ -5,19 +5,19 @@
     "upstream": "mRemoteNG/mRemoteNG",
     "fork": "robertpopa22/mRemoteNG"
   },
-  "last_sync": "2026-02-21T23:48:23Z",
+  "last_sync": "2026-02-22T00:59:31Z",
   "last_sync_stats": {
     "repos_synced": [
       "mRemoteNG/mRemoteNG",
       "robertpopa22/mRemoteNG"
     ],
     "issues_new": 0,
-    "issues_updated": 827,
+    "issues_updated": 826,
     "issues_error": 0,
-    "comments_new": 8,
-    "needs_action": 5,
-    "waiting_for_us": 15,
-    "duration_sec": 36.6
+    "comments_new": 4,
+    "needs_action": 3,
+    "waiting_for_us": 1,
+    "duration_sec": 9.4
   },
   "our_github_user": "robertpopa22",
   "lifecycle_states": [

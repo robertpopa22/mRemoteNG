@@ -8,7 +8,7 @@
   ],
   "author": "spisarau",
   "created_at": "2018-09-24T07:04:52Z",
-  "github_updated_at": "2026-02-20T20:42:41Z",
+  "github_updated_at": "2026-02-22T00:21:04Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nWhen I click host name I can see status button. \r\n## Expected Behavior\r\nIs it possible to to check check status of all host in expanded folder and change indication of host depending on accessible  host or not.\r\n\r\n\r\n\r\n## Context\r\nIt would be great to see all active and inactive hosts in current expanded directory.\r\n\r\n\r\n## Your Environment\r\n* Version used: ALL\r\n* Operating System and version (e.g. Windows 10 1709 x64):\r\n",
   "our_status": "triaged",
   "priority": "P3-enhancement",
@@ -67,10 +67,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-20T20:42:41Z",
+  "comments_cursor": "2026-02-22T00:21:04Z",
   "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "last_synced": "2026-02-22T00:59:31Z",
   "notes": "AI triage (claude): Feature request to display online/offline status of hosts in the connection tree, a commonly requested enhancement for remote connection managers.\nApproach: Add background ping/port-check worker that periodically probes hosts and updates a status icon on each connection node in the tree view."
 }

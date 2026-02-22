@@ -100,7 +100,9 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.DisableMenuAnimations = MiscTools.GetBooleanValue(dataRow["DisableMenuAnimations"]);
             connectionInfo.DisplayThemes = MiscTools.GetBooleanValue(dataRow["DisplayThemes"]);
             connectionInfo.DisplayWallpaper = MiscTools.GetBooleanValue(dataRow["DisplayWallpaper"]);
-            connectionInfo.Domain = dataRow["Domain"] as string ?? "";
+            connectionInfo.Domain = dataRow.Table.Columns.Contains("Domain")
+                ? dataRow["Domain"] as string ?? ""
+                : "";
             if (dataRow.Table.Columns.Contains("EnableDesktopComposition"))
                 connectionInfo.EnableDesktopComposition = MiscTools.GetBooleanValue(dataRow["EnableDesktopComposition"]);
             if (dataRow.Table.Columns.Contains("EnableFontSmoothing"))

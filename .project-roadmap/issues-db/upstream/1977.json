@@ -12,12 +12,19 @@
   "created_at": "2021-06-25T14:04:18Z",
   "github_updated_at": "2026-02-21T10:23:31Z",
   "body_snippet": "\r\n## Expected Behavior\r\nUpdated from 1.77.1 to 1.77.2 nightly. This loses the settings.\r\n\r\n## Current Behavior\r\nConnect to the 1.77.1 SQL database (MSSQL)\r\n\r\nError: An unhandled exception has occurred\r\nException Message: Column 'Domain' does not belong to table .\r\n\r\n\r\n## Steps to Reproduce (for bugs)\r\n1. Update mRemoteNG to 1.77.2 nightly\r\n2. Open it\r\n3. Configure MSSQL connection\r\n\r\n## Context\r\nTry to get my connections back\r\n\r\n## Your Environment\r\nWindows Server 2012R2, SQL Server 2014\r\nOS: Mi...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "The 'Column 'Domain' does not belong to table' error occurs because DataTableDeserializer attempts to access a 'Domain' column that may not exist in the incoming DataTable during connection deserialization, leading to a runtime error."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM41ilo-",
@@ -61,5 +68,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): The 'Column 'Domain' does not belong to table' error occurs because DataTableDeserializer attempts to access a 'Domain' column that may not exist in the incoming DataTable during connection deserialization, leading to a runtime error.\nApproach: Modify 'PopulateConnectionInfoFromDatarow' in 'DataTableDeserializer.cs' to check for the existence of the 'Domain' column in the DataRow's table before accessing it. If the column does not exist, assign an empty string to 'connectionInfo.Domain' to prevent the error and ensure backward compatibility."
 }
