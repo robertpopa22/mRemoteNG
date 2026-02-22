@@ -98,6 +98,7 @@ namespace mRemoteNG.UI.Forms
         private ConnectionInfo? _selectedConnection;
         private readonly IList<IMessageWriter> _messageWriters = [];
         private readonly ThemeManager _themeManager;
+        private readonly NewCustomTab _screenshotsBottomTab = new();
         private readonly FileBackupPruner _backupPruner = new();
         private readonly System.Windows.Forms.Timer _autoLockTimer = new() { Interval = 1000 };
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
@@ -1376,6 +1377,7 @@ namespace mRemoteNG.UI.Forms
             AppWindows.TreeForm?.Show(pnlDock, DockState.DockLeft);
             AppWindows.ConfigForm.Show(pnlDock, DockState.DockLeft);
             AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+            _screenshotsBottomTab.Show(pnlDock, DockState.DockBottomAutoHide);
             viewMenu._mMenViewErrorsAndInfos.Checked = true;
 
             ShowFileMenu();
@@ -1403,10 +1405,14 @@ namespace mRemoteNG.UI.Forms
             if (Settings.ViewMenuMessages == true)
             {
                 AppWindows.ErrorsForm.Show(pnlDock, DockState.DockBottomAutoHide);
+                _screenshotsBottomTab.Show(pnlDock, DockState.DockBottomAutoHide);
                 viewMenu._mMenViewErrorsAndInfos.Checked = true;
             }
             else
+            {
+                _screenshotsBottomTab.Hide();
                 viewMenu._mMenViewErrorsAndInfos.Checked = false;
+            }
 
 
             if (Settings.ViewMenuExternalTools == true)
