@@ -1,0 +1,25 @@
+{
+  "task_type": "implement",
+  "task_id": "2017",
+  "started_at": "2026-02-22T05:29:16",
+  "finished_at": "2026-02-22T05:38:02",
+  "attempts": [
+    {
+      "agent": "codex",
+      "task": "implement #2017",
+      "success": false,
+      "result": null,
+      "raw_output": "",
+      "errors": "Tests could not run (phantom). Infrastructure issue.",
+      "files_modified": [],
+      "build_result": "OK",
+      "test_result": "PHANTOM",
+      "timed_out": false,
+      "diff_summary": null,
+      "timestamp": "2026-02-22T05:38:02"
+    }
+  ],
+  "timeout_count": 0,
+  "all_timed_out": false,
+  "final_success": false
+}
