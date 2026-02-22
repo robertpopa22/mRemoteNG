@@ -16,6 +16,7 @@ using mRemoteNG.Properties;
 using mRemoteNG.Themes;
 using mRemoteNG.Tree.Root;
 using mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid;
+using mRemoteNG.UI.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
@@ -33,6 +34,7 @@ namespace mRemoteNG.UI.Window
         private ToolStripButton _btnShowDefaultProperties = null!;
         private ToolStripButton _btnShowInheritance = null!;
         private ToolStripButton _btnShowDefaultInheritance = null!;
+        private ToolStripButton _btnPresets = null!;
         private ToolStripButton _btnIcon = null!;
         private ToolStripButton _btnHostStatus = null!;
         internal ContextMenuStrip CMenIcons = null!;
@@ -100,6 +102,8 @@ namespace mRemoteNG.UI.Window
             _btnShowProperties.Click += BtnShowProperties_Click;
             _btnShowDefaultProperties = new ToolStripButton();
             _btnShowDefaultProperties.Click += BtnShowDefaultProperties_Click;
+            _btnPresets = new ToolStripButton();
+            _btnPresets.Click += BtnPresets_Click;
             _btnIcon = new ToolStripButton();
             _btnIcon.MouseUp += BtnIcon_Click;
             _btnHostStatus = new ToolStripButton();
@@ -188,6 +192,15 @@ namespace mRemoteNG.UI.Window
             _btnShowDefaultProperties.Name = "_btnShowDefaultProperties";
             _btnShowDefaultProperties.Size = new Size(23, 22);
             _btnShowDefaultProperties.Text = @"Default Properties";
+            //
+            //btnPresets
+            //
+            _btnPresets.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            _btnPresets.Image = Properties.Resources.SchemaObjectProperty_16x;
+            _btnPresets.ImageTransparentColor = Color.Magenta;
+            _btnPresets.Name = "_btnPresets";
+            _btnPresets.Size = new Size(23, 22);
+            _btnPresets.Text = @"Presets";
             //
             //btnIcon
             //
@@ -321,6 +334,7 @@ namespace mRemoteNG.UI.Window
             _btnShowDefaultInheritance.Text = Language.ButtonDefaultInheritance;
             _btnShowProperties.Text = Language.Properties;
             _btnShowDefaultProperties.Text = Language.ButtonDefaultProperties;
+            _btnPresets.Text = "Presets";
             _btnIcon.Text = Language.Icon;
             _btnHostStatus.Text = Language.Status;
             Text = Language.Config;
@@ -366,6 +380,7 @@ namespace mRemoteNG.UI.Window
                 UpdateShowInheritanceButton();
                 UpdateShowDefaultPropertiesButton();
                 UpdateShowDefaultInheritanceButton();
+                UpdatePresetsButton();
                 UpdateHostStatusButton();
                 UpdateIconButton();
                 QueueApplyPropertyGridSplitterWidth();
@@ -407,6 +422,14 @@ namespace mRemoteNG.UI.Window
                 _pGrid.PropertyMode == PropertyMode.DefaultInheritance;
         }
 
+        private void UpdatePresetsButton()
+        {
+            _btnPresets.Enabled =
+                !_pGrid.IsShowingDefaultProperties &&
+                !_pGrid.RootNodeSelected &&
+                _pGrid.SelectedConnectionInfos?.Any(connection => connection is not RootNodeInfo) == true;
+        }
+
         private void UpdateHostStatusButton()
         {
             _btnHostStatus.Enabled =
@@ -441,6 +464,7 @@ namespace mRemoteNG.UI.Window
                 customToolStrip.Items.Add(_btnShowInheritance);
                 customToolStrip.Items.Add(_btnShowDefaultProperties);
                 customToolStrip.Items.Add(_btnShowDefaultInheritance);
+                customToolStrip.Items.Add(_btnPresets);
                 customToolStrip.Items.Add(_btnHostStatus);
                 customToolStrip.Items.Add(_btnIcon);
                 customToolStrip.Show();
@@ -737,6 +761,35 @@ namespace mRemoteNG.UI.Window
         private void BtnShowDefaultInheritance_Click(object sender, EventArgs e)
         {
             ShowDefaultInheritanceProperties();
+        }
+
+        private void BtnPresets_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ConnectionInfo[] selectedConnections = _pGrid.SelectedConnectionInfos?
+                    .Where(connection => connection is not RootNodeInfo)
+                    .ToArray() ?? Array.Empty<ConnectionInfo>();
+
+                if (selectedConnections.Length == 0)
+                    return;
+
+                using FrmConnectionPresets presetsForm = new(Runtime.ConnectionPresetService, selectedConnections);
+                presetsForm.ShowDialog(this);
+
+                if (!presetsForm.PresetApplied)
+                    return;
+
+                SelectedTreeNodes = selectedConnections;
+                _pGrid.Refresh();
+                UpdateTopRow();
+                SetHostStatus(_pGrid.SelectedConnectionInfo);
+                Runtime.ConnectionsService.SaveConnectionsAsync();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Opening connection presets dialog failed.", ex);
+            }
         }
 
         private void BtnHostStatus_Click(object sender, EventArgs e)

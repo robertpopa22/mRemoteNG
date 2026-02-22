@@ -674,7 +674,7 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
-            QuickConnectHistorySaver.CaptureOpenQuickConnectSessionsForShutdown();
+            QuickConnectHistorySaver.CaptureOpenQuickConnectSessionsForShutdown(_quickConnectToolStrip.QuickConnectComboBox);
 
             // Save dock panel layout while ConnectionWindows are still docked.
             // Must happen before window.Close() which removes them from pnlDock.

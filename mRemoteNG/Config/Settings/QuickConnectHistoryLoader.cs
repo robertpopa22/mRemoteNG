@@ -7,6 +7,7 @@ using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Messages;
 using mRemoteNG.Properties;
 using mRemoteNG.Resources.Language;
 using mRemoteNG.UI.Controls;
@@ -35,7 +36,13 @@ namespace mRemoteNG.Config.Settings
         {
             try
             {
-                foreach (QuickConnectHistoryItem item in LoadHistoryItems())
+                List<QuickConnectHistoryItem> historyItems = LoadHistoryItems();
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    $"Loading {historyItems.Count} quick connect history item(s) into the toolbar.",
+                    true);
+
+                foreach (QuickConnectHistoryItem item in historyItems)
                 {
                     ConnectionInfo connectionInfo = BuildConnectionInfo(item);
                     _comboBox.Add(connectionInfo);
@@ -73,9 +80,25 @@ namespace mRemoteNG.Config.Settings
 
         private static List<QuickConnectHistoryItem> LoadHistoryItems()
         {
-            string filePath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.QuickConnectHistoryFileName);
-            if (!File.Exists(filePath))
+            string settingsPath = SettingsFileInfo.SettingsPath;
+            if (string.IsNullOrWhiteSpace(settingsPath))
+            {
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.WarningMsg,
+                    "LoadQuickConnectHistory skipped because the settings path is empty.",
+                    true);
                 return [];
+            }
+
+            string filePath = Path.Combine(settingsPath, SettingsFileInfo.QuickConnectHistoryFileName);
+            if (!File.Exists(filePath))
+            {
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    $"Quick connect history file not found at '{filePath}'.",
+                    true);
+                return [];
+            }
 
             XmlDocument doc = new();
             doc.Load(filePath);
@@ -97,6 +120,11 @@ namespace mRemoteNG.Config.Settings
 
                 historyItems.Add(new QuickConnectHistoryItem(hostname, port, protocol, connected));
             }
+
+            Runtime.MessageCollector.AddMessage(
+                MessageClass.InformationMsg,
+                $"Loaded {historyItems.Count} quick connect history item(s) from '{filePath}'.",
+                true);
 
             return historyItems;
         }

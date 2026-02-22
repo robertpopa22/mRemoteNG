@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Xml;
@@ -8,6 +9,7 @@ using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Messages;
 using mRemoteNG.UI.Controls;
 using mRemoteNG.UI.Tabs;
 using mRemoteNG.UI.Window;
@@ -19,6 +21,7 @@ namespace mRemoteNG.Config.Settings
     public class QuickConnectHistorySaver
     {
         private static HashSet<QuickConnectSessionKey>? _capturedOpenQuickConnectSessions;
+        private static List<QuickConnectComboBox.HistoryItemData>? _capturedHistoryItems;
 
         private readonly struct QuickConnectSessionKey : IEquatable<QuickConnectSessionKey>
         {
@@ -51,23 +54,43 @@ namespace mRemoteNG.Config.Settings
             }
         }
 
-        public static void CaptureOpenQuickConnectSessionsForShutdown()
+        public static void CaptureOpenQuickConnectSessionsForShutdown(QuickConnectComboBox? comboBox = null)
         {
             _capturedOpenQuickConnectSessions = GetOpenQuickConnectSessions();
+            _capturedHistoryItems = CaptureHistoryItems(comboBox);
         }
 
         public void Save(QuickConnectComboBox comboBox)
         {
             try
             {
-                if (!Directory.Exists(SettingsFileInfo.SettingsPath))
-                    Directory.CreateDirectory(SettingsFileInfo.SettingsPath);
+                string settingsPath = SettingsFileInfo.SettingsPath;
+                if (string.IsNullOrWhiteSpace(settingsPath))
+                {
+                    Runtime.MessageCollector.AddMessage(
+                        MessageClass.WarningMsg,
+                        "SaveQuickConnectHistory skipped because the settings path is empty.",
+                        true);
+                    _capturedOpenQuickConnectSessions = null;
+                    _capturedHistoryItems = null;
+                    return;
+                }
 
-                string filePath = Path.Combine(SettingsFileInfo.SettingsPath, SettingsFileInfo.QuickConnectHistoryFileName);
+                if (!Directory.Exists(settingsPath))
+                    Directory.CreateDirectory(settingsPath);
+
+                string filePath = Path.Combine(settingsPath, SettingsFileInfo.QuickConnectHistoryFileName);
                 HashSet<QuickConnectSessionKey> connectedQuickSessions = _capturedOpenQuickConnectSessions ?? GetOpenQuickConnectSessions();
+                List<QuickConnectComboBox.HistoryItemData> historyItems = _capturedHistoryItems ?? comboBox.GetHistoryItems().ToList();
                 _capturedOpenQuickConnectSessions = null;
+                _capturedHistoryItems = null;
 
-                XmlTextWriter writer = new(filePath, Encoding.UTF8)
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    $"Saving quick connect history to '{filePath}' with {historyItems.Count} item(s).",
+                    true);
+
+                using XmlTextWriter writer = new(filePath, Encoding.UTF8)
                 {
                     Formatting = Formatting.Indented,
                     Indentation = 4
@@ -76,7 +99,7 @@ namespace mRemoteNG.Config.Settings
                 writer.WriteStartDocument();
                 writer.WriteStartElement("History");
 
-                foreach (QuickConnectComboBox.HistoryItemData item in comboBox.GetHistoryItems())
+                foreach (QuickConnectComboBox.HistoryItemData item in historyItems)
                 {
                     writer.WriteStartElement("Item");
                     writer.WriteAttributeString("Hostname", item.Hostname);
@@ -89,11 +112,46 @@ namespace mRemoteNG.Config.Settings
 
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
-                writer.Close();
+
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    $"Saved quick connect history file '{filePath}'.",
+                    true);
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("SaveQuickConnectHistory failed", ex);
+            }
+        }
+
+        private static List<QuickConnectComboBox.HistoryItemData>? CaptureHistoryItems(QuickConnectComboBox? comboBox)
+        {
+            if (comboBox == null)
+            {
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.WarningMsg,
+                    "Quick Connect history capture skipped because the combo box was null.",
+                    true);
+                return null;
+            }
+
+            try
+            {
+                List<QuickConnectComboBox.HistoryItemData> historyItems = comboBox.GetHistoryItems().ToList();
+                Runtime.MessageCollector.AddMessage(
+                    MessageClass.InformationMsg,
+                    $"Captured {historyItems.Count} quick connect history item(s) for shutdown.",
+                    true);
+                return historyItems;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace(
+                    "CaptureQuickConnectHistory failed",
+                    ex,
+                    MessageClass.WarningMsg,
+                    true);
+                return null;
             }
         }
 

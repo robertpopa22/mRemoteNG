@@ -11,12 +11,19 @@
   "created_at": "2021-09-23T14:57:12Z",
   "github_updated_at": "2026-02-21T10:23:41Z",
   "body_snippet": "**Basic use case:**\r\n\r\nAs a user I have a different needs for sessions depending on type of task I planning to do.\r\n\r\n- For the task A I will need a connection to server 1, server 2 and client 1\r\n- For the task B I will need a connection to server 2 and clients 1-10.\r\n\r\nI don't want to open all the connections manually every time.\r\n\r\nI want to be able to save the open connections as a preset, so I can initiate/open them next time just by one click.\r\nThe presets should be listed in the \"Presets\" ...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "triaged",
+  "priority": "P3-enhancement",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-02-22",
+      "type": "triaged",
+      "description": "To provide users with the ability to define reusable connection configurations, streamlining the creation of new connections with common settings."
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDOAAcIMM43OGbe",
@@ -51,5 +58,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-02-21T12:06:48Z",
-  "notes": ""
+  "notes": "AI triage (gemini): To provide users with the ability to define reusable connection configurations, streamlining the creation of new connections with common settings.\nApproach: Create a new ConnectionPreset class for defining reusable connection configurations. Implement XML serialization/deserialization for presets. Develop a ConnectionPresetService for managing presets. Design a new UI dialog for preset management and integrate the ability to apply presets within the connection properties editor."
 }

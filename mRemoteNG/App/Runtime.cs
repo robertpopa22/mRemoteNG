@@ -1,4 +1,5 @@
 ﻿using mRemoteNG.App.Info;
+using mRemoteNG.Config;
 using mRemoteNG.Config.Connections.Multiuser;
 using mRemoteNG.Config.Putty;
 using mRemoteNG.Connection;
@@ -47,6 +48,7 @@ namespace mRemoteNG.App
         public static MessageCollector MessageCollector { get; } = new MessageCollector();
         public static NotificationAreaIcon? NotificationAreaIcon { get; set; }
         public static ExternalToolsService ExternalToolsService { get; } = new ExternalToolsService();
+        public static ConnectionPresetService ConnectionPresetService { get; } = new ConnectionPresetService();
 
         public static SecureString EncryptionKey { get; set; } = new RootNodeInfo(RootNodeType.Connection).PasswordString.ConvertToSecureString();
 

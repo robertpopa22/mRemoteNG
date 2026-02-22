@@ -8,7 +8,7 @@
   ],
   "author": "lars18th",
   "created_at": "2021-08-30T08:02:20Z",
-  "github_updated_at": "2026-02-21T10:22:49Z",
+  "github_updated_at": "2026-02-22T05:03:23Z",
   "body_snippet": "Hi,\r\n\r\nI'm testing the last nightly build, and the \"new\" SSH TUNNEL (jump host) functionality is a must have. Thank you for it. However, I have one suggestion to improve it:\r\n\r\n- The idea is to add a new option called \"share tunnel password\". This implements the functionality to store the typed password _the fisrt time it's used_. And for all new connections using the same tunnel, the password of the jump host will be reused... without typing it again. This will be similar to a SSO (Single Sign-...",
   "our_status": "testing",
   "priority": "P3-enhancement",
@@ -56,12 +56,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM7q2krG",
+      "author": "robertpopa22",
+      "date": "2026-02-22T05:03:15Z",
+      "snippet": "**Fix available for testing**\n\n**Commit:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n**Branch:** `main`\n**What changed:** Analyze existing SSH tunneling and connection sharing mechan\n\n**Download latest beta:** **[CENSORED!] Links to external GitHub repositories are not allowed**\n\nPlease test and report if this resolves your issue.\n\n---\n_Automated by mRemoteNG Issue Intelligence System_",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-21T10:22:49Z",
+  "comments_cursor": "2026-02-22T05:03:23Z",
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-02-21T12:06:48Z",
+  "last_synced": "2026-02-22T06:14:11Z",
   "notes": "AI triage (gemini): Implement functionality to enable SSH tunneling with SSO password authentication when the 'Share SSH Connection' option is active.\nApproach: Analyze existing SSH tunneling and connection sharing mechanisms to integrate SSO password handling, ensuring seamless operation across shared SSH connections."
 }
