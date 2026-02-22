@@ -685,8 +685,7 @@ namespace mRemoteNG.Connection.Protocol.VNC
             {
                 try
                 {
-                    vnc.Connect(hostName, info.VNCViewOnly,
-                                info.VNCSmartSizeMode != SmartSizeMode.SmartSNo);
+                    ConnectRemoteDesktop(vnc, hostName, info);
                 }
                 catch (Exception ex)
                 {
@@ -704,6 +703,106 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
             if (connectException != null)
                 ExceptionDispatchInfo.Capture(connectException).Throw();
+        }
+
+        /// <summary>
+        /// Connects using the best available VncSharpCore overload while forcing shared sessions on
+        /// servers that support it (issue #1943). Falls back to the legacy overload behavior if
+        /// no explicit shared-session overload is available.
+        /// </summary>
+        private static void ConnectRemoteDesktop(VncSharpCore.RemoteDesktop vnc, string hostName, ConnectionInfo info)
+        {
+            bool smartSizeEnabled = info.VNCSmartSizeMode != SmartSizeMode.SmartSNo;
+            bool viewOnly = info.VNCViewOnly;
+
+            // Preferred: Connect(host, display, viewOnly, scaled, shared)
+            MethodInfo? connectWithSharedAndDisplay = typeof(VncSharpCore.RemoteDesktop).GetMethod(
+                "Connect",
+                BindingFlags.Public | BindingFlags.Instance,
+                binder: null,
+                types: new[] { typeof(string), typeof(int), typeof(bool), typeof(bool), typeof(bool) },
+                modifiers: null);
+
+            if (connectWithSharedAndDisplay != null)
+            {
+                InvokeConnectMethod(connectWithSharedAndDisplay, vnc, new object[] { hostName, 0, viewOnly, smartSizeEnabled, true });
+                return;
+            }
+
+            // Preferred: Connect(host, viewOnly, scaled, shared)
+            MethodInfo? connectWithShared = typeof(VncSharpCore.RemoteDesktop).GetMethod(
+                "Connect",
+                BindingFlags.Public | BindingFlags.Instance,
+                binder: null,
+                types: new[] { typeof(string), typeof(bool), typeof(bool), typeof(bool) },
+                modifiers: null);
+
+            if (connectWithShared != null)
+            {
+                InvokeConnectMethod(connectWithShared, vnc, new object[] { hostName, viewOnly, smartSizeEnabled, true });
+                return;
+            }
+
+            // Older builds may expose Connect(host, display, viewOnly, bool).
+            // If that bool is named "shared", force shared mode; otherwise preserve SmartSize behavior.
+            MethodInfo? connectWithDisplay = typeof(VncSharpCore.RemoteDesktop).GetMethod(
+                "Connect",
+                BindingFlags.Public | BindingFlags.Instance,
+                binder: null,
+                types: new[] { typeof(string), typeof(int), typeof(bool), typeof(bool) },
+                modifiers: null);
+
+            if (connectWithDisplay != null)
+            {
+                bool fourthArg = smartSizeEnabled;
+                ParameterInfo[] parameters = connectWithDisplay.GetParameters();
+                if (parameters.Length == 4 &&
+                    string.Equals(parameters[3].Name, "shared", StringComparison.OrdinalIgnoreCase))
+                {
+                    fourthArg = true;
+                }
+
+                InvokeConnectMethod(connectWithDisplay, vnc, new object[] { hostName, 0, viewOnly, fourthArg });
+                return;
+            }
+
+            // Older builds expose only Connect(host, viewOnly, bool).
+            // If that bool is named "shared", force shared mode; otherwise preserve SmartSize behavior.
+            MethodInfo? connectThreeArgs = typeof(VncSharpCore.RemoteDesktop).GetMethod(
+                "Connect",
+                BindingFlags.Public | BindingFlags.Instance,
+                binder: null,
+                types: new[] { typeof(string), typeof(bool), typeof(bool) },
+                modifiers: null);
+
+            if (connectThreeArgs != null)
+            {
+                bool thirdArg = smartSizeEnabled;
+                ParameterInfo[] parameters = connectThreeArgs.GetParameters();
+                if (parameters.Length == 3 &&
+                    string.Equals(parameters[2].Name, "shared", StringComparison.OrdinalIgnoreCase))
+                {
+                    thirdArg = true;
+                }
+
+                InvokeConnectMethod(connectThreeArgs, vnc, new object[] { hostName, viewOnly, thirdArg });
+                return;
+            }
+
+            // Last-resort fallback (existing behavior).
+            vnc.Connect(hostName, viewOnly, smartSizeEnabled);
+        }
+
+        private static void InvokeConnectMethod(MethodInfo connectMethod, VncSharpCore.RemoteDesktop vnc, object[] args)
+        {
+            try
+            {
+                connectMethod.Invoke(vnc, args);
+            }
+            catch (TargetInvocationException ex) when (ex.InnerException != null)
+            {
+                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+            }
         }
 
         private static bool TestConnect(string hostName, int port, int timeoutMSec)
