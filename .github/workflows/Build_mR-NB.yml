@@ -213,7 +213,7 @@ jobs:
       # --------------------------------------------------------
       - name: (10a) Upload build artifact
         id: upload-build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: build-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ steps.version.outputs.zipname }}
@@ -239,7 +239,7 @@ jobs:
 
       - name: (10c) Upload signed artifact (if signing succeeded)
         if: steps.sign.outcome == 'success'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: signed-${{ matrix.arch }}${{ matrix.suffix }}
           path: ${{ github.workspace }}/signed/*
