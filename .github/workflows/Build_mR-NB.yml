@@ -373,7 +373,7 @@ jobs:
           echo "EOF" >> $env:GITHUB_OUTPUT
 
       - name: (04) Download build artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           pattern: build-*
           path: release-assets
