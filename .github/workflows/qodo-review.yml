@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ inputs.branch }}
 
-      - name: Create temporary branches and PR
+      - name: Create review branch and PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -39,42 +39,42 @@ jobs:
           BRANCH="${{ inputs.branch }}"
           N="${{ inputs.commits_back }}"
           TIMESTAMP=$(date +%Y%m%d-%H%M%S)
-          REVIEW_BASE="review/qodo-base-${TIMESTAMP}"
-          REVIEW_HEAD="review/qodo-head-${TIMESTAMP}"
+          REVIEW_BRANCH="review/qodo-${TIMESTAMP}"
 
-          # Both branches must be non-default for Qodo to trigger
-          # HEAD branch = current state (the code to review)
-          git checkout -b "$REVIEW_HEAD"
-          git push origin "$REVIEW_HEAD"
+          # Qodo only reviews PRs targeting the default branch (main).
+          # Strategy: create a branch from HEAD~N, cherry-pick the last N
+          # commits onto it, then open a PR to the target branch.
+          # The diff shows exactly the commits we want reviewed.
 
-          # BASE branch = N commits behind (the old state)
+          HEAD_SHA=$(git rev-parse HEAD)
           BASE_SHA=$(git rev-parse "HEAD~${N}")
-          git checkout -b "$REVIEW_BASE" "$BASE_SHA"
-          git push origin "$REVIEW_BASE"
 
-          # Create PR: base=old state, head=new state
+          git config user.email "actions@github.com"
+          git config user.name "github-actions[bot]"
+
+          git checkout -b "$REVIEW_BRANCH" "$BASE_SHA"
+          git cherry-pick "${BASE_SHA}..${HEAD_SHA}" --allow-empty
+
+          git push origin "$REVIEW_BRANCH"
+
           PR_URL=$(gh pr create \
-            --base "$REVIEW_BASE" \
-            --head "$REVIEW_HEAD" \
+            --base "$BRANCH" \
+            --head "$REVIEW_BRANCH" \
             --title "Qodo Review: last ${N} commits on ${BRANCH}" \
             --body "$(cat <<EOF
-          **Automated Qodo on-demand review.**
+          **Automated Qodo on-demand review** of the last ${N} commit(s) on \`${BRANCH}\`.
 
-          Reviewing the last ${N} commit(s) on \`${BRANCH}\`.
-          This PR will be auto-closed after the review completes (~5 min).
-
-          > Triggered via workflow_dispatch
+          This PR will be auto-closed after Qodo posts its review (~5 min).
+          **Do not merge** — the commits are already on \`${BRANCH}\`.
           EOF
           )")
 
           echo "### Qodo Review PR Created" >> "$GITHUB_STEP_SUMMARY"
           echo "PR: ${PR_URL}" >> "$GITHUB_STEP_SUMMARY"
-          echo "Qodo will post its review automatically." >> "$GITHUB_STEP_SUMMARY"
 
           PR_NUMBER=$(echo "$PR_URL" | grep -oP '\d+$')
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-          echo "review_base=$REVIEW_BASE" >> "$GITHUB_OUTPUT"
-          echo "review_head=$REVIEW_HEAD" >> "$GITHUB_OUTPUT"
+          echo "review_branch=$REVIEW_BRANCH" >> "$GITHUB_OUTPUT"
         id: create_pr
 
       - name: Wait for Qodo review
@@ -84,39 +84,32 @@ jobs:
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
           echo "Waiting for Qodo to review PR #${PR_NUMBER}..."
 
-          # Poll for up to 5 minutes (Qodo typically responds in 1-3 min)
           for i in $(seq 1 30); do
-            COMMENTS=$(gh pr view "$PR_NUMBER" --json comments --jq '.comments | length')
-            REVIEW_COMMENTS=$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}/comments" --jq 'length')
-            TOTAL=$((COMMENTS + REVIEW_COMMENTS))
+            COMMENTS=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" --jq 'length')
 
-            if [ "$TOTAL" -gt 0 ]; then
-              echo "Qodo review detected ($TOTAL comments)."
+            if [ "$COMMENTS" -gt 0 ]; then
+              echo "Qodo review posted ($COMMENTS comments)."
               echo "" >> "$GITHUB_STEP_SUMMARY"
-              echo "### Qodo Review Results" >> "$GITHUB_STEP_SUMMARY"
-              echo "Review posted on PR #${PR_NUMBER}. Check the PR link above for details." >> "$GITHUB_STEP_SUMMARY"
+              echo "### Review Complete" >> "$GITHUB_STEP_SUMMARY"
+              echo "Qodo posted ${COMMENTS} comment(s). See the PR link above." >> "$GITHUB_STEP_SUMMARY"
               break
             fi
 
-            echo "  Attempt $i/30 — no comments yet, waiting 10s..."
+            echo "  Attempt $i/30 — waiting 10s..."
             sleep 10
           done
 
-      - name: Cleanup — close PR and delete branches
+      - name: Cleanup — close PR and delete branch
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
-          REVIEW_BASE="${{ steps.create_pr.outputs.review_base }}"
-          REVIEW_HEAD="${{ steps.create_pr.outputs.review_head }}"
+          REVIEW_BRANCH="${{ steps.create_pr.outputs.review_branch }}"
 
           if [ -n "$PR_NUMBER" ]; then
-            gh pr close "$PR_NUMBER" --comment "Review complete. Auto-closing." 2>/dev/null || true
+            gh pr close "$PR_NUMBER" --comment "Qodo review complete. Auto-closing." 2>/dev/null || true
           fi
-          if [ -n "$REVIEW_BASE" ]; then
-            git push origin --delete "$REVIEW_BASE" 2>/dev/null || true
-          fi
-          if [ -n "$REVIEW_HEAD" ]; then
-            git push origin --delete "$REVIEW_HEAD" 2>/dev/null || true
+          if [ -n "$REVIEW_BRANCH" ]; then
+            git push origin --delete "$REVIEW_BRANCH" 2>/dev/null || true
           fi
