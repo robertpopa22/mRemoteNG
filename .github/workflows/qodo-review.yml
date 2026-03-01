@@ -30,7 +30,7 @@ jobs:
           fetch-depth: 0
           ref: ${{ inputs.branch }}
 
-      - name: Create temporary base branch and PR
+      - name: Create temporary branches and PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -38,40 +38,43 @@ jobs:
 
           BRANCH="${{ inputs.branch }}"
           N="${{ inputs.commits_back }}"
-          REVIEW_BASE="review/qodo-base-$(date +%Y%m%d-%H%M%S)"
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          REVIEW_BASE="review/qodo-base-${TIMESTAMP}"
+          REVIEW_HEAD="review/qodo-head-${TIMESTAMP}"
 
-          # Create a branch N commits behind HEAD as the PR base
+          # Both branches must be non-default for Qodo to trigger
+          # HEAD branch = current state (the code to review)
+          git checkout -b "$REVIEW_HEAD"
+          git push origin "$REVIEW_HEAD"
+
+          # BASE branch = N commits behind (the old state)
           BASE_SHA=$(git rev-parse "HEAD~${N}")
           git checkout -b "$REVIEW_BASE" "$BASE_SHA"
           git push origin "$REVIEW_BASE"
 
-          # Create PR: base=old state, head=current branch (shows last N commits as diff)
+          # Create PR: base=old state, head=new state
           PR_URL=$(gh pr create \
             --base "$REVIEW_BASE" \
-            --head "$BRANCH" \
+            --head "$REVIEW_HEAD" \
             --title "Qodo Review: last ${N} commits on ${BRANCH}" \
-            --body "$(cat <<'EOF'
+            --body "$(cat <<EOF
           **Automated Qodo on-demand review.**
 
-          This PR exists solely to trigger a Qodo code review on recent commits.
-          It will be auto-closed after the review completes.
+          Reviewing the last ${N} commit(s) on \`${BRANCH}\`.
+          This PR will be auto-closed after the review completes (~5 min).
 
           > Triggered via workflow_dispatch
           EOF
           )")
 
           echo "### Qodo Review PR Created" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "PR: ${PR_URL}" >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "Qodo will post its review automatically. Check the PR for comments." >> "$GITHUB_STEP_SUMMARY"
-          echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "After reading the review, close the PR and delete the \`${REVIEW_BASE}\` branch." >> "$GITHUB_STEP_SUMMARY"
+          echo "Qodo will post its review automatically." >> "$GITHUB_STEP_SUMMARY"
 
-          # Extract PR number for the cleanup job
           PR_NUMBER=$(echo "$PR_URL" | grep -oP '\d+$')
           echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
           echo "review_base=$REVIEW_BASE" >> "$GITHUB_OUTPUT"
+          echo "review_head=$REVIEW_HEAD" >> "$GITHUB_OUTPUT"
         id: create_pr
 
       - name: Wait for Qodo review
@@ -88,10 +91,10 @@ jobs:
             TOTAL=$((COMMENTS + REVIEW_COMMENTS))
 
             if [ "$TOTAL" -gt 0 ]; then
-              echo "Qodo review detected ($TOTAL comments). Fetching..."
-              echo "### Qodo Review Results" >> "$GITHUB_STEP_SUMMARY"
+              echo "Qodo review detected ($TOTAL comments)."
               echo "" >> "$GITHUB_STEP_SUMMARY"
-              gh pr view "$PR_NUMBER" --comments >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+              echo "### Qodo Review Results" >> "$GITHUB_STEP_SUMMARY"
+              echo "Review posted on PR #${PR_NUMBER}. Check the PR link above for details." >> "$GITHUB_STEP_SUMMARY"
               break
             fi
 
@@ -99,17 +102,21 @@ jobs:
             sleep 10
           done
 
-      - name: Cleanup — close PR and delete branch
+      - name: Cleanup — close PR and delete branches
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR_NUMBER="${{ steps.create_pr.outputs.pr_number }}"
           REVIEW_BASE="${{ steps.create_pr.outputs.review_base }}"
+          REVIEW_HEAD="${{ steps.create_pr.outputs.review_head }}"
 
           if [ -n "$PR_NUMBER" ]; then
             gh pr close "$PR_NUMBER" --comment "Review complete. Auto-closing." 2>/dev/null || true
           fi
           if [ -n "$REVIEW_BASE" ]; then
             git push origin --delete "$REVIEW_BASE" 2>/dev/null || true
+          fi
+          if [ -n "$REVIEW_HEAD" ]; then
+            git push origin --delete "$REVIEW_HEAD" 2>/dev/null || true
           fi
