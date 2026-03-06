@@ -50,6 +50,7 @@ namespace mRemoteNG.UI.Panels
 
         private static void PrepareTabSupport(ConnectionWindow connectionForm)
         {
+            Runtime.WindowList ??= [];
             Runtime.WindowList.Add(connectionForm);
         }
 

@@ -257,6 +257,8 @@ namespace mRemoteNG.UI.Forms
 
             SetMenuDependencies();
 
+            Runtime.WindowList = [];
+
             DockPanelLayoutLoader uiLoader = new(this, messageCollector);
             uiLoader.LoadPanelsFromXml();
 
@@ -269,8 +271,6 @@ namespace mRemoteNG.UI.Forms
             _themeManager.ThemeChanged += ApplyTheme;
 
             NativeMethods.AddClipboardFormatListener(Handle);
-
-            Runtime.WindowList = [];
 
             if (Properties.App.Default.ResetPanels)
                 SetDefaultLayout();
