@@ -75,9 +75,23 @@ Full transparency: this project is built by humans and AI working together. We b
 
 **Enterprise:** Self-contained builds (zero prerequisites), ADMX/ADML Group Policy templates, connection audit logging, JSON export, protocol/tag filtering.
 
-**Quality:** 6,123 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 4-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL), x64/x86/ARM64.
+**Quality:** 6,175 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 4-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL), x64/x86/ARM64.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
+
+### Antivirus — 0/75 on VirusTotal
+
+mRemoteNG uses Windows APIs (SendInput, DPAPI, COM Interop for RDP) that can trigger antivirus heuristic false positives. We worked directly with AV vendors to resolve all detections:
+
+| Date | VirusTotal Score | Action |
+|------|-----------------|--------|
+| 2026-03-03 | 8/66 flagged | Submitted false positive reports to all flagging vendors |
+| 2026-03-05 | Xcitium confirmed fix | Comodo/Xcitium whitelisted mRemoteNG |
+| 2026-03-06 | **0/75 — clean** | BitDefender fixed `IL:Trojan.MSILZilla` → cascaded to 7 OEM vendors |
+
+Current scan: [VirusTotal](https://www.virustotal.com/gui/file/026b8a161db68b88e5fff3b734d7d5c7c34168384327e0bf3c53b11d26df5881) — **0 detections across 75 engines**.
+
+If your antivirus flags mRemoteNG, please see [Antivirus False Positive Guide](docs/ANTIVIRUS_FALSE_POSITIVE.md).
 
 ---
 
