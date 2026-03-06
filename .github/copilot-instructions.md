@@ -182,7 +182,7 @@ Mirror the main project structure in `mRemoteNGTests/`:
 ### External Dependencies
 - PuTTY for SSH/Telnet (bundled)
 - Terminal Service Client for RDP
-- Various protocol-specific libraries (see CREDITS.md)
+- Various protocol-specific libraries (see docs/CREDITS.md)
 
 ## Documentation
 

@@ -69,7 +69,7 @@ First hands-on testing session after the orchestrator's 585-issue automated run.
 - **PortableSettingsInitializer** — new programmatic wiring of `ChooseProvider` on all 17 settings classes before any `.Default` access, bypassing `SettingsProviderAttribute` resolution issues in .NET 10
 
 ### Added
-- `deploy-test-profile.ps1` — script to deploy test profile (settings + connections) to build output for manual testing
+- `scripts/deploy-test-profile.ps1` — script to deploy test profile (settings + connections) to build output for manual testing
 - `.gitignore` entries for `.test-profile/` and `provider_debug.log`
 
 ### Known Issues

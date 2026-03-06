@@ -70,7 +70,7 @@ dotnet test "mRemoteNGTests\bin\x64\Release\mRemoteNGTests.dll" --verbosity norm
 
 ## Architecture Overview
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for a detailed breakdown of the system layers.
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for a detailed breakdown of the system layers.
 
 Key directories:
 - `mRemoteNG/Connection/` — Connection data model and protocol implementations

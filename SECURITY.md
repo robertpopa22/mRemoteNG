@@ -42,7 +42,7 @@ Instead, use one of these channels:
 ## Code Signing
 
 All release builds are signed via [SignPath Foundation](https://signpath.org/) (Authenticode).
-See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md) for details.
+See [`CODE_SIGNING_POLICY.md`](docs/CODE_SIGNING_POLICY.md) for details.
 
 ## Security Measures
 

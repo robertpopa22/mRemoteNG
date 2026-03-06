@@ -50,4 +50,4 @@ python .project-roadmap/scripts/iis_orchestrator.py report                  # sa
 1. **Read `CURRENT_PLAN.md`** — vezi unde am ramas si ce trebuie facut.
 2. Read `LESSONS.md` before starting any build, test, CI, or release task.
 3. Run `build.ps1` to verify clean build before making changes.
-4. See `CODE_SIGNING_POLICY.md` at repo root for release signing policy.
+4. See `docs/CODE_SIGNING_POLICY.md` for release signing policy.

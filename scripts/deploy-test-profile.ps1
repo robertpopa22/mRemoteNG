@@ -1,8 +1,9 @@
 param([string]$Config = "Release")
 $ErrorActionPreference = "Stop"
 
-$profileDir = "$PSScriptRoot\.test-profile"
-$targetDir  = "$PSScriptRoot\mRemoteNG\bin\x64\$Config"
+$repoRoot   = "$PSScriptRoot\.."
+$profileDir = "$repoRoot\.test-profile"
+$targetDir  = "$repoRoot\mRemoteNG\bin\x64\$Config"
 
 if (-not (Test-Path $profileDir)) {
     Write-Error ".test-profile/ directory not found. Create it first."

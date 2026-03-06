@@ -313,6 +313,9 @@ __pycache__/
 triage_result.json
 output.json
 
+# Binary documents
+*.xlsx
+
 # Auto Claude data directory
 .auto-claude/
 

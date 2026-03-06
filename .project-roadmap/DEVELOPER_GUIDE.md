@@ -157,7 +157,7 @@ dotnet test "mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll" --results-direct
 - Platforms: x86, x64, ARM64
 - **Code signing: MANDATORY** — SignPath Foundation (free for OSS)
   - Release workflow fails if signing step fails — no unsigned binaries published
-  - See `CODE_SIGNING_POLICY.md` for team roles and verification steps
+  - See `docs/CODE_SIGNING_POLICY.md` for team roles and verification steps
   - Requires GitHub secrets: `SIGNPATH_API_TOKEN`, `SIGNPATH_ORGANIZATION_ID`
 - CI does: `dotnet restore` then `msbuild` (same pattern as local build)
 - **CI reads version from `mRemoteNG.csproj`** (`<Version>` element) — no more hardcoded versions in workflow. Supports prerelease suffixes (e.g. `-beta.2`).
@@ -505,7 +505,7 @@ iis_orchestrator.py (Python — controller)
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
 | `.project-roadmap/CVE-2023-30367_ASSESSMENT.md` | CVE-2023-30367 assessment — SecureString migration deferred to v1.81.0 (132 refs, 54 files) |
-| `CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
+| `docs/CODE_SIGNING_POLICY.md` | **Mandatory** code signing policy — SignPath Foundation, team roles, verification |
 
 ### Scripts
 | File | Purpose |

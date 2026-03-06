@@ -190,6 +190,46 @@
 
 ---
 
+## Phase 6: Qodo Code Review & VirusTotal Integration (2026-03-01 to 2026-03-06)
+
+### Qodo Code Review — 5th Quality Level
+
+**Setup:** GitHub App `qodo-code-review` installed on `robertpopa22/mRemoteNG`. On-demand via `scripts/qodo-review.sh`.
+
+**PR #3189 review findings (5 issues):**
+
+| # | Finding | Category | Static analysis caught? | Status |
+|---|---------|----------|------------------------|--------|
+| 1 | XmlConnectionsDeserializer rethrows XmlException | Error handling | No | Already fixed |
+| 2 | SQL INSERT missing 6 columns (schema mismatch) | **Logic bug** | **No** (SonarCloud + CodeQL missed) | **Fixed** `c362601a9` |
+| 3 | External tool credentials in plaintext | Security | No (DPAPI wrapper) | Already fixed |
+| 4 | CertificateCryptographyProvider bounds check | Validation | No | Already fixed |
+| 5 | KdfIterations unbounded (DoS risk) | Security | No | Already fixed |
+
+**Key evidence:** Finding #2 demonstrates that AI code review catches cross-file semantic bugs that rule-based static analyzers miss.
+
+### VirusTotal — Antivirus False Positive Resolution
+
+**Hardening commit:** `c8194595b` (2026-02-27) — `keybd_event`→`SendInput`, `DefaultDllImportSearchPaths(System32)`, removed `WH_KEYBOARD_LL`, constrained `AssemblyResolve`.
+
+**VirusTotal scan timeline:**
+
+| Date | Scan | Result | Evidence |
+|------|------|--------|----------|
+| 2026-03-03 | Nightly x64 20260304 | **8/66 flagged** | All BitDefender engine family (`IL:Trojan.MSILZilla`) + Xcitium |
+| 2026-03-05 | Same build | Xcitium confirmed fix | Email response from Xcitium threat labs |
+| 2026-03-06 | Same build, rescanned | **0/75 clean** | [VT link](https://www.virustotal.com/gui/file/026b8a161db68b88e5fff3b734d7d5c7c34168384327e0bf3c53b11d26df5881) |
+
+**Vendor cascade evidence:** BitDefender engine licenses to 6+ OEM vendors. Single FP report to BitDefender → 7/9 detections resolved in 24-48h:
+- **BitDefender fix:** ALYac, Arcabit, Emsisoft, GData, MicroWorld-eScan, VIPRE, CTX (7 vendors)
+- **Xcitium fix:** independent engine, separate submission required (1 vendor)
+
+**ZIP SHA256:** `02817ffbbd2f8995095a44ba2ef2a16f7c03a9b9e84205e50510f83e46d5b62d`
+
+**CI integration:** VirusTotal scan step added to nightly release workflow (`Build_mR-NB.yml`). VT API (free tier, 4 req/min).
+
+---
+
 ## Cost & Performance Data
 
 ### Session Timeline (2026-03-01, this session)

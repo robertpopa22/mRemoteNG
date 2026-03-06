@@ -33,6 +33,12 @@ Full transparency: this project is built by humans and AI working together. We b
   <a href="https://github.com/robertpopa22/mRemoteNG/security/code-scanning">
     <img alt="CodeQL" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?style=for-the-badge&label=CodeQL">
   </a>
+  <a href="https://www.qodo.ai/">
+    <img alt="Qodo Review" src="https://img.shields.io/badge/Qodo-AI%20Review-8A2BE2?style=for-the-badge">
+  </a>
+  <a href="https://www.virustotal.com/gui/file/026b8a161db68b88e5fff3b734d7d5c7c34168384327e0bf3c53b11d26df5881">
+    <img alt="VirusTotal" src="https://img.shields.io/badge/VirusTotal-0%2F75%20clean-brightgreen?style=for-the-badge">
+  </a>
   <a href="COPYING.TXT">
     <img alt="License" src="https://img.shields.io/badge/license-GPL--2.0-green?style=for-the-badge">
   </a>
@@ -75,7 +81,7 @@ Full transparency: this project is built by humans and AI working together. We b
 
 **Enterprise:** Self-contained builds (zero prerequisites), ADMX/ADML Group Policy templates, connection audit logging, JSON export, protocol/tag filtering.
 
-**Quality:** 6,175 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 4-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL), x64/x86/ARM64.
+**Quality:** 6,123 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 4-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL), x64/x86/ARM64.
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -252,8 +258,11 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File build.ps1 -SelfContained
 | 2 | **SonarCloud** | Push to `main` — quality gate | [![SonarCloud](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/sonarcloud.yml?label=SonarCloud&style=flat-square)](https://sonarcloud.io/project/overview?id=robertpopa22_mRemoteNG) |
 | 3 | **CodeQL** | Push to `main` + weekly — security scanning | [![CodeQL](https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/robertpopa22/mRemoteNG/security/code-scanning) |
 | 4 | **.NET Analyzers** | `AnalysisLevel=latest-recommended` | Active |
+| 5 | **[Qodo Code Review](https://www.qodo.ai/)** | On-demand AI review | Complements static analysis |
 
 **0 analyzer warnings** in main project. `TreatWarningsAsErrors` enforced for compiler rules (CS0168, CS0219, CS0162, CS0164). 46 noisy/architectural rules suppressed in `.editorconfig` for legacy WinForms code. Next: extend to analyzer rules once stable.
+
+**Qodo Code Review** catches logic bugs that static analyzers miss — bounds checks, SQL schema mismatches, plaintext credential patterns, and validation gaps. Run on-demand via `scripts/qodo-review.sh`. Found and fixed: SQL INSERT missing 6 columns, URL scheme injection vulnerability (upstream [#3177](https://github.com/mRemoteNG/mRemoteNG/issues/3177)).
 
 ---
 

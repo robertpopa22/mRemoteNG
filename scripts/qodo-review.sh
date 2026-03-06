@@ -27,7 +27,7 @@ done
 
 # Validate origin matches REPO
 ORIGIN_URL=$(git remote get-url origin 2>/dev/null || true)
-if ! echo "$ORIGIN_URL" | grep -qiF "robertpopa22/mRemoteNG"; then
+if ! echo "$ORIGIN_URL" | grep -qi "robertpopa22/mRemoteNG"; then
     echo "ERROR: origin remote ($ORIGIN_URL) does not match $REPO."
     echo "       Run from the correct repo clone."
     exit 2

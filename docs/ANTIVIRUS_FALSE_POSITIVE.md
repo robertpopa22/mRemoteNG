@@ -20,12 +20,12 @@ all **false positives** — the APIs are required for mRemoteNG's core functiona
 ### Why you can trust this build
 
 1. **Open source** — Full source code at [github.com/mRemoteNG/mRemoteNG](https://github.com/mRemoteNG/mRemoteNG)
-2. **Code-signed** — Release builds are signed via [SignPath Foundation](https://signpath.org/) (free for open source). See [`CODE_SIGNING_POLICY.md`](../CODE_SIGNING_POLICY.md) for details
+2. **Code-signed** — Release builds are signed via [SignPath Foundation](https://signpath.org/) (free for open source). See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md) for details
 3. **CI-verified** — Every build runs through automated security scanning (CodeQL + SonarCloud)
 4. **VirusTotal scanned** — Nightly builds are automatically scanned via VirusTotal in CI
 5. **Reproducible builds** — Build from source using `build.ps1` and compare
 
-> **Note:** Nightly builds may not yet be signed. See [`CODE_SIGNING_POLICY.md`](../CODE_SIGNING_POLICY.md)
+> **Note:** Nightly builds may not yet be signed. See [`CODE_SIGNING_POLICY.md`](CODE_SIGNING_POLICY.md)
 > for current signing status. Signed builds dramatically reduce false positive detections.
 
 ## How to verify authenticity

@@ -96,7 +96,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 - Runners: `windows-2025-vs2026` with MSBuild 18.x (VS2026)
 - Workflows: `pr_validation.yml` (build), `Build_mR-NB.yml` (release), `sonarcloud.yml` (quality gate), `codeql.yml` (security)
 - Platforms: x86, x64, ARM64
-- Code signing: SignPath Foundation (mandatory — see `CODE_SIGNING_POLICY.md`)
+- Code signing: SignPath Foundation (mandatory — see `docs/CODE_SIGNING_POLICY.md`)
 - Version: read from `mRemoteNG/mRemoteNG.csproj` `<Version>` element
 
 ## Code Quality — 5 Levels
@@ -107,7 +107,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 | 2 | SonarCloud | Push to `main` (CI) | `.github/workflows/sonarcloud.yml` |
 | 3 | CodeQL | Push to `main` + weekly (CI) | `.github/workflows/codeql.yml` |
 | 4 | Roslynator | Included in Level 1 (NuGet) | `Directory.Packages.props` |
-| 5 | Qodo Code Review | On-demand (AI review) | GitHub App + `qodo-review.sh` |
+| 5 | Qodo Code Review | On-demand (AI review) | GitHub App + `scripts/qodo-review.sh` |
 
 ### Rules:
 - **Gradual adoption** — warnings only, NOT `TreatWarningsAsErrors` (legacy codebase)
@@ -120,7 +120,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 
 ### Qodo Code Review:
 - GitHub App `qodo-code-review` instalat pe fork — AI-powered review complementar cu static analysis
-- **On-demand only** — rulat prin `./qodo-review.sh [commits] [branch]`
+- **On-demand only** — rulat prin `./scripts/qodo-review.sh [commits] [branch]`
 - **NU funcționează ca GitHub Action** — Qodo ignoră PR-uri create de bots
 - **Targetează doar default branch** — PR-ul trebuie să aibă `main` ca base
 - Prinde bugs logice (bounds check, SQL mismatch, plaintext secrets) pe care SonarCloud/CodeQL le ratează
