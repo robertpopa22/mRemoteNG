@@ -12,7 +12,7 @@
   "created_at": "2022-12-06T07:11:44Z",
   "github_updated_at": "2026-03-05T10:23:41Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\n\r\n## Expected Behavior\r\nHello Team,\r\nI would like to Request an Option to see the \"Status\" LED Icon next to each PC at the Connection Overwiew.\r\n\r\n## Current Behavior\r\nCurrently, you need to click on each connection to see if a PC is available or not, you can not see quickly which Computers are Online and which not.\r\n\r\n## Possible Solution\r\nAdding an Option to show the \"Status\" LED Between the Connection Icon and Connection Nam...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": "P3-enhancement",
   "target_release": "v1.82.0",
   "our_branch": "main",
@@ -122,5 +122,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
-  "notes": "Host status icons in connection tree. HostStatusMonitor existed but was never instantiated. Fixed 2026-03-05: setting + wiring + overlay. Enable via Options > Connections > 'Show host reachability status in connection tree'."
+  "notes": "Feature: host status LED icons in connection tree. Full implementation: HostStatusMonitor background ping, HostReachabilityStatus enum on ConnectionInfo, overlay icons in StatusImageList, ShowHostStatus setting in ConnectionsPage. Enable via Options > Connections > Show host reachability status."
 }

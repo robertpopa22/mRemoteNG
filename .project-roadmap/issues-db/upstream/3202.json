@@ -15,8 +15,8 @@
   "created_at": "2026-03-06T11:29:44Z",
   "github_updated_at": "2026-03-06T12:10:26Z",
   "body_snippet": "**Title:** Application crashes when opening another connection after minimizing a full-screen RDP session\n\n**Description**\nWhen an RDP session is opened in full-screen mode and then minimized, the application crashes if I try to open another connection afterward.\n\n**Version**\nmRemoteNG 1.78.2 (Nightly Build 3405) x64\n\n**Steps to Reproduce**\n\n1. Open an RDP connection.\n2. Switch the RDP session to full-screen mode.\n3. Minimize the session (or minimize the mRemoteNG window).\n4. Attempt to open ano...",
-  "our_status": "new",
-  "priority": null,
+  "our_status": "released",
+  "priority": "P2-bug",
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
@@ -27,5 +27,5 @@
   "needs_action": true,
   "waiting_for_us": false,
   "last_synced": "2026-03-07T07:13:19Z",
-  "notes": ""
+  "notes": "RDP fullscreen crash: COM events fire on non-UI thread; _frmMain accessed without IsDisposed check and without InvokeRequired marshaling. Fixed by: (1) wrapping Fullscreen/SmartSize restore in try/catch, (2) marshaling RestoreAfterFullscreen to UI thread via BeginInvoke, (3) adding IsDisposed+IsHandleCreated guards, (4) catching ObjectDisposedException in enter-fullscreen async task."
 }
