@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Container;
+using mRemoteNG.Properties;
 using mRemoteNG.Tree.Root;
 
 namespace mRemoteNG.UI
@@ -51,10 +52,16 @@ namespace mRemoteNG.UI
             return GetConnectionIcon(connectionInfo);
         }
 
-        private static string BuildConnectionIconName(string icon, bool connected, bool isTemplate = false)
+        private static string BuildConnectionIconName(string icon, bool connected, bool isTemplate = false, HostReachabilityStatus reachability = HostReachabilityStatus.Unknown)
         {
             string status = connected ? "Play" : isTemplate ? "Template" : "Default";
-            return $"Connection_{icon}_{status}";
+            string reachSuffix = reachability switch
+            {
+                HostReachabilityStatus.Reachable => "_On",
+                HostReachabilityStatus.Unreachable => "_Off",
+                _ => ""
+            };
+            return $"Connection_{icon}_{status}{reachSuffix}";
         }
 
         private const string DefaultConnectionIcon = "";
@@ -68,12 +75,15 @@ namespace mRemoteNG.UI
 
             bool connected = connection.HasActiveSessions;
             bool isTemplate = connection.IsTemplate;
-            bool replaceIcon = connected && Properties.OptionsAppearancePage.Default.ReplaceIconOnConnect;
+            bool replaceIcon = connected && OptionsAppearancePage.Default.ReplaceIconOnConnect;
+            bool showHostStatus = OptionsConnectionsPage.Default.ShowHostStatus;
+            var reachability = showHostStatus ? connection.HostReachabilityStatus : HostReachabilityStatus.Unknown;
+
             string name = isTemplate
                 ? BuildConnectionIconName(connection.Icon, false, true)
                 : replaceIcon
                     ? BuildConnectionIconNameReplace(connection.Icon)
-                    : BuildConnectionIconName(connection.Icon, connected);
+                    : BuildConnectionIconName(connection.Icon, connected, false, reachability);
             if (ImageList.Images.ContainsKey(name)) return name;
             Icon? image = ConnectionIcon.FromString(connection.Icon);
             if (image == null)
@@ -81,10 +91,21 @@ namespace mRemoteNG.UI
                 return DefaultConnectionIcon;
             }
 
+            // Base variants
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false), image);
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, true), Overlay(image, Properties.Resources.ConnectedOverlay));
             ImageList.Images.Add(BuildConnectionIconName(connection.Icon, false, true), CreateTemplateIcon(image));
             ImageList.Images.Add(BuildConnectionIconNameReplace(connection.Icon), CreateReplaceIcon());
+
+            // Host status variants (on-demand)
+            if (showHostStatus && reachability != HostReachabilityStatus.Unknown)
+            {
+                var statusImage = reachability == HostReachabilityStatus.Reachable
+                    ? Properties.Resources.HostStatus_On
+                    : Properties.Resources.HostStatus_Off;
+                ImageList.Images.Add(name, OverlayBottomRight(image, statusImage));
+            }
+
             return name;
         }
 
@@ -120,6 +141,18 @@ namespace mRemoteNG.UI
             using (Graphics gr = Graphics.FromImage(result))
             {
                 gr.DrawImage(foreground, new Rectangle(0, 0, foreground.Width, foreground.Height));
+            }
+
+            return result;
+        }
+
+        private static Bitmap OverlayBottomRight(Icon background, Image badge)
+        {
+            Bitmap result = new(background.ToBitmap(), new Size(16, 16));
+            using (Graphics gr = Graphics.FromImage(result))
+            {
+                int badgeSize = 8;
+                gr.DrawImage(badge, new Rectangle(16 - badgeSize, 16 - badgeSize, badgeSize, badgeSize));
             }
 
             return result;

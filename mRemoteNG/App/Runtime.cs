@@ -63,6 +63,7 @@ namespace mRemoteNG.App
         public static mRemoteNG.Container.DynamicFolderManager DynamicFolderManager { get; } = new mRemoteNG.Container.DynamicFolderManager();
 
         public static RestApiService? RestApi { get; set; }
+        public static HostStatusMonitor? HostStatusMonitor { get; private set; }
 
         #region Connections Loading/Saving
 
@@ -142,6 +143,9 @@ namespace mRemoteNG.App
                 }
 
                 UpdateRemoteConnectionsSynchronizer(Properties.OptionsDBsPage.Default.UseSQLServer, connectionFileName);
+
+                // Start or stop host status monitor based on setting
+                StartHostStatusMonitorIfEnabled();
 
                 // re-enable sql update checking after updates are loaded
                 ConnectionsService.RemoteConnectionsSyncronizer?.Enable();
@@ -281,6 +285,27 @@ namespace mRemoteNG.App
                 {
                     MessageCollector.AddExceptionMessage("Could not set up file watcher for connection file. File watching is disabled.", ex, MessageClass.WarningMsg);
                 }
+            }
+        }
+
+        #endregion
+
+        #region Host Status Monitor
+
+        public static void StartHostStatusMonitorIfEnabled()
+        {
+            if (Properties.OptionsConnectionsPage.Default.ShowHostStatus
+                && ConnectionsService.ConnectionTreeModel != null)
+            {
+                if (HostStatusMonitor == null)
+                {
+                    HostStatusMonitor = new HostStatusMonitor(ConnectionsService.ConnectionTreeModel);
+                }
+                HostStatusMonitor.Start();
+            }
+            else
+            {
+                HostStatusMonitor?.Stop();
             }
         }
 

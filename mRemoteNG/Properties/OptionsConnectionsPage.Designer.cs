@@ -82,5 +82,17 @@ namespace mRemoteNG.Properties {
                 this["AdditionalConnectionFiles"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowHostStatus {
+            get {
+                return ((bool)(this["ShowHostStatus"]));
+            }
+            set {
+                this["ShowHostStatus"] = value;
+            }
+        }
     }
 }
