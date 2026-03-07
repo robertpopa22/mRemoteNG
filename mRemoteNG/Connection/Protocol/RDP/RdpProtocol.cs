@@ -1881,7 +1881,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
 
             try
             {
-                if (_frmMain == null || _frmMain.IsDisposed) return;
+                if (_frmMain == null || _frmMain.IsDisposed || _frmMain.Disposing || !_frmMain.IsHandleCreated) return;
 
                 if (_frmMain.InvokeRequired)
                 {
@@ -1892,6 +1892,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
                     RestoreAfterFullscreen();
                 }
             }
+            catch (InvalidOperationException) { }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("RDP leave-fullscreen refocus failed", ex, MessageClass.WarningMsg, false);
@@ -1902,7 +1903,7 @@ namespace mRemoteNG.Connection.Protocol.RDP
         {
             try
             {
-                if (_frmMain == null || _frmMain.IsDisposed) return;
+                if (_frmMain == null || _frmMain.IsDisposed || _frmMain.Disposing || !_frmMain.IsHandleCreated) return;
 
                 if (_frmMain.WindowState == FormWindowState.Minimized && !Properties.OptionsTabsPanelsPage.Default.DoNotRestoreOnRdpMinimize)
                 {
