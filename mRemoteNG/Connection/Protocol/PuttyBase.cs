@@ -1250,11 +1250,15 @@ namespace mRemoteNG.Connection.Protocol
             if (!Directory.Exists(sshDir))
                 return null;
 
-            // Prefer PuTTY-format (.ppk) keys first, then OpenSSH format (supported by PuTTY 0.75+)
+            // Only auto-discover PuTTY-native .ppk keys (#108). PuTTY/plink can load an
+            // OpenSSH-format private key via -i only on v0.75+; older clients print
+            // "Unable to use key file ... (OpenSSH SSH-2 private key (new format))" and
+            // skip it, which surprises users and wastes an auth round-trip (can trip a
+            // server MaxAuthTries limit before pageant/agent auth is even tried). A .ppk
+            // is loadable by every PuTTY version, so restrict discovery to that.
             string[] defaultKeyNames =
             [
-                "id_ed25519.ppk", "id_rsa.ppk", "id_ecdsa.ppk",
-                "id_ed25519", "id_rsa", "id_ecdsa", "id_dsa"
+                "id_ed25519.ppk", "id_rsa.ppk", "id_ecdsa.ppk"
             ];
             foreach (string keyName in defaultKeyNames)
             {
