@@ -236,7 +236,7 @@ namespace mRemoteNG.Config.Connections
         private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction = null)
         {
             SqlDataProvider dataProvider = new(databaseConnector);
-            DataTable currentDataTable = dataProvider.Load();
+            DataTable currentDataTable = dataProvider.Load(transaction);
 
             LegacyRijndaelCryptographyProvider cryptoProvider = new();
             DataTableSerializer serializer = new(_saveFilter, cryptoProvider, rootTreeNode.PasswordString.ConvertToSecureString());

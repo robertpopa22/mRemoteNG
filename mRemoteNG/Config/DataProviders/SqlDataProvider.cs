@@ -16,9 +16,20 @@ namespace mRemoteNG.Config.DataProviders
 
         public DataTable Load()
         {
+            return Load(null);
+        }
+
+        public DataTable Load(System.Data.Common.DbTransaction? transaction)
+        {
             DataTable dataTable = new();
             System.Data.Common.DbCommand dbQuery = DatabaseConnector.DbCommand("SELECT * FROM tblCons ORDER BY PositionID ASC");
             DatabaseConnector.AssociateItemToThisConnector(dbQuery);
+            // When Load runs inside an open transaction (SqlConnectionsSaver.Save), the
+            // command must enlist in that transaction. SqlClient otherwise throws
+            // "ExecuteReader requires the command to have a transaction when the connection
+            // assigned to the command is in a pending local transaction" (#113).
+            if (transaction != null)
+                dbQuery.Transaction = transaction;
             if (!DatabaseConnector.IsConnected)
                 OpenConnection();
             using System.Data.Common.DbDataReader dbDataReader = dbQuery.ExecuteReader();
