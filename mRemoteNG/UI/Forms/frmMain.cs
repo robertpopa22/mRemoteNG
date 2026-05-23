@@ -848,8 +848,19 @@ namespace mRemoteNG.UI.Forms
                 if (dc is not ConnectionWindow cw) continue;
                 if (cw.Controls.Count < 1) continue;
                 if (cw.Controls[0] is not DockPanel dp) continue;
-                if (dp.Contents.Count > 0)
-                    openConnections += dp.Contents.Count;
+                // Count only tabs that hold a live protocol. Tabs kept open after a
+                // disconnect (KeepTabsOpenAfterDisconnect) carry Tag = ConnectionInfo and
+                // must NOT count as open connections — otherwise closing an SSH session with
+                // Ctrl-D and reconnecting leaves a closed-state tab that makes the X button
+                // silently cancel application shutdown (#110). This also stops the exit
+                // confirmation prompting for already-disconnected tabs.
+                foreach (IDockContent tabContent in dp.Contents)
+                {
+                    if (tabContent is ConnectionTab tab &&
+                        tab.Tag is InterfaceControl ic &&
+                        ic.Protocol != null && !ic.IsDisposed)
+                        openConnections++;
+                }
             }
 
             return openConnections;
