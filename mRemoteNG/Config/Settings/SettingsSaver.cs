@@ -90,7 +90,12 @@ namespace mRemoteNG.Config.Settings
         private static void SaveQuickConnectToolbarLocation(Control quickConnectToolStrip)
         {
             Properties.Settings.Default.QuickyTBLocation = quickConnectToolStrip.Location;
-            Properties.Settings.Default.QuickyTBVisible = quickConnectToolStrip.Visible;
+            // Do NOT persist QuickyTBVisible from quickConnectToolStrip.Visible here (#117):
+            // SaveSettings runs from Shutdown.Cleanup after FrmMain.Hide(), and a hidden parent
+            // makes Control.Visible report false for every child, so the toolbar would be saved
+            // as hidden on every exit (also true for the CloseToTray exit path). The ViewMenu
+            // toggle already keeps Settings.QuickyTBVisible in sync, and both restore paths
+            // (SettingsLoader.AddQuickConnectPanel + FrmMain.SetLayout) read that value.
 
             if (quickConnectToolStrip.Parent != null)
             {
