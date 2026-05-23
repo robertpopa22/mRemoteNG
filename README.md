@@ -110,8 +110,8 @@ This project uses an AI orchestrator (Python, ~6,900 LOC) coordinating multiple 
 **AI agents in the loop (2026):**
 
 - **Claude Opus 4.7 (1M context)** — deep multi-file fixes, WinForms / COM interop, complex regressions, review of the other agents' output
-- **Codex / GPT-5.4** — fast triage, single-file patches, second-opinion diagnosis via the `codex-rescue` subagent contract
-- **Gemini CLI** — bulk code transforms (nullable warning sweeps, repetitive refactors)
+- **Codex / GPT-5.4** — fast triage, single-file patches, and independent adversarial review of proposed fixes via the `codex-rescue` subagent contract
+- **Gemini CLI (1M context)** — bulk code transforms (nullable warning sweeps, repetitive refactors) and independent adversarial review of proposed fixes via the `gemini-rescue` subagent contract
 - **Qodo** — AI code review on pull requests, complements SonarCloud + CodeQL
 
 Human review sits on top: every commit is inspected before it hits `main`, every upstream PR is hand-curated. The AI agents never merge without a human in the loop.
@@ -122,7 +122,7 @@ Human review sits on top: every commit is inspected before it hits `main`, every
 - **Cost:** ~$320 total, stabilized at $1.49/commit (down from $4.02 on day 1)
 - **Best session:** Codex Spark resolved 89/104 issues (86%) autonomously in a single run
 - **Quality:** 5,247 analyzer warnings → 0, SonarCloud Quality Gate passed (80.7% coverage)
-- **Code review:** every non-trivial patch now goes through an independent Codex second-opinion before commit
+- **Code review:** every fix now goes through **independent Codex *and* Gemini counter-opinions** before commit — each reviewer re-derives the root cause from the source first, so agreement means two models reached the same diagnosis independently, and disagreement surfaces bad fixes (in a recent batch the dual review caught and discarded an incorrect proposed fix before it shipped)
 - **4 upstream PRs backported:** URL injection fix, AD Protected Users, VNC Caps Lock, RDP resize
 
 The complete research documentation is in [`scientific-paper/`](scientific-paper/):
