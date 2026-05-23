@@ -1025,7 +1025,36 @@ namespace mRemoteNG.UI.Forms
                 }
             }
 
+            if (m.Msg == NativeMethods.WM_LBUTTONDOWN)
+                RedirectClickToInputControl();
+
             return false;
+        }
+
+        // While an embedded protocol host (e.g. the RDP ActiveX) owns Win32 keyboard
+        // focus, clicking a WinForms text box / combo in the toolbar or connections pane
+        // does not move keyboard focus off the ActiveX, so keystrokes are swallowed by the
+        // remote session (#118). WM_ACTIVATE/WA_CLICKACTIVE only fires on cross-window
+        // activation — not for clicks inside the already-active main window — so it cannot
+        // fix this case. Pull keyboard focus onto the clicked input control here. The
+        // message is never consumed: the click still reaches the control normally.
+        private void RedirectClickToInputControl()
+        {
+            try
+            {
+                // Only intervene while a connection host actually owns focus.
+                if (FindInterfaceControl(NativeMethods.GetFocus()) == null)
+                    return;
+
+                Control? clicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
+                                   ?? GetChildAtPoint(MousePosition);
+                if (clicked is TextBoxBase or ComboBox && !clicked.Focused)
+                    clicked.Focus();
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("RedirectClickToInputControl failed", ex);
+            }
         }
 
         private InterfaceControl? FindInterfaceControl(IntPtr hWnd)
