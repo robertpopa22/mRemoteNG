@@ -1431,6 +1431,12 @@ namespace mRemoteNG.UI.Forms
             if (WindowState == FormWindowState.Minimized) return;
             if (_inMouseActivate || _inSizeMove) return;
 
+            if (IsCursorOverMainWindowNonClientArea())
+            {
+                _pendingActivateConnectionOnAppReactivation = false;
+                return;
+            }
+
             // Don't restore protocol focus while the user is interacting with the
             // PropertyGrid / ConfigWindow — editing a cell needs keyboard focus to
             // stay on the in-place editor. Clear the flag so later WM_WINDOWPOSCHANGED
@@ -1465,6 +1471,21 @@ namespace mRemoteNG.UI.Forms
                 // ignore — best-effort guard
             }
             return false;
+        }
+
+        private bool IsCursorOverMainWindowNonClientArea()
+        {
+            try
+            {
+                if (NativeMethods.WindowFromPoint(MousePosition) != Handle)
+                    return false;
+
+                return !ClientRectangle.Contains(PointToClient(MousePosition));
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         private static ConnectionTab? GetActiveConnectionTab(ConnectionWindow connectionWindow)
