@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 
 namespace mRemoteNG.Config.Serializers.Versioning
 {
@@ -28,7 +29,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
             {
                 if (!string.IsNullOrEmpty(msSqlAlter))
                 {
-                    dbCommand = connector.DbCommand(msSqlAlter);
+                    dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
                     dbCommand.Transaction = sqlTran;
                     dbCommand.ExecuteNonQuery();
                 }
@@ -78,7 +79,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
             DbCommand dbCommand;
             if (connector is MSSqlDatabaseConnector or OdbcDatabaseConnector)
             {
-                dbCommand = connector.DbCommand(msSqlAlter);
+                dbCommand = connector.DbCommand(MakeMssqlColumnAddsIdempotent(msSqlAlter));
                 dbCommand.Transaction = sqlTran;
                 dbCommand.ExecuteNonQuery();
                 dbCommand = connector.DbCommand(MsSqlVersionUpdate);
@@ -117,6 +118,27 @@ namespace mRemoteNG.Config.Serializers.Versioning
 
             dbCommand.ExecuteNonQuery();
             sqlTran.Commit();
+        }
+
+        /// <summary>
+        /// Guards each "ALTER TABLE tblCons ADD &lt;column&gt; ..." in an MS-SQL migration batch
+        /// with "IF COL_LENGTH('tblCons','&lt;column&gt;') IS NULL" so the statement is skipped when
+        /// the column already exists. The fork's generic schema forward-port (UpgradeMssqlSchema)
+        /// adds current-schema columns ahead of the versioned upgraders, so without this guard the
+        /// upgraders re-add the same columns and SQL Server throws error 2705 ("Column names in
+        /// each table must be unique. ... is specified more than once") when importing an older
+        /// database. Constraint/index/key ADDs are left untouched. (#113)
+        /// </summary>
+        private static string MakeMssqlColumnAddsIdempotent(string msSqlAlter)
+        {
+            if (string.IsNullOrEmpty(msSqlAlter))
+                return msSqlAlter;
+
+            return Regex.Replace(
+                msSqlAlter,
+                @"ALTER\s+TABLE\s+tblCons\s+ADD\s+(?!(?:CONSTRAINT|PRIMARY|FOREIGN|UNIQUE|INDEX|CHECK|COLUMN)\b)(\w+)",
+                "IF COL_LENGTH('tblCons','$1') IS NULL ALTER TABLE tblCons ADD $1",
+                RegexOptions.IgnoreCase);
         }
     }
 }
