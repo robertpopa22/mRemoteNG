@@ -2314,6 +2314,37 @@ namespace mRemoteNG.UI.Window
                     return;
                 }
 
+                // Detach and dispose the InterfaceControl before closing, mirroring the
+                // keepTabOpen branch above. Otherwise the closed tab keeps Tag = InterfaceControl
+                // with a non-null, non-disposed Protocol; GetOpenConnectionsCount then treats it
+                // as a live connection and FrmMain_FormClosing silently cancels app shutdown, so
+                // the X button stops working after an SSH Ctrl-D + reconnect cycle (#110).
+                if (protocolBase.InterfaceControl != null)
+                {
+                    var ic = protocolBase.InterfaceControl;
+                    tabPage.Controls.Remove(ic);
+                    if (ReferenceEquals(tabPage.Tag, ic))
+                        tabPage.Tag = closedConnectionInfo;
+                    try
+                    {
+                        if (!ic.IsDisposed)
+                            ic.Dispose();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // Dispose() cannot run during CreateHandle(); defer to the next UI tick.
+                        try
+                        {
+                            BeginInvoke(new MethodInvoker(() =>
+                            {
+                                if (!ic.IsDisposed) ic.Dispose();
+                            }));
+                        }
+                        catch (ObjectDisposedException) { }
+                        catch (InvalidOperationException) { }
+                    }
+                }
+
                 tabPage.protocolClose = true;
                 try
                 {
