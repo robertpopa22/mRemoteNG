@@ -61,6 +61,12 @@ namespace mRemoteNG.Tools
 
         public static bool GetBooleanValue(object dataObject)
         {
+            // A column read from an older / partially-migrated SQL schema can be DBNull
+            // (the value was never set). Treat it as false instead of letting GetType()
+            // fall through to the "type not handled" error path. (#113)
+            if (dataObject is null or DBNull)
+                return false;
+
             Type type = dataObject.GetType();
 
             if (type == typeof(bool))
