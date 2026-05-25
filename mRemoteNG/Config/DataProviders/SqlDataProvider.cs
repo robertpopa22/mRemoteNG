@@ -39,6 +39,14 @@ namespace mRemoteNG.Config.DataProviders
             // connection mid-transaction rolls back the transaction in MySQL, causing all
             // subsequent INSERT/UPDATE operations to fail with a stale transaction (#2290).
             dataTable.Load(dbDataReader);
+            // The database-generated `RowVersion` column (MSSQL rowversion / MySQL TIMESTAMP)
+            // is NOT NULL in the schema, and DataTable.Load copies that constraint. A brand-new
+            // connection has no RowVersion yet, so building its row would throw
+            // "Column 'RowVersion' does not allow nulls" before it ever reaches the database.
+            // Relax the local constraint: the server populates the value and the CommandBuilder
+            // excludes the rowversion column from the generated INSERT. (#113)
+            if (dataTable.Columns.Contains("RowVersion"))
+                dataTable.Columns["RowVersion"]!.AllowDBNull = true;
             return dataTable;
         }
 
