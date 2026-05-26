@@ -44,11 +44,15 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
 
 ### Step 4: Investigate + dual counter-opinion (only for `fix`)
 1. Root-cause from source first; cite `file:line`. Verify the premise against the actual code (sources are authoritative, not the comment's framing).
-2. Get TWO independent opinions — spawn both `codex:codex-rescue` and `gemini:gemini-rescue`. Instruct EACH to re-derive the premise from source independently (do not feed them your conclusion) and propose a minimal fix with file:line. They must build with:
-   ```
-   pwsh -NoProfile -ExecutionPolicy Bypass -File "D:/github/mRemoteNG/build.ps1" -NoRestore
-   ```
-3. Converge. If Codex and Gemini diverge, resolve the disagreement before editing (a divergence has caught a wrong fix before). Apply the **minimal** fix only — do not change unrelated behavior.
+2. Get TWO independent opinions — spawn both `codex:codex-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Each prompt MUST open with this framing verbatim:
+   > Read-only review — do NOT modify any files, do NOT build. Re-derive the premise from source independently and return: root cause (file:line) + a minimal proposed diff in text only.
+
+   - This phrasing makes `codex:codex-rescue` omit `--write` so it runs in a `read-only` sandbox (edits are physically blocked). It is **write-by-default otherwise**, and a write-mode run silently edits the working tree (auto-applied, uncommitted) — which has happened and nearly shipped an unreviewed change.
+   - Also pass **`--wait`** to `codex:codex-rescue` so the bounded review runs foreground and returns the actual result, not a background launch stub.
+   - The reviewers must NOT build — the main thread builds/tests in Step 5 (and a read-only sandbox can't write build outputs anyway).
+   - **If codex-rescue still returns a background stub** (`"…started in the background as <jobId>. Check /codex:status…"`), fetch the result with `/codex:status <jobId>` then `/codex:result <jobId>`. **Do NOT re-invoke a fresh `codex:codex-rescue`** — a fresh run reads a possibly-mutated tree and mis-reports state ("already in source / no fix needed").
+3. **Guard:** after both reviews return, run `git status --short`. The reviewers must not have touched the tree; if anything was modified, surface it and reconcile (revert, or deliberately adopt with eyes open) BEFORE Step 5 — never silently inherit a reviewer's edit.
+4. Converge. If Codex and Gemini diverge, resolve the disagreement before editing (a divergence has caught a wrong fix before). The **main thread** applies the **minimal** fix only — do not change unrelated behavior.
 
 ### Step 5: Verify (full build + full test suite)
 ```bash
@@ -80,6 +84,7 @@ Write a session memory file under the project memory dir + add a one-line pointe
 - **Fork-scoped only** — never edits `upstream-tracking.json` or merges upstream. Upstream decisions belong to `/mremoteng-fix-complete`'s report.
 - **Stops before every outward-facing action** — local commits are autonomous; push + GitHub comments require explicit confirmation.
 - Replies are custom-written via `gh issue comment` (not the orchestrator's templated `update --post-comment`), so the daily comment rate limit does not gate this path.
+- **Reviewers are read-only.** `codex:codex-rescue` defaults to `--write` (it edits the working tree, auto-applied, uncommitted) unless the prompt explicitly says read-only/diagnosis. Always invoke it read-only + `--wait` for the dual review, and `git status --short` after — the main thread is the sole author of edits/builds/commits.
 - Build: `build.ps1` (NOT `dotnet build` — COM refs fail MSB4803). Tests: `run-tests.ps1 -Headless`, `--verbosity normal` only.
 - Issue DB: `.project-roadmap/issues-db/fork/*.json`; flags used — `unread_comments`, `waiting_for_us`, `comments[].is_ours`.
 - This is the codified version of the manual #113/#110 maintenance loop.
