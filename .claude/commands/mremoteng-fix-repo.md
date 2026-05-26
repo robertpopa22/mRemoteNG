@@ -44,8 +44,18 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
 
 ### Step 4: Investigate + dual counter-opinion (only for `fix`)
 1. Root-cause from source first; cite `file:line`. Verify the premise against the actual code (sources are authoritative, not the comment's framing).
-2. Get TWO independent opinions — spawn both `codex:codex-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Each prompt MUST open with this framing verbatim:
-   > Read-only review — do NOT modify any files, do NOT build. Re-derive the premise from source independently and return: root cause (file:line) + a minimal proposed diff in text only.
+2. Get TWO independent opinions — spawn both `codex:codex-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Give BOTH the **same** prompt, opening with this framing verbatim and requiring the identical output template (so the two answers are directly comparable side-by-side):
+   > Read-only review — do NOT modify any files, do NOT build. Re-derive the premise from source independently. Return EXACTLY these four sections and nothing else:
+   > ```
+   > ## ROOT CAUSE
+   > <file:line + why>
+   > ## PROPOSED DIFF
+   > <unified diff, text only — do not apply it>
+   > ## CONFIDENCE
+   > high | med | low + 1 reason
+   > ## KEY RISK
+   > <what could still be wrong / what you could not verify>
+   > ```
 
    - This phrasing makes `codex:codex-rescue` omit `--write` so it runs in a `read-only` sandbox (edits are physically blocked). It is **write-by-default otherwise**, and a write-mode run silently edits the working tree (auto-applied, uncommitted) — which has happened and nearly shipped an unreviewed change.
    - Also pass **`--wait`** to `codex:codex-rescue` so the bounded review runs foreground and returns the actual result, not a background launch stub.
