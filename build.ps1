@@ -49,6 +49,15 @@ Write-Host "Using: $devShell"
 & $devShell -Arch amd64
 
 $sln = "$PSScriptRoot\mRemoteNG.sln"
+
+# Disable MSBuild worker-node reuse. With -m, reusable nodes survive the build
+# by design and keep open handles on obj\*.cache. When build.ps1 runs inside a
+# sandboxed agent (e.g. codex-rescue) whose process group is torn down on exit,
+# those nodes orphan and keep locking the cache, so the next build fails with
+# MSB3491 "Access to the path is denied". Disabling reuse makes nodes exit with
+# the build. Costs ~1s on repeat builds; correctness over the marginal speed.
+$env:MSBUILDDISABLENODEREUSE = '1'
+
 $timer = [System.Diagnostics.Stopwatch]::StartNew()
 
 if ($Portable) {
@@ -57,7 +66,7 @@ if ($Portable) {
         dotnet restore $sln --runtime $rid
     }
     # PublishReadyToRun=false avoids NETSDK1094 crossgen2 issue; startup impact is negligible.
-    msbuild $sln -m "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:DefineConstants=PORTABLE" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:SignAssembly=false" "-p:PublishDir=bin\$platform\Portable\" -t:Publish
+    msbuild $sln -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:DefineConstants=PORTABLE" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:SignAssembly=false" "-p:PublishDir=bin\$platform\Portable\" -t:Publish
     Write-Host "Portable output: mRemoteNG\bin\$platform\Portable\" -ForegroundColor Green
 } elseif ($SelfContained) {
     Write-Host "Building self-contained $Arch (embedded .NET runtime)..."
@@ -65,13 +74,13 @@ if ($Portable) {
         dotnet restore $sln --runtime $rid /p:PublishReadyToRun=true
     }
     # PublishReadyToRun=false avoids NETSDK1094 crossgen2 issue on local builds.
-    msbuild $sln -m "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:PublishDir=bin\$platform\Release\publish\" -t:Publish
+    msbuild $sln -m -nodeReuse:false "-verbosity:minimal" "-p:Configuration=Release" "-p:Platform=$platform" "-p:SelfContained=true" "-p:RuntimeIdentifier=$rid" "-p:PublishReadyToRun=false" "-p:PublishDir=bin\$platform\Release\publish\" -t:Publish
 } else {
     Write-Host "Building framework-dependent $Arch..."
     if (-not $NoRestore) {
         dotnet restore $sln
     }
-    $msbuildArgs = @('-m', '-verbosity:minimal', "-p:Configuration=$Configuration", "-p:Platform=$platform", '-p:SignAssembly=false')
+    $msbuildArgs = @('-m', '-nodeReuse:false', '-verbosity:minimal', "-p:Configuration=$Configuration", "-p:Platform=$platform", '-p:SignAssembly=false')
     if ($Rebuild) { $msbuildArgs += '-t:Rebuild' }
     if ($NoRestore) { $msbuildArgs += '-p:RestorePackages=false' }
     msbuild $sln @msbuildArgs
