@@ -91,6 +91,7 @@ namespace mRemoteNG.UI.Forms
         private bool _inMouseActivate;
         private bool _isApplicationActivated = true;
         private bool _pendingActivateConnectionOnAppReactivation;
+        private bool _suppressConnectionFocusRestoreForNonClientClose;
         private bool _usingSqlServer;
         private string? _connectionsFileName;
         private bool _showFullPathInTitle;
@@ -103,6 +104,7 @@ namespace mRemoteNG.UI.Forms
         private readonly System.Windows.Forms.Timer _autoLockTimer = new() { Interval = 1000 };
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
         private const int HOTKEY_ID_ACTIVATE = 1;
+        private const int HT_CLOSE = 20;
         private bool _isAutoLocked;
         private bool _unlockPromptInProgress;
         private static FrmOptions? _optionsForm;
@@ -1132,6 +1134,8 @@ namespace mRemoteNG.UI.Forms
                         break;
                     case NativeMethods.WM_MOUSEACTIVATE:
                         _inMouseActivate = true;
+                        _suppressConnectionFocusRestoreForNonClientClose =
+                            NativeMethods.LOWORD(m.LParam) == HT_CLOSE;
                         break;
                     case NativeMethods.WM_ACTIVATEAPP:
                         bool appActivated = m.WParam != IntPtr.Zero;
@@ -1144,19 +1148,27 @@ namespace mRemoteNG.UI.Forms
                         }
                         else if (appReactivated)
                         {
-                            _pendingActivateConnectionOnAppReactivation = true;
-                            Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
-                                                   ?? GetChildAtPoint(MousePosition);
-                            if (candidateTabToFocus is InterfaceControl)
+                            if (_suppressConnectionFocusRestoreForNonClientClose)
                             {
-                                candidateTabToFocus.Parent?.Focus();
+                                _pendingActivateConnectionOnAppReactivation = false;
+                                _suppressConnectionFocusRestoreForNonClientClose = false;
                             }
-
-                            // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
-                            if (!Properties.OptionsStartupExitPage.Default.DisableRefocus &&
-                                WindowState != FormWindowState.Minimized)
+                            else
                             {
-                                QueueActivateConnection();
+                                _pendingActivateConnectionOnAppReactivation = true;
+                                Control? candidateTabToFocus = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
+                                                       ?? GetChildAtPoint(MousePosition);
+                                if (candidateTabToFocus is InterfaceControl)
+                                {
+                                    candidateTabToFocus.Parent?.Focus();
+                                }
+
+                                // When returning via Alt+Tab, ensure the active connection regains keyboard focus.
+                                if (!Properties.OptionsStartupExitPage.Default.DisableRefocus &&
+                                    WindowState != FormWindowState.Minimized)
+                                {
+                                    QueueActivateConnection();
+                                }
                             }
                         }
 
@@ -1166,6 +1178,22 @@ namespace mRemoteNG.UI.Forms
                         // Only handle this msg if it was triggered by a click
                         if (NativeMethods.LOWORD(m.WParam) == NativeMethods.WA_CLICKACTIVE)
                         {
+                            if (_suppressConnectionFocusRestoreForNonClientClose)
+                            {
+                                _pendingActivateConnectionOnAppReactivation = false;
+                                _suppressConnectionFocusRestoreForNonClientClose = false;
+                                break;
+                            }
+
+                            // If the click is on the non-client area (title bar, close button),
+                            // do not proceed to activate a connection, which could steal focus back
+                            // and prevent the non-client action (like closing) from completing.
+                            if (IsCursorOverMainWindowNonClientArea())
+                            {
+                                _pendingActivateConnectionOnAppReactivation = false;
+                                break;
+                            }
+
                             Control? controlThatWasClicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                                      ?? GetChildAtPoint(MousePosition);
                             if (controlThatWasClicked != null)
@@ -1430,6 +1458,13 @@ namespace mRemoteNG.UI.Forms
             if (!_isApplicationActivated) return;
             if (WindowState == FormWindowState.Minimized) return;
             if (_inMouseActivate || _inSizeMove) return;
+
+            if (_suppressConnectionFocusRestoreForNonClientClose)
+            {
+                _pendingActivateConnectionOnAppReactivation = false;
+                _suppressConnectionFocusRestoreForNonClientClose = false;
+                return;
+            }
 
             if (IsCursorOverMainWindowNonClientArea())
             {
