@@ -15,6 +15,7 @@ namespace mRemoteNG.Config.Connections.Multiuser
     {
         private readonly System.Timers.Timer _updateTimer;
         private readonly IConnectionsUpdateChecker _updateChecker;
+        private readonly object _timerLock = new();
         private bool _disposed;
 
         public double TimerIntervalInMilliseconds
@@ -81,12 +82,20 @@ namespace mRemoteNG.Config.Connections.Multiuser
 
         public void Enable()
         {
-            _updateTimer.Start();
+            lock (_timerLock)
+            {
+                if (!_disposed)
+                    _updateTimer.Start();
+            }
         }
 
         public void Disable()
         {
-            _updateTimer.Stop();
+            lock (_timerLock)
+            {
+                if (!_disposed)
+                    _updateTimer.Stop();
+            }
         }
 
         public bool IsUpdateAvailable()
@@ -102,14 +111,21 @@ namespace mRemoteNG.Config.Connections.Multiuser
 
         private void OnUpdateCheckStarted(object sender, EventArgs eventArgs)
         {
-            _updateTimer.Stop();
+            lock (_timerLock)
+            {
+                if (!_disposed)
+                    _updateTimer.Stop();
+            }
             UpdateCheckStarted?.Invoke(this, eventArgs);
         }
 
         private void OnUpdateCheckFinished(object sender, ConnectionsUpdateCheckFinishedEventArgs eventArgs)
         {
-            if (!_disposed)
-                _updateTimer.Start();
+            lock (_timerLock)
+            {
+                if (!_disposed)
+                    _updateTimer.Start();
+            }
             UpdateCheckFinished?.Invoke(this, eventArgs);
         }
 
@@ -127,8 +143,12 @@ namespace mRemoteNG.Config.Connections.Multiuser
         private void Dispose(bool itIsSafeToAlsoFreeManagedObjects)
         {
             if (!itIsSafeToAlsoFreeManagedObjects) return;
-            _disposed = true;
-            _updateTimer.Dispose();
+            lock (_timerLock)
+            {
+                if (_disposed) return;
+                _disposed = true;
+                _updateTimer.Dispose();
+            }
             _updateChecker.Dispose();
         }
     }
