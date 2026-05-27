@@ -26,6 +26,15 @@ namespace mRemoteNG.Config.Serializers.Versioning
                 $"Upgrading database to version {_version}.");
 
             const string msSqlAlter = @"
+-- ConstantID is the primary key of tblCons (added as PK_tblCons by the 2.7->2.8 step).
+-- SQL Server refuses ALTER COLUMN on a PK member, so drop the PK (whatever its name),
+-- widen the column, then re-add the PK. (#113)
+DECLARE @pkName sysname;
+SELECT @pkName = name FROM sys.key_constraints
+WHERE [type] = 'PK' AND parent_object_id = OBJECT_ID(N'dbo.tblCons');
+IF @pkName IS NOT NULL
+    EXEC(N'ALTER TABLE tblCons DROP CONSTRAINT ' + QUOTENAME(@pkName));
+
 ALTER TABLE tblCons ALTER COLUMN [ConstantID] nvarchar(128) NOT NULL;
 ALTER TABLE tblCons ALTER COLUMN [ParentID] nvarchar(128) NULL;
 ALTER TABLE tblCons ALTER COLUMN [Name] nvarchar(128) NOT NULL;
@@ -91,6 +100,10 @@ ALTER TABLE tblExternalTools ALTER COLUMN [FileName] nvarchar(1024) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [Arguments] nvarchar(2048) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [WorkingDir] nvarchar(1024) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [Category] nvarchar(256) NOT NULL;
+
+IF NOT EXISTS (SELECT 1 FROM sys.key_constraints
+    WHERE [type] = 'PK' AND parent_object_id = OBJECT_ID(N'dbo.tblCons'))
+    ALTER TABLE tblCons ADD CONSTRAINT PK_tblCons PRIMARY KEY ([ConstantID]);
 ";
 
             // No MySQL ALTER needed -- varchar already supports Unicode in MySQL
