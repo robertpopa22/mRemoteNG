@@ -30,10 +30,16 @@ namespace mRemoteNG.Config.Serializers.Versioning
 -- SQL Server refuses ALTER COLUMN on a PK member, so drop the PK (whatever its name),
 -- widen the column, then re-add the PK. (#113)
 DECLARE @pkName sysname;
+DECLARE @dropPkSql nvarchar(512);
 SELECT @pkName = name FROM sys.key_constraints
 WHERE [type] = 'PK' AND parent_object_id = OBJECT_ID(N'dbo.tblCons');
+-- EXEC() rejects a concatenated expression (literal + QUOTENAME(...)); build the
+-- statement into a variable first so it parses on every SQL Server version. (#113)
 IF @pkName IS NOT NULL
-    EXEC(N'ALTER TABLE tblCons DROP CONSTRAINT ' + QUOTENAME(@pkName));
+BEGIN
+    SET @dropPkSql = N'ALTER TABLE tblCons DROP CONSTRAINT ' + QUOTENAME(@pkName);
+    EXEC(@dropPkSql);
+END
 
 ALTER TABLE tblCons ALTER COLUMN [ConstantID] nvarchar(128) NOT NULL;
 ALTER TABLE tblCons ALTER COLUMN [ParentID] nvarchar(128) NULL;
