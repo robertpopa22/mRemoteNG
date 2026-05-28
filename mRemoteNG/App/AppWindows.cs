@@ -18,17 +18,48 @@ namespace mRemoteNG.App
         private static ConnectionTesterWindow? _connectionTesterForm;
         private static UltraVNCWindow? _ultravncscForm;
         private static ConnectionTreeWindow? _treeForm;
+        private static ConfigWindow _configForm = new ConfigWindow();
+        private static ErrorAndInfoWindow _errorsForm = new ErrorAndInfoWindow();
         private static KeyboardShortcutsWindow? _keyboardShortcutsForm;
         private static ActiveConnectionsWindow? _activeConnectionsForm;
 
+        // These three windows are resolved by persist-string when a saved layout is loaded
+        // (DockPanelLayoutLoader._contentMap). Loading a layout closes/disposes the live panels
+        // first, so the getters must recreate a disposed instance instead of handing back the
+        // dead singleton -- otherwise DockPanel.LoadFromXml calls CreateHandle on a disposed
+        // form and throws ObjectDisposedException. (#121)
         internal static ConnectionTreeWindow? TreeForm
         {
-            get => _treeForm ?? (_treeForm = new ConnectionTreeWindow());
+            get
+            {
+                if (_treeForm == null || _treeForm.IsDisposed)
+                    _treeForm = new ConnectionTreeWindow();
+                return _treeForm;
+            }
             set => _treeForm = value;
         }
 
-        internal static ConfigWindow ConfigForm { get; set; } = new ConfigWindow();
-        internal static ErrorAndInfoWindow ErrorsForm { get; set; } = new ErrorAndInfoWindow();
+        internal static ConfigWindow ConfigForm
+        {
+            get
+            {
+                if (_configForm == null || _configForm.IsDisposed)
+                    _configForm = new ConfigWindow();
+                return _configForm;
+            }
+            set => _configForm = value;
+        }
+
+        internal static ErrorAndInfoWindow ErrorsForm
+        {
+            get
+            {
+                if (_errorsForm == null || _errorsForm.IsDisposed)
+                    _errorsForm = new ErrorAndInfoWindow();
+                return _errorsForm;
+            }
+            set => _errorsForm = value;
+        }
         internal static UpdateWindow UpdateForm { get; set; } = new UpdateWindow();
         internal static SSHTransferWindow SshtransferForm { get; private set; } = new SSHTransferWindow();
         internal static OptionsWindow? OptionsFormWindow { get; private set; }
