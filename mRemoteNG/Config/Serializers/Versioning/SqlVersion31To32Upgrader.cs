@@ -41,6 +41,28 @@ BEGIN
     EXEC(@dropPkSql);
 END
 
+-- Columns added by earlier upgraders (or absent in the 2.6 schema) can hold NULL in
+-- existing rows. ALTER COLUMN ... NOT NULL validates existing data and SQL Server
+-- rejects it as ""Cannot insert the value NULL ... UPDATE failed"" if any row is NULL.
+-- Backfill every column this step tightens to NOT NULL with '' before the ALTERs. (#113)
+UPDATE tblCons SET
+    [Name] = ISNULL([Name], N''),
+    [Type] = ISNULL([Type], N''),
+    [Colors] = ISNULL([Colors], N''),
+    [Icon] = ISNULL([Icon], N''),
+    [Panel] = ISNULL([Panel], N''),
+    [Protocol] = ISNULL([Protocol], N''),
+    [RDGatewayUsageMethod] = ISNULL([RDGatewayUsageMethod], N''),
+    [RDGatewayUseConnectionCredentials] = ISNULL([RDGatewayUseConnectionCredentials], N''),
+    [RDPAuthenticationLevel] = ISNULL([RDPAuthenticationLevel], N''),
+    [RedirectSound] = ISNULL([RedirectSound], N''),
+    [Resolution] = ISNULL([Resolution], N''),
+    [SSHOptions] = ISNULL([SSHOptions], N''),
+    [SSHTunnelConnectionName] = ISNULL([SSHTunnelConnectionName], N''),
+    [SoundQuality] = ISNULL([SoundQuality], N''),
+    [ICAEncryptionStrength] = ISNULL([ICAEncryptionStrength], N''),
+    [UserViaAPI] = ISNULL([UserViaAPI], N'');
+
 ALTER TABLE tblCons ALTER COLUMN [ConstantID] nvarchar(128) NOT NULL;
 ALTER TABLE tblCons ALTER COLUMN [ParentID] nvarchar(128) NULL;
 ALTER TABLE tblCons ALTER COLUMN [Name] nvarchar(128) NOT NULL;
@@ -97,10 +119,20 @@ ALTER TABLE tblCons ALTER COLUMN [ExternalCredentialProvider] nvarchar(256) NULL
 ALTER TABLE tblCons ALTER COLUMN [ExternalAddressProvider] nvarchar(256) NULL;
 ALTER TABLE tblCons ALTER COLUMN [UserViaAPI] nvarchar(512) NOT NULL;
 
+UPDATE tblRoot SET
+    [Name] = ISNULL([Name], N''),
+    [Protected] = ISNULL([Protected], N''),
+    [ConfVersion] = ISNULL([ConfVersion], N'');
 ALTER TABLE tblRoot ALTER COLUMN [Name] nvarchar(2048) NOT NULL;
 ALTER TABLE tblRoot ALTER COLUMN [Protected] nvarchar(MAX) NOT NULL;
 ALTER TABLE tblRoot ALTER COLUMN [ConfVersion] nvarchar(15) NOT NULL;
 
+UPDATE tblExternalTools SET
+    [DisplayName] = ISNULL([DisplayName], N''),
+    [FileName] = ISNULL([FileName], N''),
+    [Arguments] = ISNULL([Arguments], N''),
+    [WorkingDir] = ISNULL([WorkingDir], N''),
+    [Category] = ISNULL([Category], N'');
 ALTER TABLE tblExternalTools ALTER COLUMN [DisplayName] nvarchar(256) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [FileName] nvarchar(1024) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [Arguments] nvarchar(2048) NOT NULL;
