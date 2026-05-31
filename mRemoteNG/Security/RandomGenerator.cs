@@ -17,7 +17,9 @@ namespace mRemoteNG.Security
                 @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()-_=+|[]{};:',./<>?";
             for (int x = 0; x < length; x++)
             {
-                int randomIndex = randomGen.Next(availableChars.Length - 1);
+                // Next(maxValue) has an exclusive upper bound, so pass Length (not Length - 1) to
+                // allow the final alphabet character to be selected.
+                int randomIndex = randomGen.Next(availableChars.Length);
                 stringBuilder.Append(availableChars[randomIndex]);
             }
 
