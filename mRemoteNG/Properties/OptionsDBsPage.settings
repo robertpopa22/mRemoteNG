@@ -15,7 +15,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SQLDatabaseName" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">mRemoteNG</Value>
     </Setting>
     <Setting Name="SQLUser" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
