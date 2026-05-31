@@ -51,7 +51,10 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
                         connectionInfo.Port = uri.Port;
                     break;
                 case "server port":
-                    connectionInfo.Port = Convert.ToInt32(value, CultureInfo.InvariantCulture);
+                    // TryParse, not Convert.ToInt32, so a malformed/out-of-range port in a
+                    // hand-edited or hostile .rdp file doesn't throw and abort the whole import.
+                    if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int serverPort))
+                        connectionInfo.Port = serverPort;
                     break;
                 case "username":
                     connectionInfo.Username = value;

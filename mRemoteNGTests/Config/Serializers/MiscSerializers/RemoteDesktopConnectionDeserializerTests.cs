@@ -187,4 +187,17 @@ public class RemoteDesktopConnectionDeserializerTests
     //    var connectionInfo = _connectionTreeModel.RootNodes.First().Children.First();
     //    Assert.That(connectionInfo.RDGatewayHostname, Is.EqualTo(_expectedGatewayHostname));
     //}
+
+    [Test]
+    public void MalformedServerPort_DoesNotAbortImport()
+    {
+        // A non-numeric "server port" must not throw (Convert.ToInt32 would) and abort the whole
+        // .rdp import; the rest of the file should still import.
+        const string rdp = "full address:s:myhost\r\nserver port:i:notanumber\r\nusername:s:bob";
+        var deserializer = new RemoteDesktopConnectionDeserializer();
+        Assert.That(() => deserializer.Deserialize(rdp), Throws.Nothing);
+        var connectionInfo = deserializer.Deserialize(rdp).RootNodes.First().Children.First();
+        Assert.That(connectionInfo.Hostname, Is.EqualTo("myhost"));
+        Assert.That(connectionInfo.Username, Is.EqualTo("bob"));
+    }
 }
