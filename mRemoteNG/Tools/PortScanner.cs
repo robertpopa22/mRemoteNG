@@ -283,21 +283,31 @@ namespace mRemoteNG.Tools
                 RaiseScanCompleteEvent(_scannedHosts);
         }
 
+        // Cap the range at a /16 so an inverted/huge range cannot trigger an OutOfMemoryException.
+        private const long MaxScanRange = 65536;
+
         private static IEnumerable<IPAddress> IpAddressArrayFromRange(IPAddress ipAddress1, IPAddress ipAddress2)
         {
             IPAddress startIpAddress = IpAddressMin(ipAddress1, ipAddress2);
             IPAddress endIpAddress = IpAddressMax(ipAddress1, ipAddress2);
 
-            int startAddress = IpAddressToInt32(startIpAddress);
-            int endAddress = IpAddressToInt32(endIpAddress);
-            int addressCount = endAddress - startAddress;
+            // IPv4 addresses must be treated as UNSIGNED: a signed Int32 makes any address
+            // >= 128.0.0.0 negative, which inverted Min/Max ordering and the range count for any
+            // range straddling 128.0.0.0.
+            uint startAddress = IpAddressToUInt32(startIpAddress);
+            uint endAddress = IpAddressToUInt32(endIpAddress);
+            long addressCount = (long)endAddress - startAddress + 1;
+            if (addressCount > MaxScanRange)
+                throw new ArgumentOutOfRangeException(nameof(ipAddress2),
+                    $"The address range is too large to scan ({addressCount} addresses); the limit is {MaxScanRange}.");
 
-            IPAddress[] addressArray = new IPAddress[addressCount + 1];
+            IPAddress[] addressArray = new IPAddress[addressCount];
             int index = 0;
-            for (int address = startAddress; address <= endAddress; address++)
+            for (uint address = startAddress; address <= endAddress; address++)
             {
-                addressArray[index] = IpAddressFromInt32(address);
+                addressArray[index] = IpAddressFromUInt32(address);
                 index++;
+                if (address == uint.MaxValue) break; // guard against wraparound at the top of the space
             }
 
             return addressArray;
@@ -315,10 +325,10 @@ namespace mRemoteNG.Tools
 
         private static int IpAddressCompare(IPAddress ipAddress1, IPAddress ipAddress2)
         {
-            return IpAddressToInt32(ipAddress1) - IpAddressToInt32(ipAddress2);
+            return IpAddressToUInt32(ipAddress1).CompareTo(IpAddressToUInt32(ipAddress2));
         }
 
-        private static int IpAddressToInt32(IPAddress ipAddress)
+        private static uint IpAddressToUInt32(IPAddress ipAddress)
         {
             if (ipAddress.AddressFamily != AddressFamily.InterNetwork)
             {
@@ -333,10 +343,10 @@ namespace mRemoteNG.Tools
 
             Debug.Assert(addressBytes.Length == 4);
 
-            return BitConverter.ToInt32(addressBytes, 0);
+            return BitConverter.ToUInt32(addressBytes, 0);
         }
 
-        private static IPAddress IpAddressFromInt32(int ipAddress)
+        private static IPAddress IpAddressFromUInt32(uint ipAddress)
         {
             byte[] addressBytes = BitConverter.GetBytes(ipAddress); // in host order
             if (BitConverter.IsLittleEndian)
