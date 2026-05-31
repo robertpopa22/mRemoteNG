@@ -77,6 +77,18 @@ namespace mRemoteNGTests.Config.Serializers.ConnectionSerializers.Csv
         }
 
         [Test]
+        public void CsvWithInvalidNodeType_DoesNotThrowAndDefaultsToConnection()
+        {
+            // A malformed/empty NodeType cell must not throw (Enum.Parse would) and abort the
+            // whole file import; it should default to a Connection node.
+            const string csv = "Name;Hostname;NodeType\r\nMyServer;192.168.1.1;NotARealNodeType";
+            Assert.That(() => _deserializer.Deserialize(csv), Throws.Nothing);
+            var connection = _deserializer.Deserialize(csv).GetRecursiveChildList()[0];
+            Assert.That(connection, Is.Not.Null);
+            Assert.That(connection!.Name, Is.EqualTo("MyServer"));
+        }
+
+        [Test]
         public void EmptyCsvContent_ReturnsEmptyTree()
         {
             var tree = _deserializer.Deserialize(string.Empty);

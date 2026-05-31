@@ -188,9 +188,14 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
             }
 
             var headerSet = new HashSet<string>(headers, StringComparer.Ordinal);
-            TreeNodeType nodeType = headerSet.Contains("NodeType")
-                ? Enum.Parse<TreeNodeType>(connectionCsv[headers.IndexOf("NodeType")], true)
-                : TreeNodeType.Connection;
+            // TryParse (not Parse) so a single malformed/empty NodeType cell defaults to Connection
+            // instead of throwing and aborting the entire file import, matching every other enum here.
+            // TryParse sets the out value to None (0) on failure, so reset to Connection explicitly.
+            if (!headerSet.Contains("NodeType") ||
+                !Enum.TryParse(connectionCsv[headers.IndexOf("NodeType")], true, out TreeNodeType nodeType))
+            {
+                nodeType = TreeNodeType.Connection;
+            }
 
             string nodeId = headerSet.Contains("Id")
                 ? connectionCsv[headers.IndexOf("Id")]
