@@ -638,6 +638,17 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="Http" xml:space="preserve">
     <value>HTTP</value>
   </data>
+  <data name="HttpCertificateErrorTitle" xml:space="preserve">
+    <value>Certificate Error</value>
+  </data>
+  <data name="HttpCertificateErrorPrompt" xml:space="preserve">
+    <value>The server certificate for "{0}" could not be validated ({1}).
+
+Subject: {2}
+Issuer: {3}
+
+Continue connecting anyway? Only do this if you trust this host - an untrusted certificate may mean the connection is being intercepted.</value>
+  </data>
   <data name="HttpConnectFailed" xml:space="preserve">
     <value>HTTP Connect Failed!</value>
   </data>

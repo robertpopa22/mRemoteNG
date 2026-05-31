@@ -2971,6 +2971,24 @@ namespace mRemoteNG.Resources.Language {
                 return ResourceManager.GetString("HttpSetPropsFailed", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Certificate Error.
+        /// </summary>
+        internal static string HttpCertificateErrorTitle {
+            get {
+                return ResourceManager.GetString("HttpCertificateErrorTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string for the HTTPS certificate-error confirmation prompt.
+        /// </summary>
+        internal static string HttpCertificateErrorPrompt {
+            get {
+                return ResourceManager.GetString("HttpCertificateErrorPrompt", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Icon.

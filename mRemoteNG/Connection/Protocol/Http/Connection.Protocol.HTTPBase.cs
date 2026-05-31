@@ -29,6 +29,9 @@ namespace mRemoteNG.Connection.Protocol.Http
         private ToolStrip? _navigationBar;
         private ToolStripTextBox? _urlBox;
 
+        // Host|Subject|Issuer|ErrorStatus combinations the user explicitly accepted this session.
+        private readonly System.Collections.Generic.HashSet<string> _acceptedCertErrors = new(StringComparer.Ordinal);
+
         #endregion
 
         #region Public Methods
@@ -335,16 +338,51 @@ namespace mRemoteNG.Connection.Protocol.Http
         {
             try
             {
-                // Only bypass certificate errors for the configured connection host.
+                // Only consider the configured connection host; anything else keeps the secure
+                // default action (the navigation is blocked).
                 if (!Uri.TryCreate(GetUrl(), UriKind.Absolute, out Uri? configuredUri) ||
-                    !Uri.TryCreate(e.RequestUri, UriKind.Absolute, out Uri? requestUri))
+                    !Uri.TryCreate(e.RequestUri, UriKind.Absolute, out Uri? requestUri) ||
+                    !string.Equals(configuredUri.Host, requestUri.Host, StringComparison.OrdinalIgnoreCase))
                 {
+                    e.Action = CoreWebView2ServerCertificateErrorAction.Default;
                     return;
                 }
 
-                if (string.Equals(configuredUri.Host, requestUri.Host, StringComparison.OrdinalIgnoreCase))
+                CoreWebView2Certificate? certificate = e.ServerCertificate;
+
+                // Prompt only once per session for the same host + certificate + error, so the
+                // user explicitly consents to overriding TLS validation instead of it being
+                // silently bypassed (which would let an on-path attacker present any certificate).
+                string certKey = $"{requestUri.Host}|{certificate?.Subject}|{certificate?.Issuer}|{e.ErrorStatus}";
+                if (_acceptedCertErrors.Contains(certKey))
                 {
                     e.Action = CoreWebView2ServerCertificateErrorAction.AlwaysAllow;
+                    return;
+                }
+
+                string message = string.Format(
+                    System.Globalization.CultureInfo.CurrentCulture,
+                    Language.HttpCertificateErrorPrompt,
+                    requestUri.Host,
+                    e.ErrorStatus,
+                    certificate?.Subject ?? "?",
+                    certificate?.Issuer ?? "?");
+
+                DialogResult result = MessageBox.Show(
+                    message,
+                    Language.HttpCertificateErrorTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning,
+                    MessageBoxDefaultButton.Button2);
+
+                if (result == DialogResult.Yes)
+                {
+                    _acceptedCertErrors.Add(certKey);
+                    e.Action = CoreWebView2ServerCertificateErrorAction.AlwaysAllow;
+                }
+                else
+                {
+                    e.Action = CoreWebView2ServerCertificateErrorAction.Cancel;
                 }
             }
             catch (Exception ex)
