@@ -372,7 +372,10 @@ namespace mRemoteNG.App
                 return;
             }
 
-            var tree = model.RootNodes.Select(ToTreeNode).ToList();
+            // Snapshot RootNodes; this runs on a thread-pool thread while the UI thread can mutate
+            // the tree (add/delete/paste/drag-drop), so enumerating the live list would throw
+            // "Collection was modified". Mirrors GetRecursiveChildList's ToArray() guard (#102).
+            var tree = model.RootNodes.ToArray().Select(ToTreeNode).ToList();
             WriteJson(resp, tree);
         }
 
@@ -438,7 +441,7 @@ namespace mRemoteNG.App
                 id = container.ConstantID,
                 name = container.Name,
                 isContainer = true,
-                children = container.Children.Select(child =>
+                children = container.Children.ToArray().Select(child =>
                     child is ContainerInfo subContainer
                         ? ToTreeNode(subContainer)
                         : ToDto(child)
