@@ -223,9 +223,13 @@ namespace mRemoteNG.Config.Settings.Registry
                         LegacyRijndaelCryptographyProvider cryptographyProvider = new();
                         string decryptedPassword;
                         string proxyAuthPass = ProxyAuthPass.Value;
+                        // Round-trip decrypt only validates that the registry value is well-formed
+                        // ciphertext; store the ENCRYPTED value, because every consumer
+                        // (AppUpdater, UpdatesPage) decrypts UpdateProxyAuthPass before use. Storing
+                        // the decrypted value made those Decrypt calls fail. Mirrors ApplySQLPassword.
                         decryptedPassword = cryptographyProvider.Decrypt(proxyAuthPass, Runtime.EncryptionKey);
 
-                        Properties.OptionsUpdatesPage.Default.UpdateProxyAuthPass = decryptedPassword;
+                        Properties.OptionsUpdatesPage.Default.UpdateProxyAuthPass = proxyAuthPass;
                     }
                     catch
                     {
