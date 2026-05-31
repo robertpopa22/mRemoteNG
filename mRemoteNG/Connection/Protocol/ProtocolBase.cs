@@ -48,6 +48,13 @@ namespace mRemoteNG.Connection.Protocol
             get => _connectionTab;
             set
             {
+                if (_connectionTab != null)
+                {
+                    _connectionTab.ResizeBegin -= ResizeBegin;
+                    _connectionTab.Resize -= Resize;
+                    _connectionTab.ResizeEnd -= ResizeEnd;
+                }
+
                 _connectionTab = value;
                 if (_connectionTab != null)
                 {
@@ -543,6 +550,17 @@ namespace mRemoteNG.Connection.Protocol
             if (disposing)
             {
                 tmrReconnect?.Dispose();
+
+                // Detach the tab resize handlers subscribed in the ConnectionTab setter. The tab can
+                // outlive this protocol (KeepTabsOpenAfterDisconnect reuses the same tab across
+                // reconnects), so without this each reconnect leaves a dead handler - and the closed
+                // protocol instance it roots - attached to the tab.
+                if (_connectionTab != null)
+                {
+                    _connectionTab.ResizeBegin -= ResizeBegin;
+                    _connectionTab.Resize -= Resize;
+                    _connectionTab.ResizeEnd -= ResizeEnd;
+                }
             }
         }
 
