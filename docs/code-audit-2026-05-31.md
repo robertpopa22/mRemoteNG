@@ -55,9 +55,14 @@ fixable by unit test carry a fail-before/pass-after test (C1, M4, M5, L9, L10).
 | M4 | `a59e015d8` | L6 | `455251816` |
 | **H1** | **deferred** — verify with the #113 pre-2.7 MS-SQL repro first (see contested note) | | |
 
-> **Not exercised by CI** (need real-environment verification): **C1** (no MySQL backend in tests),
-> **M7** (GPO-provisioned proxy password), **M8** (WebView2 cert-error path). The full green suite proves
-> *no regression*, not that these three fixes work end-to-end.
+> **No automated end-to-end coverage** (green suite proves *no regression*, not correctness — need
+> real-environment or manual verification): **C1** (no MySQL backend in tests), **M7** (GPO-provisioned
+> proxy password), **M8** (WebView2 cert-error path), **M2** (VNC failed-connect dispose path — fix
+> placement traced to `CloseBG → DisposeInterface → InterfaceControl.Dispose → Protocol.Dispose`, but no
+> test simulates it), **M3** (named-pipe timeout thread), **L6** (ProtocolBase keep-tab reconnect dispose
+> path). **L5** is behavior-preserving (same accept/reject contract), so lowest risk of this group.
+> The remaining fixes (M1, M4, M5, L1, L2, L3, L4, L7, L8, L9, L10) are either logic-covered by the suite
+> or carry a dedicated fail-before/pass-after test.
 
 ---
 
