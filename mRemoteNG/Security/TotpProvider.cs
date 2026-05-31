@@ -77,16 +77,19 @@ namespace mRemoteNG.Security
 
             DateTimeOffset now = DateTimeOffset.UtcNow;
 
-            // Check current time step and +/- 1 to allow for clock skew
+            // Check current time step and +/- 1 to allow for clock skew. Compare in constant time
+            // (FixedTimeEquals) and accumulate the result without an early return, so neither the
+            // comparison nor which skew window matched leaks timing about the expected code.
+            byte[] providedBytes = Encoding.UTF8.GetBytes(trimmedCode);
+            bool isValid = false;
             for (int i = -1; i <= 1; i++)
             {
                 DateTimeOffset checkTime = now.AddSeconds(i * TimeStepSeconds);
                 string expected = GenerateCode(base32Secret, checkTime);
-                if (string.Equals(expected, trimmedCode, StringComparison.Ordinal))
-                    return true;
+                isValid |= CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(expected), providedBytes);
             }
 
-            return false;
+            return isValid;
         }
 
         /// <summary>

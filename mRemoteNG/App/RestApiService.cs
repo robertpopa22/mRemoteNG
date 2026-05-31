@@ -144,9 +144,11 @@ namespace mRemoteNG.App
                 return;
             }
 
-            // Authenticate
+            // Authenticate. Use a constant-time comparison so the rejection latency does not leak
+            // how many leading characters of the secret API key matched (CWE-208).
             string? providedKey = req.Headers["X-API-Key"];
-            if (!string.Equals(providedKey, ApiKey, StringComparison.Ordinal))
+            if (providedKey == null ||
+                !CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(providedKey), Encoding.UTF8.GetBytes(ApiKey)))
             {
                 WriteError(resp, 401, "Invalid or missing API key. Provide X-API-Key header.");
                 return;
