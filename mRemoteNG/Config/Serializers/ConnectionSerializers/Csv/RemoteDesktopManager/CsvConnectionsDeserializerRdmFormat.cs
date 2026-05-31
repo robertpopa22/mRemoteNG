@@ -103,6 +103,16 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv.RemoteDesktopMa
         {
             if (headers.Count != connectionCsv.Count) return default;
 
+            // Guard the column count only above; the lookups below index by header name, so a CSV
+            // whose header is missing/renamed (IndexOf returns -1) would throw IndexOutOfRange.
+            // Bail gracefully if any required column is absent.
+            string[] requiredColumns =
+            {
+                "Host", "ConnectionType", "Port", "Name", "Description", "Group",
+                "CredentialUserName", "CredentialDomain", "CredentialPassword"
+            };
+            if (requiredColumns.Any(column => headers.IndexOf(column) < 0)) return default;
+
             string hostString = connectionCsv[headers.IndexOf("Host")].Trim();
             if (string.IsNullOrEmpty(hostString)) return default;
 

@@ -30,7 +30,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             Dictionary<string, string> groupNames = new(StringComparer.Ordinal);
             Dictionary<string, ContainerInfo> groupContainers = new(StringComparer.Ordinal);
 
-            if (rootElement.TryGetProperty("Groups", out JsonElement groupsElement))
+            if (rootElement.TryGetProperty("Groups", out JsonElement groupsElement) && groupsElement.ValueKind == JsonValueKind.Array)
             {
                 foreach (JsonElement group in groupsElement.EnumerateArray())
                 {
@@ -47,7 +47,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
 
             Dictionary<string, (string UserName, string Domain)> credentials = new(StringComparer.Ordinal);
-            if (rootElement.TryGetProperty("Credentials", out JsonElement credsElement))
+            if (rootElement.TryGetProperty("Credentials", out JsonElement credsElement) && credsElement.ValueKind == JsonValueKind.Array)
             {
                 foreach (JsonElement cred in credsElement.EnumerateArray())
                 {
@@ -62,7 +62,7 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
 
             // Parse Connections
-            if (rootElement.TryGetProperty("Connections", out JsonElement connectionsElement))
+            if (rootElement.TryGetProperty("Connections", out JsonElement connectionsElement) && connectionsElement.ValueKind == JsonValueKind.Array)
             {
                 foreach (JsonElement conn in connectionsElement.EnumerateArray())
                 {

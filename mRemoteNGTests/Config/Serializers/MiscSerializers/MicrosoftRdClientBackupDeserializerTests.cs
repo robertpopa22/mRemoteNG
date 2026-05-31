@@ -108,4 +108,16 @@ public class MicrosoftRdClientBackupDeserializerTests
         Assert.That(result.RootNodes.Count, Is.GreaterThan(0));
         Assert.That(result.RootNodes.First().Children, Is.Empty);
     }
+
+    [Test]
+    public void HandlesNonArrayCollections()
+    {
+        // A malformed/hostile .rdb where Groups/Credentials/Connections are not arrays must not
+        // throw (EnumerateArray throws on a non-array) and abort the whole import.
+        const string rdb = "{\"version\":\"1.0\",\"Groups\":\"oops\",\"Credentials\":{},\"Connections\":42}";
+        Assert.That(() => _deserializer.Deserialize(rdb), Throws.Nothing);
+        var result = _deserializer.Deserialize(rdb);
+        Assert.That(result.RootNodes.Count, Is.GreaterThan(0));
+        Assert.That(result.RootNodes.First().Children, Is.Empty);
+    }
 }

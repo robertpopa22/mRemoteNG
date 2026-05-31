@@ -127,7 +127,10 @@ namespace mRemoteNG.Config.Serializers.MiscSerializers
             }
 
             connectionInfo.Hostname = connectionInfoNode?.SelectSingleNode("./host")?.InnerText ?? string.Empty;
-            connectionInfo.Port = Convert.ToInt32(connectionInfoNode?.SelectSingleNode("./port")?.InnerText, CultureInfo.InvariantCulture);
+            // TryParse, not Convert.ToInt32, so a malformed/out-of-range <port> doesn't throw and
+            // abort the whole .dat import; leave the protocol default port when it can't be parsed.
+            if (int.TryParse(connectionInfoNode?.SelectSingleNode("./port")?.InnerText, NumberStyles.Integer, CultureInfo.InvariantCulture, out int puttyPort))
+                connectionInfo.Port = puttyPort;
             connectionInfo.PuttySession = connectionInfoNode?.SelectSingleNode("./session")?.InnerText ?? string.Empty;
             // ./commandline
             connectionInfo.Description = connectionInfoNode?.SelectSingleNode("./description")?.InnerText ?? string.Empty;
