@@ -72,9 +72,63 @@ public class SqlMigrationHelperTests
 
         SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null, "ALTER TABLE t ADD col int;");
 
+        // The MySQL batch is now split per statement and trimmed (no trailing ';') so each
+        // ADD COLUMN can be run individually with duplicate-column idempotency (#113).
         Assert.That(_commandTexts, Has.Count.EqualTo(2));
-        Assert.That(_commandTexts[0], Does.Contain("ALTER TABLE t ADD col int;"));
+        Assert.That(_commandTexts[0], Is.EqualTo("ALTER TABLE t ADD col int"));
         Assert.That(_commandTexts[1], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        _transaction.Received(1).Commit();
+    }
+
+    [Test]
+    public void ExecuteMigration_MySql_SplitsBatchIntoIndividualStatements()
+    {
+        var connector = new TestMysqlConnector(_connection, CreateCommand);
+
+        SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null,
+            "ALTER TABLE t ADD COLUMN a int;\nALTER TABLE t ADD COLUMN b int;");
+
+        // 2 split ALTERs (trimmed) + 1 version update.
+        Assert.That(_commandTexts, Has.Count.EqualTo(3));
+        Assert.That(_commandTexts[0], Is.EqualTo("ALTER TABLE t ADD COLUMN a int"));
+        Assert.That(_commandTexts[1], Is.EqualTo("ALTER TABLE t ADD COLUMN b int"));
+        Assert.That(_commandTexts[2], Does.Contain("SET SQL_SAFE_UPDATES=0;"));
+        _transaction.Received(1).Commit();
+    }
+
+    [Test]
+    public void ExecuteMigration_MySql_CatchesDuplicateColumnError()
+    {
+        int callCount = 0;
+        DbCommand CreateCommandWithDuplicateError(string sql)
+        {
+            _commandTexts.Add(sql);
+            var cmd = Substitute.For<DbCommand>();
+            cmd.Parameters.Returns(Substitute.For<DbParameterCollection>());
+            cmd.CreateParameter().Returns(Substitute.For<DbParameter>());
+
+            callCount++;
+            if (callCount == 1)
+            {
+                // First ADD COLUMN duplicates a column already added by the schema
+                // forward-port — must be caught, not abort the upgrade (#113).
+                cmd.When(c => c.ExecuteNonQuery()).Do(_ =>
+                    throw new InvalidOperationException("Duplicate column name 'a'"));
+            }
+            else
+            {
+                cmd.ExecuteNonQuery().Returns(1);
+            }
+
+            return cmd;
+        }
+
+        var connector = new TestMysqlConnector(_connection, CreateCommandWithDuplicateError);
+
+        Assert.DoesNotThrow(() =>
+            SqlMigrationHelper.ExecuteMigration(connector, new Version(2, 0), null,
+                "ALTER TABLE t ADD COLUMN a int;\nALTER TABLE t ADD COLUMN b int;"));
+
         _transaction.Received(1).Commit();
     }
 

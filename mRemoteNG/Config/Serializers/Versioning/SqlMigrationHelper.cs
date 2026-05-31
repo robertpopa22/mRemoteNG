@@ -41,9 +41,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
             {
                 if (!string.IsNullOrEmpty(mySqlAlter))
                 {
-                    dbCommand = connector.DbCommand(mySqlAlter);
-                    dbCommand.Transaction = sqlTran;
-                    dbCommand.ExecuteNonQuery();
+                    ExecuteMySqlBatchIdempotent(connector, sqlTran, mySqlAlter);
                 }
 
                 dbCommand = connector.DbCommand(MySqlVersionUpdate);
@@ -63,6 +61,37 @@ namespace mRemoteNG.Config.Serializers.Versioning
 
             dbCommand.ExecuteNonQuery();
             sqlTran.Commit();
+        }
+
+        /// <summary>
+        /// Runs a MySQL migration batch one statement at a time so that
+        /// "ALTER TABLE ... ADD COLUMN" statements targeting columns already created by the
+        /// generic schema forward-port (UpgradeMysqlSchema, which runs ahead of the versioned
+        /// upgraders) are skipped instead of aborting the whole upgrade with MySQL error 1060
+        /// ("Duplicate column name"). MySQL has no per-column IF-NOT-EXISTS guard for ADD COLUMN,
+        /// so the duplicate-column error is caught per statement; every other failure still
+        /// propagates and rolls back the transaction. This mirrors the MS-SQL idempotency the
+        /// MakeMssqlColumnAddsIdempotent guard already provides. (#113)
+        /// </summary>
+        private static void ExecuteMySqlBatchIdempotent(IDatabaseConnector connector, DbTransaction sqlTran, string mySqlAlter)
+        {
+            foreach (string statement in mySqlAlter.Split(';'))
+            {
+                string trimmed = statement.Trim();
+                if (trimmed.Length == 0)
+                    continue;
+
+                try
+                {
+                    DbCommand dbCommand = connector.DbCommand(trimmed);
+                    dbCommand.Transaction = sqlTran;
+                    dbCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex) when (ex.Message.Contains("Duplicate column", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Column already added by the schema forward-port -- safe to skip.
+                }
+            }
         }
 
         /// <summary>
