@@ -289,10 +289,6 @@ namespace mRemoteNG.Connection.Protocol.VNC
         private VncSharpCore.RemoteDesktop? _vnc;
         private ConnectionInfo? _info;
         private VncLockKeyFilter? _lockKeyFilter;
-        private static volatile bool _isConnectionSuccessful;
-        private static ExceptionDispatchInfo? _socketexception;
-        private static readonly ManualResetEvent TimeoutObject = new(false);
-        private static readonly Lock _testConnectLock = new();
 
         private TraceListener? _traceListener;
         private StringWriter? _traceWriter;
@@ -877,56 +873,13 @@ namespace mRemoteNG.Connection.Protocol.VNC
 
         private static bool TestConnect(string hostName, int port, int timeoutMSec)
         {
-            lock (_testConnectLock)
-            {
-                _socketexception = null;
-                TcpClient tcpclient = new();
-
-                TimeoutObject.Reset();
-                tcpclient.BeginConnect(hostName, port, CallBackMethod, tcpclient);
-
-                if (TimeoutObject.WaitOne(timeoutMSec, false))
-                {
-                    if (_isConnectionSuccessful) return true;
-                    // Connection completed but failed - tcpclient will be closed in CallBackMethod's finally block
-                    if (_socketexception != null)
-                    {
-                        _socketexception.Throw();
-                    }
-                }
-                else
-                {
-                    tcpclient.Close();
-                    throw new TimeoutException($"Connection timed out to host " + hostName + " on port " + port);
-                }
-
-                return false;
-            }
-        }
-
-        private static void CallBackMethod(IAsyncResult asyncresult)
-        {
-            TcpClient? tcpclient = null;
-            try
-            {
-                _isConnectionSuccessful = false;
-                tcpclient = asyncresult.AsyncState as TcpClient;
-
-                if (tcpclient?.Client == null) return;
-
-                tcpclient.EndConnect(asyncresult);
-                _isConnectionSuccessful = true;
-            }
-            catch (Exception ex)
-            {
-                _isConnectionSuccessful = false;
-                _socketexception = ExceptionDispatchInfo.Capture(ex);
-            }
-            finally
-            {
-                tcpclient?.Close();
-                TimeoutObject.Set();
-            }
+            // Per-call connected TcpClient with no shared static state. The previous implementation
+            // stored the BeginConnect result in static fields signalled by a static ManualResetEvent,
+            // so a timed-out probe's orphaned callback could wake or clobber a concurrent probe's
+            // result. CreateConnectedTcpClient throws TimeoutException on timeout (same contract) and
+            // a SocketException on connection failure; the probe socket is closed immediately.
+            using TcpClient tcpClient = ProxyClientUtilities.CreateConnectedTcpClient(hostName, port, timeoutMSec);
+            return true;
         }
 
         private static bool _keyTablePatched;
