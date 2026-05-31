@@ -149,8 +149,12 @@ namespace mRemoteNG.Config.Settings
 
         private void SetAutoSave()
         {
-            if (Properties.OptionsConnectionsPage.Default.AutoSaveEveryMinutes <= 0) return;
-            MainForm.tmrAutoSave.Interval = Properties.OptionsConnectionsPage.Default.AutoSaveEveryMinutes * 60000;
+            // Use OptionsBackupPage.AutoSaveEveryMinutes - the setting the options UI and the
+            // registry/GPO override actually read and write. The old OptionsConnectionsPage copy
+            // is orphaned (never written, default 0), so this guard always fired and autosave was
+            // never armed at startup even when the user had configured an interval.
+            if (Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes <= 0) return;
+            MainForm.tmrAutoSave.Interval = Properties.OptionsBackupPage.Default.AutoSaveEveryMinutes * 60000;
             MainForm.tmrAutoSave.Enabled = true;
         }
 
