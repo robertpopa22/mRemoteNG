@@ -181,12 +181,28 @@ namespace mRemoteNG.Connection.Protocol
             string data = (string)oData;
             string random = data[..8];
             string password = data[8..];
-            NamedPipeServerStream server = new($"mRemoteNGSecretPipe{random}");
-            server.WaitForConnection();
-            StreamWriter writer = new(server);
-            writer.Write(password);
-            writer.Flush();
-            server.Dispose();
+            try
+            {
+                using NamedPipeServerStream server = new($"mRemoteNGSecretPipe{random}");
+                // Bound the wait so an aborted/failed PuTTY launch (cancelled auth, launch error,
+                // crash, or the tab closed before PuTTY opens the pipe) cannot block this thread -
+                // and the captured plaintext password it holds - for the process lifetime. The old
+                // untimed WaitForConnection() had no timeout, no cancellation and no try/finally.
+                // Mirrors the VaultOpenbao pipe handling in Connect().
+                using CancellationTokenSource cts = new(TimeSpan.FromSeconds(30));
+                server.WaitForConnectionAsync(cts.Token).GetAwaiter().GetResult();
+                using StreamWriter writer = new(server);
+                writer.Write(password);
+                writer.Flush();
+            }
+            catch (OperationCanceledException)
+            {
+                // PuTTY never connected to the pipe within the timeout - release the pipe and exit.
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionStackTrace("Failed to provide PuTTY password via named pipe", ex);
+            }
         }
 
         protected virtual bool UseTerminalTitlePollingTimer => true;
