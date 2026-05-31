@@ -439,6 +439,20 @@ namespace mRemoteNG.Connection.Protocol.VNC
             {
                 _keepAliveTimer.Enabled = false;
                 _keepAliveTimer.Dispose();
+
+                // Detach handlers that SetEventHandlers/Connect may have wired up. Disconnect()
+                // and VNCEvent_Disconnected() already do this, but neither runs when the control
+                // is disposed without ConnectionLost firing (e.g. a failed/aborted connect), which
+                // would otherwise root this instance - and its credential-bearing ConnectionInfo -
+                // on the static FrmMain.ClipboardChanged event for the process lifetime. Removing a
+                // handler/filter that was never added is a safe no-op.
+                FrmMain.ClipboardChanged -= VNCEvent_ClipboardChanged;
+                if (_lockKeyFilter != null)
+                {
+                    Application.RemoveMessageFilter(_lockKeyFilter);
+                    _lockKeyFilter = null;
+                }
+
                 DisposeProxyTunnel();
                 CleanupTraceListener();
             }
