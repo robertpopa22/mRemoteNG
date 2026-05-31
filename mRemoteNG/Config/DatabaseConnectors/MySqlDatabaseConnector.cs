@@ -50,7 +50,20 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
         private void BuildSqlConnectionString()
         {
-            _dbConnectionString = $"server={_dbHost};user={_dbUsername};database={_dbName};port={_dbPort};password={_dbPassword};CharSet=utf8mb4;";
+            // Use the builder (like MSSqlDatabaseConnector) so each field is escaped/quoted; raw
+            // interpolation let a ';' or '=' in the password/database/username inject or override
+            // arbitrary connection options.
+            MySqlConnectionStringBuilder builder = new()
+            {
+                Server = _dbHost,
+                UserID = _dbUsername,
+                Database = _dbName,
+                Password = _dbPassword,
+                CharacterSet = "utf8mb4",
+            };
+            if (uint.TryParse(_dbPort, out uint port))
+                builder.Port = port;
+            _dbConnectionString = builder.ConnectionString;
         }
         
         public void Connect()
