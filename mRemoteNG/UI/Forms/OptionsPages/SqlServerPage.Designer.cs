@@ -143,6 +143,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblRegistrySettingsUsedInfo.TabIndex = 24;
             lblRegistrySettingsUsedInfo.Text = "Some settings are configured by your Administrator. Please contact your administrator for more information.";
             lblRegistrySettingsUsedInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblRegistrySettingsUsedInfo.Visible = false;
             // 
             // lblSectionName
             // 
@@ -355,7 +356,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblSQLAuthType.Name = "lblSQLAuthType";
             lblSQLAuthType.Size = new System.Drawing.Size(154, 26);
             lblSQLAuthType.TabIndex = 23;
-            lblSQLAuthType.Text = "Autentifcation:";
+            lblSQLAuthType.Text = "Authentication:";
             lblSQLAuthType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblSQLReadOnly

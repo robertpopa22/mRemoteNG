@@ -25,6 +25,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private OptRegistrySqlServerPage pageRegSettingsInstance;
         private NumericUpDown numSQLReloadInterval;
         private MrngLabel lblSQLReloadInterval;
+        private bool _loadingSettings;
 
         private static readonly (string TypeKey, string DisplayName)[] SqlTypeOptions =
         {
@@ -118,6 +119,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
         public override void LoadSettings()
         {
+            _loadingSettings = true;
+            try
+            {
             chkUseSQLServer.Checked = Properties.OptionsDBsPage.Default.UseSQLServer;
             txtSQLType.Text = GetSqlTypeDisplayName(Properties.OptionsDBsPage.Default.SQLServerType);
             txtSQLServer.Text = Properties.OptionsDBsPage.Default.SQLHost;
@@ -138,6 +142,11 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             txtSQLAuthType.SelectedIndex = authIndex >= 0 ? authIndex : 0;
 
             lblTestConnectionResults.Text = "";
+            }
+            finally
+            {
+                _loadingSettings = false;
+            }
         }
 
         public override void SaveSettings()
@@ -517,10 +526,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 }
                 else if (string.Equals(selectedValue, "SQL Server Authentication", StringComparison.Ordinal))
                 {
-                    lblSQLUsername.Text = "login:";
+                    lblSQLUsername.Text = "Username:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = true;
                     txtSQLPassword.Visible = true;
                 }
@@ -529,7 +538,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblSQLUsername.Text = "User name:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = false;
                     txtSQLPassword.Visible = false;
                 }
@@ -538,7 +547,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblSQLUsername.Text = "User name:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = true;
                     txtSQLPassword.Visible = true;
                 }
@@ -556,7 +565,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblSQLUsername.Text = "User name:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = true;
                     txtSQLPassword.Visible = true;
                 }
@@ -565,7 +574,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblSQLUsername.Text = "User assigned identity:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = false;
                     txtSQLPassword.Visible = false;
                 }
@@ -574,7 +583,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                     lblSQLUsername.Text = "User name:";
                     lblSQLUsername.Enabled = true;
                     txtSQLUsername.Enabled = true;
-                    txtSQLUsername.Text = "";
+                    if (!_loadingSettings) txtSQLUsername.Text = "";
                     lblSQLPassword.Visible = false;
                     txtSQLPassword.Visible = false;
                 }
