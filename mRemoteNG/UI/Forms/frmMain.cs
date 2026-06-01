@@ -1061,13 +1061,40 @@ namespace mRemoteNG.UI.Forms
 
                 Control? clicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                    ?? GetChildAtPoint(MousePosition);
-                if (clicked is TextBoxBase or ComboBox && !clicked.Focused)
-                    clicked.Focus();
+                if (clicked is not (TextBoxBase or ComboBox) || !clicked.IsHandleCreated || !clicked.CanFocus)
+                    return;
+
+                // Decide by Win32 focus, not Control.Focused: after the RDP ActiveX receives
+                // Win32 focus the WinForms managed focus chain still reports the previously
+                // clicked TextBox/ComboBox as Focused, so the old "!clicked.Focused" guard
+                // short-circuited on the second RDP focus cycle and keystrokes kept going to
+                // the remote session (#118). Force keyboard focus onto the clicked control;
+                // Control.Focus() can no-op when WinForms believes it is already focused, so
+                // fall back to a direct Win32 SetFocus.
+                if (HasWin32Focus(clicked))
+                    return;
+
+                clicked.Focus();
+                if (!HasWin32Focus(clicked))
+                    NativeMethods.SetFocus(clicked.Handle);
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionStackTrace("RedirectClickToInputControl failed", ex);
             }
+        }
+
+        // True when the live Win32 keyboard-focus window is the control's own handle or a
+        // child of it (e.g. a ComboBox's inner edit box), as opposed to WinForms' managed
+        // Control.Focused which can stay latched on a control after an unmanaged HWND (the
+        // RDP ActiveX) has taken Win32 focus.
+        private static bool HasWin32Focus(Control control)
+        {
+            if (!control.IsHandleCreated)
+                return false;
+
+            IntPtr focused = NativeMethods.GetFocus();
+            return focused == control.Handle || NativeMethods.IsChild(control.Handle, focused);
         }
 
         private InterfaceControl? FindInterfaceControl(IntPtr hWnd)

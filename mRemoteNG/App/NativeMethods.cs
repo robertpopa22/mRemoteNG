@@ -86,6 +86,9 @@ namespace mRemoteNG.App
         [DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
 
+        [DllImport("user32.dll")]
+        internal static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
+
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr SetFocus(IntPtr hWnd);
 
