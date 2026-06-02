@@ -127,6 +127,22 @@ ALTER TABLE tblRoot ALTER COLUMN [Name] nvarchar(2048) NOT NULL;
 ALTER TABLE tblRoot ALTER COLUMN [Protected] nvarchar(MAX) NOT NULL;
 ALTER TABLE tblRoot ALTER COLUMN [ConfVersion] nvarchar(15) NOT NULL;
 
+-- tblExternalTools was created by the 3.0->3.1 step with unnamed ""NOT NULL DEFAULT ''""
+-- on Arguments/WorkingDir/Category, so SQL Server auto-named the DEFAULT constraints
+-- (e.g. DF__tblExtern__Argum__18EBB532). ALTER COLUMN below is blocked while such a
+-- constraint depends on the column (error 5074: ""... one or more objects access the
+-- column""), which rolled the whole 3.1->3.2 step back and pinned the DB at 3.1. Drop
+-- the dependent defaults first; they are re-added (named) after the ALTERs. (#113)
+DECLARE @dropExtDefaultsSql nvarchar(MAX) = N'';
+SELECT @dropExtDefaultsSql = @dropExtDefaultsSql +
+    N'ALTER TABLE tblExternalTools DROP CONSTRAINT ' + QUOTENAME(dc.name) + N';'
+FROM sys.default_constraints dc
+INNER JOIN sys.columns c ON c.object_id = dc.parent_object_id AND c.column_id = dc.parent_column_id
+WHERE dc.parent_object_id = OBJECT_ID(N'dbo.tblExternalTools')
+    AND c.name IN (N'Arguments', N'WorkingDir', N'Category');
+IF @dropExtDefaultsSql <> N''
+    EXEC(@dropExtDefaultsSql);
+
 UPDATE tblExternalTools SET
     [DisplayName] = ISNULL([DisplayName], N''),
     [FileName] = ISNULL([FileName], N''),
@@ -138,6 +154,16 @@ ALTER TABLE tblExternalTools ALTER COLUMN [FileName] nvarchar(1024) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [Arguments] nvarchar(2048) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [WorkingDir] nvarchar(1024) NOT NULL;
 ALTER TABLE tblExternalTools ALTER COLUMN [Category] nvarchar(256) NOT NULL;
+
+-- Re-create the '' defaults (matching the fresh 3.0->3.1 schema) with explicit,
+-- deterministic names so a future ALTER COLUMN can drop them by name instead of
+-- hitting another auto-named DF__ constraint. Idempotent. (#113)
+IF NOT EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = N'DF_tblExternalTools_Arguments')
+    ALTER TABLE tblExternalTools ADD CONSTRAINT DF_tblExternalTools_Arguments DEFAULT N'' FOR [Arguments];
+IF NOT EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = N'DF_tblExternalTools_WorkingDir')
+    ALTER TABLE tblExternalTools ADD CONSTRAINT DF_tblExternalTools_WorkingDir DEFAULT N'' FOR [WorkingDir];
+IF NOT EXISTS (SELECT 1 FROM sys.default_constraints WHERE name = N'DF_tblExternalTools_Category')
+    ALTER TABLE tblExternalTools ADD CONSTRAINT DF_tblExternalTools_Category DEFAULT N'' FOR [Category];
 
 IF NOT EXISTS (SELECT 1 FROM sys.key_constraints
     WHERE [type] = 'PK' AND parent_object_id = OBJECT_ID(N'dbo.tblCons'))
