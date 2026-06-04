@@ -2118,10 +2118,13 @@ namespace mRemoteNG.UI.Window
                         return;
                 }
 
+                // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "[#110-diag] Reconnect() begin", true);
                 if (interfaceControl != null)
                     HandleProtocolClosed(interfaceControl.Protocol, keepTabOpen: true);
 
                 Runtime.ConnectionInitiator.OpenConnection(connectionInfo, ConnectionInfo.Force.DoNotJump, this);
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "[#110-diag] Reconnect() end (OpenConnection issued)", true);
             }
             catch (Exception ex)
             {
@@ -2308,6 +2311,8 @@ namespace mRemoteNG.UI.Window
                     tabPage.ShowClosedState();
                     // Re-focus the tab so that disposing the protocol control does not shift
                     // focus to the first tab (issue #1645).
+                    // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg, "[#110-diag] HandleProtocolClosed(keepTabOpen) -> DockHandler.Activate()", true);
                     tabPage.DockHandler.Activate();
                     if (closedConnectionInfo != null)
                         FrmMain.Default.SelectedConnection = closedConnectionInfo;

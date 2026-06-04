@@ -1028,9 +1028,15 @@ namespace mRemoteNG.Connection.Protocol
                     foregroundWindow != connectionWindowHandle &&
                     foregroundWindow != mainWindowHandle)
                 {
+                    // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
+                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                        "[#110-diag] PuttyBase.Focus -> skipped (foreground is an unrelated window)", true);
                     return;
                 }
 
+                // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
+                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
+                    $"[#110-diag] PuttyBase.Focus -> SetForegroundWindow(putty); fgWasMain={foregroundWindow == mainWindowHandle} fgWasConnWin={foregroundWindow == connectionWindowHandle} fgWasPutty={foregroundWindow == PuttyHandle}", true);
                 NativeMethods.SetForegroundWindow(PuttyHandle);
             }
             catch (Exception ex)

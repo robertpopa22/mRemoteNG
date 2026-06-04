@@ -105,6 +105,14 @@ namespace mRemoteNG.UI.Forms
         private const int AutoLockIdleThresholdMs = 5 * 60 * 1000;
         private const int HOTKEY_ID_ACTIVATE = 1;
         private const int HT_CLOSE = 20;
+        // TEMP diagnostic for #110 (reconnect -> X won't close). Remove once the message
+        // trace pinpoints what swallows the close. Logs to %LOCALAPPDATA%\mRemoteNG\mRemoteNG.log.
+        private const int WM_NCLBUTTONDOWN_DIAG = 0x00A1;
+        private const int SC_CLOSE_DIAG = 0xF060;
+        private void Diag110(string where) =>
+            Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg,
+                $"[#110-diag] {where} pending={_pendingActivateConnectionOnAppReactivation} suppress={_suppressConnectionFocusRestoreForNonClientClose}",
+                true);
         private bool _isAutoLocked;
         private bool _unlockPromptInProgress;
         private static FrmOptions? _optionsForm;
@@ -721,6 +729,7 @@ namespace mRemoteNG.UI.Forms
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Diag110($"FrmMain_FormClosing ENTERED reason={e.CloseReason}");
             if (Properties.OptionsAppearancePage.Default.CloseToTray)
             {
                 Runtime.NotificationAreaIcon ??= new NotificationAreaIcon();
@@ -1163,11 +1172,17 @@ namespace mRemoteNG.UI.Forms
                         _inMouseActivate = true;
                         _suppressConnectionFocusRestoreForNonClientClose =
                             NativeMethods.LOWORD(m.LParam) == HT_CLOSE;
+                        Diag110($"WM_MOUSEACTIVATE ht={NativeMethods.LOWORD(m.LParam)}");
+                        break;
+                    case WM_NCLBUTTONDOWN_DIAG:
+                        if (m.WParam.ToInt32() == HT_CLOSE)
+                            Diag110("WM_NCLBUTTONDOWN ht=HTCLOSE (X pressed)");
                         break;
                     case NativeMethods.WM_ACTIVATEAPP:
                         bool appActivated = m.WParam != IntPtr.Zero;
                         bool appReactivated = appActivated && !_isApplicationActivated;
                         _isApplicationActivated = appActivated;
+                        Diag110($"WM_ACTIVATEAPP activated={appActivated} reactivated={appReactivated}");
 
                         if (!appActivated)
                         {
@@ -1299,6 +1314,8 @@ namespace mRemoteNG.UI.Forms
                             TryRestorePendingConnectionFocus();
                         break;
                     case NativeMethods.WM_SYSCOMMAND:
+                        if ((m.WParam.ToInt32() & 0xFFF0) == SC_CLOSE_DIAG)
+                            Diag110("WM_SYSCOMMAND SC_CLOSE");
                         if (m.WParam == new IntPtr(0))
                             ShowHideMenu();
                         Screen? screen = _advancedWindowMenu.GetScreenById(m.WParam.ToInt32());
@@ -1481,6 +1498,7 @@ namespace mRemoteNG.UI.Forms
         // restore by clearing the flag and keep the user's chosen focus.
         private void TryRestorePendingConnectionFocus()
         {
+            Diag110("TryRestorePendingConnectionFocus called");
             if (!_pendingActivateConnectionOnAppReactivation) return;
             if (!_isApplicationActivated) return;
             if (WindowState == FormWindowState.Minimized) return;
@@ -1490,12 +1508,14 @@ namespace mRemoteNG.UI.Forms
             {
                 _pendingActivateConnectionOnAppReactivation = false;
                 _suppressConnectionFocusRestoreForNonClientClose = false;
+                Diag110("TryRestore -> suppressed (nonclient close)");
                 return;
             }
 
             if (IsCursorOverMainWindowNonClientArea())
             {
                 _pendingActivateConnectionOnAppReactivation = false;
+                Diag110("TryRestore -> cursor over nonclient, skip");
                 return;
             }
 
@@ -1626,6 +1646,7 @@ namespace mRemoteNG.UI.Forms
             if (ifc.Protocol is PuttyBase puttyProtocol)
                 puttyProtocol.RequestPostOpenLayoutResizePass();
 
+            Diag110($"ActivateConnection -> Protocol.Focus() proto={ifc.Protocol?.GetType().Name}");
             ifc.Protocol?.Focus();
             Form? conFormWindow = ifc.FindForm();
             (conFormWindow as ConnectionTab)?.RefreshInterfaceController();
