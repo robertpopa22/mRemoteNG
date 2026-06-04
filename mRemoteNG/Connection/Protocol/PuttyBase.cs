@@ -1019,6 +1019,14 @@ namespace mRemoteNG.Connection.Protocol
                 if (PuttyHandle == IntPtr.Zero)
                     return;
 
+                // Never pull foreground to PuTTY while the cursor is over the main window's
+                // non-client area (title bar / close button). Activating the main window by
+                // clicking its X fires an active-content-changed refocus that lands here; if it
+                // ran SetForegroundWindow(PuTTY) it would steal foreground back before the close
+                // button's SC_CLOSE is posted, so the window would not close (#110).
+                if (FrmMain.IsCreated && FrmMain.Default.IsCursorOverMainWindowNonClientArea())
+                    return;
+
                 IntPtr foregroundWindow = NativeMethods.GetForegroundWindow();
                 IntPtr connectionWindowHandle = InterfaceControl.FindForm()?.Handle ?? IntPtr.Zero;
                 IntPtr mainWindowHandle = FrmMain.IsCreated ? FrmMain.Default.Handle : IntPtr.Zero;
@@ -1028,15 +1036,9 @@ namespace mRemoteNG.Connection.Protocol
                     foregroundWindow != connectionWindowHandle &&
                     foregroundWindow != mainWindowHandle)
                 {
-                    // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
-                    Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                        "[#110-diag] PuttyBase.Focus -> skipped (foreground is an unrelated window)", true);
                     return;
                 }
 
-                // TEMP diagnostic for #110. Remove with the frmMain Diag110 instrumentation.
-                Runtime.MessageCollector.AddMessage(MessageClass.InformationMsg,
-                    $"[#110-diag] PuttyBase.Focus -> SetForegroundWindow(putty); fgWasMain={foregroundWindow == mainWindowHandle} fgWasConnWin={foregroundWindow == connectionWindowHandle} fgWasPutty={foregroundWindow == PuttyHandle}", true);
                 NativeMethods.SetForegroundWindow(PuttyHandle);
             }
             catch (Exception ex)
