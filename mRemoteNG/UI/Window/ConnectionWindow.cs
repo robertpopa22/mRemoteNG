@@ -2437,6 +2437,20 @@ namespace mRemoteNG.UI.Window
         private void ProcessPendingConnections()
         {
             if (_pendingConnectionIds.Count == 0) return;
+
+            // Reopening the connection tabs saved in the dock layout is a form of
+            // "reconnect previously opened sessions", so honor the same gate as
+            // PreviousSessionOpener (ConnectionTreeWindow.SetTreePostSetupActions). When the
+            // user has that option off, restore the panel but do not auto-reconnect the tabs
+            // — otherwise every previously-open session reconnects on startup regardless of
+            // the setting (and a screenful of RDP tabs can hit the ActiveX creation timeout). (#120)
+            if (!Properties.OptionsStartupExitPage.Default.OpenConsFromLastSession ||
+                Properties.OptionsAdvancedPage.Default.NoReconnect)
+            {
+                _pendingConnectionIds.Clear();
+                return;
+            }
+
             var tree = Runtime.ConnectionsService.ConnectionTreeModel;
             if (tree == null) return;
 
