@@ -1051,18 +1051,33 @@ namespace mRemoteNG.UI.Forms
         // activation — not for clicks inside the already-active main window — so it cannot
         // fix this case. Pull keyboard focus onto the clicked input control here. The
         // message is never consumed: the click still reaches the control normally.
+        // TEMP diagnostic for #118 (RDP text boxes unresponsive). Remove once the trace
+        // shows which branch fails. Logs to %LOCALAPPDATA%\mRemoteNG\mRemoteNG.log.
+        private void Diag118(string msg) =>
+            Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, $"[#118-diag] {msg}", true);
+
         private void RedirectClickToInputControl()
         {
             try
             {
-                // Only intervene while a connection host actually owns focus.
-                if (FindInterfaceControl(NativeMethods.GetFocus()) == null)
-                    return;
-
+                IntPtr focusHwnd = NativeMethods.GetFocus();
+                InterfaceControl? focusedIc = FindInterfaceControl(focusHwnd);
                 Control? clicked = FromChildHandle(NativeMethods.WindowFromPoint(MousePosition))
                                    ?? GetChildAtPoint(MousePosition);
-                if (clicked is not (TextBoxBase or ComboBox) || !clicked.IsHandleCreated || !clicked.CanFocus)
+                Diag118($"entry GetFocus=0x{focusHwnd.ToInt64():X} icOwnsFocus={focusedIc != null} clicked={clicked?.GetType().Name ?? "null"}");
+
+                // Only intervene while a connection host actually owns focus.
+                if (focusedIc == null)
+                {
+                    Diag118("abort: FindInterfaceControl(GetFocus()) == null (guard short-circuit)");
                     return;
+                }
+
+                if (clicked is not (TextBoxBase or ComboBox) || !clicked.IsHandleCreated || !clicked.CanFocus)
+                {
+                    Diag118($"abort: clicked is not a focusable input control");
+                    return;
+                }
 
                 // Decide by Win32 focus, not Control.Focused: after the RDP ActiveX receives
                 // Win32 focus the WinForms managed focus chain still reports the previously
@@ -1072,11 +1087,16 @@ namespace mRemoteNG.UI.Forms
                 // Control.Focus() can no-op when WinForms believes it is already focused, so
                 // fall back to a direct Win32 SetFocus.
                 if (HasWin32Focus(clicked))
+                {
+                    Diag118("noop: clicked already has Win32 focus");
                     return;
+                }
 
                 clicked.Focus();
-                if (!HasWin32Focus(clicked))
+                bool afterFocus = HasWin32Focus(clicked);
+                if (!afterFocus)
                     NativeMethods.SetFocus(clicked.Handle);
+                Diag118($"refocus {clicked.GetType().Name}: afterFocus={afterFocus} afterSetFocus={HasWin32Focus(clicked)}");
             }
             catch (Exception ex)
             {
