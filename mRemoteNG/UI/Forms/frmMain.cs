@@ -1053,7 +1053,7 @@ namespace mRemoteNG.UI.Forms
         // message is never consumed: the click still reaches the control normally.
         // TEMP diagnostic for #118 (RDP text boxes unresponsive). Remove once the trace
         // shows which branch fails. Logs to %LOCALAPPDATA%\mRemoteNG\mRemoteNG.log.
-        private void Diag118(string msg) =>
+        private static void Diag118(string msg) =>
             Runtime.MessageCollector?.AddMessage(MessageClass.InformationMsg, $"[#118-diag] {msg}", true);
 
         private void RedirectClickToInputControl()
