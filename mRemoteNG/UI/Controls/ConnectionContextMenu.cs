@@ -1376,6 +1376,7 @@ namespace mRemoteNG.UI.Controls
                 var protocol = connectionInfo.OpenConnections[connectionInfo.OpenConnections.Count - 1];
                 if (protocol != null)
                 {
+                    if (!mRemoteNG.Security.MasterPasswordGate.VerifyMasterPasswordIfSet(connectionInfo, connectionInfo.Name)) return;
                     string password = connectionInfo.Password;
                     if (!string.IsNullOrEmpty(password))
                     {
@@ -1541,9 +1542,10 @@ namespace mRemoteNG.UI.Controls
         private void OnCopyPasswordClicked(object sender, EventArgs e)
         {
             if (_connectionTree.SelectedNode is not ConnectionInfo connectionInfo) return;
+            if (!mRemoteNG.Security.MasterPasswordGate.VerifyMasterPasswordIfSet(connectionInfo, connectionInfo.Name)) return;
             string password = connectionInfo.Password;
-            if (!string.IsNullOrEmpty(password))
-                new WindowsClipboard().SetText(password);
+            if (string.IsNullOrEmpty(password)) return;
+            new WindowsClipboard().SetSecret(password);
         }
 
         private void OnPropertiesClicked(object sender, EventArgs e)

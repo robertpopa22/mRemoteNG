@@ -20,6 +20,12 @@ namespace mRemoteNG.UI.Controls.ConnectionInfoPropertyGrid
             if (provider?.GetService(typeof(IWindowsFormsEditorService)) is not IWindowsFormsEditorService editorService)
                 return value;
 
+            // Re-authenticate before revealing a stored secret (no-op when no custom
+            // master password is set - see MasterPasswordGate).
+            if (!mRemoteNG.Security.MasterPasswordGate.VerifyMasterPasswordIfSet(
+                    context?.Instance as mRemoteNG.Connection.ConnectionInfo))
+                return value;
+
             using var passwordDialog = new PasswordRevealDialog(value as string ?? string.Empty);
             return editorService.ShowDialog(passwordDialog) == DialogResult.OK
                 ? passwordDialog.Password
