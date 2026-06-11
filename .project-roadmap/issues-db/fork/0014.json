@@ -2,11 +2,11 @@
   "number": 14,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Is CVE-2023-30367 fixed or mitigated in this version?",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "krwudtke",
   "created_at": "2026-02-20T21:34:58Z",
-  "github_updated_at": "2026-02-20T21:43:42Z",
+  "github_updated_at": "2026-02-24T17:54:56Z",
   "body_snippet": "I looked for something other than an issue to file this as but couldn't find anything.\n\n@robertpopa22 \nIssue #2420 from the parent project: Public Disclosure of issue 726 seems to be a major vulnerability. Has this been addressed in this branch?\n(I think it has, but I need clarification.)\n\nHow stable is v1.80.2? Since ALL releases on the parent project are apparently Alpha releases, I am looking for a newer stable release to use in a corporate environment. ",
   "our_status": "new",
   "priority": null,
@@ -23,12 +23,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7rpPVl",
+      "author": "robertpopa22",
+      "date": "2026-02-24T16:57:56Z",
+      "snippet": "Good question! **Yes, CVE-2023-30367 is fully mitigated in this fork (v1.81.0).**\n\n### What was CVE-2023-30367?\nThe vulnerability allowed extraction of plaintext credentials from memory dumps because configuration files were fully decrypted into memory at startup and passwords remained in cleartext throughout the application lifetime.\n\n### How it's mitigated in this fork:\n\n1. **On-demand password decryption** — Passwords are only decrypted when a connection is initiated, not kept in plaintext me...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7rqciu",
+      "author": "krwudtke",
+      "date": "2026-02-24T17:54:56Z",
+      "snippet": "Thank you!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-20T21:43:42Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-02-24T17:54:56Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-02-20T22:31:21Z",
+  "last_synced": "2026-05-25T15:49:53Z",
   "notes": ""
 }

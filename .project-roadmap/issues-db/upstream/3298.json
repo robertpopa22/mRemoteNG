@@ -1,0 +1,39 @@
+{
+  "number": 3298,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "GUI broken [1.78.2 NB 3405]",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "1.78.*",
+    ".NET (dotNET)"
+  ],
+  "author": "ponchofiesta",
+  "created_at": "2026-05-04T12:58:17Z",
+  "github_updated_at": "2026-05-07T07:27:32Z",
+  "body_snippet": "I use v1.77.1 as stable version and wanted to try the current build [1.78.2 NB 3405](https://github.com/mRemoteNG/mRemoteNG/releases/tag/20260222-v1.78.2-NB-(3405))\n\nBut right after start the GUI looks not OK and I cannot click anywhere. Nothing happens.\n\n<img width=\"1529\" height=\"1135\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e663f936-01b4-410b-93e4-11911f21442b\" />\n\nEnvironment\n- Windows 11 25H2\n- Multi Monitor with 175% scaling",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABBfdGDQ",
+      "author": "fredriks-eltele",
+      "date": "2026-05-07T07:27:32Z",
+      "snippet": "Workaround: Right click mRemoteNG.exe, select Properties. Go to Compatibility -> Change high DPI settings. Activate overriding high DPI scaling, set it to Application/Program.\n\nLabels might be different, I'm translating by feel from Norwegian.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-05-07T07:27:32Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

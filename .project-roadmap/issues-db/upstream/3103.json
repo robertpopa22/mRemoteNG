@@ -8,7 +8,7 @@
   ],
   "author": "co-xpts",
   "created_at": "2026-02-05T12:42:35Z",
-  "github_updated_at": "2026-03-06T15:21:31Z",
+  "github_updated_at": "2026-05-22T17:01:46Z",
   "body_snippet": "Does the web site mremoteng.COM belong to this project?\n\nIt - sometimes - redirects to malware and other unwanted URLs.\nIf it belongs to you please check your ad providers and other includes. Thank you.",
   "our_status": "wontfix",
   "priority": null,
@@ -104,12 +104,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABDXfCiQ",
+      "author": "zerobitflux",
+      "date": "2026-05-22T17:01:45Z",
+      "snippet": "## ⚠️ Warning: This project is being impersonated\n\nAn untrusted website at `mremoteng.com` is impersonating this project. The site poses as an official resource. While it currently links to GitHub for downloads, **the site operator can replace these links with malicious files at any moment** without warning.\n\n### What the site does\n\n- Copies the project name, description, and branding to appear legitimate\n- Currently links to GitHub downloads, but these links are **under the site operator's cont...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-03-06T15:21:31Z",
-  "unread_comments": 9,
+  "comments_cursor": "2026-05-22T17:01:46Z",
+  "unread_comments": 10,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "Manual triage: The mremoteng.COM domain is not owned by the mRemoteNG project. The official site is mremoteng.org. Domain squatting/malware is outside our control."
 }

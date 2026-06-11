@@ -1,0 +1,41 @@
+{
+  "number": 3285,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Bug] 1.78.2.3405 - Application window not visible",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "Need 2 check",
+    "1.78.*",
+    ".NET (dotNET)",
+    "Nightly Build"
+  ],
+  "author": "femarschall",
+  "created_at": "2026-04-24T15:01:46Z",
+  "github_updated_at": "2026-05-06T09:58:44Z",
+  "body_snippet": "I've already installed this version on other computers and it worked fine.\n\nOn my main PC I deleted the old application and appdata folders but I cannot see the application window when I launch it:\n\n<img width=\"1918\" height=\"1072\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e2305cce-3654-4b1b-9f07-8bda653a0281\" />\n\nThe \"move\" window also does not work:\n\n<img width=\"385\" height=\"217\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4531ec90-9d1f-417e-b3d4-6971d0b528ad\" ...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABASViGw",
+      "author": "femarschall",
+      "date": "2026-04-24T15:08:57Z",
+      "snippet": "I just tested build 3228 and I also have a weird behavior:\n\n<img width=\"1134\" height=\"600\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4ab58523-a5a2-492d-8c6e-fbcf345db621\" />\n\n--\n\nMy last fully working version is v1.78.2.2932",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-05-06T09:58:44Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

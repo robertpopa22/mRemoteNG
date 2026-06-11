@@ -1,0 +1,251 @@
+{
+  "number": 113,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Error using SQL Server database",
+  "state": "open",
+  "labels": [],
+  "author": "xPortu",
+  "created_at": "2026-05-04T09:10:16Z",
+  "github_updated_at": "2026-06-02T11:29:36Z",
+  "body_snippet": "I am trying to configure mRemoteNG to use a SQL Server database as the backend instead of the default file-based configuration, but I am having issues when saving new connections.\n\nSteps already performed:\n\nI created a new SQL Server database specifically for mRemoteNG.\nI created a dedicated SQL user (mRemote) and granted it sysadmin / sa-level permissions (for testing purposes).\nUsing this user, mRemoteNG is able to connect to the database and automatically creates all required tables without a...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-25",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-05-26",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-05-26",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-05-27",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-05-27",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-05-28",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 7,
+      "date": "2026-05-29",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 8,
+      "date": "2026-05-29",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 9,
+      "date": "2026-06-02",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhh3g",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:42Z",
+      "snippet": "Thanks — your screenshot had everything needed. The error is:\n\n> *ExecuteReader requires the command to have a transaction when the connection assigned to the command is in a pending local transaction. The Transaction property of the command has not been initialized.*\n\n**Cause:** the SQL save was recently wrapped in a single transaction for atomicity, but one step — reading the current `tblCons` rows to build the update — ran its `SELECT` without enlisting in that transaction. SqlClient refuses ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDiZaiQ",
+      "author": "xPortu",
+      "date": "2026-05-25T07:21:38Z",
+      "snippet": "Hi @robertpopa22 ,\n\nThis erros gone, but now when i create a new conection (clean) y get this error:\n\n<img width=\"397\" height=\"165\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/9adb77f8-6b5a-440e-aea8-203cd1b7496b\" />\n\nCan you check this?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDjxfzg",
+      "author": "robertpopa22",
+      "date": "2026-05-25T11:14:21Z",
+      "snippet": "Good catch — that's a second, separate bug the transaction fix exposed, not a regression of the first one.\n\n**Cause:** `tblCons` has a database-generated `RowVersion` column (`rowversion` on MSSQL, `TIMESTAMP` on MySQL) defined `NOT NULL`. When the connections are loaded into the in-memory table, that `NOT NULL` constraint is copied along with it. A brand-new connection has no `RowVersion` value yet, so building its row threw *\"Column 'RowVersion' does not allow nulls\"* before the save ever reac...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDkXCeQ",
+      "author": "xPortu",
+      "date": "2026-05-25T12:56:10Z",
+      "snippet": "Thanks for you time @robertpopa22\n\nWhen i try to import conections from mRemoteNG 1.76.20 to ur fork  get this error:\n\n<img width=\"713\" height=\"372\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/bfb210e7-7ec2-4045-a4fc-3dfc20568c3e\" />\n\nIf y tried to do a database clone from original database with format 1.76.20 and then i try to connect trought ur fork  get to many errorrs like this:\n\n<img width=\"690\" height=\"371\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/93009a9...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDlZgoA",
+      "author": "robertpopa22",
+      "date": "2026-05-25T15:48:54Z",
+      "snippet": "Thanks — the three screenshots pin down three separate problems on the import-from-1.76.20 path, all fixed for the next nightly:\n\n1. **`Column 'RowVersion' is constrained to be unique. Value '' is already present`** — my earlier fix relaxed RowVersion's NOT NULL but not its UNIQUE constraint, so importing several connections at once (all with a not-yet-assigned RowVersion) collided. The in-memory table now drops both the unique and not-null constraints on that database-generated column; SQL Serv...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDsLXeA",
+      "author": "xPortu",
+      "date": "2026-05-26T09:10:18Z",
+      "snippet": "Tahnks @robertpopa22 \n\nNow export from mremote 1.76 (mremote.xml) to nmemote_CE 1.82 nighly runs OK and save the conection on bbdd (new bbbd)\n\nIf i config the old bbdd on rmemote CE 1.82 i got this error:\n\n<img width=\"466\" height=\"221\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/787c4e4b-6de0-47e6-819c-1e2ed2125ccc\" />\n\nCould you tell me the version that created the source database?\n\nThe conFVersion on tbleRoot is 2,6 (from mremote 1.76)\n\nHere is the log:\n\n**[CENSORED!] Links to ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDswrSg",
+      "author": "robertpopa22",
+      "date": "2026-05-26T10:10:46Z",
+      "snippet": "The screenshot was enough to pin it — thanks.\n\nYour source database is fine. The `ConfVersion 2.6` on `tblRoot` is from the original **mRemote 1.76**, and mRemoteNG runs its schema through a chain of version upgraders to bring it up to the current 3.4. The error you hit (`Incorrect syntax near the keyword 'DEFAULT'` twice + `near '.'`, in `VerifyDatabaseVersion`) is a **bug in one of those upgrader steps**, not in your data.\n\n**Root cause:** the 2.9 → 3.0 migration step (`SqlVersion29To30Upgrade...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABD2tBoA",
+      "author": "xPortu",
+      "date": "2026-05-27T10:22:46Z",
+      "snippet": "I still have errors to migrate database 1.76 to 1.82 last nightly. There is the error:\n\n<img width=\"556\" height=\"419\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/ff7a5e38-c121-4284-b4ea-e4c92672852d\" />\n\nThe is the log :\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n\nThanks to much!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABD3KR_w",
+      "author": "robertpopa22",
+      "date": "2026-05-27T11:32:20Z",
+      "snippet": "You've stayed with this across several rounds, and that patience is exactly what's letting us peel back these migration layers one at a time — thank you.\n\nGood news first: your screenshot shows the previous error is gone. The 1.76 → 1.82 upgrade now gets *past* the 2.9 → 3.0 step and stops at a later one — real forward progress. The new error is a different, finer issue in the same chain:\n\n> The object 'PK_tblCons' is dependent on column 'ConstantID' — ALTER COLUMN ConstantID failed because one ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEAwnTg",
+      "author": "xPortu",
+      "date": "2026-05-28T12:59:57Z",
+      "snippet": "Hi @robertpopa22 thank you very much for your time. \n\nAbout use a 1.76 database (version 2.6) no problem, i'm doing it all time.\n\nHere is another problem. With nthe last build i try to upgrade de database and i get this error:\n\n<img width=\"490\" height=\"210\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/012eb009-0ba3-4209-b1f7-75fc8b926bab\" />\n\nThe database broke at upgrading to version 3.2. There is the log:\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n\nTh...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEBmJdg",
+      "author": "robertpopa22",
+      "date": "2026-05-28T14:29:16Z",
+      "snippet": "Round after round, you keep handing us exactly the evidence we need — and this one was a genuinely subtle catch. Thank you, @xPortu.\n\nThe good news again: the previous PK error is gone, and the upgrade now reaches the 3.1 → 3.2 step before stopping. The new message:\n\n> Incorrect syntax near 'QUOTENAME'\n\nis a fine T-SQL nuance in the fix I just shipped. To drop the primary key regardless of its name, that step built the `DROP CONSTRAINT` statement like this:\n\n```sql\nEXEC(N'ALTER TABLE tblCons DRO...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEH3TLA",
+      "author": "xPortu",
+      "date": "2026-05-29T06:43:12Z",
+      "snippet": "Hi @robertpopa22 .\n\nThere is another error now ;)\n\n<img width=\"509\" height=\"261\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5746dd9f-e260-4c67-ab94-7be00cbeeb17\" />\n\nThe upgrade that i did is from database 2.6. On bbdd the database version still in 3.1\n\nTe log is here: \n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n\nThanks in advance",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEL28qQ",
+      "author": "robertpopa22",
+      "date": "2026-05-29T13:38:22Z",
+      "snippet": "Another precise catch — thank you, @xPortu. Each time you re-import that 2.6 database and hand back the exact error, you peel off one more migration layer, and this one is the deepest yet.\n\nGood news: the PK and `QUOTENAME` problems are gone — the upgrade now runs all the way into the 3.1 → 3.2 schema tightening before stopping. The new error:\n\n> Cannot insert the value NULL into column 'SSHOptions', table 'tblCons'; column does not allow nulls. UPDATE failed.\n\nis SQL Server validating *existing...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEj0RwQ",
+      "author": "xPortu",
+      "date": "2026-06-02T09:21:38Z",
+      "snippet": "Hi @robertpopa22 \n\nFirst of all, thanks for your time.\n\nI tried again and i had this error:\n\n<img width=\"507\" height=\"255\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/8c7dfbea-c85d-437b-b73d-c67ad0f8f408\" />\n\nHere is the log too:\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**\n\n\nOn database the version is still 3.1.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEkwRxQ",
+      "author": "robertpopa22",
+      "date": "2026-06-02T11:29:36Z",
+      "snippet": "The screenshot was exactly what I needed, @xPortu — thank you for grabbing it (and no worries about the log; the error dialog told the whole story). You've now walked this 2.6 database through every migration layer one at a time, and this is the next wall.\n\n**What's happening:** the error\n\n> The object `DF__tblExtern__Argum__18EBB532` is dependent on column 'Arguments'. ALTER TABLE ALTER COLUMN Arguments failed…\n\nis SQL Server refusing to change a column's type while a **default constraint** is ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-02T11:29:36Z",
+  "unread_comments": 7,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-02T11:30:13Z",
+  "notes": "fix shipped f2e1ecc9b (drop+readd tblExternalTools default constraints before 3.1->3.2 ALTERs); awaiting xPortu confirm on nightly"
+}

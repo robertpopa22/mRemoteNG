@@ -1,0 +1,29 @@
+{
+  "number": 3307,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Cannot access a disposed object",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "1.78.*",
+    "Nightly Build"
+  ],
+  "author": "D3vil787",
+  "created_at": "2026-05-13T08:54:54Z",
+  "github_updated_at": "2026-05-13T10:22:35Z",
+  "body_snippet": "```\nСообщение исключения\n\"Cannot access a disposed object.\nObject name: 'ConnectionWindow'.\"\n\nТрассировка стека\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args, Boolean synchronous)\n--- End of stack trace from previous location ---\n   at System.Windows.Forms.Control.MarshaledInvoke(Control caller, Delegate method, Object[] args,...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-13T10:22:35Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

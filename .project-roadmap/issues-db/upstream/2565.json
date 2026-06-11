@@ -9,7 +9,7 @@
   ],
   "author": "DaveSchopp",
   "created_at": "2024-02-14T18:52:11Z",
-  "github_updated_at": "2026-02-26T13:44:20Z",
+  "github_updated_at": "2026-04-04T12:49:43Z",
   "body_snippet": "## Expected Behavior\r\nExpect the ability to specify the information in the Config that's found in .RDP files, specifically the alternate address, redirection server, workspace ID name, and load balance info, then connect successfully.\r\n\r\n## Current Behavior\r\nI can enter the load balance info, not the other information. Connection to the server fails.  A connection window appears and closes immediately.\r\n\r\n## Context\r\nI’m trying to connect to a local server that has the following lines in the .RD...",
   "our_status": "wontfix",
   "priority": "P3-enhancement",
@@ -54,12 +54,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM7ylC6Q",
+      "author": "DaveSchopp",
+      "date": "2026-03-16T18:38:57Z",
+      "snippet": "Please retest on the latest build (fork v1.79.x or upstream dev)\r\n\r\nMost recent release I see to download is \"mRemoteNG 1.78.2 NB 3405\" unless 1.79 is available somewhere else?\r\n\r\n - Dave\r\n________________________________\r\nFrom: robertpopa22 ***@***.***>\r\nSent: Saturday, February 7, 2026 12:52 PM\r\nTo: mRemoteNG/mRemoteNG ***@***.***>\r\nCc: DaveSchopp ***@***.***>; Author ***@***.***>\r\nSubject: Re: [mRemoteNG/mRemoteNG] RDP Load Balance and Redirection Server (Issue #2565)\r\n\r\n[https://avatars.gith...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM75DAW6",
+      "author": "DaveSchopp",
+      "date": "2026-04-02T14:30:24Z",
+      "snippet": "Please consider this issue closed from my end.\r\nCompany security policy has dictated I remove mRemoteNG from my device.\r\nMy apologies and my appreciation for your assistance.\r\n\r\n\r\n  *\r\nDave\r\n\r\n________________________________\r\nFrom: David Schopp ***@***.***>\r\nSent: Monday, March 16, 2026 12:38 PM\r\nTo: mRemoteNG/mRemoteNG ***@***.***>\r\nSubject: Re: [mRemoteNG/mRemoteNG] RDP Load Balance and Redirection Server (Issue #2565)\r\n\r\nPlease retest on the latest build (fork v1.79.x or upstream dev)\r\n\r\nMos...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM75kaLy",
+      "author": "Kvarkas",
+      "date": "2026-04-04T12:48:56Z",
+      "snippet": "@DaveSchopp  hello, our build I support is only 1.78.2-dev, its still in testing, other builds please contact maintainer on his repository.  ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T13:44:20Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-04-04T12:49:43Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "Feature: RDP Load Balance Info and Redirection Server fields. Niche RDP feature."
 }

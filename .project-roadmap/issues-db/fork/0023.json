@@ -2,7 +2,7 @@
   "number": 23,
   "repo": "robertpopa22/mRemoteNG",
   "title": "[Crash] System.NullReferenceException: Object reference not set to an instance of an object.",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "bug",
     "crash-report",
@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-02-27T12:14:50Z",
-  "github_updated_at": "2026-02-27T12:21:19Z",
+  "github_updated_at": "2026-03-07T07:41:08Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NullReferenceException`\r\n**Message:** Object reference not set to an instance of an object.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.Integration.ApplicationInterop.EnableModelessKeyboardInterop(Window window)\r\n   at void mRemoteNG.App.ProgramRoot.ShowSplashOnStaThread()+() => { } in D:/a/mRemoteNG/mRemoteNG/mRemoteNG/App/ProgramRoot.cs:line 379\r\n   at void System.Threading.Thread.StartCallback()\r\n```\r\n\r\n### Environment\r\n```\r\nOS:...",
   "our_status": "new",
   "priority": null,
@@ -27,12 +27,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7vXTmu",
+      "author": "robertpopa22",
+      "date": "2026-03-07T07:41:00Z",
+      "snippet": "Fixed in commit **[CENSORED!] Links to external GitHub repositories are not allowed** — `EnableModelessKeyboardInterop` is now wrapped in try-catch. The WPF `PresentationSource` may not be initialized when the splash screen thread starts, causing a `NullReferenceException` deep inside the WPF interop layer.\n\nAvailable in the latest **[CENSORED!] Links to external GitHub repositories are not allowed**.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-27T12:21:19Z",
+  "comments_cursor": "2026-03-07T07:41:08Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T15:49:53Z",
   "notes": ""
 }

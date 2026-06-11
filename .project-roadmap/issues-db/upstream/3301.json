@@ -1,0 +1,29 @@
+{
+  "number": 3301,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "an unhandled exception",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "Need 2 check",
+    "1.78.*",
+    ".NET (dotNET)"
+  ],
+  "author": "benson-wang-tfs",
+  "created_at": "2026-05-06T05:30:10Z",
+  "github_updated_at": "2026-05-06T09:51:14Z",
+  "body_snippet": "```\nException Message\n\"\"\n\nStack trace\n   at mRemoteNG.UI.Window.ConfigWindow.CheckHostAlive(Object hostName) in E:\\Work\\mRemoteNG\\1.78.2-dev\\mRemoteNG\\UI\\Window\\ConfigWindow.cs:line 594\n   at mRemoteNG.UI.Window.ConfigWindow.CheckHostAlive(Object hostName) in E:\\Work\\mRemoteNG\\1.78.2-dev\\mRemoteNG\\UI\\Window\\ConfigWindow.cs:line 594\n   at System.Threading.Thread.StartHelper.Callback(Object state)\n   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallbac...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-06T09:51:14Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

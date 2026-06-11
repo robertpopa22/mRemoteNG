@@ -1,0 +1,167 @@
+{
+  "number": 120,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "SQL Server Connection Error",
+  "state": "open",
+  "labels": [],
+  "author": "kaansengul",
+  "created_at": "2026-05-26T16:01:41Z",
+  "github_updated_at": "2026-06-08T12:31:19Z",
+  "body_snippet": "First I wrote server name, login and password (for SQL Server Auth), then it gave me this error:\n\n```\n---------------------------\nError (5/25/2026 11:48:06 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Cannot find the object \"tblExternalTools\" because it does not exist or you do not have permissions.\n---------------------------\nOK   \n---------------------------\n```\n\nThen I wrote Database name in field \"Database\" as \"mRemoteNG\", then it gave me this error...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-27",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-05-27",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-05-31",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-06-01",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-06-05",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-06-08",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABD3KSew",
+      "author": "robertpopa22",
+      "date": "2026-05-27T11:32:21Z",
+      "snippet": "Thanks for the detailed report — both errors are already understood and being fixed under #113.\n\n- **First error** (`Cannot find the object \"tblExternalTools\"`): this happens when the **Database** field is left empty, so mRemoteNG connects to the server's default database instead of the one holding your tables. Filling in the database name (as you did) is the right move.\n- **Second error** (`Incorrect syntax near 'DEFAULT'` … near a backtick): a genuine bug in the schema-upgrade steps that run w...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEWx38w",
+      "author": "kaansengul",
+      "date": "2026-05-31T16:22:31Z",
+      "snippet": "I've tested the latest nightly build, it works except I have write database name. Maybe it can be \"mRemoteNG\" as default value.\n\nAnd I think that setting page requires a new design.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEW6HvQ",
+      "author": "robertpopa22",
+      "date": "2026-05-31T17:00:04Z",
+      "snippet": "Thanks for testing the nightly and confirming it works, @kaansengul! On your two follow-ups:\n\n- **Default database name:** done — the **Database** field now defaults to `mRemoteNG` (`b1b8da832`), so a fresh configuration no longer falls back to the server's default database (which is what triggered the `tblExternalTools` \"cannot find the object\" error). It'll be in an upcoming nightly; existing saved values are left as-is.\n- **Settings page redesign:** noted. If you can point at what specificall...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEW_bWQ",
+      "author": "kaansengul",
+      "date": "2026-05-31T17:36:05Z",
+      "snippet": "Some notes:\n- There is no need \"simple\" and \"advanced\" tab panels, just use \"advanced\" \n- Rename \"Autentifcation\" to \"Authentication\"\n- Rename \"login\" to \"Username\". (Also here there is a bug. After you enter username hit \"OK\" then exit and run app again, username field is empty)\n- There are so many spaces around fields.\n- Even it is a personal computer there is a warning on top of the screen: \"Some settings are determined by your company.\"",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEaVQZQ",
+      "author": "robertpopa22",
+      "date": "2026-06-01T08:52:50Z",
+      "snippet": "Thank you so much for the detailed, hands-on feedback, @kaansengul — testers who actually click through every field and report each rough edge are exactly what makes this fork better. I went through all five notes:\n\n**Fixed now (`aeeea68d8`, next nightly):**\n- **Username empties after restart** — great catch, this was a real bug. Loading the saved settings re-selected the auth type, and that handler was wiping the username field right after it had been loaded; the empty value then got saved. The...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE-dXPw",
+      "author": "kaansengul",
+      "date": "2026-06-05T06:39:25Z",
+      "snippet": "Now I realize two things:\n - First startup is so slow. In the log file it indicates: \"[Startup] LoadConnections: 54490ms\"\n - When it is done, it gives this error: \"RDP ActiveX control creation timed out after 10 seconds.\"",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE_tO6w",
+      "author": "robertpopa22",
+      "date": "2026-06-05T09:47:35Z",
+      "snippet": "Thanks for the follow-up, @kaansengul — glad the original SQL/username issue is sorted. These two new symptoms look separate from that, so let me get the right detail to chase them:\n\n**1. `LoadConnections: 54490ms` (54 seconds)** — that's far beyond normal (startup is usually ~1s even with a couple hundred connections), so something specific is going on. Could you tell me:\n- Roughly how many connections are in your tree?\n- Is your connection file (`confCons.xml`) on a **local disk** or a **netwo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE_5eRw",
+      "author": "kaansengul",
+      "date": "2026-06-05T10:04:08Z",
+      "snippet": "Answers:\n1) I've only set SQL server connection and in it, 132 connections are there. confCons.xml is in local.\n2) No, it's not checked but I realize that even it is not checked in, it tries to connect last session(s)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABFRoh8Q",
+      "author": "robertpopa22",
+      "date": "2026-06-08T12:31:19Z",
+      "snippet": "Thanks, that detail cracked it — \"unchecked but it still reconnects last sessions\" pointed straight at a real bug. 🎯\n\nThere were **two** separate \"reopen last session\" mechanisms, and only one of them honored your **Reconnect on startup** checkbox. The other — the one that restores your saved window layout — was reopening every connection tab that was open when you last closed mRemoteNG, *regardless* of that setting. With your 132-connection SQL setup that's a lot of sessions firing at once, whi...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-08T12:31:19Z",
+  "unread_comments": 4,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-08T12:33:39Z",
+  "notes": "fix ec29604c4 (gate dock-layout ProcessPendingConnections by OpenConsFromLastSession); stops ungated reconnect + RDP ActiveX flood; 54s LoadConnections perf still open (asked cold-vs-every + SQL local/remote)"
+}

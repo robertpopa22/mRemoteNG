@@ -1,0 +1,29 @@
+{
+  "number": 3254,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Enhancement] Add visual focus indication to CTaskDialog buttons",
+  "state": "open",
+  "labels": [
+    "Enhancement",
+    "UI/UX",
+    "Theming",
+    "1.78.*"
+  ],
+  "author": "julesbobb",
+  "created_at": "2026-04-05T10:20:00Z",
+  "github_updated_at": "2026-05-06T09:52:58Z",
+  "body_snippet": "## Description\nCurrently, when buttons in the `CTaskDialog` receive keyboard focus, there is no visual indication to the user that the button is focused. This makes it difficult for users who navigate using keyboard (Tab key) to know which button is currently selected, reducing accessibility and usability.\n\n## Current Behavior\n- Buttons in `CTaskDialog` (both standard buttons like Yes/No/OK and custom CommandButtons) do not display any visual feedback when they have keyboard focus\n- Users naviga...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-06T09:52:58Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

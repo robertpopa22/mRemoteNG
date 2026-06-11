@@ -1,0 +1,35 @@
+{
+  "number": 128,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Harden credential copy/reveal: re-auth gate + clipboard hygiene (upstream #2598)",
+  "state": "open",
+  "labels": [],
+  "author": "robertpopa22",
+  "created_at": "2026-06-09T14:31:44Z",
+  "github_updated_at": "2026-06-09T14:31:44Z",
+  "body_snippet": "Tracks the security hardening of the on-demand credential-exposure actions (Copy Password / Type Password / reveal), originally requested upstream in [mRemoteNG/mRemoteNG#2598](https://github.com/mRemoteNG/mRemoteNG/issues/2598).\n\n**Background.** In #2598 @nmg196 argued a copy/export feature isn't a security risk — password managers export to CSV / copy to clipboard, and \"it's only a problem if extractable without the master password,\" suggesting a re-prompt on copy. @Kvarkas (maintainer) is ali...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-06-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-06-09T14:31:44Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-09T14:33:27Z",
+  "notes": "self-authored tracking issue; cred-reveal hardening shipped 0e7b9c75e, ref upstream #2598"
+}

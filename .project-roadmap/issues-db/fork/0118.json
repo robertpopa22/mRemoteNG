@@ -1,0 +1,110 @@
+{
+  "number": 118,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Connecting to a server via RDP stops text boxes being responsive while the server is the active tab",
+  "state": "open",
+  "labels": [],
+  "author": "RyanNHS",
+  "created_at": "2026-05-14T12:36:18Z",
+  "github_updated_at": "2026-06-05T08:19:50Z",
+  "body_snippet": "Using the latest nightly build. \n\nWhen opening an RDP session and the server is the active tab, you cannot edit any text boxes in the toolbars or connections pane as it redirects all input into the active RDP window. If you open a new connection tab not connected to a server or right-click the active connection and disconnect, you can once again use the text fields. ",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-29",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-06-02",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-06-05",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhhnA",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:40Z",
+      "snippet": "Fixed for the next nightly.\n\n**Cause:** while an RDP tab is the active connection, the embedded MSTSC ActiveX control keeps Win32 keyboard focus. Clicking a text box in the toolbar or the connections pane couldn't pull focus away from it, so your keystrokes went to the remote session. The existing focus-handoff only triggers when the whole window is (re)activated — e.g. Alt-Tabbing back in — not for a click *inside* the already-active window, which is why opening a non-server tab \"fixed\" it temp...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEJ3zMg",
+      "author": "RyanNHS",
+      "date": "2026-05-29T10:14:23Z",
+      "snippet": "Thanks for looking into this. Unfortunately, the issue still occurs for me in the latest nightly even with clearing folders from appdata and with an uninstall then reinstalling the latest",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEL29sQ",
+      "author": "robertpopa22",
+      "date": "2026-05-29T13:38:23Z",
+      "snippet": "Thank you for taking the time to clear the appdata folders, reinstall, and re-test on the nightly — that's exactly the kind of clean-environment check that saves us chasing ghosts, and I really appreciate the effort.\n\nSince the focus fix didn't help in your case, I'd like to make sure I'm reproducing the *same* text box you are. Could you tell me:\n\n1. **Which text box** stops responding — the quick-connect box in the toolbar, the search/filter box above the connection tree, a field in the connec...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEb-68Q",
+      "author": "RyanNHS",
+      "date": "2026-06-01T12:51:52Z",
+      "snippet": "https://streamable.com/9xv1b6\n\nI've done a quick video above (couldn't direct attach the video file). Config/about tab seems to pull the focus correctly. Clicking in the config tab or about tab, it then allows typing in another field, after you can click the RDP and type and then click back into the connection box and it will allow typing still, but if then clicking the RDP and back once more it then no longer works\n\nWhich text box stops responding — the quick-connect box in the toolbar, the sea...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEka34Q",
+      "author": "robertpopa22",
+      "date": "2026-06-02T10:43:05Z",
+      "snippet": "That video is gold, @RyanNHS — thank you for taking the time to record it and walk through the exact click sequence. It pinned the bug precisely: it's not the first focus switch that fails, it's the **second** RDP→text-box cycle, and your \"mouse selects text but no caret, keys still go to RDP\" detail was the decisive clue.\n\n**What was happening:** the embedded RDP control is a native Win32 window. After it takes keyboard focus a second time, Windows holds the real focus on it, but mRemoteNG's UI...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE_FhBg",
+      "author": "RyanNHS",
+      "date": "2026-06-05T08:19:50Z",
+      "snippet": "I have tested with an uninstall/app data clear on the Version: v1.82.0-beta.3, Date: 20260604 but unfortunately the exact same is still happening",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-05T08:19:50Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-05T09:47:36Z",
+  "notes": "diag build 11d9c4fbc shipped ([#118-diag] refocus-path trace); prior fix e592f8d8f didnt reach refocus per RyanNHS; awaiting trace"
+}

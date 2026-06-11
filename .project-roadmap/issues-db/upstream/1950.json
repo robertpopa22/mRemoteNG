@@ -9,7 +9,7 @@
   ],
   "author": "rohrkemper",
   "created_at": "2021-04-11T11:13:43Z",
-  "github_updated_at": "2026-02-26T14:03:29Z",
+  "github_updated_at": "2026-03-30T02:12:26Z",
   "body_snippet": "I'm working sometimes on a 4K monitor and sometimes on a 5K 2K monitor. I'd like to have the zoom set to 200%. I've seen some very specific issues related to this question, but no general explanation. Could someone help me get started even if there's no optimal solution? I have a very high bandwidth connection. Which other settings would you recommend to have the best display quality possible?",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -41,7 +41,7 @@
       "id": "MDEyOklzc3VlQ29tbWVudDgyNTcwMzU5MQ==",
       "author": "VShawn",
       "date": "2021-04-23T14:37:34Z",
-      "snippet": "sometimes zooming just not work(but sometime it works) for me with mRemoteNG & 4K monitor, and it will blur\r\n\r\nyou can try **[censored]**, it will zoom on your 4k monitor as long as you set the zoom on local machine.",
+      "snippet": "sometimes zooming just not work(but sometime it works) for me with mRemoteNG & 4K monitor, and it will blur\n\nyou can try **[CENSORED!] Links to external GitHub repositories are not allowed** it will zoom on your 4k monitor as long as you set the zoom on local machine.",
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
@@ -74,10 +74,10 @@
       "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-26T14:03:29Z",
+  "comments_cursor": "2026-03-30T02:12:26Z",
   "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "AI triage (gemini): Users are unable to easily locate or understand the existing resolution and desktop scaling settings for remote connections, particularly 'DesktopScaleFactor', which directly relates to 'zoom level'.\nApproach: Enhance the UI to make existing resolution and desktop scaling settings, especially 'DesktopScaleFactor', more prominent and understandable to users. This may involve renaming UI labels, reorganizing options, or adding tooltips/documentation links."
 }

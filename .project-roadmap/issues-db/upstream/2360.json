@@ -10,7 +10,7 @@
   ],
   "author": "AdrianKielbowicz",
   "created_at": "2023-02-28T16:18:13Z",
-  "github_updated_at": "2026-02-26T14:21:32Z",
+  "github_updated_at": "2026-04-24T06:16:21Z",
   "body_snippet": "Can Yubikeys be used within mRemoteNG and passed through to an RDP session for authentication?",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -115,12 +115,48 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABAAMpXg",
+      "author": "FranzMo",
+      "date": "2026-04-22T09:43:19Z",
+      "snippet": "I have now tested it with build 20260324 (v1.82.0-beta.3) – unfortunately without success.\nDo I need to set anything specific in the connection settings?\nRegards,\nFranz",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABAHZa_w",
+      "author": "robertpopa22",
+      "date": "2026-04-23T08:07:54Z",
+      "snippet": "Hi Franz — thanks for taking the time to test.\n\nI owe you an honest update: my earlier \"fix available\" comment was premature. The beta you tested contains UI scaffolding but the underlying RDP property plumbing (`redirectwebauthn:i:1` via `IMsRdpExtendedSettings`) was never actually wired through the full connection pipeline. That's why it silently does nothing on your end — nothing specific you need to set in the connection settings, the code simply isn't there yet.\n\nI attempted the proper impl...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABAJU6xQ",
+      "author": "robertpopa22",
+      "date": "2026-04-23T13:26:45Z",
+      "snippet": "Hi Franz — quick follow-up on my previous message.\n\nThe fix is now actually implemented and shipped. Commit `2e40adc6b` on `main` adds the full RDP property pipeline for `RedirectWebAuthn`, wired through every serializer surface (XML, CSV, SQL) plus the live `IMsRdpExtendedSettings.Property[\"RedirectWebAuthn\"]` call on the MSTSC ActiveX control.\n\nAvailable in the latest nightly build: **[CENSORED!] Links to external GitHub repositories are not allowed** (timestamp >= 2026-04-23).\n\n**To test:**\n1...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABAPYhHA",
+      "author": "FranzMo",
+      "date": "2026-04-24T06:16:13Z",
+      "snippet": "Hello Robert,\nI have also tested this version. Unfortunately, without success.\nPlease find attached the file mRemoteNG Connection Manager.log.\n\n**[CENSORED!] Links to external GitHub repositories are not allowed**",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T14:21:32Z",
-  "unread_comments": 6,
+  "comments_cursor": "2026-04-24T06:16:21Z",
+  "unread_comments": 8,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "AI triage: Confirmed reproducible feature request with clear technical path — mRemoteNG needs to expose the redirectwebauthn:i:1 RDP option for FIDO2/WebAuthn passkey forwarding\nApproach: Add a WebAuthn/FIDO2 redirection property to ConnectionInfo and wire it to set redirectwebauthn:i:1 on the RDP client ActiveX control via the newer IConnectionPointContainer/IMsRdpExtendedSettings interfaces"
 }

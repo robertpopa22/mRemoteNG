@@ -1,0 +1,287 @@
+{
+  "number": 110,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Window does not close after one tab has been closed and reconnected",
+  "state": "closed",
+  "labels": [],
+  "author": "meyergru",
+  "created_at": "2026-04-27T06:24:53Z",
+  "github_updated_at": "2026-06-04T07:42:00Z",
+  "body_snippet": "The issue has reappeared. From your answer here:\n\nhttps://github.com/robertpopa22/mRemoteNG/issues/90#issuecomment-4294746530\n\n> **2. Close button doesn't actually close (it minimises)** This is working as designed when `CloseToTray` is on. Tools → Options → Appearance → uncheck `Close to Tray` and the X button quits the app. If you can still reproduce the \"X minimises\" behaviour with `Close to Tray` off, reopen and I'll dig in.\n> \n\nClosing the window works initially, but try ending an SSH sessi...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-25",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-05-25",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-05-26",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-05-26",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-05-26",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-06-03",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 7,
+      "date": "2026-06-04",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 8,
+      "date": "2026-06-04",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 9,
+      "date": "2026-06-04",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhhvA",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:41Z",
+      "snippet": "Reproduced and fixed for the next nightly — thanks for the precise repro (Ctrl-D, then reconnect).\n\n**Cause:** with `Keep tabs open after disconnect` on (the default), closing the app while that reconnected tab is active re-runs the keep-open path and leaves a disconnected *placeholder* tab in the dock. The exit check counted **every** tab as an \"open connection,\" so the leftover placeholder kept the count above zero and the close was silently cancelled — the X appeared to do nothing.\n\nThe open-...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbrhfQ",
+      "author": "meyergru",
+      "date": "2026-05-23T12:18:31Z",
+      "snippet": "The handling without \"Keep tabs open after disconnect\" is somewhat off, still (the tabs stays open, which is unexpected, but then you cannot close the application via the close button), but with it enabled, it works now as expected.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDjxhIw",
+      "author": "robertpopa22",
+      "date": "2026-05-25T11:14:25Z",
+      "snippet": "Thanks for testing both cases.\n\nWith **Keep tabs open after disconnect** *off*, the disconnect path closed the tab but never detached or disposed the underlying connection control, and it left the tab's internal reference pointing at it — unlike the keep-open path, which cleans both up. A lingering tab therefore still looked like it held a *live* connection, so the exit check counted it and silently cancelled the close. That's why the X button stopped working after an SSH Ctrl-D + reconnect.\n\n**...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDj6-Vg",
+      "author": "meyergru",
+      "date": "2026-05-25T11:40:05Z",
+      "snippet": "I installed the new version. I have set to re-open old connections. With 2 connections open, I stop and re-start.\n\nI can close with the close button no problem. However, when I then open and successfully close a third tab, the close button does not work. Interestinggly enough, when I close it from the task bar, and then restart, I still cannot close the window - that is, UNLESS I re-open the third tab manually - only then can I close via the close button.\n\nThis is with \"Keep tabs open after disc...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDleJEg",
+      "author": "robertpopa22",
+      "date": "2026-05-25T16:03:17Z",
+      "snippet": "Thanks for the detailed retest.\n\nThe close-button fix from your previous report only landed in the nightly built around 11:40 UTC today — your test was almost certainly on the build just before it, so it didn't have the fix yet. Could you retry on tonight's nightly?\n\nYour new repro is very useful. The \"open + close a 3rd tab, then the X dies and survives a restart until I reopen that tab\" pattern points at closed/disconnected tabs being remembered in the *reopen-on-restart* list and silently reo...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDlpUBQ",
+      "author": "meyergru",
+      "date": "2026-05-25T16:40:03Z",
+      "snippet": "I sure can do that tomorrow.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDl4ttQ",
+      "author": "meyergru",
+      "date": "2026-05-25T17:27:28Z",
+      "snippet": "I now installed the latest nightly version (f32dd02), which should include the fixes. However, the results are inconclusive.\n\nSometimes, when I open with my usual two restored tabs, I can and sometimes I cannot close via the X button.\n\nHere is one instance when the close button worked:\n\n```\n2026-05-25 19:21:34,387 [2] INFO  - [Startup] SettingsLoad: 82ms\n2026-05-25 19:21:34,394 [2] INFO  - mRemoteNG Connection Manager 1.82.0-beta.3 (Pre-release 3539) x64 Portable Edition starting.\n2026-05-25 19:...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDmpRsA",
+      "author": "robertpopa22",
+      "date": "2026-05-25T19:50:05Z",
+      "snippet": "Thanks — those two logs were exactly what pinned it down.\n\nThe deciding clue: on the runs where the X did nothing there were **no shutdown lines at all** in the log (no `Captured ... for shutdown`), while the working run had them. So the close handler never even started — the X click wasn't reaching it.\n\nRoot cause: when you click the X while the mRemoteNG window isn't already the foreground window, Windows first **reactivates** the app. That reactivation triggered a focus-restore that called `S...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDnB4yA",
+      "author": "meyergru",
+      "date": "2026-05-25T21:04:43Z",
+      "snippet": "Installed that and it is not quite there yet. When I start a connection that is unreachable, for example, the tab stays open and shows the timeout error message, in that situation the close button still does not work.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDsW7EQ",
+      "author": "robertpopa22",
+      "date": "2026-05-26T09:26:05Z",
+      "snippet": "Thanks for retesting — good that the normal case closes reliably now.\n\nThe unreachable/timeout case you describe looks like it may be a **different mechanism** than the foreground-steal we just fixed, so I don't want to guess at a fix and ship another partial. The earlier fix bails the focus-restore when the cursor is over the title bar, and from the code that guard should fire the same way whether the tab holds a live PuTTY session or a timed-out one — so the failure you're seeing on the error ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDtMP1Q",
+      "author": "meyergru",
+      "date": "2026-05-26T10:57:31Z",
+      "snippet": "1. No Captured events at all.\n2. Yes. When switching to it, it is showing: \n------------------- PuTTY Fatal Error ------------------\n- Network error: Connection timed out\n\n3. It is somewhat unpredictable. It now seems like when I click on the \"inactive\" tab first, then the close button reacts again. It might be that the timeout itself with the display in the non-selected tab shifts focus and then the button becomes inactive.\n\nClosing via the taskbar always works.\n\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDvEq8Q",
+      "author": "robertpopa22",
+      "date": "2026-05-26T15:30:46Z",
+      "snippet": "That's the missing piece — thanks, the three points pinned it exactly.\n\n\"No Captured events\" means the close handler never even started, and the PuTTY *Fatal Error* window + \"click the inactive tab first and the X works again\" together explain why:\n\nWhen the background tab's connection times out, PuTTY pops its own **Fatal Error** window. That window belongs to the PuTTY process and grabs the foreground, so the mRemoteNG main window goes **inactive** (its title-bar buttons grey out — your \"the b...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABD1xvMQ",
+      "author": "meyergru",
+      "date": "2026-05-27T08:09:29Z",
+      "snippet": "I will only be able to test it in a week or so.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABD3KTBw",
+      "author": "robertpopa22",
+      "date": "2026-05-27T11:32:22Z",
+      "snippet": "No rush at all — whenever you get the chance over the next week is perfectly fine. This one turned out to be a subtle focus/close-timing interaction, and your careful, repeated testing is exactly what pinned it down. The fix is sitting in the nightly waiting for you. Thank you for the patience on it.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEwMfgA",
+      "author": "meyergru",
+      "date": "2026-06-03T15:18:59Z",
+      "snippet": "I tried mRemoteNG-nightly-20260602-v1.82.0-beta.3-e592f8d-x64.msi just now and there still seems something wrong.\n\nI now have one way to reproduce it: open two tabs, then close the program.\n\nAfter reopening, both tabs are again opened. Use \"reopen\" (without closing first) on the active session tab. Then try closing with the X button - it will not work.\n\nI had other time when this happened, yet this was the easiest way to reproduce it.\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABExZC4A",
+      "author": "robertpopa22",
+      "date": "2026-06-03T17:45:46Z",
+      "snippet": "That deterministic repro is exactly what this one has been missing all along — thank you, @meyergru. \"Open two tabs, close, reopen, reconnect the active tab, then X\" gives me something I can reason about precisely, and I'm grateful you kept after it.\n\nI traced it down to **two** candidate mechanisms that produce the identical symptom, and I don't want to ship another fix on a guess (this issue has had a few of those). They differ in one observable way, so a tiny bit more detail from you will let...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABExd_xw",
+      "author": "meyergru",
+      "date": "2026-06-03T17:56:09Z",
+      "snippet": "1. Both are SSH (PuTTY) sessions.\n2. Nothing happens at all.\n3. It seems there is nothing logged (besides, the log path is a different one for me). The log shows:\n\n\n2026-06-03 19:54:32,566 [44] INFO  - Ereignis Verbindung beenden\n2026-06-03 19:54:32,566 [44] INFO  - Verbindung zu blob mit SSH2 wurde vom Benutzer meyergru getrennt.  (Description: \" & Prot.InterfaceControl.Info.Description & \"; User Field: \" & Prot.InterfaceControl.Info.UserField & \")\"\n2026-06-03 19:54:32,707 [2] INFO  - --- PuTTY...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE1L5kQ",
+      "author": "robertpopa22",
+      "date": "2026-06-04T05:10:39Z",
+      "snippet": "Your log was the breakthrough, @meyergru — it proves the close is being swallowed *before* mRemoteNG's shutdown even starts (nothing gets logged because the close handler is never reached). I have two strong theories for what eats it, and rather than guess again, I've added focused trace logging so your next run will tell us exactly which.\n\n**Could you do one more round on tonight's nightly?**\n1. Grab tonight's nightly (it'll contain commit `2b15af2` — dated 2026-06-04 or later).\n2. Reproduce ex...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABE2CNfQ",
+      "author": "meyergru",
+      "date": "2026-06-04T07:42:00Z",
+      "snippet": "Here it is:\n\n```\n2026-06-04 09:40:48,732 [2] INFO  - [#110-diag] Reconnect() begin\n2026-06-04 09:40:48,743 [27] INFO  - Ereignis Verbindung beenden\n2026-06-04 09:40:48,743 [27] INFO  - Verbindung zu blob mit SSH2 wurde vom Benutzer meyergru getrennt.  (Description: \" & Prot.InterfaceControl.Info.Description & \"; User Field: \" & Prot.InterfaceControl.Info.UserField & \")\"\n2026-06-04 09:40:48,746 [2] INFO  - [#110-diag] HandleProtocolClosed(keepTabOpen) -> DockHandler.Activate()\n2026-06-04 09:40:48...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-04T07:42:00Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-04T13:30:47Z",
+  "notes": "meyergru confirmed fixed by ecfb8507f (PuttyBase.Focus NC-area guard); closed"
+}

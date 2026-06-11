@@ -2,13 +2,13 @@
   "number": 24,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Automatically build and release MSI files",
-  "state": "open",
+  "state": "closed",
   "labels": [
     "enhancement"
   ],
   "author": "darkpixel",
   "created_at": "2026-02-27T16:26:57Z",
-  "github_updated_at": "2026-03-08T08:37:47Z",
+  "github_updated_at": "2026-03-16T14:36:44Z",
   "body_snippet": "Similar to how the original mRemoteNG project does it, I'd love to see MSI files automatically created when you cut a new release.",
   "our_status": "new",
   "priority": null,
@@ -34,12 +34,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7yeucJ",
+      "author": "robertpopa22",
+      "date": "2026-03-16T14:36:44Z",
+      "snippet": "## MSI Installer — Implemented in v1.82.0-beta.3 🎉\n\nMSI installer generation is now live! Starting with this build, every nightly release includes an MSI alongside the ZIP.\n\n### What's included\n\n- **Windows Installer (MSI)** — installs to `C:\\Program Files\\mRemoteNG\\` with proper Add/Remove Programs entry\n- **Desktop & Start Menu shortcuts** (optional features during install)\n- **Major upgrade support** — new versions automatically uninstall older ones\n- **License agreement dialog** with the sta...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-03-08T08:37:47Z",
+  "comments_cursor": "2026-03-16T14:36:44Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-03-13T17:44:31Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T15:49:53Z",
   "notes": ""
 }

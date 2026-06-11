@@ -1,0 +1,32 @@
+{
+  "number": 3299,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Graph positioning errors in the interface and interface freezing",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "Need 2 check",
+    "Windows",
+    "1.78.*",
+    ".NET (dotNET)",
+    "Nightly Build"
+  ],
+  "author": "artur-aragao",
+  "created_at": "2026-05-04T12:58:32Z",
+  "github_updated_at": "2026-05-06T09:50:38Z",
+  "body_snippet": "Errors in the positioning of the interface graph and interface freezing.\n\nDear friends,\n\nI am writing to inform you that the mRemoteNG 1.78.2 NB 3405 project is experiencing errors with the positioning of the interface graph and interface freezes.\n\nI was only able to resolve this on Windows 11 build 23H2 - 22631.6649 by enabling Windows 7 compatibility mode, disabling full-screen optimizations, and using legacy display ICC color management.\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-06T09:50:38Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

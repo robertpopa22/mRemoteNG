@@ -2,11 +2,11 @@
   "number": 8,
   "repo": "robertpopa22/mRemoteNG",
   "title": "mRemoteNG 1.80.2 NB 3394 requires after start install of .Net 9.0.13 and C++ MSVC runtimes",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "NoCoker",
   "created_at": "2026-02-14T07:05:33Z",
-  "github_updated_at": "2026-02-18T23:22:59Z",
+  "github_updated_at": "2026-02-24T16:59:26Z",
   "body_snippet": "I just download the version: mRemoteNG-20260214-v1.80.2-NB-3394-x64-selfcontained\n\nBut it ask for more runtimes to be installed :-(\n\n<img width=\"735\" height=\"302\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/c60969ff-d6d8-4cb8-b519-2d4e3b8e9de2\" />\n\n<img width=\"726\" height=\"303\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/a3c5fa0f-3071-4a29-93a8-770c778e67ba\" />\n\nOS is blank Windows Server 2025 - will be great that could be fixed - happy to see someone take care on...",
   "our_status": "new",
   "priority": null,
@@ -32,12 +32,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc7rpPK9",
+      "author": "robertpopa22",
+      "date": "2026-02-24T16:57:48Z",
+      "snippet": "Root cause identified and fixed:\n\n1. **Missing `SELF_CONTAINED` compilation symbol** — The `#if !SELF_CONTAINED` preprocessor directive in `ProgramRoot.cs` (lines 51-119) was never evaluated as true because the build scripts didn't pass `-p:DefineConstants=\"SELF_CONTAINED\"`. This caused runtime checks for .NET and VC++ to always execute, even in self-contained builds.\n\n2. **Missing `IncludeNativeLibrariesForSelfExtract`** — Native dependencies (e.g., SqlClient SNI) weren't being bundled properly...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-02-18T23:22:59Z",
+  "comments_cursor": "2026-02-24T16:59:26Z",
   "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-02-21T06:14:50Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T15:49:53Z",
   "notes": ""
 }

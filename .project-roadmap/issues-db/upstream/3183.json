@@ -8,8 +8,8 @@
   ],
   "author": "xsilvertom",
   "created_at": "2026-02-26T14:22:10Z",
-  "github_updated_at": "2026-02-27T12:12:04Z",
-  "body_snippet": "Hi,\n\nWeb on mremoteng.org and download icon points to `https://mremoteng.org/downloads` (note the \"s\"), but shows no content (when triggered from web). Not even older versions. And shows HTTP/404 when opened directly or when cURL is used.\n\nGit in `**[CENSORED!] Links to external GitHub repositories are not allowed** ..  points in Download section to two places.\n- `Project Website https://mremoteng.org/download)` .. (note \"s\" is missing here), and goes straight to HTTP/404 File Not Found\n- `**[CE",
+  "github_updated_at": "2026-05-22T08:27:12Z",
+  "body_snippet": "Hi,\n\nWeb on mremoteng.org and download icon points to `https://mremoteng.org/downloads` (note the \"s\"), but shows no content (when triggered from web). Not even older versions. And shows HTTP/404 when opened directly or when cURL is used.\n\nGit in `**[CENSORED!] Links to external GitHub repositories are not allowed** ..  points in Download section to two places.\n- `Project Website https://mremoteng.org/download)` .. (note \"s\" is missing here), and goes straight to HTTP/404 File Not Found\n- `**[CE...",
   "our_status": "wontfix",
   "priority": "P4-debt",
   "target_release": null,
@@ -38,18 +38,39 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABAmPqHg",
+      "author": "learsw",
+      "date": "2026-04-28T12:10:03Z",
+      "snippet": "you fixed nothing on website",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABDKAr9A",
+      "author": "WillBoig",
+      "date": "2026-05-21T09:34:54Z",
+      "snippet": "It is still not possible to download mRemoteNG through the official website",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABDTtw-w",
+      "author": "1337gut",
+      "date": "2026-05-22T08:27:12Z",
+      "snippet": "This was already reported and is discussed in #2721 (and maybe other issues, too).\nI think it's sad that this problem has been going on for at least a year. Especially since it should be an easy fix: either fix the error on the website or, as a workaround, change the link to the releases page on GitHub.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-27T12:12:04Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-05-22T08:27:12Z",
+  "unread_comments": 4,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-02-27T12:12:04Z",
-  "notes": "Website issue (download links on mremoteng.org), not a code bug. Out of scope for this fork.",
-  "token_usage": {
-    "input_tokens": 0,
-    "output_tokens": 0,
-    "cost_usd": 0.0
-  },
-  "impl_failed": false
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": "Website issue (download links on mremoteng.org), not a code bug. Out of scope for this fork."
 }

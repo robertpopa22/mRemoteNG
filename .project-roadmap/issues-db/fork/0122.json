@@ -1,0 +1,45 @@
+{
+  "number": 122,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'ObjectListView, Version=2.9.3.24576, Culture=ne...",
+  "state": "open",
+  "labels": [],
+  "author": "klob77",
+  "created_at": "2026-05-29T15:09:17Z",
+  "github_updated_at": "2026-05-31T17:00:03Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'ObjectListView, Version=2.9.3.24576, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.\r\n\r\n### Stack Trace\r\n```\r\n   at void mRemoteNG.UI.Window.ConnectionTreeWindow.InitializeComponent() x 2\r\n   at new mRemoteNG.UI.Window.ConnectionTreeWindow(DockContent panel) x 2\r\n   at ConnectionTreeWindow mRemoteNG.App.AppWindows.get_TreeForm()\r\n   at voi...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-31",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABEW6HfA",
+      "author": "robertpopa22",
+      "date": "2026-05-31T17:00:03Z",
+      "snippet": "Thanks for the crash report, @klob77 — the auto-generated stack trace made this one quick to pin down.\n\n**Root cause:** the bundled `ObjectListView` library was built with `AssemblyVersion(\"2.9.3.*\")`. The `*` wildcard generates a new build/revision number on every compile, and `mRemoteNG.exe` embeds a *strong* reference to the exact version it was compiled against. When a build happened to ship an `ObjectListView.dll` whose auto-generated version didn't match that reference, the .NET loader cou...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-05-31T17:00:03Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-01T08:34:17Z",
+  "notes": "ObjectListView AssemblyVersion pinned 2.9.3.0 (052f1f4c5); awaiting reporter confirm on Portable nightly"
+}

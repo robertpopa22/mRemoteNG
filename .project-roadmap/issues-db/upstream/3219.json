@@ -1,0 +1,38 @@
+{
+  "number": 3219,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "VncSharpCore",
+  "state": "open",
+  "labels": [
+    "VNC",
+    "Third party",
+    "1.78.*"
+  ],
+  "author": "zgabi",
+  "created_at": "2026-03-17T17:47:29Z",
+  "github_updated_at": "2026-05-15T22:13:48Z",
+  "body_snippet": "Could you please release a new nuget package of the VncSharpCore project?\nVersion 1.2.1 has a serious issue, a cursor file is missing from the assembly.\n\nSee: https://github.com/mRemoteNG/mRemoteNG/issues/2321\nThe cursor file was added back long time ago (25th Sept, 2023), but there was no new package released.\n\nSo currently VNC is not wokring in mRemoteNG. However it is possible to set the Cursor manally and set the internal state wth reflection, but it is a big \"hack\". (you can find this worka...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABChXuGg",
+      "author": "Neustradamus",
+      "date": "2026-05-15T22:13:48Z",
+      "snippet": "@zgabi: Thanks for your ticket!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-05-15T22:13:48Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

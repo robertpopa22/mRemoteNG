@@ -1,0 +1,29 @@
+{
+  "number": 3247,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "[Bug] Inline rename edit box shifts and shows ghost text behind it",
+  "state": "open",
+  "labels": [
+    "Bug",
+    "UI/UX",
+    "Third party",
+    "1.78.*"
+  ],
+  "author": "julesbobb",
+  "created_at": "2026-04-01T12:16:56Z",
+  "github_updated_at": "2026-05-06T09:54:22Z",
+  "body_snippet": "## Describe the bug\nWhen triggering an inline rename on any connection or folder node (via **Right-click → Rename**, or **F2**), the label edit box appears at an incorrect offset. Additionally, the original node text remains visible behind the edit box as a \"ghost\" or shadow artifact.\n\n## Steps to reproduce\n1. Open the **Connection Tree**.\n2. Right-click any connection or folder and select **Rename** (or press **F2**).\n3. Observe the positioning of the edit box.\n\n## Expected behavior\nThe edit bo...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-06T09:54:22Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

@@ -9,7 +9,7 @@
   ],
   "author": "webabox",
   "created_at": "2025-01-17T12:47:10Z",
-  "github_updated_at": "2026-02-26T21:44:52Z",
+  "github_updated_at": "2026-05-06T13:48:48Z",
   "body_snippet": "Description: WebAuthn redirection allows WebAuthn requests to be redirected from a remote session to a local device, enabling secure, in-session passwordless authentication. This feature is crucial for improving security and user experience in remote desktop environments.\n\nBenefits:\n\nEnhanced security through passwordless authentication.\nImproved user experience by leveraging existing authentication methods.\nCompatibility with Windows Hello for Business and FIDO security keys like Yubikey.\n\nRefe...",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -107,19 +107,37 @@
       "action_needed": true
     },
     {
-      "id": "IC_kwDOAAcIMM7smH23",
-      "author": "robertpopa22",
-      "date": "2026-02-26T21:44:52Z",
-      "snippet": "**Fix available for testing**\n\n**Commit:** `f60d2ace` (fork `robertpopa22/mRemoteNG`, branch `main`)\n**What changed:** Add RedirectWebAuthn and EnableRdsAadAuth boolean properties\n\nA beta build (v1.81.0-beta.4) including this fix is available from the fork's Releases page.\n\n---\n\n> *We sincerely appreciate the mRemoteNG maintainers and the wonderful community that has kept this project alive and thriving for over a decade. Your work powers thousands of IT professionals worldwide, including us. Ou...",
-      "is_ours": true,
+      "id": "IC_kwDOAAcIMM75T9pu",
+      "author": "Souffkee",
+      "date": "2026-04-03T09:40:54Z",
+      "snippet": "@robertpopa22 \nUnable to find this commit.\nAny update?",
+      "is_ours": false,
       "analyzed": false,
-      "action_needed": false
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM75kZne",
+      "author": "Kvarkas",
+      "date": "2026-04-04T12:47:07Z",
+      "snippet": "> [@robertpopa22](https://github.com/robertpopa22) Unable to find this commit. Any update?\n\nplease contact him on his repo, not our",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABBZadPg",
+      "author": "cgrandine",
+      "date": "2026-05-06T13:48:48Z",
+      "snippet": "+1 to webauthn redirection",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T21:44:52Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-05-06T13:48:48Z",
+  "unread_comments": 8,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "AI triage (claude): Valid RDP WebAuthn/FIDO2 redirection feature request requiring two new boolean RDP file properties (redirectwebauthn:i:1, enablerdsaadauth:i:1) to be exposed in the RDP connection settings UI.\nApproach: Add RedirectWebAuthn and EnableRdsAadAuth boolean properties to RDP connection options, wire them through ConnectionInfo serialization, and expose in the RDP protocol settings panel."
 }

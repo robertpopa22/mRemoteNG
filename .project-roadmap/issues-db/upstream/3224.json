@@ -1,0 +1,39 @@
+{
+  "number": 3224,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "RDP Window Scaling Issues and Panel Order Changes in Recent Versions",
+  "state": "open",
+  "labels": [
+    "In progress",
+    "UI/UX",
+    "Need 2 check",
+    "1.78.*"
+  ],
+  "author": "CommanderRaiker",
+  "created_at": "2026-03-19T09:54:18Z",
+  "github_updated_at": "2026-04-13T11:12:00Z",
+  "body_snippet": "Hello,\n\nIn the latest versions, window scaling no longer works correctly for RDP connections. \nThe last version I’m aware of where it worked as expected is 1.77.3 NB 1748.\n\nIn newer versions, the RDP window is no longer properly adjusted when resizing. Especially when starting an RDP connection in a non-maximized mRemoteNG window and then maximizing or enlarging it. Additionally, the RDP window briefly flickers when moving the mRemoteNG window. I verified this behavior with mRemoteNG 1.78.2 NB 3...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM78exwY",
+      "author": "Kvarkas",
+      "date": "2026-04-13T11:11:27Z",
+      "snippet": "I think its already fixed but not yet released as NB, will try to release it tonight maybe so you could recheck, thanks. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-04-13T11:12:00Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

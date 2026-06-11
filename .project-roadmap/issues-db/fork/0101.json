@@ -1,0 +1,63 @@
+{
+  "number": 101,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Connection to Azure AD or Entra ID clients",
+  "state": "open",
+  "labels": [
+    "enhancement"
+  ],
+  "author": "domy86",
+  "created_at": "2026-04-15T18:58:44Z",
+  "github_updated_at": "2026-05-23T11:19:47Z",
+  "body_snippet": "Related to the issue https://github.com/mRemoteNG/mRemoteNG/issues/2329, how to connect using Azure AD web account?\n\n<img width=\"567\" height=\"621\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/14a1b81d-1d05-4986-95ba-dd4b8ecd7143\" />\n\nRemote clients have the most secured setup like NLA, NTLM v2 and so on. If I try to connect, I get this error:\n\n<img width=\"669\" height=\"298\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/16e4a2c2-b33b-405f-9aeb-fd24e9224b1c\" />\n\nmRemote...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc7__LDq",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:36:22Z",
+      "snippet": "Labeled as feature request. Needs design before implementation — RDP over Entra ID requires hooking into the Windows Hello / WAM token flow, which is not something the existing RDP ActiveX control exposes directly. Tracking.\n\nIf anyone reading this has a working registry / GPO recipe that makes `mstsc.exe` consume an Entra ID credential at launch, please drop it in the thread — that would let us wire a lightweight bridge without reimplementing the auth stack.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc7__fYO",
+      "author": "robertpopa22",
+      "date": "2026-04-22T08:49:35Z",
+      "snippet": "Labeled as `enhancement` and kept on the roadmap. Realistic design before we can wire this in.\n\n**Blocker right now:** the RDP ActiveX control mRemoteNG embeds (`MSTSCLib`) does not accept an Entra ID / Windows Hello token directly. Stock `mstsc.exe` picks up Entra creds via Windows Credential Manager + Conditional Access; the ActiveX in-process embedding path has no analogous hook in .NET.\n\n**Workable paths we see:**\n1. Launch `mstsc.exe` as an external process for Entra-enabled connections ins...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABAJU_Mw",
+      "author": "robertpopa22",
+      "date": "2026-04-23T13:26:52Z",
+      "snippet": "@domy86 — Entra ID support shipped in commit `2e40adc6b` on `main` (full RDP pipeline: XML/CSV/SQL roundtrip + `enablerdsaadauth:i:1` emitted in .rdp export + live `IMsRdpExtendedSettings.Property[\"EnableRdsAadAuth\"]` on the MSTSC ActiveX control). Same PR also adds WebAuthn/FIDO2 redirection since both use the same plumbing.\n\nAvailable in the latest nightly: https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly (build timestamp >= 2026-04-23).\n\n**To test:**\n1. Update to tonight's night...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABDbhisQ",
+      "author": "robertpopa22",
+      "date": "2026-05-23T11:19:47Z",
+      "snippet": "@domy86 — friendly nudge: Entra ID / Azure AD opt-in shipped a while ago (commit `2e40adc6b`) and is in every nightly. On the connection: **Connection** category → enable **Entra ID Authentication** → connect to a Windows 11 22H2+ / Server 2022+ host that's Entra-joined.\n\nDid you get a chance to try it? If it still falls back to legacy auth, please attach `mRemoteNG.log` plus the Event Viewer line from `Applications and Services Logs → Microsoft → Windows → RemoteDesktopServices-RdpCoreTS/Operat...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-05-23T11:19:47Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

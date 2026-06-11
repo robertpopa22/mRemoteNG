@@ -1,0 +1,29 @@
+{
+  "number": 3222,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Mouse clicks aren*t at the cursor position when windows scaling is not at 100%",
+  "state": "open",
+  "labels": [
+    "UI/UX",
+    "Need 2 check",
+    "1.78.*",
+    "Nightly Build"
+  ],
+  "author": "P7aM5qzEddT66lE",
+  "created_at": "2026-03-18T20:04:11Z",
+  "github_updated_at": "2026-04-13T11:13:13Z",
+  "body_snippet": "tasks to reproduce::\nchange screen scaling to e.g. 125% (System - Bildschirm - Skalierung)\n\n\nclick anywhere into th mremoteng windows. The further the click is away from top-left corner, the greater is the distance bewtween mouse position and actual click.\n\nUsing [mRemoteNG-20260222-v1.78.2-NB-3405-x64-SC",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-04-13T11:13:13Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

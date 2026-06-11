@@ -11,7 +11,7 @@
   ],
   "author": "KenKodz",
   "created_at": "2016-12-09T21:42:00Z",
-  "github_updated_at": "2026-02-26T13:41:07Z",
+  "github_updated_at": "2026-05-24T15:26:17Z",
   "body_snippet": "<!-- Feature Request -->\r\nWith the decision to use C# and to decouple the code base, it would be awesome to use Xamarin to make the renewed interest in mRemoteNG available to Mac OS and Mobile app platforms. \r\n\r\nI have been looking into using Xamarin for some upcoming cross platform projects but have no personal experience actually using it. However, if no one else is interested/able to do this feature request, I will try to make the time to start working on it (after the code base has stabilize...",
   "our_status": "wontfix",
   "priority": "P4-debt",
@@ -203,12 +203,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABDfLEiw",
+      "author": "cremenescu",
+      "date": "2026-05-24T14:14:35Z",
+      "snippet": "There's now a native macOS option that imports your existing `confCons.xml` directly — no conversion, no re-typing connections:\n\n**mRemoteNXT** (GPL-2.0, search the project name on Github to find the source + releases page).\nhttps://cremenescu.ro/mremotenxt/\n\nThe key point for this thread: **the `confCons.xml` format is preserved byte-exact.** I reverse-engineered the file structure (PBKDF2-HMAC-SHA1 + AES-256-GCM, salt|nonce|ct|tag) from real mRemoteNG 1.76.20 exports — encrypted passwords decr...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T13:41:07Z",
-  "unread_comments": 19,
+  "comments_cursor": "2026-05-24T15:26:17Z",
+  "unread_comments": 20,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-05-25T14:28:55Z",
   "notes": "AI triage: Cross-platform (Mac/Mobile) support requires a complete UI framework rewrite far beyond the scope of this WinForms/.NET 10 fork, and MAUI/web alternatives remain immature for this use case\nApproach: Close as out of scope — mRemoteNG is architecturally tied to Windows COM controls (RDP ActiveX, PuTTY) that have no cross-platform equivalents; a Mac/Mobile port would be a separate project, not a migration"
 }

@@ -1,0 +1,26 @@
+{
+  "number": 3231,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "mRemoteNG Portable External Tools %DISK-FLASH%",
+  "state": "open",
+  "labels": [
+    "Need 2 check"
+  ],
+  "author": "LESHIY-ODESSA",
+  "created_at": "2026-03-22T15:46:27Z",
+  "github_updated_at": "2026-05-06T09:55:03Z",
+  "body_snippet": "How do I specify the path to a program in External Tools that is located in another folder higher up the tree, and the drive letter is unknown?\n\n~~C:\\Programs Files\\WinSCP\\WinSCP.exe~~\n\nFLASH-DRIVE\\UTILS\\mRemoteNG\\mRemoteNG.exe\nFLASH-DRIVE\\UTILS\\WinSCP\\WinSCP.exe ➜ External Tools ➜ Working directory ???\n\nFrom a local drive, I configured it like this: C:\\UTILS\\mRemoteNG\\WinSCP\\WinSCP.exe ➜ File name — `.\\!-WinSCP\\WinSCP.exe`\n",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-05-06T09:55:03Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-05-25T14:28:55Z",
+  "notes": ""
+}

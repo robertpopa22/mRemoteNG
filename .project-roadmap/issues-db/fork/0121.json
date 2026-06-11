@@ -1,0 +1,64 @@
+{
+  "number": 121,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.ObjectDisposedException: Cannot access a disposed object.\r\nObject name: 'mRemoteNG.UI.Window.ConnectionTr...",
+  "state": "closed",
+  "labels": [],
+  "author": "vndnua",
+  "created_at": "2026-05-28T10:30:57Z",
+  "github_updated_at": "2026-06-01T05:38:00Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ObjectDisposedException`\r\n**Message:** Cannot access a disposed object.\r\nObject name: 'mRemoteNG.UI.Window.ConnectionTreeWindow'.\r\n\r\n### Stack Trace\r\n```\r\n   at void System.Windows.Forms.Control.CreateHandle()\r\n   at void System.Windows.Forms.Form.CreateHandle()\r\n   at IntPtr System.Windows.Forms.Control.get_Handle()\r\n   at void WeifenLuo.WinFormsUI.Docking.DockContentHandler.set_DockPanel(DockPanel value)\r\n   at void WeifenLuo.WinFormsUI.Docki...",
+  "our_status": "released",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-05-28",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-06-01",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABEBmKkg",
+      "author": "robertpopa22",
+      "date": "2026-05-28T14:29:17Z",
+      "snippet": "Thanks for sending this in, @vndnua — the auto-generated crash reports are genuinely useful, and this one pointed straight at a real rough edge. Good news: it's fixed.\n\n**What was happening:** when you open **View → Load Layout** and pick a saved layout, mRemoteNG closes the current panels and then re-reads the layout XML, recreating each panel it references (Connections tree, Config, Errors/Info). Internally those panels are cached singletons. The cache only rebuilt a window when it was *missin...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABEZOABg",
+      "author": "vndnua",
+      "date": "2026-06-01T05:38:00Z",
+      "snippet": "Hi, Robert.\r\n \r\nIt's working fine now. \r\n\r\nВы писали четверг, 28 мая 2026 г., 17:29:52:\r\n\r\n> robertpopa22 left a comment (robertpopa22/mRemoteNG#121)\r\n> Thanks for sending this in, @vndnua — the auto-generated crash reports are genuinely useful, and this one pointed straight at a real rough edge. Good news: it's fixed.\r\n> What was happening: when you open View → Load Layout and pick a saved layout, mRemoteNG closes the current panels and then re-reads the layout XML, recreating each panel it ref...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-01T05:38:00Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-06-01T08:52:58Z",
+  "notes": "reporter vndnua confirmed fixed on nightly (7beb8e952); closed"
+}
