@@ -36,6 +36,26 @@ namespace mRemoteNG.Security.SymmetricEncryption
         private readonly Encoding _encoding;
         private readonly SecureRandom _random = new();
 
+        // Encryption-side KDF cache: deriving a PBKDF2 key at 600K iterations costs
+        // hundreds of ms, and serializing a connection file encrypts every password
+        // field with the same password. Reusing one salt+key per provider instance
+        // (one instance = one save operation) turns N derivations into 1 (#120).
+        // Decryption is unaffected: each field still carries its salt in the payload.
+        // GCM nonces remain random per field, so key reuse within a save is safe.
+        private byte[]? _cachedEncryptSalt;
+        private byte[]? _cachedEncryptKey;
+        private string? _cachedEncryptPassword;
+        private int _cachedEncryptIterations;
+
+        // Decryption-side KDF cache: files written with the shared-salt encryption
+        // above carry the same salt on every field, so the derived key can be reused
+        // across fields. Older files with per-field salts simply miss the cache and
+        // derive per field, exactly as before.
+        private byte[]? _cachedDecryptSalt;
+        private byte[]? _cachedDecryptKey;
+        private string? _cachedDecryptPassword;
+        private int _cachedDecryptIterations;
+
         //Preconfigured Encryption Parameters
         protected virtual int NonceBitSize { get; set; } = 128;
         protected virtual int MacBitSize { get; set; } = 128;
@@ -130,25 +150,32 @@ namespace mRemoteNG.Security.SymmetricEncryption
             if (secretMessage == null || secretMessage.Length == 0)
                 throw new ArgumentException(@"Secret Message Required!", nameof(secretMessage));
 
-            //Use Random Salt to minimize pre-generated weak password attacks.
-            byte[] salt = GenerateSalt();
-
-            //Generate Key
-            Pkcs5S2KeyGenerator keyDerivationFunction = new(KeyBitSize, KeyDerivationIterations);
-            byte[] key = keyDerivationFunction.DeriveKey(password, salt);
-            try
+            if (_cachedEncryptKey == null ||
+                _cachedEncryptIterations != KeyDerivationIterations ||
+                !string.Equals(_cachedEncryptPassword, password, StringComparison.Ordinal))
             {
-                //Create Full Non Secret Payload
-                byte[] payload = new byte[salt.Length + nonSecretPayload.Length];
-                Array.Copy(nonSecretPayload, payload, nonSecretPayload.Length);
-                Array.Copy(salt, 0, payload, nonSecretPayload.Length, salt.Length);
+                if (_cachedEncryptKey != null)
+                    CryptographicOperations.ZeroMemory(_cachedEncryptKey);
 
-                return SimpleEncrypt(secretMessage, key, payload);
+                //Use Random Salt to minimize pre-generated weak password attacks.
+                byte[] newSalt = GenerateSalt();
+
+                //Generate Key
+                Pkcs5S2KeyGenerator keyDerivationFunction = new(KeyBitSize, KeyDerivationIterations);
+                _cachedEncryptKey = keyDerivationFunction.DeriveKey(password, newSalt);
+                _cachedEncryptSalt = newSalt;
+                _cachedEncryptPassword = password;
+                _cachedEncryptIterations = KeyDerivationIterations;
             }
-            finally
-            {
-                CryptographicOperations.ZeroMemory(key);
-            }
+
+            byte[] salt = _cachedEncryptSalt!;
+
+            //Create Full Non Secret Payload
+            byte[] payload = new byte[salt.Length + nonSecretPayload.Length];
+            Array.Copy(nonSecretPayload, payload, nonSecretPayload.Length);
+            Array.Copy(salt, 0, payload, nonSecretPayload.Length, salt.Length);
+
+            return SimpleEncrypt(secretMessage, _cachedEncryptKey, payload);
         }
 
         private byte[] SimpleEncrypt(byte[] secretMessage, byte[] key, byte[]? nonSecretPayload = null)
@@ -227,17 +254,24 @@ namespace mRemoteNG.Security.SymmetricEncryption
             byte[] salt = new byte[SaltBitSize / 8];
             Array.Copy(encryptedMessage, nonSecretPayloadLength, salt, 0, salt.Length);
 
-            //Generate Key
-            Pkcs5S2KeyGenerator keyDerivationFunction = new(KeyBitSize, KeyDerivationIterations);
-            byte[] key = keyDerivationFunction.DeriveKey(password, salt);
-            try
+            if (_cachedDecryptKey == null ||
+                _cachedDecryptIterations != KeyDerivationIterations ||
+                !string.Equals(_cachedDecryptPassword, password, StringComparison.Ordinal) ||
+                _cachedDecryptSalt == null ||
+                !salt.AsSpan().SequenceEqual(_cachedDecryptSalt))
             {
-                return SimpleDecrypt(encryptedMessage, key, salt.Length + nonSecretPayloadLength);
+                if (_cachedDecryptKey != null)
+                    CryptographicOperations.ZeroMemory(_cachedDecryptKey);
+
+                //Generate Key
+                Pkcs5S2KeyGenerator keyDerivationFunction = new(KeyBitSize, KeyDerivationIterations);
+                _cachedDecryptKey = keyDerivationFunction.DeriveKey(password, salt);
+                _cachedDecryptSalt = salt;
+                _cachedDecryptPassword = password;
+                _cachedDecryptIterations = KeyDerivationIterations;
             }
-            finally
-            {
-                CryptographicOperations.ZeroMemory(key);
-            }
+
+            return SimpleDecrypt(encryptedMessage, _cachedDecryptKey, salt.Length + nonSecretPayloadLength);
         }
 
         private byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
