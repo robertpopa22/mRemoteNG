@@ -335,3 +335,7 @@ output.json
 .worktrees/
 .security-key
 logs/security/
+
+# Test results dump + Claude local settings
+test-results-dump/
+.claude/settings.local.json
