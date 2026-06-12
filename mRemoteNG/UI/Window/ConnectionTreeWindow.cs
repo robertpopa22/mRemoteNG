@@ -519,7 +519,7 @@ namespace mRemoteNG.UI.Window
             }
             else
             {
-                if (txtSearch.Text == "") return;
+                if (txtSearch.Text == "" || txtSearch.Text == Language.SearchPrompt) return;
                 ConnectionTree.NodeSearcher?.SearchByName(txtSearch.Text);
                 JumpToNode(ConnectionTree.NodeSearcher?.CurrentMatch);
             }
