@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlTypes;
@@ -783,43 +784,53 @@ CREATE TABLE `tblExternalTools` (
         {
             try
             {
+                // One bulk INFORMATION_SCHEMA fetch instead of one round-trip per
+                // expected column (200+ sequential queries on every load, which on a
+                // remote/VPN SQL Server added seconds to every startup — #120).
+                // Null means the bulk fetch failed; callers fall back to per-column checks.
+                ISet<string>? existingColumns = GetExistingColumns(databaseConnector, "tblCons");
+
                 if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
                 {
-                    UpgradeMssqlSchema(databaseConnector);
+                    UpgradeMssqlSchema(databaseConnector, existingColumns);
                 }
                 else if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
                 {
-                    UpgradeMysqlSchema(databaseConnector);
+                    UpgradeMysqlSchema(databaseConnector, existingColumns);
                 }
 
-                if (!DoesColumnExist(databaseConnector, "tblCons", "User"))
+                if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "User"))
                 {
                     string sql = databaseConnector.GetType() == typeof(MySqlDatabaseConnector)
                         ? "ALTER TABLE tblCons ADD COLUMN `User` varchar(512) DEFAULT NULL"
                         : "ALTER TABLE tblCons ADD [User] nvarchar(512) NULL";
                     databaseConnector.DbCommand(sql).ExecuteNonQuery();
+                    existingColumns?.Add("User");
                 }
 
-                if (!DoesColumnExist(databaseConnector, "tblCons", "Role"))
+                if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "Role"))
                 {
                     string sql = databaseConnector.GetType() == typeof(MySqlDatabaseConnector)
                         ? "ALTER TABLE tblCons ADD COLUMN `Role` varchar(512) DEFAULT NULL"
                         : "ALTER TABLE tblCons ADD [Role] nvarchar(512) NULL";
                     databaseConnector.DbCommand(sql).ExecuteNonQuery();
+                    existingColumns?.Add("Role");
                 }
 
                 if (databaseConnector.GetType() == typeof(MSSqlDatabaseConnector))
                 {
-                     if (!DoesColumnExist(databaseConnector, "tblCons", "RowVersion"))
+                     if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "RowVersion"))
                      {
                          databaseConnector.DbCommand("ALTER TABLE tblCons ADD [RowVersion] rowversion NOT NULL").ExecuteNonQuery();
+                         existingColumns?.Add("RowVersion");
                      }
                 }
                 else if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
                 {
-                    if (!DoesColumnExist(databaseConnector, "tblCons", "RowVersion"))
+                    if (!ColumnExists(databaseConnector, existingColumns, "tblCons", "RowVersion"))
                     {
                         databaseConnector.DbCommand("ALTER TABLE tblCons ADD COLUMN `RowVersion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP").ExecuteNonQuery();
+                        existingColumns?.Add("RowVersion");
                     }
                 }
             }
@@ -829,13 +840,13 @@ CREATE TABLE `tblExternalTools` (
             }
         }
 
-        private static void UpgradeMssqlSchema(IDatabaseConnector databaseConnector)
+        private static void UpgradeMssqlSchema(IDatabaseConnector databaseConnector, ISet<string>? existingColumns)
         {
             DataTable expectedSchema = DataTableSerializer.GetExpectedSchema();
 
             foreach (DataColumn expectedColumn in expectedSchema.Columns)
             {
-                if (DoesColumnExist(databaseConnector, "tblCons", expectedColumn.ColumnName))
+                if (ColumnExists(databaseConnector, existingColumns, "tblCons", expectedColumn.ColumnName))
                 {
                     continue;
                 }
@@ -852,16 +863,17 @@ CREATE TABLE `tblExternalTools` (
                 };
 
                 databaseConnector.DbCommand($"ALTER TABLE [tblCons] ADD [{expectedColumn.ColumnName}] {sqlType}").ExecuteNonQuery();
+                existingColumns?.Add(expectedColumn.ColumnName);
             }
         }
 
-        private static void UpgradeMysqlSchema(IDatabaseConnector databaseConnector)
+        private static void UpgradeMysqlSchema(IDatabaseConnector databaseConnector, ISet<string>? existingColumns)
         {
             DataTable expectedSchema = DataTableSerializer.GetExpectedSchema();
 
             foreach (DataColumn expectedColumn in expectedSchema.Columns)
             {
-                if (DoesColumnExist(databaseConnector, "tblCons", expectedColumn.ColumnName))
+                if (ColumnExists(databaseConnector, existingColumns, "tblCons", expectedColumn.ColumnName))
                 {
                     continue;
                 }
@@ -876,7 +888,74 @@ CREATE TABLE `tblExternalTools` (
                 };
 
                 databaseConnector.DbCommand($"ALTER TABLE tblCons ADD COLUMN `{expectedColumn.ColumnName}` {sqlType}").ExecuteNonQuery();
+                existingColumns?.Add(expectedColumn.ColumnName);
             }
+        }
+
+        /// <summary>
+        /// Fetches all column names of <paramref name="tableName"/> in one round-trip.
+        /// Returns null when the bulk fetch fails or yields no columns (a table always
+        /// has at least one, so an empty result means the query hit the wrong scope) —
+        /// callers then fall back to the per-column <see cref="DoesColumnExist"/> path.
+        /// </summary>
+        private static ISet<string>? GetExistingColumns(IDatabaseConnector databaseConnector, string tableName)
+        {
+            try
+            {
+                string databaseName = Properties.OptionsDBsPage.Default.SQLDatabaseName;
+                string sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @TableName";
+
+                if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
+                {
+                    sql += " AND TABLE_SCHEMA = @DatabaseName";
+                }
+
+                DbCommand cmd = databaseConnector.DbCommand(sql);
+
+                DbParameter tableNameParam = cmd.CreateParameter();
+                tableNameParam.ParameterName = "@TableName";
+                tableNameParam.Value = tableName;
+                cmd.Parameters.Add(tableNameParam);
+
+                if (databaseConnector.GetType() == typeof(MySqlDatabaseConnector))
+                {
+                    DbParameter dbNameParam = cmd.CreateParameter();
+                    dbNameParam.ParameterName = "@DatabaseName";
+                    dbNameParam.Value = databaseName;
+                    cmd.Parameters.Add(dbNameParam);
+                }
+
+                HashSet<string> columns = new(StringComparer.OrdinalIgnoreCase);
+                using (DbDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string? columnName = Convert.ToString(reader[0], CultureInfo.InvariantCulture);
+                        if (!string.IsNullOrEmpty(columnName))
+                            columns.Add(columnName);
+                    }
+                }
+
+                if (columns.Count == 0)
+                {
+                    Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                        $"Bulk column lookup for '{tableName}' returned no columns; falling back to per-column checks.");
+                    return null;
+                }
+
+                return columns;
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg,
+                    $"Bulk column lookup for '{tableName}' failed ({ex.Message}); falling back to per-column checks.");
+                return null;
+            }
+        }
+
+        private static bool ColumnExists(IDatabaseConnector databaseConnector, ISet<string>? existingColumns, string tableName, string columnName)
+        {
+            return existingColumns?.Contains(columnName) ?? DoesColumnExist(databaseConnector, tableName, columnName);
         }
 
         private static bool DoesColumnExist(IDatabaseConnector databaseConnector, string tableName, string columnName)
