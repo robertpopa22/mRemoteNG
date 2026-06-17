@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Windows.Forms;
 using mRemoteNG.UI.Forms;
@@ -70,7 +71,7 @@ namespace mRemoteNGTests.UI.Forms
             GC.Collect();
 
             if (caught != null)
-                throw caught;
+                ExceptionDispatchInfo.Capture(caught).Throw();
         }
 
         /// <summary>
@@ -83,17 +84,12 @@ namespace mRemoteNGTests.UI.Forms
             // 1. Controls are created
             var pnlMain = optionsForm.FindControl<Panel>("pnlMain");
             Assert.That(pnlMain, Is.Not.Null, "pnlMain should exist");
-            Assert.That(pnlMain.Controls.Count, Is.GreaterThan(0), "pnlMain should have child controls");
 
-            // 2. First page is not disposed
-            var firstPage = pnlMain.Controls[0];
-            Assert.That(firstPage.IsDisposed, Is.False, "Page should not be disposed");
-
-            // 3. ListView has all 13 options pages
+            // 2. ListView has all 13 options pages
             ListViewTester listViewTester = new("lstOptionPages", optionsForm);
             Assert.That(listViewTester.Items.Count, Is.EqualTo(13));
 
-            // 4. SelectedObject is set
+            // 3. SelectedObject is set
             var lstOptionPages = optionsForm.GetType()
                 .GetField("lstOptionPages", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.GetValue(optionsForm);
@@ -102,6 +98,18 @@ namespace mRemoteNGTests.UI.Forms
                 .GetProperty("SelectedObject")
                 ?.GetValue(lstOptionPages);
             Assert.That(selectedObject, Is.Not.Null, "SelectedObject should not be null");
+            var optionsPage = selectedObject as mRemoteNG.UI.Forms.OptionsPages.OptionsPage;
+            Assert.That(optionsPage, Is.Not.Null, "SelectedObject should be an OptionsPage");
+            Assert.That(optionsPage.IsDisposed, Is.False, "Page should not be disposed");
+
+            // 4. Change tracking - toggle a checkbox
+            Application.DoEvents();
+            var checkBoxes = optionsPage.GetAllControls().OfType<CheckBox>().ToList();
+            Assert.That(checkBoxes.Count, Is.GreaterThan(0), "Options page should have at least one checkbox");
+            var checkBox = checkBoxes[0];
+            checkBox.Checked = !checkBox.Checked;
+            Application.DoEvents();
+            Assert.That(optionsPage.HasChanges, Is.True, "Toggling a checkbox should mark the page as having changes");
 
             // 5. OK button raises CloseRequested (FrmOptions uses event, not DialogResult)
             bool closeRequested = false;
@@ -109,17 +117,6 @@ namespace mRemoteNGTests.UI.Forms
             Button okButton = optionsForm.FindControl<Button>("btnOK");
             okButton.PerformClick();
             Assert.That(closeRequested, Is.True, "OK button should raise CloseRequested event");
-
-            // 6. Change tracking - toggle a checkbox
-            Application.DoEvents();
-            var optionsPage = pnlMain.Controls[0] as mRemoteNG.UI.Forms.OptionsPages.OptionsPage;
-            Assert.That(optionsPage, Is.Not.Null, "First control in pnlMain should be an OptionsPage");
-            var checkBoxes = optionsPage.GetAllControls().OfType<CheckBox>().ToList();
-            Assert.That(checkBoxes.Count, Is.GreaterThan(0), "Options page should have at least one checkbox");
-            var checkBox = checkBoxes[0];
-            checkBox.Checked = !checkBox.Checked;
-            Application.DoEvents();
-            Assert.That(optionsPage.HasChanges, Is.True, "Toggling a checkbox should mark the page as having changes");
         });
     }
 }

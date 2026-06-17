@@ -1,5 +1,8 @@
 # Agent Instructions — mRemoteNG Fork
 
+> **Canon:** [CLAUDE.md](CLAUDE.md)
+> **Parent ecosistem:** [../CLAUDE.md](../CLAUDE.md)
+
 This file is for **all AI agents** (Codex, Gemini, Claude, Copilot, etc.) working on this repository.
 
 ## Project Overview

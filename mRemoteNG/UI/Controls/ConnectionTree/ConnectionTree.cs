@@ -862,7 +862,8 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
         protected override void UpdateFiltering()
         {
             base.UpdateFiltering();
-            AutoResizeColumn(Columns[0]);
+            if (Columns.Count > 0)
+                AutoResizeColumn(Columns[0]);
         }
 
         private void TvConnections_AfterSelect(object sender, EventArgs e)

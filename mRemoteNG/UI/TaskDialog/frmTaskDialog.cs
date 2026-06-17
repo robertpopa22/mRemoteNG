@@ -116,6 +116,7 @@ namespace mRemoteNG.UI.TaskDialog
         public frmTaskDialog()
         {
             InitializeComponent();
+            InitializeDetailsImageList();
 
             if (CTaskDialog.UseToolWindowOnXp)
                 FormBorderStyle = FormBorderStyle.FixedToolWindow;
@@ -406,6 +407,33 @@ namespace mRemoteNG.UI.TaskDialog
             pnlExpandedInfo.ForeColor = palette.getColor("Dialog_Foreground");
             pnlRadioButtons.BackColor = palette.getColor("Dialog_Background");
             pnlRadioButtons.ForeColor = palette.getColor("Dialog_Foreground");
+        }
+
+        private void InitializeDetailsImageList()
+        {
+            imageList1.ImageSize = new Size(16, 16);
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.Images.Add("arrow_up_bw.bmp", CreateDetailsArrow(up: true, Color.DimGray, SystemColors.Control));
+            imageList1.Images.Add("arrow_up_color.bmp", CreateDetailsArrow(up: true, Color.RoyalBlue, SystemColors.Control));
+            imageList1.Images.Add("arrow_up_color_pressed.bmp", CreateDetailsArrow(up: true, Color.Navy, SystemColors.ControlDark));
+            imageList1.Images.Add("arrow_down_bw.bmp", CreateDetailsArrow(up: false, Color.DimGray, SystemColors.Control));
+            imageList1.Images.Add("arrow_down_color.bmp", CreateDetailsArrow(up: false, Color.RoyalBlue, SystemColors.Control));
+            imageList1.Images.Add("arrow_down_color_pressed.bmp", CreateDetailsArrow(up: false, Color.Navy, SystemColors.ControlDark));
+            imageList1.Images.Add("green_arrow.bmp", CreateDetailsArrow(up: false, Color.ForestGreen, SystemColors.Control));
+        }
+
+        private static Bitmap CreateDetailsArrow(bool up, Color arrowColor, Color backgroundColor)
+        {
+            Bitmap bitmap = new(16, 16);
+            using Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(backgroundColor);
+
+            Point[] points = up
+                ? [new Point(8, 4), new Point(3, 10), new Point(13, 10)]
+                : [new Point(3, 6), new Point(13, 6), new Point(8, 12)];
+            using SolidBrush brush = new(arrowColor);
+            graphics.FillPolygon(brush, points);
+            return bitmap;
         }
 
         //--------------------------------------------------------------------------------

@@ -10,12 +10,23 @@
   "created_at": "2026-04-15T18:58:44Z",
   "github_updated_at": "2026-05-23T11:19:47Z",
   "body_snippet": "Related to the issue https://github.com/mRemoteNG/mRemoteNG/issues/2329, how to connect using Azure AD web account?\n\n<img width=\"567\" height=\"621\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/14a1b81d-1d05-4986-95ba-dd4b8ecd7143\" />\n\nRemote clients have the most secured setup like NLA, NTLM v2 and so on. If I try to connect, I get this error:\n\n<img width=\"669\" height=\"298\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/16e4a2c2-b33b-405f-9aeb-fd24e9224b1c\" />\n\nmRemote...",
-  "our_status": "new",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-06-11",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
   "comments": [
     {
       "id": "IC_kwDORKxwDc7__LDq",
@@ -58,6 +69,6 @@
   "unread_comments": 0,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-05-25T14:28:55Z",
-  "notes": ""
+  "last_synced": "2026-06-11T16:16:02Z",
+  "notes": "Entra ID shipped 2e40adc6b; no reporter response 3wk after nudge; closed, reopen on request"
 }

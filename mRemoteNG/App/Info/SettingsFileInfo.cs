@@ -104,12 +104,22 @@ namespace mRemoteNG.App.Info
         public static string InstalledThemeFolder =>
             string.IsNullOrWhiteSpace(ExePath)
                 ? string.Empty
-                : Path.Combine(ExePath, "Themes");
+                : GetInstalledThemeFolder();
 
         private static string GetInstalledSettingsPath()
         {
             string configuredPath = GetConfiguredSettingsPath();
             return string.IsNullOrWhiteSpace(configuredPath) ? DefaultSettingsPath : configuredPath;
+        }
+
+        private static string GetInstalledThemeFolder()
+        {
+            string themeFolder = Path.Combine(ExePath, "Themes");
+            if (Directory.Exists(themeFolder))
+                return themeFolder;
+
+            string settingsThemeFolder = Path.Combine(ExePath, PortableSettingsFolderName, "Themes");
+            return Directory.Exists(settingsThemeFolder) ? settingsThemeFolder : themeFolder;
         }
 
         private static string GetConfiguredSettingsPath()

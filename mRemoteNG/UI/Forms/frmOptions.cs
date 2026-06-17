@@ -105,7 +105,6 @@ namespace mRemoteNG.UI.Forms
             }
 
             Logger.Instance.Log?.Debug($"[FrmOptions_Load] First initialization");
-            SetActivatedPage();
             //ApplyLanguage();
             // Handle the main page here and the individual pages in
             // AddOptionsPagesToListView()  -- one less foreach loop....
@@ -116,8 +115,8 @@ namespace mRemoteNG.UI.Forms
             //ApplyTheme();
             //ThemeManager.getInstance().ThemeChanged += ApplyTheme;
             lstOptionPages.SelectedIndexChanged += LstOptionPages_SelectedIndexChanged;
-            lstOptionPages.SelectedIndex = 0;
-            Logger.Instance.Log?.Debug($"[FrmOptions_Load] Selected index set to 0");
+            SetActivatedPage(_pageName);
+            Logger.Instance.Log?.Debug($"[FrmOptions_Load] Selected page set");
 
             // Mark as initialized
             _isInitialized = true;
@@ -392,35 +391,33 @@ namespace mRemoteNG.UI.Forms
                     return;
                 }
 
-                // Skip if this page is already displayed in the panel
-                if (pnlMain.Controls.Count == 1 && pnlMain.Controls[0] == page)
-                {
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' already displayed - skipping");
-                    return;
-                }
-
                 pnlMain.SuspendLayout();
-                pnlMain.Controls.Clear();
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] pnlMain.Controls cleared");
-
-                if (page.IsDisposed)
+                try
                 {
-                    Logger.Instance.Log?.Error($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' is disposed - cannot display");
-                    return;
-                }
+                    pnlMain.Controls.Clear();
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] pnlMain.Controls cleared");
 
-                // Ensure the page has a valid window handle
-                if (!page.IsHandleCreated)
+                    if (page.IsDisposed)
+                    {
+                        Logger.Instance.Log?.Error($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' is disposed - cannot display");
+                        return;
+                    }
+
+                    if (!page.IsHandleCreated)
+                    {
+                        Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' has no handle - creating handle");
+                        var handle = page.Handle;
+                        Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Handle created: {handle}");
+                    }
+
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Adding page '{page.PageName}' to pnlMain");
+                    pnlMain.Controls.Add(page);
+                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page added successfully. pnlMain.Controls.Count: {pnlMain.Controls.Count}");
+                }
+                finally
                 {
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page '{page.PageName}' has no handle - creating handle");
-                    var handle = page.Handle; // This creates the handle
-                    Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Handle created: {handle}");
+                    pnlMain.ResumeLayout(true);
                 }
-
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Adding page '{page.PageName}' to pnlMain");
-                pnlMain.Controls.Add(page);
-                pnlMain.ResumeLayout(true);
-                Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] Page added successfully. pnlMain.Controls.Count: {pnlMain.Controls.Count}");
 
                 Logger.Instance.Log?.Debug($"[LstOptionPages_SelectedIndexChanged] END");
             }

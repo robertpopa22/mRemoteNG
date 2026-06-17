@@ -34,7 +34,6 @@ namespace mRemoteNG.UI.TaskDialog
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTaskDialog));
             this.imgMain = new System.Windows.Forms.PictureBox();
             this.pnlButtons = new System.Windows.Forms.Panel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
@@ -91,15 +90,7 @@ namespace mRemoteNG.UI.TaskDialog
             // 
             // imageList1
             // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "arrow_up_bw.bmp");
-            this.imageList1.Images.SetKeyName(1, "arrow_up_color.bmp");
-            this.imageList1.Images.SetKeyName(2, "arrow_up_color_pressed.bmp");
-            this.imageList1.Images.SetKeyName(3, "arrow_down_bw.bmp");
-            this.imageList1.Images.SetKeyName(4, "arrow_down_color.bmp");
-            this.imageList1.Images.SetKeyName(5, "arrow_down_color_pressed.bmp");
-            this.imageList1.Images.SetKeyName(6, "green_arrow.bmp");
             // 
             // panel2
             // 
