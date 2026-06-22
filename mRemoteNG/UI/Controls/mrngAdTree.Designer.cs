@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MrngAdTree));
             this.tvActiveDirectory = new System.Windows.Forms.TreeView();
-            this.ImglTree = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // tvActiveDirectory
@@ -43,16 +41,7 @@
             this.tvActiveDirectory.TabIndex = 0;
             this.tvActiveDirectory.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.TvActiveDirectory_AfterExpand);
             this.tvActiveDirectory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TvActiveDirectory_AfterSelect);
-            // 
-            // ImglTree
-            // 
-            this.ImglTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImglTree.ImageStream")));
-            this.ImglTree.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImglTree.Images.SetKeyName(0, "Root.png");
-            this.ImglTree.Images.SetKeyName(1, "OU.png");
-            this.ImglTree.Images.SetKeyName(2, "Folder.png");
-            this.ImglTree.Images.SetKeyName(3, "Question.png");
-            // 
+            //
             // AdTree
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -68,6 +57,5 @@
         #endregion
 
         private System.Windows.Forms.TreeView tvActiveDirectory;
-        private System.Windows.Forms.ImageList ImglTree;
     }
 }
