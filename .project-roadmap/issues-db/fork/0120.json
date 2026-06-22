@@ -6,7 +6,7 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-05-26T16:01:41Z",
-  "github_updated_at": "2026-06-12T08:51:26Z",
+  "github_updated_at": "2026-06-12T19:57:46Z",
   "body_snippet": "First I wrote server name, login and password (for SQL Server Auth), then it gave me this error:\n\n```\n---------------------------\nError (5/25/2026 11:48:06 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Cannot find the object \"tblExternalTools\" because it does not exist or you do not have permissions.\n---------------------------\nOK   \n---------------------------\n```\n\nThen I wrote Database name in field \"Database\" as \"mRemoteNG\", then it gave me this error...",
   "our_status": "needs_info",
   "priority": null,
@@ -97,6 +97,16 @@
     {
       "seq": 9,
       "date": "2026-06-12",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 10,
+      "date": "2026-06-22",
       "type": "needs_info",
       "description": "Status changed to needs_info",
       "pr": null,
@@ -222,12 +232,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABF9VA2g",
+      "author": "kaansengul",
+      "date": "2026-06-12T19:57:46Z",
+      "snippet": "Answers:\n\n1. When I double click connection, it act like the connection drops. Shows me the name of connection + Connect button\n2. double click\n3. I have tried both checked & unchecked, it is same\n4. Log file is empty",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-12T08:51:26Z",
-  "unread_comments": 5,
+  "comments_cursor": "2026-06-12T19:57:46Z",
+  "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-12T12:55:48Z",
-  "notes": "perf confirmed fast; 'RDP connection broken' too vague - no recent commit touches RDP connect path (SQL load=LegacyRijndael, gate=copy/reveal only, ec29604c4=intentional reconnect gating); asked for symptom detail + log + reconnect setting"
+  "waiting_for_us": true,
+  "last_synced": "2026-06-22T09:43:02Z",
+  "notes": "RDP double-click drops to reconnect screen, log empty; manual path differs from gated startup-reconnect fix; needs build-type + all-protocols-or-RDP + verbose log"
 }

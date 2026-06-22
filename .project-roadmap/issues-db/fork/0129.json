@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-06-12T07:52:39Z",
-  "github_updated_at": "2026-06-12T08:10:12Z",
+  "github_updated_at": "2026-06-15T08:09:23Z",
   "body_snippet": "Mremote folder structure is different comparing msi installation with portable.\nSee the comparison\n\n<img width=\"1916\" height=\"799\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5e26f274-87eb-4f51-a772-000be09cd47b\" />\n\nDue to this also the look&feel is affected\n\nMremote installed with msi\n<img width=\"405\" height=\"384\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d956c446-2798-43f5-ba8d-56f651252f8a\" />\n\nMremote portable\n\n<img width=\"470\" height=\"335\" alt=\"Image\" src=...",
   "our_status": "needs_info",
   "priority": null,
@@ -23,13 +23,42 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-06-22",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-12T08:10:12Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABF6O-6Q",
+      "author": "robertpopa22",
+      "date": "2026-06-12T13:12:20Z",
+      "snippet": "Thanks for the clear side-by-side, @bruste77 — the folder-layout difference between the MSI and the portable build is exactly the kind of thing that breaks theme loading (mRemoteNG looks for the `Themes` subfolder relative to the executable).\n\nTo pin down which installer is at fault, could you confirm:\n\n1. Which build the MSI came from — the nightly (`nightly` release tag) or a tagged release — and the exact version string from **Help → About**.\n2. After you \"aligned the folders manually\", where...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABGH2BrA",
+      "author": "bruste77",
+      "date": "2026-06-15T08:09:23Z",
+      "snippet": "Msi version is mRemoteNG-nightly-20260612-v1.82.0-beta.3-0ff3a88-x64\n\nTo make themes visible in configuration I've to put themes folder in C:\\Program Files\\mRemoteNG, but after doing that config section color looks weird\n\n<img width=\"405\" height=\"384\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d8808a9e-5a74-49c7-be25-8f95fbfa9e4f\" />\n\nAlso the font in the config section looks less defined compared to the origal mremote 1.78.2\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-15T08:09:23Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-12T13:09:23Z",
-  "notes": "MSI install folder layout differs from portable ZIP, themes not visible; need build/version to identify which installer."
+  "waiting_for_us": true,
+  "last_synced": "2026-06-22T09:43:02Z",
+  "notes": "theme-folder fallback (9e81169af) postdates reporter beta.3 0ff3a88; MSI not shipping Themes folder = packaging; PropertyGrid color/font separate; retest portable next nightly"
 }

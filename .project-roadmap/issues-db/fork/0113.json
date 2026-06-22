@@ -6,9 +6,9 @@
   "labels": [],
   "author": "xPortu",
   "created_at": "2026-05-04T09:10:16Z",
-  "github_updated_at": "2026-06-12T11:54:57Z",
+  "github_updated_at": "2026-06-22T09:32:12Z",
   "body_snippet": "I am trying to configure mRemoteNG to use a SQL Server database as the backend instead of the default file-based configuration, but I am having issues when saving new connections.\n\nSteps already performed:\n\nI created a new SQL Server database specifically for mRemoteNG.\nI created a dedicated SQL user (mRemote) and granted it sysadmin / sa-level permissions (for testing purposes).\nUsing this user, mRemoteNG is able to connect to the database and automatically creates all required tables without a...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -119,6 +119,16 @@
       "date": "2026-06-12",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 12,
+      "date": "2026-06-22",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -269,12 +279,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABF6O-eg",
+      "author": "robertpopa22",
+      "date": "2026-06-12T13:12:19Z",
+      "snippet": "Great news — that screenshot pinpointed it exactly, @CAFPA-RRodrigues. The schema migrations are now fully working (your DB reaching ConfVersion 3.4 with no popup proves the whole 2.6 → 3.4 upgrade path is finally clean). This last error is a *data* problem, not a schema one:\n\n> Requested value 'Gecko' was not found.\n\n`Gecko` was a web rendering-engine option in old mRemoteNG that no longer exists. Your 2.6 database still has at least one connection storing that value, and the SQL loader was cal...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABHCCqUQ",
+      "author": "xPortu",
+      "date": "2026-06-22T09:32:11Z",
+      "snippet": "Hello @robertpopa22 \n\nThe database migration is now complete, and version 3.4 is now displayed directly in the table; the software is showing the connections. It allows me to use them and save new ones.\n\nI have a question: if one of my colleagues now wants to use the old version of mRemoteNG 1.76 with a database that’s been migrated to 3.4, they won’t be able to, will they? \n\nI’ve tried it and it gives an error; I understand that this isn’t something that can be fixed, is that right?\n\nI’d also l...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-12T11:54:57Z",
-  "unread_comments": 8,
+  "comments_cursor": "2026-06-22T09:32:12Z",
+  "unread_comments": 9,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-06-12T13:12:26Z",
-  "notes": "fix shipped ff038592e; awaiting CAFPA-RRodrigues confirm on nightly"
+  "last_synced": "2026-06-22T09:43:02Z",
+  "notes": "xPortu confirms migration to 3.4 works, connections load/save; core SQL bug done (ff038592e). Side notes: backwards-compat by design; SQL-config preview-pane cosmetic"
 }
