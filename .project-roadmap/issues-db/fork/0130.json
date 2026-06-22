@@ -6,7 +6,7 @@
   "labels": [],
   "author": "7h3Cub3",
   "created_at": "2026-06-12T22:47:42Z",
-  "github_updated_at": "2026-06-13T08:35:33Z",
+  "github_updated_at": "2026-06-22T12:42:05Z",
   "body_snippet": "Hello, \n\nIm trying to use the nightly version but either the zip or the msi keep asking for .net 10 to be installed, but i already have it (all 3 flavors + sdk's) and i have several .net 10 app that have no problem running, i think there is an issue with the version check, it seems to require v10.0.0 but can never find it, i tried to rollback to 10.0.0 but with no success, current version is 10.0.9\n\n<img width=\"533\" height=\"341\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/cf0da71...",
   "our_status": "needs_info",
   "priority": null,
@@ -25,11 +25,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-13T08:35:33Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABHDfp2A",
+      "author": "robertpopa22",
+      "date": "2026-06-22T12:42:05Z",
+      "snippet": "Thanks for the detailed runtime list — that actually narrows it down.\n\nThe dialog means the build you launched is **framework-dependent** (it expects the .NET Desktop Runtime to be installed and resolved at launch), and the host isn't resolving your installed 10.0.9 even though `dotnet --list-runtimes` clearly shows it. The version in the dialog (\"10.0.0\") is just the base target — normal roll-forward should accept 10.0.9, so something on the resolution side is off rather than a genuinely missin...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-22T12:42:05Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-22T09:43:02Z",
+  "last_synced": "2026-06-22T13:46:52Z",
   "notes": "framework-dependent build fails runtime resolution despite 10.0.9 installed; not root-causable from source (no RollForward=Disable, default Minor accepts 10.0.9); env/artifact; offer self-contained ZIP workaround + request runtimeconfig.json/DOTNET_ROOT"
 }

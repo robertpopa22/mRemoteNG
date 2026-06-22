@@ -6,7 +6,7 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-05-26T16:01:41Z",
-  "github_updated_at": "2026-06-12T19:57:46Z",
+  "github_updated_at": "2026-06-22T12:42:06Z",
   "body_snippet": "First I wrote server name, login and password (for SQL Server Auth), then it gave me this error:\n\n```\n---------------------------\nError (5/25/2026 11:48:06 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Cannot find the object \"tblExternalTools\" because it does not exist or you do not have permissions.\n---------------------------\nOK   \n---------------------------\n```\n\nThen I wrote Database name in field \"Database\" as \"mRemoteNG\", then it gave me this error...",
   "our_status": "needs_info",
   "priority": null,
@@ -241,12 +241,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABHDfqdQ",
+      "author": "robertpopa22",
+      "date": "2026-06-22T12:42:06Z",
+      "snippet": "Thanks — that \"shows the connection name + a Connect button\" screen is the disconnected state, so the RDP session is either closing immediately or never establishing. An empty log usually means the failure happens before anything gets logged (e.g. the RDP ActiveX control failing to initialize), so I need to narrow where it breaks:\n\n1. **Is it only RDP, or every protocol?** Please try a non-RDP connection (SSH/VNC/HTTP) to the same or any host. If those open fine, the problem is specifically the ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-12T19:57:46Z",
+  "comments_cursor": "2026-06-22T12:42:06Z",
   "unread_comments": 6,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-06-22T09:43:02Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-06-22T13:46:52Z",
   "notes": "RDP double-click drops to reconnect screen, log empty; manual path differs from gated startup-reconnect fix; needs build-type + all-protocols-or-RDP + verbose log"
 }
