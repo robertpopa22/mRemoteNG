@@ -12,8 +12,14 @@
 
     <SummaryInformation Description="mRemoteNG - Multi-Remote Next Generation Connection Manager" />
 
+    <!-- #120: nightlies all share MSI ProductVersion (prerelease suffix stripped),
+         so AllowSameVersionUpgrades is required for the upgrade to fire; and
+         afterInstallInitialize fully removes the old product BEFORE laying down new
+         files, so unversioned helper DLLs (e.g. ExternalConnectors.dll, pinned at
+         1.0.0.0) are replaced instead of kept by MSI file-versioning rules. -->
     <MajorUpgrade DowngradeErrorMessage="!(loc.Upgrade_NewerVersionInstalled)"
-                  Schedule="afterInstallExecute" />
+                  AllowSameVersionUpgrades="yes"
+                  Schedule="afterInstallInitialize" />
 
     <MediaTemplate EmbedCab="yes" />
 
