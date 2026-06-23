@@ -25,7 +25,9 @@ namespace mRemoteNGTests.Tree.ClickHandlers
         {
             var connectionInfo = new ConnectionInfo();
             _clickHandler.Execute(connectionInfo);
-            _connectionInitiator.Received().OpenConnection(connectionInfo);
+            // Force depends on live modifier keys (Ctrl) and the DoubleClickOpensNewConnection
+            // setting, so ignore it here — this test only verifies the node gets opened.
+            _connectionInitiator.Received().OpenConnection(connectionInfo, Arg.Any<ConnectionInfo.Force>());
         }
 
         [Test]
