@@ -827,6 +827,16 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
                             }
                         }
                         break;
+                    case NotifyCollectionChangedAction.Move:
+                        if (args.NewItems != null)
+                        {
+                            foreach (ConnectionInfo item in args.NewItems.OfType<ConnectionInfo>())
+                            {
+                                if (item.Parent != null)
+                                    RefreshObject(item.Parent);
+                            }
+                        }
+                        break;
                     case NotifyCollectionChangedAction.Remove:
                         RemoveObjects(args.OldItems);
                         break;
