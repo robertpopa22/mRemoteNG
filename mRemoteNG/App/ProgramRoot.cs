@@ -2,7 +2,6 @@
 
 using mRemoteNG.App.Update;
 using mRemoteNG.Config.Settings;
-using mRemoteNG.DotNet.Update;
 using mRemoteNG.UI.Forms;
 using mRemoteNG.Resources.Language;
 using System;
@@ -73,40 +72,13 @@ namespace mRemoteNG.App
 
             if (!isSelfContained)
             {
-                string? installedVersion = DotNetRuntimeCheck.GetLatestDotNetRuntimeVersion();
-
                 var checkFail = false;
 
-                // Checking .NET Runtime version
-                var (latestRuntimeVersion, downloadUrl) = DotNetRuntimeCheck.GetLatestAvailableDotNetVersionAsync().GetAwaiter().GetResult();
-                bool validDownloadUrl = Uri.TryCreate(downloadUrl, UriKind.Absolute, out var downloadUri)
-                                        && downloadUri.Scheme == Uri.UriSchemeHttps;
-                if (string.IsNullOrEmpty(installedVersion))
-                {
-                    try
-                    {
-                        var result = ShowDownloadCancelDialog(
-                            $".NET " + DotNetRuntimeCheck.RequiredDotnetVersion + ".0 " + Language.MsgRuntimeIsRequired + "\n\n" +
-                            Language.MsgDownloadLatestRuntime + "\n" + downloadUrl + "\n\n" +
-                            Language.MsgExit + "\n\n",
-                            Language.MsgMissingRuntime + " .NET " + DotNetRuntimeCheck.RequiredDotnetVersion);
-
-                        if (result == DialogResult.OK && InternetConnection.IsPosible())
-                        {
-                            try
-                            {
-                                if (validDownloadUrl)
-                                    Process.Start(new ProcessStartInfo(fileName: downloadUrl) { UseShellExecute = true });
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show($"Unable to open download link: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
-                    }
-                    catch { }
-                    checkFail = true;
-                }
+                // The .NET runtime presence check was removed (#130): reaching managed
+                // code here proves the host already resolved a compatible framework per
+                // runtimeconfig.json. The old registry probe (sharedhost\Version) could
+                // only false-fail on valid installs (e.g. runtime laid down via ZIP/script
+                // that never wrote HKLM), wrongly blocking startup.
 
                 // Checking Visual C++ Redistributable version
                 if (VCppRuntimeCheck.GetInstalledVcRedistVersions() == null || VCppRuntimeCheck.GetInstalledVcRedistVersions().Count == 0)
