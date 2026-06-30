@@ -6,9 +6,9 @@
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-06-24T11:44:58Z",
-  "github_updated_at": "2026-06-27T12:17:22Z",
+  "github_updated_at": "2026-06-30T12:06:04Z",
   "body_snippet": "1. When I move (using the mouse or keyboard) an existing connection in the tree, nothing visually happens. The element is actually being moved; it’s just that the tree isn’t being redrawn. If I create a new connection or delete an existing one, the connection tree is updated immediately and the changes are visible.\n\n2. I want to configure the layout of the “File Menu” and “External Tools Bar” as shown in the image:\n\n<img width=\"881\" height=\"458\" alt=\"Image\" src=\"https://github.com/user-attachmen...",
-  "our_status": "testing",
+  "our_status": "needs_info",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -33,6 +33,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-06-30",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -44,12 +54,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIH2lNA",
+      "author": "robertpopa22",
+      "date": "2026-06-30T05:06:22Z",
+      "snippet": "Thanks both — these are two independent things, so let me split them.\n\n**1. Tree not redrawing when you move a connection in place — fixed.**\nReordering a connection inside its current folder (mouse drag or keyboard) was updating the data but not repainting the tree, so nothing appeared to move; add/delete worked because they take a different refresh path. Root cause was a missing `Move` case in the tree's collection-changed handler. Fixed in commit `f65cf65d2` — in-place reorders now redraw imm...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIK1lbg",
+      "author": "DrSchnagels",
+      "date": "2026-06-30T12:06:04Z",
+      "snippet": "Hi Robert!\nView -> Lock Toolbars does not prevent the bar to drop down, set off or on. Happens every restart.\nSize does not change, drops to its own bar.\nThe bar is long because i have many external programs set up. Text+icons. Other questions I have to test yet.\n\nAll I can say at the moment is that the classic (super old version) is not having this problem. Toolbars are locked and Ext. Programms and Menu bar stay in the same row each restart. Was never an issue with the old version.\n\nThanks for...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-27T12:17:22Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-06-30T12:06:04Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-06-30T05:06:30Z",
-  "notes": "fix shipped f65cf65d2 (pt1 tree Move redraw); pt2 toolbar layout = needs-info; awaiting reporter retest"
+  "last_synced": "2026-06-30T15:40:20Z",
+  "notes": "part1 redraw fixed f65cf65d2 (retest); part2 toolbar side-by-side row restore needs screenshots, ToolStripPanel.Join fix to scope"
 }

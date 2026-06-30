@@ -6,7 +6,7 @@
   "labels": [],
   "author": "7h3Cub3",
   "created_at": "2026-06-12T22:47:42Z",
-  "github_updated_at": "2026-06-28T17:15:58Z",
+  "github_updated_at": "2026-06-30T05:06:21Z",
   "body_snippet": "Hello, \n\nIm trying to use the nightly version but either the zip or the msi keep asking for .net 10 to be installed, but i already have it (all 3 flavors + sdk's) and i have several .net 10 app that have no problem running, i think there is an issue with the version check, it seems to require v10.0.0 but can never find it, i tried to rollback to 10.0.0 but with no success, current version is 10.0.9\n\n<img width=\"533\" height=\"341\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/cf0da71...",
   "our_status": "testing",
   "priority": null,
@@ -63,12 +63,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIH2k0A",
+      "author": "robertpopa22",
+      "date": "2026-06-30T05:06:21Z",
+      "snippet": "Thanks — the `runtimeconfig.json` and `DOTNET_ROOT` output actually flipped the diagnosis, and my earlier guess was wrong.\n\nThat dialog is **not** the .NET host's \"framework not found\" dialog — it's **mRemoteNG's own** pre-launch check. The check only reads one registry value:\n\n```\nHKLM\\SOFTWARE\\dotnet\\Setup\\InstalledVersions\\<arch>\\sharedhost\\Version\n```\n\nThat value is **not** the runtime-resolution result, and it's missing on some perfectly valid installs (e.g. when a runtime was laid down by ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-28T17:15:58Z",
+  "comments_cursor": "2026-06-30T05:06:21Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-06-30T05:06:29Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-06-30T15:13:14Z",
   "notes": "fix shipped 59c5d418e; removed redundant .NET preflight; awaiting 7h3Cub3 retest on nightly"
 }
