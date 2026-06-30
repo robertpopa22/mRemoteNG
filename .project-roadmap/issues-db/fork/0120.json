@@ -6,9 +6,9 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-05-26T16:01:41Z",
-  "github_updated_at": "2026-06-22T12:42:06Z",
+  "github_updated_at": "2026-06-23T13:25:37Z",
   "body_snippet": "First I wrote server name, login and password (for SQL Server Auth), then it gave me this error:\n\n```\n---------------------------\nError (5/25/2026 11:48:06 PM)\n---------------------------\nVerifyDatabaseVersion (Config.Connections.Save) failed. Cannot find the object \"tblExternalTools\" because it does not exist or you do not have permissions.\n---------------------------\nOK   \n---------------------------\n```\n\nThen I wrote Database name in field \"Database\" as \"mRemoteNG\", then it gave me this error...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -109,6 +109,26 @@
       "date": "2026-06-22",
       "type": "needs_info",
       "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 11,
+      "date": "2026-06-23",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 12,
+      "date": "2026-06-23",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -250,12 +270,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABHHVfJA",
+      "author": "kaansengul",
+      "date": "2026-06-22T19:55:13Z",
+      "snippet": "I've downloaded both msi and zip for latest nighly, 20260622 and did the connection test. Self contained works for both RDP and SSH but MSI doesn't. In the log files the error is:\n`'System.__ComObject' does not contain a definition for 'UIParentWindowHandle'\n2026-06-22 22:48:18,273 [2] ERROR - RDP SetProps failed!\nCould not load type 'ExternalConnectors.OP.OnePasswordCliException' from assembly 'ExternalConnectors, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.\n   at void mRemoteNG.Conn...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABHOQvaw",
+      "author": "robertpopa22",
+      "date": "2026-06-23T13:25:37Z",
+      "snippet": "Thanks, that log is the smoking gun. Here's what's happening:\n\n`ExternalConnectors.dll` (and a few other helper assemblies) are built with the default file version **1.0.0.0**, which never changes from one nightly to the next, while `mRemoteNG.exe` carries the real version. When you install a new MSI **over a previous one**, two Windows Installer rules combine against us:\n\n1. Every nightly MSI ends up with the same product version (the prerelease suffix is stripped), so the installer didn't even...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-22T12:42:06Z",
-  "unread_comments": 6,
+  "comments_cursor": "2026-06-23T13:25:37Z",
+  "unread_comments": 7,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-06-22T13:46:52Z",
-  "notes": "RDP double-click drops to reconnect screen, log empty; manual path differs from gated startup-reconnect fix; needs build-type + all-protocols-or-RDP + verbose log"
+  "last_synced": "2026-06-29T17:08:05Z",
+  "notes": "fix shipped aa4323804 (MSI afterInstallInitialize + AllowSameVersionUpgrades); awaiting reporter confirm on next nightly MSI"
 }

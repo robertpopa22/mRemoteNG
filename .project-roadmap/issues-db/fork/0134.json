@@ -1,0 +1,55 @@
+{
+  "number": 134,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Two questions about the user interface",
+  "state": "open",
+  "labels": [],
+  "author": "vndnua",
+  "created_at": "2026-06-24T11:44:58Z",
+  "github_updated_at": "2026-06-27T12:17:22Z",
+  "body_snippet": "1. When I move (using the mouse or keyboard) an existing connection in the tree, nothing visually happens. The element is actually being moved; it’s just that the tree isn’t being redrawn. If I create a new connection or delete an existing one, the connection tree is updated immediately and the changes are visible.\n\n2. I want to configure the layout of the “File Menu” and “External Tools Bar” as shown in the image:\n\n<img width=\"881\" height=\"458\" alt=\"Image\" src=\"https://github.com/user-attachmen...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-06-29",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-06-30",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABHyQSEA",
+      "author": "DrSchnagels",
+      "date": "2026-06-27T12:17:22Z",
+      "snippet": "Hi vndnua,\nthanks for taking the effort to post this. I haven't time yet... but i face the exact same problem.\nIf you could look into this Robert, it would be fantastic. My external tool bar size is quite large.\nHave a great weekend and drink enough water everyone!",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-27T12:17:22Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-06-30T05:06:30Z",
+  "notes": "fix shipped f65cf65d2 (pt1 tree Move redraw); pt2 toolbar layout = needs-info; awaiting reporter retest"
+}

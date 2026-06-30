@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-06-12T07:52:39Z",
-  "github_updated_at": "2026-06-22T12:42:07Z",
+  "github_updated_at": "2026-06-29T13:35:31Z",
   "body_snippet": "Mremote folder structure is different comparing msi installation with portable.\nSee the comparison\n\n<img width=\"1916\" height=\"799\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5e26f274-87eb-4f51-a772-000be09cd47b\" />\n\nDue to this also the look&feel is affected\n\nMremote installed with msi\n<img width=\"405\" height=\"384\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d956c446-2798-43f5-ba8d-56f651252f8a\" />\n\nMremote portable\n\n<img width=\"470\" height=\"335\" alt=\"Image\" src=...",
   "our_status": "needs_info",
   "priority": null,
@@ -27,6 +27,16 @@
     {
       "seq": 2,
       "date": "2026-06-22",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-06-29",
       "type": "needs_info",
       "description": "Status changed to needs_info",
       "pr": null,
@@ -62,12 +72,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIBSl9g",
+      "author": "bruste77",
+      "date": "2026-06-29T13:35:31Z",
+      "snippet": "Tested latest night build: mRemoteNG-nightly-20260623-v1.82.0-beta.3-24c6271-x64\n\nNow the graphic is wrong both with msi and portable. I think you changed the portable, but the weird (wrong color) graphic was with the msi, portable was correct. \nNow both appears as in the image I posted in the previous comment\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-22T12:42:07Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-06-29T13:35:31Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-22T13:46:52Z",
-  "notes": "theme-folder fallback (9e81169af) postdates reporter beta.3 0ff3a88; MSI not shipping Themes folder = packaging; PropertyGrid color/font separate; retest portable next nightly"
+  "waiting_for_us": true,
+  "last_synced": "2026-06-29T17:15:22Z",
+  "notes": "theme-folder change is portable-neutral; need selected theme + same-theme side-by-side + portable folder layout"
 }
