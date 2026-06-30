@@ -6203,7 +6203,21 @@ namespace BrightIdeasSoftware
                     break;
                 case 0x204E: // WM_REFLECT_NOTIFY
                     if (!this.HandleReflectNotify(ref m))
-                        base.WndProc(ref m);
+                    {
+                        try
+                        {
+                            base.WndProc(ref m);
+                        }
+                        catch (ArgumentOutOfRangeException) when (this.VirtualMode)
+                        {
+                            // Virtual-mode TOCTOU: a native reflected ListView notification
+                            // (e.g. LVN_ITEMCHANGED) can carry a row index that the model just
+                            // invalidated (VirtualListSize shrank), so the framework's
+                            // WmReflectNotify dereferences a stale Items[index] and throws.
+                            // The notification is obsolete; swallow it. Same benign race already
+                            // guarded in VirtualObjectListView (#52, #56). (#135)
+                        }
+                    }
                     break;
                 case 0x114: // WM_HSCROLL:
                 case 0x115: // WM_VSCROLL:
