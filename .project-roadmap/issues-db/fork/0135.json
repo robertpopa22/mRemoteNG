@@ -6,7 +6,7 @@
   "labels": [],
   "author": "San9K1",
   "created_at": "2026-06-30T04:57:52Z",
-  "github_updated_at": "2026-06-30T04:57:52Z",
+  "github_updated_at": "2026-06-30T15:40:32Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** index ('1') must be less than '0'. (Parameter 'index')\r\nActual value was 1.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at ListViewItem System.Windows.Forms.ListView+ListViewItemCollection.get_Item(int index)\r\n   at void System.Windows.Forms.ListView.WmReflectNotify(ref Message m)\r\n   at void System.Windows.Forms.ListView....",
   "our_status": "testing",
   "priority": null,
@@ -25,11 +25,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-06-30T04:57:52Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIM3dOg",
+      "author": "robertpopa22",
+      "date": "2026-06-30T15:40:32Z",
+      "snippet": "Thanks for the auto-report — that stack trace pinned it precisely.\n\nThe connection tree is a virtual-mode list. When the tree model changes and the visible row count drops (a folder collapses, or a refresh shrinks the list toward zero), Windows can still have a queued ListView notification referencing a row index that no longer exists. The framework's reflected-notify handler then tries to read `Items[1]` while the count is `0` and throws `ArgumentOutOfRangeException`. It was already non-fatal (...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-06-30T15:40:32Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-30T15:40:20Z",
+  "last_synced": "2026-07-01T06:22:44Z",
   "notes": "fix bb2a7f6c6; OLV reflect-notify virtual-mode AOORE guard; awaiting reporter confirm on nightly"
 }

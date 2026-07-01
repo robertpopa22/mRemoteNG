@@ -6,9 +6,9 @@
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-06-24T11:44:58Z",
-  "github_updated_at": "2026-06-30T12:06:04Z",
+  "github_updated_at": "2026-07-01T05:29:49Z",
   "body_snippet": "1. When I move (using the mouse or keyboard) an existing connection in the tree, nothing visually happens. The element is actually being moved; it’s just that the tree isn’t being redrawn. If I create a new connection or delete an existing one, the connection tree is updated immediately and the changes are visible.\n\n2. I want to configure the layout of the “File Menu” and “External Tools Bar” as shown in the image:\n\n<img width=\"881\" height=\"458\" alt=\"Image\" src=\"https://github.com/user-attachmen...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -43,6 +43,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-01",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -72,12 +82,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIM3d3w",
+      "author": "robertpopa22",
+      "date": "2026-06-30T15:40:33Z",
+      "snippet": "Thanks for the detail, @DrSchnagels — that narrows part 2 nicely.\n\n**Part 1 (tree not redrawing on an in-place move)** — the fix is already in (`f65cf65d2`) and lands in the next nightly, so a quick retest there would confirm it's sorted on your side.\n\n**Part 2 (File Menu + External Tools Bar won't stay side-by-side on one row)** — your answers rule out the size angle: it's purely the *row placement* not being restored. Lock Toolbars only controls the grips, not which row a bar lands on at start...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIR2b0g",
+      "author": "vndnua",
+      "date": "2026-07-01T05:29:49Z",
+      "snippet": "Part 1. I confirm: it works as it should. Thank you.\nPart 2. The steps are simple:\n1. Launch mRemoteNG. The panels are arranged as follows:\n\n<img width=\"499\" height=\"76\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/6ab7532e-7145-44cd-a808-50006237cb0e\" />\n\n2. View-menu state:\n\n<img width=\"500\" height=\"436\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/3eb3ea24-4578-40a3-9bb4-82bb5b5b5911\" />\n\n3. Arrange the panels in a single row:\n\n<img width=\"841\" height=\"439\" alt=\"...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-30T12:06:04Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-07-01T05:29:49Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-06-30T15:40:20Z",
-  "notes": "part1 redraw fixed f65cf65d2 (retest); part2 toolbar side-by-side row restore needs screenshots, ToolStripPanel.Join fix to scope"
+  "last_synced": "2026-07-01T14:50:03Z",
+  "notes": "part1 confirmed fixed (vndnua); part2 fix d27b15040 (post-hide visibility -> invisible Join -> own row); awaiting retest on nightly"
 }
