@@ -78,7 +78,12 @@ namespace mRemoteNG.Config.Settings
         private static void SaveExternalAppsToolbarLocation(ExternalToolsToolStrip externalToolsToolStrip)
         {
             Properties.Settings.Default.ExtAppsTBLocation = externalToolsToolStrip.Location;
-            Properties.Settings.Default.ExtAppsTBVisible = externalToolsToolStrip.Visible;
+            // Do NOT read externalToolsToolStrip.Visible here (#134): SaveSettings runs from
+            // Shutdown.Cleanup after FrmMain.Hide(), and a hidden parent makes Control.Visible
+            // report false for every child, so the toolbar would be persisted hidden on every
+            // exit. The ViewMenu toggle keeps Settings.ViewMenuExternalTools in sync (same
+            // approach as QuickConnect #117).
+            Properties.Settings.Default.ExtAppsTBVisible = Properties.Settings.Default.ViewMenuExternalTools;
             Properties.Settings.Default.ExtAppsTBShowText = externalToolsToolStrip.CMenToolbarShowText.Checked;
 
             if (externalToolsToolStrip.Parent != null)

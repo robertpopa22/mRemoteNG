@@ -266,7 +266,13 @@ namespace mRemoteNG.Config.Settings
         private void AddExternalAppsPanel()
         {
             SetToolstripGripStyle(_externalToolsToolStrip);
-            _externalToolsToolStrip.Visible = Properties.Settings.Default.ExtAppsTBVisible;
+            // Use the ViewMenu-synced visibility, not ExtAppsTBVisible: SaveSettings runs
+            // after FrmMain.Hide() (#134), so externalToolsToolStrip.Visible reads false for a
+            // hidden parent and ExtAppsTBVisible is persisted false. Joining the toolbar while
+            // invisible makes ToolStripPanel drop it onto its own row instead of sharing the
+            // menu's row; it is later re-shown by SetLayout, but on the wrong row. Same
+            // hidden-parent quirk already handled for QuickConnect (#117).
+            _externalToolsToolStrip.Visible = Properties.Settings.Default.ViewMenuExternalTools;
             ToolStripPanel toolStripPanel = ToolStripPanelFromString(Properties.Settings.Default.ExtAppsTBParentDock);
             toolStripPanel.Join(_externalToolsToolStrip, Properties.Settings.Default.ExtAppsTBLocation);
         }
