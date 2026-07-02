@@ -1,0 +1,35 @@
+{
+  "number": 137,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Any plan to release macOS version?",
+  "state": "open",
+  "labels": [],
+  "author": "kaansengul",
+  "created_at": "2026-07-01T17:58:25Z",
+  "github_updated_at": "2026-07-01T17:58:25Z",
+  "body_snippet": "As the source code using .NET 10, maybe it is good idea to release macOS version?",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-02",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-07-01T17:58:25Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-02T06:15:24Z",
+  "notes": "macOS infeasible: WinForms + MSTSCLib COM RDP ActiveX are Win32-only; .NET 10 alone does not port"
+}

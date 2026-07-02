@@ -6,9 +6,9 @@
   "labels": [],
   "author": "7h3Cub3",
   "created_at": "2026-06-12T22:47:42Z",
-  "github_updated_at": "2026-06-30T05:06:21Z",
+  "github_updated_at": "2026-07-01T16:13:00Z",
   "body_snippet": "Hello, \n\nIm trying to use the nightly version but either the zip or the msi keep asking for .net 10 to be installed, but i already have it (all 3 flavors + sdk's) and i have several .net 10 app that have no problem running, i think there is an issue with the version check, it seems to require v10.0.0 but can never find it, i tried to rollback to 10.0.0 but with no success, current version is 10.0.9\n\n<img width=\"533\" height=\"341\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/cf0da71...",
-  "our_status": "testing",
+  "our_status": "needs_info",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -43,6 +43,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-01",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -72,12 +82,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIU1YJw",
+      "author": "7h3Cub3",
+      "date": "2026-07-01T11:06:41Z",
+      "snippet": "Hello, i tested both mRemoteNG-nightly-20260630-v1.82.0-beta.3-f005672-x64 (zip and msi) but sadly the issue persist.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIYefew",
+      "author": "robertpopa22",
+      "date": "2026-07-01T16:13:00Z",
+      "snippet": "Thanks for testing both builds — and sorry this is still biting you.\n\nFirst, a correction to my previous diagnosis. I verified that the in-app .NET check I removed in `59c5d418e` is definitely gone from the build you tested (`…f005672…`, both ZIP and MSI). The only startup \"runtime required\" prompt left in the code is for the Visual C++ Redistributable — it can never say \".NET 10.0.0\". So the dialog you're seeing is **not** coming from mRemoteNG's own code anymore. That leaves two possibilities,...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-06-30T05:06:21Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-07-01T16:13:00Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-06-30T15:13:14Z",
-  "notes": "fix shipped 59c5d418e; removed redundant .NET preflight; awaiting 7h3Cub3 retest on nightly"
+  "last_synced": "2026-07-02T06:12:58Z",
+  "notes": "4-model review (Codex+Gemini+Grok+Perplexity) converged: managed .NET check provably gone in f005672; dialog is native apphost (or stale binary). No source fix possible. Requested --version test + COREHOST_TRACE log + dialog screenshot + self-contained ZIP result."
 }
