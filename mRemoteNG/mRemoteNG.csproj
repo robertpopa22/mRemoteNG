@@ -245,9 +245,7 @@
     <PackageReference Include="System.Data.Odbc" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="Newtonsoft.Json.Schema" />
-    <PackageReference Include="OpenCover" />
     <PackageReference Include="Renci.SshNet.Async" />
-    <PackageReference Include="ReportGenerator" />
     <PackageReference Include="SSH.NET" />
     <PackageReference Include="System.Management" />
     <PackageReference Include="System.Runtime.Serialization.Formatters" />
