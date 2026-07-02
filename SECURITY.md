@@ -4,8 +4,8 @@
 
 | Version | Supported |
 |---------|-----------|
-| 1.82.x (nightly) | :white_check_mark: Active development |
-| 1.81.x | :white_check_mark: Latest stable release |
+| 1.82.x | :white_check_mark: Latest stable release |
+| 1.81.x | :white_check_mark: Previous stable |
 | 1.76.x and earlier | :x: End of life |
 
 ## Reporting a Vulnerability

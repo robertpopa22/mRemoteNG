@@ -15,11 +15,11 @@ Full transparency: this project is built by humans and AI working together. We b
 </blockquote>
 
 <p align="center">
-  <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0">
-    <img alt="Latest Stable" src="https://img.shields.io/badge/latest%20stable-v1.81.0-brightgreen?style=for-the-badge">
+  <a href="https://github.com/robertpopa22/mRemoteNG/releases/latest">
+    <img alt="Latest Stable" src="https://img.shields.io/badge/latest%20stable-v1.82.0-brightgreen?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly">
-    <img alt="Nightly" src="https://img.shields.io/badge/nightly-v1.82.0--beta.3-blue?style=for-the-badge">
+    <img alt="Nightly" src="https://img.shields.io/badge/nightly-rolling-blue?style=for-the-badge">
   </a>
   <a href="https://github.com/robertpopa22/mRemoteNG/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/robertpopa22/mRemoteNG/pr_validation.yml?style=for-the-badge&label=CI">
@@ -54,22 +54,28 @@ Full transparency: this project is built by humans and AI working together. We b
 
 ## Downloads
 
-| Channel | Version | Branch | Description |
-|---------|---------|--------|-------------|
-| **[Stable](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.81.0)** | v1.81.0 | `release/1.81` | Frozen release. 6,201 tests, 0 analyzer warnings. **Recommended.** |
-| **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | v1.82.0-beta.3 | `main` | Auto-built on every push. Latest features, fully tested. |
-| **[Legacy](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20)** | v1.76.20 | — | Last .NET Framework 4.x release. |
+Two live releases, always:
 
-### Download matrix
+| Release | Version | Description |
+|---------|---------|-------------|
+| **[Stable](https://github.com/robertpopa22/mRemoteNG/releases/latest)** | v1.82.0 | Latest tagged release — all platforms. **Recommended.** |
+| **[Nightly](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly)** | rolling | Rebuilt and overwritten on every push to `main`. Latest changes, fully tested. |
+| **[Legacy](https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.76.20)** | v1.76.20 | Last .NET Framework 4.x release. |
 
-| Channel | Version | Variant | x64 | x86 | ARM64 |
-|---------|---------|---------|-----|-----|-------|
-| **Stable** | v1.81.0 | Framework-dependent (~21 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-arm64.zip) |
-| **Stable** | v1.81.0 | Self-contained (~108-116 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-win-x64-SelfContained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-win-x86-SelfContained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.81.0/mRemoteNG-v1.81.0-win-arm64-SelfContained.zip) |
-| **Nightly** | v1.82.0-beta.3 | ZIP (~21 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) | — | — |
-| **Nightly** | v1.82.0-beta.3 | **MSI Installer** | [Download](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) | — | — |
+### Download matrix — Stable v1.82.0
 
-**Framework-dependent** (ZIP + MSI) requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0). **Self-contained** includes the .NET runtime — no prerequisites. **MSI** installs to Program Files with desktop & Start Menu shortcuts.
+| Variant | x64 | x86 | ARM64 |
+|---------|-----|-----|-------|
+| Framework-dependent (~21 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x64.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x86.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-arm64.zip) |
+| Self-contained (~108-150 MB) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x64-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-x86-selfcontained.zip) | [Download](https://github.com/robertpopa22/mRemoteNG/releases/download/v1.82.0/mRemoteNG-v1.82.0-arm64-selfcontained.zip) |
+
+Nightly builds (ZIP + MSI, x64) live on the [nightly release](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly), refreshed every push.
+
+**Framework-dependent** requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0). **Self-contained** includes the .NET runtime — no prerequisites. **MSI** installs to Program Files with desktop & Start Menu shortcuts.
+
+### How releases work
+
+mRemoteNG ships entirely from GitHub Releases with a deliberately small, predictable model: **one rolling `nightly`** (everything on `main`, overwritten on each push) and **immutable `vX.Y.Z` stable tags** — the newest of which is exactly what the app's built-in *Check for updates* reports (`releases/latest`). We chose this over the old multi-channel, self-hosted update-feed setup because it is simpler and fully GitHub-native: no update server to run, no per-channel text files to keep in sync, and a single obvious source of truth for both users and the app. Fewer moving parts, less to break, easier to trust.
 
 ---
 
@@ -83,7 +89,7 @@ Full transparency: this project is built by humans and AI working together. We b
 
 **Performance:** Startup optimized to **under 1 second** with 200 connections (down from 10-30s). WMI queries, plugin loading, and IE emulation deferred to background threads. XML deserialization uses O(1) dictionary lookups instead of O(n) attribute scans.
 
-**Quality:** 6,251 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 issues triaged (712 released).
+**Quality:** 6,266 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 issues triaged (712 released).
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -232,6 +238,8 @@ The model is not specific to mRemoteNG. Any project with hundreds of open issues
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| **v1.82.0** | 2026-07-02 | First stable of the 1.82 line (.NET 10). GitHub-Releases-only update check, WebAuthn/FIDO2 + Entra ID auth, MSI installer (WiX 6), MS Remote Desktop + MobaXTerm importers, host-status LED icons, startup ~10s→1.2s, plus the 2-release model and a repo-wide simplification cleanup |
+| **v1.81.0** | 2026-03-02 | First stable of the 1.81 line — SonarCloud Quality Gate A/A/A, 0 analyzer warnings, upstream PR [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) |
 | **v1.81.0-beta.6** | 2026-03-01 | SonarCloud Quality Gate pass on upstream PR #3189 — 6 security vulnerabilities fixed, 50 hotspots reviewed, 5,247→0 analyzer warnings, 4-level code quality (Roslynator + Meziantou + SonarCloud + CodeQL), coverage collection via `dotnet-coverage`, workflow permissions hardened (S8264/S8233), upstream sync with v1.78.2-dev |
 | **v1.81.0-beta.5** | 2026-02-27 | 7 manual-testing regressions fixed, AV false positive hardening (`SendInput`, `DefaultDllImportSearchPaths`, VirusTotal in CI), `PortableSettingsInitializer` for .NET 10, 5,963 tests |
 | **v1.81.0-beta.4** | 2026-02-25 | AV hardening, test suite expansion 2,916 → 5,963 via `TestCaseSource` parametrization |
@@ -291,20 +299,20 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,251 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,266 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 
 | Group | Namespace | Tests |
 |-------|-----------|-------|
-| 1 | Connection | 1,083 |
+| 1 | Connection | 1,113 |
 | 2 | Config.Xml | 124 |
-| 3 | Config.Other | 744 |
+| 3 | Config.Other | 784 |
 | 4 | UI | 374 |
-| 5 | Tools | 391 |
+| 5 | Tools | 394 |
 | 6 | Security | 166 |
 | 7 | Tree + Container + Credential | 178 |
-| 8 | Remaining | 3,040 |
+| 8 | Remaining | 3,110 |
 | 9 | Integration | 21 |
 | Isolated | FrmOptions (GDI handle leak) | 2 |
 

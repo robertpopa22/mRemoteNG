@@ -34,7 +34,7 @@ First stable release of the 1.82.0 cycle (consolidates the 1.82.0-beta line). Bu
 Automatic MSI installer generation — the most requested feature from community testers. Resolves [#24](https://github.com/robertpopa22/mRemoteNG/issues/24).
 
 ### Added
-- **MSI installer** — WiX 7 SDK project generates Windows Installer packages automatically in CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24))
+- **MSI installer** — WiX 6 SDK project generates Windows Installer packages automatically in CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24))
 - **`build-msi.ps1`** — local MSI build script with automatic file harvesting from build output
 - **Nightly MSI** — MSI installer included alongside ZIP in every nightly release
 - **Release MSI** — MSI artifact generated for x64 framework-dependent builds in release workflow

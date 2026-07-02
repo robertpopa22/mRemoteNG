@@ -16,7 +16,7 @@ Daca nu exista acest fisier, intreaba user-ul ce plan urmam.
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development branch (latest code, currently v1.81.0-beta.2)
+- **Main branch:** `main` — active development branch (latest code); latest stable tag **v1.82.0**
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -129,8 +129,8 @@ dotnet test "mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll" --results-direct
 - `dotnet test --no-build` on the .csproj looks in `bin\Release\` (WRONG)
 - Always run `dotnet test` directly on the **DLL path**, not the .csproj
 
-### Current test status (v1.81.0-beta.3, 2026-02-22):
-- **Full run:** 2817/2817 passed, 0 failed — 9 groups + 2 isolated, bash runner with auto-retry
+### Current test status (v1.82.0, 2026-07-02):
+- **Full run:** 6266/6266 passed, 0 failed — 9 groups + 2 isolated, bash runner with auto-retry
 - **Test runner:** `run-tests-core.sh` (bash) — avoids PowerShell pipeline back-pressure
   - 9 namespace-based groups, each in own testhost process
   - Auto-retries crashed groups up to 2x (cumulative OS resource exhaustion)

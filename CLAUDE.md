@@ -31,8 +31,8 @@ If you are running as an automated agent via `claude -p`:
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
 - **Upstream (official):** `mRemoteNG/mRemoteNG`
-- **Main branch:** `main` — active development (v1.82.0-beta.1)
-- **Stable branch:** `release/1.81` — frozen, upstream PR #3189
+- **Main branch:** `main` — active development; latest stable tag **v1.82.0**
+- **Stable:** cut by pushing a `vX.Y.Z` tag from `main` (latest = v1.82.0). `release/1.81` is a historical frozen branch (upstream PR #3189)
 - **Solution:** `mRemoteNG.sln` (.NET 10, SDK-style projects with COM references)
 
 ## Build Instructions
@@ -94,7 +94,7 @@ Every test failure MUST be resolved before finishing a task. NO EXCEPTIONS.
 
 ## CI/CD
 - Runners: `windows-2025-vs2026` with MSBuild 18.x (VS2026)
-- Workflows: `pr_validation.yml` (build), `Build_mR-NB.yml` (release), `sonarcloud.yml` (quality gate), `codeql.yml` (security)
+- Workflows: `pr_validation.yml` (build), `nightly.yml` (rolling `nightly` prerelease on push→main), `Build_mR-NB.yml` (stable release — cut by pushing a `vX.Y.Z` tag; `make_latest`), `sonarcloud.yml` (quality gate), `codeql.yml` (security)
 - Platforms: x86, x64, ARM64
 - Code signing: SignPath Foundation (mandatory — see `docs/CODE_SIGNING_POLICY.md`)
 - Version: read from `mRemoteNG/mRemoteNG.csproj` `<Version>` element
@@ -170,18 +170,16 @@ PR history, and release status, see: **`.project-roadmap/DEVELOPER_GUIDE.md`**
 For the complete evidence trail of the AI-assisted modernization process
 (metrics, agent performance, CI data, methodology notes), see: **`scientific-paper/EVIDENCE.md`**
 
-## Current Release Status (2026-03-16)
+## Current Release Status (2026-07-02)
 
 | Metric | Value |
 |--------|-------|
-| Version | 1.82.0-beta.3 (dev) / 1.81.0 (stable) |
+| Version | **1.82.0** (stable, released 2026-07-02) |
 | Analyzer warnings | 0 (5,247 eliminated) |
-| Tests | 6,251 passed, 0 failures |
-| Issues | 853 triaged: 712 released (83.5%), 116 wontfix, 25 duplicate |
-| Fork issues | 12 open (6 from zgabi, active tester) |
+| Tests | 6,266 passed, 0 failures |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
-| CI status | All 6 workflows GREEN |
-| SonarCloud | Quality Gate PASSED (A/A/A, 80.7% coverage, 1.6% duplication) |
-| Upstream PR | [#3189](https://github.com/mRemoteNG/mRemoteNG/pull/3189) (release/1.81 → v1.78.2-dev, CONFLICTING) |
-| Nightly release | [Auto-generated on push to main](https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly) |
-| MSI installer | WiX 6.0.2 SDK — auto-generated in nightly + release CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24)) |
+| CI status | All workflows GREEN |
+| SonarCloud | Quality Gate PASSED (A/A/A) |
+| Release model | **2 live releases**: rolling `nightly` (overwritten each push to `main`) + stable `vX.Y.Z` tags (`releases/latest`). Old dated `-NB-` prereleases removed. |
+| Update check | In-app checks GitHub `releases/latest` (latest stable) and opens the release page — no Stable/Preview/Nightly channels, no `mremoteng.org` feeds |
+| MSI installer | WiX 6 SDK — auto-generated in nightly + release CI ([#24](https://github.com/robertpopa22/mRemoteNG/issues/24)) |
