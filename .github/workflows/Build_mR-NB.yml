@@ -480,7 +480,11 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: "mRemoteNG ${{ steps.meta.outputs.version }}"
-          files: release-assets/*
+          # release-assets/* is single-level (attaches the flat ZIPs + checksums); the MSI artifact
+          # preserves a nested Release/en-US/ path, so add a targeted recursive glob for it (#138).
+          files: |
+            release-assets/*
+            release-assets/**/*.msi
           body: |
             ## mRemoteNG ${{ steps.meta.outputs.version }}
 
