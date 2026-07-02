@@ -3,6 +3,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.82.0] - 2026-07-02
+
+First stable release of the 1.82.0 cycle (consolidates the 1.82.0-beta line). Built on
+.NET 10. See the beta sections below for the full per-change detail.
+
+### Added
+- **WebAuthn / FIDO2 passkey + Entra ID authentication** for RDP connections
+- **MSI installer** (WiX SDK) generated automatically in CI, alongside the portable ZIP
+- **Importers** — Microsoft Remote Desktop Client backup, and MobaXTerm sessions
+- **Host-status LED icons** in the connection tree
+- Options: **Reset connections-file picker** button; **Replace or Add** prompt when opening a connection file with connections already loaded
+
+### Changed
+- **In-app update check simplified to GitHub Releases** — reports the latest stable release and opens the release page to download; the legacy Stable/Preview/Nightly text-file channels (which pointed at the old upstream site) were removed
+- **Startup optimized** from ~10s to ~1.2s with 200 connections; SQL connection loading dramatically faster (per-save key derivation + single schema query)
+- **Release model** simplified to a rolling `nightly` prerelease plus stable `vX.Y.Z` tags; repository cleaned of dead update-engine, orphaned AppVeyor tooling, and legacy installer remnants
+
+### Fixed
+- Numerous crash and stability fixes: .NET 10 launch/preflight, AD-import BinaryFormatter, virtual-list ObjectListView races, connection-tree redraw, external-tools/QuickConnect toolbar persistence, SQL-import robustness, and reconnect/close focus handling (issues #110, #113, #118, #120, #130–#137)
+
+### Security
+- Re-authentication + clipboard hygiene on password copy/reveal
+- Constant-time comparison for API key and TOTP; URL-scheme validation before shell execution; VNC/PuTTY credential-leak fixes
+
 ## [1.82.0-beta.3] - 2026-03-16
 
 ### Highlight: MSI Installer (Issue #24)
