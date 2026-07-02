@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Runtime.Versioning;
-using mRemoteNG.Properties;
 
 // ReSharper disable InconsistentNaming
 
@@ -9,84 +8,27 @@ namespace mRemoteNG.App.Info
     [SupportedOSPlatform("windows")]
     public static class UpdateChannelInfo
     {
+        // Channel names are retained because registry policy (OptRegistryUpdatesPage) and the
+        // options UI still reference them, but this fork resolves every channel to GitHub.
         public const string STABLE = "Stable";
         public const string PREVIEW = "Preview";
         public const string NIGHTLY = "Nightly";
         public const string GITHUB = "GitHub";
 
-        public const string StablePortable = "update-portable.txt";
-        public const string PreviewPortable = "preview-update-portable.txt";
-        public const string NightlyPortable = "nightly-update-portable.txt";
-
-        public const string StableMsi = "update.txt";
-        public const string PreviewMsi = "preview-update.txt";
-        public const string NightlyMsi = "nightly-update.txt";
-
         private const string GITHUB_API_URI = "https://api.github.com/repos/robertpopa22/mRemoteNG/releases/latest";
 
+        // This fork distributes exclusively via GitHub Releases, so every update check resolves
+        // to the GitHub releases API. The legacy Stable/Preview/Nightly text-file channels pointed
+        // at the upstream website (mremoteng.org) — which serves upstream's own (ancient) update.txt
+        // and has no preview/nightly files for this fork — so they reported wrong versions or failed.
         public static Uri GetUpdateChannelInfo()
         {
-            string channel = IsValidChannel(Properties.OptionsUpdatesPage.Default.UpdateChannel)
-                ? Properties.OptionsUpdatesPage.Default.UpdateChannel
-                : GITHUB;
-
-            if (channel == GITHUB)
-                return new Uri(GITHUB_API_URI);
-
-            return GetUpdateTxtUri(channel);
+            return new Uri(GITHUB_API_URI);
         }
 
         public static bool IsGitHubUri(Uri uri)
         {
             return uri.AbsoluteUri.Equals(GITHUB_API_URI, StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static string GetChannelFileName(string channel)
-        {
-            return Runtime.IsPortableEdition
-                ? GetChannelFileNamePortableEdition(channel)
-                : GetChannelFileNameNormalEdition(channel);
-        }
-
-        private static string GetChannelFileNameNormalEdition(string channel)
-        {
-            switch (channel)
-            {
-                case STABLE:
-                    return StableMsi;
-                case PREVIEW:
-                    return PreviewMsi;
-                case NIGHTLY:
-                    return NightlyMsi;
-                default:
-                    return StableMsi;
-            }
-        }
-
-        private static string GetChannelFileNamePortableEdition(string channel)
-        {
-            switch (channel)
-            {
-                case STABLE:
-                    return StablePortable;
-                case PREVIEW:
-                    return PreviewPortable;
-                case NIGHTLY:
-                    return NightlyPortable;
-                default:
-                    return StablePortable;
-            }
-        }
-
-        private static Uri GetUpdateTxtUri(string channel)
-        {
-            return new Uri(new Uri(Properties.OptionsUpdatesPage.Default.UpdateAddress),
-                           new Uri(GetChannelFileName(channel), UriKind.Relative));
-        }
-
-        private static bool IsValidChannel(string s)
-        {
-            return s.Equals(STABLE, StringComparison.Ordinal) || s.Equals(PREVIEW, StringComparison.Ordinal) || s.Equals(NIGHTLY, StringComparison.Ordinal) || s.Equals(GITHUB, StringComparison.Ordinal);
         }
     }
 }

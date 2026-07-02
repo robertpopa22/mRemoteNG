@@ -353,23 +353,15 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         /// Initializes the release channel ComboBox
         /// </summary>
         /// <remarks>
-        /// Set available options (STABLE, PREVIEW, NIGHTLY) and selects the appropriate channel based on saved settings
+        /// This fork publishes exclusively through GitHub Releases, so GitHub is the only update
+        /// source. The legacy Stable/Preview/Nightly text-file channels (which pointed at the
+        /// upstream website) are retired and no longer offered.
         /// </remarks>
         private void InitialiseReleaseChannelComboBox()
         {
             cboReleaseChannel.Items.Clear();
-            int stable = cboReleaseChannel.Items.Add(UpdateChannelInfo.STABLE);
-            int beta = cboReleaseChannel.Items.Add(UpdateChannelInfo.PREVIEW);
-            int dev = cboReleaseChannel.Items.Add(UpdateChannelInfo.NIGHTLY);
-            int github = cboReleaseChannel.Items.Add(UpdateChannelInfo.GITHUB);
-            cboReleaseChannel.SelectedIndex = Properties.OptionsUpdatesPage.Default.UpdateChannel switch
-            {
-                UpdateChannelInfo.STABLE => stable,
-                UpdateChannelInfo.PREVIEW => beta,
-                UpdateChannelInfo.NIGHTLY => dev,
-                UpdateChannelInfo.GITHUB => github,
-                _ => github,
-            };
+            cboReleaseChannel.Items.Add(UpdateChannelInfo.GITHUB);
+            cboReleaseChannel.SelectedIndex = 0;
         }
 
         /// <summary>
