@@ -35,11 +35,6 @@
     <ProjectReference Include="..\mRemoteNG\mRemoteNG.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\mRemoteNGInstaller\CustomActions\InstalledWindowsUpdateChecker.cs">
-      <Link>Installer\InstalledWindowsUpdateChecker.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

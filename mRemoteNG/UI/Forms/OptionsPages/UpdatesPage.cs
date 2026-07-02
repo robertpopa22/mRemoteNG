@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Windows.Forms;
 using mRemoteNG.App;
-using mRemoteNG.App.Info;
 using mRemoteNG.App.Update;
 using mRemoteNG.Properties;
 using mRemoteNG.Security.SymmetricEncryption;

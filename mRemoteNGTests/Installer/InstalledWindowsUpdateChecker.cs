@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Management;
 using System.Collections;
 using System.Collections.Generic;
@@ -66,7 +66,7 @@ namespace CustomActions
                 var sanitizedKb = SanitizeKbId(kb);
                 if (string.IsNullOrEmpty(sanitizedKb))
                     continue; // Skip invalid KB IDs
-                
+
                 if (counter > 0)
                     whereClause += " OR ";
                 whereClause += $"HotFixID='{sanitizedKb}'";
@@ -96,7 +96,7 @@ namespace CustomActions
 
             // Normalize to uppercase
             var normalizedKb = trimmedKb.ToUpperInvariant();
-            
+
             // Ensure KB prefix is present (Win32_QuickFixEngineering always uses the KB prefix)
             if (!normalizedKb.StartsWith("KB", StringComparison.Ordinal))
                 normalizedKb = "KB" + normalizedKb;
