@@ -1,19 +1,10 @@
 name: Build_and_Release_mR-NB_MultiDeploy
 on:
   push:
-    branches:
-      - v1.78.2-dev
-      - release/1.80
-      - main
     tags:
-      - 'v*'
+      - 'v*.*.*'
 
   workflow_dispatch:
-    inputs:
-      release_flag:
-        description: 'Run NB release'
-        required: false
-        default: 'true'
 
 permissions: {}
 
@@ -64,13 +55,7 @@ jobs:
             selfcontained: true
             suffix: "-selfcontained"
     runs-on: ${{ matrix.runner }}
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && (
-        startsWith(github.ref, 'refs/tags/v') ||
-        github.ref == 'refs/heads/release/1.80' ||
-        contains(github.event.head_commit.message, 'NB release')
-      ))
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
 
     steps:
       - name: (01) Checkout Repository
@@ -206,7 +191,7 @@ jobs:
           $fullVersion = "${{ steps.version_info.outputs.version }}"
           $date = Get-Date -Format "yyyyMMdd"
           $suffix = "${{ matrix.suffix }}"
-          $zipName = "mRemoteNG-$date-v$fullVersion-NB-$build-${{ matrix.arch }}$suffix.zip"
+          $zipName = "mRemoteNG-v$fullVersion-${{ matrix.arch }}$suffix.zip"
           echo "zipname=$zipName" >> $env:GITHUB_OUTPUT
           echo "version=$fullVersion" >> $env:GITHUB_OUTPUT
           echo "build=$build" >> $env:GITHUB_OUTPUT
@@ -395,21 +380,23 @@ jobs:
           }
           Write-Host "Version from csproj: $csprojVersion"
 
-          if ($csprojVersion -match '^(\d+)\.(\d+)\.(\d+)') {
-            $major = [int]$matches[1]; $minor = [int]$matches[2]; $revision = [int]$matches[3]
-          } else {
-            throw "Could not parse version from csproj: $csprojVersion"
+          # Stable-release guard: the pushed ref must be a clean vX.Y.Z tag whose version exactly
+          # equals the csproj <Version>, and that <Version> must itself be a clean X.Y.Z with no
+          # prerelease suffix, build metadata, or 4th part. This prevents a tag from ever publishing
+          # wrong-versioned or prerelease binaries as the "latest" release.
+          $ref = "${{ github.ref_name }}"
+          if ($ref -notmatch '^v\d+\.\d+\.\d+$') {
+            throw "Stable release requires a vX.Y.Z tag; got ref '$ref'."
           }
-          $prerelease = if ($csprojVersion -match '-(.+)$') { "-$($matches[1])" } else { "" }
-
-          $base = [datetime]"2019-09-02"
-          $build = [int](([datetime]::UtcNow - $base).TotalMinutes / 1000)
-          $date = Get-Date -Format "yyyyMMdd"
-          $tag = "$date-v$major.$minor.$revision$prerelease-NB-($build)"
+          if ($csprojVersion -notmatch '^\d+\.\d+\.\d+$') {
+            throw "csproj <Version> ($csprojVersion) must be a clean X.Y.Z (no prerelease/build metadata) before tagging $ref."
+          }
+          $tagVersion = $ref.TrimStart('v')
+          if ($csprojVersion -ne $tagVersion) {
+            throw "Tag $ref does not match csproj <Version> $csprojVersion."
+          }
           $message = git log -1 --pretty=%B
-          echo "tag=$tag" >> $env:GITHUB_OUTPUT
-          echo "version=$major.$minor.$revision$prerelease" >> $env:GITHUB_OUTPUT
-          echo "build=$build" >> $env:GITHUB_OUTPUT
+          echo "version=$csprojVersion" >> $env:GITHUB_OUTPUT
           echo "message=$message" >> $env:GITHUB_OUTPUT
 
       - name: (03) Extract Changelog Section
@@ -491,11 +478,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.meta.outputs.tag }}
-          name: "mRemoteNG ${{ steps.meta.outputs.version }} NB ${{ steps.meta.outputs.build }}"
+          tag_name: ${{ github.ref_name }}
+          name: "mRemoteNG ${{ steps.meta.outputs.version }}"
           files: release-assets/*
           body: |
-            ## mRemoteNG ${{ steps.meta.outputs.version }} NB Build ${{ steps.meta.outputs.build }}
+            ## mRemoteNG ${{ steps.meta.outputs.version }}
 
             ### Available Downloads
 
@@ -522,4 +509,5 @@ jobs:
             Last Commit Message:
             ${{ steps.meta.outputs.message }}
           draft: false
-          prerelease: true
+          prerelease: false
+          make_latest: true

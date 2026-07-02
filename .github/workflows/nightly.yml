@@ -267,7 +267,7 @@ jobs:
             | **MSI** | Windows Installer — installs to Program Files with shortcuts |
 
             > [!WARNING]
-            > This is an automated build from the `main` branch. It includes the latest changes but may not be fully tested in production scenarios. For stable releases, use the [latest release](https://github.com/${{ github.repository }}/releases/tag/v1.81.0) or [legacy](https://github.com/${{ github.repository }}/releases/tag/v1.76.20).
+            > This is an automated build from the `main` branch. It includes the latest changes but may not be fully tested in production scenarios. For the stable release, use the [latest release](https://github.com/${{ github.repository }}/releases/latest).
 
             The framework-dependent build requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 
