@@ -1913,14 +1913,6 @@ mRemoteNG зараз припинить роботу і почне процес 
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Завжди показувати вкладки підключення</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Канал оновлень</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Канал «Stable» включає лише остаточні стабільні випуски.
-Канал «Preview» включає Beta та Release Candidate.
-Канал «Nightly» включає Alpha, Beta та Release Candidate версії.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Застосувати</value>
   </data>

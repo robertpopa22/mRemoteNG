@@ -793,8 +793,6 @@ namespace mRemoteNG.UI.Forms
             NativeMethods.RemoveClipboardFormatListener(Handle);
             Shutdown.Cleanup(_quickConnectToolStrip, _externalToolsToolStrip, _multiSshToolStrip, msMain, this);
 
-            Shutdown.StartUpdate();
-
             Debug.Print("[END] - " + Convert.ToString(DateTime.Now, CultureInfo.InvariantCulture));
         }
 

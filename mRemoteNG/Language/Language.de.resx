@@ -1912,14 +1912,6 @@ Die Passwortlänge muss zwischen {0} und {1} liegen</value>
   <data name="TrackActiveConnectionInConnectionTree" xml:space="preserve">
     <value>Aktive Verbindung im Verbindungsbaum verfolgen</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Update-Kanal</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Stable enthält nur finale Versionen.
-Preview beinhaltet Betas &amp; Release Candidates.
-Nightly umfasst Alphas, Betas und Release Candidates.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Anwenden</value>
   </data>

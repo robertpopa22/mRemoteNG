@@ -21,14 +21,6 @@ namespace mRemoteNG.Config.Settings.Registry
         public WinRegistryEntry<int> CheckForUpdatesFrequencyDays { get; private set; }
 
         /// <summary>
-        /// Specifies the update channel for updates.
-        /// </summary>
-        /// <remarks>
-        /// The update channel should be one of the predefined values: Stable, Preview, Nightly.
-        /// </remarks>
-        public WinRegistryEntry<string> UpdateChannel { get; private set; }
-
-        /// <summary>
         /// Indicates whether proxy usage for updates is enabled.
         /// </summary>
         public WinRegistryEntry<bool> UseProxyForUpdates { get; private set; }
@@ -65,7 +57,6 @@ namespace mRemoteNG.Config.Settings.Registry
 
             DisallowPromptForUpdatesPreference = new WinRegistryEntry<bool>(hive, subKey, nameof(DisallowPromptForUpdatesPreference)).Read();
             CheckForUpdatesFrequencyDays = new WinRegistryEntry<int>(hive, subKey, nameof(CheckForUpdatesFrequencyDays)).Read();
-            UpdateChannel = new WinRegistryEntry<string>(hive, subKey, nameof(UpdateChannel)).Read();
             UseProxyForUpdates = new WinRegistryEntry<bool>(hive, subKey, nameof(UseProxyForUpdates)).Read();
             ProxyAddress = new WinRegistryEntry<string>(hive, subKey, nameof(ProxyAddress)).Read();
             ProxyPort = new WinRegistryEntry<int>(hive, subKey, nameof(ProxyPort)).Read();
@@ -84,13 +75,6 @@ namespace mRemoteNG.Config.Settings.Registry
         {
             var connectionsPage = new UI.Forms.OptionsPages.UpdatesPage();
 
-            UpdateChannel.SetValidation(new string[] {
-                UpdateChannelInfo.STABLE,
-                UpdateChannelInfo.PREVIEW,
-                UpdateChannelInfo.NIGHTLY
-            });
-
-
             int proxyPortMin = (int)connectionsPage.numProxyPort.Minimum;
             int proxyPortMax = (int)connectionsPage.numProxyPort.Maximum;
             ProxyPort.SetValidation(proxyPortMin, proxyPortMax);
@@ -108,7 +92,6 @@ namespace mRemoteNG.Config.Settings.Registry
             ApplyAllowPromptForUpdatesPreference();
             ApplyCheckForUpdatesOnStartup();
             ApplyCheckForUpdatesFrequencyDays();
-            ApplyUpdateChannel();
             ApplyProxyForUpdates();
             ApplyAuthentication();
         }
@@ -166,12 +149,6 @@ namespace mRemoteNG.Config.Settings.Registry
                     Properties.OptionsUpdatesPage.Default.CheckForUpdatesFrequencyDays = CheckForUpdatesFrequencyDays.Value;
                 }
             }
-        }
-
-        private void ApplyUpdateChannel()
-        {
-            if (UpdateChannel.IsValid)
-                Properties.OptionsUpdatesPage.Default.UpdateChannel = UpdateChannel.Value;
         }
 
         private void ApplyProxyForUpdates()

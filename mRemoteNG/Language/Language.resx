@@ -1852,7 +1852,7 @@ If you run into such an error, please create a new connection file!</value>
     <value>mRemoteNG available</value>
   </data>
   <data name="UpdateCheck" xml:space="preserve">
-    <value>mRemoteNG can periodically connect to the mRemoteNG website to check for updates.</value>
+    <value>mRemoteNG can periodically check GitHub for the latest release.</value>
   </data>
   <data name="UpdateCheckCompleteFailed" xml:space="preserve">
     <value>The update information could not be downloaded.</value>
@@ -2232,14 +2232,6 @@ mRemoteNG will now quit and begin with the installation.</value>
   </data>
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Always show connection tabs</value>
-  </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Release Channel</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Stable channel includes final releases only.
-Preview channel includes Betas &amp; Release Candidates.
-Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
   </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>

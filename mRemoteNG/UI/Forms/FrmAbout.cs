@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using mRemoteNG.App.Info;
 using mRemoteNG.Themes;
 using mRemoteNG.Resources.Language;
-using System.Reflection;
 using mRemoteNG.Properties;
 using System.Runtime.Versioning;
 using mRemoteNG.UI.Window;
@@ -77,37 +76,22 @@ namespace mRemoteNG.UI.Forms
 
         private void llLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
-            if (version != null && updateChannel != null)
-            {
-                var versionString = version.ToString();
-                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/COPYING.txt");
-            }
+            OpenUrl($"https://raw.githubusercontent.com/{GeneralAppInfo.ForkOwner}/mRemoteNG/main/COPYING.txt");
             Close();
         }
 
         private void llChangelog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
-            if (version != null && updateChannel != null)
-            {
-                var versionString = version.ToString();
-                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/CHANGELOG.md");
-            }
+            // "Original" changelog = the upstream mRemoteNG project (the fork's own changelog is llForkChangelog).
+            // HEAD resolves to upstream's default branch, so this stays valid without a version/channel tag.
+            OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/HEAD/CHANGELOG.md");
             Close();
         }
 
         private void llCredits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var updateChannel = Properties.OptionsUpdatesPage.Default.CurrentUpdateChannelType;
-            if (version != null && updateChannel != null)
-            {
-                var versionString = version.ToString();
-                OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/v" + versionString[..^2] + "-" + updateChannel + "/CREDITS.md");
-            }
+            // "Original" credits = the upstream mRemoteNG project.
+            OpenUrl("https://raw.githubusercontent.com/mRemoteNG/mRemoteNG/HEAD/CREDITS.md");
             Close();
         }
 

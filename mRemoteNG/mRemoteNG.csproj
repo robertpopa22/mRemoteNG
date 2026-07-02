@@ -19,7 +19,7 @@
     <Description>Multi-protocol remote connections manager</Description>
     <Copyright>$([System.DateTime]::Now.Year) mRemoteNG Dev Team, 2010-2013 Riley McArdle, 2007-2009 Felix Deimel</Copyright>
     <PackageLicenseFile>COPYING.TXT</PackageLicenseFile>
-    <PackageProjectUrl>https://mremoteng.org/</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/robertpopa22/mRemoteNG</PackageProjectUrl>
     <Platforms>x86;x64;arm64</Platforms>
     <Configurations>Debug;Release;Debug Portable;Release Portable;Release Installer;Release Self-Contained;Deploy to github</Configurations>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

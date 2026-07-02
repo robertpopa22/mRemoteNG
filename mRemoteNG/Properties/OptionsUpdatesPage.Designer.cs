@@ -37,27 +37,6 @@ namespace mRemoteNG.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("release")]
-        public string UpdateChannel {
-            get {
-                return ((string)(this["UpdateChannel"]));
-            }
-            set {
-                this["UpdateChannel"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://mremoteng.org/")]
-        public string UpdateAddress {
-            get {
-                return ((string)(this["UpdateAddress"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string UpdateProxyAddress {
             get {
@@ -125,15 +104,6 @@ namespace mRemoteNG.Properties {
             }
             set {
                 this["UpdateUseProxy"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("dev")]
-        public string CurrentUpdateChannelType {
-            get {
-                return ((string)(this["CurrentUpdateChannelType"]));
             }
         }
         

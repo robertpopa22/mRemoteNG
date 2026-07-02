@@ -7,7 +7,6 @@ using mRemoteNG.Themes;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -71,9 +70,7 @@ namespace mRemoteNG.UI.Window
             Text = Language.MenuItem_CheckForUpdates;
             TabText = Language.MenuItem_CheckForUpdates;
             btnCheckForUpdate.Text = Language.CheckAgain;
-            btnDownload.Text = Runtime.IsPortableEdition
-                ? Language.Download
-                : Language.DownloadAndInstall;
+            btnDownload.Text = Language.Download;
             lblChangeLogLabel.Text = Language.Changelog;
             lblInstalledVersion.Text = Language.Version;
             lblInstalledVersionLabel.Text = $"{Language.Version}:";
@@ -86,32 +83,9 @@ namespace mRemoteNG.UI.Window
             await CheckForUpdateAsync();
         }
 
-        private async void btnDownload_Click(object sender, EventArgs e)
+        private void btnDownload_Click(object sender, EventArgs e)
         {
-            await DownloadUpdateAsync();
-        }
-
-        private void pbUpdateImage_Click(object sender, EventArgs e)
-        {
-            Uri? linkUri = pbUpdateImage.Tag as Uri;
-            if (linkUri == null || linkUri.IsFile || linkUri.IsUnc || linkUri.IsLoopback)
-            {
-                return;
-            }
-
-            // Only allow http/https URLs to prevent exploitation via custom URI schemes
-            if (!linkUri.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase) &&
-                !linkUri.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase))
-            {
-                return;
-            }
-
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = linkUri.ToString(),
-                UseShellExecute = true
-            };
-            Process.Start(startInfo);
+            OpenReleasePage();
         }
 
         #endregion
@@ -161,17 +135,6 @@ namespace mRemoteNG.UI.Window
                     lblLatestVersionLabel.Visible = true;
                     lblLatestVersion.Visible = true;
 
-                    if (updateInfo.ImageAddress == null || string.IsNullOrEmpty(updateInfo.ImageAddress.ToString()))
-                    {
-                        pbUpdateImage.Visible = false;
-                    }
-                    else
-                    {
-                        pbUpdateImage.ImageLocation = updateInfo.ImageAddress.ToString();
-                        pbUpdateImage.Tag = updateInfo.ImageLinkAddress;
-                        pbUpdateImage.Visible = true;
-                    }
-
                     if (updateInfo.IsGitHubSource && !string.IsNullOrEmpty(updateInfo.ChangeLogBody))
                     {
                         txtChangeLog.Text = updateInfo.ChangeLogBody.Replace("\n", Environment.NewLine);
@@ -218,57 +181,24 @@ namespace mRemoteNG.UI.Window
             lblChangeLogLabel.Visible = visible;
             txtChangeLog.Visible = visible;
             btnDownload.Visible = visible;
-            prgbDownload.Visible = visible;
         }
 
-        private async Task DownloadUpdateAsync()
+        // This fork distributes via GitHub Releases; "download" opens the release page in the
+        // browser rather than fetching/installing an MSI in-app.
+        private void OpenReleasePage()
         {
             try
             {
-                if (_appUpdate?.CurrentUpdateInfo?.IsGitHubSource == true)
-                {
-                    Uri? releasePageUrl = _appUpdate.CurrentUpdateInfo.ReleasePageUrl;
-                    if (releasePageUrl != null && !releasePageUrl.IsFile && !releasePageUrl.IsUnc && !releasePageUrl.IsLoopback
-                        && (releasePageUrl.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)
-                            || releasePageUrl.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase)))
-                        Process.Start(new ProcessStartInfo { FileName = releasePageUrl.ToString(), UseShellExecute = true });
-                    return;
-                }
-
-                btnDownload.Enabled = false;
-                prgbDownload.Visible = true;
-                prgbDownload.Value = 0;
-
-                if (_appUpdate == null) return;
-                await _appUpdate.DownloadUpdateAsync(new Progress<int>(progress => prgbDownload.Value = progress));
-
-                btnDownload.Enabled = true;
-                prgbDownload.Visible = false;
-
-                if (Runtime.IsPortableEdition)
-                    MessageBox.Show(Language.UpdatePortableDownloadComplete, Language.MenuItem_CheckForUpdates,
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                {
-                    string? updateFilePath = _appUpdate.CurrentUpdateInfo?.UpdateFilePath;
-                    if (MessageBox.Show(Language.UpdateDownloadComplete, Language.MenuItem_CheckForUpdates,
-                            MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                    {
-                        Shutdown.Quit(updateFilePath);
-                    }
-                    else if (updateFilePath != null)
-                    {
-                        File.Delete(updateFilePath);
-                    }
-                }
+                Uri? releasePageUrl = _appUpdate?.CurrentUpdateInfo?.ReleasePageUrl;
+                if (releasePageUrl != null && !releasePageUrl.IsFile && !releasePageUrl.IsUnc && !releasePageUrl.IsLoopback
+                    && (releasePageUrl.Scheme.Equals("https", StringComparison.OrdinalIgnoreCase)
+                        || releasePageUrl.Scheme.Equals("http", StringComparison.OrdinalIgnoreCase)))
+                    Process.Start(new ProcessStartInfo { FileName = releasePageUrl.ToString(), UseShellExecute = true });
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector?.AddExceptionStackTrace(Language.UpdateDownloadFailed, ex);
-
-                Runtime.MessageCollector?.AddExceptionStackTrace(Language.UpdateDownloadCompleteFailed, ex);
                 Runtime.MessageCollector?.AddMessage(MessageClass.ErrorMsg, ex.Message);
-
             }
         }
 

@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "total_expected": 6251,
+    "total_expected": 6266,
     "min_total_threshold": 5601,
-    "last_updated": "2026-04-23",
+    "last_updated": "2026-07-02",
     "stats": {
       "unique_methods": 1249,
       "static_test_cases": 1337,

@@ -214,14 +214,6 @@ See the Microsoft Support article at http://support.microsoft.com/kb/811833 for 
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Always show connection tabs</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Release Channel</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Stable channel includes final releases only.
-Preview channel includes Betas &amp; Release Candidates.
-Nightly Channel includes Alphas, Betas &amp; Release Candidates.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Apply</value>
   </data>

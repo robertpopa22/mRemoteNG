@@ -90,19 +90,6 @@ Specifies the number of days between automatic update checks.
    If **AllowCheckForUpdates** is set to ``false``, the automatic update check is already disabled, and **CheckForUpdatesFrequencyDays** does not take effect.
 
 
-Update Channel
---------------
-Specifies the preferred update channel.
-
-- **Value Name:** ``UpdateChannel``
-- **Value Type:** ``REG_SZ``
-- **Values:**
-  
-  - Channel: ``Stable``
-  - Channel: ``Nightly``
-  - Channel: ``Preview``
-
-
 Use Proxy For Updates
 ---------------------
 Indicates whether proxy usage for updates is enabled.
@@ -196,8 +183,7 @@ Registry Template
     [HKEY_LOCAL_MACHINE\SOFTWARE\mRemoteNG\Updates\Options]
     "DisallowPromptForUpdatesPreference"="true"
     "CheckForUpdatesFrequencyDays"=dword:00000014
-    "UpdateChannel"="Stable"
-    
+
     "UseProxyForUpdates"="false"
     "ProxyAddress"=""
     "ProxyPort"=dword:00000050

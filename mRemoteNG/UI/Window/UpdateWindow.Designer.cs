@@ -28,10 +28,7 @@ namespace mRemoteNG.UI.Window
             lblInstalledVersion = new MrngLabel();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             btnDownload = new MrngButton();
-            prgbDownload = new MrngProgressBar();
-            pbUpdateImage = new System.Windows.Forms.PictureBox();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pbUpdateImage).BeginInit();
             SuspendLayout();
             // 
             // btnCheckForUpdate
@@ -142,8 +139,6 @@ namespace mRemoteNG.UI.Window
             tableLayoutPanel1.Controls.Add(lblLatestVersion, 1, 2);
             tableLayoutPanel1.Controls.Add(txtChangeLog, 0, 5);
             tableLayoutPanel1.Controls.Add(btnDownload, 0, 6);
-            tableLayoutPanel1.Controls.Add(prgbDownload, 2, 6);
-            tableLayoutPanel1.Controls.Add(pbUpdateImage, 2, 3);
             tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -164,41 +159,19 @@ namespace mRemoteNG.UI.Window
             // btnDownload
             // 
             btnDownload._mice = MrngButton.MouseState.OUT;
-            tableLayoutPanel1.SetColumnSpan(btnDownload, 2);
+            tableLayoutPanel1.SetColumnSpan(btnDownload, 3);
             btnDownload.Dock = System.Windows.Forms.DockStyle.Fill;
             btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnDownload.Location = new System.Drawing.Point(3, 401);
             btnDownload.Name = "btnDownload";
             btnDownload.Size = new System.Drawing.Size(292, 14);
             btnDownload.TabIndex = 2;
-            btnDownload.Text = "Download and Install";
+            btnDownload.Text = "Open Releases Page";
             btnDownload.UseVisualStyleBackColor = true;
             btnDownload.Click += btnDownload_Click;
-            // 
-            // prgbDownload
-            // 
-            prgbDownload.Dock = System.Windows.Forms.DockStyle.Fill;
-            prgbDownload.Location = new System.Drawing.Point(301, 401);
-            prgbDownload.Name = "prgbDownload";
-            prgbDownload.Size = new System.Drawing.Size(430, 14);
-            prgbDownload.TabIndex = 3;
-            prgbDownload.Visible = false;
-            // 
-            // pbUpdateImage
-            // 
-            pbUpdateImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pbUpdateImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            pbUpdateImage.Location = new System.Drawing.Point(301, 94);
-            pbUpdateImage.Name = "pbUpdateImage";
-            tableLayoutPanel1.SetRowSpan(pbUpdateImage, 4);
-            pbUpdateImage.Size = new System.Drawing.Size(33, 32);
-            pbUpdateImage.TabIndex = 45;
-            pbUpdateImage.TabStop = false;
-            pbUpdateImage.Visible = false;
-            pbUpdateImage.Click += pbUpdateImage_Click;
-            // 
+            //
             // UpdateWindow
-            // 
+            //
             AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             ClientSize = new System.Drawing.Size(734, 418);
@@ -210,14 +183,11 @@ namespace mRemoteNG.UI.Window
             Load += Update_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pbUpdateImage).EndInit();
             ResumeLayout(false);
         }
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         internal MrngButton btnDownload;
-        internal Controls.MrngProgressBar prgbDownload;
-        internal System.Windows.Forms.PictureBox pbUpdateImage;
     }
 }

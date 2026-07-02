@@ -48,9 +48,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCheckForUpdatesOnStartup.Text = Language.CheckForUpdatesOnStartup;
             btnUpdateCheckNow.Text = Language.CheckNow;
 
-            groupBoxReleaseChannel.Text = Language.ReleaseChannel;
-            lblReleaseChannelExplanation.Text = Language.ReleaseChannelExplanation;
-
             chkUseProxyForAutomaticUpdates.Text = Language.CheckboxUpdateUseProxy;
             lblProxyAddress.Text = Language.Address;
             lblProxyPort.Text = Language.Port;
@@ -67,7 +64,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         public override void LoadSettings()
         {
             InitialiseCheckForUpdatesOnStartupComboBox();
-            InitialiseReleaseChannelComboBox();
 
             // Checks updates are generaly disallowed
             if (UpdatesForbidden())
@@ -118,8 +114,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 Properties.OptionsUpdatesPage.Default.CheckForUpdatesFrequencyDays = 31;
             }
 
-            Properties.OptionsUpdatesPage.Default.UpdateChannel = cboReleaseChannel.Text;
-
             Properties.OptionsUpdatesPage.Default.UpdateUseProxy = chkUseProxyForAutomaticUpdates.Checked;
             Properties.OptionsUpdatesPage.Default.UpdateProxyAddress = txtProxyAddress.Text;
             Properties.OptionsUpdatesPage.Default.UpdateProxyPort = (int)numProxyPort.Value;
@@ -155,7 +149,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 DisableControl(chkCheckForUpdatesOnStartup);
                 DisableControl(cboUpdateCheckFrequency);
                 DisableControl(btnUpdateCheckNow);
-                DisableControl(cboReleaseChannel);
                 DisableControl(chkUseProxyForAutomaticUpdates);
                 DisableControl(tblProxyBasic);
                 DisableControl(txtProxyAddress);
@@ -190,9 +183,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             // ***
             // Disable controls based on the registry settings.
             //
-            if (pageRegSettingsInstance.UpdateChannel.IsSet)
-                DisableControl(cboReleaseChannel);
-
             if (pageRegSettingsInstance.UseProxyForUpdates.IsSet)
                 DisableControl(chkUseProxyForAutomaticUpdates);
 
@@ -350,21 +340,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
 
 
         /// <summary>
-        /// Initializes the release channel ComboBox
-        /// </summary>
-        /// <remarks>
-        /// This fork publishes exclusively through GitHub Releases, so GitHub is the only update
-        /// source. The legacy Stable/Preview/Nightly text-file channels (which pointed at the
-        /// upstream website) are retired and no longer offered.
-        /// </remarks>
-        private void InitialiseReleaseChannelComboBox()
-        {
-            cboReleaseChannel.Items.Clear();
-            cboReleaseChannel.Items.Add(UpdateChannelInfo.GITHUB);
-            cboReleaseChannel.SelectedIndex = 0;
-        }
-
-        /// <summary>
         /// Checks if updates are forbidden based on registry settings.
         /// </summary>
         private static bool UpdatesForbidden()
@@ -382,7 +357,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             return !CommonRegistrySettings.AllowCheckForUpdatesAutomatical
                 || !CommonRegistrySettings.AllowCheckForUpdatesManual
                 || pageRegSettingsInstance?.CheckForUpdatesFrequencyDays.IsSet == true
-                || pageRegSettingsInstance?.UpdateChannel.IsSet == true
                 || pageRegSettingsInstance?.UseProxyForUpdates.IsSet == true
                 || pageRegSettingsInstance?.ProxyAddress.IsSet == true
                 || pageRegSettingsInstance?.ProxyPort.IsSet == true

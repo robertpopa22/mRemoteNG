@@ -1,6 +1,5 @@
 ﻿using mRemoteNG.Tools;
 using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using mRemoteNG.Config.Connections;
 using mRemoteNG.Config.Putty;
@@ -17,16 +16,8 @@ namespace mRemoteNG.App
     [SupportedOSPlatform("windows")]
     public static class Shutdown
     {
-        private static string? _updateFilePath;
-
-        private static bool UpdatePending
+        public static void Quit()
         {
-            get { return !string.IsNullOrEmpty(_updateFilePath); }
-        }
-
-        public static void Quit(string? updateFilePath = null)
-        {
-            _updateFilePath = updateFilePath;
             FrmMain.Default.Close();
             ProgramRoot.CloseSingletonInstanceMutex();
         }
@@ -124,29 +115,6 @@ namespace mRemoteNG.App
         private static void UnregisterBrowsers()
         {
             IeBrowserEmulation.Unregister();
-        }
-
-        public static void StartUpdate()
-        {
-            try
-            {
-                RunUpdateFile();
-            }
-            catch (Exception ex)
-            {
-                Runtime.MessageCollector.AddExceptionStackTrace("The update could not be started.", ex);
-            }
-        }
-
-        private static void RunUpdateFile()
-        {
-            var updatePath = _updateFilePath;
-            if (!string.IsNullOrEmpty(updatePath))
-            {
-                // Validate the update file path to prevent command injection
-                Tools.PathValidator.ValidateExecutablePathOrThrow(updatePath, nameof(_updateFilePath));
-                Process.Start(new ProcessStartInfo(updatePath) { UseShellExecute = true });
-            }
         }
     }
 }

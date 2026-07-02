@@ -2030,14 +2030,6 @@
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>எப்போதும் இணைப்பு தாவல்களைக் காட்டு</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>வெளியீட்டு கால்வாய்</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>நிலையான கால்வாயில் இறுதி வெளியீடுகள் மட்டுமே அடங்கும்.
- முன்னோட்ட கால்வாயில் ஆவண்ணா வெளியீட்டுகள் உள்ளது.
- இரவு கால்வாயில் ஆன்னா, ஆவண்ணா வெளியீட்டுகள் உள்ளது.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>இடு</value>
   </data>

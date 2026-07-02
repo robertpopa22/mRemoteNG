@@ -1980,14 +1980,6 @@ mRemoteNG va se fermer et l'installation va commencer.</value>
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Toujours afficher les onglets des connexions</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Canal stable</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Le canal stable ne concerne que les versions finalisées.
-Le canal preview inclut les versions beta et release candidates.
-Le canal nightly inclut les versions alpha, beta et release candidates.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Appliquer</value>
   </data>

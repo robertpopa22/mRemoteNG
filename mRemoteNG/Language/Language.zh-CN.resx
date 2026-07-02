@@ -1979,14 +1979,6 @@ mRemoteNG 将退出并安装更新。</value>
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>始终显示连接标签</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>发布通道</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>稳定通道仅包括最终版本（Release 版）。
-测试通道包括测试版（Beta 版）和发行版候选（RC 版）。
-开发通道包括 Alpha 版、（Beta 版）和发行版候选（RC 版）。</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>应用</value>
   </data>

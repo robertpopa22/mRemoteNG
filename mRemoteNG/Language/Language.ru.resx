@@ -1975,14 +1975,6 @@ mRemoteNG сейчас прекратит работу и начнет проц�
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Всегда показывать вкладки подключения</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Канал выпуска</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Стабильный канал включает только финальные релизы.
-Бета-канал включает в себя Betas и релиз кандидатов.
-Канал разработки включает в себя Альф, Betas и релиз кандидатов.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Применить</value>
   </data>

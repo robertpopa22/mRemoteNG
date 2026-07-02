@@ -1940,14 +1940,6 @@ mRemoteNG kommer nu att avsluta och börja med installationen.</value>
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Visa alltid anslutningsflikar</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Utgåvokanal</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Stabila kanalen innehåller endast slututgåvor.
-Förhandsgranska kanalen inkluderar Betor &amp; Utgåvokandidater.
-Nattliga kanalen inkluderar Alfa, Betor &amp; Utgåvokandidater.</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Verkställ</value>
   </data>

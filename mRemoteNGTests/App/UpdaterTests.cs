@@ -1,7 +1,5 @@
-﻿using System;
-using mRemoteNG.App.Info;
+using System;
 using mRemoteNG.App.Update;
-using mRemoteNGTests.Properties;
 using NUnit.Framework;
 
 namespace mRemoteNGTests.App;
@@ -12,56 +10,56 @@ public class UpdaterTests
     private readonly Version TestApplicationVersion = new("1.0.0.0");
 
     [Test]
-    public void UpdateStableChannel()
+    public void GitHubReleaseParsesVersionFromTag()
     {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.update);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
+        const string json = """
+        { "tag_name": "v1.82.0", "name": "mRemoteNG v1.82.0", "html_url": "https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.82.0", "body": "Release notes" }
+        """;
+        var info = UpdateInfo.FromGitHubJson(json);
+        Assert.Multiple(() =>
+        {
+            Assert.That(info.IsValid, Is.True);
+            Assert.That(info.IsGitHubSource, Is.True);
+            Assert.That(info.Version, Is.EqualTo(new Version("1.82.0")));
+            Assert.That(info.Version > TestApplicationVersion, Is.True);
+            Assert.That(info.ReleasePageUrl?.ToString(), Is.EqualTo("https://github.com/robertpopa22/mRemoteNG/releases/tag/v1.82.0"));
+            Assert.That(info.ChangeLogBody, Is.EqualTo("Release notes"));
+        });
     }
 
     [Test]
-    public void UpdateBetaChannel()
+    public void GitHubReleaseFallsBackToVersionInName()
     {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.beta_update);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
+        // Rolling nightly: tag_name is not semver, so the version is taken from the release name (#51).
+        const string json = """
+        { "tag_name": "nightly", "name": "Nightly Build 20260701 (v1.82.0-beta.3)", "html_url": "https://github.com/robertpopa22/mRemoteNG/releases/tag/nightly" }
+        """;
+        var info = UpdateInfo.FromGitHubJson(json);
+        Assert.Multiple(() =>
+        {
+            Assert.That(info.IsValid, Is.True);
+            Assert.That(info.Version, Is.EqualTo(new Version("1.82.0")));
+        });
     }
 
     [Test]
-    public void UpdateDevChannel()
+    public void EmptyJsonIsInvalid()
     {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.dev_update);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
+        var info = UpdateInfo.FromGitHubJson("");
+        Assert.That(info.IsValid, Is.False);
     }
 
     [Test]
-    public void UpdateStablePortableChannel()
+    public void MalformedJsonIsInvalid()
     {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.update_portable);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
+        var info = UpdateInfo.FromGitHubJson("{ not json ");
+        Assert.That(info.IsValid, Is.False);
     }
 
     [Test]
-    public void UpdateBetaPortableChannel()
+    public void JsonWithoutVersionIsInvalid()
     {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.beta_update_portable);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
-    }
-
-    [Test]
-    public void UpdateDevPortableChannel()
-    {
-        var CurrentUpdateInfo = UpdateInfo.FromString(Resources.dev_update_portable);
-        Assert.That(CurrentUpdateInfo.CheckIfValid(), Is.True);
-        bool IsNewer = CurrentUpdateInfo.Version > TestApplicationVersion;
-        Assert.That(IsNewer, Is.True);
+        var info = UpdateInfo.FromGitHubJson("""{ "html_url": "https://example.com" }""");
+        Assert.That(info.IsValid, Is.False);
     }
 }

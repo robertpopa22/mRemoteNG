@@ -39,8 +39,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             cboUpdateCheckFrequency = new MrngComboBox();
             btnUpdateCheckNow = new MrngButton();
             chkCheckForUpdatesOnStartup = new MrngCheckBox();
-            lblReleaseChannelExplanation = new MrngTextBox();
-            cboReleaseChannel = new MrngComboBox();
             pnlProxy = new System.Windows.Forms.Panel();
             tblProxyBasic = new System.Windows.Forms.TableLayoutPanel();
             numProxyPort = new MrngNumericUpDown();
@@ -55,7 +53,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseProxyForAutomaticUpdates = new MrngCheckBox();
             chkUseProxyAuthentication = new MrngCheckBox();
             btnTestProxy = new MrngButton();
-            groupBoxReleaseChannel = new MrngGroupBox();
             pnlDefaultUpdate = new System.Windows.Forms.Panel();
             lblRegistrySettingsUsedInfo = new System.Windows.Forms.Label();
             pnlUpdateCheck.SuspendLayout();
@@ -63,7 +60,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             tblProxyBasic.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numProxyPort).BeginInit();
             tblProxyAuthentication.SuspendLayout();
-            groupBoxReleaseChannel.SuspendLayout();
             pnlDefaultUpdate.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,7 +71,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             lblUpdatesExplanation.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             lblUpdatesExplanation.Size = new System.Drawing.Size(610, 38);
             lblUpdatesExplanation.TabIndex = 0;
-            lblUpdatesExplanation.Text = "mRemoteNG can periodically connect to the mRemoteNG website to check for updates.";
+            lblUpdatesExplanation.Text = "mRemoteNG can periodically check GitHub for the latest release.";
             // 
             // pnlUpdateCheck
             // 
@@ -123,31 +119,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkCheckForUpdatesOnStartup.Text = "Check for updates";
             chkCheckForUpdatesOnStartup.UseVisualStyleBackColor = true;
             chkCheckForUpdatesOnStartup.CheckedChanged += chkCheckForUpdatesOnStartup_CheckedChanged;
-            // 
-            // lblReleaseChannelExplanation
-            // 
-            lblReleaseChannelExplanation.BackColor = System.Drawing.SystemColors.Control;
-            lblReleaseChannelExplanation.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            lblReleaseChannelExplanation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            lblReleaseChannelExplanation.Location = new System.Drawing.Point(6, 48);
-            lblReleaseChannelExplanation.Multiline = true;
-            lblReleaseChannelExplanation.Name = "lblReleaseChannelExplanation";
-            lblReleaseChannelExplanation.ReadOnly = true;
-            lblReleaseChannelExplanation.Size = new System.Drawing.Size(595, 44);
-            lblReleaseChannelExplanation.TabIndex = 2;
-            lblReleaseChannelExplanation.Text = "Stable channel includes final releases only.\r\nBeta channel includes Betas & Release Candidates.\r\nDevelopment Channel includes Alphas, Betas & Release Candidates.";
-            // 
-            // cboReleaseChannel
-            // 
-            cboReleaseChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cboReleaseChannel.FormattingEnabled = true;
-            cboReleaseChannel.Location = new System.Drawing.Point(7, 21);
-            cboReleaseChannel.Name = "cboReleaseChannel";
-            cboReleaseChannel.Size = new System.Drawing.Size(120, 21);
-            cboReleaseChannel.TabIndex = 1;
-            // 
+            //
             // pnlProxy
-            // 
+            //
             pnlProxy.Controls.Add(tblProxyBasic);
             pnlProxy.Controls.Add(tblProxyAuthentication);
             pnlProxy.Controls.Add(chkUseProxyForAutomaticUpdates);
@@ -316,23 +290,10 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             btnTestProxy.Text = "Test Proxy";
             btnTestProxy.UseVisualStyleBackColor = true;
             btnTestProxy.Click += btnTestProxy_Click;
-            // 
-            // groupBoxReleaseChannel
-            // 
-            groupBoxReleaseChannel.Controls.Add(lblReleaseChannelExplanation);
-            groupBoxReleaseChannel.Controls.Add(cboReleaseChannel);
-            groupBoxReleaseChannel.Dock = System.Windows.Forms.DockStyle.Top;
-            groupBoxReleaseChannel.Location = new System.Drawing.Point(0, 144);
-            groupBoxReleaseChannel.Name = "groupBoxReleaseChannel";
-            groupBoxReleaseChannel.Size = new System.Drawing.Size(610, 104);
-            groupBoxReleaseChannel.TabIndex = 3;
-            groupBoxReleaseChannel.TabStop = false;
-            groupBoxReleaseChannel.Text = "Release Channel";
-            // 
+            //
             // pnlDefaultUpdate
-            // 
+            //
             pnlDefaultUpdate.Controls.Add(pnlProxy);
-            pnlDefaultUpdate.Controls.Add(groupBoxReleaseChannel);
             pnlDefaultUpdate.Controls.Add(pnlUpdateCheck);
             pnlDefaultUpdate.Controls.Add(lblRegistrySettingsUsedInfo);
             pnlDefaultUpdate.Dock = System.Windows.Forms.DockStyle.Top;
@@ -371,8 +332,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             ((System.ComponentModel.ISupportInitialize)numProxyPort).EndInit();
             tblProxyAuthentication.ResumeLayout(false);
             tblProxyAuthentication.PerformLayout();
-            groupBoxReleaseChannel.ResumeLayout(false);
-            groupBoxReleaseChannel.PerformLayout();
             pnlDefaultUpdate.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -393,9 +352,6 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         internal Controls.MrngLabel lblProxyPassword;
         internal Controls.MrngTextBox txtProxyPassword;
         internal MrngButton btnTestProxy;
-        private MrngComboBox cboReleaseChannel;
-        private Controls.MrngTextBox lblReleaseChannelExplanation;
-        private MrngGroupBox groupBoxReleaseChannel;
         private System.Windows.Forms.TableLayoutPanel tblProxyBasic;
         private System.Windows.Forms.TableLayoutPanel tblProxyAuthentication;
         private System.Windows.Forms.Panel pnlDefaultUpdate;

@@ -6215,26 +6215,6 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Release Channel.
-        /// </summary>
-        internal static string ReleaseChannel {
-            get {
-                return ResourceManager.GetString("ReleaseChannel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stable channel includes final releases only.
-        ///Preview channel includes Betas &amp; Release Candidates.
-        ///Nightly Channel includes Alphas, Betas &amp; Release Candidates..
-        /// </summary>
-        internal static string ReleaseChannelExplanation {
-            get {
-                return ResourceManager.GetString("ReleaseChannelExplanation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Released under the GNU General Public License (GPL).
         /// </summary>
         internal static string ReleasedUnderGPL {
@@ -7324,7 +7304,7 @@ namespace mRemoteNG.Resources.Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to mRemoteNG can periodically connect to the mRemoteNG website to check for updates..
+        ///   Looks up a localized string similar to mRemoteNG can periodically check GitHub for the latest release..
         /// </summary>
         internal static string UpdateCheck {
             get {

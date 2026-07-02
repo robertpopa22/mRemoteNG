@@ -187,7 +187,7 @@ SQL Server
 
 Updates
 =======
-Options for how mRemoteNG should check for updates from the website.
+Options for how mRemoteNG should check GitHub for the latest release.
 
 .. list-table::
    :widths: 30 70 70
@@ -199,9 +199,6 @@ Options for how mRemoteNG should check for updates from the website.
    * - Check for updates at startup
      - On (Every 14 days)
      - Here you can choose how often mRemoteNG checks for updates. Standard is every 14 days
-   * - Release Channel
-     - Stable
-     - The main channel to use for mRemoteNG. Note that the channels are described under the selection. Stable is suggested for normal usage but its always good to get feedback on upcoming releases
    * - Use a proxy server to connect
      - Off
      - Proxy to connect through to check for updates. This is not a proxy connection for when you connect to a server but more to check for updates

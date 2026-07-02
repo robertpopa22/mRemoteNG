@@ -2027,14 +2027,6 @@ mRemoteNG zostanie teraz zamknięty i rozpocznie instalację.</value>
   <data name="AlwaysShowConnectionTabs" xml:space="preserve">
     <value>Zawsze pokazuj karty połączeń</value>
   </data>
-  <data name="ReleaseChannel" xml:space="preserve">
-    <value>Kanał wydania aplikacji</value>
-  </data>
-  <data name="ReleaseChannelExplanation" xml:space="preserve">
-    <value>Kanał stabilny dotyczy tylko wersji końcowych.
-Kanał podglądu obejmuje wersje  beta i RC (gotowe do wydania).
-Kanał nocny obejmuje wersje alfa, beta i RC (gotowe do wydania).</value>
-  </data>
   <data name="Apply" xml:space="preserve">
     <value>Zastosuj</value>
   </data>
