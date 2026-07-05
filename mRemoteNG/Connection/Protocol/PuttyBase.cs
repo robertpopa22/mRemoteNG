@@ -183,7 +183,10 @@ namespace mRemoteNG.Connection.Protocol
             string password = data[8..];
             try
             {
-                using NamedPipeServerStream server = new($"mRemoteNGSecretPipe{random}");
+                // Restrict the pipe ACL to the current user - it carries a plaintext password
+                // (same hardening as the VaultOpenbao pipe; default pipe security would let
+                // other local users connect first and read the secret).
+                using NamedPipeServerStream server = CreatePipeServer($"mRemoteNGSecretPipe{random}");
                 // Bound the wait so an aborted/failed PuTTY launch (cancelled auth, launch error,
                 // crash, or the tab closed before PuTTY opens the pipe) cannot block this thread -
                 // and the captured plaintext password it holds - for the process lifetime. The old
