@@ -308,6 +308,7 @@ namespace mRemoteNGTests.UI.Window.ConfigWindowTests
                         nameof(ConnectionInfo.UseCredSsp),
                         nameof(ConnectionInfo.UseRestrictedAdmin),
                         nameof(ConnectionInfo.UseRCG),
+                        nameof(ConnectionInfo.UseRedirectionServerName),
                         nameof(ConnectionInfo.RDGatewayUsageMethod),
                         nameof(ConnectionInfo.Resolution),
                         nameof(ConnectionInfo.DesktopScaleFactor),

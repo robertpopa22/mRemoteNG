@@ -209,6 +209,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
 
             element.Add(new XAttribute("UseRCG", connectionInfo.UseRCG));
             element.Add(new XAttribute("UseRestrictedAdmin", connectionInfo.UseRestrictedAdmin));
+            element.Add(new XAttribute("UseRedirectionServerName", connectionInfo.UseRedirectionServerName));
 
             element.Add(new XAttribute("UserViaAPI", connectionInfo.UserViaAPI ?? string.Empty));
             element.Add(new XAttribute("EC2InstanceId", connectionInfo.EC2InstanceId ?? string.Empty));
@@ -430,6 +431,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritRDGatewayPassword", inheritance.RDGatewayPassword.ToString().ToLowerInvariant()));
             if (inheritance.RDGatewayDomain)
                 element.Add(new XAttribute("InheritRDGatewayDomain", inheritance.RDGatewayDomain.ToString().ToLowerInvariant()));
+            if (inheritance.RDGatewayAccessToken)
+                element.Add(new XAttribute("InheritRDGatewayAccessToken", inheritance.RDGatewayAccessToken.ToString().ToLowerInvariant()));
             if (inheritance.RDGatewayExternalCredentialProvider)
                 element.Add(new XAttribute("InheritRDGatewayExternalCredentialProvider", inheritance.RDGatewayExternalCredentialProvider.ToString().ToLowerInvariant()));
             if (inheritance.RDGatewayUserViaAPI)
@@ -449,6 +452,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                 element.Add(new XAttribute("InheritUseRCG", inheritance.UseRCG.ToString().ToLowerInvariant()));
             if (inheritance.UseRestrictedAdmin)
                 element.Add(new XAttribute("InheritUseRestrictedAdmin", inheritance.UseRestrictedAdmin.ToString().ToLowerInvariant()));
+            if (inheritance.UseRedirectionServerName)
+                element.Add(new XAttribute("InheritUseRedirectionServerName", inheritance.UseRedirectionServerName.ToString().ToLowerInvariant()));
             if (inheritance.ScriptErrorsSuppressed)
                 element.Add(new XAttribute("InheritScriptErrorsSuppressed", inheritance.ScriptErrorsSuppressed.ToString().ToLowerInvariant()));
         }

@@ -109,6 +109,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseFilterSearch.Text = Language.FilterSearchMatchesInConnectionTree;
             chkPlaceSearchBarAboveConnectionTree.Text = Language.PlaceSearchBarAboveConnectionTree;
             chkDoNotTrimUsername.Text = Language.DoNotTrimUsername;
+            chkSlowClickRename.Text = Language.SlowClickRenameEnabled;
             chkWatchConnectionFile.Text = "Watch connection file for external changes";
 
             lblRdpReconnectionCount.Text = Language.RdpReconnectCount;
@@ -134,6 +135,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkUseFilterSearch.Checked = Settings.Default.UseFilterSearch;
             chkPlaceSearchBarAboveConnectionTree.Checked = Settings.Default.PlaceSearchBarAboveConnectionTree;
             chkDoNotTrimUsername.Checked = Settings.Default.DoNotTrimUsername;
+            chkSlowClickRename.Checked = Settings.Default.SlowClickRenameEnabled;
             chkWatchConnectionFile.Checked = Properties.OptionsConnectionsPage.Default.WatchConnectionFile;
             chkDoubleClickOpensNewConnection.Checked = Settings.Default.DoubleClickOpensNewConnection;
             chkDefaultInheritance.Checked = Settings.Default.InhDefaultEverythingInherited;
@@ -191,6 +193,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Properties.Settings.Default.UseFilterSearch = chkUseFilterSearch.Checked;
             Properties.Settings.Default.PlaceSearchBarAboveConnectionTree = chkPlaceSearchBarAboveConnectionTree.Checked;
             Properties.Settings.Default.DoNotTrimUsername = chkDoNotTrimUsername.Checked;
+            Properties.Settings.Default.SlowClickRenameEnabled = chkSlowClickRename.Checked;
             Properties.OptionsConnectionsPage.Default.WatchConnectionFile = chkWatchConnectionFile.Checked;
             Properties.Settings.Default.DoubleClickOpensNewConnection = chkDoubleClickOpensNewConnection.Checked;
             Properties.Settings.Default.InhDefaultEverythingInherited = chkDefaultInheritance.Checked;
@@ -273,6 +276,9 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             if (pageRegSettingsInstance.DoNotTrimUsername.IsSet)
                 DisableControl(chkDoNotTrimUsername);
 
+            if (pageRegSettingsInstance.SlowClickRenameEnabled.IsSet)
+                DisableControl(chkSlowClickRename);
+
             if (pageRegSettingsInstance.RdpReconnectionCount.IsSet)
                 DisableControl(numRdpReconnectionCount);
 
@@ -301,6 +307,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
                 || pageRegSettingsInstance.UseFilterSearch.IsSet
                 || pageRegSettingsInstance.PlaceSearchBarAboveConnectionTree.IsSet
                 || pageRegSettingsInstance.DoNotTrimUsername.IsSet
+                || pageRegSettingsInstance.SlowClickRenameEnabled.IsSet
                 || pageRegSettingsInstance.RdpReconnectionCount.IsSet
                 || pageRegSettingsInstance.ConRDPOverallConnectionTimeout.IsSet
                 || pageRegSettingsInstance.AutoSaveEveryMinutes.IsSet;

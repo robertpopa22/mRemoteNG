@@ -9,6 +9,7 @@ using mRemoteNG.App.Info;
 using mRemoteNG.Config;
 using mRemoteNG.Connection;
 using mRemoteNG.Connection.Protocol;
+using mRemoteNG.Connection.Protocol.RDP;
 using mRemoteNG.Container;
 using mRemoteNG.Properties;
 using mRemoteNG.Tools;
@@ -63,6 +64,7 @@ namespace mRemoteNG.UI.Controls
         private ToolStripMenuItem _cMenTreeRename = null!;
         private ToolStripMenuItem _cMenTreeDelete = null!;
         private ToolStripMenuItem _cMenTreeCopyHostname = null!;
+        private ToolStripMenuItem _cMenTreeClearCachedRdpCredentials = null!;
         private ToolStripMenuItem _cMenTreeCopyUsername = null!;
         private ToolStripMenuItem _cMenTreeCopyPassword = null!;
         private ToolStripSeparator _cMenTreeSep4 = null!;
@@ -152,6 +154,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeRename = new ToolStripMenuItem();
             _cMenTreeDelete = new ToolStripMenuItem();
             _cMenTreeCopyHostname = new ToolStripMenuItem();
+            _cMenTreeClearCachedRdpCredentials = new ToolStripMenuItem();
             _cMenTreeCopyUsername = new ToolStripMenuItem();
             _cMenTreeCopyPassword = new ToolStripMenuItem();
             _cMenTreeSep3 = new ToolStripSeparator();
@@ -226,6 +229,7 @@ namespace mRemoteNG.UI.Controls
                 _cMenTreeCopyHostname,
                 _cMenTreeCopyUsername,
                 _cMenTreeCopyPassword,
+                _cMenTreeClearCachedRdpCredentials,
                 _cMenInheritanceSubMenu,
                 _cMenTreeProperties,
                 _cMenTreeConfigureDynamicSource,
@@ -483,6 +487,13 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeCopyHostname.Size = new System.Drawing.Size(199, 22);
             _cMenTreeCopyHostname.Text = "Copy Hostname";
             _cMenTreeCopyHostname.Click += OnCopyHostnameClicked;
+            //
+            // cMenTreeClearCachedRdpCredentials
+            //
+            _cMenTreeClearCachedRdpCredentials.Name = "_cMenTreeClearCachedRdpCredentials";
+            _cMenTreeClearCachedRdpCredentials.Size = new System.Drawing.Size(199, 22);
+            _cMenTreeClearCachedRdpCredentials.Text = "Clear Cached RDP Credentials";
+            _cMenTreeClearCachedRdpCredentials.Click += OnClearCachedRdpCredentialsClicked;
             //
             // cMenTreeCopyUsername
             //
@@ -794,6 +805,8 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeRename.Text = Language.Rename;
             _cMenTreeDelete.Text = Language.Delete;
             _cMenTreeCopyHostname.Text = Language.CopyHostname;
+            _cMenTreeClearCachedRdpCredentials.Text = Language.ClearCachedRdpCredentials;
+            _cMenTreeClearCachedRdpCredentials.ToolTipText = Language.PropertyDescriptionClearCachedRdpCredentials;
             _cMenTreeCopyUsername.Text = Language.CopyUsername;
             _cMenTreeCopyPassword.Text = Language.CopyPassword;
             _cMenTreeProperties.Text = Language.Properties;
@@ -849,9 +862,14 @@ namespace mRemoteNG.UI.Controls
                 {
                     ShowHideMenuItemsForPuttyNode(puttyNode);
                 }
+                else if (_connectionTree.SelectedNode is ConnectionInfo selectedConnection)
+                {
+                    ShowHideMenuItemsForConnectionNode(selectedConnection);
+                }
                 else
                 {
-                    ShowHideMenuItemsForConnectionNode(_connectionTree.SelectedNode);
+                    // No selection (right-click on empty space) — nothing node-specific to show.
+                    ShowHideMenuItemsForMultiSelection(new List<ConnectionInfo>());
                 }
 
                 _cMenTreePaste.Enabled = _connectionTree.HasClipboardNodes;
@@ -921,6 +939,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyInheritanceToChildren.Enabled = false;
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeCopyHostname.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
             _cMenTreeCopyUsername.Enabled = false;
             _cMenTreeCopyPassword.Enabled = false;
             _cMenTreeProperties.Enabled = false;
@@ -955,6 +974,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeApplyDefaultInheritance.Enabled = false;
             _cMenTreeCopyUsername.Enabled = false;
             _cMenTreeCopyPassword.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
             _cMenTreeOpenInBrowser.Enabled = false;
             _cMenTreeConfigureDynamicSource.Visible = false;
             _cMenTreeRefreshDynamicSource.Visible = false;
@@ -982,6 +1002,7 @@ namespace mRemoteNG.UI.Controls
             _cMenTreeConnectWithOptionsViewOnly.Enabled = false;
             _cMenTreeCopyUsername.Enabled = false;
             _cMenTreeCopyPassword.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
             _cMenTreeOpenInBrowser.Enabled = false;
 
             _cMenTreeConfigureDynamicSource.Visible = true;
@@ -1011,6 +1032,7 @@ namespace mRemoteNG.UI.Controls
 
             _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
             _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
             _cMenTreeToolsSort.Enabled = false;
             _cMenTreeDuplicate.Enabled = false;
             _cMenTreeCreateLink.Enabled = false;
@@ -1052,6 +1074,7 @@ namespace mRemoteNG.UI.Controls
             {
                 _cMenTreeConnectWithOptionsConnectInFullscreen.Enabled = false;
                 _cMenTreeConnectWithOptionsConnectToConsoleSession.Enabled = false;
+                _cMenTreeClearCachedRdpCredentials.Enabled = false;
             }
 
             if (connectionInfo.Protocol == ProtocolType.IntApp)
@@ -1105,6 +1128,7 @@ namespace mRemoteNG.UI.Controls
 
             // Copy hostname/username/password: ambiguous when multiple nodes selected
             _cMenTreeCopyHostname.Enabled = false;
+            _cMenTreeClearCachedRdpCredentials.Enabled = false;
             _cMenTreeCopyUsername.Enabled = false;
             _cMenTreeCopyPassword.Enabled = false;
 
@@ -1529,6 +1553,39 @@ namespace mRemoteNG.UI.Controls
         private void OnCopyHostnameClicked(object sender, EventArgs e)
         {
             _connectionTree.CopyHostnameSelectedNode(new WindowsClipboard());
+        }
+
+        private void OnClearCachedRdpCredentialsClicked(object sender, EventArgs e)
+        {
+            if (_connectionTree.SelectedNode is not ConnectionInfo selected ||
+                selected.Protocol != ProtocolType.RDP)
+                return;
+            string hostname = selected.Hostname;
+            if (string.IsNullOrWhiteSpace(hostname)) return;
+
+            string target = "TERMSRV/" + hostname;
+
+            DialogResult confirm = CTaskDialog.MessageBox(
+                this,
+                Language.ClearCachedRdpCredentials,
+                string.Format(CultureInfo.CurrentCulture, Language.ConfirmDeleteCachedRdpCredential, target),
+                Language.PropertyDescriptionClearCachedRdpCredentials,
+                ETaskDialogButtons.YesNo,
+                ESysIcons.Question);
+
+            if (confirm != DialogResult.Yes) return;
+
+            ClearCachedCredentialsResult outcome = RdpCredentialCacheCleaner.ClearCachedCredentials(hostname);
+            (string message, ESysIcons icon) = outcome switch
+            {
+                ClearCachedCredentialsResult.Deleted =>
+                    (string.Format(CultureInfo.CurrentCulture, Language.ClearedCachedRdpCredentials, target), ESysIcons.Information),
+                ClearCachedCredentialsResult.NotFound =>
+                    (string.Format(CultureInfo.CurrentCulture, Language.NoCachedRdpCredentialFound, target), ESysIcons.Information),
+                _ =>
+                    (string.Format(CultureInfo.CurrentCulture, Language.FailedToClearCachedRdpCredential, target), ESysIcons.Warning),
+            };
+            CTaskDialog.MessageBox(this, Language.ClearCachedRdpCredentials, message, "", ETaskDialogButtons.Ok, icon);
         }
 
         private void OnCopyUsernameClicked(object sender, EventArgs e)

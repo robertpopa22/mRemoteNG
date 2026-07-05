@@ -55,6 +55,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkPlaceSearchBarAboveConnectionTree = new MrngCheckBox();
             chkConnectionTreeTrackActiveConnection = new MrngCheckBox();
             chkDoNotTrimUsername = new MrngCheckBox();
+            chkSlowClickRename = new MrngCheckBox();
             chkWatchConnectionFile = new MrngCheckBox();
             chkDoubleClickOpensNewConnection = new MrngCheckBox();
             chkDefaultInheritance = new MrngCheckBox();
@@ -377,10 +378,23 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             chkShowHostStatus.Text = "Show host reachability status in connection tree";
             chkShowHostStatus.UseVisualStyleBackColor = true;
             //
+            // chkSlowClickRename
+            //
+            chkSlowClickRename._mice = MrngCheckBox.MouseState.OUT;
+            chkSlowClickRename.AutoSize = true;
+            chkSlowClickRename.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            chkSlowClickRename.Location = new System.Drawing.Point(6, 303);
+            chkSlowClickRename.Name = "chkSlowClickRename";
+            chkSlowClickRename.Size = new System.Drawing.Size(290, 17);
+            chkSlowClickRename.TabIndex = 17;
+            chkSlowClickRename.Text = "Rename items using slow double-click (Explorer style)";
+            chkSlowClickRename.UseVisualStyleBackColor = true;
+            //
             // pnlOptions
             // 
             pnlOptions.Controls.Add(chkSingleClickOnConnectionOpensIt);
             pnlOptions.Controls.Add(chkDoNotTrimUsername);
+            pnlOptions.Controls.Add(chkSlowClickRename);
             pnlOptions.Controls.Add(chkWatchConnectionFile);
             pnlOptions.Controls.Add(chkDoubleClickOpensNewConnection);
             pnlOptions.Controls.Add(chkShowHostStatus);
@@ -395,7 +409,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             pnlOptions.Dock = System.Windows.Forms.DockStyle.Top;
             pnlOptions.Location = new System.Drawing.Point(0, 30);
             pnlOptions.Name = "pnlOptions";
-            pnlOptions.Size = new System.Drawing.Size(610, 303);
+            pnlOptions.Size = new System.Drawing.Size(610, 326);
             pnlOptions.TabIndex = 12;
             // 
             // lblRegistrySettingsUsedInfo
@@ -420,7 +434,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
             Controls.Add(pnlOptions);
             Controls.Add(lblRegistrySettingsUsedInfo);
             Name = "ConnectionsPage";
-            Size = new System.Drawing.Size(610, 490);
+            Size = new System.Drawing.Size(610, 513);
             ((System.ComponentModel.ISupportInitialize)numRDPConTimeout).EndInit();
             ((System.ComponentModel.ISupportInitialize)numRdpReconnectionCount).EndInit();
             ((System.ComponentModel.ISupportInitialize)numAutoSave).EndInit();
@@ -453,6 +467,7 @@ namespace mRemoteNG.UI.Forms.OptionsPages
         private MrngCheckBox chkPlaceSearchBarAboveConnectionTree;
         private MrngCheckBox chkConnectionTreeTrackActiveConnection;
         private MrngCheckBox chkDoNotTrimUsername;
+        private MrngCheckBox chkSlowClickRename;
         private MrngCheckBox chkWatchConnectionFile;
         private MrngCheckBox chkDoubleClickOpensNewConnection;
         private MrngCheckBox chkDefaultInheritance;

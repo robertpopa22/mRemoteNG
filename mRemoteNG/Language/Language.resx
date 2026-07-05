@@ -1208,6 +1208,27 @@ If you run into such an error, please create a new connection file!</value>
   <data name="PropertyDescriptionUseRCG" xml:space="preserve">
     <value>Use Remote Credential Guard to tunnel authentication on target back to source through the RDP channel. Kerberos requests are redirected back to the connecting device, so credentials are never sent to the remote host. Recommended for AD Protected Users accounts where NTLM authentication is disabled. Requires both client and server to be domain-joined.</value>
   </data>
+  <data name="PropertyDescriptionClearCachedRdpCredentials" xml:space="preserve">
+    <value>If an RDP connection fails with an authentication error, Windows may be substituting a stale cached credential for the credentials configured on this connection. Use this action to delete the TERMSRV/&lt;hostname&gt; entry from the Windows Credential Manager so the credentials on this connection are sent unchanged on the next attempt.</value>
+  </data>
+  <data name="ConfirmDeleteCachedRdpCredential" xml:space="preserve">
+    <value>Delete the cached credential for {0}?</value>
+  </data>
+  <data name="ClearedCachedRdpCredentials" xml:space="preserve">
+    <value>Cleared cached RDP credentials for {0}.</value>
+  </data>
+  <data name="NoCachedRdpCredentialFound" xml:space="preserve">
+    <value>No cached RDP credential was found for {0}. Nothing to delete.</value>
+  </data>
+  <data name="FailedToClearCachedRdpCredential" xml:space="preserve">
+    <value>Failed to clear cached RDP credentials for {0}. See the Messages pane for details.</value>
+  </data>
+  <data name="ClearCachedRdpCredentials" xml:space="preserve">
+    <value>Clear Cached RDP Credentials</value>
+  </data>
+  <data name="PropertyDescriptionUseRedirectionServerName" xml:space="preserve">
+    <value>On server-issued load-balance redirects, reconnect using the originally configured server name instead of the redirection target. Required for some servers such as GNOME Remote Desktop (--system mode). Leave unchecked for Windows RDS / Azure Virtual Desktop / Citrix.</value>
+  </data>
   <data name="PropertyDescriptionUser1" xml:space="preserve">
     <value>Feel free to enter any information you need here.</value>
   </data>
@@ -1402,6 +1423,12 @@ If you run into such an error, please create a new connection file!</value>
   </data>
   <data name="UseRCG" xml:space="preserve">
     <value>Use Remote Credential Guard</value>
+  </data>
+  <data name="UseRedirectionServerName" xml:space="preserve">
+    <value>Use Redirection Server Name</value>
+  </data>
+  <data name="SlowClickRenameEnabled" xml:space="preserve">
+    <value>Rename items using slow double-click (Explorer style)</value>
   </data>
   <data name="UserField" xml:space="preserve">
     <value>User Field</value>

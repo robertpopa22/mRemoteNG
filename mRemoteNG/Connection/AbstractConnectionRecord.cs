@@ -69,6 +69,7 @@ namespace mRemoteNG.Connection
         private bool _useCredSsp;
         private bool _useRestrictedAdmin;
         private bool _useRCG;
+        private bool _useRedirectionServerName;
         private bool _useVmId;
 
         private RDGatewayUsageMethod _rdGatewayUsageMethod;
@@ -719,6 +720,17 @@ namespace mRemoteNG.Connection
         {
             get => GetPropertyValue(nameof(UseRCG), _useRCG);
             set => SetField(ref _useRCG, value, nameof(UseRCG));
+        }
+
+        [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),
+         LocalizedAttributes.LocalizedDisplayName(nameof(Language.UseRedirectionServerName)),
+         LocalizedAttributes.LocalizedDescription(nameof(Language.PropertyDescriptionUseRedirectionServerName)),
+         TypeConverter(typeof(MiscTools.YesNoTypeConverter)),
+         AttributeUsedInProtocol(ProtocolType.RDP)]
+        public bool UseRedirectionServerName
+        {
+            get => GetPropertyValue(nameof(UseRedirectionServerName), _useRedirectionServerName);
+            set => SetField(ref _useRedirectionServerName, value, nameof(UseRedirectionServerName));
         }
 
         [LocalizedAttributes.LocalizedCategory(nameof(Language.Protocol), 3),

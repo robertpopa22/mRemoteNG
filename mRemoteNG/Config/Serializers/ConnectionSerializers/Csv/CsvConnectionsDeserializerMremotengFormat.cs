@@ -414,6 +414,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 if (bool.TryParse(connectionCsv[headers.IndexOf("UseRCG")], out bool value))
                     connectionRecord.UseRCG = value;
             }
+            if (headerSet.Contains("UseRedirectionServerName"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("UseRedirectionServerName")], out bool value))
+                    connectionRecord.UseRedirectionServerName = value;
+            }
 
 
             if (headerSet.Contains("UseVmId"))
@@ -991,6 +996,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritUseRCG")], out bool value))
                     connectionRecord.Inheritance.UseRCG = value;
             }
+            if (headerSet.Contains("InheritUseRedirectionServerName"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritUseRedirectionServerName")], out bool value))
+                    connectionRecord.Inheritance.UseRedirectionServerName = value;
+            }
 
 
             if (headerSet.Contains("InheritUseVmId"))
@@ -1227,6 +1237,11 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Csv
                     connectionRecord.Inheritance.RDGatewayPassword = value;
             }
 
+            if (headerSet.Contains("InheritRDGatewayAccessToken"))
+            {
+                if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDGatewayAccessToken")], out bool value))
+                    connectionRecord.Inheritance.RDGatewayAccessToken = value;
+            }
             if (headerSet.Contains("InheritRDGatewayDomain"))
             {
                 if (bool.TryParse(connectionCsv[headers.IndexOf("InheritRDGatewayDomain")], out bool value))

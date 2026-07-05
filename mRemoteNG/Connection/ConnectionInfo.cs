@@ -517,6 +517,7 @@ namespace mRemoteNG.Connection
             UseCredSsp = Settings.Default.ConDefaultUseCredSsp;
             UseRestrictedAdmin = Settings.Default.ConDefaultUseRestrictedAdmin;
             UseRCG = Settings.Default.ConDefaultUseRCG;
+            UseRedirectionServerName = Settings.Default.ConDefaultUseRedirectionServerName;
             UseVmId = Settings.Default.ConDefaultUseVmId;
             UseEnhancedMode = Settings.Default.ConDefaultUseEnhancedMode;
             SSHOptions = "";

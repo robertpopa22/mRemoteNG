@@ -30,6 +30,7 @@
 		public TType UseCredSsp { get; set; }
 		public TType UseRestrictedAdmin { get; set; }
 		public TType UseRCG { get; set; }
+		public TType UseRedirectionServerName { get; set; }
 		public TType RDGatewayUsageMethod { get; set; }
 		public TType RDGatewayHostname { get; set; }
 		public TType RDGatewayUseConnectionCredentials { get; set; }

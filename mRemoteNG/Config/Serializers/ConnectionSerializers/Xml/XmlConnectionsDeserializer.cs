@@ -556,6 +556,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.RDGatewayUsername = a.GetAttrBool("InheritRDGatewayUsername");
                     connectionInfo.Inheritance.RDGatewayPassword = a.GetAttrBool("InheritRDGatewayPassword");
                     connectionInfo.Inheritance.RDGatewayDomain = a.GetAttrBool("InheritRDGatewayDomain");
+                    connectionInfo.Inheritance.RDGatewayAccessToken = a.GetAttrBool("InheritRDGatewayAccessToken");
                 }
 
                 if (_confVersion >= 2.3)
@@ -641,6 +642,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Xml
                     connectionInfo.Inheritance.UseRestrictedAdmin = a.GetAttrBool("InheritUseRestrictedAdmin");
                     connectionInfo.UseRCG = a.GetAttrBool("UseRCG");
                     connectionInfo.Inheritance.UseRCG = a.GetAttrBool("InheritUseRCG");
+                    connectionInfo.UseRedirectionServerName = a.GetAttrBool("UseRedirectionServerName");
+                    connectionInfo.Inheritance.UseRedirectionServerName = a.GetAttrBool("InheritUseRedirectionServerName");
                     connectionInfo.RDGatewayExternalCredentialProvider = a.GetAttrEnum("RDGatewayExternalCredentialProvider", ExternalCredentialProvider.None);
                     connectionInfo.RDGatewayUserViaAPI = a.GetAttr("RDGatewayUserViaAPI");
                     connectionInfo.RDGatewayAccessToken = a.GetAttr("RDGatewayAccessToken");

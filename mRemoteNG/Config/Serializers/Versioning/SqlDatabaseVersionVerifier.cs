@@ -12,7 +12,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
     [SupportedOSPlatform("windows")]
     public class SqlDatabaseVersionVerifier : ISqlDatabaseVersionVerifier
     {
-        private readonly Version _currentSupportedVersion = new(3, 4);
+        private readonly Version _currentSupportedVersion = new(3, 5);
 
         private readonly IDatabaseConnector _databaseConnector;
 
@@ -47,6 +47,7 @@ namespace mRemoteNG.Config.Serializers.Versioning
                     new SqlVersion31To32Upgrader(_databaseConnector),
                     new SqlVersion32To33Upgrader(_databaseConnector),
                     new SqlVersion33To34Upgrader(_databaseConnector),
+                    new SqlVersion34To35Upgrader(_databaseConnector),
                 };
 
                 foreach (IVersionUpgrader upgrader in dbUpgraders)

@@ -188,6 +188,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 connectionInfo.UseEnhancedMode = MiscTools.GetBooleanValue(dataRow["UseEnhancedMode"]);
             if (dataRow.Table.Columns.Contains("UseRCG"))
                 connectionInfo.UseRCG = MiscTools.GetBooleanValue(dataRow["UseRCG"]);
+            if (dataRow.Table.Columns.Contains("UseRedirectionServerName"))
+                connectionInfo.UseRedirectionServerName = MiscTools.GetBooleanValue(dataRow["UseRedirectionServerName"]);
             if (dataRow.Table.Columns.Contains("UseRestrictedAdmin"))
                 connectionInfo.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["UseRestrictedAdmin"]);
             connectionInfo.UserField = dataRow["UserField"] as string ?? "";
@@ -302,6 +304,8 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             connectionInfo.Inheritance.UseCredSsp = MiscTools.GetBooleanValue(dataRow["InheritUseCredSsp"]);
             connectionInfo.Inheritance.UseEnhancedMode = MiscTools.GetBooleanValue(dataRow["InheritUseEnhancedMode"]);
             connectionInfo.Inheritance.UseRCG = MiscTools.GetBooleanValue(dataRow["InheritUseRCG"]);
+            if (dataRow.Table.Columns.Contains("InheritUseRedirectionServerName"))
+                connectionInfo.Inheritance.UseRedirectionServerName = MiscTools.GetBooleanValue(dataRow["InheritUseRedirectionServerName"]);
             connectionInfo.Inheritance.UseRestrictedAdmin = MiscTools.GetBooleanValue(dataRow["InheritUseRestrictedAdmin"]);
             connectionInfo.Inheritance.UserField = MiscTools.GetBooleanValue(dataRow["InheritUserField"]);
             if (dataRow.Table.Columns.Contains("InheritEnvironmentTags"))

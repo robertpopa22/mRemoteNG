@@ -227,6 +227,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("InheritUseCredSsp", typeof(bool));
             dataTable.Columns.Add("InheritUseEnhancedMode", typeof(bool));
             dataTable.Columns.Add("InheritUseRCG", typeof(bool));
+            dataTable.Columns.Add("InheritUseRedirectionServerName", typeof(bool));
             dataTable.Columns.Add("InheritUseRestrictedAdmin", typeof(bool));
             dataTable.Columns.Add("InheritUseVmId", typeof(bool));
             dataTable.Columns.Add("InheritUserField", typeof(bool));
@@ -306,6 +307,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("UseCredSsp", typeof(bool));
             dataTable.Columns.Add("UseEnhancedMode", typeof(bool));
             dataTable.Columns.Add("UseRCG", typeof(bool));
+            dataTable.Columns.Add("UseRedirectionServerName", typeof(bool));
             dataTable.Columns.Add("UseRestrictedAdmin", typeof(bool));
             dataTable.Columns.Add("UseVmId", typeof(bool));
             dataTable.Columns.Add("UserField", typeof(string));
@@ -460,6 +462,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             isFieldNotChange = isFieldNotChange && dataRow["UseCredSsp"].Equals(connectionInfo.UseCredSsp);
             isFieldNotChange = isFieldNotChange && dataRow["UseEnhancedMode"].Equals(connectionInfo.UseEnhancedMode);
             isFieldNotChange = isFieldNotChange && dataRow["UseRCG"].Equals(connectionInfo.UseRCG);
+            isFieldNotChange = isFieldNotChange && dataRow["UseRedirectionServerName"].Equals(connectionInfo.UseRedirectionServerName);
             isFieldNotChange = isFieldNotChange && dataRow["UseRestrictedAdmin"].Equals(connectionInfo.UseRestrictedAdmin);
             isFieldNotChange = isFieldNotChange && dataRow["UseVmId"].Equals(connectionInfo.UseVmId);
             isFieldNotChange = isFieldNotChange && dataRow["UserField"].Equals(connectionInfo.UserField);
@@ -550,6 +553,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritUseCredSsp"].Equals(connectionInfo.Inheritance.UseCredSsp) &&
                     dataRow["InheritUseEnhancedMode"].Equals(connectionInfo.Inheritance.UseEnhancedMode) &&
                     dataRow["InheritUseRCG"].Equals(connectionInfo.Inheritance.UseRCG) &&
+                    dataRow["InheritUseRedirectionServerName"].Equals(connectionInfo.Inheritance.UseRedirectionServerName) &&
                     dataRow["InheritUseRestrictedAdmin"].Equals(connectionInfo.Inheritance.UseRestrictedAdmin) &&
                     dataRow["InheritUserField"].Equals(connectionInfo.Inheritance.UserField) &&
                     dataRow["InheritUsername"].Equals(connectionInfo.Inheritance.Username) &&
@@ -628,6 +632,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                     dataRow["InheritUseConsoleSession"].Equals(false) &&
                     dataRow["InheritUseCredSsp"].Equals(false) &&
                     dataRow["InheritUseRCG"].Equals(false) &&
+                    dataRow["InheritUseRedirectionServerName"].Equals(false) &&
                     dataRow["InheritUseRestrictedAdmin"].Equals(false) &&
                     dataRow["InheritUserField"].Equals(false) &&
                     dataRow["InheritUsername"].Equals(false) &&
@@ -755,6 +760,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataRow["UseCredSsp"] = connectionInfo.UseCredSsp;
             dataRow["UseEnhancedMode"] = connectionInfo.UseEnhancedMode;
             dataRow["UseRCG"] = connectionInfo.UseRCG;
+            dataRow["UseRedirectionServerName"] = connectionInfo.UseRedirectionServerName;
             dataRow["UseRestrictedAdmin"] = connectionInfo.UseRestrictedAdmin;
             dataRow["UseVmId"] = connectionInfo.UseVmId;
             dataRow["UserField"] = connectionInfo.UserField;
@@ -852,6 +858,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritEnhancedMode"] = connectionInfo.Inheritance.UseEnhancedMode;
                 dataRow["InheritUseEnhancedMode"] = connectionInfo.Inheritance.UseEnhancedMode;
                 dataRow["InheritUseRCG"] = connectionInfo.Inheritance.UseRCG;
+                dataRow["InheritUseRedirectionServerName"] = connectionInfo.Inheritance.UseRedirectionServerName;
                 dataRow["InheritUseRestrictedAdmin"] = connectionInfo.Inheritance.UseRestrictedAdmin;
                 dataRow["InheritUseVmId"] = connectionInfo.Inheritance.UseVmId;
                 dataRow["InheritUserField"] = connectionInfo.Inheritance.UserField;
@@ -948,6 +955,7 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
                 dataRow["InheritUseCredSsp"] = false;
                 dataRow["InheritUseEnhancedMode"] = false;
                 dataRow["InheritUseRCG"] = false;
+                dataRow["InheritUseRedirectionServerName"] = false;
                 dataRow["InheritUseRestrictedAdmin"] = false;
                 dataRow["InheritUseVmId"] = false;
                 dataRow["InheritEnhancedMode"] = false;

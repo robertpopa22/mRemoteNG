@@ -128,6 +128,7 @@
     <xs:attribute name="RDGatewayExternalCredentialProvider" type="xs:string" use="required" />
     <xs:attribute name="RDGatewayUserViaAPI" type="xs:string" use="required" />
     <xs:attribute name="RDGatewayAccessToken" type="xs:string" use="optional" />
+    <xs:attribute name="InheritRDGatewayAccessToken" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritCredentialRecord" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritCacheBitmaps" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritColors" type="xs:boolean" use="optional" />
@@ -229,8 +230,10 @@
     <xs:attribute name="EC2Region" type="xs:string" use="optional" />
     <xs:attribute name="UseRCG" type="xs:boolean" use="optional" />
     <xs:attribute name="UseRestrictedAdmin" type="xs:boolean" use="optional" />
+    <xs:attribute name="UseRedirectionServerName" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseRCG" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUseRestrictedAdmin" type="xs:boolean" use="optional" />
+    <xs:attribute name="InheritUseRedirectionServerName" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritUserViaAPI" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritExternalAddressProvider" type="xs:boolean" use="optional" />
     <xs:attribute name="InheritEC2InstanceId" type="xs:boolean" use="optional" />
