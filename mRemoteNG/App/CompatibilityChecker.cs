@@ -84,7 +84,7 @@ namespace mRemoteNG.App
 
         private static bool FipsPolicyEnabledForServer2003()
         {
-            RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa");
+            using RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa");
             if (!(regKey?.GetValue("FIPSAlgorithmPolicy") is int fipsPolicy))
                 return false;
             return fipsPolicy != 0;
@@ -92,7 +92,7 @@ namespace mRemoteNG.App
 
         private static bool FipsPolicyEnabledForServer2008AndNewer()
         {
-            RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy");
+            using RegistryKey? regKey = Registry.LocalMachine.OpenSubKey(@"System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolicy");
             if (!(regKey?.GetValue("Enabled") is int fipsPolicy))
                 return false;
             return fipsPolicy != 0;
