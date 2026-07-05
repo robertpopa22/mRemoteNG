@@ -446,6 +446,27 @@ jobs:
           path: release-assets
           merge-multiple: true
 
+      - name: (05) Stage MSI for release
+        shell: pwsh
+        run: |
+          # The msi-x64 artifact preserves a nested Release/en-US/ path (the upload glob
+          # roots the archive at bin/). Flatten the MSI to the release root under a
+          # versioned name so the single-level release glob and the checksum step both
+          # pick it up (#138).
+          $msi = Get-ChildItem -Path release-assets -Recurse -Filter *.msi | Select-Object -First 1
+          if ($msi) {
+            $target = "release-assets/mRemoteNG-v${{ steps.meta.outputs.version }}-x64.msi"
+            Move-Item -Path $msi.FullName -Destination $target
+            # Prune only directories left empty by the move — never touch nested
+            # structures another artifact may legitimately ship.
+            Get-ChildItem -Path release-assets -Directory |
+              Where-Object { -not (Get-ChildItem -Path $_.FullName -Recurse -File) } |
+              Remove-Item -Recurse -Force
+            Write-Host "Staged $target"
+          } else {
+            Write-Host "::warning::No MSI found in downloaded artifacts; release will ship without an MSI"
+          }
+
       - name: (06) List release assets
         shell: bash
         run: |
@@ -458,7 +479,7 @@ jobs:
         run: |
           $checksumFile = "release-assets/checksums-SHA256.txt"
           $lines = @()
-          $files = Get-ChildItem -Path release-assets -Filter *.zip
+          $files = Get-ChildItem -Path release-assets -File | Where-Object { $_.Extension -in '.zip', '.msi' }
           foreach ($file in $files | Sort-Object Name) {
             $hash = (Get-FileHash -Path $file.FullName -Algorithm SHA256).Hash.ToLower()
             $line = "$hash  $($file.Name)"
@@ -480,8 +501,9 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           name: "mRemoteNG ${{ steps.meta.outputs.version }}"
-          # release-assets/* is single-level (attaches the flat ZIPs + checksums); the MSI artifact
-          # preserves a nested Release/en-US/ path, so add a targeted recursive glob for it (#138).
+          # Step (05) flattens the MSI to the release root, so release-assets/* covers
+          # everything; the recursive MSI glob stays as a safety net in case the MSI
+          # artifact layout changes and staging misses it (#138).
           files: |
             release-assets/*
             release-assets/**/*.msi
