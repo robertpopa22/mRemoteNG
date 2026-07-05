@@ -6,7 +6,7 @@
   "labels": [],
   "author": "kaansengul",
   "created_at": "2026-07-01T17:56:12Z",
-  "github_updated_at": "2026-07-01T17:56:12Z",
+  "github_updated_at": "2026-07-02T07:46:23Z",
   "body_snippet": "Options -> Updates -> Release Channel:\n\n1. Stable: \"Latest version: 1.76.11.40592\"\n2. Preview: \"Check failed!\"\n3. Nightly: \"Check failed!\"\n4. Github: \"Latest version: 1.81.0\"\n\nCurrently in \"1.82.0-beta3 (Pre-release 3592) x64\"",
   "our_status": "testing",
   "priority": null,
@@ -35,11 +35,30 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-07-01T17:56:12Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIdmnHA",
+      "author": "robertpopa22",
+      "date": "2026-07-02T06:36:47Z",
+      "snippet": "Thanks for the detailed report — the per-channel results were exactly what was needed to pin this down.\n\nThe root cause is that this fork distributes **only through GitHub Releases**, but three of the four channels were left over from the original upstream project:\n\n- **Stable / Preview / Nightly** fetched plain-text files (`update.txt`, `preview-update.txt`, `nightly-update.txt`) from the old upstream website (`mremoteng.org`). That site still serves upstream's own `update.txt` — hence Stable r...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABIeG3ng",
+      "author": "robertpopa22",
+      "date": "2026-07-02T07:46:23Z",
+      "snippet": "Follow-up: the update system has now been fully consolidated around the fix above, so the behaviour is consistent everywhere (not just the check endpoint).\n\n**What the app does now**\n- *Check for updates* queries this fork's latest GitHub release (`releases/latest` — the latest stable) and reports the version.\n- The download button opens that release's page in your browser; there's no separate in‑app MSI download/verify/install step.\n\n**What was removed (all of it was dead or pointed at the old ...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-02T07:46:23Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-02T06:36:59Z",
+  "last_synced": "2026-07-05T10:12:31Z",
   "notes": "fix shipped 3e9f8a7bc (collapse update channels to GitHub-only); awaiting reporter confirm on nightly"
 }

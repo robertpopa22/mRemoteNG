@@ -8,7 +8,7 @@
   "created_at": "2026-06-15T12:55:37Z",
   "github_updated_at": "2026-06-22T12:42:04Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.TypeInitializationException`\r\n**Message:** The type initializer for 'System.Resources.Extensions.BinaryFormat.BinaryFormattedObject' threw an exception.\r\n\r\n### Stack Trace\r\n```\r\n   at new System.Resources.Extensions.BinaryFormat.BinaryFormattedObject(Stream stream, Options options)\r\n   at object System.Resources.Extensions.DeserializingResourceReader.ReadBinaryFormattedObject()\r\n   at object System.Resources.Extensions.DeserializingResourceRead...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -19,6 +19,16 @@
       "date": "2026-06-22",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-05",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -40,6 +50,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-06-22T13:46:52Z",
-  "notes": ".NET10 BinaryFormatter crash in frmTaskDialog ALREADY fixed in HEAD 9e81169af (details-arrow imagelist removed binary ImageStream load); reporter on beta.3 0ff3a88 predates fix; retest next nightly"
+  "last_synced": "2026-07-05T12:18:06Z",
+  "notes": "closed: stale version, fixed pre-report (9e81169af+1680cf817), 2wk silent after retest ask"
 }

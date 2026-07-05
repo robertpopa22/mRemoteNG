@@ -1,0 +1,47 @@
+{
+  "number": 140,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "RDP: auto-reconnect kicks in after deliberate logoff when 'Reconnect on disconnect' is enabled",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-07-05T10:31:24Z",
+  "github_updated_at": "2026-07-05T12:17:59Z",
+  "body_snippet": "## Summary\n\nWith **Options → Advanced → \"Automatically try to reconnect when disconnected\"** (`ReconnectOnDisconnect`) enabled, deliberately logging off inside an RDP session does not close the session — mRemoteNG shows the reconnect panel and the reconnect timer logs the user straight back in (or parks at the logon screen and retries).\n\nFound while analyzing #139 (independent model review of the RDP disconnect path).\n\n## Root cause\n\n`RdpProtocol.RDPEvent_OnDisconnected` (mRemoteNG/Connection/Pr...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-05",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIzqHyA",
+      "author": "robertpopa22",
+      "date": "2026-07-05T12:17:59Z",
+      "snippet": "Fix shipped in `651027630` — the reconnect branch now skips deliberate logoffs (ExtendedDisconnectReason 2/12) and closes the tab instead. Will be in the next nightly. Full suite green (6281 tests).",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-05T12:17:59Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-05T12:18:17Z",
+  "notes": "self-found via #139 review (Gemini): ReconnectOnDisconnect branch missed logoff exclusion; fix 651027630 gates on ExtendedDisconnectReason 2/12; awaiting nightly"
+}

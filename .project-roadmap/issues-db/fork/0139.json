@@ -1,0 +1,45 @@
+{
+  "number": 139,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Auto close RDP sessions once logged out",
+  "state": "open",
+  "labels": [],
+  "author": "happpyg",
+  "created_at": "2026-07-03T10:17:38Z",
+  "github_updated_at": "2026-07-05T12:17:42Z",
+  "body_snippet": "Hi Team,\nNot sure this is the most appropriate place for this question.\n\nI have been using the original version of mRemoteNG (1.77.3 NB) and then I found this version which is much better.  However there is one small thing I can't find an answer for.\n\nIn my original 1.77.3 version, after I log off an RDP session, that pane/window closes automatically in mRemote however in this version (1.82.0) it does not.  Is that something configurable i'm missing?\n\nPlease advise if I should direct this questi...",
+  "our_status": "needs_info",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-05",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIzqFFw",
+      "author": "robertpopa22",
+      "date": "2026-07-05T12:17:42Z",
+      "snippet": "Welcome, and glad the fork is working well for you!\n\nGood news — this is configurable, not a bug. What changed since 1.77.3 is that this fork added a \"keep tabs open\" feature (from a long-standing upstream request, #1444), and it ships **enabled** by default:\n\n**Tools → Options → Tabs & Panels → uncheck \"Keep tabs open after disconnecting\"**\n\nWith that unchecked you get exactly the 1.77.3 behavior: when you log off (or the connection drops), the tab closes itself immediately. With it checked, th...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-05T12:17:42Z",
+  "unread_comments": 0,
+  "needs_action": false,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-05T12:18:15Z",
+  "notes": "answered: KeepTabsOpenAfterDisconnect=True default (feature #1444); uncheck in Options>Tabs&Panels restores 1.77.3 auto-close; awaiting reporter confirm then close"
+}

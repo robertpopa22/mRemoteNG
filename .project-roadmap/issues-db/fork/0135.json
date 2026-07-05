@@ -8,7 +8,7 @@
   "created_at": "2026-06-30T04:57:52Z",
   "github_updated_at": "2026-06-30T15:40:32Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ArgumentOutOfRangeException`\r\n**Message:** index ('1') must be less than '0'. (Parameter 'index')\r\nActual value was 1.\r\n\r\n### Stack Trace\r\n```\r\n   at void ArgumentOutOfRangeException.ThrowGreaterEqual<T>(T value, T other, string paramName)\r\n   at ListViewItem System.Windows.Forms.ListView+ListViewItemCollection.get_Item(int index)\r\n   at void System.Windows.Forms.ListView.WmReflectNotify(ref Message m)\r\n   at void System.Windows.Forms.ListView....",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -19,6 +19,16 @@
       "date": "2026-06-30",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-05",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -40,6 +50,6 @@
   "unread_comments": 0,
   "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-01T06:22:44Z",
-  "notes": "fix bb2a7f6c6; OLV reflect-notify virtual-mode AOORE guard; awaiting reporter confirm on nightly"
+  "last_synced": "2026-07-05T12:18:06Z",
+  "notes": "closed: reflect-notify guard bb2a7f6c6 in nightlies 5d, no recurrence"
 }
