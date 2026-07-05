@@ -1,0 +1,47 @@
+{
+  "number": 141,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "CSV export writes seven inheritance columns under the wrong headers (InheritUserViaAPI misalignment)",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-07-05T13:24:32Z",
+  "github_updated_at": "2026-07-05T13:26:17Z",
+  "body_snippet": "## Summary\n\nEvery CSV export (mRemoteNG format) writes seven inheritance columns under the wrong headers: the `InheritUserViaAPI` header is declared 5 positions earlier than where its value is actually emitted, shifting the whole window between them by one column.\n\nFound during an independent model review (Codex + Gemini, both flagged it) of the CSV serializer while porting upstream features; pre-existing, not introduced by the port.\n\n## Root cause\n\n`CsvConnectionsSerializerMremotengFormat.cs`: ...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-05",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABIz2Cmg",
+      "author": "robertpopa22",
+      "date": "2026-07-05T13:26:17Z",
+      "snippet": "Fixed in `83ecaf879` — the inheritance header now matches the append order (details in the commit body, item 5). Will be in the next nightly. Note: CSV files exported **before** this fix carry the shifted values for those seven columns; re-exporting after upgrading produces a correct file.",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-05T13:26:17Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-05T13:26:18Z",
+  "notes": "self-found (Codex+Gemini review during upstream port): CSV inheritance header/append misalignment; fix 83ecaf879; awaiting nightly"
+}
