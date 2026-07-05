@@ -15,7 +15,7 @@
   ],
   "author": "mshalmanov",
   "created_at": "2024-05-28T15:46:33Z",
-  "github_updated_at": "2026-02-26T17:28:34Z",
+  "github_updated_at": "2026-06-09T09:10:51Z",
   "body_snippet": "<!--- Provide a general summary of the issue in the Title above -->\r\nPlease add possibility Copy/Past login and password buttons to ssh and rdp connection. How is it done in RoaylTS.\r\n\r\n## Expected Behavior\r\n<!--- If you're describing a bug, tell us what should happen -->\r\n<!--- If you're suggesting a change/improvement, tell us how it should work -->\r\nWhen user connected to Linux or Windows OS machine. He is can copy and past login or password from the account of the computer to which it is con...",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -90,12 +90,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABFaJVNg",
+      "author": "nmg196",
+      "date": "2026-06-09T08:36:58Z",
+      "snippet": "I don't really see how this is a security risk given that every single password manager in existance currently lets you export all your passwords to CSV (the \"right\" to have access your own raw data) or copy individual ones to a clipboard.   It's only a security problem if they're stored in a way that they can be extracted without having to enter the master password. Perhaps it could simply prompt for the decryption password again when you choose to copy it to the clipboard (or view it)?",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABFab24w",
+      "author": "Kvarkas",
+      "date": "2026-06-09T09:10:51Z",
+      "snippet": "At the moment what I try to implement is 2 cases: 1. User has full permision over connection item \nThen he could export it (after all it his credentials) or use show/copy\n2. User has use permission\nThen he still able to make a connection, but cant export or see password (restricted by Admin)\n\nCurrent issue exist (in already released version) what if one user running mR and another user have access to same machine (as secondary logged user) he able to do a memmory dump and get access to credentia...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T17:28:34Z",
-  "unread_comments": 3,
+  "comments_cursor": "2026-06-09T09:10:51Z",
+  "unread_comments": 5,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": "AI triage (claude): Legitimate UX enhancement to copy credentials to clipboard from connection tree context menu, with a workaround already documented via External Tool entry.\nApproach: Add 'Copy Username' and 'Copy Password' context menu items on connection tree nodes that write decrypted credentials to clipboard with optional auto-clear after timeout, similar to the documented External Tool workaround."
 }

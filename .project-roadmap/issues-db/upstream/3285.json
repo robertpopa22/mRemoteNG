@@ -13,7 +13,7 @@
   ],
   "author": "femarschall",
   "created_at": "2026-04-24T15:01:46Z",
-  "github_updated_at": "2026-05-06T09:58:44Z",
+  "github_updated_at": "2026-05-26T15:55:32Z",
   "body_snippet": "I've already installed this version on other computers and it worked fine.\n\nOn my main PC I deleted the old application and appdata folders but I cannot see the application window when I launch it:\n\n<img width=\"1918\" height=\"1072\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/e2305cce-3654-4b1b-9f07-8bda653a0281\" />\n\nThe \"move\" window also does not work:\n\n<img width=\"385\" height=\"217\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/4531ec90-9d1f-417e-b3d4-6971d0b528ad\" ...",
   "our_status": "new",
   "priority": null,
@@ -30,12 +30,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABDvHBGw",
+      "author": "MugBuffalo",
+      "date": "2026-05-26T15:35:05Z",
+      "snippet": "I'm having the exact same issue here on Version 1.78.2 (nightly Build 3228) x64 with Windows 11.\nDeleted the folder with the connections file in AppData\\Roaming, deleted the old connections file, too. The window still isn't displayed.\n\nEdit: I just tried out the mRemoteNG-20260222-v1.78.2-NB-3405-x64-SC release and it launched just fine.\n\nLogs say the following:\n```powershell\n2026-05-26 17:28:56,535 [2] DEBUG - Registry settings loaded and applied asynchronously in RegistryLoader\n2026-05-26 17:2...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-05-06T09:58:44Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-05-26T15:55:32Z",
+  "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": ""
 }

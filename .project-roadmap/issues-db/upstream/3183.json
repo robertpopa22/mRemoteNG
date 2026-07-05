@@ -8,7 +8,7 @@
   ],
   "author": "xsilvertom",
   "created_at": "2026-02-26T14:22:10Z",
-  "github_updated_at": "2026-05-22T08:27:12Z",
+  "github_updated_at": "2026-05-27T19:06:08Z",
   "body_snippet": "Hi,\n\nWeb on mremoteng.org and download icon points to `https://mremoteng.org/downloads` (note the \"s\"), but shows no content (when triggered from web). Not even older versions. And shows HTTP/404 when opened directly or when cURL is used.\n\nGit in `**[CENSORED!] Links to external GitHub repositories are not allowed** ..  points in Download section to two places.\n- `Project Website https://mremoteng.org/download)` .. (note \"s\" is missing here), and goes straight to HTTP/404 File Not Found\n- `**[CE...",
   "our_status": "wontfix",
   "priority": "P4-debt",
@@ -65,12 +65,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABD6qUog",
+      "author": "innovation-plantation",
+      "date": "2026-05-27T19:06:08Z",
+      "snippet": "Could it at least point to a file that references URL https://github.com/mRemoteNG/mRemoteNG/releases/latest rather than a 404 page? That seems like a low maintenance solution to keeping the link up to date.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-05-22T08:27:12Z",
-  "unread_comments": 4,
+  "comments_cursor": "2026-05-27T19:06:08Z",
+  "unread_comments": 5,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": "Website issue (download links on mremoteng.org), not a code bug. Out of scope for this fork."
 }

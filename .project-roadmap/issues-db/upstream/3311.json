@@ -3,10 +3,15 @@
   "repo": "mRemoteNG/mRemoteNG",
   "title": "Add SFTP remote file transfer functionality",
   "state": "open",
-  "labels": [],
+  "labels": [
+    "Enhancement",
+    "UI/UX",
+    "Feature Request",
+    "Need 2 check"
+  ],
   "author": "raohj1987",
   "created_at": "2026-05-14T09:50:02Z",
-  "github_updated_at": "2026-05-14T09:50:02Z",
+  "github_updated_at": "2026-06-26T10:43:17Z",
   "body_snippet": "The current SSH file transfer function is not very user-friendly. Among the remote file transfer tools I have used, Xshell provides a relatively good experience. Therefore, referring to the features of Xshell, similar functionality has been added to mRemoteNG.\nRefer to the figure below for the functional interface。\n<img width=\"2215\" height=\"1520\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/faf8512a-44e4-44f6-9603-7e2a041073b7\" />\n1、When a terminal is currently open, clicking Tool...",
   "our_status": "new",
   "priority": null,
@@ -14,11 +19,30 @@
   "our_branch": null,
   "our_pr": null,
   "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-05-14T09:50:02Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABG-b4iQ",
+      "author": "joubertdj",
+      "date": "2026-06-21T19:42:18Z",
+      "snippet": "@Kvarkas : We need some leadership/direction I think. There are three pull requests for SFTP/SCP type file transfer mechanisms. There is also two different SSH implementations as pull requests (hell, one combines both!!!). This is obviously a need in the project the SSH and SFTP/SCP items, so we need a direction. I am sure whatever is selected, we as a community will support and help improve upon. But without direction from our fearless leader 😄 it does not help that individuals see the need, pr...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABHqBPtQ",
+      "author": "Kvarkas",
+      "date": "2026-06-26T10:42:52Z",
+      "snippet": "hello, currently dealing with personal mater, will be come free on Monday so have more time to work on this project, thanks for your interest and support. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-26T10:43:17Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "waiting_for_us": true,
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": ""
 }

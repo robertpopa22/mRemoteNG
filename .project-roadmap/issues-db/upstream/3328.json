@@ -1,0 +1,59 @@
+{
+  "number": 3328,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Credential Audit and Clear",
+  "state": "open",
+  "labels": [
+    "Priority - Low",
+    "Request For Comment",
+    "Feature Request",
+    "Security",
+    "Connections",
+    "1.78.*"
+  ],
+  "author": "innovation-plantation",
+  "created_at": "2026-05-28T23:46:31Z",
+  "github_updated_at": "2026-06-05T08:58:32Z",
+  "body_snippet": "**Request**\nAdd a dialog that lists every connection, folder, or global setting that stores a **username or password**. Each item should have a checkbox, plus **Check All** and Uncheck All buttons.\n\nInclude a Clear Selected Credentials button that **removes** stored usernames and passwords from all **checked items**.\n\n**Benefits**\nMakes it easy to find and remove stored credentials quickly, especially before sharing a configuration.",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABEts1yA",
+      "author": "Kvarkas",
+      "date": "2026-06-03T10:20:53Z",
+      "snippet": "Will keep this idea, but have another one what could be useful - currently credentials are stay forever, but have in mind idea similar to CPM from CyberArk - what could be a policy attached - what could clear password in let say 30days, change password (if user provided has this rights) after each session etc. Home users may not need this so this could be discussed for later stages then mR will have a mode switch from Home use to Corp",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABE18qqA",
+      "author": "innovation-plantation",
+      "date": "2026-06-04T07:28:38Z",
+      "snippet": "The timed‑expiration idea could be useful, though I’m not sure I’d\r\npersonally rely on it. The main use case I’m focused on is auditing shared\r\npasswords. When you have multiple shared credentials, you want to be\r\nabsolutely certain that none of your own passwords are unintentionally\r\nexposed when sharing a connection.\r\n\r\nOne scenario to test carefully: a password is set on a connection but\r\nbecomes *inactive* because inheritance hides it. If that connection is then\r\nshared, the hidden password ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABE_UVog",
+      "author": "Kvarkas",
+      "date": "2026-06-05T08:56:57Z",
+      "snippet": "In new change will be possible to create per user profile and collect connections as collection, as well credential will be not loaded by default (to mitigate security risks) but only loaded at the moment of connection creation - what mean what source for credentials should be accessible by user, but could be control outside of mR, for example a shared drive and AD groups or gpo etc. ",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-05T08:58:32Z",
+  "unread_comments": 3,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-07-05T12:25:32Z",
+  "notes": ""
+}

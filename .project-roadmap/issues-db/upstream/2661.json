@@ -9,7 +9,7 @@
   ],
   "author": "webabox",
   "created_at": "2025-01-17T12:47:10Z",
-  "github_updated_at": "2026-05-06T13:48:48Z",
+  "github_updated_at": "2026-06-04T08:54:42Z",
   "body_snippet": "Description: WebAuthn redirection allows WebAuthn requests to be redirected from a remote session to a local device, enabling secure, in-session passwordless authentication. This feature is crucial for improving security and user experience in remote desktop environments.\n\nBenefits:\n\nEnhanced security through passwordless authentication.\nImproved user experience by leveraging existing authentication methods.\nCompatibility with Windows Hello for Business and FIDO security keys like Yubikey.\n\nRefe...",
   "our_status": "released",
   "priority": "P3-enhancement",
@@ -107,15 +107,6 @@
       "action_needed": true
     },
     {
-      "id": "IC_kwDOAAcIMM75T9pu",
-      "author": "Souffkee",
-      "date": "2026-04-03T09:40:54Z",
-      "snippet": "@robertpopa22 \nUnable to find this commit.\nAny update?",
-      "is_ours": false,
-      "analyzed": false,
-      "action_needed": true
-    },
-    {
       "id": "IC_kwDOAAcIMM75kZne",
       "author": "Kvarkas",
       "date": "2026-04-04T12:47:07Z",
@@ -134,10 +125,10 @@
       "action_needed": true
     }
   ],
-  "comments_cursor": "2026-05-06T13:48:48Z",
-  "unread_comments": 8,
+  "comments_cursor": "2026-06-04T08:54:42Z",
+  "unread_comments": 7,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-05-25T14:28:55Z",
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": "AI triage (claude): Valid RDP WebAuthn/FIDO2 redirection feature request requiring two new boolean RDP file properties (redirectwebauthn:i:1, enablerdsaadauth:i:1) to be exposed in the RDP connection settings UI.\nApproach: Add RedirectWebAuthn and EnableRdsAadAuth boolean properties to RDP connection options, wire them through ConnectionInfo serialization, and expose in the RDP protocol settings panel."
 }

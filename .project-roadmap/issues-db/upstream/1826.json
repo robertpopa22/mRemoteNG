@@ -11,7 +11,7 @@
   ],
   "author": "shann1976",
   "created_at": "2020-07-29T08:11:44Z",
-  "github_updated_at": "2026-02-26T13:40:53Z",
+  "github_updated_at": "2026-06-16T12:41:24Z",
   "body_snippet": "I have installed the version: mRemoteNG-1.77.1.27654 and post installation the copy from my local clipboard & paste in the remote RDP session is not occurring.\r\n\r\nThe copy & paste works in normal Windows RDP session (hence no GPO, policy that disables this)\r\n\r\nClipboard works in Linux systems however not in Windows RDP.\r\n\r\nThe config has: \r\nDefault Inheritance >> Inherit Clipboard = yes\r\nDefault Properties >> Clipboard = yes\r\n\r\nHow to enable copy & paste within the Windows RDP session?",
   "our_status": "released",
   "priority": "P2-bug",
@@ -149,12 +149,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDOAAcIMM8AAAABGSM8_Q",
+      "author": "DaanSelen",
+      "date": "2026-06-16T08:55:20Z",
+      "snippet": "1.78.2 still broken I from what I am experiencing\n\nEDIT: It does work, but inheritance is the thing that keeps switching (USER ERROR)",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-02-26T13:40:53Z",
-  "unread_comments": 11,
+  "comments_cursor": "2026-06-16T12:41:24Z",
+  "unread_comments": 12,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-03-07T07:13:19Z",
+  "last_synced": "2026-07-05T12:25:32Z",
   "notes": "AI triage (claude): Clipboard redirection defaults to False for new RDP connections; changing ConDefaultRedirectClipboard default to True in Settings.Designer.cs and Settings.settings fixes copy/paste out of the box.\nApproach: Change DefaultSettingValueAttribute for ConDefaultRedirectClipboard from 'False' to 'True' to enable clipboard redirection by default for new RDP connections"
 }

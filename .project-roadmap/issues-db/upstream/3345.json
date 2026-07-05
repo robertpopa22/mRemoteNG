@@ -1,0 +1,38 @@
+{
+  "number": 3345,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Connect on Hyper-V port 2179.",
+  "state": "open",
+  "labels": [
+    "RDP",
+    "Need 2 check",
+    "1.78.*"
+  ],
+  "author": "jfkguidant",
+  "created_at": "2026-06-15T18:29:45Z",
+  "github_updated_at": "2026-06-17T08:52:05Z",
+  "body_snippet": "I successfully connect to a Hyper-V guest (Windows server 2022) on my own computer. But as soon as I check \"Use enhanced mode\", the connection fails.\nI see the tab opening and closing after a sec.\nIs there any log I can provide?",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABGNcCrw",
+      "author": "jfkguidant",
+      "date": "2026-06-15T19:37:34Z",
+      "snippet": "Sorry, I'm wrong on that. My rdp port 3389 was opened.\nI disabled Remote Desktop connection in settings and now I can't connect.\nSo problem is: how to connect on port 2179. I read vmrdp.rst. Firewall is deactivated. \"Use VM ID\" is yes. Hyper-V works, of course.\nUsing the last version: mRemoteNG-20260222-v1.78.2-NB-3405-x64",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-17T08:52:05Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-07-05T12:25:32Z",
+  "notes": ""
+}

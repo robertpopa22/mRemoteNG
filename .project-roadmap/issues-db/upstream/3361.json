@@ -1,0 +1,37 @@
+{
+  "number": 3361,
+  "repo": "mRemoteNG/mRemoteNG",
+  "title": "Security vulnerability responsible disclosure",
+  "state": "open",
+  "labels": [
+    "Security Vuln",
+    "Security"
+  ],
+  "author": "CERT-PL-CNA",
+  "created_at": "2026-06-26T10:05:33Z",
+  "github_updated_at": "2026-06-26T10:34:51Z",
+  "body_snippet": "Hello,\n\na potential security vulnerability has been identified in this repository and reported to us, CERT.PL.\n\nWe could not find a security policy or reporting guidelines in this project. Could you please advise on a secure way to share the details privately?\n\nIf there is no response within a reasonable timeframe (30 days), the vulnerability may be disclosed according to responsible disclosure practices.\n\nThank you!",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [
+    {
+      "id": "IC_kwDOAAcIMM8AAAABHp-Nug",
+      "author": "Kvarkas",
+      "date": "2026-06-26T10:34:51Z",
+      "snippet": "Hello, please send email with details to support@mremoteng.org",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-06-26T10:34:51Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-07-05T12:25:32Z",
+  "notes": ""
+}
