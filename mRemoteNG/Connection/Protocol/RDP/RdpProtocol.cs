@@ -1736,9 +1736,15 @@ namespace mRemoteNG.Connection.Protocol.RDP
             }
 
             // Only attempt reconnect on unexpected disconnects (server/network).
-            // When the user explicitly disconnects (discReason == UI_ERR_NORMAL_DISCONNECT),
-            // close the tab immediately — the user expressed clear intent to disconnect.
-            if (discReason != UI_ERR_NORMAL_DISCONNECT &&
+            // When the user explicitly disconnects (discReason == UI_ERR_NORMAL_DISCONNECT)
+            // or deliberately logs off inside the session (ExtendedDisconnectReason
+            // exDiscReasonAPIInitiatedLogoff = 2, exDiscReasonLogoffByUser = 12), close
+            // the tab — auto-reconnecting would log the user straight back in (#140).
+            uint finalExtendedReason;
+            try { finalExtendedReason = (uint)_rdpClient.ExtendedDisconnectReason; }
+            catch { finalExtendedReason = 0; }
+            bool deliberateLogoff = finalExtendedReason is 2 or 12;
+            if (discReason != UI_ERR_NORMAL_DISCONNECT && !deliberateLogoff &&
                 Properties.OptionsAdvancedPage.Default.ReconnectOnDisconnect)
             {
                 ReconnectGroup = new ReconnectGroup();
