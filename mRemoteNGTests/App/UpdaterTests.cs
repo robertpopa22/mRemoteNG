@@ -1,4 +1,5 @@
 using System;
+using mRemoteNG.App.Info;
 using mRemoteNG.App.Update;
 using NUnit.Framework;
 
@@ -61,5 +62,14 @@ public class UpdaterTests
     {
         var info = UpdateInfo.FromGitHubJson("""{ "html_url": "https://example.com" }""");
         Assert.That(info.IsValid, Is.False);
+    }
+
+    [Test]
+    public void UpdateCheckAlwaysTargetsForkGitHubLatestRelease()
+    {
+        // This fork distributes only via GitHub Releases; the upstream mremoteng.org
+        // channels were removed in #136. Guard against the endpoint drifting back.
+        Uri uri = UpdateReleaseInfo.GetLatestReleaseApiUri();
+        Assert.That(uri.ToString(), Is.EqualTo("https://api.github.com/repos/robertpopa22/mRemoteNG/releases/latest"));
     }
 }

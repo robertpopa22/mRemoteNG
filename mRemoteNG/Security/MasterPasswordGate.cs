@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Security;
 using System.Runtime.Versioning;
@@ -20,6 +21,13 @@ namespace mRemoteNG.Security
     [SupportedOSPlatform("windows")]
     public static class MasterPasswordGate
     {
+        /// <summary>
+        /// Collects the master password from the user. Replaceable so tests can drive the
+        /// gate without showing the modal <see cref="MiscTools.PasswordDialog"/>.
+        /// </summary>
+        internal static Func<string?, Optional<SecureString>> PasswordPrompt { get; set; } =
+            label => MiscTools.PasswordDialog(label, false);
+
         /// <summary>
         /// Returns <c>true</c> if the caller may proceed to expose a secret.
         /// If a custom master password is set, the user is prompted and must enter it
@@ -45,7 +53,7 @@ namespace mRemoteNG.Security
             if (root is not { Password: true })
                 return true;
 
-            Optional<SecureString> password = MiscTools.PasswordDialog(label, false);
+            Optional<SecureString> password = PasswordPrompt(label);
             if (!password.Any() || password.First().Length == 0)
                 return false;
 
