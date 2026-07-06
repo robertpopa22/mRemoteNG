@@ -83,13 +83,15 @@ mRemoteNG ships entirely from GitHub Releases with a deliberately small, predict
 
 16 protocols supported: **RDP**, **VNC**, **SSH**, **Telnet**, **HTTP/HTTPS**, **rlogin**, **Raw Socket**, **PowerShell Remoting**, **AnyDesk**, **VMRC** (VMware), **MSRA** (Remote Assistance), **OpenSSH** (native Windows), **Winbox** (MikroTik), **WSL**, **Terminal**, **Serial** (COM port).
 
-**Security:** PBKDF2 600K iterations, HTTPS-only vaults, SSH key wipe, AnyDesk command injection prevention, LDAP sanitization, 4 CodeQL alerts fixed.
+**Security:** PBKDF2 600K iterations, HTTPS-only vaults, SSH key wipe, AnyDesk command injection prevention, LDAP sanitization, owner-only ACL on the PuTTY credential pipe, master-password re-authentication on password copy/reveal, 4 CodeQL alerts fixed.
 
 **Enterprise:** Self-contained builds (zero prerequisites), ADMX/ADML Group Policy templates, connection audit logging, JSON export, protocol/tag filtering.
 
 **Performance:** Startup optimized to **under 1 second** with 200 connections (down from 10-30s). WMI queries, plugin loading, and IE emulation deferred to background threads. XML deserialization uses O(1) dictionary lookups instead of O(n) attribute scans.
 
-**Quality:** 6,266 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 issues triaged (712 released).
+**Recent additions** (nightly, ported from upstream and adapted): *Clear Cached RDP Credentials* action (drop the stale `TERMSRV/<host>` entry that overrides your configured credentials), *Use Redirection Server Name* RDP property for load-balance redirects (GNOME Remote Desktop `--system`), Explorer-style slow-click rename in the connection tree (opt-in), RD Gateway access-token inheritance from parent folders.
+
+**Quality:** 6,329 automated tests (0 failures), 0 analyzer warnings, SonarCloud Quality Gate passed (A reliability, A security, A maintainability, 80.7% coverage, 1.6% duplication), 5-level code quality pipeline (Roslynator + Meziantou + SonarCloud + CodeQL + Qodo AI Review), x64/x86/ARM64. 853 issues triaged (712 released).
 
 For detailed usage, refer to the [Documentation](https://mremoteng.readthedocs.io/en/latest/).
 
@@ -222,6 +224,8 @@ Upstream has 830+ open issues (853 total triaged by our orchestrator). This fork
 
 Additionally, 4 upstream copilot draft PRs (#3177, #3176, #3154, #3171) have been reviewed and their fixes backported to our fork's `main` branch, ahead of upstream merge.
 
+The convergence runs in both directions. In July 2026 every upstream commit since the March sync point (~230, mostly dependency bumps) was triaged against this fork; the substantive pieces we lacked were ported and adapted: the *Use Redirection Server Name* RDP property ([#3314](https://github.com/mRemoteNG/mRemoteNG/pull/3314), extended here with SQL-schema persistence upstream does not have), the *Clear Cached RDP Credentials* action ([#3315](https://github.com/mRemoteNG/mRemoteNG/pull/3315)), Explorer-style slow-click rename ([#3251](https://github.com/mRemoteNG/mRemoteNG/pull/3251)), RD Gateway access-token inheritance ([#3243](https://github.com/mRemoteNG/mRemoteNG/pull/3243)), and the PuTTY credential-pipe ACL hardening class. The same review surfaced and fixed a pre-existing CSV export bug of our own (#141) — porting with independent model review cuts both ways. Dependencies were synced to upstream levels at the same time (SqlClient 7, log4net, WebView2, AWSSDK).
+
 ### 6.7. The Bigger Picture
 
 This project demonstrates a reproducible model: **orchestrator + supervisor + multi-model AI + human oversight** applied to a legacy codebase with a large backlog.
@@ -299,7 +303,7 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless
 pwsh -NoProfile -ExecutionPolicy Bypass -File run-tests.ps1 -Headless -NoBuild
 ```
 
-**6,266 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
+**6,329 tests**, 9 groups with sliding-window concurrency (max 2) + 2 isolated, 0 failures.
 
 Multi-process parallelism is required because the production code uses shared mutable singletons — NUnit fixture-level parallelism causes race conditions. Each `dotnet test` process gets isolated static state.
 

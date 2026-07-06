@@ -176,7 +176,7 @@ For the complete evidence trail of the AI-assisted modernization process
 |--------|-------|
 | Version | **1.82.0** (stable, released 2026-07-02) |
 | Analyzer warnings | 0 (5,247 eliminated) |
-| Tests | 6,266 passed, 0 failures |
+| Tests | 6,329 passed, 0 failures |
 | Startup time | ≤1s with 200 connections (optimized from ~10-30s) |
 | CI status | All workflows GREEN |
 | SonarCloud | Quality Gate PASSED (A/A/A) |

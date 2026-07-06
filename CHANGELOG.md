@@ -3,6 +3,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+Focus: upstream re-synchronization — every substantive upstream change since the
+March sync point was triaged against this fork; the pieces we lacked were ported
+and adapted (including SQL-schema support upstream does not have).
+
+### Added
+- **Use Redirection Server Name** RDP property (upstream [#3314](https://github.com/mRemoteNG/mRemoteNG/pull/3314)) — opt-in: on a server-issued load-balance redirect, reconnect using the originally configured server name (needed for e.g. GNOME Remote Desktop in `--system` mode; leave off for RDS/AVD/Citrix). Persisted in XML, CSV and SQL (schema v3.4 → v3.5 with automatic migration)
+- **Clear Cached RDP Credentials** connection action (upstream [#3315](https://github.com/mRemoteNG/mRemoteNG/pull/3315)) — right-click an RDP connection to delete the stale `TERMSRV/<hostname>` entry from Windows Credential Manager when a remembered credential overrides the one configured on the connection
+- **Explorer-style slow-click rename** in the connection tree (upstream [#3251](https://github.com/mRemoteNG/mRemoteNG/pull/3251)) — opt-in via Options → Connections, with Group Policy support
+- **RD Gateway access token inheritance** (upstream [#3243](https://github.com/mRemoteNG/mRemoteNG/pull/3243)) — the gateway access token can now be inherited from a parent folder
+
+### Fixed
+- **CSV export column misalignment** (#141) — seven inheritance columns were written under the wrong headers in every CSV export (pre-existing; found by independent model review during the port)
+- **RDP auto-reconnect after deliberate logoff** (#140) — with "Automatically try to reconnect" enabled, logging off inside an RDP session immediately logged the user back in; deliberate logoffs now close the tab
+- Stable releases attach the **MSI installer** with a versioned filename and include it in `checksums-SHA256.txt` (#138)
+- Connection context menu no longer mis-renders after right-clicking empty tree space (swallowed `NullReferenceException`)
+- `CompatibilityChecker` no longer leaks registry handles at startup (upstream port)
+- Release notes now warn against extracting ZIPs over a folder that held a self-contained build — stale runtime files cause a false "You must install .NET" dialog (#130)
+
+### Security
+- **PuTTY password pipe hardened** — the named pipe that hands the connection password to PuTTY now carries an owner-only ACL instead of the default pipe security, so other local users can no longer race to connect and read the secret
+- `MasterPasswordGate` (password copy/reveal re-authentication) now has direct unit-test coverage, including the multi-root bypass case
+
+### Changed
+- Dependencies synced to upstream levels: Microsoft.Data.SqlClient 7.0.2, log4net 3.3.2, WebView2 1.0.4022.49, AWSSDK current
+- Test suite grown to **6,329 tests** (0 failures)
+
 ## [1.82.0] - 2026-07-02
 
 First stable release of the 1.82.0 cycle (consolidates the 1.82.0-beta line). Built on
