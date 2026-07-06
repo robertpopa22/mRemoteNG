@@ -522,6 +522,9 @@ jobs:
 
             Both versions are available for **x64**, **x86**, and **ARM64** architectures.
 
+            > [!IMPORTANT]
+            > **Extract ZIPs into a fresh/empty folder** — do not unpack a framework-dependent build over a folder that previously held a self-contained one (or vice versa). Stale .NET runtime files from the old layout make the app fail to start with a native "You must install .NET" dialog (#130).
+
             ---
 
             ### Changes in this Release

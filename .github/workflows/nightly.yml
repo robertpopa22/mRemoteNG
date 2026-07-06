@@ -271,6 +271,9 @@ jobs:
 
             The framework-dependent build requires [.NET Desktop Runtime 10.0](https://dotnet.microsoft.com/download/dotnet/10.0).
 
+            > [!IMPORTANT]
+            > **Extract the ZIP into a fresh/empty folder.** Overwriting a folder that previously held a *self-contained* build leaves stale .NET runtime files (`hostfxr.dll`, `coreclr.dll`, …) behind, and the app will fail to start with a native "You must install .NET" dialog even when the runtime is installed (#130).
+
             This release is automatically replaced on every push to `main`.
           draft: false
           prerelease: true

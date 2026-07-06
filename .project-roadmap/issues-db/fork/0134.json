@@ -2,7 +2,7 @@
   "number": 134,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Two questions about the user interface",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "vndnua",
   "created_at": "2026-06-24T11:44:58Z",
@@ -131,9 +131,10 @@
     }
   ],
   "comments_cursor": "2026-07-01T21:39:36Z",
-  "unread_comments": 4,
+  "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": true,
+  "waiting_for_us": false,
   "last_synced": "2026-07-02T06:15:23Z",
-  "notes": "both parts confirmed fixed by vndnua (part2 d27b15040 toolbar visibility)"
+  "notes": "both parts confirmed fixed by vndnua (part2 d27b15040 toolbar visibility)",
+  "status": "released"
 }
