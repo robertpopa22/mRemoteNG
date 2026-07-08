@@ -1165,7 +1165,22 @@ namespace mRemoteNG.UI.Tabs
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            base.OnMouseDown(e);
+            // DockPanelSuite's base OnMouseDown closes a tab synchronously on middle-click,
+            // re-entrantly inside the mouse-down message: TryCloseTab -> DockPane.CloseContent,
+            // whose ResumeLayout NREs deep in DockPanel.OnLayout because our ContentRemoved
+            // handler flips connDock.DocumentStyle mid-layout, orphaning the pane collection (#142).
+            // We already close tabs on middle-click and on the close button via our own deferred,
+            // NRE-guarded OnMouseClick -> QueueCloseTab path, so suppress the redundant base close
+            // for those hits (also removes the latent double-close) and let our path handle them.
+            bool baseWouldCloseTab =
+                Appearance == DockPane.AppearanceStyle.Document
+                && HitTest(e.Location) >= 0
+                && (e.Button == MouseButtons.Middle
+                    || (e.Button == MouseButtons.Left && ActiveCloseHitTest(e.Location)));
+
+            if (!baseWouldCloseTab)
+                base.OnMouseDown(e);
+
             // suspend drag if mouse is down on active close button.
             m_suspendDrag = ActiveCloseHitTest(e.Location);
 
