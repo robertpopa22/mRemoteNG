@@ -1,0 +1,39 @@
+{
+  "number": 142,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.NullReferenceException: Object reference not set to an instance of an object.",
+  "state": "open",
+  "labels": [
+    "bug",
+    "crash-report",
+    "auto-submitted"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-07-08T08:39:06Z",
+  "github_updated_at": "2026-07-08T08:39:44Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.NullReferenceException`\r\n**Message:** Object reference not set to an instance of an object.\r\n\r\n### Stack Trace\r\n```\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel.OnLayout(LayoutEventArgs levent)\r\n   at void System.Windows.Forms.Control.PerformLayout(LayoutEventArgs args) x 2\r\n   at void System.Windows.Forms.Control.ResumeLayout(bool performLayout)\r\n   at void WeifenLuo.WinFormsUI.Docking.DockPanel.ResumeLayout(bool performLayout, bool allW...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-08",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-07-08T08:39:44Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-08T14:03:42Z",
+  "notes": "fix 6c788ae45: suppress redundant synchronous middle-click close in base OnMouseDown (NRE in DockPanel.OnLayout via DocumentStyle flip mid-CloseContent); Codex/Gemini diverged, stack decided; awaiting nightly confirm"
+}

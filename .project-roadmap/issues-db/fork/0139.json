@@ -6,9 +6,9 @@
   "labels": [],
   "author": "happpyg",
   "created_at": "2026-07-03T10:17:38Z",
-  "github_updated_at": "2026-07-05T12:17:42Z",
+  "github_updated_at": "2026-07-06T23:26:02Z",
   "body_snippet": "Hi Team,\nNot sure this is the most appropriate place for this question.\n\nI have been using the original version of mRemoteNG (1.77.3 NB) and then I found this version which is much better.  However there is one small thing I can't find an answer for.\n\nIn my original 1.77.3 version, after I log off an RDP session, that pane/window closes automatically in mRemote however in this version (1.82.0) it does not.  Is that something configurable i'm missing?\n\nPlease advise if I should direct this questi...",
-  "our_status": "needs_info",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -19,6 +19,16 @@
       "date": "2026-07-05",
       "type": "needs_info",
       "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-08",
+      "type": "released",
+      "description": "Status changed to released",
       "pr": null,
       "branch": null,
       "release": null,
@@ -34,12 +44,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABI_mOcQ",
+      "author": "happpyg",
+      "date": "2026-07-06T23:26:02Z",
+      "snippet": "Aha, I missed that setting, perfect!\n\nThe only other thing I found now that i've switched to using this version for my main day to day is when I use the search dialog (I have a lot of hosts) and then connect to a device, for example using RDP, the search box is no longer usable like it is in my previous 1.77.3 version. \n\nAnother minor display issue is when I do connect to a device after filtering with search, the filtered hosts in the connection box all flash very quickly repeatedly for a few se...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-05T12:17:42Z",
-  "unread_comments": 0,
-  "needs_action": false,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-05T12:18:15Z",
-  "notes": "answered: KeepTabsOpenAfterDisconnect=True default (feature #1444); uncheck in Options>Tabs&Panels restores 1.77.3 auto-close; awaiting reporter confirm then close"
+  "comments_cursor": "2026-07-06T23:26:02Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-07-08T13:44:06Z",
+  "notes": "answered (KeepTabsOpenAfterDisconnect confirmed by reporter); 2 new symptoms split to #143 (search-box RDP focus, #118 class) + #144 (filtered-tree flash); closed"
 }
