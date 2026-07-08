@@ -2,7 +2,7 @@
   "number": 139,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Auto close RDP sessions once logged out",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "happpyg",
   "created_at": "2026-07-03T10:17:38Z",
@@ -56,9 +56,10 @@
     }
   ],
   "comments_cursor": "2026-07-06T23:26:02Z",
-  "unread_comments": 1,
+  "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": true,
+  "waiting_for_us": false,
   "last_synced": "2026-07-08T13:44:06Z",
-  "notes": "answered (KeepTabsOpenAfterDisconnect confirmed by reporter); 2 new symptoms split to #143 (search-box RDP focus, #118 class) + #144 (filtered-tree flash); closed"
+  "notes": "answered (KeepTabsOpenAfterDisconnect confirmed by reporter); 2 new symptoms split to #143 (search-box RDP focus, #118 class) + #144 (filtered-tree flash); closed",
+  "status": "released"
 }
