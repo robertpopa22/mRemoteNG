@@ -817,71 +817,84 @@ namespace mRemoteNG.UI.Controls.ConnectionTree
 
         private void HandleCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
         {
-            // disable filtering if necessary. prevents RefreshObjects from
-            // throwing an exception
-            bool filteringEnabled = IsFiltering;
-            IModelFilter filter = ModelFilter;
-            if (filteringEnabled)
+            // Suspend redraw for the whole update. Below we drop the model filter
+            // (ResetColumnFiltering) so RefreshObjects can't throw, then restore it — without
+            // BeginUpdate/EndUpdate the tree paints the intermediate unfiltered state, so a burst
+            // of collection changes (e.g. while a connection opens) makes it visibly flash between
+            // the full and filtered views (#144).
+            BeginUpdate();
+            try
             {
-                ResetColumnFiltering();
-            }
-
-            if (sender is ConnectionTreeModel)
-            {
-                switch (args.Action)
+                // disable filtering if necessary. prevents RefreshObjects from
+                // throwing an exception
+                bool filteringEnabled = IsFiltering;
+                IModelFilter filter = ModelFilter;
+                if (filteringEnabled)
                 {
-                    case NotifyCollectionChangedAction.Add:
-                        if (args.NewItems != null)
-                        {
-                            foreach (ConnectionInfo item in args.NewItems.OfType<ConnectionInfo>())
-                            {
-                                if (item.Parent != null)
-                                    RefreshObject(item.Parent);
-                                else
-                                    AddObject(item);
-                            }
-                        }
-                        break;
-                    case NotifyCollectionChangedAction.Move:
-                        if (args.NewItems != null)
-                        {
-                            foreach (ConnectionInfo item in args.NewItems.OfType<ConnectionInfo>())
-                            {
-                                if (item.Parent != null)
-                                    RefreshObject(item.Parent);
-                            }
-                        }
-                        break;
-                    case NotifyCollectionChangedAction.Remove:
-                        RemoveObjects(args.OldItems);
-                        break;
-                    case NotifyCollectionChangedAction.Reset:
-                        if (_connectionTreeModel != null)
-                            SetObjects(_connectionTreeModel.RootNodes);
-                        break;
+                    ResetColumnFiltering();
                 }
-            }
-            else
-            {
-                RefreshObject(sender);
 
-                if (sender is ConnectionInfo connectionInfo)
+                if (sender is ConnectionTreeModel)
                 {
-                    ContainerInfo? parent = connectionInfo.Parent;
-                    while (parent != null)
+                    switch (args.Action)
                     {
-                        RefreshObject(parent);
-                        parent = parent.Parent;
+                        case NotifyCollectionChangedAction.Add:
+                            if (args.NewItems != null)
+                            {
+                                foreach (ConnectionInfo item in args.NewItems.OfType<ConnectionInfo>())
+                                {
+                                    if (item.Parent != null)
+                                        RefreshObject(item.Parent);
+                                    else
+                                        AddObject(item);
+                                }
+                            }
+                            break;
+                        case NotifyCollectionChangedAction.Move:
+                            if (args.NewItems != null)
+                            {
+                                foreach (ConnectionInfo item in args.NewItems.OfType<ConnectionInfo>())
+                                {
+                                    if (item.Parent != null)
+                                        RefreshObject(item.Parent);
+                                }
+                            }
+                            break;
+                        case NotifyCollectionChangedAction.Remove:
+                            RemoveObjects(args.OldItems);
+                            break;
+                        case NotifyCollectionChangedAction.Reset:
+                            if (_connectionTreeModel != null)
+                                SetObjects(_connectionTreeModel.RootNodes);
+                            break;
                     }
                 }
+                else
+                {
+                    RefreshObject(sender);
+
+                    if (sender is ConnectionInfo connectionInfo)
+                    {
+                        ContainerInfo? parent = connectionInfo.Parent;
+                        while (parent != null)
+                        {
+                            RefreshObject(parent);
+                            parent = parent.Parent;
+                        }
+                    }
+                }
+
+                AutoResizeColumn(Columns[0]);
+
+                // turn filtering back on
+                if (!filteringEnabled) return;
+                ModelFilter = filter;
+                UpdateFiltering();
             }
-
-            AutoResizeColumn(Columns[0]);
-
-            // turn filtering back on
-            if (!filteringEnabled) return;
-            ModelFilter = filter;
-            UpdateFiltering();
+            finally
+            {
+                EndUpdate();
+            }
         }
 
         protected override void UpdateFiltering()
