@@ -1,0 +1,26 @@
+{
+  "number": 143,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Tree search/filter box unusable after connecting to an RDP session (RDP ActiveX Win32 focus)",
+  "state": "open",
+  "labels": [
+    "bug"
+  ],
+  "author": "robertpopa22",
+  "created_at": "2026-07-08T13:43:43Z",
+  "github_updated_at": "2026-07-08T13:45:02Z",
+  "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
+  "our_status": "new",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [],
+  "comments": [],
+  "comments_cursor": "2026-07-08T13:45:02Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-08T19:08:36Z",
+  "notes": ""
+}
