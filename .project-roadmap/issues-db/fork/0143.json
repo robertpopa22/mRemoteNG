@@ -8,19 +8,50 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-08T13:45:02Z",
+  "github_updated_at": "2026-07-09T10:10:29Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
-  "our_status": "new",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
   "our_pr": null,
-  "iterations": [],
-  "comments": [],
-  "comments_cursor": "2026-07-08T13:45:02Z",
-  "unread_comments": 0,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-09",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABJX1lJg",
+      "author": "happpyg",
+      "date": "2026-07-09T10:10:28Z",
+      "snippet": "1. Filter/search box behaviour: does clicking directly in the search box once fail, or does it start working after a second click / after clicking elsewhere first?\n\nIt fails straight away and chaning the focus to any other app/window then going back still doesn't work.\nAs soon as you close the RDP connection, you are able to use the search box again\n\n2. Does it also happen with a VNC or SSH/PuTTY connection active, or only RDP?\n\nYes, tried both RDP and SSH, does the same for both\n\n3. Does pressi...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-07-09T10:10:29Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-08T19:08:36Z",
-  "notes": ""
+  "waiting_for_us": true,
+  "last_synced": "2026-07-09T13:19:55Z",
+  "notes": "fix be055a146: SetFocus(Handle) fallback in MrngSearchBox.OnMouseDown (Win32 focus while RDP/PuTTY active); Codex+Gemini converged; awaiting nightly"
 }

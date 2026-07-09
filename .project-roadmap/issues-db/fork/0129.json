@@ -6,9 +6,9 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-06-12T07:52:39Z",
-  "github_updated_at": "2026-06-30T05:06:23Z",
+  "github_updated_at": "2026-07-09T07:03:47Z",
   "body_snippet": "Mremote folder structure is different comparing msi installation with portable.\nSee the comparison\n\n<img width=\"1916\" height=\"799\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5e26f274-87eb-4f51-a772-000be09cd47b\" />\n\nDue to this also the look&feel is affected\n\nMremote installed with msi\n<img width=\"405\" height=\"384\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d956c446-2798-43f5-ba8d-56f651252f8a\" />\n\nMremote portable\n\n<img width=\"470\" height=\"335\" alt=\"Image\" src=...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -39,6 +39,26 @@
       "date": "2026-06-29",
       "type": "needs_info",
       "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-09",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-07-09",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -90,12 +110,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJWdX5A",
+      "author": "bruste77",
+      "date": "2026-07-09T07:03:47Z",
+      "snippet": "Tests done with official 1.82.0 release.\n\n\n> Could you check three things on the bad nightly:\n> \n> 1. **Which theme is selected** — Tools → Options → Theme. (Name it exactly.)\n\nI selected VS2015Light\n\n> 3. With **that same theme** selected, compare the **Config panel** side-by-side: the new nightly vs. 1.78.2 (or the older nightly that looked correct). Same theme on both — does only the new one look wrong?\n\nWith exactly same theme release 1.78.2 looks good, version 1.82.0 looks bad using both po...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-06-30T05:06:23Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-07-09T07:03:47Z",
+  "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-06-30T15:13:14Z",
-  "notes": "theme-folder change is portable-neutral; need selected theme + same-theme side-by-side + portable folder layout"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-09T13:19:56Z",
+  "notes": "fix 9d6cf4879: faint theme-derived Config grid line vs harsh SystemColors.ControlDark (regressed by 9826c8a4e/#1798); awaiting bruste77 nightly retest"
 }
