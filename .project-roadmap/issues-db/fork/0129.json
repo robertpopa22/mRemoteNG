@@ -6,7 +6,7 @@
   "labels": [],
   "author": "bruste77",
   "created_at": "2026-06-12T07:52:39Z",
-  "github_updated_at": "2026-07-09T07:03:47Z",
+  "github_updated_at": "2026-07-10T10:05:57Z",
   "body_snippet": "Mremote folder structure is different comparing msi installation with portable.\nSee the comparison\n\n<img width=\"1916\" height=\"799\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/5e26f274-87eb-4f51-a772-000be09cd47b\" />\n\nDue to this also the look&feel is affected\n\nMremote installed with msi\n<img width=\"405\" height=\"384\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/d956c446-2798-43f5-ba8d-56f651252f8a\" />\n\nMremote portable\n\n<img width=\"470\" height=\"335\" alt=\"Image\" src=...",
   "our_status": "testing",
   "priority": null,
@@ -57,6 +57,16 @@
     {
       "seq": 5,
       "date": "2026-07-09",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-07-10",
       "type": "testing",
       "description": "Status changed to testing",
       "pr": null,
@@ -119,12 +129,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJZRV0Q",
+      "author": "robertpopa22",
+      "date": "2026-07-09T13:19:37Z",
+      "snippet": "That side-by-side was exactly what was needed — thank you. It rules out the theme files and the folder layout and points straight at the Config panel's **grid lines**, and I can now see it in your screenshots: in 1.82.0 there's a solid grey line under every row and a vertical divider down the middle (the heavy \"spreadsheet\" look), whereas 1.78.2 has none.\n\n**Cause:** a fork change (`9826c8a4e`, for #1798) made the property-grid grid lines visible on themes where they'd otherwise blend into the b...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJhpULA",
+      "author": "bruste77",
+      "date": "2026-07-10T10:05:57Z",
+      "snippet": "Issue is still present in the latest nightly build (mRemoteNG-nightly-20260709-v1.82.0-48bb95d-x64)\n\nproblem is the color circled in red that should be same color as the one circled in green\n\n<img width=\"425\" height=\"357\" alt=\"Image\" src=\"https://github.com/user-attachments/assets/692ddbf6-c3a7-4be2-b537-6b787fc1f796\" />",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-09T07:03:47Z",
-  "unread_comments": 3,
+  "comments_cursor": "2026-07-10T10:05:57Z",
+  "unread_comments": 4,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-09T13:19:56Z",
-  "notes": "fix 9d6cf4879: faint theme-derived Config grid line vs harsh SystemColors.ControlDark (regressed by 9826c8a4e/#1798); awaiting bruste77 nightly retest"
+  "last_synced": "2026-07-10T18:42:26Z",
+  "notes": "fix shipped 17420d830 (honour theme border, drop faint-line fallback); awaiting reporter confirm on nightly"
 }

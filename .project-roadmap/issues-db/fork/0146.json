@@ -1,0 +1,45 @@
+{
+  "number": 146,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Issue: SQL/C# Exception on DATETIME Column Updates",
+  "state": "open",
+  "labels": [],
+  "author": "n3cr0cr0w",
+  "created_at": "2026-07-09T15:42:26Z",
+  "github_updated_at": "2026-07-09T15:42:26Z",
+  "body_snippet": "**Environment:**\n* **Application:** mRemoteNG (Beta Version)\n* **Database:** MariaDB (Strict Mode enabled)\n* **OS:** Windows (US Locale)\n\n---\n\n### Summary\nThe application fails to save connection data or update timestamps when using a MariaDB backend. This occurs because the application passes localized date strings (e.g., `MM/DD/YYYY`) to `DATETIME` columns instead of standard `DateTime` objects or ISO-8601 formatted strings.\n\n### Steps to Reproduce\n1. Configure mRemoteNG to use a MariaDB backe...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-10",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-07-09T15:42:26Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-10T19:23:21Z",
+  "notes": "fix shipped b52bf4b7c (native DateTime for mysql); awaiting reporter confirm on nightly"
+}

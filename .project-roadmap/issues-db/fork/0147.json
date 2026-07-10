@@ -1,0 +1,45 @@
+{
+  "number": 147,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Issue: Schema Upgrade Failure (Row Size Exceeded)",
+  "state": "open",
+  "labels": [],
+  "author": "n3cr0cr0w",
+  "created_at": "2026-07-09T15:43:52Z",
+  "github_updated_at": "2026-07-09T15:43:52Z",
+  "body_snippet": "**Environment:**\n* **Application:** mRemoteNG (Beta Version)\n* **Database:** MariaDB (Strict Mode enabled)\n* **OS:** Windows (US Locale)\n\n---\n\n### Summary\nThe automated schema upgrade fails when the number of connection attributes is high. This is due to a violation of the MariaDB/MySQL maximum row size limit (65,535 bytes).\n\n### Steps to Reproduce\n1. Use a connection profile with a high number of attributes (as defined in the current XSD).\n2. Trigger a database schema upgrade.\n\n### Observed Beh...",
+  "our_status": "testing",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-10",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-10",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-07-09T15:43:52Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-10T19:23:21Z",
+  "notes": "fix shipped 7d9435901 (string cols->TEXT); awaiting reporter confirm on nightly"
+}
