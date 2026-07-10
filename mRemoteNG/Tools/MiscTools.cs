@@ -10,7 +10,6 @@ using mRemoteNG.App;
 using mRemoteNG.Connection;
 using mRemoteNG.Messages;
 using mRemoteNG.UI.Forms;
-using MySql.Data.Types;
 using mRemoteNG.Resources.Language;
 using System.Runtime.Versioning;
 
@@ -103,7 +102,10 @@ namespace mRemoteNG.Tools
 			switch (Properties.OptionsDBsPage.Default.SQLServerType)
 			{
 				case "mysql":
-					return typeof(MySqlDateTime);
+					// MySQL/MariaDB columns are DATETIME; use native DateTime so MySql.Data binds
+					// it directly. MySqlDateTime.ToString() emits a culture-formatted string
+					// (US MM/dd/yyyy), which MariaDB strict mode rejects (#146).
+					return typeof(DateTime);
 				case "mssql":
 				default:
 					return typeof(SqlDateTime);
@@ -115,7 +117,6 @@ namespace mRemoteNG.Tools
 			switch (Properties.OptionsDBsPage.Default.SQLServerType)
 			{
 				case "mysql":
-					return new MySqlDateTime(DateTime.Now.ToUniversalTime());
 				case "mssql":
 				default:
 					return DateTime.Now.ToUniversalTime();
