@@ -887,7 +887,11 @@ CREATE TABLE `tblExternalTools` (
                     Type t when t == typeof(bool) => "TINYINT(1) NOT NULL DEFAULT 0",
                     Type t when t == typeof(int) => "INT NOT NULL DEFAULT 0",
                     Type t when t == typeof(SqlDateTime) || t == typeof(DateTime) => "DATETIME NULL",
-                    Type t when t == typeof(string) => "VARCHAR(4000) NULL",
+                    // TEXT stores off-page (a small in-row pointer). With many string columns,
+                    // inline VARCHAR(4000) blows past MySQL/MariaDB's 65535-byte row limit and the
+                    // upgrade fails "Row size too large" (#147). Upgrade only adds non-key columns
+                    // (ConstantID/ID pre-exist and are skipped), so none of these need indexing.
+                    Type t when t == typeof(string) => "TEXT NULL",
                     _ => "VARCHAR(4000) NULL",
                 };
 
