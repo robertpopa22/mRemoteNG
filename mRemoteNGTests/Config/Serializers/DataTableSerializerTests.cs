@@ -136,6 +136,26 @@ public class DataTableSerializerTests
     }
 
 
+    [Test]
+    public void SerializeForcesConstantIdPrimaryKeyWhenSourceTableKeyedByIntId()
+    {
+        // #145: a legacy MariaDB schema exposes an auto-increment int `ID` that DataTable.Load
+        // marks as the DataTable primary key. Rows.Find(<ConstantID GUID>) then converts the GUID
+        // to Int32 and throws FormatException. The serializer must re-key the table by ConstantID.
+        var sourceDataTable = new DataTable("tblCons");
+        var idColumn = sourceDataTable.Columns.Add("ID", typeof(int));
+        idColumn.AutoIncrement = true; // legacy auto-increment ID, as MySql.Data reports it
+        sourceDataTable.Columns.Add("ConstantID", typeof(string));
+        sourceDataTable.PrimaryKey = new[] { idColumn };
+        _dataTableSerializer.SetSourceDataTable(sourceDataTable);
+
+        Assert.DoesNotThrow(() =>
+            _dataTableSerializer.Serialize(new ConnectionInfo("5a1eacc7-c14b-4c58-9915-85be7ab805fb")));
+
+        Assert.That(sourceDataTable.PrimaryKey.Length, Is.EqualTo(1));
+        Assert.That(sourceDataTable.PrimaryKey[0].ColumnName, Is.EqualTo("ConstantID"));
+    }
+
     private static ConnectionTreeModel CreateConnectionTreeModel()
     {
         return ConnectionTreeModelBuilder.Build();

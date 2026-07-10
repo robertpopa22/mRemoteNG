@@ -101,7 +101,15 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
             EnsureSchemaCompatibility(dataTable);
 
-            if (dataTable.PrimaryKey.Length == 0) SetPrimaryKey(dataTable);
+            // Always key the table by ConstantID (a GUID string). DataTable.Load infers the primary
+            // key from the provider's schema metadata, and on legacy schemas that still carry the
+            // old auto-increment `ID` column (UNIQUE) alongside PRIMARY KEY(ConstantID),
+            // MySql.Data/MariaDB can mark the int `ID` as the DataTable primary key. Rows.Find with a
+            // ConstantID GUID would then convert it to Int32 and throw a FormatException (#145). Force
+            // ConstantID whenever the inferred key isn't already exactly that (skips a needless index
+            // rebuild when it is, e.g. the MSSQL path).
+            if (dataTable.PrimaryKey.Length != 1 || dataTable.PrimaryKey[0].ColumnName != "ConstantID")
+                SetPrimaryKey(dataTable);
 
             foreach (DataRow row in dataTable.Rows)
             {
