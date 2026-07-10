@@ -360,15 +360,15 @@ namespace mRemoteNG.UI.Window
             _pGrid.ViewBackColor = activeTheme.ExtendedPalette.getColor("List_Item_Background");
             _pGrid.ViewForeColor = activeTheme.ExtendedPalette.getColor("List_Item_Foreground");
             var lineColor = activeTheme.ExtendedPalette.getColor("List_Item_Border");
-            // #1798 wanted grid lines to stay visible even when the theme's border color equals
-            // the row background, but the previous SystemColors.ControlDark fallback drew a harsh
-            // mid-grey grid over every row and column that looked out of place on light themes such
-            // as VS2015Light (#129). Derive a faint line from the theme instead — the row background
-            // nudged ~15% toward the foreground — so a subtle line remains on any theme without the
-            // heavy "spreadsheet" look.
-            _pGrid.LineColor = lineColor == _pGrid.ViewBackColor
-                ? FaintLineColor(_pGrid.ViewBackColor, _pGrid.ViewForeColor)
-                : lineColor;
+            // WinForms PropertyGrid.LineColor paints BOTH the inter-row/column grid lines AND the
+            // solid fill of the left outline/glyph gutter — a single, inseparable property. #1798
+            // forced a distinct fallback (ControlDark, later a faint theme blend) when a theme set
+            // List_Item_Border == List_Item_Background, but that also tinted the gutter into a grey
+            // vertical band that looked wrong on light themes such as VS2015Light (#129). Honour the
+            // theme instead: when the theme author makes the border equal the background they intend
+            // a flat, line-free look, matching 1.78.2. Themes that want a visible separator set a
+            // distinct List_Item_Border.
+            _pGrid.LineColor = lineColor;
             _pGrid.HelpBackColor = activeTheme.ExtendedPalette.getColor("TextBox_Background");
             _pGrid.HelpForeColor = activeTheme.ExtendedPalette.getColor("TextBox_Foreground");
             _pGrid.CategoryForeColor = activeTheme.ExtendedPalette.getColor("List_Header_Foreground");
@@ -378,18 +378,6 @@ namespace mRemoteNG.UI.Window
                 activeTheme.ExtendedPalette.getColor("List_Item_Disabled_Background");
             _pGrid.CommandsForeColor =
                 activeTheme.ExtendedPalette.getColor("List_Item_Disabled_Foreground");
-        }
-
-        // Blends the property-grid background ~15% toward the foreground to produce a faint,
-        // theme-appropriate grid line when the theme provides no distinct border color (#129/#1798).
-        private static Color FaintLineColor(Color background, Color foreground)
-        {
-            const double foregroundWeight = 0.15;
-            const double backgroundWeight = 1 - foregroundWeight;
-            return Color.FromArgb(
-                (int)Math.Round(background.R * backgroundWeight + foreground.R * foregroundWeight),
-                (int)Math.Round(background.G * backgroundWeight + foreground.G * foregroundWeight),
-                (int)Math.Round(background.B * backgroundWeight + foreground.B * foregroundWeight));
         }
 
         private void UpdateTopRow()
