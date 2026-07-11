@@ -6,9 +6,9 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:43:52Z",
-  "github_updated_at": "2026-07-09T15:43:52Z",
+  "github_updated_at": "2026-07-10T20:53:12Z",
   "body_snippet": "**Environment:**\n* **Application:** mRemoteNG (Beta Version)\n* **Database:** MariaDB (Strict Mode enabled)\n* **OS:** Windows (US Locale)\n\n---\n\n### Summary\nThe automated schema upgrade fails when the number of connection attributes is high. This is due to a violation of the MariaDB/MySQL maximum row size limit (65,535 bytes).\n\n### Steps to Reproduce\n1. Use a connection profile with a high number of attributes (as defined in the current XSD).\n2. Trigger a database schema upgrade.\n\n### Observed Beh...",
-  "our_status": "testing",
+  "our_status": "released",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -33,13 +33,52 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-07-11",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-11",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-07-09T15:43:52Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABJl-MDQ",
+      "author": "robertpopa22",
+      "date": "2026-07-10T19:23:08Z",
+      "snippet": "Confirmed and fixed — thanks for the precise root-cause analysis, it was spot on.\n\n`UpgradeMysqlSchema` added every missing string column as `VARCHAR(4000)`. Inline `VARCHAR` counts against MySQL/MariaDB's hard 65,535-byte per-row limit (and `utf8mb4` multiplies the byte cost per character), so once enough connection-attribute columns are added the `ALTER TABLE` is rejected with exactly the error you saw.\n\n**Fix (`7d94359`):** string columns are now added as `TEXT`, which stores off-page and lea...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJmoVSw",
+      "author": "n3cr0cr0w",
+      "date": "2026-07-10T20:53:12Z",
+      "snippet": "The DB schema migration is working without errors now. If give me SQL table commands for the different versions I can test migrations more. The test that passed was migrating from a new db tables to current.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-07-10T20:53:12Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-10T19:23:21Z",
-  "notes": "fix shipped 7d9435901 (string cols->TEXT); awaiting reporter confirm on nightly"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-11T05:19:58Z",
+  "notes": "reporter confirmed migration works; closed"
 }

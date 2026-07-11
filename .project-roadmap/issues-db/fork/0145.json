@@ -6,9 +6,9 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-09T15:32:00Z",
+  "github_updated_at": "2026-07-10T20:29:14Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
-  "our_status": "needs_info",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -33,13 +33,52 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-07-11",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-11",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-07-09T15:32:00Z",
-  "unread_comments": 0,
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABJl-NSg",
+      "author": "robertpopa22",
+      "date": "2026-07-10T19:23:10Z",
+      "snippet": "Thanks — two clearly separate problems here, and I've traced both. Splitting them out:\n\n**1. `FormatException` on save (GUID parsed as Int32).** The connection serializer keys rows by `ConstantID`, which is a GUID string (`_dataTable.Rows.Find(connectionInfo.ConstantID)`). The stack shows `Int32Storage.ConvertValue` → the DataTable's primary-key column came back typed as `Int32`, so `Find` tries to convert your GUID to an int and throws. That points at the `tblCons` schema on your MariaDB having...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJmelNw",
+      "author": "n3cr0cr0w",
+      "date": "2026-07-10T20:29:14Z",
+      "snippet": "SHOW CREATE TABLE tblCons;\nCREATE TABLE `tblCons` (\n  `ID` int(11) NOT NULL AUTO_INCREMENT,\n  `ConstantID` varchar(128) NOT NULL,\n  `PositionID` int(11) NOT NULL,\n  `ParentID` varchar(128) DEFAULT NULL,\n  `LastChange` datetime NOT NULL,\n  `Name` varchar(128) NOT NULL,\n  `Type` varchar(32) NOT NULL,\n  `Expanded` tinyint(4) NOT NULL,\n  `AutomaticResize` tinyint(4) NOT NULL DEFAULT 1,\n  `CacheBitmaps` tinyint(4) NOT NULL,\n  `Colors` varchar(32) NOT NULL,\n  `ConnectToConsole` tinyint(4) NOT NULL,\n  ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-07-10T20:29:14Z",
+  "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-10T19:23:21Z",
-  "notes": "requested SHOW CREATE TABLE tblCons for GUID->Int32 PK fix; Program Files write noted separate; deferred"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-11T05:19:58Z",
+  "notes": "crash fix shipped bf52a6457 (force ConstantID PK); awaiting reporter confirm; ProgFiles-write part still open"
 }
