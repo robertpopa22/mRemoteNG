@@ -53,6 +53,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-07-11",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -79,6 +89,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-11T05:19:58Z",
-  "notes": "crash fix shipped bf52a6457 (force ConstantID PK); awaiting reporter confirm; ProgFiles-write part still open"
+  "last_synced": "2026-07-11T10:25:10Z",
+  "notes": "part2 (ProgFiles writes) shipped 5360aab7b: databaseProfiles.json->SettingsPath + migration; Plugins load-if-present never-create (no AppData plugin load, trust-boundary). awaiting reporter confirm"
 }
