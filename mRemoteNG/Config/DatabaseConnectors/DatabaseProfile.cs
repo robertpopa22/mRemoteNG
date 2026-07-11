@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
+using mRemoteNG.Messages;
 using mRemoteNG.Security.SymmetricEncryption;
 
 namespace mRemoteNG.Config.DatabaseConnectors
@@ -26,7 +27,14 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
     public static class DatabaseProfileManager
     {
-        private static readonly string ProfilesPath = Path.Combine(GeneralAppInfo.HomePath, "databaseProfiles.json");
+        private const string ProfilesFileName = "databaseProfiles.json";
+        // The profiles used to live next to the exe (GeneralAppInfo.HomePath). For an MSI install
+        // under C:\Program Files that directory is read-only for a normal user, so saving threw
+        // "Access to the path ... is denied" (#145). Store them in the same user-writable location
+        // as the rest of the settings (%APPDATA%\mRemoteNG when installed, the portable Settings
+        // folder otherwise) and migrate any existing file forward on first load.
+        private static readonly string ProfilesPath = Path.Combine(SettingsFileInfo.SettingsPath, ProfilesFileName);
+        private static readonly string LegacyProfilesPath = Path.Combine(GeneralAppInfo.HomePath, ProfilesFileName);
         private static readonly JsonSerializerOptions s_jsonOptions = new() { WriteIndented = true };
         private static IList<DatabaseProfile> _profiles = new List<DatabaseProfile>();
 
@@ -44,6 +52,7 @@ namespace mRemoteNG.Config.DatabaseConnectors
 
         public static void LoadProfiles()
         {
+            MigrateLegacyProfiles();
             if (File.Exists(ProfilesPath))
             {
                 try
@@ -66,12 +75,38 @@ namespace mRemoteNG.Config.DatabaseConnectors
         {
             try
             {
+                string? directory = Path.GetDirectoryName(ProfilesPath);
+                if (!string.IsNullOrEmpty(directory))
+                    Directory.CreateDirectory(directory);
+
                 string json = JsonSerializer.Serialize(_profiles, s_jsonOptions);
                 File.WriteAllText(ProfilesPath, json);
             }
             catch (Exception ex)
             {
                 Runtime.MessageCollector.AddExceptionMessage("Failed to save database profiles", ex);
+            }
+        }
+
+        // Copies a pre-#145 databaseProfiles.json from the exe directory into the user-writable
+        // settings location the first time we run after the move. Copy (not move) so it also works
+        // when the old file sits in a read-only Program Files install; the stale copy is harmless.
+        private static void MigrateLegacyProfiles()
+        {
+            try
+            {
+                if (File.Exists(ProfilesPath) || !File.Exists(LegacyProfilesPath))
+                    return;
+
+                string? directory = Path.GetDirectoryName(ProfilesPath);
+                if (!string.IsNullOrEmpty(directory))
+                    Directory.CreateDirectory(directory);
+
+                File.Copy(LegacyProfilesPath, ProfilesPath);
+            }
+            catch (Exception ex)
+            {
+                Runtime.MessageCollector.AddExceptionMessage("Failed to migrate database profiles", ex, MessageClass.WarningMsg);
             }
         }
 

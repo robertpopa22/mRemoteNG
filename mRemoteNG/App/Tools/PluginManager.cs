@@ -18,6 +18,12 @@ namespace mRemoteNG.Tools
         public static PluginManager Instance => _instance ??= new PluginManager();
 
         private List<IPlugin> _plugins = new List<IPlugin>();
+        // Plugins ship with the app and live next to the exe. Under a Program Files install this
+        // directory is read-only for a normal user, so we load it only if it already exists and
+        // never try to create it — that create attempt was the "Access to the path
+        // 'C:\Program Files\mRemoteNG\Plugins' is denied" failure (#145). Plugins are executable
+        // code loaded in-process, so they deliberately stay in the admin-controlled install dir
+        // rather than a user-writable location.
         private readonly string _pluginsPath;
 
         public Form MainWindow => FrmMain.Default;
@@ -40,18 +46,10 @@ namespace mRemoteNG.Tools
 
         public void LoadPlugins()
         {
+            // Load only if the install-dir Plugins folder already exists; do not create it (that
+            // write fails under a read-only Program Files install — #145).
             if (!Directory.Exists(_pluginsPath))
-            {
-                try
-                {
-                    Directory.CreateDirectory(_pluginsPath);
-                }
-                catch (Exception ex)
-                {
-                    LogError("Failed to create Plugins directory", ex);
-                    return;
-                }
-            }
+                return;
 
             foreach (string file in Directory.GetFiles(_pluginsPath, "*.dll"))
             {
