@@ -1,5 +1,6 @@
 # mRemoteNG - Build & Development Notes
 
+> **Project canon for all agents.** [AGENTS.md](AGENTS.md) is only the discovery bootstrap for tools that do not load `CLAUDE.md` directly.
 > **Parent:** [../CLAUDE.md](../CLAUDE.md) (Gestime Ecosystem — reguli universale)
 
 ## Output Efficiency (CRITICAL — output tokens are 97% of API cost)
@@ -15,18 +16,36 @@ Every output token costs 5x an input token. Your #1 priority after correctness i
 - **Fix, don't explain.** If a test fails, fix it immediately. Don't explain why it failed.
 - **One pass.** Read the code, understand it, make the change. Target 5-8 turns max per task.
 
-## Automated Agent Notice
+## Agent Entry Points and Skills
 
-If you are running as an automated agent via `claude -p`:
-- Your ONLY job is to fix the specific issue described in your prompt
-- Do NOT run `iis_orchestrator.py`, `sync`, `analyze`, `update`, or any orchestrator commands
-- Do NOT read or modify files in `.project-roadmap/` — no JSON files, no scripts, no plans
-- Do NOT run `git commit`, `git add`, `git push` — the orchestrator handles all commits
-- Focus ONLY on source code in `mRemoteNG/`, `mRemoteNGTests/`, `mRemoteNGSpecs/`
-- **Output ONLY code changes** — no explanations, no summaries, no commentary
-- Do NOT change existing behavior — fix ONLY the reported issue
-- Do NOT create interactive tests (no MessageBox, no dialogs, no notepad.exe, no user input prompts)
-- NEVER modify infrastructure files: `run-tests.ps1`, `build.ps1`, `mRemoteNG.sln`, `Directory.Build.props`, `Directory.Packages.props`, `.github/workflows/*`
+- Instruction chain: global/user instructions → [parent canon](../CLAUDE.md) → this project canon. System and user instructions remain highest priority; among repository documents, this local canon is more specific than the parent.
+- `AGENTS.md` intentionally contains no duplicated build, test, or workflow rules; update this file when project guidance changes.
+- This repository currently has no native `SKILL.md` package.
+- Files under `.claude/commands/` are opt-in Claude Code slash-command runbooks, not agent skills and not automatically applicable to ordinary code work.
+- Host-level skills may assist an agent, but they never replace this repository's scope, build, test, or safety rules.
+
+## Issue-Fix Agent Scope
+
+Unless the user explicitly requests a documentation or orchestrator task, issue-fix agents must:
+
+- Work only in `mRemoteNG/`, `mRemoteNGTests/`, or `mRemoteNGSpecs/`.
+- Never read or modify `.project-roadmap/`.
+- Never modify `run-tests.ps1`, `build.ps1`, `mRemoteNG.sln`, `Directory.Build.props`, `Directory.Packages.props`, or `.github/workflows/*`.
+- Never run `git add`, `git commit`, `git push`, or other repository-mutating Git commands; the orchestrator owns commits.
+- Preserve existing behavior outside the reported issue and never add interactive tests.
+
+### Additional notice for automated `claude -p` agents
+
+- Your only job is the specific issue in the prompt.
+- Do not run `iis_orchestrator.py`, `sync`, `analyze`, `update`, or any orchestrator command.
+- Output only code changes: no explanations, summaries, or commentary.
+
+## Mandatory Workflow for Issue Fixes
+
+1. **Verify and plan before editing:** inspect every suggested file that exists, search by symptom/error/class, trace the actual call path, and analyze why previous attempts failed. Write a plan of at most five lines naming the root cause and exact files.
+2. **Implement only the fix:** make the smallest change that resolves the reported issue without unrelated behavior changes.
+3. **Verify:** run the full build command from [Build Instructions](#build-instructions), then the preferred full test command from [Testing](#testing).
+4. **Repair regressions:** fix any build or test failure caused by the change before finishing.
 
 ## Repository Structure
 - **Origin (fork):** `robertpopa22/mRemoteNG`
