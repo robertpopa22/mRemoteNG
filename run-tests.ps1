@@ -39,7 +39,7 @@ if (-not (Test-Path $backupDir)) { New-Item -ItemType Directory -Path $backupDir
 Copy-Item $testDll "$backupDir\mRemoteNGTests.dll" -Force
 
 # Delegate to bash runner (avoids PowerShell pipeline back-pressure issues)
-$bashScript = "$repoRoot\run-tests-core.sh"
+$bashScript = Join-Path $repoRoot "run-tests-core.sh"
 if (-not (Test-Path $bashScript)) {
     Write-Host "[ERROR] Bash runner not found: $bashScript" -ForegroundColor Red
     exit 1
@@ -47,8 +47,20 @@ if (-not (Test-Path $bashScript)) {
 
 Write-Host "[Run] Delegating to bash runner..." -ForegroundColor Yellow
 $headlessArg = if ($Headless) { "headless" } else { "full" }
-& bash $bashScript $headlessArg
-$exitCode = $LASTEXITCODE
+$gitRoot = Split-Path (Split-Path (Get-Command git -ErrorAction Stop).Source -Parent) -Parent
+$bashExe = Join-Path $gitRoot "bin\bash.exe"
+if (-not (Test-Path $bashExe)) {
+    Write-Host "[ERROR] Git Bash not found: $bashExe" -ForegroundColor Red
+    exit 1
+}
+Push-Location $repoRoot
+try {
+    & $bashExe "./run-tests-core.sh" $headlessArg
+    $exitCode = $LASTEXITCODE
+}
+finally {
+    Pop-Location
+}
 
 # Restore DLL if crash deleted it
 if (-not (Test-Path $testDll) -and (Test-Path "$backupDir\mRemoteNGTests.dll")) {

@@ -7,8 +7,13 @@
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 TEST_DLL="$REPO_ROOT/mRemoteNGTests/bin/x64/Release/mRemoteNGTests.dll"
-RESULTS_BASE="/tmp/mremoteng-testresults"
-PARALLEL_DIR="/tmp/mremoteng-parallel-$$"
+if command -v cygpath >/dev/null 2>&1; then
+    RESULTS_ROOT="$(cygpath -u "${TEMP:-${TMP:-/tmp}}")"
+else
+    RESULTS_ROOT="${TMPDIR:-/tmp}"
+fi
+RESULTS_BASE="$RESULTS_ROOT/mremoteng-testresults"
+PARALLEL_DIR="$RESULTS_ROOT/mremoteng-parallel-$$"
 MAX_PARALLEL=2
 
 # Read test config from single source of truth (test-config.json)
