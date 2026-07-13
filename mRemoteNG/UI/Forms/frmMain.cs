@@ -1250,6 +1250,9 @@ namespace mRemoteNG.UI.Forms
                                     controlThatWasClicked is FrmMain)
                                 {
                                     controlThatWasClicked.Focus();
+                                    if (controlThatWasClicked is MrngSearchBox &&
+                                        !HasWin32Focus(controlThatWasClicked))
+                                        NativeMethods.SetFocus(controlThatWasClicked.Handle);
                                     focusedNonConnection = true;
                                 }
                                 else if (IsInsidePropertyGrid(controlThatWasClicked))
