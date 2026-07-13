@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:44Z",
-  "github_updated_at": "2026-07-09T13:19:39Z",
+  "github_updated_at": "2026-07-13T12:47:09Z",
   "body_snippet": "## Summary\n\nWhen the connection tree is **filtered** (a search term is active) and you then open a connection, the visible (filtered) nodes flash/redraw rapidly for a few seconds. Cosmetic only — it does not affect usage.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely mechanism\n\nOpening a connection changes several observed properties on the `ConnectionInfo` in quick succession (`OpenConnections`, `Icon`, and — if host-status LEDs are enabled — `HostReachabilityStatus`, w...",
   "our_status": "testing",
   "priority": null,
@@ -41,6 +41,26 @@
       "date": "2026-07-09",
       "type": "testing",
       "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-13",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-07-13",
+      "type": "testing",
+      "description": "Misplaced #143 focus follow-up answered and redirected",
       "pr": null,
       "branch": null,
       "release": null,
@@ -83,12 +103,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJ2LNEg",
+      "author": "happpyg",
+      "date": "2026-07-13T08:03:25Z",
+      "snippet": "Hey Robert, I tested the latest nightly today (release 3606 - 20260711-v1.82.0-12083a7)\n\nI think something has changed but still not quite working right.\n\nI made an RDP connection, however the search box behaved the same as before, not able to get focus or type any text in it.  Tried clicking in and out of the program and other sections but nothing.\n\nI then clicked Help -> About & as soon as I did that the search box started working again even with the original RDP window still open.\n\nHope that ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJ4Z_LQ",
+      "author": "robertpopa22",
+      "date": "2026-07-13T12:47:09Z",
+      "snippet": "Thanks — this follow-up is about the search-box focus issue tracked in #143 rather than this tree-redraw issue, but the Help -> About detail was exactly what exposed the missing activation path.\n\nI have pushed the follow-up fix as `94d21393d` and added the technical details to #143. It will be in the next nightly; please retest there with RDP and SSH open.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-09T13:19:39Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-07-13T12:47:09Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-10T18:14:03Z",
-  "notes": "happpyg ack'd fix 561daab57 (vndnua co-reported); awaiting nightly confirm"
+  "last_synced": "2026-07-13T12:47:35Z",
+  "notes": "tree redraw fix 561daab57 remains in testing; latest search-focus report belonged to #143 and was answered/redirected; awaiting redraw-specific confirmation"
 }

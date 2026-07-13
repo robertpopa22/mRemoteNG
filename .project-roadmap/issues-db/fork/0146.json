@@ -2,11 +2,11 @@
   "number": 146,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Issue: SQL/C# Exception on DATETIME Column Updates",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:42:26Z",
-  "github_updated_at": "2026-07-10T20:47:00Z",
+  "github_updated_at": "2026-07-11T05:19:43Z",
   "body_snippet": "**Environment:**\n* **Application:** mRemoteNG (Beta Version)\n* **Database:** MariaDB (Strict Mode enabled)\n* **OS:** Windows (US Locale)\n\n---\n\n### Summary\nThe application fails to save connection data or update timestamps when using a MariaDB backend. This occurs because the application passes localized date strings (e.g., `MM/DD/YYYY`) to `DATETIME` columns instead of standard `DateTime` objects or ISO-8601 formatted strings.\n\n### Steps to Reproduce\n1. Configure mRemoteNG to use a MariaDB backe...",
   "our_status": "released",
   "priority": null,
@@ -53,6 +53,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-07-13",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -73,12 +83,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJpt-SQ",
+      "author": "robertpopa22",
+      "date": "2026-07-11T05:19:43Z",
+      "snippet": "Great — thanks for confirming, and glad your `char(23)` workaround can go. Closing this as fixed; the native-`DateTime` change is in the nightly and will be in the next stable release. If you ever hit the pre-existing `0000-00-00` read case on older rows, reopen and I'll add graceful zero-date handling on read.\n",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-10T20:47:00Z",
+  "comments_cursor": "2026-07-11T05:19:43Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-11T05:19:58Z",
-  "notes": "reporter confirmed fixed; closed"
+  "waiting_for_us": false,
+  "last_synced": "2026-07-13T12:47:56Z",
+  "notes": "GitHub source is CLOSED and reporter confirmed nightly fix; local queue entry was stale"
 }

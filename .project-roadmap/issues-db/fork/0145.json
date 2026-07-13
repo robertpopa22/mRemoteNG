@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-10T20:29:14Z",
+  "github_updated_at": "2026-07-11T10:25:10Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
   "our_status": "testing",
   "priority": null,
@@ -83,12 +83,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJpt-CQ",
+      "author": "robertpopa22",
+      "date": "2026-07-11T05:19:42Z",
+      "snippet": "The `SHOW CREATE TABLE` was exactly what I needed — thank you. It confirms the theory:\n\n```\n`ID` int(11) NOT NULL AUTO_INCREMENT,  UNIQUE KEY `ID_UNIQUE` (`ID`),\n`ConstantID` varchar(128) NOT NULL,    PRIMARY KEY (`ConstantID`),\n```\n\nYour database still carries the old auto-increment `ID` column alongside the current `PRIMARY KEY (ConstantID)`. When mRemoteNG loads `tblCons`, `DataTable.Load` infers the primary key from the driver's schema metadata, and with that legacy layout MySql.Data marks t...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJr2HnQ",
+      "author": "robertpopa22",
+      "date": "2026-07-11T10:25:10Z",
+      "snippet": "Follow-up: the **`C:\\Program Files` access-denied** half of this report is now fixed too (`5360aab`).\n\n- **`databaseProfiles.json`** now lives in the same user-writable location as the rest of your settings — `%APPDATA%\\mRemoteNG` for an installed build (or the portable `Settings` folder for the portable build) — so saving DB profiles no longer needs write access to `Program Files`. If you already had a `databaseProfiles.json` next to the exe, it's copied forward automatically on first run.\n- **...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-10T20:29:14Z",
+  "comments_cursor": "2026-07-11T10:25:10Z",
   "unread_comments": 1,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-11T10:25:10Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-07-13T10:59:43Z",
   "notes": "part2 (ProgFiles writes) shipped 5360aab7b: databaseProfiles.json->SettingsPath + migration; Plugins load-if-present never-create (no AppData plugin load, trust-boundary). awaiting reporter confirm"
 }

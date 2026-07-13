@@ -2,11 +2,11 @@
   "number": 147,
   "repo": "robertpopa22/mRemoteNG",
   "title": "Issue: Schema Upgrade Failure (Row Size Exceeded)",
-  "state": "open",
+  "state": "closed",
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:43:52Z",
-  "github_updated_at": "2026-07-10T20:53:12Z",
+  "github_updated_at": "2026-07-11T05:19:46Z",
   "body_snippet": "**Environment:**\n* **Application:** mRemoteNG (Beta Version)\n* **Database:** MariaDB (Strict Mode enabled)\n* **OS:** Windows (US Locale)\n\n---\n\n### Summary\nThe automated schema upgrade fails when the number of connection attributes is high. This is due to a violation of the MariaDB/MySQL maximum row size limit (65,535 bytes).\n\n### Steps to Reproduce\n1. Use a connection profile with a high number of attributes (as defined in the current XSD).\n2. Trigger a database schema upgrade.\n\n### Observed Beh...",
   "our_status": "released",
   "priority": null,
@@ -53,6 +53,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 5,
+      "date": "2026-07-13",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -73,12 +83,30 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJnDXVA",
+      "author": "n3cr0cr0w",
+      "date": "2026-07-10T22:04:49Z",
+      "snippet": "Nevermind, I need more logging. Seems I was migrated to 3.2\n\nThe log identifies the failing statement:\n\n```sql\nDELETE FROM tblRoot\n```\n\nIt appears repeatedly followed by:\n\n```sql\nROLLBACK\n```\n\nFor example:\n\n```text\n16:30:15.599  BEGIN\n16:30:15.609  DELETE FROM tblRoot\n16:30:15.609  ROLLBACK\n```\n\nThe same pattern occurs on threads `5` and `19` at approximately:\n\n- `16:30:15`\n- `16:30:43`\n- `16:31:13`\n- `16:36:02`\n- `16:36:06`\n- `16:36:08`\n- `16:36:13`\n- `16:36:19`\n- `16:36:21`\n- `16:37:21`\n- `16:...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJpt-gw",
+      "author": "robertpopa22",
+      "date": "2026-07-11T05:19:44Z",
+      "snippet": "Thanks for confirming the new→current migration runs clean — closing this as fixed.\n\nOn testing more migration paths: mRemoteNG derives the target schema from the connection model and only *adds* missing columns (it doesn't drop or retype existing ones), so the realistic cases are \"older DB missing some columns → current\". The most useful thing you could throw at it is a `tblCons` created by an **older mRemoteNG version** (e.g. 1.76/1.77-era) upgraded straight to the nightly — that exercises the...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-10T20:53:12Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-07-11T05:19:46Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-11T05:19:58Z",
-  "notes": "reporter confirmed migration works; closed"
+  "waiting_for_us": false,
+  "last_synced": "2026-07-13T12:47:56Z",
+  "notes": "GitHub source is CLOSED; local queue state/comments were stale"
 }

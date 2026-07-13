@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-09T13:19:36Z",
+  "github_updated_at": "2026-07-13T12:47:08Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -35,6 +35,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 3,
+      "date": "2026-07-13",
+      "type": "testing",
+      "description": "Follow-up activation-path focus fix shipped",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -55,12 +65,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABJ4Z-gg",
+      "author": "robertpopa22",
+      "date": "2026-07-13T12:47:07Z",
+      "snippet": "Thanks for the follow-up test. The Help -> About clue exposed a second focus path that the first fix did not cover.\n\nThe original change handled direct mouse activation of the search box. When an embedded RDP or PuTTY window owns native focus, reactivating mRemoteNG can instead arrive through the top-level window activation path, so WinForms still believes the search box is focused while Windows keeps keyboard focus in the embedded session.\n\nFollow-up fix `94d21393d` applies the same narrow Win3...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-09T13:19:36Z",
+  "comments_cursor": "2026-07-13T12:47:08Z",
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-10T18:14:03Z",
-  "notes": "fix be055a146: SetFocus(Handle) fallback in MrngSearchBox.OnMouseDown (Win32 focus while RDP/PuTTY active); Codex+Gemini converged; awaiting nightly"
+  "last_synced": "2026-07-13T12:47:35Z",
+  "notes": "follow-up fix 94d21393d shipped; replied on #143 and redirected misplaced #144 report; awaiting reporter confirmation on next nightly"
 }
