@@ -6,9 +6,9 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-11T10:25:10Z",
+  "github_updated_at": "2026-07-14T17:52:06Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
-  "our_status": "testing",
+  "our_status": "triaged",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -63,6 +63,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-07-14",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -101,12 +111,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABKF9Jyw",
+      "author": "n3cr0cr0w",
+      "date": "2026-07-14T17:52:06Z",
+      "snippet": "I dropped the autoincrement ID column but I still get these errors in the logs:\n\n2026-07-14 12:26:36,420 [59] ERROR - The connection list could not be saved.\nYou are using safe update mode and you tried to update a table without a WHERE that uses a KEY column\n   at async Task<MySqlPacket> MySql.Data.MySqlClient.MySqlStream.ReadPacketAsync(bool execAsync)\n   at async Task<Tuple<int, int, long>> MySql.Data.MySqlClient.NativeDriver.GetResultAsync(int affectedRow, long insertedId, bool execAsync)\n  ...",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-11T10:25:10Z",
-  "unread_comments": 1,
+  "comments_cursor": "2026-07-14T17:52:06Z",
+  "unread_comments": 2,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-13T10:59:43Z",
-  "notes": "part2 (ProgFiles writes) shipped 5360aab7b: databaseProfiles.json->SettingsPath + migration; Plugins load-if-present never-create (no AppData plugin load, trust-boundary). awaiting reporter confirm"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-14T18:49:53Z",
+  "notes": "actionable MariaDB safe-update failure persists in WriteDatabaseMetaData after legacy ID removal; re-derive DELETE/UPDATE key usage from source"
 }

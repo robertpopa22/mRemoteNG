@@ -258,11 +258,13 @@ namespace mRemoteNG.Config.Connections
 
             try
             {
-                DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblUpdate");
-                dbQuery.Transaction = transaction;
-                dbQuery.ExecuteNonQuery();
+                SqlSafeUpdateHelper.DeleteAllRows(
+                    databaseConnector,
+                    transaction,
+                    "DELETE FROM tblUpdate",
+                    "DELETE FROM tblUpdate LIMIT 1");
 
-                dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
+                DbCommand dbQuery = databaseConnector.DbCommand("INSERT INTO tblUpdate (LastUpdate) VALUES(@LastUpdate)");
                 dbQuery.Transaction = transaction;
 
                 DbParameter lastUpdateParam = dbQuery.CreateParameter();

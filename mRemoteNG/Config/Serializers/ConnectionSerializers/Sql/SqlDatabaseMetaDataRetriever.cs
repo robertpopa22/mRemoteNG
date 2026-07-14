@@ -125,13 +125,15 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
 
             try
             {
-                DbCommand cmd = databaseConnector.DbCommand("DELETE FROM tblRoot");
-                cmd.Transaction = transaction;
-                cmd.ExecuteNonQuery();
+                SqlSafeUpdateHelper.DeleteAllRows(
+                    databaseConnector,
+                    transaction,
+                    "DELETE FROM tblRoot",
+                    "DELETE FROM tblRoot LIMIT 1");
 
                 if (rootTreeNode != null)
                 {
-                    cmd = databaseConnector.DbCommand(
+                    DbCommand cmd = databaseConnector.DbCommand(
                             "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @ConfVersion)");
                     cmd.Transaction = transaction;
 
