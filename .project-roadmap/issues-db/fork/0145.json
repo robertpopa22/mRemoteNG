@@ -73,6 +73,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 7,
+      "date": "2026-07-17",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -126,6 +136,6 @@
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-14T18:49:53Z",
-  "notes": "actionable MariaDB safe-update failure persists in WriteDatabaseMetaData after legacy ID removal; re-derive DELETE/UPDATE key usage from source"
+  "last_synced": "2026-07-16T21:31:16Z",
+  "notes": "safe-update: a6508fc62 covers tblRoot/tblUpdate; extend to tblExternalTools; reporter needs PK(ConstantID) after dropping legacy ID"
 }

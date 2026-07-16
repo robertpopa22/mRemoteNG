@@ -1,0 +1,45 @@
+{
+  "number": 150,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "[Crash] System.IO.FileNotFoundException: Could not load file or assembly 'System.Windows.Extensions, Version=10.0.0.0, Cu...",
+  "state": "open",
+  "labels": [],
+  "author": "Buster-de",
+  "created_at": "2026-07-15T17:08:01Z",
+  "github_updated_at": "2026-07-16T19:29:51Z",
+  "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'System.Windows.Extensions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. Das System kann die angegebene Datei nicht finden.\r\n\r\n### Stack Trace\r\n```\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.U...",
+  "our_status": "triaged",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-17",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABKcXt-g",
+      "author": "Buster-de",
+      "date": "2026-07-16T19:29:51Z",
+      "snippet": "The error occurred when I closed an active connection tab within a panel in mRemoteNG while using an MSSQL database as the configuration source.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    }
+  ],
+  "comments_cursor": "2026-07-16T19:29:51Z",
+  "unread_comments": 1,
+  "needs_action": true,
+  "waiting_for_us": true,
+  "last_synced": "2026-07-16T21:31:16Z",
+  "notes": "FileNotFound System.Windows.Extensions in frmTaskDialog beep; broken/mixed portable runtime (#130 family); guard sound as best-effort"
+}
