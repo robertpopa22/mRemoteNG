@@ -594,26 +594,46 @@ namespace mRemoteNG.UI.TaskDialog
         {
             if (CTaskDialog.PlaySystemSounds)
             {
-                switch (MainIcon)
+                try
                 {
-                    case ESysIcons.Error:
-                        System.Media.SystemSounds.Hand.Play();
-                        break;
-                    case ESysIcons.Information:
-                        System.Media.SystemSounds.Asterisk.Play();
-                        break;
-                    case ESysIcons.Question:
-                        System.Media.SystemSounds.Asterisk.Play();
-                        break;
-                    case ESysIcons.Warning:
-                        System.Media.SystemSounds.Exclamation.Play();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(null, MainIcon, "Unexpected MainIcon value.");
+                    PlaySystemSound(MainIcon);
+                }
+                catch (Exception ex) when (ex is System.IO.FileNotFoundException or System.IO.FileLoadException or TypeLoadException)
+                {
+                    // The sound is cosmetic. SystemSounds lives in System.Windows.Extensions,
+                    // a shared-framework assembly that can be missing on broken/mixed portable
+                    // installs (#150) — showing the dialog must not crash over the beep.
+                    App.Runtime.MessageCollector?.AddMessage(Messages.MessageClass.DebugMsg,
+                        $"System sound unavailable: {ex.Message}");
                 }
             }
 
             _focusControl?.Focus();
+        }
+
+        // Keep the SystemSounds references out of frmTaskDialog_Shown: the JIT resolves
+        // System.Windows.Extensions when compiling the method that uses it, so the guard
+        // above only works if this is a separate, never-inlined method.
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        private static void PlaySystemSound(ESysIcons icon)
+        {
+            switch (icon)
+            {
+                case ESysIcons.Error:
+                    System.Media.SystemSounds.Hand.Play();
+                    break;
+                case ESysIcons.Information:
+                    System.Media.SystemSounds.Asterisk.Play();
+                    break;
+                case ESysIcons.Question:
+                    System.Media.SystemSounds.Asterisk.Play();
+                    break;
+                case ESysIcons.Warning:
+                    System.Media.SystemSounds.Exclamation.Play();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(icon), icon, "Unexpected MainIcon value.");
+            }
         }
 
         #endregion
