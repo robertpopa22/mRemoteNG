@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Data.Common;
 using mRemoteNG.App;
-using mRemoteNG.App.Info;
 using mRemoteNG.Config.DatabaseConnectors;
 using mRemoteNG.Config.DataProviders;
 using mRemoteNG.Config.Serializers;
@@ -144,93 +143,6 @@ namespace mRemoteNG.Config.Connections
             string serializedProperties = _localPropertiesSerializer.Serialize(a);
             _dataProvider.Save(serializedProperties);
             Runtime.MessageCollector.AddMessage(MessageClass.DebugMsg, "Saved local connection properties");
-        }
-
-        private static void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector)
-        {
-            UpdateRootNodeTable(rootTreeNode, databaseConnector, null);
-        }
-
-        private static void UpdateRootNodeTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction)
-        {
-            LegacyRijndaelCryptographyProvider cryptographyProvider = new();
-            string strProtected;
-            if (rootTreeNode != null)
-            {
-                if (rootTreeNode.Password)
-                {
-                    System.Security.SecureString password = rootTreeNode.PasswordString.ConvertToSecureString();
-                    strProtected = cryptographyProvider.Encrypt("ThisIsProtected", password);
-                }
-                else
-                {
-                    strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
-                }
-            }
-            else
-            {
-                strProtected = cryptographyProvider.Encrypt("ThisIsNotProtected", Runtime.EncryptionKey);
-            }
-
-            bool mustDisposeTransaction = false;
-            if (transaction == null)
-            {
-                transaction = databaseConnector.DbConnection().BeginTransaction();
-                mustDisposeTransaction = true;
-            }
-
-            try
-            {
-                DbCommand dbQuery = databaseConnector.DbCommand("DELETE FROM tblRoot");
-                dbQuery.Transaction = transaction;
-                dbQuery.ExecuteNonQuery();
-
-                if (rootTreeNode != null)
-                {
-                    dbQuery = databaseConnector.DbCommand(
-                        "INSERT INTO tblRoot (Name, Export, Protected, ConfVersion) VALUES(@Name, 0, @Protected, @Version)");
-                    dbQuery.Transaction = transaction;
-                    DbParameter nameParam = dbQuery.CreateParameter();
-                    nameParam.ParameterName = "@Name";
-                    nameParam.Value = rootTreeNode.Name;
-                    DbParameter protectedParam = dbQuery.CreateParameter();
-                    protectedParam.ParameterName = "@Protected";
-                    protectedParam.DbType = System.Data.DbType.String;
-                    protectedParam.Size = -1; // nvarchar(MAX)
-                    protectedParam.Value = strProtected;
-                    DbParameter versionParam = dbQuery.CreateParameter();
-                    versionParam.ParameterName = "@Version";
-                    versionParam.Value = ConnectionsFileInfo.ConnectionFileVersion;
-                    dbQuery.Parameters.Add(nameParam);
-                    dbQuery.Parameters.Add(protectedParam);
-                    dbQuery.Parameters.Add(versionParam);
-                    dbQuery.ExecuteNonQuery();
-                }
-                else
-                {
-                    Runtime.MessageCollector.AddMessage(MessageClass.ErrorMsg, $"UpdateRootNodeTable: rootTreeNode was null. Could not insert!");
-                }
-
-                if (mustDisposeTransaction)
-                {
-                    transaction.Commit();
-                }
-            }
-            catch
-            {
-                if (mustDisposeTransaction)
-                {
-                    transaction.Rollback();
-                }
-                throw;
-            }
-            finally
-            {
-                if (mustDisposeTransaction)
-                {
-                    transaction.Dispose();
-                }
-            }
         }
 
         private void UpdateConnectionsTable(RootNodeInfo rootTreeNode, IDatabaseConnector databaseConnector, DbTransaction? transaction = null)

@@ -10,6 +10,7 @@ using System.Xml;
 using mRemoteNG.App;
 using mRemoteNG.App.Info;
 using mRemoteNG.Config.DatabaseConnectors;
+using mRemoteNG.Config.Serializers.ConnectionSerializers.Sql;
 using mRemoteNG.Messages;
 using mRemoteNG.Tools;
 
@@ -102,13 +103,15 @@ namespace mRemoteNG.Config.Settings
                 using DbTransaction transaction = dbConnector.DbConnection().BeginTransaction();
                 try
                 {
-                    DbCommand cmd = dbConnector.DbCommand("DELETE FROM tblExternalTools");
-                    cmd.Transaction = transaction;
-                    cmd.ExecuteNonQuery();
+                    SqlSafeUpdateHelper.DeleteAllRows(
+                        dbConnector,
+                        transaction,
+                        "DELETE FROM tblExternalTools",
+                        "DELETE FROM tblExternalTools LIMIT 1");
 
                     foreach (ExternalTool extA in externalTools)
                     {
-                        cmd = dbConnector.DbCommand(
+                        DbCommand cmd = dbConnector.DbCommand(
                             "INSERT INTO tblExternalTools (DisplayName, FileName, IconPath, Arguments, WorkingDir, " +
                             "WaitForExit, TryIntegrate, RunElevated, ShowOnToolbar, Category, RunOnStartup, StopOnShutdown, " +
                             "Hotkey, Hidden, AuthType, AuthUsername, AuthPassword, PrivateKeyFile, Passphrase) " +
