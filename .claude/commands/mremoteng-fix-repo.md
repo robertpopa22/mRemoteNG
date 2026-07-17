@@ -45,7 +45,7 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
 ### Step 4: Investigate + dual counter-opinion (only for `fix`)
 1. Root-cause from source first; cite `file:line`. Verify the premise against the actual code (sources are authoritative, not the comment's framing).
 2. Get TWO independent opinions — spawn both `codex:codex-rescue` and `gemini:gemini-rescue` as **READ-ONLY diagnosis** (do not feed them your conclusion). Give BOTH the **same** prompt, opening with this framing verbatim and requiring the identical output template (so the two answers are directly comparable side-by-side):
-   > Read-only review — do NOT modify any files, do NOT build. Re-derive the premise from source independently. Return EXACTLY these four sections and nothing else:
+   > Read-only review — this is a COUNTER-OPINION ONLY. Do NOT modify any files, do NOT build, do NOT run `git add`/`git commit`/`git push` or any other repository-mutating command — the main thread is the sole author of edits, commits, and pushes. Re-derive the premise from source independently. Return EXACTLY these four sections and nothing else:
    > ```
    > ## ROOT CAUSE
    > <file:line + why>
@@ -61,7 +61,7 @@ python D:/github/mRemoteNG/.project-roadmap/scripts/iis_orchestrator.py update -
    - Also pass **`--wait`** to `codex:codex-rescue` so the bounded review runs foreground and returns the actual result, not a background launch stub.
    - The reviewers must NOT build — the main thread builds/tests in Step 5 (and a read-only sandbox can't write build outputs anyway).
    - **If codex-rescue still returns a background stub** (`"…started in the background as <jobId>. Check /codex:status…"`), fetch the result with `/codex:status <jobId>` then `/codex:result <jobId>`. **Do NOT re-invoke a fresh `codex:codex-rescue`** — a fresh run reads a possibly-mutated tree and mis-reports state ("already in source / no fix needed").
-3. **Guard:** after both reviews return, run `git status --short`. The reviewers must not have touched the tree; if anything was modified, surface it and reconcile (revert, or deliberately adopt with eyes open) BEFORE Step 5 — never silently inherit a reviewer's edit.
+3. **Guard:** after both reviews return, run `git status --short` AND `git log origin/main..main --oneline` + `git log -3 --oneline`. The reviewers must not have touched the tree, created commits, or pushed; if anything changed, surface it and reconcile (revert, or deliberately adopt with eyes open) BEFORE Step 5 — never silently inherit a reviewer's edit. (Incident 2026-07-17: a long-running codex session with standing goals mass-committed and pushed dirty trees across D:\github — mystery commits get attributed via `~/.codex/sessions/**/rollout-*.jsonl` before blaming the user.)
 4. Converge. If Codex and Gemini diverge, resolve the disagreement before editing (a divergence has caught a wrong fix before). The **main thread** applies the **minimal** fix only — do not change unrelated behavior.
 
 ### Step 5: Verify (full build + full test suite)
