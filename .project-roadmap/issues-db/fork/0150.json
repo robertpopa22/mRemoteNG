@@ -8,7 +8,7 @@
   "created_at": "2026-07-15T17:08:01Z",
   "github_updated_at": "2026-07-16T19:29:51Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.IO.FileNotFoundException`\r\n**Message:** Could not load file or assembly 'System.Windows.Extensions, Version=10.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51'. Das System kann die angegebene Datei nicht finden.\r\n\r\n### Stack Trace\r\n```\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.UI.TaskDialog.frmTaskDialog.frmTaskDialog_Shown(Object sender, EventArgs e)\r\n   at mRemoteNG.U...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -19,6 +19,16 @@
       "date": "2026-07-17",
       "type": "triaged",
       "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-17",
+      "type": "testing",
+      "description": "Status changed to testing",
       "pr": null,
       "branch": null,
       "release": null,
@@ -40,6 +50,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-16T21:31:16Z",
-  "notes": "FileNotFound System.Windows.Extensions in frmTaskDialog beep; broken/mixed portable runtime (#130 family); guard sound as best-effort"
+  "last_synced": "2026-07-17T04:54:46Z",
+  "notes": "fix shipped b8c056e6b (NoInlining sound helper + guard); asked fresh-folder extract + dotnet --list-runtimes; awaiting reporter confirm"
 }

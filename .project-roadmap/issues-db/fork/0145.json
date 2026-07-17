@@ -8,7 +8,7 @@
   "created_at": "2026-07-09T15:32:00Z",
   "github_updated_at": "2026-07-14T17:52:06Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
-  "our_status": "triaged",
+  "our_status": "testing",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -83,6 +83,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 8,
+      "date": "2026-07-17",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -136,6 +146,6 @@
   "unread_comments": 2,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-16T21:31:16Z",
-  "notes": "safe-update: a6508fc62 covers tblRoot/tblUpdate; extend to tblExternalTools; reporter needs PK(ConstantID) after dropping legacy ID"
+  "last_synced": "2026-07-17T04:54:46Z",
+  "notes": "fix shipped 11128b445 (tblExternalTools safe-update + dead UpdateRootNodeTable removed); asked SHOW CREATE TABLE tblCons re PK(ConstantID); awaiting reporter confirm on nightly"
 }

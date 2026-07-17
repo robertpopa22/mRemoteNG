@@ -43,6 +43,16 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 4,
+      "date": "2026-07-17",
+      "type": "released",
+      "description": "Status changed to released",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -78,6 +88,6 @@
   "unread_comments": 1,
   "needs_action": true,
   "waiting_for_us": true,
-  "last_synced": "2026-07-16T21:31:16Z",
-  "notes": "reporter confirms update check correct (1.82.0=1.82.0, no update) - close with nightly pointer"
+  "last_synced": "2026-07-17T04:54:46Z",
+  "notes": "reporter confirmed correct update check; replied + closed 2026-07-17"
 }
