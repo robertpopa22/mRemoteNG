@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-14T17:52:06Z",
+  "github_updated_at": "2026-07-17T04:54:35Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
   "our_status": "testing",
   "priority": null,
@@ -140,12 +140,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABKfhMrw",
+      "author": "robertpopa22",
+      "date": "2026-07-17T04:54:35Z",
+      "snippet": "Thanks for the follow-up log — this one is on us, and it's a different spot than the ID column you dropped.\n\n**What's happening:** your server has *safe update mode* (`SQL_SAFE_UPDATES`) enabled. In that mode MariaDB rejects any `DELETE`/`UPDATE` that has neither a `WHERE` on a key column nor a `LIMIT`. During every save mRemoteNG clears two small bookkeeping tables (`tblRoot`, `tblUpdate`) with a plain `DELETE FROM …` — those tables have no key by design, so safe update mode rejects the stateme...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-14T17:52:06Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-07-17T04:54:35Z",
+  "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-17T04:54:46Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-07-17T08:28:08Z",
   "notes": "fix shipped 11128b445 (tblExternalTools safe-update + dead UpdateRootNodeTable removed); asked SHOW CREATE TABLE tblCons re PK(ConstantID); awaiting reporter confirm on nightly"
 }
