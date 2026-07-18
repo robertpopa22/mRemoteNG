@@ -86,6 +86,14 @@ namespace mRemoteNG.App
         [DllImport("user32.dll")]
         internal static extern IntPtr GetFocus();
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, [MarshalAs(UnmanagedType.Bool)] bool fAttach);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static extern bool GetGUIThreadInfo(uint idThread, ref GUITHREADINFO lpgui);
+
         [DllImport("user32.dll")]
         internal static extern bool IsChild(IntPtr hWndParent, IntPtr hWnd);
 
@@ -246,6 +254,25 @@ namespace mRemoteNG.App
             public long top;
             public long right;
             public long bottom;
+        }
+
+        // Win32 GUITHREADINFO (rcCaret flattened to four int fields; the legacy RECT
+        // above uses long fields and does not match the native 4x32-bit layout).
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct GUITHREADINFO
+        {
+            public uint cbSize;
+            public uint flags;
+            public IntPtr hwndActive;
+            public IntPtr hwndFocus;
+            public IntPtr hwndCapture;
+            public IntPtr hwndMenuOwner;
+            public IntPtr hwndMoveSize;
+            public IntPtr hwndCaret;
+            public int rcCaretLeft;
+            public int rcCaretTop;
+            public int rcCaretRight;
+            public int rcCaretBottom;
         }
 
         [StructLayout(LayoutKind.Sequential)]
