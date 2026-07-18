@@ -8,7 +8,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-18T06:13:15Z",
+  "github_updated_at": "2026-07-18T10:02:27Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
   "our_status": "testing",
   "priority": null,
@@ -103,12 +103,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABKqttvg",
+      "author": "robertpopa22",
+      "date": "2026-07-18T10:02:27Z",
+      "snippet": "Thanks for testing again and for the About-dialog observation — that detail cracked it.\n\nThe two earlier fixes were aimed at the wrong layer. Windows keyboard focus is **per-thread** state: `SetFocus` from the app's UI thread only updates that thread's own input queue. But while an RDP session is active, the actual keyboard input is owned by a different thread entirely (the RDP control's input window runs on its own worker thread; with PuTTY it's even a separate process). So every \"force focus o...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-18T06:13:15Z",
-  "unread_comments": 2,
+  "comments_cursor": "2026-07-18T10:02:27Z",
+  "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-18T10:02:28Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-07-18T10:03:15Z",
   "notes": "3rd fix shipped c27314df2 (AttachThreadInput cross-queue reclaim + #143-diag logging); awaiting reporter retest on nightly"
 }
