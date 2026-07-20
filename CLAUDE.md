@@ -1,7 +1,6 @@
 # mRemoteNG - Build & Development Notes
 
 > **Project canon for all agents.** [AGENTS.md](AGENTS.md) is only the discovery bootstrap for tools that do not load `CLAUDE.md` directly.
-> **Parent:** [../CLAUDE.md](../CLAUDE.md) (Gestime Ecosystem — reguli universale)
 
 ## Output Efficiency (CRITICAL — output tokens are 97% of API cost)
 
