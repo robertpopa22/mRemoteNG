@@ -347,8 +347,14 @@ namespace mRemoteNG.Config.Serializers.ConnectionSerializers.Sql
             dataTable.Columns.Add("VNCViewOnly", typeof(bool));
             dataTable.Columns.Add("VNCClipboardRedirect", typeof(bool));
             dataTable.Columns.Add("VmId", typeof(string));
-            dataTable.Columns[0].AutoIncrement = true;
-            dataTable.Columns.Add("ID", typeof(int));
+            // The legacy `ID` column is deliberately NOT part of the expected schema. It is a
+            // server-generated compatibility column (AUTO_INCREMENT / IDENTITY in the shipped DDL)
+            // that the application never writes; ConstantID is the application key. Listing it here
+            // made the schema upgraders re-create a dropped ID as a plain NOT NULL DEFAULT 0 column
+            // with no auto-increment and no index, after which the command builder included it in
+            // INSERTs with a DBNull value and every save failed with "ID cannot be null" (#145).
+            // The AutoIncrement flag that used to be set on the first column belonged to ID back
+            // when ID was declared first; it has been applying to an unrelated column since.
             SetColumnDefaults(dataTable);
         }
 

@@ -137,6 +137,42 @@ public class DataTableSerializerTests
 
 
     [Test]
+    public void ExpectedSchemaOmitsLegacyIdColumn()
+    {
+        // #145: listing the legacy server-generated `ID` column in the expected schema made the
+        // MySQL/MSSQL schema upgraders re-create a dropped ID as a plain NOT NULL DEFAULT 0
+        // column (no auto-increment, no index), which then broke every save.
+        DataTable expectedSchema = DataTableSerializer.GetExpectedSchema();
+
+        Assert.That(expectedSchema.Columns.Contains("ID"), Is.False);
+        Assert.That(expectedSchema.Columns.Contains("ConstantID"), Is.True);
+    }
+
+    [Test]
+    public void ExpectedSchemaKeepsDeclaredColumnTypes()
+    {
+        // The stray AutoIncrement flag on the first column silently coerced its type to int.
+        DataTable expectedSchema = DataTableSerializer.GetExpectedSchema();
+
+        Assert.That(expectedSchema.Columns["AutomaticResize"]!.DataType, Is.EqualTo(typeof(bool)));
+        Assert.That(expectedSchema.Columns[0].AutoIncrement, Is.False);
+    }
+
+    [Test]
+    public void LegacyIdColumnIsNotAddedToOutdatedSourceSchema()
+    {
+        // A database whose ID column was dropped must not get it back through
+        // EnsureSchemaCompatibility either.
+        var sourceDataTable = new DataTable("tblCons");
+        sourceDataTable.Columns.Add("ConstantID", typeof(string));
+        _dataTableSerializer.SetSourceDataTable(sourceDataTable);
+
+        _dataTableSerializer.Serialize(new ConnectionInfo("existing-id"));
+
+        Assert.That(sourceDataTable.Columns.Contains("ID"), Is.False);
+    }
+
+    [Test]
     public void SerializeForcesConstantIdPrimaryKeyWhenSourceTableKeyedByIntId()
     {
         // #145: a legacy MariaDB schema exposes an auto-increment int `ID` that DataTable.Load

@@ -892,7 +892,8 @@ CREATE TABLE `tblExternalTools` (
                     // TEXT stores off-page (a small in-row pointer). With many string columns,
                     // inline VARCHAR(4000) blows past MySQL/MariaDB's 65535-byte row limit and the
                     // upgrade fails "Row size too large" (#147). Upgrade only adds non-key columns
-                    // (ConstantID/ID pre-exist and are skipped), so none of these need indexing.
+                    // (ConstantID must already exist on a usable tblCons; the legacy ID column is
+                    // intentionally absent from the expected schema), so none need indexing.
                     Type t when t == typeof(string) => "TEXT NULL",
                     _ => "VARCHAR(4000) NULL",
                 };
