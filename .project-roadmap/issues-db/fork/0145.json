@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-17T04:54:35Z",
+  "github_updated_at": "2026-07-24T20:17:44Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
   "our_status": "testing",
   "priority": null,
@@ -93,6 +93,26 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 9,
+      "date": "2026-07-25",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 10,
+      "date": "2026-07-25",
+      "type": "testing",
+      "description": "Status changed to testing",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -149,12 +169,21 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABLm7wsw",
+      "author": "n3cr0cr0w",
+      "date": "2026-07-24T20:17:44Z",
+      "snippet": "When I drop the ID column it is replaced, but without the index. Then when the connection tree is saved it says ID can't be null....\n\nI left the column in place sense it will just be re-created. I updated it to be nullable to stop the errors.\n\n",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
     }
   ],
-  "comments_cursor": "2026-07-17T04:54:35Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-24T20:17:44Z",
+  "unread_comments": 3,
   "needs_action": true,
-  "waiting_for_us": false,
-  "last_synced": "2026-07-17T08:28:08Z",
-  "notes": "fix shipped 11128b445 (tblExternalTools safe-update + dead UpdateRootNodeTable removed); asked SHOW CREATE TABLE tblCons re PK(ConstantID); awaiting reporter confirm on nightly"
+  "waiting_for_us": true,
+  "last_synced": "2026-07-25T07:06:52Z",
+  "notes": "part3 shipped c0e0717ca (ID removed from expected schema; upgraders no longer re-create it); awaiting reporter confirm on nightly"
 }

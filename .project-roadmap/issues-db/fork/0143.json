@@ -8,9 +8,9 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-08T13:43:43Z",
-  "github_updated_at": "2026-07-18T10:02:27Z",
+  "github_updated_at": "2026-07-23T12:36:02Z",
   "body_snippet": "## Summary\n\nAfter connecting to a device (e.g. RDP) from the connection tree, the **search / filter box** at the top of the connection tree becomes unusable — clicking it and typing does nothing while the RDP tab is the active connection. In mRemoteNG 1.77.3 the search box stayed usable.\n\nReported by @happpyg in #139 (split out as its own issue).\n\n## Likely root cause\n\nThis is almost certainly the same class of problem as #118 (\"Connecting to a server via RDP stops text boxes being responsive wh...",
-  "our_status": "testing",
+  "our_status": "needs_info",
   "priority": null,
   "target_release": null,
   "our_branch": null,
@@ -65,6 +65,26 @@
       "branch": null,
       "release": null,
       "comment_posted": false
+    },
+    {
+      "seq": 6,
+      "date": "2026-07-23",
+      "type": "triaged",
+      "description": "Status changed to triaged",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 7,
+      "date": "2026-07-23",
+      "type": "needs_info",
+      "description": "Status changed to needs_info",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
     }
   ],
   "comments": [
@@ -112,12 +132,30 @@
       "is_ours": true,
       "analyzed": false,
       "action_needed": false
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABK7Qsgw",
+      "author": "happpyg",
+      "date": "2026-07-20T23:20:25Z",
+      "snippet": "Tried latest nightly 1.82.0 release 3619 - nightly-20260720-v1.82.0-5e3a60c-x64\n\nStill the exact same issue.",
+      "is_ours": false,
+      "analyzed": false,
+      "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABLYHHsA",
+      "author": "robertpopa22",
+      "date": "2026-07-23T12:36:02Z",
+      "snippet": "Thanks for testing release 3619. Since the third focus change still has no effect, I do not want to send you a fourth speculative fix.\n\nCould you capture one diagnostic sequence from that exact nightly?\n\n1. Start mRemoteNG and open one RDP or SSH/PuTTY connection.\n2. Click the connection-tree search box once while it is still unusable.\n3. Open `%LOCALAPPDATA%\\mRemoteNG\\mRemoteNG.log`.\n4. Paste every line from that attempt containing `[#143-diag]` or `[#118-diag]`.\n\nIf no `[#143-diag]` line appea...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-18T10:02:27Z",
-  "unread_comments": 0,
+  "comments_cursor": "2026-07-23T12:36:02Z",
+  "unread_comments": 3,
   "needs_action": true,
   "waiting_for_us": false,
-  "last_synced": "2026-07-18T10:03:15Z",
-  "notes": "3rd fix shipped c27314df2 (AttachThreadInput cross-queue reclaim + #143-diag logging); awaiting reporter retest on nightly"
+  "last_synced": "2026-07-23T12:36:02Z",
+  "notes": "nightly 3619 still reproduces after three focus fixes; request #143-diag and #118-diag from one exact reproduction before any fourth patch"
 }

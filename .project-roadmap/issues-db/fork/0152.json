@@ -1,0 +1,45 @@
+{
+  "number": 152,
+  "repo": "robertpopa22/mRemoteNG",
+  "title": "Connection Problem in Crossover",
+  "state": "open",
+  "labels": [],
+  "author": "kaansengul",
+  "created_at": "2026-07-22T12:14:38Z",
+  "github_updated_at": "2026-07-22T12:15:48Z",
+  "body_snippet": "I try to run mRemoteNG (Portable and also installed via msi) in a Windows 10 bottle. When I try to connect a host I get this error:\n\n> 2026-07-22 14:58:25,756 [2] INFO  - [#118-diag] entry GetFocus=0x102F8 icOwnsFocus=False clicked=Button\n> 2026-07-22 14:58:25,756 [2] INFO  - [#118-diag] abort: FindInterfaceControl(GetFocus()) == null (guard short-circuit)\n> 2026-07-22 14:58:25,947 [2] ERROR - Couldn't SetProps (Connection.Protocol.Base)\n> 0x80040154 (REGDB_E_CLASSNOTREG)\n>    at void System.Run...",
+  "our_status": "wontfix",
+  "priority": null,
+  "target_release": null,
+  "our_branch": null,
+  "our_pr": null,
+  "iterations": [
+    {
+      "seq": 1,
+      "date": "2026-07-23",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    },
+    {
+      "seq": 2,
+      "date": "2026-07-25",
+      "type": "wontfix",
+      "description": "Status changed to wontfix",
+      "pr": null,
+      "branch": null,
+      "release": null,
+      "comment_posted": false
+    }
+  ],
+  "comments": [],
+  "comments_cursor": "2026-07-22T12:15:48Z",
+  "unread_comments": 0,
+  "needs_action": true,
+  "waiting_for_us": false,
+  "last_synced": "2026-07-25T07:07:38Z",
+  "notes": "Crossover/Wine: REGDB_E_CLASSNOTREG - MSTSC ActiveX (mstscax.dll) not registered under Wine; RDP inherently needs MS COM control; suggest SSH/VNC/ext tools"
+}
