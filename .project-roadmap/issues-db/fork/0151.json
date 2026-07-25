@@ -10,7 +10,7 @@
   ],
   "author": "robertpopa22",
   "created_at": "2026-07-20T09:04:29Z",
-  "github_updated_at": "2026-07-20T09:04:29Z",
+  "github_updated_at": "2026-07-25T07:24:32Z",
   "body_snippet": "## Crash Report\r\n\r\n### Exception\r\n**Type:** `System.ComponentModel.Win32Exception`\r\n**Message:** Erreur lors de la création d'un handle de fenêtre.\r\n\r\n### Stack Trace\r\n```\r\n   at System.Windows.Forms.NativeWindow.CreateHandle(CreateParams cp)\r\n   at System.Windows.Forms.Control.CreateHandle()\r\n   at System.Windows.Forms.ComboBox.CreateHandle()\r\n   at System.Windows.Forms.Control.RecreateHandleCore()\r\n   at System.Windows.Forms.ComboBox.RecreateHandleCore()\r\n   at System.Windows.Forms.ComboBox.On...",
   "our_status": "needs_info",
   "priority": null,
@@ -39,11 +39,21 @@
       "comment_posted": false
     }
   ],
-  "comments": [],
-  "comments_cursor": "2026-07-20T09:04:29Z",
+  "comments": [
+    {
+      "id": "IC_kwDORKxwDc8AAAABLqRoPg",
+      "author": "robertpopa22",
+      "date": "2026-07-25T07:24:32Z",
+      "snippet": "Thanks — a couple of notes on this auto-filed report.\n\nThe crash comes from the WinForms per-monitor DPI path: on `WM_DPICHANGED_BEFOREPARENT` the framework rescales the font of a `ComboBox`, which forces the control to destroy and re-create its window handle, and that re-creation failed (`Error creating a window handle`). Typically that happens when the process is near the desktop-heap / user-object limit, or when the handle is re-created at a moment the control is being torn down. It was non-f...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
+    }
+  ],
+  "comments_cursor": "2026-07-25T07:24:32Z",
   "unread_comments": 0,
-  "needs_action": true,
+  "needs_action": false,
   "waiting_for_us": false,
-  "last_synced": "2026-07-25T07:07:38Z",
+  "last_synced": "2026-07-25T07:25:26Z",
   "notes": "auto-crash from stale 1.80.0 (Release 3389); WinForms DPI path ComboBox.RecreateHandleCore -> CreateHandle failure; non-fatal; ask if reproducible on 1.82.0 + which DPI action"
 }

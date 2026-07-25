@@ -6,7 +6,7 @@
   "labels": [],
   "author": "n3cr0cr0w",
   "created_at": "2026-07-09T15:32:00Z",
-  "github_updated_at": "2026-07-24T20:17:44Z",
+  "github_updated_at": "2026-07-25T07:06:51Z",
   "body_snippet": "## Description\nI am encountering two distinct issues when using the MSI-installed version of mRemoteNG with a MariaDB backend: filesystem permission errors when writing to the installation directory and a `FormatException` during connection serialization.\n\n## Environment\n- **Application:** mRemoteNG (MSI installed version)\n- **Repository/Source:** robertpopa22/mRemoteNG\n- **Database Backend:** MariaDB\n\n## Issues\n\n### 1. Access Denied to Installation Directory\nThe application fails to write neces...",
   "our_status": "testing",
   "priority": null,
@@ -178,12 +178,21 @@
       "is_ours": false,
       "analyzed": false,
       "action_needed": true
+    },
+    {
+      "id": "IC_kwDORKxwDc8AAAABLqNr0Q",
+      "author": "robertpopa22",
+      "date": "2026-07-25T07:06:51Z",
+      "snippet": "That's a real bug on our side, and your description pinned it exactly — thanks.\n\n**What was happening:** mRemoteNG's schema upgrader adds any column that's in its expected schema but missing from your database. The legacy `ID` column was (wrongly) listed there, so as soon as you dropped it, the next load/save re-created it — as a plain `INT NOT NULL DEFAULT 0`, without `AUTO_INCREMENT` and without the index the original had.\n\nThat's what breaks the save. The app never writes a value into `ID`; i...",
+      "is_ours": true,
+      "analyzed": false,
+      "action_needed": false
     }
   ],
-  "comments_cursor": "2026-07-24T20:17:44Z",
-  "unread_comments": 3,
+  "comments_cursor": "2026-07-25T07:06:51Z",
+  "unread_comments": 0,
   "needs_action": true,
-  "waiting_for_us": true,
-  "last_synced": "2026-07-25T07:06:52Z",
+  "waiting_for_us": false,
+  "last_synced": "2026-07-25T07:25:26Z",
   "notes": "part3 shipped c0e0717ca (ID removed from expected schema; upgraders no longer re-create it); awaiting reporter confirm on nightly"
 }
