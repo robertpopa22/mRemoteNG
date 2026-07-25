@@ -56,5 +56,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:21Z"
+  "screened_at": "2026-07-25T11:00:21Z",
+  "triage": {
+    "category": "security",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "WATCH",
+    "rationale": "Argon2id passphrase export keys is sound, but builds on vindict6-only ConnectionFileProtection scheme absent from our fork (verified via grep); would need full redesign atop our PBKDF2/MasterPasswordGate stack.",
+    "agent": "claude",
+    "at": "2026-07-25T11:13:40Z"
+  }
 }

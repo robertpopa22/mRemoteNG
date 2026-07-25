@@ -32,5 +32,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:20Z"
+  "screened_at": "2026-07-25T11:00:20Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 2,
+    "risk": 2,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Patches Build_PuTTYNG.yml which does not exist in our fork; our PuTTYNG lives in separate repo with own build.",
+    "agent": "claude",
+    "at": "2026-07-25T11:07:32Z"
+  }
 }

@@ -74,5 +74,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:14Z"
+  "screened_at": "2026-07-25T11:00:14Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 3,
+    "effort": 4,
+    "risk": 4,
+    "applies_cleanly": "rewrite",
+    "action": "WATCH",
+    "rationale": "SFTP browser could add value, but 2K-line drop with password-only auth, plaintext handling, duplicate of SSHTransferWindow scope. Reimplement properly only if users request it.",
+    "agent": "claude",
+    "at": "2026-07-25T11:11:06Z"
+  }
 }

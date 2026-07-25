@@ -1327,3 +1327,27 @@ Missing any layer causes `InheritancePropertiesDeserializedCorrectly` test failu
   - `D:\github\mRemoteNG\.project-roadmap\scripts\log-command-feedback.ps1`
   - `D:\github\mRemoteNG\.project-roadmap\scripts\find-lesson.ps1`
   - `D:\github\mRemoteNG\.project-roadmap\scripts\refresh-command-feedback-metrics.ps1`
+
+---
+
+## Fork Intelligence — calibration lessons (2026-07-25)
+
+Built `.project-roadmap/fork-intel/` to mine the ~1600 upstream forks for work worth importing. What the first live run taught:
+
+**Most "active" forks are not active.** 1698 forks seen, 127 pushed within 6 months, but only **24 actually ahead** of upstream. `pushed_at` moves when a fork merely syncs upstream, so it is a discovery filter, never a signal of work. The `compare` API's `ahead_by` is the real gate.
+
+**`ahead_by` still lies in one specific way.** A fork that branched off an older upstream branch (`v1.77.3-dev`) shows commits that are upstream's own work when compared against `v1.78.2-dev`. Nizhal and PeggyPro both showed "17 commits" that were authored by Dimitrij (upstream maintainer). **Filter on commit author against the upstream maintainer list** — that artefact is otherwise indistinguishable from real fork work.
+
+**Commit SHAs are shared across forks.** Six different forks showed the same 15 commits. Keying the candidate database by SHA deduplicates this for free: 306 raw commits collapsed to 182 unique candidate files.
+
+**Activity farming is the dominant noise class.** One account (BuloZB) contributed 66 of 306 commits, all `chore: activity sync [date]` with no content. Subject-pattern filtering removed all 66. Second class: AI-bot branch storms (`google-labs-jules`) producing 40 commits that are almost entirely merges.
+
+**Value concentrates in one or two forks.** Of 24 diverged forks, one (`vindict6`) held most of the genuinely interesting work: OS-following dark mode, machine-bound connection files, a pinned PuTTYNG build. The pipeline exists to find that one fork, not to process the other 23.
+
+**Good work trips security rules — that is correct, not a bug.** 25 of 45 screened commits were quarantined, mostly for touching `.github/workflows/`, crypto paths or `.csproj`. Quarantine routes to a human; it is not a rejection. Do not "fix" the rules to make the numbers look better.
+
+**Never let a model's enthusiasm override a gate.** Scoring lives in code: a security flag or a change we already carry can never reach the ready-to-cherry-pick tier, whatever the triage verdict says. Pre-approval requires **unanimous** approval from two independent model families; a missing or unparsable answer counts as dissent, never as consent.
+
+**Never execute anything from a fork.** Discovery through screening uses API metadata and text patches only — no clone, no fetch, no build, no tests. Fetching happens only at import time, on a human decision.
+
+**Licence:** mRemoteNG and its forks are GPL-2.0, so importing is compatible. Preserve authorship — `git cherry-pick -x` keeps the author and records the source; add a `Ported-from:` trailer. (The no-`Co-Authored-By` rule is about AI attribution and does not apply to the human attribution the licence requires.)

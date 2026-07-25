@@ -31,9 +31,9 @@
       "reused": 124
     },
     "triage": {
-      "at": "2026-07-25T11:03:30Z",
+      "at": "2026-07-25T11:15:15Z",
       "api_calls": 0,
-      "judged": 6,
+      "judged": 8,
       "failed": 0,
       "agent": "claude"
     }

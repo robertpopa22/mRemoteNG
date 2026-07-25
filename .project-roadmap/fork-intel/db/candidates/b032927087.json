@@ -404,5 +404,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:25Z"
+  "screened_at": "2026-07-25T11:00:25Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 2,
+    "effort": 5,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "60-file opinionated UX rework: drops VncSharpCore, writes PuTTY registry theme, ships binary icons; conflicts with our RDP/focus fixes, unreviewable risk.",
+    "agent": "claude",
+    "at": "2026-07-25T11:07:32Z"
+  }
 }

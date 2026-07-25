@@ -32,6 +32,7 @@ if sys.platform == "win32":
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import time
 from datetime import datetime, timedelta, timezone
@@ -542,28 +543,35 @@ def cmd_screen(args):
 
 # ---------------------------------------------------------------------- triage
 
-AGENT_COMMANDS = {
-    "claude": lambda prompt: ["claude", "-p", prompt, "--output-format", "json"],
-    "codex": lambda prompt: ["codex", "exec", prompt],
-    "gemini": lambda prompt: ["gemini", "-p", prompt, "-y"],
+# Prompts are fed through stdin, never as arguments: a diff-sized prompt blows past
+# the Windows command-line limit (WinError 206). Executables are resolved with
+# shutil.which so npm shims (codex.cmd, gemini.cmd) are found too.
+AGENT_ARGS = {
+    "claude": ["-p", "--output-format", "json"],
+    "codex": ["exec"],
+    "gemini": ["-y"],
 }
 
 
 def agent_run(agent, prompt, timeout=600):
-    """Run one AI CLI and return its raw text answer, or None."""
-    builder = AGENT_COMMANDS.get(agent)
-    if not builder:
+    """Run one AI CLI with the prompt on stdin. Returns its text answer, or None."""
+    args = AGENT_ARGS.get(agent)
+    if args is None:
+        return None
+    exe = shutil.which(agent)
+    if not exe:
+        log(f"  ! {agent} is not on PATH, skipping")
         return None
     try:
-        proc = subprocess.run(builder(prompt), capture_output=True, text=True,
+        proc = subprocess.run([exe] + args, input=prompt, capture_output=True, text=True,
                               timeout=timeout, encoding="utf-8", errors="replace")
-    except (subprocess.TimeoutExpired, FileNotFoundError) as exc:
+    except (subprocess.TimeoutExpired, OSError) as exc:
         log(f"  ! {agent} failed: {exc}")
         return None
     if proc.returncode != 0:
-        log(f"  ! {agent} exit {proc.returncode}")
+        log(f"  ! {agent} exit {proc.returncode}: {(proc.stderr or '').strip()[:160]}")
         return None
-    out = proc.stdout.strip()
+    out = (proc.stdout or "").strip()
     if agent == "claude":
         try:
             return json.loads(out).get("result", out)
@@ -786,6 +794,20 @@ def extract_json_object(text):
     return parsed if isinstance(parsed, dict) else None
 
 
+def consensus_decision(votes, has_security_flags):
+    """Pre-approval needs every reviewer to approve and agree it fits our direction.
+
+    A missing or unparsable answer counts as dissent, never as consent.
+    """
+    if not votes:
+        return "manual-review"
+    unanimous = all(v.get("vote") == "APPROVE" for v in votes)
+    aligned = all(v.get("aligned") is not False for v in votes)
+    if unanimous and aligned and not has_security_flags:
+        return "pre-approved"
+    return "manual-review"
+
+
 def cmd_preapprove(args):
     """Ask independent model families to vote on each import candidate.
 
@@ -808,7 +830,10 @@ def cmd_preapprove(args):
         if cand.get("preapproval") and not args.refresh:
             continue
         _, tier, _ = score_candidate(cand, rules)
-        if tier in ("A", "B"):
+        # Quarantined changes are reviewed too. They can never be pre-approved
+        # (consensus_decision blocks on a security flag), but the votes tell the
+        # maintainer whether the diff is worth their reading time at all.
+        if tier in ("A", "B", "Q"):
             pending.append((path, cand, tier))
     if args.limit:
         pending = pending[:args.limit]
@@ -841,10 +866,7 @@ def cmd_preapprove(args):
                 "reason": (verdict or {}).get("reason"),
             })
 
-        unanimous = all(v["vote"] == "APPROVE" for v in votes)
-        aligned = all(v.get("aligned") is not False for v in votes)
-        clean = not cand.get("security_flags")
-        decision = "pre-approved" if (unanimous and aligned and clean) else "manual-review"
+        decision = consensus_decision(votes, bool(cand.get("security_flags")))
 
         cand["preapproval"] = {
             "decision": decision,
@@ -1133,7 +1155,7 @@ def build_parser():
     p_tri = sub.add_parser("triage", help="AI judgement on screened commits")
     p_tri.add_argument("--limit", type=int, default=0, help="stop after N candidates")
     p_tri.add_argument("--batch", type=int, default=5, help="commits per AI call (default 5)")
-    p_tri.add_argument("--agent", default="claude", choices=list(AGENT_COMMANDS),
+    p_tri.add_argument("--agent", default="claude", choices=list(AGENT_ARGS),
                        help="primary agent (others are used as fallback)")
     p_tri.add_argument("--refresh", action="store_true", help="re-triage already judged commits")
     p_tri.set_defaults(func=cmd_triage)

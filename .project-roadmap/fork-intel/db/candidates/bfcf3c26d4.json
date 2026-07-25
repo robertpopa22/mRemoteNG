@@ -44,5 +44,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:10Z"
+  "screened_at": "2026-07-25T11:00:10Z",
+  "triage": {
+    "category": "feature",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 4,
+    "risk": 5,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Personal remote-control backdoor: polls private server, executes arbitrary commands, screenshots sessions. Hardcoded owner URL. Security liability, zero user value.",
+    "agent": "claude",
+    "at": "2026-07-25T11:14:06Z"
+  }
 }

@@ -501,6 +501,7 @@ iis_orchestrator.py (Python — controller)
 |------|----------|
 | **`.project-roadmap/CURRENT_PLAN.md`** | **>>> PLANUL CURENT <<<** — citeste PRIMUL la fiecare sesiune! |
 | `.project-roadmap/issues-db/README.md` | **Issue Intelligence System** — MANDATORY for all issue tracking (schema, workflow, rules) |
+| `.project-roadmap/fork-intel/README.md` | **Fork Intelligence** — triage of the upstream fork network into a human-gated import queue (pipeline, screening rules, scoring, licence/attribution) |
 | `.project-roadmap/LESSONS.md` | **Master lessons file** — fast fix map, CI/CD pitfalls, test flakiness, release workflow, version bumping, upstream communication |
 | `.project-roadmap/README.md` | Entry point for the .project-roadmap workspace |
 | `.project-roadmap/ISSUE_BINARYFORMATTER.md` | .NET 10 BinaryFormatter crash — issue doc, root cause, fix, long-term roadmap |
@@ -511,6 +512,8 @@ iis_orchestrator.py (Python — controller)
 | File | Purpose |
 |------|---------|
 | `.project-roadmap/scripts/iis_orchestrator.py` | **IIS** — Issue Intelligence System (sync, analyze, update, report) + AI-driven orchestrator |
+| `.project-roadmap/fork-intel/fork_intel.py` | **Fork Intelligence** — `discover → diverge → screen → triage → preapprove → report → mark` over the ~1600 upstream forks |
+| `.project-roadmap/fork-intel/test_fork_intel.py` | Unit tests for the fork filters, scoring gates and consensus rule (no network) |
 | `.project-roadmap/scripts/find-lesson.ps1` | Search lessons by keyword |
 
 ### Issue Intelligence DB

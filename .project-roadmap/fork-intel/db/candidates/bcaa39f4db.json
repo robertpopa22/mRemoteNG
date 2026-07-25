@@ -25,5 +25,18 @@
   "patch": "--- windows-agent/poller.py\n@@ -30,16 +30,22 @@\n \n # ── Config (edit these or set as env vars) ───────────────────────────────────\n \n-HQ_URL       = os.environ.get(\"HQ_URL\",       \"https://keess-mac-mini.taile6c48b.ts.net\")\n-AGENT_TOKEN  = os.environ.get(\"AGENT_TOKEN\",  \"change-me\")\n-POLL_INTERVAL = int(os.environ.get(\"POLL_INTERVAL\", \"5\"))  # seconds\n+HQ_URL        = os.environ.get(\"HQ_URL\",        \"https://keess-mac-mini.taile6c48b.ts.net\")\n+AGENT_TOKEN   = os.environ.get(\"AGENT_TOKEN\",   \"change-me\")\n+POLL_INTERVAL = int(os.environ.get(\"POLL_INTERVAL\", \"5\"))\n+LOG_FILE      = os.environ.get(\"LOG_FILE\", os.path.join(os.path.dirname(__file__), \"poller.log\"))\n \n # ── Logging ───────────────────────────────────────────────────────────────────\n \n+_handlers = [logging.StreamHandler(sys.stdout)]\n+if LOG_FILE:\n+    _handlers.append(logging.FileHandler(LOG_FILE, encoding=\"utf-8\"))\n+\n logging.basicConfig(\n     level=logging.INFO,\n     format=\"%(asctime)s  %(levelname)-8s  %(message)s\",\n     datefmt=\"%Y-%m-%d %H:%M:%S\",\n+    handlers=_handlers,\n )\n log = logging.getLogger(\"nickhq-agent\")\n ",
   "security_flags": [],
   "status": "screened",
-  "screened_at": "2026-07-25T11:00:09Z"
+  "screened_at": "2026-07-25T11:00:09Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Touches windows-agent/poller.py, fork-private infrastructure tooling unrelated to mRemoteNG; directory absent in our fork.",
+    "agent": "claude",
+    "at": "2026-07-25T11:07:32Z"
+  }
 }

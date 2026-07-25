@@ -32,5 +32,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T11:00:01Z"
+  "screened_at": "2026-07-25T11:00:01Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": true,
+    "value": 1,
+    "effort": 1,
+    "risk": 2,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Switches their custom passive-rdp workflow to MSBuild to dodge MSB4803 COM-ref failure; our build.ps1 and CI already use full MSBuild. Workflow file not in our repo.",
+    "agent": "claude",
+    "at": "2026-07-25T11:06:58Z"
+  }
 }

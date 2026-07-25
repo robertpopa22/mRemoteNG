@@ -187,6 +187,42 @@ class ScoringTests(unittest.TestCase):
         self.assertEqual("D", tier)
 
 
+class PreApprovalConsensusTests(unittest.TestCase):
+    """Pre-approval is a consensus gate: it only ever removes work from a human,
+    it must never grant approval on a split or missing opinion."""
+
+    @staticmethod
+    def vote(reviewer, verdict, aligned=True):
+        return {"reviewer": reviewer, "vote": verdict, "aligned": aligned}
+
+    def test_unanimous_approval_on_a_clean_change_pre_approves(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]
+        self.assertEqual("pre-approved", fi.consensus_decision(votes, False))
+
+    def test_one_dissent_forces_manual_review(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "NEEDS_HUMAN")]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_rejection_forces_manual_review(self):
+        votes = [self.vote("codex", "REJECT"), self.vote("gemini", "APPROVE")]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_reviewer_that_did_not_answer_counts_as_dissent(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "NO_ANSWER")]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_misalignment_with_our_direction_blocks_pre_approval(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE", aligned=False)]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_security_flag_blocks_pre_approval_even_when_unanimous(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, True))
+
+    def test_no_votes_is_not_approval(self):
+        self.assertEqual("manual-review", fi.consensus_decision([], False))
+
+
 class VerdictParsingTests(unittest.TestCase):
     def test_parses_fenced_json(self):
         text = 'Here you go:\n```json\n[{"sha":"abc","action":"IMPORT"}]\n```\nDone.'
@@ -201,6 +237,18 @@ class VerdictParsingTests(unittest.TestCase):
 
     def test_returns_none_on_malformed_json(self):
         self.assertIsNone(fi.extract_json_array('[{"sha": }]'))
+
+    def test_parses_single_object_verdict(self):
+        text = 'My verdict:\n```json\n{"vote":"APPROVE","aligned_with_direction":true}\n```'
+        self.assertEqual({"vote": "APPROVE", "aligned_with_direction": True},
+                         fi.extract_json_object(text))
+
+    def test_object_parser_ignores_surrounding_prose(self):
+        self.assertEqual({"vote": "REJECT"},
+                         fi.extract_json_object('I think {"vote":"REJECT"} because of X'))
+
+    def test_object_parser_returns_none_without_an_object(self):
+        self.assertIsNone(fi.extract_json_object("REJECT - too risky"))
 
 
 if __name__ == "__main__":

@@ -25,5 +25,18 @@
   "patch": "--- mRemoteNG/Connection/Protocol/RDP/RdpProtocol.cs\n@@ -643,7 +643,7 @@ public RdpInputBlocker(Control control)\n                 }\r\n             }\r\n \r\n-            protected override void WndProc(ref Message m)\r\n+            protected override void WndProc(ref System.Windows.Forms.Message m)\r\n             {\r\n                 if (Enabled && IsBlockedInputMessage(m.Msg))\r\n                 {\r",
   "security_flags": [],
   "status": "screened",
-  "screened_at": "2026-07-25T11:00:03Z"
+  "screened_at": "2026-07-25T11:00:03Z",
+  "triage": {
+    "category": "bugfix",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "rewrite",
+    "action": "REJECT",
+    "rationale": "Fixes ambiguity inside RdpInputBlocker, a class only in that fork's passive-RDP feature; no such code or compile error here.",
+    "agent": "claude",
+    "at": "2026-07-25T11:07:32Z"
+  }
 }

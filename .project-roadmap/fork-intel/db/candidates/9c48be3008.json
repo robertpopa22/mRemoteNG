@@ -44,5 +44,18 @@
     }
   ],
   "status": "quarantine",
-  "screened_at": "2026-07-25T10:59:59Z"
+  "screened_at": "2026-07-25T10:59:59Z",
+  "triage": {
+    "category": "chore",
+    "maps_to_issue": null,
+    "already_in_our_fork": false,
+    "value": 1,
+    "effort": 1,
+    "risk": 1,
+    "applies_cleanly": "conflict",
+    "action": "REJECT",
+    "rationale": "Fork-local version bump plus cosmetic colon in one log message; our fork has own versioning (1.82.0), zero benefit.",
+    "agent": "claude",
+    "at": "2026-07-25T11:06:58Z"
+  }
 }
