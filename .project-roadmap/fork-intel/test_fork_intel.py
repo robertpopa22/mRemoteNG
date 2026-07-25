@@ -223,6 +223,59 @@ class PreApprovalConsensusTests(unittest.TestCase):
         self.assertEqual("manual-review", fi.consensus_decision([], False))
 
 
+class ArbitrationTests(unittest.TestCase):
+    """A third model family is asked only when the first two disagree, and its
+    vote is what turns a split into a decision."""
+
+    @staticmethod
+    def vote(reviewer, verdict, aligned=True, arbiter=False):
+        return {"reviewer": reviewer, "vote": verdict, "aligned": aligned, "arbiter": arbiter}
+
+    def test_disagreement_is_a_split(self):
+        self.assertTrue(fi.votes_are_split(
+            [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT")]))
+
+    def test_unanimous_approval_is_not_a_split(self):
+        self.assertFalse(fi.votes_are_split(
+            [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE")]))
+
+    def test_unanimous_refusal_is_not_a_split(self):
+        self.assertFalse(fi.votes_are_split(
+            [self.vote("codex", "REJECT"), self.vote("gemini", "NEEDS_HUMAN")]))
+
+    def test_silence_from_one_reviewer_is_not_a_split(self):
+        # Nothing was said, so there is nothing to arbitrate.
+        self.assertFalse(fi.votes_are_split(
+            [self.vote("codex", "APPROVE"), self.vote("gemini", "NO_ANSWER")]))
+
+    def test_arbiter_majority_pre_approves_a_split(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+                 self.vote("grok", "APPROVE", arbiter=True)]
+        self.assertEqual("pre-approved", fi.consensus_decision(votes, False))
+
+    def test_arbiter_siding_with_the_objection_keeps_it_manual(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+                 self.vote("grok", "REJECT", arbiter=True)]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_majority_without_an_arbiter_is_not_enough(self):
+        # Two reviewers alone must be unanimous; majority only counts once a
+        # third family was deliberately brought in.
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "APPROVE"),
+                 self.vote("claude", "REJECT")]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+    def test_arbiter_cannot_override_a_security_flag(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT"),
+                 self.vote("grok", "APPROVE", arbiter=True)]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, True))
+
+    def test_arbiter_cannot_override_misalignment(self):
+        votes = [self.vote("codex", "APPROVE"), self.vote("gemini", "REJECT", aligned=False),
+                 self.vote("grok", "APPROVE", arbiter=True)]
+        self.assertEqual("manual-review", fi.consensus_decision(votes, False))
+
+
 class VerdictParsingTests(unittest.TestCase):
     def test_parses_fenced_json(self):
         text = 'Here you go:\n```json\n[{"sha":"abc","action":"IMPORT"}]\n```\nDone.'

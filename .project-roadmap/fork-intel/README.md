@@ -11,6 +11,7 @@ python .project-roadmap/fork-intel/fork_intel.py discover --since-months 6
 python .project-roadmap/fork-intel/fork_intel.py diverge
 python .project-roadmap/fork-intel/fork_intel.py screen
 python .project-roadmap/fork-intel/fork_intel.py triage
+python .project-roadmap/fork-intel/fork_intel.py preapprove
 python .project-roadmap/fork-intel/fork_intel.py report
 ```
 
@@ -40,7 +41,7 @@ The whole pass costs about 190 GitHub API calls against a 5000/hour limit.
 
 ```
 fork-intel/
-├── fork_intel.py              CLI - stdlib only, GitHub access through the gh CLI
+├── fork_intel.py              CLI - stdlib only, GitHub through gh, AI through the agent CLIs
 ├── test_fork_intel.py         unittest suite (no network)
 ├── rules/security_rules.json  screening rules as data, so they can be audited and tuned
 ├── db/
@@ -85,7 +86,30 @@ A hit does **not** mean the change is malicious — most of the flagged commits 
 
 Batches the survivors to an AI agent (`claude` by default, falling back to `codex` and `gemini`). Each commit is presented with its diff, touched files, our open issue titles, and commit subjects from our own history that share keywords — so the model can tell "we already did this" from "this is new". The model returns strict JSON per commit: category, mapped issue, whether we already have it, value/effort/risk on 1–5, whether the patch is likely to apply, and a recommended action.
 
-### 5. `report`
+### 5. `preapprove`
+
+Reviewing every candidate by hand is the bottleneck the pipeline exists to remove, so candidates are put to a vote before they reach a human.
+
+Each tier A/B candidate — and every quarantined one — goes to two independent model families (`codex` and `gemini` by default) as a **read-only, opinion-only** review, with our project direction in the prompt: .NET 10, `build.ps1`, no new dependencies, no telemetry, no interactive tests, 6341 tests must stay green. Each reviewer returns a single JSON verdict.
+
+**When the reviewers disagree, a third family arbitrates.** A split verdict is exactly the case an outside opinion can settle, so `grok-4.5` (xAI REST API, no CLI) is asked — but only then. Unanimous approval or unanimous refusal needs no arbiter and does not pay for one.
+
+The decision rule is deliberately one-sided:
+
+| Situation | Result |
+|---|---|
+| every reviewer approves, all aligned, no security flag | `pre-approved` |
+| reviewers split, arbiter fetched, clear majority approves | `pre-approved` |
+| any dissent without an arbiter | `manual-review` |
+| a reviewer did not answer | `manual-review` — silence is never consent |
+| any security flag | `manual-review` — cannot be voted away |
+| any reviewer says it does not fit our direction | `manual-review` |
+
+Quarantined changes are reviewed but can never be pre-approved. The votes only tell the maintainer whether the diff is worth their reading time.
+
+**Pre-approved still means a human lands it.** It means "decide quickly", not "no decision needed".
+
+### 6. `report`
 
 The AI supplies inputs; **the scoring is deterministic** and lives in code, so a verdict can be audited and re-derived:
 
@@ -106,7 +130,7 @@ Tiers: **A** ready to cherry-pick · **B** worth porting by hand · **C** watch 
 
 `IMPORT_QUEUE.md` carries ready-to-run commands for tier A and porting notes for tier B.
 
-### 6. `mark`
+### 7. `mark`
 
 Records a decision (`imported` / `rejected` / `deferred`) in `EXCLUDE.json` so the same commit never resurfaces. This is what makes repeated runs quiet.
 

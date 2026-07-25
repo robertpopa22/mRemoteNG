@@ -92,5 +92,32 @@
     "rationale": "Follow-OS dark mode + DWM dark title bars addresses open #47. Clean idea, but flips ThemingActive default and our ThemeManager/settings diverged; re-derive carefully.",
     "agent": "claude",
     "at": "2026-07-25T11:04:06Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Default-on OS following silently overrides and persists over existing users’ explicit or custom theme selections.",
+        "reason": "OS matching is valuable, but this untested patch conflicts with live-switch and high-contrast theming, assumes restart-only behavior, and requires a scoped reimplementation.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Upgraded user profiles with saved ThemingActive=False will have theming disabled, and settings files are prone to designer merge conflicts.",
+        "reason": "Valuable dark mode UX improvements matching modern Windows settings, but requires careful refactoring of settings and ThemeManager initialization to prevent regressions.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - OS matching is valuable, but this untested patch conflicts with live-switch and high-contrast theming, assumes restart-only behavior, and requires a scoped reimplementation.",
+      "gemini: NEEDS_HUMAN - Valuable dark mode UX improvements matching modern Windows settings, but requires careful refactoring of settings and ThemeManager initialization to prevent regressions."
+    ],
+    "at": "2026-07-25T11:31:49Z"
   }
 }

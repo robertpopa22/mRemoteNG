@@ -117,5 +117,32 @@
     "rationale": "DPAPI-bound master key is sound but unwired primitives; breaks file portability, CI change gates tests to Security only. Our KDF-cost issue already fixed (#120). Revisit if integrated.",
     "agent": "claude",
     "at": "2026-07-25T11:03:29Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Release CI is deliberately reduced to security-only tests, violating this fork's mandatory full-suite gate.",
+        "reason": "The primitives are unused, their KDF-performance rationale is already solved by cached 600k PBKDF2, and the divergent base makes import nontrivial.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Includes a CI workflow regression that limits unit test execution to only the Security namespace, which would mask failures in other subsystems.",
+        "reason": "The DPAPI master key security primitives are highly valuable for credential protection, but the workflow changes must be discarded so all tests remain active.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The primitives are unused, their KDF-performance rationale is already solved by cached 600k PBKDF2, and the divergent base makes import nontrivial.",
+      "gemini: NEEDS_HUMAN - The DPAPI master key security primitives are highly valuable for credential protection, but the workflow changes must be discarded so all tests remain active."
+    ],
+    "at": "2026-07-25T11:28:18Z"
   }
 }

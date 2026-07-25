@@ -129,5 +129,32 @@
     "rationale": "Bitwarden external credential connector — absent in our fork, plausible user value, but 1150+ lines with process-exec/security surface and fork-specific refactor; watch upstream maturity.",
     "agent": "claude",
     "at": "2026-07-25T11:02:55Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Plaintext registry persistence of BW_SESSION exposes an unlocked vault token, while the inverted unlock flow cannot reliably obtain a valid session.",
+        "reason": "The untested 1,152-line import is functionally broken, collides with PasswordSafe's enum value 5, and requires redesign against current credential-provider plumbing.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Process execution of external Bitwarden CLI introduces substantial security, credential flow, and maintenance surface risks.",
+        "reason": "We avoid large speculative rewrites and external dependency integrations (like Bitwarden) that increase attack surface and maintenance overhead.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The untested 1,152-line import is functionally broken, collides with PasswordSafe's enum value 5, and requires redesign against current credential-provider plumbing.",
+      "gemini: REJECT - We avoid large speculative rewrites and external dependency integrations (like Bitwarden) that increase attack surface and maintenance overhead."
+    ],
+    "at": "2026-07-25T11:23:39Z"
   }
 }

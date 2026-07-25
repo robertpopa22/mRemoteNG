@@ -81,5 +81,32 @@
     "rationale": "PostgreSQL backend is genuinely new, but code targets pre-rework SQL layer (old SqlClient, no v3.5 schema/upgrade path, SELECT * CommandBuilder our #145/#148 fixes replaced). Reimplement only if users ask.",
     "agent": "claude",
     "at": "2026-07-25T11:06:25Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Its PostgreSQL save path owns a separate transaction, breaking the fork's cross-table atomicity contract and risking partially committed connection state.",
+        "reason": "It also adds an obsolete preview dependency, no PostgreSQL schema lifecycle, and no tests; adapting it requires clean reimplementation, not a quick import.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Targets outdated pre-rework SQL patterns, lacks database migration support, and introduces an old preview dependency.",
+        "reason": "PostgreSQL support uses obsolete CommandBuilder SELECT * patterns we removed, lacks schema upgrades, and adds an unneeded Npgsql preview package.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - It also adds an obsolete preview dependency, no PostgreSQL schema lifecycle, and no tests; adapting it requires clean reimplementation, not a quick import.",
+      "gemini: REJECT - PostgreSQL support uses obsolete CommandBuilder SELECT * patterns we removed, lacks schema upgrades, and adds an unneeded Npgsql preview package."
+    ],
+    "at": "2026-07-25T11:58:38Z"
   }
 }

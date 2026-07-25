@@ -122,5 +122,32 @@
     "rationale": "Mixed bag: new inheritance props (ExternalAddressProvider, RDP StartProgram, gateway token), notification detail, plus personal junk (.vscode, WorldOfFanXP.xml). Partly overlaps our upstream ports; cherry-pick only if users ask.",
     "agent": "claude",
     "at": "2026-07-25T11:06:58Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "B",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Hard-coded rapid reconnect races asynchronous tab cleanup and duplicates the fork’s existing reconnect state machine.",
+        "reason": "A 732-line mixed, untested commit also bypasses notification filters, leaks writer subscriptions, duplicates shipped UI/retry features, adds untranslated labels, and uses noncanonical tooling.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Contains personal workspace configuration files, localized VS Code launch configurations, and redundant feature changes that overlap with existing stable implementations.",
+        "reason": "This is a mixed bag of personal settings, French locale scripts, and features already integrated or overlapping with our upstream ports. Not suitable for import.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - A 732-line mixed, untested commit also bypasses notification filters, leaks writer subscriptions, duplicates shipped UI/retry features, adds untranslated labels, and uses noncanonical tooling.",
+      "gemini: REJECT - This is a mixed bag of personal settings, French locale scripts, and features already integrated or overlapping with our upstream ports. Not suitable for import."
+    ],
+    "at": "2026-07-25T12:02:34Z"
   }
 }

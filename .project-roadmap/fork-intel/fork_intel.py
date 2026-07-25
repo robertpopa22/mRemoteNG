@@ -553,8 +553,68 @@ AGENT_ARGS = {
 }
 
 
+GROK_MODEL = "grok-4.5"
+GROK_ENDPOINT = "https://api.x.ai/v1/chat/completions"
+
+
+def grok_run(prompt, timeout=600, model=GROK_MODEL):
+    """Ask xAI Grok through the OpenAI-compatible REST API.
+
+    Grok has no CLI, so this posts JSON with curl. The key comes from the
+    XAI_API_KEY environment variable and is never written to disk or logged.
+    """
+    import os
+    import tempfile
+
+    if not os.environ.get("XAI_API_KEY"):
+        log("  ! XAI_API_KEY is not set, skipping grok")
+        return None
+    payload = {"model": model, "messages": [{"role": "user", "content": prompt}]}
+    # The body goes through a temp file: a diff-sized payload does not fit in an
+    # argument, and shells here mangle '$' inside inline JSON.
+    with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False,
+                                     encoding="utf-8") as handle:
+        json.dump(payload, handle)
+        body_path = handle.name
+    try:
+        proc = subprocess.run(
+            ["curl", "-s", "-S", GROK_ENDPOINT,
+             "-H", "Authorization: Bearer " + os.environ["XAI_API_KEY"],
+             "-H", "Content-Type: application/json",
+             "--data-binary", "@" + body_path],
+            capture_output=True, text=True, timeout=timeout,
+            encoding="utf-8", errors="replace")
+    except (subprocess.TimeoutExpired, OSError) as exc:
+        log(f"  ! grok failed: {exc}")
+        return None
+    finally:
+        try:
+            Path(body_path).unlink()
+        except OSError:
+            pass
+
+    if proc.returncode != 0:
+        log(f"  ! grok curl exit {proc.returncode}: {(proc.stderr or '').strip()[:160]}")
+        return None
+    try:
+        data = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        log("  ! grok returned non-JSON")
+        return None
+    if "error" in data:
+        log(f"  ! grok api error: {str(data['error'])[:160]}")
+        return None
+    try:
+        return data["choices"][0]["message"]["content"]
+    except (KeyError, IndexError):
+        log("  ! grok response had no message content")
+        return None
+
+
 def agent_run(agent, prompt, timeout=600):
     """Run one AI CLI with the prompt on stdin. Returns its text answer, or None."""
+    if agent == "grok":
+        return grok_run(prompt, timeout=timeout)
     args = AGENT_ARGS.get(agent)
     if args is None:
         return None
@@ -794,16 +854,36 @@ def extract_json_object(text):
     return parsed if isinstance(parsed, dict) else None
 
 
-def consensus_decision(votes, has_security_flags):
-    """Pre-approval needs every reviewer to approve and agree it fits our direction.
+def votes_are_split(votes):
+    """True when reviewers disagree - the case a third opinion can settle.
 
-    A missing or unparsable answer counts as dissent, never as consent.
+    Unanimous approval or unanimous refusal needs no arbiter. A reviewer that
+    failed to answer is not a disagreement either: nothing was said.
     """
-    if not votes:
+    answered = [v.get("vote") for v in votes if v.get("vote") not in (None, "NO_ANSWER")]
+    if len(answered) < 2:
+        return False
+    approvals = sum(1 for v in answered if v == "APPROVE")
+    return 0 < approvals < len(answered)
+
+
+def consensus_decision(votes, has_security_flags):
+    """Decide whether a change may skip a full manual investigation.
+
+    Without an arbiter the rule is unanimity. When a third opinion was fetched to
+    settle a split, a clear majority is enough - that is the whole point of asking.
+    A missing or unparsable answer counts as dissent, never as consent, and a
+    security flag can never be voted away.
+    """
+    if not votes or has_security_flags:
         return "manual-review"
-    unanimous = all(v.get("vote") == "APPROVE" for v in votes)
-    aligned = all(v.get("aligned") is not False for v in votes)
-    if unanimous and aligned and not has_security_flags:
+    if any(v.get("aligned") is False for v in votes):
+        return "manual-review"
+
+    approvals = sum(1 for v in votes if v.get("vote") == "APPROVE")
+    if approvals == len(votes):
+        return "pre-approved"
+    if any(v.get("arbiter") for v in votes) and approvals > len(votes) / 2:
         return "pre-approved"
     return "manual-review"
 
@@ -855,16 +935,25 @@ def cmd_preapprove(args):
                    f"risk={triage.get('risk')} action={triage.get('action')}",
             patch=(cand.get("patch") or "")[:8000])
 
-        votes = []
-        for reviewer in reviewers:
+        def collect(reviewer, arbiter=False):
             verdict = extract_json_object(agent_run(reviewer, prompt, timeout=args.timeout))
-            votes.append({
+            return {
                 "reviewer": reviewer,
                 "vote": (verdict or {}).get("vote", "NO_ANSWER"),
                 "aligned": (verdict or {}).get("aligned_with_direction"),
                 "concern": (verdict or {}).get("concern"),
                 "reason": (verdict or {}).get("reason"),
-            })
+                "arbiter": arbiter,
+            }
+
+        votes = [collect(reviewer) for reviewer in reviewers]
+
+        # A split is exactly the case a third, unrelated model can settle. Asking
+        # it on every candidate would just add cost and noise, so it is fetched
+        # only when the first two actually disagree.
+        if args.arbiter and votes_are_split(votes):
+            log(f"    split verdict - asking {args.arbiter} to arbitrate")
+            votes.append(collect(args.arbiter, arbiter=True))
 
         decision = consensus_decision(votes, bool(cand.get("security_flags")))
 
@@ -1164,6 +1253,9 @@ def build_parser():
                            help="independent counter-opinions vote on import candidates")
     p_pre.add_argument("--reviewers", default="codex,gemini",
                        help="comma-separated agents, at least two (default codex,gemini)")
+    p_pre.add_argument("--arbiter", default="grok",
+                       help="third model family asked only when reviewers disagree "
+                            "(default grok; empty string disables)")
     p_pre.add_argument("--limit", type=int, default=0, help="stop after N candidates")
     p_pre.add_argument("--timeout", type=int, default=600, help="per-reviewer timeout in seconds")
     p_pre.add_argument("--refresh", action="store_true", help="re-run on already voted candidates")

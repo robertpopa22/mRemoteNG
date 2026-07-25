@@ -36,6 +36,25 @@
       "judged": 8,
       "failed": 0,
       "agent": "claude"
+    },
+    "preapprove": {
+      "at": "2026-07-25T12:11:11Z",
+      "api_calls": 0,
+      "pre_approved": 0,
+      "manual": 12,
+      "reviewers": [
+        "codex",
+        "gemini"
+      ]
+    },
+    "report": {
+      "at": "2026-07-25T12:11:29Z",
+      "api_calls": 0,
+      "A": 0,
+      "B": 2,
+      "C": 1,
+      "Q": 10,
+      "D": 32
     }
   }
 }

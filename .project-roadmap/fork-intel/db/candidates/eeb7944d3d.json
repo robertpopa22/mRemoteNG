@@ -87,5 +87,32 @@
     "rationale": "SFTP browser could add value, but 2K-line drop with password-only auth, plaintext handling, duplicate of SSHTransferWindow scope. Reimplement properly only if users request it.",
     "agent": "claude",
     "at": "2026-07-25T11:11:06Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Host/port-only matching can silently select credentials from the wrong SSH account on multi-user servers.",
+        "reason": "It duplicates existing SFTP support with 1,963 untested lines; fake session reuse, cross-thread UI access, and nullable warnings make quick verification impossible.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Adds 1,960+ lines of UI code and new dependencies, duplicating existing SSH transfer features.",
+        "reason": "Violates guidelines against introducing external dependencies, massive unverified UI rewrites, and features overlapping with existing SSH file transfer functionality.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - It duplicates existing SFTP support with 1,963 untested lines; fake session reuse, cross-thread UI access, and nullable warnings make quick verification impossible.",
+      "gemini: REJECT - Violates guidelines against introducing external dependencies, massive unverified UI rewrites, and features overlapping with existing SSH file transfer functionality."
+    ],
+    "at": "2026-07-25T12:11:11Z"
   }
 }

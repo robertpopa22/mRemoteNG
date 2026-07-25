@@ -195,5 +195,32 @@
     "rationale": "App-level master password with settings re-encryption. Overlaps our MasterPasswordGate + WebAuthn/Entra ID hardening. Homegrown key-hierarchy migration needs deep security review; touches Runtime.EncryptionKey.",
     "agent": "claude",
     "at": "2026-07-25T11:04:45Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Verifier-first, non-atomic key migration can silently strand encrypted settings under the old key after any partial failure.",
+        "reason": "It overlaps the existing master-password gate, adds a forbidden dependency/build-path change, breaks a current EncryptionKey assignment, and leaves critical migration/startup behavior untested.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Adds AxMSTSCLib NuGet package, violating 'no new external dependencies' rule and risking COM reference build breaks.",
+        "reason": "The commit includes an unwanted external dependency (AxMSTSCLib) that risks breaking the custom MSBuild setup for COM references, violating explicit fork guidelines.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - It overlaps the existing master-password gate, adds a forbidden dependency/build-path change, breaks a current EncryptionKey assignment, and leaves critical migration/startup behavior untested.",
+      "gemini: REJECT - The commit includes an unwanted external dependency (AxMSTSCLib) that risks breaking the custom MSBuild setup for COM references, violating explicit fork guidelines."
+    ],
+    "at": "2026-07-25T11:37:00Z"
   }
 }

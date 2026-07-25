@@ -57,5 +57,32 @@
     "rationale": "PuTTYNG 0.84 bump worthwhile, but never import third-party binary. Rebuild via our Build_PuTTYNG.yml from tag; tag-check workflow tweak worth porting.",
     "agent": "claude",
     "at": "2026-07-25T11:04:45Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "It replaces a validly signed SSH executable with an opaque, self-built unsigned binary whose provenance is not independently verifiable.",
+        "reason": "PuTTY 0.84 security fixes are valuable, but this commit is partly inapplicable and regresses binary trust; rebuild and sign 0.84 through this fork's pipeline.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "NO_ANSWER",
+        "aligned": null,
+        "concern": null,
+        "reason": "Do not import compiled binaries from third-party forks. Instead, we must build PuTTYNG 0.84 ourselves via our secure Build_PuTTYNG workflow.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - PuTTY 0.84 security fixes are valuable, but this commit is partly inapplicable and regresses binary trust; rebuild and sign 0.84 through this fork's pipeline.",
+      "gemini: NO_ANSWER - Do not import compiled binaries from third-party forks. Instead, we must build PuTTYNG 0.84 ourselves via our secure Build_PuTTYNG workflow."
+    ],
+    "at": "2026-07-25T11:40:23Z"
   }
 }

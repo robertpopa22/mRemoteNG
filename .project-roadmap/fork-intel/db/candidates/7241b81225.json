@@ -45,5 +45,40 @@
     "rationale": "Pinned, anchor-verified PuTTYNG build workflow (dispatch-only) improves supply-chain reproducibility of shipped PuTTYNG.exe; standalone file, no conflict with our CI.",
     "agent": "claude",
     "at": "2026-07-25T11:05:50Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Produced binary keeps InternalName=PuTTY, so this fork will not recognize it as PuTTYNG despite the workflow’s misleading green verification.",
+        "reason": "Updating PuTTY is valuable, but this workflow breaks the fork’s detection contract and also interpolates untrusted input into PowerShell.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "APPROVE",
+        "aligned": true,
+        "concern": "Future upstream PuTTY source changes might break regex patches, but the workflow's strict assertion checks prevent silent failures.",
+        "reason": "Provides a secure, reproducible, and pinned PuTTYNG build process with strict patch verification, crucial for upgrading to PuTTY 0.84.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "grok",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Embedded patches may not match this fork; unsigned binary still needs human vetting.",
+        "reason": "Useful pinned PuTTYNG build CI for SSH stability, but patch parity and binary drop need maintainer judgment.",
+        "arbiter": true
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - Updating PuTTY is valuable, but this workflow breaks the fork’s detection contract and also interpolates untrusted input into PowerShell.",
+      "grok: NEEDS_HUMAN - Useful pinned PuTTYNG build CI for SSH stability, but patch parity and binary drop need maintainer judgment."
+    ],
+    "at": "2026-07-25T11:49:09Z"
   }
 }

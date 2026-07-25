@@ -69,5 +69,32 @@
     "rationale": "Argon2id passphrase export keys is sound, but builds on vindict6-only ConnectionFileProtection scheme absent from our fork (verified via grep); would need full redesign atop our PBKDF2/MasterPasswordGate stack.",
     "agent": "claude",
     "at": "2026-07-25T11:13:40Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": true,
+        "concern": "Unbounded file-controlled Argon2 parameters enable memory and CPU denial of service during import.",
+        "reason": "The security goal fits, but this commit is an unwired stacked fragment whose required master-key infrastructure is absent from the target fork.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Depends on non-existent ConnectionFileProtection infrastructure, breaking the build if imported as-is.",
+        "reason": "Relies on vindict6's custom KeyProtection / ConnectionFileProtection architecture absent from our fork, requiring a major redesign to integrate.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The security goal fits, but this commit is an unwired stacked fragment whose required master-key infrastructure is absent from the target fork.",
+      "gemini: REJECT - Relies on vindict6's custom KeyProtection / ConnectionFileProtection architecture absent from our fork, requiring a major redesign to integrate."
+    ],
+    "at": "2026-07-25T12:06:56Z"
   }
 }

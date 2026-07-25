@@ -69,5 +69,32 @@
     "rationale": "Mixed bag: useful init/connect failure logging, but interop assembly-preload hack dubious on .NET 10; our RdpProtocol heavily diverged. Cherry-pick logging only if needed.",
     "agent": "claude",
     "at": "2026-07-25T11:05:50Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Manual LoadFrom probing duplicates interop assemblies and guarantees false MSTSCLib warnings, risking RDP type-resolution regressions without an evidenced loading bug.",
+        "reason": "The commit conflicts with the fork’s async path, existing diagnostics, assembly layout, exception semantics, and canonical build tooling.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Dynamic loading of interop assemblies via LoadFrom can cause assembly context mismatches and instability in .NET 10.",
+        "reason": "The change conflicts with our .NET 10 SDK-style project, lacks InitializeAsync integration, and contains localized/VS Code-specific launch configurations.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The commit conflicts with the fork’s async path, existing diagnostics, assembly layout, exception semantics, and canonical build tooling.",
+      "gemini: REJECT - The change conflicts with our .NET 10 SDK-style project, lacks InitializeAsync integration, and contains localized/VS Code-specific launch configurations."
+    ],
+    "at": "2026-07-25T11:55:09Z"
   }
 }

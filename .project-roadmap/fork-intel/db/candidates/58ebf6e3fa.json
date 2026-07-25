@@ -99,5 +99,32 @@
     "rationale": "DPAPI-wrapped master key fixes mR3m weak-default (our #128/incident #92 concern). Real value, but new file-format attribute, compat + serializer conflicts with our 1600-commit divergence. Reimplement deliberately if pursued.",
     "agent": "claude",
     "at": "2026-07-25T11:05:16Z"
+  },
+  "preapproval": {
+    "decision": "manual-review",
+    "tier": "Q",
+    "votes": [
+      {
+        "reviewer": "codex",
+        "vote": "REJECT",
+        "aligned": false,
+        "concern": "Standalone import cannot compile: it depends on missing parent key-protection primitives and keyed AEAD APIs.",
+        "reason": "The fork already solves KDF cost through 600,000-iteration caching, while this stale patch conflicts with certificate, TOTP, and serializer changes.",
+        "arbiter": false
+      },
+      {
+        "reviewer": "gemini",
+        "vote": "NEEDS_HUMAN",
+        "aligned": true,
+        "concern": "Breaks connection file portability across different machines/users and introduces merge/compatibility conflicts due to serializer changes in our heavily diverged codebase.",
+        "reason": "Addresses critical default password weakness, but breaking file portability and causing serializer conflicts requires deliberate human decision and custom reimplementation.",
+        "arbiter": false
+      }
+    ],
+    "dissent": [
+      "codex: REJECT - The fork already solves KDF cost through 600,000-iteration caching, while this stale patch conflicts with certificate, TOTP, and serializer changes.",
+      "gemini: NEEDS_HUMAN - Addresses critical default password weakness, but breaking file portability and causing serializer conflicts requires deliberate human decision and custom reimplementation."
+    ],
+    "at": "2026-07-25T11:43:34Z"
   }
 }
